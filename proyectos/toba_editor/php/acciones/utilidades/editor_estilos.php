@@ -1,5 +1,5 @@
 <?php
-	$plantilla = toba::hilo()->get_parametro('plantilla');
+	$plantilla = toba::memoria()->get_parametro('plantilla');
 	if (isset($_POST['elem_nueva_plantilla']))
 	{
 		$archivo_css = toba::instalacion()->get_path()."/www/css/".apex_proyecto_estilo.".css";

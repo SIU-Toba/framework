@@ -13,7 +13,7 @@ class ci_catalogo_items extends ci_catalogo
 	{
 		$this->album_fotos = new album_fotos('cat_item');
 		//Si se pidio un item especifico, cargarlo
-		$item_selecc = toba::hilo()->get_parametro('item');
+		$item_selecc = toba::memoria()->get_parametro('item');
 		if ($item_selecc != null) {
 			$this->s__opciones['inicial'] = $item_selecc;
 		}

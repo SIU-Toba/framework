@@ -12,7 +12,7 @@ class ci_selector_archivos extends toba_ci
 	
 	function conf__listado()
 	{
-		$inicial = toba::hilo()->get_parametro('ef_popup_valor');
+		$inicial = toba::memoria()->get_parametro('ef_popup_valor');
 		$relativo = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado())."/php/";
 		$this->dependencia('listado')->set_path_relativo_inicial($relativo);
 		if ($inicial != null) {

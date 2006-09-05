@@ -12,7 +12,7 @@ class ci_fuentes extends toba_ci
 
 	function get_lista_bases()
 	{
-		$bases = dba::get_bases_definidas();
+		$bases = toba_dba::get_bases_definidas();
 		$datos = array();
 		$orden = 0;
 		foreach($bases as $base => $descripcion) {

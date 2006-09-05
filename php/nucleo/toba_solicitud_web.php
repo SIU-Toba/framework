@@ -2,7 +2,7 @@
 require_once("nucleo/lib/toba_recurso.php");						//Encapsulamiento de la llamada a toba_recursos
 require_once("nucleo/lib/toba_js.php");							//Encapsulamiento de la utilidades javascript
 require_once("nucleo/lib/toba_debug.php");						//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/lib/toba_hilo.php");						//Canal de comunicacion inter-ejecutable
+require_once("nucleo/lib/toba_memoria.php");						//Canal de comunicacion inter-ejecutable
 require_once("nucleo/lib/interface/toba_formateo.php"); 			//Funciones de formateo de columnas
 require_once("nucleo/lib/interface/toba_form.php");				//inputs HTML
 require_once("nucleo/lib/interface/toba_ei.php"); 				//elementos basicos de interface
@@ -29,7 +29,7 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		$this->info = $info;
 		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
-		parent::__construct(toba::hilo()->get_item_solicitado(), toba::usuario()->get_id());
+		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());
 		toba::cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
 
@@ -66,7 +66,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function pre_proceso_servicio()
 	{
-		$servicio = toba::hilo()->get_servicio_solicitado();
+		$servicio = toba::memoria()->get_servicio_solicitado();
 		$callback = "servicio_pre__$servicio";
 		if (method_exists($this, $callback)) {
 			$this->$callback();
@@ -140,7 +140,7 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		
 		//--- Se determina el destino del servicio
-		$objetos_destino = toba::hilo()->get_id_objetos_destino();
+		$objetos_destino = toba::memoria()->get_id_objetos_destino();
 		if (!isset($objetos_destino)) {
 			//En caso que el servicio no especifique destino, se asume que son todos los cis asociados al item
 			$destino = array();
@@ -156,7 +156,7 @@ class toba_solicitud_web extends toba_solicitud
 			}
 		}
 
-		$servicio = toba::hilo()->get_servicio_solicitado();
+		$servicio = toba::memoria()->get_servicio_solicitado();
 		$callback = "servicio__$servicio";
 		toba::logger()->seccion("Respondiendo al $callback...", 'toba');		
 		if (method_exists($this, $callback)) {
@@ -304,7 +304,7 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__cascadas_efs($objetos)
 	{
-		toba::hilo()->desactivar_reciclado();
+		toba::memoria()->desactivar_reciclado();
 		try {
 			if (count($objetos) != 1) {
 				$actual = count($objetos);

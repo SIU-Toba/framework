@@ -30,7 +30,7 @@ class toba_sesion
 			// Controlo si se solicito el final de la sesion
 			if ($this->controlar_fin_sesion()) {
 				$this->finalizar();
-				toba::hilo()->set_item_solicitado(null);//Fuerza a buscar el item inicial
+				toba::memoria()->set_item_solicitado(null);//Fuerza a buscar el item inicial
 				return false;
 			}
 

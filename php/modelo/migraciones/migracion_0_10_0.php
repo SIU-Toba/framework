@@ -575,7 +575,7 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/objeto_datos_relacion/',	'toba_datos_relacion');
 		$editor->agregar_sustitucion('/nucleo_toba/',			'toba_nucleo');
 		$editor->agregar_sustitucion('/form::/',				'toba_form::');
-		$editor->agregar_sustitucion('/recurso::/',				'toba_toba_recurso::');
+		$editor->agregar_sustitucion('/recurso::/',				'toba_recurso::');
 		$editor->agregar_sustitucion('/fuente_de_datos/',		'toba_fuente_datos');
 		$editor->agregar_sustitucion('/info_instalacion/',		'toba_instalacion');
 		$editor->agregar_sustitucion('/info_instancia/',		'toba_instancia');
@@ -668,10 +668,17 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/eliminar_dato_global/', 							'eliminar_dato');
 		$editor->agregar_sustitucion('/existe_dato_global/', 							'existe_dato');
 		$editor->agregar_sustitucion('/limpiar_memoria_global/', 						'limpiar_datos');
-		
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}	
+	
+	function proyecto__cambio_memoria_por_hilo()
+	{
+		$editor = new editor_archivos();
+		$editor->agregar_sustitucion('/toba::hilo/', 		'toba::memoria');
+		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);				
+	}
 	
 	
 }

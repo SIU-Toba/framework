@@ -148,7 +148,8 @@ echo '<div style="text-align:left">';
 	//------------------ METODOS OBSOLETOS -----------------
 	//--- Busca archivos sin migrar 
 	$prohibidos['get_lista_ei'] = 'Usar $this->pantalla()->agregar_dep o eliminar_dep en la configuración.';
-	$prohibidos['get_lista_eventos']= 'Usar $this->pantalla()->agregar_evento, modificar_evento o eliminar_evento en la configuración.';
+	$prohibidos['get_lista_eventos(']= 'Usar $this->pantalla()->agregar_evento, modificar_evento o eliminar_evento en la configuración.';
+	$prohibidos['get_lista_eventos (']= $prohibidos['get_lista_eventos('];
 	$prohibidos['get_pantalla_actual']= 'Usar $this->set_pantalla() en la configuración.';
 	$prohibidos['get_lista_tabs']= 'Si se usaba solo para obtener información ahora se puede hacer con $this->pantalla()->get_lista_tabs, 
 									si se usaba para redefinir usar agregar_tab o eliminar_tab de $this->pantalla';
@@ -160,10 +161,11 @@ echo '<div style="text-align:left">';
 	$prohibidos['get_etapa_actual']= 'Usar $this->set_pantalla() en la configuración.';
 	$prohibidos['__cant_reg']= 'El paginado del cuadro a cargo del CI no se hace mas con el evento cant_reg sino configurandolo explicitamente con el metodo del cuadro set_total_registros.';
 	$prohibidos['cargar_editable']= 'Usar set_editable';
-	$prohibidos['inicializar']= 'Definir el metodo ini()';
+	$prohibidos['inicializar(']= 'Definir el metodo ini()';
 	$prohibidos['persistir_dato_global'] = 'Usar set_dato_operacion o set_dato_aplicacion según corresponda';
 	$prohibidos['filtrar_evt__'] = '';
 	$prohibidos['modificar_vinculo__'] = '';
+	
 	
 	$dir = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);

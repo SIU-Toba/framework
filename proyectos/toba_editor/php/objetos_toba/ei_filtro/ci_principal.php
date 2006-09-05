@@ -9,7 +9,7 @@ class ci_principal extends ci_editores_toba
 	function ini()
 	{
 		parent::ini();
-		$ef = toba::hilo()->get_parametro('ef');
+		$ef = toba::memoria()->get_parametro('ef');
 		//¿Se selecciono un ef desde afuera?
 		if (isset($ef)) {
 			$this->dependencia('efs')->seleccionar_ef($ef);

@@ -641,10 +641,10 @@ class toba_ei_formulario extends toba_ei
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_error("Cascadas: Invocación incorrecta");	
 		}
-		$id_ef = trim(toba::hilo()->get_parametro('cascadas-ef'));
+		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
 		$maestros = array();
 		$ids_maestros = $this->cascadas_maestros[$id_ef];
-		foreach (explode('-|-', toba::hilo()->get_parametro('cascadas-maestros')) as $par) {
+		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
 				if (count($param) != 2) {

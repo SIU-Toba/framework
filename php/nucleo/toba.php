@@ -42,11 +42,11 @@ class toba
 	}
 	
 	/**
-	 * @return toba_hilo
+	 * @return toba_memoria
 	 */
-	static function hilo()
+	static function memoria()
 	{
-		return toba_hilo::instancia();
+		return toba_memoria::instancia();
 	}
 	
 	/**

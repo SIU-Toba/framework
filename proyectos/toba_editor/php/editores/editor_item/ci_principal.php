@@ -69,8 +69,8 @@ class ci_principal extends toba_ci
 	function inicializar_item( $dr )
 	{
 		//Ver si el padre viene por post
-		$padre_i = toba::hilo()->get_parametro('padre_i');
-		$padre_p = toba::hilo()->get_parametro('padre_p');
+		$padre_i = toba::memoria()->get_parametro('padre_i');
+		$padre_p = toba::memoria()->get_parametro('padre_p');
 		if (isset($padre_p) && isset($padre_i)) {
 			$datos = array('item' => $this->id_temporal);
 			$datos['padre'] = $padre_i;

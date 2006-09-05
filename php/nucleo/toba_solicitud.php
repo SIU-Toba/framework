@@ -1,5 +1,5 @@
 <?php
-require_once("nucleo/lib/toba_hilo.php");
+require_once("nucleo/lib/toba_memoria.php");
 require_once("nucleo/lib/toba_vinculador.php");
 
 /**
@@ -23,7 +23,7 @@ abstract class toba_solicitud
 	function __construct($item, $usuario)	
 	{
 		//Le pregunto al HILO si se solicito cronometrar la PAGINA
-		if(toba::hilo()->usuario_solicita_cronometrar()){
+		if(toba::memoria()->usuario_solicita_cronometrar()){
 			$this->registrar_db = true;
 			$this->cronometrar = true;
 		}		
@@ -92,7 +92,7 @@ abstract class toba_solicitud
 		toba_cargador::instancia()->destruir();
 		
 		//--- Finalizo objetos BASICOS -------
-		toba::hilo()->destruir();
+		toba::memoria()->destruir();
 		//dump_session();
 	}	
 

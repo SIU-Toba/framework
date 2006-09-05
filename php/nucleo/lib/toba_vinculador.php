@@ -25,7 +25,7 @@ class toba_vinculador
 		//if(!isset($_SESSION['toba']['instancia']['vinculos_posibles'])){
 			$this->cargar_vinculos_posibles();			
 		//}
-		$this->prefijo = toba::hilo()->prefijo_vinculo();
+		$this->prefijo = toba::memoria()->prefijo_vinculo();
 	}
 
 	/**
@@ -115,7 +115,7 @@ class toba_vinculador
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		$autovinculo = false;
 		if ($item_proyecto == null || $item == null) {
-			$item_solic = toba::hilo()->get_item_solicitado();
+			$item_solic = toba::memoria()->get_item_solicitado();
 			if($item_proyecto==null) { 
 				$item_proyecto = $item_solic[0];
 			}
@@ -157,7 +157,7 @@ class toba_vinculador
 		//Cual es la celda de memoria del proximo request?
 		if(!isset($celda_memoria)){
 			//Por defecto propago la celda actual del HILO
-			$celda_memoria = toba::hilo()->get_celda_memoria_actual();
+			$celda_memoria = toba::memoria()->get_celda_memoria_actual();
 		}		
 		$parametros_formateados .= "&". apex_hilo_qs_celda_memoria ."=". $celda_memoria;
 		//La proxima pagina va a CRONOMETRARSE?

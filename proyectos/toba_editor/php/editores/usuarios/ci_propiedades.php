@@ -25,7 +25,7 @@ class ci_propiedades extends toba_ci
 		}
 		
 		//Si se pasa el grupo de acceso se resetea la operación porque se asume un alta
-		$g_acceso = toba::hilo()->get_parametro('grupo_acceso');
+		$g_acceso = toba::memoria()->get_parametro('grupo_acceso');
 		if (isset($g_acceso)) {
 			$this->evt__cancelar();
 			$this->grupo_acceso = $g_acceso;

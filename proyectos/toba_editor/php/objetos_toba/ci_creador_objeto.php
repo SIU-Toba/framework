@@ -19,7 +19,7 @@ class ci_creador_objeto extends toba_ci
 		if (isset($this->clase_actual)) {
 			$this->cargar_editor();
 		}
-		$hilo = toba::hilo();
+		$hilo = toba::memoria();
 		$destino_tipo = $hilo->get_parametro('destino_tipo');
 		if (isset($destino_tipo)) {
 			$this->destino = array();

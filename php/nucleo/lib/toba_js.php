@@ -90,7 +90,7 @@ class toba_js
 		echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
 		echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
 		echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-		echo "var toba_hilo_item=".toba_js::arreglo(toba::hilo()->get_item_solicitado(), false)."\n";
+		echo "var toba_hilo_item=".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
 		echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
 		echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";		
 		echo toba_js::cerrar();		

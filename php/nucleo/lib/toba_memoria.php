@@ -36,7 +36,7 @@ define("apex_hilo_qs_objetos_destino", "toba-dest");
  *  - Memoria sincronizada entre URLs (generalmente de interes interno al framework)
  *  - Parametros del link desde donde se vino ($_GET)
  */
-class toba_hilo
+class toba_memoria
 {
 	private $id;
 	private $url_actual;
@@ -53,7 +53,7 @@ class toba_hilo
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_hilo();
+			self::$instancia = new toba_memoria();
 		}
 		return self::$instancia;		
 	}

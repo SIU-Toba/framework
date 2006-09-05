@@ -49,7 +49,7 @@ abstract class toba_componente
 		$this->log = toba::logger();
 		//Recibi datos por el CANAL?
 		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
-		$this->canal_recibidos = toba::hilo()->get_parametro($this->canal);
+		$this->canal_recibidos = toba::memoria()->get_parametro($this->canal);
 		$this->id_ses_g = "obj_" . $this->id[1];
 		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
@@ -170,7 +170,7 @@ abstract class toba_componente
 */
 	{
 		if(isset($this->memoria)){
-			toba::hilo()->set_dato_sincronizado("obj_".$this->id[1],$this->memoria);
+			toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],$this->memoria);
 		}else{
 
 		}
@@ -182,7 +182,7 @@ abstract class toba_componente
 	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
 */
 	{
-		if($this->memoria = toba::hilo()->get_dato_sincronizado("obj_".$this->id[1])){
+		if($this->memoria = toba::memoria()->get_dato_sincronizado("obj_".$this->id[1])){
 			$this->memoria_existencia_previa = true;
 		}
 	}
@@ -206,7 +206,7 @@ abstract class toba_componente
 */
 	{
 		unset($this->memoria);
-		toba::hilo()->set_dato_sincronizado("obj_".$this->id[1],null);
+		toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
 	function existio_memoria_previa()
@@ -252,9 +252,9 @@ abstract class toba_componente
 	function recuperar_estado_sesion()
 	//Recupera las propiedades guardadas en la sesion
 	{
-		if(toba::hilo()->existe_dato($this->id_ses_grec)){
+		if(toba::memoria()->existe_dato($this->id_ses_grec)){
 			//Recupero las propiedades de la sesion
-			$temp = toba::hilo()->get_dato($this->id_ses_grec);
+			$temp = toba::memoria()->get_dato($this->id_ses_grec);
 			if(isset($temp["toba__indice_objetos_serializados"]))	//El objeto persistio otros objetos
 			{
 				/*
@@ -321,10 +321,10 @@ abstract class toba_componente
 			if(isset($temp)){
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
-				toba::hilo()->set_dato_operacion($this->id_ses_grec, $temp);
+				toba::memoria()->set_dato_operacion($this->id_ses_grec, $temp);
 			}else{
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
-				toba::hilo()->eliminar_dato($this->id_ses_grec);
+				toba::memoria()->eliminar_dato($this->id_ses_grec);
 			}
 		}
 	}
@@ -338,7 +338,7 @@ abstract class toba_componente
 				unset($this->$nombre_prop);
 			}
 		}
-		toba::hilo()->eliminar_dato($this->id_ses_grec);
+		toba::memoria()->eliminar_dato($this->id_ses_grec);
 	}
 	
 	function get_estado_sesion()
