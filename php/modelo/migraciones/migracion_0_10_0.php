@@ -662,9 +662,17 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path/', 						'toba::instalacion()->get_path');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto/', 					'toba::proyecto()->get_id');		
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_usuario/', 					'toba::usuario()->get_id');				
+		$editor->agregar_sustitucion('/persistir_dato_sincronizado/', 					'set_dato_sincronizado');
+		$editor->agregar_sustitucion('/recuperar_dato_sincronizado/', 					'get_dato_sincronizado');
+		$editor->agregar_sustitucion('/recuperar_dato_global/', 						'get_dato');
+		$editor->agregar_sustitucion('/eliminar_dato_global/', 							'eliminar_dato');
+		$editor->agregar_sustitucion('/existe_dato_global/', 							'existe_dato');
+		$editor->agregar_sustitucion('/limpiar_memoria_global/', 						'limpiar_datos');
+		
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}	
+	
 	
 }
 ?>

@@ -27,18 +27,18 @@ class toba_ef_oculto extends toba_ef
 	function set_estado($estado)
 	{
 		$this->estado = $estado;
-		toba::hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+		toba::hilo()->set_dato_sincronizado($this->clave_memoria(), $this->estado);
 		return true;
 	}
 
 	function cargar_estado_post()
 	{
 		//Intenta cargar el estado a partir del hilo
-		$temp = toba::hilo()->recuperar_dato_sincronizado($this->clave_memoria());
+		$temp = toba::hilo()->get_dato_sincronizado($this->clave_memoria());
 		if(isset($temp)) {
 			$this->estado = $temp;
 			//Tengo que memorizar el estado para la proxima instanciacion
-			toba::hilo()->persistir_dato_sincronizado($this->clave_memoria(), $this->estado);
+			toba::hilo()->set_dato_sincronizado($this->clave_memoria(), $this->estado);
 			return true;
 		}
 		return false;

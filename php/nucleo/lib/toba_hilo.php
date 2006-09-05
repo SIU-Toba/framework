@@ -33,7 +33,7 @@ define("apex_hilo_qs_objetos_destino", "toba-dest");
  * El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
  *  - Memoria general de la aplicación (el $_SESSION sin manejo)
  *  - Memoria de las operaciones
- *  - Memoria sincronizada entre URLs
+ *  - Memoria sincronizada entre URLs (generalmente de interes interno al framework)
  *  - Parametros del link desde donde se vino ($_GET)
  */
 class toba_hilo
@@ -277,7 +277,7 @@ class toba_hilo
 			*/
 			toba::logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)', 'toba');
 			$this->limpiar_memoria_sincronizada();
-			$this->limpiar_memoria_global_reciclable();
+			$this->limpiar_datos_reciclable();
 		}
 		$this->inicializar_reciclaje_global();
 	}
@@ -285,7 +285,7 @@ class toba_hilo
 	function limpiar_memoria()
 	{
 		$this->limpiar_memoria_sincronizada();
-		$this->limpiar_memoria_global();
+		$this->limpiar_datos();
 	}
 
 	function dump_memoria()
@@ -326,32 +326,48 @@ class toba_hilo
 		$this->reciclar_memoria = false;
 	}
 
-	//************************************************************************
-	//*********  Persistencia GLOBAL (acceso directo a la sesion)  ***********
-	//************************************************************************
+	//------------------------------------------------------------------------
+	//------------------ Manejo de DATOS en la sesion ------------------------
+	//------------------------------------------------------------------------
 
 	/**
-		Persiste un dato global
-	*/
-	function persistir_dato_global($indice, $datos, $reciclable=false, $tipo_reciclado=null)
+	 * @see set_dato_aplicacion
+	 */
+	function set_dato($indice, $datos)
 	{
-		$celda = $this->get_celda_memoria_actual();
-		$_SESSION[$celda]['global'][$indice]=$datos;
-		if($reciclable){
+		$this->set_dato_aplicacion($indice, $datos);	
+	}
+	
+	/**
+	 * Almacena un dato en la sesión y perdura durante toda la operación en curso. Se elimina cuando se cambia de operación
+	 */
+	function set_dato_operacion($indice, $datos)
+	{
+		$_SESSION[$this->get_celda_memoria_actual()]['global'][$indice]=$datos;
+		$this->agregar_dato_global_reciclable($indice, apex_hilo_reciclado_item);
+	}
+	
+	/**
+	 * Almacena un dato en la sesion y perdura durante toda la sesión de la aplicacion
+	 * Similar al manejo normal del $_SESSION en una aplicacion ad-hoc
+	 */
+	function set_dato_aplicacion($indice, $datos, $borrar_si_no_se_usa = false)
+	{
+		$_SESSION[$this->get_celda_memoria_actual()]['global'][$indice]=$datos;		
+		if ($borrar_si_no_se_usa) {
 			//Defino el tipo de reciclado (por defecto se utiliza el de cambio de item)
-			if(!isset($tipo_reciclado)) $tipo_reciclado = apex_hilo_reciclado_item;
-			$this->agregar_dato_global_reciclable($indice, $tipo_reciclado);
+			$this->agregar_dato_global_reciclable($indice, apex_hilo_reciclado_acceso);			
 		}
 	}
-
+	
 	/**
-		Recupera un dato global
-	*/
-	function recuperar_dato_global($indice)
+	 * Recupera un dato almacenado ya sea con set_dato_aplicacion o con set_dato_operacion
+	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
+	 */
+	function get_dato($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
-		if($this->existe_dato_global($indice))
-		{
+		if($this->existe_dato($indice))	{
 			//Se avisa que se accedio a un dato global al sistema de reciclado
 			$this->acceso_a_dato_global($indice);
 			return $_SESSION[$celda]['global'][$indice];
@@ -361,9 +377,9 @@ class toba_hilo
 	}
 	
 	/**
-		Elimina un dato global
-	*/
-	function eliminar_dato_global($indice)
+	 * Elimina un dato de la memoria
+	 */
+	function eliminar_dato($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]['global'][$indice])){
@@ -371,23 +387,82 @@ class toba_hilo
 		}
 		$this->eliminar_informacion_reciclado($indice);
 	}
-
+	
 	/**
-		Chequea si un dato global existe
-	*/
-	function existe_dato_global($indice)
+	 * Determina si un dato esta disponible en la memoria
+	 */	
+	function existe_dato($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		return isset($_SESSION[$celda]['global'][$indice]);
 	}
-
+	
 	/**
-		Elimina TODA la informacion global
-	*/
-	function limpiar_memoria_global()
+	 * Limpia la memoria de la celda actual
+	 */
+	function limpiar_datos()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		unset($_SESSION[$celda]['global']);
+	}
+
+
+	//------------------------------------------------------------------
+	//-------------------- Memoria SINCRONIZADA ------------------------
+	//------------------------------------------------------------------
+		
+	/**
+	 * Guarda un dato en la memoria sincronizada.
+	 * La memoria sincronizada guarda datos macheados contra el request que los produjo.
+	 * Por ejemplo en el request 65 el indice 'cantidad de tabs'  tiene el valor 8
+	 * Al hacer el get_dato_sincronizado se chequea en que request se encuentra actualmente y retorna el valor asociado
+	 * Esto permite que al hacer BACK con el browser se vuelva a las variables de sesion de las antiguas paginas
+	 * No es una buena opción para guardar información de la aplicación sino mas bien cosas relacionadas con la seguridad
+	 * y funcioanmiento interno del framework
+	 */
+	function set_dato_sincronizado($indice, $datos)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
+	}
+	
+	/**
+	 * Recupera un dato de la memoria sincronizada, macheandolo con el id actual del hilo
+	 * @return mixed El dato solicitado o NULL si no existe
+	 */
+	function get_dato_sincronizado($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
+			return $_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice];
+		}else{
+			return null;
+		}	
+	}
+
+	function eliminar_dato_sincronizado($indice)
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
+			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
+		}
+	}
+
+	function limpiar_memoria_sincronizada()
+	{
+		$celda = $this->get_celda_memoria_actual();
+		unset($_SESSION[$celda]["hilo"]);
+	}
+
+	private function reciclar_datos_sincronizados()
+	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
+	{
+		$celda = $this->get_celda_memoria_actual();
+		if(isset($_SESSION[$celda]["hilo"])){
+			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
+				array_shift($_SESSION[$celda]["hilo"]);
+			}
+		}
 	}
 
 	//----------------------------------------------------------------	
@@ -483,7 +558,7 @@ class toba_hilo
 				toba::logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
 				foreach( $_SESSION[$celda]["reciclables"] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
-						$this->eliminar_dato_global($reciclable);
+						$this->eliminar_dato($reciclable);
 					}
 				}
 			}
@@ -503,7 +578,7 @@ class toba_hilo
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$_SESSION[$celda]["reciclables_activos"])){
 					toba::logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
-					$this->eliminar_dato_global($reciclable);
+					$this->eliminar_dato($reciclable);
 				}
 			}
 		}
@@ -512,7 +587,7 @@ class toba_hilo
 	/**
 		Controla si existe un dato reciclabe
 	*/
-	function existe_dato_reciclable($indice)
+	private function existe_dato_reciclable($indice)
 	{
 		$celda = $this->get_celda_memoria_actual();
 		return (isset($_SESSION[$celda]["reciclables"][$indice]));
@@ -521,12 +596,12 @@ class toba_hilo
 	/**
 		Limpia toda la memoria reciclable
 	*/
-	private function limpiar_memoria_global_reciclable()
+	private function limpiar_datos_reciclable()
 	{
 		$celda = $this->get_celda_memoria_actual();
 		if(isset($_SESSION[$celda]["reciclables"])){
 			foreach($_SESSION[$celda]["reciclables"] as $reciclable => $tipo){
-				$this->eliminar_dato_global($reciclable);
+				$this->eliminar_dato($reciclable);
 			}
 		}
 		//Esto no deberia ser necesario.
@@ -554,83 +629,7 @@ class toba_hilo
 			unset($_SESSION[$celda]["reciclables"][$indice]);
 		}
 	}
-
-	//*******************************************************************************
-	//********  Persistencia SINCRONIZADA (Exclusiva para el PROXIMO request ********
-	//*******************************************************************************
-		
-	function persistir_dato_sincronizado($indice, $datos)
-	{
-		$celda = $this->get_celda_memoria_actual();
-		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
-	}
-
-	function recuperar_dato_sincronizado($indice)
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice])){
-			return $_SESSION[$celda]["hilo"][$this->hilo_referencia][$indice];
-		}else{
-			return null;
-		}
-	}
-
-	function eliminar_dato_sincronizado($indice)
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"][$this->id][$indice])){
-			unset($_SESSION[$celda]["hilo"][$this->id][$indice]);
-		}
-	}
-
-	function limpiar_memoria_sincronizada()
-	{
-		$celda = $this->get_celda_memoria_actual();
-		unset($_SESSION[$celda]["hilo"]);
-	}
-
-	private function reciclar_datos_sincronizados()
-	//Ejecuto la recoleccion de basura de la MEMORIA SINCRONIZADA
-	{
-		$celda = $this->get_celda_memoria_actual();
-		if(isset($_SESSION[$celda]["hilo"])){
-			if(count($_SESSION[$celda]["hilo"]) > apex_hilo_tamano ){
-				array_shift($_SESSION[$celda]["hilo"]);
-			}
-		}
-	}
-
-	//*******************************************************************************
-	//** Compatibilidad inversa con la version anterior
-	//*******************************************************************************
-
-	/**
-	 * @deprecated Usar persistir dato sincronizado
-	 */	
-	function persistir_dato($indice, $datos)
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
-		$this->persistir_dato_sincronizado($indice, $datos);
-	}
-
-	/**
-	 * @deprecated Usar eliminar dato sincronizado
-	 */	
-	function eliminar_dato($indice)
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
-		$this->eliminar_dato_sincronizado($indice);
-	}
-
-	/**
-	 * @deprecated Usar recuperar dato sincronizado
-	 */
-	function recuperar_dato($indice)
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, '0.8.3');
-		return $this->recuperar_dato_sincronizado($indice);
-	}
-
+	
 	//----------------------------------------------------------------
 	//---------------- MANEJO de ARCHIVOS de SESION ------------------
 	//----------------------------------------------------------------	

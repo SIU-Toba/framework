@@ -1,6 +1,6 @@
 <?
     if ($modo = toba::hilo()->get_parametro("usu_modo")) {
-        toba::hilo()->persistir_dato_global("usu_modo",$modo);
+        toba::hilo()->set_dato("usu_modo",$modo);
     }else{
         if(!($modo = toba::hilo()->recuperar_dato_global("usu_modo"))){
             $modo = "grupo_acceso";

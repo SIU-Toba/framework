@@ -10,9 +10,9 @@ class toba_tp_popup extends toba_tp_basico_titulo
 		$hilo = toba::hilo();
 	    $ef_popup = $hilo->get_parametro('ef_popup');
 	    if ($ef_popup == null) {
-	        $ef_popup = $hilo->recuperar_dato('ef_popup');
+	        $ef_popup = $hilo->get_dato_sincronizado('ef_popup');
 	    }
-		$hilo->persistir_dato('ef_popup', $ef_popup);
+		$hilo->set_dato_sincronizado('ef_popup', $ef_popup);
 	
 		echo toba_js::abrir();
 		echo "

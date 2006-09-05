@@ -25,7 +25,7 @@ class toba_ef_upload extends toba_ef
 		}
 		//-- Si hay un archivo lo deja marcado en sesion para la etapa siguiente
 		if (isset($nombre_archivo)) {
-			toba::hilo()->persistir_dato_sincronizado($this->id_form."_cargado", true);
+			toba::hilo()->set_dato_sincronizado($this->id_form."_cargado", true);
 		}
 		$salida = "";
 		if (! $this->solo_lectura) {
@@ -59,7 +59,7 @@ class toba_ef_upload extends toba_ef
 	
 	function cargar_estado_post()
 	{
-		$this->archivo_cargado = toba::hilo()->recuperar_dato($this->id_form."_cargado");
+		$this->archivo_cargado = toba::hilo()->get_dato_sincronizado($this->id_form."_cargado");
 		if(isset($_FILES[$this->id_form])) {
 			if (isset($_POST[$this->id_form."_check"])) {
 				$this->archivo_subido = true;
