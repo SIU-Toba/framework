@@ -27,6 +27,12 @@ class toba_boton
 
 	//--------- Preguntas ---------------------
 
+
+	function esta_activado()
+	{
+		return $this->activado;
+	}
+	
 	function posee_confirmacion()
 	{
 		return ( trim($this->datos['confirmacion']) !== '' );

@@ -167,16 +167,6 @@ class info_ci extends info_ei
 	function generar_metodos()
 	{
 		$metodos = parent::generar_metodos();
-		$metodos[] = "\t".
-'function mantener_estado_sesion()
-	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
-	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		!#c1//$propiedades[] = \'propiedad_a_persistir\';
-		return $propiedades;
-	}
-';
 		return $this->filtrar_comentarios($metodos);
 	}
 }

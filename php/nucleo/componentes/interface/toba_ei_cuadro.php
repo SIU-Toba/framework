@@ -1087,21 +1087,23 @@ class toba_ei_cuadro extends toba_ei
 			if ( $this->tipo_salida != 'pdf' ) {
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
-					//1: Posiciono al evento en la fila
-					$evento->set_parametros($clave_fila);
-					if($evento->posee_accion_vincular()){
-						$evento->vinculo()->set_parametros($this->get_clave_fila_array($f));	
-					}
-					//2: Ventana de modificacion del evento por fila
-					$callback_modificacion_eventos = 'conf_evt__' . $id;
-					if(method_exists($this, $callback_modificacion_eventos)){
-						$this->$callback_modificacion_eventos($evento, $f);
-					}
-					//3: Genero el boton
-					if( $evento->esta_activado() ) {
-						echo $evento->get_html($this->submit, $this->objeto_js);
-					} else {
-						$evento->activar();	//Lo activo para la proxima fila
+					if( $evento->esta_activado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
+						//1: Posiciono al evento en la fila
+						$evento->set_parametros($clave_fila);
+						if($evento->posee_accion_vincular()){
+							$evento->vinculo()->set_parametros($this->get_clave_fila_array($f));	
+						}
+						//2: Ventana de modificacion del evento por fila
+						$callback_modificacion_eventos = 'conf_evt__' . $id;
+						if(method_exists($this, $callback_modificacion_eventos)){
+							$this->$callback_modificacion_eventos($evento, $f);
+						}
+						//3: Genero el boton
+						if( $evento->esta_activado() ) {
+							echo $evento->get_html($this->submit, $this->objeto_js);
+						} else {
+							$evento->activar();	//Lo activo para la proxima fila
+						}
 					}
 	            	echo "</td>\n";
 				}

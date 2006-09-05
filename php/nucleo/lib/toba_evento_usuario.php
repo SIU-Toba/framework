@@ -83,11 +83,6 @@ class toba_evento_usuario extends toba_boton
 		return in_array($grupo, $this->get_grupos() );
 	}
 
-	function esta_activado()
-	{
-		return $this->activado;
-	}
-
 	//--------- Geters ---------------------
 	
 	function get_id()

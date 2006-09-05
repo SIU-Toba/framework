@@ -19,7 +19,7 @@ class ci_origen extends toba_ci
 	*/
 	function extender_objeto_js()
 	{
-		echo "{$this->objeto_js}.modificar_vinculo__popup = function(id_vinculo){
+		echo "{$this->objeto_js}.modificar_vinculo__abrir_en_popup = function(id_vinculo){
 			if( confirm('Ejemplo de intercepcion de vinculos en el cliente ' +
 						'(Si se presiona \"OK\" se agregan parametros \"a\" y \"b\", sino se cancela el vinculo).') ) {
 				var parametros = { a: 'param_js_a', b: 'param_js_b'};

@@ -15,5 +15,9 @@ class extension_ci extends toba_ci
 		return datos_ejemplos::get_localidades();
 	}
 
+	function evt__sobrefiltrar()
+	{
+		$this->dep('eventos_a')->evento('eliminar')->desactivar();	
+	}
 }
 ?>

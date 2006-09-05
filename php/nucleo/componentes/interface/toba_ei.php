@@ -39,6 +39,12 @@ abstract class toba_ei extends toba_componente
 		parent::__construct($definicion);
         $this->submit = $this->prefijo.'_'.$this->id[1];
 		$this->objeto_js = "js_".$this->submit;
+		$this->preparar_componente();
+	}
+	
+	function preparar_componente()
+	{
+		$this->cargar_lista_eventos();	
 	}
 	
 	/**
@@ -70,7 +76,6 @@ abstract class toba_ei extends toba_componente
 	 */
 	function pre_configurar()
 	{
-		$this->cargar_lista_eventos();
 	}
 
 	/**
@@ -229,16 +234,21 @@ abstract class toba_ei extends toba_componente
 	protected function filtrar_eventos()
 	{
 		$grupo = $this->get_grupo_eventos_activo();
-		if(trim($grupo)!=''){ 
-			foreach($this->eventos_usuario_utilizados as $id => $evento){
-				if( $evento->posee_grupo_asociado() ){
+		foreach($this->eventos_usuario_utilizados as $id => $evento){
+			if( $evento->posee_grupo_asociado() ){
+				if(!isset($grupo)){ 
+					//No hay un grupo activo, no lo muestro
+					unset($this->eventos_usuario_utilizados[$id]);
+					toba::logger()->debug("Se filtro el evento: $id", 'toba');
+				} else {
 					if( !$evento->pertenece_a_grupo($grupo) ){
+						//El evento no pertenece al grupo
 						unset($this->eventos_usuario_utilizados[$id]);
 						toba::logger()->debug("Se filtro el evento: $id", 'toba');
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	//--- BOTONES -------------------------------------------------
@@ -292,7 +302,9 @@ abstract class toba_ei extends toba_componente
 		if ( $evento->posee_accion_imprimir() ) {
 			$this->utilizar_impresion_html = true;					
 		}
-		echo $evento->get_html($this->submit, $this->objeto_js);
+		if( $evento->esta_activado() ) {
+			echo $evento->get_html($this->submit, $this->objeto_js);
+		}
 	}
 
 	/**

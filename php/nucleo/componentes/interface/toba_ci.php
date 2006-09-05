@@ -36,6 +36,8 @@ class toba_ci extends toba_ei
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
+	function preparar_componente(){}
+
 	function destruir()
 	{
 		$this->fin();
@@ -412,8 +414,8 @@ class toba_ci extends toba_ei
 			}
 		}
 		//--- A los eis se les debe configurar cuando estan en servicio
-		if (	$this->en_servicio	
-				&&	$this->dependencias[$id] instanceof toba_ei 
+		if (	$this->en_servicio
+				&& $this->dependencias[$id] instanceof toba_ei 
 				&& ! $this->dependencia_esta_configurada($id) ) {
 			$this->configurar_dep($id);
 		}
