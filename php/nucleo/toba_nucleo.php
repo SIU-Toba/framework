@@ -172,8 +172,8 @@ class toba_nucleo
 		$item = toba::hilo()->get_item_solicitado();
 		if (!$item) {
 			if(isset($predefinido)){
-				$item[0] = toba_proyecto::instancia()->get_id();
-				$item[1] = toba_proyecto::instancia()->get_parametro($predefinido);		
+				$item[0] = toba::proyecto()->get_id();
+				$item[1] = toba::proyecto()->get_parametro($predefinido);		
 				toba::hilo()->set_item_solicitado($item);
 			} else {
 				throw new toba_error('NUCLEO: No es posible determinar el item a cargar');
@@ -187,8 +187,8 @@ class toba_nucleo
 	 */
 	protected function preparar_include_path()
 	{
-		$proyecto = toba_proyecto::instancia()->get_id();
-		$i_proy = toba_instancia::instancia()->get_path_proyecto($proyecto);
+		$proyecto = toba::proyecto()->get_id();
+		$i_proy = toba::instancia()->get_path_proyecto($proyecto);
 		$i_path = ini_get("include_path");
 		if (substr(PHP_OS, 0, 3) == 'WIN'){
 			$i_proy_php = $i_proy  . "/php";

@@ -26,7 +26,7 @@ class ci_login extends toba_ci
 
 	function conf()
 	{
-		if ( ! toba_proyecto::instancia()->get_parametro('validacion_debug') ) {
+		if ( ! toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->pantalla()->eliminar_dep('seleccion_usuario');
 		}
 	}	

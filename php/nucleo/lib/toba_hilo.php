@@ -93,7 +93,7 @@ class toba_hilo
 		}
 //		$this->parametros = $_GET;
 		//FALTA hacer un URL decode!!!		
-		$encriptar_qs = toba_proyecto::instancia()->get_parametro('encriptar_qs');
+		$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 		if($encriptar_qs){
 			if(isset($_GET[apex_hilo_qs_parametros])){
 				$encriptador = toba::encriptador();
@@ -196,6 +196,9 @@ class toba_hilo
 		return isset($_SESSION['toba']);
 	}
 	
+	/**
+	 * Retorna el servicio solicitado por la URL
+	 */
 	function get_servicio_solicitado()
 	{
 		return $this->servicio;	
@@ -208,14 +211,14 @@ class toba_hilo
 	{
 		return $this->objetos_destino;
 	}
-	
+
+	/**
+	 * Retorna el valor de un parámetro enviado en la URL por el vinculador
+	 *
+	 * @param string $canal Identificador que se utilizó como clave del parámetro
+	 * @return string Valor pasado como parámetro, o null en el caso que no se encuentre
+	 */
 	function get_parametro($canal)
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un parametro enviado por el VINCULADOR
-	@@param: string | identificador que se utilizo para pasar el parametro
-	@@retorno: string/null | Valor pasado como parametro, null en el caso de que no se haya pasado un parametro
-*/
 	{
 		if(isset($this->parametros[$canal])){
 			return $this->parametros[$canal];			
@@ -224,12 +227,11 @@ class toba_hilo
 		}
 	}
 
+	/**
+	 * Retorna todos los parámetros enviados en la URL por el vinculador
+	 * @return array Arreglo clave => valor de los parámetros
+	 */
 	function get_parametros()
-/*
- 	@@acceso: actividad
-	@@desc: Recupera un parametro enviado por el VINCULADOR
-	@@retorno: array | Lista completa de parametros
-*/
 	{
 		$temp = $this->parametros;
 		unset($temp[apex_hilo_qs_zona]);
@@ -247,20 +249,17 @@ class toba_hilo
 		}
 	}
 
+	/**
+	 * @deprecated Usar 
+	 */
 	function get_proyecto()
-/*
- 	DEPRECADO
-*/
 	{
-		return toba_proyecto::instancia()->get_id();
+		return toba::proyecto()->get_id();
 	}
 
 	function get_proyecto_descripcion()
-/*
- 	DEPRECADO
-*/
 	{
-		return toba_proyecto::instancia()->get_parametro('descripcion');
+		return toba::proyecto()->get_parametro('descripcion');
 	}
 	
 	function get_path()

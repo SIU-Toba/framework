@@ -25,7 +25,7 @@ class toba_impr_html implements toba_impresion
 	private function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		$estilo = toba_proyecto::instancia()->get_parametro('estilo');
+		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo toba_recurso::link_css($estilo."_impr", 'print');
 		echo toba_recurso::link_css($estilo."_impr");
 		echo "<style type='text/css' media='print'>

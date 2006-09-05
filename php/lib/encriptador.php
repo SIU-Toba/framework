@@ -8,7 +8,7 @@ class encriptador
 	var $clave;
 	
 	private function __construct() {
-		$this->clave = toba_instalacion::instancia()->get_claves_encriptacion();
+		$this->clave = toba::instalacion()->get_claves_encriptacion();
 	}
 	
 	static function instancia() {

@@ -125,8 +125,8 @@ class toba
 	static function sesion()
 	{
 		if (!isset(self::$sesion)) {
-			$subclase = toba_proyecto::instancia()->get_parametro('sesion_subclase');
-			$archivo = toba_proyecto::instancia()->get_parametro('sesion_subclase_archivo');
+			$subclase = toba::proyecto()->get_parametro('sesion_subclase');
+			$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
 			if( $subclase && $archivo ) {
 				require_once($archivo);
 				self::$sesion = call_user_func(array($subclase,'instancia'),$subclase);
@@ -142,8 +142,8 @@ class toba
 	 */
 	static function usuario()
 	{
-		$subclase = toba_proyecto::instancia()->get_parametro('usuario_subclase');
-		$archivo = toba_proyecto::instancia()->get_parametro('usuario_subclase_archivo');
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
+		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
 		if( $subclase && $archivo ) {
 			require_once($archivo);
 			return call_user_func(array($subclase,'instancia'));
@@ -151,5 +151,34 @@ class toba
 			return toba_usuario::instancia();
 		}
 	}
+	
+	/**
+	 * Retorna el objeto que contiene información del proyecto toba actual
+	 * @return toba_proyecto
+	 */
+	static function proyecto()
+	{
+		return toba_proyecto::instancia();
+	}
+	
+	/**
+	 * Retorna el objeto que contiene información de la instancia toba actual
+	 * @return toba_instancia
+	 */
+	static function instancia()
+	{
+		return toba_instancia::instancia();
+	}	
+	
+	/**
+	 * Retorna el objeto que contiene información de la instalacion toba actual
+	 * @return toba_instalacion
+	 */
+	static function instalacion()
+	{
+		return toba_instalacion::instancia();
+	}	
+	
+	
 }
 ?>

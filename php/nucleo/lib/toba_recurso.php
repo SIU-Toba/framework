@@ -188,7 +188,7 @@ class toba_recurso {
 	*/
 	static function link_css($estilo=null,  $rol='screen')
 	{
-		$estilo = isset($estilo) ? $estilo : toba_proyecto::instancia()->get_parametro('estilo');
+		$estilo = isset($estilo) ? $estilo : toba::proyecto()->get_parametro('estilo');
 		$link = '';
 		
 		//Busca primero en el nucleo

@@ -182,7 +182,7 @@ class toba_vinculador
 		$vinculo = $prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
 
-			$encriptar_qs = toba_proyecto::instancia()->get_parametro('encriptar_qs');
+			$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 			if($encriptar_qs){
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
@@ -247,7 +247,7 @@ class toba_vinculador
 	protected function cargar_vinculos_posibles()
 	{
 		$usuario = toba::hilo()->get_usuario();
-		$rs = toba_instancia::instancia()->get_vinculos_posibles($usuario);
+		$rs = toba::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
 			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
 		}

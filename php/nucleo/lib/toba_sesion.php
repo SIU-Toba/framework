@@ -38,7 +38,7 @@ class toba_sesion
 			$this->get_grupo_acceso();
 
 			// Controlo el tiempo de no interaccion
-			$ventana = toba_proyecto::instancia()->get_parametro('sesion_tiempo_no_interac_min');
+			$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
 			if($ventana != 0){ // 0 implica desactivacion
 				$tiempo_desconectado = ((time()-$_SESSION['toba']["ultimo_acceso"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_desconectado >= $ventana){
@@ -51,7 +51,7 @@ class toba_sesion
 				}
 			}
 			// Controlo el tiempo maximo de sesion
-			$maximo = toba_proyecto::instancia()->get_parametro('sesion_tiempo_maximo_min');
+			$maximo = toba::proyecto()->get_parametro('sesion_tiempo_maximo_min');
 			if($maximo != 0){ // 0 implica desactivacion
 				$tiempo_total = ((time()-$_SESSION['toba']["inicio"])/60);//Tiempo desde el ultimo REQUEST
 				if ( $tiempo_total >= $maximo){
@@ -112,10 +112,10 @@ class toba_sesion
 		} catch ( toba_error_login $e ) {
 			//Registro la falla de login			
 			toba_instancia::registrar_error_login($usuario, $ip, $e->getMessage());
-			$cant_max_intentos = toba_proyecto::instancia()->get_parametro('validacion_intentos');
+			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');
 			if (isset($cant_max_intentos)) {
 				//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
-				$ventana_temporal = toba_proyecto::instancia()->get_parametro('validacion_intentos_min');
+				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
 				if (! isset($ventana_temporal)) {
 					$ventana_temporal = $this->ventana_validacion;
 				}

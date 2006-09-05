@@ -64,7 +64,7 @@ class toba_proyecto
 
 	static function get_db()
 	{
-		return toba_instancia::instancia()->get_db();
+		return toba::instancia()->get_db();
 	}
 		
 	function cargar_info_basica()

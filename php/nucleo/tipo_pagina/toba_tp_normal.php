@@ -9,7 +9,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 
 	function __construct()
 	{
-		$archivo_menu = toba_proyecto::instancia()->get_parametro('menu_archivo');
+		$archivo_menu = toba::proyecto()->get_parametro('menu_archivo');
 		require_once($archivo_menu);
 		$clase = basename($archivo_menu, ".php");
 		$this->menu = new $clase();
@@ -52,7 +52,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		$this->info_usuario();
 		
 		//--- Proyecto
-		if(toba_proyecto::instancia()->es_multiproyecto()) {		
+		if(toba::proyecto()->es_multiproyecto()) {		
 			$this->cambio_proyecto();
 		}		
 		//--- Logo
@@ -64,7 +64,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	protected function cambio_proyecto()
 	{
 		$proyectos = toba_instancia::get_proyectos_accesibles();
-		$actual = toba_proyecto::instancia()->get_id();
+		$actual = toba::proyecto()->get_id();
 		if (count($proyectos) > 1) {
 			//-- Si hay al menos dos proyectos
 			echo '<div class="enc-cambio-proy">';

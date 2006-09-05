@@ -252,8 +252,8 @@ class toba_solicitud_web extends toba_solicitud
 	 */
 	protected function servicio__vista_toba_impr_html( $objetos )
 	{
-		$clase = toba_proyecto::instancia()->get_parametro('salida_impr_html_c');
-		$archivo = toba_proyecto::instancia()->get_parametro('salida_impr_html_a');
+		$clase = toba::proyecto()->get_parametro('salida_impr_html_c');
+		$archivo = toba::proyecto()->get_parametro('salida_impr_html_a');
 		if ( $clase && $archivo ) {
 			//El proyecto posee un objeto de impresion HTML personalizado
 			require_once($archivo);

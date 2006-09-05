@@ -47,7 +47,7 @@ class toba_usuario implements toba_interface_usuario
 			throw new toba_error_login("La combinacion usuario/clave es incorrecta.");
 		}
 		if (!isset($clave)) {
-			if (!(toba_proyecto::instancia()->get_parametro('validacion_debug'))) {
+			if (!(toba::proyecto()->get_parametro('validacion_debug'))) {
 				throw new toba_error_login("Es necesario ingresar la clave.");	
 			}
 		} else {

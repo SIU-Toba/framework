@@ -39,7 +39,7 @@ class ci_login extends toba_ci
 	function evt__datos__modificacion($datos)
 	{
 		$this->datos = $datos;
-		if ( toba_proyecto::instancia()->get_parametro('validacion_debug') ) {
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
 			if ( $this->datos['autologin'] ) {
 				$this->datos['usuario'] = $this->datos['autologin'];
 			}
@@ -60,7 +60,7 @@ class ci_login extends toba_ci
 
 	function conf__datos()
 	{	
-		if ( toba_proyecto::instancia()->get_parametro('validacion_debug') ) {
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
 			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
 		} else {
 			$this->dependencia('datos')->desactivar_efs('autologin');
