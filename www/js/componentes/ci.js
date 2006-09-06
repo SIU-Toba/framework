@@ -174,34 +174,6 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	};
 
 	//---Navegación 
-	def.habilitar_tab = function(tab, habilitado) {
-		var boton = document.getElementById(this._input_submit + '_cambiar_tab_' + tab);
-		if (! habilitado) {
-			boton.disabled = true;
-			boton.onclick_viejo = boton.onclick;
-			boton.onclick = '';
-		} else {
-			boton.disabled = false;
-			if (boton.onclick_viejo !== '') {
-				boton.onclick = boton.onclick_viejo;
-			}
-		}
-	};
-
-	def.mostrar_tab = function (tab, mostrar) {
-		if (tab == this._id_en_controlador) {
-			notificacion.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
-			notificacion.mostrar();
-			return;
-		}
-		var elemento = document.getElementById(this._input_submit + '_cambiar_tab_' + tab);
-		var elemento_tab = elemento.parentNode;
-		if (! mostrar) {
-			elemento_tab.style.display = 'none';
-		} else {
-			elemento_tab.style.display = '';
-		}		
-	}
 
 	def.ir_a_pantalla = function(pantalla) {
 		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
@@ -215,5 +187,39 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	def.ir_a_siguiente = function() {
 		this.ir_a_pantalla('_siguiente');
 	};
+
+	//--- Control de TABS
+	
+	def.activar_tab = function(id) {
+		var boton = this.get_tab(id);
+		if (boton.onclick_viejo !== '') {
+			boton.onclick = boton.onclick_viejo;
+		}
+	};
+
+	def.desactivar_tab = function(id) {
+		var boton = this.get_tab(id);
+		boton.onclick_viejo = boton.onclick;
+		boton.onclick = '';
+	};
+
+	def.mostrar_tab = function (id) {
+		tab = this.get_tab(id).parentNode;
+		tab.style.display = '';
+	}
+
+	def.ocultar_tab = function (id) {
+		tab = this.get_tab(id).parentNode;
+		tab.style.display = 'none';
+	}
+
+	def.get_tab = function(id) {
+		if (id == this._id_en_controlador) {
+			notificacion.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
+			notificacion.mostrar();
+			return;
+		}
+		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
+	}	
 	
 toba.confirmar_inclusion('componentes/ci');

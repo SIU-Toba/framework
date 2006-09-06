@@ -2,7 +2,7 @@
 
 class ci_ocultar_deshabilitar extends toba_ci
 {
-	function conf__pant_inicial()
+	function conf()
 	{
 		$this->dep('form1')->evento('b')->ocultar();	
 		$this->dep('form1')->evento('d')->deshabilitar();	

@@ -1,6 +1,6 @@
 <?php 
 
-class eiform_ocultar_deshabilitar2 extends toba_ei_formulario
+class eiform_ocultar_desactivar2 extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
@@ -28,9 +28,9 @@ class eiform_ocultar_deshabilitar2 extends toba_ei_formulario
 			{$this->objeto_js}.evt__c__procesar = function(inicial) {
 				if(!inicial) { //En el inicial no se afecta para que se perciba el ocultamiento desde el server
 					if (this.ef('c').chequeado()) {
-						this.controlador.deshabilitar_boton('c');
+						this.controlador.desactivar_boton('c');
 					} else {
-						this.controlador.deshabilitar_boton('c');
+						this.controlador.activar_boton('c');
 					}
 				}
 			} 
@@ -38,9 +38,9 @@ class eiform_ocultar_deshabilitar2 extends toba_ei_formulario
 			{$this->objeto_js}.evt__d__procesar = function(inicial) {
 				if(!inicial) { //En el inicial no se afecta para que se perciba el ocultamiento desde el server
 					if (this.ef('d').chequeado()) {
-						this.controlador.deshabilitar_boton('d');
+						this.controlador.desactivar_boton('d');
 					} else {
-						this.controlador.deshabilitar_boton('d');
+						this.controlador.activar_boton('d');
 					}
 				}
 			} 

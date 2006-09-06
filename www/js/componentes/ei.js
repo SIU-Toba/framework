@@ -116,33 +116,20 @@ def.constructor = ei;
 		return document.getElementById('colapsar_boton_' + this._instancia);
 	};
 
-	def.deshabilitar_boton = function(id) {
-		var boton = this.get_boton(id);
-		if(boton) {
-			boton.disabled = true;
-		}
+	def.desactivar_boton = function(id) {
+		this.get_boton(id).disabled = true;
 	};
 
-	def.habilitar_boton = function(id) {
-		//Esto no anda... si el boton esta deshabilitado no se puede acceder a el		
-		var boton = this.get_boton(id);
-		if(boton) {
-			boton.disabled = false;
-		}
+	def.activar_boton = function(id) {
+		this.get_boton(id).disabled = false;
 	};
 
 	def.ocultar_boton = function(id) {
-		var boton = this.get_boton(id);
-		if(boton) {
-			boton.style.display = 'none';
-		}
+		this.get_boton(id).style.display = 'none';
 	};
 
 	def.mostrar_boton = function(id) {
-		var boton = this.get_boton(id);
-		if(boton) {
-			boton.style.display = '';
-		}
+		this.get_boton(id).style.display = '';
 	};
 	
 	def.get_boton = function(id) {
