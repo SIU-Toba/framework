@@ -14,8 +14,9 @@ function evento_ei(id, validar, confirmar, parametros) {
 }
 
 
-function ei(instancia) {
+function ei(instancia, input_submit) {
 	this._instancia = instancia;
+	this._input_submit = input_submit;
 }
 def = ei.prototype;
 def.constructor = ei;
@@ -113,6 +114,39 @@ def.constructor = ei;
 	
 	def.obtener_boton_colapsar = function() {
 		return document.getElementById('colapsar_boton_' + this._instancia);
+	};
+
+	def.deshabilitar_boton = function(id) {
+		var boton = this.get_boton(id);
+		if(boton) {
+			boton.disabled = true;
+		}
+	};
+
+	def.habilitar_boton = function(id) {
+		//Esto no anda... si el boton esta deshabilitado no se puede acceder a el		
+		var boton = this.get_boton(id);
+		if(boton) {
+			boton.disabled = false;
+		}
+	};
+
+	def.ocultar_boton = function(id) {
+		var boton = this.get_boton(id);
+		if(boton) {
+			boton.style.display = 'none';
+		}
+	};
+
+	def.mostrar_boton = function(id) {
+		var boton = this.get_boton(id);
+		if(boton) {
+			boton.style.display = '';
+		}
+	};
+	
+	def.get_boton = function(id) {
+		return document.getElementById(this._input_submit + '_' + id);
 	};
 
 toba.confirmar_inclusion('componentes/ei');

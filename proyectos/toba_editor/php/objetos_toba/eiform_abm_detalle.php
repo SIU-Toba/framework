@@ -44,8 +44,10 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		echo "
 			{$this->objeto_js}.evt__en_botonera__procesar = function(inicial, fila_actual) {
 				if (this.ef('en_botonera').ir_a_fila(fila_actual).chequeado()) {
-					if (this.ef('sobre_fila').ir_a_fila(fila_actual).chequeado()) {
-						this.ef('sobre_fila').ir_a_fila(fila_actual).chequear(false);
+					if(this.ef('sobre_fila')) {// Esta extension se usa en varios forms...
+						if (this.ef('sobre_fila').ir_a_fila(fila_actual).chequeado()) {
+							this.ef('sobre_fila').ir_a_fila(fila_actual).chequear(false);
+						}
 					}
 				}
 			}

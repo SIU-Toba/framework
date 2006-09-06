@@ -139,13 +139,16 @@ class toba_form {
     }
 //________________________________________________________________________________________________________
 
-    static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', $clase="ei-boton", $con_id=true)
+    static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', 
+    								$clase="ei-boton", $con_id=true, $estilo_inline=null, $habilitado=true )
     // Boton con html embebido
     {
 		$acceso = toba_recurso::ayuda($tecla, $tip, $clase);
 		$tab = (isset($tab) && $tab != 0) ? "tabindex='$tab'" : "";
 		$id = ($con_id) ? "id='$nombre'" : '';
-        return  "<button type='$tipo' name='$nombre' $id value='$valor' $tab $acceso $extra>".
+		$estilo_inline = isset($estilo_inline) ? "style='" . $estilo_inline . "'": '';
+		$habilitado = $habilitado ? '' : 'DISABLED';
+        return  "<button type='$tipo' name='$nombre' $id value='$valor' $tab $acceso $extra $estilo_inline $habilitado>".
 				"$html</button>\n";
     }
 

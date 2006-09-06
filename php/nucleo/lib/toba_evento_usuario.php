@@ -5,6 +5,8 @@ class toba_evento_usuario extends toba_boton
 {
 	protected $vinculo;
 	protected $parametros = null;
+	protected $habilitado = true;
+	protected $oculto = false;
 
 	/**
 	*	Devuelve el vinculo asociado al evento
@@ -82,6 +84,16 @@ class toba_evento_usuario extends toba_boton
 	{
 		return in_array($grupo, $this->get_grupos() );
 	}
+	
+	function esta_deshabilitado()
+	{
+		return $this->habilitado;	
+	}
+	
+	function esta_oculto()
+	{
+		return $this->oculto;	
+	}
 
 	//--------- Geters ---------------------
 	
@@ -102,6 +114,26 @@ class toba_evento_usuario extends toba_boton
 	function set_parametros($parametros = null)
 	{
 		$this->parametros = $parametros;
+	}
+	
+	function deshabilitar()
+	{
+		$this->habilitado = false;
+	}
+	
+	function habilitar()
+	{
+		$this->habilitado = true;
+	}
+	
+	function ocultar()
+	{
+		$this->oculto = true;		
+	}
+	
+	function mostrar()
+	{
+		$this->oculto = false;
 	}
 	
 	//--------- Consumo interno ------------
@@ -129,6 +161,8 @@ class toba_evento_usuario extends toba_boton
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
 
+		$estilo_inline = $this->oculto ? 'display: none' : null;
+		
 		if ( $this->posee_accion_imprimir() ) {
 			// ---*** IMPRIMIR HTML ***---
 			$opciones['servicio'] = 'vista_toba_impr_html';
@@ -140,7 +174,8 @@ class toba_evento_usuario extends toba_boton
 			} else {
 				$js = "onclick=\"imprimir_html('$url');\"";
 			}
-			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
@@ -148,12 +183,14 @@ class toba_evento_usuario extends toba_boton
 			if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
 				// Escribo la sentencia que invocaria el vinculo
 				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
-				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
 			}
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
-			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, $tip, $tipo_boton, '', $clase);
+			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
 		}
 	}
 

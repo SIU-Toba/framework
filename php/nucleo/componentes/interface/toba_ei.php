@@ -442,7 +442,7 @@ abstract class toba_ei extends toba_componente
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}','{$this->submit}');\n";
 	}
 	
 	protected function extender_objeto_js()
