@@ -67,7 +67,7 @@ class pantalla_visor extends toba_ei_pantalla
 		$niveles = toba::logger()->get_niveles();
 		$niveles = array_reverse($niveles);		
 		
-		$res = $this->analizador->obtener_pedido($seleccion);
+		$res = $this->analizador->get_pedido($seleccion);
 		$encabezado = $this->analizador->analizar_encabezado($res);
 		
 		//--- Opciones

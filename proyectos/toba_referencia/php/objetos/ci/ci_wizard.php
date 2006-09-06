@@ -32,21 +32,20 @@ class ci_wizard extends toba_ci
 		$this->tipo_instalacion = $tipo;
 	}
 	
-	//-------------------------------------------------------------------------------	
 	/*
-	*	Este evento permite saltear determinadas etapas en base a selecciones anteriores
-	*/
-	function evt__puede_mostrar_pantalla($pantalla)
+	*	Durante la configuracion se quieren saltear dos etapas si la instalacion no es personalizada
+	*/	
+	function conf()
 	{
-		switch ($pantalla) 
-		{
-			//La pantalla de componente y configuracion solo se muestra en una instalación personalizada
+		switch ($this->get_id_pantalla()) {
 			case 4:
 			case 5:
-				if ($this->tipo_instalacion['tipo'] != 'personalizada')
-					return false;
+				if ($this->tipo_instalacion['tipo'] != 'personalizada') {
+					$pantalla = ($this->wizard_avanza()) ? 6 : 3;
+					$this->set_pantalla($pantalla);
+				}
+				break;
 		}
-		return true;
 	}
 	
 	//-------------------------------------------------------------------------------		

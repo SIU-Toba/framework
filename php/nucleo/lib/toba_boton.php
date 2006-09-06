@@ -22,6 +22,7 @@ class toba_boton
 			$this->datos['en_botonera'] = true;
 			$this->datos['ayuda'] = '';
 			$this->datos['accion'] = '';
+			$this->datos['grupo'] = '';
 		}
 	}
 

@@ -28,6 +28,7 @@ class toba_ci extends toba_ei
 	protected $pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
 	protected $en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	protected $ini_operacion = true;				// Indica si la operación recién se inicia
+	protected $wizard_sentido_navegacion;			// Indica si el wizard avanza o no
 	
 	function __construct($id)
 	{
@@ -285,10 +286,11 @@ class toba_ci extends toba_ei
 			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
 			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
 			if ($tab == '_siguiente' || $tab == '_anterior') {
-				$this->pantalla_id_servicio = $this->ir_a_limitrofe($tab);
+				$this->wizard_sentido_navegacion = ($tab == '_anterior') ? 0 : 1;
+				$this->pantalla_id_servicio = $this->ir_a_limitrofe();
 			} else {
 				//--- Se pidio un cambio explicito
-				if ($tab !== false && $this->puede_ir_a_pantalla($tab)) {
+				if ($tab !== false) {
 					if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
 						$this->pantalla_id_servicio = $tab;
 					}else{
@@ -470,43 +472,27 @@ class toba_ci extends toba_ei
 		return $this->info_ci_me_pantalla[0]["identificador"];
 	}
 	
-	/**
-	 * Busca alguna regla particular para determinar si la navegación hacia una pantalla es válida
-	 * El método a definir para incidir en esta regla es evt__puede_mostrar_pantalla y recibe la pantalla como parámetro
-	 * @return boolean
-	 */
-	protected function puede_ir_a_pantalla($tab)
-	{
-		$evento_mostrar = apex_ei_evento . apex_ei_separador . "puede_mostrar_pantalla";
-		if(method_exists($this, $evento_mostrar)){
-			return $this->$evento_mostrar($tab);
-		}
-		return true;
-	}
 	
 	/**
-	 * Recorre las pantallas en un sentido buscando una válida para mostrar
-	 * @param string $sentido "_anterior" o "_siguiente"
+	 * Recorre las pantallas en el sentido actual buscando una válida para mostrar
 	 */
-	protected function ir_a_limitrofe($sentido)
+	protected function ir_a_limitrofe()
 	{
 		if (!isset($this->pantalla_id_eventos)) {
 			toba::logger()->crit("No se pudo determinar la pantalla anterior, no se encuentra en la memoria sincronizada");
 			return $this->get_pantalla_inicial();
 		}
-		$indice = ($sentido == '_anterior') ? 0 : 1;	//Para generalizar la busquda de siguiente o anterior
-		$candidato = $this->pantalla_id_eventos;
-		while ($candidato !== false) {
-			$limitrofes = array_elem_limitrofes($this->memoria['tabs'], $candidato);
-			$candidato = $limitrofes[$indice];
-			if ($this->puede_ir_a_pantalla($candidato)) {
-				return $candidato;
-			}
-		}
-		//Si no se encuentra ninguno, no se cambia
-		return $this->pantalla_id_eventos;
+		$limitrofes = array_elem_limitrofes($this->memoria['tabs'], $this->pantalla_id_eventos);
+		return $limitrofes[$this->wizard_sentido_navegacion];
 	}
 	
+	/**
+	 * Retorna true si la navegación por wizard recibio un 'siguiente' en la ultima solicitud
+	 */
+	protected function wizard_avanza()
+	{
+		return isset($this->wizard_sentido_navegacion) && ($this->wizard_sentido_navegacion == 1);
+	}
 
 	//------------------------------------------------
 	//--  ETAPA SERVICIO  ----------------------------
@@ -523,9 +509,6 @@ class toba_ci extends toba_ei
 				$this->pantalla_id_servicio = $this->get_pantalla_inicial();
 			}
 		}		
-		
-		//--- Se fija la pantalla actual
-		$this->pantalla();
 		
 		//--- Configuracion pers. propia		
 		$this->conf();
@@ -582,6 +565,7 @@ class toba_ci extends toba_ei
 	function pantalla()
 	{
 		if (! isset($this->pantalla_servicio)) {
+
 			$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
 			require_once('toba_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			

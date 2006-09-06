@@ -165,6 +165,7 @@ echo '<div style="text-align:left">';
 	$prohibidos['persistir_dato_global'] = 'Usar set_dato_operacion o set_dato_aplicacion según corresponda';
 	$prohibidos['filtrar_evt__'] = '';
 	$prohibidos['modificar_vinculo__'] = '';
+	$prohibidos['__puede_mostrar_pantalla'] = 'Setear la pantalla correcta en el conf() del ci. Ver el ejemplo del proyecto referencia.';
 	
 	
 	$dir = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado());
