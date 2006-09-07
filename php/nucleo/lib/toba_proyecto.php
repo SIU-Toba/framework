@@ -6,7 +6,7 @@ require_once('toba_instancia.php');
  *  - Información del archivo de configuración proyecto.ini, cacheandolo en la memoria
  *  - Información de la definición básica en el editor (e.i. los metadatos)
  * 
- * @package Base
+ * @package Centrales
  */
 class toba_proyecto
 {
@@ -235,7 +235,7 @@ class toba_proyecto
 			$rest = " AND i.padre = '' ";
 		}
 		if (!isset($proyecto)) {
-			$proyecto = $this->get_id();
+			$proyecto = self::get_id();
 		}
 		if (!isset($grupo_acceso)) {
 			$grupo_acceso = toba::sesion()->get_grupo_acceso();	

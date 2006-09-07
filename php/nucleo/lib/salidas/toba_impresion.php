@@ -2,8 +2,7 @@
 
 /**
  * Metodos básicos que tiene cumplir una salida de impresión
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 interface toba_impresion
 {

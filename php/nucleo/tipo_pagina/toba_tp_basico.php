@@ -1,5 +1,16 @@
 <?php
 
+/**
+* El tipo de página básico está pensado como clase base para las personalizaciones fuertes de la salida.
+* Presenta la estructura básica que de la salida html del framework:
+*  - Doctype
+*  - Titulo de la pagina
+*  - Codificacion
+*  - Plantillas css
+*  - Includes js básico
+* 
+* @package SalidaGrafica
+*/
 class toba_tp_basico extends toba_tipo_pagina
 {
 	protected $clase_encabezado = '';

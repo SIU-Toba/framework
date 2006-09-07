@@ -1,6 +1,13 @@
 <?php
 require_once("toba_tp_basico.php");
 
+/**
+* 
+* Incluye una barra con nombre y ayuda contextual del item, 
+* y centraliza el contenido de la salida del item
+* 
+* @package SalidaGrafica
+*/
 class toba_tp_basico_titulo extends toba_tp_basico
 {
 	protected $clase_encabezado = 'encabezado';	

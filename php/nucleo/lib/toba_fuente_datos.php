@@ -4,8 +4,7 @@
  * La fuente de datos encapsula un mecanismo de entrada/salida de datos, típicamente una base relacional
  * Esta clase contiene ventanas antes y despues de la conexión de la fuente
  * 
- * @package Librerias
- * @subpackage Fuentes
+ * @package Fuentes
  */
 class toba_fuente_datos
 {

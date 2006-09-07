@@ -1,8 +1,19 @@
 <?php
-//GET
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
 
+/**
+ * Representa la sesión del usuario en la aplicacion. En su ciclo de vida presenta tres momentos:
+ *  - Inicio, donde se producen validaciones (generalmente despues de un login)
+ *  - Nudo o refresco, donde se valida que no haya excedido el tiempo de no-interaccion, etc
+ *  - Finalizacion. Se borra toda la informacion de la sesion en memoria
+ * 
+ * Cabe aclarar que el sentido de la sesion es orientada al ciclo de vida del usuario en este proyecto y no
+ * sobre el  $_SESSION, siendo éste un contenedor de información manejado en bajo nivel por lo que llamamos memoria
+ * @see toba_memoria
+ * 
+ * @package Centrales
+ */
 class toba_sesion
 {
 	static private $instancia;
@@ -17,12 +28,18 @@ class toba_sesion
 	}
 
 	protected function __construct(){}	
-	
+
+	/**
+	 * Hay una sesion iniciada?
+	 */
 	function activa()
 	{
 		return isset($_SESSION['toba']['id']);
 	}
-	
+
+	/**
+	 * Refresca la sesion, esto se produce con una sesion activa() una vez por pedido de página
+	 */
 	function controlar_estado_activacion()
 	{
 		if ( $this->activa() ) {
@@ -81,6 +98,10 @@ class toba_sesion
 		return isset($_GET[apex_sesion_qs_finalizar])&&($_GET[apex_sesion_qs_finalizar]==1);
 	}	
 	
+	/**
+	 * Intenta iniciar la sesion de un par usuario/clave
+	 * @return Excepcion toba_error si no valida
+	 */
 	function iniciar($usuario, $clave=null)
 	{
 		$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
@@ -129,8 +150,11 @@ class toba_sesion
 		}
 	}
 
+	/**
+	 * Cierra una sesion
+	 * @return Excepcion toba_reset_nucleo si hay una solicitud en curso
+	 */
 	function finalizar($observaciones="")
-	//Cierra una sesion de la aplicacion
 	{
 		if (isset($_SESSION['toba']["id"]))
 		{
@@ -165,12 +189,25 @@ class toba_sesion
 		}
 	}
 
+	/**
+	 * Ventana de extensión del inicio de la sesion de un usuario
+	 */
 	protected function conf__inicio($usuario) {}
-	
+
+	/**
+	 * Ventana de extensión del fin de la sesión actual
+	 */	
 	protected function conf__fin() {}
-	
+
+	/**
+	 * Ventana de extensión de la refresco o actualización de la sesión actual
+	 */		
 	protected function conf__actualizar_sesion() {}
 	
+	/**
+	 * Retorna el grupo de acceso de la sesion actual
+	 * @see toba_usuario::get_grupo_acceso
+	 */
 	function get_grupo_acceso()
 	{
 		if( toba_editor::modo_prueba() && (toba_proyecto::get_id() != toba_editor::get_id())) {

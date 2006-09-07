@@ -4,8 +4,7 @@
  * A travez de esta clase el nucleo registra al toba_editor
  * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
  * proyecto editor y nucleo. Por simplicidad se deja todo junto.
- * @package Librerias
- * @subpackage Varios
+ * @package Varios
  */
 class toba_editor
 {

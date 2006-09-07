@@ -5,7 +5,7 @@
  *  - Include centralizado de recursos js
  *  - Conversión de estructuras de datos entre php y js
  * 
- * @package Base
+ * @package SalidaGrafica
  */
 class toba_js
 {

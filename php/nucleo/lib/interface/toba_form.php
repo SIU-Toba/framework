@@ -5,8 +5,7 @@ require_once("nucleo/lib/toba_recurso.php");
  * Clase estática con métodos que encapsulan los tags de un formulario HTML
  * Estos métodos son de bajisimo nivel y son solo shorcuts para evitar escribir html directo
  * 
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 class toba_form 
 {

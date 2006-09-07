@@ -1,6 +1,11 @@
-<?
+<?php
 
-interface definicion_toba
+/**
+ * Interface que deben respetar las clases de definicion de los componentes
+ *
+ * @package Componentes
+ */
+interface toba_componente_definicion
 {
 	//Indica que tablas conforman a un componente
 	static function get_estructura(); 				

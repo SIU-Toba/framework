@@ -171,7 +171,7 @@ class toba_ei_pantalla extends toba_ei
 			case "tab_h":
 			case "tab_v":
 				foreach ($this->lista_tabs as $id => $tab) {
-					$this->eventos += eventos::ci_cambiar_tab($id);
+					$this->eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);
 				}
 				break;
 			case "wizard":

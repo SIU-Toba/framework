@@ -2,8 +2,7 @@
 
 /**
  * Funciones varias relacionadas con transformación de formatos hacia HTML
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 
 	function formato_escapar($valor)

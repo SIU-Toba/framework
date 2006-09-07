@@ -3,8 +3,7 @@
 
 /**
  * Genera un pdf a través de una api básica
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 class toba_pdf
 {

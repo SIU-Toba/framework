@@ -1,5 +1,10 @@
-<?
+<?php
 
+/**
+ * Consultas transversales sobre componentes
+ * 
+ * @package Componentes
+ */
 class toba_catalogo
 {
 	/**

@@ -1,8 +1,22 @@
 <?php
 require_once('nucleo/lib/toba_boton.php');
 
+/**
+ * Representa a un tab o solapa, ya sea vertical u horizontal
+ * @package Componentes
+ * @subpackage Eis
+ */
 class toba_tab extends toba_boton
 {
+	/**
+	 * Retorna el HTML del tab
+	 *
+	 * @param string $tipo 'V' para vertical o 'H' para horizontal
+	 * @param string $id_submit Id. unico del contenedor (utilizado para formar el id del tab)
+	 * @param string $id_componente Id. de js del componente contenedor
+	 * @param boolean $clickeable
+	 * @param string $estilo Clase css
+	 */
 	function get_html($tipo, $id_submit, $id_componente, $clickeable=true, $estilo=null)
 	{
 		if( ($tipo != 'V') && ($tipo != 'H') ) {

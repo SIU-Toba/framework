@@ -2,8 +2,7 @@
 
 /**
  * Parser de links tipo wiki en una ayuda o descripción
- * @package Librerias
- * @subpackage Varios
+ * @package Varios
  */
 class toba_parser_ayuda
 {

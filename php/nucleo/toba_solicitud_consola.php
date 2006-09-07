@@ -4,6 +4,8 @@
  * Solicitud pensada para ejecutar items en la consola
  * De esta forma se cuenta con la capacidad de usar las librerias de toba
  * aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
+ * 
+ * @package Centrales
  */
 class toba_solicitud_consola extends solicitud
 {

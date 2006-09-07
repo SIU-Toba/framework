@@ -2,8 +2,7 @@
 
 /**
  * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
- * @package Librerias
- * @subpackage Validacion
+ * @package Validacion
  */
 class toba_permisos
 {

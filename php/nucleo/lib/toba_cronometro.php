@@ -7,8 +7,7 @@ define("apex_nivel_lib","lib");
 
 /**
  * Permite medir el tiempo consumido entre marcas y opcionalmente registrarlo en la base de la instancia
- * @package Librerias
- * @subpackage Varios
+ * @package Debug
  */
 class toba_cronometro
 {

@@ -701,7 +701,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		parent::cargar_lista_eventos();
 		if (! $this->info_formulario['filas_agregar_online']) {
-			$this->eventos +=eventos::ml_registro_nuevo();
+			$this->eventos['pedido_registro_nuevo'] = array('maneja_datos' => true);
 		}
 	}
 

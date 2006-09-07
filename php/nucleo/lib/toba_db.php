@@ -3,8 +3,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 
 /**
  * Este archivo posee shortcuts de acceso a las bases
- * @package Librerias
- * @subpackage Fuentes
+ * @package Fuentes
  */
 	/**
 	*	@see toba_db::consultar()

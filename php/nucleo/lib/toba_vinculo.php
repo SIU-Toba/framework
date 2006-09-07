@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Mantiene un vinculo especifico y brinda una api para poder manipularlo
+ * @package Centrales
+ */
 class toba_vinculo
 {
 	private $item;
@@ -32,6 +36,9 @@ class toba_vinculo
 		}
 	}
 	
+	/**
+	 * Cambia el item destino del vinculo
+	 */
 	function set_item( $proyecto, $item )
 	{
 		$this->item = $item;
@@ -48,11 +55,17 @@ class toba_vinculo
 		return $this->proyecto;
 	}
 	
+	/**
+	 * Cambia los parametros de la URL generada por el vinculo
+	 */	
 	function set_parametros( $parametros )
 	{
 		$this->parametros = $parametros;	
 	}
 
+	/**
+	 * Agrega parametros a la URL generada por el vinculo
+	 */
 	function agregar_parametro($clave, $valor)
 	{
 		$this->parametros[$clave] = $valor;

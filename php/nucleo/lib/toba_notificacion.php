@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Clase que mantiene notificaciones al usuario a incluirse en el página actual
- * @package Base
+ * Clase que mantiene notificaciones al usuario a mostrarse en el página actual
+ * 
+ * @package SalidaGrafica
  */
 class toba_notificacion
 {

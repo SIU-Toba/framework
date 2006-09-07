@@ -1,7 +1,7 @@
 <?php
 /**
  * Excepciones particulares disparadas dentro del núcleo
- * @package Nucleo
+ * @package Centrales
  * @subpackage Errores
  */
 

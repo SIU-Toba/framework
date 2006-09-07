@@ -2,7 +2,7 @@
 
 /**
  * Interface que debe implementar una extensión o redefinición de toba::usuario()
- * @package Base
+ * @package Centrales
  */
 interface toba_interface_usuario
 {

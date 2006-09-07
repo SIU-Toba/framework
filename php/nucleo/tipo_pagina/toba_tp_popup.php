@@ -1,6 +1,13 @@
 <?php
 require_once("toba_tp_basico_titulo.php");
 
+/**
+ * Formato de página pensado para un popup. 
+ * Se incluye un javascript para poder comunicarse con la ventana padre y además se almacena
+ * en la memoria el ef que origino la apertura del popup para poder hacer esta comunicación.
+ *
+ * @package SalidaGrafica
+ */
 class toba_tp_popup extends toba_tp_basico_titulo 
 {
 	

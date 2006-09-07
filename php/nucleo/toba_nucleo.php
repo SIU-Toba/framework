@@ -23,6 +23,7 @@ require_once('nucleo/componentes/toba_catalogo.php');		//Catalogo de componentes
 
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
+ * @package Centrales
  */
 class toba_nucleo
 {

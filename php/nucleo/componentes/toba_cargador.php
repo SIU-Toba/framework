@@ -2,6 +2,10 @@
 require_once('lib/cache_db.php');
 require_once('modelo/estructura_db/tablas_componente.php');
 
+/**
+ * Puerta de acceso a los metadatos de los componentes del proyecto actual
+ * @package Componentes
+ */
 class toba_cargador
 {
 	static private $instancia;

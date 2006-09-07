@@ -1,6 +1,10 @@
-<?
+<?php
 require_once('lib/manejador_archivos.php');
 
+/**
+ * Construye los objetos php relacionados con componentes especificos
+ * @package Componentes
+ */
 class toba_constructor
 {
 	static $objetos_runtime_instanciados;		// Referencias a los objetos creados

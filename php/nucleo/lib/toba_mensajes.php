@@ -2,7 +2,7 @@
 
 /**
  * Obtiene los mensajes del proyecto definidos en el editor, útiles para evitar fijar los mensajes del usuario en el código
- * @package Librerias
+ * @package Fuentes
  */
 class toba_mensajes
 {

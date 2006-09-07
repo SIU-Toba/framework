@@ -2,8 +2,7 @@
 
 /**
  * Utilidades para hacer DUMPs de Arboles, Tablas y Variable
- * @package Librerias
- * @subpackage Varios
+ * @package Debug
  */
 
 	function dump_sql($sql)

@@ -2,6 +2,15 @@
 require_once("toba_tp_basico_titulo.php");
 require_once("nucleo/lib/interface/toba_form.php");
 
+/**
+ * Este tipo de página incluye una cabecera con:
+ *  - Menú
+ *  - Logo
+ *  - Información básica del usuario logueado
+ *  - Capacidad de cambiar de proyecto 
+ *  - Capacidad de desloguearse
+ * @package SalidaGrafica
+ */
 class toba_tp_normal extends toba_tp_basico_titulo
 {
 	protected $menu;

@@ -1,6 +1,11 @@
-<?
+<?php
 require_once("toba_tp_basico.php");
 
+/**
+ * Tipo de página pensado para pantallas de login, presenta un logo y un pie de página básico
+ * 
+ * @package SalidaGrafica
+ */
 class toba_tp_logon extends toba_tp_basico
 {
 

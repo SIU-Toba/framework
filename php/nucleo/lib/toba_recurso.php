@@ -4,8 +4,7 @@ require_once("nucleo/lib/toba_parser_ayuda.php");
 
 /**
  * Brinda servicios generales de salida HTML
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 class toba_recurso {
 

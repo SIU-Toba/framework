@@ -4,8 +4,7 @@ require_once('nucleo/lib/toba_dba.php');
 
 /**
  * Colección de Fuentes de Datos (toba_fuente_datos)
- * @package Librerias
- * @subpackage Fuentes
+ * @package Fuentes
  */
 class toba_admin_fuentes
 {

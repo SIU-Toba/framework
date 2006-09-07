@@ -16,6 +16,8 @@ require_once("lib/parseo.php");					       		//Funciones de parseo
  * La etapa de request se la denomina de 'eventos' 
  * La etapa de response se la denomina de 'servicios'
  * 
+ * @package Centrales
+ * 
  * @todo Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo
  */
 class toba_solicitud_web extends toba_solicitud

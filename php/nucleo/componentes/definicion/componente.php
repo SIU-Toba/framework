@@ -1,7 +1,7 @@
 <?php
 require_once('interfaces.php');
 
-class componente_toba implements definicion_toba
+class componente_toba implements toba_componente_definicion
 {
 	static function get_estructura()
 	{

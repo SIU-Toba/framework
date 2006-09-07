@@ -4,8 +4,7 @@
  * Maneja HEADERS de HTTP.
  * Hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
  * 
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 class toba_http
 {

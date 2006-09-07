@@ -1,6 +1,10 @@
 <?php
 require_once('toba_interface_usuario.php');
 
+/**
+ * Encapsula al usuario actualmente logueado a la instancia
+ * @package Centrales
+ */
 class toba_usuario implements toba_interface_usuario
 {
 	static private $instancia;

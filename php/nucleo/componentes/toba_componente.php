@@ -1,5 +1,4 @@
 <?php
-
 define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
 
 /**

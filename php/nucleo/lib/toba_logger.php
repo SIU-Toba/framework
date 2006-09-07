@@ -12,7 +12,7 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
  * Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis
  * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
  * 
- * @package Librerias
+ * @package Debug
  */
 class toba_logger
 {

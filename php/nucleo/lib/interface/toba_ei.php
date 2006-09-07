@@ -2,8 +2,7 @@
 
 /**
  * Funciones varias relacionadas con generación de markup HTML
- * @package Librerias
- * @subpackage SalidaGrafica
+ * @package SalidaGrafica
  */
 
 	function pre($txt)

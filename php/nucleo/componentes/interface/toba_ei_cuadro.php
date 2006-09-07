@@ -176,7 +176,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		parent::cargar_lista_eventos();
 		if($this->info_cuadro["ordenar"]) { 
-			$this->eventos += eventos::ordenar();		
+			$this->eventos['ordenar'] = array('maneja_datos' => true);
 		}
 		if ($this->info_cuadro["paginar"]) {
 			$this->eventos += eventos::cambiar_pagina();

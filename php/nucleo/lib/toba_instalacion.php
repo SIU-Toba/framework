@@ -4,7 +4,7 @@
  * Clase que mantiene información común a la actual instalación de toba
  * Enmascara principalmente al archivo de configuración instalacion.ini
  * 
- * @package Base
+ * @package Centrales
  */
 class toba_instalacion
 {

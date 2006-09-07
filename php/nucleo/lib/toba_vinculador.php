@@ -3,7 +3,7 @@
 /**
  * Esta clase maneja la VINCULACION entre ITEMS. Conoce todos los lugares a los que el 
  * ITEM actual puede acceder (considerando el USUARIO que lo solicito)
- * @package Utilidades
+ * @package Centrales
  * @todo que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual
  */
 class toba_vinculador 

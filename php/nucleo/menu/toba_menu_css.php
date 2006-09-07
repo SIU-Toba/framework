@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Menu CSS basado en SimpleMenu
+ * @package SalidaGrafica
+ */
 class toba_menu_css extends toba_menu
 {
 	private $items;
@@ -21,7 +25,7 @@ class toba_menu_css extends toba_menu
 	
 	//-----------------------------------------------------------
 	
-	function preparar_arbol ()
+	function preparar_arbol()
 	{
 
 		$this->arbol .= '<style type="text/css">

@@ -4,7 +4,7 @@
  * Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
  * Enmascara principalmente al archivo de configuración instancia.ini de la instancia actual
  * 
- * @package Base
+ * @package Centrales
  */
 class toba_instancia
 {

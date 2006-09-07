@@ -2,7 +2,8 @@
 require_once('nucleo/toba_nucleo.php');
 
 /**
- * Clase estática que contiene shorcuts a las clases centrales del nucleo
+ * Clase estática que contiene shortcuts a las clases centrales del nucleo
+ * @package Centrales
  */
 class toba
 {

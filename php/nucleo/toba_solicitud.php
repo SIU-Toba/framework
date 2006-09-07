@@ -5,6 +5,8 @@ require_once("nucleo/lib/toba_vinculador.php");
 /**
  * Una solicitud es la representación de una operación o item en runtime
  * Contiene e instancia a los componentes de la operación
+ * 
+ * @package Centrales
  */
 abstract class toba_solicitud
 {
