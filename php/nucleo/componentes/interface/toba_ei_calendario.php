@@ -142,9 +142,9 @@ class toba_ei_calendario extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		$this->eventos += eventos::seleccionar_dia();
-		$this->eventos += eventos::seleccionar_semana();
-		$this->eventos += eventos::cambiar_mes();
+		$this->eventos['seleccionar_dia'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar el día');
+		$this->eventos['seleccionar_semana'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar la semana');
+		$this->eventos['cambiar_mes'] = array('maneja_datos'=>true, 'ayuda'=> 'Cambiar de mes');
 	}
 	
 	function disparar_eventos()
@@ -340,7 +340,7 @@ class calendario extends activecalendar
 					$out.="<option value=\"".$z."\">".$z."</option>\n";
 			}
 			$out.="</select>\n";
-			$evento_js = eventos::a_javascript('cambiar_mes', $eventos["cambiar_mes"]);
+			$evento_js = toba_js::evento('cambiar_mes', $eventos["cambiar_mes"]);
 			$js = "{$objeto_js}.set_evento($evento_js);";
 			$out.="<input type=\"submit\" value=\"".$this->selBtn."\" class=\"".$this->cssPickerButton."\" style='cursor: pointer;;cursor:hand;' onclick=\"$js\"></input>\n";
 			$out.="</td></tr>\n";
@@ -424,7 +424,7 @@ class calendario extends activecalendar
 			if ($this->compare_week($this->weekNumber($date),$this->actyear) == 1) 
 				$out = "<td class=\"".$this->cssWeekNoSelec."\">".$this->weekNumber($date)."</td>\n";	
 			else {	
-				$evento_js = eventos::a_javascript('seleccionar_semana', $eventos["seleccionar_semana"], "{$this->weekNumber($date)}||{$this->mkActiveDate('Y',$date)}");
+				$evento_js = toba_js::evento('seleccionar_semana', $eventos["seleccionar_semana"], "{$this->weekNumber($date)}||{$this->mkActiveDate('Y',$date)}");
 				$js = "{$objeto_js}.set_evento($evento_js);";
 				
 				if ($week == $this->getSelectedWeek() && $year == $this->getSelectedYear())
@@ -458,7 +458,7 @@ class calendario extends activecalendar
 		$eventContent = $this->mkEventContent($var);
 		$content = ($this->showEvents) ? $eventContent : "";
 		
-		$evento_js = eventos::a_javascript('seleccionar_dia', $eventos["seleccionar_dia"], "{$day}||{$this->actmonth}||{$this->actyear}");
+		$evento_js = toba_js::evento('seleccionar_dia', $eventos["seleccionar_dia"], "{$day}||{$this->actmonth}||{$this->actyear}");
 		$js = "{$objeto_js}.set_evento($evento_js);";
 		$day = $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear);
 		if ($this->compare_date($day) == 1)

@@ -75,7 +75,7 @@ class toba_ei_arbol extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		$this->eventos += eventos::ver_propiedades();
+		$this->eventos['ver_propiedades'] = array('maneja_datos' => true);
 	}	
 	
 	function disparar_eventos()

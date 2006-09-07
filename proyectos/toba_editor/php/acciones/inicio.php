@@ -166,7 +166,7 @@ echo '<div style="text-align:left">';
 	$prohibidos['filtrar_evt__'] = '';
 	$prohibidos['modificar_vinculo__'] = '';
 	$prohibidos['__puede_mostrar_pantalla'] = 'Setear la pantalla correcta en el conf() del ci. Ver el ejemplo del proyecto referencia.';
-	
+	$prohibidos['eventos::'] = "Definir los eventos en el administrador. Luego es posible manipularlos ya que es una clase toba_evento_usuario (ej. en el ci $this->pantalla()->evento('tal')->)";
 	
 	$dir = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado());
 	$archivos = manejador_archivos::get_archivos_directorio( $dir, '/\.php$/', true);

@@ -20,16 +20,6 @@ class extension_ci extends toba_ci
         return $propiedades; 
     } 
 
-	//Se le agrega un evento borrar al cuadro	
-	function get_lista_eventos()
-	{
-		$eventos = parent::get_lista_eventos();
-		//Se agrega un evento 'mi_evento' global al cuadro
-		$mi_evento = eventos::evento_estandar('mi_evento',  'Evento global agregado en el CI');
-		$eventos += $mi_evento;
-		return $eventos;
-	}	
-	
 	function evt__filtro__filtrar($datos)
 	{
 		$this->datos_filtro = $datos;

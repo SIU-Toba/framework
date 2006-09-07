@@ -240,5 +240,22 @@ class toba_js
 		return pasar_a_unica_linea($cadena);
 	}
 
+	/**
+	 * Retorna el codigo necesario para crear un evento en js
+	 *
+	 * @param string $id Id. del evento
+	 * @param string $evento Datos del evento, en forma de arreglo
+	 */
+	static function evento($id, $evento, $parametros = null)
+	{
+		$js_confirm = isset( $evento['confirmacion'] ) ? "'{$evento['confirmacion']}'" : "''";
+		$js_validar = isset( $evento['maneja_datos'] ) ? toba_js::bool($evento['maneja_datos']) : "true";
+		if (is_array($parametros))
+			$param = ", ".toba_js::arreglo($parametros, true);
+		else		
+			$param = (isset($parametros)) ? ", '$parametros'" : '';
+		return "new evento_ei('$id', $js_validar, $js_confirm $param)";
+	}	
+
 }
 ?>
