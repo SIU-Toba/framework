@@ -1,18 +1,22 @@
 <?php
 
+/**
+ * Maneja HEADERS de HTTP.
+ * Hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
+ * 
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
 class toba_http
 {
-//Maneja HEADERS de HTTP.
-//Atencion, hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start
-
-	function cache()
+	static function cache()
 	//Induce al BROWSER a cachear esta pagina
 	{
 		//Atencion!! Esto no funcion si se llama despues del session_start()!!!!
         session_cache_limiter ('private');
 	}
 
-	function no_cache()
+	static function no_cache()
 	//Induce al BROWSER a NO cachear esta pagina
 	{
         header("Expires: Mon, 26 Jul 1987 05:00:00 GMT");					// Pone una fecha vieja
@@ -32,7 +36,7 @@ class toba_http
 		header('Content-Type: text/html; charset=iso-8859-1');
 	}
 
-	function headers_standart()
+	static function headers_standart()
 	//Manejo standart de headers
 	{
 		//Parche para solucionar el error del HISTORY BACK de los browsers:

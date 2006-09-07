@@ -1,4 +1,9 @@
 <?php
+/**
+ * Excepciones particulares disparadas dentro del núcleo
+ * @package Nucleo
+ * @subpackage Errores
+ */
 
 /**
 * Error interno de toba

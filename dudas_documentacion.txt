@@ -4,13 +4,6 @@ nucleo_toba:
 solicitud_web
  - Porque atrapa la excepcion_reset_nucleo y la vuelve a disparar?
  
- 
- get_proyecto_path_www => toba::proyecto()->get_path_www()
- get_proyecto_path => toba::proyecto()->get_path()
- get_path_temp => toba::instalacion()->get_path_temp();
- get_path => toba::instalacion()->get_path();
- get_path_temp_www => toba::proyecto()->get_path_temp_www();
- get_proyecto() => toba::proyecto()->get_id();
- get_usuario() => toba::usuario()->get_id()
- 
+toba_proyecto:
+ - Porque contiene a get_definicion_dependencia?
  

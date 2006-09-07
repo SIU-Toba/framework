@@ -1,10 +1,13 @@
-<?
+<?php
+
 /**
-*	Administra la utilizacion de bases de datos durante la ejecucion
-*
-*	@todo 	- hay que sacar la suposicion de que si no se pasa un nombre se utilice la conexion 'instancia'
-*				(algo puede funcionar en el administrador y dejar de andar en un proyecto)
-*			- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia
+ *	Administra la utilizacion de bases de datos durante la ejecucion
+ *
+ *	@todo 	- hay que sacar la suposicion de que si no se pasa un nombre se utilice la conexion 'instancia'
+ *				(algo puede funcionar en el administrador y dejar de andar en un proyecto)
+ *			- Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia
+ * @package Librerias
+ * @subpackage Fuentes
 */
 class toba_dba
 {

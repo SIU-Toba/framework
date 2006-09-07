@@ -1,6 +1,13 @@
 <?php
 require_once('toba_instancia.php');
 
+/**
+ * Brinda servicios de información sobre el proyecto actualmente cargado en el framework:
+ *  - Información del archivo de configuración proyecto.ini, cacheandolo en la memoria
+ *  - Información de la definición básica en el editor (e.i. los metadatos)
+ * 
+ * @package Base
+ */
 class toba_proyecto
 {
 	static private $instancia;
@@ -32,12 +39,19 @@ class toba_proyecto
 		}
 	}
 
+	/**
+	 * Fuerza una recarga de toda la información cacheada
+	 */
 	function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['proyectos'][self::get_id()]);
 		self::$instancia = null;
 	}
 
+	/**
+	 * Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria
+	 * @return toba_error si el parametro no se encuentra definido, sino el valor del parámetro
+	 */
 	function get_parametro($id)
 	{
 		if( defined( self::prefijo_punto_acceso . $id ) ){
@@ -53,6 +67,9 @@ class toba_proyecto
 		}	
 	}
 
+	/**
+	 * Cachea en la memoria un par clave-valor del proyecto actual
+	 */
 	function set_parametro($id, $valor)
 	{
 		$_SESSION['toba']['proyectos'][self::get_id()][$id] = $valor;
@@ -62,12 +79,16 @@ class toba_proyecto
 	// DATOS
 	//----------------------------------------------------------------	
 
+	/**
+	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
+	 * @return toba_db
+	 */
 	static function get_db()
 	{
 		return toba::instancia()->get_db();
 	}
 		
-	function cargar_info_basica()
+	protected function cargar_info_basica()
 	{
 		$sql = "SELECT	proyecto as				nombre,
 						p.descripcion as		descripcion,
@@ -121,6 +142,9 @@ class toba_proyecto
 		return $this->get_parametro('listar_multiproyecto');
 	}
 
+	/**
+	 * Retorna el path base absoluto del proyecto
+	 */
 	function get_path()
 	{
 		return $_SESSION['toba']["path_proyecto"];
@@ -132,8 +156,7 @@ class toba_proyecto
 	 */
 	function get_path_www($archivo="")
 	{
-		$path_real = $this->get_path();
-		$path_real = $path_real . "/www/" . $archivo;
+		$path_real = $this->get_path() . "/www/" . $archivo;
 		$path_browser = toba_recurso::path_pro();
 		if ($archivo != "") {
 		 	$path_browser .= "/" . $archivo;
@@ -197,13 +220,26 @@ class toba_proyecto
 	
 	//------------------------  ITEMS  -------------------------
 
-	function items_menu($solo_primer_nivel=false, $proyecto, $grupo_acceso)
+	/**
+	 * Retorna la lista de items a los que puede acceder el usuario
+	 *
+	 * @param unknown_type $solo_primer_nivel
+	 * @param string $proyecto Por defecto el actual
+	 * @param string $grupo_acceso Por defecto el del usuario actual
+	 * @return array RecordSet contienendo información de los items
+	 */
+	function items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
 	{
 		$rest = "";
 		if ($solo_primer_nivel) {
 			$rest = " AND i.padre = '' ";
 		}
-		$grupo = toba::sesion()->get_grupo_acceso();
+		if (!isset($proyecto)) {
+			$proyecto = $this->get_id();
+		}
+		if (!isset($grupo_acceso)) {
+			$grupo_acceso = toba::sesion()->get_grupo_acceso();	
+		}
 		$sql = "SELECT 	i.padre as 		padre,
 						i.carpeta as 	carpeta, 
 						i.proyecto as	proyecto,
@@ -221,6 +257,10 @@ class toba_proyecto
 		return self::get_db()->consultar($sql);
 	}	
 
+	/**
+	 * Valida que un grupo de acceso tenga acceso a un item
+	 * @return toba_error Si el grupo no tiene permisos suficientes
+	 */
 	static function control_acceso_item($item, $grupo_acceso)
 	{
 		$sql = "	SELECT	1 as ok
@@ -239,6 +279,9 @@ class toba_proyecto
 
 	//------------------------  Permisos  -------------------------
 	
+	/**
+	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
+	 */
 	static function get_lista_permisos($grupo)
 	{
 		$sql = " 
@@ -248,7 +291,7 @@ class toba_proyecto
 				apex_permiso_grupo_acc per_grupo,
 				apex_permiso per
 			WHERE
-				per_grupo.proyecto = '".toba_proyecto::get_id()."'
+				per_grupo.proyecto = '".self::get_id()."'
 			AND	per_grupo.usuario_grupo_acc = '$grupo'
 			AND	per_grupo.permiso = per.permiso
 			AND	per_grupo.proyecto = per.proyecto
@@ -256,6 +299,9 @@ class toba_proyecto
 		return self::get_db()->consultar($sql);
 	}
 	
+	/**
+	 * Retorna la descripción asociada a un permiso global particular del proy. actual
+	 */
 	static function get_descripcion_permiso($permiso)
 	{
 		$sql = " 

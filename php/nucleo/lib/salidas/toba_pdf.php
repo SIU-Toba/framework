@@ -1,6 +1,11 @@
-<?
+<?php
 //require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
 
+/**
+ * Genera un pdf a través de una api básica
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
 class toba_pdf
 {
 	private $objetos = array();

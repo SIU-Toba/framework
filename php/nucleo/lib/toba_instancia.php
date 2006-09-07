@@ -1,12 +1,19 @@
-<?
+<?php
+
 /**
-*	Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
-*/
+ * Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
+ * Enmascara principalmente al archivo de configuración instancia.ini de la instancia actual
+ * 
+ * @package Base
+ */
 class toba_instancia
 {
 	static private $instancia;
 	static protected $id;
 	
+	/**
+	 * @return toba_instancia
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
@@ -19,11 +26,14 @@ class toba_instancia
 	{
 		if(!isset($_SESSION['toba']['instancia'])) {
 			//incluyo el archivo de informacion basica de la INSTANCIA
-			$_SESSION['toba']['instancia'] = self::get_toba_instancia( self::get_id() );
+			$_SESSION['toba']['instancia'] = self::get_datos_instancia( self::get_id() );
 		}
 	}
 	
-	function get_toba_instancia($id_instancia)
+	/**
+	 * Retorna el contenido del archivo instancia.ini de la instancia 
+	 */
+	static function get_datos_instancia($id_instancia)
 	{
 		$archivo = toba_dir() . '/instalacion/i__' . $id_instancia . '/instancia.ini';
 		if ( is_file( $archivo ) ) {
@@ -51,12 +61,19 @@ class toba_instancia
 		return self::$id;
 	}
 	
+	/**
+	 * Destructor de la clase
+	 */	
 	function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['instancia']);
 		self::$instancia = null;
 	}
 
+	/**
+	 * Retorna un vinculo a la base de datos que forma parte de la instancia
+	 * @return toba_db
+	 */
 	static function get_db()
 	{
 		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
@@ -66,6 +83,9 @@ class toba_instancia
 		}
 	}
 	
+	/**
+	 * Retorna el path absoluto de un proyecto perteneciente a esta instancia
+	 */
 	static function get_path_proyecto($proyecto)
 	{
 		//incluyo el archivo de informacion basica de la INSTANCIA
@@ -111,6 +131,12 @@ class toba_instancia
 
 	//------------------------- USUARIOS -------------------------------------
 	
+	/**
+	 * Retorna la información cruda de un usuario, tal como está en la base de datos
+	 * Para hacer preguntas del usuario actual utilizar toba::usuario()->
+	 *
+	 * @see toba_usuario
+	 */
 	static function get_info_usuario($usuario)
 	{
 		$sql = "SELECT	usuario as							id,
@@ -235,6 +261,9 @@ class toba_instancia
 
 	//-------------------- PROYECTOS  ----------------------------
 	
+	/**
+	 * Retorna las urls de los proyectos actualmente incluídos en la instancia
+	 */
 	static function get_url_proyectos($proys)
 	{
 		$salida = array();
@@ -248,7 +277,10 @@ class toba_instancia
 		}
 		return $salida;
 	}
-	
+
+	/**
+	 * Retorna la lista de proyectos a los cuales el usuario actual puede ingresar
+	 */
 	static function get_proyectos_accesibles($refrescar=false)
 	{
 		if ($refrescar || ! isset($_SESSION['toba']['instancia']['proyectos_accesibles'])) {

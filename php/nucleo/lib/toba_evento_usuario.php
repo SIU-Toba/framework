@@ -1,6 +1,11 @@
 <?php
 require_once('nucleo/lib/toba_boton.php');
 
+/**
+ * Representa la forma de graficar un evento
+ * @package Componentes
+ * @subpackage Eis
+ */
 class toba_evento_usuario extends toba_boton
 {
 	protected $vinculo;
@@ -55,6 +60,10 @@ class toba_evento_usuario extends toba_boton
 		return ( $this->datos['implicito'] == true );
 	}
 	
+	/**
+	 * El evento predeterminado si se encuentra en botonera se dispara al presionar la tecla ENTER.
+	 * En caso de existir más de uno en una página el browser utiliza el primero en el orden del fuente HTML.
+	 */
 	function es_predeterminado()
 	{
 		return ( $this->datos['defecto'] == true );

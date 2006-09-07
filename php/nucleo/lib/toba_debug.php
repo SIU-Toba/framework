@@ -1,7 +1,10 @@
 <?php
-//##############################################################################
-//######    Utilidades para hacer DUMPs de Arboles, Tablas y Variables    ######
-//##############################################################################
+
+/**
+ * Utilidades para hacer DUMPs de Arboles, Tablas y Variable
+ * @package Librerias
+ * @subpackage Varios
+ */
 
 	function dump_sql($sql)
 	{

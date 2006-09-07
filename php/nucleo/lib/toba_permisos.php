@@ -1,18 +1,31 @@
 <?php
 
 /**
- * Permite hacer validaciones de permisos particulares sobre el usuario actual
+ * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
+ * @package Librerias
+ * @subpackage Validacion
  */
 class toba_permisos
 {
 	static private $instancia;
 	protected $permisos;
 	
+	static function instancia()
+	{
+		if (!isset(self::$instancia)) {
+			self::$instancia = new toba_permisos();	
+		}
+		return self::$instancia;	
+	}	
+	
 	private function __construct()
 	{
 	}
 	
-	function cargar($proyecto, $grupo)
+	/**
+	 * Carga la lista de permisos actuales en base a un proyecto y grupo específico
+	 */
+	protected function cargar($proyecto, $grupo)
 	{
 		$permisos = toba_proyecto::get_lista_permisos($grupo);
 		$this->permisos = array();
@@ -22,27 +35,26 @@ class toba_permisos
 		return $this->permisos;
 	}
 	
+	/**
+	 * Cambia la lista de permisos del usuario actual
+	 * @param array $permisos Array de indices permitidos
+	 */
 	function set_permisos($permisos)
 	{
 		$this->permisos = $permisos;	
 	}
-	
-	static function instancia()
-	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_permisos();	
-		}
-		return self::$instancia;	
-	}
-	
+
 	/**
 	 * Valida que el usuario actual tenga un permiso particular
 	 *
-	 * @param string $permiso
+	 * @param string $permiso Indice del permiso a validar
 	 * @param boolean $lanzar_excepcion Si el usuario no posee el permiso, se lanza una excepción, sino retorna falso
 	 */
 	function validar($permiso, $lanzar_excepcion=true)
 	{
+		if (! isset($this->permisos)) {
+			$this->cargar(toba::proyecto()->get_id(), toba::usuario()->get_grupo_acceso());
+		}
 		//El usuario tiene el permiso
 		if (in_array($permiso, $this->permisos)) {
 			return true;

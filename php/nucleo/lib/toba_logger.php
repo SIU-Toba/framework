@@ -8,14 +8,12 @@ define('TOBA_LOG_NOTICE',   5);     /** Normal but significant */
 define('TOBA_LOG_INFO',     6);     /** Informational */
 define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
 
-/*
-	Esto esta basado en la clase de LOG de PEAR
-	Ver tema de mascaras y niveles
-
-	ATENCION: 	esta clase compite con los metodos de registro de la solicitud
-				y con el monitor... hay que pasar lo montado en esos elementos
-				sobre este.
-*/
+/**
+ * Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis
+ * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
+ * 
+ * @package Librerias
+ */
 class toba_logger
 {
 	const separador = "-o-o-o-o-o-";
@@ -32,7 +30,6 @@ class toba_logger
 	
 	private $proximo = 0;
 	private $nivel_maximo = 0;
-	private $datos_registrados = false;
 	private $activo = true;
 	
 	private $dir_logs;
@@ -106,13 +103,6 @@ class toba_logger
 	}
 	
 	/**
-	* @deprecated Desde 0.9.1
-	*/
-	function ocultar()
-	{
-	}
-	
-	/**
 	 * Desactiva el logger en el pedido de página actual
 	 */
 	function desactivar()
@@ -121,12 +111,6 @@ class toba_logger
 		$this->activo = false;
 	}
 	
-	function verificar_datos_registrados()
-	//Informa si se guardo la informacion
-	{
-		return $this->datos_registrados;	
-	}
-
 	
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
@@ -265,16 +249,25 @@ class toba_logger
 		$this->debug(var_export($variable, true), $proyecto);
 	}
 	
+	/**
+	 * Registra un suceso CRITICO (un error muy grave)
+	 */
     function crit($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_CRIT);
     }
-    
+
+	/**
+	 * Registra un error en la apl., este nivel es que el se usa en las excepciones
+	 */    
     function error($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_ERROR);
     }
 
+    /**
+     * Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
+     */
     function warning($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_WARNING);
@@ -306,17 +299,26 @@ class toba_logger
 	    	$this->notice($msg, $proyecto);
     	}
     }
-    
+
+    /**
+     * Registra un suceso no contemplado que no es critico para la aplicacion
+     */    
     function notice($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_NOTICE);
     }
 
+    /**
+     * Registra un suceso netamente informativo, para una inspección posterior
+     */
     function info($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_INFO);
     }
 
+    /**
+     * Registra un suceso útil para rastrear problemas o bugs en la aplicación
+     */
     function debug($mensaje, $proyecto=null)
     {
         return $this->registrar_mensaje($mensaje, $proyecto, TOBA_LOG_DEBUG);
@@ -348,6 +350,9 @@ class toba_logger
 	//---- Manejo de las fuentes de log
 	//------------------------------------------------------------------
 
+	/**
+	 * Guarda los sucesos actuales en el sist. de archivos
+	 */
 	function guardar()
 	{
 		if (!$this->activo) return;
@@ -357,7 +362,6 @@ class toba_logger
 		if(apex_pa_log_db){
 			$this->guardar_db();
 		}
-		$this->datos_registrados = true;		
 	}
 	
 	function directorio_logs()
@@ -512,7 +516,10 @@ class toba_logger
 			rename($path_completo, $nuevo);
 		}
 	}
-	
+
+	/**
+	 * Borra físicamente todos los archivos de log del proyecto actual
+	 */
 	function borrar_archivos_logs()
 	{
 		$patron = "/sistema.log/";
@@ -522,32 +529,5 @@ class toba_logger
 		}
 	}
 	
-	//------------------------------------------------------------------
-	
-	function guardar_db()
-	//Guardar LOG en archivo
-	{
-/*
-		Tiene que haber un metodo para que el log en la DB se haga con un objeto asociado
-		Esto tiene que pisar una tabla del TOBA
-	
-		$archivo = $this->solicitud->hilo->get_proyecto_path() . "/log_sistema.txt";
-		//Abro el archivo
-		$a = fopen($archivo,"a");
-		fwrite($a, "--------- INICIO ---------\n");
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
-		for($a=0; $a<count($this->mensajes); $a++)
-		{
-			if( $mascara_ok & $this->mascara( $this->niveles[$a] ) )
-			{
-				fwrite($a, $this->mensajes[$a]);
-			}			
-		}
-		fclose($a);		
-*/
-	}
-
-
-	//------------------------------------------------------------------
 }
 ?>

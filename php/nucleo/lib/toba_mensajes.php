@@ -1,12 +1,15 @@
-<?
-/*
-	Esta clase obtiene los mensajes guardados en la DB
-*/
+<?php
+
+/**
+ * Obtiene los mensajes del proyecto definidos en el editor, útiles para evitar fijar los mensajes del usuario en el código
+ * @package Librerias
+ */
 class toba_mensajes
 {
+	/**
+	 * Obtiene un mensaje global del proyecto, si no lo encuentra escala buscando el mensaje en el mismo framework
+	 */
 	static function get($indice, $parametros=null)
-	//Obtiene un MENSAJE
-	//Escala del proyecto actual al TOBA si no lo encuentra en el primero
 	{
 		if($mensaje = self::get_proyecto($indice, $parametros)){
 			return $mensaje;
@@ -14,11 +17,12 @@ class toba_mensajes
 			return self::get_toba($indice, $parametros);
 		}
 	}
-	//-----------------------------------------------------
 
+	/**
+	 * Obtiene un mensaje global del framework
+	 * Esto es para errores genericos del motor, etc
+	 */
 	static function get_toba($indice, $parametros=null)
-	//Obtiene un mensaje GLOBAL del proyecto toba
-	//Esto es para errores genericos del motor, etc
 	{
 		$datos = toba_proyecto::get_mensaje_toba($indice);
 		if(!is_array($datos)){
@@ -32,10 +36,11 @@ class toba_mensajes
 		}
 		return $mensaje;		
 	}
-	//-----------------------------------------------------
-	
+
+	/**
+	 * Obtiene un mensaje global del proyecto
+	 */
 	static function get_proyecto($indice, $parametros=null)
-	//Obtiene un mensaje GLOBAL del proyecto
 	{
 		$datos = toba_proyecto::get_mensaje_proyecto($indice);
 		if(!is_array($datos)){
@@ -49,10 +54,11 @@ class toba_mensajes
 		}
 		return $mensaje;
 	}
-	//-----------------------------------------------------
 
+	/**
+	 * Retorna un mensaje asociado a un componente específico
+	 */
 	static function get_objeto($objeto, $indice, $parametros=null)
-	//Obtiene el mensaje asociado a un OBJETO
 	{
 		$datos = toba_proyecto::get_mensaje_objeto($objeto, $indice);
 		if(!is_array($datos)){
@@ -67,11 +73,12 @@ class toba_mensajes
 		}
 		return $mensaje;		
 	}
-	//-----------------------------------------------------
 
+	/**
+	 * Si el mensaje fue definido con comodines (%numero%)
+	 * Estos pueden ser reemplazados por valores provistos en la llamada
+	 */
 	static function parsear_parametros($mensaje, $parametros)
-	//Si el mensaje fue definido con comodines (%numero%)
-	//Estos pueden ser reemplazados por valores provistos en la llamada
 	{
 		if(is_array($parametros)){
 			//Si se enviaron parametros los pongo en el
@@ -87,6 +94,5 @@ class toba_mensajes
 		}
 		return $mensaje;
 	}
-	//-----------------------------------------------------
 }
 ?>

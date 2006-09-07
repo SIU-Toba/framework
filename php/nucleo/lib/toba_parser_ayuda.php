@@ -1,13 +1,16 @@
 <?php
 
 /**
- * Parser de links en una ayuda
+ * Parser de links tipo wiki en una ayuda o descripción
+ * @package Librerias
+ * @subpackage Varios
  */
 class toba_parser_ayuda
 {
 	protected static $tags = array('wiki', 'api', 'link', 'url', 'test');
 	
 	/**
+	 * Determina si una cadena es texto plano o contiene algun formato a parsear y convertir
 	 * @todo Ver una forma de no usar exp.reg. para saber si parsear o no!
 	 */
 	static function es_texto_plano($texto)
@@ -15,6 +18,9 @@ class toba_parser_ayuda
 		return ! preg_match(self::exp_reg(), $texto);
 	}
 	
+	/**
+	 * Busca y reemplaza el formato wiki en un texto
+	 */
 	static function parsear($texto)
 	{
 		$parseado = "";

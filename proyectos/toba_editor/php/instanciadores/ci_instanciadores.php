@@ -44,10 +44,11 @@ abstract class ci_instanciadores extends toba_ci
 	{
 		$this->agregar_dependencia('objeto', $this->id_objeto['proyecto'], $this->id_objeto['objeto']);		
 	}
+
 	
-	function get_lista_ei__simulacion()
+	function conf()
 	{
-		return array("objeto");
+		$this->pantalla()->agregar_dep('objeto');
 	}
 	
 	function generar_interface_grafica()

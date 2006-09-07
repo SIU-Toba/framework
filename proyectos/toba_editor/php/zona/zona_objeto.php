@@ -40,7 +40,7 @@ class zona_objeto extends zona_editor
 		}	
 	}
 
-
+/*
 	function generar_html_barra_vinculos()
 	//Esto es especifico de cada EDITABLE
 	{	
@@ -53,7 +53,7 @@ class zona_objeto extends zona_editor
 			echo toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
 			echo "</a>";
 		}
-	}
+	}*/
 
 	
 	function generar_html_barra_inferior()	

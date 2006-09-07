@@ -49,8 +49,8 @@ class comando_doc extends comando_toba
 		$_phpDocumentor_setting['title'] = "Toba API";
 		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo';
 		$_phpDocumentor_setting['target'] = $dest;
-		//$_phpDocumentor_setting['output'] = "HTML:Smarty:HandS";
-		$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
+		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
+		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
 		

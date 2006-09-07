@@ -1,8 +1,10 @@
 <?php
 
 /**
-*	Ancestro de los botones y tabs definidos en el editor
-*/
+ * Ancestro de los botones y tabs definidos en el editor
+ * @package Componentes
+ * @subpackage Eis
+ */
 class toba_boton
 {
 	protected $datos;
@@ -27,7 +29,6 @@ class toba_boton
 	}
 
 	//--------- Preguntas ---------------------
-
 
 	function esta_activado()
 	{
@@ -105,6 +106,9 @@ class toba_boton
 		$this->datos['confirmacion'] = $texto;
 	}
 
+	/**
+	 * Si un botón esta desactivado no es enviado al cliente como parte del HTML
+	 */
 	function desactivar()
 	{
 		$this->activado = false;			

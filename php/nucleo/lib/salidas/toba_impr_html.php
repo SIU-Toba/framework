@@ -1,6 +1,11 @@
-<?
+<?php
 require_once('toba_impresion.php');
 
+/**
+ * Genera un HTML básico pensado para impresión con un browser
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
 class toba_impr_html implements toba_impresion
 {
 	private $objetos = array();
@@ -13,6 +18,9 @@ class toba_impr_html implements toba_impresion
 		$this->objetos = $objetos;
 	}
 
+	/**
+	 * Envia al browser el HTML con estructura de impresión
+	 */
 	function generar_salida()
 	{
 		$this->generar_html_encabezado();

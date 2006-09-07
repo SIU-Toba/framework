@@ -1,19 +1,13 @@
 <?php
 require_once("nucleo/lib/toba_parser_ayuda.php");
 
-class toba_recurso {
 
-	static function preambulo()
-	//#@desc: Devuelve el preambulo de los links (protocolo utilizado).
-	{
-		if(defined('apex_pa_SSL') && apex_pa_SSL){
-			$protocolo = "https://";
-		}else{
-			$protocolo = "http://";
-		}
-		if (isset($_SERVER['HTTP_HOST']))	//Necesario para ejecutar los test desde consola
-			return $protocolo . $_SERVER["HTTP_HOST"];
-	}
+/**
+ * Brinda servicios generales de salida HTML
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
+class toba_recurso {
 
 	//------------   PATH a las carpetas de toba_recursos   --------------
 
@@ -64,39 +58,38 @@ class toba_recurso {
 			return self::imagen_pro($nombre);
 	}
 	
-	static function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$alt=null,$mapa=null)
-/*	
-    @@acceso: actividad
-    @@desc: Genera un vinculo a las imagenes del proyecto
-	@@param: Imagen (requerido) Imagen que se desea cargar
-	@@param: boolean | Generar el TAG 'img' | false
-	@@param: int | Ancho de la imagen | null
-	@@param: int | Alto de la imagen | null
-	@@param: string | Tooltip de la imagen | null
-	@@param: string | Agregar un MAPA de navegacion | null
- 	@@retorno: string | URL del toba_recurso o TAG 'img' generado, de acuerdo al parametro 2
-*/
+	/**
+	 * Retorna una imagen del proyecto
+	 *
+	 * @param string $imagen Path relativo a www/img de la imagen a generar
+	 * @param boolean $html Generar el TAG 'img' (por def. false)
+	 * @param string $ancho Ancho de la imagen (no oblig.)
+	 * @param string $alto Alto de la imagen (no oblig.)
+	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
+	 * @param string $mapa (no oblig.)
+	 */
+	static function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
 	{
 		$src = toba_recurso::path_pro() . "/img/" . $imagen;
 		if($html){
-			return toba_recurso::imagen($src, $ancho, $alto, $alt, $mapa);
+			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
 		}else{
 			return $src;
 		}
 	}
 	
+	
+	/**
+	 * Retorna una imagen del framework
+	 *
+	 * @param string $imagen Path relativo a www/img de la imagen a generar
+	 * @param boolean $html Generar el TAG 'img' (por def. false)
+	 * @param string $ancho Ancho de la imagen (no oblig.)
+	 * @param string $alto Alto de la imagen (no oblig.)
+	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
+	 * @param string $mapa (no oblig.)
+	 */	
 	static function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
-/*
- 	@@acceso: actividad
-	@@desc: Genera la URL de un toba_recurso de tipo imagen (puede crear el TAG 'img')
-	@@param: string | path relativo de la imagen
-	@@param: boolean | Generar el TAG 'img' | false
-	@@param: int | Ancho de la imagen | null
-	@@param: int | Alto de la imagen | null
-	@@param: string | Tooltip de la imagen | null
-	@@param: string | Agregar un MAPA de navegacion | null
- 	@@retorno: string | URL del toba_recurso o TAG 'img' generado, de acuerdo al parametro 2
-*/
 	{
 		$src = toba_recurso::path_apl() . "/img/" . $imagen;
 		if($html){
@@ -106,19 +99,18 @@ class toba_recurso {
 		}
 	}
 	
+	/**
+	 * Retorna el tag <img>
+	 *
+	 * @param string $src Url utilizada en el src del tag
+	 * @param string $ancho Ancho de la imagen (no oblig.)
+	 * @param string $alto Alto de la imagen (no oblig.)
+	 * @param string $alt Ayuda o tooltip que se muestra (por def. ninguna)
+	 * @param string $mapa (no oblig.)
+	 * @param string $js Evento js (e.g. onclick='...')
+	 * @param string $estilo (e.g. style='...')
+	 */		
 	static function imagen($src,$ancho=null,$alto=null,$alt=null,$mapa=null, $js='', $estilo='')
-/*
- 	@@acceso: interno
-	@@desc: Genera la URL de un toba_recurso de tipo imagen. Funcion utilizada por imagen_apl e imagen_pro
-	@@param: string | path relativo de la imagen
-	@@param: int | Ancho de la imagen | null
-	@@param: int | Alto de la imagen | null
-	@@param: string | Tooltip de la imagen | null
-	@@param: string | Agregar un MAPA de navegacion | null
-	@@param: string | Eventos js | null
-	@@param: string | estilos extra | null
- 	@@retorno: string | URL del toba_recurso o TAG 'img' generado
-*/
 	{
 		$wiki = false;
 		$x = ""; $y = ""; $a="";$m="";
@@ -144,7 +136,7 @@ class toba_recurso {
 	 * @param char $tecla Tecla utiliza para acceder a la acción que contiene la ayuda, puede ser nula
 	 * @param string $ayuda Ayuda que se va a incluir en la acción, no debe contener comillas simples sin quotear
 	 * @param string $clases_css Clases css que se deben incluir en el tag en donde va la ayuda
-	 * @return unknown
+	 * @return Atributos a incluir en un tag img, a, div, etc.
 	 */
 	static function ayuda($tecla, $ayuda='', $clases_css='')
 	{
@@ -171,10 +163,12 @@ class toba_recurso {
 	}	
 	
 	//------------   ACCESO A OTROS   --------------
-	
+
+	/**
+	 * Genera una URL a un recurso js
+	 * @param string $javascript Path relativo del recurso
+	 */
 	static function js($javascript)
-	//#@desc: Genera un vinculo a un archivo javascript independiente
-	//@@par archivo (requerido) Archivo javascript que se desea cargar
 	{
 		return toba_recurso::path_apl() . "/js/" . $javascript;
 	}

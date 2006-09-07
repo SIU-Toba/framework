@@ -1,9 +1,12 @@
-<?
-/*
-	A travez de esta clase el nucleo registra al admin
-	Esta es una clase extraña... su contenido deberia repartirse entre modelo,
-	proyecto editor y nucleo. Por simplicidad se deja todo junto.
-*/
+<?php
+
+/**
+ * A travez de esta clase el nucleo registra al toba_editor
+ * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
+ * proyecto editor y nucleo. Por simplicidad se deja todo junto.
+ * @package Librerias
+ * @subpackage Varios
+ */
 class toba_editor
 {
 	static function get_id()
@@ -20,7 +23,7 @@ class toba_editor
 		$_SESSION['toba']['_editor_']['instancia'] = $instancia;
 		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
 		//Busco el ID de la base donde reside la instancia
-		$parametros_instancia = toba_instancia::get_toba_instancia($instancia);
+		$parametros_instancia = toba_instancia::get_datos_instancia($instancia);
 		$_SESSION['toba']['_editor_']['base'] = $parametros_instancia['base'];
 		//Averiguo el punto de acceso del editor
 		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);	

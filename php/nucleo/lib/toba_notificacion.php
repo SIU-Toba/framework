@@ -1,11 +1,9 @@
-<?
-/*
-	Cola de mensajes a mostrar al usuario
+<?php
 
-	Falta implementar algo asociado a los GRAGOS
-	(que implique el color que se le da al mensaje)
-
-*/
+/**
+ * Clase que mantiene notificaciones al usuario a incluirse en el página actual
+ * @package Base
+ */
 class toba_notificacion
 {
 	private $mensajes = array();
@@ -23,29 +21,45 @@ class toba_notificacion
 	{	
 	}
 	
-	
-	//--------------------------------------------------------------
-
+	/**
+	 * Agrega un mensaje a mostrar al usuario
+	 *
+	 * @param string $mensaje Mensaje completo a mostrar
+	 * @param string $nivel Determina el estilo del mensaje, 'error' o 'info' 
+	 */
 	function agregar($mensaje, $nivel='error')
 	{
 		$this->mensajes[] = array($mensaje, $nivel);
-		//Agrego el mensaje mostrado al usuario al logger como DEBUG
 		toba::logger()->debug("Mensaje a usuario: ".$mensaje, 'toba');
 	}
 
+	/**
+	 * Agrega un mensaje a mostrar al usuario, el mensaje se obtiene con 
+	 * toba::mensajes()->get($indice, $parametros)
+	 *
+	 * @param string $nivel Determina el estilo del mensaje, 'error' o 'info' 
+	 * @see toba_mensajes
+	 */	
 	function agregar_id($indice, $parametros=null, $nivel='error')
 	{
 		$this->agregar(toba::mensajes()->get($indice, $parametros), $nivel);
 	}
 
+	/**
+	 * Reporta la existencia de mensajes
+	 * @return boolean 
+	 */
 	function verificar_mensajes()
-	//Reporta la existencia de mensajes
 	{
 		if(count($this->mensajes)>0) return true;
 	}
 
-	//--------------------------------------------------------------
-	
+
+	/**
+	 * Muestra toda la lista de notificaciones almacenadas
+	 * Esto tiene que hacerse una única vez por página, y por lo generar el framework 
+	 * es el encargado de hacerlo
+	 */
 	function mostrar()
 	{
 		toba_js::cargar_consumos_basicos(); //Por si no se cargaron antes
@@ -60,10 +74,12 @@ class toba_notificacion
 		echo toba_js::cerrar();
 	}
 	
+	/**
+	 * Borra todas las notificaciones existentes
+	 */
 	function vaciar()
 	{
 		$this->mensajes = array();
 	}
-	//--------------------------------------------------------------
 }
 ?>

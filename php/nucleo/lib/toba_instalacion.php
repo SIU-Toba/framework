@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Clase que mantiene información común a la actual instalación de toba
+ * Enmascara principalmente al archivo de configuración instalacion.ini
+ * 
+ * @package Base
+ */
 class toba_instalacion
 {
 	static private $instancia;
@@ -22,21 +28,34 @@ class toba_instalacion
 		}
 	}
 	
+	/**
+	 * Destructor de la clase
+	 */
 	function limpiar_memoria()
 	{
 		unset($_SESSION['toba']['instalacion']);
 		self::$instancia = null;
 	}
 
+	/**
+	 * Claves utilizadas para encriptar el querystring y cosas en la base
+	 * @return Arreglo asociativo db=>, get=>
+	 */
 	function get_claves_encriptacion()
 	{
 		if (isset($_SESSION['toba'])) {
-			$claves['db'] = $_SESSION['toba']['instalacion']['clave_querystring'];
-			$claves['get'] = $_SESSION['toba']['instalacion']['clave_db'];
+			$claves['db'] = $_SESSION['toba']['instalacion']['clave_db'];
+			$claves['get'] = $_SESSION['toba']['instalacion']['clave_querystring'];
 			return $claves;
 		}
 	}
 	
+	/**
+	 * Retorna un número que representa al grupo de trabajo y con el cual se indexaran los metadatos
+	 * Pensado para poder hacer trabajos concurrentes entre grupos de trabajo geograficamente distribuidos
+	 *
+	 * @return integer
+	 */
 	function get_id_grupo_desarrollo()
 	{
 		if (isset($_SESSION['toba'])) {
@@ -44,6 +63,9 @@ class toba_instalacion
 		}		
 	}
 	
+	/**
+	 * Retorna el comando que usa la instalación para editar archivos php en forma interactiva
+	 */
 	function get_editor_php() 
 	{
 		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {
@@ -51,6 +73,9 @@ class toba_instalacion
 		}
 	}
 	
+	/**
+	 * La instalación trabaja con las librerías js comprimidas?
+	 */
 	function es_js_comprimido()
 	{
 		if (isset($_SESSION['toba']['instalacion']['js_comprimido'])) {
@@ -60,6 +85,9 @@ class toba_instalacion
 		}
 	}
 	
+	/**
+	 * Número de versión de Toba
+	 */
 	function get_numero_version()
 	{
 		return file_get_contents(toba_dir()."/VERSION");

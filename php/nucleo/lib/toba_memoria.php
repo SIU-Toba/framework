@@ -35,6 +35,8 @@ define("apex_hilo_qs_objetos_destino", "toba-dest");
  *  - Memoria de las operaciones
  *  - Memoria sincronizada entre URLs (generalmente de interes interno al framework)
  *  - Parametros del link desde donde se vino ($_GET)
+ * 
+ * @package Base
  */
 class toba_memoria
 {
@@ -140,6 +142,9 @@ class toba_memoria
 		$this->inicializar_memoria();
  	}
 
+ 	/**
+ 	 * Destructor de la memoria, no sirve para borrar la memoria, sino es parte del proceso de apagado del framework
+ 	 */
 	function destruir()
 	{
 		//Disparo el proceso de reciclaje

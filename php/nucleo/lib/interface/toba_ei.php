@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Funciones varias relacionadas con generación de markup HTML
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
+
 	function pre($txt)
 	{
 		echo "<pre>$txt\n\n</pre>";
@@ -29,7 +35,6 @@
 		echo "<td class='barra-separador'>$titulo</td>\n";
 		echo "</tr></table>\n";
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_mensaje($mensaje,$tipo='info',$subtitulo="",$ancho=400)
 /*
@@ -68,7 +73,6 @@
 				</table>\n";
 		return $html;
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_nota($texto, $clase='ef-etiqueta')
 /*
@@ -82,7 +86,6 @@
 				<td align='center'  style='padding: 10px 10px 10px 10px;' class='$clase'>
 				$texto</td></tr></table></div>";
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_texto($texto,$titulo=null)
 /*
@@ -98,7 +101,6 @@
 		print_r(htmlspecialchars($texto));
 		echo "<pre></td></tr></table></div>";
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_centrar($html, $ancho="100%")
 /*
@@ -112,7 +114,6 @@
 		echo $html;		
 		echo "</td></tr></table>";
 	}
-//----------------------------------------------------------------------------------	
     
     function enter()
 /*
@@ -122,8 +123,6 @@
 	{
         echo "<br>\n";
     }
-
-//----------------------------------------------------------------------------------	
 
 	function gif_nulo($ancho=1,$alto=1,$nota="")
 /*
@@ -140,7 +139,6 @@
         $alto = convertir_a_medida_tabla($alto, 'height');
 		return "<img src='". toba_recurso::imagen_apl("nulo.gif"). "' $ancho $alto $alt>";
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_linea($ancho="100%")
 /*
@@ -153,9 +151,7 @@
 		echo "<td class='barra-separador'>".gif_nulo($ancho,1)."</td>\n";
 		echo "</tr></table>\n";
 	}
-//----------------------------------------------------------------------------------	
 	
-
 	function ei_tabla($tabla,$identificador="Tabla NN")
 /*
 	@@acceso: publico
@@ -189,7 +185,6 @@
 		echo "</table>";
 		echo "<br>";
 	}
-//----------------------------------------------------------------------------------	
 
 	function ei_arbol($arbol,$identificador="DUMPEO de VALORES",$ancho="50%",$colapsado=false)
 /*
@@ -284,6 +279,5 @@
 		}
 		echo "</table>\n";	
 	}
-//----------------------------------------------------------------------------------		
 
 ?>

@@ -1,9 +1,14 @@
 <?php
 
+/**
+ * Centraliza la generación de código e includes javacript:
+ *  - Include centralizado de recursos js
+ *  - Conversión de estructuras de datos entre php y js
+ * 
+ * @package Base
+ */
 class toba_js
-//Clase para funciones javascript.
 {
-	//--- SINGLETON
 	private static $instancia;
 	private static $cargados = array();
 	private static $comprimido_cargado = false;
@@ -49,26 +54,42 @@ class toba_js
 		return "1.4";
 	}
 
+	/**
+	 * Incluye en tag <SCRIPT> con los atributos por defecto usados en el framework
+	 */
 	static function abrir()
 	{
 		return "<SCRIPT  language='JavaScript".toba_js::version()."' type='text/javascript'>\n";
 	}
 
+	/**
+	 * Cierra el tag <SCRIPT>
+	 */
 	static function cerrar()
 	{
 		return "\n</SCRIPT>\n";
 	}
 
+	/**
+	 * Incluye un tag <SCRIPT> con el include del archivo definido
+	 * @param string $archivo URL del recurso js a incluir
+	 */
 	static function incluir($archivo) 
 	{
 		return "<SCRIPT language='JavaScript".toba_js::version()."' type='text/javascript' src='$archivo'></SCRIPT>\n";		
 	}
 
+	/**
+	 * Incluye el código js suministrado dentro de un tag <SCRIPT>
+	 */
 	static function ejecutar($codigo) 
 	{
 		return toba_js::abrir().$codigo.toba_js::cerrar();
 	}
 	
+	/**
+	 * Incluye los consumos globales básicos para utilizar el framework
+	 */
 	static function cargar_consumos_basicos()
 	{
 		$imagenes = array(	'error' => toba_recurso::imagen_apl('error.gif', false), 
@@ -99,6 +120,10 @@ class toba_js
 		self::cargar_consumos_globales(self::$consumos_basicos);
 	}
 	
+	/**
+	 * Incluye una serie de librerías o consumos javascript
+	 * @param array $consumos Lista de consumos, un consumo es el path relativo a www, sin la ext. js
+	 */
 	static function cargar_consumos_globales($consumos)
 	{
 		$consumos = array_unique($consumos);
@@ -152,11 +177,22 @@ class toba_js
 	//----------------------------------------------------------------------------------
 	//						CONVERSION DE TIPOS
 	//----------------------------------------------------------------------------------	
+
+	/**
+	 * Conversion de una variable booleana a javascript
+	 */
 	static function bool($bool)
 	{
 		return ($bool) ? "true" : "false";
 	}
-	
+
+	/**
+	 * Conversion de un arreglo a jasvascript
+	 *
+	 * @param array $arreglo Variable a convertir
+	 * @param boolean $es_assoc El primer nivel del arreglo es asociativo ?
+	 * @param boolean $seg_nivel_assoc El segundo nivel del arreglo es asociativo ?
+	 */
 	static function arreglo($arreglo, $es_assoc = false, $seg_nivel_assoc=true)
 	{
 		$js = "";
@@ -196,8 +232,10 @@ class toba_js
 		return $js;		
 	}	
 	
+	/**
+	 * Reemplaza los strings multilinea por cadenas válidas en JS
+	 */	
 	static function string($cadena)
-	//Reemplaza los strings multilinea por cadenas válidas en JS
 	{
 		return pasar_a_unica_linea($cadena);
 	}

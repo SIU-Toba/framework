@@ -1,13 +1,15 @@
 <?php
 require_once("nucleo/lib/toba_recurso.php");
 
-/******************************************************************************************************
-****************************************** Elementos de Formulario ************************************
-*****************************************************************************************************/
-
-class toba_form {
-	
-//Clase estatica implementa los elementos de formulario de HTML
+/**
+ * Clase estática con métodos que encapsulan los tags de un formulario HTML
+ * Estos métodos son de bajisimo nivel y son solo shorcuts para evitar escribir html directo
+ * 
+ * @package Librerias
+ * @subpackage SalidaGrafica
+ */
+class toba_form 
+{
 
     static function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
     // EditBox
@@ -19,7 +21,6 @@ class toba_form {
         $r .= "class='$clase' $extra>\n";
         return $r;
     }
-//________________________________________________________________________________________________________
 
     static function select($nombre,$actual,$datos,$clase="ef-combo", $extra="", $categorias=null)
     //Combo STANDART. recibe el listado en un array asociativo
@@ -63,8 +64,6 @@ class toba_form {
         return $combo;
     }	
 
-//________________________________________________________________________________________________________
-
     static function textarea($nombre,$valor,$filas,$columnas,$clase="ef-textarea",$wrap="",$extra="")
     //TEXTAREA
 //wrap=virtual
@@ -72,7 +71,6 @@ class toba_form {
         if(trim($wrap)!="") $wrap = "wrap='$wrap'";
         return "<textarea class='$clase' name='$nombre' id='$nombre' rows='$filas' cols='$columnas' $wrap $extra>$valor</textarea>\n";
     }
-//________________________________________________________________________________________________________
 
     static function checkbox($nombre,$actual,$valor,$clase="ef-checkbox",$extra="")
     //Checkbox STANDART. recibe el valor y el valor actual
@@ -82,8 +80,6 @@ class toba_form {
         return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra>\n";
     }
 
-//________________________________________________________________________________________________________    
-    
     static function radio($nombre, $actual, $datos, $clase=null, $extra="", $tab_index = "")
     {
     	if (!is_array($datos)) {
@@ -102,14 +98,11 @@ class toba_form {
 		return $html;
     }
     
-//________________________________________________________________________________________________________
-
     static function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {
         return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra>\n";
     }
-//________________________________________________________________________________________________________
 
     static function submit($nombre,$valor,$clase="ei-boton",$extra="", $tecla = null)
     // Boton de SUBMIT
@@ -119,7 +112,6 @@ class toba_form {
 		else
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'submit', '', $clase);
     }
-//________________________________________________________________________________________________________
 
     static function image($nombre,$src,$extra="", $tecla = null)
     // Boton de SUBMIT
@@ -127,7 +119,6 @@ class toba_form {
 		$acceso = toba_recurso::ayuda($tecla);
         return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $acceso $extra>\n";
     }
- //________________________________________________________________________________________________________
 
     static function button($nombre,$valor,$extra="",$clase="ei-boton", $tecla = null)
     // Boton de SUBMIT
@@ -137,7 +128,6 @@ class toba_form {
 		else
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
-//________________________________________________________________________________________________________
 
     static function button_html($nombre,$html, $extra="", $tab = null, $tecla = null, $tip='', $tipo='button', $valor='', 
     								$clase="ei-boton", $con_id=true, $estilo_inline=null, $habilitado=true )
@@ -152,14 +142,12 @@ class toba_form {
 				"$html</button>\n";
     }
 
-//________________________________________________________________________________________________________
     static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
     {
     	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
     	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
         return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra>\n";
     }
-//________________________________________________________________________________________________________
 
     static function archivo($nombre,$valor=null,$clase="ef-upload",$extra="")
     // Boton de SUBMIT
@@ -167,7 +155,6 @@ class toba_form {
         if(isset($valor)) $valor = "value='$valor'";
         return "<INPUT type='file' name='$nombre' id='$nombre' $valor $extra class='$clase'>\n";
     }
-//________________________________________________________________________________________________________
 
     static function abrir($nombre,$action,$extra="",$method="post",$upload=true)
     {
@@ -182,15 +169,11 @@ class toba_form {
         }
         return  "\n<form  enctype='$enctype' name='$nombre' onsubmit='return false;' method='$method' action='$action' $extra>\n";
     }
-//________________________________________________________________________________________________________
 
     static function cerrar()
     {
         return  "\n</form>\n";
     }
-
-//________________________________________________________________________________________________________
-
 
 
 }

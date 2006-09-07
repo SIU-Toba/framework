@@ -25,19 +25,6 @@ class zona_item extends zona_editor
 		}	
 	}
 	
-	function obtener_html_barra_vinculos()
-	{
-		$parametros = array("proyecto"=> $this->editable_id[0], "item"=> $this->editable_id[1]);
- 		echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",
- 																$parametros,true, false, false, "", null, null, 'lateral');
-		parent::obtener_html_barra_vinculos();		
-		
-		echo "<a href='" . toba::vinculador()->generar_solicitud($this->editable_id[0],$this->editable_id[1]) ."'>";
-		echo toba_recurso::imagen_apl("items/instanciar.gif",true,null,null,"Ejecutar el item");
-		echo "</a>";
-		
-	}
-	
 	function generar_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{

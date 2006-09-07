@@ -5,6 +5,11 @@ define("apex_nivel_objeto","objeto");
 define("apex_nivel_item","item");
 define("apex_nivel_lib","lib");
 
+/**
+ * Permite medir el tiempo consumido entre marcas y opcionalmente registrarlo en la base de la instancia
+ * @package Librerias
+ * @subpackage Varios
+ */
 class toba_cronometro
 {
 	protected $marcas;
@@ -23,7 +28,7 @@ class toba_cronometro
 		if (!isset(self::$instancia)) {
 			self::$instancia = new toba_cronometro();	
 		}
-		return self::$instancia;	
+		return self::$instancia;
 	}	
 
 	function marcar($nombre,$nivel="item"){
@@ -54,10 +59,11 @@ class toba_cronometro
 		return $marcas;
 	}
 
+	/**
+	 * 	Guardar el la base las marcas del CRONOMETRO
+	 */
 	function registrar($solicitud)
-	//Guardar el la base las marcas del CRONOMETRO
 	{
-		global $db;
 		//dump_arbol($this->marcas);
 		$temp = $this->marcas[0]['t'];
 		for($f=0;$f<count($this->marcas);$f++)

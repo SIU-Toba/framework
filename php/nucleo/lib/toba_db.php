@@ -1,10 +1,13 @@
 <?php
 require_once('nucleo/lib/toba_admin_fuentes.php');
-/*
-*	Este archivo posee shortcuts de acceso a las bases
-*/
+
+/**
+ * Este archivo posee shortcuts de acceso a las bases
+ * @package Librerias
+ * @subpackage Fuentes
+ */
 	/**
-	*	@see db::consultar()
+	*	@see toba_db::consultar()
 	*/
 	function consultar_fuente($sql, $id_fuente=null, $tipo_fetch=null, $obligatorio=false)
 	{
@@ -12,7 +15,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 
 	/**
-	*	@see db::ejecutar()
+	*	@see toba_db::ejecutar()
 	*/
 	function ejecutar_fuente($sql, $id_fuente=null)
 	{
@@ -20,7 +23,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 	
 	/**
-	*	@see db::ejecutar_transaccion()
+	*	@see toba_db::ejecutar_transaccion()
 	*/
 	function ejecutar_transaccion($sentencias_sql, $id_fuente=null)
 	{
@@ -28,7 +31,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 
 	/**
-	*	@see db::recuperar_secuencia()
+	*	@see toba_db::recuperar_secuencia()
 	*/
 	function recuperar_secuencia($sql, $id_fuente=null)
 	{
@@ -36,7 +39,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 	
 	/**
-	*	@see db::abrir_transaccion()
+	*	@see toba_db::abrir_transaccion()
 	*/
 	function abrir_transaccion($id_fuente=null)
 	{
@@ -44,7 +47,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 
 	/**
-	*	@see db::abortar_transaccion()
+	*	@see toba_db::abortar_transaccion()
 	*/	
 	function abortar_transaccion($id_fuente=null)
 	{
@@ -52,7 +55,7 @@ require_once('nucleo/lib/toba_admin_fuentes.php');
 	}
 
 	/**
-	*	@see db::cerrar_transaccion()
+	*	@see toba_db::cerrar_transaccion()
 	*/	
 	function cerrar_transaccion($id_fuente=null)
 	{
