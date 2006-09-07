@@ -10,8 +10,6 @@ class toba_evento_usuario extends toba_boton
 {
 	protected $vinculo;
 	protected $parametros = null;
-	protected $habilitado = true;
-	protected $oculto = false;
 
 	/**
 	*	Devuelve el vinculo asociado al evento
@@ -94,16 +92,6 @@ class toba_evento_usuario extends toba_boton
 		return in_array($grupo, $this->get_grupos() );
 	}
 	
-	function esta_deshabilitado()
-	{
-		return $this->habilitado;	
-	}
-	
-	function esta_oculto()
-	{
-		return $this->oculto;	
-	}
-
 	//--------- Geters ---------------------
 	
 	function get_id()
@@ -125,26 +113,6 @@ class toba_evento_usuario extends toba_boton
 		$this->parametros = $parametros;
 	}
 	
-	function deshabilitar()
-	{
-		$this->habilitado = false;
-	}
-	
-	function habilitar()
-	{
-		$this->habilitado = true;
-	}
-	
-	function ocultar()
-	{
-		$this->oculto = true;		
-	}
-	
-	function mostrar()
-	{
-		$this->oculto = false;
-	}
-	
 	//--------- Consumo interno ------------
 	
 	/**
@@ -152,6 +120,7 @@ class toba_evento_usuario extends toba_boton
 	*/
 	function get_html($id_submit, $id_componente)
 	{
+		if ( $this->anulado ) return null;
 		$tab_order = manejador_tabs::instancia()->siguiente();
 		$tip = '';
 		if (isset($this->datos['ayuda'])) {
@@ -184,7 +153,7 @@ class toba_evento_usuario extends toba_boton
 				$js = "onclick=\"imprimir_html('$url');\"";
 			}
 			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
+											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
@@ -193,13 +162,13 @@ class toba_evento_usuario extends toba_boton
 				// Escribo la sentencia que invocaria el vinculo
 				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
 				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
+												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 			}
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
 			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->habilitado);
+											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		}
 	}
 

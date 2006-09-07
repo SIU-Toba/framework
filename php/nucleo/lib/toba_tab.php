@@ -14,17 +14,17 @@ class toba_tab extends toba_boton
 	 * @param string $tipo 'V' para vertical o 'H' para horizontal
 	 * @param string $id_submit Id. unico del contenedor (utilizado para formar el id del tab)
 	 * @param string $id_componente Id. de js del componente contenedor
-	 * @param boolean $clickeable
-	 * @param string $estilo Clase css
+	 * @param boolean $seleccionado
+	 * @param string $editor
 	 */
-	function get_html($tipo, $id_submit, $id_componente, $clickeable=true, $estilo=null)
+	function get_html($tipo, $id_submit, $id_componente, $seleccionado, $editor='')
 	{
+		if ( $this->anulado ) return null;
 		if( ($tipo != 'V') && ($tipo != 'H') ) {
 			throw new toba_error("Los tipos validos de TABS son 'V' y 'H'.");	
 		}
 		static $id_tab = 1;
-		$id = $this->datos['identificador'];
-		$estilo = isset($estilo) ? "style='$estilo'" : '';
+		$evento = $this->datos['identificador'];
 		$contenido = '';
 		$tab_order = manejador_tabs::instancia()->siguiente();		
 		$img = $this->get_imagen();
@@ -40,21 +40,41 @@ class toba_tab extends toba_boton
 		$tip = str_replace("'", "\\'",$tip);			
 		$acceso = toba_recurso::ayuda($tecla, $tip);
 		
-		if($clickeable) {
-			$js = "onclick=\"$id_componente.ir_a_pantalla('$id');return false;\"";
-			$id = $id_submit.'_cambiar_tab_'.$id;
-			$html = "<a href='#' id='$id' $estilo $acceso $js>$contenido</a>";
+		if ( $this->activado ) {
+			$js = "onclick=\"$id_componente.ir_a_pantalla('$evento');return false;\"";
 		} else {
-			if( $tipo == 'H' ) {
-				$html = "<a href='#' id='$id' $estilo>$contenido</a>";
+			$js = "onclick_viejo=\"\" onclick_viejo=\"$id_componente.ir_a_pantalla('$evento');return false;\"";
+		}
+		$id = $id_submit.'_cambiar_tab_'.$evento;
+		if( $tipo == 'H' ) {	//TAB HORIZONTAL
+			if( $seleccionado ) {
+  				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
+				$html = "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
+				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso>$contenido</a>";
+				$html .= "</li>";
 			} else {
-				$html = $contenido;	
+				$oculto = $this->oculto ? '; display: none' : '';
+  				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
+				$html = "<li  class='ci-tabs-h-solapa' style='$estilo_li $oculto'>$editor";
+				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso $js>$contenido</a>";
+				$html .= "</li>";
+			}
+		} else {				//TAB VERTICAL
+			if( $seleccionado ) {
+				$html = "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor ";
+				$html .= "<div id='$id'>$contenido</div>";
+				$html .= "</div></div>";
+			} else {
+				$oculto = $this->oculto ? "style='display: none'" : '';
+				$html = "<div class='ci-tabs-v-solapa' $oculto >$editor ";
+				$html .= "<a href='#' id='$id' $acceso $js>$contenido</a>";
+				$html .= "</div>";
 			}
 		}
-
 		$id_tab++;
 		return $html;
 	}	
-
 }
 ?>

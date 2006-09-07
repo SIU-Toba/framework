@@ -109,6 +109,15 @@ class toba_ei_pantalla extends toba_ei
 	//---------------		TABS    ----------------
 	//----------------------------------------------
 	
+	function tab($id)
+	{
+		if(isset($this->lista_tabs[$id])){
+			return $this->lista_tabs[$id];	
+		} else {
+			throw new toba_error($this->get_txt(). " El tab '$id' no existe.");
+		}
+	}
+	
 	function eliminar_tab($id)
 	{
 		if($id == $this->id_en_controlador ) {
@@ -361,19 +370,7 @@ class toba_ei_pantalla extends toba_ei
 			if (toba_editor::modo_prueba()) {
 				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
 			}			
-			if ($this->id_en_controlador == $id) {
-  				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
-  				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
-				echo "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
-				echo $tab->get_html('H', $this->submit, $this->objeto_js, true, $estilo_a);
-				echo "</li>";
-			} else {
-  				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left.gif').'") no-repeat left top;';
-  				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right.gif').'") no-repeat right top;';
-				echo "<li  class='ci-tabs-h-solapa' style='$estilo_li'>$editor";
-				echo $tab->get_html('H', $this->submit, $this->objeto_js, true, $estilo_a);
-				echo "</li>";
-			}
+			echo $tab->get_html('H', $this->submit, $this->objeto_js, ($this->id_en_controlador == $id), $editor );
 		}
 		echo "</ul></div>";
 	}
@@ -386,15 +383,7 @@ class toba_ei_pantalla extends toba_ei
 			if (toba_editor::modo_prueba()) {
 				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
 			}
-			if ( $this->id_en_controlador == $id ) {
-				echo "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor ";
-				echo $tab->get_html('V', $this->submit, $this->objeto_js, false);
-				echo "</div></div>";
-			} else {
-				echo "<div class='ci-tabs-v-solapa'>$editor ";
-				echo $tab->get_html('V', $this->submit, $this->objeto_js);
-				echo "</div>";
-			}
+			echo $tab->get_html('V', $this->submit, $this->objeto_js, ($this->id_en_controlador == $id), $editor);
 		}
 		echo "<div class='ci-tabs-v-solapa' style='height:99%;'></div>";
 	}

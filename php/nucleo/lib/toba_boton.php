@@ -9,6 +9,8 @@ class toba_boton
 {
 	protected $datos;
 	protected $activado = true;
+	protected $oculto = false;
+	protected $anulado = false;
 
 	function __construct($datos=null)
 	{
@@ -30,9 +32,19 @@ class toba_boton
 
 	//--------- Preguntas ---------------------
 
-	function esta_activado()
+	function esta_desactivado()
 	{
-		return $this->activado;
+		return $this->activado;	
+	}
+	
+	function esta_oculto()
+	{
+		return $this->oculto;	
+	}
+	
+	function esta_anulado()
+	{
+		return $this->anulado;
 	}
 	
 	function posee_confirmacion()
@@ -75,6 +87,7 @@ class toba_boton
 	}
 	
 	//--------- Seters ---------------------
+	
 	function set_id($id)
 	{
 		 $this->datos['identificador'] = $id;
@@ -106,17 +119,38 @@ class toba_boton
 		$this->datos['confirmacion'] = $texto;
 	}
 
-	/**
-	 * Si un botón esta desactivado no es enviado al cliente como parte del HTML
-	 */
+	//------ Desactivar y Ocultar
+
 	function desactivar()
 	{
-		$this->activado = false;			
+		$this->activado = false;
 	}
-
+	
 	function activar()
 	{
 		$this->activado = true;
+	}
+	
+	function ocultar()
+	{
+		$this->oculto = true;		
+	}
+	
+	function mostrar()
+	{
+		$this->oculto = false;
+	}
+	
+	//------- Anulacion: el elemento no se envia al cliente
+	
+	function anular()
+	{
+		$this->anulado = true;			
+	}
+
+	function restituir()
+	{
+		$this->anulado = false;
 	}
 }
 ?>

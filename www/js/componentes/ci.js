@@ -193,7 +193,10 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	def.activar_tab = function(id) {
 		var boton = this.get_tab(id);
 		if (boton.onclick_viejo !== '') {
+			alert(boton.onclick_viejo);
 			boton.onclick = boton.onclick_viejo;
+		} else {
+			alert('no hay viejo');	
 		}
 	};
 
@@ -215,7 +218,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 
 	def.get_tab = function(id) {
 		if (id == this._id_en_controlador) {
-			notificacion.agregar('No es posible eliminar el tab correspondiente a la pantalla actual');
+			notificacion.agregar('No es posible modificar el estado del tab correspondiente a la pantalla actual');
 			notificacion.mostrar();
 			return;
 		}

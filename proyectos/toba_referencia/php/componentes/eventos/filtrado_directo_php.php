@@ -8,7 +8,7 @@ class filtrado_directo_php extends toba_ci
 		$this->pantalla()->eliminar_evento('b');
 		$this->dep('formulario')->eliminar_evento('a');
 		$this->dep('formulario')->eliminar_evento('b');
-		$this->dep('cuadro')->evento('a')->desactivar();
+		$this->dep('cuadro')->eliminar_evento('a');
 		$this->dep('cuadro')->eliminar_evento('b');
 	}
 

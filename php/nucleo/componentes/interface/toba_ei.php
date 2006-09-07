@@ -301,7 +301,7 @@ abstract class toba_ei extends toba_componente
 		if ( $evento->posee_accion_imprimir() ) {
 			$this->utilizar_impresion_html = true;					
 		}
-		if( $evento->esta_activado() ) {
+		if( ! $evento->esta_anulado() ) {
 			echo $evento->get_html($this->submit, $this->objeto_js);
 		}
 	}

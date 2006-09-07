@@ -13,7 +13,7 @@ class cuadro_fotos extends toba_ei_cuadro
 	{
 		 $clave = $this->get_clave_fila($f);
 		 if (in_array($clave, $this->fotos_predefinidas)) {
-			$evento->desactivar();
+			$evento->anular();
 		 }
 	}
 	

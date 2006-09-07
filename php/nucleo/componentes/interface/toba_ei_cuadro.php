@@ -1087,7 +1087,7 @@ class toba_ei_cuadro extends toba_ei
 			if ( $this->tipo_salida != 'pdf' ) {
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
-					if( $evento->esta_activado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
+					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
 						//1: Posiciono al evento en la fila
 						$evento->set_parametros($clave_fila);
 						if($evento->posee_accion_vincular()){
@@ -1099,10 +1099,10 @@ class toba_ei_cuadro extends toba_ei
 							$this->$callback_modificacion_eventos($evento, $f);
 						}
 						//3: Genero el boton
-						if( $evento->esta_activado() ) {
+						if( ! $evento->esta_anulado() ) {
 							echo $evento->get_html($this->submit, $this->objeto_js);
 						} else {
-							$evento->activar();	//Lo activo para la proxima fila
+							$evento->restituir();	//Lo activo para la proxima fila
 						}
 					}
 	            	echo "</td>\n";

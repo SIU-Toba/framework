@@ -22,7 +22,7 @@ abstract class toba_menu
 	
 	protected function items_de_menu($solo_primer_nivel=false)
 	{
-		return toba_proyecto::items_menu($solo_primer_nivel);
+		return toba::proyecto()->items_menu($solo_primer_nivel);
 	}	
 }
 ?>

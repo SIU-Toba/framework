@@ -11,14 +11,14 @@ class extension_seleccion_evt extends toba_ei_cuadro
 	function conf_evt__seleccion($evento, $fila)
 	{
 		if( !($this->datos[$fila]['hab_total']>1000)) {
-			$evento->desactivar();
+			$evento->anular();
 		}
 	}
 
 	function conf_evt__eliminar($evento, $fila)
 	{
 		if( !($this->datos[$fila]['hab_varones']< $this->datos[$fila]['hab_mujeres']) ) {
-			$evento->desactivar();	
+			$evento->anular();	
 		}
 	}
 }
