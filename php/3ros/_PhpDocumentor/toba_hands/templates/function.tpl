@@ -22,7 +22,7 @@
 		{include file="docblock.tpl" sdesc=$functions[func].sdesc desc=$functions[func].desc}
 
     {if count($functions[func].params) > 0}
-		<strong>Parameters:</strong><br />
+		<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 		{section name=params loop=$functions[func].params}
 			<tr><td class="indent">

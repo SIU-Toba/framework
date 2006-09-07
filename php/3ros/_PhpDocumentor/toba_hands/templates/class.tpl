@@ -1,45 +1,36 @@
 {include file="header.tpl" eltype="class" hasel=true contents=$classcontents}
 
-<h2 class="class-name">{if $is_interface}Interface{else}Class{/if} {$class_name}</h2>
+<h2 class="class-name">{if $is_interface}Interface{else}Clase{/if} {$class_name}</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
-	<!-- <div class="info-box-title">{if $is_interface}Interface{else}Class{/if} Overview</div> -->
 	<div class="nav-bar">
 		{if $children || $vars || $ivars || $methods || $imethods || $consts || $iconsts}
-			<span class="disabled">{if $is_interface}Interface{else}Class{/if} Overview</span> |
+			<span class="disabled">Resúmen de la {if $is_interface}Interface{else}Clase{/if}</span> |
 		{/if}
 		{if $children}
-			<a href="#sec-descendents">Descendants</a>
+			<a href="#sec-descendents">Descendientes</a>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
 		
 		{if $ivars || $imethods}
-			<a href="#sec-inherited">Inherited Properties, Constants, and Methods</a>
+			<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
-		{/if}
-		{if $vars || $ivars}
-			{if $vars}
-				<a href="#sec-var-summary">Properties Summary</a> | <a href="#sec-vars">Properties Detail</a>
-			{else}
-				<a href="#sec-vars">Properties</a>
-			{/if}
-			{if $methods || $imethods}|{/if}
 		{/if}
 		{if $methods || $imethods}
 			{if $methods}
-				<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
+				<a href="#sec-method-summary">Métodos</a>
 			{else}
-				<a href="#sec-methods">Methods</a>
+				<a href="#sec-methods">Métodos</a>
 			{/if}
 			{if $consts || $iconsts}|{/if}
 		{/if}
+		{if $vars || $ivars}
+				<a href="#sec-vars">Propiedades</a>
+			{if $methods || $imethods}|{/if}
+		{/if}		
 		{if $consts || $iconsts}
-			{if $consts}
-				<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-			{else}
-				<a href="#sec-consts">Constants</a>
-			{/if}
+			<a href="#sec-consts">Constantes</a>
 		{/if}
 	</div>
 	<div class="info-box-body">
@@ -48,7 +39,7 @@
 
         {if $implements}
         <p class="implements">
-            Implements interfaces:
+            Implementa interfaces:
             <ul>
                 {foreach item="int" from=$implements}<li>{$int}</li>{/foreach}
             </ul>
@@ -57,7 +48,7 @@
 		{include file="docblock.tpl" type="class" sdesc=$sdesc desc=$desc}
 
 		<p class="notes">
-			Located in <a class="field" href="{$page_link}">{$source_location}</a> [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
+			Ubicada en <a class="field" href="{$page_link}">{$source_location}</a> [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
 		</p>
 
 		{if $tutorial}
@@ -69,7 +60,7 @@
 
 		{if $conflicts.conflict_type}
 			<hr class="separator" />
-			<div><span class="warning">Conflicts with classes:</span><br />
+			<div><span class="warning">Entra en Conflicto con clases:</span><br />
 			{section name=me loop=$conflicts.conflicts}
 				{$conflicts.conflicts[me]}<br />
 			{/section}
@@ -92,7 +83,7 @@
 
 		{if count($contents.var) > 0}
 		<td valign="top" width="20%" class="class-overview">
-		<p align="center" class="short-description"><strong><a href="#sec_vars">Properties</a></strong></p>
+		<p align="center" class="short-description"><strong><a href="#sec_vars">Propiedades</a></strong></p>
 		<ul>
 		  {section name=contents loop=$contents.var}
 		  <li>{$contents.var[contents]}</li>
@@ -103,7 +94,7 @@
 
 		{if count($contents.method) > 0}
 		<td valign="top" width="20%" class="class-overview">
-		<p align="center" class="short-description"><strong><a href="#sec_methods">Methods</a></strong></p>
+		<p align="center" class="short-description"><strong><a href="#sec_methods">Métodos</a></strong></p>
 		<ul>
 		  {section name=contents loop=$contents.method}
 		  <li>{$contents.method[contents]}</li>
@@ -120,46 +111,40 @@
 {if $children}
 	<a name="sec-descendents"></a>
 	<div class="info-box">
-		<div class="info-box-title">Direct descendents</div>
+		<div class="info-box-title">Descendientes directos</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
+			<a href="#sec-description">Resúmen de la clase</a> |
 			{if $children}
-				<a href="#sec-descendents">Descendents</a>
+				<a href="#sec-descendents">Descendientes</a>
 				{if $vars || $ivars || $methods || $imethods}|{/if}
 			{/if}
 			{if $ivars || $imethods}
-				<a href="#sec-inherited">Inherited Properties and Methods</a>
+				<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
 				{if $vars || $ivars || $methods || $imethods}|{/if}
 			{/if}
 		{if $vars || $ivars}
-			{if $vars}
-				<a href="#sec-var-summary">Properties Summary</a> | <a href="#sec-vars">Properties Detail</a>
-			{else}
-				<a href="#sec-vars">Properties</a>
-			{/if}
+				<a href="#sec-vars">Propiedades</a>
 			{if $methods || $imethods}|{/if}
 		{/if}
 		{if $methods || $imethods}
 			{if $methods}
-				<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
+				<a href="#sec-method-summary">Resumen del Método</a> | <a href="#sec-methods">Detalle de Métodos</a>
 			{else}
-				<a href="#sec-methods">Methods</a>
+				<a href="#sec-methods">Métodos</a>
 			{/if}
             {if $consts || $iconsts}|{/if}
 		{/if}
 		{if $consts || $iconsts}
 			{if $consts}
-				<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-			{else}
-				<a href="#sec-consts">Constants</a>
+				<a href="#sec-consts">Constantes</a>
 			{/if}
 		{/if}
 		</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
-					<th class="class-table-header">Child Class</th>
-					<th class="class-table-header">Description</th>
+					<th class="class-table-header">Clase Hija</th>
+					<th class="class-table-header">Descripción</th>
 				</tr>
 				{section name=kids loop=$children}
 				<tr>
@@ -182,50 +167,38 @@
 {if $ivars || $imethods || $iconsts}
 	<a name="sec-inherited"></a>
 	<div class="info-box">
-		<div class="info-box-title">Inherited Properties, Constants, and Methods</div>
+		<div class="info-box-title">Propiedades, Constantes y Métodos Heredados</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
+			<a href="#sec-description">Resúmen de la Clase</a> |
 			{if $children}
-				<a href="#sec-descendents">Descendants</a> |
+				<a href="#sec-descendents">Descendientes</a> |
 			{/if}
 			{if $vars || $ivars || $methods || $imethods || $iconsts || $consts}|{/if}
-			<span class="disabled">Inherited Properties, Constants, and Methods</span>
+			<span class="disabled">Propiedades, Constantes y Métodos Heredados</span>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
 			{if $vars || $ivars}
-				{if $vars}
-					<a href="#sec-var-summary">Properties Summary</a> | <a href="#sec-vars">Properties Detail</a>
-				{else}
-					<a href="#sec-vars">Properties</a>
-				{/if}
+				<a href="#sec-vars">Propiedades</a>
 				{if $methods || $imethods}|{/if}
 			{/if}
 			{if $methods || $imethods}
-				{if $methods}
-					<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
-				{else}
-					<a href="#sec-methods">Methods</a>
-				{/if}
+				<a href="#sec-methods">Métodos</a>
 				{if $consts || $iconsts}|{/if}
 			{/if}
     		{if $consts || $iconsts}
-    			{if $consts}
-    				<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-    			{else}
-    				<a href="#sec-consts">Constants</a>
-    			{/if}
+   				<a href="#sec-consts">Constantes</a>
     		{/if}
 		</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
-					<th class="class-table-header" width="30%">Inherited Properties</th>
-					<th class="class-table-header" width="40%">Inherited Methods</th>
-					<th class="class-table-header" width="30%">Inherited Constants</th>
+					<th class="class-table-header" width="30%">Propiedades Heredadas</th>
+					<th class="class-table-header" width="40%">Métodos Heredados</th>
+					<th class="class-table-header" width="30%">Constantes Heredadas</th>
 				</tr>
 				<tr>
 					<td width="30%">
 						{section name=ivars loop=$ivars}
-							<p>Inherited From <span class="classname">{$ivars[ivars].parent_class}</span></p>
+							<p>Heredado de <span class="classname">{$ivars[ivars].parent_class}</span></p>
 							<blockquote>
 								<dl>
 									{section name=ivars2 loop=$ivars[ivars].ivars}
@@ -242,7 +215,7 @@
 					</td>
 					<td width="40%">
 						{section name=imethods loop=$imethods}
-							<p>Inherited From <span class="classname">{$imethods[imethods].parent_class}</span></p>
+							<p>Heredado de <span class="classname">{$imethods[imethods].parent_class}</span></p>
 							<blockquote>
 								<dl>
 									{section name=im2 loop=$imethods[imethods].imethods}
@@ -259,7 +232,7 @@
 					</td>
 					<td width="30%">
 						{section name=iconsts loop=$iconsts}
-							<p>Inherited From <span class="classname">{$iconsts[iconsts].parent_class}</span></p>
+							<p>Heredado de <span class="classname">{$iconsts[iconsts].parent_class}</span></p>
 							<blockquote>
 								<dl>
 									{section name=iconsts2 loop=$iconsts[iconsts].iconsts}
@@ -284,34 +257,7 @@
 {if $consts}
 	<a name="sec-const-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Constant Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendants</a> |
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties, Constants, and Methods</a>
-				{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
-			{/if}
-			<span class="disabled">Constants Summary</span> | <a href="#sec-consts">Constants Detail</a>
-			{if $vars || $ivars}
-				{if $vars}
-					<a href="#sec-var-summary">Properties Summary</a> | <a href="#sec-vars">Properties Detail</a>
-				{else}
-					<a href="#sec-vars">Properties</a>
-				{/if}
-				{if $methods || $imethods}|{/if}
-			{/if}
-			{if $methods || $imethods}
-				|
-				{if $methods}
-					<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
-				{else}
-					<a href="#sec-methods">Methods</a>
-				{/if}
-			{/if}
-		</div>
+		<div class="info-box-title">Constantes</span></div>
 		<div class="info-box-body">
 			<div class="const-summary">
 			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
@@ -329,94 +275,11 @@
 	</div>
 {/if}
 
-{if $vars}
-	<a name="sec-var-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Property Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendents</a> |
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties and Methods</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-			<span class="disabled">Property Summary</span> | <a href="#sec-vars">Properties Detail</a>
-			{if $methods || $imethods}
-				{if $methods}
-					<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
-				{else}
-					<a href="#sec-methods">Methods</a>
-				{/if}
-				{if $consts || $iconsts}|{/if}
-			{/if}
-    		{if $consts || $iconsts}
-    			{if $consts}
-    				<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-    			{else}
-    				<a href="#sec-consts">Constants</a>
-    			{/if}
-    		{/if}
-		</div>
-		<div class="info-box-body">
-			<div class="var-summary">
-			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
-			{section name=vars loop=$vars}
-			{if $vars[vars].static}
-				<div class="var-title">
-					<tr><td class="var-title">static <span class="var-type-summary">{$vars[vars].var_type}</span>&nbsp;&nbsp;</td>
-					<td class="var-title"><a href="#{$vars[vars].var_name}" title="details" class="var-name-summary">{$vars[vars].var_name}</a>&nbsp;&nbsp;</td>
-					<td class="var-summary-description">{$vars[vars].sdesc}</td></tr>
-				</div>
-			{/if}
-			{/section}
-			{section name=vars loop=$vars}
-			{if !$vars[vars].static}
-				<div class="var-title">
-					<tr><td class="var-title"><span class="var-type-summary">{$vars[vars].var_type}</span>&nbsp;&nbsp;</td>
-					<td class="var-title"><a href="#{$vars[vars].var_name}" title="details" class="var-name-summary">{$vars[vars].var_name}</a>&nbsp;&nbsp;</td>
-					<td class="var-summary-description">{$vars[vars].sdesc}</td></tr>
-				</div>
-			{/if}
-			{/section}
-				</table>
-			</div>
-			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
-		</div>
-	</div>
-{/if}
 
 {if $methods}
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendents</a> |
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties and Methods</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-			{if $vars || $ivars}
-				{if $vars}
-					<a href="#sec-var-summary">Properties Summary</a> | <a href="#sec-vars">Properties Detail</a>
-				{else}
-					<a href="#sec-vars">Properties</a>
-				{/if}
-				{if $consts || $iconsts}|{/if}
-			{/if}
-    		{if $consts || $iconsts}
-    			{if $consts}
-    				<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-    			{else}
-    				<a href="#sec-consts">Constants</a>
-    			{/if}
-    		{/if}
-			<span class="disabled">Method Summary</span> | <a href="#sec-methods">Methods Detail</a>
-		</div>
+		<div class="info-box-title">Métodos</span></div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
@@ -450,115 +313,50 @@
 	</div>
 {/if}
 
-{if $vars || $ivars}
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Properties</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendents</a> |
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties and Methods</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-			{if $methods}
-				<a href="#sec-var-summary">Property Summary</a> | <a href="#sec-vars">Properties Detail</a>
-			{else}
-				<span class="disabled">Properties</span>
-			{/if}
-
-			{if $methods || $imethods}
-				|
-				{if $methods}
-					<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
-				{else}
-					<a href="#sec-methods">Methods</a>
-				{/if}
-			{/if}
-			{if $consts || $iconsts}
-				|
-				{if $consts}
-					<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-				{else}
-					<a href="#sec-consts">Constants</a>
-				{/if}
-			{/if}
-		</div>
-		<div class="info-box-body">
-			{include file="var.tpl"}
-		</div>
-	</div>
-{/if}
-
 {if $methods || $imethods}
 	<a name="sec-methods"></a>
 	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendents</a>
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties and Methods</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-			{if $vars || $ivars}
-                |
-				{if $vars}
-					<a href="#sec-var-summary">Property Summary</a> | <a href="#sec-vars">Properties Detail</a>
-				{else}
-					<a href="#sec-vars">Properties</a>
-				{/if}
-			{/if}
-			{if $consts || $iconsts}
-				|
-				{if $consts}
-					<a href="#sec-const-summary">Constants Summary</a> | <a href="#sec-consts">Constants Detail</a>
-				{else}
-					<a href="#sec-consts">Constants</a>
-				{/if}
-			{/if}
-			{if $methods}
-				| <a href="#sec-method-summary">Method Summary</a> | <span class="disabled">Methods Detail</span>
-			{else}
-				| <span class="disabled">Methods</span>
-			{/if}
-		</div>
+
 		<div class="info-box-body">
 			{include file="method.tpl"}
 		</div>
 	</div>
 {/if}
 
+
+{if $vars || $ivars}
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Propiedades</div>
+		<div class="info-box-body">
+			{include file="var.tpl"}
+		</div>
+	</div>
+{/if}
+
+
 {if $consts || $consts}
 	<a name="sec-consts"></a>
 	<div class="info-box">
-		<div class="info-box-title">Constants</div>
+		<div class="info-box-title">Constantes</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Class Overview</a> |
+			<a href="#sec-description">Resúmen de la clase</a> |
 			{if $children}
-				<a href="#sec-descendents">Descendants</a>
+				<a href="#sec-descendents">Descendientes</a>
 			{/if}
 			{if $consts}
-				| <a href="#sec-const-summary">Constants Summary</a> | <span class="disabled">Constants Detail</span>
+				| <a href="#sec-const-summary">Resúmen de Constantes</a> | <span class="disabled">Constantes</span>
 			{else}
-				| <span class="disabled">Constants</span>
+				| <span class="disabled">Constantes</span>
 			{/if}
 			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Inherited Properties, Constants, and Methods</a>
+				<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
 				{if $vars || $ivars || $methods || $imethods || $consts || $iconsts} | {/if}
 			{/if}
 
 			{if $methods || $imethods}
 				|
-				{if $methods}
-					<a href="#sec-method-summary">Method Summary</a> | <a href="#sec-methods">Methods Detail</a>
-				{else}
-					<a href="#sec-methods">Methods</a>
-				{/if}
+					<a href="#sec-method-summary">Métodos</a>
 			{/if}
 		</div>
 		<div class="info-box-body">

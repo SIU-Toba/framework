@@ -224,7 +224,7 @@ class toba_ei_calendario extends toba_ei
 /**
  * Clase interna de calendario
  *
- * @package Utilerias
+ * @package Varios
  */
 class calendario extends activecalendar
 {

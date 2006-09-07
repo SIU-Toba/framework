@@ -11,7 +11,16 @@
 <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
   <tr>
 	<td class="header-top-left"><img src="{$subdir}media/logo.png" border="0" alt="phpDocumentor {$phpdocver}" /></td>
-    <td class="header-top-right">{$package}<br /><div class="header-top-right-subpackage">{$subpackage}</div></td>
+    <td class="header-top-right">{$maintitle}<br />
+  	<div class="package">
+      {section name=packagelist loop=$packageindex}
+        	<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
+        	{if ! $smarty.section.packagelist.last}
+        		|
+        	{/if}
+      {/section}
+     </div>
+    	<div class="header-top-right-subpackage">{$subpackage}</div></td>
   </tr>
   <tr><td colspan="2" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
@@ -37,19 +46,7 @@
 	</div>
 	</div>
 {/if}
-{if $hastodos}
-  <div class="package">
-	<div id="todolist">
-			<p><a href="{$subdir}{$todolink}">Todo List</a></p>
-	</div>
-	</div>
-{/if}
-      <b>Packages:</b><br />
-  <div class="package">
-      {section name=packagelist loop=$packageindex}
-        <a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a><br />
-      {/section}
-	</div>
+
       <br />
 {if $tutorials}
 		<b>Tutorials/Manuals:</b><br />
@@ -76,16 +73,24 @@
 {/if}
       {if !$noleftindex}{assign var="noleftindex" value=false}{/if}
       {if !$noleftindex}
-      <br />
       {if $compiledclassindex}
-      <b>Classes:</b><br />
       {eval var=$compiledclassindex}
       {/if}
       {/if}
       {if $compiledinterfaceindex}
+      <br />
       <b>Interfaces:</b><br />
       {eval var=$compiledinterfaceindex}
       {/if}
+      
+{if $hastodos}
+  <div class="package">
+	<div id="todolist">
+			<p><a href="{$subdir}{$todolink}">Todo List</a></p>
+	</div>
+	</div>
+{/if}
+      
     </td>
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">

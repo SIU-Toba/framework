@@ -17,7 +17,7 @@
 
 	{if $vars[vars].var_overrides}
 		<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
+		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$vars[vars].var_overrides.link}</dt>
 			{if $vars[vars].var_overrides.sdesc}
@@ -64,7 +64,7 @@
 
 	{if $vars[vars].var_overrides}
 		<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
+		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$vars[vars].var_overrides.link}</dt>
 			{if $vars[vars].var_overrides.sdesc}

@@ -2,7 +2,7 @@
 
 /**
  * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
- * @package Validacion
+ * @package Centrales
  */
 class toba_permisos
 {

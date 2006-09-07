@@ -46,10 +46,11 @@ class comando_doc extends comando_toba
 		ini_set("include_path", ini_get("include_path"). $separador . $dir);
 		
 		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['title'] = "Toba API";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo';
+		$_phpDocumentor_setting['title'] = "API de SIU-Toba";
+		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
+		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");

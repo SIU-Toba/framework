@@ -137,3 +137,9 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 h2.class-name {display:none}
 .class-overview > .short-description { font-size: 14px; text-align:left; font-color:black;}
  
+#todolist { 
+	position: fixed;
+	left: 0;
+	bottom:0;
+}
+

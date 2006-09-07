@@ -46,7 +46,7 @@
 
 	{if $methods[methods].method_overrides}
 		<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
+		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$methods[methods].method_overrides.link}</dt>
 			{if $methods[methods].method_overrides.sdesc}
@@ -134,7 +134,7 @@
 
 	{if $methods[methods].method_overrides}
 		<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
+		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$methods[methods].method_overrides.link}</dt>
 			{if $methods[methods].method_overrides.sdesc}
