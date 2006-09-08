@@ -19,7 +19,6 @@ class toba_ei_formulario extends toba_ei
 	protected $lista_toba_ef_ocultos = array();
 	protected $nombre_ef_cli = array(); 	// interno | array | ID html de los elementos
 	protected $parametros_carga_efs;		// Parámetros que se utilizan para cargar opciones a los efs
-	protected $parametros;
 	protected $modelo_eventos;
 	protected $flag_out = false;			// indica si el formulario genero output
 	protected $evento_mod_estricto;			// Solo dispara la modificacion si se apreto el boton procesar
@@ -54,7 +53,7 @@ class toba_ei_formulario extends toba_ei
 	
 	function inicializar($parametros)
 	{
-		$this->parametros = $parametros;
+		parent::inicializar($parametros);
 		$this->nombre_formulario =	$parametros["nombre_formulario"];
 		if (isset($this->info_formulario['ancho_etiqueta']) && $this->info_formulario['ancho_etiqueta'] != '') {
 			$this->ancho_etiqueta = $this->info_formulario['ancho_etiqueta'];

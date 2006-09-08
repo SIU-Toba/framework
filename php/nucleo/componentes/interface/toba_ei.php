@@ -31,6 +31,7 @@ abstract class toba_ei extends toba_componente
 	protected $botones_graficados_ad_hoc = array();		// Lista de botones que se imprimieron por orden del usuario
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
+	protected $parametros;							// Parametros de inicializacion provistos por el controlador
 	protected $prefijo = 'ei';
 	
 	function __construct($definicion)
@@ -39,6 +40,11 @@ abstract class toba_ei extends toba_componente
         $this->submit = $this->prefijo.'_'.$this->id[1];
 		$this->objeto_js = "js_".$this->submit;
 		$this->preparar_componente();
+	}
+
+	function inicializar($parametros)
+	{
+		$this->parametros = $parametros;
 	}
 	
 	function preparar_componente()
@@ -167,7 +173,6 @@ abstract class toba_ei extends toba_componente
 				}
 			}
 		}
-		//ei_arbol($this->eventos_usuario_utilizados_sobre_fila,'pepe');
 		return $this->eventos_usuario_utilizados_sobre_fila;
 	}
 	

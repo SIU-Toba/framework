@@ -6,8 +6,8 @@ class ci_tabs extends toba_ci
 	{
 		$this->dep('horizontales')->pantalla()->tab('b')->ocultar();
 		$this->dep('verticales')->pantalla()->tab('b')->ocultar();
-		$this->dep('horizontales')->pantalla()->tab('c')->desactivar();
-		$this->dep('verticales')->pantalla()->tab('c')->desactivar();
+		//$this->dep('horizontales')->pantalla()->tab('c')->desactivar();
+		//$this->dep('verticales')->pantalla()->tab('c')->desactivar();
 	}
 
 	function extender_objeto_js()
@@ -38,6 +38,14 @@ class ci_tabs extends toba_ci
 	{
 		$this->dep('verticales')->pantalla()->eliminar_tab('c');
 		$this->dep('horizontales')->pantalla()->eliminar_tab('c');
+	}
+	
+	function evt__modificar()
+	{
+		$this->dep('verticales')->pantalla()->tab('c')->set_etiqueta('Cambio de ETIQUETA');
+		$this->dep('verticales')->pantalla()->tab('c')->set_imagen('usuarios/usuario.gif');
+		$this->dep('horizontales')->pantalla()->tab('a')->set_etiqueta('Cambio de ETIQUETA');
+		$this->dep('horizontales')->pantalla()->tab('a')->set_imagen('borrar.gif');
 	}
 }
 ?>

@@ -39,15 +39,20 @@ class toba_tab extends toba_boton
 		if (!isset($tecla)&&($id_tab<10)) $tecla = $id_tab;
 		$tip = str_replace("'", "\\'",$tip);			
 		$acceso = toba_recurso::ayuda($tecla, $tip);
+		$id = $id_submit.'_cambiar_tab_'.$evento;
 		
 		if ( $this->activado ) {
-			$js = "onclick=\"$id_componente.ir_a_pantalla('$evento');return false;\"";
+			$js = "onclick=\"{$id_componente}.ir_a_pantalla('$evento');return false;\"";
+			$js_extra = '';
 		} else {
-			$js = "onclick_viejo=\"\" onclick_viejo=\"$id_componente.ir_a_pantalla('$evento');return false;\"";
+			// Si el tab esta desactivado, le tengo que dejar en onclick en una propiedad para que el codigo JS la pueda usar.
+			$js = '';
+			$js_extra = toba_js::abrir();
+			$js_extra .= "document.getElementById('$id').onclick_viejo = function(event) { {$id_componente}.ir_a_pantalla('$evento');return false;}";
+			$js_extra .= toba_js::cerrar();
 		}
-		$id = $id_submit.'_cambiar_tab_'.$evento;
-		if( $tipo == 'H' ) {	//TAB HORIZONTAL
-			if( $seleccionado ) {
+		if( $tipo == 'H' ) {	//********************* TABs HORIZONTALES **********************
+			if( $seleccionado ) {// -- Tab ACTUAL --
   				$estilo_li = 'background:url("'.toba_recurso::imagen_apl('tabs/left_on.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_apl('tabs/right_on.gif').'") no-repeat right top;';
 				$html = "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
@@ -60,9 +65,10 @@ class toba_tab extends toba_boton
 				$html = "<li  class='ci-tabs-h-solapa' style='$estilo_li $oculto'>$editor";
 				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso $js>$contenido</a>";
 				$html .= "</li>";
+				$html .= $js_extra;
 			}
-		} else {				//TAB VERTICAL
-			if( $seleccionado ) {
+		} else {				// ********************* TABs VERTICALES ************************
+			if( $seleccionado ) {// -- Tab ACTUAL --
 				$html = "<div class='ci-tabs-v-solapa-sel'><div class='ci-tabs-v-boton-sel'>$editor ";
 				$html .= "<div id='$id'>$contenido</div>";
 				$html .= "</div></div>";
@@ -71,6 +77,7 @@ class toba_tab extends toba_boton
 				$html = "<div class='ci-tabs-v-solapa' $oculto >$editor ";
 				$html .= "<a href='#' id='$id' $acceso $js>$contenido</a>";
 				$html .= "</div>";
+				$html .= $js_extra;
 			}
 		}
 		$id_tab++;

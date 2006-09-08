@@ -57,8 +57,9 @@ class toba_ei_cuadro extends toba_ei
 		$this->inspeccionar_sumarizaciones_usuario();
 	}
 
-	function inicializar()
+	function inicializar($parametros)
 	{
+		parent::inicializar($parametros);
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
 		$this->submit_seleccion = $this->submit."__seleccion";
@@ -1094,9 +1095,16 @@ class toba_ei_cuadro extends toba_ei
 							$evento->vinculo()->set_parametros($this->get_clave_fila_array($f));	
 						}
 						//2: Ventana de modificacion del evento por fila
-						$callback_modificacion_eventos = 'conf_evt__' . $id;
-						if(method_exists($this, $callback_modificacion_eventos)){
-							$this->$callback_modificacion_eventos($evento, $f);
+						//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
+						$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
+						if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
+							$this->controlador->$callback_modificacion_eventos_contenedor($evento, $f);
+						} else {
+							//- b - ¿Existe una callback de modificacion una subclase?
+							$callback_modificacion_eventos = 'conf_evt__' . $id;
+							if (method_exists($this, $callback_modificacion_eventos)) {
+								$this->$callback_modificacion_eventos($evento, $f);
+							}
 						}
 						//3: Genero el boton
 						if( ! $evento->esta_anulado() ) {

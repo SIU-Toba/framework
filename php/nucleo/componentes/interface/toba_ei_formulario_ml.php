@@ -648,9 +648,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 						$evento->vinculo()->set_parametros($fila);	
 					}
 					//2: Ventana de modificacion del evento por fila
-					$callback_modificacion_eventos = 'conf_evt__' . $id;
-					if(method_exists($this, $callback_modificacion_eventos)){
-						$this->$callback_modificacion_eventos($evento, $fila);
+					//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
+					$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
+					if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
+						$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
+					} else {
+						//- b - ¿Existe una callback de modificacion una subclase?
+						$callback_modificacion_eventos = 'conf_evt__' . $id;
+						if (method_exists($this, $callback_modificacion_eventos)) {
+							$this->$callback_modificacion_eventos($evento, $fila);
+						}
 					}
 					//3: Genero el boton
 					if( ! $evento->esta_anulado() ) {

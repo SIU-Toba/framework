@@ -106,6 +106,11 @@ class toba_evento_usuario extends toba_boton
 		}
 	}
 	
+	function get_parametros()
+	{
+		return $this->parametros;	
+	}
+	
 	//--------- Seters ---------------------
 	
 	function set_parametros($parametros = null)
@@ -138,7 +143,6 @@ class toba_evento_usuario extends toba_boton
 		$html .= $this->get_imagen();
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
-
 		$estilo_inline = $this->oculto ? 'display: none' : null;
 		
 		if ( $this->posee_accion_imprimir() ) {

@@ -192,28 +192,33 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	
 	def.activar_tab = function(id) {
 		var boton = this.get_tab(id);
-		if (boton.onclick_viejo !== '') {
-			alert(boton.onclick_viejo);
-			boton.onclick = boton.onclick_viejo;
-		} else {
-			alert('no hay viejo');	
+		if(boton){
+			if (boton.onclick_viejo !== '') {
+				boton.onclick = boton.onclick_viejo;
+			}
 		}
 	};
 
 	def.desactivar_tab = function(id) {
 		var boton = this.get_tab(id);
-		boton.onclick_viejo = boton.onclick;
-		boton.onclick = '';
+		if(boton) {
+			boton.onclick_viejo = boton.onclick;
+			boton.onclick = '';
+		}
 	};
 
 	def.mostrar_tab = function (id) {
-		tab = this.get_tab(id).parentNode;
-		tab.style.display = '';
+		tab = this.get_tab(id);
+		if(tab) {
+			tab.parentNode.style.display = '';
+		}
 	}
 
 	def.ocultar_tab = function (id) {
-		tab = this.get_tab(id).parentNode;
-		tab.style.display = 'none';
+		tab = this.get_tab(id);
+		if(tab) {
+			tab.parentNode.style.display = 'none';
+		}
 	}
 
 	def.get_tab = function(id) {
