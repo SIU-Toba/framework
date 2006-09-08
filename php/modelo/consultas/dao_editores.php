@@ -92,19 +92,31 @@ class dao_editores
 					);
 	}
 
+	static function get_lista_clases_item()
+	{
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('item'));
+	}
+	
+	static function get_lista_clases_validas_en_ci()
+	{
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('objeto_ci'));
+	}	
+	
 	/*
 		Las clases usan un ID concatenado para que las cascadas
 		las soporten (actualmente pasan un parametro solo)
 	*/
-	static function get_lista_clases_toba($todas=false)
+	static function get_lista_clases_toba($todas=false, $especificas=null)
 	{
-		if ($todas)
+		if ($todas) {
 			$sql_todas = "";
-		else
-			$sql_todas = "clase IN ('". implode("','",self::get_clases_validas() ) ."') AND";
+		} else {
+			$clases = (isset($especificas)) ? $especificas : self::get_clases_validas();
+			$sql_todas = "clase IN ('". implode("','", $clases) ."') AND";
+		}
 			
 		$sql = "SELECT 	proyecto || ',' || clase as clase, 
-						clase as descripcion
+						descripcion_corta as descripcion
 				FROM apex_clase 
 				WHERE 
 					$sql_todas
@@ -138,6 +150,7 @@ class dao_editores
 					c.editor_proyecto,
 					c.editor_item,
 					c.icono,
+					c.descripcion_corta,
 					ct.clase_tipo,
 					ct.descripcion_corta as clase_tipo_desc
 				FROM 
