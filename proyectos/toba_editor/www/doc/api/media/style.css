@@ -64,10 +64,7 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 .short-description{ color: #636331; font-weight: bold; }
 .src-code li, .php-src li, .php li, .listing li { list-style-type: decimal }
 /* This will not be executed by IE, so now we have a fix! */
-*[class="php-src"], *[class="php"], *[class="listing"] {
-	line-height:    0.1em;
-	list-style-type: decimal
-}
+.php-src { font-family: 'Courier New', Courier, monospace; font-weight: normal; }
 .sub-package{ font-size: 120%; font-weight: bold; }
 .tags{ color: #636331; list-style-type: square; margin-bottom: 0em; margin-left: 3em; margin-right: 1em; margin-top: 0em; padding-left: 0em; vertical-align: top; }
 .tree dl { margin: 0px; }
@@ -86,7 +83,9 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 
 /* Syntax highlighting */
 
-.src-code { background-color: #f5f5f5; border: 1px solid #ccc9a4; padding: 1em; margin : 0px}
+.src-code { background-color: #f5f5f5; border: 1px solid #ccc9a4; padding: 1em; margin : 0px;
+            font-family: 'Courier New', Courier, monospace; font-weight: normal; }
+.src-line {  font-family: 'Courier New', Courier, monospace; font-weight: normal; }
 
 .src-comm { color: green; }
 .src-id {  }
@@ -134,3 +133,22 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 .cmd-title { font-weight: bold }
 .toc { margin-left: 2em; padding-left: 0em }
 
+/** CAMBIOS **/
+h2.class-name {display:none}
+.class-overview  .short-description { font-size: 14px; color:black;}
+ 
+#todolist, #topdiv { 
+	position: fixed;
+	bottom:0;
+	border: solid gray 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+    background-color:#FDFCF2;
+}
+#topdiv {
+	right: 0;
+}
+#todolist {
+	left: 0;
+}
+.short-description {text-align: left; }

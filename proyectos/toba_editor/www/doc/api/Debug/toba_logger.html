@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Docs For Class toba_logger</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">API de SIU-Toba<br />
+  	<div class="package">
+              	<a href="../li_Centrales.html">Centrales</a>
+        	        		|
+        	              	<a href="../li_Componentes.html">Componentes</a>
+        	        		|
+        	              	<a href="../li_Debug.html">Debug</a>
+        	        		|
+        	              	<a href="../li_Fuentes.html">Fuentes</a>
+        	        		|
+        	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
+        	        		|
+        	              	<a href="../li_Varios.html">Varios</a>
+        	           </div>
+    	<div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="../classtrees_Debug.html" class="menu">árbol de herencia: Debug</a> ]
+		  [ <a href="../elementindex_Debug.html" class="menu">índice: Debug</a> ]
+		  [ <a href="../elementindex.html" class="menu">índice general</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Debug</div>
+
+      <br />
+                          <div class="package">
+		    		<a href="../Debug/toba_cronometro.html">toba_cronometro</a>    	 <br />
+	    		<a href="../Debug/toba_logger.html">toba_logger</a>    	 <br />
+	  </div>
+                        
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Clase: toba_logger</h1>
+
+<h2 class="class-name">Clase toba_logger</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-method-summary">Métodos</a>
+			|			
+										
+					<a href="#sec-consts">Constantes</a>
+			</div>
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+
+        		<p align="center" class="short-description"><strong>Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis  Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
+</strong></p>
+
+		<p class="notes">
+			Ubicada en <a class="field" href="_lib---toba_logger.php.html">/lib/toba_logger.php</a> [<span class="field">line 17</span>]
+		</p>
+
+		
+		<pre></pre>
+
+		
+		
+		
+		</td>
+		</tr></table>
+	</div>
+</div>
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+			<div class="method-summary">
+				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+																																																																																																																																																												<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">logger</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Este es un singleton por proyecto</td></tr>
+				</div>
+																																																																																																												<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#anexar_a_archivo" title="details" class="method-name">anexar_a_archivo</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#borrar_archivos_logs" title="details" class="method-name">borrar_archivos_logs</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Borra físicamente todos los archivos de log del proyecto actual</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#ciclar_archivos_logs" title="details" class="method-name">ciclar_archivos_logs</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#construir_traza" title="details" class="method-name">construir_traza</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#crit" title="details" class="method-name">crit</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un suceso CRITICO (un error muy grave)</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#debug" title="details" class="method-name">debug</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un suceso útil para rastrear problemas o bugs en la aplicación</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#desactivar" title="details" class="method-name">desactivar</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Desactiva el logger en el pedido de página actual</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#directorio_logs" title="details" class="method-name">directorio_logs</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#error" title="details" class="method-name">error</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un error en la apl., este nivel es que el se usa en las excepciones</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#extraer_mensaje" title="details" class="method-name">extraer_mensaje</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_cantidad_mensajes" title="details" class="method-name">get_cantidad_mensajes</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_niveles" title="details" class="method-name">get_niveles</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_proyecto_actual" title="details" class="method-name">get_proyecto_actual</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_usuario_actual" title="details" class="method-name">get_usuario_actual</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#guardar" title="details" class="method-name">guardar</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Guarda los sucesos actuales en el sist. de archivos</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#guardar_archivo_log" title="details" class="method-name">guardar_archivo_log</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#guardar_en_archivo" title="details" class="method-name">guardar_en_archivo</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un suceso netamente informativo, para una inspección posterior</td></tr>
+				</div>
+																								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#mascara" title="details" class="method-name">mascara</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#mascara_hasta" title="details" class="method-name">mascara_hasta</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#mensajes" title="details" class="method-name">mensajes</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#notice" title="details" class="method-name">notice</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un suceso no contemplado que no es critico para la aplicacion</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#obsoleto" title="details" class="method-name">obsoleto</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Indica la llamada a un metodo/funcion obsoleto, es un alias de notice</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#registrar_mensaje" title="details" class="method-name">registrar_mensaje</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#seccion" title="details" class="method-name">seccion</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#set_directorio_logs" title="details" class="method-name">set_directorio_logs</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#trace" title="details" class="method-name">trace</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Muestra la traza de ejecucion actual en el logger</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#var_dump" title="details" class="method-name">var_dump</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Dumpea el contenido de una variable al logger</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#warning" title="details" class="method-name">warning</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso</td></tr>
+				</div>
+												</table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+	<a name="sec-const-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Constantes</span></div>
+		<div class="info-box-body">
+			<div class="const-summary">
+			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
+							<div class="var-title">
+					<tr>
+					<td class="var-title"><a href="#constfin_encabezado" title="details" class="const-name-summary">fin_encabezado</a>&nbsp;&nbsp;</td>
+					<td class="const-summary-description"></td></tr>
+				</div>
+								<div class="var-title">
+					<tr>
+					<td class="var-title"><a href="#constlimite_mensaje" title="details" class="const-name-summary">limite_mensaje</a>&nbsp;&nbsp;</td>
+					<td class="const-summary-description"></td></tr>
+				</div>
+								<div class="var-title">
+					<tr>
+					<td class="var-title"><a href="#constseparador" title="details" class="const-name-summary">separador</a>&nbsp;&nbsp;</td>
+					<td class="const-summary-description"></td></tr>
+				</div>
+								</table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+	<a name="sec-methods"></a>
+	<div class="info-box">
+
+		<div class="info-box-body">
+			<a name='method_detail'></a>
+<a name="methodinstancia" id="instancia"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 76]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static logger instancia(
+[
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Este es un singleton por proyecto
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+
+<a name="methodanexar_a_archivo" id="anexar_a_archivo"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">anexar_a_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void anexar_a_archivo(
+
+$texto, 
+$archivo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodborrar_archivos_logs" id="borrar_archivos_logs"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">borrar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 523]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void borrar_archivos_logs(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Borra físicamente todos los archivos de log del proyecto actual
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodciclar_archivos_logs" id="ciclar_archivos_logs"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">ciclar_archivos_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 462]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void ciclar_archivos_logs(
+
+$path, 
+$archivo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$path:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodconstruir_traza" id="construir_traza"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">construir_traza</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 171]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void construir_traza(
+[
+$con_parametros = false], [
+$pasos = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$con_parametros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pasos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodcrit" id="crit"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">crit</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 255]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void crit(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un suceso CRITICO (un error muy grave)
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddebug" id="debug"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 322]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void debug(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un suceso útil para rastrear problemas o bugs en la aplicación
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddesactivar" id="desactivar"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 108]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Desactiva el logger en el pedido de página actual
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddirectorio_logs" id="directorio_logs"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 367]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void directorio_logs(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoderror" id="error"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">error</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 263]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void error(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un error en la apl., este nivel es que el se usa en las excepciones
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodextraer_mensaje" id="extraer_mensaje"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">extraer_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 136]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void extraer_mensaje(
+
+$mensaje&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_cantidad_mensajes" id="get_cantidad_mensajes"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_cantidad_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 222]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_cantidad_mensajes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_niveles" id="get_niveles"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_niveles</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 227]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_niveles(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_proyecto_actual" id="get_proyecto_actual"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_proyecto_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 85]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_proyecto_actual(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_usuario_actual" id="get_usuario_actual"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_usuario_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 96]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_usuario_actual(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodguardar" id="guardar"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">guardar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 356]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void guardar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Guarda los sucesos actuales en el sist. de archivos
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodguardar_archivo_log" id="guardar_archivo_log"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">guardar_archivo_log</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 426]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void guardar_archivo_log(
+
+$texto, 
+$archivo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodguardar_en_archivo" id="guardar_en_archivo"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">guardar_en_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 381]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void guardar_en_archivo(
+
+$archivo, [
+$forzar_salida = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$archivo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$forzar_salida:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodinfo" id="info"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 314]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void info(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un suceso netamente informativo, para una inspección posterior
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodmascara" id="mascara"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">mascara</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void mascara(
+
+$nivel&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nivel:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodmascara_hasta" id="mascara_hasta"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">mascara_hasta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 344]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void mascara_hasta(
+
+$nivel&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nivel:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodmensajes" id="mensajes"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 217]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void mensajes(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodnotice" id="notice"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">notice</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 306]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void notice(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un suceso no contemplado que no es critico para la aplicacion
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodobsoleto" id="obsoleto"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">obsoleto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 280]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void obsoleto(
+
+$clase, 
+$metodo, string
+$version, [
+$extra = null], [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Indica la llamada a un metodo/funcion obsoleto, es un alias de notice
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$version:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Versión desde la cual el metodo/funcion deja de estar disponible</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clase:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$metodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$extra:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodregistrar_mensaje" id="registrar_mensaje"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">registrar_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 115]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void registrar_mensaje(
+
+$mensaje, 
+$proyecto, 
+$nivel&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nivel:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodseccion" id="seccion"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">seccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 330]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void seccion(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Inserta un mensaje de debug que permite al visualizador dividir en secciones la ejecución
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_directorio_logs" id="set_directorio_logs"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">set_directorio_logs</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 376]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_directorio_logs(
+
+$dir&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dir:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodtrace" id="trace"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">trace</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void trace(
+[
+$con_parametros = false], [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Muestra la traza de ejecucion actual en el logger
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$con_parametros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodvar_dump" id="var_dump"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">var_dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 247]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void var_dump(
+
+$variable, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Dumpea el contenido de una variable al logger
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$variable:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodwarning" id="warning"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">warning</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 271]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void warning(
+
+$mensaje, [
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Registra un suceso no contemplado pero que posiblemente no afecta la correctitud del proceso
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+		</div>
+	</div>
+
+
+
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Constantes</div>
+		<div class="info-box-body">
+			<a name="constfin_encabezado" id="fin_encabezado"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-name">fin_encabezado</span>
+			 = <span class="var-default"> &quot;==========&quot;</span>
+			<span class="smalllinenumber">[line 20]</span>
+		</span>
+	</div>
+
+		
+
+	<br />
+</div>
+<a name="constlimite_mensaje" id="limite_mensaje"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-name">limite_mensaje</span>
+			 = <span class="var-default"> 100000</span>
+			<span class="smalllinenumber">[line 21]</span>
+		</span>
+	</div>
+
+		
+
+	<br />
+</div>
+<a name="constseparador" id="separador"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-name">separador</span>
+			 = <span class="var-default"> &quot;-o-o-o-o-o-&quot;</span>
+			<span class="smalllinenumber">[line 19]</span>
+		</span>
+	</div>
+
+		
+
+	<br />
+</div>
+		</div>
+	</div>
+
+<br />
+<div class="credit">
+		    <hr class="separator" />
+			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+			<br />        
+		    
+		    Documentación generada el Fri, 08 Sep 2006 10:15:49 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

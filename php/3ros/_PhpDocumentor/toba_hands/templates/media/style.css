@@ -135,11 +135,20 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 
 /** CAMBIOS **/
 h2.class-name {display:none}
-.class-overview > .short-description { font-size: 14px; text-align:left; font-color:black;}
+.class-overview  .short-description { font-size: 14px; color:black;}
  
-#todolist { 
+#todolist, #topdiv { 
 	position: fixed;
-	left: 0;
 	bottom:0;
+	border: solid gray 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+    background-color:#FDFCF2;
 }
-
+#topdiv {
+	right: 0;
+}
+#todolist {
+	left: 0;
+}
+.short-description {text-align: left; }

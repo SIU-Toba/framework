@@ -11,14 +11,28 @@
 <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
   <tr>
 	<td class="header-top-left"><img src="media/logo.png" border="0" alt="phpDocumentor " /></td>
-    <td class="header-top-right">Objetos<br /><div class="header-top-right-subpackage">Persistencia</div></td>
+    <td class="header-top-right">API de SIU-Toba<br />
+  	<div class="package">
+              	<a href="li_Centrales.html">Centrales</a>
+        	        		|
+        	              	<a href="li_Componentes.html">Componentes</a>
+        	        		|
+        	              	<a href="li_Debug.html">Debug</a>
+        	        		|
+        	              	<a href="li_Fuentes.html">Fuentes</a>
+        	        		|
+        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
+        	        		|
+        	              	<a href="li_Varios.html">Varios</a>
+        	           </div>
+    	<div class="header-top-right-subpackage"></div></td>
   </tr>
   <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
     <td colspan="2" class="header-menu">
-  		  [ <a href="classtrees_Objetos.html" class="menu">class tree: Objetos</a> ]
-		  [ <a href="elementindex_Objetos.html" class="menu">index: Objetos</a> ]
-		  [ <a href="elementindex.html" class="menu">all elements</a> ]
+  		  [ <a href="classtrees_SalidaGrafica.html" class="menu">árbol de herencia: SalidaGrafica</a> ]
+		  [ <a href="elementindex_SalidaGrafica.html" class="menu">índice: SalidaGrafica</a> ]
+		  [ <a href="elementindex.html" class="menu">índice general</a> ]
     </td>
   </tr>
   <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
@@ -27,77 +41,99 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr valign="top">
     <td width="195" class="menu">
-		<div class="package-title">Objetos</div>
+		<div class="package-title">SalidaGrafica</div>
+
+      <br />
+                                    
   <div class="package">
 	<div id="todolist">
 			<p><a href="todolist.html">Todo List</a></p>
 	</div>
 	</div>
-      <b>Packages:</b><br />
-  <div class="package">
-              <a href="li_default.html">default</a><br />
-              <a href="li_Objetos.html">Objetos</a><br />
-              <a href="li_Utilerias.html">Utilerias</a><br />
-      	</div>
-      <br />
-                                    </td>
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+	</div>
+    </td>
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
 <div align="center"><h1>Todo List</h1></div>
-<h2>Objetos</h2>
-<h3><a href="Objetos/Persistencia/ap_tabla_db.html">ap_tabla_db</a></h3>
-<ul>
-    <li>Esta clase no deberia utilizar ADOdb!!!</li>
-    <li>Hay que definir el manejo de claves (en base a objeto_datos_relacion)</li>
-    <li>Donde se hacen los controles pre-sincronizacion (nulos db)??</li>
-    <li>Como se implementa la carga de columnas externas??</li>
-    <li>Poder desactivar el control de sincronizacion (�se necesita esto?)</li>
-</ul>
-<h3><a href="Objetos/Persistencia/ap_tabla_db.html#methodcompletar_campos_externos_fila">ap_tabla_db::completar_campos_externos_fila()</a></h3>
+<h2>Componentes</h2>
+<h3><a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcompletar_campos_externos_fila">toba_ap_tabla_db::completar_campos_externos_fila()</a></h3>
 <ul>
     <li>Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)*</li>
 </ul>
-<h3><a href="Objetos/Ei/objeto_ci.html#methoddisparar_eventos">objeto_ci::disparar_eventos()</a></h3>
+<h3><a href="Componentes/Eis/toba_ci.html#methoddisparar_eventos">toba_ci::disparar_eventos()</a></h3>
 <ul>
     <li>Esto esta bien? --&gt; cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.</li>
 </ul>
-<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html#methodget_id_filas">objeto_datos_tabla::get_id_filas()</a></h3>
+<h3><a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_filas">toba_datos_tabla::get_id_filas()</a></h3>
 <ul>
-    <li>Se podr�a optimizar este m�todo para no recaer en tantos recorridos</li>
+    <li>Se podría optimizar este método para no recaer en tantos recorridos</li>
 </ul>
-<h3><a href="Objetos/Ei/objeto_ci.html#methodget_lista_ei">objeto_ci::get_lista_ei()</a></h3>
+<h3><a href="Componentes/toba_constructor.html#methodget_runtime">toba_constructor::get_runtime()</a></h3>
 <ul>
-    <li>Sacar chequeo cuando los objetos en una pantalla no sean serializados</li>
+    <li>Cuando la arquitectura 1 se acabe sacar el 3er parametro, es para que el ambs pueda crear un ut-form</li>
 </ul>
-<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html#methodlog">objeto_datos_tabla::log()</a></h3>
-<ul>
-    <li>El objeto deberia tener directamente algo asi</li>
-</ul>
-<h3><a href="Objetos/Persistencia/objeto_datos_relacion.html#methodlog">objeto_datos_relacion::log()</a></h3>
+<h3><a href="Componentes/Persistencia/toba_datos_tabla.html#methodlog">toba_datos_tabla::log()</a></h3>
 <ul>
     <li>El objeto deberia tener directamente algo asi</li>
 </ul>
-<h3><a href="Objetos/Persistencia/objeto_datos_relacion.html">objeto_datos_relacion</a></h3>
+<h3><a href="Componentes/Persistencia/toba_datos_relacion.html#methodlog">toba_datos_relacion::log()</a></h3>
 <ul>
-    <li>En el dump_esquema incluir la posici�n actual de los cursores</li>
+    <li>El objeto deberia tener directamente algo asi</li>
 </ul>
-<h3><a href="Objetos/Persistencia/objeto_datos_tabla.html">objeto_datos_tabla</a></h3>
+<h3><a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></h3>
+<ul>
+    <li>Como se implementa la carga de columnas externas??</li>
+    <li>Donde se hacen los controles pre-sincronizacion (nulos db)??</li>
+    <li>Esta clase no deberia utilizar ADOdb!!!</li>
+    <li>Hay que definir el manejo de claves (en base a toba_datos_relacion)</li>
+    <li>Poder desactivar el control de sincronizacion (¿se necesita esto?)</li>
+</ul>
+<h3><a href="Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></h3>
+<ul>
+    <li>En el dump_esquema incluir la posición actual de los cursores</li>
+</ul>
+<h3><a href="Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></h3>
 <ul>
     <li>Control de FK y PK</li>
 </ul>
-<h3><a href="Objetos/Ei/objeto_ei_formulario.html">objeto_ei_formulario</a></h3>
+<h3><a href="Componentes/Eis/toba_ei_formulario.html">toba_ei_formulario</a></h3>
 <ul>
     <li>Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.</li>
 </ul>
-<h3><a href="Objetos/Persistencia/relacion_entre_tablas.html">relacion_entre_tablas</a></h3>
+<h3><a href="Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a></h3>
 <ul>
-    <li>cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion</li>
     <li>actualizacion dinamica del MAPEO de filas</li>
+    <li>cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion</li>
 </ul>
-        <div class="credit">
+<h2>Fuentes</h2>
+<h3><a href="Fuentes/toba_dba.html">toba_dba</a></h3>
+<ul>
+    <li><ul></ul><ul><li>Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia</li></ul></li>
+</ul>
+<h2>Varios</h2>
+<h3><a href="Varios/toba_parser_ayuda.html#methodes_texto_plano">toba_parser_ayuda::es_texto_plano()</a></h3>
+<ul>
+    <li>Ver una forma de no usar exp.reg. para saber si parsear o no!</li>
+</ul>
+<h2>Centrales</h2>
+<h3><a href="Centrales/toba_solicitud_web.html">toba_solicitud_web</a></h3>
+<ul>
+    <li>Al servicio pdf le falta pedir por parametro que metodo llamar para construirlo</li>
+</ul>
+<h3><a href="Centrales/toba_vinculador.html">toba_vinculador</a></h3>
+<ul>
+    <li>que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual</li>
+</ul>
+<br />
+<div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Fri, 28 Apr 2006 15:09:08 -0300 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+			<br />        
+		    
+		    Documentación generada el Fri, 08 Sep 2006 10:15:58 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

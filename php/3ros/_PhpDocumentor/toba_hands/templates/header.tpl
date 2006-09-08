@@ -25,9 +25,9 @@
   <tr><td colspan="2" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
     <td colspan="2" class="header-menu">
-  		  [ <a href="{$subdir}classtrees_{$package}.html" class="menu">class tree: {$package}</a> ]
-		  [ <a href="{$subdir}elementindex_{$package}.html" class="menu">index: {$package}</a> ]
-		  [ <a href="{$subdir}elementindex.html" class="menu">all elements</a> ]
+  		  [ <a href="{$subdir}classtrees_{$package}.html" class="menu">árbol de herencia: {$package}</a> ]
+		  [ <a href="{$subdir}elementindex_{$package}.html" class="menu">índice: {$package}</a> ]
+		  [ <a href="{$subdir}elementindex.html" class="menu">índice general</a> ]
     </td>
   </tr>
   <tr><td colspan="2" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
@@ -90,13 +90,15 @@
 	</div>
 	</div>
 {/if}
-      
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+	</div>
     </td>
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
 {if !$hasel}{assign var="hasel" value=false}{/if}
-{if $eltype == 'class' && $is_interface}{assign var="eltype" value="interface"}{/if}
+{if $eltype == 'clase' && $is_interface}{assign var="eltype" value="interface"}{/if}
 {if $hasel}
 <h1>{$eltype|capitalize}: {$class_name}</h1>
 {/if}

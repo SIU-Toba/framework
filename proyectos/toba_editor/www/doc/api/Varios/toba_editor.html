@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Docs For Class toba_editor</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">API de SIU-Toba<br />
+  	<div class="package">
+              	<a href="../li_Centrales.html">Centrales</a>
+        	        		|
+        	              	<a href="../li_Componentes.html">Componentes</a>
+        	        		|
+        	              	<a href="../li_Debug.html">Debug</a>
+        	        		|
+        	              	<a href="../li_Fuentes.html">Fuentes</a>
+        	        		|
+        	              	<a href="../li_SalidaGrafica.html">SalidaGrafica</a>
+        	        		|
+        	              	<a href="../li_Varios.html">Varios</a>
+        	           </div>
+    	<div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="../classtrees_Varios.html" class="menu">árbol de herencia: Varios</a> ]
+		  [ <a href="../elementindex_Varios.html" class="menu">índice: Varios</a> ]
+		  [ <a href="../elementindex.html" class="menu">índice general</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Varios</div>
+
+      <br />
+                          <div class="package">
+		    		<a href="../Varios/calendario.html">calendario</a>    	 <br />
+	    		<a href="../Varios/toba_editor.html">toba_editor</a>    	 <br />
+	    		<a href="../Varios/toba_parser_ayuda.html">toba_parser_ayuda</a>    	 <br />
+	  </div>
+                        
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Clase: toba_editor</h1>
+
+<h2 class="class-name">Clase toba_editor</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-method-summary">Métodos</a>
+						
+										
+			</div>
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+
+        		<p align="center" class="short-description"><strong>A travez de esta clase el nucleo registra al toba_editor  Esta es una clase muy particular, su contenido deberia repartirse entre modelo,  proyecto editor y nucleo. Por simplicidad se deja todo junto.
+</strong></p>
+
+		<p class="notes">
+			Ubicada en <a class="field" href="_lib---toba_editor.php.html">/lib/toba_editor.php</a> [<span class="field">line 9</span>]
+		</p>
+
+		
+		<pre></pre>
+
+		
+		
+		
+		</td>
+		</tr></table>
+	</div>
+</div>
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+			<div class="method-summary">
+				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+												<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#acceso_recursivo" title="details" class="method-name">acceso_recursivo</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Indica si el ADMIN se esta editando a si mismo</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#activado" title="details" class="method-name">activado</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Indica si el EDITOR de metadatos se encuentra encendido</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#generar_zona_vinculos_componente" title="details" class="method-name">generar_zona_vinculos_componente</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#generar_zona_vinculos_item" title="details" class="method-name">generar_zona_vinculos_item</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_base_activa" title="details" class="method-name">get_base_activa</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_grupo_acceso_previsualizacion" title="details" class="method-name">get_grupo_acceso_previsualizacion</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_id_instancia_activa" title="details" class="method-name">get_id_instancia_activa</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_parametros_previsualizacion" title="details" class="method-name">get_parametros_previsualizacion</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Recuperar las propiedades y setearlas en la sesion</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_parametros_previsualizacion_db" title="details" class="method-name">get_parametros_previsualizacion_db</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_parametros_previsualizacion_js" title="details" class="method-name">get_parametros_previsualizacion_js</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Alimenta a la clase que representa al editor en JS</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_proyecto_cargado" title="details" class="method-name">get_proyecto_cargado</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_punto_acceso_editor" title="details" class="method-name">get_punto_acceso_editor</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_vinculos_componente" title="details" class="method-name">get_vinculos_componente</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_vinculos_item" title="details" class="method-name">get_vinculos_item</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_vinculo_evento" title="details" class="method-name">get_vinculo_evento</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_vinculo_pantalla" title="details" class="method-name">get_vinculo_pantalla</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_vinculo_subcomponente" title="details" class="method-name">get_vinculo_subcomponente</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#iniciar" title="details" class="method-name">iniciar</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">_falta: Hacer un control de que el administrador esta en esa instancia</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#javascript_invocacion_editor" title="details" class="method-name">javascript_invocacion_editor</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Generacion del invocador al editor.</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#limpiar_memoria" title="details" class="method-name">limpiar_memoria</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#modo_prueba" title="details" class="method-name">modo_prueba</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#set_parametros_previsualizacion" title="details" class="method-name">set_parametros_previsualizacion</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Establecer las propiedades desde el editor</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#set_parametros_previsualizacion_db" title="details" class="method-name">set_parametros_previsualizacion_db</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#set_proyecto_cargado" title="details" class="method-name">set_proyecto_cargado</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																																																																																																																																																																																																																								</table>
+			</div>
+			<br />
+		</div>
+	</div>
+
+
+
+
+
+
+	<a name="sec-methods"></a>
+	<div class="info-box">
+
+		<div class="info-box-body">
+			<a name='method_detail'></a>
+<a name="methodacceso_recursivo" id="acceso_recursivo"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method acceso_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void acceso_recursivo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Indica si el ADMIN se esta editando a si mismo
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodactivado" id="activado"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method activado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void activado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Indica si el EDITOR de metadatos se encuentra encendido
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgenerar_zona_vinculos_componente" id="generar_zona_vinculos_componente"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method generar_zona_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 281]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void generar_zona_vinculos_componente(
+
+$componente, 
+$editor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$editor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodgenerar_zona_vinculos_item" id="generar_zona_vinculos_item"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method generar_zona_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 235]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void generar_zona_vinculos_item(
+
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_base_activa" id="get_base_activa"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_base_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 62]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_base_activa(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_grupo_acceso_previsualizacion" id="get_grupo_acceso_previsualizacion"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_grupo_acceso_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 120]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_grupo_acceso_previsualizacion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id" id="get_id"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 11]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_id(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id_instancia_activa" id="get_id_instancia_activa"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_id_instancia_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 55]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_id_instancia_activa(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_parametros_previsualizacion" id="get_parametros_previsualizacion"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 133]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_parametros_previsualizacion(
+[
+$refrescar = false]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Recuperar las propiedades y setearlas en la sesion
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$refrescar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_parametros_previsualizacion_db" id="get_parametros_previsualizacion_db"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 160]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_parametros_previsualizacion_db(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_parametros_previsualizacion_js" id="get_parametros_previsualizacion_js"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_parametros_previsualizacion_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 113]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_parametros_previsualizacion_js(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Alimenta a la clase que representa al editor en JS
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_proyecto_cargado" id="get_proyecto_cargado"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_proyecto_cargado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_punto_acceso_editor" id="get_punto_acceso_editor"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_punto_acceso_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 82]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_punto_acceso_editor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_vinculos_componente" id="get_vinculos_componente"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 350]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_vinculos_componente(
+
+$componente, 
+$editor&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$editor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_vinculos_item" id="get_vinculos_item"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 315]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_vinculos_item(
+
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_vinculo_evento" id="get_vinculo_evento"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_vinculo_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 366]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_vinculo_evento(
+
+$componente, 
+$editor, 
+$evento&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$editor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$evento:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_vinculo_pantalla" id="get_vinculo_pantalla"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_vinculo_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 381]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_vinculo_pantalla(
+
+$componente, 
+$editor, 
+$pantalla&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$editor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pantalla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_vinculo_subcomponente" id="get_vinculo_subcomponente"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method get_vinculo_subcomponente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 295]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_vinculo_subcomponente(
+
+$item_editor, 
+$parametros, [
+$opciones = array()], [
+$frame = 'frame_centro']&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item_editor:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$opciones:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$frame:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodiniciar" id="iniciar"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 20]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void iniciar(
+
+$instancia, 
+$proyecto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>_falta: Hacer un control de que el administrador esta en esa instancia
+</strong></p>
+<span class="description"><p>(hoy en dia seria obligatorio)</p></span>
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$instancia:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodjavascript_invocacion_editor" id="javascript_invocacion_editor"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method javascript_invocacion_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 199]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void javascript_invocacion_editor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Generacion del invocador al editor.
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 100]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void limpiar_memoria(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodmodo_prueba" id="modo_prueba"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method modo_prueba</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 47]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void modo_prueba(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto
+</strong></p>
+<span class="description"><p>lanzada desde el admin</p></span>
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_parametros_previsualizacion" id="set_parametros_previsualizacion"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method set_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 150]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_parametros_previsualizacion(
+
+$datos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Establecer las propiedades desde el editor
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_parametros_previsualizacion_db" id="set_parametros_previsualizacion_db"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method set_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 174]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_parametros_previsualizacion_db(
+
+$datos&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_proyecto_cargado" id="set_proyecto_cargado"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method set_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 76]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_proyecto_cargado(
+
+$proyecto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+
+		</div>
+	</div>
+
+
+
+
+
+<br />
+<div class="credit">
+		    <hr class="separator" />
+			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+			<br />        
+		    
+		    Documentación generada el Fri, 08 Sep 2006 10:15:26 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

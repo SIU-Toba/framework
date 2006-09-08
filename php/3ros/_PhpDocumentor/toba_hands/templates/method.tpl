@@ -27,7 +27,7 @@
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc}
 
 	{if $methods[methods].params}
-		<strong>Parameters:</strong><br />
+		<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 		{section name=params loop=$methods[methods].params}
 			<tr><td class="indent">
@@ -69,7 +69,7 @@
 
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
+		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}
 			<li>
@@ -82,7 +82,6 @@
 		</ul>
 	{/if}
 	<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 {/if}
 {/section}
@@ -115,7 +114,7 @@
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc}
 
 	{if $methods[methods].params}
-		<strong>Parameters:</strong><br />
+		<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 		{section name=params loop=$methods[methods].params}
 			<tr><td class="indent">
@@ -157,7 +156,7 @@
 
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
+		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}
 			<li>
@@ -170,7 +169,6 @@
 		</ul>
 	{/if}
 	<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 {/if}
 {/section}

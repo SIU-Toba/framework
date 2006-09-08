@@ -28,7 +28,6 @@
 		</div>
 	{/if}
 	<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
 	<br />
 </div>
 {/section}

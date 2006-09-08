@@ -1,4 +1,4 @@
-{include file="header.tpl" eltype="class" hasel=true contents=$classcontents}
+{include file="header.tpl" eltype="clase" hasel=true contents=$classcontents}
 
 <h2 class="class-name">{if $is_interface}Interface{else}Clase{/if} {$class_name}</h2>
 
@@ -8,26 +8,21 @@
 		{if $children || $vars || $ivars || $methods || $imethods || $consts || $iconsts}
 			<span class="disabled">Resúmen de la {if $is_interface}Interface{else}Clase{/if}</span> |
 		{/if}
+		{if $methods || $imethods}
+			<a href="#sec-method-summary">Métodos</a>
+			{if $vars || $ivars || $children || $consts || $iconsts}|{/if}			
+		{/if}
 		{if $children}
 			<a href="#sec-descendents">Descendientes</a>
-			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
+			{if $vars || $ivars || $consts || $iconsts}|{/if}
 		{/if}
-		
 		{if $ivars || $imethods}
 			<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
-		{if $methods || $imethods}
-			{if $methods}
-				<a href="#sec-method-summary">Métodos</a>
-			{else}
-				<a href="#sec-methods">Métodos</a>
-			{/if}
-			{if $consts || $iconsts}|{/if}
-		{/if}
 		{if $vars || $ivars}
-				<a href="#sec-vars">Propiedades</a>
-			{if $methods || $imethods}|{/if}
+			<a href="#sec-vars">Propiedades</a>
+			{if $consts || $iconsts}|{/if}
 		{/if}		
 		{if $consts || $iconsts}
 			<a href="#sec-consts">Constantes</a>
@@ -80,66 +75,52 @@
 
 		{include file="classtags.tpl" tags=$tags}
 		</td>
-
-		{if count($contents.var) > 0}
-		<td valign="top" width="20%" class="class-overview">
-		<p align="center" class="short-description"><strong><a href="#sec_vars">Propiedades</a></strong></p>
-		<ul>
-		  {section name=contents loop=$contents.var}
-		  <li>{$contents.var[contents]}</li>
-		  {/section}
-		</ul>
-		</td>
-		{/if}
-
-		{if count($contents.method) > 0}
-		<td valign="top" width="20%" class="class-overview">
-		<p align="center" class="short-description"><strong><a href="#sec_methods">Métodos</a></strong></p>
-		<ul>
-		  {section name=contents loop=$contents.method}
-		  <li>{$contents.method[contents]}</li>
-		  {/section}
-		</ul>
-		</td>
-		{/if}
-
 		</tr></table>
-		<div class="top">[ <a href="#top">Top</a> ]</div>
 	</div>
 </div>
+
+
+{if $methods}
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+			<div class="method-summary">
+				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+				{section name=methods loop=$methods}
+				{if $methods[methods].static}
+				<div class="method-definition">
+					<tr><td class="method-definition">static
+					{if $methods[methods].function_return}
+						<span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;
+					{/if}</td>
+					<td class="method-definition"><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">{$methods[methods].sdesc}</td></tr>
+				</div>
+				{/if}
+				{/section}
+				{section name=methods loop=$methods}
+				{if !$methods[methods].static}
+				<div class="method-definition">
+					{if $methods[methods].function_return}
+						<tr><td class="method-definition"><span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;</td>
+					{/if}
+					<td class="method-definition"><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">{$methods[methods].sdesc}</td></tr>
+				</div>
+				{/if}
+				{/section}
+				</table>
+			</div>
+			<br />
+		</div>
+	</div>
+{/if}
 
 {if $children}
 	<a name="sec-descendents"></a>
 	<div class="info-box">
 		<div class="info-box-title">Descendientes directos</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Resúmen de la clase</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendientes</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-			{if $ivars || $imethods}
-				<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
-				{if $vars || $ivars || $methods || $imethods}|{/if}
-			{/if}
-		{if $vars || $ivars}
-				<a href="#sec-vars">Propiedades</a>
-			{if $methods || $imethods}|{/if}
-		{/if}
-		{if $methods || $imethods}
-			{if $methods}
-				<a href="#sec-method-summary">Resumen del Método</a> | <a href="#sec-methods">Detalle de Métodos</a>
-			{else}
-				<a href="#sec-methods">Métodos</a>
-			{/if}
-            {if $consts || $iconsts}|{/if}
-		{/if}
-		{if $consts || $iconsts}
-			{if $consts}
-				<a href="#sec-consts">Constantes</a>
-			{/if}
-		{/if}
-		</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
@@ -159,7 +140,7 @@
 				</tr>
 				{/section}
 			</table>
-			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
+			<br />
 		</div>
 	</div>
 {/if}
@@ -168,26 +149,6 @@
 	<a name="sec-inherited"></a>
 	<div class="info-box">
 		<div class="info-box-title">Propiedades, Constantes y Métodos Heredados</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Resúmen de la Clase</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendientes</a> |
-			{/if}
-			{if $vars || $ivars || $methods || $imethods || $iconsts || $consts}|{/if}
-			<span class="disabled">Propiedades, Constantes y Métodos Heredados</span>
-			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
-			{if $vars || $ivars}
-				<a href="#sec-vars">Propiedades</a>
-				{if $methods || $imethods}|{/if}
-			{/if}
-			{if $methods || $imethods}
-				<a href="#sec-methods">Métodos</a>
-				{if $consts || $iconsts}|{/if}
-			{/if}
-    		{if $consts || $iconsts}
-   				<a href="#sec-consts">Constantes</a>
-    		{/if}
-		</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
@@ -249,7 +210,7 @@
 					</td>
 				</tr>
 			</table>
-			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
+			<br />
 		</div>
 	</div>
 {/if}
@@ -270,48 +231,12 @@
 				{/section}
 				</table>
 			</div>
-			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
+			<br />
 		</div>
 	</div>
 {/if}
 
 
-{if $methods}
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Métodos</span></div>
-		<div class="info-box-body">
-			<div class="method-summary">
-				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-				{section name=methods loop=$methods}
-				{if $methods[methods].static}
-				<div class="method-definition">
-					<tr><td class="method-definition">static
-					{if $methods[methods].function_return}
-						<span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;
-					{/if}</td>
-					<td class="method-definition"><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">{$methods[methods].sdesc}</td></tr>
-				</div>
-				{/if}
-				{/section}
-				{section name=methods loop=$methods}
-				{if !$methods[methods].static}
-				<div class="method-definition">
-					{if $methods[methods].function_return}
-						<tr><td class="method-definition"><span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;</td>
-					{/if}
-					<td class="method-definition"><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">{$methods[methods].sdesc}</td></tr>
-				</div>
-				{/if}
-				{/section}
-				</table>
-			</div>
-			<br /><div class="top">[ <a href="#top">Top</a> ]</div>
-		</div>
-	</div>
-{/if}
 
 {if $methods || $imethods}
 	<a name="sec-methods"></a>
@@ -339,26 +264,6 @@
 	<a name="sec-consts"></a>
 	<div class="info-box">
 		<div class="info-box-title">Constantes</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Resúmen de la clase</a> |
-			{if $children}
-				<a href="#sec-descendents">Descendientes</a>
-			{/if}
-			{if $consts}
-				| <a href="#sec-const-summary">Resúmen de Constantes</a> | <span class="disabled">Constantes</span>
-			{else}
-				| <span class="disabled">Constantes</span>
-			{/if}
-			{if $ivars || $imethods || $iconsts}
-				<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
-				{if $vars || $ivars || $methods || $imethods || $consts || $iconsts} | {/if}
-			{/if}
-
-			{if $methods || $imethods}
-				|
-					<a href="#sec-method-summary">Métodos</a>
-			{/if}
-		</div>
 		<div class="info-box-body">
 			{include file="const.tpl"}
 		</div>

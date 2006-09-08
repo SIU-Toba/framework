@@ -14,6 +14,5 @@
 	{include file="tags.tpl" api_tags=$consts[consts].api_tags info_tags=$consts[consts].info_tags}
 
 	<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 {/section}
