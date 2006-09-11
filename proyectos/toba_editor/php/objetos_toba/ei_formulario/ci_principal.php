@@ -5,6 +5,7 @@ require_once('modelo/componentes/info_ei_formulario.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_ei_formulario';	
+	protected $info_actual = 'info_ei_formulario';
 
 	function ini()
 	{
@@ -50,11 +51,6 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//** Dialogo con el CI de EVENTOS  **********************************
 	//*******************************************************************
-
-	function get_modelos_evento()
-	{
-		return info_ei_formulario::get_modelos_evento();
-	}
 	
 	function get_eventos_estandar($modelo)
 	{

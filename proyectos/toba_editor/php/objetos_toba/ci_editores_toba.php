@@ -174,5 +174,15 @@ abstract class ci_editores_toba extends toba_ci
 	function eliminar_evento($id){}
 	function modificar_evento($id_anterior, $id_nuevo){}
 	
+	function get_modelos_evento()
+	{
+		return call_user_func(array($this->info_actual,'get_modelos_evento'));
+	}	
+	
+	function get_eventos_internos()
+	{
+		return call_user_func(array($this->info_actual,'get_eventos_internos'),	$this->get_entidad());
+	}
+	
 }
 ?>

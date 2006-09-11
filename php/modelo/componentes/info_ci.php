@@ -169,5 +169,20 @@ class info_ci extends info_ei
 		$metodos = parent::generar_metodos();
 		return $this->filtrar_comentarios($metodos);
 	}
+	
+	static function get_eventos_internos(toba_datos_relacion $dr)
+	{
+		$eventos = array();
+		$navegacion = $dr->tabla('prop_basicas')->get_columna('tipo_navegacion');
+		if (isset($navegacion)) {
+			if ($navegacion == 'wizard') {
+				$eventos['cambiar_tab__siguiente'] = "El usuario avanza de pantalla, generalmente con el botón <em>Siguiente</em>.";
+				$eventos['cambiar_tab__anterior'] = "El usuario retrocede de pantalla, generalmente con el botón <em>Anterior</em>.";
+			} else {
+				$eventos['cambiar_tab_X'] = "El usuario cambia a la pantalla X utilizando los tabs o solapas.";
+			}
+		}
+		return $eventos;
+	}	
 }
 ?>

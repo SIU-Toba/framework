@@ -346,6 +346,12 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
+	static function get_eventos_internos(toba_datos_relacion $dr)
+	{
+		$eventos = array();
+		return $eventos;
+	}
+	
 	//---- ANALISIS de EVENTOS
 
 	function es_evento($metodo)

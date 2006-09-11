@@ -99,6 +99,15 @@ abstract class toba_componente
 		return $this->id;	
 	}
 	
+	/**
+	 * Retorna la referencia al componente padre o contenedor del actual
+	 * @return toba_componente
+	 */
+	function controlador()
+	{
+		return $this->controlador;	
+	}
+	
 	function existe_ayuda()
 	{
 		return (trim($this->info['objeto_existe_ayuda'])!="");

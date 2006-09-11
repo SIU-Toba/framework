@@ -67,6 +67,11 @@ class ci_eventos extends toba_ci
 		unset($this->seleccion_evento_anterior);
 	}
 	
+	function get_eventos_internos()
+	{
+		return $this->controlador->get_eventos_internos($this->get_tabla()->get_filas(null, true));	
+	}
+	
 	//-------------------------------
 	//---- EI: Generador ------------
 	//-------------------------------

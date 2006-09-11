@@ -453,13 +453,27 @@ class toba_datos_tabla extends toba_componente
 	 * @return array
 	 */
 	function get_valores_columna($columna)
-	//Retorna una columna de valores
 	{
 		$temp = array();
 		foreach($this->get_id_filas() as $fila){
 			$temp[] = $this->datos[$fila][$columna];
 		}
 		return $temp;
+	}
+	
+	/**
+	 * Retorna el valor de la columna de la fila actualmente seleccionada como cursor
+	 * @param string $columna Id. de la columna que contiene el valor a retornar
+	 */	
+	function get_columna($columna)
+	{
+		if ($this->get_cantidad_filas() == 0) {
+			return null;
+		} elseif ($this->hay_cursor()) {
+			return $this->get_fila_columna($this->get_cursor(), $columna);
+		} else {
+			throw new toba_error("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+		}		
 	}
 	
 	/**

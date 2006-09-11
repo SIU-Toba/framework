@@ -12,8 +12,8 @@ class ci_editor extends ci_editores_toba
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
 	protected $id_intermedio_pantalla;
 	protected $clase_actual = 'objeto_ci';
+	protected $info_actual = 'info_ci';
 	
-
 	function ini()
 	{
 		parent::ini();
@@ -345,12 +345,7 @@ class ci_editor extends ci_editores_toba
 	{
 		return $this->get_entidad()->tabla('eventos');
 	}
-
-	function get_modelos_evento()
-	{
-		return info_ci::get_modelos_evento();
-	}
-
+	
 	function get_eventos_estandar($modelo)
 	{
 		return info_ci::get_lista_eventos_estandar($modelo);

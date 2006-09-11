@@ -71,5 +71,6 @@ class info_ei extends info_componente
 		$evento = array();
 		return $evento;
 	}	
+	
 }
 ?>

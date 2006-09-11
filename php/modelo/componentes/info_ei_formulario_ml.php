@@ -54,5 +54,21 @@ class info_ei_formulario_ml extends info_ei
 		}
 		return $evento;
 	}
+	
+	static function get_eventos_internos(toba_datos_relacion $dr)
+	{
+		$eventos = array();
+		if (! $dr->tabla('prop_basicas')->get_columna('filas_agregar_online') ) {
+			$eventos['pedido_registro_nuevo'] = "El usuario notifica que quiere dar de alta un nuevo registro y necesita suministrarle un registro en blanco".
+												" para comenzar a editar. Escuchando este evento se puede cancelar el pedido de alta o brindar una fila inicial con datos usando ".
+												" el método <em>set_registro_nuevo</em> del ML";
+		}
+		if ("EVENTOS" == $dr->tabla('prop_basicas')->get_columna('analisis_cambios') ) {
+			$eventos['registro_alta'] = "El usuario crea una nuevo registro. Como primer parámetro recibe los datos y como segundo el id de la fila.";
+			$eventos['registro_modificacion'] = "El usuario modifica un registro existente. Como primer parámetro recibe los datos y como segundo el id de la fila.";			
+			$eventos['registro_baja'] = "El usuario borra un registro existente. Como primer parámetro recibe el id de la fila eliminada.";
+		}
+		return $eventos;
+	}	
 }
 ?>

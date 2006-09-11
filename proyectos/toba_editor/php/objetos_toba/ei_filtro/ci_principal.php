@@ -5,6 +5,7 @@ require_once('modelo/componentes/info_ei_filtro.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_ei_filtro';	
+	protected $info_actual = 'info_ei_filtro';
 	
 	function ini()
 	{
@@ -51,11 +52,7 @@ class ci_principal extends ci_editores_toba
 	//** Dialogo con el CI de EVENTOS  **********************************
 	//*******************************************************************
 
-	function get_modelos_evento()
-	{
-		return info_ei_filtro::get_modelos_evento();
-	}
-	
+
 	function get_eventos_estandar($modelo)
 	{
 		return info_ei_filtro::get_lista_eventos_estandar($modelo);

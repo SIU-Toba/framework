@@ -11,6 +11,7 @@ class ci_principal extends ci_editores_toba
 	protected $s__cortes_control;
 	protected $s__importacion_cols;
 	protected $clase_actual = 'objeto_ei_cuadro';
+	protected $info_actual = 'info_ei_cuadro';
 	
 	function ini()
 	{
@@ -252,11 +253,6 @@ class ci_principal extends ci_editores_toba
 	/*
 		Metodos necesarios para que el CI de eventos funcione
 	*/
-
-	function get_modelos_evento()
-	{
-		return info_ei_cuadro::get_modelos_evento();
-	}
 
 	function get_eventos_estandar($modelo)
 	{

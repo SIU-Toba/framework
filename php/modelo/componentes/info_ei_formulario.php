@@ -73,5 +73,6 @@ class info_ei_formulario extends info_ei
 		}
 		return $evento;
 	}
+	
 }
 ?>

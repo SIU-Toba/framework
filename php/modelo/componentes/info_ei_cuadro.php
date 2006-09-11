@@ -51,5 +51,18 @@ class info_ei_cuadro extends info_ei
 		}
 		return $evento;
 	}
+	
+	static function get_eventos_internos(toba_datos_relacion $dr)
+	{
+		$eventos = array();
+		if ($dr->tabla('prop_basicas')->get_columna('paginar') ) {
+			$eventos['cambiar_pagina'] = "Se recibe como parámetro el número de página a la que se cambio.";
+		}
+		if ($dr->tabla('prop_basicas')->get_columna('ordenar') ) {
+			$eventos['ordenar'] = "Se recibe como primer parámetro el sentido del ordenamiento ('asc' o 'des') y como segundo la columna a ordenar. ".
+			 						"Si no se atrapa el evento, el ordenamiento lo asume el propio cuadro.";
+		}				
+		return $eventos;
+	}	
 }
 ?>
