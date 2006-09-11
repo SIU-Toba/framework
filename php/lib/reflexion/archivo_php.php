@@ -29,11 +29,12 @@ class archivo_php
 	
 	function existe()
 	{
-		return file_exists($this->nombre);
+		return file_exists($this->nombre) && is_file($this->nombre);
 	}
 
 	function contiene_clase($nombre)
 	{
+		echo $this->nombre();
 		return strpos(file_get_contents($this->nombre), "class $nombre") !== false;
 	}
 	

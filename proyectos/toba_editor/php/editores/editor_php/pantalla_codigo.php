@@ -17,6 +17,8 @@ class pantalla_codigo extends toba_ei_pantalla
 			echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
 			$this->archivo_php()->mostrar();
 			echo "</div>";
+		} else {
+			echo ei_mensaje('El componente no posee una extension PHP');	
 		}
 	}	
 }

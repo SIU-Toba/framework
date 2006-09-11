@@ -9,18 +9,11 @@ class ci_editor_php extends toba_ci
 	protected $archivo_php;
 	protected $clase_php;
 	protected $meta_clase;	//Al CI le sirve para contextualizar el FORM de opciones
-	protected $subcomponente;
+	protected $s__subcomponente;
 
 	function ini()
 	{
 		$this->set_datos(toba::zona()->get_info());		
-	}
-	
-	function mantener_estado_sesion()
-	{
-		$props = parent::mantener_estado_sesion();
-		$props[] = 'subcomponente';
-		return $props;
 	}
 	
 	function conf()
@@ -56,16 +49,16 @@ class ci_editor_php extends toba_ci
 		/* Este mecanismo no es optimo... hay que pensarlo bien.
 			Se inagura el caso de que un objeto contenga una clase que no sea un objeto.
 		*/
-		if(isset($this->subcomponente)){
+		if(isset($this->s__subcomponente)){
 			//Cargue un subcomponente en un request anterior.
-			$subcomponente = $this->subcomponente;
+			$subcomponente = $this->s__subcomponente;
 		}else{
 			$subcomponente = toba::memoria()->get_parametro('subcomponente');
 		}
 		if ($subcomponente) {
 			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
 			if($mts){
-				$this->subcomponente = $subcomponente;
+				$this->s__subcomponente = $subcomponente;
 				$this->datos['subclase'] = $mts['clase'];
 				$this->datos['archivo'] = $mts['archivo'];
 				$this->datos['clase'] = $mts['padre_clase'];

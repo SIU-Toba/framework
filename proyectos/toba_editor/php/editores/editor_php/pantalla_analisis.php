@@ -15,6 +15,8 @@ class pantalla_analisis extends toba_ei_pantalla
 			ei_separador("ARCHIVO: ". $this->archivo_php()->nombre());
 			$this->archivo_php()->incluir();
 			$this->controlador->clase_php()->analizar();
+		} else {
+			echo ei_mensaje('El componente no posee una extension PHP');	
 		}
 	}	
 }
