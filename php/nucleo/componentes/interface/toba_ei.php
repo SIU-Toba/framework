@@ -191,9 +191,11 @@ abstract class toba_ei extends toba_componente
 	 */
 	protected function reportar_evento($evento)
 	{
-		$parametros = func_get_args();
-		$parametros	= array_merge(array($this->id_en_controlador), $parametros);
-		return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
+		if (isset($this->id_en_controlador)) {
+			$parametros = func_get_args();
+			$parametros	= array_merge(array($this->id_en_controlador), $parametros);
+			return call_user_func_array( array($this->controlador, 'registrar_evento'), $parametros);
+		}
 	}
 
 	/**

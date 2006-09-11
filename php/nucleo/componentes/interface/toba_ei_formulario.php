@@ -696,6 +696,7 @@ class toba_ei_formulario extends toba_ei
 		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
 		echo toba_form::hidden($this->submit, '');
+		echo toba_form::hidden($this->submit.'_implicito', '');
 		$ancho = '';
 		if (isset($this->info_formulario["ancho"])) {
 			$ancho = convertir_a_medida_tabla($this->info_formulario["ancho"]);

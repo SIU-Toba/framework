@@ -3,44 +3,67 @@ require_once('nucleo/componentes/interface/toba_ci.php');
 
 class extension_ci extends toba_ci
 {
-	protected $datos;
-	protected $describir = false;
-	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion(); 
-		$propiedades[] = "datos";
-		return $propiedades;		
-	}
+	protected $s__datos;
+
+	//------------------------------------------------------------------------
+	//----------------- ML con agregado en javascript -------------------------
+	//------------------------------------------------------------------------
 	
 	function conf__ml()
 	{
-		if (isset($this->datos))
-			return $this->datos;			
+		if (isset($this->s__datos))
+			return $this->s__datos;			
 	}
 	
 	function evt__ml__modificacion($datos)
 	{
-		$this->datos = $datos;
+		$this->s__datos = $datos;
 	}
 	
 	function evt__ml__seleccion($id_fila)
 	{
-		$this->informar_msg('Se selecciona la fila con importe : '.$this->datos[$id_fila]['importe'], 'info');
+		$this->informar_msg('Se selecciona la fila con importe : '.$this->s__datos[$id_fila]['importe'], 'info');
 	}
 	
 	function evt__ml__describir($id_fila)
 	{
-		$this->describir = $id_fila;
+		$this->informar_msg("Datos de la fila $id_fila: <pre>".print_r($this->s__datos[$id_fila], true)."</pre>", "info");
 		$this->dependencia('ml')->deseleccionar();		
 	}
+
+	//------------------------------------------------------------------------
+	//----------------- ML con agregado en php -------------------------------
+	//------------------------------------------------------------------------
 	
-	function obtener_html()
+	function evt__ml_php__pedido_registro_nuevo()
 	{
-		if ($this->describir !== false) {
-			ei_arbol($this->datos[$this->describir], 'Descripción de la fila');			
-		}
-		parent::obtener_html();
+		$this->dep('ml_php')->set_registro_nuevo(array('fecha' => date('Y-m-d'), 'importe' => 100));
+	}
+	
+	function conf__ml_php()
+	{
+		return $this->conf__ml();	
+	}
+	
+	function evt__ml_php__modificacion($datos)
+	{
+		$this->evt__ml__modificacion($datos);
+	}
+	
+	function evt__ml_php__seleccion($id_fila)
+	{
+		$this->evt__ml__seleccion($id_fila);
+	}
+	
+	function evt__ml_php__describir($id_fila)
+	{
+		$this->evt__ml__describir($id_fila);
+	}	
+	
+	
+	function evt__procesar()
+	{
+		
 	}
 
 }

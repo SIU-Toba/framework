@@ -17,7 +17,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $ordenes = array();				//Ordenes de las claves de los datos recibidos
-	protected $hay_registro_nuevo=false;		//¿La proxima pantalla muestra una linea en blanco?
+	protected $registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
 	protected $id_fila_actual;					//¿Que fila se esta procesando actualmente?
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
 	
@@ -90,8 +90,17 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//Veo si se devolvio algun evento!
 		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
 			//La opcion seleccionada estaba entre las ofrecidas?		
-			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {		
-				$this->disparar_eventos_especifico($_POST[$this->submit]);
+			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {
+				//--- Caso particular: Manejo de 2 eventos (uno implicito)
+				$implicito = null;
+				if (isset($_POST[$this->submit.'_implicito']) && 
+							$_POST[$this->submit].'_implicito' !=""){
+					$evt = $_POST[$this->submit.'_implicito'];
+					if (isset($this->memoria['eventos'][$evt])) {	
+						$implicito = $evt;
+					}
+				}
+				$this->disparar_eventos_especifico($_POST[$this->submit], $implicito);
 			}
 		} else {	//Es la primera carga
 			$this->carga_inicial();
@@ -99,55 +108,41 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->limpiar_interface();
 	}	
 	
-	protected function disparar_eventos_especifico($evento)
+	protected function disparar_eventos_especifico($evento, $implicito=null)
 	{
 		$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
 		$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
 		
-		//Me fijo si el evento envia datos modificados
+		//--- Si el evento maneja datos, se validan y cargan
 		if ($maneja_datos) {
 			$this->cargar_post();
 			$this->validar_estado();
 		}
-		
-		//Si agregar no es online y viene un pedido de agregar, si hay o no registro nuevo y su forma se preguntan al ci
-		//En caso que no responda se asume que si y es vacio
-		//Para no complicar con el resto de la logica se sale del metodo
-		if (! $this->info_formulario['filas_agregar_online'] && $evento == 'pedido_registro_nuevo') {
-			//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion)?
-			if ($this->eventos_granulares && $maneja_datos) {
-				$this->disparar_eventos_granulares();
-			} else {
-				$this->reportar_evento( 'modificacion', $this->get_datos($this->analizar_diferencias) );				
-			}
-			$this->hay_registro_nuevo = $this->reportar_evento( $evento, null );
-			return;
-		}
-
-		//¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
+		//--- Caso particular, manejo de un evento implicito que se dispara junto a uno principal
+		if ($implicito) {
+			$this->reportar_evento( $implicito, $this->get_datos($this->analizar_diferencias) );
+		}		
+		//--- ¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
 		if ($this->eventos_granulares && $maneja_datos) {
 			$this->disparar_eventos_granulares();
 		}
 		
-		//Si Tiene parametros, es uno a nivel de fila
-		if ($parametros != '') {
-			//Si maneja datos, disparar una modificacion antes del evento a nivel de fila
-			if ($maneja_datos && !$this->eventos_granulares) {
-				$this->reportar_evento( 'modificacion', $this->get_datos($this->analizar_diferencias) );
+		//--- Se reporta el pedido de nuevo registro, si no se atrapa se asume SI		
+		if (! $this->info_formulario['filas_agregar_online'] && $evento == 'pedido_registro_nuevo') {
+			if ($this->reportar_evento("pedido_registro_nuevo", null) === apex_ei_evt_sin_rpta) {
+				$this->set_registro_nuevo();
 			}
+		//--- Si Tiene parametros, es uno a nivel de fila			
+		} else if ($parametros != '') {
 			//Reporto el evento a nivel de fila
 			$this->clave_seleccionada = $this->get_clave_fila($parametros);
 			$this->reportar_evento( $evento, $this->clave_seleccionada);
+		//-- Si no tiene es un evento comun			
+		} else {
+			$this->reportar_evento( $evento, $this->get_datos($this->analizar_diferencias));
 		}
 		
-		//Si no tiene parametros particulares, ellos son los valores de las filas
-		if ($parametros == '' && !$this->eventos_granulares) {
-			if ($maneja_datos)
-				$this->reportar_evento( $evento, $this->get_datos($this->analizar_diferencias) );
-			elseif ($evento != 'pedido_registro_nuevo')
-				$this->reportar_evento( $evento, null );
-		}
-		
+
 
 	}
 		
@@ -368,7 +363,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	*/
 	protected function agregar_registro_nuevo()
 	{	
-		$template = (is_array($this->hay_registro_nuevo)) ? $this->hay_registro_nuevo : array();
+		$template = (is_array($this->registro_nuevo)) ? $this->registro_nuevo : array();
 		$this->datos[$this->siguiente_id_fila] = $template;
 		$this->ordenes[] = $this->siguiente_id_fila;
 		$this->siguiente_id_fila++;
@@ -377,6 +372,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function set_proximo_id($id)
 	{
 		$this->siguiente_id_fila = $id;	
+	}
+	
+
+	/**
+	 * Inserta un registro nuevo en la proxima generación de HTML
+	 * @param array $template Valores por defecto de la nueva fila, false si se quiere cancelar el alta del registro
+	 */
+	function set_registro_nuevo($template=array())
+	{
+		$this->registro_nuevo = $template;
 	}
 	
 	function existen_datos_cargados()
@@ -591,7 +596,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	
 	function generar_formulario_cuerpo()
 	{
-		if ($this->hay_registro_nuevo !== false) {
+		if ($this->registro_nuevo !== false) {
 			$this->agregar_registro_nuevo();
 		}
 		//------ FILAS ------

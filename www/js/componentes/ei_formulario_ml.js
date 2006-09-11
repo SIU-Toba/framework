@@ -142,6 +142,11 @@ def.constructor = ei_formulario_ml;
 					this._efs[id_ef].ir_a_fila(this._filas[fila]).submit();
 				}
 			}
+			//--- Caso particular, si tiene parametros o es un pedido de fila nueva, igualmente se dispara el implicito
+			if (this._evento_implicito && (this._evento.parametros || this._evento.id == 'pedido_registro_nuevo')) {
+				document.getElementById(this._input_submit + "_implicito").value = this._evento_implicito.id;
+			}
+			
 			//Si tiene parametros los envia
 			if (this._evento.parametros) {
 				document.getElementById(this._instancia + '__parametros').value = this._evento.parametros;
