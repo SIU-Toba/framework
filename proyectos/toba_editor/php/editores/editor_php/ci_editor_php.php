@@ -127,45 +127,4 @@ class ci_editor_php extends toba_ci
 	}
 	
 }
-
-class pantalla_codigo extends toba_ei_pantalla 
-{
-	function archivo_php()
-	{
-		return $this->controlador->archivo_php();	
-	}
-	
-	//--- Archivo Plano	
-	function generar_html_dependencias()
-	{
-		parent::generar_html_dependencias();
-		echo "<br>";
-		if($this->archivo_php()->existe()){
-			ei_separador("ARCHIVO: ". $this->archivo_php()->nombre());
-			echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
-			$this->archivo_php()->mostrar();
-			echo "</div>";
-		}
-	}	
-}
-
-
-class pantalla_analisis extends toba_ei_pantalla 
-{
-	function archivo_php()
-	{
-		return $this->controlador->archivo_php();	
-	}	
-
-	function generar_html_dependencias()
-	{
-		parent::generar_html_dependencias();
-		echo "<br>";	
-		if($this->archivo_php()->existe()){
-			ei_separador("ARCHIVO: ". $this->archivo_php()->nombre());
-			$this->archivo_php()->incluir();
-			$this->controlador->clase_php()->analizar();
-		}
-	}	
-}
 ?>

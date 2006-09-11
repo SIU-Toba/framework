@@ -129,15 +129,15 @@ class clase_php
 				$estilo = '';
 				if (isset($this->meta_clase)){
 					if ($this->meta_clase->es_evento($metodo->getName())) {
-						$tipo = recurso::imagen_apl('reflexion/desconocido.gif');
+						$tipo = toba_recurso::imagen_apl('reflexion/desconocido.gif');
 						if (! $this->meta_clase->es_evento_valido($metodo->getName())) {
-							$tipo = recurso::imagen_apl('reflexion/problema.gif');
+							$tipo = toba_recurso::imagen_apl('reflexion/problema.gif');
 						}
 						if ($this->meta_clase->es_evento_sospechoso($metodo->getName())) {
-							$tipo = recurso::imagen_apl('warning.gif');
+							$tipo = toba_recurso::imagen_apl('warning.gif');
 						}
 						if ($this->meta_clase->es_evento_predefinido($metodo->getName())) {
-							$tipo = recurso::imagen_apl('reflexion/evento.gif');
+							$tipo = toba_recurso::imagen_apl('reflexion/evento.gif');
 						}
 						$estilo =  "list-style-image: url($tipo)";					
 					} 

@@ -20,7 +20,6 @@ class dao_editores
 				apex_usuario_proyecto up
 			WHERE 	
 				p.proyecto = up.proyecto
-			AND p.listar_multiproyecto = 1 
 			AND	up.usuario = '".toba::usuario()->get_id()."'
 			ORDER BY orden;";
 		return contexto_info::get_db()->consultar($sql);
