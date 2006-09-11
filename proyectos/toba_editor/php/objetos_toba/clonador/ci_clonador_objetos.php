@@ -77,7 +77,7 @@ class ci_clonador_objetos extends toba_ci
 			if (isset($datos['tipo']) && isset($datos['objeto'])) {
 				$this->destino = $datos;
 				//Validaciones 
-				if ($this->destino['tipo'] == 'toba_ci' || $this->destino['tipo'] == 'toba_ci') {
+				if ($this->destino['tipo'] == 'objeto_ci' || $this->destino['tipo'] == 'objeto_datos_relacion') {
 					if (!isset($this->destino['id_dependencia'])) {
 						throw new toba_error("El identificador es obligatorio");
 					}
@@ -85,14 +85,14 @@ class ci_clonador_objetos extends toba_ci
 				//Se convierten los tipos a los que entiende el asignador
 				$tipo = null;
 				switch ($this->destino['tipo']) {
-					case 'toba_ci':
+					case 'objeto_ci':
 						if (isset($this->destino['pantalla'])) {
 							$tipo = 'ci_pantalla';
 						} else {
 							$tipo = 'ci';
 						}
 						break;
-					case 'toba_datos_relacion':
+					case 'objeto_datos_relacion':
 						$tipo = 'datos_relacion';
 						break;
 					default:
