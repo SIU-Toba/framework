@@ -20,9 +20,9 @@ abstract class ci_editores_toba extends toba_ci
 		//Se notifica un objeto y un proyecto	
 		if (isset($objeto) && isset($proyecto)) {
 			//Se determina si es un nuevo objeto
-			$es_nuevo = (!isset($this->id_objeto) || 
+			$selecciono_otro = (!isset($this->id_objeto) || 
 						($this->id_objeto['proyecto'] != $proyecto || $this->id_objeto['objeto'] != $objeto));
-			if ($es_nuevo) {
+			if ($selecciono_otro) {
 				$this->set_objeto( 	array('proyecto'=>$proyecto, 'objeto'=>$objeto) );
 				$this->cambio_objeto = true;
 			} else {
@@ -136,7 +136,8 @@ abstract class ci_editores_toba extends toba_ci
 	
 	function evt__procesar()
 	{
-		if (!$this->get_entidad()->esta_cargado()) {
+		$nuevo = !$this->get_entidad()->esta_cargado();
+		if ($nuevo) {
 			//Seteo los datos asociados al uso de este editor
 			$fijos = array('proyecto' => toba_editor::get_proyecto_cargado(),
 							'clase_proyecto' => 'toba',
@@ -145,6 +146,10 @@ abstract class ci_editores_toba extends toba_ci
 		}
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
+		if(!$nuevo) {
+			//Algun cambio de valor del componente puede cambiar el display de la zona
+			toba::zona()->recargar();
+		}
 	}
 	
 	//---------------------------------------------------------------

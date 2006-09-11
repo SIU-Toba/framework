@@ -24,7 +24,6 @@ class archivo_php
 			return true;
 		else
 			return false;
-	
 	}
 	
 	function existe()
@@ -34,7 +33,6 @@ class archivo_php
 
 	function contiene_clase($nombre)
 	{
-		echo $this->nombre();
 		return strpos(file_get_contents($this->nombre), "class $nombre") !== false;
 	}
 	
@@ -149,10 +147,4 @@ class archivo_php
 	}
 
 }
-
-
-
-
-
-
 ?>

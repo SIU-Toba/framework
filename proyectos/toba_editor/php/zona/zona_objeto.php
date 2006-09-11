@@ -40,22 +40,19 @@ class zona_objeto extends zona_editor
 		}	
 	}
 
-/*
 	function generar_html_barra_vinculos()
 	//Esto es especifico de cada EDITABLE
 	{	
 		parent::generar_html_barra_vinculos();
-		
-		//Acceso al INSTANCIADOR
-		if(isset($this->editable_info['clase_instanciador']))
+		//Acceso al EDITOR PHP
+		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] )
 		{
-			echo "<a href='" . toba::vinculador()->generar_solicitud($this->editable_info['clase_instanciador_proyecto'],$this->editable_info['clase_instanciador'],null,true) ."'>";
-			echo toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"Instanciar el OBJETO");
+			echo "<a href='" . toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php',null,true) ."'>";
+			echo toba_recurso::imagen_apl("php.gif",true,null,null,"Editar el PHP de la clase");
 			echo "</a>";
 		}
-	}*/
+	}
 
-	
 	function generar_html_barra_inferior()	
 	//Genera la barra especifica inferior del EDITABLE
 	{

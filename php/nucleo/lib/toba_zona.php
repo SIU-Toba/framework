@@ -65,6 +65,15 @@ class toba_zona
 		}
 	}
 	
+	function recargar()
+	{
+		if(isset($this->editable_id)){
+			$this->cargar_info();
+		} else {
+			throw new toba_error('La zona no se encuentra cargada');	
+		}
+	}
+	
 	protected function cargar_info()
 	{
 		if (isset($this->metodo_cons['archivo'])) {
