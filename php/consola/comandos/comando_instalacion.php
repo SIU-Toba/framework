@@ -201,6 +201,63 @@ class comando_instalacion extends comando_toba
 		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}	
 	
+	/**
+	 * Ejecuta una instalacion inicial básica del framework tratando de hacer la menor cantidad de preguntas posibles.
+	 */
+	function opcion__autoinstalar()
+	{
+		//--- Verificar instalacion
+		if (get_magic_quotes_gpc()) {
+			$this->consola->mensaje("ERROR");
+			throw new toba_error("Necesita desactivar las 'magic_quotes_gpc' en el archivo php.ini (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");	
+		}
+		if (! extension_loaded('pdo')) {
+			$this->consola->mensaje("ERROR");
+			throw new toba_error("Necesita activar la extension 'pdo' en el archivo php.ini");
+		}
+		if (! extension_loaded('pdo_pgsql')) {
+			$this->consola->mensaje("ERROR");
+			throw new toba_error("Necesita activar la extension 'pdo_pgsql' en el archivo php.ini");
+		}		
+		$version_php = shell_exec('php -v');
+		if ($version_php == '') {
+			$this->consola->mensaje("ERROR");
+			throw new toba_error("El comando 'php' no se encuentra en el path actual del sistema");
+		}
+		$version_svn = shell_exec('svn --version');
+		if ($version_svn == '') {
+			$this->consola->mensaje("ERROR");
+			throw new toba_error("El comando 'svn' no se encuentra en el path actual del sistema");
+		}		
+
+		//--- Crea la INSTALACION
+		if( ! instalacion::existe_info_basica() ) {
+			instalacion::crear( 0, 'toba' );
+		}
+		
+		//--- Crea la definicion de bases 
+		$base = 'toba';
+		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
+			$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
+			$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
+			$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
+			$datos = array(
+				'motor' => 'postgres7',
+				'profile' => $profile,
+				'usuario' => $usuario,
+				'clave' => $clave,
+				'base' => $base
+			);
+			$this->get_instalacion()->agregar_db( $base, $datos );
+		}	
+		
+		//--- Crea la instancia
+		$id_instancia = $this->get_entorno_id_instancia(true);
+		$proyectos = proyecto::get_lista();
+		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		
+	}
+	
 	//-------------------------------------------------------------
 	// Interface
 	//-------------------------------------------------------------
