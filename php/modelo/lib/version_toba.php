@@ -30,7 +30,12 @@ class version_toba
 	{
 		return implode('.', $this->partes);
 	}
-	
+
+	function get_string_partes($separador = '_')
+	{
+		return implode($separador, $this->partes);
+	}
+
 	function es_igual($version)
 	{
 		return $this->comparar($version) == 0;

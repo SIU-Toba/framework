@@ -206,56 +206,93 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__autoinstalar()
 	{
+		ini_set('max_execution_time', 0);
+
 		//--- Verificar instalacion
 		if (get_magic_quotes_gpc()) {
-			$this->consola->mensaje("ERROR");
-			throw new toba_error("Necesita desactivar las 'magic_quotes_gpc' en el archivo php.ini (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");	
+			$this->consola->mensaje("------------------------------------");
+			throw new toba_error("ERROR: Necesita desactivar las 'magic_quotes_gpc' en el archivo php.ini (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");	
 		}
 		if (! extension_loaded('pdo')) {
-			$this->consola->mensaje("ERROR");
-			throw new toba_error("Necesita activar la extension 'pdo' en el archivo php.ini");
+			$this->consola->mensaje("------------------------------------");
+			throw new toba_error("ERROR: Necesita activar la extension 'pdo' en el archivo php.ini");
 		}
 		if (! extension_loaded('pdo_pgsql')) {
-			$this->consola->mensaje("ERROR");
-			throw new toba_error("Necesita activar la extension 'pdo_pgsql' en el archivo php.ini");
+			$this->consola->mensaje("------------------------------------");
+			throw new toba_error("ERROR: Necesita activar la extension 'pdo_pgsql' en el archivo php.ini");
 		}		
 		$version_php = shell_exec('php -v');
 		if ($version_php == '') {
-			$this->consola->mensaje("ERROR");
-			throw new toba_error("El comando 'php' no se encuentra en el path actual del sistema");
+			$this->consola->mensaje("------------------------------------");
+			throw new toba_error("ERROR: El comando 'php' no se encuentra en el path actual del sistema");
 		}
 		$version_svn = shell_exec('svn --version');
 		if ($version_svn == '') {
-			$this->consola->mensaje("ERROR");
-			throw new toba_error("El comando 'svn' no se encuentra en el path actual del sistema");
+			$this->consola->mensaje("\n------------------------------------");
+			throw new toba_error("ERROR: El comando 'svn' no se encuentra en el path actual del sistema,.");
 		}		
 
+		$nombre_toba = 'toba_'.instalacion::get_version_actual()->get_string_partes();
 		//--- Crea la INSTALACION
 		if( ! instalacion::existe_info_basica() ) {
-			instalacion::crear( 0, 'toba' );
+			instalacion::crear( 0, $nombre_toba );
 		}
 		
-		//--- Crea la definicion de bases 
-		$base = 'toba';
+		//--- Crea la definicion de bases
+		$base = $nombre_toba;
 		if (! $this->get_instalacion()->existe_base_datos_definida( $base ) ) {
-			$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
-			$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
-			$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
-			$datos = array(
-				'motor' => 'postgres7',
-				'profile' => $profile,
-				'usuario' => $usuario,
-				'clave' => $clave,
-				'base' => $base
-			);
-			$this->get_instalacion()->agregar_db( $base, $datos );
+			do {
+				$profile = $this->consola->dialogo_ingresar_texto( 'Ubicación del servidor Postgres (ej. localhost)', true);
+				$usuario = $this->consola->dialogo_ingresar_texto( 'Usuario del servidor (ej. dba)', true);
+				$clave = $this->consola->dialogo_ingresar_texto( 'Clave de conexión', false);
+				$datos = array(
+					'motor' => 'postgres7',
+					'profile' => $profile,
+					'usuario' => $usuario,
+					'clave' => $clave,
+					'base' => $base
+				);
+				$this->get_instalacion()->agregar_db( $base, $datos );
+				$existe_base = $this->get_instalacion()->existe_base_datos($base, array('base' => 'template1'), true);
+				if ($existe_base !== true) {
+					$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
+					$this->consola->mensaje($existe_base."\n");
+				}
+			} while ($existe_base !== true);
 		}	
 		
+
+		//--- Pregunta identificador del Proyecto
+		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (recomando no utilizar mayusculas o espacios)', true);
+
 		//--- Crea la instancia
 		$id_instancia = $this->get_entorno_id_instancia(true);
 		$proyectos = proyecto::get_lista();
-		instancia::crear_instancia( $id_instancia, $base, $proyectos );
-		
+		if (isset($proyectos['toba_testing'])) {
+			unset($proyectos['toba_testing']);
+		}
+		try {
+			instancia::crear_instancia( $id_instancia, $base, $proyectos );
+			$instancia = $this->get_instancia();
+			$instancia->cargar( true );
+			$instancia->crear_alias_proyectos();
+			$instancia->set_version( instalacion::get_version_actual());
+	
+			proyecto::crear( $instancia, $id_proyecto, array() );
+			$proyecto = $this->get_proyecto($id_proyecto);
+			//$proyecto->actualizar_login();
+			instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $proyecto->get_instancia()->get_id());
+			$instancia->agregar_usuario( 'programador', 'Usuario Programador', uniqid() );
+			foreach( $instancia->get_proyectos() as $proyecto ) {
+				$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+				$proyecto->vincular_usuario( 'programador', $grupo_acceso );
+			}
+
+			$proyecto->exportar();
+			$instancia->exportar_local();
+		} catch (Exception $e) {
+			echo $e;
+		}
 	}
 	
 	//-------------------------------------------------------------

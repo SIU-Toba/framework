@@ -133,13 +133,7 @@ class comando_instancia extends comando_toba
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia();
-		
-		//-- Agregar los alias
-		$this->consola->enter();		
-		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
-		if ($crear_alias) {
-			$instancia->crear_alias_proyectos();
-		}
+
 		try {
 			$instancia->cargar();
 		} catch ( toba_error_modelo_preexiste $e ) {
@@ -160,6 +154,13 @@ class comando_instancia extends comando_toba
 
 		//---- D: Exporto la informacion LOCAL
 		$instancia->exportar_local();
+
+		//-- Agregar los alias
+		$this->consola->enter();		
+		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
+		if ($crear_alias) {
+			$instancia->crear_alias_proyectos();
+		}
 	}
 
 	/**

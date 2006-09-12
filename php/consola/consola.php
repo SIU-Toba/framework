@@ -18,7 +18,7 @@ require_once("consola/lib/formulario_consola.php");
 */
 class consola implements gui
 {
-	const display_ancho = 95;
+	const display_ancho = 79;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
 	protected 	$ubicacion_comandos;

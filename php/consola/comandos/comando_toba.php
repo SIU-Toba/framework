@@ -42,10 +42,13 @@ class comando_toba extends comando
 	/**
 	*	Devuelve una referencia al PROYECTO 
 	*/
-	protected function get_proyecto()
+	protected function get_proyecto($id_proy = null)
 	{
+		if (!isset($id_proy)) {
+			$id_proy = $this->get_id_proyecto_actual();
+		}
 		return catalogo_modelo::instanciacion()->get_proyecto( 	$this->get_id_instancia_actual(),
-																$this->get_id_proyecto_actual(),
+																$id_proy,
 																$this->consola );
 	}
 

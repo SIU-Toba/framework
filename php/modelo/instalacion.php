@@ -184,14 +184,23 @@ class instalacion extends elemento_modelo
 	*	Determina si una base de datos definida en bases.ini existe
 	*	@param string $nombre Nombre de la base
 	*/
-	function existe_base_datos( $nombre )
+	function existe_base_datos( $nombre, $otra_info = array(), $mostrar_salida = false )
 	{
 		try{
+			$this->ini_cargado = false;
 			$info_db = $this->get_parametros_base( $nombre );
-			$db = @$this->conectar_base_parametros( $info_db );
+			$info_db = array_merge($info_db, $otra_info);
+			if (! $mostrar_salida) {
+				$db = @$this->conectar_base_parametros( $info_db );
+			} else {
+				$db = $this->conectar_base_parametros( $info_db );
+			}
 			$db->destruir();
 			return true;
 		}catch(toba_error $e){
+			if ($mostrar_salida) {
+				return $e->getMessage();
+			}
 			return false;
 		}
 	}
