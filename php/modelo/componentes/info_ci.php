@@ -21,7 +21,7 @@ class info_ci extends info_ei
 	function get_pantalla($id)
 	{
 		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
-			if ($this->datos['info_ci_me_pantalla'][$i]['pantalla'] == $id) {
+			if ($this->datos['info_ci_me_pantalla'][$i]['pantalla'] === $id) {
 				return new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],
 											$this->subelementos, $this->proyecto, $this->id);
 			}
@@ -123,10 +123,29 @@ class info_ci extends info_ei
 		}
 		return $evento;
 	}
-	
+
 	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------
+
+	/**
+	*	Retorna la metaclase del subcomponente
+	*/
+	function get_metadatos_subcomponente($subcomponente)
+	{
+		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
+			if ($this->datos['info_ci_me_pantalla'][$i]['identificador'] === $subcomponente) {
+				$sub['clase'] = $this->datos['info_ci_me_pantalla'][$i]['subclase'];
+				$sub['archivo'] = $this->datos['info_ci_me_pantalla'][$i]['subclase_archivo'];
+				$sub['padre_clase'] = 'toba_ei_pantalla';
+				$sub['padre_archivo'] = 'nucleo/componentes/interface/toba_ei_pantalla.php';
+				$sub['meta_clase'] = new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
+				//toba::logger()->var_dump($sub);
+				return $sub;
+			}
+		}
+		throw new toba_error("No se encuentra la pantalla '$id'");
+	}
 
 	function generar_cuerpo_clase($opciones)
 	{

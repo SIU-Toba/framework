@@ -10,6 +10,7 @@ class toba_evento_usuario extends toba_boton
 {
 	protected $vinculo;
 	protected $parametros = null;
+	protected $js_ad_hoc = null;
 
 	/**
 	*	Devuelve el vinculo asociado al evento
@@ -117,6 +118,11 @@ class toba_evento_usuario extends toba_boton
 	{
 		$this->parametros = $parametros;
 	}
+
+	function set_js($js)
+	{
+		$this->js_ad_hoc = $js;
+	}
 	
 	//--------- Consumo interno ------------
 	
@@ -170,7 +176,11 @@ class toba_evento_usuario extends toba_boton
 			}
 		} else {
 			// Manejo estandar de eventos
-			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
+			if (isset($this->js_ad_hoc)) {
+				$js = $this->js_ad_hoc;
+			} else {
+				$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
+			}
 			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
 											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		}

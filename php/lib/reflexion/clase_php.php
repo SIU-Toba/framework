@@ -46,7 +46,10 @@ class clase_php
 	function generar_clase($opciones)
 	{
 		//Incluir el código que hace la subclase
-		$codigo = $this->separador_clases();
+		$codigo = '';
+		if ( ! $this->archivo->esta_vacio ) {
+			$codigo .= $this->separador_clases();
+		}
 		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n";
 		$codigo .= $this->meta_clase->generar_cuerpo_clase($opciones) ."\n";		
 		$codigo .= "}\n";

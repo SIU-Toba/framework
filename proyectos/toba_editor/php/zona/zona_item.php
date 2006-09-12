@@ -89,16 +89,6 @@ class zona_item extends zona_editor
 															 .apex_qs_separador. $rs["objeto"]) ) ."'>".
 								toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
-						if(isset($rs["clase_instanciador"])){
-							echo "</td>\n";
-							echo "<td  class='barra-obj-id' width='5'>";
-							echo "<a href='" . toba::vinculador()->generar_solicitud(
-														$rs["clase_instanciador_proyecto"], 
-														$rs["clase_instanciador"],
-														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
-															.apex_qs_separador. $rs["objeto"]) ) ."'>".
-								toba_recurso::imagen_apl("objetos/instanciar.gif",true,null,null,"INSTANCIAR el OBJETO"). "</a>";
-						}
 						echo "</td>\n";
 					echo "</tr>\n";
 				}

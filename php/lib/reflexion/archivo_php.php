@@ -6,6 +6,7 @@ class archivo_php
 	protected $nombre;
 	protected $fp = null;
 	protected $contenido = '';
+	protected $archivo_abierto = false;
 	
 	function __construct($nombre)
 	{
@@ -95,10 +96,13 @@ class archivo_php
 	
 	function edicion_inicio()
 	{
-		if (file_exists($this->nombre))
-			$this->contenido = file_get_contents($this->nombre);
-		else
-			$this->contenido = '';
+		if( ! $this->archivo_abierto ) {
+			if (file_exists($this->nombre))
+				$this->contenido = file_get_contents($this->nombre);
+			else
+				$this->contenido = '';
+			$this->archivo_abierto = true;
+		}
 	}
 	
 	function edicion_fin()

@@ -28,7 +28,6 @@ class ci_editor_php extends toba_ci
 		}
 	}
 	
-	
 	/**
 	 * Desde la accion se deben suministrar los datos de la extension sobre la que se esta trabajando
 	 */
@@ -36,26 +35,16 @@ class ci_editor_php extends toba_ci
 	{
 		$this->datos = $datos;
 		//- 1 - Obtengo la clase INFO del compomente que se selecciono.
-		
-//		require_once($this->datos['clase_archivo']);
-//		if (class_exists($this->datos['clase'])) {
-			$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
-			$clase_info = toba_constructor::get_info( $clave, $this->datos['clase']);
-/*		}else{
-			throw new toba_error('Error: no es posible acceder a los METADATOS del componente seleccionado');
-		}*/
+		$clave = array( 'componente'=>$this->datos['objeto'], 'proyecto'=>$this->datos['proyecto'] );		
+		$clase_info = toba_constructor::get_info( $clave, $this->datos['clase']);
 		
 		//- 2 - Controlo si tengo que mostrar el componente o un SUBCOMPONENTE.
-		/* Este mecanismo no es optimo... hay que pensarlo bien.
-			Se inagura el caso de que un objeto contenga una clase que no sea un objeto.
-		*/
-		if(isset($this->s__subcomponente)){
-			//Cargue un subcomponente en un request anterior.
+		if(isset($this->s__subcomponente)){ //Cargue un subcomponente en un request anterior.
 			$subcomponente = $this->s__subcomponente;
 		}else{
 			$subcomponente = toba::memoria()->get_parametro('subcomponente');
 		}
-		if ($subcomponente) {
+		if (isset($subcomponente)) {
 			$mts = $clase_info->get_metadatos_subcomponente($subcomponente);
 			if($mts){
 				$this->s__subcomponente = $subcomponente;
@@ -87,7 +76,11 @@ class ci_editor_php extends toba_ci
 			$arch =  $path_proyecto . $arch;
 			$this->archivo_php = new archivo_php($arch);	
 		}
-		$this->archivo_php->abrir();
+		//if ( $this->archivo_php->existe() ) {
+			$this->archivo_php->abrir();
+		//} else {
+		//	toba::logger()->notice('Se solicito abrir un archivo que no existe: ' . $this->archivo_php->nombre() );	
+		//}
 	}
 	
 	function evt__crear_archivo()
@@ -99,7 +92,6 @@ class ci_editor_php extends toba_ci
 	{
 		$this->clase_php->generar($opciones);
 	}
-	
 
 	/**
 	 * Servicio de ejecución externo
@@ -118,6 +110,5 @@ class ci_editor_php extends toba_ci
 	{
 		return $this->clase_php;	
 	}
-	
 }
 ?>
