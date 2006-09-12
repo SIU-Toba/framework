@@ -7,7 +7,7 @@
  * 
  * @package Centrales
  */
-class toba_solicitud_consola extends solicitud
+class toba_solicitud_consola extends toba_solicitud
 {
 	protected $estado_proceso = 0;
 	

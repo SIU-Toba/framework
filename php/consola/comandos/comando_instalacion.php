@@ -206,8 +206,6 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__autoinstalar()
 	{
-		ini_set('max_execution_time', 0);
-
 		//--- Verificar instalacion
 		if (get_magic_quotes_gpc()) {
 			$this->consola->mensaje("------------------------------------");
@@ -271,28 +269,21 @@ class comando_instalacion extends comando_toba
 		if (isset($proyectos['toba_testing'])) {
 			unset($proyectos['toba_testing']);
 		}
-		try {
-			instancia::crear_instancia( $id_instancia, $base, $proyectos );
-			$instancia = $this->get_instancia();
-			$instancia->cargar( true );
-			$instancia->crear_alias_proyectos();
-			$instancia->set_version( instalacion::get_version_actual());
-	
-			proyecto::crear( $instancia, $id_proyecto, array() );
-			$proyecto = $this->get_proyecto($id_proyecto);
-			//$proyecto->actualizar_login();
-			instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $proyecto->get_instancia()->get_id());
-			$instancia->agregar_usuario( 'programador', 'Usuario Programador', uniqid() );
-			foreach( $instancia->get_proyectos() as $proyecto ) {
-				$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
-				$proyecto->vincular_usuario( 'programador', $grupo_acceso );
-			}
-
-			$proyecto->exportar();
-			$instancia->exportar_local();
-		} catch (Exception $e) {
-			echo $e;
+		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		$instancia = $this->get_instancia();
+		$instancia->cargar( true );
+		$instancia->set_version( instalacion::get_version_actual());
+		proyecto::crear( $instancia, $id_proyecto, array() );
+		$instancia->agregar_usuario( 'toba', 'Usuario Toba', uniqid() );
+		foreach( $instancia->get_proyectos() as $proyecto ) {
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
 		}
+		$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
+		$nuevo_proyecto->actualizar_login();
+		$nuevo_proyecto->exportar();
+		$instancia->exportar_local();
+		$instancia->crear_alias_proyectos();
 	}
 	
 	//-------------------------------------------------------------

@@ -102,7 +102,7 @@ class toba_nucleo
 	function acceso_consola($instancia, $proyecto, $item, $usuario)
 	{
 		require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP		
-		require_once('nucleo/solicitud.php');		
+		require_once('nucleo/toba_solicitud.php');		
 		require_once("nucleo/toba_solicitud_consola.php");		
 		$estado_proceso = null;
 		try {

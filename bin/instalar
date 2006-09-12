@@ -1,6 +1,6 @@
 #!/bin/bash
-actual=`pwd`/$0
-toba_dir=`dirname $actual`
+toba_dir=`pwd`
 export toba_dir=`dirname $toba_dir`
 export toba_instancia=desarrollo
-php $toba_dir/php/consola/run.php instalacion autoinstalar
+export PATH="$toba_dir/bin:$PATH"
+php ../php/consola/run.php instalacion autoinstalar
