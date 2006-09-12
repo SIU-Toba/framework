@@ -171,7 +171,7 @@ class comando_instalacion extends comando_toba
 	 * Migra la instalación actual. [-d 'desde']  [-h 'hasta'] [-R 0|1].
 	 * -d se asume la versión de toba de la última instancia cargada.
 	 * -h se asume la versión de toba del código actual.
-	 * -R asume 1, esto quiere decir que migra también todas las instancias y proyectos que encuentre, sino solo lo propio de la instalación
+	 * -R asume 1, esto quiere decir que migra también todas las instancias y proyectos que encuentre
 	 */
 	function opcion__migrar()
 	{
@@ -202,10 +202,13 @@ class comando_instalacion extends comando_toba
 	}	
 	
 	/**
-	 * Ejecuta una instalacion inicial básica del framework tratando de hacer la menor cantidad de preguntas posibles.
+	 * Ejecuta una instalacion inicial básica del framework 
 	 */
 	function opcion__autoinstalar()
 	{
+		$nombre_toba = 'toba_'.instalacion::get_version_actual()->get_string_partes();		
+		$this->consola->titulo("Instalación Toba ".instalacion::get_version_actual()->__toString());
+
 		//--- Verificar instalacion
 		if (get_magic_quotes_gpc()) {
 			$this->consola->mensaje("------------------------------------");
@@ -230,10 +233,20 @@ class comando_instalacion extends comando_toba
 			throw new toba_error("ERROR: El comando 'svn' no se encuentra en el path actual del sistema,.");
 		}		
 
-		$nombre_toba = 'toba_'.instalacion::get_version_actual()->get_string_partes();
-		//--- Crea la INSTALACION
-		if( ! instalacion::existe_info_basica() ) {
-			instalacion::crear( 0, $nombre_toba );
+
+	
+		//--- Borra la instalacion anterior??
+		if ( ! instalacion::existe_info_basica() ) {
+			$forzar_instalacion = true;
+		} else {
+			$forzar_instalacion = ! $this->consola->dialogo_simple("Ya existe una instalación anterior desea conservarla ?");
+			if ($forzar_instalacion) {
+				instalacion::borrar_directorio();
+			}
+		}
+		//--- Crea la INSTALACION		
+		if ($forzar_instalacion) {
+			instalacion::crear( 0, $nombre_toba );			
 		}
 		
 		//--- Crea la definicion de bases
@@ -251,18 +264,35 @@ class comando_instalacion extends comando_toba
 					'base' => $base
 				);
 				$this->get_instalacion()->agregar_db( $base, $datos );
-				$existe_base = $this->get_instalacion()->existe_base_datos($base, array('base' => 'template1'), true);
-				if ($existe_base !== true) {
+				//--- Intenta conectar al servidor
+				$puede_conectar = $this->get_instalacion()->existe_base_datos($base, array('base' => 'template1'), true);
+				if ($puede_conectar !== true) {
 					$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
-					$this->consola->mensaje($existe_base."\n");
+					$this->consola->mensaje($puede_conectar."\n");
 				}
-			} while ($existe_base !== true);
+			} while ($puede_conectar !== true);
 		}	
-		
 
+		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
+		if ($this->get_instalacion()->existe_base_datos($base)) {
+			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya está siendo utiliza en este servidor, puede ingresar un nombre ".
+																"distinto sino quiere sobrescribirla: (ENTER sobrescribe la actual)", false);			
+			if ($nueva_base != '') {																
+				$datos['base'] = $nueva_base;
+				$this->get_instalacion()->agregar_db( $base, $datos );
+			}
+		}
+		
 		//--- Pregunta identificador del Proyecto
 		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (recomando no utilizar mayusculas o espacios)', true);
 
+		//--- Si el proyecto existe, lo borra
+		$existe_proyecto = proyecto::existe($id_proyecto);
+		if ($existe_proyecto && $forzar_instalacion) {
+			manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
+			$existe_proyecto = false;
+		}		
+		
 		//--- Crea la instancia
 		$id_instancia = $this->get_entorno_id_instancia(true);
 		$proyectos = proyecto::get_lista();
@@ -270,11 +300,21 @@ class comando_instalacion extends comando_toba
 			unset($proyectos['toba_testing']);
 		}
 		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		
+		//-- Carga la instancia
 		$instancia = $this->get_instancia();
-		$instancia->cargar( true );
+		if (!$instancia->existe_modelo() || $forzar_instalacion) {
+			$instancia->cargar( true );
+		}
 		$instancia->set_version( instalacion::get_version_actual());
-		proyecto::crear( $instancia, $id_proyecto, array() );
-		$instancia->agregar_usuario( 'toba', 'Usuario Toba', uniqid() );
+		
+		//--- Crea el proyecto
+		if (!$existe_proyecto ) {
+			proyecto::crear( $instancia, $id_proyecto, array() );
+		}
+		
+		//--- Vincula un usuario a todos los proyectos
+		$instancia->agregar_usuario( 'toba', 'Usuario Toba', 'toba');
 		foreach( $instancia->get_proyectos() as $proyecto ) {
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
@@ -283,7 +323,36 @@ class comando_instalacion extends comando_toba
 		$nuevo_proyecto->actualizar_login();
 		$nuevo_proyecto->exportar();
 		$instancia->exportar_local();
+		
+		//--- Crea los nuevos alias
 		$instancia->crear_alias_proyectos();
+
+		//--- Mensajes finales
+		$toba_conf = instalacion::dir_base()."/toba.conf";
+		$this->consola->separador();
+		$this->consola->mensaje("La instalación del framework ha finalizado, para su correcta ejecución se necesita notificar a Apache y a la consola de su presencia");
+		$this->consola->mensaje("");
+		if (manejador_archivos::es_windows()) {		
+			$toba_conf = manejador_archivos::path_a_unix($toba_conf);
+			$this->consola->mensaje("Para Apache: agregar en el archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+			$this->consola->mensaje("     Include \"$toba_conf\"");;
+		} else {
+			$this->consola->mensaje("Para Apache: ejecutar el siguiente comando como superusuario (se asume una distro tipo debian): ");
+			$this->consola->mensaje("  ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");;			
+		}
+		$this->consola->mensaje("");
+		$this->consola->mensaje("Para la consola: se necesitan agregar al entorno las siguientes directivas:");
+		if (manejador_archivos::es_windows()) {
+			$dir_base = manejador_archivos::path_a_windows(instalacion::dir_base());
+			$this->consola->mensaje("   set toba_dir=".$dir_base);
+			$this->consola->mensaje("   set toba_instancia=desarrollo");
+			$this->consola->mensaje("   set PATH=%PATH%;%toba_dir%/bin");
+		} else {
+			$this->consola->mensaje("   export toba_dir=".instalacion::dir_base());
+			$this->consola->mensaje("   export toba_instancia=desarrollo");
+			$this->consola->mensaje('   export PATH="$toba_dir/bin:$PATH"');
+		}
+		$this->consola->mensaje("");
 	}
 	
 	//-------------------------------------------------------------

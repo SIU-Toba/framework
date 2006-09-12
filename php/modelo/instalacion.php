@@ -297,6 +297,14 @@ class instalacion extends elemento_modelo
 		if( ! is_dir( self::dir_base() ) ) {
 			mkdir( self::dir_base() );
 			toba_logger::instancia()->debug("Creado directorio ".self::dir_base());			
+		}
+	}
+	
+	static function borrar_directorio()
+	{
+		if (is_dir( self::dir_base() ) ) {
+			manejador_archivos::eliminar_directorio(self::dir_base());
+			toba_logger::instancia()->debug("Borrado directorio ".self::dir_base());			
 		}		
 	}
 
