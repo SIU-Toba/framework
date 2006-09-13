@@ -132,6 +132,7 @@ class version_toba
 				}
 			}
 		}
+		$interface->mensaje('OK');
 	}
 	
 	static function inicial()

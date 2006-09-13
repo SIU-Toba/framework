@@ -1,11 +1,131 @@
-<?
+<?php
 require_once('migracion_toba.php');
 require_once('lib/parseo.php');
 require_once('lib/manejador_archivos.php');
 require_once('lib/editor_archivos.php');
 
-class migracion_0_10_0 extends migracion_toba
+class migracion_1_0_0 extends migracion_toba
 {
+	//--------------------------------------------------------------
+	//-------------------------- INSTANCIA --------------------------
+	//--------------------------------------------------------------
+
+	
+	function instancia__cambio_estructura()
+	{
+		//--- Cambios a efs
+		$sql[] = "ALTER TABLE apex_elemento_formulario ADD COlUMN 		obsoleto							smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	estado_defecto 						varchar(255)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	solo_lectura 						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_metodo						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_clase 						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_include 						varchar(255)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_col_clave 					varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_col_desc 						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_sql							varchar";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_fuente						varchar(30)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_lista							varchar(255)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_maestros						varchar(255)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_cascada_relaj					smallint";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	carga_no_seteado					varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_tamano							smallint";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_maximo							smallint";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_mascara						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_unidad							varchar(255)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_rango							varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_filas							smallint";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_columnas						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_wrap							varchar(20)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_resaltar						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_ajustable						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	edit_confirmar_clave				smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	popup_item							varchar(60)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	popup_proyecto						varchar(15)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	popup_editable						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	popup_ventana						varchar(50)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	fieldset_fin						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	check_valor_si						varchar(40)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	check_valor_no						varchar(40)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	check_desc_si						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	check_desc_no						varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	fijo_sin_estado						smallint";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	editor_ancho						varchar(10)";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	editor_alto							varchar(10)";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	editor_botonera						varchar(50)";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_cant_minima					smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_cant_maxima					smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_utilidades					smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_tamano						smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_serializar					smallint";			
+		
+		//-- El tipo de solicitud no es mas obligatorio
+		$sql[] = "ALTER TABLE apex_item DROP COLUMN solicitud_tipo";
+		$sql[] = "ALTER TABLE apex_item ADD COLUMN solicitud_tipo	varchar(20)";
+		
+		//--- La fuente de datos no es mas obligatoria
+		$sql[] = "ALTER TABLE apex_objeto DROP COLUMN fuente_datos_proyecto";
+		$sql[] = "ALTER TABLE apex_objeto DROP COLUMN fuente_datos";		
+		$sql[] = "ALTER TABLE apex_objeto ADD COLUMN fuente_datos_proyecto	varchar(20)";
+		$sql[] = "ALTER TABLE apex_objeto ADD COLUMN fuente_datos				varchar(20)";
+		
+		//--- Cambios al proyecto
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	requiere_validacion				smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	usuario_anonimo					varchar(15)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	validacion_intentos				smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	validacion_intentos_min			smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	validacion_debug				smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	sesion_tiempo_no_interac_min	smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	sesion_tiempo_maximo_min		smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	sesion_subclase					varchar(40)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	sesion_subclase_archivo			varchar(255)	";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	usuario_subclase				varchar(40)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	usuario_subclase_archivo		varchar(255)	";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	encriptar_qs					smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	registrar_solicitud				varchar(1)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	registrar_cronometro			varchar(1)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	item_inicio_sesion      		varchar(60)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	item_pre_sesion		          	varchar(60)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	log_archivo						smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	log_archivo_nivel				smallint		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	fuente_datos					varchar(20)		";	
+		
+		//--- Cambios a la zona
+		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_archivo				varchar(255)	";
+		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_clase					varchar(60)		";
+		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_metodo					varchar(60)		";	
+		
+		//--- Cambios al item
+		$sql[] = "ALTER TABLE apex_item ADD COLUMN	redirecciona					smallint		";			
+
+		//--- Cambios a los eventos
+		$sql[] = "ALTER TABLE apex_objeto_eventos ADD COLUMN	defecto					smallint		";
+		
+		//--- Nueva tabla
+		$sql [] = '
+				CREATE TABLE apex_admin_param_previsualizazion	(
+					proyecto							varchar(15)		NOT NULL, 
+					usuario								varchar(20)		NOT NULL,
+					grupo_acceso						varchar(20)		NOT NULL,
+					punto_acceso						varchar(100)	NOT NULL,
+				  CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario"),
+				  CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
+				    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+				);
+		';
+		
+		//-- Cambio pantalla del ci
+		$sql[] = "ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN subclase			varchar(80)";
+		$sql[] = "ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN subclase_archivo	varchar(80)";
+		
+		$this->elemento->get_db()->ejecutar($sql);
+	
+	}
+	
+	function instancia__cambios_metadatos_nucleo()
+	{
+		$sql[]  = "INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba) VALUES ('ef_editable_textarea', 'ef_editable', 'Campo editable de varias líneas de alto.', NULL, 'toba', NULL)";
+		$this->elemento->get_db()->ejecutar($sql);		
+	}
 
 	//--------------------------------------------------------------
 	//-------------------------- PROYECTO --------------------------
@@ -333,7 +453,7 @@ class migracion_0_10_0 extends migracion_toba
 					$nuevos['popup_item'] = $p_item;
 					$nuevos['popup_proyecto'] = $p_proyecto;
 				} else  {
-					echo "Warning: El parametro $clave no tiene correlacion en la migracion.\n";	
+					echo "\nWarning: El parametro '$clave' de los EF no tiene correlacion en la migracion.\n";	
 				}
 			}
 			if (! empty($nuevos)) {
@@ -415,13 +535,13 @@ class migracion_0_10_0 extends migracion_toba
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_hoja.php|'            ,'nucleo/componentes/transversales/objeto_hoja.php'        );
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_html.php|'            ,'nucleo/componentes/transversales/objeto_html.php'        );
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_lista.php|'           ,'nucleo/componentes/transversales/objeto_lista.php'       );
+		$editor->agregar_sustitucion('|nucleo/persistencia/|' 					          ,'nucleo/componentes/persistencia/' 					      );
 		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
 	/**
 	 * La clase lista-col-titulo paso a ser ei-cuadro-col-tit
-	 *
 	 */
 	function proyecto__migracion_css_cuadro()
 	{
@@ -491,6 +611,16 @@ class migracion_0_10_0 extends migracion_toba
 		return $cant;
 	}
 
+	function proyecto__eliminar_tablas_objetos_obsoletos()
+	{
+		$sql = array();
+		$sql[] = "DELETE FROM apex_objeto_filtro			 WHERE objeto_filtro_proyecto = '{$this->elemento->get_id()}'";
+		$sql[] = "DELETE FROM apex_objeto_ut_formulario_ef 	 WHERE objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'";
+		$sql[] = "DELETE FROM apex_objeto_hoja 				 WHERE objeto_hoja_proyecto = '{$this->elemento->get_id()}'";
+		$sql[] = "DELETE FROM apex_objeto_hoja_directiva	 WHERE objeto_hoja_proyecto = '{$this->elemento->get_id()}'";
+		return $this->elemento->get_db()->ejecutar($sql);				
+	}		
+	
 	function proyecto__eliminar_objetos_obsoletos()
 	{
 		$clases_obsoletas[] = 'objeto_cuadro';
@@ -498,7 +628,7 @@ class migracion_0_10_0 extends migracion_toba
 		$clases_obsoletas[] = 'objeto_filtro';
 		$clases_obsoletas[] = 'objeto_hoja';
 		$clases_obsoletas[] = 'objeto_mt_abms';
-		$clases_obsoletas[] = 'objeto_html';
+//		$clases_obsoletas[] = 'objeto_html';
 		$clases_obsoletas[] = 'objeto_lista';
 		$clases_obsoletas[] = 'objeto_mt';
 		$clases_obsoletas[] = 'objeto_mt_mds';
@@ -510,7 +640,7 @@ class migracion_0_10_0 extends migracion_toba
 						clase IN ('$clases');";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
-
+	
 	function proyecto__migrar_solicitud_browser()
 	{
 		$sql = "UPDATE apex_item SET solicitud_tipo = 'web' 
@@ -524,7 +654,7 @@ class migracion_0_10_0 extends migracion_toba
 	function proyecto__migrar_tipo_solicitud_carpetas()
 	{
 		$sql = "UPDATE apex_item SET solicitud_tipo = NULL WHERE 
-						carpeta = 1;
+						carpeta = 1
 					AND	proyecto = '{$this->elemento->get_id()}'";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}

@@ -51,6 +51,7 @@ class consola implements gui
 				$this->invocar_comando( $comando, $argumentos );
 			} catch (toba_error $e ) {
 				$this->mensaje( $e->getMessage() );	
+				toba_logger::instancia()->error($e);
 			}
 		} else {
 			//Aca se tendria que abrir el INTERPRETE

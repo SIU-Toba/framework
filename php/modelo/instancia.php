@@ -88,15 +88,18 @@ class instancia extends elemento_modelo
 	//-----------------------------------------------------------
 
 	/**
-	*	Devuelve un array con los objetos PROYECTO cargados
+	* Devuelve un array con los objetos PROYECTO cargados
 	* @return proyecto
 	*/
 	function get_proyectos()
 	{
 		$proyectos = array();
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
-			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
+			//-- En versioes anteriores de toba, toba era un proyecto de la instancia
+			if ($proyecto != 'toba') {
+				$proyectos[$proyecto] = new proyecto( $this, $proyecto );
+				$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
+			}
 		}
 		return $proyectos;
 	}
