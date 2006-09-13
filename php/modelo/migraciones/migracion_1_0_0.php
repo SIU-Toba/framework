@@ -20,7 +20,7 @@ class migracion_1_0_0 extends migracion_toba
 			$actuales = $ini->get_datos_entrada('proyectos');
 			$actuales = str_replace('toba ', 'toba_editor ', $actuales); 
 			$actuales = str_replace('toba,', 'toba_editor,', $actuales); 
-			$actuales = str_replace('toba\n', 'toba_editor\n', $actuales); 
+			$actuales = preg_replace('/toba$/', 'toba_editor', $actuales);
 			$ini->set_datos_entrada('proyectos', $actuales);
 			$ini->guardar();
 		}
@@ -29,7 +29,7 @@ class migracion_1_0_0 extends migracion_toba
 	function instancia__cambio_estructura()
 	{
 		//--- Cambios a efs
-		$sql[] = "ALTER TABLE apex_elemento_formulario ADD COlUMN 		obsoleto							smallint";
+		$sql[] = "ALTER TABLE apex_elemento_formulario		ADD COlUMN 		obsoleto							smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	estado_defecto 						varchar(255)";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	solo_lectura 						smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_metodo						varchar(100)";
@@ -74,8 +74,7 @@ class migracion_1_0_0 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_serializar					smallint";			
 		
 		//-- El tipo de solicitud no es mas obligatorio
-		$sql[] = "ALTER TABLE apex_item DROP COLUMN solicitud_tipo";
-		$sql[] = "ALTER TABLE apex_item ADD COLUMN solicitud_tipo	varchar(20)";
+		$sql[] = "ALTER TABLE apex_item ALTER COLUMN solicitud_tipo DROP NOT NULL;";
 		
 		//--- La fuente de datos no es mas obligatoria
 		$sql[] = "ALTER TABLE apex_objeto DROP COLUMN fuente_datos_proyecto";
@@ -660,13 +659,22 @@ class migracion_1_0_0 extends migracion_toba
 		foreach ($rs as $obj) {
 			$sql = array();
 			$id_obj = $obj['objeto'];
-			//--- Borra los objetos
+			//--- Borra las tablas secundarias comunes de estos objetos
 			$sql[] = "DELETE FROM apex_objeto_ut_formulario WHERE 
 								objeto_ut_formulario = '$id_obj'
 							AND objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'";					
+			
+			$sql[] = "DELETE FROM apex_objeto_cuadro WHERE 
+								objeto_cuadro = '$id_obj'
+							AND objeto_cuadro_proyecto = '{$this->elemento->get_id()}'";					
+						
+			
+			//--- Borra los vinculos entrantes y salientes de estos objetos
 			$sql[] = "DELETE FROM apex_vinculo WHERE 
 							(origen_objeto_proyecto= '{$this->elemento->get_id()}' AND origen_objeto= '$id_obj')
 						OR	(destino_objeto_proyecto= '{$this->elemento->get_id()}' AND destino_objeto= '$id_obj')";			
+			
+			//--- Borra los objetos y sus dependencias
 			$sql[] = "DELETE FROM apex_objeto WHERE objeto = '$id_obj' AND proyecto = '{$this->elemento->get_id()}'";
 			$sql[] = "DELETE FROM apex_objeto_dependencias WHERE 
 								(objeto_proveedor = '$id_obj' 
