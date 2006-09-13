@@ -99,7 +99,7 @@ class comando
 	}
 	
 	private function es_parametro( $texto ) {
-       return ($texto{0} == "-") ? 1: 0;
+       return (substr($texto, 0, 1) == "-") ? 1: 0;
 	}
 }
 ?>

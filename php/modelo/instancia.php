@@ -96,8 +96,10 @@ class instancia extends elemento_modelo
 	{
 		$proyectos = array();
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
-			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
+			if ($proyecto != 'toba') {
+				$proyectos[$proyecto] = new proyecto( $this, $proyecto );
+				$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );
+			}
 		}
 		return $proyectos;
 	}

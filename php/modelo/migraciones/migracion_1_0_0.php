@@ -661,11 +661,20 @@ class migracion_1_0_0 extends migracion_toba
 			$sql = array();
 			$id_obj = $obj['objeto'];
 			//--- Borra los objetos
+			$sql[] = "DELETE FROM apex_objeto_ut_formulario WHERE 
+								objeto_ut_formulario = '$id_obj'
+							AND objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'";					
+			$sql[] = "DELETE FROM apex_vinculo WHERE 
+							(origen_objeto_proyecto= '{$this->elemento->get_id()}' AND origen_objeto= '$id_obj')
+						OR	(destino_objeto_proyecto= '{$this->elemento->get_id()}' AND destino_objeto= '$id_obj')";			
 			$sql[] = "DELETE FROM apex_objeto WHERE objeto = '$id_obj' AND proyecto = '{$this->elemento->get_id()}'";
 			$sql[] = "DELETE FROM apex_objeto_dependencias WHERE 
 								(objeto_proveedor = '$id_obj' 
 							OR	objeto_consumidor = '$id_obj')
 							AND proyecto = '{$this->elemento->get_id()}'";
+			
+	
+
 			$cant += $this->elemento->get_db()->ejecutar($sql);
 		}
 		return $cant;
@@ -822,7 +831,8 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp/', 				'toba::instalacion()->get_path_temp');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path/', 						'toba::instalacion()->get_path');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto/', 					'toba::proyecto()->get_id');		
-		$editor->agregar_sustitucion('/toba::hilo\(\)->get_usuario/', 					'toba::usuario()->get_id');				
+		$editor->agregar_sustitucion('/toba::hilo\(\)->get_usuario/', 					'toba::usuario()->get_id');
+		$editor->agregar_sustitucion('/toba::hilo\(\)->obtener_usuario_grupo_acceso/', 	'toba::usuario()->get_grupo_acceso');
 		$editor->agregar_sustitucion('/persistir_dato_sincronizado/', 					'set_dato_sincronizado');
 		$editor->agregar_sustitucion('/recuperar_dato_sincronizado/', 					'get_dato_sincronizado');
 		$editor->agregar_sustitucion('/recuperar_dato_global/', 						'get_dato');
