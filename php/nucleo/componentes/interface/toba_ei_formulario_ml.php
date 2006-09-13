@@ -601,7 +601,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		//------ FILAS ------
 		$this->filas_enviadas = array();
-
+		if (!isset($this->ordenes)) {
+			$this->ordenes = array();
+		}
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
 		if ( $this->info_formulario['filas_agregar'] && $this->info_formulario['filas_agregar_online']) {
 			$this->datos["__fila__"] = array();
