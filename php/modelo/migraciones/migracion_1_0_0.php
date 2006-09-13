@@ -625,8 +625,6 @@ class migracion_1_0_0 extends migracion_toba
 		$cant+= $this->elemento->get_db()->ejecutar($sql);
 		return $cant;
 	}
-/*
-Para hacer esto hay que hacer borrados en cascada mas profundos
 
 	function proyecto__eliminar_tablas_objetos_obsoletos()
 	{
@@ -635,6 +633,7 @@ Para hacer esto hay que hacer borrados en cascada mas profundos
 		$sql[] = "DELETE FROM apex_objeto_ut_formulario_ef 	 WHERE objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'";
 		$sql[] = "DELETE FROM apex_objeto_hoja 				 WHERE objeto_hoja_proyecto = '{$this->elemento->get_id()}'";
 		$sql[] = "DELETE FROM apex_objeto_hoja_directiva	 WHERE objeto_hoja_proyecto = '{$this->elemento->get_id()}'";
+		$sql[] = "DELETE FROM apex_objeto_html				 WHERE objeto_html_proyecto = '{$this->elemento->get_id()}'";
 		return $this->elemento->get_db()->ejecutar($sql);				
 	}		
 	
@@ -652,12 +651,26 @@ Para hacer esto hay que hacer borrados en cascada mas profundos
 		$clases_obsoletas[] = 'objeto_mt_s';
 		$clases_obsoletas[] = 'objeto_ut_formulario';
 		$clases = implode("','",$clases_obsoletas);
-		$sql = "DELETE FROM apex_objeto WHERE 						
+		
+		$sql = "SELECT objeto FROM apex_objeto WHERE
 						proyecto = '{$this->elemento->get_id()}' AND 
 						clase IN ('$clases');";
-		return $this->elemento->get_db()->ejecutar($sql);
+		$rs = $this->elemento->get_db()->consultar($sql);
+		$cant = 0;
+		foreach ($rs as $obj) {
+			$sql = array();
+			$id_obj = $obj['objeto'];
+			//--- Borra los objetos
+			$sql[] = "DELETE FROM apex_objeto WHERE objeto = '$id_obj' AND proyecto = '{$this->elemento->get_id()}'";
+			$sql[] = "DELETE FROM apex_objeto_dependencias WHERE 
+								(objeto_proveedor = '$id_obj' 
+							OR	objeto_consumidor = '$id_obj')
+							AND proyecto = '{$this->elemento->get_id()}'";
+			$cant += $this->elemento->get_db()->ejecutar($sql);
+		}
+		return $cant;
 	}	
-*/	
+
 	
 	function proyecto__migrar_solicitud_browser()
 	{
