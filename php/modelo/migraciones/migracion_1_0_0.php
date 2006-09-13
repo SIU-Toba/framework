@@ -10,6 +10,21 @@ class migracion_1_0_0 extends migracion_toba
 	//-------------------------- INSTANCIA --------------------------
 	//--------------------------------------------------------------
 
+	/**
+	 *	Ahora el anterior proyecto 'toba' se lo conoce como proyecto 'toba_editor'
+	 */
+	function instancia__cambio_proyecto_editor()
+	{
+		$ini = $this->elemento->get_ini();		
+		if ($ini->existe_entrada('proyectos')) {
+			$actuales = $ini->get_datos_entrada('proyectos');
+			$actuales = str_replace('toba ', 'toba_editor ', $actuales); 
+			$actuales = str_replace('toba,', 'toba_editor,', $actuales); 
+			$actuales = str_replace('toba\n', 'toba_editor\n', $actuales); 
+			$ini->set_datos_entrada('proyectos', $actuales);
+			$ini->guardar();
+		}
+	}	
 	
 	function instancia__cambio_estructura()
 	{
@@ -610,6 +625,8 @@ class migracion_1_0_0 extends migracion_toba
 		$cant+= $this->elemento->get_db()->ejecutar($sql);
 		return $cant;
 	}
+/*
+Para hacer esto hay que hacer borrados en cascada mas profundos
 
 	function proyecto__eliminar_tablas_objetos_obsoletos()
 	{
@@ -628,7 +645,7 @@ class migracion_1_0_0 extends migracion_toba
 		$clases_obsoletas[] = 'objeto_filtro';
 		$clases_obsoletas[] = 'objeto_hoja';
 		$clases_obsoletas[] = 'objeto_mt_abms';
-//		$clases_obsoletas[] = 'objeto_html';
+		$clases_obsoletas[] = 'objeto_html';
 		$clases_obsoletas[] = 'objeto_lista';
 		$clases_obsoletas[] = 'objeto_mt';
 		$clases_obsoletas[] = 'objeto_mt_mds';
@@ -640,6 +657,7 @@ class migracion_1_0_0 extends migracion_toba
 						clase IN ('$clases');";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}	
+*/	
 	
 	function proyecto__migrar_solicitud_browser()
 	{

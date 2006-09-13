@@ -23,6 +23,7 @@ class instancia extends elemento_modelo
 	const archivo_usuarios = 'usuarios.sql';
 	const archivo_logs = 'logs.sql';
 	const cantidad_seq_grupo = 1000000;
+	protected $proyectos_ya_migrados = array('toba_testing', 'toba_referencia', 'toba_editor');	
 	private $instalacion;					// Referencia a la instalacion en la que esta metida la instancia
 	private $identificador;					// Identificador de la instancia
 	private $dir;							// Directorio raiz de la instancia
@@ -95,11 +96,8 @@ class instancia extends elemento_modelo
 	{
 		$proyectos = array();
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			//-- En versioes anteriores de toba, toba era un proyecto de la instancia
-			if ($proyecto != 'toba') {
-				$proyectos[$proyecto] = new proyecto( $this, $proyecto );
-				$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
-			}
+			$proyectos[$proyecto] = new proyecto( $this, $proyecto );
+			$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );			
 		}
 		return $proyectos;
 	}
@@ -235,7 +233,7 @@ class instancia extends elemento_modelo
 		$this->cargar_info_ini();
 	}
 
-	private function get_ini()
+	function get_ini()
 	{
 		$ini = new ini( $this->dir . '/' . self::toba_instancia );
 		$ini->agregar_titulo( self::toba_instancia_titulo );
@@ -770,7 +768,10 @@ class instancia extends elemento_modelo
 			//-- Se migran los proyectos incluidos
 			if ($recursivo) {
 				foreach ($this->get_proyectos() as $proyecto) {
-					$proyecto->migrar_version($version);
+					//-- Se evitan los proyectos propios, ya que ya estan migrados pero recien se va a notar cuando se regenere
+					if (! in_array($proyecto->get_id(), $this->proyectos_ya_migrados)) {
+						$proyecto->migrar_version($version);
+					}
 				}
 			}
 			$this->get_db()->cerrar_transaccion();
