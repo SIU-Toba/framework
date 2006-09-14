@@ -28,7 +28,7 @@ class comando_item extends comando_toba
 			throw new toba_error("Es necesario definir una ITEM. Utilice el modificador '-t'");
 		}
 		$item = $param['-t'];
-
+		
 		define('apex_pa_ID', $_SERVER['PHP_SELF']);
 		require_once("nucleo/toba.php");
 		toba::nucleo()->acceso_consola($id_instancia,$id_proyecto, $item, $usuario);

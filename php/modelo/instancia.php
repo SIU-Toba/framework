@@ -180,7 +180,7 @@ class instancia extends elemento_modelo
 			return false;
 		}
 	}
-
+	
 	function existen_metadatos_proyecto( $proyecto )
 	{
 		$sql = "SELECT 1 FROM apex_proyecto WHERE proyecto = '$proyecto';";
@@ -641,6 +641,18 @@ class instancia extends elemento_modelo
 		}
 		return $this->get_db()->consultar( $sql );
 	}
+	
+	function get_usuarios_administradores($proyecto, $grupo = 'admin')
+	{
+		$sql = "
+			SELECT	usuario
+			FROM	apex_usuario_proyecto
+			WHERE	
+					proyecto='$proyecto'
+				AND	usuario_grupo_acc = '$grupo'
+		";
+		return $this->get_db()->consultar( $sql );
+	}	
 
 	function get_registros_tablas()
 	{

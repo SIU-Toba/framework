@@ -541,6 +541,7 @@ class proyecto extends elemento_modelo
 		} else {
 			$fuente = current($fuentes);
 		}
+		
 		//--- Clonando
 		$comando = 'toba item ejecutar -p toba_editor -t 1000043 ';
 		$comando .= ' -orig_proy toba_editor';
@@ -549,8 +550,15 @@ class proyecto extends elemento_modelo
 		$comando .= ' -dest_padre ""';
 		$comando .= ' -dest_fuente '.$fuente['fuente_datos'];
 		$comando .= ' -dest_dir login';	
+		//---- Averiguo un usuario capaz de ejecutar en toba_editor
+		$usuarios = $this->instancia->get_usuarios_administradores('toba_editor');
+		if (! empty($usuarios)) {
+			$comando .= ' -u '.$usuarios[0]['usuario'];	
+		}		
+
+		
 		$this->manejador_interface->mensaje("Clonando item de login...", false);
-		toba_logger::instancia()->debug("Ejecutando el comando $comando");
+		toba_logger::instancia()->debug("Ejecutando el comando: $comando");
 		$id_item = trim(exec($comando));
 		if (! is_numeric($id_item)) {
 			throw new toba_error("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
