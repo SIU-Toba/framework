@@ -61,6 +61,15 @@ abstract class toba_ef_seleccion extends toba_ef
 			$this->input_extra = " disabled ";
 		}
 		$this->opciones = $datos;
+		
+		//	Verifica que si existe estado, este este contemplado en las opciones,
+		//	Sino se hace este chequeo existe la posibilidad de que se haga get_estado para el cascada por ej
+		//	Y termine brindando un dato que no existe
+		$actual = $this->get_estado_para_input();
+		if ($actual !== apex_ef_no_seteado && ! isset($this->opciones[$actual])) {
+			$this->estado = $this->estado_nulo;
+			toba::logger()->warning("Se resetea el estado del ef '{$this->id}' debido a que su estado actual ('$actual') no está cotemplado en las opciones");
+		}
 	}
 
 	function get_estado()
