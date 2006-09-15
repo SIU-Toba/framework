@@ -45,7 +45,7 @@ class ci_analizador extends toba_ci
 	
 	function servicio__ejecutar()
 	{
-		$res = $this->analizador->obtener_pedido($this->seleccion);
+		$res = $this->analizador->get_pedido($this->seleccion);
 		$encabezado = $this->pantalla()->generar_html_encabezado($res);
 		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
 		$anterior_mod = toba::memoria()->get_parametro('mtime');

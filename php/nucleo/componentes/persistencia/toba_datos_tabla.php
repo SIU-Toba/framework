@@ -64,7 +64,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Reserva un id y lo retorna
+	 * Reserva un id interno y lo retorna
 	 */
 	function reservar_id_fila()
 	{
@@ -987,7 +987,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Carga la tabla restringiendo POR valores especificos de campos
 	 */
-	function cargar($clave)
+	function cargar($clave=array())
 	{
 		return $this->get_persistidor()->cargar_por_clave($clave);
 	}

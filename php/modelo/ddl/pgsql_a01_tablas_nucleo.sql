@@ -546,7 +546,7 @@ CREATE TABLE apex_usuario
 (	
 	usuario							varchar(20)		NOT NULL,
 	clave							varchar(128)	NOT NULL,
-	nombre							varchar(80)		NULL,
+	nombre							varchar(255)	NULL,
 	usuario_tipodoc					varchar(10)		NULL,
 	pre								varchar(2)		NULL,
 	ciu								varchar(18)		NULL,
