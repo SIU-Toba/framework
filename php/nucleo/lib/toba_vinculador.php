@@ -209,7 +209,7 @@ class toba_vinculador
 	//---------------------------- CONVERSIONES  ------------------------------------------
 	//-------------------------------------------------------------------------------------
 
-	function variable_a_url($variable)
+	static function variable_a_url($variable)
 	{
 		if (! is_array($variable)) {
 			return urlencode($variable);
@@ -221,7 +221,7 @@ class toba_vinculador
 		return implode(apex_qs_separador, $salida);
 	}
 	
-	function url_a_variable($url)
+	static function url_a_variable($url)
 	{
 		if (strpos($url, apex_qs_separador) === false) {
 			return urldecode($url);

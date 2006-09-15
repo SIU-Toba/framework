@@ -30,7 +30,7 @@ interface recorrible_como_arbol
 interface meta_clase
 {
 	//Generacion de codigo
-	function generar_cuerpo_clase($opciones);
+	function get_plan_construccion_metodos();
 	//Analisis de codigo
 	function es_evento($metodo);
 	function es_evento_predefinido($metodo);

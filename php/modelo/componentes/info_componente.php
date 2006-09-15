@@ -259,7 +259,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
 			$parametros = $this->acceso_zona();
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false);
+			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
 			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
@@ -423,7 +423,18 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	
 	//--- GENERACION de PHP ---
 	
-	function generar_cuerpo_clase($opciones)
+	/*
+	*	Un plan es un array de dos dimensiones
+	*/
+	function get_plan_construccion_metodos()
+	{
+		return array();
+	}	
+
+	//----  FILTRO de COMENTARIOS  --------------
+
+	/*
+		function generar_cuerpo_clase($opciones)
 	{
 		$this->set_nivel_comentarios($opciones['nivel_comentarios']);
 		$cuerpo = '';
@@ -435,12 +446,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return $cuerpo;
 	}
 
-	function generar_metodos()
-	{
-		return array();
-	}
-	
-	//----  FILTRO de COMENTARIOS  --------------
+	*/
 
 	function set_nivel_comentarios($nivel)
 	{

@@ -1,7 +1,7 @@
 <?
 require_once("interfaces.php");
 
-class info_ap_tabla_db implements meta_clase
+class info_ap_relacion_db implements meta_clase
 {
 	function get_plan_construccion_metodos($opciones)
 	{

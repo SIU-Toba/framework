@@ -118,8 +118,8 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		//-- Se procesan los eventos generados en el pedido anterior
 		foreach ($this->cis as $ci) {
+			$this->objetos[$ci]->inicializar();
 			try {
-				$this->objetos[$ci]->inicializar();
 				$this->objetos[$ci]->disparar_eventos();
 			} catch(toba_error $e) {
 				$this->log->info($e, 'toba');			

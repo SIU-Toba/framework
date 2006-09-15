@@ -147,48 +147,71 @@ class info_ci extends info_ei
 		throw new toba_error("No se encuentra la pantalla '$id'");
 	}
 
-	function generar_cuerpo_clase($opciones)
+	function get_plan_construccion_metodos()
 	{
-		$cuerpo = parent::generar_cuerpo_clase($opciones);
-		//Eventos de la clase
+		$plan = array();
+
+		//Inicializacion
+		$plan['ini']['desc'] = 'INICIALIZACION';
+		$plan['ini']['bloque'][0]['metodos']['ini'] = array();
+		$plan['ini']['bloque'][0]['metodos']['ini_operacion'] = array();
+
+		//Configuracion general
+		$plan['conf']['desc'] = 'CONFIGURACION';
+		$plan['conf']['bloque'][0]['metodos']['conf'] = array();
+		//Configuracion de pantallas
+		$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
+		foreach($datos_pantallas as $pantalla) {
+			$plan['conf']['bloque'][0]['metodos']['evt__' . $pantalla['identificador']] = array();
+		}
+
+		//Eventos propios
 		if (count($this->eventos_predefinidos()) > 0) {
-			$cuerpo .= clase_php::separador_seccion_chica('Eventos CI');
+			$plan['evt_propios']['desc'] = 'EVENTOS';
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$cuerpo .= clase_php::generar_metodo('evt__' . $evento);
+				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array();
 			}
 		}
+		
 		//Eventos de las dependencias
 		if (count($this->subelementos)>0) {
-			$cuerpo .= clase_php::separador_seccion_grande('DEPENDENCIAS');
-			foreach ($this->subelementos as $elemento) {
+			$plan['evt_deps']['desc'] = 'DEPENDENCIAS';
+			foreach ($this->subelementos as $id => $elemento) {
 				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
 				$rol = $elemento->rol_en_consumidor();
-				$cuerpo .= clase_php::separador_seccion_chica($rol);
 				if ($es_ei) {
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {
+						$plan['evt_deps']['bloque'][$id]['desc'] = $rol;
 						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
-							$metodo_evento = clase_php::generar_metodo('evt__' . $rol . '__' .$evento, 
-																			$info['parametros'], null, $info['comentarios'] );
-							$cuerpo .= $this->filtrar_comentarios_metodo($metodo_evento);
+							$m = 'evt__' . $rol . '__' .$evento;
+							$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
+							$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'] = $info['parametros'];
+							$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = $info['comentarios'];
 						}
 					}
 					//Metodo de CARGA!
+					$m = 'evt__' . $rol . '__carga';
+					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
 					$comentario_carga = $elemento->get_comentario_carga();
-					$metodo_carga = clase_php::generar_metodo('evt__' . $rol . '__carga', null, null, $comentario_carga);
-					$cuerpo .= $this->filtrar_comentarios_metodo($metodo_carga);
+					if($comentario_carga) {
+						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = $comentario_carga;
+					}
 				}
 			}
 		}
-		return $cuerpo;
+
+		//Eventos propios JS
+		if (count($this->eventos_predefinidos()) > 0) {
+			$plan['evt_propios']['desc'] = 'EVENTOS';
+			foreach ($this->eventos_predefinidos() as $evento => $info) {
+				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array();
+			}
+		}
+
+		return $plan;
 	}
 
-	function generar_metodos()
-	{
-		$metodos = parent::generar_metodos();
-		return $this->filtrar_comentarios($metodos);
-	}
-	
 	static function get_eventos_internos(toba_datos_relacion $dr)
 	{
 		$eventos = array();

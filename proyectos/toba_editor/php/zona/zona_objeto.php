@@ -47,8 +47,16 @@ class zona_objeto extends zona_editor
 		//Acceso al EDITOR PHP
 		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] )
 		{
+			// Ir al editor
 			echo "<a href='" . toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php',null,true) ."'>";
 			echo toba_recurso::imagen_apl("php.gif",true,null,null,"Editar el PHP de la clase");
+			echo "</a>";
+			// Apertura del archivo
+			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax');
+			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", null, $opciones);
+			$js = "toba.comunicar_vinculo('$vinculo')";
+			echo "<a href='#' onclick=\"$js\">";
+			echo toba_recurso::imagen_apl("reflexion/abrir.gif",true,null,null,'Abrir extensión PHP en el editor del escritorio.');
 			echo "</a>";
 		}
 	}

@@ -3,6 +3,8 @@
 /**
 *	Utilidades varias para el administrador Toba
 */
+define('toba_abrir_archivo_ajax','toba_abrir_archivo_ajax');
+
 class admin_util
 {
 	
@@ -52,7 +54,7 @@ class admin_util
 	static function get_icono_abrir_php($archivo)
 	{
 		$parametros = array('archivo' => $archivo);
-		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false);
+		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true );
 		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = toba_recurso::ayuda(null, 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .

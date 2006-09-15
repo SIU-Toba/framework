@@ -12,15 +12,55 @@ class ci_principal extends ci_editores_toba
 {
 	protected $s__seleccion_relacion;
 	protected $s__seleccion_relacion_anterior;
-	protected $clase_actual = 'objeto_datos_relacion';		
+	protected $s__ap_php_db;
+	protected $clase_actual = 'objeto_datos_relacion';
+
+	//Mecanismo para saber si la extension PHP de un AP ya exite en la DB
+	function conf()
+	{
+		parent::conf();
+		if ( !isset($this->s__ap_php_db) ) {
+			// Flag que indica si la extension de los AP esta registrada en la DB
+			//	( Si no esta en la DB no se puede saltar al EDITOR
+			if ( $this->componente_existe_en_db() ) {
+				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
+				//El AP esta extendido
+				if( ( $datos_ap['ap'] == 3 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo'] ) {
+					$this->s__ap_php_db = true;
+				} else {
+					$this->s__ap_php_db = false;
+				}
+			} else {
+				$this->s__ap_php_db = false;
+			}
+		}
+	}
+
+	function evt__procesar()
+	{
+		//Se retrasa el chequeo de constraints para permitir la modificacion de ident. de dependencias
+		$this->get_entidad()->get_persistidor()->retrasar_constraints();
+		parent::evt__procesar();
+		unset($this->s__ap_php_db);
+	}
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function conf__prop_basicas()
+	function conf__prop_basicas($form)
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		if ( $this->s__ap_php_db ) {
+			// Incluyo los eventos que permiten abrir y editar archivos
+			$parametros = array (apex_hilo_qs_zona => $this->id_objeto['proyecto'] . apex_qs_separador .
+														$this->id_objeto['objeto'],
+									'subcomponente' => 'ap');
+			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
+		} else {
+			$form->eliminar_evento('ver_php');	
+			$form->eliminar_evento('abrir_php');
+		}
+		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
 	}
 
 	function evt__prop_basicas__modificacion($datos)
@@ -124,17 +164,5 @@ class ci_principal extends ci_editores_toba
 	{
 		return $this->get_entidad()->tabla("prop_basicas")->set($datos);
 	}
-	
-	//*******************************************************************
-	//** PROCESAR  ******************************************************
-	//*******************************************************************
-
-	function evt__procesar()
-	{
-		//Se retrasa el chequeo de constraints para permitir la modificacion de ident. de dependencias
-		$this->get_entidad()->get_persistidor()->retrasar_constraints();
-		parent::evt__procesar();
-	}
-	//-------------------------------------------------------------------
 }
 ?>

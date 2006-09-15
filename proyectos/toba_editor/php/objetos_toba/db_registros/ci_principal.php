@@ -5,21 +5,50 @@ class ci_principal extends ci_editores_toba
 {
 	protected $db_tablas;
 	protected $clase_actual = 'objeto_datos_tabla';	
-
-	function destruir()
+	protected $s__ap_php_db;
+	
+	function conf()
 	{
-		parent::destruir();
-		//ei_arbol($this->get_entidad()->tabla('efss')->info(true),"efsS");
-		//ei_arbol($this->get_estado_sesion(),"Estado sesion");
+		parent::conf();
+		if ( !isset($this->s__ap_php_db) ) {
+			// Flag que indica si la extension de los AP esta registrada en la DB
+			//	( Si no esta en la DB no se puede saltar al EDITOR
+			if ( $this->componente_existe_en_db() ) {
+				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
+				if( ( $datos_ap['ap'] == 0 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo'] ) {
+					$this->s__ap_php_db = true;
+				} else {
+					$this->s__ap_php_db = false;
+				}
+			} else {
+				$this->s__ap_php_db = false;
+			}
+		}
+	}
+
+	function evt__procesar()
+	{
+		parent::evt__procesar();
+		unset($this->s__ap_php_db);
 	}
 
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
 
-	function conf__prop_basicas()
+	function conf__prop_basicas($form)
 	{
-		return $this->get_entidad()->tabla("prop_basicas")->get();
+		if ( $this->s__ap_php_db ) {
+			// Incluyo los eventos que permiten abrir y editar archivos
+			$parametros = array (apex_hilo_qs_zona => $this->id_objeto['proyecto'] . apex_qs_separador .
+														$this->id_objeto['objeto'],
+									'subcomponente' => 'ap');
+			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
+		} else {
+			$form->eliminar_evento('ver_php');	
+			$form->eliminar_evento('abrir_php');
+		}
+		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
 	}
 
 	function evt__prop_basicas__modificacion($datos)

@@ -22,6 +22,11 @@ class clase_php
 		$this->archivo_padre_nombre = $archivo_padre_nombre;
 	}
 	
+	function nombre()
+	{
+		return $this->nombre;
+	}
+	
 	//Asocia la METACLASE
 	function set_meta_clase($meta_clase)
 	{
@@ -32,15 +37,41 @@ class clase_php
 	//-- Generacion de codigo
 	//---------------------------------------------------------------
 
+	/**
+	*	Informa la lista de metodos a generar
+	*/
+	function get_lista_metodos_posibles() 
+	{
+		$a = 0;
+		$lista_metodos = array();
+		$plan = $this->meta_clase->get_plan_construccion_metodos();
+		foreach( $plan as $id_seccion => $seccion ) {
+			foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
+				foreach( $bloque['metodos'] as $id_metodo => $metodo) {
+					$m = isset($seccion['desc']) ? $seccion['desc'] . ' - ' : '';
+					$m .= isset($bloque['desc']) ? $bloque['desc'] . ' - ' : '';
+					$m .= $id_metodo;
+					$lista_metodos[$a]['id'] = $id_metodo;
+					$lista_metodos[$a]['desc'] = $m;
+					$a++;
+				}
+			}
+		}
+		return $lista_metodos;
+	}
+
+	/**
+	*	Genera la clase
+	*/
 	function generar($opciones)
 	{
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
-		$this->archivo->edicion_inicio();
-		$this->archivo->insertar_al_final($this->generar_clase($opciones));
-		$this->archivo->edicion_fin();	
-		
+		//$this->archivo->edicion_inicio();
+		//$this->archivo->insertar_al_final($this->generar_clase($opciones));
+		//$this->archivo->edicion_fin();	
+		echo "<pre>" . $this->generar_clase($opciones);
 	}
 	
 	function generar_clase($opciones)
@@ -51,9 +82,27 @@ class clase_php
 			$codigo .= $this->separador_clases();
 		}
 		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n";
-		$codigo .= $this->meta_clase->generar_cuerpo_clase($opciones) ."\n";		
+		$codigo .= $this->generar_cuerpo_clase($opciones) ."\n";		
 		$codigo .= "}\n";
 		return $codigo;
+	}
+
+	function generar_cuerpo_clase($opciones)
+	{
+		$plan = $this->meta_clase->get_plan_construccion_metodos();
+		foreach( $plan as $id_seccion => $seccion ) {
+			if(isset($seccion['desc'])) $this->separador_seccion_grande($seccion['desc']);
+			if($id_seccion == 'javascript') {
+				
+			}
+			foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
+				if(isset($bloque['desc'])) $this->separador_seccion_grande($bloque['desc']);
+				foreach( $bloque['metodos'] as $id_metodo => $metodo) {
+					$id_metodo;
+				}
+			}
+		}
+		return $lista_metodos;
 	}
 	
 	//----  Utilerías de formateo para la generación  ---------------------------------

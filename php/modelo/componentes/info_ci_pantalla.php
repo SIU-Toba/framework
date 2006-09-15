@@ -111,7 +111,7 @@ class info_ci_pantalla implements recorrible_como_arbol
 					'plegado' => true										
 			);
 			// Apertura del archivo
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false);
+			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
 			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
@@ -147,5 +147,15 @@ class info_ci_pantalla implements recorrible_como_arbol
 	{
 		return null;
 	}
+
+	//------------------------------------------------------------------------
+	//------ METACLASE -------------------------------------------------------
+	//------------------------------------------------------------------------
+
+	function es_evento($metodo){}	
+	function es_evento_valido($metodo){}
+	function es_evento_predefinido($metodo){}
+	function es_evento_sospechoso($metodo){}
+
 }
 ?>

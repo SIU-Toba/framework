@@ -55,6 +55,11 @@ abstract class ci_editores_toba extends toba_ci
 		return $this->dependencia('datos');
 	}
 
+	function componente_existe_en_db()	
+	{
+		return $this->get_entidad()->esta_cargado();
+	}
+
 	function mantener_estado_sesion()
 	{
 		$propiedades = parent::mantener_estado_sesion();
@@ -136,8 +141,7 @@ abstract class ci_editores_toba extends toba_ci
 	
 	function evt__procesar()
 	{
-		$nuevo = !$this->get_entidad()->esta_cargado();
-		if ($nuevo) {
+		if (! $this->componente_existe_en_db() ) {
 			//Seteo los datos asociados al uso de este editor
 			$fijos = array('proyecto' => toba_editor::get_proyecto_cargado(),
 							'clase_proyecto' => 'toba',
@@ -146,10 +150,13 @@ abstract class ci_editores_toba extends toba_ci
 		}
 		//Sincronizo el DBT
 		$this->get_entidad()->sincronizar();
-		if(!$nuevo) {
+		if( $this->componente_existe_en_db() ) {
 			//Algun cambio de valor del componente puede cambiar el display de la zona
 			toba::zona()->recargar();
 		}
+		// Seteo el objeto INTERNO
+		$datos = $this->get_entidad()->tabla('base')->get();
+		$this->set_objeto( array('proyecto'=>$datos['proyecto'], 'objeto'=>$datos['objeto']) );
 	}
 	
 	//---------------------------------------------------------------

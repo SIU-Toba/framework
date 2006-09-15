@@ -9,7 +9,7 @@ class info_datos_relacion extends info_componente
 		$sub['clase'] = $this->datos['info_estructura']['ap_clase'];
 		$sub['archivo'] = $this->datos['info_estructura']['ap_archivo'];
 		$sub['padre_clase'] = 'ap_tabla_db';
-		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/ap_tabla_db.php';
+		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/toba_ap_relacion_db.php';
 		require_once('info_ap_tabla_db.php');
 		$mt = new info_ap_tabla_db();
 		$sub['meta_clase'] = $mt;
@@ -45,7 +45,7 @@ class info_datos_relacion extends info_componente
 				'plegado' => true																		
 			);
 			// Apertura del archivo
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false);
+			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
 			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $param_editores, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$iconos[] = array(
