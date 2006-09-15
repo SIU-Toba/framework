@@ -4,6 +4,11 @@ require_once('info_ci_pantalla.php');
 
 class info_ci extends info_ei
 {
+	function get_id_objeto_js()
+	{
+		return 'js_ci_' . $this->id;		
+	}
+
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
@@ -203,12 +208,16 @@ class info_ci extends info_ei
 
 		//Eventos propios JS
 		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['evt_propios']['desc'] = 'EVENTOS';
+			$plan['javascript']['desc'] = 'EVENTOS JAVASCRIPT';
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array();
-			}
+				$id_js = $this->get_id_objeto_js();
+				$m = 'evt__' . $evento;
+				$plan['javascript']['bloque'][0]['metodos'][$m] = array();
+				$plan['javascript']['bloque'][0]['metodos'][$m]['detalle'] = "
+			{$id_js}.$m = function() {
+			}\n";
 		}
-
+		}
 		return $plan;
 	}
 

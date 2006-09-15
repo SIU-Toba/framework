@@ -8,7 +8,7 @@ class info_datos_relacion extends info_componente
 		//ei_arbol($this->datos);
 		$sub['clase'] = $this->datos['info_estructura']['ap_clase'];
 		$sub['archivo'] = $this->datos['info_estructura']['ap_archivo'];
-		$sub['padre_clase'] = 'toba_ap_relacion_db';
+		$sub['padre_clase'] = 'objeto_ap_relacion_db';
 		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/toba_ap_relacion_db.php';
 		require_once('info_ap_relacion_db.php');
 		$mt = new info_ap_relacion_db();

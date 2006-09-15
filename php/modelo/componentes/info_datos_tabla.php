@@ -7,7 +7,7 @@ class info_datos_tabla extends info_componente
 	{
 		$sub['clase'] = $this->datos['info_estructura']['ap_sub_clase'];
 		$sub['archivo'] = $this->datos['info_estructura']['ap_sub_clase_archivo'];
-		$sub['padre_clase'] = 'ap_tabla_db';
+		$sub['padre_clase'] = 'objeto_ap_tabla_db';
 		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/toba_ap_tabla_db.php';
 		require_once('info_ap_tabla_db.php');
 		$mt = new info_ap_tabla_db();

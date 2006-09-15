@@ -1,6 +1,6 @@
 <?php
 require_once('archivo_php.php');
-
+define('toba_clase_php_separador','_|_');
 /**
 *	Representa una CLASE del ambiente. 
 *	Tiene capacidades de generacion y analisis si se le asocia la metaclase correspondiente
@@ -18,7 +18,7 @@ class clase_php
 	{
 		$this->nombre = $nombre;
 		$this->archivo = $archivo;
-		$this->padre_nombre = $clase_padre_nombre;
+		$this->padre_nombre = str_replace('objeto_', 'toba_', $clase_padre_nombre);
 		$this->archivo_padre_nombre = $archivo_padre_nombre;
 	}
 	
@@ -56,7 +56,9 @@ class clase_php
 					$m = isset($seccion['desc']) ? $seccion['desc'] . ' - ' : '';
 					$m .= isset($bloque['desc']) ? $bloque['desc'] . ' - ' : '';
 					$m .= $id_metodo;
-					$lista_metodos[$a]['id'] = $id_metodo;
+					$lista_metodos[$a]['id'] = $id_seccion . 
+												toba_clase_php_separador.$id_bloque .
+												toba_clase_php_separador.$id_metodo;
 					$lista_metodos[$a]['desc'] = $m;
 					$a++;
 				}
@@ -73,17 +75,16 @@ class clase_php
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
-		//$this->archivo->edicion_inicio();
-		//$this->archivo->insertar_al_final($this->generar_clase($opciones));
-		//$this->archivo->edicion_fin();	
-		echo "<pre>" . $this->generar_clase($opciones);
+		$this->archivo->edicion_inicio();
+		$this->archivo->insertar_al_final($this->generar_clase($opciones));
+		$this->archivo->edicion_fin();	
 	}
 	
 	function generar_clase($opciones)
 	{
 		//Incluir el código que hace la subclase
 		$codigo = '';
-		if ( ! $this->archivo->esta_vacio ) {
+		if ( ! $this->archivo->esta_vacio() ) {
 			$codigo .= $this->separador_clases();
 		}
 		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n";
@@ -94,23 +95,42 @@ class clase_php
 
 	function generar_cuerpo_clase($opciones)
 	{
-		$plan = $this->meta_clase->get_plan_construccion_metodos();
-		foreach( $plan as $id_seccion => $seccion ) {
-			if(isset($seccion['desc'])) $this->separador_seccion_grande($seccion['desc']);
-			if($id_seccion == 'javascript') {
-				
-			}
-			foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
-				if(isset($bloque['desc'])) $this->separador_seccion_grande($bloque['desc']);
-				foreach( $bloque['metodos'] as $id_metodo => $metodo) {
-					$id_metodo;
+		//Analizo que secciones/bloques se van a utilizar
+		
+		//Creo la clase
+		$clase = '';
+		if(is_array($opciones)) {
+			//ei_arbol($opciones);
+			$plan = $this->meta_clase->get_plan_construccion_metodos();
+			foreach( $plan as $id_seccion => $seccion ) {
+				if(isset($seccion['desc'])) $clase .= $this->separador_seccion_grande($seccion['desc']);
+				if($id_seccion == 'javascript') {
+					$clase .= "\tfunction extender_objeto_js()\n\t{\n";
+					$clase .= "\t\techo \"";
+					foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
+						if(isset($bloque['desc'])) $clase .= $this->separador_seccion_grande($bloque['desc']);
+						foreach( $bloque['metodos'] as $id_metodo => $metodo) {
+							if(isset($metodo['detalle'])) $clase .= $metodo['detalle'];
+						}
+					}
+					$clase .= "\n\t\t\";\n";
+					$clase .= "\t}\n";
+				} else {
+					foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
+						if(isset($bloque['desc'])) $clase .= $this->separador_seccion_grande($bloque['desc']);
+						foreach( $bloque['metodos'] as $id_metodo => $metodo) {
+							$clase .= $this->generar_metodo($id_metodo);
+						}
+					}
 				}
 			}
 		}
-		return $lista_metodos;
+		return $clase;
 	}
 	
+	//---------------------------------------------------------------------------------
 	//----  Utilerías de formateo para la generación  ---------------------------------
+	//---------------------------------------------------------------------------------
 
 	static function generar_metodo($nombre, $parametros=null, $contenido='',$comentarios='')
 	{
@@ -208,6 +228,5 @@ class clase_php
 		}	
 		echo "</ul></li>\n";	
 	}
-	//--------------------------------------------------------------------------
 }		
 ?>

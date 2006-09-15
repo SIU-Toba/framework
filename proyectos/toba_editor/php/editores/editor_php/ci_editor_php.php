@@ -88,7 +88,7 @@ class ci_editor_php extends toba_ci
 		$this->archivo_php->crear_basico();
 	}
 	
-	function crear_subclase()
+	function crear_subclase($opciones)
 	{
 		$this->clase_php->generar($opciones);
 	}
@@ -127,15 +127,15 @@ class ci_editor_php extends toba_ci
 		}
 	}
 	
-	function evt__subclase_crear_archivo($opciones)
+	function evt__subclase__crear_archivo($opciones)
 	{
-		$this->crear_archivo();
-		$this->crear_subclase($opciones);
+		//$this->crear_archivo();
+		$this->crear_subclase($opciones['metodos']);
 	}
 	
 	function evt__subclase__crear_clase($opciones)
 	{
-		$this->crear_subclase($opciones);
+		$this->crear_subclase($opciones['metodos']);
 	}
 
 	function get_lista_metodos()
