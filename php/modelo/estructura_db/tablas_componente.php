@@ -836,6 +836,7 @@ class tablas_componente
     55 => 'selec_utilidades',
     56 => 'selec_tamano',
     57 => 'selec_serializar',
+    58 => 'upload_extensiones',
   ),
 );
 	}

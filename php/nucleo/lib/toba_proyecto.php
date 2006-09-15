@@ -151,30 +151,35 @@ class toba_proyecto
 	}	
 	
 	/**
-	 * Retorna path real y URL de la carpeta navegable del proyecto actual
-	 * @return array Path 'real' (en el sist.arch.) y 'browser' (URL navegable)
+	 * Retorna path y URL de la carpeta navegable del proyecto actual
+	 * @return array con claves 'path' (en el sist.arch.) y 'url' (URL navegable)
 	 */
-	function get_path_www($archivo="")
+	function get_www($archivo="")
 	{
 		$path_real = $this->get_path() . "/www/" . $archivo;
 		$path_browser = toba_recurso::path_pro();
 		if ($archivo != "") {
 		 	$path_browser .= "/" . $archivo;
 		}
-		return array(	"real" => $path_real,
-						"browser" => $path_browser);
+		return array(	"path" => $path_real,
+						"url" => $path_browser);
 	}
 	
 	/**
-	 * Retorna un directorio abierto a la navegación donde almacenar archivos temporales
+	 * Retorna el path y url del directorio temporal navegable del proyecto
+	 * En caso de no existir, crea el directorio
+	 * @return array con claves 'path' (en el sist.arch.) y 'url' (URL navegable)
 	 */
-	function get_path_temp_www()
+	function get_www_temp($archivo='')
 	{
-		$path = $this->get_path_www("temp");
-		if (!file_exists($path['real'])) {
-			mkdir($path['real'], 0700);
+		if (!file_exists($this->get_path() . "/www/temp")) {
+			mkdir($this->get_path() . "/www/temp", 0700);
 		}
-		return $path;
+		if ($archivo != '') {
+			return $this->get_www('temp/'. $archivo);
+		} else {
+			return $this->get_www('temp');
+		}
 	}	
 	
 	

@@ -208,6 +208,9 @@ class toba_ei_pantalla extends toba_ei
 	//-------------------------- SALIDA HTML --------------------------
 	//----------------------------------------------------------------
 	
+	/**
+	 * Genera el html de todo el componente, incluyendo hiddens necesarios para el correcto funcionamiento del componente
+	 */
 	function generar_html()
 	{
 		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
@@ -221,14 +224,7 @@ class toba_ei_pantalla extends toba_ei
 		$this->generar_html_barra_sup(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
-		$this->generar_html_cuerpo();
-		echo "\n</div>";
-		echo "</td></tr></table>";
-		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
-	}
-	
-	protected function generar_html_cuerpo()
-	{	
+
 		//--> Botonera
 		$con_botonera = $this->hay_botones();
 		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ) {
@@ -237,7 +233,7 @@ class toba_ei_pantalla extends toba_ei
 		//--> Cuerpo del CI
 		$alto = isset($this->info_ci["alto"]) ? "style='_height:".$this->info_ci["alto"].";min-height:" . $this->info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
-		$this->generar_html_pantalla();
+		$this->generar_html_cuerpo();
 		echo "</div>\n";
 		
 		//--> Botonera
@@ -246,10 +242,17 @@ class toba_ei_pantalla extends toba_ei
 		}
 		if ( $this->utilizar_impresion_html ) {
 			$this->generar_utilidades_impresion_html();
-		}
+		}		
+		
+		echo "\n</div>";
+		echo "</td></tr></table>";
+		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
 	}
-	
-	protected function generar_html_pantalla()
+
+	/**
+	 * Genera el html de la barra tabs, el toc (si tiene) y el contenido de las dependencias actuales
+	 */
+	protected function generar_html_cuerpo()
 	{
 		switch($this->info_ci['tipo_navegacion'])
 		{
@@ -261,7 +264,7 @@ class toba_ei_pantalla extends toba_ei
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente
 				echo "<tr><td class='ci-tabs-h-cont'>";
-				$this->generar_html_pantalla_contenido();
+				$this->generar_html_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
@@ -271,7 +274,7 @@ class toba_ei_pantalla extends toba_ei
 				$this->generar_tabs_verticales();
 				echo "</td>";
 				echo "<td class='ci-tabs-v-cont'>";
-				$this->generar_html_pantalla_contenido();
+				$this->generar_html_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
@@ -283,19 +286,19 @@ class toba_ei_pantalla extends toba_ei
 				}
 				echo "</td>";
 				echo "<td class='ci-wiz-cont'>";
-				$this->generar_html_pantalla_contenido();
+				$this->generar_html_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
 			default:										//*** Sin mecanismo de navegacion
-				$this->generar_html_pantalla_contenido();
+				$this->generar_html_contenido();
 		}
 	}
 
 	/**
-	 * Grafica el contenido de la pantalla actual
+	 * Grafica el contenido de la pantalla actual, por defecto incluye una sección de descripción
 	 */
-	protected function generar_html_pantalla_contenido()
+	protected function generar_html_contenido()
 	{
 		//--- Descripcion de la PANTALLA
 		$descripcion = $this->get_descripcion();
@@ -313,20 +316,12 @@ class toba_ei_pantalla extends toba_ei
 			}
 			echo "<hr>\n";
 		}
-/*		//--- Controla la existencia de una funcion que redeclare la generacion de una PANTALLA puntual
-		$interface_especifica = "generar_html_contenido". apex_ei_separador . $this->etapa_gi;
-		if(method_exists($this, $interface_especifica)){
-			$this->$interface_especifica();
-		}else{
-			//--- Solicita el HTML de todas las dependencias que forman parte de la generacion de la interface*/
 		$this->generar_html_dependencias();
-//		}
 	}
 	
 	/**
 	 * Dispara la generación de html de los objetos contenidos en esta pantalla
-	 * Para redefinir la generación de una pantalla puntual, hay que definir un método:
-	 * 		generar_html_contenido__PANTALLA 
+	 * Extender en caso de querer modificar la totalidad del contenido de la pantalla
 	 */	
 	protected function generar_html_dependencias()
 	{

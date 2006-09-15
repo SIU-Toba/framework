@@ -71,7 +71,8 @@ class migracion_1_0_0 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_cant_maxima					smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_utilidades					smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_tamano						smallint";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_serializar					smallint";			
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	selec_serializar					smallint";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN	upload_extensiones					varchar(256)";
 		
 		//-- El tipo de solicitud no es mas obligatorio
 		$sql[] = "ALTER TABLE apex_item ALTER COLUMN solicitud_tipo DROP NOT NULL;";
@@ -427,6 +428,7 @@ class migracion_1_0_0 extends migracion_toba
 			'cant_maxima'=>'selec_cant_maxima',
 			'mostrar_utilidades'=>'selec_utilidades',
 			'tamanio'=>'selec_tamano',
+			'extensiones_validas' => 'upload_extensiones'
 			//'item_destino' Migrar manualmente
 			//'valor':carga_col_desc o check_valor_si
 		);
@@ -813,15 +815,14 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/evt__obtener_datos_cn/', 		'evt__get_datos_cn');
 		$editor->agregar_sustitucion('/obtener_clave_fila/', 			'get_clave_fila');
 		$editor->agregar_sustitucion('/obtener_proyecto\(\)/', 			'get_proyecto()');
-		$editor->agregar_sustitucion('/obtener_proyecto_path\(\)/', 		'get_proyecto_path()');
+		$editor->agregar_sustitucion('/obtener_proyecto_path\(\)/', 	'get_proyecto_path()');
 		$editor->agregar_sustitucion('/obtener_vinculo_de_objeto/', 	'get_vinculo_de_objeto');
 		$editor->agregar_sustitucion('/obtener_path\(\)/', 				'get_path()');
 		$editor->agregar_sustitucion('/obtener_usuario_nivel_acceso/',	'get_usuario_nivel_acceso');
-		$editor->agregar_sustitucion('/obtener_usuario\(\)/',				'get_usuario()');
+		$editor->agregar_sustitucion('/obtener_usuario\(\)/',			'get_usuario()');
 		$editor->agregar_sustitucion('/obtener_html_barra_superior/',	'generar_html_barra_superior');
 		$editor->agregar_sustitucion('/obtener_html_barra_inferior/',	'generar_html_barra_inferior');
 		$editor->agregar_sustitucion('/obtener_proyecto_descripcion/',	'get_proyecto_descripcion');
-		$editor->agregar_sustitucion('/obtener_path_temp_www/',			'get_path_temp_www');
 		$editor->agregar_sustitucion('/obtener_parametro/',				'get_parametro');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
@@ -833,9 +834,7 @@ class migracion_1_0_0 extends migracion_toba
 	function proyecto__cambio_api_hilo()
 	{
 		$editor = new editor_archivos();
-		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path_www/', 		'toba::proyecto()->get_path_www');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path/', 			'toba::proyecto()->get_path');
-		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp_www/', 			'toba::proyecto()->get_path_temp_www');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp/', 				'toba::instalacion()->get_path_temp');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path/', 						'toba::instalacion()->get_path');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto/', 					'toba::proyecto()->get_id');		

@@ -206,7 +206,7 @@ class toba_ei_formulario extends toba_ei
 		foreach ($this->lista_ef_post as $ef) {
 			$validacion = $this->elemento_formulario[$ef]->validar_estado();
 			if ($validacion !== true) {
-				$this->efs_invalidos[$ef] = $validacion;
+				$this->efs_invalidos[$ef] = str_replace("'", '¨', $validacion);
 				$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
 				throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 			}

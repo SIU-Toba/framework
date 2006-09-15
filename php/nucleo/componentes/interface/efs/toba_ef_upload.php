@@ -10,6 +10,24 @@ class toba_ef_upload extends toba_ef
 {
 	protected $archivo_cargado = false;		//Se cargo un archivo en la etapa anterior?
 	protected $archivo_subido = false;		//Se subio un archivo en esta etapa
+	protected $extensiones_validas = null;
+	
+	static function get_lista_parametros()
+	{
+		$parametros[] = 'upload_extensiones';
+		return $parametros;
+	}	
+	
+	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros)
+	{ 
+		// Controlar las extensiones válidas...
+		if (isset($parametros['upload_extensiones']) && trim($parametros['upload_extensiones']) != '') {
+			$this->extensiones_validas = array();
+			foreach (explode(',', $parametros['upload_extensiones']) as $valor)
+				$this->extensiones_validas[] = strtolower(trim($valor));
+		}		
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
+	}	
 	
 	function get_input()
 	{
@@ -31,7 +49,7 @@ class toba_ef_upload extends toba_ef
 		if (! $this->solo_lectura) {
 			if (isset($nombre_archivo)) {
 				$salida .= toba_form::archivo($this->id_form, null, "ef-upload", "style='display:none'");
-				$salida .= "<br><div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
+				$salida .= "<div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
 				$salida .= toba_form::checkbox("{$this->id_form}_check", null, 1, 'ef-checkbox', "$extra onclick=\"{$this->objeto_js()}.set_editable()\"");
 				$salida .= "<label for='{$this->id_form}_check'>Cambiar el Archivo</label>";
 			} else {
@@ -101,6 +119,16 @@ class toba_ef_upload extends toba_ef
 					return "No tiene permisos sobre la carpeta de upload";
 				default:
 					return "Ha ocurrido un error cargando el archivo ($id)";
+			}
+			if (isset($this->extensiones_validas)) {
+				$rep = $_FILES[$this->id_form]['name'];
+				$ext = substr($rep, strrpos($rep, '.') + 1);
+				if (! in_array(strtolower($ext), $this->extensiones_validas)) {
+					$extensiones = implode(', ', $this->extensiones_validas);
+					$this->archivo_subido = false;
+					$this->estado = null;
+					return "No esta permitido subir este tipo de archivo. Solo se permiten extensiones '$extensiones'";
+				}
 			}
 		}
 		return true;
