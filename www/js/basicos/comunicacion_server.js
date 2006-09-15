@@ -158,6 +158,9 @@ var conexion =
 		}
 		else{
 			switch(httpStatus){
+				//Caso especial cuando no sucede error alguno
+				case 0: break;
+				
 				// The following case labels are wininet.dll error codes that may be encountered.
 				// Server timeout
 				case 12002:

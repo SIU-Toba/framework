@@ -343,6 +343,9 @@ abstract class toba_ei extends toba_componente
 	 */
 	function set_colapsable($colapsable)
 	{
+		if (! $colapsable) {
+			$this->colapsado = false;
+		}
 		$this->info['colapsable'] = $colapsable;
 	}
 

@@ -104,9 +104,10 @@ class toba_ef_editable extends toba_ef
     
 	function get_input()
 	{
+		$estado = htmlentities($this->estado,ENT_QUOTES); 
 		$tab = $this->padre->get_tab_index();
 		$this->input_extra .= " tabindex='$tab'";
-		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
+		$input = toba_form::text($this->id_form, $estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
 		if (isset($this->unidad)) {
 			$input .= ' '. $this->unidad;
 		}

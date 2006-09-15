@@ -40,7 +40,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected $proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
 	//-------------------------------
 	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
-	protected $utilizar_transaccion;			// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
 	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	//-------------------------------
 

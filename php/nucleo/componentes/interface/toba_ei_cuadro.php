@@ -110,6 +110,31 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
+	 * Elimina todas las columnas actualmente definidas en el cuadro
+	 */
+	function limpiar_columnas()
+	{
+		$this->info_cuadro_columna = array();
+	}
+
+	/**
+	 * Agrega nuevas definiciones de columnas al cuadro
+	 * @param array $columnas
+	 */
+	function agregar_columnas($columnas)
+	{
+		foreach ($columnas as $clave => $valor) {
+			if (!isset($valor['estilo']))
+				$columnas[$clave]['estilo'] = 'col-tex-p1';
+			if (!isset($valor['estilo_titulo']))
+				$columnas[$clave]['estilo_titulo'] = 'lista-col-titulo';
+			if (!isset($valor['estilo_titulo']))
+				$columnas[$clave]['total_cc'] = '';
+		}
+		$this->info_cuadro_columna = array_merge($this->info_cuadro_columna, $columnas);
+	}	
+	
+	/**
 		Si el usuario declaro funciones de sumarizacion por algun corte,
 		esta funcion las agrega en la planificacion de la ejecucion.
 	*/
