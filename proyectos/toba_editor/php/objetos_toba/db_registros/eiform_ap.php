@@ -1,8 +1,14 @@
 <?
 
-
 class eiform_ap extends toba_ei_formulario
 {
+	protected $js_abrir='';
+	
+	function set_js_abrir($js)
+	{
+		$this->js_abrir = $js;
+	}
+	
 	function extender_objeto_js() 
 	{
 		echo "
@@ -16,6 +22,11 @@ class eiform_ap extends toba_ei_formulario
 				this.ef('ap_clase').ocultar();
 				this.ef('ap_archivo').ocultar();
 			}
+		}
+		
+		{$this->objeto_js}.evt__abrir_php = function () {
+			$this->js_abrir;
+			return false;
 		}
 		";
 	}

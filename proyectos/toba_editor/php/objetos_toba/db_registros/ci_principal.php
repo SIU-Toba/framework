@@ -40,10 +40,14 @@ class ci_principal extends ci_editores_toba
 	{
 		if ( $this->s__ap_php_db ) {
 			// Incluyo los eventos que permiten abrir y editar archivos
-			$parametros = array (apex_hilo_qs_zona => $this->id_objeto['proyecto'] . apex_qs_separador .
-														$this->id_objeto['objeto'],
-									'subcomponente' => 'ap');
+			$parametros = info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
+																'componente'=> $this->id_objeto['objeto']),
+															'ap');
 			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
+			$abrir = info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
+																				'componente'=> $this->id_objeto['objeto']),
+																			'ap');
+			$form->set_js_abrir( $abrir['js'] );
 		} else {
 			$form->eliminar_evento('ver_php');	
 			$form->eliminar_evento('abrir_php');
@@ -54,7 +58,6 @@ class ci_principal extends ci_editores_toba
 	function evt__prop_basicas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla("prop_basicas")->set($datos);
-		
 	}
 
 	//*******************************************************************

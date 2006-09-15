@@ -1,6 +1,7 @@
 <?php
 require_once("zona_editor.php");
 require_once('modelo/consultas/dao_editores.php');
+require_once('modelo/componentes/info_componente.php');
 
 class zona_objeto extends zona_editor
 {
@@ -47,17 +48,15 @@ class zona_objeto extends zona_editor
 		//Acceso al EDITOR PHP
 		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] )
 		{
+			$componente = $this->get_editable();
 			// Ir al editor
-			echo "<a href='" . toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php',null,true) ."'>";
-			echo toba_recurso::imagen_apl("php.gif",true,null,null,"Editar el PHP de la clase");
-			echo "</a>";
+			$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+																		'componente' =>$componente[1] ) );			
+			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax');
-			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", null, $opciones);
-			$js = "toba.comunicar_vinculo('$vinculo')";
-			echo "<a href='#' onclick=\"$js\">";
-			echo toba_recurso::imagen_apl("reflexion/abrir.gif",true,null,null,'Abrir extensión PHP en el editor del escritorio.');
-			echo "</a>";
+			$abrir = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
+																		'componente' =>$componente[1] )  );	
+			echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 		}
 	}
 

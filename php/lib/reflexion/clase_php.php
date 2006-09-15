@@ -32,6 +32,11 @@ class clase_php
 	{
 		$this->meta_clase = $meta_clase;
 	}
+
+	function incluir_clase_padre()
+	{
+		require_once($this->archivo_padre_nombre);
+	}	
 	
 	//---------------------------------------------------------------
 	//-- Generacion de codigo
@@ -149,6 +154,8 @@ class clase_php
 	
 	function analizar()
 	{
+		$this->incluir_clase_padre();
+		$this->archivo->incluir();		
 		try {
 			$clase = new ReflectionClass($this->nombre);
 			$metodos = $clase->getMethods();

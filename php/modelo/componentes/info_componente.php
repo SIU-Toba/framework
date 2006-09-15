@@ -258,27 +258,12 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	{
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
-			$parametros = $this->acceso_zona();
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
-			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
-			$js = "toba.comunicar_vinculo('$vinculo')";
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl('reflexion/abrir.gif', false),
-				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
-						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
-				'vinculo' => "javascript: $js;",
-				'target' => '',
-				'plegado' => false
-			);
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl('php.gif', false),
-				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/admin/objetos/php', $this->acceso_zona(),
-																		false, false, null, true, 'central'),
-				'plegado' => true
-			);
+			// Administracion de la Subclase PHP
+			$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+			$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 		}
 		if (isset($this->datos['info']['clase_editor_proyecto'])) {
+			// Instanciador
 			$ayuda = null;
 			if (in_array($this->datos['info']['clase'], dao_editores::get_clases_validas())) {
 				require_once("datos_editores.php");
@@ -333,6 +318,48 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		}
 	}
 	
+	//---------------------------------------------------------------------
+	// ACCESO al EDITOR PHP
+	//---------------------------------------------------------------------
+
+	static function get_utileria_editor_parametros($id_componente, $subcomponente=null)
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		if($subcomponente) {
+			$parametros['subcomponente'] = $subcomponente;
+		}
+		return $parametros;		
+	}
+	
+	static function get_utileria_editor_abrir_php($id_componente, $subcomponente=null, $icono='reflexion/abrir.gif')
+	{
+		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
+		$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'menu' => true);
+		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		$js = "toba.comunicar_vinculo('$vinculo')";
+		return array(
+			'imagen' => toba_recurso::imagen_apl($icono, false),
+			'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
+					   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
+			'vinculo' => "javascript: $js;",
+			'js' => $js,
+			'target' => '',
+			'plegado' => false
+		);
+	}
+
+	static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'php.gif')
+	{
+		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
+		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);//validar' => false,
+		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		return array( 'imagen' => toba_recurso::imagen_apl($icono, false),
+				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
+				'vinculo' => $vinculo,
+				'plegado' => true
+		);		
+	}
+
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------

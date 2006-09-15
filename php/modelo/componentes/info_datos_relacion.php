@@ -8,10 +8,10 @@ class info_datos_relacion extends info_componente
 		//ei_arbol($this->datos);
 		$sub['clase'] = $this->datos['info_estructura']['ap_clase'];
 		$sub['archivo'] = $this->datos['info_estructura']['ap_archivo'];
-		$sub['padre_clase'] = 'ap_tabla_db';
+		$sub['padre_clase'] = 'toba_ap_relacion_db';
 		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/toba_ap_relacion_db.php';
-		require_once('info_ap_tabla_db.php');
-		$mt = new info_ap_tabla_db();
+		require_once('info_ap_relacion_db.php');
+		$mt = new info_ap_relacion_db();
 		$sub['meta_clase'] = $mt;
 		return $sub;
 	}	
@@ -34,28 +34,15 @@ class info_datos_relacion extends info_componente
 			'plegado' => true										
 		);
 		if (isset($this->datos['info_estructura']["ap_clase"])) {
-			$param_editores = array(apex_hilo_qs_zona=>$this->proyecto.apex_qs_separador.$this->id,
-									'subcomponente'=>'ap');
-			//Editor PHP
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl("php_ap.gif", false),
-				'ayuda' => "Ver detalles de la extensión del Adm.Persistencia",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos/php", $param_editores,
-																		false, false, null, true, "central"),
-				'plegado' => true																		
-			);
-			// Apertura del archivo
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
-			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $param_editores, $opciones);
-			$js = "toba.comunicar_vinculo('$vinculo')";
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl('reflexion/abrir_ap.gif', false),
-				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
-						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
-				'vinculo' => "javascript: $js;",
-				'target' => '',
-				'plegado' => false
-			);
+			// Hay PHP asociado
+			$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																		'componente' =>$this->id ),
+																'ap',
+																'php_ap.gif' );
+			$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+																		'componente' =>$this->id ),
+																'ap',
+																'reflexion/abrir_ap.gif' );
 		}		
 		return array_merge($iconos, parent::get_utilerias());	
 	}

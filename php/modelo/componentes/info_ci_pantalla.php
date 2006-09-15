@@ -98,30 +98,14 @@ class info_ci_pantalla implements recorrible_como_arbol
 										false, false, null, true, "central"),
 			'plegado' => true										
 		);
-		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {	// Hay PHP asociado
-			// Editor de PHP
-			$parametros = $param_editores;
-			$parametros['subcomponente'] = $this->datos['identificador'];
-			$iconos[] = array(
-					'imagen' => toba_recurso::imagen_apl("php.gif", false),
-					'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
-					'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(), 
-																			'/admin/objetos/php', $parametros,
-																			false, false, null, true, 'central'),
-					'plegado' => true										
-			);
-			// Apertura del archivo
-			$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true);
-			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
-			$js = "toba.comunicar_vinculo('$vinculo')";
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl('reflexion/abrir.gif', false),
-				'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
-						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
-				'vinculo' => "javascript: $js;",
-				'target' => '',
-				'plegado' => false
-			);
+		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {
+			// Hay PHP asociado
+			$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																		'componente' =>$this->id ),
+																$this->datos['identificador'] );
+			$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+																		'componente' =>$this->id ),
+																$this->datos['identificador'] );
 		}
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
