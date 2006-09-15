@@ -1,10 +1,10 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
 require_once('modelo/componentes/info_ci.php');
+require_once('admin_util.php');
 
 class ci_editor extends ci_editores_toba
 {
-
 	protected $s__seleccion_pantalla;
 	protected $s__seleccion_pantalla_anterior;
 	protected $s__pantalla_dep_asoc;
@@ -13,12 +13,14 @@ class ci_editor extends ci_editores_toba
 	protected $id_intermedio_pantalla;
 	protected $clase_actual = 'objeto_ci';
 	protected $info_actual = 'info_ci';
+	protected $s__pantalla_php_db;			// La base posee registro de la existencia de una extension??
+	protected $s__pantalla_php_archivo;		// El archivo de la extension existe en el sistema de archivos??
 	
 	function ini()
 	{
 		parent::ini();
 		$pantalla = toba::memoria()->get_parametro('pantalla');
-		//¿Se selecciono una pantalla desde afuera?
+		//---- ¿Se selecciono una pantalla desde afuera?
 		if (isset($pantalla)) {
 			$this->set_pantalla(2);
 			//Se busca cual es el id interno del ML para enviarselo
@@ -28,9 +30,38 @@ class ci_editor extends ci_editores_toba
 					$this->evt__pantallas_lista__seleccion($id);
 				}
 			}
-		} 
+		}
 	}
 
+	function conf()
+	{
+		parent::conf();
+		//Mecanismo para saber si la extension PHP de un AP ya exite en la DB y posee archivo
+		if ( !isset($this->s__pantalla_php_db) ) {
+			$this->s__pantalla_php_db = array();
+			$this->s__pantalla_php_archivo = array();
+			if ( $this->componente_existe_en_db() ) {
+				$datos_pantalla = $this->get_entidad()->tabla('pantallas')->get_filas();
+				//ei_arbol($datos_pantalla);
+				foreach ($datos_pantalla as $pantalla) {
+					if ($pantalla['subclase'] && $pantalla['subclase_archivo']) {
+						$this->s__pantalla_php_db[$pantalla['x_dbr_clave']] = $pantalla['identificador'];
+						if( admin_util::existe_archivo_subclase($pantalla['subclase_archivo'])) {
+							$this->s__pantalla_php_archivo[$pantalla['x_dbr_clave']] = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	function evt__procesar()
+	{
+		parent::evt__procesar();
+		unset($this->s__pantalla_php_db);
+		unset($this->s__pantalla_php_archivo);
+	}
+	
 	// *******************************************************************
 	// ******************* tab PROPIEDADES BASICAS  **********************
 	// *********************************************
@@ -250,6 +281,26 @@ class ci_editor extends ci_editores_toba
 	function conf__pantallas($obj)
 	{
 		$this->s__seleccion_pantalla_anterior = $this->s__seleccion_pantalla;
+		//Manejo de la apertura del editor
+		if (!isset($this->s__pantalla_php_db[$this->s__seleccion_pantalla_anterior])) {
+			$obj->eliminar_evento('ver_php');
+			$obj->eliminar_evento('abrir_php');
+		} else {
+			// Link al editor
+			$parametros = info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
+																				'componente'=> $this->id_objeto['objeto']),
+																			$this->s__pantalla_php_db[$this->s__seleccion_pantalla_anterior]);
+			$obj->evento('ver_php')->vinculo()->set_parametros($parametros);
+			if (isset($this->s__pantalla_php_archivo[$this->s__seleccion_pantalla_anterior])) {
+				// Apertura de archivos
+				$abrir = info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
+																				'componente'=> $this->id_objeto['objeto']),
+																			$this->s__pantalla_php_db[$this->s__seleccion_pantalla_anterior]);
+				$obj->set_js_abrir($abrir['js']);
+			} else {
+				$obj->eliminar_evento('abrir_php');
+			}
+		}
 		$obj->set_datos($this->get_entidad()->tabla('pantallas')->get_fila($this->s__seleccion_pantalla_anterior));
 	}
 
@@ -394,43 +445,5 @@ class ci_editor extends ci_editores_toba
 		}
 		return $pantallas;
 	}
-	
-	// *******************************************************************
-	// *******************  tab PHP  *************************************
-	// *******************************************************************
-
-	function generar_html_contenido__4()
-	{	
-		require_once('lib/reflexion/archivo_php.php');
-		require_once('lib/reflexion/clase_php.php');
-		require_once('modelo/consultas/dao_editores.php');
-
-		$registro = $this->get_entidad()->tabla('base')->get();
-		
-		$subclase = $registro['subclase'];
-		$subclase_archivo = $registro['subclase_archivo'];
-		$clase = $registro['clase'];
-		$clase_archivo = dao_editores::get_archivo_de_clase($registro['clase_proyecto'], $clase );
-		$proyecto = $this->id_objeto['proyecto'];
-
-	    $path = toba::proyecto()->get_path() . "/php/" . $subclase_archivo;
-		//Manejo de archivos            
-		$archivo_php = new archivo_php($path);
-		//Manejo de clases
-		$clase_php = new clase_php($subclase, $archivo_php, $clase, $clase_archivo);
-		$clase_php->set_objeto( $this->id_objeto['proyecto'], $this->id_objeto['objeto']);
-		if($archivo_php->existe()){	
-			ei_separador("ARCHIVO: ".	$archivo_php->nombre());
-			$archivo_php->incluir();
-			$clase_php->analizar();	
-		}	
-	}		
-
-	// *******************************************************************
-	// *******************  tab COMPOSICION  *****************************
-	// *******************************************************************
-	
-	
-
 }
 ?>

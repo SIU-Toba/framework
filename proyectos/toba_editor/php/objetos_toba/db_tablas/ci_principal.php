@@ -1,5 +1,6 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php'); 
+require_once('admin_util.php');
 /*
 	Cosas faltantes:
 
@@ -7,31 +8,29 @@ require_once('objetos_toba/ci_editores_toba.php');
 		- Borrado de dependencias
 		- Validacion de relaciones
 */
-
 class ci_principal extends ci_editores_toba
 {
 	protected $s__seleccion_relacion;
 	protected $s__seleccion_relacion_anterior;
-	protected $s__ap_php_db;
+	protected $s__ap_php_db;							// La base posee registro de la existencia de una extension??
+	protected $s__ap_php_archivo;						// El archivo de la extension existe en el sistema de archivos??
 	protected $clase_actual = 'objeto_datos_relacion';
 
-	//Mecanismo para saber si la extension PHP de un AP ya exite en la DB
 	function conf()
 	{
 		parent::conf();
+		//Mecanismo para saber si la extension PHP de un AP ya exite en la DB y posee archivo
 		if ( !isset($this->s__ap_php_db) ) {
-			// Flag que indica si la extension de los AP esta registrada en la DB
-			//	( Si no esta en la DB no se puede saltar al EDITOR
+			$this->s__ap_php_db = false;
+			$this->s__ap_php_archivo = false;
 			if ( $this->componente_existe_en_db() ) {
 				$datos_ap = $this->get_entidad()->tabla('prop_basicas')->get();
-				//El AP esta extendido
 				if( ( $datos_ap['ap'] == 3 ) && $datos_ap['ap_clase'] && $datos_ap['ap_archivo'] ) {
-					$this->s__ap_php_db = true;
-				} else {
-					$this->s__ap_php_db = false;
+					$this->s__ap_php_db = true;	//El AP esta extendido
 				}
-			} else {
-				$this->s__ap_php_db = false;
+				if( admin_util::existe_archivo_subclase($datos_ap['ap_archivo']) ) {
+					$this->s__ap_php_archivo = true; //La extension existe
+				}
 			}
 		}
 	}
@@ -42,6 +41,7 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->get_persistidor()->retrasar_constraints();
 		parent::evt__procesar();
 		unset($this->s__ap_php_db);
+		unset($this->s__ap_php_archivo);
 	}
 
 	//*******************************************************************
@@ -51,14 +51,20 @@ class ci_principal extends ci_editores_toba
 	function conf__prop_basicas($form)
 	{
 		if ( $this->s__ap_php_db ) {
+			// Hay extension
 			$parametros = info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
-																'componente'=> $this->id_objeto['objeto']),
-															'ap');
-			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
-			$abrir = info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
-			$form->set_js_abrir( $abrir['js'] );
+			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
+			if ( $this->s__ap_php_archivo ) {
+				// El archivo de la extension existe
+				$abrir = info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
+																				'componente'=> $this->id_objeto['objeto']),
+																			'ap');
+				$form->set_js_abrir( $abrir['js'] );
+			} else {
+				$form->eliminar_evento('abrir_php');
+			}
 		} else {
 			$form->eliminar_evento('ver_php');	
 			$form->eliminar_evento('abrir_php');

@@ -61,5 +61,11 @@ class admin_util
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]');
 		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_apl('reflexion/abrir.gif', false)."' $ayuda>";		
 	}
+
+	static function existe_archivo_subclase($path_relativo)
+	{
+		$path_real = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
+		return file_exists($path_real) && is_file($path_real);
+	}
 }
 ?>

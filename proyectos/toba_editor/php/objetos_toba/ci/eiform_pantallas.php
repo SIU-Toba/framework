@@ -2,7 +2,13 @@
 
 class eiform_pantallas extends toba_ei_formulario
 {
+	protected $js_abrir='';
 	
+	function set_js_abrir($js)
+	{
+		$this->js_abrir = $js;
+	}
+		
 	function extender_objeto_js()
 	{
 		echo "						
@@ -14,10 +20,12 @@ class eiform_pantallas extends toba_ei_formulario
 					this.ef('subclase').cambiar_valor(clase);
 				}
 			}
+
+			{$this->objeto_js}.evt__abrir_php = function () {
+				$this->js_abrir;
+				return false;
+			}
 			";
 	}
-	
-
 }
-
 ?>

@@ -5,6 +5,7 @@ class info_ap_relacion_db implements meta_clase
 {
 	function get_plan_construccion_metodos()
 	{
+		return array();
 	}
 
 	function es_evento($metodo)

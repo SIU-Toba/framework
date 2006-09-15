@@ -1,6 +1,7 @@
 <?php
+require_once("interfaces.php");
 
-class info_ci_pantalla implements recorrible_como_arbol
+class info_ci_pantalla implements recorrible_como_arbol, meta_clase
 {
 	protected $dependencias = array();
 	protected $datos;
@@ -136,10 +137,25 @@ class info_ci_pantalla implements recorrible_como_arbol
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
 
-	function es_evento($metodo){}	
-	function es_evento_valido($metodo){}
-	function es_evento_predefinido($metodo){}
-	function es_evento_sospechoso($metodo){}
+	function get_plan_construccion_metodos()
+	{
+		return array();
+	}
 
+	function es_evento($metodo)
+	{
+	}
+	
+	function es_evento_predefinido($metodo)
+	{
+	}
+
+	function es_evento_valido($metodo)
+	{
+	}
+
+	function es_evento_sospechoso($metodo)
+	{
+	}
 }
 ?>

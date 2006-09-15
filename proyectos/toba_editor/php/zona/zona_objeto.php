@@ -2,6 +2,7 @@
 require_once("zona_editor.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/componentes/info_componente.php');
+require_once('admin_util.php');
 
 class zona_objeto extends zona_editor
 {
@@ -54,9 +55,11 @@ class zona_objeto extends zona_editor
 																		'componente' =>$componente[1] ) );			
 			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
-			$abrir = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
-																		'componente' =>$componente[1] )  );	
-			echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
+			if ( admin_util::existe_archivo_subclase($this->editable_info['subclase_archivo']) ) {
+				$abrir = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
+																				'componente' =>$componente[1] )  );	
+				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
+			}
 		}
 	}
 
