@@ -1,15 +1,13 @@
 <?
-	if($editable = $this->zona->get_editable()){
-		$this->zona->generar_html_barra_superior();
-
-	include_once("nucleo/lib/interface/form.php");
+	include_once("nucleo/lib/interface/toba_form.php");
 	require_once('modelo/lib/catalogo_items.php');
 
+	$editable = toba::zona()->get_editable();
 	define('separador_camino', '_%_');
 
 	$grupo = $editable[1];
 	$arbol = new catalogo_items(toba_editor::get_proyecto_cargado());
-	$arbol->cargar(array());
+	$arbol->cargar_todo();
 	$arbol->sacar_publicos();
 
 	$maximo = $arbol->profundidad();
@@ -96,7 +94,7 @@
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? 
-				$extra = " camino='".implode(separador_camino, $item->get_camino())."' ";
+				$extra = " camino='".separador_camino.implode(separador_camino, $item->get_camino())."' ";
 				echo toba_form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 					  </td>
 			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->get_nombre()?></td>
@@ -132,7 +130,7 @@ function cascada(item_padre, estado)
 		if(formulario.elements[x].type=="checkbox")
 		{
 			var camino = formulario.elements[x].getAttribute('camino');
-			if (camino.indexOf(regex_item_padre) != -1 || (item_padre == '' && camino == ''))
+			if (camino.indexOf(regex_item_padre) != -1 || (item_padre == '__raiz__' && camino == '__raiz__'))
 			{
 				formulario.elements[x].checked = estado;
 			}
@@ -140,7 +138,3 @@ function cascada(item_padre, estado)
 	}
 }
 </script>
-<?
-	$this->zona->generar_html_barra_inferior();
-}
-?>

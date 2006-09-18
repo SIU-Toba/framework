@@ -7,12 +7,19 @@ class catalogo_items
 	protected $items = array();
 	protected $items_ordenados = array();
 	protected $mensaje;
+	protected $cargar_todo = false;
 	
 	protected $camino; //Durante el recorrido va manteniendo el camino actual
 	
 	function __construct($proyecto=null)
 	{
 		$this->proyecto = $proyecto;
+	}
+
+	function cargar_todo()
+	{
+		$this->cargar_todo = true;
+		$this->cargar(array());
 	}
 	
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
@@ -82,7 +89,7 @@ class catalogo_items
 
 	function debe_cargar_todo($opciones)
 	{
-		return (isset($opciones['id']) && $opciones['id'] != '') ||
+		return $this->cargar_todo || (isset($opciones['id']) && $opciones['id'] != '') ||
 				(isset($opciones['nombre']) && $opciones['nombre'] != '') ||
 				isset($opciones['inaccesibles']) ||
 				isset($opciones['sin_objetos']) ||
