@@ -37,7 +37,7 @@ class db
 	
 	/**
 	*	Crea una conexion a la base
-	*	@throws toba_error en caso de error
+	*	@throws toba_error_db en caso de error
 	*/
 	function conectar()
 	{
@@ -47,7 +47,7 @@ class db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-	   			throw new toba_error("No es posible realizar la conexión a la base: ". $e->getMessage());
+	   			throw new toba_error_db("No es posible realizar la conexión a la base: ". $e->getMessage(), $e->getCode());
 			}
 		}
 	}		

@@ -227,13 +227,13 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("------------------------------------");
 			throw new toba_error("ERROR: El comando 'php' no se encuentra en el path actual del sistema");
 		}
+/*		
 		$version_svn = shell_exec('svn --version');
 		if ($version_svn == '') {
 			$this->consola->mensaje("\n------------------------------------");
 			throw new toba_error("ERROR: El comando 'svn' no se encuentra en el path actual del sistema,.");
 		}		
-
-
+*/
 	
 		//--- Borra la instalacion anterior??
 		if ( ! instalacion::existe_info_basica() ) {
@@ -284,7 +284,7 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Pregunta identificador del Proyecto
-		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (recomando no utilizar mayusculas o espacios)', true);
+		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios)', true);
 
 		//--- Si el proyecto existe, lo borra
 		$existe_proyecto = proyecto::existe($id_proyecto);
