@@ -859,5 +859,24 @@ class migracion_1_0_0 extends migracion_toba
 	}
 	
 	
+	/**
+	 * El id del item raiz deja de ser vacio ''
+	 */
+	function proyecto__id_item_raiz()
+	{
+		$sql = array();
+		$sql[] = "UPDATE apex_item SET item = '__raiz__' 
+					WHERE 
+							item = '';
+						AND proyecto = '{$this->elemento->get_id()}'
+					";
+		$sql[] = "UPDATE apex_item SET padre = '__raiz__' 
+					WHERE 
+							padre='';
+						AND proyecto = '{$this->elemento->get_id()}'
+					";
+		
+	}
+	
 }
 ?>
