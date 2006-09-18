@@ -759,8 +759,13 @@ class proyecto extends elemento_modelo
 
 	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos )
 	{
-		return "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-		VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
+		$sql = array();
+		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
+				// Decide un PA por defecto para el proyecto
+		$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
+					VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+		return $sql;
 	}
 }
 ?>
