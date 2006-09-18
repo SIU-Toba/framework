@@ -51,7 +51,7 @@ class info_item implements recorrible_como_arbol
 	function cargar_rama()
 	{
 		$item_ancestro = $this;
-		while ($item_ancestro->get_id() != null) {
+		while (! $item_ancestro->es_raiz()) {
 			$id = array('componente' => $item_ancestro->get_id_padre(), 
 						'proyecto' => $item_ancestro->get_proyecto());
 			$nodo = toba_constructor::get_info($id, 'item', false);
@@ -70,12 +70,17 @@ class info_item implements recorrible_como_arbol
 	}
 	
 	function es_de_menu() {	
-		if ($this->id != '') {
+		if (! $this->es_raiz()) {
 			return $this->datos['basica']['menu'];
 		} else {
 			return true;	
 		}
-	}	
+	}
+	
+	function es_raiz()
+	{
+		return $this->id == '__raiz__';	
+	}
 	
 	function es_publico() { return $this->datos['basica']['publico']; } 
 
@@ -192,7 +197,7 @@ class info_item implements recorrible_como_arbol
 
 	function es_hijo_de($carpeta)
 	{
-		if ($this->get_id() == '')
+		if ($this->es_raiz())
 			return false;
 		return $this->get_id_padre() == $carpeta->get_id();
 	}

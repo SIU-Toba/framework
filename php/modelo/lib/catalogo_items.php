@@ -1,4 +1,4 @@
-<?
+<?php
 
 class catalogo_items
 {
@@ -17,6 +17,10 @@ class catalogo_items
 	
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
+		if (! isset($id_item_inicial)) { 
+			$id_item_inicial = '__raiz__';	
+		}
+		
 		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial);
 		$filtro_items = "";		
 		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
@@ -69,7 +73,7 @@ class catalogo_items
 				}
 				$this->items[$fila['item']] = $info;
 			}
-			$this->carpeta_inicial = isset($id_item_inicial) ? $id_item_inicial : '';
+			$this->carpeta_inicial = $id_item_inicial;
 			$this->mensaje = "";
 			$this->ordenar();
 			$this->filtrar($opciones);
@@ -197,8 +201,7 @@ class catalogo_items
 	{
 		$encontrados = array();
 		foreach ($this->items as $posicion => $item) {
-			$es_raiz = ($item->get_id() == '');
-			if ($es_raiz || $item->es_de_menu() == $en_menu) 
+			if ($item->es_raiz() || $item->es_de_menu() == $en_menu) 
 				$encontrados[] = $item;
 		}
 		$this->dejar_ramas_con_items($encontrados);

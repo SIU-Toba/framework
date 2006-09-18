@@ -21,27 +21,6 @@ class ci_catalogo_items extends ci_catalogo
 		$this->catalogador = new catalogo_items(toba_editor::get_proyecto_cargado());		
 	}
 
-	function carpetas_posibles()
-	{
-		return array();
-		$this->cargar_catalogo('');
-		//Formatea las carpetas para que se vean mejor en el combo
-		foreach($this->catalogador->items() as $carpeta)
-		{
-			if ($carpeta->es_carpeta()) {
-				$nivel = $carpeta->get_nivel_prof() - 1;
-				if($nivel >= 0){
-					$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
-				}else{
-					$inden = "";
-				}
-				$datos[] =  array('proyecto' => toba_editor::get_proyecto_cargado(),
-									'id' => $carpeta->get_id(), 
-									'nombre' => $inden . $carpeta->nombre());
-			}
-		}
-		return $datos;
-	}
 	
 	//-------------------------------
 	//---- Fotos --------------------
@@ -88,7 +67,7 @@ class ci_catalogo_items extends ci_catalogo
 	//---- Listado de items ----
 	//-------------------------------
 
-	function get_nodo_raiz($inicial, $con_excepciones=true)
+	function get_nodo_raiz($inicial=null, $con_excepciones=true)
 	{
 		$excepciones = array();
 		//¿Hay apertura seleccionada?		
@@ -128,11 +107,11 @@ class ci_catalogo_items extends ci_catalogo
 	
 	function conf__items()
 	{
-		$inicial = '';
 		if (isset($this->s__opciones['inicial'])) {
-			$inicial = $this->s__opciones['inicial'];
+			return $this->get_nodo_raiz($this->s__opciones['inicial']);
+		} else {
+			return $this->get_nodo_raiz();	
 		}
-		return $this->get_nodo_raiz($inicial);
 	}
 	
 	function evt__items__cargar_nodo($id)
