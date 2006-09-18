@@ -167,7 +167,7 @@ class info_ci extends info_ei
 		//Configuracion de pantallas
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$plan['conf']['bloque'][0]['metodos']['evt__' . $pantalla['identificador']] = array();
+			$plan['conf']['bloque'][0]['metodos']['conf__' . $pantalla['identificador']] = array();
 		}
 
 		//Eventos propios

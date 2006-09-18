@@ -144,10 +144,12 @@ class info_ci_pantalla implements recorrible_como_arbol, meta_clase
 
 	function es_evento($metodo)
 	{
+		return false;
 	}
 	
 	function es_evento_predefinido($metodo)
 	{
+		return false;
 	}
 
 	function es_evento_valido($metodo)

@@ -321,20 +321,8 @@ class info_item implements recorrible_como_arbol
 	
 	function get_utilerias()
 	{
-/*		
 		$utilerias = array();
-		if ($this->es_carpeta()) {	
-		} else { //Es un item común
-			if ($this->es_de_menu()) {
-				$utilerias[] = array(
-					'imagen' => toba_recurso::imagen_apl("items/menu.gif", false),
-					'ayuda'=> "El ITEM esta incluido en el MENU del PROYECTO"
-				);	
-			}
-		}
-	
-*/
-		$utilerias = array();
+		
 		if ($this->es_carpeta()) {	
 			// Ordenamiento, Nueva carpeta, nuevo item
 /*			
@@ -361,6 +349,7 @@ class info_item implements recorrible_como_arbol
 			);			
 
 		} else { //Es un item común
+
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un objeto asociado al item",
@@ -371,6 +360,13 @@ class info_item implements recorrible_como_arbol
 											false, false, null, true, "central"),
 				'plegado' => true											
 			);
+			
+			// Accion!
+			if ($this->datos['basica']['item_act_accion_script'] != '') {
+				$utilerias[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+				$utilerias[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+			}			
+						
 		}
 		if (!$this->es_carpeta() && 
 				$this->get_tipo_solicitud() != 'consola' &&
@@ -382,6 +378,7 @@ class info_item implements recorrible_como_arbol
 						);			
 			
 		}		
+			
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
 			'ayuda' => "Editar propiedades del ITEM",
@@ -390,6 +387,36 @@ class info_item implements recorrible_como_arbol
 		return $utilerias;
 	}	
 	
+
+	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
+		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "1000058", $parametros, $opciones);
+		$js = "toba.comunicar_vinculo('$vinculo')";
+		return array(
+			'imagen' => toba_recurso::imagen_apl($icono, false),
+			'ayuda' => 'Abrir el archivo PHP del ítem en el editor del escritorio.' .
+					   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
+			'vinculo' => "javascript: $js;",
+			'js' => $js,
+			'target' => '',
+			'plegado' => false
+		);
+	}
+	
+	static function get_utileria_editor_ver_php($id_componente, $icono = 'php.gif')
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
+		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"1000058", $parametros, $opciones);
+		return array( 'imagen' => toba_recurso::imagen_apl($icono, false),
+				'ayuda' => 'Ver el contenido del archivo PHP del ítem',
+				'vinculo' => $vinculo,
+				'plegado' => true
+		);		
+	}	
+
 	function agregar_hijo($item)
 	{
 		$this->items_hijos[$item->get_id()] = $item;

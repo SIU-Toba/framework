@@ -121,7 +121,10 @@ class ci_editor_php extends toba_ci
 				$this->pantalla()->eliminar_tab(2);
 				$this->dep('subclase')->eliminar_evento('crear_archivo');
 			} else {
-				// La clase y el archivo exiten
+				// La clase y el archivo existen
+				if ($this->get_id_pantalla() == 0) {
+					$this->set_pantalla(1);
+				}
 				$this->pantalla()->eliminar_tab(0);
 			}
 		}

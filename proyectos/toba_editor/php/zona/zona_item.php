@@ -1,6 +1,8 @@
 <?php
 require_once('modelo/consultas/dao_editores.php');
 require_once("zona_editor.php");
+require_once('modelo/componentes/info_item.php');
+require_once('admin_util.php');
 
 class zona_item extends zona_editor
 {
@@ -23,6 +25,26 @@ class zona_item extends zona_editor
 			$this->editable_info = $rs[0];
 			return true;
 		}	
+	}
+	
+	function generar_html_barra_vinculos()
+	{	
+		//Acceso al EDITOR PHP
+		if( $this->editable_info['actividad_accion'] != '' )
+		{
+			$componente = $this->get_editable();
+			// Ir al editor
+			$ver = info_item::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+																		'componente' =>$componente[1] ) );			
+			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+			// Apertura del archivo
+			if ( admin_util::existe_archivo_subclase($this->editable_info['actividad_accion']) ) {
+				$abrir = info_item::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
+																				'componente' =>$componente[1] )  );	
+				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
+			}
+		}
+		parent::generar_html_barra_vinculos();		
 	}
 	
 	function generar_html_barra_inferior()	

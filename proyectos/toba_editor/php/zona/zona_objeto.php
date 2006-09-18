@@ -35,7 +35,6 @@ class zona_objeto extends zona_editor
 			return false;
 		}else{
 			$this->editable_info = current($rs);
-			//ei_arbol($this->editable_info,"EDITABLE");
 			$this->editable_id = array( $this->editable_id[0],$this->editable_id[1] );
 			$this->editable_cargado = true;
 			return true;
