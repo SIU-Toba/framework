@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Docs For Class toba_ef</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
 <body>
 
@@ -84,6 +84,7 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_barra_divisora.html">toba_ef_barra_divisora</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_checkbox.html">toba_ef_checkbox</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_combo.html">toba_ef_combo</a>    </span>	 <br />
+	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_clave.html">toba_ef_editable_clave</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_fecha.html">toba_ef_editable_fecha</a>    </span>	 <br />
@@ -150,7 +151,7 @@
 </strong></p>
 <span class="description"><p>Estos son controles o widgets que forman parte de un formulario</p></span>
 		<p class="notes">
-			Ubicada en <a class="field" href="_componentes---interface---efs---toba_ef.php.html">/componentes/interface/efs/toba_ef.php</a> [<span class="field">line 21</span>]
+			Ubicada en /componentes/interface/efs/toba_ef.php [<span class="field">line 22</span>]
 		</p>
 
 		
@@ -470,6 +471,12 @@
 											Elemento editable equivalente a un &lt;input type='text'&gt;
 										</td>
 				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a></td>
+					<td>
+											Triple editbox que constituyen las 3 partes del CUIT/CUIL
+										</td>
+				</tr>
 							</table>
 			<br />
 		</div>
@@ -488,7 +495,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 116]</span>
+	<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 117]</span>
 </div>
 <br />
 
@@ -524,6 +531,9 @@
 				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_lista_parametros">toba_ef_html::get_lista_parametros()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_lista_parametros">toba_ef_upload::get_lista_parametros()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_lista_parametros">toba_ef_fijo::get_lista_parametros()</a>
 							</li>
 					<li>
@@ -547,6 +557,9 @@
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_lista_parametros">toba_ef_editable_textarea::get_lista_parametros()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros">toba_ef_cuit::get_lista_parametros()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -554,7 +567,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 121]</span>
+	<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 122]</span>
 </div>
 <br />
 
@@ -586,6 +599,9 @@
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros_carga">toba_ef_popup::get_lista_parametros_carga()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros_carga">toba_ef_cuit::get_lista_parametros_carga()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -593,7 +609,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros_carga_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 126]</span>
+	<span class="method-title">static method get_lista_parametros_carga_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 127]</span>
 </div>
 <br />
 
@@ -617,7 +633,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 52]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 53]</span>
 </div>
 <br />
 
@@ -714,6 +730,9 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_html.html#method__construct">toba_ef_html::__construct()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#method__construct">toba_ef_upload::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#method__construct">toba_ef_oculto::__construct()</a>
 							</li>
 					<li>
@@ -756,7 +775,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 383]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 382]</span>
 </div>
 <br />
 
@@ -794,6 +813,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodcargar_estado_post">toba_ef_editable::cargar_estado_post()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcargar_estado_post">toba_ef_cuit::cargar_estado_post()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -801,7 +823,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 158]</span>
+	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 159]</span>
 </div>
 <br />
 
@@ -831,7 +853,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 401]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 400]</span>
 </div>
 <br />
 
@@ -901,6 +923,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodcrear_objeto_js">toba_ef_editable_textarea::crear_objeto_js()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcrear_objeto_js">toba_ef_cuit::crear_objeto_js()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -908,7 +933,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 233]</span>
+	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 234]</span>
 </div>
 <br />
 
@@ -931,7 +956,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 153]</span>
+	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 154]</span>
 </div>
 <br />
 
@@ -963,7 +988,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 223]</span>
+	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 224]</span>
 </div>
 <br />
 
@@ -986,7 +1011,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 145]</span>
+	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 146]</span>
 </div>
 <br />
 
@@ -1021,7 +1046,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 182]</span>
+	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 183]</span>
 </div>
 <br />
 
@@ -1046,7 +1071,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 192]</span>
+	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 193]</span>
 </div>
 <br />
 
@@ -1078,7 +1103,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 429]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 428]</span>
 </div>
 <br />
 
@@ -1140,6 +1165,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_consumo_javascript">toba_ef_editable_textarea::get_consumo_javascript()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_consumo_javascript">toba_ef_cuit::get_consumo_javascript()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1147,7 +1175,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 446]</span>
+	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 445]</span>
 </div>
 <br />
 
@@ -1179,7 +1207,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 256]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 257]</span>
 </div>
 <br />
 
@@ -1204,7 +1232,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 248]</span>
+	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 249]</span>
 </div>
 <br />
 
@@ -1227,7 +1255,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 283]</span>
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 284]</span>
 </div>
 <br />
 
@@ -1264,7 +1292,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 274]</span>
+	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 275]</span>
 </div>
 <br />
 
@@ -1305,7 +1333,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 228]</span>
+	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 229]</span>
 </div>
 <br />
 
@@ -1328,7 +1356,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 243]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 244]</span>
 </div>
 <br />
 
@@ -1351,7 +1379,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 238]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
 </div>
 <br />
 
@@ -1374,7 +1402,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 266]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 267]</span>
 </div>
 <br />
 
@@ -1397,7 +1425,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 261]</span>
+	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 262]</span>
 </div>
 <br />
 
@@ -1420,7 +1448,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 457]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 456]</span>
 </div>
 <br />
 
@@ -1498,6 +1526,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_input">toba_ef_editable_textarea::get_input()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_input">toba_ef_cuit::get_input()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1505,7 +1536,7 @@ $parametros&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 172]</span>
+	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 173]</span>
 </div>
 <br />
 
@@ -1528,7 +1559,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 336]</span>
+	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 337]</span>
 </div>
 <br />
 
@@ -1563,7 +1594,7 @@ $agregado = &quot;&quot;]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 410]</span>
+	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 409]</span>
 </div>
 <br />
 
@@ -1588,7 +1619,7 @@ $agregado = &quot;&quot;]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 415]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 414]</span>
 </div>
 <br />
 
@@ -1640,7 +1671,7 @@ $agregado = &quot;&quot;]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 307]</span>
+	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 308]</span>
 </div>
 <br />
 
@@ -1681,7 +1712,7 @@ $agregado = &quot;&quot;]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 299]</span>
+	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 300]</span>
 </div>
 <br />
 
@@ -1713,7 +1744,7 @@ $agregado = &quot;&quot;]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 438]</span>
+	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 437]</span>
 </div>
 <br />
 
@@ -1750,7 +1781,7 @@ $js&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 347]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 348]</span>
 </div>
 <br />
 
@@ -1785,7 +1816,7 @@ $descripcion&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 372]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 373]</span>
 </div>
 <br />
 
@@ -1847,6 +1878,9 @@ $estado&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodset_estado">toba_ef_editable_textarea::set_estado()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodset_estado">toba_ef_cuit::set_estado()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1854,7 +1888,7 @@ $estado&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 362]</span>
+	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 363]</span>
 </div>
 <br />
 
@@ -1889,7 +1923,7 @@ $estilo&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 342]</span>
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 343]</span>
 </div>
 <br />
 
@@ -1924,7 +1958,7 @@ $etiqueta&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 367]</span>
+	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
 </div>
 <br />
 
@@ -1959,7 +1993,7 @@ $expandido&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 357]</span>
+	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
 </div>
 <br />
 
@@ -1994,7 +2028,7 @@ $obligatorio = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 352]</span>
+	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 353]</span>
 </div>
 <br />
 
@@ -2029,7 +2063,7 @@ $solo_lectura = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 201]</span>
+	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 202]</span>
 </div>
 <br />
 
@@ -2054,7 +2088,7 @@ $solo_lectura = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 291]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 292]</span>
 </div>
 <br />
 
@@ -2101,7 +2135,7 @@ $solo_lectura = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 163]</span>
+	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 164]</span>
 </div>
 <br />
 
@@ -2131,7 +2165,7 @@ $solo_lectura = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 218]</span>
+	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 219]</span>
 </div>
 <br />
 
@@ -2154,7 +2188,7 @@ $solo_lectura = true]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 316]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 317]</span>
 </div>
 <br />
 
@@ -2198,6 +2232,9 @@ $solo_lectura = true]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodvalidar_estado">toba_ef_editable_fecha::validar_estado()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodvalidar_estado">toba_ef_cuit::validar_estado()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -2216,7 +2253,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$agregado_form</span>
-						<span class="smalllinenumber">[line 40]</span>
+						<span class="smalllinenumber">[line 41]</span>
 		</span>
 	</div>
 
@@ -2240,7 +2277,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$ancho_etiqueta</span>
-			 = <span class="var-default"> 150</span>			<span class="smalllinenumber">[line 38]</span>
+			 = <span class="var-default"> 150</span>			<span class="smalllinenumber">[line 39]</span>
 		</span>
 	</div>
 
@@ -2264,7 +2301,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$campos_clave</span>
-			 = <span class="var-default">array(0)</span>			<span class="smalllinenumber">[line 48]</span>
+			 = <span class="var-default">array(0)</span>			<span class="smalllinenumber">[line 49]</span>
 		</span>
 	</div>
 
@@ -2288,7 +2325,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$campo_valor</span>
-						<span class="smalllinenumber">[line 49]</span>
+						<span class="smalllinenumber">[line 50]</span>
 		</span>
 	</div>
 
@@ -2312,7 +2349,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cascada_relajada</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 43]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 44]</span>
 		</span>
 	</div>
 
@@ -2336,7 +2373,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cuando_cambia_valor</span>
-			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 44]</span>
+			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 45]</span>
 		</span>
 	</div>
 
@@ -2360,7 +2397,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dato</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2384,7 +2421,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$descripcion</span>
-						<span class="smalllinenumber">[line 27]</span>
+						<span class="smalllinenumber">[line 28]</span>
 		</span>
 	</div>
 
@@ -2408,7 +2445,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$estado</span>
-						<span class="smalllinenumber">[line 31]</span>
+						<span class="smalllinenumber">[line 32]</span>
 		</span>
 	</div>
 
@@ -2432,7 +2469,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$estado_defecto</span>
-						<span class="smalllinenumber">[line 32]</span>
+						<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -2463,7 +2500,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$estilo_etiqueta</span>
-			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 39]</span>
+			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 40]</span>
 		</span>
 	</div>
 
@@ -2487,7 +2524,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$etiqueta</span>
-						<span class="smalllinenumber">[line 26]</span>
+						<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -2511,7 +2548,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$expandido</span>
-			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 37]</span>
+			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 38]</span>
 		</span>
 	</div>
 
@@ -2535,7 +2572,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id</span>
-						<span class="smalllinenumber">[line 24]</span>
+						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -2559,7 +2596,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id_form</span>
-						<span class="smalllinenumber">[line 29]</span>
+						<span class="smalllinenumber">[line 30]</span>
 		</span>
 	</div>
 
@@ -2583,7 +2620,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id_form_orig</span>
-						<span class="smalllinenumber">[line 28]</span>
+						<span class="smalllinenumber">[line 29]</span>
 		</span>
 	</div>
 
@@ -2607,7 +2644,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id_padre</span>
-						<span class="smalllinenumber">[line 25]</span>
+						<span class="smalllinenumber">[line 26]</span>
 		</span>
 	</div>
 
@@ -2631,7 +2668,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$input_extra</span>
-			 = <span class="var-default"> &quot;&quot;</span>			<span class="smalllinenumber">[line 36]</span>
+			 = <span class="var-default"> &quot;&quot;</span>			<span class="smalllinenumber">[line 37]</span>
 		</span>
 	</div>
 
@@ -2655,7 +2692,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$javascript</span>
-			 = <span class="var-default">&quot;&quot;</span>			<span class="smalllinenumber">[line 35]</span>
+			 = <span class="var-default">&quot;&quot;</span>			<span class="smalllinenumber">[line 36]</span>
 		</span>
 	</div>
 
@@ -2679,7 +2716,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$maestros</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 45]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 46]</span>
 		</span>
 	</div>
 
@@ -2703,7 +2740,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$obligatorio</span>
-						<span class="smalllinenumber">[line 33]</span>
+						<span class="smalllinenumber">[line 34]</span>
 		</span>
 	</div>
 
@@ -2727,7 +2764,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$opciones_cargadas</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 50]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 51]</span>
 		</span>
 	</div>
 
@@ -2751,7 +2788,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$padre</span>
-						<span class="smalllinenumber">[line 23]</span>
+						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
 
@@ -2775,7 +2812,7 @@ $solo_lectura = true]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$solo_lectura</span>
-						<span class="smalllinenumber">[line 34]</span>
+						<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
 
@@ -2803,7 +2840,7 @@ $solo_lectura = true]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Fri, 08 Sep 2006 10:15:26 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada el Tue, 19 Sep 2006 17:02:44 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

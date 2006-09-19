@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Docs For Class toba_ef_upload</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
 <body>
 
@@ -84,6 +84,7 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_barra_divisora.html">toba_ef_barra_divisora</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_checkbox.html">toba_ef_checkbox</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_combo.html">toba_ef_combo</a>    </span>	 <br />
+	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_clave.html">toba_ef_editable_clave</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_fecha.html">toba_ef_editable_fecha</a>    </span>	 <br />
@@ -150,7 +151,7 @@
 </strong></p>
 <span class="description"><p>Equivale a un &lt;INPUT type='file'&gt;</p></span>
 		<p class="notes">
-			Ubicada en <a class="field" href="_componentes---interface---efs---toba_ef_upload.php.html">/componentes/interface/efs/toba_ef_upload.php</a> [<span class="field">line 9</span>]
+			Ubicada en /componentes/interface/efs/toba_ef_upload.php [<span class="field">line 9</span>]
 		</p>
 
 		
@@ -173,7 +174,19 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																																																																<div class="method-definition">
+																																																																				<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#get_lista_parametros" title="details" class="method-name">get_lista_parametros</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																																				<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">toba_ef_upload</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_estado_post" title="details" class="method-name">cargar_estado_post</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -203,7 +216,7 @@
 										<td class="method-definition"><a href="#get_input" title="details" class="method-name">get_input</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#tiene_estado" title="details" class="method-name">tiene_estado</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -669,12 +682,129 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
+<div class="evenrow">
 
+<div class="method-header">
+	<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 15]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_lista_parametros(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef.html#methodget_lista_parametros">toba_ef::get_lista_parametros()</a></dt>
+					</dl>
+		
+		<br />
+</div>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 21]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>toba_ef_upload __construct(
+
+$padre, 
+$nombre_formulario, 
+$id, 
+$etiqueta, 
+$descripcion, 
+$dato, 
+$obligatorio, 
+$parametros&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$padre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre_formulario:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$etiqueta:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$descripcion:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dato:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$obligatorio:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+			<hr class="separator" />
+		<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef.html#method__construct">toba_ef::__construct()</a></dt>
+					</dl>
+		
+		<br />
+</div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 60]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 78]</span>
 </div>
 <br />
 
@@ -702,7 +832,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 115]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 143]</span>
 </div>
 <br />
 
@@ -731,7 +861,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">es_archivo_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 71]</span>
+	<span class="method-title">es_archivo_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 89]</span>
 </div>
 <br />
 
@@ -754,7 +884,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 109]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 137]</span>
 </div>
 <br />
 
@@ -783,7 +913,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 51]</span>
+	<span class="method-title">get_estado_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
 </div>
 <br />
 
@@ -806,7 +936,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 14]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 32]</span>
 </div>
 <br />
 
@@ -834,7 +964,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 76]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 94]</span>
 </div>
 <br />
 
@@ -863,7 +993,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 82]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 100]</span>
 </div>
 <br />
 
@@ -944,6 +1074,30 @@
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="var$extensiones_validas" id="$extensiones_validas"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$extensiones_validas</span>
+			 = <span class="var-default"> null</span>			<span class="smalllinenumber">[line 13]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 		</div>
 	</div>
 
@@ -955,7 +1109,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Fri, 08 Sep 2006 10:15:34 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada el Tue, 19 Sep 2006 17:02:50 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

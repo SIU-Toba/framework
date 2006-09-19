@@ -43,7 +43,7 @@
 		{include file="docblock.tpl" type="class" sdesc=$sdesc desc=$desc}
 
 		<p class="notes">
-			Ubicada en <a class="field" href="{$page_link}">{$source_location}</a> [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
+			Ubicada en {$source_location} [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
 		</p>
 
 		{if $tutorial}

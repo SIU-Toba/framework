@@ -2,12 +2,14 @@
 
 /**
  * Obtiene los mensajes del proyecto definidos en el editor, útiles para evitar fijar los mensajes del usuario en el código
+ * Consumir como: toba::mensajes()->metodo
  * @package Fuentes
  */
 class toba_mensajes
 {
 	/**
 	 * Obtiene un mensaje global del proyecto, si no lo encuentra escala buscando el mensaje en el mismo framework
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 */
 	static function get($indice, $parametros=null)
 	{
@@ -21,6 +23,7 @@ class toba_mensajes
 	/**
 	 * Obtiene un mensaje global del framework
 	 * Esto es para errores genericos del motor, etc
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 */
 	static function get_toba($indice, $parametros=null)
 	{
@@ -39,6 +42,7 @@ class toba_mensajes
 
 	/**
 	 * Obtiene un mensaje global del proyecto
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 */
 	static function get_proyecto($indice, $parametros=null)
 	{
@@ -57,8 +61,9 @@ class toba_mensajes
 
 	/**
 	 * Retorna un mensaje asociado a un componente específico
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 */
-	static function get_objeto($objeto, $indice, $parametros=null)
+	static function get_componente($objeto, $indice, $parametros=null)
 	{
 		$datos = toba_proyecto::get_mensaje_objeto($objeto, $indice);
 		if(!is_array($datos)){

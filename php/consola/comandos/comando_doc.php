@@ -26,7 +26,7 @@ class comando_doc extends comando_toba
 					-*WikiMacros* -*RecentChanges*';
 		system($comando);
 
-		$this->convertir_codificacion_dir($destino);
+		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");
 	}
 	
 	/**

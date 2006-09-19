@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Docs For Class toba_componente</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
 <body>
 
@@ -84,6 +84,7 @@
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_barra_divisora.html">toba_ef_barra_divisora</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_checkbox.html">toba_ef_checkbox</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_combo.html">toba_ef_combo</a>    </span>	 <br />
+	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_editable_clave.html">toba_ef_editable_clave</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../Componentes/Efs/toba_ef_editable_fecha.html">toba_ef_editable_fecha</a>    </span>	 <br />
@@ -150,7 +151,7 @@
 </strong></p>
 
 		<p class="notes">
-			Ubicada en <a class="field" href="_componentes---toba_componente.php.html">/componentes/toba_componente.php</a> [<span class="field">line 8</span>]
+			Ubicada en /componentes/toba_componente.php [<span class="field">line 8</span>]
 		</p>
 
 		
@@ -181,7 +182,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																																																																																																																																																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">toba_componente</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -189,47 +190,52 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#agregar_dependencia" title="details" class="method-name">agregar_dependencia</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Agregar dinámicamente una dependencia</td></tr>
+					<td class="method-definition">Agregar dinámicamente una dependencia al componente actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#borrar_memoria" title="details" class="method-name">borrar_memoria</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Elimina toda la memoria interna y su rastro</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">unknown</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_dependencia" title="details" class="method-name">cargar_dependencia</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Construye una dependencia y la asocia al componente actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_info_dependencias" title="details" class="method-name">cargar_info_dependencias</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Arma un hash interno de las dependencias, utilizo durante la construccion</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_memoria" title="details" class="method-name">cargar_memoria</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this-&gt;memoria)</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../Componentes/Eis/toba_ci.html">toba_ci</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#controlador" title="details" class="method-name">controlador</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Retorna la referencia al componente padre o contenedor del actual, generalmente un ci</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#controlar_memoria" title="details" class="method-name">controlar_memoria</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Controla la existencia de la memoria</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#definir_propiedades_sesion" title="details" class="method-name">definir_propiedades_sesion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Determina las propiedades que se almacenaran en sesion</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">Objeto</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result"><a href="../Componentes/toba_componente.html">toba_componente</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#dependencia" title="details" class="method-name">dependencia</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#dependencia_cargada" title="details" class="method-name">dependencia_cargada</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</td></tr>
+					<td class="method-definition">Retorna verdadero si la dependencia fue construida y asociada en este pedido de página</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -239,7 +245,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#eliminar_estado_sesion" title="details" class="method-name">eliminar_estado_sesion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -247,14 +253,14 @@
 					<td class="method-definition"></td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#existe_dependencia" title="details" class="method-name">existe_dependencia</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna verdadero si un componente es dependencia del actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#existio_memoria_previa" title="details" class="method-name">existio_memoria_previa</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -264,12 +270,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_dependencias_clase" title="details" class="method-name">get_dependencias_clase</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array(propiedad</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_estado_sesion" title="details" class="method-name">get_estado_sesion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -277,9 +283,9 @@
 					<td class="method-definition"></td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_mensaje" title="details" class="method-name">get_mensaje</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna un mensaje asociado al componente</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -299,22 +305,22 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#guardar_estado_sesion" title="details" class="method-name">guardar_estado_sesion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#informar" title="details" class="method-name">informar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#informar_msg" title="details" class="method-name">informar_msg</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Informa un mensaje al usuario, usando toba::notificacion()</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#inicializar" title="details" class="method-name">inicializar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método interno para iniciar el componente.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
@@ -329,17 +335,17 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#memorizar" title="details" class="method-name">memorizar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Persiste el array '$this-&gt;memoria' para utilizarlo en la proxima invocacion del objeto</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#recuperar_estado_sesion" title="details" class="method-name">recuperar_estado_sesion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Carga en la clase actual los valores de las propiedades almacenadas en sesion</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_controlador" title="details" class="method-name">set_controlador</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Determina que el componente actual es controlado por otro</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -364,7 +370,7 @@
 								<tr>
 					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
 					<td>
-											Clase base de los componentes o elementos de interface (ei)
+											Clase base de los componentes gráficos o elementos de interface (ei)
 										</td>
 				</tr>
 								<tr>
@@ -404,7 +410,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 37]</span>
 </div>
 <br />
 
@@ -482,7 +488,7 @@ $definicion&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 405]</span>
+	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 461]</span>
 </div>
 <br />
 
@@ -490,37 +496,37 @@ $definicion&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void agregar_dependencia(
-
-$identificador, 
-$proyecto, 
-$objeto&nbsp;
+string
+$identificador, string
+$proyecto, string
+$tipo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Agregar dinámicamente una dependencia
+	<p align="center" class="short-description"><strong>Agregar dinámicamente una dependencia al componente actual
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$identificador:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> ID. del componente</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$proyecto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$objeto:&nbsp;</span></td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Tipo de componente</span>			</td></tr>
 				</table>
 
 	<br />
@@ -533,7 +539,7 @@ $objeto&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 201]</span>
+	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 230]</span>
 </div>
 <br />
 
@@ -545,7 +551,9 @@ $objeto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Elimina toda la memoria interna y su rastro
+</strong></p>
+
 	<br />
 	
 
@@ -556,32 +564,34 @@ $objeto&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 413]</span>
+	<span class="method-title">cargar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 476]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void cargar_dependencia(
-
-$identificador, [
-$parametros = null]&nbsp;
+		<code>unknown cargar_dependencia(
+unknown_type
+$identificador, unknown_type
+$parametros&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Construye una dependencia y la asocia al componente actual
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">unknown_type</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$identificador:&nbsp;</span></td>
 				<td>
 							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">unknown_type</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
@@ -598,7 +608,7 @@ $parametros = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_info_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 377]</span>
+	<span class="method-title">cargar_info_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 429]</span>
 </div>
 <br />
 
@@ -610,9 +620,18 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Arma un hash interno de las dependencias, utilizo durante la construccion
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -621,7 +640,7 @@ $parametros = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 178]</span>
+	<span class="method-title">cargar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 209]</span>
 </div>
 <br />
 
@@ -633,7 +652,34 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
+	<p align="center" class="short-description"><strong>Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this-&gt;memoria)
+</strong></p>
+
+	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodcontrolador" id="controlador"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 112]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../Componentes/Eis/toba_ci.html">toba_ci</a> controlador(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Retorna la referencia al componente padre o contenedor del actual, generalmente un ci
+</strong></p>
+
 	<br />
 	
 
@@ -641,10 +687,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_memoria" id="controlar_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 189]</span>
+	<span class="method-title">controlar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 220]</span>
 </div>
 <br />
 
@@ -656,7 +702,9 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Controla la existencia de la memoria
+</strong></p>
+<span class="description"><p>SI la memoria no se cargo se corta la ejecucion y despliega un mensaje</p></span>
 	<br />
 	
 
@@ -664,10 +712,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methoddefinir_propiedades_sesion" id="definir_propiedades_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">definir_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 229]</span>
+	<span class="method-title">definir_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 259]</span>
 </div>
 <br />
 
@@ -679,25 +727,34 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Determina las propiedades que se almacenaran en sesion
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methoddependencia" id="dependencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 394]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 446]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>Objeto dependencia(
+		<code><a href="../Componentes/toba_componente.html">toba_componente</a> dependencia(
 string
 $id, [
 $carga_en_demanda = true], boolean
@@ -746,24 +803,24 @@ $cargar_en_demanda&nbsp;
 		<br />
 </div>
 <a name="methoddependencia_cargada" id="dependencia_cargada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 430]</span>
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 493]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void dependencia_cargada(
+		<code>boolean dependencia_cargada(
 
 $id&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna verdadero si la dependencia fue cargada en este pedido de página
+	<p align="center" class="short-description"><strong>Retorna verdadero si la dependencia fue construida y asociada en este pedido de página
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -783,10 +840,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 66]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 72]</span>
 </div>
 <br />
 
@@ -808,7 +865,7 @@ $id&nbsp;
 		<ul class="redefinitions">
 					<li>
 				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
-								: Destructor del objeto
+								: Destructor del componente
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
@@ -835,10 +892,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_estado_sesion" id="eliminar_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 331]</span>
+	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 371]</span>
 </div>
 <br />
 
@@ -846,21 +903,23 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void eliminar_estado_sesion(
-[
+[array
 $no_eliminar = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$no_eliminar:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Excepciones, propiedades que no se van a resetear</span>			</td></tr>
 				</table>
 
 	<br />
@@ -870,10 +929,10 @@ $no_eliminar = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_ayuda" id="existe_ayuda"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 102]</span>
+	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 117]</span>
 </div>
 <br />
 
@@ -893,24 +952,26 @@ $no_eliminar = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_dependencia" id="existe_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 435]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 502]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void existe_dependencia(
+		<code>boolean existe_dependencia(
 
 $id&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna verdadero si un componente es dependencia del actual
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -928,10 +989,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodexistio_memoria_previa" id="existio_memoria_previa"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existio_memoria_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 211]</span>
+	<span class="method-title">existio_memoria_previa</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
 </div>
 <br />
 
@@ -943,7 +1004,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)
+</strong></p>
+
 	<br />
 	
 
@@ -951,10 +1014,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_clave_memoria_global" id="get_clave_memoria_global"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_clave_memoria_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 77]</span>
+	<span class="method-title">get_clave_memoria_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 83]</span>
 </div>
 <br />
 
@@ -974,10 +1037,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias_clase" id="get_dependencias_clase"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 440]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 510]</span>
 </div>
 <br />
 
@@ -991,7 +1054,9 @@ $ereg_busqueda&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1009,33 +1074,42 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_estado_sesion" id="get_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 343]</span>
+	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 387]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_estado_sesion(
+		<code>array(propiedad get_estado_sesion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>=&gt; valor)</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 97]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
 </div>
 <br />
 
@@ -1055,52 +1129,61 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
+	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 152]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_mensaje(
-
-$indice, [
+		<code>string get_mensaje(
+mixed
+$indice, [mixed
 $parametros = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna un mensaje asociado al componente
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$indice:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Indice del mensaje en el componente</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)</span>			</td></tr>
 				</table>
 
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Mensaje parseado</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 87]</span>
+	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 93]</span>
 </div>
 <br />
 
@@ -1120,10 +1203,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_titulo" id="get_titulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
+	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
 </div>
 <br />
 
@@ -1143,10 +1226,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_txt" id="get_txt"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_txt</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 82]</span>
+	<span class="method-title">get_txt</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 88]</span>
 </div>
 <br />
 
@@ -1166,10 +1249,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodguardar_estado_sesion" id="guardar_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">guardar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 288]</span>
+	<span class="method-title">guardar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 324]</span>
 </div>
 <br />
 
@@ -1181,7 +1264,9 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion
+</strong></p>
+
 	<br />
 	
 
@@ -1189,10 +1274,10 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodinformar" id="informar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 148]</span>
+	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 182]</span>
 </div>
 <br />
 
@@ -1200,35 +1285,37 @@ $parametros = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void informar(
-
-$indice, [
-$parametros = null], [
+mixed
+$indice, [mixed
+$parametros = null], [string
 $nivel = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$indice:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Indice del mensaje predefinido</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$nivel:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Severidad: info o error</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1238,10 +1325,10 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinformar_msg" id="informar_msg"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 142]</span>
+	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 170]</span>
 </div>
 <br />
 
@@ -1249,28 +1336,30 @@ $nivel = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void informar_msg(
-
-$mensaje, [
+string
+$mensaje, [string
 $nivel = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Informa un mensaje al usuario, usando toba::notificacion()
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$mensaje:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Mensaje a mostrar</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$nivel:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Severidad: info o error</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1280,10 +1369,10 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinicializar" id="inicializar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 62]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 67]</span>
 </div>
 <br />
 
@@ -1291,13 +1380,34 @@ $nivel = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void inicializar(
+[
+$parametros = array()]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método interno para iniciar el componente.
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 			<hr class="separator" />
@@ -1316,10 +1426,10 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinvocar_callback" id="invocar_callback"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 113]</span>
+	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 128]</span>
 </div>
 <br />
 
@@ -1363,10 +1473,10 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 224]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 251]</span>
 </div>
 <br />
 
@@ -1393,10 +1503,10 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodmemorizar" id="memorizar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">memorizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 165]</span>
+	<span class="method-title">memorizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 199]</span>
 </div>
 <br />
 
@@ -1408,7 +1518,9 @@ $metodo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Persiste el array '$this-&gt;memoria' para utilizarlo en la proxima invocacion del objeto
+</strong></p>
+
 	<br />
 	
 
@@ -1416,10 +1528,10 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_estado_sesion" id="recuperar_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">recuperar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 251]</span>
+	<span class="method-title">recuperar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 285]</span>
 </div>
 <br />
 
@@ -1431,18 +1543,27 @@ $metodo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Carga en la clase actual los valores de las propiedades almacenadas en sesion
+</strong></p>
+
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodset_controlador" id="set_controlador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 367]</span>
+	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 416]</span>
 </div>
 <br />
 
@@ -1450,28 +1571,30 @@ $metodo&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_controlador(
-
-$controlador, [
+<a href="../Componentes/toba_componente.html">toba_componente</a>
+$controlador, [string
 $id_en_padre = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Determina que el componente actual es controlado por otro
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type"><a href="../Componentes/toba_componente.html">toba_componente</a></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$controlador:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Padre o contenedor de este componente</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$id_en_padre:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Id de este componente en el padre (conocido como dependencia)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1488,10 +1611,10 @@ $id_en_padre = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_propiedades_sesion" id="set_propiedades_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 246]</span>
+	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 277]</span>
 </div>
 <br />
 
@@ -1499,7 +1622,7 @@ $id_en_padre = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_propiedades_sesion(
-
+array
 $props&nbsp;
 )</code>
     </td></tr></table>
@@ -1511,11 +1634,11 @@ $props&nbsp;
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$props:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Arreglo que contiene los nombres de las propiedades</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1540,7 +1663,7 @@ $props&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$canal" id="$canal"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1564,7 +1687,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$canal_recibido" id="$canal_recibido"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1588,13 +1711,13 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$controlador" id="$controlador"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type"><a href="../Componentes/Eis/toba_ci.html">toba_ci</a></span>&nbsp;&nbsp;
 			<span class="var-name">$controlador</span>
-						<span class="smalllinenumber">[line 33]</span>
+						<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
 
@@ -1612,7 +1735,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$definicion_partes" id="$definicion_partes"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1636,7 +1759,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias" id="$dependencias"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1667,7 +1790,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias_indice_actual" id="$dependencias_indice_actual"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1691,7 +1814,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$estado_proceso" id="$estado_proceso"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1715,7 +1838,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$exportacion_archivo" id="$exportacion_archivo"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1739,7 +1862,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$exportacion_path" id="$exportacion_path"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1763,7 +1886,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id" id="$id"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1787,7 +1910,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id_en_controlador" id="$id_en_controlador"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1818,7 +1941,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id_ses_g" id="$id_ses_g"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1842,7 +1965,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$indice_dependencias" id="$indice_dependencias"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1866,7 +1989,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$info" id="$info"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1890,7 +2013,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$info_dependencias" id="$info_dependencias"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1914,7 +2037,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$lista_dependencias" id="$lista_dependencias"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1938,7 +2061,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$memoria" id="$memoria"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1962,7 +2085,7 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$memoria_existencia_previa" id="$memoria_existencia_previa"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1986,13 +2109,37 @@ $props&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$observaciones" id="$observaciones"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$observaciones</span>
 						<span class="smalllinenumber">[line 20]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$parametros" id="$parametros"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$parametros</span>
+						<span class="smalllinenumber">[line 30]</span>
 		</span>
 	</div>
 
@@ -2068,7 +2215,7 @@ $props&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Fri, 08 Sep 2006 10:15:20 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada el Tue, 19 Sep 2006 17:02:40 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

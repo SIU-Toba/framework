@@ -13,7 +13,7 @@ define('apex_ei_evt_maneja_datos', 1);
 define('apex_ei_evt_no_maneja_datos', -1);
 
 /**
- * Clase base de los componentes o elementos de interface (ei)
+ * Clase base de los componentes gráficos o elementos de interface (ei)
  * @package Componentes
  * @subpackage Eis
  */
@@ -31,7 +31,6 @@ abstract class toba_ei extends toba_componente
 	protected $botones_graficados_ad_hoc = array();		// Lista de botones que se imprimieron por orden del usuario
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
-	protected $parametros;							// Parametros de inicializacion provistos por el controlador
 	protected $prefijo = 'ei';
 	
 	function __construct($definicion)
@@ -42,18 +41,16 @@ abstract class toba_ei extends toba_componente
 		$this->preparar_componente();
 	}
 
-	function inicializar($parametros)
-	{
-		$this->parametros = $parametros;
-	}
-	
-	function preparar_componente()
+	/**
+	 * Extensión de la construcción del componente
+	 */
+	protected function preparar_componente()
 	{
 		$this->cargar_lista_eventos();	
 	}
 	
 	/**
-	 * Destructor del objeto
+	 * Destructor del componente
 	 */
 	function destruir()
 	{
@@ -423,11 +420,17 @@ abstract class toba_ei extends toba_componente
 	//--  JAVASCRIPT --------------------------
 	//-----------------------------------------
 	
+	/**
+	 * @return array Liberias js a utilizar, se especifican con el path relativo a www/js sin la extension .js
+	 */
 	function get_consumo_javascript()
 	{
 		return array('componentes/ei');
 	}
 	
+	/**
+	 * Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente
+	 */
 	function generar_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -447,16 +450,25 @@ abstract class toba_ei extends toba_componente
 	{
 		return $this->objeto_js;
 	}
-	
+
+	/**
+	 * Sentencia de creacion del componente en javascript
+	 */	
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei('{$this->objeto_js}','{$this->submit}');\n";
 	}
 	
+	/**
+	 * Ventana de extensión javascript del componente
+	 */
 	protected function extender_objeto_js()
 	{}
-	
+
+	/**
+	 * Termina la construcción del objeto javscript asociado al componente
+	 */
 	protected function iniciar_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();

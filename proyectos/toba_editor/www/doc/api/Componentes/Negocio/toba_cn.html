@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Docs For Class toba_cn</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
 <body>
 
@@ -84,6 +84,7 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_barra_divisora.html">toba_ef_barra_divisora</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_checkbox.html">toba_ef_checkbox</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_combo.html">toba_ef_combo</a>    </span>	 <br />
+	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_clave.html">toba_ef_editable_clave</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_fecha.html">toba_ef_editable_fecha</a>    </span>	 <br />
@@ -150,7 +151,7 @@
 </strong></p>
 
 		<p class="notes">
-			Ubicada en <a class="field" href="_componentes---negocio---toba_cn.php.html">/componentes/negocio/toba_cn.php</a> [<span class="field">line 9</span>]
+			Ubicada en /componentes/negocio/toba_cn.php [<span class="field">line 9</span>]
 		</p>
 
 		
@@ -365,6 +366,12 @@
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#var$parametros">toba_componente::$parametros</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#var$propiedades_sesion">toba_componente::$propiedades_sesion</a></span>
 										</dt>
 										<dd>
@@ -393,43 +400,49 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodagregar_dependencia">toba_componente::agregar_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Agregar dinámicamente una dependencia</span>
+											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodborrar_memoria">toba_componente::borrar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Elimina toda la memoria interna y su rastro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_dependencia">toba_componente::cargar_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Construye una dependencia y la asocia al componente actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_info_dependencias">toba_componente::cargar_info_dependencias()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Arma un hash interno de las dependencias, utilizo durante la construccion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_memoria">toba_componente::cargar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this-&gt;memoria)</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcontrolador">toba_componente::controlador()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Retorna la referencia al componente padre o contenedor del actual, generalmente un ci</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcontrolar_memoria">toba_componente::controlar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Controla la existencia de la memoria</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddefinir_propiedades_sesion">toba_componente::definir_propiedades_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Determina las propiedades que se almacenaran en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddependencia">toba_componente::dependencia()</a></span>
@@ -441,7 +454,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddependencia_cargada">toba_componente::dependencia_cargada()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</span>
+											<span class="method-definition">Retorna verdadero si la dependencia fue construida y asociada en este pedido de página</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddestruir">toba_componente::destruir()</a></span>
@@ -453,7 +466,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodeliminar_estado_sesion">toba_componente::eliminar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexiste_ayuda">toba_componente::existe_ayuda()</a></span>
@@ -465,13 +478,13 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexiste_dependencia">toba_componente::existe_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Retorna verdadero si un componente es dependencia del actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexistio_memoria_previa">toba_componente::existio_memoria_previa()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_clave_memoria_global">toba_componente::get_clave_memoria_global()</a></span>
@@ -483,13 +496,13 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_dependencias_clase">toba_componente::get_dependencias_clase()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_estado_sesion">toba_componente::get_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_id">toba_componente::get_id()</a></span>
@@ -501,7 +514,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_mensaje">toba_componente::get_mensaje()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Retorna un mensaje asociado al componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_nombre">toba_componente::get_nombre()</a></span>
@@ -525,25 +538,25 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodguardar_estado_sesion">toba_componente::guardar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinformar">toba_componente::informar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinformar_msg">toba_componente::informar_msg()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Informa un mensaje al usuario, usando toba::notificacion()</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinicializar">toba_componente::inicializar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Método interno para iniciar el componente.</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinvocar_callback">toba_componente::invocar_callback()</a></span>
@@ -561,19 +574,19 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmemorizar">toba_componente::memorizar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Persiste el array '$this-&gt;memoria' para utilizarlo en la proxima invocacion del objeto</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodrecuperar_estado_sesion">toba_componente::recuperar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Carga en la clase actual los valores de las propiedades almacenadas en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_controlador">toba_componente::set_controlador()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Determina que el componente actual es controlado por otro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_propiedades_sesion">toba_componente::set_propiedades_sesion()</a></span>
@@ -602,7 +615,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 13]</span>
@@ -642,7 +655,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
@@ -677,7 +690,7 @@ $mensaje = null]&nbsp;
 		<br />
 </div>
 <a name="methodcancelar" id="cancelar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 45]</span>
@@ -700,7 +713,7 @@ $mensaje = null]&nbsp;
 		<br />
 </div>
 <a name="methodejecutar_sql" id="ejecutar_sql"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 110]</span>
@@ -735,7 +748,7 @@ $sentencias_sql&nbsp;
 		<br />
 </div>
 <a name="methodevt__limpieza_memoria" id="evt__limpieza_memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 25]</span>
@@ -770,7 +783,7 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__procesar_especifico" id="evt__procesar_especifico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">evt__procesar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 80]</span>
@@ -793,7 +806,7 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar_datos" id="evt__validar_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 74]</span>
@@ -816,7 +829,7 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar_transaccion" id="finalizar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">finalizar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 96]</span>
@@ -851,7 +864,7 @@ $mensaje = null]&nbsp;
 		<br />
 </div>
 <a name="methodini" id="ini"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 20]</span>
@@ -874,7 +887,7 @@ $mensaje = null]&nbsp;
 		<br />
 </div>
 <a name="methodiniciar_transaccion" id="iniciar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">iniciar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 89]</span>
@@ -897,7 +910,7 @@ $mensaje = null]&nbsp;
 		<br />
 </div>
 <a name="methodprocesar" id="procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 52]</span>
@@ -940,7 +953,7 @@ $parametros = null]&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$transaccion_abierta" id="$transaccion_abierta"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -974,7 +987,7 @@ $parametros = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Fri, 08 Sep 2006 10:15:19 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada el Tue, 19 Sep 2006 17:02:40 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

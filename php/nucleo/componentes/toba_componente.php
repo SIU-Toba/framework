@@ -27,6 +27,8 @@ abstract class toba_componente
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
+	protected $parametros;								// Parametros de inicializacion provistos por el controlador	
+	
 	/**
 	 * @var toba_ci
 	 */
@@ -62,9 +64,10 @@ abstract class toba_componente
 	/**
 	 * Método interno para iniciar el componente.
 	 */
-	function inicializar()
+	protected function inicializar($parametros=array())
 	{
-	}	
+		$this->parametros = $parametros;
+	}
 	
 	function destruir()
 	{
@@ -103,8 +106,8 @@ abstract class toba_componente
 	}
 	
 	/**
-	 * Retorna la referencia al componente padre o contenedor del actual
-	 * @return toba_componente
+	 * Retorna la referencia al componente padre o contenedor del actual, generalmente un ci
+	 * @return toba_ci
 	 */
 	function controlador()
 	{
@@ -142,14 +145,14 @@ abstract class toba_componente
 	/**
 	 * Retorna un mensaje asociado al componente
 	 *
-	 * @param mixed $indice
-	 * @param unknown_type $parametros
-	 * @return unknown
+	 * @param mixed $indice Indice del mensaje en el componente
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
+	 * @return string Mensaje parseado
 	 */
 	function get_mensaje($indice, $parametros=null)
 	{
 		//Busco el mensaje del OBJETO
-		if($mensaje = toba::mensajes()->get_objeto($this->id[1], $indice, $parametros)) {
+		if ($mensaje = toba::mensajes()->get_componente($this->id[1], $indice, $parametros)) {
 			return $mensaje;	
 		} else {
 			//El objeto no tiene un mensaje con el indice solicitado,
@@ -157,21 +160,30 @@ abstract class toba_componente
 			return toba::mensajes()->get($indice, $parametros);
 		}
 	}
-	
+
+	/**
+	 * Informa un mensaje al usuario, usando toba::notificacion()
+	 *
+	 * @param string $mensaje Mensaje a mostrar
+	 * @param string $nivel Severidad: info o error
+	 */
 	function informar_msg($mensaje, $nivel=null)
-	//Guarda un  mensaje en la cola de mensajes
 	{
 		toba::notificacion()->agregar($mensaje,$nivel);	
 	}
-	
+
+	/**
+	 * Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()
+	 *
+	 * @param mixed $indice Indice del mensaje predefinido
+	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
+	 * @param string $nivel Severidad: info o error
+	 */
 	function informar($indice, $parametros=null,$nivel=null)
-	//Obtiene un mensaje del repositorio y lo guarda en la cola de mensajes
 	{
-		$mensaje = $this->get_mensaje($indice, $parametros);
-		$this->informar_msg($mensaje,$nivel);
+		$this->informar_msg($this->get_mensaje($indice, $parametros), $nivel);
 	}
 
-	
 	//---------------------------------------------------------------
 	//-----------------    MEMORIA   --------------------------------
 	//---------------------------------------------------------------
@@ -181,54 +193,50 @@ abstract class toba_componente
 //Preg: Por que no se usa el indice 0 en la clave del OBJETO?
 //Res: proque no se pueden cargar objetos de dos proyectos en la misma solicitud
 
+	/**
+	 * Persiste el array '$this->memoria' para utilizarlo en la proxima invocacion del objeto
+	 */
 	function memorizar()
-/*
- 	@@acceso: objeto
-	@@desc: Persiste el array '$this->memoria' para utilizarlo en la proxima invocacion del objeto
-*/
 	{
 		if(isset($this->memoria)){
 			toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],$this->memoria);
-		}else{
-
 		}
 	}
 	
+	/**
+	 * Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
+	 */
 	function cargar_memoria()
-/*
- 	@@acceso: objeto
-	@@desc: Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
-*/
 	{
 		if($this->memoria = toba::memoria()->get_dato_sincronizado("obj_".$this->id[1])){
 			$this->memoria_existencia_previa = true;
 		}
 	}
 
+	/**
+	 * Controla la existencia de la memoria
+	 * SI la memoria no se cargo se corta la ejecucion y despliega un mensaje
+	 */
 	function controlar_memoria()
-/*
- 	@@acceso: objeto
-	@@desc: Controla la existencia de la memoria
-*/
-	//SI la memoria no se cargo se corta la ejecucion y despliega un mensaje
 	{
 		if ((!isset($this->memoria)) || (is_null($this->memoria))){
 			throw new toba_error("Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]");
 		}
 	}
 
+	/**
+	 * Elimina toda la memoria interna y su rastro
+	 */
 	function borrar_memoria()
-/*
- 	@@acceso: objeto
-	@@desc: Dumpea la memoria
-*/
 	{
 		unset($this->memoria);
 		toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
+	/**
+	 * Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)
+	 */
 	function existio_memoria_previa()
-	//Atencion, para que esto funcione antes hay que cargar la memoria
 	{
 		return $this->memoria_existencia_previa;
 	}
@@ -245,7 +253,10 @@ abstract class toba_componente
 		return array();
 	}
 	
-	function definir_propiedades_sesion()
+	/**
+	 * Determina las propiedades que se almacenaran en sesion
+	 */
+	protected function definir_propiedades_sesion()
 	{
 		//--- Compat. hacia atras
 		$props = $this->mantener_estado_sesion();
@@ -261,14 +272,17 @@ abstract class toba_componente
 
 	/**
 	 * Fuerza a persistir en sesion ciertas propiedades internas 
+	 * @param array $props Arreglo que contiene los nombres de las propiedades
 	 */
 	protected function set_propiedades_sesion($props)
 	{
 		$this->propiedades_sesion = array_merge($this->propiedades_sesion, $props);
 	}
-	
-	function recuperar_estado_sesion()
-	//Recupera las propiedades guardadas en la sesion
+
+	/**
+	 * Carga en la clase actual los valores de las propiedades almacenadas en sesion
+	 */
+	protected function recuperar_estado_sesion()
 	{
 		if(toba::memoria()->existe_dato($this->id_ses_grec)){
 			//Recupero las propiedades de la sesion
@@ -304,6 +318,9 @@ abstract class toba_componente
 		}
 	}
 	
+	/**
+	 * Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion
+	 */
 	function guardar_estado_sesion()
 	{
 		//Busco las propiedades que se desea persistir entre las sesiones
@@ -347,6 +364,10 @@ abstract class toba_componente
 		}
 	}
 
+	/**
+	 * Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto
+	 * @param array $no_eliminar Excepciones, propiedades que no se van a resetear
+	 */
 	function eliminar_estado_sesion($no_eliminar=null)
 	{
 		if(!isset($no_eliminar))$no_eliminar=array();
@@ -359,6 +380,10 @@ abstract class toba_componente
 		toba::memoria()->eliminar_dato($this->id_ses_grec);
 	}
 	
+	/**
+	 * Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion
+	 * @return array(propiedad => valor)
+	 */
 	function get_estado_sesion()
 	{
 		if(count($this->propiedades_sesion)>0){
@@ -383,6 +408,11 @@ abstract class toba_componente
 	//-----------------   DEPENDENCIAS   --------------------------------
 	//-------------------------------------------------------------------
 
+	/**
+	 * Determina que el componente actual es controlado por otro
+	 * @param toba_componente $controlador Padre o contenedor de este componente
+	 * @param string $id_en_padre Id de este componente en el padre (conocido como dependencia)
+	 */
 	function set_controlador($controlador, $id_en_padre=null)
 	{
 		$this->controlador = $controlador;
@@ -393,7 +423,10 @@ abstract class toba_componente
 		}
 	}	
 	
-	function cargar_info_dependencias()
+	/**
+	 * Arma un hash interno de las dependencias, utilizo durante la construccion
+	 */
+	protected function cargar_info_dependencias()
 	{
 		if (isset($this->info_dependencias)) {
 			for($a=0;$a<count($this->info_dependencias);$a++){
@@ -408,7 +441,7 @@ abstract class toba_componente
 	 *
 	 * @param string $id Identificador de la dependencia dentro del objeto actual
 	 * @param boolean $cargar_en_demanda En caso de que el objeto no se encuentre cargado en memoria, lo carga
-	 * @return Objeto
+	 * @return toba_componente
 	 */
 	function dependencia($id, $carga_en_demanda = true)
 	{
@@ -419,17 +452,28 @@ abstract class toba_componente
 	}	
 	
 	/**
-	*	Agregar dinámicamente una dependencia
-	*/
-	function agregar_dependencia( $identificador, $proyecto, $objeto )
+	 * Agregar dinámicamente una dependencia al componente actual
+	 *
+	 * @param string $identificador ID. del componente
+	 * @param string $proyecto 
+	 * @param string $tipo Tipo de componente
+	 */
+	function agregar_dependencia( $identificador, $proyecto, $tipo )
 	{
 		$sig = count($this->info_dependencias);
-		$this->info_dependencias[$sig] = toba_proyecto::get_definicion_dependencia($objeto, $identificador);
+		$this->info_dependencias[$sig] = toba_proyecto::get_definicion_dependencia($tipo, $identificador);
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	
 	}
 
-	function cargar_dependencia($identificador, $parametros=null)
+	/**
+	 * Construye una dependencia y la asocia al componente actual
+	 *
+	 * @param unknown_type $identificador
+	 * @param unknown_type $parametros
+	 * @return unknown
+	 */
+	function cargar_dependencia($identificador)
  	{
 		//El indice es valido?
 		if(!isset($this->indice_dependencias[$identificador])){
@@ -440,24 +484,30 @@ abstract class toba_componente
 		$clave['proyecto'] = $this->info_dependencias[$posicion]['proyecto'];
 		$clave['componente'] = $this->info_dependencias[$posicion]['objeto'];
 		$this->dependencias[$identificador] = toba_constructor::get_runtime( $clave, $clase );
-		return true;
 	}
 
 	/**
-	 * Retorna verdadero si la dependencia fue cargada en este pedido de página
+	 * Retorna verdadero si la dependencia fue construida y asociada en este pedido de página
+	 * @return boolean
 	 */
 	function dependencia_cargada($id)
 	{
 		return isset($this->dependencias[$id]);
 	}
 	
+	/**
+	 * Retorna verdadero si un componente es dependencia del actual
+	 * @return boolean
+	 */
 	function existe_dependencia($id)
 	{
 		return isset($this->indice_dependencias[$id]);	
 	}
 	
+	/**
+	 * Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
+	 */
 	function get_dependencias_clase($ereg_busqueda)
-	//Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
 	{
 		$ok = array();
 		for($a=0;$a<count($this->info_dependencias);$a++){
@@ -467,9 +517,6 @@ abstract class toba_componente
 		}
 		return $ok;
 	}
-	
-	
-
 
 }
 ?>

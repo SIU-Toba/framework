@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Docs For Class toba_ci</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
 <body>
 
@@ -84,6 +84,7 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_barra_divisora.html">toba_ef_barra_divisora</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_checkbox.html">toba_ef_checkbox</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_combo.html">toba_ef_combo</a>    </span>	 <br />
+	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_clave.html">toba_ef_editable_clave</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Efs/toba_ef_editable_fecha.html">toba_ef_editable_fecha</a>    </span>	 <br />
@@ -148,9 +149,9 @@
 
         		<p align="center" class="short-description"><strong>Controlador de Interface (ci): Componente responsable de manejar las pantallas y sus distintos elementos
 </strong></p>
-
+<span class="description"><p>Este componente puede mantener sus propiedades en sesion con solo prefijar los nombres de variables con s__ (por ej. protected $s__cuit )</p></span>
 		<p class="notes">
-			Ubicada en <a class="field" href="_componentes---interface---toba_ci.php.html">/componentes/interface/toba_ci.php</a> [<span class="field">line 12</span>]
+			Ubicada en /componentes/interface/toba_ci.php [<span class="field">line 14</span>]
 		</p>
 
 		
@@ -613,6 +614,12 @@
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#var$parametros">toba_componente::$parametros</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#var$propiedades_sesion">toba_componente::$propiedades_sesion</a></span>
 										</dt>
 										<dd>
@@ -665,13 +672,13 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodcrear_objeto_js">toba_ei::crear_objeto_js()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Sentencia de creacion del componente en javascript</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Destructor del objeto</span>
+											<span class="method-definition">Destructor del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methoddisparar_eventos">toba_ei::disparar_eventos()</a></span>
@@ -695,7 +702,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodextender_objeto_js">toba_ei::extender_objeto_js()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Ventana de extensión javascript del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodfiltrar_eventos">toba_ei::filtrar_eventos()</a></span>
@@ -743,7 +750,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_js">toba_ei::generar_js()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_consumo_javascript">toba_ei::get_consumo_javascript()</a></span>
@@ -797,7 +804,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodiniciar_objeto_js">toba_ei::iniciar_objeto_js()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Termina la construcción del objeto javscript asociado al componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a></span>
@@ -809,7 +816,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpreparar_componente">toba_ei::preparar_componente()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Extensión de la construcción del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></span>
@@ -868,43 +875,49 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodagregar_dependencia">toba_componente::agregar_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Agregar dinámicamente una dependencia</span>
+											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodborrar_memoria">toba_componente::borrar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Elimina toda la memoria interna y su rastro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_dependencia">toba_componente::cargar_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Construye una dependencia y la asocia al componente actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_info_dependencias">toba_componente::cargar_info_dependencias()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Arma un hash interno de las dependencias, utilizo durante la construccion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcargar_memoria">toba_componente::cargar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this-&gt;memoria)</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcontrolador">toba_componente::controlador()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Retorna la referencia al componente padre o contenedor del actual, generalmente un ci</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodcontrolar_memoria">toba_componente::controlar_memoria()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Controla la existencia de la memoria</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddefinir_propiedades_sesion">toba_componente::definir_propiedades_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Determina las propiedades que se almacenaran en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddependencia">toba_componente::dependencia()</a></span>
@@ -916,7 +929,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddependencia_cargada">toba_componente::dependencia_cargada()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Retorna verdadero si la dependencia fue cargada en este pedido de página</span>
+											<span class="method-definition">Retorna verdadero si la dependencia fue construida y asociada en este pedido de página</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methoddestruir">toba_componente::destruir()</a></span>
@@ -928,7 +941,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodeliminar_estado_sesion">toba_componente::eliminar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexiste_ayuda">toba_componente::existe_ayuda()</a></span>
@@ -940,13 +953,13 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexiste_dependencia">toba_componente::existe_dependencia()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Retorna verdadero si un componente es dependencia del actual</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodexistio_memoria_previa">toba_componente::existio_memoria_previa()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_clave_memoria_global">toba_componente::get_clave_memoria_global()</a></span>
@@ -958,13 +971,13 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_dependencias_clase">toba_componente::get_dependencias_clase()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_estado_sesion">toba_componente::get_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_id">toba_componente::get_id()</a></span>
@@ -976,7 +989,7 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_mensaje">toba_componente::get_mensaje()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Retorna un mensaje asociado al componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodget_nombre">toba_componente::get_nombre()</a></span>
@@ -1000,25 +1013,25 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodguardar_estado_sesion">toba_componente::guardar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinformar">toba_componente::informar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinformar_msg">toba_componente::informar_msg()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Informa un mensaje al usuario, usando toba::notificacion()</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinicializar">toba_componente::inicializar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Método interno para iniciar el componente.</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinvocar_callback">toba_componente::invocar_callback()</a></span>
@@ -1036,19 +1049,19 @@
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmemorizar">toba_componente::memorizar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Persiste el array '$this-&gt;memoria' para utilizarlo en la proxima invocacion del objeto</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodrecuperar_estado_sesion">toba_componente::recuperar_estado_sesion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Carga en la clase actual los valores de las propiedades almacenadas en sesion</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_controlador">toba_componente::set_controlador()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Determina que el componente actual es controlado por otro</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_propiedades_sesion">toba_componente::set_propiedades_sesion()</a></span>
@@ -1077,10 +1090,10 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 33]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
 </div>
 <br />
 
@@ -1117,10 +1130,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodasignar_controlador_negocio" id="asignar_controlador_negocio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 128]</span>
+	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
 </div>
 <br />
 
@@ -1152,10 +1165,10 @@ $controlador&nbsp;
 		<br />
 </div>
 <a name="methodconf" id="conf"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">conf</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 551]</span>
+	<span class="method-title">conf</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 553]</span>
 </div>
 <br />
 
@@ -1184,10 +1197,10 @@ $controlador&nbsp;
 		<br />
 </div>
 <a name="methodconfigurar_dep" id="configurar_dep"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">configurar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 521]</span>
+	<span class="method-title">configurar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 523]</span>
 </div>
 <br />
 
@@ -1226,10 +1239,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_cambio_pantalla" id="controlar_cambio_pantalla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_cambio_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 230]</span>
+	<span class="method-title">controlar_cambio_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 232]</span>
 </div>
 <br />
 
@@ -1258,10 +1271,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_eventos_propios" id="controlar_eventos_propios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 251]</span>
+	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 253]</span>
 </div>
 <br />
 
@@ -1290,10 +1303,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methoddefinir_pantalla_eventos" id="definir_pantalla_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">definir_pantalla_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 459]</span>
+	<span class="method-title">definir_pantalla_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 461]</span>
 </div>
 <br />
 
@@ -1322,10 +1335,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methoddep" id="dep"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 430]</span>
+	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 432]</span>
 </div>
 <br />
 
@@ -1371,10 +1384,10 @@ $carga_en_demanda = true]&nbsp;
 		<br />
 </div>
 <a name="methoddependencia" id="dependencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 408]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 410]</span>
 </div>
 <br />
 
@@ -1428,10 +1441,10 @@ $cargar_en_demanda&nbsp;
 		<br />
 </div>
 <a name="methoddependencia_esta_configurada" id="dependencia_esta_configurada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia_esta_configurada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 541]</span>
+	<span class="method-title">dependencia_esta_configurada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 543]</span>
 </div>
 <br />
 
@@ -1463,10 +1476,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 42]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 44]</span>
 </div>
 <br />
 
@@ -1486,16 +1499,16 @@ $id&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a></dt>
-						<dd>Destructor del objeto</dd>
+						<dd>Destructor del componente</dd>
 					</dl>
 		
 		<br />
 </div>
 <a name="methoddisparar_entrega_datos_cn" id="disparar_entrega_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 157]</span>
+	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 159]</span>
 </div>
 <br />
 
@@ -1515,10 +1528,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 197]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 199]</span>
 </div>
 <br />
 
@@ -1552,10 +1565,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_evento_propio" id="disparar_evento_propio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 266]</span>
+	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 268]</span>
 </div>
 <br />
 
@@ -1582,10 +1595,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_limpieza_memoria" id="disparar_limpieza_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 99]</span>
+	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 101]</span>
 </div>
 <br />
 
@@ -1607,10 +1620,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_obtencion_datos_cn" id="disparar_obtencion_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 135]</span>
+	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 137]</span>
 </div>
 <br />
 
@@ -1642,10 +1655,10 @@ $modo = null]&nbsp;
 		<br />
 </div>
 <a name="methodevento" id="evento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 601]</span>
+	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 603]</span>
 </div>
 <br />
 
@@ -1685,10 +1698,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__cancelar" id="evt__cancelar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
+	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 341]</span>
 </div>
 <br />
 
@@ -1710,10 +1723,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__entregar_datos_cn" id="evt__entregar_datos_cn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 173]</span>
+	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 175]</span>
 </div>
 <br />
 
@@ -1733,10 +1746,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__get_datos_cn" id="evt__get_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__get_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 149]</span>
+	<span class="method-title">evt__get_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 151]</span>
 </div>
 <br />
 
@@ -1768,10 +1781,10 @@ $modo = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__limpieza_memoria" id="evt__limpieza_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 116]</span>
+	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 118]</span>
 </div>
 <br />
 
@@ -1805,10 +1818,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__procesar" id="evt__procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 351]</span>
+	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 353]</span>
 </div>
 <br />
 
@@ -1830,10 +1843,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar_datos" id="evt__validar_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 334]</span>
+	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 336]</span>
 </div>
 <br />
 
@@ -1855,10 +1868,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodfin" id="fin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 59]</span>
+	<span class="method-title">fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 61]</span>
 </div>
 <br />
 
@@ -1880,10 +1893,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html" id="generar_html"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 619]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 621]</span>
 </div>
 <br />
 
@@ -1903,10 +1916,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_js" id="generar_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 629]</span>
+	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 631]</span>
 </div>
 <br />
 
@@ -1926,15 +1939,16 @@ $no_borrar = null]&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_js">toba_ei::generar_js()</a></dt>
+						<dd>Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente</dd>
 					</dl>
 		
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 624]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 626]</span>
 </div>
 <br />
 
@@ -1959,10 +1973,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias_ci" id="get_dependencias_ci"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 179]</span>
+	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 181]</span>
 </div>
 <br />
 
@@ -1982,10 +1996,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias_eventos" id="get_dependencias_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 438]</span>
+	<span class="method-title">get_dependencias_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 440]</span>
 </div>
 <br />
 
@@ -2014,10 +2028,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_pantalla" id="get_id_pantalla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 614]</span>
+	<span class="method-title">get_id_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 616]</span>
 </div>
 <br />
 
@@ -2044,10 +2058,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_info_pantalla" id="get_info_pantalla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_info_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 553]</span>
+	<span class="method-title">get_info_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 555]</span>
 </div>
 <br />
 
@@ -2086,10 +2100,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_pantalla_inicial" id="get_pantalla_inicial"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 470]</span>
+	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 472]</span>
 </div>
 <br />
 
@@ -2109,10 +2123,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodini" id="ini"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 90]</span>
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
 </div>
 <br />
 
@@ -2134,10 +2148,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodinicializar" id="inicializar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 61]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 63]</span>
 </div>
 <br />
 
@@ -2169,15 +2183,16 @@ $parametro = null]&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/toba_componente.html#methodinicializar">toba_componente::inicializar()</a></dt>
+						<dd>Método interno para iniciar el componente.</dd>
 					</dl>
 		
 		<br />
 </div>
 <a name="methodinicializar_dependencia" id="inicializar_dependencia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 387]</span>
+	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 389]</span>
 </div>
 <br />
 
@@ -2216,10 +2231,10 @@ $parametro&nbsp;
 		<br />
 </div>
 <a name="methodinicializar_dependencias" id="inicializar_dependencias"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 366]</span>
+	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
 </div>
 <br />
 
@@ -2251,10 +2266,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodini__operacion" id="ini__operacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ini__operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 84]</span>
+	<span class="method-title">ini__operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 86]</span>
 </div>
 <br />
 
@@ -2276,10 +2291,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodir_a_limitrofe" id="ir_a_limitrofe"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 479]</span>
+	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 481]</span>
 </div>
 <br />
 
@@ -2308,10 +2323,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodpantalla" id="pantalla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 565]</span>
+	<span class="method-title">pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 567]</span>
 </div>
 <br />
 
@@ -2331,10 +2346,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodpost_configurar" id="post_configurar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 546]</span>
+	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 548]</span>
 </div>
 <br />
 
@@ -2360,10 +2375,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodpost_eventos" id="post_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 225]</span>
+	<span class="method-title">post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 227]</span>
 </div>
 <br />
 
@@ -2392,10 +2407,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodpreparar_componente" id="preparar_componente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 40]</span>
+	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 42]</span>
 </div>
 <br />
 
@@ -2409,21 +2424,29 @@ $dependencias&nbsp;
 
 	
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 			<hr class="separator" />
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methodpreparar_componente">toba_ei::preparar_componente()</a></dt>
+						<dd>Extensión de la construcción del componente</dd>
 					</dl>
 		
 		<br />
 </div>
 <a name="methodpre_configurar" id="pre_configurar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 501]</span>
+	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 503]</span>
 </div>
 <br />
 
@@ -2449,10 +2472,10 @@ $dependencias&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_evento" id="registrar_evento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 313]</span>
+	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 315]</span>
 </div>
 <br />
 
@@ -2493,10 +2516,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodset_pantalla" id="set_pantalla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 606]</span>
+	<span class="method-title">set_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 608]</span>
 </div>
 <br />
 
@@ -2535,10 +2558,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodwizard_avanza" id="wizard_avanza"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">wizard_avanza</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 492]</span>
+	<span class="method-title">wizard_avanza</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 494]</span>
 </div>
 <br />
 
@@ -2575,13 +2598,13 @@ $id&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$cn" id="$cn"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cn</span>
-			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 16]</span>
+			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 18]</span>
 		</span>
 	</div>
 
@@ -2599,84 +2622,12 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dependencias_ci" id="$dependencias_ci"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_ci</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 17]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$dependencias_configuradas" id="$dependencias_configuradas"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$dependencias_configuradas</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$dependencias_gi" id="$dependencias_gi"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$dependencias_gi</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 18]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$dependencias_inicializadas" id="$dependencias_inicializadas"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$dependencias_inicializadas</span>
 			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 19]</span>
 		</span>
 	</div>
@@ -2694,14 +2645,86 @@ $id&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$en_servicio" id="$en_servicio"><!-- --></A>
+<a name="var$dependencias_configuradas" id="$dependencias_configuradas"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$dependencias_configuradas</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 22]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$dependencias_gi" id="$dependencias_gi"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$dependencias_gi</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$dependencias_inicializadas" id="$dependencias_inicializadas"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$dependencias_inicializadas</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 21]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$en_servicio" id="$en_servicio"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$en_servicio</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 29]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2719,13 +2742,13 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$eventos" id="$eventos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$eventos</span>
-						<span class="smalllinenumber">[line 21]</span>
+						<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
 
@@ -2748,132 +2771,12 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$evento_actual" id="$evento_actual"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$evento_actual</span>
-						<span class="smalllinenumber">[line 22]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$evento_actual_param" id="$evento_actual_param"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$evento_actual_param</span>
-						<span class="smalllinenumber">[line 23]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$ini_operacion" id="$ini_operacion"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$ini_operacion</span>
-			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 30]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$pantalla_id_eventos" id="$pantalla_id_eventos"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$pantalla_id_eventos</span>
-						<span class="smalllinenumber">[line 26]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$pantalla_servicio" id="$pantalla_servicio"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$pantalla_servicio</span>
-						<span class="smalllinenumber">[line 28]</span>
-		</span>
-	</div>
-
-		<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$posicion_botonera" id="$posicion_botonera"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$posicion_botonera</span>
 						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
@@ -2891,14 +2794,134 @@ $id&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$prefijo" id="$prefijo"><!-- --></A>
+<a name="var$evento_actual_param" id="$evento_actual_param"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$evento_actual_param</span>
+						<span class="smalllinenumber">[line 25]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$ini_operacion" id="$ini_operacion"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$ini_operacion</span>
+			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 32]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$pantalla_id_eventos" id="$pantalla_id_eventos"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$pantalla_id_eventos</span>
+						<span class="smalllinenumber">[line 28]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$pantalla_servicio" id="$pantalla_servicio"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$pantalla_servicio</span>
+						<span class="smalllinenumber">[line 30]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$posicion_botonera" id="$posicion_botonera"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$posicion_botonera</span>
+						<span class="smalllinenumber">[line 26]</span>
+		</span>
+	</div>
+
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$prefijo" id="$prefijo"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$prefijo</span>
-			 = <span class="var-default"> 'ci'</span>			<span class="smalllinenumber">[line 15]</span>
+			 = <span class="var-default"> 'ci'</span>			<span class="smalllinenumber">[line 17]</span>
 		</span>
 	</div>
 
@@ -2921,13 +2944,13 @@ $id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$wizard_sentido_navegacion" id="$wizard_sentido_navegacion"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$wizard_sentido_navegacion</span>
-						<span class="smalllinenumber">[line 31]</span>
+						<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -2955,7 +2978,7 @@ $id&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Fri, 08 Sep 2006 10:15:18 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada el Tue, 19 Sep 2006 17:02:39 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

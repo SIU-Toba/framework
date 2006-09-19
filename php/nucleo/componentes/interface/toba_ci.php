@@ -6,6 +6,8 @@ require_once('nucleo/lib/toba_parser_ayuda.php');
 
 /**
  * Controlador de Interface (ci): Componente responsable de manejar las pantallas y sus distintos elementos
+ * 
+ * Este componente puede mantener sus propiedades en sesion con solo prefijar los nombres de variables con s__ (por ej. protected $s__cuit )
  * @package Componentes
  * @subpackage Eis
  */
@@ -37,7 +39,7 @@ class toba_ci extends toba_ei
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
-	function preparar_componente(){}
+	protected function preparar_componente(){}
 
 	function destruir()
 	{
