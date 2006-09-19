@@ -59,6 +59,9 @@ abstract class toba_componente
 		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}", 'toba');
 	}
 
+	/**
+	 * Método interno para iniciar el componente.
+	 */
 	function inicializar()
 	{
 	}	
@@ -136,6 +139,13 @@ abstract class toba_componente
 	//-----------------   Mensajes al usuario        --------------------------------
 	//-------------------------------------------------------------------------------
 	
+	/**
+	 * Retorna un mensaje asociado al componente
+	 *
+	 * @param mixed $indice
+	 * @param unknown_type $parametros
+	 * @return unknown
+	 */
 	function get_mensaje($indice, $parametros=null)
 	{
 		//Busco el mensaje del OBJETO

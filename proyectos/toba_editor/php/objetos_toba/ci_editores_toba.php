@@ -86,7 +86,7 @@ abstract class ci_editores_toba extends toba_ci
 		$this->elemento_eliminado = true;
 		$zona = toba::solicitud()->zona();
 		$zona->resetear();
-		toba::notificacion()->agregar("El elemento ha sido eliminado.", "error");		
+		toba::notificacion()->agregar("El elemento ha sido eliminado.", "info");		
 		admin_util::refrescar_editor_item();
 	}
 	

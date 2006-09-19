@@ -44,10 +44,8 @@ class zona_objeto extends zona_editor
 	function generar_html_barra_vinculos()
 	//Esto es especifico de cada EDITABLE
 	{	
-		parent::generar_html_barra_vinculos();
 		//Acceso al EDITOR PHP
-		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] )
-		{
+		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] ) {
 			$componente = $this->get_editable();
 			// Ir al editor
 			$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
@@ -60,6 +58,7 @@ class zona_objeto extends zona_editor
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
 		}
+		parent::generar_html_barra_vinculos();		
 	}
 
 	function generar_html_barra_inferior()	

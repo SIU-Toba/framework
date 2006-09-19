@@ -29,7 +29,7 @@ class info_ei_formulario extends info_ei
 		switch($modelo){
 			case 'basico':
 				$evento[0]['identificador'] = "modificacion";
-				$evento[0]['etiqueta'] = "&Modificacion";
+				$evento[0]['etiqueta'] = "&Modificar";
 				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['implicito'] = true;
 				$evento[0]['orden'] = 3;
@@ -37,7 +37,7 @@ class info_ei_formulario extends info_ei
 				break;
 			case 'abm':
 				$evento[0]['identificador'] = "alta";
-				$evento[0]['etiqueta'] = "&Alta";
+				$evento[0]['etiqueta'] = "&Agregar";
 				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['estilo'] = "ei-boton-alta";
 				$evento[0]['orden'] = 1;
@@ -55,7 +55,7 @@ class info_ei_formulario extends info_ei
 				$evento[1]['grupo'] = 'cargado';
 
 				$evento[2]['identificador'] = "modificacion";
-				$evento[2]['etiqueta'] = "&Modificacion";
+				$evento[2]['etiqueta'] = "&Modificar";
 				$evento[2]['maneja_datos'] = 1;
 				$evento[2]['estilo'] = "ei-boton-mod";
 				$evento[2]['orden'] = 3;

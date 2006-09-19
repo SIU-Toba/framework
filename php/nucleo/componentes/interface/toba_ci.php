@@ -388,7 +388,7 @@ class toba_ci extends toba_ei
 	{
 		if( in_array( $dep, $this->dependencias_inicializadas ) )  return;
 		if ($this->dependencias[$dep] instanceof toba_ci ){
-			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();			
+			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
 			if(isset($this->cn)){
 				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
 			}

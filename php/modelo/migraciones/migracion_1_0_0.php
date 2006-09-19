@@ -29,7 +29,7 @@ class migracion_1_0_0 extends migracion_toba
 	function instancia__cambio_estructura()
 	{
 		//--- Cambios a efs
-		$sql[] = "ALTER TABLE apex_elemento_formulario		ADD COlUMN 		obsoleto							smallint";
+		$sql[] = "ALTER TABLE apex_elemento_formulario	   ADD COLUMN 	obsoleto							smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	estado_defecto 						varchar(255)";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	solo_lectura 						smallint";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN 	carga_metodo						varchar(100)";
@@ -621,7 +621,7 @@ class migracion_1_0_0 extends migracion_toba
 					pagina_tipo = 'popup_ef'
 				WHERE 
 						proyecto = '{$this->elemento->get_id()}'
-					AND	pagina_tipo IN ('com_js', 'consumidor_html', 'popup')
+					AND	pagina_tipo IN ('popup')
 			";
 		$cant+= $this->elemento->get_db()->ejecutar($sql);
 		return $cant;

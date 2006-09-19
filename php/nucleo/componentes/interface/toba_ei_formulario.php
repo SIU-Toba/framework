@@ -294,7 +294,7 @@ class toba_ei_formulario extends toba_ei
 			if(isset($this->elemento_formulario[$ef])){
 				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
-				throw new toba_error("Deshabilitar EF: El ef '$ef' no existe");
+				throw new toba_error("El ef '$ef' no existe");
 			}
 		}
 	}

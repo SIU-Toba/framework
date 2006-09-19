@@ -106,9 +106,10 @@ class info_datos_tabla extends info_componente
 	*/
 	function exportar_datos_columnas($incluir_pk=false)
 	{
+		$datos = array();
 		$a=0;
 		foreach($this->datos['info_columnas'] as $columna){
-			if( ((!$columna['pk']) || $incluir_pk) && !(isset($columna['secuencia'])) ){
+			if( ((!$columna['pk']) || $incluir_pk) && $columna['secuencia'] == '' ){
 				$datos[$a]['clave'] = $columna['columna'];
 				$datos[$a]['titulo'] = ucfirst(  str_replace("_"," ",$columna['columna']) );
 				switch($columna['tipo']){

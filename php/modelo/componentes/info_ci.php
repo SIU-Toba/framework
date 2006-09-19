@@ -26,7 +26,7 @@ class info_ci extends info_ei
 	function get_pantalla($id)
 	{
 		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
-			if ($this->datos['info_ci_me_pantalla'][$i]['pantalla'] === $id) {
+			if ((string) $this->datos['info_ci_me_pantalla'][$i]['pantalla'] === (string) $id) {
 				return new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],
 											$this->subelementos, $this->proyecto, $this->id);
 			}
@@ -196,7 +196,7 @@ class info_ci extends info_ei
 						}
 					}
 					//Metodo de CARGA!
-					$m = 'evt__' . $rol . '__carga';
+					$m = 'conf__' . $rol;
 					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
 					$comentario_carga = $elemento->get_comentario_carga();
 					if($comentario_carga) {
