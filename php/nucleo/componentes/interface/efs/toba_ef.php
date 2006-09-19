@@ -11,6 +11,7 @@ require_once("toba_ef_popup.php");
 require_once("toba_ef_sin_estado.php");
 require_once("toba_ef_upload.php");
 require_once("toba_ef_varios.php");
+require_once("toba_ef_cuit.php");
 
 /**
  * Clase base de los elementos de formulario. 
@@ -373,11 +374,9 @@ abstract class toba_ef
 	{
    		if(isset($estado)){								
     		$this->estado=$estado;
-			return true;
 	    } else {
 	    	$this->estado = null;	
 	    }
-	    return false;
 	}
 
 	function cargar_estado_post()

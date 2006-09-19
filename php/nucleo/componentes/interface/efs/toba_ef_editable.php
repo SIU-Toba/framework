@@ -78,7 +78,6 @@ class toba_ef_editable extends toba_ef
 	{
    		if(isset($estado)){								
     		$this->estado=trim($estado);
-			return true;
 	    } else {
 	    	$this->estado = null;	
 	    }

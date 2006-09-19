@@ -22,6 +22,7 @@ INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, p
 no_seteado: Valor que representa el estado de NO activado: opcional;', 'toba', NULL, '1');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_combo_lista_c', 'ef_combo', 'Combo basado en una lista explicita', 'lista: Los pares se separan por \"/\" y la clave/valor se separa por \",\": obligatorio;
 no_seteado: Valor que representa el estado de NO activado: opcional;', 'toba', NULL, '1');
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_cuit', 'ef', 'CUIT/CUIL', NULL, 'toba', '0', '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable', 'ef', 'Campo de texto editable', 'tamano: Cantidad de caracteres que posee la interface: obligatorio;
 maximo: Maxima cantidad de caracteres soportada (Si no se especifica es igual al tamaño): opcional;
 estado: Cargar el elemento con un estado: opcional;
