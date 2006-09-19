@@ -21,6 +21,9 @@ class toba_ef_cuit extends toba_ef
    			$this->estado =  str_pad(trim($_POST[$this->id_form . "_1"]), 2, '0', STR_PAD_LEFT) .
    							 str_pad(trim($_POST[$this->id_form . "_2"]), 8, '0', STR_PAD_LEFT) . 
    							 trim($_POST[$this->id_form . "_3"]);
+   			if ($this->estado == 0) {
+   				$this->estado = '';	
+   			}
   		}
 	}
 	

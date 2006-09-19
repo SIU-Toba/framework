@@ -30,9 +30,13 @@ def.constructor = ef_cuit;
 	}	
 	
 	def.get_estado = function() {
-		return  this.input(1).value.pad(2, '0', 0) + 
-				this.input(2).value.pad(8, '0', 0) + 
-				this.input(3).value;
+		var estado = 	this.input(1).value.pad(2, '0', 0) + 
+						this.input(2).value.pad(8, '0', 0) + 
+						this.input(3).value;
+		if (estado == 0) {
+			return '';	
+		}
+		return estado;
 	}	
 	
 	def.set_estado = function(nuevo,posicion) {

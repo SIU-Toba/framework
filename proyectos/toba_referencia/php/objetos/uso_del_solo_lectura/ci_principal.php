@@ -58,7 +58,8 @@ class ci_principal extends toba_ci
 						array('2','3'),
 				    'popup' => '2',
 				    'upload' => 'Nombre del archivo.jpg',
-				    'radio' => '2'
+				    'radio' => '2',
+				    'cuit' => '20055121711'
 				  );		
 	}
 	//------------------------------------------------------------------------
