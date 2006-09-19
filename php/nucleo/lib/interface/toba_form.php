@@ -166,7 +166,7 @@ class toba_form
         }else{
             $enctype="application/x-www-form-urlencoded";
         }
-        return  "\n<form  enctype='$enctype' name='$nombre' onsubmit='return false;' method='$method' action='$action' $extra>\n";
+        return  "\n<form  enctype='$enctype' name='$nombre' method='$method' action='$action' $extra>\n";
     }
 
     static function cerrar()

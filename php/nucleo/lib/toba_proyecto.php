@@ -237,7 +237,7 @@ class toba_proyecto
 	{
 		$rest = "";
 		if ($solo_primer_nivel) {
-			$rest = " AND i.padre = '' ";
+			$rest = " AND i.padre = '__raiz__' ";
 		}
 		if (!isset($proyecto)) {
 			$proyecto = self::get_id();
@@ -255,7 +255,7 @@ class toba_proyecto
 				WHERE
 					(i.menu = 1)
 				AND	(u.usuario_grupo_acc = '$grupo_acceso' OR i.publico = 1)
-				AND (i.item <> '')
+				AND (i.item <> '__raiz__')
 				$rest
 				AND		(i.proyecto = '$proyecto')
 				ORDER BY i.padre,i.orden;";

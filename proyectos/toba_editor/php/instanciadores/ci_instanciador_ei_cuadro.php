@@ -23,15 +23,6 @@ class ci_instanciador_ei_cuadro extends ci_instanciadores
 		$this->informar_msg("Selección:\n ".var_export($claves, true));
 	}
 	
-	function obtener_html_contenido__simulacion()
-	{
-		if (isset($this->datos)) {
-			ei_arbol($this->datos, "Datos actuales");	
-		}
-		$this->obtener_html_dependencias();
-	}
-	
-
 }
 
 ?>
