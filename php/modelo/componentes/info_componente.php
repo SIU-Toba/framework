@@ -258,9 +258,13 @@ class info_componente implements recorrible_como_arbol, meta_clase
 	{
 		$iconos = array();
 		if (isset($this->datos['info']['subclase_archivo'])) {
-			// Administracion de la Subclase PHP
-			$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
-			$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+			// Administracion de la Subclase PHP}
+			if (admin_util::existe_archivo_subclase($this->datos['info']['subclase_archivo'])) {
+				$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
+			} else {
+				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'php_inexistente.gif', false);
+			}
 		}
 		if (isset($this->datos['info']['clase_editor_proyecto'])) {
 			// Instanciador
@@ -348,7 +352,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		);
 	}
 
-	static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'php.gif')
+	static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'php.gif', $plegado = true)
 	{
 		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);//validar' => false,
@@ -356,7 +360,7 @@ class info_componente implements recorrible_como_arbol, meta_clase
 		return array( 'imagen' => toba_recurso::imagen_apl($icono, false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
 				'vinculo' => $vinculo,
-				'plegado' => true
+				'plegado' => $plegado
 		);		
 	}
 

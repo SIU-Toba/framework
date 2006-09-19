@@ -23,7 +23,7 @@ class info_ei_cuadro extends info_ei
 
 	function get_comentario_carga()
 	{
-		return "	!#c3//El formato del retorno debe ser array( array('columna' => valor, ...), ...)";
+		return "/El formato del retorno debe ser array( array('columna' => valor, ...), ...)";
 	}
 
 	//-- Generacion de metadatos

@@ -13,6 +13,8 @@ class clase_php
 	protected $padre_nombre;
 	protected $archivo_padre_nombre;
 	protected $meta_clase;				//la clase que conoce el contenido de la clase que se esta editando
+	//Opciones de generacion
+	protected $opciones_generacion;	
 	
 	function __construct($nombre, $archivo, $clase_padre_nombre, $archivo_padre_nombre)
 	{
@@ -72,21 +74,23 @@ class clase_php
 	*/
 	function generar($opciones)
 	{
+		//echo "<br><br><pre style='background-color: white'>" . $this->generar_clase($opciones) . "</pre>";
+		//return;
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
 		$this->archivo->edicion_inicio();
 		$this->archivo->insertar_al_final($this->generar_clase($opciones));
-		$this->archivo->edicion_fin();	
+		$this->archivo->edicion_fin();
 	}
 	
 	function generar_clase($opciones)
 	{
 		//Incluir el código que hace la subclase
 		$codigo = '';
-		if ( ! $this->archivo->esta_vacio() ) {
+		/*if ( ! $this->archivo->esta_vacio() ) {
 			$codigo .= $this->separador_clases();
-		}
+		}*/
 		$codigo .= "class {$this->nombre} extends {$this->padre_nombre}\n{\n";
 		$codigo .= $this->generar_cuerpo_clase($opciones) ."\n";		
 		$codigo .= "}\n";
@@ -95,32 +99,53 @@ class clase_php
 
 	function generar_cuerpo_clase($opciones)
 	{
-		//Analizo que secciones/bloques se van a utilizar
-		
-		//Creo la clase
 		$clase = '';
 		if(is_array($opciones)) {
-			//ei_arbol($opciones);
+			$this->registrar_opciones_generacion($opciones);
 			$plan = $this->meta_clase->get_plan_construccion_metodos();
 			foreach( $plan as $id_seccion => $seccion ) {
-				if(isset($seccion['desc'])) $clase .= $this->separador_seccion_grande($seccion['desc']);
+					//----------- JAVASCRIPT -----------------
 				if($id_seccion == 'javascript') {
-					$clase .= "\tfunction extender_objeto_js()\n\t{\n";
-					$clase .= "\t\techo \"";
+					$js[] = "echo \"";
 					foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
-						if(isset($bloque['desc'])) $clase .= $this->separador_seccion_grande($bloque['desc']);
+						$funcion_js = array();
 						foreach( $bloque['metodos'] as $id_metodo => $metodo) {
-							if(isset($metodo['detalle'])) $clase .= $metodo['detalle'];
+							if ($this->metodo_incluido($id_seccion, $id_bloque, $id_metodo) ) {
+								$funcion_js = array_merge($funcion_js, $this->generar_metodo_js($id_metodo, $metodo['parametros']));
+								$funcion_js[] = '';
+							}
+						}
+						if ( count($funcion_js) > 0 ) {
+							if(isset($bloque['desc'])) {
+								$js[] = $this->separador_seccion_js($bloque['desc']);	
+								$js[] = '';
+							}
+							$js = array_merge($js, $funcion_js);
 						}
 					}
-					$clase .= "\n\t\t\";\n";
-					$clase .= "\t}\n";
+					$js[] = "\";";
+					if( count($js) > 2 ) { //Se genero al menos uno?
+						if(isset($seccion['desc'])) $clase .= $this->separador_seccion_grande($seccion['desc']);
+						$clase .= $this->generar_metodo_php('extender_objeto_js', array(), $js);
+					}
 				} else {
+					//----------- PHP -------------------------
+					$temp_seccion = '';
 					foreach( $seccion['bloque'] as $id_bloque => $bloque ) {
-						if(isset($bloque['desc'])) $clase .= $this->separador_seccion_grande($bloque['desc']);
+						$temp_bloque = '';
 						foreach( $bloque['metodos'] as $id_metodo => $metodo) {
-							$clase .= $this->generar_metodo($id_metodo);
+							if ($this->metodo_incluido($id_seccion, $id_bloque, $id_metodo) ) {
+								$temp_bloque .= $this->generar_metodo_php($id_metodo, $metodo['parametros'], array(), $metodo['comentarios'] );
+							}
 						}
+						if($temp_bloque != '') {
+							if(isset($bloque['desc'])) $temp_bloque = $this->separador_seccion_chica($bloque['desc']) . $temp_bloque;
+						}
+						$temp_seccion .= $temp_bloque;
+					}
+					if($temp_seccion != '') {
+						if(isset($seccion['desc'])) $clase .= $this->separador_seccion_grande($seccion['desc']);
+						$clase .= $temp_seccion;
 					}
 				}
 			}
@@ -128,12 +153,32 @@ class clase_php
 		return $clase;
 	}
 	
+	function registrar_opciones_generacion($opciones)
+	{
+		$this->opciones_generacion = $opciones;	
+	}
+	
+	function metodo_incluido($seccion, $bloque, $metodo) {
+		$id = $seccion .toba_clase_php_separador. $bloque .toba_clase_php_separador. $metodo;
+		return in_array($id, $this->opciones_generacion);
+	}
+	
 	//---------------------------------------------------------------------------------
 	//----  Utilerías de formateo para la generación  ---------------------------------
 	//---------------------------------------------------------------------------------
 
-	static function generar_metodo($nombre, $parametros=null, $contenido='',$comentarios='')
+	static function generar_metodo_php($nombre,$parametros=array(),$contenido=array(),$comentarios=array())
 	{
+		if(!is_array($comentarios)){
+			throw new toba_error("Error en el metodo: $nombre. Los comentarios debern ser un array");	
+		}
+		if(!is_array($parametros)){
+			throw new toba_error("Error en el metodo: $nombre. Los parametros debern ser un array");	
+		}
+		if(!is_array($contenido)){
+			throw new toba_error("Error en el metodo: $nombre. El contenido debe ser un array");	
+		}
+		$identado = "\t";
 		//Armo parametros
 		$php_parametros = '';
 		if(is_array($parametros)){
@@ -143,11 +188,37 @@ class clase_php
 			$php_parametros = implode(', ',$parametros);
 		}
 		//Armo la funcion
-		$funcion = "\tfunction $nombre($php_parametros)";
-		if($comentarios!='') $funcion .= "\n" . $comentarios;
-		$funcion .= "\n\t{\n";
-		$funcion .= $contenido;
-		$funcion .= "\t}\n\n";
+		$funcion = '';
+		foreach($comentarios as $fila) {
+			$funcion .= "$identado//$fila\n";
+		}
+		$funcion = "${identado}function $nombre($php_parametros)\n";
+		$funcion .= "$identado{\n";
+		foreach($contenido as $fila) {
+			$funcion .= "$identado\t$fila\n";
+		}
+		$funcion .= "$identado}\n\n";
+		return $funcion;
+	}
+
+	static function generar_metodo_js($nombre,$parametros=array(),$contenido=array(),$comentarios=array())
+	{
+		//Armo parametros
+		$js_parametros = '';
+		if(is_array($parametros)){
+			$js_parametros = implode(', ',$parametros);
+		}
+		//Armo la funcion
+		$funcion = array();
+		foreach($comentarios as $fila) {
+			$funcion[] = "$fila";
+		}
+		$funcion[] = "{\$this->objeto_js}.$nombre = function($js_parametros)";
+		$funcion[] = "{";
+		foreach($contenido as $fila) {
+			$funcion[] = "\t$fila";
+		}
+		$funcion[] = "}";
 		return $funcion;
 	}
 
@@ -166,7 +237,12 @@ class clase_php
 		return  "\t//-------------------------------------------------------------------\n".
 				"\t//--- $nombre\n".
 				"\t//-------------------------------------------------------------------\n\n";
-	}	
+	}
+	
+	static function separador_seccion_js($nombre)
+	{
+		return "//---- $nombre -----------------------------------------";
+	}
 
 	//---------------------------------------------------------------
 	//-- Analisis de codigo

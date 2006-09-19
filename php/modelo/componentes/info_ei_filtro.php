@@ -1,17 +1,12 @@
 <?php
-require_once('info_ei.php');
+require_once('info_ei_formulario.php');
 
-class info_ei_filtro extends info_ei
+class info_ei_filtro extends info_ei_formulario
 {
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
-	function get_comentario_carga()
-	{
-		return "	!#c3//El formato del retorno debe ser array('id_ef' => \$valor, ...)";
-	}
-	
 	//-- Generacion de metadatos
 
 	static function get_modelos_evento()

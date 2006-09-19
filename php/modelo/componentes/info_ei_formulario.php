@@ -7,9 +7,39 @@ class info_ei_formulario extends info_ei
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
+	function get_plan_construccion_metodos()
+	{
+		$plan = array();
+
+		//***************** JAVASCRIPT *****************
+		$plan['javascript']['desc'] = 'JAVASCRIPT';
+		//Eventos
+		if (count($this->eventos_predefinidos()) > 0) {
+			$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
+			$plan['javascript']['bloque'][0]['metodos'] = array();
+			foreach ($this->eventos_predefinidos() as $evento => $info) {
+				if( !$info['info']['implicito'] ) {	//Excluyo los implicitos
+					$m = 'evt__' . $evento;
+					$plan['javascript']['bloque'][0]['metodos'][$m] = array();
+					$plan['javascript']['bloque'][0]['metodos'][$m]['parametros'] = array();
+				}
+			}
+		}
+		//Procesamiento de EFs
+		if(count($this->datos['info_formulario_ef'])) {
+			$plan['javascript']['bloque'][1]['desc'] = 'Procesamiento de EFs';
+			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
+				$m = 'evt__' . $info['identificador'] . '__procesar';
+				$plan['javascript']['bloque'][1]['metodos'][$m] = array();
+				$plan['javascript']['bloque'][1]['metodos'][$m]['parametros'] = array('es_inicial');
+			}
+		}
+		return $plan;
+	}
+
 	function get_comentario_carga()
 	{
-		return "	!#c3//El formato del retorno debe ser array('id_ef' => \$valor, ...)";
+		return "El formato del retorno debe ser array('id_ef' => \$valor, ...)";
 	}
 
 	//-- Generacion de metadatos
@@ -73,6 +103,5 @@ class info_ei_formulario extends info_ei
 		}
 		return $evento;
 	}
-	
 }
 ?>

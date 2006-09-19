@@ -27,7 +27,7 @@ class info_ei_formulario_ml extends info_ei
 
 	function get_comentario_carga()
 	{
-		return "	!#c3//El formato debe ser una matriz array('id_fila' => array('id_ef' => valor, ...), ...)";
+		return "El formato debe ser una matriz array('id_fila' => array('id_ef' => valor, ...), ...)";
 	}
 
 	//-- Generacion de metadatos

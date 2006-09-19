@@ -4,11 +4,6 @@ require_once('info_ci_pantalla.php');
 
 class info_ci extends info_ei
 {
-	function get_id_objeto_js()
-	{
-		return 'js_ci_' . $this->id;		
-	}
-
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
@@ -155,39 +150,46 @@ class info_ci extends info_ei
 	function get_plan_construccion_metodos()
 	{
 		$plan = array();
-
+		//**************** PROPIOS ****************
 		//Inicializacion
 		$plan['ini']['desc'] = 'INICIALIZACION';
-		$plan['ini']['bloque'][0]['metodos']['ini'] = array();
-		$plan['ini']['bloque'][0]['metodos']['ini_operacion'] = array();
-
+		$plan['ini']['bloque'][0]['metodos']['ini'] = array('comentarios'=>array(), 'parametros'=>array());
+		$plan['ini']['bloque'][0]['metodos']['ini_operacion'] = array('comentarios'=>array(), 'parametros'=>array());
 		//Configuracion general
 		$plan['conf']['desc'] = 'CONFIGURACION';
-		$plan['conf']['bloque'][0]['metodos']['conf'] = array();
+		$plan['conf']['bloque'][0]['metodos']['conf'] = array('comentarios'=>array(), 'parametros'=>array());
 		//Configuracion de pantallas
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$plan['conf']['bloque'][0]['metodos']['conf__' . $pantalla['identificador']] = array();
+			$plan['conf']['bloque'][0]['metodos']['conf__' . $pantalla['identificador']] = array('comentarios'=>array(), 'parametros'=>array());
 		}
-
 		//Eventos propios
 		if (count($this->eventos_predefinidos()) > 0) {
 			$plan['evt_propios']['desc'] = 'EVENTOS';
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array();
+				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array('comentarios'=>array(), 'parametros'=>array());
 			}
 		}
-		
-		//Eventos de las dependencias
+		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
 			$plan['evt_deps']['desc'] = 'DEPENDENCIAS';
 			foreach ($this->subelementos as $id => $elemento) {
 				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
+					$plan['evt_deps']['bloque'][$id]['desc'] = $rol;
+					//Metodo de CONFIGURACION!
+					$m = 'conf__' . $rol;
+					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
+					$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'][] = 'componente';
+					$comentario_carga = $elemento->get_comentario_carga();
+					if($comentario_carga) {
+						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'][] = $comentario_carga;
+					}else{
+						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = array();
+					}
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {
-						$plan['evt_deps']['bloque'][$id]['desc'] = $rol;
 						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
 							$m = 'evt__' . $rol . '__' .$evento;
 							$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
@@ -198,25 +200,24 @@ class info_ci extends info_ei
 					//Metodo de CARGA!
 					$m = 'conf__' . $rol;
 					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
+					$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'][] = 'componente';
 					$comentario_carga = $elemento->get_comentario_carga();
 					if($comentario_carga) {
-						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = $comentario_carga;
+						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'][] = $comentario_carga;
+					}else{
+						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = array();
 					}
 				}
 			}
 		}
-
-		//Eventos propios JS
+		//***************** JAVASCRIPT *****************
 		if (count($this->eventos_predefinidos()) > 0) {
 			$plan['javascript']['desc'] = 'EVENTOS JAVASCRIPT';
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$id_js = $this->get_id_objeto_js();
 				$m = 'evt__' . $evento;
 				$plan['javascript']['bloque'][0]['metodos'][$m] = array();
-				$plan['javascript']['bloque'][0]['metodos'][$m]['detalle'] = "
-			{$id_js}.$m = function() {
-			}\n";
-		}
+				$plan['javascript']['bloque'][0]['metodos'][$m]['parametros'] = array();
+			}
 		}
 		return $plan;
 	}
