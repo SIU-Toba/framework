@@ -16,5 +16,10 @@ class componente_ei_calendario extends componente_ei
 	{
 		return "Calendario";		
 	}
+
+	static function get_nombre_clase_info()
+	{
+		return 'info_ei_calendario';
+	}
 }
 ?>

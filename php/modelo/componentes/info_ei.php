@@ -38,6 +38,17 @@ class info_ei extends info_componente
 		//ei_arbol($eventos);
 		return $eventos;
 	}
+
+	function eventos_sobre_fila()
+	{
+		$eventos_sobre_fila = array();
+		foreach ($this->eventos_predefinidos() as $evento => $info) {
+			if( isset($info['info']) && !$info['info']['implicito'] && $info['info']['sobre_fila']) {
+				$eventos_sobre_fila[$evento] = $info;
+			}
+		}				
+		return $eventos_sobre_fila;
+	}
 	
 	function get_comentario_carga()
 	{
@@ -60,5 +71,36 @@ class info_ei extends info_componente
 		return $evento;
 	}	
 	
+	//-- Primitivas para la construccion de clases -------------------------------------------
+
+	function get_plan_construccion_eventos_js()
+	{
+		$plan = array();
+		foreach ($this->eventos_predefinidos() as $evento => $info) {
+			//$info['info'] no esta seteado en los eventos predefinidos agregados a mano
+			if( isset($info['info']) && !$info['info']['implicito'] ) {	//Excluyo los implicitos
+				// Atrapar evento en JS
+				if ($info['info']['accion'] == 'V') { //Vinculo
+					$m = 'modificar_vinculo__' . $evento;
+					$plan[$m]['parametros'] = array('id_vinculo');
+				} else {
+					$m = 'evt__' . $evento;
+					$plan[$m]['parametros'] = array();
+				}
+			}
+		}
+		return $plan;
+	}	
+
+	function get_plan_construccion_eventos_sobre_fila()
+	{
+		$plan = array();
+		foreach ($this->eventos_sobre_fila() as $evento => $info) {
+				$m = 'conf_evt__' . $evento;
+				$plan[$m]['parametros'] = array('evento', 'fila');
+				$plan[$m]['comentarios'] = array();
+		}
+		return $plan;
+	}
 }
 ?>

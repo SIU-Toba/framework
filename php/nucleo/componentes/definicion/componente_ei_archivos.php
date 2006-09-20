@@ -16,5 +16,10 @@ class componente_ei_archivos extends componente_ei
 	{
 		return "Archivos";		
 	}
+
+	static function get_nombre_clase_info()
+	{
+		return 'info_ei_archivos';
+	}
 }
 ?>

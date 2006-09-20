@@ -1,24 +1,37 @@
 <?php
-require_once('info_ei.php');
+require_once('info_ei_formulario.php');
 
-class info_ei_formulario_ml extends info_ei
+class info_ei_formulario_ml extends info_ei_formulario
 {
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
+	function get_plan_construccion_metodos()
+	{
+		$plan['php']['bloque'][0]['desc'] = 'Config. EVENTOS sobre fila';
+		$plan['php']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_sobre_fila();
+		$plan = array_merge( $plan, parent::get_plan_construccion_metodos(true) );
+		return $plan;
+	}
+	
 	function eventos_predefinidos()
 	{
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->tipo_analisis() == 'EVENTOS') {
 			$eventos['registro_alta']['parametros'] = array('id_fila', 'datos');
-			$eventos['registro_alta']['comentarios'] = "	!#c3//El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_alta']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
 			$eventos['registro_baja']['parametros'] = array('id_fila');
-			$eventos['registro_baja']['comentarios'] = "	!#c3//El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_baja']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
 			$eventos['registro_modificacion']['parametros'] = array('id_fila', 'datos');
-			$eventos['registro_modificacion']['comentarios'] = "	!#c3//El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
+			$eventos['registro_modificacion']['comentarios'] = "El \$id_fila es la clave de la fila en el arreglo asociativo retornado en la modificación";
 		}
 		return $eventos;
+	}
+	
+	function agregar_online()
+	{
+		return ($this->datos['info_formulario']['filas_agregar_online'] == true);
 	}
 	
 	function tipo_analisis() {

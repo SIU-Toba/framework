@@ -213,11 +213,7 @@ class info_ci extends info_ei
 		//***************** JAVASCRIPT *****************
 		if (count($this->eventos_predefinidos()) > 0) {
 			$plan['javascript']['desc'] = 'EVENTOS JAVASCRIPT';
-			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$m = 'evt__' . $evento;
-				$plan['javascript']['bloque'][0]['metodos'][$m] = array();
-				$plan['javascript']['bloque'][0]['metodos'][$m]['parametros'] = array();
-			}
+			$plan['javascript']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_js();
 		}
 		return $plan;
 	}

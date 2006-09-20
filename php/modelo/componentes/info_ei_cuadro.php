@@ -7,12 +7,23 @@ class info_ei_cuadro extends info_ei
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
+	function get_plan_construccion_metodos()
+	{
+		$plan['php']['bloque'][0]['desc'] = 'Config. EVENTOS sobre fila';
+		$plan['php']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_sobre_fila();
+		if (count($this->eventos_predefinidos()) > 0) {
+			$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
+			$plan['javascript']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_js();
+		}
+		return $plan;
+	}
+
 	function eventos_predefinidos()
 	{
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->ordenable()){
 			$eventos['ordenar']['parametros'] = array('columna','sentido');
-			$eventos['ordenar']['comentarios'] = "	!#c3//\$sentido puede ser \"des\" o \"asc\"";
+			$eventos['ordenar']['comentarios'] = "\$sentido puede ser \"des\" o \"asc\"";
 		}
 		return $eventos;
 	}
@@ -23,7 +34,7 @@ class info_ei_cuadro extends info_ei
 
 	function get_comentario_carga()
 	{
-		return "/El formato del retorno debe ser array( array('columna' => valor, ...), ...)";
+		return "El formato del retorno debe ser array( array('columna' => valor, ...), ...)";
 	}
 
 	//-- Generacion de metadatos

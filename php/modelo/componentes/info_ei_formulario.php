@@ -7,31 +7,34 @@ class info_ei_formulario extends info_ei
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
-	function get_plan_construccion_metodos()
+	function get_plan_construccion_metodos($multilinea=false)
 	{
 		$plan = array();
-
 		//***************** JAVASCRIPT *****************
 		$plan['javascript']['desc'] = 'JAVASCRIPT';
-		//Eventos
+		//-- Validacion general
+		$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
+		$plan['javascript']['bloque'][0]['metodos']['evt__validar_datos']['parametros'] = array();
+		//-- Eventos
 		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
-			$plan['javascript']['bloque'][0]['metodos'] = array();
-			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				if( !$info['info']['implicito'] ) {	//Excluyo los implicitos
-					$m = 'evt__' . $evento;
-					$plan['javascript']['bloque'][0]['metodos'][$m] = array();
-					$plan['javascript']['bloque'][0]['metodos'][$m]['parametros'] = array();
-				}
-			}
+			$plan['javascript']['bloque'][1]['desc'] = 'Eventos';
+			$plan['javascript']['bloque'][1]['metodos'] = $this->get_plan_construccion_eventos_js();
 		}
-		//Procesamiento de EFs
 		if(count($this->datos['info_formulario_ef'])) {
-			$plan['javascript']['bloque'][1]['desc'] = 'Procesamiento de EFs';
+			//-- Procesamiento de EFs
+			$plan['javascript']['bloque'][2]['desc'] = 'Procesamiento de EFs';
 			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
 				$m = 'evt__' . $info['identificador'] . '__procesar';
-				$plan['javascript']['bloque'][1]['metodos'][$m] = array();
-				$plan['javascript']['bloque'][1]['metodos'][$m]['parametros'] = array('es_inicial');
+				$parametros = array('es_inicial');
+				if($multilinea) $parametros[] = 'fila';
+				$plan['javascript']['bloque'][2]['metodos'][$m]['parametros'] = $parametros;
+			}
+			//-- Validacion de EFs
+			$plan['javascript']['bloque'][3]['desc'] = 'Validacion de EFs';
+			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
+				$m = 'evt__' . $info['identificador'] . '__validar';
+				$parametros = $multilinea ? array('fila') : array();
+				$plan['javascript']['bloque'][3]['metodos'][$m]['parametros'] = $parametros;
 			}
 		}
 		return $plan;

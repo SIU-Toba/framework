@@ -17,6 +17,9 @@ class componente_ei_arbol extends componente_ei
 		return "Árbol";		
 	}
 	
-
+	static function get_nombre_clase_info()
+	{
+		return 'info_ei_arbol';
+	}
 }
 ?>
