@@ -1,6 +1,6 @@
 <?php
 require_once('modelo/consultas/dao_editores.php');
-require_once('modelo/componentes/interfaces.php');
+require_once("nucleo/componentes/interface/interfaces.php");
 
 class catalogo_objetos
 {

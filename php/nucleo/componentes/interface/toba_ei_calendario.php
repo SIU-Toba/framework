@@ -56,6 +56,10 @@ class toba_ei_calendario extends toba_ei
 		parent::destruir();
 	}
 
+	/**
+	 * Carga el calendario con información
+	 * @param array $datos Arreglo en formato Recordset con columnas: dia, contenido
+	 */
     function set_datos($datos=null)
     {
 		if (isset($datos)) {
@@ -67,22 +71,19 @@ class toba_ei_calendario extends toba_ei
     	}
 	}
 	
+	/**
+	 * Habilita o deshabilita la posibilidad de ver los contenidos de los eventos
+	 * @param boolean $ver
+	 */
 	function set_ver_contenidos($ver)
 	{
 		$this->ver_contenidos = $ver;
-		if ($ver)
+		if ($ver) {
 			$this->calendario->viewEventContents();
-
+		}
 	}
 	
-	function recuperar_interaccion()
-	{
-		$this->cargar_seleccion_dia();
-		$this->cargar_seleccion_semana();
-		$this->cargar_cambio_mes();
-	}
-	
-	function cargar_seleccion_dia()
+	protected function cargar_seleccion_dia()
 	{
 		$this->dia_seleccionado = null;
 		if (isset($this->memoria['dia_seleccionado']))
@@ -101,7 +102,7 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
-	function cargar_seleccion_semana()
+	protected function cargar_seleccion_semana()
 	{
 		$this->semana_seleccionada = null;
 		if (isset($this->memoria['semana_seleccionada']))
@@ -118,7 +119,7 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
-	function cargar_cambio_mes()
+	protected function cargar_cambio_mes()
 	{
 		if (isset($this->memoria['mes_actual']))
 			$this->mes_actual = $this->memoria['mes_actual'];
@@ -132,13 +133,6 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
-	function agregar_observador($observador)
-	{
-		$this->observadores[] = $observador;
-	}
-
-	function eliminar_observador($observador){}
-
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
@@ -149,7 +143,9 @@ class toba_ei_calendario extends toba_ei
 	
 	function disparar_eventos()
 	{
-		$this->recuperar_interaccion();
+		$this->cargar_seleccion_dia();
+		$this->cargar_seleccion_semana();
+		$this->cargar_cambio_mes();
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
 			$evento = $_POST[$this->submit];	
 			//El evento estaba entre los ofrecidos?
@@ -179,8 +175,7 @@ class toba_ei_calendario extends toba_ei
 		$this->calendario->enableDayLinks();
 		$this->calendario->enableWeekLinks();
 
-		$out = $this->calendario->showMonth($this->objeto_js, $this->eventos);
-		echo $out;
+		echo $this->calendario->showMonth($this->objeto_js, $this->eventos);
 	}
 	
 	function getActYear()
@@ -193,6 +188,10 @@ class toba_ei_calendario extends toba_ei
 		return $this->calendario->actmonth;
 	}
 	
+	/**
+	 * Retorna el contenido extra asociado a un día
+	 * @param timestamp $dia
+	 */
 	function get_contenido($dia)
 	{
 		$datos = $this->calendario->getEventContent($dia);
@@ -222,8 +221,7 @@ class toba_ei_calendario extends toba_ei
 
 
 /**
- * Clase interna de calendario
- *
+ * Clase interna de calendario que utiliza activecalendar
  * @package Varios
  */
 class calendario extends activecalendar

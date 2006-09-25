@@ -84,11 +84,11 @@
       {/if}
       
 {if $hastodos}
-  <div class="package">
+ <!-- <div class="package">
 	<div id="todolist">
 			<p><a href="{$subdir}{$todolink}">Todo List</a></p>
 	</div>
-	</div>
+	</div> -->
 {/if}
 	<div id="topdiv">
 			<p><a href="javascript:scroll(0,0)">Subir</a></p>

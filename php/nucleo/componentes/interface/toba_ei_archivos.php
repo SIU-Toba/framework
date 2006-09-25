@@ -9,10 +9,11 @@ require_once("lib/manejador_archivos.php");
  */
 class toba_ei_archivos extends toba_ei
 {
-	protected $prefijo = 'arch';	
 	protected $dir_actual;
-	protected $path_relativo_inicial;
+	protected $path_absoluto;
 	protected $filtro;
+	protected $extensiones = array('php');
+	protected $ocultos = array('.svn');
 
     function __construct($id)
     {
@@ -20,17 +21,15 @@ class toba_ei_archivos extends toba_ei
 		if (isset($this->memoria['dir_actual'])) {
 			$this->dir_actual = $this->memoria['dir_actual'];
 		}
-		if (isset($this->memoria['path_relativo_inicial'])) {
-			$this->path_relativo_inicial = $this->memoria['path_relativo_inicial'];
+		if (isset($this->memoria['path_absoluto'])) {
+			$this->path_absoluto = $this->memoria['path_absoluto'];
 		}		
-		$this->extensiones = array("php");
-		$this->ocultos = array(".svn");
 	}
 	
 	function destruir()
 	{
 		$this->memoria['dir_actual'] = $this->dir_actual;
-		$this->memoria['path_relativo_inicial'] = $this->path_relativo_inicial;
+		$this->memoria['path_absoluto'] = $this->path_absoluto;
 		parent::destruir();
 	}
 
@@ -54,8 +53,8 @@ class toba_ei_archivos extends toba_ei
 					case 'ir_a_carpeta':
 						$seleccion = $this->dir_actual."/$parametros";						
 						//--- Chequeo de seguridad
-						if (isset($this->path_relativo_inicial)) {
-							if (strpos(realpath($seleccion), realpath($this->path_relativo_inicial)) !== 0) {
+						if (isset($this->path_absoluto)) {
+							if (strpos(realpath($seleccion), realpath($this->path_absoluto)) !== 0) {
 							   throw new toba_error("El path es invalido");
 							}				
 						}
@@ -78,30 +77,44 @@ class toba_ei_archivos extends toba_ei
 		}
 	}
 	
-	function path_relativo()
+	function get_path_relativo()
 	{
-		if (! isset($this->path_relativo_inicial))
+		if (! isset($this->path_absoluto))
 			return $this->dir_actual;
-		$pos = strlen($this->path_relativo_inicial);
+		$pos = strlen($this->path_absoluto);
 		$relativo = substr($this->dir_actual, $pos);
 		return $relativo;
-	}
-
-	/*
-	*	El listado de archivos comienza desde este directorio y la respuesta tambien sera analizada en este contexto
-	*/	
-	function set_path_relativo_inicial($dir)
+	}	
+	
+	/**
+	 * El listado de archivos comienza desde este directorio y la respuesta tambien sera analizada en este contexto
+	 * @param string $dir Path absoluto del que sera la base de todos los paths relativos
+	 */
+	function set_path_absoluto($dir)
 	{
-		$this->path_relativo_inicial = $dir;
+		$this->path_absoluto = $dir;
 		if (!isset($this->dir_actual))
 			$this->dir_actual = $dir;
 	}
 	
+	/**
+	 * Cambia el directorio actual dentro del path absoluto inicial
+	 * @param string $path Path relativo
+	 */
 	function set_path($path)
 	{
-		$this->dir_actual = $this->path_relativo_inicial.$path;
+		$this->dir_actual = $this->path_absoluto.$path;
 	}
 
+	/**
+	 * Cambia el conjunto de extensiones permitidas en la visualización
+	 * @param array $extensiones
+	 */
+	function set_extensiones_validas($extensiones)
+	{
+		$this->extensiones = $extensiones;	
+	}
+	
 	function generar_html()
 	{
 		echo toba_form::hidden($this->submit, '');
@@ -114,8 +127,8 @@ class toba_ei_archivos extends toba_ei
 
 		//Es el directorio relativo inicial?
 		$es_el_relativo = false;
-		if (isset($this->path_relativo_inicial)) {
-			$es_el_relativo = (realpath($this->path_relativo_inicial) == realpath($this->dir_actual));
+		if (isset($this->path_absoluto)) {
+			$es_el_relativo = (realpath($this->path_absoluto) == realpath($this->dir_actual));
 		}
 		//Filtra Archivos y directorios
 		while(($archivo = readdir($dir)) !== false)  
@@ -181,11 +194,9 @@ class toba_ei_archivos extends toba_ei
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		$path = addslashes($this->path_relativo());
+		$path = addslashes($this->get_path_relativo());
 		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
 	}
-
-	//-------------------------------------------------------------------------------
 
 	function get_consumo_javascript()
 	{

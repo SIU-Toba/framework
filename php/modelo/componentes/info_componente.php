@@ -1,11 +1,12 @@
-<?
+<?php
+require_once("nucleo/componentes/interface/interfaces.php");
 require_once("interfaces.php");
 require_once("lib/manejador_archivos.php");
 require_once("lib/reflexion/clase_php.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 
-class info_componente implements recorrible_como_arbol, meta_clase
+class info_componente implements toba_nodo_arbol, meta_clase
 {
 	protected $datos;
 	protected $consumidor = null;				//elemento_toba que consume el elemento

@@ -167,7 +167,9 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
 		$this->pre_eventos();
-		$this->recuperar_interaccion();
+		foreach ($this->lista_ef as $ef){
+			$this->elemento_formulario[$ef]->cargar_estado_post();
+		}		
 		$datos = $this->get_datos();
 		$validado = false;
 		//Veo si se devolvio algun evento!
@@ -191,13 +193,6 @@ class toba_ei_formulario extends toba_ei
 			}
 		}
 		$this->post_eventos();
-	}
-
-	function recuperar_interaccion()
-	{
-		foreach ($this->lista_ef as $ef){
-			$this->elemento_formulario[$ef]->cargar_estado_post();
-		}
 	}
 
 	function validar_estado()

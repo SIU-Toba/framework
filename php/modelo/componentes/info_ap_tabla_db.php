@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("interfaces.php");
 
 class info_ap_tabla_db implements meta_clase

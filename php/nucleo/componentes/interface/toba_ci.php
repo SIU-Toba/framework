@@ -5,7 +5,7 @@ require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
 require_once('nucleo/lib/toba_parser_ayuda.php');
 
 /**
- * Controlador de Interface (ci): Componente responsable de manejar las pantallas y sus distintos elementos
+ * Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
  * 
  * Este componente puede mantener sus propiedades en sesion con solo prefijar los nombres de variables con s__ (por ej. protected $s__cuit )
  * @package Componentes
@@ -39,6 +39,10 @@ class toba_ci extends toba_ei
 		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
+	/**
+	 * Extensión de la construcción del componente
+	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
+	 */	
 	protected function preparar_componente(){}
 
 	function destruir()
@@ -82,6 +86,7 @@ class toba_ci extends toba_ei
 	 *  - Si el componente es un ci dentro de otro ci, recien se ejecuta cuando entra a la operacion que no necesariamente es al inicio,
 	 * 		si por ejemplo se encuentra en la 3er pantalla del ci principal.
 	 *  - Si se ejecuta una limpieza de memoria (comportamiento por defecto del evt__cancelar)
+	 * 
 	 */
 	function ini__operacion() {}
 	

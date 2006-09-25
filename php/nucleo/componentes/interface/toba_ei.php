@@ -43,6 +43,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Extensión de la construcción del componente
+	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
 	 */
 	protected function preparar_componente()
 	{
@@ -354,6 +355,9 @@ abstract class toba_ei extends toba_componente
 		$this->info['titulo'] = $titulo;
 	}
 		
+	/**
+	 * Ventana de extensión para incluir HTML junto a la barra del titulo e iconos
+	 */
 	function generar_html_barra_sup_especifica()
 	{
 	}

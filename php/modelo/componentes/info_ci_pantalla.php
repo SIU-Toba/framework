@@ -1,7 +1,8 @@
 <?php
 require_once("interfaces.php");
+require_once("nucleo/componentes/interface/interfaces.php");
 
-class info_ci_pantalla implements recorrible_como_arbol, meta_clase
+class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 {
 	protected $dependencias = array();
 	protected $datos;

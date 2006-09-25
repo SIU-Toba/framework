@@ -2,7 +2,11 @@
 require_once("toba_ei.php");
 
 /**
-* Consume una estructura arbolea que implementa la interfaz recorrible_como_arbol
+* Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
+* Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX
+* Cada nodo debe implementar la interfaz toba_nodo_arbol
+* 
+* @see toba_nodo_arbol
 * @package Componentes
 * @subpackage Eis
 */
@@ -19,11 +23,12 @@ class toba_ei_arbol extends toba_ei
 	function __construct($datos)
 	{
 		parent::__construct($datos);
-		$this->eventos['cambio_apertura'] = '';
-		$this->eventos['ver_propiedades'] = '';
-		$this->eventos['cargar_nodo'] = '';
 	}
 	
+	/**
+	 * Respuesta al pedido AJAX de apertura de un nodo no cargado anteriormente
+	 * Dispara el evento cargar_nodo($id) para que se retorne el toba_nodo_arbol asociado
+	 */
 	function servicio__ejecutar()
 	{
 		toba::memoria()->desactivar_reciclado();		
@@ -37,31 +42,52 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 	
-	function set_item_propiedades($id_item)
+	protected function cargar_eventos()
 	{
-		$this->item_propiedades = $id_item;
-	}
-	
-	function set_apertura_nodos($datos_apertura)	//$datos_apertura = array('id_nodo' => boolean, ...)
+		parent::cargar_lista_eventos();		
+		$this->eventos['cambio_apertura'] = array();
+		$this->eventos['ver_propiedades'] = array();
+		$this->eventos['cargar_nodo'] = array();		
+	}	
+
+	/**
+	 * Fuerza a que determinados nodos se encuentren abiertos o cerrados
+	 * @param array $datos_apertura array('id_nodo' => boolean, ...)
+	 */
+	function set_apertura_nodos($datos_apertura)
 	{
 		$this->datos_apertura = $datos_apertura;
 	}
 	
+	/**
+	 * Cambia el nivel inicial de apertura grafico de los nodos
+	 */
 	function set_nivel_apertura($nivel)
 	{
 		$this->nivel_apertura = $nivel;
 	}
 	
+	/**
+	 * Fuerza a que todos los nodos se muestren abiertos
+	 */
 	function set_todos_abiertos()
 	{
 		$this->todos_abiertos = true;	
 	}
 	
+	/**
+	 * Determina la propiedad TARGET del tag <A> html de los vinculos de cada nodo
+	 * @param string $frame
+	 */
 	function set_frame_destino($frame)
 	{
 		$this->frame_destino = $frame;
 	}
 	
+	/**
+	 * Cambia los nodos del arbol, suministrandole nuevos nodo/s raiz
+	 * @param array $nodos Arreglo de nodos raiz del arbol
+	 */
     function set_datos($nodos)
     {
 		$this->nodos_inicial = $nodos;
@@ -177,7 +203,7 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 	
-	protected function mostrar_nodo(recorrible_como_arbol $nodo, $es_visible)
+	protected function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
 		$salida = '';
 		$salida .= $this->mostrar_utilerias($nodo);
@@ -279,7 +305,10 @@ class toba_ei_arbol extends toba_ei
 			return $salida;
 		}
 	}
-
+	
+	/**
+	 * Formatea el nombre de un nodo para incluir en un listado
+	 */
 	protected function acortar_nombre($nombre, $limite=30) 
 	{
 		if (strlen($nombre) <= $limite)
@@ -296,12 +325,11 @@ class toba_ei_arbol extends toba_ei
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		$item = toba_js::arreglo($this->item_propiedades, false);
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->id);
 		$autovinculo = toba::vinculador()->crear_autovinculo("", $opciones );
 		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
-												 '{$this->submit}', $item, '$autovinculo');\n";
+												 '{$this->submit}', '$autovinculo');\n";
 	}
 
 	//-------------------------------------------------------------------------------

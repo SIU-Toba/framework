@@ -1,5 +1,4 @@
 <?php
-define("apex_cuadro_compatible",1);
 require_once("toba_ei.php");
 require_once("nucleo/lib/interface/toba_form.php");
 require_once("nucleo/lib/interface/toba_formateo.php"); 
@@ -57,16 +56,19 @@ class toba_ei_cuadro extends toba_ei
 		$this->inspeccionar_sumarizaciones_usuario();
 	}
 
+	/**
+	 * Método interno para iniciar el componente una vez construido
+	 */
 	function inicializar($parametros)
 	{
 		parent::inicializar($parametros);
 		$this->submit_orden_columna = $this->submit."__orden_columna";
 		$this->submit_orden_sentido = $this->submit."__orden_sentido";
 		$this->submit_seleccion = $this->submit."__seleccion";
-		$this->submit_paginado = $this->submit."__pagina_actual";		
+		$this->submit_paginado = $this->submit."__pagina_actual";
 	}
 	
-	function procesar_definicion()
+	protected function procesar_definicion()
 	{
 		$estructura_datos = array();
 		//Armo una estructura que describa las caracteristicas de los cortes
@@ -135,9 +137,9 @@ class toba_ei_cuadro extends toba_ei
 	}	
 	
 	/**
-		Si el usuario declaro funciones de sumarizacion por algun corte,
-		esta funcion las agrega en la planificacion de la ejecucion.
-	*/
+	 * Si el usuario declaro funciones de sumarizacion por algun corte,
+	 * esta funcion las agrega en la planificacion de la ejecucion.
+	 */
 	private function inspeccionar_sumarizaciones_usuario()
 	{
 		//Si soy una subclase
@@ -244,6 +246,10 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * Carga el cuadro con un conjunto de datos
+	 * @param array $datos Arreglo en formato RecordSet
+	 */
     function set_datos($datos)
     {
 		$this->datos = $datos;

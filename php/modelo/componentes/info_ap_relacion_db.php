@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("interfaces.php");
 
 class info_ap_relacion_db implements meta_clase

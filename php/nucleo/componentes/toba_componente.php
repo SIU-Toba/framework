@@ -62,9 +62,9 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Método interno para iniciar el componente.
+	 * Método interno para iniciar el componente una vez construido
 	 */
-	protected function inicializar($parametros=array())
+	function inicializar($parametros=array())
 	{
 		$this->parametros = $parametros;
 	}

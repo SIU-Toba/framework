@@ -1,5 +1,5 @@
 {if count($api_tags) > 0}
-<strong>API Tags:</strong><br />
+<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
 {section name=tag loop=$api_tags}
   <tr>
