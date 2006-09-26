@@ -51,6 +51,9 @@ class toba_ei_formulario extends toba_ei
 		parent::destruir();
 	}
 	
+	/**
+	 * Método interno para iniciar el componente una vez construido
+	 */	
 	function inicializar($parametros)
 	{
 		parent::inicializar($parametros);
@@ -68,6 +71,9 @@ class toba_ei_formulario extends toba_ei
 		$this->inicializar_especifico();
 	}
 	
+	/**
+	 * Crea los objetos efs asociados al formulario actual
+	 */
 	protected function crear_elementos_formulario()
 	{
 		$this->lista_ef = array();
@@ -123,7 +129,7 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
-	function inicializar_especifico()
+	protected function inicializar_especifico()
 	{
 		$this->set_grupo_eventos_activo('no_cargado');
 	}
@@ -132,6 +138,9 @@ class toba_ei_formulario extends toba_ei
 	//--------------------------------	EVENTOS  -----------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Acciones a realizar previo al disparo de los eventos
+	 */
 	function pre_eventos()
 	{
 		//-- Resguarda la lista de efs para servicio
@@ -146,6 +155,9 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 
+	/**
+	 * Acciones a realizar posteriormente al disparo de eventos
+	 */
 	function post_eventos()
 	{
 		if (isset($this->memoria['efs'])) {
@@ -195,6 +207,10 @@ class toba_ei_formulario extends toba_ei
 		$this->post_eventos();
 	}
 
+	/**
+	 * Recorre todos los efs y valida sus valores actuales
+	 * @throws toba_error_validacion En caso de que la validación de algún ef falle
+	 */
 	function validar_estado()
 	{
 		//Valida el	estado de los ELEMENTOS	de	FORMULARIO
@@ -212,6 +228,9 @@ class toba_ei_formulario extends toba_ei
 	//--------------------------------	CASCADAS  -------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Analiza los efs buscando maestros y esclavos y notificandolos entre si
+	 */
 	function registrar_cascadas()
 	{
 		$this->cascadas_maestros = array();
@@ -235,6 +254,9 @@ class toba_ei_formulario extends toba_ei
 	//-------------------------------	Manejos de EFS ------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Borra los datos actuales y resetea el estado de los efs
+	 */
 	function limpiar_interface()
 	{
 		foreach ($this->lista_ef as $ef) {
@@ -242,6 +264,9 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 
+	/**
+	 * Retorna todos los ids de los efs
+	 */
 	function get_nombres_ef()
 	{
 		return $this->lista_ef_post;
@@ -263,7 +288,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Retorna la referencia a un ef contenido
-	 * @return ef
+	 * @return toba_ef
 	 */
 	function ef($id) 
 	{
@@ -320,7 +345,6 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Establece que un conjunto de efs NO seran enviados al cliente durante una interacción
-	 * 
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
 	 */
 	function desactivar_efs($efs=null)
@@ -341,21 +365,10 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
-	function cargar_estado_ef($array_ef)
-	{
-		if (is_array($array_ef)){
-			foreach($array_ef	as	$ef => $valor){
-				if(isset($this->elemento_formulario[$ef])){
-					$this->elemento_formulario[$ef]->set_estado($valor);
-				}else{
-					throw new toba_error("[cargar_estado_ef] No existe	un	elemento	de	formulario identificado	'$ef'");
-				}
-			}
-		}else{
-			throw new toba_error("[cargar_estado_ef] Los	EF	se	cargan a	travez de un array asociativo	(\"clave\"=>\"dato a	cargar\")!");
-		}
-	}
-
+	/**
+	 * Consume un tabindex html del componente y lo retorna
+	 * @return integer
+	 */	
 	function get_tab_index()
 	{
 		if (isset($this->rango_tabs)) {
@@ -368,7 +381,8 @@ class toba_ei_formulario extends toba_ei
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Recupera el estado actual del formulario. Genera un array asociativo de una dimension
+	 * Recupera el estado actual del formulario. 
+	 * @return array Asociativo de una dimension columna=>valor
 	 */
 	function get_datos()
 	{
@@ -417,6 +431,13 @@ class toba_ei_formulario extends toba_ei
 		$this->registrar_cascadas();		
 	}
 	
+	/**
+	 * Carga el formulario con un conjunto de datos
+	 * El formulario asume que pasa a un estado interno 'cargado' con lo cual, 
+	 * por defecto, va a mostrar los eventos de modificacion,cancelar y eliminar en lugar del alta
+	 * que solo se muestra cuando el estado interno es 'no_cargado'
+	 * @param array $datos Arreglo columna=>valor/es
+	 */
 	function set_datos($datos)
 	{
 		if (isset($datos)){
@@ -458,11 +479,27 @@ class toba_ei_formulario extends toba_ei
 			}
 		}
 	}
+
+	/**
+	 * Carga el formulario con valores por defecto, generalmente para un alta
+	 * @param array $datos Arreglo columna=>valor
+	 */
+	function set_datos_defecto($datos)
+	{
+		$this->set_datos($datos);
+		if ($this->grupo_eventos_activo == 'cargado') {
+			$this->set_grupo_eventos_activo('no_cargado');
+		}
+	}
 	
 	//---------------------------------------------------------------------------
 	//-------------	  CARGA DE OPCIONES de  efs	  -------------------------------
 	//---------------------------------------------------------------------------
 
+	/**
+	 * Determina si todos los maestros de un ef esclavo poseen datos
+	 * @return boolean
+	 */
 	function ef_tiene_maestros_seteados($id_ef)
 	{
 		foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
@@ -473,6 +510,9 @@ class toba_ei_formulario extends toba_ei
 		return true;			
 	}
 	
+	/**
+	 * Carga los efs que permiten seleccionar su valor a partir de opciones
+	 */
 	protected function cargar_opciones_efs()
 	{
 		foreach ($this->lista_ef_post as $id_ef) {
@@ -629,6 +669,9 @@ class toba_ei_formulario extends toba_ei
 	//------------------------------	  SALIDA	  -------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Método que se utiliza en la respuesta de las cascadas usando AJAX
+	 */
 	function servicio__cascadas_efs()
 	{
 		require_once('3ros/JSON.php');				
@@ -718,13 +761,15 @@ class toba_ei_formulario extends toba_ei
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 	
 		echo "<div class='ei-cuerpo ei-form-cuerpo' $ancho id='cuerpo_{$this->objeto_js}'>";
+		$this->generar_layout();
+		
 		$hay_colapsado = false;
 		foreach ($this->lista_ef_post as $ef){
 			if (! $this->elemento_formulario[$ef]->esta_expandido()) {
 				$hay_colapsado = true;
+				break;
 			}
-			$this->generar_envoltura_ef($ef);
-		}
+		}		
 		if ($hay_colapsado) {
 			$img = toba_recurso::imagen_apl('expandir_vert.gif', false);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
@@ -736,7 +781,19 @@ class toba_ei_formulario extends toba_ei
 		echo "</div>\n";
 	}
 	
-	protected function generar_envoltura_ef($ef)
+	/**
+	 * Genera el cuerpo del formulario conteniendo la lista de efs
+	 * Por defecto el layout de esta lista es uno sobre otro, este método se puede extender
+	 * para incluir algún layout específico
+	 */	
+	protected function generar_layout()
+	{
+		foreach ($this->lista_ef_post as $ef) {
+			$this->generar_html_ef($ef);
+		}		
+	}
+
+	protected function generar_html_ef($ef)
 	{
 		$clase = 'ei-form-fila';
 		$estilo_nodo = "";

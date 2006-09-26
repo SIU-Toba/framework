@@ -44,8 +44,9 @@ class extension_ci extends toba_ci
 	function conf__cuadro()
 	{
 		$datos = $this->get_datos();
-		$tamanio_pagina = $this->dependencia('cuadro')->get_tamanio_pagina();
-		$pagina_actual = $this->dependencia('cuadro')->get_pagina_actual();
+		$this->dep('cuadro')->set_total_registros(count($datos));
+		$tamanio_pagina = $this->dep('cuadro')->get_tamanio_pagina();
+		$pagina_actual = $this->dep('cuadro')->get_pagina_actual();
 		$offset = ($pagina_actual - 1) * $tamanio_pagina;
 		return array_slice($datos, $offset, $tamanio_pagina);		
 	}

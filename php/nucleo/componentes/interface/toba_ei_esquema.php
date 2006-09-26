@@ -22,6 +22,10 @@ class toba_ei_esquema extends toba_ei
 		$this->ancho = isset($this->info_esquema['ancho']) ?  $this->info_esquema['ancho'] : null;
 	}
 
+	/**
+	 * Cambia el esquema actual
+	 * @param string $datos Esquema Graphviz
+	 */
 	function set_datos($datos)
 	{
 		if (isset($datos)) {
@@ -29,7 +33,7 @@ class toba_ei_esquema extends toba_ei
 		}
 	}
 	
-	function generar_html($cabecera=true)
+	function generar_html()
 	{
 		echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
@@ -51,7 +55,7 @@ class toba_ei_esquema extends toba_ei
 		echo "</table>\n";
 	}
 	
-	function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
+	protected function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
 	{
 		$parametros = array("contenido" => $contenido, 
 							'formato' => $formato,
@@ -64,6 +68,9 @@ class toba_ei_esquema extends toba_ei
 		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
 	}
 
+	/**
+	 * Genera el tag HTML necesario para incluir el archivo generado por GrahpViz
+	 */
 	static function generar_sentencia_incrustacion($url, $formato, $ancho=null, $alto=null)
 	{
 		$ancho = isset($ancho) ? "width='$ancho'" : "";
@@ -83,7 +90,15 @@ class toba_ei_esquema extends toba_ei
 			break;
 		}
 	}
-	
+
+	/**
+	 * Genera el grafico utilizando el comando graphviz y lo almacena en un archivo temporal
+	 *
+	 * @param string $contenido Grafico graphviz
+	 * @param string $formato Parametro -T del comando graphviz
+	 * @param boolean $es_dirigido
+	 * @return string Nombre del archivo temporal generado
+	 */
 	static function generar_archivo($contenido, $formato, $es_dirigido = true)
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
@@ -117,7 +132,7 @@ class toba_ei_esquema extends toba_ei
 	
 	/**
 	 * En base a la definicion que dejo el componente en el request anterior
-	 * se construye el esquema y se le hace un passthru
+	 * se construye el esquema y se le hace un passthru al cliente
 	 */
 	function servicio__mostrar_esquema($parametros = null)
 	{
@@ -162,5 +177,5 @@ class toba_ei_esquema extends toba_ei
 	}
 
 }
-//################################################################################
+
 ?>

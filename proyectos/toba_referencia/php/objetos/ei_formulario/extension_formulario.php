@@ -3,22 +3,41 @@ require_once('nucleo/componentes/interface/toba_ei_formulario.php');
 
 class extension_formulario extends toba_ei_formulario
 {
-	/*
-	*	Se le agrega un evento particular 'mi_accion' y uno cancelar
-	*/
-	function get_lista_eventos()
+	protected $cambiar_layout = false;
+	
+	function cambiar_layout()
 	{
-		$eventos = parent::get_lista_eventos();
-		unset($eventos['mi_evento']);
-		$mi_accion = eventos::duplicar(eventos::alta(), 'mi_accion');
-		$mi_accion['mi_accion']['etiqueta'] = 'Mi acción';
-		$mi_accion['mi_accion']['imagen'] = toba_recurso::imagen_apl('objetos/fantasma.gif');
-		$eventos += $mi_accion;
-		$eventos += eventos::cancelar();
-		return $eventos;
+		$this->cambiar_layout = true;
 	}
 	
-
+	protected function generar_layout()
+	{
+		if (! $this->cambiar_layout) {
+			parent::generar_layout();
+		} else {
+			echo "<table>";
+			$i = 0;
+			foreach ($this->lista_ef_post as $ef) {
+				$ultimo = ($i == count($this->lista_ef_post));
+				if ($i % 2 == 0) {
+					echo "<tr>";	
+				}
+				echo "<td>";
+				
+				//--- Llamada a la generacion estandar de un ef
+				$this->generar_html_ef($ef);
+				
+				echo "</td>";
+				$i++;			
+				if ($i % 2 == 0 || $ultimo) {
+					echo "</tr>";	
+				}		
+			}		
+			echo "</table>";
+		}
+	}
+	
+	
 	function extender_objeto_js()
 	{
 		//Valida que dos campos no tengan valor simultáneamente

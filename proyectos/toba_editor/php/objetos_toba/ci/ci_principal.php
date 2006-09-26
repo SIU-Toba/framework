@@ -44,7 +44,7 @@ class ci_editor extends ci_editores_toba
 				$datos_pantalla = $this->get_entidad()->tabla('pantallas')->get_filas();
 				//ei_arbol($datos_pantalla);
 				foreach ($datos_pantalla as $pantalla) {
-					if ($pantalla['subclase'] && $pantalla['subclase_archivo']) {
+					if (isset($pantalla['subclase']) && $pantalla['subclase'] &&  $pantalla['subclase_archivo']) {
 						$this->s__pantalla_php_db[$pantalla['x_dbr_clave']] = $pantalla['identificador'];
 						if( admin_util::existe_archivo_subclase($pantalla['subclase_archivo'])) {
 							$this->s__pantalla_php_archivo[$pantalla['x_dbr_clave']] = true;

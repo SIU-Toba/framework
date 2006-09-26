@@ -807,8 +807,9 @@ class migracion_1_0_0 extends migracion_toba
 	
 	/**
 	 * Los obtener_X pasan a ser get_X 
+	 * cargar_estado_ef pasa a ser set_datos_defecto
 	 */
-	function proyecto__cambio_api_obtener_get()
+	function proyecto__cambio_api_varios()
 	{
  		
 		$editor = new editor_archivos();
@@ -824,6 +825,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/obtener_html_barra_inferior/',	'generar_html_barra_inferior');
 		$editor->agregar_sustitucion('/obtener_proyecto_descripcion/',	'get_proyecto_descripcion');
 		$editor->agregar_sustitucion('/obtener_parametro/',				'get_parametro');
+		$editor->agregar_sustitucion('/cargar_estado_ef/',				'set_datos_defecto');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}

@@ -35,7 +35,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		parent::destruir();
 	}	
 		
-	function inicializar_especifico()
+	protected function inicializar_especifico()
 	{
 		//Se incluyen los totales
 		for($a=0;$a<count($this->info_formulario_ef);$a++)
@@ -232,12 +232,6 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		unset($this->datos);
 		unset($this->ordenes);
-	}
-
-	function cargar_estado_ef($array_ef)
-	{
-		throw new toba_error("No esta implementado en el multilínea");
-		//ATENCION: En un multilinea esto es distinto. FALTA
 	}
 
 	//-------------------------------------------------------------------------------

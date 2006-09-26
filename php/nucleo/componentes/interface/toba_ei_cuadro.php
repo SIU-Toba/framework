@@ -6,7 +6,8 @@ define("apex_cuadro_cc_tabular","t");
 define("apex_cuadro_cc_anidado","a");
 
 /**
- * Un ei_cuadro es una grilla de registros pensados para visualización. 
+ * Un ei_cuadro es una grilla de registros.
+ * Puede contener cortes de control, paginado y ordenamiento de columnas. 
  * @package Componentes
  * @subpackage Eis
  */
@@ -302,7 +303,11 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	private function datos_cargados()
+	/**
+	 * El cuadro posee datos?
+	 * @return boolean
+	 */
+	function datos_cargados()
 	{
 		return (count($this->datos) > 0);
 	}
@@ -325,7 +330,7 @@ class toba_ei_cuadro extends toba_ei
 //############################   CLAVE  y  SELECCION   ###########################
 //################################################################################
 
-	function inicializar_manejo_clave()
+	protected function inicializar_manejo_clave()
 	{
         if($this->info_cuadro["clave_datos_tabla"]){										//Clave del DT
 			$this->columnas_clave = array( apex_datos_clave_fila );
@@ -344,7 +349,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->clave_seleccionada = null;
 	}
 
-	function finalizar_seleccion()
+	protected function finalizar_seleccion()
 	{
 		if (isset($this->clave_seleccionada)) {
 			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
@@ -353,7 +358,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	function cargar_seleccion()
+	protected function cargar_seleccion()
 	{	
 		$this->clave_seleccionada = null;
 		//La seleccion se inicializa con el del pedido anterior
@@ -372,6 +377,9 @@ class toba_ei_cuadro extends toba_ei
 		}	
 	}
 
+	/**
+	 * Deja al cuadro sin selección alguna de fila
+	 */
 	function deseleccionar()
 	{
 		$this->clave_seleccionada = null;
@@ -387,13 +395,21 @@ class toba_ei_cuadro extends toba_ei
 		$this->clave_seleccionada = $clave;
 	}
 
+	/**
+	 * Retorna verdadero si existe alguna fila seleccionada
+	 * @return boolean
+	 */
 	function hay_seleccion()
 	{
 		return isset($this->clave_seleccionada);
 	}
 
+	/**
+	 * Retorna la clave serializada de una fila dada
+	 * @param integer $fila Numero de fila
+	 * @return string Clave serializada
+	 */
     function get_clave_fila($fila)
-	//Genero la CLAVE
     {
         $id_fila = "";
         if (isset($this->columnas_clave)) {
@@ -405,6 +421,11 @@ class toba_ei_cuadro extends toba_ei
         return $id_fila;
     }
 
+    /**
+     * Retorna un arreglo con las claves de la fila dada
+     * @param integer $fila Numero de fila
+     * @return array Arreglo columna=>valor
+     */
 	function get_clave_fila_array($fila)
 	{
         if (isset($this->columnas_clave)) {
@@ -437,12 +458,16 @@ class toba_ei_cuadro extends toba_ei
 //##############################    PAGINACION    ################################
 //################################################################################
 
+	/**
+	 * Retorna verdadero si el cuadro se pagina en caso de superar una cantidad dada de registros
+	 * @return boolean
+	 */
 	function existe_paginado()
 	{
 		return $this->info_cuadro["paginar"];
 	}
 
-	function inicializar_paginado()
+	protected function inicializar_paginado()
 	{
 		if(isset($this->memoria["pagina_actual"])){
 			$this->pagina_actual = $this->memoria["pagina_actual"];
@@ -454,7 +479,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 	
-	function finalizar_paginado()
+	protected function finalizar_paginado()
 	{
 		if (isset($this->pagina_actual)) {
 			$this->memoria['pagina_actual']= $this->pagina_actual;
@@ -463,11 +488,15 @@ class toba_ei_cuadro extends toba_ei
 		}		
 	}
 
-	function generar_paginado()
+	/**
+	 * Pagina los datos actuales del cuadro
+	 * Restringe los datos a la pagina actual y calcula la cantidad de paginas posibles
+	 */
+	protected function generar_paginado()
 	{
 		if($this->info_cuadro["tipo_paginado"] == 'C') {
 			if (!isset($this->total_registros) || ! is_numeric($this->total_registros)) {
-				throw new toba_error("El paginado del cuadro necesita recibir la cantidad total de registros para poder paginar");
+				throw new toba_error("El cuadro necesita recibir la cantidad total de registros con el metodo set_total_registros para poder paginar");
 			}
 			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
 			if ($this->pagina_actual > $this->cantidad_paginas)  {
@@ -481,45 +510,62 @@ class toba_ei_cuadro extends toba_ei
 				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
 				if ($this->pagina_actual > $this->cantidad_paginas) 
 					$this->pagina_actual = 1;
-				$this->datos = $this->get_datos_paginados($this->datos);
+				$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
+				$this->datos = array_slice($this->datos, $offset, $this->tamanio_pagina);
 			}
 		}else{
 			$this->cantidad_paginas = 1;
 		}
 	}
 
-	function get_datos_paginados($datos)
-	{
-		$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
-		return array_slice($datos, $offset, $this->tamanio_pagina);
-	}
-
+	/**
+	 * Informa al cuadro la cantidad total de registros que posee el set de datos
+	 * Este método se utiliza cuando el paginado no lo hace el propio cuadro, en este caso
+	 * es necesario informarle la cantidad total de registros así puede armar la barra de paginado
+	 * @param integer $cant
+	 */
 	function set_total_registros($cant)
 	{
 		$this->total_registros = $cant;
 	}
-	
+
+	/**
+	 * Retorna el tamaño de página actual en el paginado (si está presente el paginado)
+	 * @return integer
+	 */
 	function get_tamanio_pagina()
 	{
 		return $this->tamanio_pagina;
 	}
 	
+	/**
+	 * Cambia el tamaño de página a usar en el paginado
+	 * @param integer $tam
+	 */
 	function set_tamanio_pagina($tam)
 	{
 		$this->tamanio_pagina = $tam;	
 	}
 	
+	/**
+	 * Retorna la página actualmente seleccionada por el usuario, si existe el paginado
+	 * @return integer
+	 */
 	function get_pagina_actual()
 	{
 		return $this->pagina_actual;
 	}
 	
+	/**
+	 * Fuerza al cuadro a mostrar una página específica 
+	 * @param integer $pag
+	 */
 	function set_pagina_actual($pag)
 	{
 		$this->pagina_actual = $pag;	
 	}
 	
-	function cargar_cambio_pagina()
+	protected function cargar_cambio_pagina()
 	{	
 		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 
 			$this->pagina_actual = $_POST[$this->submit_paginado];
@@ -603,7 +649,7 @@ class toba_ei_cuadro extends toba_ei
 //#################################    ORDEN    ##################################
 //################################################################################
 
-	function finalizar_ordenamiento()
+	protected function finalizar_ordenamiento()
 	{
 		if (isset($this->orden_columna)) {
 			$this->memoria['orden_columna']= $this->orden_columna;
@@ -617,7 +663,10 @@ class toba_ei_cuadro extends toba_ei
 		}		
 	}
 
-	function refrescar_ordenamiento()
+	/**
+	 * Actualiza el estado actual del ordenamiento en base a la memoria anterior y lo que dice el usuario a través del POST
+	 */
+	protected function refrescar_ordenamiento()
 	{
 		//¿Viene seteado de la memoria?
         if(isset($this->memoria['orden_columna']))
@@ -645,12 +694,19 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * Retorna verdadero si el cuadro actualmente se encuentra ordenado por alguna columna por parte del usuario
+	 * @return boolean
+	 */
 	function hay_ordenamiento()
 	{
         return (isset($this->orden_sentido) && isset($this->orden_columna));
 	}
 
-    function ordenar()
+	/**
+	 * Método interno de ordenamiento de los datos
+	 */
+    protected function ordenar()
 	{
 		if (! $this->ordenado) {
 			$ordenamiento = array();
@@ -670,33 +726,35 @@ class toba_ei_cuadro extends toba_ei
 //###############################    API basica    ###############################
 //################################################################################
 
+	/**
+	 * Cambia el título o descripción de una columna dada del cuadro
+	 */
 	function set_titulo_columna($id_columna, $titulo)
 	{
 		$this->columnas[$id_columna]["titulo"] = $titulo;
 	}    
 
+	/**
+	 * Retorna el conjunto de datos que actualmente posee el cuadro
+	 */
     function get_datos()
     {
         return $this->datos;    
     }	
 
-	function set_titulo()
-	{
-	}
-	
-	function ocultar_cabecera()
-	{
-	}
-	
-	function get_estructura_datos()
+    function get_estructura_datos()
 	{
 		return $this->estructura_datos;		
 	}
 	
+	/**
+	 * Retorna la definición de las columnas actuales del cuadro
+	 */
 	function get_columnas()
 	{
 		return $this->columnas;	
 	}
+	
 //################################################################################
 //#####################    INTERFACE GRAFICA GENERICA  ###########################
 //################################################################################
@@ -735,7 +793,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	function inicializar_generacion()
+	protected function inicializar_generacion()
 	{
 		$this->cantidad_columnas = count($this->info_cuadro_columna);
 		if ( $this->tipo_salida != 'pdf' ) {
@@ -826,10 +884,8 @@ class toba_ei_cuadro extends toba_ei
 //#################################    HTML    ###################################
 //################################################################################
 
-	function generar_html($mostrar_cabecera=true, $titulo=null)
+	function generar_html()
 	{
-		/*	¿Los parametros hay que destruirlos?	*/
-		
 		$this->generar_salida("html");
 	}
 
@@ -918,6 +974,10 @@ class toba_ei_cuadro extends toba_ei
 	{
 	}
 
+	/**
+	 * Genera el html que el cuadro muestra cuando no tiene datos cargados
+	 * @param string $texto Texto a mostrar en base a la definición del componente
+	 */
 	protected function html_mensaje_cuadro_vacio($texto){
 		echo ei_mensaje($texto);
 	}
@@ -1048,7 +1108,13 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	function etiqueta_cantidad_filas($profundidad)
+	
+	/**
+	 * Retorna el texto que sumariza la cantidad de filas de un nivel de corte
+	 * @param integer $profundidad Nivel de profundidad actual
+	 * @return string
+	 */
+	protected function etiqueta_cantidad_filas($profundidad)
 	{
 		return "Cantidad de filas: ";
 	}
@@ -1212,8 +1278,10 @@ class toba_ei_cuadro extends toba_ei
         }
 	}
 
+	/**
+	 * Genera la cabecera de una columna
+	 */
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
-    //Genera la cabecera de una columna
     {
         //--- ¿Es ordenable?
 		if (isset($this->eventos['ordenar']) && $this->info_cuadro_columna[$indice]["no_ordenar"]!=1) {
@@ -1251,7 +1319,7 @@ class toba_ei_cuadro extends toba_ei
 		echo $editor;
     }
 
-	function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
+	protected function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
 	{
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
 		if($agregar_titulos){
