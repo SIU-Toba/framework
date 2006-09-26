@@ -15,6 +15,11 @@ class toba_molde_metodo_php implements elemento_molde
 		}
 	}
 	
+	function get_nombre()
+	{
+		return $this->nombre;	
+	}
+		
 	function agregar_contenido($contenido)
 	{
 		if ( !is_array($contenido) ) {
@@ -22,7 +27,7 @@ class toba_molde_metodo_php implements elemento_molde
 		}
 	}
 	
-	function generar_php()
+	function generar_codigo()
 	{
 	
 	}

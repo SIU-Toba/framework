@@ -2,10 +2,12 @@
 
 class toba_molde_separador extends implements elemento_molde
 {
+	protected $nombre;
 	protected $tipo;
 	
-	function __construct($tipo)
+	function __construct($nombre, $descripcion='', $tipo='chico')
 	{
+		$this->nombre = $nombre;
 		if( ($tipo != 'corto') || ($tipo != 'largo') ) {
 			throw new toba_error('Error en la construccion del molde_separador: los tipos validos son \'corto'\ y \'largo\'');
 		}
@@ -14,20 +16,21 @@ class toba_molde_separador extends implements elemento_molde
 	
 	function generar_codigo()
 	{
-		
+		$metodo = 'separador_' . $this->tipo;
+		return $this->$metodo();
 	}
 
-	static function separador_seccion_chica($nombre='')
+	static function separador_chico()
 	{	
-		$salida = $this->get_identado() . "//---- $nombre -------------------------------------------------------\n\n";	
+		$salida = $this->identar() . "//---- $nombre -------------------------------------------------------\n\n";	
 		return $salida;
 	}	
 	
-	static function separador_seccion_grande($nombre)
+	static function separador_grande($nombre)
 	{
-		$salida = $this->get_identado() . "//-------------------------------------------------------------------\n";
-		$salida .= $this->get_identado() . "//--- $nombre\n";
-		$salida .= $this->get_identado() . "//-------------------------------------------------------------------\n";
+		$salida = $this->identar() . "//-------------------------------------------------------------------\n";
+		$salida .= $this->identar() . "//--- $nombre\n";
+		$salida .= $this->identar() . "//-------------------------------------------------------------------\n";
 		return $salida;
 	}	
 }
