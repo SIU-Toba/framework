@@ -2,7 +2,6 @@
 require_once("nucleo/componentes/interface/interfaces.php");
 require_once("interfaces.php");
 require_once("lib/manejador_archivos.php");
-require_once("lib/reflexion/clase_php.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 
@@ -378,6 +377,31 @@ class info_componente implements toba_nodo_arbol, meta_clase
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
+	function get_molde_subclase()
+	{
+		return array();
+	}
+	
+	function get_clase_nombre()
+	{
+		return str_replace('objeto_', 'toba_', $this->datos['info']['clase']);
+	}
+
+	function get_clase_archivo()
+	{
+		return $this->datos['info']['clase_archivo'];	
+	}
+	
+	function get_subclase_nombre()
+	{
+		return $this->datos['info']['subclase'];
+	}
+
+	function get_subclase_archivo()
+	{
+		return $this->datos['info']['subclase_archivo'];	
+	}
+	
 	static function get_eventos_internos(toba_datos_relacion $dr)
 	{
 		$eventos = array();
@@ -451,82 +475,6 @@ class info_componente implements toba_nodo_arbol, meta_clase
 				return true;
 		}			
 		return false;		
-	}
-	
-	//--- GENERACION de PHP ---
-	
-	/*
-	*	Un plan es un array de dos dimensiones
-	*/
-	function get_plan_construccion_metodos()
-	{
-		return array();
-	}	
-
-	//----  FILTRO de COMENTARIOS  --------------
-
-	/*
-		function generar_cuerpo_clase($opciones)
-	{
-		$this->set_nivel_comentarios($opciones['nivel_comentarios']);
-		$cuerpo = '';
-		if ($opciones['basicos']) {
-			foreach ($this->generar_metodos() as $metodo_basico) {
-				$cuerpo .= $metodo_basico."\n";
-			}
-		}
-		return $cuerpo;
-	}
-
-	*/
-
-	function set_nivel_comentarios($nivel)
-	{
-		$this->nivel_comentarios = $nivel;	
-		foreach ($this->subelementos as $elemento) {
-			$elemento->set_nivel_comentarios($nivel);
-		}					
-	}
-	
-	function filtrar_comentarios($metodos)
-	//Elimina aquellos niveles de comentarios superiores al dado
-	//nivel 0: ninguno
-	//nivel 1: recomendados
-	//nivel 2: explicativos
-	//nivel 3: charlatanes
-	{
-		if (is_array($metodos)) {
-			$nuevos = array();
-			foreach ($metodos as $metodo) {
-				$nuevos[] = $this->filtrar_comentarios_metodo($metodo);
-			}
-			return $nuevos;
-		} else { //es un único metodo
-			return $this->filtrar_comentarios_metodo($metodos);
-		}
-	}
-	
-	function filtrar_comentarios_metodo($metodo)
-	{
-		$nivel_maximo = 3;
-		//Sacar las marcas de los inferiores
-		for ($i = 0; $i <= $this->nivel_comentarios; $i++) {
-			$metodo = str_replace("!#c$i", "", $metodo);
-		}
-		$lineas = '';
-		foreach( explode("\n", $metodo) as $linea) {
-			//Eliminar las lineas donde estan los superiores
-			$eliminada = false;
-			for ($i = $this->nivel_comentarios+1; $i<=$nivel_maximo; $i++) {
-				if (strpos($linea, "!#c$i") !== false)
-					$eliminada = true;
-			}
-			if (!$eliminada)
-				$lineas .= $linea."\n";
-		}
-		//Se elimina un salto
-		$lineas = substr($lineas, 0, -1);
-		return $lineas;
 	}
 }
 ?>

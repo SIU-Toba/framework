@@ -1,18 +1,25 @@
 <?php
+require_once('toba_molde_elemento.php');
 
-class toba_molde_metodo_php implements elemento_molde
+class toba_molde_metodo extends toba_molde_elemento
 {
 	protected $nombre;
 	protected $parametros;
 	protected $comentarios;
 	protected $contenido;
 	
-	function __construct($nombre, $parametros=array(), $comentarios=array())
+	function __construct($nombre, $parametros=array(), $comentarios=array(), $descripcion=null)
 	{
+		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		$this->nombre = $nombre;
-		if ( !is_array($parametros) || !is_array($comentarios) ) {
-			throw new toba_error('molde metodo: los parametros y los comentarios tienen que ser un array');
+		if(!is_array($parametros)){
+			throw new toba_error("Error en el metodo: $nombre. Los parametros debern ser un array");	
 		}
+		$this->parametros = $parametros;
+		if(!is_array($comentarios)){
+			throw new toba_error("Error en el metodo: $nombre. Los comentarios debern ser un array");	
+		}
+		$this->comentarios = $comentarios;
 	}
 	
 	function get_nombre()
@@ -20,17 +27,34 @@ class toba_molde_metodo_php implements elemento_molde
 		return $this->nombre;	
 	}
 		
-	function agregar_contenido($contenido)
+	function set_contenido($contenido)
 	{
 		if ( !is_array($contenido) ) {
-			throw new toba_error('molde metodo: El contenido del metodo tiene que ser un array de filas');
+			$this->contenido = explode( salto_linea() ,$contenido);
 		}
+		$this->contenido = $contenido;
 	}
+
+	//--- Generacion ------------------------------------
 	
-	function generar_codigo()
+	function get_codigo()
 	{
-	
+		$funcion = '';
+		// Comentarios
+		foreach($this->comentarios as $fila) {
+			$funcion .= $this->identado() . "//$fila" . salto_linea();
+		}
+		// Cabecera
+		$funcion .= $this->identado() . $this->get_declaracion() . salto_linea();
+		$funcion .= $this->identado() . "{" . salto_linea();
+		// Contenido
+		$this->identar(1);
+		foreach($this->contenido as $fila) {
+			$funcion .= $this->identado() . "$fila" . salto_linea();
+		}
+		$this->identar(-1);
+		$funcion .= $this->identado() ."}" . salto_linea();
+		return $funcion;
 	}
 }
-
 ?>

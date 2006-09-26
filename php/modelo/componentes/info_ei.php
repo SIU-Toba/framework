@@ -1,6 +1,7 @@
 <?php
 require_once('info_componente.php');
 require_once('admin_util.php');
+require_once('lib/reflexion/toba_molde_clase.php');
 
 class info_ei extends info_componente
 {
@@ -73,7 +74,7 @@ class info_ei extends info_componente
 	
 	//-- Primitivas para la construccion de clases -------------------------------------------
 
-	function get_plan_construccion_eventos_js()
+	function get_moldes_metodos_eventos_js()
 	{
 		$plan = array();
 		foreach ($this->eventos_predefinidos() as $evento => $info) {
@@ -81,24 +82,20 @@ class info_ei extends info_componente
 			if( isset($info['info']) && !$info['info']['implicito'] ) {	//Excluyo los implicitos
 				// Atrapar evento en JS
 				if ($info['info']['accion'] == 'V') { //Vinculo
-					$m = 'modificar_vinculo__' . $evento;
-					$plan[$m]['parametros'] = array('id_vinculo');
+					$plan[] = new toba_molde_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
 				} else {
-					$m = 'evt__' . $evento;
-					$plan[$m]['parametros'] = array();
+					$plan[] = new toba_molde_metodo_js('evt__' . $evento);
 				}
 			}
 		}
 		return $plan;
 	}	
 
-	function get_plan_construccion_eventos_sobre_fila()
+	function get_moldes_eventos_sobre_fila()
 	{
 		$plan = array();
 		foreach ($this->eventos_sobre_fila() as $evento => $info) {
-				$m = 'conf_evt__' . $evento;
-				$plan[$m]['parametros'] = array('evento', 'fila');
-				$plan[$m]['comentarios'] = array();
+			$plan[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('evento', 'fila'));
 		}
 		return $plan;
 	}

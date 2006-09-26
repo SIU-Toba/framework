@@ -43,8 +43,6 @@ class ci_editor_php extends toba_ci
 					$this->s__subcomponente = $subcomponente;
 					$datos['subclase'] = $mts['clase'];
 					$datos['archivo'] = $mts['archivo'];
-					$datos['clase'] = $mts['padre_clase'];
-					$datos['clase_archivo'] = $mts['padre_archivo'];
 					$meta_clase = $mts['meta_clase'];
 				}else{
 					throw new toba_error('ERROR cargando el SUBCOMPONENTE: No es posible acceder a la definicion del mismo.');
@@ -60,8 +58,7 @@ class ci_editor_php extends toba_ci
 			//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
 			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['archivo'];
 			$this->archivo_php = new archivo_php($path);
-			$this->clase_php = new clase_php($datos['subclase'], $this->archivo_php, $datos['clase'], $datos['clase_archivo']);
-			$this->clase_php->set_meta_clase($meta_clase);
+			$this->clase_php = new clase_php($datos['subclase'], $this->archivo_php, $meta_clase);
 		}
 	}
 
@@ -128,9 +125,9 @@ class ci_editor_php extends toba_ci
 	
 	function evt__subclase__crear_archivo($opciones)
 	{
-		$this->crear_archivo();
+		//$this->crear_archivo();
 		$this->crear_subclase($opciones['metodos']);
-		$this->set_pantalla(1);
+		//$this->set_pantalla(1);
 	}
 	
 	function evt__subclase__crear_clase($opciones)

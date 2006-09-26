@@ -131,17 +131,12 @@ class info_ci extends info_ei
 	/**
 	*	Retorna la metaclase del subcomponente
 	*/
-	function get_metadatos_subcomponente($subcomponente)
+	function get_metaclase_subcomponente($subcomponente)
 	{
 		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
 			if ($this->datos['info_ci_me_pantalla'][$i]['identificador'] === $subcomponente) {
-				$sub['clase'] = $this->datos['info_ci_me_pantalla'][$i]['subclase'];
-				$sub['archivo'] = $this->datos['info_ci_me_pantalla'][$i]['subclase_archivo'];
-				$sub['padre_clase'] = 'toba_ei_pantalla';
-				$sub['padre_archivo'] = 'nucleo/componentes/interface/toba_ei_pantalla.php';
 				$sub['meta_clase'] = new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
 				//toba::logger()->var_dump($sub);
-				return $sub;
 			}
 		}
 		throw new toba_error("No se encuentra la pantalla '$id'");
@@ -149,8 +144,9 @@ class info_ci extends info_ei
 
 	function get_plan_construccion_metodos()
 	{
-		$plan = array();
-		//**************** PROPIOS ****************
+		$plan = new toba_molde_clase($this->info['subclase'], $this->info['clase']);
+		// **************** PROPIOS ****************
+
 		//Inicializacion
 		$plan['ini']['desc'] = 'INICIALIZACION';
 		$plan['ini']['bloque'][0]['metodos']['ini'] = array('comentarios'=>array(), 'parametros'=>array());

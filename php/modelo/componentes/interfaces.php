@@ -2,16 +2,15 @@
 
 /**
  * Conoce como es la composicion interna de una clase del ambiente
+ * Es utilizada para
  * @package Centrales
  */
 interface meta_clase
 {
-	//Generacion de codigo
-	function get_plan_construccion_metodos();
-	//Analisis de codigo
-	function es_evento($metodo);
-	function es_evento_predefinido($metodo);
-	function es_evento_valido($metodo);
-	function es_evento_sospechoso($metodo);
+	function get_molde_subclase();
+	function get_clase_nombre();
+	function get_clase_archivo();
+	function get_subclase_nombre();
+	function get_subclase_archivo();
 }
 ?>

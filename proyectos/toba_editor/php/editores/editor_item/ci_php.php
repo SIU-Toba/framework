@@ -1,6 +1,5 @@
 <?php 
 require_once('lib/reflexion/archivo_php.php');
-require_once('lib/reflexion/clase_php.php');
 
 class ci_php extends toba_ci
 {

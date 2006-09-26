@@ -138,27 +138,29 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
 
-	function get_plan_construccion_metodos()
+	function get_subclase_nombre()
 	{
-		return array();
-	}
-
-	function es_evento($metodo)
-	{
-		return false;
+		return $this->datos['subclase'];
 	}
 	
-	function es_evento_predefinido($metodo)
+	function get_subclase_archivo()
 	{
-		return false;
+		return $this->datos['subclase_archivo'];
 	}
 
-	function es_evento_valido($metodo)
+	function get_clase_nombre()
 	{
+		return 'toba_ei_pantalla';
 	}
 
-	function es_evento_sospechoso($metodo)
+	function get_clase_archivo()
 	{
+		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
+	}
+	
+	function get_molde_subclase()
+	{
+		return array();
 	}
 }
 ?>
