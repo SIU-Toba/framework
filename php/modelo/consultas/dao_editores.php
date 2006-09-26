@@ -262,7 +262,7 @@ class dao_editores
 	{
 		require_once("modelo/lib/catalogo_items.php");
 		$catalogador = new catalogo_items(contexto_info::get_proyecto());
-		$catalogador->cargar(array());	
+		$catalogador->cargar_todo();	
 		foreach($catalogador->items() as $item) {
 			if (! $item->es_carpeta()) {
 				$nivel = $item->get_nivel_prof() - 1;
@@ -290,7 +290,7 @@ class dao_editores
 		}
 		require_once("modelo/lib/catalogo_items.php");
 		$catalogador = new catalogo_items($proyecto);
-		$catalogador->cargar(array('solo_carpetas' => 1));
+		$catalogador->cargar_todo(array('solo_carpetas' => 1));
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
 			if($nivel >= 0) {

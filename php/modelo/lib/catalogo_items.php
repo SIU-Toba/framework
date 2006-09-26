@@ -16,10 +16,10 @@ class catalogo_items
 		$this->proyecto = $proyecto;
 	}
 
-	function cargar_todo()
+	function cargar_todo($opciones=array())
 	{
 		$this->cargar_todo = true;
-		$this->cargar(array());
+		$this->cargar($opciones);
 	}
 	
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())

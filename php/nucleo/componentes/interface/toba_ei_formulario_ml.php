@@ -1,9 +1,13 @@
-<?
-require_once("toba_ei_formulario.php");	//Ancestro de todos los	OE
+<?php
+require_once("toba_ei_formulario.php");
 
 /**
  * Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
  * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+ * 
+ * Como el formulario ML tiene la posibilidad de agregar nuevas filas completamente en el cliente, brinda un servicio que permite analizar lo acontecido con las filas enviadas al cliente.
+ * Así si por ejemplo se envían 3 filas y el cliente modifica dos, la otra la borra y agrega una nueva el método de análisis evita que el programador tenga que comparar el estado de las filas enviadas con el recibido.
+ * 
  * @package Componentes
  * @subpackage Eis
  */
@@ -48,10 +52,18 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->set_metodo_analisis($this->info_formulario['analisis_cambios']);
 	}
 
+	/**
+	 * Cambia o desactiva el método de análisis del formulario.
+	 * 
+	 * Existen dos métodos de análisis:
+	 * - En línea con los registros: incluye una columna apex_ei_analisis_fila a cada registro indicando si la fila es nueva (A), si es modificada (M) o si fue borrada (B)
+	 * - A través de eventos: se dispara un evento por cambio (ej. evt__ml__registro_alta($id, $datos))
+	 *
+	 * @param string $metodo Puede ser (literal): LINEA, EVENTOS, o false (sin analisis)
+	 */
 	function set_metodo_analisis($metodo)
 	{
-		switch ($metodo)
-		{
+		switch ($metodo) {
 			case 'LINEA':
 				$this->analizar_diferencias = true;
 				$this->eventos_granulares = false;				
@@ -66,20 +78,33 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}	
 	}
 	
+	/**
+	 * Deja al formulario sin selección alguna de fila
+	 */
 	function deseleccionar()
 	{
 		unset($this->clave_seleccionada);
 	}
 
+	/**
+	*	Indica al formulario cual es la clave seleccionada. 
+	*	A la hora de mostrar la grilla se crea un feedback gráfico sobre la fila que posea esta clave
+	*	@param string $clave Identificador de la clave de la fila a seleccionar
+	*/	
+	function seleccionar($clave)
+	{
+		$this->clave_seleccionada = $clave;
+	}
+	
+
+	/**
+	 * No permite que el usuario pueda agregar nuevas filas en el cliente
+	 */
 	function desactivar_agregado_filas()
 	{
 		$this->info_formulario['filas_agregar'] = false;
 	}
 	
-	function seleccionar($clave)
-	{
-		$this->clave_seleccionada = $clave;
-	}
 
 	//-------------------------------------------------------------------------------
 	//--------------------------------	PROCESOS  -----------------------------------
@@ -102,8 +127,6 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				$this->disparar_eventos_especifico($_POST[$this->submit], $implicito);
 			}
-		} else {	//Es la primera carga
-			$this->carga_inicial();
 		}
 		$this->limpiar_interface();
 	}	
@@ -141,9 +164,6 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		} else {
 			$this->reportar_evento( $evento, $this->get_datos($this->analizar_diferencias));
 		}
-		
-
-
 	}
 		
 	protected function disparar_eventos_granulares()

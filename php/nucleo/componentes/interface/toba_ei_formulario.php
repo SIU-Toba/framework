@@ -816,6 +816,11 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 
+	
+	/**
+	 * General el html de la etiqueta de un ef especifico
+	 * @param string $ef Id. del ef
+	 */
 	protected function generar_etiqueta_ef($ef)
 	{
 		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
@@ -905,7 +910,7 @@ class toba_ei_formulario extends toba_ei
 		echo "</table>\n";
 	}
 	
-	function get_valor_imprimible_ef( $id_ef ) 
+	protected function get_valor_imprimible_ef( $id_ef ) 
 	{
 		require_once('nucleo/lib/interface/formateo.php');
 		$ef = $this->elemento_formulario[$id_ef];
