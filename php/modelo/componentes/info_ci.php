@@ -4,6 +4,19 @@ require_once('info_ci_pantalla.php');
 
 class info_ci extends info_ei
 {
+	/**
+	*	Retorna la metaclase correspondiente a la pantalla
+	*/
+	function get_metaclase_subcomponente($subcomponente)
+	{
+		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
+			if ($this->datos['info_ci_me_pantalla'][$i]['identificador'] === $subcomponente) {
+				return new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
+			}
+		}
+		throw new toba_error("No se encuentra la pantalla '$id'");
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
@@ -128,89 +141,53 @@ class info_ci extends info_ei
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
-	/**
-	*	Retorna la metaclase del subcomponente
-	*/
-	function get_metaclase_subcomponente($subcomponente)
+	function get_molde_subclase()
 	{
-		for ($i = 0 ; $i < count($this->datos['info_ci_me_pantalla']) ; $i++) {
-			if ($this->datos['info_ci_me_pantalla'][$i]['identificador'] === $subcomponente) {
-				$sub['meta_clase'] = new info_ci_pantalla($this->datos['info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
-				//toba::logger()->var_dump($sub);
-			}
-		}
-		throw new toba_error("No se encuentra la pantalla '$id'");
-	}
-
-	function get_plan_construccion_metodos()
-	{
-		$plan = new toba_molde_clase($this->info['subclase'], $this->info['clase']);
-		// **************** PROPIOS ****************
-
-		//Inicializacion
-		$plan['ini']['desc'] = 'INICIALIZACION';
-		$plan['ini']['bloque'][0]['metodos']['ini'] = array('comentarios'=>array(), 'parametros'=>array());
-		$plan['ini']['bloque'][0]['metodos']['ini_operacion'] = array('comentarios'=>array(), 'parametros'=>array());
-		//Configuracion general
-		$plan['conf']['desc'] = 'CONFIGURACION';
-		$plan['conf']['bloque'][0]['metodos']['conf'] = array('comentarios'=>array(), 'parametros'=>array());
-		//Configuracion de pantallas
+		$molde = $this->get_molde_vacio();
+		//************** Elementos PROPIOS *************
+		//-- Inicializacion -----------------------
+		$molde->agregar( new toba_molde_separador_php('Inicializacion',null,'grande') );
+		$molde->agregar( new toba_molde_metodo_php('ini') );
+		$molde->agregar( new toba_molde_metodo_php('ini_operacion') );
+		$molde->agregar( new toba_molde_separador_php('Configuracion',null,'grande') );
+		$molde->agregar( new toba_molde_metodo_php('conf') );
+		//-- Configuracion de pantallas -----------
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$plan['conf']['bloque'][0]['metodos']['conf__' . $pantalla['identificador']] = array('comentarios'=>array(), 'parametros'=>array());
+			$molde->agregar( new toba_molde_metodo_php('conf__' . $pantalla['identificador'], array('pantalla') ) );
 		}
-		//Eventos propios
+		//-- Eventos propios ----------------------
 		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['evt_propios']['desc'] = 'EVENTOS';
+			$molde->agregar( new toba_molde_separador_php('Eventos',null,'grande') );
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$plan['evt_propios']['bloque'][0]['metodos']['evt__' . $evento] = array('comentarios'=>array(), 'parametros'=>array());
+				$molde->agregar( new toba_molde_metodo_php('evt__' . $evento) );
 			}
 		}
 		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
-			$plan['evt_deps']['desc'] = 'DEPENDENCIAS';
+			$molde->agregar( new toba_molde_separador_php('DEPENDENCIAS',null,'grande') );
 			foreach ($this->subelementos as $id => $elemento) {
 				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
-					$plan['evt_deps']['bloque'][$id]['desc'] = $rol;
-					//Metodo de CONFIGURACION!
-					$m = 'conf__' . $rol;
-					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
-					$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'][] = 'componente';
-					$comentario_carga = $elemento->get_comentario_carga();
-					if($comentario_carga) {
-						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'][] = $comentario_carga;
-					}else{
-						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = array();
-					}
+					$molde->agregar( new toba_molde_separador_php($rol) );
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {
 						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
-							$m = 'evt__' . $rol . '__' .$evento;
-							$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
-							$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'] = $info['parametros'];
-							$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = $info['comentarios'];
+							$molde->agregar( new toba_molde_metodo_php('evt__' . $rol . '__' .$evento,	
+																		$info['parametros'],
+																		$info['comentarios']) );
 						}
 					}
-					//Metodo de CARGA!
-					$m = 'conf__' . $rol;
-					$plan['evt_deps']['bloque'][$id]['metodos'][$m] = array();
-					$plan['evt_deps']['bloque'][$id]['metodos'][$m]['parametros'][] = 'componente';
-					$comentario_carga = $elemento->get_comentario_carga();
-					if($comentario_carga) {
-						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'][] = $comentario_carga;
-					}else{
-						$plan['evt_deps']['bloque'][$id]['metodos'][$m]['comentarios'] = array();
-					}
+					//Metodo de CONFIGURACION
+					$molde->agregar( new toba_molde_metodo_php('conf__' . $rol,	
+																array('componente'),
+																array($elemento->get_comentario_carga()) ) );
 				}
 			}
 		}
 		//***************** JAVASCRIPT *****************
-		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['javascript']['desc'] = 'EVENTOS JAVASCRIPT';
-			$plan['javascript']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_js();
-		}
+		$molde->agregar_bloque( $this->get_molde_eventos_js() );
 		return $plan;
 	}
 

@@ -4,19 +4,18 @@ require_once('info_ei.php');
 class info_ei_cuadro extends info_ei
 {
 	//---------------------------------------------------------------------	
-	//-- EVENTOS
+	//-- METACLASE
 	//---------------------------------------------------------------------
 
-	function get_plan_construccion_metodos()
+	function get_molde_subclase()
 	{
-		$plan['php']['bloque'][0]['desc'] = 'Config. EVENTOS sobre fila';
-		$plan['php']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_sobre_fila();
-		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
-			$plan['javascript']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_js();
-		}
-		return $plan;
+		$molde = $this->get_molde_vacio();
+		$molde->agregar_bloque( $this->get_molde_eventos_js() );		
+		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );		
+		return $molde;
 	}
+
+	//--- Primitivas sobre eventos -------------------------------------------
 
 	function eventos_predefinidos()
 	{

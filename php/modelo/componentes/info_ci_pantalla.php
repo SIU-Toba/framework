@@ -138,6 +138,11 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
 
+	function get_molde_subclase()
+	{
+		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+	}
+	
 	function get_subclase_nombre()
 	{
 		return $this->datos['subclase'];
@@ -156,11 +161,6 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	function get_clase_archivo()
 	{
 		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
-	}
-	
-	function get_molde_subclase()
-	{
-		return array();
 	}
 }
 ?>

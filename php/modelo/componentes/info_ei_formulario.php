@@ -7,37 +7,29 @@ class info_ei_formulario extends info_ei
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
-	function get_plan_construccion_metodos($multilinea=false)
+	function get_molde_subclase($multilinea=false)
 	{
-		$plan = array();
-		//***************** JAVASCRIPT *****************
-		$plan['javascript']['desc'] = 'JAVASCRIPT';
-		//-- Validacion general
-		$plan['javascript']['bloque'][0]['desc'] = 'Eventos';
-		$plan['javascript']['bloque'][0]['metodos']['evt__validar_datos']['parametros'] = array();
-		//-- Eventos
-		if (count($this->eventos_predefinidos()) > 0) {
-			$plan['javascript']['bloque'][1]['desc'] = 'Eventos';
-			$plan['javascript']['bloque'][1]['metodos'] = $this->get_plan_construccion_eventos_js();
-		}
+		$molde = $this->get_molde_vacio();
+		$molde->agregar_bloque( $this->get_molde_eventos_js() );	
+		$molde->agregar( new toba_molde_separador_js('Validacion general') );		
+		$molde->agregar( new toba_molde_metodo_js('evt__validar_datos') );		
 		if(count($this->datos['info_formulario_ef'])) {
 			//-- Procesamiento de EFs
-			$plan['javascript']['bloque'][2]['desc'] = 'Procesamiento de EFs';
+			$molde->agregar( new toba_molde_separador_js('Procesamiento de EFs') );		
+			$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );
 			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
-				$m = 'evt__' . $info['identificador'] . '__procesar';
 				$parametros = array('es_inicial');
 				if($multilinea) $parametros[] = 'fila';
-				$plan['javascript']['bloque'][2]['metodos'][$m]['parametros'] = $parametros;
+				$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );		
 			}
 			//-- Validacion de EFs
-			$plan['javascript']['bloque'][3]['desc'] = 'Validacion de EFs';
+			$molde->agregar( new toba_molde_separador_js('Validacion de EFs') );		
 			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
-				$m = 'evt__' . $info['identificador'] . '__validar';
 				$parametros = $multilinea ? array('fila') : array();
-				$plan['javascript']['bloque'][3]['metodos'][$m]['parametros'] = $parametros;
+				$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__validar', $parametros) );		
 			}
 		}
-		return $plan;
+		return $molde;
 	}
 
 	function get_comentario_carga()

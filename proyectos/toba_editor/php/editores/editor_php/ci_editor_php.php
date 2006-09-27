@@ -14,7 +14,7 @@ class ci_editor_php extends toba_ci
 	protected $s__subcomponente;
 
 	/**
-	* Determino el archivo sobre el que se voy a trabajar
+	* Determino el archivo sobre el que se voy a trabajar.
 	*/
 	function ini()
 	{
@@ -28,22 +28,19 @@ class ci_editor_php extends toba_ci
 			if(!isset($datos)){
 				throw new toba_error('No es posible definir cual es el archivo a editar');	
 			}
-			//- 1 - Obtengo la clase INFO del compomente que se selecciono.
+			//- 1 - Obtengo la METACLASE correspondiente
 			$clave_componente = array( 'componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
 			$info_componente = toba_constructor::get_info( $clave_componente, $datos['clase']);
-			// Puede ser que se este buscando un subcomponente en vez de un componente...
+			// Acceso a un SUBCOMPONENTE????
 			if(isset($this->s__subcomponente)){ //Cargue un subcomponente en un request anterior.
 				$subcomponente = $this->s__subcomponente;
 			}else{
 				$subcomponente = toba::memoria()->get_parametro('subcomponente');
 			}
 			if (isset($subcomponente)) {
-				$mts = $info_componente->get_metadatos_subcomponente($subcomponente);
-				if($mts){
+				$meta_clase = $info_componente->get_metaclase_subcomponente($subcomponente);
+				if($meta_clase){
 					$this->s__subcomponente = $subcomponente;
-					$datos['subclase'] = $mts['clase'];
-					$datos['archivo'] = $mts['archivo'];
-					$meta_clase = $mts['meta_clase'];
 				}else{
 					throw new toba_error('ERROR cargando el SUBCOMPONENTE: No es posible acceder a la definicion del mismo.');
 				}
@@ -51,14 +48,15 @@ class ci_editor_php extends toba_ci
 				//La metaclase del componente es su CLASE INFO
 				$meta_clase = $info_componente;
 			}
-			//Si el componente no tiene definida una subclase, no tiene sentido estar aca.
-			if(!$datos['archivo'] || !$datos['subclase']){
+			// - 2 - Creo el editor de clases y el archivo.
+			$subclase_archivo = $meta_clase->get_subclase_archivo();
+			$subclase_nombre = $meta_clase->get_subclase_nombre();
+			if(!$subclase_archivo || !$subclase_nombre){
 				throw new toba_error('El componente no tiene una subclase definida');	
 			}			
-			//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
-			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['archivo'];
+			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $subclase_archivo;
 			$this->archivo_php = new archivo_php($path);
-			$this->clase_php = new clase_php($datos['subclase'], $this->archivo_php, $meta_clase);
+			$this->clase_php = new clase_php($this->archivo_php, $meta_clase);
 		}
 	}
 
@@ -72,6 +70,8 @@ class ci_editor_php extends toba_ci
 		return $this->clase_php;	
 	}
 	
+	//---  ACCIONES POSIBLES ------------------------------------------------------
+
 	function abrir_archivo()
 	{
 		if( !$this->archivo_php->existe() ) {
@@ -91,7 +91,7 @@ class ci_editor_php extends toba_ci
 	}
 
 	//-------------------------------------------------------------------------------
-	//-- Apertura general de archivos  ----------------------------------------------
+	//-- Apertura de archivos por AJAX ----------------------------------------------
 	//-------------------------------------------------------------------------------
 
 	function servicio__ejecutar()

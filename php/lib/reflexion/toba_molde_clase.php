@@ -219,6 +219,9 @@ class toba_molde_clase
 			$php .= '";' . salto_linea();
 			$metodo = new toba_molde_metodo_php('extender_objeto_js');
 			$metodo->set_contenido($php);
+			$separador = new toba_molde_separador_php('JAVASCRIPT',null,'grande');
+			$this->codigo_php .= $separador->get_codigo();
+			$this->codigo_php .= salto_linea();
 			$this->codigo_php .= $metodo->get_codigo();
 		}
 	}

@@ -3,16 +3,13 @@ require_once('info_componente.php');
 
 class info_datos_tabla extends info_componente
 {
-	function get_metadatos_subcomponente($subcomponente)
+	/**
+	*	Retorna la metaclase correspondiente al AP del datos tabla
+	*/
+	function get_metaclase_subcomponente($subcomponente)
 	{
-		$sub['clase'] = $this->datos['info_estructura']['ap_sub_clase'];
-		$sub['archivo'] = $this->datos['info_estructura']['ap_sub_clase_archivo'];
-		$sub['padre_clase'] = 'objeto_ap_tabla_db';
-		$sub['padre_archivo'] = 'nucleo/componentes/persistencia/toba_ap_tabla_db.php';
 		require_once('info_ap_tabla_db.php');
-		$mt = new info_ap_tabla_db();
-		$sub['meta_clase'] = $mt;
-		return $sub;
+		return new info_ap_tabla_db($this->datos['info_estructura']);
 	}
 
 	//---------------------------------------------------------------------	
@@ -127,6 +124,15 @@ class info_datos_tabla extends info_componente
 			}
 		}
 		return $datos;
+	}
+
+	//------------------------------------------------------------------------
+	//------ METACLASE -------------------------------------------------------
+	//------------------------------------------------------------------------
+
+	function get_molde_subclase()
+	{
+		return $this->get_molde_vacio();
 	}
 }
 ?>

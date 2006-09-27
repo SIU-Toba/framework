@@ -1,7 +1,7 @@
 <?php
 require_once('toba_molde_elemento.php');
 
-class toba_molde_metodo extends toba_molde_elemento
+abstract class toba_molde_metodo extends toba_molde_elemento
 {
 	protected $nombre;
 	protected $parametros;
@@ -36,6 +36,8 @@ class toba_molde_metodo extends toba_molde_elemento
 	}
 
 	//--- Generacion ------------------------------------
+	
+	abstract function get_declaracion();
 	
 	function get_codigo()
 	{

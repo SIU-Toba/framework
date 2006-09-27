@@ -23,20 +23,9 @@ class info_cn extends info_componente
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
-	function generar_metodos()
+	function get_molde_subclase()
 	{
-		$metodos = parent::generar_metodos();
-		$metodos[] = "\t".
-'function mantener_estado_sesion()
-	!#c2//Declarar todas aquellas propiedades de la clase que se desean persistir automáticamente
-	!#c2//entre los distintos pedidos de página en forma de variables de sesión.
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		!#c1//$propiedades[] = \'propiedad_a_persistir\';
-		return $propiedades;
-	}
-';
-		return $this->filtrar_comentarios($metodos);
+		return $this->get_molde_vacio();
 	}
 }
 ?>

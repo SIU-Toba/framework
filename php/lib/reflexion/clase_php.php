@@ -6,34 +6,23 @@ require_once('archivo_php.php');
 */
 class clase_php
 {		
-	protected $nombre;
 	protected $archivo;
-	protected $padre_nombre;
-	protected $archivo_padre_nombre;
 	protected $meta_clase;				//la clase que conoce el contenido de la clase que se esta editando
-	//Opciones de generacion
-	protected $opciones_generacion;	
 	
-	function __construct($nombre, $archivo, $metaclase)
+	function __construct($archivo, $meta_clase)
 	{
-		$this->nombre = $nombre;
+		$this->meta_clase = $meta_clase;
 		$this->archivo = $archivo;
 	}
 	
 	function nombre()
 	{
-		return $this->nombre;
+		return $this->meta_clase->get_subclase_nombre();
 	}
 	
-	//Asocia la METACLASE
-	function set_meta_clase($meta_clase)
-	{
-		$this->meta_clase = $meta_clase;
-	}
-
 	function incluir_clase_padre()
 	{
-		require_once($this->archivo_padre_nombre);
+		require_once($this->meta_clase->get_clase_archivo());
 	}	
 	
 	//---------------------------------------------------------------
@@ -74,7 +63,7 @@ class clase_php
 		$this->incluir_clase_padre();
 		$this->archivo->incluir();		
 		try {
-			$clase = new ReflectionClass($this->nombre);
+			$clase = new ReflectionClass($this->nombre());
 			$metodos = $clase->getMethods();
 			
 			echo "<div style='text-align: left;'><h3>Clase ".$clase->getName()."</h3>";
@@ -89,7 +78,7 @@ class clase_php
 			}
 			echo "</ul></div>";
 		} catch (Exception $e) {
-			echo ei_mensaje("No se encuentra la clase {$this->nombre} en este archivo.", "error");
+			echo ei_mensaje("No se encuentra la clase ".$this->nombre()." en este archivo.", "error");
 		}
 	}	
 	

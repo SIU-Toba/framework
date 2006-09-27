@@ -3,7 +3,7 @@ require_once('info_componente.php');
 require_once('admin_util.php');
 require_once('lib/reflexion/toba_molde_clase.php');
 
-class info_ei extends info_componente
+abstract class info_ei extends info_componente
 {
 
 	//---------------------------------------------------------------------	
@@ -55,10 +55,6 @@ class info_ei extends info_componente
 	{
 		return "";
 	}
-	
-	//---------------------------------------------------------------------	
-	//-- METACLASE
-	//---------------------------------------------------------------------
 
 	static function get_modelos_evento()
 	{
@@ -66,38 +62,40 @@ class info_ei extends info_componente
 		return $modelo;
 	}
 	
+	//---------------------------------------------------------------------	
+	//-- METACLASE
+	//---------------------------------------------------------------------
+
 	static function get_lista_eventos_estandar($modelo)
 	{
 		$evento = array();
 		return $evento;
-	}	
+	}
 	
-	//-- Primitivas para la construccion de clases -------------------------------------------
-
-	function get_moldes_metodos_eventos_js()
+	function get_molde_eventos_js()
 	{
-		$plan = array();
+		$bloque_molde[] = new toba_molde_separador_js('Eventos');
 		foreach ($this->eventos_predefinidos() as $evento => $info) {
 			//$info['info'] no esta seteado en los eventos predefinidos agregados a mano
 			if( isset($info['info']) && !$info['info']['implicito'] ) {	//Excluyo los implicitos
 				// Atrapar evento en JS
 				if ($info['info']['accion'] == 'V') { //Vinculo
-					$plan[] = new toba_molde_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
+					$bloque_molde[] = new toba_molde_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
 				} else {
-					$plan[] = new toba_molde_metodo_js('evt__' . $evento);
+					$bloque_molde[] = new toba_molde_metodo_js('evt__' . $evento);
 				}
 			}
 		}
-		return $plan;
+		return $bloque_molde;
 	}	
 
-	function get_moldes_eventos_sobre_fila()
+	function get_molde_eventos_sobre_fila()
 	{
-		$plan = array();
+		$bloque_molde[] = new toba_molde_separador_php('Config. EVENTOS sobre fila');
 		foreach ($this->eventos_sobre_fila() as $evento => $info) {
-			$plan[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('evento', 'fila'));
+			$bloque_molde[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('evento', 'fila'));
 		}
-		return $plan;
+		return $bloque_molde;
 	}
 }
 ?>

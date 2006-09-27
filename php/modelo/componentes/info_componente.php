@@ -5,7 +5,7 @@ require_once("lib/manejador_archivos.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 
-class info_componente implements toba_nodo_arbol, meta_clase
+abstract class info_componente implements toba_nodo_arbol, meta_clase
 {
 	protected $datos;
 	protected $consumidor = null;				//elemento_toba que consume el elemento
@@ -377,11 +377,6 @@ class info_componente implements toba_nodo_arbol, meta_clase
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
-	function get_molde_subclase()
-	{
-		return array();
-	}
-	
 	function get_clase_nombre()
 	{
 		return str_replace('objeto_', 'toba_', $this->datos['info']['clase']);
@@ -401,7 +396,14 @@ class info_componente implements toba_nodo_arbol, meta_clase
 	{
 		return $this->datos['info']['subclase_archivo'];	
 	}
+
+	function get_molde_vacio()
+	{
+		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+	}
 	
+	//---------------------------------------------------------------------
+		
 	static function get_eventos_internos(toba_datos_relacion $dr)
 	{
 		$eventos = array();

@@ -7,12 +7,11 @@ class info_ei_formulario_ml extends info_ei_formulario
 	//-- EVENTOS
 	//---------------------------------------------------------------------
 
-	function get_plan_construccion_metodos()
+	function get_molde_subclase()
 	{
-		$plan['php']['bloque'][0]['desc'] = 'Config. EVENTOS sobre fila';
-		$plan['php']['bloque'][0]['metodos'] = $this->get_plan_construccion_eventos_sobre_fila();
-		$plan = array_merge( $plan, parent::get_plan_construccion_metodos(true) );
-		return $plan;
+		$molde = parent::get_molde_subclase(true);
+		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );
+		return $molde;
 	}
 	
 	function eventos_predefinidos()

@@ -3,30 +3,40 @@ require_once("interfaces.php");
 
 class info_ap_relacion_db implements meta_clase
 {
-	function get_plan_construccion_metodos()
+	protected $datos;
+	
+	function __construct($datos)
 	{
-		return array();
-	}
-
-	function es_evento($metodo)
-	{
-
+		$this->datos = $datos;
 	}
 	
-	function es_evento_predefinido($metodo)
-	{
+	//---------------------------------------------------------------------	
+	//-- METACLASE
+	//---------------------------------------------------------------------
 
+	function get_molde_subclase()
+	{
+		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+	}
+	
+	function get_clase_nombre()
+	{
+		return 'objeto_ap_relacion_db';
 	}
 
-	function es_evento_valido($metodo)
+	function get_clase_archivo()
 	{
-
+		return 'nucleo/componentes/persistencia/toba_ap_relacion_db.php';
+	}
+	
+	function get_subclase_nombre()
+	{
+		return $this->datos['ap_clase'];
 	}
 
-	function es_evento_sospechoso($metodo)
+	function get_subclase_archivo()
 	{
-
+		return $this->datos['ap_archivo'];	
 	}
-
 }
 ?>
