@@ -188,19 +188,23 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}	
 	}
 
+	/**
+	 * Crea la cantidad de filas vacías definidas en el editor
+	 */
 	function carga_inicial()
 	{
-		if (!isset($this->datos) || $this->datos === null) {
-			$this->datos = array();
-			if ($this->info_formulario["filas"] > 0 ) {
-				for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
-					$this->agregar_registro_nuevo();
-				}
+		$this->datos = array();
+		if ($this->info_formulario["filas"] > 0 ) {
+			for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
+				$this->agregar_registro();
 			}
 		}
 	}
 		
-	function cargar_post()
+	/**
+	 * Carga en $this->datos los valores recibidos del POST
+	 */
+	protected function cargar_post()
 	{
 		if (! isset($_POST[$this->objeto_js.'_listafilas']))
 			return false;
@@ -226,11 +230,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		return true;
 	}
 
+	/**
+	 * Recorre todos los datos del formulario, cargandolos en los efs y validando estos el estado
+	 * 
+	 * @throws toba_error_validacion En caso de que la validación de algún ef falle
+	 * @todo Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual
+	 * 		de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden
+	 * 		ver las modificaciones hechas, sería deseable poder verlos.
+	 */
 	function validar_estado()
 	{
-		//Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual
-		//de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden
-		//ver las modificaciones hechas, sería deseable poder verlos.
 		foreach ($this->datos as $id_fila => $datos_registro) {
 			$this->cargar_registro_a_ef($id_fila, $datos_registro);
 			foreach ($this->lista_ef_post as $ef){
@@ -244,7 +253,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 		}
 	} 	
-	
+
+	/**
+	 * Borra los datos actuales y resetea el estado de los efs
+	 */	
 	function limpiar_interface()
 	{
 		foreach ($this->lista_ef as $ef){
@@ -258,11 +270,22 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//-------------------------	  MANEJO de DATOS	---------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Retorna la cantidad de filas, registros o líneas que el formulario tiene cargados
+	 * @return integer
+	 */
 	function get_cantidad_lineas()
 	{
 		return count($this->datos);
 	}
-	
+
+	/**
+	 * Retorna el set de datos que maneja actualmente el componente
+	 * Si se llama en la etapa de eventos contiene los datos recibidos del POST
+	 * Si se llama en la etapa de servicio contiene los datos cargados con set_datos
+	 * @param boolean $analizar_diferencias Debe utilizar algún metodo de analisis para compararlos con los datos del pedido anterior?
+	 * @return array Formato recordset, la clave de la fila se envia como clave asociativa y como columna. Ej. array(clave_fila=> array(apex_datos_clave_fila =>clave_fila, columna=>valor, ...), ..)
+	 */
 	function get_datos($analizar_diferencias = false)
 	{
 		//Envia el ordenamiento como una columna aparte
@@ -280,10 +303,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach (array_keys($datos) as $id_fila) {
 				//Si la fila que viene desde el POST estaba entra las recibidas del CI en el request anterior
 				//es una fila modificada, sino para el CI es una nueva 
-				if (in_array($id_fila, $this->filas_recibidas))
+				if (in_array($id_fila, $this->filas_recibidas)) {
 					$datos[$id_fila][apex_ei_analisis_fila] = 'M';
-				else
+				} else {
 					$datos[$id_fila][apex_ei_analisis_fila] = 'A';
+				}
 			}
 			
 			//Se buscan los registros borrados
@@ -329,6 +353,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->filas_recibidas = array();
 	}
 	
+	/**
+	 * Carga el formulario con un conjunto de datos.
+	 * Si el formulario tiene definido un ordenamiento, aqui es donde se lleva a cabo
+	 *
+	 * @param array $datos Formato recordset, cada registro puede enviar su clave como clave asociativa o como columna apex_datos_clave_fila,
+	 * 						también se puede especificar una columna conteniendo el orden del registro (cual columna usar se define en el editor)
+	 */
 	function set_datos($datos)
 	{
 		if (!is_array($datos)) {
@@ -373,40 +404,58 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	}
 
 	/**
-	*	Agrega un registro nuevo a la matriz
+	* Agrega un registro nuevo a la matriz de datos
+	* 
+    * La diferencia entre este método y agregar una fila vacía en el set_datos es que en este último
+	* los registros en el próximo pedido de página serán analizados como 'modificados' ya que no sabe diferenciarlos
+	* de los datos que ya existen en el medio de almacenamiento.
+	* 
+	* Para cumplir con su objetivo este metodo tiene que se invocado en la etapa de configuración cuando
+	* ya se ha cargado al componente con datos, de lo contrario se perdera su efecto.
+	* @see set_registro_nuevo, set_datos
 	*/
-	protected function agregar_registro_nuevo()
+	function agregar_registro($valores=array())
 	{	
-		$template = (is_array($this->registro_nuevo)) ? $this->registro_nuevo : array();
-		$this->datos[$this->siguiente_id_fila] = $template;
+		$this->datos[$this->siguiente_id_fila] = $valores;
 		$this->ordenes[] = $this->siguiente_id_fila;
 		$this->siguiente_id_fila++;
 	}
-
-	function set_proximo_id($id)
-	{
-		$this->siguiente_id_fila = $id;	
-	}
 	
-
 	/**
-	 * Inserta un registro nuevo en la proxima generación de HTML
+	 * Inserta un registro nuevo en la proxima generación de HTML. 
+	 * Solo permite agregar un único registro, llamadas consecutivas a este método sólo variarán el contenido de la nueva fila
+	 * La diferencia con agregar_registro es que este último no puede ser invocado antes del set_datos (configuración o carga), 
+	 * set_registro_nuevo deja una marca interna que fuerza la creación de una nueva fila independientemente de la carga de datos.
 	 * @param array $template Valores por defecto de la nueva fila, false si se quiere cancelar el alta del registro
+	 * @see agregar_registro
 	 */
 	function set_registro_nuevo($template=array())
 	{
 		$this->registro_nuevo = $template;
+	}	
+
+	/**
+	 * Cambia la clave o id a utilizar para la siguiente fila creada en este formulario
+	 * 
+	 * Como el formulario crea la fila antes que existan en el medio de almacenamiento (típicamente una base de datos)
+	 * necesita brindar a la fila un identificador únivoco, entonces maneja internamente una secuencia, con este método
+	 * es posible modificar el valor que toma el siguiente número de esa secuencia.
+	 * @param integer $id
+	 */
+	function set_proximo_id($id)
+	{
+		$this->siguiente_id_fila = $id;	
 	}
-	
-	function existen_datos_cargados()
+
+
+	/**
+	 * El formulario posee datos?
+	 * @return boolean
+	 */
+	function datos_cargados()
 	{
 		if(isset($this->datos)){
-			if(count($this->datos) > 0){
-				//ei_arbol($this->datos,"DATOS");
-				return true;
-			}else{
-				return false;
-			}
+			return count($this->datos) > 0;
 		}else{
 			return false;
 		}
@@ -419,7 +468,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	/**
 	 * Carga los datos de una fila específica a partir de los valores de los efs de esa fila
 	 */
-	function cargar_ef_a_registro($id_registro)
+	protected function cargar_ef_a_registro($id_registro)
 	{
 		$this->id_fila_actual = $id_registro;
 		foreach ($this->lista_ef as $ef)
@@ -439,13 +488,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->datos[$id_registro][$dato] = $estado;
 			}
 		}
-		//ei_arbol($this->datos,"CArga de registros");
 	}
 
 	/**
 	 * Carga los efs en base a los datos de una fila específica
 	 */
-	function cargar_registro_a_ef($id_fila, $datos_registro)
+	protected function cargar_registro_a_ef($id_fila, $datos_registro)
 	{
 		$this->id_fila_actual = $id_fila;
 		$datos = $datos_registro;
@@ -467,7 +515,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				if (isset($datos[$dato])) {
 					if (!is_array($datos[$dato])) {
 						$temp = stripslashes($datos[$dato]);
-					} elseif (is_array($datos[$dato])) { //ATENCION: Este es el caso para el multi-seleccion, hay que mejorarlo
+					} elseif (is_array($datos[$dato])) {
+						//--- Caso para multi-seleccion
 						$temp = array();
 						foreach ($datos[$dato] as $string) {
 							$temp[] = stripslashes($string);
@@ -477,8 +526,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					$temp = null;	
 				}
 			}
-			if ($temp !== null)
+			if ($temp !== null) {
 				$this->elemento_formulario[$ef]->set_estado($temp);
+			}
 		}
 	}
 
@@ -486,11 +536,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//----------------------------	  SALIDA	  -----------------------------------
 	//-------------------------------------------------------------------------------
 
-	function generar_formulario()
+	protected function generar_formulario()
 	{
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(1000);		
 		//--- Si no se cargaron datos, se cargan ahora
-		$this->carga_inicial();
+		if (!isset($this->datos)) {		
+			$this->carga_inicial();
+		}
 		
 		//Ancho y Scroll
 		$estilo = '';
@@ -508,7 +560,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		echo "<div class='ei-cuerpo ei-ml' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
 		//Botonera de agregar y ordenar
-		$this->botonera_manejo_filas();
+		$this->generar_botonera_manejo_filas();
 
 		//Defino la cantidad de columnas
 		$colspan = count($this->lista_ef_post);
@@ -533,7 +585,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "\n</div>";
 	}
 	
-	function generar_formulario_encabezado()
+	protected function generar_formulario_encabezado()
 	{
 		//------ TITULOS -----	
 		echo "<tr>\n";
@@ -580,7 +632,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "<span class='$estilo'>$etiqueta $editor $desc</span>\n";
 	}	
 	
-	function generar_formulario_pie($colspan)
+	protected function generar_formulario_pie($colspan)
 	{
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
@@ -608,10 +660,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "</td></tr>\n";
 	}
 	
-	function generar_formulario_cuerpo()
+	protected function generar_formulario_cuerpo()
 	{
 		if ($this->registro_nuevo !== false) {
-			$this->agregar_registro_nuevo();
+			$template = (is_array($this->registro_nuevo)) ? $this->registro_nuevo : array();
+			$this->agregar_registro($template);
 		}
 		//------ FILAS ------
 		$this->filas_enviadas = array();
@@ -695,7 +748,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 	}
 
-	function botonera_manejo_filas()
+	/**
+	 * Genera el HTML de la botonera de agregar/quitar/ordenar filas
+	 */
+	protected function generar_botonera_manejo_filas()
 	{
 		$agregar = $this->info_formulario['filas_agregar'];
 		$ordenar = $this->info_formulario['filas_ordenar'];
@@ -737,7 +793,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	function crear_objeto_js()
+	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
 		//Creación de los objetos javascript de los objetos

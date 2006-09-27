@@ -3,9 +3,17 @@ require_once('toba_ei.php');
 require_once('nucleo/lib/toba_tab.php');
 
 /**
-* @package Componentes
-* @subpackage Eis
-*/
+ * Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
+ * Es posible acceder a la pantalla desde el ci usando el metodo $this->pantalla()->..
+ * 
+ * La pantalla se encarga de graficar:
+ *  - Un conjunto de dependencias (componentes pertenecientes a la pantalla actual)
+ *  - Un conjunto de tabs hacia otras pantalla
+ *  - Un conjunto de eventos
+ * 
+ * @package Componentes
+ * @subpackage Eis
+ */
 class toba_ei_pantalla extends toba_ei
 {
 	// Navegacion
@@ -50,11 +58,19 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
+	/**
+	 * Retorna la descripción de esta pantalla
+	 * @return string
+	 */
 	function get_descripcion()
 	{
 		return trim($this->info_pantalla["descripcion"]);
 	}
-	
+
+	/**
+	 * Cambia la descripción de esta pantalla
+	 * @param string $descr
+	 */
 	function set_descripcion($descr)
 	{
 		$this->info_pantalla["descripcion"] = $descr;
@@ -64,6 +80,12 @@ class toba_ei_pantalla extends toba_ei
 	//---------------		Dependencias    ----------------
 	//------------------------------------------------------
 
+	/**
+	 * Agrega una dependencia a esta pantalla.
+	 * La dependencia tiene que estar asignada al ci actual, este método sólo indica que esta dependencia
+	 * se graficará en esta pantalla
+	 * @param string $id_obj ID. de la dependencia en el ci
+	 */
 	function agregar_dep($id_obj)
 	{
 		//--- Chequeo para evitar el bug #389				
@@ -74,7 +96,11 @@ class toba_ei_pantalla extends toba_ei
 					" Se quiere agregar la dependencia '$id_obj', pero esta no está definida en el CI");
 		}
 	}
-	
+
+	/**
+	 * Determina que una dependencia no será mostrada en la pantalla actual
+	 * @param string $id ID. de la dependencia en el ci
+	 */
 	function eliminar_dep($id)
 	{
 		if (in_array($id, $this->lista_dependencias)) {
@@ -87,6 +113,7 @@ class toba_ei_pantalla extends toba_ei
 		
 	/**
 	 * Retorna los ID de las dependencias que se utilizan en esta pantalla
+	 * @return array
 	 */
 	function get_lista_dependencias()
 	{
@@ -109,6 +136,12 @@ class toba_ei_pantalla extends toba_ei
 	//---------------		TABS    ----------------
 	//----------------------------------------------
 	
+	/**
+	 * Acceso a un tab o solapa específico
+	 * Un tab representa el posible acceso a una pantalla distinta a la actual
+	 * @param string $id Identificador de la pantalla
+	 * @return toba_tab Objeto toba_tab que representa al tab o solapa
+	 */
 	function tab($id)
 	{
 		if(isset($this->lista_tabs[$id])){
@@ -118,6 +151,14 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
+	/**
+	 * Elimina un tab especifico
+	 * La consecuencia es que ya no es posible accederlo más durante el pedido de página actual, 
+	 * y al momento de graficar la barra de tabs, no será incluido
+	 * Si lo que se quiere hacer es desactivar el tab (que se vea pero no se puede acceder), usar el metodo toba_tab::desactivar()
+	 * @param string $id Identificador de la pantalla
+	 * @see toba_tab::desactivar()
+	 */
 	function eliminar_tab($id)
 	{
 		if($id == $this->id_en_controlador ) {
@@ -132,6 +173,10 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
+	/**
+	 * Retorna la lista de tabs de la pantalla actual
+	 * @return array de toba_tab
+	 */
 	function get_lista_tabs()
 	{
 		return $this->lista_tabs;	
@@ -335,6 +380,9 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 
+	/**
+	 * Genera la tabla de contenidos del modo navegacion wizard
+	 */
 	protected function generar_toc_wizard()
 	{
 		echo "<ol class='ci-wiz-toc-lista'>";
@@ -438,7 +486,7 @@ class toba_ei_pantalla extends toba_ei
 		return $consumo_js;
 	}
 
-	function crear_objeto_js()
+	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();	
 		//Crea le objeto CI

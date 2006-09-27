@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_ap_relacion</title>
+	<title>Docs For Class toba_nodo_arbol</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -25,7 +25,7 @@
         	        		|
         	              	<a href="../../li_Varios.html">Varios</a>
         	           </div>
-    	<div class="header-top-right-subpackage">Persistencia</div></td>
+    	<div class="header-top-right-subpackage">Eis</div></td>
   </tr>
   <tr><td colspan="2" class="header-line"><img src="../../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
@@ -132,9 +132,9 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>Interface: toba_ap_relacion</h1>
+<h1>Interface: toba_nodo_arbol</h1>
 
-<h2 class="class-name">Interface toba_ap_relacion</h2>
+<h2 class="class-name">Interface toba_nodo_arbol</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -148,11 +148,11 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<p align="center" class="short-description"><strong>Interface: Administrador de persistencia de un conjunto relacionado de tablas
+        		<p align="center" class="short-description"><strong>Se comporta como un nodo dentro de un árbol
 </strong></p>
 
 		<p class="notes">
-			Ubicada en /componentes/persistencia/toba_ap.php [<span class="field">line 58</span>]
+			Ubicada en /componentes/interface/interfaces.php [<span class="field">line 8</span>]
 		</p>
 
 		
@@ -173,20 +173,60 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																								<div class="method-definition">
+																																																																																																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#cargar_por_clave" title="details" class="method-name">cargar_por_clave</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Cargar una relaciÃ³n completa a partir de la clave de una de las tablas raiz</td></tr>
+										<td class="method-definition"><a href="#es_hoja" title="details" class="method-name">es_hoja</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">¿Posee algún hijo?</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">array(toba_nodo_arbol)</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_hijos" title="details" class="method-name">get_hijos</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Arreglo con los hijos toba_nodo_arbol</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#eliminar_todo" title="details" class="method-name">eliminar_todo</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Elimina del medio de persistencia toda la relaciÃ³n cargada</td></tr>
+										<td class="method-definition"><a href="#get_iconos" title="details" class="method-name">get_iconos</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Arreglo de iconos asociados al nodo</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#sincronizar" title="details" class="method-name">sincronizar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Sincroniza los cambios en la relacion con el medio de persistencia</td></tr>
+										<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Forma de identificar univocamente al nodo</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_info_extra" title="details" class="method-name">get_info_extra</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Información extra contextual a la situación actual del nodo</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_nombre_corto" title="details" class="method-name">get_nombre_corto</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Nombre corto del nodo, utilizado para listados</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_nombre_largo" title="details" class="method-name">get_nombre_largo</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Nombre largo sólo disponible para ayudas o vistas mas directas</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Eis/toba_nodo_arbol.html">toba_nodo_arbol</a></span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_padre" title="details" class="method-name">get_padre</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Padre del nodo actual</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_utilerias" title="details" class="method-name">get_utilerias</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Arreglo de utilerias (similares a los iconos pero secundarios</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#tiene_hijos_cargados" title="details" class="method-name">tiene_hijos_cargados</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">¿Los hijos del nodo estan cargados o cuando se requieran hay que ir a buscarlos al server?</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#tiene_propiedades" title="details" class="method-name">tiene_propiedades</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
 				</div>
 												</table>
 			</div>
@@ -205,67 +245,23 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 
-<a name="methodcargar_por_clave" id="cargar_por_clave"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 65]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>boolean cargar_por_clave(
-array
-$clave&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Cargar una relaciÃ³n completa a partir de la clave de una de las tablas raiz
-</strong></p>
-
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clave:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Arreglo asociativo campo-valor</span>			</td></tr>
-				</table>
-
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Falso si no se cargo la tabla raiz</td>
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodeliminar_todo" id="eliminar_todo"><!-- --></a>
+<a name="methodes_hoja" id="es_hoja"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 75]</span>
+	<span class="method-title">es_hoja</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 14]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void eliminar_todo(
+		<code>boolean es_hoja(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Elimina del medio de persistencia toda la relaciÃ³n cargada
+	<p align="center" class="short-description"><strong>¿Posee algún hijo?
 </strong></p>
 
 	<br />
@@ -274,25 +270,248 @@ $clave&nbsp;
 		
 		<br />
 </div>
-<a name="methodsincronizar" id="sincronizar"><!-- --></a>
+<a name="methodget_hijos" id="get_hijos"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
+	<span class="method-title">get_hijos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 20]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void sincronizar(
+		<code>array(toba_nodo_arbol) get_hijos(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Sincroniza los cambios en la relacion con el medio de persistencia
+	<p align="center" class="short-description"><strong>Arreglo con los hijos toba_nodo_arbol
 </strong></p>
 
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_iconos" id="get_iconos"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_iconos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 63]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_iconos(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Arreglo de iconos asociados al nodo
+</strong></p>
+<span class="description"><p>Formato de nodos y utilerias: array('imagen' =&gt; , 'ayuda' =&gt; ,  'vinculo' =&gt; )</p></span>
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id" id="get_id"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 40]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_id(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Forma de identificar univocamente al nodo
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_info_extra" id="get_info_extra"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_info_extra</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 57]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_info_extra(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Información extra contextual a la situación actual del nodo
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_nombre_corto" id="get_nombre_corto"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_nombre_corto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 46]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_corto(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Nombre corto del nodo, utilizado para listados
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_nombre_largo" id="get_nombre_largo"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_nombre_largo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 52]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_nombre_largo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Nombre largo sólo disponible para ayudas o vistas mas directas
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_padre" id="get_padre"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">get_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 26]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../../Componentes/Eis/toba_nodo_arbol.html">toba_nodo_arbol</a> get_padre(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Padre del nodo actual
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_utilerias" id="get_utilerias"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_utilerias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_utilerias(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Arreglo de utilerias (similares a los iconos pero secundarios
+</strong></p>
+<span class="description"><p>Formato de nodos y utilerias: array('imagen' =&gt; , 'ayuda' =&gt; ,  'vinculo' =&gt; )</p></span>
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodtiene_hijos_cargados" id="tiene_hijos_cargados"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">tiene_hijos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 32]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean tiene_hijos_cargados(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>¿Los hijos del nodo estan cargados o cuando se requieran hay que ir a buscarlos al server?
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodtiene_propiedades" id="tiene_propiedades"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">tiene_propiedades</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void tiene_propiedades(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
 	<br />
 	
 

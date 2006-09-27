@@ -9,7 +9,7 @@ class extension_ci extends toba_ci
 	//----------------- ML con agregado en javascript -------------------------
 	//------------------------------------------------------------------------
 	
-	function conf__ml()
+	function conf__ml($ml)
 	{
 		if (isset($this->s__datos))
 			return $this->s__datos;			

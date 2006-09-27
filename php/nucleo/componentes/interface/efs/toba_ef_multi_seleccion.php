@@ -181,6 +181,9 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return true;
 	}
 
+	/**
+	 * La validación verifica si se cumple con la cantidad mínima y máxima
+	 */
     function validar_estado()
     {
 		$padre = parent::validar_estado();
@@ -236,6 +239,9 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return $desc;	
 	}
 	
+	/**
+	 * Puede retornar el estado serializado (un unico string) o en un arreglo dependiendo de su definición en el editor
+	 */
 	function get_estado()
 	{
 		if ($this->tiene_estado()) {

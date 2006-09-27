@@ -42,7 +42,6 @@ class zona_objeto extends zona_editor
 	}
 
 	function generar_html_barra_vinculos()
-	//Esto es especifico de cada EDITABLE
 	{	
 		//Acceso al EDITOR PHP
 		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] ) {

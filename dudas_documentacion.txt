@@ -7,3 +7,6 @@ solicitud_web
 toba_proyecto:
  - Porque contiene a get_definicion_dependencia?
  
+ toba_ei_pantalla:
+  - generar_html_dependencias no se podria llamar generar_layout como en el formulario? 
+    La idea seria dejar un unico metodo comun para cambiar el layout de los componentes

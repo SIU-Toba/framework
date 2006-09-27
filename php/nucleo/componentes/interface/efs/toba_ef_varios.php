@@ -139,6 +139,11 @@ class toba_ef_checkbox extends toba_ef
 }
 // ########################################################################################################
 // ########################################################################################################
+
+/**
+ * Muestra un <div> con el estado actual dentro
+ * Útil para incluir contenidos estáticos en el formulario
+ */
 class toba_ef_fijo extends toba_ef_oculto
 {
 	private $estilo;
@@ -201,11 +206,16 @@ class toba_ef_fijo extends toba_ef_oculto
 // ########################################################################################################
 //Editor WYSIWYG de HTML
 
+/**
+ * Incluye un editor HTML WYSYWYG llamado fckeditor
+ * El HTML generado por este editor es bastante pobre en estructura, debería ser utilizado solo por usuarios finales
+ * y no por desarrolladores que quieran agregar contenido dinámicamente a la aplicación.
+ */
 class toba_ef_html extends toba_ef
 {
-	var $ancho;
-	var $alto;
-	var $botonera;
+	protected $ancho;
+	protected $alto;
+	protected  $botonera;
 
 	static function get_lista_parametros()
 	{
@@ -226,7 +236,6 @@ class toba_ef_html extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		//Consumo la expresion regular que machea numeros.
 		$consumo[] = "fck_editor";
 		return $consumo;
 	}
@@ -250,9 +259,10 @@ class toba_ef_html extends toba_ef
 								</div>";
 		} else {
 			$estado = addslashes($estado);
+			$url = toba_recurso::path_apl().'/js/fckeditor/';
 			$html = "<script type='text/javascript'>
 						  var oFCKeditor = new FCKeditor('{$this->id_form}','{$this->ancho}','{$this->alto}','{$this->botonera}','{$estado}' ) ;
-						  oFCKeditor.BasePath = 'js/fckeditor/';
+						  oFCKeditor.BasePath = '$url';
 						  oFCKeditor.Create() ;
 					 </script>";
 		}

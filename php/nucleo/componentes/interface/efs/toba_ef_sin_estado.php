@@ -13,13 +13,11 @@ abstract class toba_ef_sin_estado extends toba_ef
 	}
 
 	function set_estado()
-	//Carga el estado interno
 	{
 		return false;
 	}
 
 	function get_estado()
-	//Devuelve el estado interno
 	{
 		return null;
 	}
@@ -30,13 +28,11 @@ abstract class toba_ef_sin_estado extends toba_ef
 	}
 
 	function resetear_estado()
-	//Devuelve el estado interno
 	{
 		return false;
 	}
 	
     function validar_estado()
-    //Validacion interna del EF
     {
     	return true;
     }

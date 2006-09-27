@@ -14,8 +14,8 @@ class toba_recurso {
 	 * Retorna la URL base del proyecto
 	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
 	 * @return string
-	 */
-	static function path_pro($proyecto=null)
+	 */	
+	static function url_proyecto($proyecto = null)
 	{
 		if (isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
 			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
@@ -26,14 +26,14 @@ class toba_recurso {
 				$alias = $proyecto;
 			}
 		}
-		return '/'.$alias;
+		return '/'.$alias;		
 	}
 	
 	/**
-	 * Retorna la URL base de toba
+	 * Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
 	 * @return string
-	 */	
-	static function path_apl()
+	 */		
+	static function url_toba()
 	{
 		if (isset($_SERVER['TOBA_ALIAS'])) {
 			$alias = $_SERVER['TOBA_ALIAS'];
@@ -44,7 +44,25 @@ class toba_recurso {
 				$alias = "toba";
 			}
 		}
-		return '/'.$alias;
+		return '/'.$alias;		
+	}
+	
+	/**
+	 * @see toba_recurso::url_toba()
+	 * @deprecated  usar toba_recurso::url_toba()
+	 */
+	static function path_pro($proyecto=null)
+	{
+		return self::url_proyecto($proyecto);
+	}
+	
+	/**
+	 * Retorna la URL base de toba
+	 * @return string
+	 */	
+	static function path_apl()
+	{
+		return self::url_toba();
 	}
 
 	//------------   ACCESO A IMAGENES   --------------

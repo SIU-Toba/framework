@@ -345,6 +345,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Establece que un conjunto de efs NO seran enviados al cliente durante una interacción
+	 * Para hacer un ef solo_lectura ver {@link toba_ef::set_solo_lectura() set_solo_lectura del ef}
 	 * @param array $efs Uno o mas efs, si es nulo se asume todos
 	 */
 	function desactivar_efs($efs=null)
@@ -793,6 +794,10 @@ class toba_ei_formulario extends toba_ei
 		}		
 	}
 
+	/**
+	 * Genera la etiqueta y el componente HTML de un ef
+	 * @param string $ef Identificador del ef
+	 */
 	protected function generar_html_ef($ef)
 	{
 		$clase = 'ei-form-fila';

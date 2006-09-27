@@ -2,7 +2,9 @@
 
 /**
  * Ef que selecciona un archivo de su sistema para que esté disponible en el servidor
- * Equivale a un <INPUT type='file'>
+ * Equivale a un <INPUT type='file'> y su estado equivale a una entrada del $_FILES de php
+ * Ver el {http://www.php.net/manual/es/features.file-upload.php manejo de uploads} por parte de php,
+ * para entender las restricciones y el manejo en general del upload de archivos
  * @package Componentes
  * @subpackage Efs
  */
@@ -97,6 +99,11 @@ class toba_ef_upload extends toba_ef
 				($this->archivo_subido && !$this->es_archivo_vacio());
 	}
 	
+	/**
+	 * Valida que cumpla con la lista de extensiones válidas definidas.
+	 * También chequea los {@link http://www.php.net/manual/en/features.file-upload.errors.php mensajes de error de upload} de php
+	 * @return unknown
+	 */
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();

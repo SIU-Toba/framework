@@ -68,11 +68,11 @@
 		    		<a href="../SalidaGrafica/toba_impresion.html">toba_impresion</a>    	 <br />
 	  </div>
             
-  <div class="package">
+ <!-- <div class="package">
 	<div id="todolist">
 			<p><a href="../todolist.html">Todo List</a></p>
 	</div>
-	</div>
+	</div> -->
 	<div id="topdiv">
 			<p><a href="javascript:scroll(0,0)">Subir</a></p>
 	</div>
@@ -179,12 +179,26 @@
 				</div>
 																<div class="method-definition">
 					<tr><td class="method-definition">static
-											<span class="method-result">string</span>&nbsp;&nbsp;
+											<span class="method-result">void</span>&nbsp;&nbsp;
 					</td>
 					<td class="method-definition"><a href="#path_pro" title="details" class="method-name">path_pro</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">string</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#url_proyecto" title="details" class="method-name">url_proyecto</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna la URL base del proyecto</td></tr>
 				</div>
-																																																																																								</table>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">string</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#url_toba" title="details" class="method-name">url_toba</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)</td></tr>
+				</div>
+																																																																																																								</table>
 			</div>
 			<br />
 		</div>
@@ -204,7 +218,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 140]</span>
+	<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 158]</span>
 </div>
 <br />
 
@@ -246,7 +260,7 @@ $clases_css = '']&nbsp;
 				</table>
 
 	<br />
-	<strong>API Tags:</strong><br />
+	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>a incluir en un tag img, a, div, etc.</td>
@@ -262,7 +276,7 @@ $clases_css = '']&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 112]</span>
+	<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
 </div>
 <br />
 
@@ -341,7 +355,7 @@ $estilo = '']&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 91]</span>
+	<span class="method-title">static method imagen_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 109]</span>
 </div>
 <br />
 
@@ -420,7 +434,7 @@ $tooltip&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 52]</span>
+	<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
 </div>
 <br />
 
@@ -462,7 +476,7 @@ $origen&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
+	<span class="method-title">static method imagen_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 88]</span>
 </div>
 <br />
 
@@ -534,7 +548,7 @@ $mapa = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 170]</span>
+	<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 188]</span>
 </div>
 <br />
 
@@ -571,7 +585,7 @@ $javascript&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 182]</span>
+	<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 200]</span>
 </div>
 <br />
 
@@ -615,7 +629,7 @@ $rol = 'screen']&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method path_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
+	<span class="method-title">static method path_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 63]</span>
 </div>
 <br />
 
@@ -640,14 +654,59 @@ $rol = 'screen']&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method path_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 18]</span>
+	<span class="method-title">static method path_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 54]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static string path_pro(
+		<code>static void path_pro(
+[
+$proyecto = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>usar toba_recurso::url_toba()</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../SalidaGrafica/toba_recurso.html#methodurl_toba">toba_recurso::url_toba()</a></td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodurl_proyecto" id="url_proyecto"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 18]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static string url_proyecto(
 [string
 $proyecto = null]&nbsp;
 )</code>
@@ -673,6 +732,31 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodurl_toba" id="url_toba"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static string url_toba(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
+</strong></p>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 		</div>
 	</div>
@@ -687,7 +771,7 @@ $proyecto = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada el Tue, 19 Sep 2006 17:03:02 -0300 por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada por <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
 	      </div>
       </td></tr></table>
     </td>

@@ -2,14 +2,13 @@
 
 /**
  * Elemento no-editable, que no viaja al cliente y mantiene su estado en el servidor
+ * los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
+ * La propagacion de su estado a travez de solicitudes se lleva a cabo impementado MEMORIA
  * @package Componentes
  * @subpackage Efs
  */
 class toba_ef_oculto extends toba_ef
 {
-//Atencion: los elementos ocultos no se propagan a traves del formulario porque no tienen interface.
-//La propagacion de su estado a travez de solicitudes se lleva a cabo impementado MEMORIA
-
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);	
@@ -19,7 +18,7 @@ class toba_ef_oculto extends toba_ef
 		}		
 	}
 
-	function clave_memoria()
+	protected function clave_memoria()
 	{
 		return "ef_" . $this->id_form;
 	}
@@ -31,6 +30,9 @@ class toba_ef_oculto extends toba_ef
 		return true;
 	}
 
+	/**
+	 * Como el componente no viaja al cliente, carga su estado de la memoria (sesion)
+	 */
 	function cargar_estado_post()
 	{
 		//Intenta cargar el estado a partir del hilo
@@ -39,13 +41,10 @@ class toba_ef_oculto extends toba_ef
 			$this->estado = $temp;
 			//Tengo que memorizar el estado para la proxima instanciacion
 			toba::memoria()->set_dato_sincronizado($this->clave_memoria(), $this->estado);
-			return true;
 		}
-		return false;
 	}
 	
 	function resetear_estado()
-	//Devuelve el estado interno
 	{
 		toba::memoria()->eliminar_dato_sincronizado($this->clave_memoria());
 		if(isset($this->estado)){
@@ -59,11 +58,6 @@ class toba_ef_oculto extends toba_ef
 	function get_input()
 	{
 		return null;
-	}
-
-	function get_interface()
-	{
-		return null;;
 	}
 
 }
@@ -87,13 +81,11 @@ class toba_ef_oculto_usuario extends toba_ef_oculto
 	}
 
 	function resetear_estado()
-	//Devuelve el estado interno
 	{
 		$this->estado = toba::usuario()->get_id();
 	}	
 
 	function set_estado($estado=null)
-	//Desabilito la carga via POST y utilizo memoria
 	{
 		$this->estado = toba::usuario()->get_id();
 		return true;

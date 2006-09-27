@@ -206,7 +206,7 @@ class toba_sesion
 	
 	/**
 	 * Retorna el grupo de acceso de la sesion actual
-	 * @see toba_usuario::get_grupo_acceso
+	 * @see toba_usuario::get_grupo_acceso()
 	 */
 	function get_grupo_acceso()
 	{

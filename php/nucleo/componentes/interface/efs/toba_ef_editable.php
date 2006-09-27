@@ -1,7 +1,9 @@
 <?php
+require_once('nucleo/lib/interface/toba_formateo.php');
 
 /**
  * Elemento editable equivalente a un <input type='text'>
+ * Puede manejar una mascara.
  * @package Componentes
  * @subpackage Efs
  */
@@ -64,6 +66,10 @@ class toba_ef_editable extends toba_ef
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
+	/**
+	 * En el caso del editable las opciones representa su estado por defecto
+	 * @param string $opciones
+	 */
 	function set_opciones($opciones)
 	{
 		if ($opciones === null) {
@@ -161,6 +167,10 @@ class toba_ef_editable_numero extends toba_ef_editable
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
+	/**
+	 * Permite modificar el rango de numeros permitido y el mensaje de error
+	 * @param string $rango ej: "[0..100), Número positivo"
+	 */
 	function cambiar_rango($rango)
 	{
 		//Parseo del rango
@@ -183,7 +193,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 		}
 	}
 	
-	function mensaje_validacion_rango()
+	protected function mensaje_validacion_rango()
 	{
 		if (isset($this->mensaje_defecto)) {
 			return $this->mensaje_defecto;
@@ -200,7 +210,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 		return " debe ser$inferior$nexo$superior.";
 	}
 	
-	function validar_rango()
+	protected function validar_rango()
 	{
 		$ok = true;
 		if ($this->rango_inferior['limite'] != '*') {
@@ -221,6 +231,9 @@ class toba_ef_editable_numero extends toba_ef_editable
 		return true;
 	}
 
+	/**
+	 * Valida que el número cumpla con el rango preestablecido (si lo hay)
+	 */
     function validar_estado()
 	{
 		$padre = parent::validar_estado();
@@ -371,17 +384,10 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 
-	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo){
-		$f = explode($sep_actual,$fecha);
-		$dia = str_pad($f[0],2,0,STR_PAD_LEFT);
-		$mes = str_pad($f[1],2,0,STR_PAD_LEFT);
-		return $f[2] . $sep_nuevo . $mes . $sep_nuevo .$dia;
- 	}
-
 	function set_estado($estado="")
 	{
   		if($estado!="") {
-    		$this->estado = $this->cambiar_fecha($estado,'-','/');
+    		$this->estado = cambiar_fecha($estado,'-','/');
 	    } else {
 	    	$this->estado = null;	
 	    }
@@ -391,7 +397,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	{
 		// En este punto se formatea la fecha
 		if($this->tiene_estado()){
-			return $this->cambiar_fecha($this->estado,'/','-');
+			return cambiar_fecha($this->estado,'/','-');
 		}else{
 			return null;
 		}
@@ -420,6 +426,9 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		return $html;
 	}
     
+	/**
+	 * Valida que sea una fecha válida con la funcion php checkdate
+	 */
     function validar_estado()
 	{
 		$padre = parent::validar_estado();
@@ -560,7 +569,5 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		return parent::parametros_js().", $maximo, $ajustable";	
 	}
 }
-//########################################################################################################
-//########################################################################################################
-         
+   
 ?>

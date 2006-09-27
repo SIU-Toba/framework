@@ -72,9 +72,11 @@
 	}
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo){
-		if( isset( $fecha ) ) {
+		if (isset($fecha)) {
 			$f = explode($sep_actual,$fecha);
-			return $f[2] . $sep_nuevo . $f[1] . $sep_nuevo . $f[0];
+			$dia = str_pad($f[0],2,0,STR_PAD_LEFT);
+			$mes = str_pad($f[1],2,0,STR_PAD_LEFT);
+			return $f[2] . $sep_nuevo . $mes . $sep_nuevo .$dia;
 		}
 	}
 

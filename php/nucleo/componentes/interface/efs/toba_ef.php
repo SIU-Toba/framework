@@ -15,7 +15,10 @@ require_once("toba_ef_cuit.php");
 
 /**
  * Clase base de los elementos de formulario. 
- * Estos son controles o widgets que forman parte de un formulario
+ * 
+ * Los efs son controles o widgets que forman parte de un formulario, tienen lógica de validación y formato tanto en js como en php.
+ * Aquellos controles que se basan en la metáfora de selección permiten cargar sus opciones en base a métodos php, consultas SQL y lista de valores fijos.
+ * 
  * @package Componentes
  * @subpackage Efs
  */
@@ -156,11 +159,19 @@ abstract class toba_ef
 		return true;	
 	}
 	
+	/**
+	 * La carga de opciones de este ef depende de su estado actual?
+	 * @return boolean
+	 */
 	function carga_depende_de_estado()
 	{
 		return false;	
 	}	
 
+	/**
+	 * El ef maneja el concepto de etiqueta?
+	 * @return boolean
+	 */
 	function tiene_etiqueta()
 	{
 		return true;	
@@ -170,6 +181,10 @@ abstract class toba_ef
 	//------ Propiedades relacionadas con la carga --------
 	//-----------------------------------------------------		
 	
+	/**
+	 * Retorna la lista de efs de los cuales depende 
+	 * @return array Arreglo de identificadores de efs
+	 */
 	function get_maestros()
 	{
 		return $this->maestros;
@@ -215,22 +230,41 @@ abstract class toba_ef
 	//-----------------------------------------------------
 	//-------------- ACCESO a propiedades -----------------
 	//-----------------------------------------------------	
-    
+
+	/**
+	 * Si el ef permite seleccionar opciones, estas ya estan cargadas?
+	 * @return boolean
+	 */
 	function tiene_opciones_cargadas()
 	{
 		return $this->opciones_cargadas;	
 	}
 	
+	/**
+	 * Un ef obligatorio lanza una excepción en PHP si su estado actual es nulo
+	 * La obligatoriedad se define en el editor, aunque es posible modificarla durante un pedido de pagina específico
+	 * @return boolean
+	 * @see set_obligatorio	
+	 */
     function es_obligatorio()
     {
     	return $this->obligatorio;	
     }
     
+    /**
+     * Retorna la clase css asociada a la etiqueta
+     */
     function get_estilo_etiqueta()
     {
     	return $this->estilo_etiqueta;	
     }
 
+    /**
+     * Un ef no expandido se muestra oculto en el layout del formulario.
+     * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
+     * @return boolean
+     * @see set_expandido
+     */
 	function esta_expandido()
 	{
 		return $this->expandido;
@@ -241,11 +275,19 @@ abstract class toba_ef
 		return $this->id;
 	}
 
+	/**
+	 * Retorna el texto de la etiqueta asociada
+	 */
 	function get_etiqueta()
 	{
 		return $this->etiqueta;
 	}
 
+	/**
+	 * Retorna la descripción o ayuda del ef.
+	 * La descripción se muestra por defecto como un tooltip al lado de la etiqueta
+	 * @return string
+	 */
 	function get_descripcion()
 	{
 		return trim($this->descripcion);	
@@ -253,12 +295,16 @@ abstract class toba_ef
 	
 	/**
 	 * El 'dato' del ef es la o las columnas de datos asociadas.
+	 * Cuando al formulario se le pide un get_datos() este retorna como columnas los datos definidos en los efs
 	 */
 	function get_dato()
 	{
 		return $this->dato;
 	}
 
+	/**
+	 * Como el id html puede variar si se multiplexa el ef (caso formulario_ml), este metodo retorna el id original del ef
+	 */
 	function get_id_form_orig()
 	{
 		return $this->id_form_orig;
@@ -270,7 +316,8 @@ abstract class toba_ef
 	}	
 
 	/**
-	 * Retorna el valor actual del ef
+	 * Retorna el valor o estado actual del ef
+	 * @return mixed Si el ef maneja un unico dato el estado es un string, sino es un arreglo de strings
 	 */
 	function get_estado()
 	{
@@ -281,6 +328,12 @@ abstract class toba_ef
 		}
 	}
 
+	/**
+	 * Retorna una descripción textual del estado.
+	 * Para muchos efs la descripción es identica al estado (caso de un texto común por ejemplo), 
+	 * pero para otros el estado es una clave interna distinta a su descripción
+	 * @return string
+	 */
 	function get_descripcion_estado()
 	{
 		return $this->get_estado();
@@ -295,7 +348,7 @@ abstract class toba_ef
 	}
 	
 	/**
-	 * El ef tiene un valor positivo, parecido a tiene_estado() pero puede ser mas restrictivo
+	 * El ef tiene un valor positivo, similar a tiene_estado() pero puede ser mas restrictivo
 	 */
 	function seleccionado()
 	{
@@ -303,7 +356,8 @@ abstract class toba_ef
 	}
 
 	/**
-	 * Retorna el valor del ef a su estado inicial
+	 * Retorna el valor del ef a su estado inicial.
+	 * Si el ef no maneja un estado o valor por defecto, su valor sera NULL 
 	 */
 	function resetear_estado()
 	{
@@ -311,7 +365,7 @@ abstract class toba_ef
 	}
 
 	/**
-	 * Chequea la valides del estado actual del ef
+	 * Chequea la validez del estado actual del ef
 	 * @return mixed Retorna true cuando es valido y un string con el mensaje cuando es inválido
 	 */
     function validar_estado()
@@ -334,42 +388,81 @@ abstract class toba_ef
 	//-------------- CAMBIO DE PROPIEDADES -----------------
 	//-----------------------------------------------------
 
+	/**
+	 * Multiplexa el ef (usado en el formulario_ml)
+	 * Permite que una sola intancia de un objeto ef pueda ser utilizada para representar un conjunto de efs similares en estructura
+	 */
 	function ir_a_fila($agregado="")
 	{
 		$this->agregado_form = $agregado;
 		$this->id_form = $this->id_form_orig . $agregado;
 	}
-    
+
+	/**
+	 * Cambia la etiqueta actual del ef
+	 * @param string $etiqueta
+	 */
 	function set_etiqueta($etiqueta)
 	{
 		$this->etiqueta = $etiqueta;
 	}
 	
+	/**
+	 * Cambia la descripción o ayuda del ef.
+	 * La descripción se muestra por defecto como un tooltip al lado de la etiqueta
+	 * @return string
+	 */	
 	function set_descripcion($descripcion)
 	{
 		$this->descripcion = $descripcion;
 	}
 
+	/**
+	 * Cuando un ef se encuentra en solo_lectura su valor es visible al usuario pero no puede modificarlo.
+	 * Notar que si un ef se fija solo_lectura en el servidor, este estado no puede variar en el cliente (javascript),
+	 * Para armar lógica de cambio de solo_lectura en javascript utilizar la extensión javascript del componente usado
+	 * @param boolean $solo_lectura Hacer o no solo lectura
+	 */
 	function set_solo_lectura($solo_lectura = true)
 	{
         $this->solo_lectura = $solo_lectura;
     }
 	
+    /**
+     * Cambia la obligatoriedad de un ef
+     * Notar que este cambio no se persiste para el siguiente pedido.
+     * Para cambiar la obligatoriedad durante todo un ciclo cliente-servidor usar {@link toba_ei_formulario::set_efs_obligatorios() set_efs_obligatorios del formulario}
+     * @param boolean $obligatorio
+     */
     function set_obligatorio($obligatorio = true)
     {
 	    $this->obligatorio = $obligatorio;
     }
     
+    /**
+     * Cambia la clase css aplicada a la etiqueta
+     * @param string $estilo
+     */
     function set_estilo_etiqueta($estilo)
     {
     	$this->estilo_etiqueta = $estilo;	
     }
 
+	/**
+	 * Determina si un ef se muestra o no expandido
+     * Un ef no expandido se muestra oculto en el layout del formulario.
+     * Para verlo el usuario explícitamente debe apretar un icono o vínculo.
+	 * @param boolean $expandido
+	 */
 	function set_expandido($expandido)
 	{
 		$this->expandido = $expandido;
 	}
 	
+	/**
+	 * Cambia el valor o estado actual del ef
+	 * @param mixed $estado
+	 */
 	function set_estado($estado)
 	{
    		if(isset($estado)){								
@@ -379,14 +472,15 @@ abstract class toba_ef
 	    }
 	}
 
+	/**
+	 * Carga el estado actual del ef a partir del $_POST dejado por este mismo componente en el pedido anterior
+	 */
 	function cargar_estado_post()
 	{
 		if (isset($_POST[$this->id_form])){
 			$this->estado = $_POST[$this->id_form];
-			return true;
     	} else {
 			$this->estado = null;
-			return false;
     	}
 	}	
 	
@@ -411,6 +505,9 @@ abstract class toba_ef
 		return $this->padre->get_objeto_js_ef($this->id);
 	}
 
+	/**
+	 * Lista de parametros necesarios para el constructor del objeto en javascript
+	 */
 	protected function parametros_js()
 	{
 		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
@@ -453,9 +550,11 @@ abstract class toba_ef
 	//-------------------- INTERFACE ----------------------
 	//-----------------------------------------------------
 
+	/**
+	 * Genera el HTML del elemento
+	 */
 	abstract function get_input();
 	
 }
-//########################################################################################################
-//########################################################################################################
+
 ?>
