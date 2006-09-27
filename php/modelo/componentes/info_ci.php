@@ -188,7 +188,7 @@ class info_ci extends info_ei
 		}
 		//***************** JAVASCRIPT *****************
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );
-		return $plan;
+		return $molde;
 	}
 
 	static function get_eventos_internos(toba_datos_relacion $dr)

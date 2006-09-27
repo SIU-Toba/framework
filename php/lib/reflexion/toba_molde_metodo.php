@@ -4,14 +4,15 @@ require_once('toba_molde_elemento.php');
 abstract class toba_molde_metodo extends toba_molde_elemento
 {
 	protected $nombre;
+	protected $descripcion;
 	protected $parametros;
 	protected $comentarios;
-	protected $contenido;
+	protected $contenido = array();
 	
 	function __construct($nombre, $parametros=array(), $comentarios=array(), $descripcion=null)
 	{
-		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		$this->nombre = $nombre;
+		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		if(!is_array($parametros)){
 			throw new toba_error("Error en el metodo: $nombre. Los parametros debern ser un array");	
 		}
@@ -26,13 +27,19 @@ abstract class toba_molde_metodo extends toba_molde_elemento
 	{
 		return $this->nombre;	
 	}
-		
+	
+	function get_descripcion()
+	{
+		return $this->descripcion;	
+	}
+	
 	function set_contenido($contenido)
 	{
 		if ( !is_array($contenido) ) {
 			$this->contenido = explode( salto_linea() ,$contenido);
+		} else {
+			$this->contenido = $contenido;
 		}
-		$this->contenido = $contenido;
 	}
 
 	//--- Generacion ------------------------------------

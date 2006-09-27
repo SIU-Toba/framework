@@ -11,8 +11,8 @@ class toba_molde_separador extends toba_molde_elemento
 	{
 		$this->nombre = $nombre;
 		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
-		if( ($tipo != 'corto') || ($tipo != 'largo') ) {
-			throw new toba_error('Error en la construccion del molde_separador: los tipos validos son \'corto\' y \'largo\'');
+		if( ($tipo != 'chico') && ($tipo != 'grande') ) {
+			throw new toba_error('Error en la construccion del molde_separador: los tipos validos son \'chico\' y \'grande\'. Tipo solicitado: ' .$tipo . ' - Separador "' . $nombre . '"' );
 		}
 		$this->tipo = $tipo;
 	}
@@ -33,16 +33,16 @@ class toba_molde_separador extends toba_molde_elemento
 		return $this->$metodo();
 	}
 
-	static function separador_chico()
+	function separador_chico()
 	{	
-		$salida = $this->identado() . "//---- $nombre -------------------------------------------------------\n\n";	
+		$salida = $this->identado() . "//---- {$this->nombre} -------------------------------------------------------\n\n";	
 		return $salida;
 	}	
 	
-	static function separador_grande($nombre)
+	function separador_grande()
 	{
 		$salida = $this->identado() . "//-------------------------------------------------------------------\n";
-		$salida .= $this->identado() . "//--- $nombre\n";
+		$salida .= $this->identado() . "//--- {$this->nombre}\n";
 		$salida .= $this->identado() . "//-------------------------------------------------------------------\n";
 		return $salida;
 	}	

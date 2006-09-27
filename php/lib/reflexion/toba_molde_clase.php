@@ -23,7 +23,7 @@ class toba_molde_clase
 
 	//-- Contruccion del molde ------------------------------------
 
-	function agregar(elemento_molde $elementos)
+	function agregar(toba_molde_elemento $elemento)
 	{
 		if ($elemento instanceof toba_molde_metodo_js || $elemento instanceof toba_molde_separador_js ) {
 			$this->elementos_js[$this->orden] = $elemento;
@@ -75,8 +75,8 @@ class toba_molde_clase
 	function get_lista_metodos()
 	{
 		$plan = array();
-		$plan = generar_lista_elementos($this->elementos_php, 'PHP');
-		$plan = array_merge($plan, generar_lista_elementos($this->elementos_js, 'JAVASCRIPT'));
+		$plan = $this->generar_lista_elementos($this->elementos_php, 'PHP');
+		$plan = array_merge($plan, $this->generar_lista_elementos($this->elementos_js, 'JAVASCRIPT'));
 		return $plan;
 	}
 
@@ -130,8 +130,8 @@ class toba_molde_clase
 	{
 		$this->filtrar_metodos($this->elementos_php, $elementos_a_utilizar);
 		$this->filtrar_metodos($this->elementos_js, $elementos_a_utilizar);
-		$this->colapsar_separadores($this->elementos_php);
-		$this->colapsar_separadores($this->elementos_js);
+		//$this->colapsar_separadores($this->elementos_php);
+		//$this->colapsar_separadores($this->elementos_js);
 	}
 
 	/*
@@ -152,7 +152,7 @@ class toba_molde_clase
 		Los separadores chicos se eliminan si no tienen un metodo antes de otro separador o el final
 		Los separadores grandes se eliminan si no tienen un metodo antes de otro separador grande o el final
 	*/
-	function colapasar_separadores( &$elementos )
+	function colapsar_separadores( &$elementos )
 	{
 		$sep_chico_en_analisis = null;
 		$sep_grande_en_analisis = null;
@@ -190,7 +190,7 @@ class toba_molde_clase
 
 	function generar_codigo()
 	{
-		$this->codigo_php .= "class {$this->nombre} extends {$this->padre_nombre}". salto_linea() ."{". salto_linea();
+		$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
 		$this->generar_codigo_php();
 		$this->generar_codigo_js();
 		$this->codigo_php .= "}". salto_linea();
@@ -219,7 +219,9 @@ class toba_molde_clase
 			$php .= '";' . salto_linea();
 			$metodo = new toba_molde_metodo_php('extender_objeto_js');
 			$metodo->set_contenido($php);
+			$metodo->identar(1);
 			$separador = new toba_molde_separador_php('JAVASCRIPT',null,'grande');
+			$separador->identar(1);
 			$this->codigo_php .= $separador->get_codigo();
 			$this->codigo_php .= salto_linea();
 			$this->codigo_php .= $metodo->get_codigo();
