@@ -157,7 +157,7 @@ class toba_proyecto
 	function get_www($archivo="")
 	{
 		$path_real = $this->get_path() . "/www/" . $archivo;
-		$path_browser = toba_recurso::path_pro();
+		$path_browser = toba_recurso::url_proyecto();
 		if ($archivo != "") {
 		 	$path_browser .= "/" . $archivo;
 		}

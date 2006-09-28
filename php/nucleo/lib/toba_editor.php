@@ -264,12 +264,12 @@ class toba_editor
 		$html_ayuda = toba_recurso::ayuda(null, $ayuda);
 		echo "<div id='editor_toggle'>".
 				"<button type='button' onclick='cambiar_vinculos_editor()' $html_ayuda id='editor_boton'>".
-				toba_recurso::imagen_apl('editor-boton.png', true)."<br>Ctrl</button></div>";
+				toba_recurso::imagen_toba('editor-boton.png', true)."<br>Ctrl</button></div>";
 		self::javascript_invocacion_editor();
 		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
 			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			echo toba_recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
+			echo toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a>\n";
 		}
 		echo "</div>";
@@ -283,7 +283,7 @@ class toba_editor
 		echo "<span class='div-editor'>";		
 		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
 			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			echo toba_recurso::imagen_apl($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
+			echo toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
 			echo "</a>\n";
 		}
 		echo "</span>";
@@ -301,7 +301,7 @@ class toba_editor
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
 		$html = "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
-		$html .= toba_recurso::imagen_apl($imagen,true);//,null,null,$vinculo['tip']);
+		$html .= toba_recurso::imagen_toba($imagen,true);//,null,null,$vinculo['tip']);
 		$html .= '</a>';
 		return $html;
 	}
@@ -372,7 +372,7 @@ class toba_editor
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
-		$salida .= toba_recurso::imagen_apl('objetos/editar.gif',true);
+		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		
 		return $salida;
@@ -387,7 +387,7 @@ class toba_editor
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor' style='position:absolute'>";		
 		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
-		$salida .= toba_recurso::imagen_apl('objetos/editar.gif',true);
+		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		
 		return $salida;		

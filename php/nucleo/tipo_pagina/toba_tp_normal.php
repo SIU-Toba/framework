@@ -54,7 +54,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		//--- Salir
 		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
 		echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'"><img src='.
-				toba_recurso::imagen_apl('finalizar_sesion.gif').
+				toba_recurso::imagen_toba('finalizar_sesion.gif').
 				' border="0"></a>';
 		
 		//--- Usuario
@@ -78,7 +78,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			//-- Si hay al menos dos proyectos
 			echo '<div class="enc-cambio-proy">';
 			echo '<a href="#" title="Ir a la inicio" onclick="vinculador.ir_a_proyecto(\''.$actual.'\');">'.
-					toba_recurso::imagen_apl("home.gif",true).'</a>';
+					toba_recurso::imagen_toba("home.gif",true).'</a>';
 			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
 			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
 								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
@@ -91,7 +91,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	
 	protected function mostrar_logo()
 	{
-		echo toba_recurso::imagen_pro('logo.gif', true);
+		echo toba_recurso::imagen_proyecto('logo.gif', true);
 	}
 	
 	protected function info_usuario()

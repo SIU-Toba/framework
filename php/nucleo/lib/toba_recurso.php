@@ -8,8 +8,6 @@ require_once("nucleo/lib/toba_parser_ayuda.php");
  */
 class toba_recurso {
 
-	//------------   PATH a las carpetas de toba_recursos   --------------
-
 	/**
 	 * Retorna la URL base del proyecto
 	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
@@ -47,36 +45,23 @@ class toba_recurso {
 		return '/'.$alias;		
 	}
 	
-	/**
-	 * @see toba_recurso::url_toba()
-	 * @deprecated  usar toba_recurso::url_toba()
-	 */
-	static function path_pro($proyecto=null)
-	{
-		return self::url_proyecto($proyecto);
-	}
-	
-	/**
-	 * Retorna la URL base de toba
-	 * @return string
-	 */	
-	static function path_apl()
-	{
-		return self::url_toba();
-	}
 
 	//------------   ACCESO A IMAGENES   --------------
 
+	/**
+	 * Alias de imagen_Toba o imagen_proyecto dependiendo del origen
+	 * @param string $origen Si es 'apex' usa imagen_toba sino del proyecto
+	 */
 	static function imagen_de_origen($nombre, $origen)
 	{
 		if ($origen == 'apex')
-			return self::imagen_apl($nombre);
+			return self::imagen_toba($nombre);
 		else
-			return self::imagen_pro($nombre);
+			return self::imagen_proyecto($nombre);
 	}
 	
 	/**
-	 * Retorna una imagen del proyecto
+	 * Retorna una imagen ubicada en el directorio www/img del proyecto
 	 *
 	 * @param string $imagen Path relativo a www/img de la imagen a generar
 	 * @param boolean $html Generar el TAG 'img' (por def. false)
@@ -85,10 +70,10 @@ class toba_recurso {
 	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
 	 * @param string $mapa (no oblig.)
 	 */
-	static function imagen_pro($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
+	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
 	{
-		$src = toba_recurso::path_pro() . "/img/" . $imagen;
-		if($html){
+		$src = toba_recurso::url_proyecto() . "/img/" . $imagen;
+		if ($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
 		}else{
 			return $src;
@@ -96,7 +81,7 @@ class toba_recurso {
 	}
 	
 	/**
-	 * Retorna una imagen del comun a todo el framework
+	 * Retorna una imagen comun a todo el framework (ubicada en $toba_dir/www/img)
 	 *
 	 * @param string $imagen Path relativo a www/img de la imagen a generar
 	 * @param boolean $html Generar el TAG 'img' (por def. false)
@@ -107,7 +92,7 @@ class toba_recurso {
 	 */		
 	static function imagen_toba($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
 	{
-		$src = toba_recurso::path_apl() . "/img/" . $imagen;
+		$src = toba_recurso::url_toba() . "/img/" . $imagen;
 		if($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $alt,$mapa);
 		}else{
@@ -116,16 +101,7 @@ class toba_recurso {
 	}
 	
 	/**
-	 * @deprecated Usar imagen_toba()
-	 * @see toba_recurso::imagen_toba()
-	 */
-	static function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
-	{
-		return self::imagen_toba($imagen, $html, $ancho, $alto, $alt, $mapa);
-	}
-	
-	/**
-	 * Retorna el tag <img>
+	 * Construye un tag <img>
 	 *
 	 * @param string $src Url utilizada en el src del tag
 	 * @param string $ancho Ancho de la imagen (no oblig.)
@@ -195,11 +171,9 @@ class toba_recurso {
 	 */
 	static function js($javascript)
 	{
-		return toba_recurso::path_apl() . "/js/" . $javascript;
+		return toba_recurso::url_toba() . "/js/" . $javascript;
 	}
 	
-	
-
 	/**
 	*	Crea el tag <link>
 	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
@@ -212,14 +186,14 @@ class toba_recurso {
 		
 		//Busca primero en el nucleo
  		if (file_exists(toba_dir()."/www/css/$estilo.css")) {
-			$url = toba_recurso::path_apl()."/css/$estilo.css";
+			$url = toba_recurso::url_toba()."/css/$estilo.css";
 			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
 		}
 		//Busca tambien en el proyecto
 		$proyecto = toba_proyecto::get_id();
 		$path = toba_instancia::get_path_proyecto($proyecto)."/www/css/$estilo.css";
 		if (file_exists($path)) {
-			$url = toba_recurso::path_pro($proyecto) . "/css/$estilo.css";
+			$url = toba_recurso::url_proyecto($proyecto) . "/css/$estilo.css";
 			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
 		}
 		return $link;

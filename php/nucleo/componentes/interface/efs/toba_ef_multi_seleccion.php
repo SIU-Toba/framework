@@ -350,9 +350,9 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 			foreach ($this->opciones as $id => $descripcion) {
 				$html .= "<label class='ef-multi-check'>";
 				if (in_array($id, $estado)) {
-					$html .= toba_recurso::imagen_apl('checked.gif',true,16,16);
+					$html .= toba_recurso::imagen_toba('checked.gif',true,16,16);
 				} else  {
-					$html .= toba_recurso::imagen_apl('unchecked.gif',true,16,16);
+					$html .= toba_recurso::imagen_toba('unchecked.gif',true,16,16);
 				}
 				$html .= "$descripcion</label>\n";
 			}
@@ -406,10 +406,10 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 	protected function parametros_js()
 	{
 		$imgs = array();
-		$imgs[] = toba_recurso::imagen_apl('paginacion/no_siguiente.gif', false);
-		$imgs[] = toba_recurso::imagen_apl('paginacion/si_siguiente.gif', false);
-		$imgs[] = toba_recurso::imagen_apl('paginacion/no_anterior.gif', false);
-		$imgs[] = toba_recurso::imagen_apl('paginacion/si_anterior.gif', false);
+		$imgs[] = toba_recurso::imagen_toba('paginacion/no_siguiente.gif', false);
+		$imgs[] = toba_recurso::imagen_toba('paginacion/si_siguiente.gif', false);
+		$imgs[] = toba_recurso::imagen_toba('paginacion/no_anterior.gif', false);
+		$imgs[] = toba_recurso::imagen_toba('paginacion/si_anterior.gif', false);
 		return parent::parametros_js().",".toba_js::arreglo($imgs, false);
 	}
 	
@@ -437,9 +437,9 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$etiq_izq = "Disponibles";
 		$etiq_der = "Seleccionados";
 		$ef_js = $this->objeto_js();
-		$img_der = toba_recurso::imagen_apl('paginacion/no_siguiente.gif', false);
+		$img_der = toba_recurso::imagen_toba('paginacion/no_siguiente.gif', false);
 		$boton_der = "<img src='$img_der' id='{$this->id_form}_img_izq' onclick=\"$ef_js.pasar_a_derecha()\" class='ef-multi-doble-boton'>";
-		$img_izq = toba_recurso::imagen_apl('paginacion/no_anterior.gif', false);
+		$img_izq = toba_recurso::imagen_toba('paginacion/no_anterior.gif', false);
 		$boton_izq = "<img src='$img_izq' id='{$this->id_form}_img_der' onclick=\"$ef_js.pasar_a_izquierda()\" class='ef-multi-doble-boton'>";
 		
 		$disabled = ($this->solo_lectura) ? "disabled" : "";

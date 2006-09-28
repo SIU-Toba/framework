@@ -121,7 +121,7 @@ ORDER BY    3,6;";
 		  </td>
           <td  class='lista-obj-dato2'  width="1">
 		 	<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/usuarios",array('proyecto' => $registro['proyecto'])) ?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
-			  <? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Ver Perfiles") ?>
+			  <? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true,null,null,"Ver Perfiles") ?>
 			</a>
 		  </td>
           <td  class='lista-obj-dato1'  width="50%"><? echo $registro["proyecto"] ?></td>
@@ -148,7 +148,7 @@ ORDER BY    3,6;";
      <td width="2%"  class='lista-obj-titulo'>
     <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),$editor, null, false, false, null, true, 'central') ?>"
     class="list-obj" target="<? echo  apex_frame_centro ?>">
-    <? echo toba_recurso::imagen_apl("usuarios/{$editor_img}_nuevo.gif",true,null,null,"Crear $editor_tip") ?>
+    <? echo toba_recurso::imagen_toba("usuarios/{$editor_img}_nuevo.gif",true,null,null,"Crear $editor_tip") ?>
     </a>
     </td>
 </tr>
@@ -172,20 +172,20 @@ ORDER BY    3,6;";
         <tr>
           <td width="2%" class='cat-item-categ1'>
             <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),$editor,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
-                <? echo toba_recurso::imagen_apl("usuarios/$editor_img.gif",true,null,null,"Modificar $editor_tip") ?>
+                <? echo toba_recurso::imagen_toba("usuarios/$editor_img.gif",true,null,null,"Modificar $editor_tip") ?>
             </a>
 <? if (isset($editor2)){ ?>
       </td>
           <td width="2%" class='cat-item-categ1'>
             <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),$editor2,array( apex_hilo_qs_zona => $registro[$modo.'_proyecto'] .apex_qs_separador. $registro[$modo]), false, false, null, true, 'central') ?>" target="<? echo  apex_frame_centro ?>">
-                <? echo toba_recurso::imagen_apl("usuarios/$editor2_img.gif",true,null,null,"Modificar $editor2_tip") ?>
+                <? echo toba_recurso::imagen_toba("usuarios/$editor2_img.gif",true,null,null,"Modificar $editor2_tip") ?>
             </a>
       </td>
 <? } ?>
           <td align="center" class="cat-item-categ1"><? echo $registro["corte_descripcion"] ?></td>
          <td width="2%"  class='cat-item-categ1'>
             <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array($modo=>$registro[$modo]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>" class="list-obj">
-            <? echo toba_recurso::imagen_apl("usuarios/usuario_nuevo.gif",true,null,null,"Crear Usuario") ?>
+            <? echo toba_recurso::imagen_toba("usuarios/usuario_nuevo.gif",true,null,null,"Crear Usuario") ?>
             </a>
         </td>
         </tr>
@@ -199,7 +199,7 @@ ORDER BY    3,6;";
         <tr>
           <td width="2%" class='lista-obj-botones'>
             <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro["usuario"]),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
-                <img src="<? echo toba_recurso::imagen_apl("usuarios/usuario.gif") ?>" alt="Modificar USUARIO" border="0">
+                <img src="<? echo toba_recurso::imagen_toba("usuarios/usuario.gif") ?>" alt="Modificar USUARIO" border="0">
             </a>
       </td>
 <?
@@ -253,7 +253,7 @@ WHERE       NOT EXISTS (
         <tr>
           <td width="2%" class='lista-obj-botones'>
             <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $registro['usuario']),false,false,null,true,'central') ?>" target="<? echo  apex_frame_centro ?>">
-                <? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
+                <? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
             </a>
       </td>
           <td width="30%" class='lista-obj-dato1'>&nbsp;<? echo $registro["usuario"] ?></td>

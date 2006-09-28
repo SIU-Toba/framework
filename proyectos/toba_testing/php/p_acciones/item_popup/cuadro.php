@@ -153,7 +153,7 @@ class cuadro extends toba_ei_cuadro
                 }
 	            //-- Evento FIJO de seleccion
 					echo "<td class='lista-col-titulo'>\n";
-					echo toba_form::image($this->submit.$clave_fila,toba_recurso::imagen_apl("doc.gif"), 
+					echo toba_form::image($this->submit.$clave_fila,toba_recurso::imagen_toba("doc.gif"), 
 									"onClick='seleccionar(\"{$this->datos[$f]['id']}\", \"{$this->datos[$f]['descripcion']}\")';");
 	            	echo "</td>\n";
 				//----------------------------

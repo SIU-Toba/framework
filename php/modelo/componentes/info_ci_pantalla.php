@@ -77,7 +77,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	{
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_apl('objetos/pantalla.gif', false),
+			'imagen' => toba_recurso::imagen_toba('objetos/pantalla.gif', false),
 			'ayuda' => 'Pantalla dentro del [wiki:Referencia/Objetos/ci ci]'
 			);	
 		return $iconos;
@@ -90,7 +90,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 								"pantalla" => $this->datos['identificador']);	
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado a la pantalla",
 			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array('destino_tipo' => 'ci_pantalla', 
@@ -110,7 +110,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 																$this->datos['identificador'] );
 		}
 		$iconos[] = array(
-				'imagen' => toba_recurso::imagen_apl("objetos/editar.gif", false),
+				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => "Editar esta pantalla",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(), "/admin/objetos_toba/editores/ci", 
 																	$param_editores, false, false, null, true, "central"),

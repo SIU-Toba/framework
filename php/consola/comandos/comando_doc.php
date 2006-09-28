@@ -47,7 +47,7 @@ class comando_doc extends comando_toba
 		
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "API de SIU-Toba";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/';
+		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
 		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';

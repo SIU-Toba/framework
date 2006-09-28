@@ -245,9 +245,9 @@ class toba_ef_radio extends toba_ef_seleccion
 			foreach ($this->opciones as $id => $descripcion) {
 				$html .= "<label class='ef-radio'>";
 				if ($id == $estado) {
-					$html .= toba_recurso::imagen_apl('radio_checked.gif',true,16,16);
+					$html .= toba_recurso::imagen_toba('radio_checked.gif',true,16,16);
 				} else  {
-					$html .= toba_recurso::imagen_apl('radio_unchecked.gif',true,16,16);
+					$html .= toba_recurso::imagen_toba('radio_unchecked.gif',true,16,16);
 				}
 				$html .= "$descripcion</label>\n";
 			}

@@ -59,7 +59,7 @@ class admin_util
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = toba_recurso::ayuda(null, 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]');
-		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_apl('reflexion/abrir.gif', false)."' $ayuda>";		
+		return "<img style='cursor:pointer' onclick=\"$js\" src='".toba_recurso::imagen_toba('reflexion/abrir.gif', false)."' $ayuda>";		
 	}
 
 	static function existe_archivo_subclase($path_relativo)

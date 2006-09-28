@@ -105,7 +105,7 @@ class toba_ef_popup extends toba_ef_editable
 		$display = ($this->solo_lectura) ? "visibility:hidden" : "";
 		$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 		$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
-        $r .= " href='#'>".toba_recurso::imagen_apl('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
+        $r .= " href='#'>".toba_recurso::imagen_toba('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
         $r .= "</span>\n";
 		return $r;
 	}

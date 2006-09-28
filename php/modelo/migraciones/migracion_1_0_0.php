@@ -808,6 +808,7 @@ class migracion_1_0_0 extends migracion_toba
 	/**
 	 * Los obtener_X pasan a ser get_X 
 	 * cargar_estado_ef pasa a ser set_datos_defecto
+	 * Cambios en toba_recurso
 	 */
 	function proyecto__cambio_api_varios()
 	{
@@ -826,6 +827,10 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/obtener_proyecto_descripcion/',	'get_proyecto_descripcion');
 		$editor->agregar_sustitucion('/obtener_parametro/',				'get_parametro');
 		$editor->agregar_sustitucion('/cargar_estado_ef/',				'set_datos_defecto');
+		$editor->agregar_sustitucion('/toba_recurso::path_pro/',		'toba_recurso::url_proyecto');
+		$editor->agregar_sustitucion('/toba_recurso::path_apl/',		'toba_recurso::url_toba');
+		$editor->agregar_sustitucion('/toba_recurso::imagen_apl/',		'toba_recurso::imagen_toba');
+		$editor->agregar_sustitucion('/toba_recurso::imagen_pro/',		'toba_recurso::imagen_proyecto');
 		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}

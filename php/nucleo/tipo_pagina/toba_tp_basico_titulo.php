@@ -18,7 +18,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 		echo "<div class='item-barra'>";
 		if (trim($info['item_descripcion']) != '') {
 			echo "<div class='item-barra-ayuda'>";
-			echo toba_recurso::imagen_apl("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
+			echo toba_recurso::imagen_toba("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$info['item_nombre']."</div>";

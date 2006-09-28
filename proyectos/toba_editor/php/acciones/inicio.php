@@ -13,7 +13,7 @@ echo '<div style="text-align:left">';
 			if (count($icono['url']) == 1) {
 				foreach ($icono['url'] as $ayuda => $url) {
 					echo "<a href='$url' target='{$icono['frame']}'>";
-					echo toba_recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
+					echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
 					echo "</a>";
 				}
 			} else {
@@ -23,7 +23,7 @@ echo '<div style="text-align:left">';
 					$ayuda .= "</a></li>";
 				}
 				$ayuda .= "</ul>";
-				echo toba_recurso::imagen_apl($icono['img'], true, null, null, $ayuda);
+				echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
 			}
 			echo "</li>\n";
 		}
@@ -88,10 +88,10 @@ echo '<div style="text-align:left">';
 	
 	
 	$offline = array();
-	$offline[] = array('url' => array(toba_recurso::path_pro()."/doc/api/index.html",
+	$offline[] = array('url' => array(toba_recurso::url_proyecto()."/doc/api/index.html",
 								),
 						'img' => 'admin/botones/apioffline80.png', 'frame' => 'api');
-	$offline[] = array('url' => array(toba_recurso::path_pro()."/doc/wiki/trac/toba/wiki.html",
+	$offline[] = array('url' => array(toba_recurso::url_proyecto()."/doc/wiki/trac/toba/wiki.html",
 								),
 						'img' => 'admin/botones/wikioffline80.png', 'frame' => 'wiki');					
 	cuadro_ayuda("Ayuda Local", $offline);
@@ -194,7 +194,7 @@ echo '<div style="text-align:left">';
 					echo "<li>$icono <strong>$path</strong>:<ul style='list-style-type:none'>";
 					foreach ($encontrados as $metodo) {
 						$ayuda = $prohibidos[$metodo];
-						$icono = toba_recurso::imagen_apl('descripcion.gif', true, null, null, $ayuda);
+						$icono = toba_recurso::imagen_toba('descripcion.gif', true, null, null, $ayuda);
 						echo "<li>$icono $metodo</li>";
 					}
 					echo "</ul></li>";

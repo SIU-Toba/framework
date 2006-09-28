@@ -109,7 +109,7 @@ ORDER BY 2;";
         <tr> 
           <td width="2%" class='lista-obj-botones'>
 		 	<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/propiedades",array(apex_hilo_qs_zona => $rs['usuario'])) ?>" target="<? echo  apex_frame_centro ?>">
-				<? echo toba_recurso::imagen_apl("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
+				<? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true,null,null,"Modificar USUARIO") ?>
 			</a>
   	  </td>
           <td width="20%" class='lista-obj-dato1'>&nbsp;<? echo $rs["usuario"] ?></td>

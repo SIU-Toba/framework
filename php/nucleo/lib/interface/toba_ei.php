@@ -15,7 +15,7 @@
 		if(isset($target)) $target = "target='$target'";
 		$html =  "<a href='$url' class='$css' $target>";
 		if(isset($imagen)){
-			$html .=  toba_recurso::imagen_apl($imagen,true,null,null,$texto);
+			$html .=  toba_recurso::imagen_toba($imagen,true,null,null,$texto);
 		}else{
 			$html .=  $texto;		
 		}
@@ -136,7 +136,7 @@
         if($nota!="") $alt = " alt='$nota' ";
         $ancho = convertir_a_medida_tabla($ancho);
         $alto = convertir_a_medida_tabla($alto, 'height');
-		return "<img src='". toba_recurso::imagen_apl("nulo.gif"). "' $ancho $alto $alt>";
+		return "<img src='". toba_recurso::imagen_toba("nulo.gif"). "' $ancho $alto $alt>";
 	}
 
 	function ei_linea($ancho="100%")
@@ -208,11 +208,11 @@
 					if(nodo.style.display == 'none'){
 						//Abrir
 						nodo.style.display = '';
-						img.src = '".toba_recurso::imagen_apl('arbol/contraer.gif', false)."';
+						img.src = '".toba_recurso::imagen_toba('arbol/contraer.gif', false)."';
 					}else{
 						//Cerrar
 						nodo.style.display = 'none';
-						img.src = '".toba_recurso::imagen_apl('arbol/expandir.gif', false)."';
+						img.src = '".toba_recurso::imagen_toba('arbol/expandir.gif', false)."';
 					}
 				}</script>";
 		}
@@ -240,9 +240,9 @@
 		$id++;
 		$display = ($colapsado)? "style='display:none'" : '';//Mostrar el arbol colapsado de entrada?
 		if($colapsado){
-			$imagen = toba_recurso::imagen_apl('arbol/expandir.gif', false);
+			$imagen = toba_recurso::imagen_toba('arbol/expandir.gif', false);
 		}else{
-			$imagen = toba_recurso::imagen_apl('arbol/contraer.gif', false); 
+			$imagen = toba_recurso::imagen_toba('arbol/contraer.gif', false); 
 		}
 		echo "<table width='100%' class='tabla-0'>\n";
 		foreach( $nivel as $valor => $contenido )

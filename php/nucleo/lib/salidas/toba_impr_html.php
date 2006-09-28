@@ -54,7 +54,7 @@ class toba_impr_html implements toba_impresion
 		echo "</head><body>\n";
 		echo "<div class='barra-impresion'>";
 		echo "<button onclick='window.print()'>".
-					toba_recurso::imagen_apl('impresora.gif',true,null,null).
+					toba_recurso::imagen_toba('impresora.gif',true,null,null).
 			"    Imprimir</button>";		
 		echo "</div>";
 		echo "<div class='marco-impresion'>";

@@ -772,7 +772,7 @@ class toba_ei_formulario extends toba_ei
 			}
 		}		
 		if ($hay_colapsado) {
-			$img = toba_recurso::imagen_apl('expandir_vert.gif', false);
+			$img = toba_recurso::imagen_toba('expandir_vert.gif', false);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
 			echo "<div class='ei-form-fila ei-form-expansion'>";
 			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";
@@ -840,7 +840,7 @@ class toba_ei_formulario extends toba_ei
 		}
 		$desc = $this->elemento_formulario[$ef]->get_descripcion();
 		if ($desc !=""){
-			$desc = toba_recurso::imagen_apl("descripcion.gif",true,null,null,$desc);
+			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
 		}
 		$id_ef = $this->elemento_formulario[$ef]->get_id_form();					
 		$editor = $this->generar_vinculo_editor($ef);

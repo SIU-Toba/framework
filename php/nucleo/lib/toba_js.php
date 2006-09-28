@@ -92,18 +92,18 @@ class toba_js
 	 */
 	static function cargar_consumos_basicos()
 	{
-		$imagenes = array(	'error' => toba_recurso::imagen_apl('error.gif', false), 
-							'info' => toba_recurso::imagen_apl('info_chico.gif', false), 
-							'maximizar' => toba_recurso::imagen_apl('sentido_des_sel.gif', false), 
-							'minimizar' => toba_recurso::imagen_apl('sentido_asc_sel.gif', false),
-							'expandir'  => toba_recurso::imagen_apl('expandir_vert.gif', false),
-							'contraer'  => toba_recurso::imagen_apl('contraer_vert.gif', false),
-							'expandir_nodo' => toba_recurso::imagen_apl('arbol/expandir.gif', false),
-							'contraer_nodo' => toba_recurso::imagen_apl('arbol/contraer.gif', false),
-							'esperar' => toba_recurso::imagen_apl('wait.gif', false)
+		$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
+							'info' => toba_recurso::imagen_toba('info_chico.gif', false), 
+							'maximizar' => toba_recurso::imagen_toba('sentido_des_sel.gif', false), 
+							'minimizar' => toba_recurso::imagen_toba('sentido_asc_sel.gif', false),
+							'expandir'  => toba_recurso::imagen_toba('expandir_vert.gif', false),
+							'contraer'  => toba_recurso::imagen_toba('contraer_vert.gif', false),
+							'expandir_nodo' => toba_recurso::imagen_toba('arbol/expandir.gif', false),
+							'contraer_nodo' => toba_recurso::imagen_toba('arbol/contraer.gif', false),
+							'esperar' => toba_recurso::imagen_toba('wait.gif', false)
 							);
 		echo toba_js::abrir();
-		echo "var toba_alias='".toba_recurso::path_apl()."';\n";
+		echo "var toba_alias='".toba_recurso::url_toba()."';\n";
 		echo "var toba_prefijo_vinculo=\"".toba::vinculador()->crear_autovinculo()."\";\n";
 		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 		echo "var toba_hilo_separador='".apex_qs_separador."'\n";

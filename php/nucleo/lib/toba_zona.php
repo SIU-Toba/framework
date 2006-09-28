@@ -168,14 +168,14 @@ class toba_zona
 	 			echo "<a href='$vinculo'>";
 				if((isset($item['imagen_origen']))&&(isset($item['imagen']))){
 					if($item['imagen_origen']=="apex"){
-						echo toba_recurso::imagen_apl($item['imagen'],true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_toba($item['imagen'],true,null,null,$item['nombre']);
 					}elseif($item['imagen_origen']=="proyecto"){
-						echo toba_recurso::imagen_pro($item['imagen'],true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_proyecto($item['imagen'],true,null,null,$item['nombre']);
 					}else{
-						echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,$item['nombre']);
 					}
 				}else{
-					echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,$item['nombre']);
+					echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,$item['nombre']);
 				}
 				echo "</a>";
 			}

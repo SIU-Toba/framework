@@ -46,23 +46,23 @@ class toba_parser_ayuda
 	
 	protected static function parsear_wiki($id, $nombre)
 	{
-		$url = toba_recurso::path_pro()."/doc/wiki/trac/toba/wiki/$id.html";
-		$img = toba_recurso::imagen_apl("wiki.gif", true);
+		$url = toba_recurso::url_proyecto()."/doc/wiki/trac/toba/wiki/$id.html";
+		$img = toba_recurso::imagen_toba("wiki.gif", true);
 		$tag = "<a href=$url target=wiki>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
 	
 	protected static function parsear_api($id, $nombre)
 	{
-		$url = toba_recurso::path_pro()."/doc/api/$id.html";
-		$img = toba_recurso::imagen_apl("api.gif", true);
+		$url = toba_recurso::url_proyecto()."/doc/api/$id.html";
+		$img = toba_recurso::imagen_toba("api.gif", true);
 		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
 	
 	protected static function parsear_link($id, $nombre)
 	{
-		$url = toba_recurso::path_pro()."/".$id;
+		$url = toba_recurso::url_proyecto()."/".$id;
 		$tag = "<a href=$url  target=_blank>$nombre</a>";
 		return str_replace("'", "\\'", $tag);		
 	}

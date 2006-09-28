@@ -69,7 +69,7 @@ class toba_tp_basico extends toba_tipo_pagina
 		?>
 		<style type="text/css">
 			#overlay {
-				background-image:url(<?=toba_recurso::imagen_apl('overlay.gif', false);?>);     			
+				background-image:url(<?=toba_recurso::imagen_toba('overlay.gif', false);?>);     			
 			}
 		</style>			
 		<?php
@@ -88,7 +88,7 @@ class toba_tp_basico extends toba_tipo_pagina
 			toba_editor::generar_zona_vinculos_item($item);
 		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
-		$img = toba_recurso::imagen_apl('wait.gif');
+		$img = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
 		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
 		echo "</div>";

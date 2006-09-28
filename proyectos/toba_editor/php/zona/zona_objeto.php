@@ -67,7 +67,7 @@ class zona_objeto extends zona_editor
 
 	function generar_html_barra_inferior()	
 	{
-		$img_min = toba_recurso::imagen_apl('sentido_des_sel.gif', false);
+		$img_min = toba_recurso::imagen_toba('sentido_des_sel.gif', false);
 		
 		//La representacion del Componente fantasma no deberia tener barra inferior.
 		if(($this->editable_id[1]=="0") && ($this->editable_id[0]=="toba")) return;
@@ -105,7 +105,7 @@ class zona_objeto extends zona_editor
 			foreach($datos as $rs){
 				echo "<tr>";
 				//echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs["proyecto"]."&nbsp;</td>";
-				echo "<td  class='barra-obj-link' width='1%' >".toba_recurso::imagen_apl("items/item.gif",true)."</td>";
+				echo "<td  class='barra-obj-link' width='1%' >".toba_recurso::imagen_toba("items/item.gif",true)."</td>";
 				echo "<td  class='barra-obj-link' >[".$rs["item"]."] {$rs['nombre']}</td>";
 
 				echo "<td  class='barra-obj-link' width='5'>";
@@ -113,7 +113,7 @@ class zona_objeto extends zona_editor
 											toba_editor::get_id(),"/admin/items/editor_items",
 											array(apex_hilo_qs_zona=>$rs["proyecto"]
 												.apex_qs_separador. $rs["item"]) ) ."'>".
-					toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
+					toba_recurso::imagen_toba("objetos/editar.gif",true,null,null,"Editar propiedades del ITEM consumidor"). "</a>";
 				echo "</td>\n";
 				echo "</tr>\n";
 			}
@@ -170,7 +170,7 @@ class zona_objeto extends zona_editor
 					$contador[$rs["clase"]] += 1;
 				}
 				echo "<tr>";
-					echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($rs["clase_icono"],true)."</td>";
+					echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 					echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
 					echo "<td  class='barra-obj-link'>".$rs["objeto_identificador"]."</td>";
 					if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
@@ -179,7 +179,7 @@ class zona_objeto extends zona_editor
 													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														.apex_qs_separador. $rs["objeto"]) ) ."'>".
-							toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del Componente"). "</a>";
+							toba_recurso::imagen_toba("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del Componente"). "</a>";
 						echo "</td>\n";
 					}
 					echo "<td  class='barra-obj-id' width='5'>";
@@ -189,7 +189,7 @@ class zona_objeto extends zona_editor
 													$rs["clase_editor"],
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														 .apex_qs_separador. $rs["objeto"]) ) ."'>".
-							toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar el Componente"). "</a>";
+							toba_recurso::imagen_toba("objetos/editar.gif",true,null,null,"Editar el Componente"). "</a>";
 					}
 					echo "</td>\n";
 				echo "</tr>\n";
@@ -225,7 +225,7 @@ class zona_objeto extends zona_editor
 					AND		d.objeto_consumidor='".$this->editable_id[1]."'
 					ORDER BY 4,5,6;";
 		$rs = consultar_fuente($sql);
-		if(!empty($rs)) {
+		if (!empty($rs)) {
 			$cant = count($rs);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"cambiar_colapsado($('zona_objeto_dep_img'), $('zona_objeto_dep'));\" title='Mostrar / Ocultar'";
 			echo "<table width='100%' class='tabla-0'>";
@@ -245,7 +245,7 @@ class zona_objeto extends zona_editor
 					$contador[$fila["clase"]] += 1;
 				}
 				echo "<tr>";
-					echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($fila["clase_icono"],true)."</td>";
+					echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($fila["clase_icono"],true)."</td>";
 					echo "<td  class='barra-obj-link' >[".$fila["objeto"]."] ".$fila["objeto_nombre"]."</td>";
 					echo "<td  class='barra-obj-link' width='5'>";
 					if(isset($fila["clase_editor"])){
@@ -254,7 +254,7 @@ class zona_objeto extends zona_editor
 													$fila["clase_editor"],
 													array(apex_hilo_qs_zona=>$fila["objeto_proyecto"]
 														 .apex_qs_separador. $fila["objeto"]) ) ."'>".
-							toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del Componente"). "</a>";
+							toba_recurso::imagen_toba("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del Componente"). "</a>";
 					}
 					echo "</td>\n";
 				echo "</tr>\n";

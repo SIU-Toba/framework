@@ -33,10 +33,10 @@ class ci_pantallas_logicas extends toba_ci
 		$eventos = parent::get_lista_eventos();
 		if ($this->pantalla_actual == 1)
 			$eventos += eventos::evento_estandar('pasar_pantalla_2', 'Pasar a la pantalla 2', true, 
-													toba_recurso::imagen_apl('paginacion/si_siguiente.gif'));
+													toba_recurso::imagen_toba('paginacion/si_siguiente.gif'));
 		else
 			$eventos += eventos::evento_estandar('pasar_pantalla_1', 'Volver a la pantalla 1', true, 
-													toba_recurso::imagen_apl('paginacion/si_anterior.gif'));		
+													toba_recurso::imagen_toba('paginacion/si_anterior.gif'));		
 		return $eventos;
 	}	
 	
@@ -67,7 +67,7 @@ class ci_pantallas_logicas extends toba_ci
 	*/
 	function obtener_html_contenido__1()
 	{
-		echo toba_recurso::imagen_pro("presentaciones/operacion.gif",true);	
+		echo toba_recurso::imagen_proyecto("presentaciones/operacion.gif",true);	
 	}
 
 	/**

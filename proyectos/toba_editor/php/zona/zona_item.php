@@ -90,7 +90,7 @@ class zona_item extends zona_editor
 						$contador[$rs["clase"]] += 1;
 					}
 					echo "<tr>";
-						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_apl($rs["clase_icono"],true)."</td>";
+						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
 						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs["clase"]."\", ".($contador[$rs["clase"]]).")</td>";
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
@@ -99,7 +99,7 @@ class zona_item extends zona_editor
 													toba_editor::get_id(),"/admin/objetos/propiedades",
 													array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 														.apex_qs_separador. $rs["objeto"]) ) ."'>".
-								toba_recurso::imagen_apl("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_toba("objetos/objeto.gif",true,null,null,"Editar propiedades BASICAS del OBJETO"). "</a>";
 							echo "</td>\n";
 						}
 						echo "<td  class='barra-obj-id' width='5'>";
@@ -109,7 +109,7 @@ class zona_item extends zona_editor
 														$rs["clase_editor"],
 														array(apex_hilo_qs_zona=>$rs["objeto_proyecto"]
 															 .apex_qs_separador. $rs["objeto"]) ) ."'>".
-								toba_recurso::imagen_apl("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
+								toba_recurso::imagen_toba("objetos/editar.gif",true,null,null,"Editar propiedades ESPECIFICAS del OBJETO"). "</a>";
 						}
 						echo "</td>\n";
 					echo "</tr>\n";

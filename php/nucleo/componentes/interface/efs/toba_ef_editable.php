@@ -420,7 +420,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
-			$html .= " href='#' name='link_". $this->id_form . "'>".toba_recurso::imagen_apl('cal.gif',true,16,16,"Seleccione la fecha")."</a>\n";
+			$html .= " href='#' name='link_". $this->id_form . "'>".toba_recurso::imagen_toba('cal.gif',true,16,16,"Seleccione la fecha")."</a>\n";
 		}
 		$html .= "</span>\n";
 		return $html;

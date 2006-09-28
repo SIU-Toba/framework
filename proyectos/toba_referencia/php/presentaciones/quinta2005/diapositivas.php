@@ -13,7 +13,7 @@ class diapositivas extends toba_ci
 
 	function obtener_html_contenido__1()
 	{
-		echo toba_recurso::imagen_pro("presentaciones/operacion.gif",true);
+		echo toba_recurso::imagen_proyecto("presentaciones/operacion.gif",true);
 	}
 
 

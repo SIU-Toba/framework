@@ -7,7 +7,7 @@ class info_cn extends info_componente
 	{
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
 			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'cn', 

@@ -64,20 +64,20 @@
 			//******************< Carpetas >*****************************
 			?>
 	          <td  class='cat-arbol-carpeta' width='2%'>
-				<img src='<? echo toba_recurso::imagen_apl("items/carpeta.gif") ?>' border='0'>
+				<img src='<? echo toba_recurso::imagen_toba("items/carpeta.gif") ?>' border='0'>
 			  </td>
 	
 	          <td  class='cat-arbol-carpeta-info'  width='2%'>
 				<? if($item->es_de_menu()){?>
-							<img src='<? echo toba_recurso::imagen_apl("items/menu.gif") ?>' border='0'>
+							<img src='<? echo toba_recurso::imagen_toba("items/menu.gif") ?>' border='0'>
 				<? }else{ echo gif_nulo(); } ?>
 			  </td>
 			  
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_apl("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_toba("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='2%'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_apl("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  colspan='<? echo (($maximo-$nivel)+1)?>'><?=$item->get_nombre()?></td>
 		  
@@ -85,11 +85,11 @@
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='cat-arbol-item'  width='2%'>
-						<img src='<? echo toba_recurso::imagen_apl("items/item.gif") ?>' border='0'>
+						<img src='<? echo toba_recurso::imagen_toba("items/item.gif") ?>' border='0'>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
 			<? if($item->es_de_menu()){?>
-						<img src='<? echo toba_recurso::imagen_apl("items/menu.gif") ?>' border='0'>
+						<img src='<? echo toba_recurso::imagen_toba("items/menu.gif") ?>' border='0'>
 			<? }else{ echo gif_nulo(); } ?>
 					  </td>
 			          <td  class='cat-item-botones2'  width='2%'>
@@ -99,7 +99,7 @@
 					  </td>
 			          <td  class='cat-item-dato1'   colspan='<? echo ($maximo-$nivel)?>'><?=$item->get_nombre()?></td>
 			          <td  class='cat-item-dato1' width='100' ><? echo $item->get_id(); ?></td>
-			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo toba_recurso::imagen_apl("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
+			          <td  class='cat-item-botones2' width='2%' ><img src='<? echo toba_recurso::imagen_toba("nota.gif") ?>' alt='<? echo "Propietario: ". $item->propietario(); ?>' border='0'></td>
 			<?					  
 		}
 		echo "</tr>";

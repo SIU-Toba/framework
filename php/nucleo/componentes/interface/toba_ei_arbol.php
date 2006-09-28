@@ -209,9 +209,9 @@ class toba_ei_arbol extends toba_ei
 		$salida .= $this->mostrar_utilerias($nodo);
 		if (! $nodo->es_hoja()) {
 			if ($es_visible) {
-				$img_exp_contr = toba_recurso::imagen_apl('arbol/contraer.gif', false); 
+				$img_exp_contr = toba_recurso::imagen_toba('arbol/contraer.gif', false); 
 			} else {
-				$img_exp_contr = toba_recurso::imagen_apl('arbol/expandir.gif', false);
+				$img_exp_contr = toba_recurso::imagen_toba('arbol/expandir.gif', false);
 			}
 			$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
 						 class='ei-arbol-exp-contr'> ";
@@ -296,7 +296,7 @@ class toba_ei_arbol extends toba_ei
 				}
 			}
 			if ($cant_plegados > 0) {
-				$img = toba_recurso::imagen_apl("expandir_izq.gif",true);
+				$img = toba_recurso::imagen_toba("expandir_izq.gif",true);
 				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);return false'>$img</a>";
 				$salida .= "<span style='display:none'>$plegados</span>";
 			}

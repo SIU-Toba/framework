@@ -100,12 +100,12 @@
 
 	function formato_imagen_toba($valor)
 	{
-		return toba_recurso::imagen_apl($valor, true);
+		return toba_recurso::imagen_toba($valor, true);
 	}
 
 	function formato_imagen_proyecto($valor)
 	{
-		return toba_recurso::imagen_pro($valor, true);
+		return toba_recurso::imagen_proyecto($valor, true);
 	}
 
 	function formato_superficie($valor)

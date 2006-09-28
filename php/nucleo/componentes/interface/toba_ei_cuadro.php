@@ -1299,7 +1299,7 @@ class toba_ei_cuadro extends toba_ei
 				$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
 				$evento_js = toba_js::evento('ordenar', $this->eventos['ordenar'], $parametros);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-			    $src = toba_recurso::imagen_apl("sentido_". $sen[0] . $sel . ".gif");
+			    $src = toba_recurso::imagen_toba("sentido_". $sen[0] . $sel . ".gif");
 				echo toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
 			}
 			echo "</span>";			
@@ -1395,32 +1395,32 @@ class toba_ei_cuadro extends toba_ei
 			//Calculo los posibles saltos
 			//Primero y Anterior
 			if($this->pagina_actual == 1) {
-				$anterior = toba_recurso::imagen_apl("paginacion/anterior_deshabilitado.gif",true);
-				$primero = toba_recurso::imagen_apl("paginacion/primero_deshabilitado.gif",true);       
+				$anterior = toba_recurso::imagen_toba("paginacion/anterior_deshabilitado.gif",true);
+				$primero = toba_recurso::imagen_toba("paginacion/primero_deshabilitado.gif",true);       
 			} else {
 				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = toba_recurso::imagen_apl("paginacion/anterior.gif");
+				$img = toba_recurso::imagen_toba("paginacion/anterior.gif");
 				$anterior = toba_recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			
 				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = toba_recurso::imagen_apl("paginacion/primero.gif");
+				$img = toba_recurso::imagen_toba("paginacion/primero.gif");
 				$primero = toba_recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			//Ultimo y Siguiente
 			if( $this->pagina_actual == $this->cantidad_paginas ) {
-				$siguiente = toba_recurso::imagen_apl("paginacion/siguiente_deshabilitado.gif",true);
-				$ultimo = toba_recurso::imagen_apl("paginacion/ultimo_deshabilitado.gif",true);     
+				$siguiente = toba_recurso::imagen_toba("paginacion/siguiente_deshabilitado.gif",true);
+				$ultimo = toba_recurso::imagen_toba("paginacion/ultimo_deshabilitado.gif",true);     
 			} else {
 				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = toba_recurso::imagen_apl("paginacion/siguiente.gif");
+				$img = toba_recurso::imagen_toba("paginacion/siguiente.gif");
 				$siguiente = toba_recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 				
 				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-				$img = toba_recurso::imagen_apl("paginacion/ultimo.gif");
+				$img = toba_recurso::imagen_toba("paginacion/ultimo.gif");
 				$ultimo = toba_recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			echo "<div class='ei-cuadro-pag'>";

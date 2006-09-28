@@ -349,7 +349,7 @@ class toba_ei_pantalla extends toba_ei
 		$descripcion = $this->get_descripcion();
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if($descripcion !="" || $es_wizard) {
-			$imagen = toba_recurso::imagen_apl("info_chico.gif",true);
+			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
 			$descripcion = toba_parser_ayuda::parsear($descripcion);
 			if ($es_wizard) {
 				$html = "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
@@ -406,7 +406,7 @@ class toba_ei_pantalla extends toba_ei
 
 	protected function generar_tabs_horizontales()
 	{
-		$estilo = 'background: url("'.toba_recurso::imagen_apl('tabs/bg.gif').'") repeat-x bottom;';
+		$estilo = 'background: url("'.toba_recurso::imagen_toba('tabs/bg.gif').'") repeat-x bottom;';
 		echo "<div style='$estilo' class='ci-tabs-h-lista'><ul>\n";
 		foreach( $this->lista_tabs as $id => $tab ) {
 			$editor = '';

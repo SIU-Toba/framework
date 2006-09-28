@@ -77,7 +77,7 @@
          <tr> 
           <td width="2%" class='lista-obj-botones'>
 		 	<a href="<? echo toba::vinculador()->generar_solicitud($registro["proyecto"],$registro["item"]) ?>" target="<? echo  apex_frame_centro ?>">
-				<img src="<? echo toba_recurso::imagen_apl($registro["imagen"]) ?>" alt="<? echo trim($registro["descripcion"])?>" border="0">
+				<img src="<? echo toba_recurso::imagen_toba($registro["imagen"]) ?>" alt="<? echo trim($registro["descripcion"])?>" border="0">
 			</a>
 	  	  </td>
           <td width="98%" class='lista-obj-dato1'>&nbsp;<? echo $registro["nombre"] ?></td>
@@ -96,7 +96,7 @@
 	 <td width="98%" class="lista-obj-titulo" >FUENTES de DATOS</td>
  <td width="2%"  class='lista-obj-titulo'>
 	<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/datos/fuente",null,false,false,null,true)?>" class="list-obj" target="<? echo  apex_frame_centro ?>">
-	<? echo toba_recurso::imagen_apl("fuente_nueva.gif",true) ?>
+	<? echo toba_recurso::imagen_toba("fuente_nueva.gif",true) ?>
 	</a>
 </td>
 </tr>
@@ -125,7 +125,7 @@
         <tr> 
           <td  class='cat-item-botones2'>
 		 	<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/datos/fuente",array( apex_hilo_qs_zona => $registro["fuente_proyecto"] .apex_qs_separador. $registro["fuente"]))?>"  class="cat-item" target="<? echo  apex_frame_centro ?>">
-			  <? echo toba_recurso::imagen_apl("fuente.gif",true,null,null,"host/dsn: " . $registro["host"]) ?>
+			  <? echo toba_recurso::imagen_toba("fuente.gif",true,null,null,"host/dsn: " . $registro["host"]) ?>
 			</a>
 		  </td>
           <td  class='lista-obj-dato1' width="100%"><? echo $registro["fuente"] ?></td>

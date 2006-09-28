@@ -81,7 +81,7 @@ class toba_pdf
 		/*
 		echo "<div class='barra-print' width='100%'>";
 		echo "<button onclick='window.print()'>Imprimir ".
-					toba_recurso::imagen_apl('impresora.gif',true,null,null,'Imprimir').
+					toba_recurso::imagen_toba('impresora.gif',true,null,null,'Imprimir').
 			"</button>";		
 		echo "</div>";
 		*/

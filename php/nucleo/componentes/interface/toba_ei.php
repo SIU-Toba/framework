@@ -391,14 +391,14 @@ abstract class toba_ei extends toba_componente
 		//---Barra de mensajeria		
 		if (isset($this->objeto_js)) {
 			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
-			echo toba_recurso::imagen_apl('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
+			echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
 			echo "</a>";
 		}
 
 		//--- Descripcion	
 		if(trim($this->info["descripcion"])!=""){
 			echo '<span class="ei-barra-sup-desc">';
-			echo toba_recurso::imagen_apl("descripcion.gif",true,null,null,$this->info["descripcion"]);
+			echo toba_recurso::imagen_toba("descripcion.gif",true,null,null,$this->info["descripcion"]);
 			echo '</span>';
 		}		
 		
@@ -406,7 +406,7 @@ abstract class toba_ei extends toba_componente
 		$colapsado = "";
 		if ($this->info['colapsable'] && isset($this->objeto_js)) {
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-			$img_min = toba_recurso::imagen_apl('sentido_asc_sel.gif', false);
+			$img_min = toba_recurso::imagen_toba('sentido_asc_sel.gif', false);
 			echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
 		}
 

@@ -63,9 +63,9 @@ class toba_ef_checkbox extends toba_ef
 				$html_devuelto = "";
 				
             if ($this->seleccionado()) {
-                $html_devuelto .= toba_recurso::imagen_apl('checked.gif',true,16,16);
+                $html_devuelto .= toba_recurso::imagen_toba('checked.gif',true,16,16);
             } else {
-                $html_devuelto .= toba_recurso::imagen_apl('unchecked.gif',true,16,16);            
+                $html_devuelto .= toba_recurso::imagen_toba('unchecked.gif',true,16,16);            
             }
             return $html_devuelto;   
          }else
@@ -259,7 +259,7 @@ class toba_ef_html extends toba_ef
 								</div>";
 		} else {
 			$estado = addslashes($estado);
-			$url = toba_recurso::path_apl().'/js/fckeditor/';
+			$url = toba_recurso::url_toba().'/js/fckeditor/';
 			$html = "<script type='text/javascript'>
 						  var oFCKeditor = new FCKeditor('{$this->id_form}','{$this->ancho}','{$this->alto}','{$this->botonera}','{$estado}' ) ;
 						  oFCKeditor.BasePath = '$url';

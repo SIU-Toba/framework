@@ -324,9 +324,9 @@ class toba_vinculador
 		if( isset($parametros['imagen']) && 
 				isset($parametros['imagen_recurso_origen'])){
 			if($parametros['imagen_recurso_origen']=="apex"){
-				$html.= toba_recurso::imagen_apl($parametros['imagen'],true,null,null,$parametros['texto']);
+				$html.= toba_recurso::imagen_toba($parametros['imagen'],true,null,null,$parametros['texto']);
 			}elseif($parametros['imagen_recurso_origen']=="proyecto"){
-				$html.= toba_recurso::imagen_pro($parametros['imagen'],true,null,null,$parametros['texto']);
+				$html.= toba_recurso::imagen_proyecto($parametros['imagen'],true,null,null,$parametros['texto']);
 			}else{
 				$html.= $parametros['texto'];
 			}

@@ -21,7 +21,7 @@ class info_datos_relacion extends info_componente
 		//ei_arbol($this->datos);
 		$iconos = array();
 		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_apl("objetos/objeto_nuevo.gif", false),
+			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear una nueva tabla asociada a la relación",
 			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'datos_relacion', 
