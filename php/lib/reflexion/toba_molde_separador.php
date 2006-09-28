@@ -5,6 +5,8 @@ class toba_molde_separador extends toba_molde_elemento
 {
 	protected $descripcion;
 	protected $tipo;
+	protected $ancho = 90;
+	protected $caracter = '-';
 	
 	function __construct($nombre, $descripcion=null, $tipo='chico')
 	{
@@ -14,6 +16,11 @@ class toba_molde_separador extends toba_molde_elemento
 			throw new toba_error('Error en la construccion del molde_separador: los tipos validos son \'chico\' y \'grande\'. Tipo solicitado: ' .$tipo . ' - Separador "' . $nombre . '"' );
 		}
 		$this->tipo = $tipo;
+	}
+	
+	protected function ancho()
+	{
+		return $this->ancho - $this->get_caracteres_identacion();
 	}
 	
 	function get_tipo()
@@ -34,20 +41,16 @@ class toba_molde_separador extends toba_molde_elemento
 
 	function separador_chico()
 	{	
-		$salida = $this->identado() . "//---- {$this->nombre} -------------------------------------------------------";	
-		$salida .= salto_linea();
-		return $salida;
+		$inicio = $this->identado() . "//" . str_repeat($this->caracter, 4) . ' ' . $this->nombre . ' ';
+		return str_pad($inicio, $this->ancho(), $this->caracter) . salto_linea();
 	}	
 	
 	function separador_grande()
 	{
-		$salida = $this->identado() . "//-------------------------------------------------------------------";
-		$salida .= salto_linea();
-		$salida .= $this->identado() . "//--- {$this->nombre}";
-		$salida .= salto_linea();
-		$salida .= $this->identado() . "//-------------------------------------------------------------------";
-		$salida .= salto_linea();
-		return $salida;
+		$linea = str_pad( $this->identado() ."//", $this->ancho(), $this->caracter) . salto_linea();;
+		return $linea . $this->separador_chico() . $linea;
 	}	
+
+	
 }
 ?>

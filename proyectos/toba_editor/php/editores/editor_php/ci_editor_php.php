@@ -106,14 +106,12 @@ class ci_editor_php extends toba_ci
 	function conf()
 	{
 		if ( ! $this->archivo_php->existe() ) {
-			$this->set_pantalla(0);
 			$this->pantalla()->eliminar_tab(1);
 			$this->pantalla()->eliminar_tab(2);
 			$this->dep('subclase')->eliminar_evento('crear_clase');
 		} else {
 			if ( ! $this->archivo_php->contiene_clase( $this->clase_php->nombre() ) ) {
 				// No existe la clase
-				$this->set_pantalla(0);
 				$this->pantalla()->eliminar_tab(1);
 				$this->pantalla()->eliminar_tab(2);
 				$this->dep('subclase')->eliminar_evento('crear_archivo');
@@ -123,11 +121,17 @@ class ci_editor_php extends toba_ci
 		}
 	}
 	
+	function evt__subclase__previsualizar($opciones)
+	{
+		$php = $this->clase_php->get_codigo($opciones['metodos']);
+		$this->pantalla()->set_codigo($php);
+	}
+	
 	function evt__subclase__crear_archivo($opciones)
 	{
-		//$this->crear_archivo();
+		$this->crear_archivo();
 		$this->crear_subclase($opciones['metodos']);
-		//$this->set_pantalla(1);
+		$this->set_pantalla(1);
 	}
 	
 	function evt__subclase__crear_clase($opciones)

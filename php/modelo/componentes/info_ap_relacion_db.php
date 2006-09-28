@@ -21,7 +21,7 @@ class info_ap_relacion_db implements meta_clase
 	
 	function get_clase_nombre()
 	{
-		return 'objeto_ap_relacion_db';
+		return 'toba_ap_relacion_db';
 	}
 
 	function get_clase_archivo()

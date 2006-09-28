@@ -43,15 +43,18 @@ class clase_php
 	*/
 	function generar($opciones)
 	{
-		$molde_clase = $this->meta_clase->get_molde_subclase();
-		echo "<br><br><pre style='background-color: white'>" . $molde_clase->get_codigo($opciones) . "</pre>";
-		return;
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
 		$this->archivo->edicion_inicio();
-		$this->archivo->insertar_al_final($molde_clase->get_codigo($opciones));
+		$this->archivo->insertar_al_final( $this->get_codigo($opciones) );
 		$this->archivo->edicion_fin();
+	}
+
+	function get_codigo($opciones)
+	{
+		$molde_clase = $this->meta_clase->get_molde_subclase();
+		return $molde_clase->get_codigo($opciones);
 	}
 	
 	//---------------------------------------------------------------
