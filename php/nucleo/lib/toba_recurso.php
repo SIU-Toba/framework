@@ -95,9 +95,8 @@ class toba_recurso {
 		}
 	}
 	
-	
 	/**
-	 * Retorna una imagen del framework
+	 * Retorna una imagen del comun a todo el framework
 	 *
 	 * @param string $imagen Path relativo a www/img de la imagen a generar
 	 * @param boolean $html Generar el TAG 'img' (por def. false)
@@ -105,15 +104,24 @@ class toba_recurso {
 	 * @param string $alto Alto de la imagen (no oblig.)
 	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
 	 * @param string $mapa (no oblig.)
-	 */	
-	static function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
+	 */		
+	static function imagen_toba($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
 	{
 		$src = toba_recurso::path_apl() . "/img/" . $imagen;
 		if($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $alt,$mapa);
 		}else{
 			return $src;
-		}
+		}		
+	}
+	
+	/**
+	 * @deprecated Usar imagen_toba()
+	 * @see toba_recurso::imagen_toba()
+	 */
+	static function imagen_apl($imagen,$html=false,$ancho=null,$alto=null,$alt=null,$mapa=null)
+	{
+		return self::imagen_toba($imagen, $html, $ancho, $alto, $alt, $mapa);
 	}
 	
 	/**

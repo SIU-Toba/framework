@@ -89,27 +89,15 @@ def.constructor = ei;
 	};
 	
 	def.cambiar_colapsado = function() {
-		if (this.cuerpo().style.display == 'none') {
-			this.descolapsar();
-		} else {
-			this.colapsar();
-		}
+		cambiar_colapsado(this.obtener_boton_colapsar(), this.cuerpo());		
 	};
 	
 	def.colapsar = function() {
-		var boton = this.obtener_boton_colapsar();
-		if (boton) {
-			boton.src = toba.imagen('maximizar');
-		}
-		this.cuerpo().style.display='none';
+		colapsar(this.obtener_boton_colapsar(), this.cuerpo());
 	};
 	
 	def.descolapsar = function() {
-		boton = this.obtener_boton_colapsar();
-		if (boton) {
-			boton.src = toba.imagen('minimizar');
-		}
-		this.cuerpo().style.display= 'block';
+		descolapsar(this.obtener_boton_colapsar(), this.cuerpo());
 	};
 	
 	def.obtener_boton_colapsar = function() {

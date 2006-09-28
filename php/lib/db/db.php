@@ -122,6 +122,9 @@ class db
 	*/	
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
 	{
+		if (! isset($tipo_fetch)) {
+			$tipo_fetch=toba_db_fetch_asoc;	
+		}
 		try {
 			$statement = $this->conexion->query($sql);
 			if ($this->debug) $this->log_debug($sql);

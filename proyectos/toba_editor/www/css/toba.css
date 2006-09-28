@@ -146,18 +146,6 @@ TD.barra-0-edit {
 	 TEXT-ALIGN: right
 }
 
-TD.barra-obj-id {
-	PADDING-RIGHT: 2px;
-	 PADDING-LEFT: 2px;
-	 FONT-WEIGHT: bold;
-	 FONT-SIZE: 12px;
-	 PADDING-BOTTOM: 2px;
-	 COLOR: #231f20;
-	 PADDING-TOP: 2px;
-	 BORDER-BOTTOM: #4f4c4d 1px solid;
-	 BACKGROUND-COLOR: #7b7979;
-	 TEXT-ALIGN: right
-}
 TD.barra-obj-leve {
 	BORDER-RIGHT: #4f4c4d 1px solid;
 	 PADDING-RIGHT: 0px;
@@ -192,7 +180,7 @@ TD.barra-obj-tit1 {
 	background-color: #a7a5a6;
 	text-align: left
 }
-TD.barra-obj-link {
+TD.barra-obj-link, TD.barra-obj-id {
 	BORDER-RIGHT: #4f4c4d 1px solid;
 	 PADDING-RIGHT: 2px;
 	 PADDING-LEFT: 2px;
@@ -205,6 +193,10 @@ TD.barra-obj-link {
 	 BACKGROUND-COLOR: #e9e8e8;
 	 TEXT-ALIGN: left
 }
+TD.barra-obj-id {
+	 TEXT-ALIGN: center;
+}
+
 
 TD.barra-obj-io {
 	BORDER-RIGHT: #4f4c4d 1px solid;

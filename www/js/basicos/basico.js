@@ -242,6 +242,29 @@ var mediciones =
 };
 
 
+//--- Colapsado
+function cambiar_colapsado(boton, cuerpo) {
+	if (cuerpo.style.display == 'none') {
+		descolapsar(boton, cuerpo);
+	} else {
+		colapsar(boton, cuerpo);
+	}
+};
+
+function colapsar (boton, cuerpo) {
+	if (boton) {
+		boton.src = toba.imagen('maximizar');
+	}
+	cuerpo.style.display='none';
+}
+
+function descolapsar (boton, cuerpo) {
+	if (boton) {
+		boton.src = toba.imagen('minimizar');
+	}
+	cuerpo.style.display= 'block';	
+}
+
 
 //----Reflexion
 //--------------------------------------------
