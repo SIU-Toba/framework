@@ -4,6 +4,7 @@ require_once("interfaces.php");
 require_once("lib/manejador_archivos.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
+require_once('lib/reflexion/toba_molde_clase.php');
 
 abstract class info_componente implements toba_nodo_arbol, meta_clase
 {

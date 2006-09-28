@@ -2,7 +2,13 @@
 
 abstract class toba_molde_elemento
 {
+	protected $nombre;
 	protected $identacion=0;
+	
+	function get_nombre()
+	{
+		return $this->nombre;	
+	}
 	
 	function identar($nivel)
 	{

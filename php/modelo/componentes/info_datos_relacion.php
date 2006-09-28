@@ -30,16 +30,24 @@ class info_datos_relacion extends info_componente
 										false, false, null, true, "central"),
 			'plegado' => true										
 		);
-		if (isset($this->datos['info_estructura']["ap_clase"])) {
+		if (isset($this->datos['info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
-			$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
-																		'componente' =>$this->id ),
-																'ap',
-																'php_ap.gif' );
-			$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
-																		'componente' =>$this->id ),
-																'ap',
-																'reflexion/abrir_ap.gif' );
+			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_clase']) ) {
+				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			'ap',
+																			'php_ap.gif' );
+				$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			'ap',
+																			'reflexion/abrir_ap.gif' );
+			} else {
+				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			'ap',
+																			'php_ap_inexistente.gif',
+																			false );
+			}
 		}		
 		return array_merge($iconos, parent::get_utilerias());	
 	}

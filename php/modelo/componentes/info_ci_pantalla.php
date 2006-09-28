@@ -102,12 +102,20 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 		);
 		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {
 			// Hay PHP asociado
-			$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
-																		'componente' =>$this->id ),
-																$this->datos['identificador'] );
-			$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
-																		'componente' =>$this->id ),
-																$this->datos['identificador'] );
+			if ( admin_util::existe_archivo_subclase($this->datos['subclase_archivo']) ) {
+				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			$this->datos['identificador'] );
+				$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			$this->datos['identificador'] );
+			} else {
+				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			$this->datos['identificador'],
+																			'php_inexistente.gif',
+																			false );
+			}
 		}
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),

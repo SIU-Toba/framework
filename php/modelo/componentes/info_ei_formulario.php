@@ -16,7 +16,6 @@ class info_ei_formulario extends info_ei
 		if(count($this->datos['info_formulario_ef'])) {
 			//-- Procesamiento de EFs
 			$molde->agregar( new toba_molde_separador_js('Procesamiento de EFs') );		
-			$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );
 			foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
 				$parametros = array('es_inicial');
 				if($multilinea) $parametros[] = 'fila';

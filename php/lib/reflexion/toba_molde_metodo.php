@@ -3,7 +3,6 @@ require_once('toba_molde_elemento.php');
 
 abstract class toba_molde_metodo extends toba_molde_elemento
 {
-	protected $nombre;
 	protected $descripcion;
 	protected $parametros;
 	protected $comentarios;
@@ -14,18 +13,13 @@ abstract class toba_molde_metodo extends toba_molde_elemento
 		$this->nombre = $nombre;
 		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		if(!is_array($parametros)){
-			throw new toba_error("Error en el metodo: $nombre. Los parametros debern ser un array");	
+			throw new toba_error("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
 		}
 		$this->parametros = $parametros;
 		if(!is_array($comentarios)){
-			throw new toba_error("Error en el metodo: $nombre. Los comentarios debern ser un array");	
+			throw new toba_error("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
 		}
 		$this->comentarios = $comentarios;
-	}
-	
-	function get_nombre()
-	{
-		return $this->nombre;	
 	}
 	
 	function get_descripcion()

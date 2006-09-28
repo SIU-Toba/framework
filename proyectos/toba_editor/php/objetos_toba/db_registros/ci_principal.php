@@ -54,6 +54,7 @@ class ci_principal extends ci_editores_toba
 																			'ap');
 				$form->set_js_abrir( $abrir['js'] );
 			} else {
+				$form->evento('ver_php')->set_imagen('php_ap_inexistente.gif');
 				$form->eliminar_evento('abrir_php');
 			}
 		} else {

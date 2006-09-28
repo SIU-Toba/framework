@@ -149,9 +149,10 @@ class info_ci extends info_ei
 		$molde->agregar( new toba_molde_separador_php('Inicializacion',null,'grande') );
 		$molde->agregar( new toba_molde_metodo_php('ini') );
 		$molde->agregar( new toba_molde_metodo_php('ini_operacion') );
-		$molde->agregar( new toba_molde_separador_php('Configuracion',null,'grande') );
+		$molde->agregar( new toba_molde_separador_php('Config.','Configuracion','grande') );
 		$molde->agregar( new toba_molde_metodo_php('conf') );
 		//-- Configuracion de pantallas -----------
+		$molde->agregar( new toba_molde_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
 			$molde->agregar( new toba_molde_metodo_php('conf__' . $pantalla['identificador'], array('pantalla') ) );

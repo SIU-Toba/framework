@@ -3,7 +3,6 @@ require_once('toba_molde_elemento.php');
 
 class toba_molde_separador extends toba_molde_elemento
 {
-	protected $nombre;
 	protected $descripcion;
 	protected $tipo;
 	
@@ -35,15 +34,19 @@ class toba_molde_separador extends toba_molde_elemento
 
 	function separador_chico()
 	{	
-		$salida = $this->identado() . "//---- {$this->nombre} -------------------------------------------------------\n\n";	
+		$salida = $this->identado() . "//---- {$this->nombre} -------------------------------------------------------";	
+		$salida .= salto_linea();
 		return $salida;
 	}	
 	
 	function separador_grande()
 	{
-		$salida = $this->identado() . "//-------------------------------------------------------------------\n";
-		$salida .= $this->identado() . "//--- {$this->nombre}\n";
-		$salida .= $this->identado() . "//-------------------------------------------------------------------\n";
+		$salida = $this->identado() . "//-------------------------------------------------------------------";
+		$salida .= salto_linea();
+		$salida .= $this->identado() . "//--- {$this->nombre}";
+		$salida .= salto_linea();
+		$salida .= $this->identado() . "//-------------------------------------------------------------------";
+		$salida .= salto_linea();
 		return $salida;
 	}	
 }

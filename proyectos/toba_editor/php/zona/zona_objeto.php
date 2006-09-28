@@ -46,12 +46,18 @@ class zona_objeto extends zona_editor
 		//Acceso al EDITOR PHP
 		if( $this->editable_info['subclase'] && $this->editable_info['subclase_archivo'] ) {
 			$componente = $this->get_editable();
-			// Ir al editor
-			$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
-																		'componente' =>$componente[1] ) );			
-			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
-			if ( admin_util::existe_archivo_subclase($this->editable_info['subclase_archivo']) ) {
+			if ( !admin_util::existe_archivo_subclase($this->editable_info['subclase_archivo']) ) {
+				// Ir al editor
+				$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+																			'componente' =>$componente[1] ), null, 'php_inexistente.gif');
+				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+			} else {
+				// Ir al editor
+				$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+																			'componente' =>$componente[1] ) );			
+				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
+				// Abrir el archivo
 				$abrir = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
 																				'componente' =>$componente[1] )  );	
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";

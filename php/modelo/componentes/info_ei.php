@@ -1,7 +1,6 @@
 <?php
 require_once('info_componente.php');
 require_once('admin_util.php');
-require_once('lib/reflexion/toba_molde_clase.php');
 
 abstract class info_ei extends info_componente
 {
