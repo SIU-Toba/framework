@@ -348,7 +348,7 @@ class toba_ei_pantalla extends toba_ei
 		//--- Descripcion de la PANTALLA
 		$descripcion = $this->get_descripcion();
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
-		if($descripcion !="" || $es_wizard) {
+		if ($descripcion !="" || $es_wizard) {
 			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
 			$descripcion = toba_parser_ayuda::parsear($descripcion);
 			if ($es_wizard) {
@@ -361,14 +361,14 @@ class toba_ei_pantalla extends toba_ei
 			}
 			echo "<hr>\n";
 		}
-		$this->generar_html_dependencias();
+		$this->generar_layout();
 	}
 	
 	/**
 	 * Dispara la generación de html de los objetos contenidos en esta pantalla
 	 * Extender en caso de querer modificar la totalidad del contenido de la pantalla
 	 */	
-	protected function generar_html_dependencias()
+	protected function generar_layout()
 	{
 		$existe_previo = 0;
 		foreach($this->dependencias as $dep) {

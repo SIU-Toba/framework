@@ -4,9 +4,9 @@ class pantalla_visor extends toba_ei_pantalla
 {
 	public $analizador;
 	
-	function generar_html_dependencias()
+	function generar_layout()
 	{
-		parent::generar_html_dependencias();
+		parent::generar_layout();
 ?>
 		<style type="text/css">
 		.cuerpo, .ci-cuerpo {

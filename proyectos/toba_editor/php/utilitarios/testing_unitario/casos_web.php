@@ -58,7 +58,7 @@ class casos_web extends toba_ci
 
 class pantalla_testing extends toba_ei_pantalla 
 {
-	function generar_html_dependencias()
+	function generar_layout()
 	{
 		$selecciones = $this->controlador->get_selecciones();
 		echo "<div style='background-color: white; border: 1px solid black; text-align: left; padding: 15px'>";
@@ -116,17 +116,16 @@ class pantalla_testing extends toba_ei_pantalla
 				echo $e;
 		}
 		echo "</div>";
-		//$this->generar_html_dependencias();
 	}	
 }
 
 class pantalla_seleccion  extends toba_ei_pantalla
 {
-	function generar_html_dependencias()
+	function generar_layout()
 	{
 		$opciones = array('param_html' => array('texto' => 'Testing JS'));
 		$test_js = toba::vinculador()->crear_vinculo('toba_editor', '/pruebas/testing_automatico_js', null, $opciones);
-		parent::generar_html_dependencias();
+		parent::generar_layout();
 		echo "<br>".$test_js;
 	}
 	

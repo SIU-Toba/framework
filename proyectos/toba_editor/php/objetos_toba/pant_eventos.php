@@ -3,9 +3,9 @@
 class pant_eventos extends toba_ei_pantalla 
 {
 	
-	function generar_html_dependencias()
+	function generar_layout()
 	{
-		parent::generar_html_dependencias();		
+		parent::generar_layout();		
 		if (! $this->controlador->mostrar_evento_detalle()) {
 			$internos = $this->controlador()->controlador()->get_eventos_internos();
 			if (! empty($internos)) {

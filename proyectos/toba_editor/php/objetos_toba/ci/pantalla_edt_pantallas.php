@@ -2,7 +2,7 @@
 
 class pantalla_edt_pantallas extends toba_ei_pantalla 
 {
-	function generar_html_dependencias()
+	function generar_layout()
 	{
 		$this->dependencia('pantallas_lista')->generar_html();
 		if ( $this->controlador->hay_pant_sel() ){
