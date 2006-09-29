@@ -5,6 +5,8 @@ require_once("nucleo/componentes/interface/toba_ei_esquema.php");
 require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 /**
+ * Mantiene un conjunto relacionado de {@link toba_datos_tabla datos_tabla}, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+ * 
  * 	@package Componentes
  *  @subpackage Persistencia
  *  @todo En el dump_esquema incluir la posición actual de los cursores
@@ -58,8 +60,7 @@ class toba_datos_relacion extends toba_componente
 			$cant_max = $this->info_dependencias[$posicion]['parametros_b'];
 			$this->dependencias[$dep]->set_tope_min_filas($cant_min);
 			$this->dependencias[$dep]->set_tope_max_filas($cant_max);
-			$this->dependencias[$dep]->set_nombre_rol($dep);
-			$this->dependencias[$dep]->registrar_contenedor($this);
+			$this->dependencias[$dep]->set_controlador($this, $dep);
 		}
 	}
 
@@ -204,20 +205,23 @@ class toba_datos_relacion extends toba_componente
 		return $diagrama;
 	}
 
-	static function hay_ciclos($tablas, $relaciones)
-	{
-		$tester = new Structures_Graph_Manipulator_AcyclicTest();
-		$grafo = self::grafo_relaciones($tablas, $relaciones);
-		return ! $tester->isAcyclic($grafo);
-	}
 
 	/**
 	 * Retorna el orden hacia adelante en el cual se deben sincronizar las tablas
-	 * @return array Arreglo de toba_datos_tabla
+	 * El orden predeterminado es el orden topologico de las tablas
+	 * @return array Arreglo id_tabla => toba_datos_tabla
 	 */
 	function orden_sincronizacion()
 	{
-		$ordenes = self::orden_topologico($this->info_dependencias, $this->info_relaciones);
+		$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
+		$grafo = self::grafo_relaciones($this->info_dependencias, $this->info_relaciones);
+		$parciales = $sorter->sort($grafo);
+		$ordenes = array();
+		for ($i =0; $i<count($parciales) ; $i++) {
+			for ($j=0; $j<count($parciales[$i]); $j++) {
+				$ordenes[] = $parciales[$i][$j]->getData();
+			}
+		}
 		$tablas = array();
 		foreach ($ordenes as $orden) {
 			$tablas[$orden['identificador']] = $this->dependencias[$orden['identificador']];
@@ -228,27 +232,17 @@ class toba_datos_relacion extends toba_componente
 	/**
 	 * Retorna el orden hacia adelante en el cual se deben cargar las tablas
 	 * Por defecto es el mismo que el orden de sincronización
-	 * @return array Arreglo de toba_datos_tabla
+	 * @return array Arreglo id_tabla => toba_datos_tabla
 	 */
 	function orden_carga()
 	{
 		return $this->orden_sincronizacion();
 	}
 	
-	static function orden_topologico($tablas, $relaciones)
-	{
-		$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
-		$grafo = self::grafo_relaciones($tablas, $relaciones);
-		$parciales = $sorter->sort($grafo);
-		$salida = array();
-		for ($i =0; $i<count($parciales) ; $i++) {
-			for ($j=0; $j<count($parciales[$i]); $j++) {
-				$salida[] = $parciales[$i][$j]->getData();
-			}
-		}
-		return $salida;
-	}
-
+	/**
+	 * Retorna un grafo representando un conjunto de tablas y sus relaciones
+	 * @return Structures_Graph
+	 */
 	static function grafo_relaciones($tablas, $relaciones)
 	{
 		$grafo = new Structures_Graph(true);
@@ -276,7 +270,7 @@ class toba_datos_relacion extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 *	Retorna los identificadores de los datos_tabla incluídos
+	 * Retorna los identificadores de los datos_tabla incluídos en la relación
 	 * @return array
 	 */
 	function get_lista_tablas()
@@ -285,12 +279,11 @@ class toba_datos_relacion extends toba_componente
 	}
 
 	/**
-	 *	Retorna un datos_tabla
+	 * Retorna una referencia a una tabla perteneciente a la relación
 	 * @param string $tabla Id. de la tabla en la relación
 	 * @return toba_datos_tabla
 	 */
 	function tabla($tabla)
-	//Devuelve una referencia a una tabla para trabajar con ella
 	{
 		if($this->existe_tabla($tabla)){
 			return $this->dependencias[$tabla];
@@ -309,13 +302,9 @@ class toba_datos_relacion extends toba_componente
 		return $this->dependencia_cargada($tabla);
 	}
 
-	function registrar_evento($elemento, $evento, $parametros)
-	{
-		//Ver si se implemento un evento		
-	}
-
 	/**
-	 *	Retorna al estado inicial a todas las tablas incluídas
+	 * Retorna al estado inicial todas las tablas incluídas
+	 * Para volver a utilizar estas tablas se debe cargar nuevamente la relación con datos
 	 */
 	function resetear()
 	{
@@ -336,7 +325,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 * Lugar para validaciones específicas, se ejecuta justo antes de la sincronización
+	 * Ventana para validaciones específicas, se ejecuta justo antes de la sincronización
 	 */
 	protected function evt__validar(){}
 
@@ -350,6 +339,9 @@ class toba_datos_relacion extends toba_componente
 		}
 	}
 
+	/**
+	 * Retorna la estructura de datos utilizada por las tablas para mantener registro del estado de sus datos
+	 */
 	function get_conjunto_datos_interno()
 	{
 		foreach($this->dependencias as $id => $dependencia){
@@ -363,7 +355,7 @@ class toba_datos_relacion extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 *  Retorna una referenca al Adm.Persistencia de la relación
+	 * Retorna una referenca al Adm.Persistencia de la relación
 	 * @return toba_ap_relacion_db
 	 */
 	function get_persistidor()
@@ -408,18 +400,28 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 
+	/**
+	 * La relacion ha sido cargada con datos?
+	 * @return boolean
+	 */
 	function esta_cargado()
 	{
 		return $this->cargado;	
 	}
 	
+	/**
+	 * Notifica a la relacion que sus tablas han sido o no cargadas
+	 * @param boolean $cargado
+	 */
 	function set_cargado($cargado)
 	{
 		$this->cargado = $cargado;
 	}
 
 	/**
-	*	Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas
+	* Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas
+	* Esto implica que a la hora de la sincronización se van a generar INSERTS para todas las filas.
+	* Se utiliza para forzar una clonación completa de los datos una relación.
 	*/
 	function forzar_insercion()
 	{
@@ -454,6 +456,7 @@ class toba_datos_relacion extends toba_componente
 	/**
 	 * Usar eliminar_todo, es más explícito
 	 * @deprecated Desde 0.8.4, usar eliminar_todo, es más explícito
+	 * @see eliminar_todo()
 	 */
 	function eliminar()
 	{
@@ -462,7 +465,7 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
-	 *	Retorna el id de las tablas que no tienen padres en la relación
+	 * Retorna el id de las tablas que no tienen padres en la relación
 	 * @return array
 	 */
 	function get_tablas_raiz()
@@ -479,13 +482,5 @@ class toba_datos_relacion extends toba_componente
 		return $this->info["fuente"];
 	}
 	
-	/**
-	 * @todo El objeto deberia tener directamente algo asi
-	 */
-	protected function log($txt)
-	{
-		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
-	}
-	//-------------------------------------------------------------------------------
 }
 ?>

@@ -3,13 +3,12 @@ require_once("nucleo/componentes/toba_componente.php");
 require_once("toba_tipo_datos.php");
 
 /**
- * Representa una estructura tipo tabla o RecordSet en memoria
+ * Representa una estructura tabular tipo tabla o RecordSet en memoria
  *
- * Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.
- * Una vez en memoria existen primitivas para trabajar sobre estos datos.
- * Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.
- * Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la 
- * transacción de negocios.
+ * - Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.
+ * - Una vez en memoria existen primitivas para trabajar sobre estos datos.
+ * - Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.
+ * - Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la transacción de negocios.
  *
  * @package Componentes
  * @subpackage Persistencia
@@ -22,7 +21,6 @@ class toba_datos_tabla extends toba_componente
 	protected $clave;							// Columnas que constituyen la clave de la tabla
 	protected $columnas;
 	protected $posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
-	protected $nombre_rol;						//Nombre que tiene esta tabla en la relación
 	//Constraints
 	protected $no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
 	// Definicion general
@@ -36,7 +34,6 @@ class toba_datos_tabla extends toba_componente
 	protected $cursor;							// Puntero a una fila específica
 	protected $cargada = false;
 	// Relaciones con el exterior
-	protected $contenedor = null;				// Referencia al datos_relacion del cual forma parte, si aplica.
 	protected $relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
 	protected $relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
 
@@ -81,23 +78,14 @@ class toba_datos_tabla extends toba_componente
 		return $this->proxima_fila;	
 	}
 		
-	/**
-	 * @todo El objeto deberia tener directamente algo asi
-	 */
-	protected function log($txt)
-	{
-		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
-	}
-
 	//-------------------------------------------------------------------------------
 	//--  Relacion con otros ELEMENTOS
 	//-------------------------------------------------------------------------------
 
-	function registrar_contenedor($contenedor)
-	{
-		$this->contenedor = $contenedor;
-	}
-
+	/**
+	 * Informa a la tabla que existe una tabla padre
+	 * @param toba_relacion_entre_tablas $relacion
+	 */
 	function agregar_relacion_con_padre($relacion, $id_padre)
 	{
 		$this->relaciones_con_padres[$id_padre] = $relacion;
@@ -105,13 +93,17 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Retorna las relaciones con las tablas padre
-	 * @return toba_relacion_entre_tablas
+	 * @return array de {@link toba_relacion_entre_tablas toba_relacion_entre_tablas}
 	 */
 	function get_relaciones_con_padres()
 	{
 		return $this->relaciones_con_padres;
 	}
 	
+	/**
+	 * Informa a la tabla que existe una tabla hija de la actual
+	 * @param toba_relacion_entre_tablas $relacion
+	 */	
 	function agregar_relacion_con_hijo($relacion, $id_hijo)
 	{
 		$this->relaciones_con_hijos[$id_hijo] = $relacion;
@@ -123,13 +115,13 @@ class toba_datos_tabla extends toba_componente
 
 	private function notificar_contenedor($evento, $param1=null, $param2=null)
 	{
-		if(isset($this->contenedor)){
+		if(isset($this->controlador)){
 			//$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
 		}
 	}
 
 	/**
-	 * Aviso a las relaciones padres que el componente HIJO se CARGO
+	 * Aviso a las relacion padres que el componente HIJO se CARGO
 	 */
 	function notificar_padres_carga()
 	{
@@ -167,10 +159,14 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
+	/**
+	 * Retorna la {@link toba_datos_relacion relacion} que contiene a esta tabla, si existe
+	 * @return toba_datos_relacion
+	 */
 	function get_relacion()
 	{
-		if (isset($this->contenedor)) {
-			return $this->contenedor;		
+		if (isset($this->controlador)) {
+			return $this->controlador;		
 		}
 	}
 
@@ -179,7 +175,7 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 *	Columnas que son son claves en la tabla
+	 *	Retorna las columnas que son claves en la tabla
 	 */
 	function get_clave()
 	{
@@ -187,6 +183,7 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
+	 * Retorna el valor de la clave para un fila dada
 	 * @param mixed $id_fila Id. interno de la fila
 	 * @return array Valores de las claves para esta fila, en formato RecordSet
 	 */
@@ -198,18 +195,28 @@ class toba_datos_tabla extends toba_componente
 		return $temp;
 	}
 
+	/**
+	 * Retorna la cantidad maxima de filas que puede contener la tabla (si existe tal restriccion)
+	 * @return integer, 0 si no hay tope
+	 */
 	function get_tope_max_filas()
 	{
 		return $this->tope_max_filas;	
 	}
 
+
+	/**
+	 * Retorna la cantidad minima de fila que debe contener la tabla (si existe tal restriccion)
+	 * @return integer, 0 si no hay tope
+	 */	
 	function get_tope_min_filas()
 	{
 		return $this->tope_min_filas;	
 	}
 
 	/**
-	 * @return integer Cantidad de filas que sufrieron cambios desde la carga
+	 * Retorna la cantidad de filas que sufrieron cambios desde la carga, y por lo tanto se van a sincronizar
+	 * @return integer 
 	 */
 	function get_cantidad_filas_a_sincronizar()
 	{
@@ -225,7 +232,9 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * @return array Ids. internos de las filas que sufrieron cambios desde la carga
+	 * Retorna lasfilas que sufrieron cambios desde la carga
+	 * @param array $cambios Combinación de tipos de cambio a buscar: d, i o u  (por defecto los tres)
+	 * @return array Ids. internos
 	 */
 	function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 	{
@@ -242,6 +251,10 @@ class toba_datos_tabla extends toba_componente
 	//-- Configuracion
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Cambia la cantidad maxima de filas que puede contener la tabla
+	 * @param integer $cantidad 0 si no hay tope
+	 */	
 	function set_tope_max_filas($cantidad)
 	{
 		if ($cantidad == '')
@@ -253,6 +266,10 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
+	/**
+	 * Cambia la cantidad mínima de filas que debe contener la tabla
+	 * @param integer $cantidad 0 si no hay tope
+	 */		
 	function set_tope_min_filas($cantidad)
 	{
 		if ($cantidad == '')
@@ -265,15 +282,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Determina el nombre del rol que cumple esta tabla en una relación
-	 */
-	function set_nombre_rol($nombre)
-	{
-		$this->nombre_rol = $nombre;	
-	}
-	
-	/**
-	 * Indica una combinacion de columnas que no debe duplicarse
+	 * Indica una combinacion de columnas cuyos valores no deben duplicarse (similar a un unique de sql)
 	 */
 	function set_no_duplicado( $columnas )
 	{
@@ -286,6 +295,8 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Fija el cursor en una fila dada
+	 * Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la única 
+	 * y sus tablas padres e hijas también. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.
 	 * @param mixed $id Id. interno de la fila
 	 */
 	function set_cursor($id)
@@ -307,7 +318,8 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
-	 * @return mixed Id. interno de la fila donde se encuentra actualmente el cursor de la tabla
+	 * Retorna el Id. interno de la fila donde se encuentra actualmente el cursor de la tabla
+	 * @return mixed
 	 */
 	function get_cursor()
 	{
@@ -1167,8 +1179,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		if (isset($this->info_estructura['alias'])) {
 			return $this->info_estructura['alias'];	
-		} elseif (isset($this->nombre_rol)) {
-			return $this->nombre_rol;
+		} elseif (isset($this->id_en_controlador)) {
+			return $this->id_en_controlador;
 		} else {
 			return $this->get_tabla();
 		}

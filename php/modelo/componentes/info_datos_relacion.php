@@ -11,7 +11,7 @@ class info_datos_relacion extends info_componente
 		require_once('info_ap_relacion_db.php');
 		return new info_ap_relacion_db($this->datos['info_estructura']);
 	}	
-
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------

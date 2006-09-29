@@ -85,6 +85,14 @@ abstract class toba_componente
 		return $this->id_ses_grec;
 	}
 
+	/**
+	 * Shortcut de {@link toba_logger::debug() toba::logger()->debug} que incluye información básica del componente actual
+	 */
+	protected function log($txt)
+	{
+		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
+	}
+		
 	function get_txt()
 	{
 		return "objeto(".$this->id[1]."): ";	

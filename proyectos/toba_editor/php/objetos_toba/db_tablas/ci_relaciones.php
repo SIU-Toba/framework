@@ -1,5 +1,6 @@
 <?php
 require_once('modelo/consultas/dao_editores.php');
+require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_relaciones extends toba_ci
 {
@@ -115,8 +116,7 @@ class ci_relaciones extends toba_ci
 		//Se buscan ciclos
 		$tablas = $this->controlador->get_entidad()->tabla('dependencias')->get_filas();
 		$relaciones = $this->get_tabla()->get_filas();
-		$hay_ciclos = toba_datos_relacion::hay_ciclos($tablas, $relaciones);
-		if ($hay_ciclos) {
+		if ($this->hay_ciclos($tablas, $relaciones)) {
 			$this->informar_msg("El esquema de relaciones actual contiene ciclos. ".
 								"En un esquema con ciclos el mecanismo de sincronización no puede" .
 								" encontrar automaticamente un orden sin violar las constraints de la BD. ".
@@ -125,6 +125,13 @@ class ci_relaciones extends toba_ci
 		}
 		//ei_arbol($tabla->get_filas(),"FILAS");
 	}
+	
+	function hay_ciclos($tablas, $relaciones)
+	{
+		$tester = new Structures_Graph_Manipulator_AcyclicTest();
+		$grafo = toba_datos_relacion::grafo_relaciones($tablas, $relaciones);
+		return ! $tester->isAcyclic($grafo);
+	}	
 	
 	function conf__relaciones_lista()
 	{	

@@ -7,7 +7,7 @@ if (!defined("apex_db_registros_separador")) {
 }
 
 /**
- * Administrador de persistencia a una tabla de DB desde un toba_datos_tabla
+ * Administrador de persistencia a una tabla de DB desde un {@link toba_datos_tabla datos_tabla}
  * Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
  * 
  * @todo Poder desactivar el control de sincronizacion (¿se necesita esto?)
@@ -75,6 +75,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->datos = $this->objeto_tabla->get_conjunto_datos_interno();
 	}
 	
+	/**
+	 * Shorcut a toba::logger()->debug incluyendo infomación básica del componente
+	 */
 	protected function log($txt)
 	{
 		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
@@ -89,17 +92,25 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//------  Configuracion  --------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Utilizar una transaccion de BD cuando sincroniza la tabla
+	 */
 	function activar_transaccion()		
 	{
 		$this->utilizar_transaccion = true;
 	}
 
+	/**
+	 * No utilizar una transaccion de BD cuando sincroniza la tabla
+	 * Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior
+	 */	
 	function desactivar_transaccion()		
 	{
 		$this->utilizar_transaccion = false;
 	}
 
 	/**
+	 * Carga una columna separada del proceso común de carga
 	 * Se brinda una query que carga una o más columnas denominadas como 'externas'
 	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
@@ -120,6 +131,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
+	 * Carga una columna separada del proceso común de carga
 	 * Se brinda un DAO que carga una o más columnas denominadas como 'externas'
 	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
 	 * necesitan mantenerse junto al conjunto de datos.
@@ -165,31 +177,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->flag_modificacion_clave = true;
 	}
 
-	function activar_control_sincro()
-	{
-		$this->control_sincro_db = true;
-	}
-
-	function desactivar_control_sincro()
-	{
-		$this->control_sincro_db = false;
-	}
-
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	/**
-	 * @see cargar_por_clave
-	 * @deprecated Desde 0.8.4
-	 */
-	function cargar($clave)
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_* o cargar_con');
-		return $this->cargar_por_clave($clave);	
-	}
-	
-	
 	/**
 	 * Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla
 	 *
@@ -205,7 +196,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 
 	/**
-	 * Carga el datos_tabla asociaciado a partir de una clausula where
+	 * Carga el datos_tabla asociaciado a partir de una clausula where personalizada
 	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
@@ -222,7 +213,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas, el entorno no incide en ellas
  	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
-	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
@@ -236,7 +226,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Carga el datos_tabla asociado CON una query SQL directa
-	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_sql($sql, $anexar_datos=false)
@@ -256,7 +245,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Carga el datos_tabla asociado CON un conjunto de datos especifico
 	 * @param array $datos Datos a cargar en formato RecordSet. No incluye las columnas externas.
-	 *
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
 	function cargar_con_datos($datos, $anexar_datos=false)
@@ -302,6 +290,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Sólo se utiliza cuando la tabla no está involucrada en algun datos_relacion, sino 
 	 * la sincronización es guiada por ese objeto
 	 * @return integer Cantidad de registros modificados
+	 * @throws toba_error En case de error en la sincronizacion, se aborta la transaccion (si se esta utilizando)
 	 */
 	function sincronizar()
 	{
@@ -396,6 +385,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//-------------------------------------------------------------------------------
 	
 	/**
+	 * Inserta un registro en la base y recupera su secuencia si la tiene
 	 * @param mixed $id_registro Clave interna del registro
 	 */
 	protected function insertar_registro_db($id_registro)
@@ -415,6 +405,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
+	 * Ejecuta un update de un registro en la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */
 	protected function modificar_registro_db($id_registro)
@@ -427,9 +418,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 	
 	/**
+	 * Ejecuta un delete de un registro en la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */
-
 	protected function eliminar_registro_db($id_registro)
 	{
 		$sql = $this->generar_sql_delete($id_registro);
@@ -440,7 +431,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Registra el valor generado por el motor de un columna
-	 *
 	 * @param string $id_registro Id. interno del registro
 	 */
 	protected function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
@@ -463,49 +453,49 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
 	 * La transacción con la bd ya fue iniciada (si es que esta definida)
 	 */
 	protected function evt__pre_sincronizacion(){}
 	
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
 	 * La transacción con la bd aún no se terminó (si es que esta definida)
 	 */	
 	protected function evt__post_sincronizacion(){}
 	
 	/**
-	 * Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
+	 * Ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */	
 	protected function evt__pre_insert($id_registro){}
 	
 	/**
-	 * Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
+	 * Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */	
 	protected function evt__post_insert($id_registro){}
 	
 	/**
-	 * Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
+	 * Ventana de extensión previo a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */		
 	protected function evt__pre_update($id_registro){}
 
 	/**
-	 * Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
+	 * Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */	
 	protected function evt__post_update($id_registro){}
 
 	/**
-	 * Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
+	 * Ventana de extensión previa al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */
 	protected function evt__pre_delete($id_registro){}
 
 	/**
-	 * Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
+	 * Ventana de extensión posterior al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
 	 */
 	protected function evt__post_delete($id_registro){}
@@ -515,11 +505,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Alias de la función global ejecutar_sql
+	 * Shortcut de {@link toba_db::ejecutar() toba::db()->ejecutar}
 	 */
-	function ejecutar_sql( $sql )
+	protected function ejecutar_sql( $sql )
 	{
-		ejecutar_fuente( $sql, $this->fuente );			
+		toba::db($this->fuente)->ejecutar($sql);
 	}
 
 	
@@ -529,7 +519,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
 	 * @return array Clausulas where
 	 */
-	function generar_clausula_where_lineal($clave,$alias=true)
+	protected function generar_clausula_where_lineal($clave,$alias=true)
 	{
 		if ($alias) {
 			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
@@ -551,10 +541,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Genera la sentencia WHERE del estilo ( nombre_columna = valor ) respetando el tipo de datos
 	 * y las asociaciones con los padres
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
-	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
 	 * @return array Clausulas where
 	 */
-	function generar_clausula_where($clave=array())
+	protected function generar_clausula_where($clave=array())
 	{
 		$clausula = $this->generar_clausula_where_lineal($clave, true);
 		//Si la tabla tiene relaciones con padres
@@ -722,10 +711,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 
 	/**
+	 * Genera la sentencia WHERE correspondiente a la clave de un registro
 	 * @param mixed $id_registro Clave interna del registro
 	 */	
 	function generar_sql_where_registro($id_registro)
-	//Genera la sentencia WHERE correspondiente a la clave de un registro
 	{
 		foreach($this->clave as $clave){
 			$id[$clave] = $this->cambios[$id_registro]['clave'][$clave];
@@ -735,7 +724,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	
 	/**
 	 * Retorna los sql de insert de cada registro cargado en el datos_tabla, sin importar su estado actual
-	 *
 	 * @return array
 	 */
 	function get_sql_inserts()
@@ -849,8 +837,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//--  Control de VERSIONES  -----------------------------------------------------
 	//-------------------------------------------------------------------------------
 
-	protected function controlar_alteracion_db()
-	//Controla que los datos
+	private function controlar_alteracion_db()
 	{
 	}
 
