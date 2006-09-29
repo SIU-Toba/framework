@@ -30,18 +30,25 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	//------  Configuracion  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Comando que fuerza una transacción a la hora de la sincronización
+	 */
 	function activar_transaccion()		
 	{
 		$this->utilizar_transaccion = true;
 	}
 
+	/**
+	 * No utilizar una transacción a la hora de la sincronización.
+	 * Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior
+	 */
 	function desactivar_transaccion()		
 	{
 		$this->utilizar_transaccion = false;
 	}
 	
 	/**
-	 * Intenta retrazar el chequeo de constraints hasta el final de la transacción
+	 * Retraza el chequeo de constraints hasta el final de la transacción
 	 */
 	function retrasar_constraints()
 	{
@@ -51,16 +58,6 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	//-------------------------------------------------------------------------------
 	//------  CARGA  ----------------------------------------------------------------
 	//-------------------------------------------------------------------------------
-
-	/**
-	 * @see cargar_por_clave
-	 * @deprecated Desde 0.8.4
-	 */
-	function cargar($clave)
-	{
-		toba::logger()->obsoleto(__CLASS__, __FUNCTION__, 'Usar cargar_por_*');
-		return $this->cargar_por_clave($clave);		
-	}
 	
 	/**
 	 * Se cargan las tablas de la relación restringiendo por las claves de las tablas raiz
@@ -110,6 +107,10 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		return $ok;
 	}
 
+	/**
+	 * La relacion tiene datos cargados?
+	 * @return boolean
+	 */
 	function esta_cargado()
 	{
 		return $this->objeto_relacion->esta_cargado();
@@ -145,7 +146,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	}
 
 	/**
-	 * Sincronizo las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
+	 * Sincroniza las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
 	 */
 	protected function proceso_sincronizacion()
 	{
@@ -170,13 +171,13 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	}
 	
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar
 	 * La transacción con la bd ya fue iniciada (si es que hay)
 	 */
 	protected function evt__pre_sincronizacion(){}
 	
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización
 	 * La transacción con la bd aún no fue terminada (si es que hay)
 	 */	
 	protected function evt__post_sincronizacion(){}
@@ -225,13 +226,13 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	}
 
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación
 	 * La transacción con la bd ya fue iniciada (si es que hay)
 	 */
 	protected function evt__pre_eliminacion(){}
 	
 	/**
-	 * Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación
+	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación
 	 * La transacción con la bd ya fue iniciada (si es que hay)
 	 */	
 	protected function evt__post_eliminacion(){}

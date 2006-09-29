@@ -2,6 +2,13 @@
 require_once("nucleo/componentes/toba_componente.php");
 
 /**
+ * Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
+ * 
+ * Separar la carga y utilizacion de los datos (inicio y fin de una transaccion de negocios)
+ * permite:
+ *  -Lograr una maxima independencia entre la logica de pantalla y de la de negocio, 
+ *  -Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes
+ * Estas flexibilidad se consigue a expensas de una mayor burocracia y complejidad en el manejo de datos.
  * @package Componentes
  * @subpackage Negocio
  */
@@ -16,40 +23,47 @@ class toba_cn extends toba_componente
 		$this->ini();
 	}
 
+	/**
+	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 */
 	function ini()
 	{
-		//Esto hay que redeclararlo en los HIJOS	
 	}	
 
+	/**
+	 * Evento que se dispara cuando se limpia la memoria
+	 */
 	function evt__limpieza_memoria($no_borrar=null)
 	{
 		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
-		//$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->ini();
 	}
 
 
-/*
-	function __call($metodo, $argumentos)
-	{
-		ei_arbol($argumentos, "Llamada al metodo no implementado: " . $metodo);
-	}
-*/
-
 	//-------------------------------------------------------------------------------
 	//------------------  PROCESAMIENTO  --------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Limpia la memoria propia
+	 */
 	function cancelar()
 	{
 		$this->log->debug( $this->get_txt() . "[ cancelar ]", 'toba');
 		$this->evt__limpieza_memoria();
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * El procesamiento se dispara cuando la entrega de datos ci->cn ha finalizado
+	 * Se inicia una transaccion de base de datos y dentro de ella se llama a :
+	 *  - {@link evt__validar_datos() evt__validar_datos} 
+	 *  - {@link evt__procesar_especifico() evt__procesar_especifico}
+	 *  Una vez terminada la transacción se invoca a la limpieza de memoria
+	 * 
+	 * @todo Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales
+	 */
 	function procesar($parametros=null)
-	//ATENCION: ignore_user_abort() //Esto puede ser importante!!!!
 	{
 		$resultado = null;
 		$this->log->debug( $this->get_txt() . "[ procesar ]", 'toba');
@@ -68,44 +82,55 @@ class toba_cn extends toba_componente
 			throw new toba_error( $e->getMessage() );
 		}
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * Ventana de validacion que se ejecuta al inicio del procesamiento final
+	 * En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error
+	 */
 	function evt__validar_datos()
-	{
-		//Esto hay que redeclararlo en los HIJOS	
-	}
-	//-------------------------------------------------------------------------------
+	{}
 
+	/**
+	 * Ventana para incluir el procesamiento de negocio
+	 * En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error
+	 */
 	function evt__procesar_especifico()
-	{
-		//Esto hay que redeclararlo en los HIJOS	
-	}
+	{}
 
 	//-------------------------------------------------------------------------------
 	//------------------  Manejo de TRANSACCIONES  ----------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @see toba_db::abrir_transaccion()
+	 */
 	function iniciar_transaccion()
 	{
 		$this->transaccion_abierta = true;
 		return toba::db($this->info['fuente'])->abrir_transaccion();
 	}
-	//-------------------------------------------------------------------------------
 	
-	function finalizar_transaccion($mensaje=null)
+	/**
+	 * @see toba_db::cerrar_transaccion()
+	 */	
+	function finalizar_transaccion()
 	{
 		$this->transaccion_abierta = false;
 		return toba::db($this->info['fuente'])->cerrar_transaccion();
 	}
-	//-------------------------------------------------------------------------------
-	
-	function abortar_transaccion($mensaje=null)
+
+	/**
+	 * @see toba_db::abortar_transaccion()
+	 */		
+	function abortar_transaccion()
 	{
 		$this->transaccion_abierta = false;
 		return toba::db($this->info['fuente'])->abortar_transaccion($sql);
 	}
-	//-------------------------------------------------------------------------------
 
+	/**
+	 * @see toba_db::ejecutar()
+	 */			
 	function ejecutar_sql($sentencias_sql)
 	{
 		if($this->transaccion_abierta){

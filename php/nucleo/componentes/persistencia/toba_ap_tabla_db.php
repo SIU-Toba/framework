@@ -14,7 +14,6 @@ if (!defined("apex_db_registros_separador")) {
  * @todo Como se implementa la carga de columnas externas??
  * @todo Donde se hacen los controles pre-sincronizacion (nulos db)??
  * @todo Hay que definir el manejo de claves (en base a toba_datos_relacion)	
- * @todo Esta clase no deberia utilizar ADOdb!!!
  * @package Componentes
  * @subpackage Persistencia
  */

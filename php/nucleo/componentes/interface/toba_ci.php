@@ -536,6 +536,9 @@ class toba_ci extends toba_ei
 	//--  ETAPA SERVICIO  ----------------------------
 	//------------------------------------------------
 	
+	/**
+	 * Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias
+	 */
 	function pre_configurar()
 	{
 		$this->en_servicio = true;
@@ -556,6 +559,9 @@ class toba_ci extends toba_ei
 		$this->pantalla()->post_configurar();		
 	}
 	
+	/**
+	 * Se configura una dependencia, se busca un callback `conf__` y si este callback responde cargar estos datos la dependencia
+	 */
 	protected function configurar_dep($dep)
 	{
 		if ($this->dependencia_esta_configurada($dep)) {
@@ -576,7 +582,10 @@ class toba_ci extends toba_ei
 		$this->dependencias[$dep]->post_configurar();
 	}
 	
-	function dependencia_esta_configurada($id)
+	/**
+	 * Una dependencia ya ha sido configurada por este CI?
+	 */
+	protected function dependencia_esta_configurada($id)
 	{
 		return in_array($id, $this->dependencias_configuradas);
 	}
@@ -588,6 +597,9 @@ class toba_ci extends toba_ei
 	 */
 	protected function conf() {}
 	
+	/**
+	 * Retorna los metadatos de una pantalla
+	 */
 	protected function get_info_pantalla($id)
 	{
 		foreach($this->info_ci_me_pantalla as $info_pantalla) {
@@ -598,6 +610,9 @@ class toba_ci extends toba_ei
 	}
 
 	/**
+	 * Retorna la referencia a la pantalla a graficar
+	 * Una vez que se invoca este metodo se fija la pantalla para el resto del pedido de pagina
+	 * Es importante relegar esta desicion en caso de querer variar la pantalla a mostrar dinamicamente
 	 * @return toba_ei_pantalla
 	 */
 	function pantalla()
@@ -640,7 +655,12 @@ class toba_ci extends toba_ei
 	{
 		return $this->pantalla()->evento($id);
 	}
-	
+
+	/**
+	 * Cambia la pantalla a utilizar en el servicio actual
+	 * El cambio recien sera efectivo cuando se utilize la pantalla con el metodo pantalla()
+	 * @param string $id Identificador de la pantalla, tal como se definio en el editor
+	 */
 	protected function set_pantalla($id)
 	{
 		if (isset($this->pantalla_servicio)) {
@@ -649,11 +669,18 @@ class toba_ci extends toba_ei
 		$this->pantalla_id_servicio	= $id;
 	}
 
+	/**
+	 * Retorna el id de la pantalla actualmente seleccionada para graficar
+	 * @return string
+	 */
 	protected function get_id_pantalla()
 	{
 		return $this->pantalla_id_servicio;	
 	}
 
+	/**
+	 * Delega la generacion de html a la pantalla actual
+	 */
 	function generar_html()
 	{
 		$this->pantalla()->generar_html();	
@@ -664,6 +691,9 @@ class toba_ci extends toba_ei
 		return $this->pantalla()->get_consumo_javascript();
 	}
 	
+	/**
+	 * Delega la generacion de js a la pantalla actual
+	 */
 	function generar_js()
 	{
 		return $this->pantalla()->generar_js();

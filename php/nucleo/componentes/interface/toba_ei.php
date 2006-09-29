@@ -75,14 +75,14 @@ abstract class toba_ei extends toba_componente
 	}	
 	
 	/**
-	 * Ventana previa a la configuración del componente
+	 * Espacio donde el componente deja su estado interno listo para la configuración del componente
 	 */
 	function pre_configurar()
 	{
 	}
 
 	/**
-	 * Ventana posterior a la configuración del componente
+	 *  Espacio donde el componente cierra su configuración
 	 */
 	function post_configurar()
 	{
