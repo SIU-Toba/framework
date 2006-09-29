@@ -190,14 +190,8 @@ class toba_nucleo
 	{
 		$proyecto = toba::proyecto()->get_id();
 		$i_proy = toba::instancia()->get_path_proyecto($proyecto);
-		$i_path = ini_get("include_path");
-		if (substr(PHP_OS, 0, 3) == 'WIN'){
-			$i_proy_php = $i_proy  . "/php";
-			ini_set("include_path", $i_path . ";.;" . $i_proy_php );
-		}else{
-			$i_proy_php = $i_proy . "/php";
-			ini_set("include_path", $i_path . ":.:" . $i_proy_php);
-		}
+		$i_proy_php = $i_proy  . "/php";
+		agregar_dir_include_path($i_proy_php);
 		$_SESSION['toba']["path_proyecto"] = $i_proy;
 		$_SESSION['toba']["path_proyecto_php"] = $i_proy_php;
 		//echo "PROYECTO: $proyecto - INCLUDE_PATH= \"" . ini_get("include_path") ."\"";

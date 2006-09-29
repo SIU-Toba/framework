@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php');
 
 class ci_edicion extends toba_ci
 {

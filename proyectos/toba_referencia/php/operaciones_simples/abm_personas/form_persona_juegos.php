@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario_ml.php'); 
-//----------------------------------------------------------------
+
 class form_persona_juegos extends toba_ei_formulario_ml
 {
 	function extender_objeto_js()

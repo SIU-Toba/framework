@@ -26,7 +26,7 @@ class info_ap_tabla_db implements meta_clase
 
 	function get_clase_archivo()
 	{
-		return 'nucleo/componentes/persistencia/toba_ap_tabla_db.php';
+		return 'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php';
 	}
 	
 	function get_subclase_nombre()

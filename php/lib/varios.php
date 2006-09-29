@@ -360,4 +360,14 @@
 		}
 		return $props;		
 	}
+	
+	function agregar_dir_include_path($dir)
+	{
+		$i_path = ini_get("include_path");
+		if (substr(PHP_OS, 0, 3) == 'WIN'){
+			ini_set("include_path", $i_path . ";.;" . $dir );
+		}else{
+			ini_set("include_path", $i_path . ":.:" . $dir);
+		}
+	}
 ?>

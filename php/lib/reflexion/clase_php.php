@@ -20,11 +20,6 @@ class clase_php
 		return $this->meta_clase->get_subclase_nombre();
 	}
 	
-	function incluir_clase_padre()
-	{
-		require_once($this->meta_clase->get_clase_archivo());
-	}	
-	
 	//---------------------------------------------------------------
 	//-- Generacion de codigo
 	//---------------------------------------------------------------
@@ -63,12 +58,16 @@ class clase_php
 	
 	function analizar()
 	{
-		$this->incluir_clase_padre();
+		if(!toba_editor::acceso_recursivo()){
+			//La subclase puede incluir archivos del proyecto
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
+			agregar_dir_include_path($path_proyecto);
+		}
+		require_once($this->meta_clase->get_clase_archivo());
 		$this->archivo->incluir();		
 		try {
 			$clase = new ReflectionClass($this->nombre());
 			$metodos = $clase->getMethods();
-			
 			echo "<div style='text-align: left;'><h3>Clase ".$clase->getName()."</h3>";
 			echo "<ul>";
 			//Métodos propios

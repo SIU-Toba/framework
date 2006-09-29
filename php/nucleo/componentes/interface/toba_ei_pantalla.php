@@ -161,10 +161,10 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function eliminar_tab($id)
 	{
-		if($id == $this->id_en_controlador ) {
+		/*if($id == $this->id_en_controlador ) {
 			throw new toba_error_def($this->get_txt(). 
 					'No es posible eliminar el tab correspondiente a la pantalla que se esta mostrando');
-		}
+		}*/
 		if (isset($this->lista_tabs[$id])) {
 			unset($this->lista_tabs[$id]);
 		} else {

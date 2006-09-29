@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario.php'); 
-//----------------------------------------------------------------
+
 class form_persona_deportes extends toba_ei_formulario
 {
 	function extender_objeto_js()

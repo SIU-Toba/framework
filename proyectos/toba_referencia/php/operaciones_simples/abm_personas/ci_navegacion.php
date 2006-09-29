@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php');
 require_once('operaciones_simples/consultas.php'); 
 
 //----------------------------------------------------------------
