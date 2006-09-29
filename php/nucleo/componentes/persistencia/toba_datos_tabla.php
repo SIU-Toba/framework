@@ -342,9 +342,9 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
-	 * Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
-	 * @param array Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones
-	 * @param boolean Hace que las claves del array devuelto sean las claves internas del dbr
+	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
+	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones
+	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla (sino se usa una clave posicional)
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Formato tipo RecordSet
 	 */
@@ -429,7 +429,9 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
+	 * Retorna el contenido de una fila, a partir de su clave interna
 	 * @param mixed $id Id. interno de la fila en memoria
+	 * @return array columna => valor. En caso de no existir la fila retorna NULL
 	 */
 	function get_fila($id)
 	{
@@ -447,6 +449,8 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Retorna el valor de una columna en una fila dada
 	 * @param mixed $id Id. interno de la fila
+	 * @param string $columna Nombre de la columna
+	 * @return mixed En caso de no existir, retorna NULL
 	 */
 	function get_fila_columna($id, $columna)
 	{
@@ -462,7 +466,7 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna los valores de una columna específica
 	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
 	 * @param string $columna Nombre del campo o columna
-	 * @return array
+	 * @return array Arreglo plano de valores
 	 */
 	function get_valores_columna($columna)
 	{
@@ -476,6 +480,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Retorna el valor de la columna de la fila actualmente seleccionada como cursor
 	 * @param string $columna Id. de la columna que contiene el valor a retornar
+	 * @return mixed NULL si no cursor o no hay filas
 	 */	
 	function get_columna($columna)
 	{
@@ -491,6 +496,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Cantidad de filas que tiene la tabla en memoria
 	 * El conjunto de filas utilizado es afectado por la presencia de cursores en las tablas padres
+	 * @return integer
 	 */
 	function get_cantidad_filas()
 	{
@@ -498,7 +504,9 @@ class toba_datos_tabla extends toba_componente
 	}
 	
 	/**
+	 * Existe una determina fila? (la fila puede estar marcada como para borrar)
 	 * @param mixed $id Id. interno de la fila
+	 * @return boolean
 	 */
 	function existe_fila($id)
 	{
@@ -533,11 +541,11 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Crea una nueva fila en memoria
+	 * Crea una nueva fila en la tabla en memoria
 	 *
-	 * @param array $fila Asociativo campo->valor a insertar
-	 * @param mixed $ids_padres Asociativo padre =>id de las filas padres de esta nueva, 
-	 * 						  en caso de que no se brinde, se utilizan las posiciones actuales de estas tablas padres
+	 * @param array $fila Asociativo campo=>valor a insertar
+	 * @param mixed $ids_padres Asociativo padre =>id de las filas padres de esta nueva fila, 
+	 * 						  en caso de que no se brinde, se utilizan los cursores actuales en estas tablas padres
 	 * @param integer $id_nuevo Opcional. Id interno de la nueva fila, si no se especifica (recomendado)
 	 * 								Se utiliza el proximo id interno.
 	 * @return mixed Id. interno de la fila creada
@@ -585,10 +593,10 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Modifica una fila de la tabla en memoria
-	 *
+	 * Modifica los valores de una fila de la tabla en memoria
+	 * Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.
 	 * @param mixed $id Id. interno de la fila a modificar
-	 * @param array $fila Contenido de la fila, puede ser incompleto
+	 * @param array $fila Contenido de la fila, en formato columna=>valor, puede ser incompleto
 	 * @return mixed Id. interno de la fila modificada
 	 */
 	function modificar_fila($id, $fila)
@@ -624,7 +632,6 @@ class toba_datos_tabla extends toba_componente
 			if($this->cambios[$id]['estado']!="i"){
 				$this->registrar_cambio($id,"u");
 			}
-			
 			//Se actualizan los cambios en la relación
 			foreach ($this->relaciones_con_padres as $rel_padre) {
 				$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
@@ -648,8 +655,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Cambia la asociación de una fila con sus padres
-	 *
+	 * Cambia los padres de una fila
 	 * @param mixed $id_fila 
 	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parámetros
 	 * 				El resto de los padres sigue con la asociación anterior
@@ -673,7 +679,7 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Elimina una fila de la tabla en memoria
-	 *
+	 * En caso de que la fila sea el cursor actual de la tabla, este ultimo se resetea
 	 * @param mixed $id Id. interno de la fila a eliminar
 	 * @return Id. interno de la fila eliminada
 	 */
@@ -708,7 +714,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Elimina todas las filas de la tabla en memoria
-	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre
+	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre para afectar solo sus filas hijas, por defecto no
 	 */
 	function eliminar_filas($con_cursores = false)
 	{
@@ -722,6 +728,7 @@ class toba_datos_tabla extends toba_componente
 	 *
 	 * @param mixed $id Id. interno de la fila de la tabla en memoria
 	 * @param string $columna Columna o campo de la fila
+	 * @param mixed $valor Nuevo valor
 	 */
 	function set_fila_columna_valor($id, $columna, $valor)
 	{
@@ -739,6 +746,10 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Cambia el valor de una columna en todas las filas
+	 * 
+	 * @param string $columna Nombre de la columna a modificar
+	 * @param mixed $valor Nuevo valor comun a toda la columna
+	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre para afectar sus filas hijas, por defecto no
 	 */
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
@@ -753,10 +764,13 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Procesa los cambios masivos de filas
 	 * 
-	 * Para procesar es necesario indicar el estado
-	 * de cada fila utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'
+	 * El id de la fila se asume que la key del registro o la columna apex_datos_clave_fila
+	 * Para procesar es necesario indicar el estado de cada fila utilizando una columna referenciada con la constante 'apex_ei_analisis_fila' los valores pueden ser:
+	 *  - 'A': Alta
+	 *  - 'B': Baja
+	 *  - 'M': Modificacion
 	 *
-	 * @param array $filas Filas en formato RecordSet
+	 * @param array $filas Filas en formato RecordSet, cada registro debe contener un valor para la constante apex_ei_analisis_fila
 	 */
 	function procesar_filas($filas)
 	{
@@ -802,7 +816,7 @@ class toba_datos_tabla extends toba_componente
 	 * Cambia el contenido de la fila donde se encuentra el cursor interno
 	 * En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella
 	 *
-	 * @param array $fila Contenido total o parcial de la fila
+	 * @param array $fila Contenido total o parcial de la fila a crear o modificar
 	 */
 	function set($fila)
 	{
@@ -846,6 +860,11 @@ class toba_datos_tabla extends toba_componente
 		$this->control_valores_unicos_fila($fila, $id);
 	}
 
+	/**
+	 * Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria
+	 * @param array $fila Datos de la fila
+	 * @param mixed $id Id. interno de la fila, si tiene (en el caso modificacion de la fila)
+	 */
 	protected function evt__validar_ingreso($fila, $id=null){}
 
 	//-------------------------------------------------------------------------------
@@ -953,6 +972,9 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 */
+	/**
+	 * Valida que la cantidad de filas supere el mínimo establecido
+	 */
 	protected function control_tope_minimo_filas()
 	{
 		$control_tope_minimo=true;
@@ -971,7 +993,7 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Retorna el admin. de persistencia que asiste a este objeto
+	 * Retorna el admin. de persistencia que asiste a este objeto durante la sincronización
 	 * @return toba_ap_tabla
 	 */
 	function get_persistidor()
@@ -998,12 +1020,17 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Carga la tabla restringiendo POR valores especificos de campos
+	 * Si los datos contienen una unica fila, esta se pone como cursor de la tabla
 	 */
 	function cargar($clave=array())
 	{
 		return $this->get_persistidor()->cargar_por_clave($clave);
 	}
 	
+	/**
+	 * La tabla esta cargada con datos?
+	 * @return boolean
+	 */
 	function esta_cargada()
 	{
 		return $this->cargada;
@@ -1011,6 +1038,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)
+	 * Si los datos contienen una unica fila, esta se pone como cursor de la tabla
 	 * @param array $datos en formato RecordSet
 	 */
 	function cargar_con_datos($datos)
@@ -1106,7 +1134,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Deja la tabla sin carga alguna, se pierden todos los cambios realizados
+	 * Deja la tabla sin carga alguna, se pierden todos los cambios realizados desde la carga
 	 */
 	function resetear()
 	{
@@ -1144,21 +1172,26 @@ class toba_datos_tabla extends toba_componente
 		return $this->datos;
 	}
 
+	/**
+	 * Retorna la estructura interna que mantiene registro de las modificaciones/altas/bajas producidas en memoria
+	 */
 	function get_cambios()
 	{
 		return $this->cambios;	
 	}
 
-	function get_datos_originales()
-	{
-		return $this->datos_originales;
-	}
-
+	/**
+	 * Retorna el nombre de las columnas de esta tabla
+	 */
 	function get_columnas()
 	{
 		return $this->columnas;
 	}
 	
+	/**
+	 * Retorna el nombre de la {@link toba_fuente_datos fuente de datos} utilizado por este componente
+	 * @return string
+	 */
 	function get_fuente()
 	{
 		return $this->info["fuente"];
@@ -1173,7 +1206,9 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
+	 * Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs
 	 * Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla
+	 * @return string
 	 */
 	function get_alias()
 	{
@@ -1186,6 +1221,12 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
+	/**
+	 * La tabla posee alguna columna marcada como de 'carga externa'
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
+	 * necesitan mantenerse junto al conjunto de datos.
+	 * @return boolean
+	 */
 	function posee_columnas_externas()
 	{
 		return $this->posee_columnas_ext;
@@ -1225,11 +1266,15 @@ class toba_datos_tabla extends toba_componente
 			$this->registrar_cambio($fila, "i");
 		}
 	}
-	
+
+	/**
+	 * Fuerza una cambio directo a la estructura interna que mantiene registro de los cambios
+	 * @param mixed $fila Id. interno de la fila
+	 * @param string $estado
+	 */
 	protected function registrar_cambio($fila, $estado)
 	{
 		$this->cambios[$fila]['estado'] = $estado;
 	}
-	//-------------------------------------------------------------------------------
 }
 ?>
