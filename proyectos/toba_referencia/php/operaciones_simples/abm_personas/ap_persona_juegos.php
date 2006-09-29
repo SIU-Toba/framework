@@ -12,7 +12,7 @@ class ap_persona_juegos extends toba_ap_tabla_db_s
 /*		$juego = $this->datos[$id]['juego'];
 		$jugador = $this->datos[$id]['persona'];
 		$sql = "INSERT INTO ref_juegos_oferta (juego,jugador) VALUES ($juego, $jugador);";
-		ejecutar_sql($sql,'referencia');*/
+		ejecutar_sql($sql);*/
 	}
 }
 ?>

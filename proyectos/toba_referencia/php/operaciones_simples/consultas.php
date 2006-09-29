@@ -8,7 +8,7 @@ class consultas
 	function get_juegos()
 	{
 		$sql = "SELECT id, nombre, descripcion FROM ref_juegos;";
-		return consultar_fuente($sql,'referencia');
+		return consultar_fuente($sql);
 	}
 	
 	/**
@@ -23,7 +23,7 @@ class consultas
 			}
 		}
 		$sql = "SELECT id, nombre, descripcion FROM ref_deportes $where;";
-		return consultar_fuente($sql,'referencia');
+		return consultar_fuente($sql);
 	}
 
 	/**
@@ -38,7 +38,7 @@ class consultas
 			}
 		}
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where;";
-		return consultar_fuente($sql,'referencia');
+		return consultar_fuente($sql);
 	}
 
 	/**
