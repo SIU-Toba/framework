@@ -170,5 +170,12 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	{
 		return 'nucleo/componentes/interface/toba_ei_pantalla.php';	
 	}
+
+	//---------------------------------------------------------------------
+	
+	function get_descripcion_subcomponente()
+	{
+		return 'Pantalla ' . $this->datos['identificador'];
+	}
 }
 ?>

@@ -14,6 +14,10 @@ class toba_molde_clase
 	protected $elementos_js = array();
 	protected $indices_js = array();
 	protected $codigo_php = '';
+	protected $analisis_muestra;
+	protected $analisis_ventanas_utilizadas = array();
+	protected $analisis_ventanas_no_utilizadas = array();
+	protected $analisis_metodos_usuario = array();
 
 	function __construct($nombre, $nombre_ancestro)
 	{
@@ -235,5 +239,61 @@ class toba_molde_clase
 			$this->codigo_php .= $metodo->get_codigo();
 		}
 	}
+
+	//--------------------------------------------------------------
+	//-- Analisis de codigo ----------------------------------------
+	//--------------------------------------------------------------
+
+	function set_muestra_analisis(ReflectionClass $muestra)
+	{
+		$this->analisis_muestra = $muestra;
+		$this->analizar_php();
+		$this->analizar_js();
+	}
+	
+	function analizar_php()
+	{
+		foreach ($this->analisis_muestra->getMethods() as $metodo) {
+			$n = $metodo->getName();
+			if ( $n == 'extender_objeto_js' ) continue;
+			if ($metodo->getDeclaringClass() == $this->analisis_muestra) {
+				if (isset($this->indices_php[$n])) {
+					$this->analisis_ventanas_utilizadas[] = $n;
+				} else {
+						$this->analisis_metodos_usuario[] = $n;
+				}
+			}
+		}
+		$metodos_molde = array_keys($this->indices_php);
+		$this->analisis_ventanas_no_utilizadas = array_diff($metodos_molde, $this->analisis_ventanas_utilizadas);
+	}
+
+	function analizar_js()
+	{
+	}
+
+	function get_ventanas_utilizadas()
+	{
+		return $this->analisis_ventanas_utilizadas;
+	}
+
+	function get_ventanas_no_utilizadas()
+	{
+		return $this->analisis_ventanas_no_utilizadas;		
+	}
+
+	function get_metodos_usuario()
+	{
+		return $this->analisis_metodos_usuario;
+	}
+	
+	function get_analisis()
+	{
+		$datos[$this->nombre]['Ventanas Utilizadas'] = 	$this->analisis_ventanas_utilizadas;	
+		$datos[$this->nombre]['Ventanas No Utilizadas'] = $this->analisis_ventanas_no_utilizadas;	
+		$datos[$this->nombre]['Metodos Usuario'] = $this->analisis_metodos_usuario;	
+		return $datos;
+	}
+	//--------------------------------------------------------------
 }
 ?>

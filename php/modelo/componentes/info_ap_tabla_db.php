@@ -21,7 +21,7 @@ class info_ap_tabla_db implements meta_clase
 	
 	function get_clase_nombre()
 	{
-		return 'toba_ap_tabla_db';
+		return 'toba_ap_tabla_db_s';
 	}
 
 	function get_clase_archivo()
@@ -37,6 +37,13 @@ class info_ap_tabla_db implements meta_clase
 	function get_subclase_archivo()
 	{
 		return $this->datos['ap_sub_clase_archivo'];	
+	}
+	
+	//---------------------------------------------------------------------
+	
+	function get_descripcion_subcomponente()
+	{
+		return 'Administrador de Persistencia';
 	}
 }
 ?>

@@ -366,15 +366,6 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	}
 
 	//---------------------------------------------------------------------	
-	//-- EVENTOS
-	//---------------------------------------------------------------------
-
-	function eventos_predefinidos()
-	{
-		return array();
-	}	
-
-	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
@@ -402,82 +393,20 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	{
 		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
 	}
-	
+
+	//---------------------------------------------------------------------	
+	//-- Preguntas sobre EVENTOS
 	//---------------------------------------------------------------------
-		
+
+	function eventos_predefinidos()
+	{
+		return array();
+	}	
+
 	static function get_eventos_internos(toba_datos_relacion $dr)
 	{
 		$eventos = array();
 		return $eventos;
-	}
-	
-	//---- ANALISIS de EVENTOS
-
-	function es_evento($metodo)
-	{
-		return (ereg("^evt(.*)", $metodo)); //evt seguido de cualquier cosa	
-	}	
-
-	function es_evento_valido($metodo)
-	{
-		if (ereg("^evt__(.*)", $metodo))
-			return true; //evt__ seguido de cualquier cosa
-		foreach ($this->subelementos as $elemento) {
-			if ($elemento->es_evento_valido($metodo))
-				return true;
-		}	
-		return false;
-	}
-	
-	function es_evento_predefinido($metodo)
-	{
-		if (! $this->es_evento_valido($metodo))
-			return false;
-	
-		if ($this->tiene_consumidor()) {
-			//Debe buscar cosas de tipo 'evt__id__evento'?
-			$id = $this->rol_en_consumidor();
-			ereg("^evt__".$id."__(.*)", $metodo, $detalle);
-			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
-				return true;
-		} else {
-			//Debe buscar cosas de tipo 'evt__evento'		
-			ereg("^evt__(.*)", $metodo, $detalle);
-			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
-				return true;		
-		}
-		//Los hijos lo tienen?
-		foreach ($this->subelementos as $elemento) {
-			if ($elemento->es_evento_predefinido($metodo))
-				return true;
-		}
-		return false;
-	}
-
-	function es_evento_sospechoso($metodo)
-	{
-		//Busca cosas como evt___
-		if (ereg("^evt___(.*)", $metodo)) {	
-			return true;
-		}	
-		if ($this->tiene_consumidor()) {
-			$id = $this->rol_en_consumidor();
-
-			//Busca cosas como evt__id_evento
-			ereg("^evt__".$id."_([^_].*)", $metodo, $detalle);
-			if (count($detalle) == 2 && in_array($detalle[1], $this->eventos_predefinidos()))
-				return true;
-				
-			//Busca cosas como evt__id___evento
-			ereg("^evt__".$id."__[_*](.*)", $metodo, $detalle);
-			if (count($detalle) == 2)
-				return true;			
-		}
-		foreach ($this->subelementos as $elemento) {
-			if ($elemento->es_evento_sospechoso($metodo))
-				return true;
-		}			
-		return false;		
 	}
 }
 ?>

@@ -11,6 +11,7 @@ class ci_editor_php extends toba_ci
 {
 	protected $archivo_php;			
 	protected $clase_php;			
+	protected $meta_clase;
 	protected $s__subcomponente;
 	protected $opciones_previsualizacion;
 	protected $previsualizacion = '';
@@ -59,6 +60,7 @@ class ci_editor_php extends toba_ci
 			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $subclase_archivo;
 			$this->archivo_php = new archivo_php($path);
 			$this->clase_php = new clase_php($this->archivo_php, $meta_clase);
+			$this->meta_clase = $meta_clase;
 		}
 	}
 
@@ -128,6 +130,10 @@ class ci_editor_php extends toba_ci
 				$this->pantalla()->eliminar_tab(0);
 			}
 		}
+		if( $this->s__subcomponente ) {
+			$desc = 'SUBCOMPONENTE: ' . $this->meta_clase->get_descripcion_subcomponente();
+			$this->pantalla()->set_descripcion($desc);
+		}
 	}
 	
 	function evt__subclase__previsualizar($opciones)
@@ -140,8 +146,10 @@ class ci_editor_php extends toba_ci
 						" padding-top: 2px; padding-right: 2px; margin-left: -4px; width: 20px; text-align: right;'>".
 						"%2d</span>&nbsp;&nbsp;";
 		$this->previsualizacion = $h->toHtml(true, true, $formato_linea, true);
-		//$this->dep('subclase')->colapsar();
 		$this->opciones_previsualizacion = $opciones;
+		if(count($this->clase_php->get_lista_metodos_posibles())>5) {
+			$this->dep('subclase')->colapsar();
+		}
 	}
 	
 	function evt__subclase__crear_archivo($opciones)

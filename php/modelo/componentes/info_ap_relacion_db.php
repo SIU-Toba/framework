@@ -38,5 +38,12 @@ class info_ap_relacion_db implements meta_clase
 	{
 		return $this->datos['ap_archivo'];	
 	}
+
+	//---------------------------------------------------------------------
+	
+	function get_descripcion_subcomponente()
+	{
+		return 'Administrador de Persistencia';
+	}
 }
 ?>
