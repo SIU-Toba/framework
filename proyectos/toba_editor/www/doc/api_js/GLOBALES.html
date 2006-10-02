@@ -40,28 +40,6 @@ parent.document.title="GLOBALES";
 </TR>
 
 <TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="evento_ei.html"><B>PREV CLASS</B></A><!-- 
-   NEXT CLASS 
--->
-&nbsp;<A HREF="Node.html"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="GLOBALES.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;
-<SCRIPT>
-  <!--
-  if(window==top) {
-    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
-  }
-  //-->
-</SCRIPT>
-<NOSCRIPT>
-<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>
-</NOSCRIPT>
-</FONT></TD>
-</TR>
-<TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
   SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
@@ -162,11 +140,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#!s!addEvent">addEvent</A></B>(o, _e, c, _b)
+	       <A HREF="#!s!addEvent">addEvent</A></B>(o, &lt;string&gt; _e, c, &lt;boolean&gt; _b)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
       </TD>
    </TR>
 
@@ -183,7 +161,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Retorna el valor maximo que existe en un arreglo
       </TD>
    </TR>
 
@@ -332,23 +310,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#!s!es_igual">es_igual</A></B>(num1, num2, digitos_precision)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
 	       <A HREF="#!s!existe_funcion">existe_funcion</A></B>(obj, f)
 	 </CODE>
 	 <BR>
@@ -370,24 +331,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!formatCurrency">formatCurrency</A></B>(num)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Recorre el arbol DOM en busqueda de un input HTML que acepte focus
       </TD>
    </TR>
 
@@ -455,7 +399,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Busca si un valor pertenece al arreglo
       </TD>
    </TR>
 
@@ -547,23 +491,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!redondear">redondear</A></B>(numero, digitos)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
 	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
@@ -608,7 +535,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Muestra u oculta un element HTML
       </TD>
    </TR>
 
@@ -722,10 +649,29 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
    <A NAME="!s!addEvent"><!-- --></A>
    <H3>addEvent</H3>
-   <PRE>&lt;static&gt; Object <B>addEvent</B>(o, _e, c, _b)</PRE>
+   <PRE>&lt;static&gt; Object <B>addEvent</B>(o, &lt;string&gt; _e, c, &lt;boolean&gt; _b)</PRE>
+   
+      <UL>Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>_e</CODE> -  Nombre del evento (ej. onclick)  
+      </UL> 
+   
+     <UL><CODE>_b</CODE> -  Agregar al fondo (por defecto true)
+      </UL> 
+   
+     <UL><CODE>Elemento</CODE> -  base  
+      </UL> 
+   
+     <UL><CODE>_c</CODE> -  Cuerpo del callback a ejecutar  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -739,6 +685,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <A NAME="!s!array_maximo"><!-- --></A>
    <H3>array_maximo</H3>
    <PRE>&lt;static&gt; Object <B>array_maximo</B>(arreglo)</PRE>
+   
+      <UL>Retorna el valor maximo que existe en un arreglo</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -880,22 +828,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="!s!es_igual"><!-- --></A>
-   <H3>es_igual</H3>
-   <PRE>&lt;static&gt; Object <B>es_igual</B>(num1, num2, digitos_precision)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
    <A NAME="!s!existe_funcion"><!-- --></A>
    <H3>existe_funcion</H3>
    <PRE>&lt;static&gt; Object <B>existe_funcion</B>(obj, f)</PRE>
@@ -916,21 +848,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <H3>firstFocus</H3>
    <PRE>&lt;static&gt; void <B>firstFocus</B>()</PRE>
    
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!formatCurrency"><!-- --></A>
-   <H3>formatCurrency</H3>
-   <PRE>&lt;static&gt; Object <B>formatCurrency</B>(num)</PRE>
+      <UL>Recorre el arbol DOM en busqueda de un input HTML que acepte focus</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -995,6 +913,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <A NAME="!s!in_array"><!-- --></A>
    <H3>in_array</H3>
    <PRE>&lt;static&gt; Object <B>in_array</B>(elemento, arreglo)</PRE>
+   
+      <UL>Busca si un valor pertenece al arreglo</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -1088,22 +1008,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="!s!redondear"><!-- --></A>
-   <H3>redondear</H3>
-   <PRE>&lt;static&gt; Object <B>redondear</B>(numero, digitos)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
    <A NAME="!s!salir"><!-- --></A>
    <H3>salir</H3>
    <PRE>&lt;static&gt; void <B>salir</B>()</PRE>
@@ -1143,6 +1047,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <A NAME="!s!toggle_nodo"><!-- --></A>
    <H3>toggle_nodo</H3>
    <PRE>&lt;static&gt; void <B>toggle_nodo</B>(o)</PRE>
+   
+      <UL>Muestra u oculta un element HTML</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -1220,7 +1126,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="evento_ei.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="financiero.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
 &nbsp;<A HREF="Node.html"><B>NEXT CLASS</B></A></FONT></TD>
@@ -1254,6 +1160,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 
 </FONT>
-<div class="jsdoc_ctime">Documentation generated by <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a> on Mon Oct  2 15:58:09 2006</div>
+<div class="jsdoc_ctime">
+Desarrollado por <a href="http://www.siu.edu.ar/">SIU</a><br>
+Documentación generada por <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a></div>
 </BODY>
 </HTML>

@@ -3,14 +3,14 @@
 <HTML>
 <HEAD>
 <TITLE>
-evento_ei
+notificacion
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
 <SCRIPT>
 function asd()
 {
-parent.document.title="evento_ei";
+parent.document.title="notificacion";
 }
 </SCRIPT>
 <BODY BGCOLOR="white" onload="asd();">
@@ -24,7 +24,7 @@ parent.document.title="evento_ei";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ei.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-notificacion.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -50,10 +50,10 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <HR>
 
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>Class evento_ei</H2>
+<H2>Class notificacion</H2>
 <PRE>Object
    |
-   +--<b>evento_ei</b>
+   +--<b>notificacion</b>
 </PRE>
 
 
@@ -61,13 +61,18 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <DL>
    <!-- Class definition -->
    <DT>class 
-   <B>evento_ei</B>
+   <B>notificacion</B>
    
 
 </DL>
    
    <P>
-   <br><I>Defined in <a href='overview-summary-ei.js.html'>ei.js</a></I><BR/><BR/>
+   <BR/>Clase estatica para el manejo de mensajería al usuario
+ Su funcionamiento se basa en encolar mensajes con notificacion.agregar() y luego mostrarlos con notificacion.mostrar()
+ Los proyectos pueden variar la forma en que se muestran las notificaciones definiendo un nuevo metodo notificacion.tipo_ventana.<br>
+ Por defecto <em>notificacion.tipo_ventana = notificacion.ventana_modal</em>
+ 
+<BR/><br><I>Defined in <a href='overview-summary-notificacion.js.html'>notificacion.js</a></I><BR/><BR/>
    </P>
    
    <HR>
@@ -91,7 +96,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
    <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#_silencioso">_silencioso</A></B></CODE>
+   <TD><CODE><B><A HREF="#_mensajes">_mensajes</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
    </TR>
@@ -99,31 +104,15 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
    <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#confirmar">confirmar</A></B></CODE>
+   <TD><CODE><B><A HREF="#_responsable">_responsable</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
    </TR>
    
    <TR BGCOLOR="white" CLASS="TableRowColor">
    <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#id">id</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#parametros">parametros</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#validar">validar</A></B></CODE>
+   <CODE>&lt;static&gt; &nbsp;Object</CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#!s!tipo_ventana">tipo_ventana</A></B></CODE>
    <BR>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
    </TR>
@@ -150,13 +139,13 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TD>
       <CODE>
 	 <B>
-	    <A HREF="evento_ei.html#evento_ei()">evento_ei</A> 
+	    <A HREF="notificacion.html#notificacion()">notificacion</A> 
 	 </B>
-	 (id, validar, confirmar, parametros)
+	 ()
       </CODE>
       <BR>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      Representa un evento que será consumido por un CI
+      
       </TD>
 </TR>
 </TABLE>
@@ -166,6 +155,103 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 &nbsp;
 
 <!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TD COLSPAN=2><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TD>
+</TR>
+
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!agregar">agregar</A></B>(&lt;string&gt; mensaje, &lt;string&gt; gravedad, sujeto)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Agrega un mensaje a la cola de notificaciones
+ Este metodo no muestra el mensaje de notificación resultante, para ello usar en combinación con notifiacion.mostrar()
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!limpiar">limpiar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Limpia la cola de mensajes agregados hasta el momento
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!mostrar">mostrar</A></B>(responsable)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Muestra una ventana con los mensajes encolados hasta el momento
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!ventana_alert">ventana_alert</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!ventana_modal">ventana_modal</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+
+</TABLE>
 
 
 
@@ -183,45 +269,27 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TABLE>
 
    
-   <A NAME="_silencioso"><!-- --></A>
-   <H3>_silencioso</H3>
-   <PRE>Object&nbsp;<B>_silencioso</B></PRE>
+   <A NAME="_mensajes"><!-- --></A>
+   <H3>_mensajes</H3>
+   <PRE>Object&nbsp;<B>_mensajes</B></PRE>
    <UL>
    
    
    </UL>
    <HR>
    
-   <A NAME="confirmar"><!-- --></A>
-   <H3>confirmar</H3>
-   <PRE>Object&nbsp;<B>confirmar</B></PRE>
+   <A NAME="_responsable"><!-- --></A>
+   <H3>_responsable</H3>
+   <PRE>Object&nbsp;<B>_responsable</B></PRE>
    <UL>
    
    
    </UL>
    <HR>
    
-   <A NAME="id"><!-- --></A>
-   <H3>id</H3>
-   <PRE>Object&nbsp;<B>id</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
-   <A NAME="parametros"><!-- --></A>
-   <H3>parametros</H3>
-   <PRE>Object&nbsp;<B>parametros</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
-   <A NAME="validar"><!-- --></A>
-   <H3>validar</H3>
-   <PRE>Object&nbsp;<B>validar</B></PRE>
+   <A NAME="!s!tipo_ventana"><!-- --></A>
+   <H3>tipo_ventana</H3>
+   <PRE>&lt;static&gt;&nbsp;Object&nbsp;<B>tipo_ventana</B></PRE>
    <UL>
    
    
@@ -243,30 +311,13 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TR>
 </TABLE>
 
-<A NAME="evento_ei()"><!-- --></A><H3>
-evento_ei</H3>
-<PRE><B>evento_ei</B>(id, validar, confirmar, parametros)</PRE>
-
-
-<UL>
-   Representa un evento que será consumido por un CI
-</UL>
+<A NAME="notificacion()"><!-- --></A><H3>
+notificacion</H3>
+<PRE><B>notificacion</B>()</PRE>
 
 
 
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>id</CODE> -  Identificador del evento, ej: 'modificar'  
-     </UL>
-   
-     <UL><CODE>validar</CODE> -  ¿Se debe validar antes de hacer submit?  
-     </UL>
-   
-     <UL><CODE>confirmar</CODE> -  ¿Se debe confirmar antes de hacer submit?  
-     </UL>
-   
-   
+
    </UL>
 
 
@@ -284,6 +335,124 @@ evento_ei</H3>
 
 <!-- ============ METHOD DETAIL START ========== -->
 
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+      <TD COLSPAN=1><FONT SIZE="+2">
+         <B>Method Detail</B></FONT>
+      </TD>
+   </TR>
+</TABLE>
+
+<!-- One single method detail entry -->
+
+   <A NAME="!s!agregar"><!-- --></A>
+   <H3>agregar</H3>
+   <PRE>&lt;static&gt; void <B>agregar</B>(&lt;string&gt; mensaje, &lt;string&gt; gravedad, sujeto)</PRE>
+   
+      <UL>Agrega un mensaje a la cola de notificaciones
+ Este metodo no muestra el mensaje de notificación resultante, para ello usar en combinación con notifiacion.mostrar()</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>mensaje</CODE> -  Mensaje a mostrar  
+      </UL> 
+   
+     <UL><CODE>gravedad</CODE> -  Puede ser 'error' o 'info', esto va a influir en la forma grafica de la notificacion 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!limpiar"><!-- --></A>
+   <H3>limpiar</H3>
+   <PRE>&lt;static&gt; void <B>limpiar</B>()</PRE>
+   
+      <UL>Limpia la cola de mensajes agregados hasta el momento</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!mostrar"><!-- --></A>
+   <H3>mostrar</H3>
+   <PRE>&lt;static&gt; void <B>mostrar</B>(responsable)</PRE>
+   
+      <UL>Muestra una ventana con los mensajes encolados hasta el momento</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>Componente</CODE> -  responsable de/los mensajes (opcional) 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!ventana_alert"><!-- --></A>
+   <H3>ventana_alert</H3>
+   <PRE>&lt;static&gt; void <B>ventana_alert</B>()</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!ventana_modal"><!-- --></A>
+   <H3>ventana_modal</H3>
+   <PRE>&lt;static&gt; void <B>ventana_modal</B>()</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+
 
 <!-- ============ METHOD DETAIL END ========== -->
 
@@ -298,7 +467,7 @@ evento_ei</H3>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ei.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-notificacion.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -315,13 +484,13 @@ evento_ei</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="ei_formulario_ml.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="Node.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
-&nbsp;<A HREF="financiero.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="simpleMenu.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="evento_ei.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="notificacion.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;
 <SCRIPT>
   <!--

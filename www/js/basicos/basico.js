@@ -81,6 +81,10 @@ String.prototype.pad = function(l, s, t){
 
 //---ARRAY
 //----------------------------------------------------------
+
+/**
+ * Busca si un valor pertenece al arreglo
+ */
 function in_array (elemento, arreglo) {
 	for (var i=0 ; i < arreglo.length; i++) {
 		if (arreglo[i] == elemento) {
@@ -90,6 +94,9 @@ function in_array (elemento, arreglo) {
 	return false;
 }
 
+/**
+ * Retorna el valor maximo que existe en un arreglo
+ */
 function array_maximo(arreglo) {
 	var maximo = 0;
 	for (var i=0 ; i < arreglo.length; i++) {
@@ -103,7 +110,13 @@ function array_maximo(arreglo) {
 //---Eventos
 //--------------------------------------------
 
-// define the addEvent(oElement, sEvent, sCmd, bAppend) function
+/**
+ * Agrega dinamicamente un evento a un elemento html sin pisar los eventos anteriores
+ * @param {element} Elemento base
+ * @param {string} _e Nombre del evento (ej. onclick)
+ * @param {string} _c Cuerpo del callback a ejecutar
+ * @param {boolean} _b Agregar al fondo (por defecto true)
+ */
 function addEvent(o, _e, c, _b){
 	if (!o) {return;}		
 	var e = _e.toLowerCase();
@@ -127,7 +140,9 @@ function addEvent(o, _e, c, _b){
 }
 
 //---- DOM
-//Muestra u oculta un nodo
+/**
+ * Muestra u oculta un element HTML
+ */
 function toggle_nodo(o) {
 	o.style.display = (o.style.display == 'none') ? '' : 'none';
 }
@@ -148,6 +163,9 @@ function getElementPosition(offsetTrail) {
     return {left:offsetLeft, top:offsetTop};
 }
 
+/**
+ * Recorre el arbol DOM en busqueda de un input HTML que acepte focus
+ */
 function firstFocus()
 {
 	for (var i=0; i< document.forms.length; i++) {
@@ -216,33 +234,32 @@ function abrir_popup(id, url, opciones, extra, dep) {
 	return false;	
 }
 
-//----Mediciones de Performance
-var mediciones = 
-{
-	res: [],
 
-	limpiar : function() {
+/**
+ * @class Clase estatica que permite recolectar el tiempo de ejecución entre distintos sucesos
+ * @constructor
+ */
+var cronometro;
+cronometro = new function() {
+	this.res = [];
+}
+	cronometro.limpiar = function() {
 		this.res = [];
-	},
-	
-	marcar: function(descripcion) {
-		mediciones.res.push([new Date(), descripcion]);
-	},
-	
-	resultados: function() {
+	};
+	cronometro.marcar = function(descripcion) {
+		cronometro.res.push([new Date(), descripcion]);
+	};
+	cronometro.resultados = function() {
 		var html = '';
-		for (var i=0 ; i < mediciones.res.length; i++) {
+		for (var i=0 ; i < cronometro.res.length; i++) {
 			if (i > 0) {
-				var ms = mediciones.res[i][0] - mediciones.res[i-1][0];
-				html += '[' + mediciones.res[i-1][1] + ' - ' + mediciones.res[i][1] + '] = ' + ms + 'ms.<br>';
+				var ms = cronometro.res[i][0] - cronometro.res[i-1][0];
+				html += '[' + cronometro.res[i-1][1] + ' - ' + cronometro.res[i][1] + '] = ' + ms + 'ms.<br>';
 			}
 		}
 		return html;
 	}
-};
 
-
-//--- Colapsado
 function cambiar_colapsado(boton, cuerpo) {
 	if (cuerpo.style.display == 'none') {
 		descolapsar(boton, cuerpo);
@@ -262,7 +279,7 @@ function descolapsar (boton, cuerpo) {
 	if (boton) {
 		boton.src = toba.imagen('minimizar');
 	}
-	cuerpo.style.display= 'block';	
+	cuerpo.style.display='block';	
 }
 
 

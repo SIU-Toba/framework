@@ -1,35 +1,57 @@
-/**
-*	Clase para manejo de mensajería al usuario
-**/
 window.status = '';
-var notificacion = 
-{
-	_mensajes: [],
-	_responsable: null,
+
+var notificacion;
+
+/**
+ * @class Clase estatica para el manejo de mensajería al usuario
+ * Su funcionamiento se basa en encolar mensajes con notificacion.agregar() y luego mostrarlos con notificacion.mostrar()
+ * Los proyectos pueden variar la forma en que se muestran las notificaciones definiendo un nuevo metodo notificacion.tipo_ventana.<br>
+ * Por defecto <em>notificacion.tipo_ventana = notificacion.ventana_modal</em>
+ **/
+notificacion = new function() {
+	this._mensajes = [];
+	this._responsable = null;
+}
 	
-	agregar: function(mensaje, gravedad, sujeto) {
+	/**
+	 * Agrega un mensaje a la cola de notificaciones
+	 * Este metodo no muestra el mensaje de notificación resultante, para ello usar en combinación con notifiacion.mostrar()
+	 * @param {string} mensaje Mensaje a mostrar
+	 * @param {string} gravedad Puede ser 'error' o 'info', esto va a influir en la forma grafica de la notificacion
+	 */
+	notificacion.agregar = function(mensaje, gravedad, sujeto) {
 		if (!gravedad) {gravedad = 'error';}
 		this._mensajes.push([mensaje, gravedad, sujeto]);
-	},	
+	};
 
-	mostrar : function(responsable) {
+	/**
+	 * Muestra una ventana con los mensajes encolados hasta el momento
+	 * @param {ei} Componente responsable de/los mensajes (opcional)
+	 */
+	notificacion.mostrar = function(responsable) {
 		if (this._mensajes.length > 0) {
 			if (responsable) {
 				this._responsable = responsable;
 				responsable.notificar(true);
 			}
-			this.ventana_modal();
+			this.tipo_ventana();
 		}
-	},
+	};
 	
-	limpiar: function() {
+	/**
+	 *	Limpia la cola de mensajes agregados hasta el momento
+	 */
+	notificacion.limpiar = function() {
 		this._mensajes = [];
 		if (this._responsable) {
 			this._responsable.notificar(false);
 		}
-	},
+	};
 	
-	ventana_modal: function() {
+	/**
+	 *	Muestra los mensajes usando una ventana HTML modal
+	 */
+	notificacion.ventana_modal = function() {
 		var contenedor = document.getElementById('overlay_contenido');
 		if (!contenedor) {
 			//--- Si el mensaje se produce antes del body, usar el alert
@@ -55,9 +77,12 @@ var notificacion =
 		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
 		contenedor.innerHTML = '<div class="overlay-titulo">'+titulo+'</div>' + mensaje;
 		overlay();
-	},
+	};
 	
-	ventana_alert: function() {
+	/**
+	 *	Muestra los mensajes usando un alert javascript
+	 */	
+	notificacion.ventana_alert = function() {
 		var mensaje = '';
 		var hay_error = false;
 		var hay_info = false;
@@ -79,8 +104,9 @@ var notificacion =
 		}
 		var encabezado = (hay_error) ? 'Se han encontrado los siguientes problemas:\n\n' : 'Atención:\n\n';
 		alert(encabezado + mensaje);
-	}
-};
+	};
+	notificacion.tipo_ventana = notificacion.ventana_modal;
+
 
 function overlay() {
 	el = document.getElementById("overlay");

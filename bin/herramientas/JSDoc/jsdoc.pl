@@ -100,7 +100,7 @@ sub output_template {
     # Caching templates seems to improve performance quite a lot
     if (!$TMPL_CACHE{$tmplname}){
         $TMPL_CACHE{$tmplname} = new HTML::Template( 
-            die_on_bad_params    => !$relaxed, 
+            die_on_bad_params    => 0, 
             filename             => $tmplname);
     }
     my $tmpl = $TMPL_CACHE{$tmplname};
@@ -1174,7 +1174,7 @@ sub initialize_param_maps {
             },
         filename =>
             sub {
-                sprintf '<I>Defined in %s</I><BR/><BR/>', 
+                sprintf '<br><I>Defined in %s</I><BR/><BR/>', 
                     sprintf("<a href='overview-summary-%s.html'>%s</a>", 
                         mangle($_[0]), $_[0]);
             },

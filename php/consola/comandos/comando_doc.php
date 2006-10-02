@@ -75,7 +75,9 @@ class comando_doc extends comando_toba
 		$directorios .= toba_dir().'/www/js/efs/ef_* ';
 		
 		$cmd = "perl ".toba_dir().
-				"/bin/herramientas/JSDoc/jsdoc.pl --globals-name GLOBALES --recursive --no-lexical-privates --directory $destino --no-sources --project-name \"SIU-Toba\" $directorios";
+				"/bin/herramientas/JSDoc/jsdoc.pl --globals-name GLOBALES ".
+				"--recursive --directory $destino --no-sources ".
+				"--project-name \"SIU-Toba\" $directorios ";
 		system($cmd);
 		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
