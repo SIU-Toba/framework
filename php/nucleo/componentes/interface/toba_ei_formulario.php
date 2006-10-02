@@ -741,6 +741,9 @@ class toba_ei_formulario extends toba_ei
 			$ancho = convertir_a_medida_tabla($this->info_formulario["ancho"]);
 		}
 		echo "<table class='ei-base ei-form-base' $ancho id='{$this->objeto_js}_cont'>";
+        echo "<tr><td>";
+        echo $this->get_html_barra_editor();
+        echo "</td></tr>\n";
 		echo "<tr><td>";
 		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
 		echo "</td></tr>\n";

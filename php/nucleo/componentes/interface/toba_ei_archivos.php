@@ -157,6 +157,8 @@ class toba_ei_archivos extends toba_ei
 		
 		$img_crear_carpeta = toba_recurso::imagen_toba('archivos/carpeta_nueva.gif', true);
 		$img_crear_archivo = toba_recurso::imagen_toba('archivos/archivo_nuevo.gif', true);
+
+		echo $this->get_html_barra_editor();
 		
 		echo "<span style='float: right'>
 				<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>

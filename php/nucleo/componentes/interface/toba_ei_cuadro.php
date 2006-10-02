@@ -909,6 +909,9 @@ class toba_ei_cuadro extends toba_ei
 		$mostrar_cabecera = true;
 		$ancho = convertir_a_medida_tabla($ancho);
         echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
+        echo "<tr><td>";
+        echo $this->get_html_barra_editor();
+        echo "</td></tr>\n";
         if($mostrar_cabecera){
             echo "<tr><td>";
             $this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");

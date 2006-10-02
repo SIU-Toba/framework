@@ -356,13 +356,6 @@ abstract class toba_ei extends toba_componente
 	}
 		
 	/**
-	 * Ventana de extensión para incluir HTML junto a la barra del titulo e iconos
-	 */
-	function generar_html_barra_sup_especifica()
-	{
-	}
-
-	/**
 	 * Genera la barra con el título y los íconos
 	 *
 	 * @param string $titulo Título de la barra
@@ -380,14 +373,6 @@ abstract class toba_ei extends toba_componente
 			$titulo = $this->info["titulo"];	
 		}
 		echo "<div class='ei-barra-sup $estilo'>";
-		//---ICONOS
-		echo '<span class="ei-barra-sup-iconos">';		
-		if( toba_editor::modo_prueba() ){ 
-			toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
-		}		
-		echo $this->generar_html_barra_sup_especifica();
-		echo '</span>';
-		
 		//---Barra de mensajeria		
 		if (isset($this->objeto_js)) {
 			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
@@ -413,6 +398,20 @@ abstract class toba_ei extends toba_componente
 		//---Titulo
 		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
 		echo "</div>";
+	}
+
+	function get_html_barra_editor()
+	{
+		$salida = '';
+		if( toba_editor::modo_prueba() ){ 
+			$salida .= "<div class='div-editor'>";
+			//$salida .= '<span class="ei-barra-sup-iconos">';		
+			$salida .= toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
+			//$salida .= '</span>';
+			$salida .= '<strong>[' . $this->info['objeto'] . ']</strong> - ' . $this->info["nombre"];
+			$salida .= "</div>";
+		}		
+		return $salida;
 	}
 	
 	function get_id_form()

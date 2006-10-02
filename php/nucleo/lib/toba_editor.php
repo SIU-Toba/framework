@@ -276,17 +276,18 @@ class toba_editor
 	}
 
 	/*
-	*	Zona de vinculos de los componentes
+	*	Acceso a la edicion del componente
 	*/
 	static function generar_zona_vinculos_componente( $componente, $editor )
 	{
-		echo "<span class='div-editor'>";		
+		$salida = "<span class='div-editor'>";		
 		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
-			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			echo toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
-			echo "</a>\n";
+			$salida .= "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
+			$salida .= "</a>\n";
 		}
-		echo "</span>";
+		$salida .= "</span>";
+		return $salida;
 	}
 
 	/*
@@ -393,3 +394,4 @@ class toba_editor
 		return $salida;		
 	}
 }
+?>

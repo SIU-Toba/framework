@@ -175,7 +175,7 @@ class toba_ei_calendario extends toba_ei
 		$this->calendario->enableDayLinks();
 		$this->calendario->enableWeekLinks();
 
-		echo $this->calendario->showMonth($this->objeto_js, $this->eventos);
+		echo $this->calendario->showMonth($this->objeto_js, $this->eventos, $this->get_html_barra_editor() );
 	}
 	
 	function getActYear()
@@ -301,14 +301,27 @@ class calendario extends activecalendar
 		return $hasContent;
 	}
 
-	function showMonth($objeto_js, $eventos)
+	function showMonth($objeto_js, $eventos, $editor)
 	{
 		$out = $this->mkMonthHead();
+		$out .= $this->barra_editor($editor);
 		$out .= $this->mkMonthTitle();
 		$out .= $this->mkDatePicker($objeto_js, $eventos);
 		$out .= $this->mkWeekDays();
 		$out .= $this->mkMonthBody($objeto_js, $eventos);
 		$out .= $this->mkMonthFoot();
+		return $out;
+	}
+	
+	function barra_editor($html)
+	{
+		$pickerSpan = 8;
+		$out = '';
+		if($html) {
+			$out.="<tr><td class=\"".$this->cssPicker."\" colspan=\"".$pickerSpan."\">\n";
+			$out.=$html;
+			$out.="</td></tr>\n";
+		}
 		return $out;
 	}
 	

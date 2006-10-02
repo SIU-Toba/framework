@@ -37,6 +37,9 @@ class toba_ei_esquema extends toba_ei
 	{
 		echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
 		echo "<tr><td>";
+		echo $this->get_html_barra_editor();
+		echo "</td></tr>\n";
+		echo "<tr><td>";
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
 		echo "</td></tr>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		

@@ -142,6 +142,7 @@ class toba_ei_arbol extends toba_ei
 		$salida .= toba_form::hidden($this->submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
 		$salida .= "<div class='ei-base ei-arbol-base'>";
+		$salida .= $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-arbol-barra-sup");		
 		if (isset($this->nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
