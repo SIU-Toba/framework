@@ -1,18 +1,21 @@
-//--------------------------------------------------------------------------------
-//Clase ef_checkbox
-//	El checkbox tiene un valor que depende si esta chequeao o no, por eso set_estado no afecta al check sino sólo a su value
-//	Para cambiar el check usar chequear(boolean) 
 ef_checkbox.prototype = new ef();
-var def = ef_checkbox.prototype;
-def.constructor = ef_checkbox;
+ef_checkbox.prototype.constructor = ef_checkbox;
 
+	/**
+	 * @class Clase base de los elementos de formulario. El checkbox tiene un valor que depende si esta chequeao o no, por eso set_estado no afecta al check sino sólo a su value.
+     * Para cambiar el check usar chequear(boolean) 
+	 * @constructor
+	 */
 	function ef_checkbox(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 	
 	//---Consultas		
 	
-	def.get_estado = function() {
+	/**
+	 * Si el checkbox esta tildado retorna el value del input (definido en el editor), sino NULL
+	 */
+	ef_checkbox.prototype.get_estado = function() {
 		if (this.chequeado()) {
 			return this.input().value;
 		} else {
@@ -20,11 +23,16 @@ def.constructor = ef_checkbox;
 		}
 	};
 	
-	def.activo = function() {
+	ef_checkbox.prototype.activo = function() {
 		return this.input().type !='hidden' && !(this.input().disabled);
 	};
 	
-	def.chequeado = function() {
+	
+	/**
+	 * Determina si el elemento esta checado (tildado)
+	 * @type boolean
+	 */
+	ef_checkbox.prototype.chequeado = function() {
 		var input = this.input();
 		var chequeado;
 		if (input.type == 'hidden') {
@@ -38,7 +46,12 @@ def.constructor = ef_checkbox;
 	
 	//---Comandos 
 		
-	def.chequear = function(valor, disparar_eventos) {
+	/**
+	 * Tilda el checkbox
+	 * @param {boolean} valor True para tildar, false para destildar
+	 * @param {boolean} disparar_eventos Luego del cambio se disparan los eventos que escuchan la modificacion (onclick). Predeterminado true.
+	 */
+	ef_checkbox.prototype.chequear = function(valor, disparar_eventos) {
 		if (typeof eventos != 'boolean') {
 			disparar_eventos = true;
 		}
@@ -52,12 +65,14 @@ def.constructor = ef_checkbox;
 		}
 	};
 
-	//cuando_cambia_valor (disparar_callback)
-	def.cuando_cambia_valor = function(callback) {
+	ef_checkbox.prototype.cuando_cambia_valor = function(callback) {
 		addEvent(this.input(), 'onclick', callback);
 	};
 
-	def.resetear_estado = function() {
+	/**
+	 * Al eliminar el estado, se destilda el checkbox
+	 */
+	ef_checkbox.prototype.resetear_estado = function() {
 		this.chequear(false);
 	};
 	

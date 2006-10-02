@@ -1,9 +1,11 @@
-//--------------------------------------------------------------------------------
-//Clase ef_popup
-ef_popup.prototype = new ef();
-var def = ef_popup.prototype;
-def.constructor = ef_popup;
 
+ef_popup.prototype = new ef();
+ef_popup.prototype.constructor = ef_popup;
+
+	/**
+	 * @class Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
+	 * @constructor
+	 */
 	function ef_popup(id_form, etiqueta, obligatorio, colapsado, vinculo, param_ventana) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this.elementos = [];
@@ -14,25 +16,33 @@ def.constructor = ef_popup;
 	
 	//---Consultas	
 
-	def.get_tab_index = function () {
+	ef_popup.prototype.get_tab_index = function () {
 		if (this.vinculo()) {
 			return this.vinculo().tabIndex;
 		}
 	};
 	
-	def.input_desc = function() {
+	/**
+	 * Retorna una referencia al input HTML que contiene la descripción del elemento (el edit-box visible)
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>
+	 */
+	ef_popup.prototype.input_desc = function() {
 		return document.getElementById(this._id_form + '_desc');	
 	};
 	
-	def.get_estado_con_formato = function() {
+	ef_popup.prototype.get_estado_con_formato = function() {
 		return this.input_desc().value;
 	};
 	
-	def.vinculo = function () {
+	/**
+	 * Retorna una referencia al tag HTML que contiene el link para abrir el popup
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 
+	 */
+	ef_popup.prototype.vinculo = function () {
 		return document.getElementById(this._id_form + '_vinculo');		
 	};
 
-	def.validar = function () {
+	ef_popup.prototype.validar = function () {
 		if (! ef.prototype.validar.call(this)) {
 			return false;		
 		}
@@ -45,19 +55,24 @@ def.constructor = ef_popup;
 
 	//---Comandos 	
 	
-	def.seleccionar = function () {
+	ef_popup.prototype.seleccionar = function () {
 		if (this.vinculo()) {
 			this.vinculo().focus();
 		}
 	};
 			
-	def.set_tab_index = function(tab_index) {
+	ef_popup.prototype.set_tab_index = function(tab_index) {
 		if (this.vinculo()) {
 			this.vinculo().tabIndex = tab_index;
 		}
 	};	
 	
-	def.abrir_vinculo = function() {
+	/**
+	 * Abre el item de popup asociado pasandole los valores actuales del elemento
+	 * Similar a clickear sobre el icono de apertura de popup
+	 * En formulario es posible atrapar el vinculo de apertura y modificarlo
+	 */
+	ef_popup.prototype.abrir_vinculo = function() {
 		window.popup_elementos[this._id_form] = this;		
 		var param = {'ef_popup': this._id_form, 'ef_popup_valor': this.get_estado()};
 		vinculador.agregar_parametros(this._vinculo, param);
@@ -65,13 +80,18 @@ def.constructor = ef_popup;
 		this._controlador.invocar_vinculo(this._id, this._vinculo);
 	};
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_popup.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
 		this.input().disabled = solo_lectura;
 		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
 	};	
 	
-	def.set_estado = function(clave, desc) {
+	/**
+	 * Cambia el estado actual del elemento
+	 * @param clave Nuevo valor o clave 
+	 * @param desc Nueva descripción del valor o clave
+	 */
+	ef_popup.prototype.set_estado = function(clave, desc) {
 		var input = this.input();
 		input.value = clave;
 		if (input.onchange) {

@@ -1,21 +1,26 @@
-//--------------------------------------------------------------------------------
-//Clase ef_combo hereda ef
 ef_combo.prototype = new ef();
-var def = ef_combo.prototype;
-def.constructor = ef_combo;
+ef_combo.prototype.constructor = ef_combo;
 
+	/**
+	 * @class Combo equivalente a un tag SELECT en HTML 
+	 * @constructor
+	 */
 	function ef_combo(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
 	//---Consultas		
 	
-	def.tiene_estado = function() {
+	/**
+	 * Tiene algun elemento seleccionado? (distinto del no_seteado)
+	 * @type boolean
+	 */
+	ef_combo.prototype.tiene_estado = function() {
 		var valor = this.get_estado();
 		return valor !== '' &&  valor != apex_ef_no_seteado;	
 	};
 	
-	def.validar = function () {
+	ef_combo.prototype.validar = function () {
 		if (! ef.prototype.validar.call(this)) {
 			return false;
 		}
@@ -31,7 +36,7 @@ def.constructor = ef_combo;
 	
 	//---Comandos 
 		
-	def.seleccionar = function () {
+	ef_combo.prototype.seleccionar = function () {
 		try {
 			this.input().focus();
 			return true;
@@ -40,7 +45,7 @@ def.constructor = ef_combo;
 		}
 	};	
 	
-	def.set_estado = function(nuevo) {
+	ef_combo.prototype.set_estado = function(nuevo) {
 		var input = this.input();
 		var opciones = input.options;
 		var ok = false;
@@ -60,7 +65,7 @@ def.constructor = ef_combo;
 		}
 	};
 	
-	def.resetear_estado = function() {
+	ef_combo.prototype.resetear_estado = function() {
 		if (this.tiene_estado()) {
 			var opciones = this.input().options;			
 			for (var i =0 ; i < opciones.length; i++) {
@@ -72,12 +77,19 @@ def.constructor = ef_combo;
 			}
 		}
 	};
-	
-	def.borrar_opciones = function() {
+
+	/**
+	 * Elimina las opciones disponibles en el combo
+	 */		
+	ef_combo.prototype.borrar_opciones = function() {
 		this.input().options.length = 0;
 	};	
 	
-	def.set_opciones = function(valores) {
+	/**
+	 * Cambia las opciones del combo
+	 * @param valores Objeto asociativo id=>valor
+	 */	
+	ef_combo.prototype.set_opciones = function(valores) {
 		var input = this.input();
 		input.options.length = 0;//Borro las opciones que existan
 		//Creo los OPTIONS recuperados
@@ -100,18 +112,23 @@ def.constructor = ef_combo;
 	};
 	
 	
-//--------------------------------------------------------------------------------
-//Clase ef_radio hereda ef
-ef_radio.prototype = new ef();
-def = ef_radio.prototype;
-def.constructor = ef_radio;
+// ########################################################################################################
+// ########################################################################################################
 
+ef_radio.prototype = new ef();
+ef_radio.prototype.constructor = ef_radio;
+
+	/**
+	 * @class Radio buttons equivalentes a <em>input type='radio'</em>
+	 * @constructor
+	 */
 	function ef_radio(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
 	//---Consultas	
-	def.get_estado = function() {
+	
+	ef_radio.prototype.get_estado = function() {
 		var elem = this.input();		
 		for (var i=0; i < elem.length ; i++) {
 			if (elem[i].checked) {
@@ -121,11 +138,11 @@ def.constructor = ef_radio;
 		return apex_ef_no_seteado;
 	};
 	
-	def.tiene_estado = function() {
+	ef_radio.prototype.tiene_estado = function() {
 		return this.get_estado() != apex_ef_no_seteado;	
 	};	
 	
-	def.validar = function () {
+	ef_radio.prototype.validar = function () {
 		if (! ef.prototype.validar.call(this)) {
 			return false;
 		}
@@ -136,7 +153,7 @@ def.constructor = ef_radio;
 		return true;
 	};
 	
-	def.input = function() {
+	ef_radio.prototype.input = function() {
 		var input = document.getElementsByName(this._id_form);	
 		if (typeof input.length != 'number') {
 			input = [input];
@@ -146,14 +163,21 @@ def.constructor = ef_radio;
 	
 	//---Comandos	
 	
-	def.borrar_opciones = function() {
+	/**
+	 * Elimina las opciones disponibles en el radio-button
+	 */			
+	ef_radio.prototype.borrar_opciones = function() {
 		var opciones = this.get_contenedor_opciones();
 		while(opciones.childNodes[0]) {
 			opciones.removeChild(opciones.childNodes[0]);
 		}
 	};
 	
-	def.set_opciones = function(valores) {
+	/**
+	 * Cambia las opciones del radio-button
+	 * @param valores Objeto asociativo id=>valor
+	 */		
+	ef_radio.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = this.get_contenedor_opciones();
 		var nuevo = "";
@@ -171,7 +195,10 @@ def.constructor = ef_radio;
 		this.refrescar_callbacks();
 	};
 	
-	def._crear_label = function(nombre, valor, etiqueta, i) {
+	/**
+	 * @private
+	 */
+	ef_radio.prototype._crear_label = function(nombre, valor, etiqueta, i) {
 		var id = nombre + i;
 		nuevo = "<label class='ef-radio' for='"+ id + "'>";
 		nuevo += "<input name='" + nombre + "' id='" + id + "' type='radio' value='" + valor + "'/>";
@@ -179,16 +206,22 @@ def.constructor = ef_radio;
 		return nuevo;
 	};
 	
-	def.get_contenedor_opciones = function() {
+	/**
+	 * Retorna el tag HTML que contiene los input radio
+	 */
+	ef_radio.prototype.get_contenedor_opciones = function() {
 		return document.getElementById('opciones_' + this._id_form);	
 	};
 	
-	def.cuando_cambia_valor = function(callback) {
+	ef_radio.prototype.cuando_cambia_valor = function(callback) {
 		addEvent(this.get_contenedor_opciones(), 'onchange', callback);		
 		this.refrescar_callbacks();
 	};
 	
-	def.refrescar_callbacks = function() {
+	/**
+	 *	@private
+	 */
+	ef_radio.prototype.refrescar_callbacks = function() {
 		var elem = this.input();
 		var callback = this.get_contenedor_opciones().onchange;
 		for (var i=0; i < elem.length; i++) {
@@ -196,7 +229,7 @@ def.constructor = ef_radio;
 		}
 	};
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_radio.prototype.set_solo_lectura = function(solo_lectura) {
 		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
 		}
@@ -206,7 +239,7 @@ def.constructor = ef_radio;
 		}
 	};	
 	
-	def.set_tab_index = function(tab_index) {
+	ef_radio.prototype.set_tab_index = function(tab_index) {
 		var elem = this.input();
 		if (elem.length > 0) {
 			elem[0].tabIndex = tab_index;

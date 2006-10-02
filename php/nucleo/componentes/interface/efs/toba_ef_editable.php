@@ -559,7 +559,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 	
 	function crear_objeto_js()
 	{
-		return "new ef_editable_multilinea({$this->parametros_js()})";
+		return "new ef_textarea({$this->parametros_js()})";
 	}			
 	
 	function parametros_js()

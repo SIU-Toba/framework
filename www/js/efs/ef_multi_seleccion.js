@@ -1,13 +1,16 @@
 ef_multi_seleccion.prototype = new ef();
-var def = ef_multi_seleccion.prototype;
-def.constructor = ef_multi_seleccion;
+ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 
+	/**
+	 * @class Elemento que permite la selección de varios valores. Clase base abstracta
+	 * @constructor
+	 */
 	function ef_multi_seleccion(id_form, etiqueta, obligatorio, colapsado, limites) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._limites = limites;
 	}
 
-	def.validar = function() {
+	ef_multi_seleccion.prototype.validar = function() {
 		var elemento;
 		if (! ef.prototype.validar.call(this)) {
 			return false;		
@@ -36,7 +39,7 @@ def.constructor = ef_multi_seleccion;
 		return true;
 	};
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_multi_seleccion.prototype.set_solo_lectura = function(solo_lectura) {
 		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
 		}
@@ -50,17 +53,33 @@ def.constructor = ef_multi_seleccion;
 		}
 	};
 	
-//--------------------------------------------------------------------------------
-//Clase ef_multi_seleccion_lista
-ef_multi_seleccion_lista.prototype = new ef_multi_seleccion();
-def = ef_multi_seleccion_lista.prototype;
-def.constructor = ef_multi_seleccion_lista;
+	/**
+	 *	Metodo aún no implementado!!!
+	 */
+	ef_multi_seleccion.prototype.set_estado = function(nuevo) {
+		alert('metodo no implementado');
+	};	
+	
+	
+// ########################################################################################################
+// ########################################################################################################
 
+ef_multi_seleccion_lista.prototype = new ef_multi_seleccion();
+ef_multi_seleccion_lista.constructor = ef_multi_seleccion_lista;
+
+	/**
+	 * @class Permite la selección de varios valores a partir de una lista. Equivale al tag <em>select multiple</em> en HTML
+	 * @constructor
+	 */
 	function ef_multi_seleccion_lista(id_form, etiqueta, obligatorio, colapsado, limites) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
 	}
 
-	def.get_estado = function() {
+	/**
+	 * Retorna los valores actualmente seleccionados en formato de arreglo
+	 * @type Array
+	 */	
+	ef_multi_seleccion_lista.prototype.get_estado = function() {
 		valores = [];
 		var opciones = this.input().options;
 		for (var i=0; i < opciones.length ; i++) {
@@ -71,15 +90,15 @@ def.constructor = ef_multi_seleccion_lista;
 		return valores;
 	};	
 	
-	def.borrar_opciones = function() {
+	ef_multi_seleccion_lista.prototype.borrar_opciones = function() {
 		this.input().length = 0;
 	};
 	
-	def.set_estado = function(nuevo) {
-		alert('metodo no implementado');
-	};
-
-	def.set_opciones = function(valores) {
+	/**
+	 * Cambia las opciones disponibles para seleccionar
+	 * @param valores Objeto asociativo id=>valor
+	 */		
+	ef_multi_seleccion_lista.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input();
 		for (id in valores){
@@ -87,24 +106,37 @@ def.constructor = ef_multi_seleccion_lista;
 		}
 	};
 	
-	def.seleccionar_todo = function(todos) {
+	/**
+	 * Selecciona todos o ningún los elementos de la lista
+	 * @param {boolean} todos True seleciona todos, false ninguno
+	 */
+	ef_multi_seleccion_lista.prototype.seleccionar_todo = function(todos) {
 		var elem = this.input();
 		for (var i=0; i < elem.length; i++) {
 			elem.options[i].selected = todos;
 		}
 	};
 
-//--------------------------------------------------------------------------------
-//Clase ef_multi_seleccion_check
-ef_multi_seleccion_check.prototype = new ef_multi_seleccion();
-def = ef_multi_seleccion_check.prototype;
-def.constructor = ef_multi_seleccion_check;
+	
+// ########################################################################################################
+// ########################################################################################################
 
+ef_multi_seleccion_check.prototype = new ef_multi_seleccion();
+ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
+
+	/**
+	 * @class Permite la selección de varios valores a partir de un conjunto de checkboxes
+	 * @constructor
+	 */
 	function ef_multi_seleccion_check(id_form, etiqueta, obligatorio, colapsado, limites) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
 	}
 	
-	def.get_estado = function() {
+	/**
+	 * Retorna los valores actualmente seleccionados en formato de arreglo
+	 * @type Array
+	 */
+	ef_multi_seleccion_check.prototype.get_estado = function() {
 		valores = [];
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
@@ -115,7 +147,11 @@ def.constructor = ef_multi_seleccion_check;
 		return valores;
 	};	
 
-	def.get_elementos = function() {
+	/**
+	 * Retorna referencias a los distintos checkboxes que componen el elemento
+	 * @type array de <a href=http://developer.mozilla.org/en/docs/DOM:element>elements</a>
+	 */
+	ef_multi_seleccion_check.prototype.get_elementos = function() {
 		var elem = document.getElementsByName(this._id_form + '[]');
 		if (elem.length) {
 			return elem;
@@ -124,7 +160,7 @@ def.constructor = ef_multi_seleccion_check;
 		}		
 	};
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_multi_seleccion_check.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);		
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
@@ -133,21 +169,29 @@ def.constructor = ef_multi_seleccion_check;
 		ef_multi_seleccion.prototype.set_solo_lectura.call(this, solo_lectura);
 	};
 	
-	def.seleccionar_todo = function(todos) {
+	/**
+	 * Selecciona todos o ningún los elementos de la lista
+	 * @param {boolean} todos True seleciona todos, false ninguno
+	 */	
+	ef_multi_seleccion_check.prototype.seleccionar_todo = function(todos) {
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
 			elem[i].checked = todos;
 		}
 	};
 	
-	def.borrar_opciones = function() {
+	ef_multi_seleccion_check.prototype.borrar_opciones = function() {
 		var opciones = document.getElementById(this._id_form + '_opciones');
 		while(opciones.childNodes[0]) {
 			opciones.removeChild(opciones.childNodes[0]);
 		}
 	};
 	
-	def.set_opciones = function(valores) {
+	/**
+	 * Cambia las opciones disponibles para seleccionar
+	 * @param valores Objeto asociativo id=>valor
+	 */		
+	ef_multi_seleccion_check.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = document.getElementById(this._id_form + '_opciones');		
 		var nuevo = "";
@@ -165,7 +209,7 @@ def.constructor = ef_multi_seleccion_check;
 		}
 	};
 	
-	def.cuando_cambia_valor = function(callback) {
+	ef_multi_seleccion_check.prototype.cuando_cambia_valor = function(callback) {
 		this._callback = callback;
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
@@ -173,7 +217,7 @@ def.constructor = ef_multi_seleccion_check;
 		}
 	};
 	
-	def.set_tab_index = function(tab_index) {
+	ef_multi_seleccion_check.prototype.set_tab_index = function(tab_index) {
 		var elem = this.get_elementos();
 		if (elem.length > 0) {
 			elem[0].tabIndex = tab_index;
@@ -181,12 +225,18 @@ def.constructor = ef_multi_seleccion_check;
 	};
 	
 
-//--------------------------------------------------------------------------------
-//Clase ef_multi_seleccion_doble
-ef_multi_seleccion_doble.prototype = new ef_multi_seleccion();
-def = ef_multi_seleccion_doble.prototype;
-def.constructor = ef_multi_seleccion_doble;	
+	
+// ########################################################################################################
+// ########################################################################################################
 
+ef_multi_seleccion_doble.prototype = new ef_multi_seleccion();
+ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;	
+
+
+	/**
+	 * @class Permite la selección de varios valores a partir de una lista doble, pasando los elementos de un lado hacia el otro
+	 * @constructor
+	 */
 	function ef_multi_seleccion_doble(id_form, etiqueta, obligatorio, colapsado, limites, imgs) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
 		this._imgs = imgs;
@@ -194,12 +244,21 @@ def.constructor = ef_multi_seleccion_doble;
 	}
 
 	
-	def.input = function(cual) {
+	/**
+	 * Retorna la referencia a uno de los dos input html que componen el componente (por defecto el de la derecha)
+	 * @param {string} cual Derecha ('der') o Izquierda ('izq')
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>
+	 */
+	ef_multi_seleccion_doble.prototype.input = function(cual) {
 		cual = (typeof cual == 'undefined' || cual == 'der') ? '' : '_izq';
 		return document.getElementById(this._id_form + cual);		
 	};
 		
-	def.get_estado = function() {
+	/**
+	 * Retorna los valores actualmente seleccionados en formato de arreglo
+	 * @type Array
+	 */	
+	ef_multi_seleccion_doble.prototype.get_estado = function() {
 		valores = [];
 		var opciones = this.input('der').options;
 		for (var i=0; i < opciones.length ; i++) {
@@ -208,15 +267,24 @@ def.constructor = ef_multi_seleccion_doble;
 		return valores;
 	};
 	
-	def.pasar_a_derecha = function() {
+	/**
+	 *	Selecciona todos los elementos de la lista
+	 */
+	ef_multi_seleccion_doble.prototype.pasar_a_derecha = function() {
 		this._pasar_seleccionados('izq', 'der');
 	};
-	
-	def.pasar_a_izquierda = function() {
+
+	/**
+	 *	Deselecciona todos los elementos de la lista
+	 */	
+	ef_multi_seleccion_doble.prototype.pasar_a_izquierda = function() {
 		this._pasar_seleccionados('der', 'izq');
 	};	
 	
-	def._pasar_seleccionados = function(desde, hasta) {
+	/**
+	 *	@private
+	 */
+	ef_multi_seleccion_doble.prototype._pasar_seleccionados = function(desde, hasta) {
 		var i_desde = this.input(desde);
 		var i_hasta = this.input(hasta);
 		var actual = i_desde.selectedIndex;
@@ -237,7 +305,10 @@ def.constructor = ef_multi_seleccion_doble;
 		this.refrescar_todo();
 	};
 	
-	def.refrescar_todo = function()	{
+	/**
+	 *	@private
+	 */	
+	ef_multi_seleccion_doble.prototype.refrescar_todo = function()	{
 		this.refrescar_iconos('izq');
 		this.refrescar_iconos('der');
 		if (this._callback !== null) {
@@ -245,7 +316,10 @@ def.constructor = ef_multi_seleccion_doble;
 		}
 	};
 	
-	def.refrescar_iconos = function(posicion) {
+	/**
+	 *	@private
+	 */	
+	ef_multi_seleccion_doble.prototype.refrescar_iconos = function(posicion) {
 		var input = this.input(posicion);
 		var img = document.getElementById(this._id_form + '_img_' + posicion);
 		var offset = (posicion == 'izq') ? 0 : 2;
@@ -256,7 +330,11 @@ def.constructor = ef_multi_seleccion_doble;
 		}
 	};
 	
-	def.set_opciones = function(valores) {
+	/**
+	 * Cambia las opciones disponibles para seleccionar
+	 * @param valores Objeto asociativo id=>valor
+	 */			
+	ef_multi_seleccion_doble.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input('izq');
 		for (id in valores){
@@ -264,7 +342,7 @@ def.constructor = ef_multi_seleccion_doble;
 		}
 	};
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_multi_seleccion_doble.prototype.set_solo_lectura = function(solo_lectura) {
 		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
 		}
@@ -276,12 +354,12 @@ def.constructor = ef_multi_seleccion_doble;
 		this.refrescar_iconos('der');		
 	};
 		
-	def.borrar_opciones =  function() {
+	ef_multi_seleccion_doble.prototype.borrar_opciones =  function() {
 		this.input('izq').length = 0;
 		this.input('der').length = 0;
 	};
 
-	def.submit = function () {
+	ef_multi_seleccion_doble.prototype.submit = function () {
 		var input = this.input('der');
 		if (input && input.disabled) {
 			input.disabled = false;
@@ -292,11 +370,11 @@ def.constructor = ef_multi_seleccion_doble;
 		}
 	};
 		
-	def.cuando_cambia_valor = function(callback) {
+	ef_multi_seleccion_doble.prototype.cuando_cambia_valor = function(callback) {
 		this._callback = callback;
 	};	
 	
-	def.set_tab_index = function(tab_index) {
+	ef_multi_seleccion_doble.prototype.set_tab_index = function(tab_index) {
 		this.input('izq').tabIndex = tab_index;
 	};
 		

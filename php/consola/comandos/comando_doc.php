@@ -19,7 +19,7 @@ class comando_doc extends comando_toba
 	 */
 	function opcion__wiki()
 	{
-		$destino = toba_dir().'/www/doc/wiki';
+		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';		
 		$comando = 'httrack "https://desarrollos2.siu.edu.ar/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
@@ -58,6 +58,28 @@ class comando_doc extends comando_toba
 		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
 	}
 
+	/**
+	 * Genera la documentación del API Javascript
+	 * Utiliza jsdoc (http://jsdoc.sourceforge.net/)
+	 */	
+	function opcion__api_js()
+	{
+		$destino = toba_dir().'/proyectos/toba_editor/www/doc/api_js';
+		$lista = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		foreach ($lista as $arch) {
+			unlink($arch);
+		}
+			
+		$directorios = toba_dir().'/www/js/basicos ';
+		$directorios .= toba_dir().'/www/js/componentes ';
+		$directorios .= toba_dir().'/www/js/efs/ef_* ';
+		
+		$cmd = "perl ".toba_dir().
+				"/bin/herramientas/JSDoc/jsdoc.pl --globals-name GLOBALES --recursive --no-lexical-privates --directory $destino --no-sources --project-name \"SIU-Toba\" $directorios";
+		system($cmd);
+		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+	}
+	
 
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	

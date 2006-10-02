@@ -1,18 +1,21 @@
 //--------------------------------------------------------------------------------
-//Clase ef_editable
-ef_cuit.prototype = new ef;
-var def = ef_cuit.prototype;
-def.constructor = ef_cuit;
 
+ef_cuit.prototype = new ef;
+ef_cuit.prototype.constructor = ef_cuit;
+
+	/**
+	 * @class Triple editbox que constituyen las 3 partes del CUIT/CUIL
+	 * @constructor
+	 */
 	function ef_cuit(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 	}
 
-	def.input = function(posicion) {
+	ef_cuit.prototype.input = function(posicion) {
 		return document.getElementById(this._id_form + '_' + posicion);
 	}
 	
-	def.validar = function () {
+	ef_cuit.prototype.validar = function () {
 		var valor = this.get_estado();
 		if (this._obligatorio && ereg_nulo.test(valor)) {
 			this._error = ' es obligatorio.';
@@ -29,7 +32,12 @@ def.constructor = ef_cuit;
 		return true;
 	}	
 	
-	def.get_estado = function() {
+	/**
+	 * Retorna el cuit/cuil actual como un unico string, sin caracteres intermedio
+	 * Por ejemplo 20271957786
+	 * @type string
+	 */
+	ef_cuit.prototype.get_estado = function() {
 		var estado = 	this.input(1).value.pad(2, '0', 0) + 
 						this.input(2).value.pad(8, '0', 0) + 
 						this.input(3).value;
@@ -39,7 +47,7 @@ def.constructor = ef_cuit;
 		return estado;
 	}	
 	
-	def.set_estado = function(nuevo,posicion) {
+	ef_cuit.prototype.set_estado = function(nuevo,posicion) {
 		this.input(posicion).value = nuevo;
 		if (this.input(posicion).onblur) {
 			this.input(posicion).onblur();
@@ -47,13 +55,13 @@ def.constructor = ef_cuit;
 	}	
 	
 	//cuando_cambia_valor (disparar_callback)
-	def.cuando_cambia_valor = function(callback) { 
+	ef_cuit.prototype.cuando_cambia_valor = function(callback) { 
 		addEvent(this.input(1), 'onblur', callback);
 		addEvent(this.input(2), 'onblur', callback);
 		addEvent(this.input(3), 'onblur', callback);
 	}
 	
-	def.set_solo_lectura = function(solo_lectura) {
+	ef_cuit.prototype.set_solo_lectura = function(solo_lectura) {
 		for (var i=1 ; i<4; i++) {
 			this.input(i).readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
 		}
