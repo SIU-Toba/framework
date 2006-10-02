@@ -37,5 +37,10 @@ class componente_ei_esquema extends componente_ei
 	{
 		return "Esquema";		
 	}
+
+	static function get_nombre_clase_info()
+	{
+		return 'info_ei_esquema';
+	}
 }
 ?>
