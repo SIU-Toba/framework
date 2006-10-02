@@ -339,12 +339,12 @@ ef_editable_fecha.prototype = new ef_editable();
 // ########################################################################################################
 
 ef_textarea.prototype = new ef_editable();
-ef_textarea.prototype.constructor = ef_textarea.;
+ef_textarea.prototype.constructor = ef_textarea;
 
 	/**
 	 * @class Elemento editable que permite ingresar textos largos, equivalente a un tag textarea
 	 */
-	function ef_textarea.(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)	{
+	function ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._maximo = maximo;
 		this._ajustable = ajustable;
