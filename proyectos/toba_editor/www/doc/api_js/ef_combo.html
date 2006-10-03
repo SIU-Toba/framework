@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_combo</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<b>ef_combo</b>
 </PRE>
@@ -65,7 +65,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <DT>class 
    <B>ef_combo</B>
    
-      <DT>extends ef 
+      <DT>extends <a href='ef.html'>ef</a> 
    
 
 </DL>
@@ -86,6 +86,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
    
+   
+
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -147,7 +149,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -157,14 +159,14 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Borra el estado actual del elemento, el nuevo estado depende de cada ef, generalmente equivale a un string vacio
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;boolean</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -174,7 +176,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Intenta forzar el foco visual al elemento, esto generalmente pone el cursor y la atención visual en el elemento
       </TD>
    </TR>
 
@@ -191,7 +193,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Cambia el valor o estado actual del elemento
       </TD>
    </TR>
 
@@ -232,7 +234,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;boolean</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -242,7 +244,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Valida el estado actual del ef
       </TD>
    </TR>
 
@@ -250,6 +252,20 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 
 
+
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#get_estado">get_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
 
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
@@ -326,7 +342,9 @@ ef_combo</H3>
 
    <A NAME="resetear_estado"><!-- --></A>
    <H3>resetear_estado</H3>
-   <PRE>Object <B>resetear_estado</B>()</PRE>
+   <PRE>void <B>resetear_estado</B>()</PRE>
+   
+      <UL>Borra el estado actual del elemento, el nuevo estado depende de cada ef, generalmente equivale a un string vacio</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -342,13 +360,22 @@ ef_combo</H3>
 
    <A NAME="seleccionar"><!-- --></A>
    <H3>seleccionar</H3>
-   <PRE>Object <B>seleccionar</B>()</PRE>
+   <PRE>boolean <B>seleccionar</B>()</PRE>
+   
+      <UL>Intenta forzar el foco visual al elemento, esto generalmente pone el cursor y la atención visual en el elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
    
    <!-- METHOD PARAMETERS END -->
 
+   
+   <UL>
+   <B>Returns:</B>
+        <UL>
+        Verdadero si se pudo seleccionar/dar foco, falso en caso contrario 
+        </UL>
+   </UL>
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
@@ -359,6 +386,8 @@ ef_combo</H3>
    <A NAME="set_estado"><!-- --></A>
    <H3>set_estado</H3>
    <PRE>void <B>set_estado</B>(nuevo)</PRE>
+   
+      <UL>Cambia el valor o estado actual del elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -418,7 +447,9 @@ ef_combo</H3>
 
    <A NAME="validar"><!-- --></A>
    <H3>validar</H3>
-   <PRE>Object <B>validar</B>()</PRE>
+   <PRE>boolean <B>validar</B>()</PRE>
+   
+      <UL>Valida el estado actual del ef</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -426,8 +457,19 @@ ef_combo</H3>
    <!-- METHOD PARAMETERS END -->
 
    
+   <UL>
+   <B>Returns:</B>
+        <UL>
+        Verdadero si el estado actual del ef es válido, falso en caso contrario   
+        </UL>
+   </UL>
+   
 
    <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>

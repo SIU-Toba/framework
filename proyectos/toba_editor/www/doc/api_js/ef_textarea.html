@@ -24,7 +24,7 @@ parent.document.title="ef_textarea";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <FONT CLASS="NavBarFont1">File</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_editable.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_textarea</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<a href='ef_editable.html'>ef_editable</a>
                |
@@ -72,6 +72,12 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 </DL>
    
+   <P>
+   <BR/>Elemento editable que permite ingresar textos largos, equivalente a un tag textarea
+	  
+<BR/><br><I>Defined in <a href='overview-summary-ef_editable.js.html'>ef_editable.js</a></I><BR/><BR/>
+   </P>
+   
    <HR>
 
 <!-- ======== NESTED CLASS SUMMARY ======== -->
@@ -84,25 +90,35 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
    
    
-   &nbsp;<A NAME=""><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-   <TD><B>Fields inherited from class <A HREF="ef_editable.html">ef_editable</A></B></TD>
-   </TR>
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD><CODE>
-   <a href="ef_editable.html#_forma_mascara">_forma_mascara</a>, <a href="ef_editable.html#_mascara">_mascara</a>
-   </CODE></TD>
-   </TR>
-</TABLE>
-&nbsp;
 
+   
 
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
 
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TD COLSPAN=2><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD>
+      <CODE>
+	 <B>
+	    <A HREF="ef_textarea.html#ef_textarea()">ef_textarea</A> 
+	 </B>
+	 (id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)
+      </CODE>
+      <BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+      </TD>
+</TR>
+</TABLE>
 
 <!-- ======== END CONSTRUCTOR SUMMARY ======== -->
 
@@ -121,24 +137,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#iniciar">iniciar</A></B>(id, controlador)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;boolean</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -148,7 +147,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Valida el estado actual del ef
       </TD>
    </TR>
 
@@ -165,7 +164,21 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE>
 <!-- Inherited methods -->
-<a href="ef_editable.html#activo">activo</a>, <a href="ef_editable.html#get_estado">get_estado</a>, <a href="ef_editable.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef_editable.html#formatear_valor">formatear_valor</a>, <a href="ef_editable.html#submit">submit</a>, <a href="ef_editable.html#set_estado">set_estado</a>, <a href="ef_editable.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef_editable.html#set_solo_lectura">set_solo_lectura</a>
+<a href="ef_editable.html#activo">activo</a>, <a href="ef_editable.html#get_estado">get_estado</a>, <a href="ef_editable.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef_editable.html#formatear_valor">formatear_valor</a>, <a href="ef_editable.html#set_estado">set_estado</a>, <a href="ef_editable.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef_editable.html#set_solo_lectura">set_solo_lectura</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
 </CODE></TD>
 </TR>
 </TABLE>
@@ -181,6 +194,24 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ============ FIELD DETAIL END =========== -->
 
     <!-- ========= CONSTRUCTOR DETAIL START ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+      <TD COLSPAN=1>
+      <FONT SIZE="+2"><B>Constructor Detail</B></FONT>
+      </TD>
+   </TR>
+</TABLE>
+
+<A NAME="ef_textarea()"><!-- --></A><H3>
+ef_textarea</H3>
+<PRE><B>ef_textarea</B>(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)</PRE>
+
+
+
+
+   </UL>
 
 
 <!-- Constructor return value(s) -->
@@ -208,25 +239,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- One single method detail entry -->
 
-   <A NAME="iniciar"><!-- --></A>
-   <H3>iniciar</H3>
-   <PRE>void <B>iniciar</B>(id, controlador)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
    <A NAME="validar"><!-- --></A>
    <H3>validar</H3>
-   <PRE>Object <B>validar</B>()</PRE>
+   <PRE>boolean <B>validar</B>()</PRE>
+   
+      <UL>Valida el estado actual del ef</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -234,8 +251,19 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <!-- METHOD PARAMETERS END -->
 
    
+   <UL>
+   <B>Returns:</B>
+        <UL>
+        Verdadero si el estado actual del ef es válido, falso en caso contrario   
+        </UL>
+   </UL>
+   
 
    <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
@@ -255,7 +283,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <FONT CLASS="NavBarFont1">File</FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_editable.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->

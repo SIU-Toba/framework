@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_multi_seleccion_lista</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<a href='ef_multi_seleccion.html'>ef_multi_seleccion</a>
                |
@@ -89,19 +89,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
    
    
-   &nbsp;<A NAME=""><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-   <TD><B>Fields inherited from class <A HREF="ef_multi_seleccion.html">ef_multi_seleccion</A></B></TD>
-   </TR>
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD><CODE>
-   <a href="ef_multi_seleccion.html#_limites">_limites</a>
-   </CODE></TD>
-   </TR>
-</TABLE>
-&nbsp;
 
+   
 
 
 <!-- =========== END FIELD SUMMARY =========== -->
@@ -157,7 +146,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Elimina las opciones seleccionables del elemento
+ Solo se aplica si el elemento maneja una serie de opciones desde donde se elige su estado
       </TD>
    </TR>
 
@@ -231,6 +221,20 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 &nbsp;
 
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
@@ -289,6 +293,9 @@ ef_multi_seleccion_lista</H3>
    <A NAME="borrar_opciones"><!-- --></A>
    <H3>borrar_opciones</H3>
    <PRE>void <B>borrar_opciones</B>()</PRE>
+   
+      <UL>Elimina las opciones seleccionables del elemento
+ Solo se aplica si el elemento maneja una serie de opciones desde donde se elige su estado</UL>
    
 
    <!-- METHOD PARAMETERS START -->

@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_checkbox</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<b>ef_checkbox</b>
 </PRE>
@@ -65,7 +65,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <DT>class 
    <B>ef_checkbox</B>
    
-      <DT>extends ef 
+      <DT>extends <a href='ef.html'>ef</a> 
    
 
 </DL>
@@ -87,6 +87,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
    
+   
+
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -131,7 +133,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;boolean</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -141,7 +143,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Retorna verdadero si el elemento esta disponible para edicion por parte del usuario
       </TD>
    </TR>
 
@@ -188,11 +190,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(callback)
+	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(&lt;string&gt; callback)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Agrega una funcion o callback que será invocada cuando el elemento cambie su estado
       </TD>
    </TR>
 
@@ -234,6 +236,20 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 
 
+
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#validar">validar</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
 
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
@@ -292,7 +308,9 @@ ef_checkbox</H3>
 
    <A NAME="activo"><!-- --></A>
    <H3>activo</H3>
-   <PRE>Object <B>activo</B>()</PRE>
+   <PRE>boolean <B>activo</B>()</PRE>
+   
+      <UL>Retorna verdadero si el elemento esta disponible para edicion por parte del usuario</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -355,10 +373,20 @@ ef_checkbox</H3>
 
    <A NAME="cuando_cambia_valor"><!-- --></A>
    <H3>cuando_cambia_valor</H3>
-   <PRE>void <B>cuando_cambia_valor</B>(callback)</PRE>
+   <PRE>void <B>cuando_cambia_valor</B>(&lt;string&gt; callback)</PRE>
+   
+      <UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>callback</CODE> -  Codigo de la funcion a disparar 	   
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 

@@ -60,7 +60,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 			notificacion.limpiar();
 			if (this.puede_submit()) {
 				this.submit_recursivo();
-				//toba.set_ajax(this);
+				//toba.set_ajax(this, toba.servicio__html_parcial);
 				toba.comunicar_eventos();
 			} else {
 				if (window. notificacion) {

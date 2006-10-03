@@ -342,6 +342,9 @@ sub add_anonymous_function {
    
     # This is dirty
     my $is_private = $doc =~ /\@private\b/;
+	if (substr($function_name,0 ,1) eq "_") {
+		$is_private = 1;
+	}
 
     &add_function($doc, $fake_name, $arg_list, $is_private) and
         &add_property($doc, $class, $function_name, $fake_name, $is_class_prop);
@@ -389,6 +392,9 @@ sub add_property {
     &add_class($class);
     return if $property eq 'constructor';
     my $parsed_doc = &parse_jsdoc_comment($doc);
+	if (substr($property,0 ,1) eq "_") {
+		$parsed_doc->{vars}{'private'} = 1;
+	}
     $doc = $parsed_doc->{summary};
     my $key = $is_class_property ? '_class_properties' : '_instance_properties';
     for my $classref (@{$CLASSES{$class}->{$key}}){

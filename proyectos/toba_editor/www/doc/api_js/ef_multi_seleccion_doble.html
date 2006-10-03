@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_multi_seleccion_doble</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<a href='ef_multi_seleccion.html'>ef_multi_seleccion</a>
                |
@@ -86,51 +86,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- =========== FIELD SUMMARY =========== -->
 
-   <A NAME="field_summary"><!-- --></A>
-      <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-         <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-            <TD COLSPAN=2><FONT SIZE="+2">
-               <B>Field Summary</B></FONT></TD>
-         </TR>
-
-   <!-- This is one instance field summary -->
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#_callback">_callback</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#_imgs">_imgs</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-
-   </TABLE>
-   &nbsp;
-   
 
    
    
-   &nbsp;<A NAME=""><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-   <TD><B>Fields inherited from class <A HREF="ef_multi_seleccion.html">ef_multi_seleccion</A></B></TD>
-   </TR>
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD><CODE>
-   <a href="ef_multi_seleccion.html#_limites">_limites</a>
-   </CODE></TD>
-   </TR>
-</TABLE>
-&nbsp;
 
+   
 
 
 <!-- =========== END FIELD SUMMARY =========== -->
@@ -186,7 +146,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Elimina las opciones seleccionables del elemento
+ Solo se aplica si el elemento maneja una serie de opciones desde donde se elige su estado
       </TD>
    </TR>
 
@@ -199,11 +160,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(callback)
+	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(&lt;string&gt; callback)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Agrega una funcion o callback que será invocada cuando el elemento cambie su estado
       </TD>
    </TR>
 
@@ -301,11 +262,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(solo_lectura)
+	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(&lt;boolean&gt; solo_lectura)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Cambia la capacidad de edición sobre el elemento
       </TD>
    </TR>
 
@@ -318,28 +279,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_tab_index">set_tab_index</A></B>(tab_index)
+	       <A HREF="#set_tab_index">set_tab_index</A></B>(&lt;int&gt; tab_index)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#submit">submit</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Cambia el tabIndex actual del elemento.
       </TD>
    </TR>
 
@@ -362,38 +306,25 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 &nbsp;
 
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
 
 <!-- ============ FIELD DETAIL START =========== -->
-
-   <A NAME="field_detail"><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-         <TD COLSPAN=1><FONT SIZE="+2"><B>Field Detail</B></FONT></TD>
-      </TR>
-   </TABLE>
-
-   
-   <A NAME="_callback"><!-- --></A>
-   <H3>_callback</H3>
-   <PRE>Object&nbsp;<B>_callback</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
-   <A NAME="_imgs"><!-- --></A>
-   <H3>_imgs</H3>
-   <PRE>Object&nbsp;<B>_imgs</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
 
 
 <!-- ============ FIELD DETAIL END =========== -->
@@ -448,6 +379,9 @@ ef_multi_seleccion_doble</H3>
    <H3>borrar_opciones</H3>
    <PRE>void <B>borrar_opciones</B>()</PRE>
    
+      <UL>Elimina las opciones seleccionables del elemento
+ Solo se aplica si el elemento maneja una serie de opciones desde donde se elige su estado</UL>
+   
 
    <!-- METHOD PARAMETERS START -->
    
@@ -462,10 +396,20 @@ ef_multi_seleccion_doble</H3>
 
    <A NAME="cuando_cambia_valor"><!-- --></A>
    <H3>cuando_cambia_valor</H3>
-   <PRE>void <B>cuando_cambia_valor</B>(callback)</PRE>
+   <PRE>void <B>cuando_cambia_valor</B>(&lt;string&gt; callback)</PRE>
+   
+      <UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>callback</CODE> -  Codigo de la funcion a disparar 	   
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -584,42 +528,51 @@ ef_multi_seleccion_doble</H3>
 
    <A NAME="set_solo_lectura"><!-- --></A>
    <H3>set_solo_lectura</H3>
-   <PRE>void <B>set_solo_lectura</B>(solo_lectura)</PRE>
+   <PRE>void <B>set_solo_lectura</B>(&lt;boolean&gt; solo_lectura)</PRE>
+   
+      <UL>Cambia la capacidad de edición sobre el elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>solo_lectura</CODE> -  Desactiva (true) o activa (false) el elemento  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#activar">activar</a><BR/>- <a href="#desactivar">desactivar</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
    <A NAME="set_tab_index"><!-- --></A>
    <H3>set_tab_index</H3>
-   <PRE>void <B>set_tab_index</B>(tab_index)</PRE>
+   <PRE>void <B>set_tab_index</B>(&lt;int&gt; tab_index)</PRE>
+   
+      <UL>Cambia el tabIndex actual del elemento.
+ Este número es utilizado para ciclar por los distintos elementos usando la tecla TAB</UL>
    
 
    <!-- METHOD PARAMETERS START -->
    
-   <!-- METHOD PARAMETERS END -->
-
+   <UL>
+   <B>Parameters:</B>
    
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
+     <UL><CODE>tab_index</CODE> -  Nuevo orden 	   
+      </UL> 
    
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="submit"><!-- --></A>
-   <H3>submit</H3>
-   <PRE>void <B>submit</B>()</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 

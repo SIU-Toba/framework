@@ -3,14 +3,14 @@
 <HTML>
 <HEAD>
 <TITLE>
-ef_radio
+ei
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
 <SCRIPT>
 function asd()
 {
-parent.document.title="ef_radio";
+parent.document.title="ei";
 }
 </SCRIPT>
 <BODY BGCOLOR="white" onload="asd();">
@@ -24,7 +24,7 @@ parent.document.title="ef_radio";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_combo.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ei.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -50,29 +50,33 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <HR>
 
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>Class ef_radio</H2>
+<H2>Class ei</H2>
 <PRE>Object
    |
-   +--<a href='ef.html'>ef</a>
-         |
-         +--<b>ef_radio</b>
+   +--<b>ei</b>
 </PRE>
+
+   <DL>
+   <DT>
+      <B>Direct Known Subclasses:</B> 
+      <DD>
+                <a href="ei_archivos.html">ei_archivos</a>, <a href="ci.html">ci</a>, <a href="ei_calendario.html">ei_calendario</a>, <a href="ei_formulario.html">ei_formulario</a>, <a href="ei_arbol.html">ei_arbol</a>, <a href="ei_cuadro.html">ei_cuadro</a>
+      </DD>
+   </DL>
 
 
 <HR>
 <DL>
    <!-- Class definition -->
    <DT>class 
-   <B>ef_radio</B>
-   
-      <DT>extends <a href='ef.html'>ef</a> 
+   <B>ei</B>
    
 
 </DL>
    
    <P>
-   <BR/>Radio buttons equivalentes a <em>input type='radio'</em>
- <BR/><br><I>Defined in <a href='overview-summary-ef_combo.js.html'>ef_combo.js</a></I><BR/><BR/>
+   <BR/>Clase base de los componentes toba en javascript
+ <BR/><br><I>Defined in <a href='overview-summary-ei.js.html'>ei.js</a></I><BR/><BR/>
    </P>
    
    <HR>
@@ -86,8 +90,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
    
-   
-
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -104,9 +106,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TD>
       <CODE>
 	 <B>
-	    <A HREF="ef_radio.html#ef_radio()">ef_radio</A> 
+	    <A HREF="ei.html#ei()">ei</A> 
 	 </B>
-	 (id_form, etiqueta, obligatorio, colapsado)
+	 (instancia, input_submit)
       </CODE>
       <BR>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -138,11 +140,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#borrar_opciones">borrar_opciones</A></B>()
+	       <A HREF="#activar_boton">activar_boton</A></B>(id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Elimina las opciones disponibles en el radio-button
+	 
       </TD>
    </TR>
 
@@ -155,11 +157,28 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(&lt;string&gt; callback)
+	       <A HREF="#cambiar_colapsado">cambiar_colapsado</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Agrega una funcion o callback que será invocada cuando el elemento cambie su estado
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#colapsar">colapsar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
       </TD>
    </TR>
 
@@ -172,45 +191,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#get_contenedor_opciones">get_contenedor_opciones</A></B>()
+	       <A HREF="#cuerpo">cuerpo</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el tag HTML que contiene los input radio
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;string</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#get_estado">get_estado</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el estado o valor actual del elemento.
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;<a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#input">input</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el input HTML asociado a este elemento
+	 Referencia al tag HTML que contiene el html de todo el componente
       </TD>
    </TR>
 
@@ -223,11 +208,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_opciones">set_opciones</A></B>(valores)
+	       <A HREF="#desactivar_boton">desactivar_boton</A></B>(id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia las opciones del radio-button
+	 
       </TD>
    </TR>
 
@@ -240,11 +225,28 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(&lt;boolean&gt; solo_lectura)
+	       <A HREF="#descolapsar">descolapsar</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia la capacidad de edición sobre el elemento
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#get_boton">get_boton</A></B>(id)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
       </TD>
    </TR>
 
@@ -257,11 +259,64 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_tab_index">set_tab_index</A></B>(&lt;int&gt; tab_index)
+	       <A HREF="#invocar_vinculo">invocar_vinculo</A></B>(id_evento, id_vinculo)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia el tabIndex actual del elemento.
+	 Ejecuta un vinculo producido por un evento
+ Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
+ que se pueda modificar alguna propiedad del vinculo
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#mostrar_boton">mostrar_boton</A></B>(id)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#obtener_boton_colapsar">obtener_boton_colapsar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#ocultar_boton">ocultar_boton</A></B>(id)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
       </TD>
    </TR>
 
@@ -274,28 +329,115 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#tiene_estado">tiene_estado</A></B>()
+	       <A HREF="#puede_submit">puede_submit</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el id de este elemento definido en el editor
+	 Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
+	    <CODE>&nbsp;Object</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#validar">validar</A></B>()
+	       <A HREF="#raiz">raiz</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Valida el estado actual del ef
+	 Referencia al tag HTML padre del componente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#reset_evento">reset_evento</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Limpia el evento actualmente informado al componente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#resetear_errores">resetear_errores</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Limpia el componente de errores producidos anteriormente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#set_evento">set_evento</A></B>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento, &lt;boolean&gt; hacer_submit)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Informa al componente la presencia de un nuevo evento
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#set_evento_implicito">set_evento_implicito</A></B>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Determina cual es el evento que se utiliza cuando no se dispara ninguno explicitamente por el usuario
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#submit">submit</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor
       </TD>
    </TR>
 
@@ -303,20 +445,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 
 
-
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>
-<!-- Inherited methods -->
-<a href="ef.html#get_id">get_id</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
-</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
 
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
@@ -338,9 +466,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TR>
 </TABLE>
 
-<A NAME="ef_radio()"><!-- --></A><H3>
-ef_radio</H3>
-<PRE><B>ef_radio</B>(id_form, etiqueta, obligatorio, colapsado)</PRE>
+<A NAME="ei()"><!-- --></A><H3>
+ei</H3>
+<PRE><B>ei</B>(instancia, input_submit)</PRE>
 
 
 
@@ -373,11 +501,9 @@ ef_radio</H3>
 
 <!-- One single method detail entry -->
 
-   <A NAME="borrar_opciones"><!-- --></A>
-   <H3>borrar_opciones</H3>
-   <PRE>void <B>borrar_opciones</B>()</PRE>
-   
-      <UL>Elimina las opciones disponibles en el radio-button</UL>
+   <A NAME="activar_boton"><!-- --></A>
+   <H3>activar_boton</H3>
+   <PRE>void <B>activar_boton</B>(id)</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -391,37 +517,9 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="cuando_cambia_valor"><!-- --></A>
-   <H3>cuando_cambia_valor</H3>
-   <PRE>void <B>cuando_cambia_valor</B>(&lt;string&gt; callback)</PRE>
-   
-      <UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>callback</CODE> -  Codigo de la funcion a disparar 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="get_contenedor_opciones"><!-- --></A>
-   <H3>get_contenedor_opciones</H3>
-   <PRE>Object <B>get_contenedor_opciones</B>()</PRE>
-   
-      <UL>Retorna el tag HTML que contiene los input radio</UL>
+   <A NAME="cambiar_colapsado"><!-- --></A>
+   <H3>cambiar_colapsado</H3>
+   <PRE>void <B>cambiar_colapsado</B>()</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -435,12 +533,9 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="get_estado"><!-- --></A>
-   <H3>get_estado</H3>
-   <PRE>string <B>get_estado</B>()</PRE>
-   
-      <UL>Retorna el estado o valor actual del elemento. 
- Generalmente es el value del input HTML</UL>
+   <A NAME="colapsar"><!-- --></A>
+   <H3>colapsar</H3>
+   <PRE>void <B>colapsar</B>()</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -454,11 +549,11 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="input"><!-- --></A>
-   <H3>input</H3>
-   <PRE><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> <B>input</B>()</PRE>
+   <A NAME="cuerpo"><!-- --></A>
+   <H3>cuerpo</H3>
+   <PRE>Object <B>cuerpo</B>()</PRE>
    
-      <UL>Retorna el input HTML asociado a este elemento</UL>
+      <UL>Referencia al tag HTML que contiene el html de todo el componente</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -472,22 +567,12 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_opciones"><!-- --></A>
-   <H3>set_opciones</H3>
-   <PRE>void <B>set_opciones</B>(valores)</PRE>
-   
-      <UL>Cambia las opciones del radio-button</UL>
+   <A NAME="desactivar_boton"><!-- --></A>
+   <H3>desactivar_boton</H3>
+   <PRE>void <B>desactivar_boton</B>(id)</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>valores</CODE> -  Objeto asociativo id=>valor 	   
-      </UL> 
-   
-   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -498,22 +583,48 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_solo_lectura"><!-- --></A>
-   <H3>set_solo_lectura</H3>
-   <PRE>void <B>set_solo_lectura</B>(&lt;boolean&gt; solo_lectura)</PRE>
-   
-      <UL>Cambia la capacidad de edición sobre el elemento</UL>
+   <A NAME="descolapsar"><!-- --></A>
+   <H3>descolapsar</H3>
+   <PRE>void <B>descolapsar</B>()</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
    
-   <UL>
-   <B>Parameters:</B>
+   <!-- METHOD PARAMETERS END -->
+
    
-     <UL><CODE>solo_lectura</CODE> -  Desactiva (true) o activa (false) el elemento  
-      </UL> 
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
    
-   </UL>
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="get_boton"><!-- --></A>
+   <H3>get_boton</H3>
+   <PRE>Object <B>get_boton</B>(id)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="invocar_vinculo"><!-- --></A>
+   <H3>invocar_vinculo</H3>
+   <PRE>void <B>invocar_vinculo</B>(id_evento, id_vinculo)</PRE>
+   
+      <UL>Ejecuta un vinculo producido por un evento
+ Antes de ejecutar el vinculo se llama una callback <em>modificar_vinculo__evento</em> para
+ que se pueda modificar alguna propiedad del vinculo</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
    
    <!-- METHOD PARAMETERS END -->
 
@@ -522,18 +633,142 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES START -->
    
    <UL>   
-   <B>See:</B><UL>- <a href="#activar">activar</a><BR/>- <a href="#desactivar">desactivar</a></UL>
+   <B>See:</B><UL>- <a href="vinculador.html#">vinculador</a></UL>
    </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_tab_index"><!-- --></A>
-   <H3>set_tab_index</H3>
-   <PRE>void <B>set_tab_index</B>(&lt;int&gt; tab_index)</PRE>
+   <A NAME="mostrar_boton"><!-- --></A>
+   <H3>mostrar_boton</H3>
+   <PRE>void <B>mostrar_boton</B>(id)</PRE>
    
-      <UL>Cambia el tabIndex actual del elemento.
- Este número es utilizado para ciclar por los distintos elementos usando la tecla TAB</UL>
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="obtener_boton_colapsar"><!-- --></A>
+   <H3>obtener_boton_colapsar</H3>
+   <PRE>Object <B>obtener_boton_colapsar</B>()</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="ocultar_boton"><!-- --></A>
+   <H3>ocultar_boton</H3>
+   <PRE>void <B>ocultar_boton</B>(id)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="puede_submit"><!-- --></A>
+   <H3>puede_submit</H3>
+   <PRE>boolean <B>puede_submit</B>()</PRE>
+   
+      <UL>Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="raiz"><!-- --></A>
+   <H3>raiz</H3>
+   <PRE>Object <B>raiz</B>()</PRE>
+   
+      <UL>Referencia al tag HTML padre del componente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#cuerpo">cuerpo()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="reset_evento"><!-- --></A>
+   <H3>reset_evento</H3>
+   <PRE>void <B>reset_evento</B>()</PRE>
+   
+      <UL>Limpia el evento actualmente informado al componente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="resetear_errores"><!-- --></A>
+   <H3>resetear_errores</H3>
+   <PRE>void <B>resetear_errores</B>()</PRE>
+   
+      <UL>Limpia el componente de errores producidos anteriormente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="set_evento"><!-- --></A>
+   <H3>set_evento</H3>
+   <PRE>void <B>set_evento</B>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento, &lt;boolean&gt; hacer_submit)</PRE>
+   
+      <UL>Informa al componente la presencia de un nuevo evento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -541,7 +776,10 @@ ef_radio</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>tab_index</CODE> -  Nuevo orden 	   
+     <UL><CODE>evento</CODE> -   
+      </UL> 
+   
+     <UL><CODE>hacer_submit</CODE> -  Luego de informar el evento, se inicia el proceso de submit (por defecto true) 	   
       </UL> 
    
    </UL>
@@ -555,14 +793,22 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="tiene_estado"><!-- --></A>
-   <H3>tiene_estado</H3>
-   <PRE>boolean <B>tiene_estado</B>()</PRE>
+   <A NAME="set_evento_implicito"><!-- --></A>
+   <H3>set_evento_implicito</H3>
+   <PRE>void <B>set_evento_implicito</B>(&lt;<a href="evento_ei.html">evento_ei</a>&gt; evento)</PRE>
    
-      <UL>Retorna el id de este elemento definido en el editor</UL>
+      <UL>Determina cual es el evento que se utiliza cuando no se dispara ninguno explicitamente por el usuario</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>evento</CODE> -  	   
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -573,11 +819,12 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="validar"><!-- --></A>
-   <H3>validar</H3>
-   <PRE>boolean <B>validar</B>()</PRE>
+   <A NAME="submit"><!-- --></A>
+   <H3>submit</H3>
+   <PRE>Object <B>submit</B>()</PRE>
    
-      <UL>Valida el estado actual del ef</UL>
+      <UL>Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -585,19 +832,8 @@ ef_radio</H3>
    <!-- METHOD PARAMETERS END -->
 
    
-   <UL>
-   <B>Returns:</B>
-        <UL>
-        Verdadero si el estado actual del ef es válido, falso en caso contrario   
-        </UL>
-   </UL>
-   
 
    <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
-   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
@@ -617,7 +853,7 @@ ef_radio</H3>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_combo.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ei.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -634,13 +870,13 @@ ef_radio</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="ef_popup.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="ef_upload.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
-&nbsp;<A HREF="ef_textarea.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="ei_arbol.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ef_radio.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ei.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;
 <SCRIPT>
   <!--

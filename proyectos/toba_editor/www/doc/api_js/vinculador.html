@@ -3,14 +3,14 @@
 <HTML>
 <HEAD>
 <TITLE>
-ef_upload
+vinculador
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
 <SCRIPT>
 function asd()
 {
-parent.document.title="ef_upload";
+parent.document.title="vinculador";
 }
 </SCRIPT>
 <BODY BGCOLOR="white" onload="asd();">
@@ -24,7 +24,7 @@ parent.document.title="ef_upload";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_upload.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-vinculador.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -50,12 +50,10 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <HR>
 
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>Class ef_upload</H2>
+<H2>Class vinculador</H2>
 <PRE>Object
    |
-   +--<a href='ef.html'>ef</a>
-         |
-         +--<b>ef_upload</b>
+   +--<b>vinculador</b>
 </PRE>
 
 
@@ -63,18 +61,13 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <DL>
    <!-- Class definition -->
    <DT>class 
-   <B>ef_upload</B>
-   
-      <DT>extends <a href='ef.html'>ef</a> 
+   <B>vinculador</B>
    
 
 </DL>
    
    <P>
-   <BR/>Ef que selecciona un archivo de su sistema para que esté disponible en el servidor.<br>
- Esta basado en el elemento html <a href='http://www.w3schools.com/htmldom/dom_obj_fileupload.asp'>input type=file</a>.<br>
- Por razones de seguridad muchos de los servicios de javascript clásicos (como obtener el valor actual del elemento) no están disponibles.
- <BR/><br><I>Defined in <a href='overview-summary-ef_upload.js.html'>ef_upload.js</a></I><BR/><BR/>
+   <br><I>Defined in <a href='overview-summary-vinculador.js.html'>vinculador.js</a></I><BR/><BR/>
    </P>
    
    <HR>
@@ -88,8 +81,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
    
-   
-
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -106,9 +97,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TD>
       <CODE>
 	 <B>
-	    <A HREF="ef_upload.html#ef_upload()">ef_upload</A> 
+	    <A HREF="vinculador.html#vinculador()">vinculador</A> 
 	 </B>
-	 (id_form, etiqueta, obligatorio, colapsado)
+	 ()
       </CODE>
       <BR>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -134,53 +125,153 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#get_cambiar_archivo">get_cambiar_archivo</A></B>()
+	       <A HREF="#!s!activar_vinculo">activar_vinculo</A></B>(identificador)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna verdadero si el checkbox para cambiar el archivo esta checado
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.
+	 
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_editable">set_editable</A></B>()
+	       <A HREF="#!s!agregar_parametros">agregar_parametros</A></B>(identificador, parametros)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Invierte la visibilidad del input HTML, en base al checkbox para cambiar de archivo
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.
+	 
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#validar">validar</A></B>()
+	       <A HREF="#!s!agregar_vinculo">agregar_vinculo</A></B>(identificador, datos)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Valida el estado actual del ef
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!concatenar_parametros_url">concatenar_parametros_url</A></B>(vinculo, parametros)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!crear">crear</A></B>(destino, servicio, parametros, objetos)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!crear_autovinculo">crear_autovinculo</A></B>(servicio, parametros, objetos)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!desactivar_vinculo">desactivar_vinculo</A></B>(identificador)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!invocar">invocar</A></B>(identificador)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!ir_a_proyecto">ir_a_proyecto</A></B>(proyecto)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 
       </TD>
    </TR>
 
@@ -188,20 +279,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 
 
-
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>
-<!-- Inherited methods -->
-<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado">get_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
-</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
 
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
@@ -223,9 +300,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TR>
 </TABLE>
 
-<A NAME="ef_upload()"><!-- --></A><H3>
-ef_upload</H3>
-<PRE><B>ef_upload</B>(id_form, etiqueta, obligatorio, colapsado)</PRE>
+<A NAME="vinculador()"><!-- --></A><H3>
+vinculador</H3>
+<PRE><B>vinculador</B>()</PRE>
 
 
 
@@ -258,12 +335,9 @@ ef_upload</H3>
 
 <!-- One single method detail entry -->
 
-   <A NAME="get_cambiar_archivo"><!-- --></A>
-   <H3>get_cambiar_archivo</H3>
-   <PRE>boolean <B>get_cambiar_archivo</B>()</PRE>
-   
-      <UL>Retorna verdadero si el checkbox para cambiar el archivo esta checado
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.</UL>
+   <A NAME="!s!activar_vinculo"><!-- --></A>
+   <H3>activar_vinculo</H3>
+   <PRE>&lt;static&gt; void <B>activar_vinculo</B>(identificador)</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -277,12 +351,9 @@ ef_upload</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_editable"><!-- --></A>
-   <H3>set_editable</H3>
-   <PRE>void <B>set_editable</B>()</PRE>
-   
-      <UL>Invierte la visibilidad del input HTML, en base al checkbox para cambiar de archivo
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.</UL>
+   <A NAME="!s!agregar_parametros"><!-- --></A>
+   <H3>agregar_parametros</H3>
+   <PRE>&lt;static&gt; void <B>agregar_parametros</B>(identificador, parametros)</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -296,11 +367,9 @@ ef_upload</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="validar"><!-- --></A>
-   <H3>validar</H3>
-   <PRE>boolean <B>validar</B>()</PRE>
-   
-      <UL>Valida el estado actual del ef</UL>
+   <A NAME="!s!agregar_vinculo"><!-- --></A>
+   <H3>agregar_vinculo</H3>
+   <PRE>&lt;static&gt; void <B>agregar_vinculo</B>(identificador, datos)</PRE>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -308,19 +377,104 @@ ef_upload</H3>
    <!-- METHOD PARAMETERS END -->
 
    
-   <UL>
-   <B>Returns:</B>
-        <UL>
-        Verdadero si el estado actual del ef es válido, falso en caso contrario   
-        </UL>
-   </UL>
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!concatenar_parametros_url"><!-- --></A>
+   <H3>concatenar_parametros_url</H3>
+   <PRE>&lt;static&gt; Object <B>concatenar_parametros_url</B>(vinculo, parametros)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
    
-   <UL>   
-   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
-   </UL>
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!crear"><!-- --></A>
+   <H3>crear</H3>
+   <PRE>&lt;static&gt; Object <B>crear</B>(destino, servicio, parametros, objetos)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!crear_autovinculo"><!-- --></A>
+   <H3>crear_autovinculo</H3>
+   <PRE>&lt;static&gt; Object <B>crear_autovinculo</B>(servicio, parametros, objetos)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!desactivar_vinculo"><!-- --></A>
+   <H3>desactivar_vinculo</H3>
+   <PRE>&lt;static&gt; void <B>desactivar_vinculo</B>(identificador)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!invocar"><!-- --></A>
+   <H3>invocar</H3>
+   <PRE>&lt;static&gt; void <B>invocar</B>(identificador)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!ir_a_proyecto"><!-- --></A>
+   <H3>ir_a_proyecto</H3>
+   <PRE>&lt;static&gt; void <B>ir_a_proyecto</B>(proyecto)</PRE>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
@@ -340,7 +494,7 @@ ef_upload</H3>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_upload.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-vinculador.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -357,13 +511,13 @@ ef_upload</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="ef_textarea.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="toba.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
-&nbsp;<A HREF="ei.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<B>NEXT CLASS</B></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ef_upload.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="vinculador.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;
 <SCRIPT>
   <!--

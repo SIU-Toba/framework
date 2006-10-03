@@ -3,14 +3,14 @@
 <HTML>
 <HEAD>
 <TITLE>
-ef_radio
+toba
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
 <SCRIPT>
 function asd()
 {
-parent.document.title="ef_radio";
+parent.document.title="toba";
 }
 </SCRIPT>
 <BODY BGCOLOR="white" onload="asd();">
@@ -24,7 +24,7 @@ parent.document.title="ef_radio";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_combo.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-toba.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -50,12 +50,10 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <HR>
 
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>Class ef_radio</H2>
+<H2>Class toba</H2>
 <PRE>Object
    |
-   +--<a href='ef.html'>ef</a>
-         |
-         +--<b>ef_radio</b>
+   +--<b>toba</b>
 </PRE>
 
 
@@ -63,16 +61,14 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <DL>
    <!-- Class definition -->
    <DT>class 
-   <B>ef_radio</B>
-   
-      <DT>extends <a href='ef.html'>ef</a> 
+   <B>toba</B>
    
 
 </DL>
    
    <P>
-   <BR/>Radio buttons equivalentes a <em>input type='radio'</em>
- <BR/><br><I>Defined in <a href='overview-summary-ef_combo.js.html'>ef_combo.js</a></I><BR/><BR/>
+   <BR/>Clase estática con servicios globales al framework, usar sin instanciar por ej. <em>toba.componentes();</em>
+ <BR/><br><I>Defined in <a href='overview-summary-toba.js.html'>toba.js</a></I><BR/><BR/>
    </P>
    
    <HR>
@@ -86,8 +82,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
    
-   
-
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -104,9 +98,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TD>
       <CODE>
 	 <B>
-	    <A HREF="ef_radio.html#ef_radio()">ef_radio</A> 
+	    <A HREF="toba.html#toba()">toba</A> 
 	 </B>
-	 (id_form, etiqueta, obligatorio, colapsado)
+	 ()
       </CODE>
       <BR>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -132,170 +126,210 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;Array</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#borrar_opciones">borrar_opciones</A></B>()
+	       <A HREF="#!s!analizar_respuesta_servicio">analizar_respuesta_servicio</A></B>(respuesta)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Elimina las opciones disponibles en el radio-button
+	 Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba-->
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;string</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(&lt;string&gt; callback)
+	       <A HREF="#!s!componentes">componentes</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Agrega una funcion o callback que será invocada cuando el elemento cambie su estado
+	 Retorna los ids de los componentes instanciados en esta página
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#get_contenedor_opciones">get_contenedor_opciones</A></B>()
+	       <A HREF="#!s!comunicar_eventos">comunicar_eventos</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el tag HTML que contiene los input radio
+	 Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
+ o a través de httprequest (AJAX)
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;string</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#get_estado">get_estado</A></B>()
+	       <A HREF="#!s!comunicar_vinculo">comunicar_vinculo</A></B>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el estado o valor actual del elemento.
+	 Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
+ debido a que la respuesta no es sincronica
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;<a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#input">input</A></B>()
+	       <A HREF="#!s!error_comunicacion">error_comunicacion</A></B>(error)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el input HTML asociado a este elemento
+	 Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
+ Redefinir en caso de querer mostrar algun mensaje o accion distinta
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_opciones">set_opciones</A></B>(valores)
+	       <A HREF="#!s!fin_aguardar">fin_aguardar</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia las opciones del radio-button
+	 Oculta el div/imagen de 'Procesando'
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;string</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(&lt;boolean&gt; solo_lectura)
+	       <A HREF="#!s!imagen">imagen</A></B>(nombre)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia la capacidad de edición sobre el elemento
+	 Retorna una referencia a la URL de una imagen especifica
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_tab_index">set_tab_index</A></B>(&lt;int&gt; tab_index)
+	       <A HREF="#!s!incluir">incluir</A></B>(&lt;array&gt; consumos)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Cambia el tabIndex actual del elemento.
+	 Incluye una lista de consumos javascript en forma dinamica
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#tiene_estado">tiene_estado</A></B>()
+	       <A HREF="#!s!inicio_aguardar">inicio_aguardar</A></B>()
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el id de este elemento definido en el editor
+	 Muestra un div/imagen contienendo un mensaje de 'Procesando'
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#validar">validar</A></B>()
+	       <A HREF="#!s!servicio__html_parcial">servicio__html_parcial</A></B>(respuesta)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Valida el estado actual del ef
+	 Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
+ La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!set_aguardar">set_aguardar</A></B>(&lt;boolean&gt; aguardar)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
+ hacen pedidos asincronicos (ajax)
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&lt;static&gt;&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#!s!set_ajax">set_ajax</A></B>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
+ en lugar del request clásico POST/GET a todo el framework
       </TD>
    </TR>
 
@@ -303,20 +337,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 
 
-
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>
-<!-- Inherited methods -->
-<a href="ef.html#get_id">get_id</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
-</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
 
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
@@ -338,9 +358,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TR>
 </TABLE>
 
-<A NAME="ef_radio()"><!-- --></A><H3>
-ef_radio</H3>
-<PRE><B>ef_radio</B>(id_form, etiqueta, obligatorio, colapsado)</PRE>
+<A NAME="toba()"><!-- --></A><H3>
+toba</H3>
+<PRE><B>toba</B>()</PRE>
 
 
 
@@ -373,11 +393,11 @@ ef_radio</H3>
 
 <!-- One single method detail entry -->
 
-   <A NAME="borrar_opciones"><!-- --></A>
-   <H3>borrar_opciones</H3>
-   <PRE>void <B>borrar_opciones</B>()</PRE>
+   <A NAME="!s!analizar_respuesta_servicio"><!-- --></A>
+   <H3>analizar_respuesta_servicio</H3>
+   <PRE>&lt;static&gt; Array <B>analizar_respuesta_servicio</B>(respuesta)</PRE>
    
-      <UL>Elimina las opciones disponibles en el radio-button</UL>
+      <UL>Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -391,11 +411,53 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="cuando_cambia_valor"><!-- --></A>
-   <H3>cuando_cambia_valor</H3>
-   <PRE>void <B>cuando_cambia_valor</B>(&lt;string&gt; callback)</PRE>
+   <A NAME="!s!componentes"><!-- --></A>
+   <H3>componentes</H3>
+   <PRE>&lt;static&gt; string <B>componentes</B>()</PRE>
    
-      <UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
+      <UL>Retorna los ids de los componentes instanciados en esta página</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!comunicar_eventos"><!-- --></A>
+   <H3>comunicar_eventos</H3>
+   <PRE>&lt;static&gt; void <B>comunicar_eventos</B>()</PRE>
+   
+      <UL>Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
+ o a través de httprequest (AJAX)</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!comunicar_vinculo"><!-- --></A>
+   <H3>comunicar_vinculo</H3>
+   <PRE>&lt;static&gt; void <B>comunicar_vinculo</B>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)</PRE>
+   
+      <UL>Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
+ debido a que la respuesta no es sincronica</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -403,7 +465,10 @@ ef_radio</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>callback</CODE> -  Codigo de la funcion a disparar 	   
+     <UL><CODE>vinculo</CODE> -  Vinculo creado con el vinculador  
+      </UL> 
+   
+     <UL><CODE>nombre_callback</CODE> -  Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta) 	   
       </UL> 
    
    </UL>
@@ -417,30 +482,12 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="get_contenedor_opciones"><!-- --></A>
-   <H3>get_contenedor_opciones</H3>
-   <PRE>Object <B>get_contenedor_opciones</B>()</PRE>
+   <A NAME="!s!error_comunicacion"><!-- --></A>
+   <H3>error_comunicacion</H3>
+   <PRE>&lt;static&gt; void <B>error_comunicacion</B>(error)</PRE>
    
-      <UL>Retorna el tag HTML que contiene los input radio</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="get_estado"><!-- --></A>
-   <H3>get_estado</H3>
-   <PRE>string <B>get_estado</B>()</PRE>
-   
-      <UL>Retorna el estado o valor actual del elemento. 
- Generalmente es el value del input HTML</UL>
+      <UL>Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
+ Redefinir en caso de querer mostrar algun mensaje o accion distinta</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -454,11 +501,33 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="input"><!-- --></A>
-   <H3>input</H3>
-   <PRE><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> <B>input</B>()</PRE>
+   <A NAME="!s!fin_aguardar"><!-- --></A>
+   <H3>fin_aguardar</H3>
+   <PRE>&lt;static&gt; void <B>fin_aguardar</B>()</PRE>
    
-      <UL>Retorna el input HTML asociado a este elemento</UL>
+      <UL>Oculta el div/imagen de 'Procesando'</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!imagen"><!-- --></A>
+   <H3>imagen</H3>
+   <PRE>&lt;static&gt; string <B>imagen</B>(nombre)</PRE>
+   
+      <UL>Retorna una referencia a la URL de una imagen especifica</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -472,11 +541,11 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_opciones"><!-- --></A>
-   <H3>set_opciones</H3>
-   <PRE>void <B>set_opciones</B>(valores)</PRE>
+   <A NAME="!s!incluir"><!-- --></A>
+   <H3>incluir</H3>
+   <PRE>&lt;static&gt; void <B>incluir</B>(&lt;array&gt; consumos)</PRE>
    
-      <UL>Cambia las opciones del radio-button</UL>
+      <UL>Incluye una lista de consumos javascript en forma dinamica</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -484,7 +553,7 @@ ef_radio</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>valores</CODE> -  Objeto asociativo id=>valor 	   
+     <UL><CODE>consumos</CODE> -  Lista de consumos relativos a www/js, sin extension .js (eg. efs/ef_combo) 	   
       </UL> 
    
    </UL>
@@ -498,11 +567,57 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_solo_lectura"><!-- --></A>
-   <H3>set_solo_lectura</H3>
-   <PRE>void <B>set_solo_lectura</B>(&lt;boolean&gt; solo_lectura)</PRE>
+   <A NAME="!s!inicio_aguardar"><!-- --></A>
+   <H3>inicio_aguardar</H3>
+   <PRE>&lt;static&gt; void <B>inicio_aguardar</B>()</PRE>
    
-      <UL>Cambia la capacidad de edición sobre el elemento</UL>
+      <UL>Muestra un div/imagen contienendo un mensaje de 'Procesando'</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#!s!fin_aguardar">fin_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!servicio__html_parcial"><!-- --></A>
+   <H3>servicio__html_parcial</H3>
+   <PRE>&lt;static&gt; void <B>servicio__html_parcial</B>(respuesta)</PRE>
+   
+      <UL>Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
+ La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="!s!set_aguardar"><!-- --></A>
+   <H3>set_aguardar</H3>
+   <PRE>&lt;static&gt; void <B>set_aguardar</B>(&lt;boolean&gt; aguardar)</PRE>
+   
+      <UL>Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
+ hacen pedidos asincronicos (ajax)</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -510,7 +625,7 @@ ef_radio</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>solo_lectura</CODE> -  Desactiva (true) o activa (false) el elemento  
+     <UL><CODE>aguardar</CODE> -  habilitar el mensaje?  
       </UL> 
    
    </UL>
@@ -522,18 +637,18 @@ ef_radio</H3>
    <!-- ADDITIONAL ATTRIBUTES START -->
    
    <UL>   
-   <B>See:</B><UL>- <a href="#activar">activar</a><BR/>- <a href="#desactivar">desactivar</a></UL>
+   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!fin_aguardar">fin_aguardar()</a></UL>
    </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="set_tab_index"><!-- --></A>
-   <H3>set_tab_index</H3>
-   <PRE>void <B>set_tab_index</B>(&lt;int&gt; tab_index)</PRE>
+   <A NAME="!s!set_ajax"><!-- --></A>
+   <H3>set_ajax</H3>
+   <PRE>&lt;static&gt; void <B>set_ajax</B>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)</PRE>
    
-      <UL>Cambia el tabIndex actual del elemento.
- Este número es utilizado para ciclar por los distintos elementos usando la tecla TAB</UL>
+      <UL>Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
+ en lugar del request clásico POST/GET a todo el framework</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -541,7 +656,10 @@ ef_radio</H3>
    <UL>
    <B>Parameters:</B>
    
-     <UL><CODE>tab_index</CODE> -  Nuevo orden 	   
+     <UL><CODE>componente</CODE> -  Componente que se va a comunicar con su par PHP  
+      </UL> 
+   
+     <UL><CODE>servicio</CODE> -  Método de esta clase que escucha la respuesta del servidor (servicio) 	   
       </UL> 
    
    </UL>
@@ -551,53 +669,6 @@ ef_radio</H3>
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="tiene_estado"><!-- --></A>
-   <H3>tiene_estado</H3>
-   <PRE>boolean <B>tiene_estado</B>()</PRE>
-   
-      <UL>Retorna el id de este elemento definido en el editor</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="validar"><!-- --></A>
-   <H3>validar</H3>
-   <PRE>boolean <B>validar</B>()</PRE>
-   
-      <UL>Valida el estado actual del ef</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-   <UL>
-   <B>Returns:</B>
-        <UL>
-        Verdadero si el estado actual del ef es válido, falso en caso contrario   
-        </UL>
-   </UL>
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
-   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
@@ -617,7 +688,7 @@ ef_radio</H3>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_combo.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-toba.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -634,13 +705,13 @@ ef_radio</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="ef_popup.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="String.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
-&nbsp;<A HREF="ef_textarea.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="vinculador.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ef_radio.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="toba.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;
 <SCRIPT>
   <!--

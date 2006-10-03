@@ -3,14 +3,14 @@
 <HTML>
 <HEAD>
 <TITLE>
-ef_upload
+ef_fijo
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
 <SCRIPT>
 function asd()
 {
-parent.document.title="ef_upload";
+parent.document.title="ef_fijo";
 }
 </SCRIPT>
 <BODY BGCOLOR="white" onload="asd();">
@@ -24,7 +24,7 @@ parent.document.title="ef_upload";
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_upload.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -50,12 +50,12 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <HR>
 
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>Class ef_upload</H2>
+<H2>Class ef_fijo</H2>
 <PRE>Object
    |
    +--<a href='ef.html'>ef</a>
          |
-         +--<b>ef_upload</b>
+         +--<b>ef_fijo</b>
 </PRE>
 
 
@@ -63,7 +63,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <DL>
    <!-- Class definition -->
    <DT>class 
-   <B>ef_upload</B>
+   <B>ef_fijo</B>
    
       <DT>extends <a href='ef.html'>ef</a> 
    
@@ -71,10 +71,8 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </DL>
    
    <P>
-   <BR/>Ef que selecciona un archivo de su sistema para que esté disponible en el servidor.<br>
- Esta basado en el elemento html <a href='http://www.w3schools.com/htmldom/dom_obj_fileupload.asp'>input type=file</a>.<br>
- Por razones de seguridad muchos de los servicios de javascript clásicos (como obtener el valor actual del elemento) no están disponibles.
- <BR/><br><I>Defined in <a href='overview-summary-ef_upload.js.html'>ef_upload.js</a></I><BR/><BR/>
+   <BR/>Elemento que contiene HTML estático
+ <BR/><br><I>Defined in <a href='overview-summary-ef.js.html'>ef.js</a></I><BR/><BR/>
    </P>
    
    <HR>
@@ -106,7 +104,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TD>
       <CODE>
 	 <B>
-	    <A HREF="ef_upload.html#ef_upload()">ef_upload</A> 
+	    <A HREF="ef_fijo.html#ef_fijo()">ef_fijo</A> 
 	 </B>
 	 (id_form, etiqueta, obligatorio, colapsado)
       </CODE>
@@ -134,53 +132,17 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#get_cambiar_archivo">get_cambiar_archivo</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna verdadero si el checkbox para cambiar el archivo esta checado
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
 	    <CODE>&nbsp;void</CODE>
 	 </FONT>
       </TD>
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_editable">set_editable</A></B>()
+	       <A HREF="#set_estado">set_estado</A></B>(&lt;string&gt; nuevo)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Invierte la visibilidad del input HTML, en base al checkbox para cambiar de archivo
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;boolean</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#validar">validar</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Valida el estado actual del ef
+	 Cambia el HTML contenido en este elemento
       </TD>
    </TR>
 
@@ -197,7 +159,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE>
 <!-- Inherited methods -->
-<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado">get_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#set_estado">set_estado</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#get_estado">get_estado</a>, <a href="ef.html#get_estado_con_formato">get_estado_con_formato</a>, <a href="ef.html#formatear_valor">formatear_valor</a>, <a href="ef.html#activo">activo</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#validar">validar</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#set_solo_lectura">set_solo_lectura</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#cuando_cambia_valor">cuando_cambia_valor</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
 </CODE></TD>
 </TR>
 </TABLE>
@@ -223,9 +185,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    </TR>
 </TABLE>
 
-<A NAME="ef_upload()"><!-- --></A><H3>
-ef_upload</H3>
-<PRE><B>ef_upload</B>(id_form, etiqueta, obligatorio, colapsado)</PRE>
+<A NAME="ef_fijo()"><!-- --></A><H3>
+ef_fijo</H3>
+<PRE><B>ef_fijo</B>(id_form, etiqueta, obligatorio, colapsado)</PRE>
 
 
 
@@ -258,69 +220,28 @@ ef_upload</H3>
 
 <!-- One single method detail entry -->
 
-   <A NAME="get_cambiar_archivo"><!-- --></A>
-   <H3>get_cambiar_archivo</H3>
-   <PRE>boolean <B>get_cambiar_archivo</B>()</PRE>
+   <A NAME="set_estado"><!-- --></A>
+   <H3>set_estado</H3>
+   <PRE>void <B>set_estado</B>(&lt;string&gt; nuevo)</PRE>
    
-      <UL>Retorna verdadero si el checkbox para cambiar el archivo esta checado
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="set_editable"><!-- --></A>
-   <H3>set_editable</H3>
-   <PRE>void <B>set_editable</B>()</PRE>
-   
-      <UL>Invierte la visibilidad del input HTML, en base al checkbox para cambiar de archivo
- Este método sólo se utiliza cuando se esta modificando un archivo ya subido.</UL>
+      <UL>Cambia el HTML contenido en este elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="validar"><!-- --></A>
-   <H3>validar</H3>
-   <PRE>boolean <B>validar</B>()</PRE>
-   
-      <UL>Valida el estado actual del ef</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
    
    <UL>
-   <B>Returns:</B>
-        <UL>
-        Verdadero si el estado actual del ef es válido, falso en caso contrario   
-        </UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>nuevo</CODE> -  HTML a incluir 	   
+      </UL> 
+   
    </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
-   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
@@ -340,7 +261,7 @@ ef_upload</H3>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
   <TR ALIGN="center" VALIGN="top">
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef_upload.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-ef.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
   <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
@@ -357,13 +278,13 @@ ef_upload</H3>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="ef_textarea.html"><B>PREV CLASS</B></A><!-- 
+&nbsp;<A HREF="ef_editable_porcentaje.html"><B>PREV CLASS</B></A><!-- 
    NEXT CLASS 
 -->
-&nbsp;<A HREF="ei.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="ef_multi_seleccion.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ef_upload.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ef_fijo.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;
 <SCRIPT>
   <!--

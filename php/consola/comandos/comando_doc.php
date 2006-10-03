@@ -72,7 +72,7 @@ class comando_doc extends comando_toba
 			
 		$directorios = toba_dir().'/www/js/basicos ';
 		$directorios .= toba_dir().'/www/js/componentes ';
-		$directorios .= toba_dir().'/www/js/efs/ef_* ';
+		$directorios .= toba_dir().'/www/js/efs/ef* ';
 		
 		$cmd = "perl ".toba_dir().
 				"/bin/herramientas/JSDoc/jsdoc.pl --globals-name GLOBALES ".

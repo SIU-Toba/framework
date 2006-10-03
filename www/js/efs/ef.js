@@ -14,6 +14,7 @@ var apex_ef_total = 's';
 /**
  * @class Clase base de los elementos de formulario. 
  * @constructor
+ * @base
  */
 function ef(id_form, etiqueta, obligatorio, colapsable) {
 

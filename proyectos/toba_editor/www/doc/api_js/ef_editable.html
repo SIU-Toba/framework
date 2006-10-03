@@ -53,7 +53,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <H2>Class ef_editable</H2>
 <PRE>Object
    |
-   +--ef
+   +--<a href='ef.html'>ef</a>
          |
          +--<b>ef_editable</b>
 </PRE>
@@ -73,7 +73,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
    <DT>class 
    <B>ef_editable</B>
    
-      <DT>extends ef 
+      <DT>extends <a href='ef.html'>ef</a> 
    
 
 </DL>
@@ -92,37 +92,10 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- =========== FIELD SUMMARY =========== -->
 
-   <A NAME="field_summary"><!-- --></A>
-      <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-         <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-            <TD COLSPAN=2><FONT SIZE="+2">
-               <B>Field Summary</B></FONT></TD>
-         </TR>
-
-   <!-- This is one instance field summary -->
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#_forma_mascara">_forma_mascara</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE>&nbsp;Object</CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#_mascara">_mascara</A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-   </TR>
-   
-
-   </TABLE>
-   &nbsp;
-   
 
    
+   
+
 
 <!-- =========== END FIELD SUMMARY =========== -->
 
@@ -177,7 +150,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Retorna verdadero si el elemento esta disponible para edicion por parte del usuario
       </TD>
    </TR>
 
@@ -190,18 +163,18 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(callback)
+	       <A HREF="#cuando_cambia_valor">cuando_cambia_valor</A></B>(&lt;string&gt; callback)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Agrega una funcion o callback que será invocada cuando el elemento cambie su estado
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;string</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -211,7 +184,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Formatea un valor segun el tipo de elemento y lo retorna
       </TD>
    </TR>
 
@@ -259,28 +232,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#iniciar">iniciar</A></B>(id, contenedor)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
 	       <A HREF="#set_estado">set_estado</A></B>(nuevo)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Cambia el valor o estado actual del elemento
       </TD>
    </TR>
 
@@ -293,35 +249,18 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(solo_lectura)
+	       <A HREF="#set_solo_lectura">set_solo_lectura</A></B>(&lt;boolean&gt; solo_lectura)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Cambia la capacidad de edición sobre el elemento
       </TD>
    </TR>
 
    <TR BGCOLOR="white" CLASS="TableRowColor">
       <TD ALIGN="right" VALIGN="top" WIDTH="1%">
 	 <FONT SIZE="-1">
-	    <CODE>&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#submit">submit</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
+	    <CODE>&nbsp;boolean</CODE>
 	 </FONT>
       </TD>
       <TD>
@@ -331,7 +270,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Valida el estado actual del ef
       </TD>
    </TR>
 
@@ -340,38 +279,25 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
 
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ef.html">ef</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ef.html#get_id">get_id</a>, <a href="ef.html#tiene_estado">tiene_estado</a>, <a href="ef.html#input">input</a>, <a href="ef.html#nodo">nodo</a>, <a href="ef.html#get_contenedor">get_contenedor</a>, <a href="ef.html#get_tab_index">get_tab_index</a>, <a href="ef.html#get_error">get_error</a>, <a href="ef.html#cambiar_expansion">cambiar_expansion</a>, <a href="ef.html#set_error">set_error</a>, <a href="ef.html#resetear_error">resetear_error</a>, <a href="ef.html#seleccionar">seleccionar</a>, <a href="ef.html#resaltar">resaltar</a>, <a href="ef.html#no_resaltar">no_resaltar</a>, <a href="ef.html#ocultar">ocultar</a>, <a href="ef.html#mostrar">mostrar</a>, <a href="ef.html#desactivar">desactivar</a>, <a href="ef.html#activar">activar</a>, <a href="ef.html#set_tab_index">set_tab_index</a>, <a href="ef.html#ir_a_fila">ir_a_fila</a>, <a href="ef.html#get_fila_actual">get_fila_actual</a>, <a href="ef.html#sin_fila">sin_fila</a>, <a href="ef.html#resetear_estado">resetear_estado</a>, <a href="ef.html#borrar_opciones">borrar_opciones</a>, <a href="ef.html#set_opciones">set_opciones</a>, <a href="ef.html#valor">valor</a>, <a href="ef.html#cambiar_valor">cambiar_valor</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+
 <P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
 
 <!-- ============ FIELD DETAIL START =========== -->
-
-   <A NAME="field_detail"><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-         <TD COLSPAN=1><FONT SIZE="+2"><B>Field Detail</B></FONT></TD>
-      </TR>
-   </TABLE>
-
-   
-   <A NAME="_forma_mascara"><!-- --></A>
-   <H3>_forma_mascara</H3>
-   <PRE>Object&nbsp;<B>_forma_mascara</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
-   <A NAME="_mascara"><!-- --></A>
-   <H3>_mascara</H3>
-   <PRE>Object&nbsp;<B>_mascara</B></PRE>
-   <UL>
-   
-   
-   </UL>
-   <HR>
-   
 
 
 <!-- ============ FIELD DETAIL END =========== -->
@@ -426,6 +352,8 @@ ef_editable</H3>
    <H3>activo</H3>
    <PRE>void <B>activo</B>()</PRE>
    
+      <UL>Retorna verdadero si el elemento esta disponible para edicion por parte del usuario</UL>
+   
 
    <!-- METHOD PARAMETERS START -->
    
@@ -440,10 +368,20 @@ ef_editable</H3>
 
    <A NAME="cuando_cambia_valor"><!-- --></A>
    <H3>cuando_cambia_valor</H3>
-   <PRE>void <B>cuando_cambia_valor</B>(callback)</PRE>
+   <PRE>void <B>cuando_cambia_valor</B>(&lt;string&gt; callback)</PRE>
+   
+      <UL>Agrega una funcion o callback que será invocada cuando el elemento cambie su estado</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>callback</CODE> -  Codigo de la funcion a disparar 	   
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -456,7 +394,9 @@ ef_editable</H3>
 
    <A NAME="formatear_valor"><!-- --></A>
    <H3>formatear_valor</H3>
-   <PRE>Object <B>formatear_valor</B>(valor)</PRE>
+   <PRE>string <B>formatear_valor</B>(valor)</PRE>
+   
+      <UL>Formatea un valor segun el tipo de elemento y lo retorna</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -509,25 +449,11 @@ ef_editable</H3>
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
-   <A NAME="iniciar"><!-- --></A>
-   <H3>iniciar</H3>
-   <PRE>void <B>iniciar</B>(id, contenedor)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
    <A NAME="set_estado"><!-- --></A>
    <H3>set_estado</H3>
-   <PRE>Object <B>set_estado</B>(nuevo)</PRE>
+   <PRE>void <B>set_estado</B>(nuevo)</PRE>
+   
+      <UL>Cambia el valor o estado actual del elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -543,10 +469,20 @@ ef_editable</H3>
 
    <A NAME="set_solo_lectura"><!-- --></A>
    <H3>set_solo_lectura</H3>
-   <PRE>void <B>set_solo_lectura</B>(solo_lectura)</PRE>
+   <PRE>void <B>set_solo_lectura</B>(&lt;boolean&gt; solo_lectura)</PRE>
+   
+      <UL>Cambia la capacidad de edición sobre el elemento</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>solo_lectura</CODE> -  Desactiva (true) o activa (false) el elemento  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -554,28 +490,18 @@ ef_editable</H3>
 
    <!-- ADDITIONAL ATTRIBUTES START -->
    
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="submit"><!-- --></A>
-   <H3>submit</H3>
-   <PRE>void <B>submit</B>()</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
+   <UL>   
+   <B>See:</B><UL>- <a href="#activar">activar</a><BR/>- <a href="#desactivar">desactivar</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
    <A NAME="validar"><!-- --></A>
    <H3>validar</H3>
-   <PRE>Object <B>validar</B>()</PRE>
+   <PRE>boolean <B>validar</B>()</PRE>
+   
+      <UL>Valida el estado actual del ef</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -583,8 +509,19 @@ ef_editable</H3>
    <!-- METHOD PARAMETERS END -->
 
    
+   <UL>
+   <B>Returns:</B>
+        <UL>
+        Verdadero si el estado actual del ef es válido, falso en caso contrario   
+        </UL>
+   </UL>
+   
 
    <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#get_error">Usar get_error para ver el mensaje de error en caso de no validar</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
