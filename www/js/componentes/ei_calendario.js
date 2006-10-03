@@ -1,16 +1,19 @@
-//--------------------------------------------------------------------------------
-//Clase ei_calendario
-ei_calendario.prototype = new ei();
-var def = ei_calendario.prototype;
-def.constructor = ei_calendario;
 
+
+ei_calendario.prototype = new ei();
+ei_calendario.prototype.constructor = ei_calendario;
+
+/**
+ * @class Calendario para visualizar contenidos diarios y seleccionar días o semanas.
+ * @constructor
+ */
 function ei_calendario(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
 
 	//---Submit 
-	def.submit = function() {
+	ei_calendario.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}

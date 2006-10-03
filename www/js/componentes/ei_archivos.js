@@ -1,9 +1,11 @@
-//--------------------------------------------------------------------------------
-//Clase ei_archivos
-ei_archivos.prototype = new ei();
-var def = ei_archivos.prototype;
-def.constructor = ei_archivos;
 
+ei_archivos.prototype = new ei();
+ei_archivos.prototype.constructor = ei_archivos;
+
+/**
+ * @class Permite navegar el sistema de archivos del servidor bajo una carpeta inicial
+ * @constructor
+ */
 function ei_archivos(instancia, input_submit, path_relativo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
@@ -11,7 +13,7 @@ function ei_archivos(instancia, input_submit, path_relativo) {
 }
 
 	//---Submit
-	def.submit = function() {
+	ei_archivos.prototype.submit = function() {
 		var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 		if (padre_esta_en_proceso) {
 			return this.controlador.submit();
@@ -23,22 +25,35 @@ function ei_archivos(instancia, input_submit, path_relativo) {
 		}
 	};
 
-	def.seleccionar_archivo = function(nombre) {
+	/**
+	 * Dispara en el servidor la seleccion de un archivo particular
+	 * Como todo evento, se puede reaccionar en javascript atrapando el metodo <em>evt__seleccionar_archivo</em>
+	 */
+	ei_archivos.prototype.seleccionar_archivo = function(nombre) {
 		this.set_evento( new evento_ei('seleccionar_archivo', true, '', nombre));
 	};
 
-	def.ir_a_carpeta = function(nombre) {
+	/**
+	 * Dispara en el servidor la navegacion hacia una subcarpeta
+	 */
+	ei_archivos.prototype.ir_a_carpeta = function(nombre) {
 		this.set_evento( new evento_ei('ir_a_carpeta', true, '', nombre));
 	};	
 	
-	def.crear_carpeta = function(nombre) {
+	/**
+	 * Dispara en el servidor la creacion de una nueva carpeta (preguntando previamente el nombre de la misma al usuario)
+	 */
+	ei_archivos.prototype.crear_carpeta = function(nombre) {
 		this._parametros = prompt('Nombre de la carpeta','nombre de la carpeta');
 		if (this._parametros !== '' && this._parametros !== null) {
 			this.set_evento( new evento_ei('crear_carpeta', true, '', this._parametros));
 		}
 	};
 	
-	def.crear_archivo = function(nombre) {
+	/**
+	 * Dispara en el servidor la creación de un archivo particular
+	 */
+	ei_archivos.prototype.crear_archivo = function(nombre) {
 		this._parametros = prompt('Nombre del archivo','nombre del archivo');
 		if (this._parametros !== '' && this._parametros !== null) {
 			this.set_evento( new evento_ei('crear_archivo', true, '', this._parametros));

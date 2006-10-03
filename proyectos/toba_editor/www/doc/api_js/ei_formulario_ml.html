@@ -73,7 +73,10 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </DL>
    
    <P>
-   <br><I>Defined in <a href='overview-summary-ei_formulario_ml.js.html'>ei_formulario_ml.js</a></I><BR/><BR/>
+   <BR/>Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
+ La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+ Contiene una serie de ca campos se los denomina Elementos de Formulario (efs).
+ <BR/><br><I>Defined in <a href='overview-summary-ei_formulario_ml.js.html'>ei_formulario_ml.js</a></I><BR/><BR/><B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
    </P>
    
    <HR>
@@ -88,6 +91,34 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
    
    
+   &nbsp;<A NAME=""><!-- --></A>
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+   <TD><B>Fields inherited from class <A HREF="ei_formulario.html">ei_formulario</A></B></TD>
+   </TR>
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD><CODE>
+   <a href="ei_formulario.html#controlador">controlador</a>
+   </CODE></TD>
+   </TR>
+</TABLE>
+&nbsp;
+
+
+   
+   &nbsp;<A NAME=""><!-- --></A>
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+   <TD><B>Fields inherited from class <A HREF="ei.html">ei</A></B></TD>
+   </TR>
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD><CODE>
+   <a href="ei.html#controlador">controlador</a>
+   </CODE></TD>
+   </TR>
+</TABLE>
+&nbsp;
+
 
 
 <!-- =========== END FIELD SUMMARY =========== -->
@@ -122,7 +153,452 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- ========== METHOD SUMMARY =========== -->
 
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TD COLSPAN=2><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TD>
+</TR>
 
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#agregar_total">agregar_total</A></B>(id_ef)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Indica que un ef totalize los valores en todas sus filas colocandolo en la última fila
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#bajar_seleccionada">bajar_seleccionada</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Toma la fila actualmente seleccionada y la intercambia en orden con la fila posterior en orden
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_bajar">boton_bajar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag html que contiene el boton de bajar la fila actual
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_deshacer">boton_deshacer</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag html del boton deshacer
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_deshacer_cant">boton_deshacer_cant</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag html que contiene la cantidad de eliminaciones a deshacer
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_eliminar">boton_eliminar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag html del boton eliminar
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_subir">boton_subir</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag html que contiene el boton de subir la fila actual
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cambiar_total">cambiar_total</A></B>(&lt;string&gt; id_ef, &lt;string&gt; total)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Cambia el contenido de la fila destinada a contener el valor totalizado de un ef especifico
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_cambio_maestro">cascadas_cambio_maestro</A></B>(&lt;string&gt; id_ef)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#crear_fila">crear_fila</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Agrega una nueva fila a la grilla.
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#deseleccionar_actual">deseleccionar_actual</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Deselecciona cualquier seleccion anterior de fila
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#deshacer">deshacer</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Deshace la ultima eliminacion de fila
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;string</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#eliminar_fila">eliminar_fila</A></B>(&lt;string&gt; fila)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Elimina una fila y retorna la fila anterior en orden
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#eliminar_seleccionada">eliminar_seleccionada</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Elimina del formulario la fila actualmente seleccionada
+ El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#filas">filas</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Retorna las filas actuales del formulario
+ Útil para hacer recorridos por todas las filas, por ejemplo
+ <pre>
+ var filas = this.filas()
+ for (id_fila in filas) {
+      this.ef('nombre').ir_a_fila(filas[id_fila]).set_estado('nuevo');
+      this.seleccionar(filas[id_fila]);
+ }
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#intercambiar_filas">intercambiar_filas</A></B>(&lt;int&gt; pos_a, &lt;int&gt; pos_b)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Intercambia de posicion a dos filas dadas
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#refrescar_foco">refrescar_foco</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Toma la fila seleccionada y le pone foco al primer ef que lo acepte
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#refrescar_todo">refrescar_todo</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Refresca todos la grafica variable del formulario
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#resetear_errores">resetear_errores</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Limpia el componente de errores producidos anteriormente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#seleccionar">seleccionar</A></B>(fila)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Marca una fila como seleccionada, cambiando su color de fondo
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#subir_seleccionada">subir_seleccionada</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Toma la fila actualmente seleccionada y la intercambia en orden con la fila anterior en orden
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#submit">submit</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#total">total</A></B>(id_ef)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Función de calculo de total por defecto, suma el valor de cada fila
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#validar">validar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em>
+      </TD>
+   </TR>
+
+
+</TABLE>
+
+
+
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TD><B>Methods inherited from class <a href="ei_formulario.html">ei_formulario</a></B></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>
+<!-- Inherited methods -->
+<a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#nodo">nodo</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
+</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
 
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
@@ -132,7 +608,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE>
 <!-- Inherited methods -->
-<a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#submit">submit</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#obtener_boton_colapsar">obtener_boton_colapsar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
+<a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
 </CODE></TD>
 </TR>
 </TABLE>
@@ -174,6 +650,10 @@ ei_formulario_ml</H3>
 
 <!-- ADDITIONAL ATTRIBUTES -->
 
+<UL>   
+<B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
+</UL>
+
 <HR/>
 <!-- END ADDITIONAL ATTRIBUTES  -->
 
@@ -181,6 +661,510 @@ ei_formulario_ml</H3>
 
 
 <!-- ============ METHOD DETAIL START ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+      <TD COLSPAN=1><FONT SIZE="+2">
+         <B>Method Detail</B></FONT>
+      </TD>
+   </TR>
+</TABLE>
+
+<!-- One single method detail entry -->
+
+   <A NAME="agregar_total"><!-- --></A>
+   <H3>agregar_total</H3>
+   <PRE>void <B>agregar_total</B>(id_ef)</PRE>
+   
+      <UL>Indica que un ef totalize los valores en todas sus filas colocandolo en la última fila</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="bajar_seleccionada"><!-- --></A>
+   <H3>bajar_seleccionada</H3>
+   <PRE>void <B>bajar_seleccionada</B>()</PRE>
+   
+      <UL>Toma la fila actualmente seleccionada y la intercambia en orden con la fila posterior en orden</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_bajar"><!-- --></A>
+   <H3>boton_bajar</H3>
+   <PRE>Object <B>boton_bajar</B>()</PRE>
+   
+      <UL>Referencia al tag html que contiene el boton de bajar la fila actual</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_deshacer"><!-- --></A>
+   <H3>boton_deshacer</H3>
+   <PRE>Object <B>boton_deshacer</B>()</PRE>
+   
+      <UL>Referencia al tag html del boton deshacer</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_deshacer_cant"><!-- --></A>
+   <H3>boton_deshacer_cant</H3>
+   <PRE>Object <B>boton_deshacer_cant</B>()</PRE>
+   
+      <UL>Referencia al tag html que contiene la cantidad de eliminaciones a deshacer</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_eliminar"><!-- --></A>
+   <H3>boton_eliminar</H3>
+   <PRE>Object <B>boton_eliminar</B>()</PRE>
+   
+      <UL>Referencia al tag html del boton eliminar</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_subir"><!-- --></A>
+   <H3>boton_subir</H3>
+   <PRE>Object <B>boton_subir</B>()</PRE>
+   
+      <UL>Referencia al tag html que contiene el boton de subir la fila actual</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cambiar_total"><!-- --></A>
+   <H3>cambiar_total</H3>
+   <PRE>Object <B>cambiar_total</B>(&lt;string&gt; id_ef, &lt;string&gt; total)</PRE>
+   
+      <UL>Cambia el contenido de la fila destinada a contener el valor totalizado de un ef especifico</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_ef</CODE> -  Id. del ef o columna a variar  
+      </UL> 
+   
+     <UL><CODE>total</CODE> -  Nuevo total  
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#agregar_total">agregar_total()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_cambio_maestro"><!-- --></A>
+   <H3>cascadas_cambio_maestro</H3>
+   <PRE>void <B>cascadas_cambio_maestro</B>(&lt;string&gt; id_ef)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_ef</CODE> -  Identificador del ef maestro que sufrio una modificación 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="crear_fila"><!-- --></A>
+   <H3>crear_fila</H3>
+   <PRE>void <B>crear_fila</B>()</PRE>
+   
+      <UL>Agrega una nueva fila a la grilla.
+ Dependiendo de la definición del componente en el editor, este método crea la fila directamente en javascript o
+ lo hace a través de un evento 'pedido_registro_nuevo' en el servidor</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="deseleccionar_actual"><!-- --></A>
+   <H3>deseleccionar_actual</H3>
+   <PRE>void <B>deseleccionar_actual</B>()</PRE>
+   
+      <UL>Deselecciona cualquier seleccion anterior de fila</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#seleccionar">seleccionar()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="deshacer"><!-- --></A>
+   <H3>deshacer</H3>
+   <PRE>void <B>deshacer</B>()</PRE>
+   
+      <UL>Deshace la ultima eliminacion de fila</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="eliminar_fila"><!-- --></A>
+   <H3>eliminar_fila</H3>
+   <PRE>string <B>eliminar_fila</B>(&lt;string&gt; fila)</PRE>
+   
+      <UL>Elimina una fila y retorna la fila anterior en orden</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>fila</CODE> -  Id. de la fila a eliminar  
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="eliminar_seleccionada"><!-- --></A>
+   <H3>eliminar_seleccionada</H3>
+   <PRE>Object <B>eliminar_seleccionada</B>()</PRE>
+   
+      <UL>Elimina del formulario la fila actualmente seleccionada
+ El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="filas"><!-- --></A>
+   <H3>filas</H3>
+   <PRE>Object <B>filas</B>()</PRE>
+   
+      <UL>Retorna las filas actuales del formulario
+ Útil para hacer recorridos por todas las filas, por ejemplo
+ <pre>
+ var filas = this.filas()
+ for (id_fila in filas) {
+      this.ef('nombre').ir_a_fila(filas[id_fila]).set_estado('nuevo');
+      this.seleccionar(filas[id_fila]);
+ }</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="intercambiar_filas"><!-- --></A>
+   <H3>intercambiar_filas</H3>
+   <PRE>void <B>intercambiar_filas</B>(&lt;int&gt; pos_a, &lt;int&gt; pos_b)</PRE>
+   
+      <UL>Intercambia de posicion a dos filas dadas</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>pos_a</CODE> -  Posicion que ocupa la primer fila  
+      </UL> 
+   
+     <UL><CODE>pos_b</CODE> -  Posicion que ocupa la segunda fila 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="refrescar_foco"><!-- --></A>
+   <H3>refrescar_foco</H3>
+   <PRE>void <B>refrescar_foco</B>()</PRE>
+   
+      <UL>Toma la fila seleccionada y le pone foco al primer ef que lo acepte</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="refrescar_todo"><!-- --></A>
+   <H3>refrescar_todo</H3>
+   <PRE>void <B>refrescar_todo</B>()</PRE>
+   
+      <UL>Refresca todos la grafica variable del formulario</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="resetear_errores"><!-- --></A>
+   <H3>resetear_errores</H3>
+   <PRE>void <B>resetear_errores</B>()</PRE>
+   
+      <UL>Limpia el componente de errores producidos anteriormente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="seleccionar"><!-- --></A>
+   <H3>seleccionar</H3>
+   <PRE>void <B>seleccionar</B>(fila)</PRE>
+   
+      <UL>Marca una fila como seleccionada, cambiando su color de fondo</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="subir_seleccionada"><!-- --></A>
+   <H3>subir_seleccionada</H3>
+   <PRE>void <B>subir_seleccionada</B>()</PRE>
+   
+      <UL>Toma la fila actualmente seleccionada y la intercambia en orden con la fila anterior en orden</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="submit"><!-- --></A>
+   <H3>submit</H3>
+   <PRE>Object <B>submit</B>()</PRE>
+   
+      <UL>Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="total"><!-- --></A>
+   <H3>total</H3>
+   <PRE>Object <B>total</B>(id_ef)</PRE>
+   
+      <UL>Función de calculo de total por defecto, suma el valor de cada fila</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="validar"><!-- --></A>
+   <H3>validar</H3>
+   <PRE>Object <B>validar</B>()</PRE>
+   
+      <UL>Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em></UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
 
 
 <!-- ============ METHOD DETAIL END ========== -->

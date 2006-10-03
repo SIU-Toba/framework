@@ -20,6 +20,12 @@ function evento_ei(id, validar, confirmar, parametros) {
 function ei(instancia, input_submit) {
 	this._instancia = instancia;
 	this._input_submit = input_submit;
+	
+	/**
+	 * Componente padre o contenedor del actual
+	 * @type ei
+	 */
+	this.controlador = null;
 }
 ei.prototype.constructor = ei;
 
@@ -136,38 +142,78 @@ ei.prototype.constructor = ei;
 		return this.cuerpo().parentNode;
 	};
 	
+	/**
+	 * Invierte el colapsado del componente
+	 * @see #colapsar
+	 * @see #descolapsar
+	 */
 	ei.prototype.cambiar_colapsado = function() {
-		cambiar_colapsado(this.obtener_boton_colapsar(), this.cuerpo());		
+		cambiar_colapsado(this.boton_colapsar(), this.cuerpo());		
 	};
 	
+	/**
+	 * Colapsa el componente permitiendo, que el usuario puede descolapsarlo pulsando un ícono
+	 */
 	ei.prototype.colapsar = function() {
-		colapsar(this.obtener_boton_colapsar(), this.cuerpo());
+		colapsar(this.boton_colapsar(), this.cuerpo());
 	};
 	
+	/**
+	 * Descolpsa explícitamente el componente previamente colapsado
+	 */
 	ei.prototype.descolapsar = function() {
-		descolapsar(this.obtener_boton_colapsar(), this.cuerpo());
+		descolapsar(this.boton_colapsar(), this.cuerpo());
 	};
 	
-	ei.prototype.obtener_boton_colapsar = function() {
+	/**
+	 * Referencia al tag HTML que representa el boton de colapsar/descolapsar
+	 */
+	ei.prototype.boton_colapsar = function() {
 		return document.getElementById('colapsar_boton_' + this._instancia);
 	};
 
+	/**
+	 * Desactiva un boton asociado al componente, 
+	 * esto no permite que el usuario lo pulse aunque aun es visible
+	 * @param {string} id Id. del boton/evento a desactivar
+	 * @see #activar_boton
+	 */
 	ei.prototype.desactivar_boton = function(id) {
 		this.get_boton(id).disabled = true;
 	};
 
+	/**
+	 * Activa un boton previamente desactivado
+	 * @param {string} id Id. del boton/evento a activar
+	 * @see #desactivar_boton
+	 */	
 	ei.prototype.activar_boton = function(id) {
 		this.get_boton(id).disabled = false;
 	};
 
+	/**
+	 * Oculta un boton/evento a la vista del usuario
+	 * @param {string} id Id. del boton/evento a ocultar
+	 * @see #mostrar_boton
+	 */	
 	ei.prototype.ocultar_boton = function(id) {
 		this.get_boton(id).style.display = 'none';
 	};
 
+	/**
+	 * Muestra un boton previamente ocultado
+	 * @param {string} id Id. del boton/evento a mostrar
+	 * @see #ocultar_boton
+	 */
 	ei.prototype.mostrar_boton = function(id) {
 		this.get_boton(id).style.display = '';
 	};
 	
+	
+	/**
+	 * Referencia al tag HTML de un boton especifico
+	 * @param {string} id Id. del boton/evento	 
+	 */
 	ei.prototype.get_boton = function(id) {
 		return document.getElementById(this._input_submit + '_' + id);
 	};

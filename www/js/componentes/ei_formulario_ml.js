@@ -1,10 +1,14 @@
-//-------------------------------------------------------------------------------- 
-//Clase ei_formulario_ml 
-ei_formulario_ml.prototype = new ei_formulario();
-var def = ei_formulario_ml.prototype;
-def.constructor = ei_formulario_ml;
 
-	//----Construcción 
+ei_formulario_ml.prototype = new ei_formulario();
+ei_formulario_ml.prototype.constructor = ei_formulario_ml;
+
+	/**
+	 * @class Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
+ 	 * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+ 	 * Contiene una serie de ca campos se los denomina Elementos de Formulario (efs).
+ 	 * @see ef
+ 	 * @constructor
+	 */
 	function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
 									proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
 		ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
@@ -17,7 +21,7 @@ def.constructor = ei_formulario_ml;
 		this._agregado_en_linea = en_linea;
 	}
 
-	def.iniciar = function() {
+	ei_formulario_ml.prototype.iniciar = function() {
 		//Iniciar las filas
 		for (fila in this._filas) {
 			this.iniciar_fila(this._filas[fila], false);
@@ -31,7 +35,10 @@ def.constructor = ei_formulario_ml;
 		this.reset_evento();
 	};
 
-	def.iniciar_fila = function (fila, agregar_tabindex) {
+	/**
+	 *	@private
+	 */
+	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex) {
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
 			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
@@ -45,15 +52,31 @@ def.constructor = ei_formulario_ml;
 			ef.cuando_cambia_valor(this._instancia + '.validar_fila_ef(' + fila + ',"' + id_ef + '", true)');			
 		}
 	};	
-	
-	def.agregar_total = function (ef) {
-		this._ef_con_totales[ef] = true;
+
+	/**
+	 *	Indica que un ef totalize los valores en todas sus filas colocandolo en la última fila
+	 */
+	ei_formulario_ml.prototype.agregar_total = function (id_ef) {
+		this._ef_con_totales[id_ef] = true;
 	};
 		
 	//----Consultas 
-	def.filas = function () { return this._filas; };
+	/**
+	 * Retorna las filas actuales del formulario
+	 * Útil para hacer recorridos por todas las filas, por ejemplo
+	 * <pre>
+	 * var filas = this.filas()
+	 * for (id_fila in filas) {
+	 *      this.ef('nombre').ir_a_fila(filas[id_fila]).set_estado('nuevo');
+	 *      this.seleccionar(filas[id_fila]);
+	 * }
+	 */
+	ei_formulario_ml.prototype.filas = function () { return this._filas; };
 	
-	def.procesar = function (id_ef, fila, es_inicial, es_particular) {
+	/**
+	 * @private
+	 */
+	ei_formulario_ml.prototype.procesar = function (id_ef, fila, es_inicial, es_particular) {
 		if (typeof es_particular == 'undefined') {
 			es_particular = true;	
 		}
@@ -65,8 +88,10 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 
-	//Función de calculo de procesamento por defecto, suma el valor de cada filas	
-	def.total = function (id_ef) {
+	/**
+	 * Función de calculo de total por defecto, suma el valor de cada fila
+	 */
+	ei_formulario_ml.prototype.total = function (id_ef) {
 		var total = 0;	
 		for (fila in this._filas) {
 			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
@@ -77,7 +102,7 @@ def.constructor = ei_formulario_ml;
 	};
 	
 	//----Validación 
-	def.validar = function() {
+	ei_formulario_ml.prototype.validar = function() {
 		var ok = true;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
@@ -91,15 +116,21 @@ def.constructor = ei_formulario_ml;
 		return ok;
 	};
 	
-	def.validar_fila = function(id_fila) {
+	/**
+	 * @private
+	 */
+	ei_formulario_ml.prototype.validar_fila = function(id_fila) {
 		ok = true;
 		for (id_ef in this._efs) {
 			ok = this.validar_fila_ef(this._filas[id_fila], id_ef) && ok;
 		}
 		return ok;
 	};
-	
-	def.validar_fila_ef = function(fila, id_ef, es_online) {
+
+	/**
+	 * @private
+	 */	
+	ei_formulario_ml.prototype.validar_fila_ef = function(fila, id_ef, es_online) {
 		var ef = this._efs[id_ef].ir_a_fila(fila);
 		var validacion_particular = 'evt__' + id_ef + '__validar';
 		var es_valido = ef.validar();
@@ -120,7 +151,7 @@ def.constructor = ei_formulario_ml;
 		return true;
 	};
 	
-	def.resetear_errores = function() {
+	ei_formulario_ml.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {
 			for (fila in this._filas) {
 				for (id_ef in this._efs) {
@@ -131,7 +162,7 @@ def.constructor = ei_formulario_ml;
 	};	
 	
 	//----Submit 
-	def.submit = function() {
+	ei_formulario_ml.prototype.submit = function() {
 		//Si no es parte de un submit general, dispararlo
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
@@ -160,7 +191,7 @@ def.constructor = ei_formulario_ml;
 	};
 	
 	//---- Cascadas
-	def.cascadas_cambio_maestro = function(id_ef)
+	ei_formulario_ml.prototype.cascadas_cambio_maestro = function(id_ef)
 	{
 		var actual = this.ef(id_ef).get_fila_actual();
 		for (var ef in this._efs) {
@@ -170,7 +201,10 @@ def.constructor = ei_formulario_ml;
 	};	
 	
 	//----Selección 
-	def.seleccionar = function(fila) {
+	/**
+	 * Marca una fila como seleccionada, cambiando su color de fondo 
+	 */
+	ei_formulario_ml.prototype.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {
 			this.deseleccionar_actual();
 			this._seleccionada = fila;
@@ -178,7 +212,11 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	def.deseleccionar_actual = function() {
+	/**
+	 * Deselecciona cualquier seleccion anterior de fila
+	 * @see #seleccionar
+	 */
+	ei_formulario_ml.prototype.deseleccionar_actual = function() {
 		if (isset(this._seleccionada)) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
 			cambiar_clase(fila.cells, 'ei-ml-fila');			
@@ -186,7 +224,10 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	def.subir_seleccionada = function () {
+	/**
+	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila anterior en orden
+	 */
+	ei_formulario_ml.prototype.subir_seleccionada = function () {
 		//Busco las posiciones a intercambiar
 		var pos_anterior = null;
 		for (posicion in this._filas) {
@@ -202,7 +243,10 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	def.bajar_seleccionada = function () {
+	/**
+	 *	Toma la fila actualmente seleccionada y la intercambia en orden con la fila posterior en orden
+	 */	
+	ei_formulario_ml.prototype.bajar_seleccionada = function () {
 		//Busco las posiciones a intercambiar
 		var pos_siguiente = null;
 		for (posicion = this._filas.length - 1; posicion >= 0; posicion--) {
@@ -218,7 +262,12 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 
-	def.intercambiar_filas = function (pos_a, pos_b) {
+	/**
+	 * Intercambia de posicion a dos filas dadas
+	 * @param {int} pos_a Posicion que ocupa la primer fila
+	 * @param {int} pos_b Posicion que ocupa la segunda fila
+	 */
+	ei_formulario_ml.prototype.intercambiar_filas = function (pos_a, pos_b) {
 		//Reemplazo en el DOM
 		var nodo_padre = document.getElementById(this._instancia + '_fila' + this._filas[pos_a]);
 		var nodo_selecc = document.getElementById(this._instancia + '_fila' + this._filas[pos_b]);
@@ -239,7 +288,11 @@ def.constructor = ei_formulario_ml;
 	};
 
 	//---ABM 
-	def.eliminar_seleccionada = function() {
+	/**
+	 * Elimina del formulario la fila actualmente seleccionada
+	 * El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual
+	 */
+	ei_formulario_ml.prototype.eliminar_seleccionada = function() {
 		var fila = this._seleccionada;
 		if(existe_funcion(this, "evt__baja")){
 			if(! ( this.evt__baja(fila) ) ){
@@ -254,8 +307,12 @@ def.constructor = ei_formulario_ml;
 		this.refrescar_todo();
 	};
 	
-	//Elimina una fila y retorna la fila más cercana
-	def.eliminar_fila = function(fila) {
+	/**
+	 * Elimina una fila y retorna la fila anterior en orden
+	 * @param {string} fila Id. de la fila a eliminar
+	 * @type string
+	 */
+	ei_formulario_ml.prototype.eliminar_fila = function(fila) {
 			//'Elimina' la fila en el DOM
 		var id_fila = this._instancia + '_fila' + fila;
 		var id_deshacer = this._instancia + '_deshacer';
@@ -276,7 +333,12 @@ def.constructor = ei_formulario_ml;
 		return anterior;
 	};
 	
-	def.crear_fila = function() {
+	/**
+	 * Agrega una nueva fila a la grilla.
+	 * Dependiendo de la definición del componente en el editor, este método crea la fila directamente en javascript o
+	 * lo hace a través de un evento 'pedido_registro_nuevo' en el servidor
+	 */
+	ei_formulario_ml.prototype.crear_fila = function() {
 		//¿La fila se agrega en el server?
 		if (! this._agregado_en_linea) {
 			this.set_evento( new evento_ei('pedido_registro_nuevo', true, '', null));
@@ -302,7 +364,10 @@ def.constructor = ei_formulario_ml;
 		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
 	};
 	
-	def.deshacer = function() {
+	/**
+	 * Deshace la ultima eliminacion de fila
+	 */
+	ei_formulario_ml.prototype.deshacer = function() {
 		if (this._pila_deshacer.length > 0) {
 			var funcion = this._pila_deshacer.pop();
 			funcion();
@@ -311,7 +376,13 @@ def.constructor = ei_formulario_ml;
 	};
 
 	//----Procesamiento
-	def.cambiar_total = function (id_ef, total) {
+	/**
+	 * Cambia el contenido de la fila destinada a contener el valor totalizado de un ef especifico
+	 * @param {string} id_ef Id. del ef o columna a variar
+	 * @param {string} total Nuevo total
+	 * @see #agregar_total
+	 */
+	ei_formulario_ml.prototype.cambiar_total = function (id_ef, total) {
 		//Se mantiene el id anterior, porque se multiplexa hacia otra fila y esto puede estar en el medio de otro proceso
 		var id_ant = this._efs[id_ef]._id_form;
 		//Se cambia el total
@@ -322,7 +393,10 @@ def.constructor = ei_formulario_ml;
 		return total;
 	};
 	
-	def.agregar_procesamiento = function (id_ef) {
+	/**
+	 * @private
+	 */
+	ei_formulario_ml.prototype.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
 			//¿Ya se agrego el procesamiento anteriormente?
 			if (! this._efs_procesar[id_ef]) {
@@ -334,42 +408,67 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	def.agregar_procesamiento_fila = function (id_ef, fila) {
+	/**
+	 *	@private
+	 */
+	ei_formulario_ml.prototype.agregar_procesamiento_fila = function (id_ef, fila) {
 		var callback = this._instancia + '.procesar("' + id_ef + '", ' + fila + ')';
 		this._efs[id_ef].ir_a_fila(fila).cuando_cambia_valor(callback);
 	};
 
 	//----Botonera
-	def.boton_eliminar = function() {
+	/**
+	 * Referencia al tag html del boton eliminar
+	 */
+	ei_formulario_ml.prototype.boton_eliminar = function() {
 		return document.getElementById(this._instancia + '_eliminar');
 	};
-	
-	def.boton_deshacer = function() {
+
+	/**
+	 * Referencia al tag html del boton deshacer
+	 */	
+	ei_formulario_ml.prototype.boton_deshacer = function() {
 		return document.getElementById(this._instancia + '_deshacer');
 	};
 	
-	def.boton_deshacer_cant = function() {
+	/**
+	 * Referencia al tag html que contiene la cantidad de eliminaciones a deshacer
+	 */	
+	ei_formulario_ml.prototype.boton_deshacer_cant = function() {
 		return document.getElementById(this._instancia + '_deshacer_cant');
 	};	
 	
-	def.boton_subir = function() {
+	/**
+	 * Referencia al tag html que contiene el boton de subir la fila actual
+	 */	
+	ei_formulario_ml.prototype.boton_subir = function() {
 		return document.getElementById(this._instancia + '_subir');
 	};
-	
-	def.boton_bajar = function() {
+
+	/**
+	 * Referencia al tag html que contiene el boton de bajar la fila actual
+	 */		
+	ei_formulario_ml.prototype.boton_bajar = function() {
 		return document.getElementById(this._instancia + '_bajar');
 	};
 	
 	//----Refresco Grafico 
-	def.refrescar_todo = function () {
+	
+	/**
+	 *	Refresca todos la grafica variable del formulario
+	 */
+	ei_formulario_ml.prototype.refrescar_todo = function () {
 		this.refrescar_procesamientos();
 		this.refrescar_numeracion_filas();
 		this.refrescar_deshacer();
 		this.refrescar_seleccion();
 	};
 	
-	//Recorre todas las filas y las vuelve a numerara comenzando desde 1
-	def.refrescar_numeracion_filas = function () {
+	/**
+	 * @private
+	 * Recorre todas las filas y las vuelve a numerara comenzando desde 1
+	 */
+	ei_formulario_ml.prototype.refrescar_numeracion_filas = function () {
 		var nro = 1;
 		for (fila in this._filas) {
 			var nro_fila = document.getElementById(this._instancia + '_numerofila' + this._filas[fila]);
@@ -380,8 +479,11 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	//Actualiza el botón deshacer
-	def.refrescar_deshacer = function () {
+	/**
+	 * Actualiza el botón deshacer
+	 * @private
+	 */
+	ei_formulario_ml.prototype.refrescar_deshacer = function () {
 		if (this.boton_deshacer()) {
 			var tamanio = this._pila_deshacer.length;
 			if (tamanio === 0) {
@@ -394,8 +496,11 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	//Resalta la línea seleccionada 
-	def.refrescar_seleccion = function () {
+	/**
+	 * Resalta la línea seleccionada 
+	 * @private
+	 */
+	ei_formulario_ml.prototype.refrescar_seleccion = function () {
 		if (isset(this._seleccionada)) {
 			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec');
 			if (this.boton_eliminar()) {
@@ -416,16 +521,21 @@ def.constructor = ei_formulario_ml;
 		}
 	};
 	
-	//Toma la fila seleccionada y le pone foco al primer ef que se la banque.
-	def.refrescar_foco = function () {
+	/**
+	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
+	 */
+	ei_formulario_ml.prototype.refrescar_foco = function () {
 		for (id_ef in this._efs) {
 			if (this._efs[id_ef].ir_a_fila(this._seleccionada).seleccionar()) {
 				break;
 			}
 		}
 	};
-	
-	def.refrescar_procesamientos = function (es_inicial) {
+
+	/**
+	 * @private	 
+	 */
+	ei_formulario_ml.prototype.refrescar_procesamientos = function (es_inicial) {
 		for (id_ef in this._efs) {
 			if (id_ef in this._ef_con_totales) {
 				this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
@@ -438,8 +548,11 @@ def.constructor = ei_formulario_ml;
 		}
 	};	
 	
-	//Toma una fila y le refresca los listeners de procesamiento
-	def.refrescar_eventos_procesamiento = function (fila) {
+	/**
+	 * Toma una fila y le refresca los listeners de procesamiento
+	 * @private
+	 */
+	ei_formulario_ml.prototype.refrescar_eventos_procesamiento = function (fila) {
 		for (id_ef in this._efs) {
 			if (this._efs_procesar[id_ef]) {		
 				this.agregar_procesamiento_fila(id_ef, fila);
@@ -450,6 +563,9 @@ def.constructor = ei_formulario_ml;
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 
 if (self.Node && ! self.Node.prototype.swapNode) {
+	/**
+	 *	@ignore
+	 */
 	Node.prototype.swapNode = function (node) {
 		var nextSibling = this.nextSibling;
 		var parentNode = this.parentNode;

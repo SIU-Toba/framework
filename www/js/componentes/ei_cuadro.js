@@ -1,16 +1,19 @@
-//--------------------------------------------------------------------------------
-//Clase ei_cuadro
+
 ei_cuadro.prototype = new ei();
 var def = ei_cuadro.prototype;
-def.constructor = ei_cuadro;
+ei_cuadro.prototype.constructor = ei_cuadro;
 
+/**
+ * @class Un ei_cuadro es una grilla de registros.
+ * @constructor
+ */
 function ei_cuadro(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
 	
 	//---Submit 
-	def.submit = function() {
+	ei_cuadro.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
@@ -35,7 +38,7 @@ function ei_cuadro(instancia, input_submit) {
 	};
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
-	def.puede_submit = function() {
+	ei_cuadro.prototype.puede_submit = function() {
 		if(this._evento) { //Si hay un evento seteado...
 			//- 1 - Hay que llamar a una ventana de control especifica para este evento?
 			if(existe_funcion(this, "evt__" + this._evento.id)){

@@ -1,14 +1,17 @@
+
 ci.prototype = new ei();
-var def = ci.prototype;
-def.constructor = ci;
-//--------------------------------------------------------------------------------
-//Clase ci 
+ci.prototype.constructor = ci;
+
+/**
+ * @class Componente responsable de manejar la pantalla y sus distintos elementos
+ * @constructor
+ */
 function ci(instancia, form, input_submit, id_en_controlador) {
+	this.controlador = null;							//CI contenedor	
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form;									//Nombre del form contenedor del objeto
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
 	this._id_en_controlador = id_en_controlador;		//ID del tab actual
-	this.controlador = null;							//CI contenedor
 	this._deps = {};									//Listado asociativo de dependencias
 	this._en_submit = false;							//¿Esta en proceso de submit el CI?
 	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
@@ -17,40 +20,59 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	this.reset_evento();
 }
 
-	def.agregar_objeto = function(objeto, identificador) {
+	/**
+	 *	@private
+	 */
+	ci.prototype.agregar_objeto = function(objeto, identificador) {
 		objeto.set_controlador(this);
 		this._deps[identificador] = objeto;
 	};
 
-	def.dependencia = function(identificador) {
+	/**
+	 * Retorna la referencia a un componente hijo o dependiente del actual
+	 * @type ei
+	 */
+	ci.prototype.dependencia = function(identificador) {
 		return this._deps[identificador];
 	};
 	
-	def.iniciar = function() {
+	/**
+	 * @see #dependencia
+	 */
+	ci.prototype.dep = function(identificador) {
+		return this.dependencia(identificador);	
+	}
+	
+	ci.prototype.iniciar = function() {
 		for (var dep in this._deps) {
 			this._deps[dep].iniciar();
 		}
 	};
 	
-	//Retorna el nodo DOM donde se muestra el componente
-	def.nodo = function() {
+	/**
+	 * Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 
+	 */
+	ci.prototype.nodo = function() {
 		return document.getElementById(this._instancia + '_cont');	
 	};
 	
 	//---Eventos	
-	def.set_evento = function(evento) {
+	ci.prototype.set_evento = function(evento) {
 		this._evento = evento;
 		this.submit();
 	};
 	
 
 	//---SUBMIT
-	//El proceso de SUBMIT se divide en partes:
-	//1- Se sube hasta el CI raiz
-	//2- El raiz analiza si puede hacerlo (recorriendo los hijos)
-	//2-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)
-	//Intenta realizar el submit de todos los objetos asociados
-	def.submit = function() {
+	/**
+	 * Intenta realizar el submit de todos los objetos asociados
+	 * El proceso de SUBMIT se divide en partes:<br>
+	 * 1- Se sube hasta el CI raiz<br>
+	 * 2- El raiz analiza si puede hacerlo (recorriendo los hijos)<br>
+	 * 3-Se envia el submit a los hijos y se hace el procesamiento para PHP (esto es irreversible)<br>
+	 */
+	ci.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) { //Primero debe consultar si su padre está en proceso
 			return this.controlador.submit();
 		}
@@ -72,8 +94,11 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 		this._en_submit = false;
 	};
-	
-	def.submit_recursivo = function()
+
+	/**
+	 * @private
+	 */
+	ci.prototype.submit_recursivo = function()
 	{
 		for (var dep in this._deps) {
 			this._deps[dep].submit();
@@ -84,12 +109,14 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 	};
 	
-	def.en_submit = function() {
+	/**
+	 *	@private
+	 */
+	ci.prototype.en_submit = function() {
 		return this._en_submit;		
 	};
 	
-	//Chequea si es posible realiza el submit de todos los objetos asociados
-	def.puede_submit = function() {
+	ci.prototype.puede_submit = function() {
 		if (this._evento) {
 			//- 1 - Hay que realizar las validaciones y preguntarle a los hijos si pueden hacer submit
 			//		La validación no es recursiva para evitar doble chequeos en los hijos
@@ -120,7 +147,10 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 	};
 	
-	def.objetos_pueden_submit = function() {
+	/**
+	 * @private
+	 */
+	ci.prototype.objetos_pueden_submit = function() {
 		if(this._evento && this._evento.validar) {
 			var ok = true;
 			for (var dep in this._deps) {
@@ -133,16 +163,18 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 	};
 	
-	def.resetear_errores = function() {
+	ci.prototype.resetear_errores = function() {
 		for (var dep in this._deps) {
 			this._deps[dep].resetear_errores();
 		}
 		this.notificar(false);
 	};
 	
-	//---VALIDACION
-	//Realiza la validación de este objeto, y opcionalmente de los que están contenidos
-	def.validar = function(recursivo) {
+	/**
+	 * Realiza la validación de este objeto, y opcionalmente de los que están contenidos
+	 * Para agregar validaciones particulares a nivel de este ci, definir el metodo <em>evt__validar_datos</em>
+	 */
+	ci.prototype.validar = function(recursivo) {
 		if (typeof recursivo == 'undefined') {
 			recursivo = true;
 		}
@@ -162,7 +194,12 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	};
 	
 	//---Notificaciones
-	def.notificar = function(mostrar) {
+	/**
+	 * Muestra en la barra del componente un icono de acceso a las notificaciones
+	 * @see notificacion
+	 * @param {boolean} mostrar Mostrar (true) u ocultar (false);
+	 */
+	ci.prototype.notificar = function(mostrar) {
 		var barra = document.getElementById('barra_' + this._instancia);
 		if (barra) {
 			if (mostrar) {
@@ -175,22 +212,36 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 
 	//---Navegación 
 
-	def.ir_a_pantalla = function(pantalla) {
+	/**
+	 * Ejecuta el evento de cambiar de pantalla (similar a cambiar de tab manualmente)
+	 * @param {string} pantalla Id. de la pantalla destino
+	 */
+	ci.prototype.ir_a_pantalla = function(pantalla) {
 		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
 	};
 	
 	
-	def.ir_a_anterior = function() {
+	/**
+	 * Cuando el componente tiene navegacion wizard, navega hacia la pantalla anterior
+	 */
+	ci.prototype.ir_a_anterior = function() {
 		this.ir_a_pantalla('_anterior');	
 	};	
-		
-	def.ir_a_siguiente = function() {
+
+	/**
+	 * Cuando el componente tiene navegacion wizard, navega hacia la pantalla siguiente
+	 */	
+	ci.prototype.ir_a_siguiente = function() {
 		this.ir_a_pantalla('_siguiente');
 	};
 
 	//--- Control de TABS
 	
-	def.activar_tab = function(id) {
+	/**
+	 * Activa un tab previamente desactivado
+	 * @see #desactivar_tab
+	 */
+	ci.prototype.activar_tab = function(id) {
 		var boton = this.get_tab(id);
 		if(boton){
 			if (boton.onclick_viejo !== '') {
@@ -199,7 +250,12 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 	};
 
-	def.desactivar_tab = function(id) {
+	/**
+	 * Impide que el usuario pueda pulsar sobre un tab o solapa, aunque mantiene la misma visible
+	 * @param {string} id Id. de la pantalla destino
+	 * @see #activar_tab
+	 */
+	ci.prototype.desactivar_tab = function(id) {
 		var boton = this.get_tab(id);
 		if(boton) {
 			boton.onclick_viejo = boton.onclick;
@@ -207,27 +263,40 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		}
 	};
 
-	def.mostrar_tab = function (id) {
+	/**
+	 * Muestra un tab previamente ocultado
+	 * @param {string} id Id. de la pantalla destino
+	 */
+	ci.prototype.mostrar_tab = function (id) {
 		tab = this.get_tab(id);
 		if(tab) {
 			tab.parentNode.style.display = '';
 		}
-	}
+	};
 
-	def.ocultar_tab = function (id) {
+	/**
+	 * Oculta un tab completo
+	 * @param {string} id Id. de la pantalla asociada al tab
+	 * @see #mostrar_tab
+	 */
+	ci.prototype.ocultar_tab = function (id) {
 		tab = this.get_tab(id);
 		if(tab) {
 			tab.parentNode.style.display = 'none';
 		}
-	}
+	};
 
-	def.get_tab = function(id) {
+	/**
+	 * Retorna la referencia al tag HTML que contiene un tab o solapa
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 	
+	 */
+	ci.prototype.get_tab = function(id) {
 		if (id == this._id_en_controlador) {
 			notificacion.agregar('No es posible modificar el estado del tab correspondiente a la pantalla actual');
 			notificacion.mostrar();
 			return;
 		}
 		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
-	}	
+	};	
 	
 toba.confirmar_inclusion('componentes/ci');

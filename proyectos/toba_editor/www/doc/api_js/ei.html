@@ -88,6 +88,27 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- =========== FIELD SUMMARY =========== -->
 
+   <A NAME="field_summary"><!-- --></A>
+      <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+         <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+            <TD COLSPAN=2><FONT SIZE="+2">
+               <B>Field Summary</B></FONT></TD>
+         </TR>
+
+   <!-- This is one instance field summary -->
+   
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+   <CODE>&nbsp;<a href="ei.html">ei</a></CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#controlador">controlador</A></B></CODE>
+   <BR>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Componente padre o contenedor del actual</TD>
+   </TR>
+   
+
+   </TABLE>
+   &nbsp;
+   
 
    
 
@@ -140,11 +161,28 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#activar_boton">activar_boton</A></B>(id)
+	       <A HREF="#activar_boton">activar_boton</A></B>(&lt;string&gt; id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Activa un boton previamente desactivado
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#boton_colapsar">boton_colapsar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Referencia al tag HTML que representa el boton de colapsar/descolapsar
       </TD>
    </TR>
 
@@ -161,7 +199,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Invierte el colapsado del componente
       </TD>
    </TR>
 
@@ -178,7 +216,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Colapsa el componente permitiendo, que el usuario puede descolapsarlo pulsando un ícono
       </TD>
    </TR>
 
@@ -208,11 +246,12 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#desactivar_boton">desactivar_boton</A></B>(id)
+	       <A HREF="#desactivar_boton">desactivar_boton</A></B>(&lt;string&gt; id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Desactiva un boton asociado al componente, 
+ esto no permite que el usuario lo pulse aunque aun es visible
       </TD>
    </TR>
 
@@ -229,7 +268,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Descolpsa explícitamente el componente previamente colapsado
       </TD>
    </TR>
 
@@ -242,11 +281,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#get_boton">get_boton</A></B>(id)
+	       <A HREF="#get_boton">get_boton</A></B>(&lt;string&gt; id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Referencia al tag HTML de un boton especifico
       </TD>
    </TR>
 
@@ -278,28 +317,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#mostrar_boton">mostrar_boton</A></B>(id)
+	       <A HREF="#mostrar_boton">mostrar_boton</A></B>(&lt;string&gt; id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
-
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#obtener_boton_colapsar">obtener_boton_colapsar</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Muestra un boton previamente ocultado
       </TD>
    </TR>
 
@@ -312,11 +334,11 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       <TD>
 	 <CODE>
 	    <B>
-	       <A HREF="#ocultar_boton">ocultar_boton</A></B>(id)
+	       <A HREF="#ocultar_boton">ocultar_boton</A></B>(&lt;string&gt; id)
 	 </CODE>
 	 <BR>
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
+	 Oculta un boton/evento a la vista del usuario
       </TD>
    </TR>
 
@@ -452,6 +474,24 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- ============ FIELD DETAIL START =========== -->
 
+   <A NAME="field_detail"><!-- --></A>
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+         <TD COLSPAN=1><FONT SIZE="+2"><B>Field Detail</B></FONT></TD>
+      </TR>
+   </TABLE>
+
+   
+   <A NAME="controlador"><!-- --></A>
+   <H3>controlador</H3>
+   <PRE><a href="ei.html">ei</a>&nbsp;<B>controlador</B></PRE>
+   <UL>
+   Componente padre o contenedor del actual
+   
+   </UL>
+   <HR>
+   
+
 
 <!-- ============ FIELD DETAIL END =========== -->
 
@@ -503,7 +543,39 @@ ei</H3>
 
    <A NAME="activar_boton"><!-- --></A>
    <H3>activar_boton</H3>
-   <PRE>void <B>activar_boton</B>(id)</PRE>
+   <PRE>void <B>activar_boton</B>(&lt;string&gt; id)</PRE>
+   
+      <UL>Activa un boton previamente desactivado</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id</CODE> -  Id. del boton/evento a activar  
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#desactivar_boton">desactivar_boton()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="boton_colapsar"><!-- --></A>
+   <H3>boton_colapsar</H3>
+   <PRE>Object <B>boton_colapsar</B>()</PRE>
+   
+      <UL>Referencia al tag HTML que representa el boton de colapsar/descolapsar</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -521,6 +593,8 @@ ei</H3>
    <H3>cambiar_colapsado</H3>
    <PRE>void <B>cambiar_colapsado</B>()</PRE>
    
+      <UL>Invierte el colapsado del componente</UL>
+   
 
    <!-- METHOD PARAMETERS START -->
    
@@ -530,12 +604,18 @@ ei</H3>
 
    <!-- ADDITIONAL ATTRIBUTES START -->
    
+   <UL>   
+   <B>See:</B><UL>- <a href="#colapsar">colapsar()</a><BR/>- <a href="#descolapsar">descolapsar()</a></UL>
+   </UL>
+   
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
    <A NAME="colapsar"><!-- --></A>
    <H3>colapsar</H3>
    <PRE>void <B>colapsar</B>()</PRE>
+   
+      <UL>Colapsa el componente permitiendo, que el usuario puede descolapsarlo pulsando un ícono</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -569,10 +649,21 @@ ei</H3>
 
    <A NAME="desactivar_boton"><!-- --></A>
    <H3>desactivar_boton</H3>
-   <PRE>void <B>desactivar_boton</B>(id)</PRE>
+   <PRE>void <B>desactivar_boton</B>(&lt;string&gt; id)</PRE>
+   
+      <UL>Desactiva un boton asociado al componente, 
+ esto no permite que el usuario lo pulse aunque aun es visible</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id</CODE> -  Id. del boton/evento a desactivar  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -580,12 +671,18 @@ ei</H3>
 
    <!-- ADDITIONAL ATTRIBUTES START -->
    
+   <UL>   
+   <B>See:</B><UL>- <a href="#activar_boton">activar_boton()</a></UL>
+   </UL>
+   
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
    <A NAME="descolapsar"><!-- --></A>
    <H3>descolapsar</H3>
    <PRE>void <B>descolapsar</B>()</PRE>
+   
+      <UL>Descolpsa explícitamente el componente previamente colapsado</UL>
    
 
    <!-- METHOD PARAMETERS START -->
@@ -601,10 +698,20 @@ ei</H3>
 
    <A NAME="get_boton"><!-- --></A>
    <H3>get_boton</H3>
-   <PRE>Object <B>get_boton</B>(id)</PRE>
+   <PRE>Object <B>get_boton</B>(&lt;string&gt; id)</PRE>
+   
+      <UL>Referencia al tag HTML de un boton especifico</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id</CODE> -  Id. del boton/evento
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -641,10 +748,20 @@ ei</H3>
 
    <A NAME="mostrar_boton"><!-- --></A>
    <H3>mostrar_boton</H3>
-   <PRE>void <B>mostrar_boton</B>(id)</PRE>
+   <PRE>void <B>mostrar_boton</B>(&lt;string&gt; id)</PRE>
+   
+      <UL>Muestra un boton previamente ocultado</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id</CODE> -  Id. del boton/evento a mostrar  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
@@ -652,37 +769,39 @@ ei</H3>
 
    <!-- ADDITIONAL ATTRIBUTES START -->
    
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="obtener_boton_colapsar"><!-- --></A>
-   <H3>obtener_boton_colapsar</H3>
-   <PRE>Object <B>obtener_boton_colapsar</B>()</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
+   <UL>   
+   <B>See:</B><UL>- <a href="#ocultar_boton">ocultar_boton()</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>
 
    <A NAME="ocultar_boton"><!-- --></A>
    <H3>ocultar_boton</H3>
-   <PRE>void <B>ocultar_boton</B>(id)</PRE>
+   <PRE>void <B>ocultar_boton</B>(&lt;string&gt; id)</PRE>
+   
+      <UL>Oculta un boton/evento a la vista del usuario</UL>
    
 
    <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id</CODE> -  Id. del boton/evento a ocultar  
+      </UL> 
+   
+   </UL>
    
    <!-- METHOD PARAMETERS END -->
 
    
 
    <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#mostrar_boton">mostrar_boton()</a></UL>
+   </UL>
    
    <!-- ADDITIONAL ATTRIBUTES  END -->
 <HR>

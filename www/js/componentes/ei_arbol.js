@@ -1,9 +1,11 @@
-//--------------------------------------------------------------------------------
-//Clase ei_arbol
-ei_arbol.prototype = new ei();
-var def = ei_arbol.prototype;
-def.constructor = ei_arbol;
 
+ei_arbol.prototype = new ei();
+ei_arbol.prototype.constructor = ei_arbol;
+
+/**
+ * @class Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
+ * @constructor
+ */
 function ei_arbol(instancia, input_submit, autovinculo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
@@ -11,7 +13,7 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 }
 
 	//---Submit
-	def.submit = function() {
+	ei_arbol.prototype.submit = function() {
 		var padre_esta_en_proceso = this.controlador && !this.controlador.en_submit();
 		if (padre_esta_en_proceso) {
 			return this.controlador.submit();
@@ -27,11 +29,18 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		document.getElementById(this._input_submit + '__apertura_datos').value = this.datos_apertura();
 	};
 
-	def.ver_propiedades = function(id) {
+	/**
+	 * Dispara en el servidor el evento ver_propiedades sobre un id especifico de nodo
+	 * @param {string} Id Identificador del nodo que se quiere ver mas propiedades
+	 */
+	ei_arbol.prototype.ver_propiedades = function(id) {
 		this.set_evento( new evento_ei('ver_propiedades', true, '', id));
 	};
 
-	def.datos_apertura = function() {
+	/**
+	 *	@private
+	 */
+	ei_arbol.prototype.datos_apertura = function() {
 		var raiz = document.getElementById(this._instancia + '_nodo_raiz');
 		var datos = {};
 		if (raiz !== null) {
@@ -50,7 +59,10 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		return datos_join.join('||');
 	};
 	
-	def.datos_apertura_recursivo = function(nodo, datos) {
+	/**
+	 *	@private
+	 */
+	ei_arbol.prototype.datos_apertura_recursivo = function(nodo, datos) {
 		if (nodo.getAttribute('id_nodo')) {
 			datos[nodo.getAttribute('id_nodo')] = (nodo.style.display != 'none');
 		}
@@ -63,7 +75,11 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		}			
 	};
 	
-	def.cambiar_expansion = function(nodo) {
+	/**
+	 * Invierte la expansión de un nodo especifico del arbol
+	 * @param {Element} nodo Nodo HTML a expandir
+	 */
+	ei_arbol.prototype.cambiar_expansion = function(nodo) {
 		var ul = this.buscar_primer_ul(nodo.parentNode);
 		if (ul && ul.getAttribute('id_nodo')) {
 			if (ul.innerHTML === '') {
@@ -83,7 +99,11 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		}
 	};
 	
-	def.retorno_expansion = function(resultado)
+	/**
+	 * Callback de retorno del pedido de expansion AJAX
+	 * @private
+	 */
+	ei_arbol.prototype.retorno_expansion = function(resultado)
 	{
 		var nodo =resultado.argument;
 		var ul = this.buscar_primer_ul(nodo.parentNode);		
@@ -94,7 +114,10 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		return true;
 	};
 	
-	def.toggle_expansion = function(nodo, ul)
+	/**
+	 * @private
+	 */
+	ei_arbol.prototype.toggle_expansion = function(nodo, ul)
 	{
 		if (ul.style.display == 'none') {
 			ul.style.display = '';
@@ -104,9 +127,12 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 			nodo.src = toba.imagen('expandir_nodo');
 		}
 	};
-	
-	def.buscar_primer_ul = function(nodo) {
-		//Busca el primer <ul> en este nodo y le cambia la visibilidad
+
+	/**
+	 * Busca el primer <ul> en este nodo y le cambia la visibilidad
+	 * @private
+	 */	
+	ei_arbol.prototype.buscar_primer_ul = function(nodo) {
 		for (var i=0; i < nodo.childNodes.length; i++) {
 			if (nodo.childNodes[i].tagName == 'UL') {
 				return nodo.childNodes[i];

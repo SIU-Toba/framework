@@ -79,7 +79,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </DL>
    
    <P>
-   <br><I>Defined in <a href='overview-summary-ei_formulario.js.html'>ei_formulario.js</a></I><BR/><BR/>
+   <BR/>Un formulario simple presenta una grilla de campos editables. 
+ A cada uno de estos campos se los denomina Elementos de Formulario (efs).
+ <BR/><br><I>Defined in <a href='overview-summary-ei_formulario.js.html'>ei_formulario.js</a></I><BR/><BR/><B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
    </P>
    
    <HR>
@@ -91,9 +93,43 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- =========== FIELD SUMMARY =========== -->
 
+   <A NAME="field_summary"><!-- --></A>
+      <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+         <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+            <TD COLSPAN=2><FONT SIZE="+2">
+               <B>Field Summary</B></FONT></TD>
+         </TR>
+
+   <!-- This is one instance field summary -->
+   
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+   <CODE>&nbsp;Object</CODE></FONT></TD>
+   <TD><CODE><B><A HREF="#controlador">controlador</A></B></CODE>
+   <BR>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+   </TR>
+   
+
+   </TABLE>
+   &nbsp;
+   
 
    
    
+   &nbsp;<A NAME=""><!-- --></A>
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+   <TD><B>Fields inherited from class <A HREF="ei.html">ei</A></B></TD>
+   </TR>
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+   <TD><CODE>
+   <a href="ei.html#controlador">controlador</a>
+   </CODE></TD>
+   </TR>
+</TABLE>
+&nbsp;
+
 
 
 <!-- =========== END FIELD SUMMARY =========== -->
@@ -128,6 +164,252 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 <!-- ========== METHOD SUMMARY =========== -->
 
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TD COLSPAN=2><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TD>
+</TR>
+
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cambiar_expansion">cambiar_expansion</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Invierte la expansión del formulario
+ Cuando el formulario se encuentra contraido los efs marcados como colapsados en el editor no se muestran
+ Este metodo no tiene relacion con el colapsar/descolapsar que se encargan de colapsar el componente como un todo
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_cambio_maestro">cascadas_cambio_maestro</A></B>(&lt;string&gt; id_ef)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_comunicar">cascadas_comunicar</A></B>(&lt;string&gt; id_ef, valores)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>
+ Se comunica al servidor que debe refrescar el valor de un ef en base a valores especificos de sus efs maestros
+ Este método dispara la llamada asincronica al servidor
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;boolean</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_maestros_preparados">cascadas_maestros_preparados</A></B>(&lt;string&gt; id_esclavo)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>	
+ Determina si los maestros de un ef esclavo tienen sus valores cargados
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_preparar_esclavo">cascadas_preparar_esclavo</A></B>(&lt;string&gt; id_esclavo)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>
+ Un ef esclavo esta listo para refrescar su valor en base a sus maestros,
+ para esto en este metodo se recolecta los valores de sus maestros y se dispara 
+ la comunicación con el servidor
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#cascadas_respuesta">cascadas_respuesta</A></B>(&lt;Object&gt; respuesta)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Esquema de Cascadas:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef puntual
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;<a href="ef.html">ef</a></CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#ef">ef</A></B>(id)
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Accede a la instancia de un ef especifico
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;<a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#nodo">nodo</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;boolean</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#puede_submit">puede_submit</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#refrescar_todo">refrescar_todo</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Fuerza un refuerzo grafico del componente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;void</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#resetear_errores">resetear_errores</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Limpia el componente de errores producidos anteriormente
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#submit">submit</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor
+      </TD>
+   </TR>
+
+   <TR BGCOLOR="white" CLASS="TableRowColor">
+      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
+	 <FONT SIZE="-1">
+	    <CODE>&nbsp;Object</CODE>
+	 </FONT>
+      </TD>
+      <TD>
+	 <CODE>
+	    <B>
+	       <A HREF="#validar">validar</A></B>()
+	 </CODE>
+	 <BR>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em>
+      </TD>
+   </TR>
+
+
+</TABLE>
+
 
 
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -138,7 +420,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE>
 <!-- Inherited methods -->
-<a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#submit">submit</a>, <a href="ei.html#puede_submit">puede_submit</a>, <a href="ei.html#resetear_errores">resetear_errores</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#obtener_boton_colapsar">obtener_boton_colapsar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
+<a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
 </CODE></TD>
 </TR>
 </TABLE>
@@ -149,6 +431,24 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 
 
 <!-- ============ FIELD DETAIL START =========== -->
+
+   <A NAME="field_detail"><!-- --></A>
+   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+         <TD COLSPAN=1><FONT SIZE="+2"><B>Field Detail</B></FONT></TD>
+      </TR>
+   </TABLE>
+
+   
+   <A NAME="controlador"><!-- --></A>
+   <H3>controlador</H3>
+   <PRE>Object&nbsp;<B>controlador</B></PRE>
+   <UL>
+   
+   
+   </UL>
+   <HR>
+   
 
 
 <!-- ============ FIELD DETAIL END =========== -->
@@ -180,6 +480,10 @@ ei_formulario</H3>
 
 <!-- ADDITIONAL ATTRIBUTES -->
 
+<UL>   
+<B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
+</UL>
+
 <HR/>
 <!-- END ADDITIONAL ATTRIBUTES  -->
 
@@ -187,6 +491,317 @@ ei_formulario</H3>
 
 
 <!-- ============ METHOD DETAIL START ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
+   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+      <TD COLSPAN=1><FONT SIZE="+2">
+         <B>Method Detail</B></FONT>
+      </TD>
+   </TR>
+</TABLE>
+
+<!-- One single method detail entry -->
+
+   <A NAME="cambiar_expansion"><!-- --></A>
+   <H3>cambiar_expansion</H3>
+   <PRE>void <B>cambiar_expansion</B>()</PRE>
+   
+      <UL>Invierte la expansión del formulario
+ Cuando el formulario se encuentra contraido los efs marcados como colapsados en el editor no se muestran
+ Este metodo no tiene relacion con el colapsar/descolapsar que se encargan de colapsar el componente como un todo</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_cambio_maestro"><!-- --></A>
+   <H3>cascadas_cambio_maestro</H3>
+   <PRE>void <B>cascadas_cambio_maestro</B>(&lt;string&gt; id_ef)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>
+ Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_ef</CODE> -  Identificador del ef maestro que sufrio una modificación 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_comunicar"><!-- --></A>
+   <H3>cascadas_comunicar</H3>
+   <PRE>void <B>cascadas_comunicar</B>(&lt;string&gt; id_ef, valores)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>
+ Se comunica al servidor que debe refrescar el valor de un ef en base a valores especificos de sus efs maestros
+ Este método dispara la llamada asincronica al servidor</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_ef</CODE> -  Id. del ef a refrescar (un ef esclavo)  
+      </UL> 
+   
+     <UL><CODE>string</CODE> -  valores Lista plana de valores. Formato: ef1-;-valor1-|-ef2-;-valor2-|- etc. 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="#cascadas_respuesta">cascadas_respuesta()</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_maestros_preparados"><!-- --></A>
+   <H3>cascadas_maestros_preparados</H3>
+   <PRE>boolean <B>cascadas_maestros_preparados</B>(&lt;string&gt; id_esclavo)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>	
+ Determina si los maestros de un ef esclavo tienen sus valores cargados</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_esclavo</CODE> -  Identificador del ef esclavo  
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_preparar_esclavo"><!-- --></A>
+   <H3>cascadas_preparar_esclavo</H3>
+   <PRE>void <B>cascadas_preparar_esclavo</B>(&lt;string&gt; id_esclavo)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>
+ Un ef esclavo esta listo para refrescar su valor en base a sus maestros,
+ para esto en este metodo se recolecta los valores de sus maestros y se dispara 
+ la comunicación con el servidor</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>id_esclavo</CODE> -  Identificador del ef esclavo que se refrescara 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="cascadas_respuesta"><!-- --></A>
+   <H3>cascadas_respuesta</H3>
+   <PRE>void <B>cascadas_respuesta</B>(&lt;Object&gt; respuesta)</PRE>
+   
+      <UL>Esquema de Cascadas:<br>
+ Respuesta del servidor ante el pedido de refresco de un ef puntual</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <UL>
+   <B>Parameters:</B>
+   
+     <UL><CODE>respuesta</CODE> -  La respuesta es un objeto asociativo con claves responseText que contiene el nuevo valor del ef 	   
+      </UL> 
+   
+   </UL>
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="ef"><!-- --></A>
+   <H3>ef</H3>
+   <PRE><a href="ef.html">ef</a> <B>ef</B>(id)</PRE>
+   
+      <UL>Accede a la instancia de un ef especifico</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <UL>   
+   <B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
+   </UL>
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="nodo"><!-- --></A>
+   <H3>nodo</H3>
+   <PRE><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> <B>nodo</B>()</PRE>
+   
+      <UL>Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="puede_submit"><!-- --></A>
+   <H3>puede_submit</H3>
+   <PRE>boolean <B>puede_submit</B>()</PRE>
+   
+      <UL>Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="refrescar_todo"><!-- --></A>
+   <H3>refrescar_todo</H3>
+   <PRE>void <B>refrescar_todo</B>()</PRE>
+   
+      <UL>Fuerza un refuerzo grafico del componente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="resetear_errores"><!-- --></A>
+   <H3>resetear_errores</H3>
+   <PRE>void <B>resetear_errores</B>()</PRE>
+   
+      <UL>Limpia el componente de errores producidos anteriormente</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="submit"><!-- --></A>
+   <H3>submit</H3>
+   <PRE>Object <B>submit</B>()</PRE>
+   
+      <UL>Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
+   <A NAME="validar"><!-- --></A>
+   <H3>validar</H3>
+   <PRE>Object <B>validar</B>()</PRE>
+   
+      <UL>Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em></UL>
+   
+
+   <!-- METHOD PARAMETERS START -->
+   
+   <!-- METHOD PARAMETERS END -->
+
+   
+
+   <!-- ADDITIONAL ATTRIBUTES START -->
+   
+   <!-- ADDITIONAL ATTRIBUTES  END -->
+<HR>
+
 
 
 <!-- ============ METHOD DETAIL END ========== -->
