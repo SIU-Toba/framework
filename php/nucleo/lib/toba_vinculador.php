@@ -5,7 +5,8 @@
  * ITEM actual puede acceder (considerando el USUARIO que lo solicito)
  * Para navegar hacia estos items puede construir URLs e incluirlos en algún TAG
  * @package Centrales
- * @todo que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual
+ * @jsdoc vinculador vinculador
+ * @todo agregar un nivel de vinculos globales para un OBJETO puntual
  */
 class toba_vinculador 
 {

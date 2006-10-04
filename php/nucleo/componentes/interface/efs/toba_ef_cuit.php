@@ -2,6 +2,9 @@
 
 /**
  * Triple editbox que constituyen las 3 partes del CUIT/CUIL
+ * @package Componentes
+ * @subpackage Efs 
+ * @jsdoc ef_cuit ef_cuit
  */
 class toba_ef_cuit extends toba_ef
 {

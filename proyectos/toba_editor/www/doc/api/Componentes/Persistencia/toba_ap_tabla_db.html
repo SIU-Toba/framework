@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -155,30 +154,29 @@
             <ul>
                 <li><a href="../../Componentes/Persistencia/toba_ap_tabla.html">toba_ap_tabla</a></li>            </ul>
         </p>
-        		<p align="center" class="short-description"><strong>Administrador de persistencia a una tabla de DB desde un toba_datos_tabla  Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
+        		<p align="center" class="short-description"><strong>Administrador de persistencia a una tabla de DB desde un <a href="../../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>  Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos
 </strong></p>
 
 		<p class="notes">
-			Ubicada en /componentes/persistencia/toba_ap_tabla_db.php [<span class="field">line 22</span>]
+			Ubicada en /nucleo/componentes/persistencia/toba_ap_tabla_db.php [<span class="field">line 21</span>]
 		</p>
 
 		
 		<pre></pre>
 
 		
-				<strong>Author(s):</strong>
+		<!--		
+		<strong>Author(s):</strong>
 		<ul>
-		  			 		  			 		  			 		  			 		  			 		  		</ul>
+		  			 		  			 		  			 		  			 		  		</ul> -->
 		
 		
-<strong>Information Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
-			<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Poder desactivar el control de sincronizacion (¿se necesita esto?)</td></tr>
-				<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Como se implementa la carga de columnas externas??</td></tr>
-				<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Donde se hacen los controles pre-sincronizacion (nulos db)??</td></tr>
-				<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Hay que definir el manejo de claves (en base a toba_datos_relacion)</td></tr>
-				<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Esta clase no deberia utilizar ADOdb!!!</td></tr>
-	</table>
+						<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Poder desactivar el control de sincronizacion (¿se necesita esto?)</td></tr>
+										<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Como se implementa la carga de columnas externas??</td></tr>
+										<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Donde se hacen los controles pre-sincronizacion (nulos db)??</td></tr>
+										<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Hay que definir el manejo de claves (en base a toba_datos_relacion)</td></tr>
+				</table>
 		</td>
 		</tr></table>
 	</div>
@@ -191,7 +189,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																																																																																																																																																																																																																																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">toba_ap_tabla_db</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -203,38 +201,28 @@
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#activar_control_sincro" title="details" class="method-name">activar_control_sincro</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#activar_modificacion_clave" title="details" class="method-name">activar_modificacion_clave</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Permite que las modificaciones puedan cambiar las claves del registro</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#activar_proceso_carga_externa_dao" title="details" class="method-name">activar_proceso_carga_externa_dao</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+					<td class="method-definition">Carga una columna separada del proceso común de carga  Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#activar_proceso_carga_externa_sql" title="details" class="method-name">activar_proceso_carga_externa_sql</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+					<td class="method-definition">Carga una columna separada del proceso común de carga  Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#activar_transaccion" title="details" class="method-name">activar_transaccion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Utilizar una transaccion de BD cuando sincroniza la tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#actualizar_columnas_predeterminadas_db" title="details" class="method-name">actualizar_columnas_predeterminadas_db</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Actualiza en los registros los valores generados por el motor durante la transacción</td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#cargar" title="details" class="method-name">cargar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
@@ -249,7 +237,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cargar_con_where" title="details" class="method-name">cargar_con_where</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Carga el datos_tabla asociaciado a partir de una clausula where</td></tr>
+					<td class="method-definition">Carga el datos_tabla asociaciado a partir de una clausula where personalizada</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
@@ -268,68 +256,58 @@
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#controlar_alteracion_db" title="details" class="method-name">controlar_alteracion_db</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#desactivar_control_sincro" title="details" class="method-name">desactivar_control_sincro</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#desactivar_transaccion" title="details" class="method-name">desactivar_transaccion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">No utilizar una transaccion de BD cuando sincroniza la tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#ejecutar_sql" title="details" class="method-name">ejecutar_sql</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Alias de la función global ejecutar_sql</td></tr>
+					<td class="method-definition">Shortcut de toba_db::ejecutar()</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#eliminar_registro_db" title="details" class="method-name">eliminar_registro_db</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ejecuta un delete de un registro en la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_delete" title="details" class="method-name">evt__post_delete</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión posterior al borrado de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_insert" title="details" class="method-name">evt__post_insert</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_sincronizacion" title="details" class="method-name">evt__post_sincronizacion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos</td></tr>
+					<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__post_update" title="details" class="method-name">evt__post_update</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__pre_delete" title="details" class="method-name">evt__pre_delete</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión previa al borrado de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__pre_insert" title="details" class="method-name">evt__pre_insert</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión previo a la inserción de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__pre_sincronizacion" title="details" class="method-name">evt__pre_sincronizacion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos</td></tr>
+					<td class="method-definition">Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__pre_update" title="details" class="method-name">evt__pre_update</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base</td></tr>
+					<td class="method-definition">Ventana de extensión previo a la actualización de un registro durante una sincronización con la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -369,7 +347,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#generar_sql_where_registro" title="details" class="method-name">generar_sql_where_registro</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Genera la sentencia WHERE correspondiente a la clave de un registro</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -399,17 +377,17 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#insertar_registro_db" title="details" class="method-name">insertar_registro_db</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Inserta un registro en la base y recupera su secuencia si la tiene</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#log" title="details" class="method-name">log</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#modificar_registro_db" title="details" class="method-name">modificar_registro_db</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ejecuta un update de un registro en la base</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -452,15 +430,15 @@
 					<th class="class-table-header">Descripción</th>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a></td>
-					<td>
-											Clase que se mantiene por compatibildad hacia atrás
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_mt.html">toba_ap_tabla_db_mt</a></td>
 					<td>
 											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a></td>
+					<td>
+											Clase que se mantiene por compatibildad hacia atrás
 										</td>
 				</tr>
 							</table>
@@ -482,7 +460,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 51]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 50]</span>
 </div>
 <br />
 
@@ -517,7 +495,7 @@ $datos_tabla&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">activar_baja_logica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 154]</span>
+	<span class="method-title">activar_baja_logica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 165]</span>
 </div>
 <br />
 
@@ -557,34 +535,11 @@ $valor&nbsp;
 		
 		<br />
 </div>
-<a name="methodactivar_control_sincro" id="activar_control_sincro"><!-- --></a>
+<a name="methodactivar_modificacion_clave" id="activar_modificacion_clave"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">activar_control_sincro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 169]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void activar_control_sincro(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodactivar_modificacion_clave" id="activar_modificacion_clave"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">activar_modificacion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 164]</span>
+	<span class="method-title">activar_modificacion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 175]</span>
 </div>
 <br />
 
@@ -612,10 +567,10 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodactivar_proceso_carga_externa_dao" id="activar_proceso_carga_externa_dao"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">activar_proceso_carga_externa_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 135]</span>
+	<span class="method-title">activar_proceso_carga_externa_dao</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 146]</span>
 </div>
 <br />
 
@@ -634,7 +589,7 @@ $sincro_continua = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.
+	<p align="center" class="short-description"><strong>Carga una columna separada del proceso común de carga  Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -684,10 +639,10 @@ $sincro_continua = true]&nbsp;
 		<br />
 </div>
 <a name="methodactivar_proceso_carga_externa_sql" id="activar_proceso_carga_externa_sql"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">activar_proceso_carga_externa_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 113]</span>
+	<span class="method-title">activar_proceso_carga_externa_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 123]</span>
 </div>
 <br />
 
@@ -704,7 +659,7 @@ $sincro_continua = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.
+	<p align="center" class="short-description"><strong>Carga una columna separada del proceso común de carga  Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -742,10 +697,10 @@ $sincro_continua = true]&nbsp;
 		<br />
 </div>
 <a name="methodactivar_transaccion" id="activar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">activar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 93]</span>
+	<span class="method-title">activar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
 </div>
 <br />
 
@@ -757,7 +712,9 @@ $sincro_continua = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Utilizar una transaccion de BD cuando sincroniza la tabla
+</strong></p>
+
 	<br />
 	
 
@@ -765,10 +722,10 @@ $sincro_continua = true]&nbsp;
 		<br />
 </div>
 <a name="methodactualizar_columnas_predeterminadas_db" id="actualizar_columnas_predeterminadas_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">actualizar_columnas_predeterminadas_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
+	<span class="method-title">actualizar_columnas_predeterminadas_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 444]</span>
 </div>
 <br />
 
@@ -796,56 +753,11 @@ $sincro_continua = true]&nbsp;
 		
 		<br />
 </div>
-<a name="methodcargar" id="cargar"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 187]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void cargar(
-
-$clave&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clave:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.4</td>
-  </tr>
-  <tr>
-    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_por_clave">toba_ap_tabla_db::cargar_por_clave()</a></td>
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
 <a name="methodcargar_con_datos" id="cargar_con_datos"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 263]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 250]</span>
 </div>
 <br />
 
@@ -896,7 +808,7 @@ $anexar_datos = false]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 243]</span>
+	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 231]</span>
 </div>
 <br />
 
@@ -947,7 +859,7 @@ $anexar_datos = false]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 213]</span>
+	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 203]</span>
 </div>
 <br />
 
@@ -962,7 +874,7 @@ $anexar_datos = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Carga el datos_tabla asociaciado a partir de una clausula where
+	<p align="center" class="short-description"><strong>Carga el datos_tabla asociaciado a partir de una clausula where personalizada
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -998,7 +910,7 @@ $anexar_datos = false]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 229]</span>
+	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 218]</span>
 </div>
 <br />
 
@@ -1056,7 +968,7 @@ $anexar_datos = false]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 200]</span>
+	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 190]</span>
 </div>
 <br />
 
@@ -1113,7 +1025,7 @@ $anexar_datos = false]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">completar_campos_externos_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 766]</span>
+	<span class="method-title">completar_campos_externos_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 753]</span>
 </div>
 <br />
 
@@ -1172,64 +1084,11 @@ $evento = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodcontrolar_alteracion_db" id="controlar_alteracion_db"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">controlar_alteracion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 853]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void controlar_alteracion_db(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methoddesactivar_control_sincro" id="desactivar_control_sincro"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">desactivar_control_sincro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 174]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void desactivar_control_sincro(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methoddesactivar_transaccion" id="desactivar_transaccion"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">desactivar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
+	<span class="method-title">desactivar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
 </div>
 <br />
 
@@ -1241,7 +1100,9 @@ $evento = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>No utilizar una transaccion de BD cuando sincroniza la tabla
+</strong></p>
+<span class="description"><p>Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior</p></span>
 	<br />
 	
 
@@ -1252,7 +1113,7 @@ $evento = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 521]</span>
+	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 510]</span>
 </div>
 <br />
 
@@ -1266,7 +1127,7 @@ $sql&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Alias de la función global ejecutar_sql
+	<p align="center" class="short-description"><strong>Shortcut de toba_db::ejecutar()
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1280,7 +1141,14 @@ $sql&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -1289,7 +1157,7 @@ $sql&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 434]</span>
+	<span class="method-title">eliminar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 424]</span>
 </div>
 <br />
 
@@ -1303,7 +1171,9 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ejecuta un delete de un registro en la base
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1331,7 +1201,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 512]</span>
+	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 501]</span>
 </div>
 <br />
 
@@ -1345,7 +1215,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión posterior al borrado de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1375,7 +1245,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 488]</span>
+	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 477]</span>
 </div>
 <br />
 
@@ -1389,7 +1259,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1419,7 +1289,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 476]</span>
+	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 465]</span>
 </div>
 <br />
 
@@ -1431,7 +1301,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
+	<p align="center" class="short-description"><strong>Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
 </strong></p>
 <span class="description"><p>La transacción con la bd aún no se terminó (si es que esta definida)</p></span>
 	<br />
@@ -1451,7 +1321,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 500]</span>
+	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 489]</span>
 </div>
 <br />
 
@@ -1465,7 +1335,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1495,7 +1365,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 506]</span>
+	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 495]</span>
 </div>
 <br />
 
@@ -1509,7 +1379,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión previa al borrado de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1539,7 +1409,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 482]</span>
+	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 471]</span>
 </div>
 <br />
 
@@ -1553,7 +1423,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1583,7 +1453,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 470]</span>
+	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 459]</span>
 </div>
 <br />
 
@@ -1595,7 +1465,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
+	<p align="center" class="short-description"><strong>Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
 </strong></p>
 <span class="description"><p>La transacción con la bd ya fue iniciada (si es que esta definida)</p></span>
 	<br />
@@ -1615,7 +1485,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 494]</span>
+	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 483]</span>
 </div>
 <br />
 
@@ -1629,7 +1499,7 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base
+	<p align="center" class="short-description"><strong>Ventana de extensión previo a la actualización de un registro durante una sincronización con la base
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1659,7 +1529,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_clausula_subselect</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 575]</span>
+	<span class="method-title">generar_clausula_subselect</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 563]</span>
 </div>
 <br />
 
@@ -1710,7 +1580,7 @@ $mapeo_campos&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_clausula_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 558]</span>
+	<span class="method-title">generar_clausula_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 546]</span>
 </div>
 <br />
 
@@ -1719,8 +1589,7 @@ $mapeo_campos&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>array generar_clausula_where(
 [array
-$clave = array()], boolean
-$alias&nbsp;
+$clave = array()]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1736,12 +1605,6 @@ $alias&nbsp;
 				<span class="var-name">$clave:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Arreglo asociativo clave - valor de la clave a filtrar</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$alias:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Útil para cuando se generan SELECTs complejos</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1749,6 +1612,9 @@ $alias&nbsp;
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Clausulas where</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
   </tr>
 </table>
 <br />
@@ -1761,7 +1627,7 @@ $alias&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_clausula_where_lineal</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 533]</span>
+	<span class="method-title">generar_clausula_where_lineal</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 522]</span>
 </div>
 <br />
 
@@ -1801,6 +1667,9 @@ $alias = true]&nbsp;
   <tr>
     <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Clausulas where</td>
   </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
 </table>
 <br />
 
@@ -1812,7 +1681,7 @@ $alias = true]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_sql_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 711]</span>
+	<span class="method-title">generar_sql_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 699]</span>
 </div>
 <br />
 
@@ -1854,7 +1723,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_sql_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 641]</span>
+	<span class="method-title">generar_sql_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 629]</span>
 </div>
 <br />
 
@@ -1896,7 +1765,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_sql_select</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 595]</span>
+	<span class="method-title">generar_sql_select</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 583]</span>
 </div>
 <br />
 
@@ -1962,7 +1831,7 @@ $columnas = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_sql_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 673]</span>
+	<span class="method-title">generar_sql_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 661]</span>
 </div>
 <br />
 
@@ -1997,7 +1866,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_sql_where_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 728]</span>
+	<span class="method-title">generar_sql_where_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 717]</span>
 </div>
 <br />
 
@@ -2011,7 +1880,9 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Genera la sentencia WHERE correspondiente a la clave de un registro
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2032,7 +1903,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 73]</span>
+	<span class="method-title">get_estado_datos_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 72]</span>
 </div>
 <br />
 
@@ -2062,7 +1933,7 @@ $id_registro&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_sql_de_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 629]</span>
+	<span class="method-title">get_sql_de_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 617]</span>
 </div>
 <br />
 
@@ -2099,7 +1970,7 @@ $campos&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 742]</span>
+	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 729]</span>
 </div>
 <br />
 
@@ -2124,7 +1995,7 @@ $campos&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 84]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 86]</span>
 </div>
 <br />
 
@@ -2147,7 +2018,7 @@ $campos&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 71]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
 </div>
 <br />
 
@@ -2179,7 +2050,7 @@ $campos&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">insertar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 402]</span>
+	<span class="method-title">insertar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 391]</span>
 </div>
 <br />
 
@@ -2193,7 +2064,9 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Inserta un registro en la base y recupera su secuencia si la tiene
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2221,7 +2094,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 79]</span>
+	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 81]</span>
 </div>
 <br />
 
@@ -2235,7 +2108,9 @@ $txt&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2263,7 +2138,7 @@ $txt&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">modificar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 421]</span>
+	<span class="method-title">modificar_registro_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 411]</span>
 </div>
 <br />
 
@@ -2277,7 +2152,9 @@ $id_registro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ejecuta un update de un registro en la base
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2305,7 +2182,7 @@ $id_registro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_recuperacion_valor_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 447]</span>
+	<span class="method-title">registrar_recuperacion_valor_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 436]</span>
 </div>
 <br />
 
@@ -2363,7 +2240,7 @@ $valor&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 307]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 295]</span>
 </div>
 <br />
 
@@ -2387,6 +2264,12 @@ $valor&nbsp;
 </table>
 <br />
 
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Throws:</strong>&nbsp;&nbsp;</td><td>toba_error En case de error en la sincronizacion, se aborta la transaccion (si se esta utilizando)</td>
+  </tr>
+</table>
 
 				<hr class="separator" />
 		<div class="notes">Implementation of:</div>
@@ -2401,7 +2284,7 @@ $valor&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 380]</span>
+	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
 </div>
 <br />
 
@@ -2439,7 +2322,7 @@ $valor&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 338]</span>
+	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 326]</span>
 </div>
 <br />
 
@@ -2477,7 +2360,7 @@ $valor&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
+	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 346]</span>
 </div>
 <br />
 
@@ -2520,7 +2403,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$alias</span>
-						<span class="smalllinenumber">[line 29]</span>
+						<span class="smalllinenumber">[line 28]</span>
 		</span>
 	</div>
 
@@ -2544,7 +2427,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$baja_logica</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 36]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
 
@@ -2568,7 +2451,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$baja_logica_columna</span>
-						<span class="smalllinenumber">[line 37]</span>
+						<span class="smalllinenumber">[line 36]</span>
 		</span>
 	</div>
 
@@ -2592,7 +2475,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$baja_logica_valor</span>
-						<span class="smalllinenumber">[line 38]</span>
+						<span class="smalllinenumber">[line 37]</span>
 		</span>
 	</div>
 
@@ -2616,7 +2499,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cambios</span>
-						<span class="smalllinenumber">[line 27]</span>
+						<span class="smalllinenumber">[line 26]</span>
 		</span>
 	</div>
 
@@ -2640,7 +2523,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$clave</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 29]</span>
 		</span>
 	</div>
 
@@ -2664,7 +2547,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$columnas</span>
-						<span class="smalllinenumber">[line 25]</span>
+						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
 
@@ -2688,7 +2571,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$columnas_predeterminadas_db</span>
-						<span class="smalllinenumber">[line 33]</span>
+						<span class="smalllinenumber">[line 32]</span>
 		</span>
 	</div>
 
@@ -2712,7 +2595,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$control_sincro_db</span>
-						<span class="smalllinenumber">[line 42]</span>
+						<span class="smalllinenumber">[line 41]</span>
 		</span>
 	</div>
 
@@ -2736,7 +2619,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$datos</span>
-						<span class="smalllinenumber">[line 26]</span>
+						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -2760,7 +2643,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$flag_modificacion_clave</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 39]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 38]</span>
 		</span>
 	</div>
 
@@ -2784,7 +2667,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$fuente</span>
-						<span class="smalllinenumber">[line 31]</span>
+						<span class="smalllinenumber">[line 30]</span>
 		</span>
 	</div>
 
@@ -2808,7 +2691,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$msg_error_sincro</span>
-			 = <span class="var-default"> &quot;Error interno. Los datos no fueron guardados.&quot;</span>			<span class="smalllinenumber">[line 44]</span>
+			 = <span class="var-default"> &quot;Error interno. Los datos no fueron guardados.&quot;</span>			<span class="smalllinenumber">[line 43]</span>
 		</span>
 	</div>
 
@@ -2832,7 +2715,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$objeto_tabla</span>
-						<span class="smalllinenumber">[line 24]</span>
+						<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
 
@@ -2856,7 +2739,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$proceso_carga_externa</span>
-			 = <span class="var-default"> null</span>			<span class="smalllinenumber">[line 40]</span>
+			 = <span class="var-default"> null</span>			<span class="smalllinenumber">[line 39]</span>
 		</span>
 	</div>
 
@@ -2880,7 +2763,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$secuencias</span>
-						<span class="smalllinenumber">[line 32]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2904,7 +2787,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$sql_carga</span>
-						<span class="smalllinenumber">[line 34]</span>
+						<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -2928,7 +2811,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$tabla</span>
-						<span class="smalllinenumber">[line 28]</span>
+						<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -2952,7 +2835,7 @@ $valor&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$utilizar_transaccion</span>
-			 = <span class="var-default">true</span>			<span class="smalllinenumber">[line 43]</span>
+			 = <span class="var-default">true</span>			<span class="smalllinenumber">[line 42]</span>
 		</span>
 	</div>
 

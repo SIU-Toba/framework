@@ -10,6 +10,7 @@ require_once('nucleo/lib/toba_parser_ayuda.php');
  * Este componente puede mantener sus propiedades en sesion con solo prefijar los nombres de variables con s__ (por ej. protected $s__cuit )
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ci ci
  */
 class toba_ci extends toba_ei
 {

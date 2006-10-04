@@ -10,6 +10,7 @@ define("apex_cuadro_cc_anidado","a");
  * Puede contener cortes de control, paginado y ordenamiento de columnas. 
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ei_cuadro ei_cuadro 
  */
 class toba_ei_cuadro extends toba_ei
 {

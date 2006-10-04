@@ -8,6 +8,7 @@ require_once("nucleo/componentes/interface/efs/toba_ef.php");
  * @todo Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ei_formulario ei_formulario
  */
 class toba_ei_formulario extends toba_ei
 {

@@ -7,6 +7,7 @@
  * para entender las restricciones y el manejo en general del upload de archivos
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_upload ef_upload
  */
 class toba_ef_upload extends toba_ef
 {

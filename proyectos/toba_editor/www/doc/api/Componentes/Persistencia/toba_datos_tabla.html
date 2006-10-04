@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -150,11 +149,11 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<p align="center" class="short-description"><strong>Representa una estructura tipo tabla o RecordSet en memoria
+        		<p align="center" class="short-description"><strong>Representa una estructura tabular tipo tabla o RecordSet en memoria
 </strong></p>
-<span class="description"><p>Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.  Una vez en memoria existen primitivas para trabajar sobre estos datos.  Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.  Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la  transacción de negocios.</p></span>
+<span class="description"><p><ul><li>Utiliza un administrador de persistencia para obtener y sincronizar los datos con un medio de persistencia.</li><li>Una vez en memoria existen primitivas para trabajar sobre estos datos.</li><li>Los datos y sus modificaciones son mantenidos automáticamente en sesión entre los distintos pedidos de página.</li><li>Una vez terminada la edición se hace la sincronización con el medio de persistencia marcando el final de la transacción de negocios.</li></ul></p></span>
 		<p class="notes">
-			Ubicada en /componentes/persistencia/toba_datos_tabla.php [<span class="field">line 18</span>]
+			Ubicada en /nucleo/componentes/persistencia/toba_datos_tabla.php [<span class="field">line 17</span>]
 		</p>
 
 		
@@ -163,15 +162,15 @@
    --toba_datos_tabla</pre>
 
 		
-				<strong>Author(s):</strong>
+		<!--		
+		<strong>Author(s):</strong>
 		<ul>
-		  			 		  		</ul>
+		  			 		  		</ul> -->
 		
 		
-<strong>Information Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
-			<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Control de FK y PK</td></tr>
-	</table>
+						<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Control de FK y PK</td></tr>
+				</table>
 		</td>
 		</tr></table>
 	</div>
@@ -184,7 +183,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">toba_datos_tabla</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -192,12 +191,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#agregar_relacion_con_hijo" title="details" class="method-name">agregar_relacion_con_hijo</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Informa a la tabla que existe una tabla hija de la actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#agregar_relacion_con_padre" title="details" class="method-name">agregar_relacion_con_padre</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Informa a la tabla que existe una tabla padre</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -207,7 +206,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cambiar_padre_fila" title="details" class="method-name">cambiar_padre_fila</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Cambia la asociación de una fila con sus padres</td></tr>
+					<td class="method-definition">Cambia los padres de una fila</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -227,7 +226,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#control_tope_minimo_filas" title="details" class="method-name">control_tope_minimo_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Valida que la cantidad de filas supere el mínimo establecido</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -250,9 +249,9 @@
 					<td class="method-definition">Elimina todas las filas de la tabla en memoria y sincroniza con el medio de persistencia</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#esta_cargada" title="details" class="method-name">esta_cargada</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">La tabla esta cargada con datos?</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -262,12 +261,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__validar_ingreso" title="details" class="method-name">evt__validar_ingreso</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#existe_fila" title="details" class="method-name">existe_fila</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Existe una determina fila? (la fila puede estar marcada como para borrar)</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -285,44 +284,44 @@
 					<td class="method-definition">Retorna el contenido de la fila donde se encuentra posicionado el cursor interno</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_alias" title="details" class="method-name">get_alias</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla</td></tr>
+					<td class="method-definition">Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_cambios" title="details" class="method-name">get_cambios</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la estructura interna que mantiene registro de las modificaciones/altas/bajas producidas en memoria</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_cantidad_filas" title="details" class="method-name">get_cantidad_filas</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Cantidad de filas que tiene la tabla en memoria</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_cantidad_filas_a_sincronizar" title="details" class="method-name">get_cantidad_filas_a_sincronizar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la cantidad de filas que sufrieron cambios desde la carga, y por lo tanto se van a sincronizar</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_clave" title="details" class="method-name">get_clave</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Columnas que son son claves en la tabla</td></tr>
+					<td class="method-definition">Retorna las columnas que son claves en la tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_clave_valor" title="details" class="method-name">get_clave_valor</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el valor de la clave para un fila dada</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_columna" title="details" class="method-name">get_columna</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el valor de la columna de la fila actualmente seleccionada como cursor</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_columnas" title="details" class="method-name">get_columnas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el nombre de las columnas de esta tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -332,32 +331,27 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_cursor" title="details" class="method-name">get_cursor</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el Id. interno de la fila donde se encuentra actualmente el cursor de la tabla</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#get_datos_originales" title="details" class="method-name">get_datos_originales</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_fila" title="details" class="method-name">get_fila</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el contenido de una fila, a partir de su clave interna</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_filas" title="details" class="method-name">get_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna el conjunto de filas que respeta las condiciones dadas</td></tr>
+					<td class="method-definition">Retorna el conjunto de filas que respeta las condiciones dadas  Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_fila_columna" title="details" class="method-name">get_fila_columna</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el valor de una columna en una fila dada</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_fuente" title="details" class="method-name">get_fuente</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el nombre de la <a href="../../Fuentes/toba_fuente_datos.html">fuente de datos</a> utilizado por este componente</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array()</span>&nbsp;&nbsp;</td>
@@ -367,7 +361,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_id_filas_a_sincronizar" title="details" class="method-name">get_id_filas_a_sincronizar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna lasfilas que sufrieron cambios desde la carga</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
@@ -382,7 +376,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_tabla.html">toba_ap_tabla</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_persistidor" title="details" class="method-name">get_persistidor</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna el admin. de persistencia que asiste a este objeto</td></tr>
+					<td class="method-definition">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -390,12 +384,12 @@
 					<td class="method-definition">Retorna el proximo id interno a ser utilizado</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_relacion" title="details" class="method-name">get_relacion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la <a href="../../Componentes/Persistencia/toba_datos_relacion.html">relacion</a> que contiene a esta tabla, si existe</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a></span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_relaciones_con_padres" title="details" class="method-name">get_relaciones_con_padres</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna las relaciones con las tablas padre</td></tr>
 				</div>
@@ -405,14 +399,14 @@
 					<td class="method-definition">Nombre de la tabla que se representa en memoria</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">integer,</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_tope_max_filas" title="details" class="method-name">get_tope_max_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la cantidad maxima de filas que puede contener la tabla (si existe tal restriccion)</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">integer,</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_tope_min_filas" title="details" class="method-name">get_tope_min_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la cantidad minima de fila que debe contener la tabla (si existe tal restriccion)</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
@@ -425,14 +419,9 @@
 					<td class="method-definition">Hay una fila seleccionada por el cursor?</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#log" title="details" class="method-name">log</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#modificar_fila" title="details" class="method-name">modificar_fila</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Modifica una fila de la tabla en memoria</td></tr>
+					<td class="method-definition">Modifica los valores de una fila de la tabla en memoria  Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -452,17 +441,17 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#notificar_padres_carga" title="details" class="method-name">notificar_padres_carga</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Aviso a las relaciones padres que el componente HIJO se CARGO</td></tr>
+					<td class="method-definition">Aviso a las relacion padres que el componente HIJO se CARGO</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">mixed</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#nueva_fila" title="details" class="method-name">nueva_fila</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Crea una nueva fila en memoria</td></tr>
+					<td class="method-definition">Crea una nueva fila en la tabla en memoria</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#posee_columnas_externas" title="details" class="method-name">posee_columnas_externas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -477,12 +466,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#registrar_cambio" title="details" class="method-name">registrar_cambio</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#registrar_contenedor" title="details" class="method-name">registrar_contenedor</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Fuerza una cambio directo a la estructura interna que mantiene registro de los cambios</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -492,7 +476,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#resetear" title="details" class="method-name">resetear</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Deja la tabla sin carga alguna, se pierden todos los cambios realizados</td></tr>
+					<td class="method-definition">Deja la tabla sin carga alguna, se pierden todos los cambios realizados desde la carga</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -512,7 +496,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_cursor" title="details" class="method-name">set_cursor</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Fija el cursor en una fila dada</td></tr>
+					<td class="method-definition">Fija el cursor en una fila dada  Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la única  y sus tablas padres e hijas también. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -521,23 +505,18 @@
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#set_nombre_rol" title="details" class="method-name">set_nombre_rol</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Determina el nombre del rol que cumple esta tabla en una relación</td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_no_duplicado" title="details" class="method-name">set_no_duplicado</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Indica una combinacion de columnas que no debe duplicarse</td></tr>
+					<td class="method-definition">Indica una combinacion de columnas cuyos valores no deben duplicarse (similar a un unique de sql)</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_tope_max_filas" title="details" class="method-name">set_tope_max_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Cambia la cantidad maxima de filas que puede contener la tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_tope_min_filas" title="details" class="method-name">set_tope_min_filas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Cambia la cantidad mínima de filas que debe contener la tabla</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
@@ -885,6 +864,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -938,7 +923,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 44]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 41]</span>
 </div>
 <br />
 
@@ -978,7 +963,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_relacion_con_hijo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 115]</span>
+	<span class="method-title">agregar_relacion_con_hijo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
 </div>
 <br />
 
@@ -986,18 +971,20 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void agregar_relacion_con_hijo(
-
+toba_relacion_entre_tablas
 $relacion, 
 $id_hijo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Informa a la tabla que existe una tabla hija de la actual
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">toba_relacion_entre_tablas</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$relacion:&nbsp;</span></td>
 				<td>
@@ -1020,7 +1007,7 @@ $id_hijo&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_relacion_con_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 101]</span>
+	<span class="method-title">agregar_relacion_con_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 89]</span>
 </div>
 <br />
 
@@ -1028,18 +1015,20 @@ $id_hijo&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void agregar_relacion_con_padre(
-
+toba_relacion_entre_tablas
 $relacion, 
 $id_padre&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Informa a la tabla que existe una tabla padre
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">toba_relacion_entre_tablas</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$relacion:&nbsp;</span></td>
 				<td>
@@ -1062,7 +1051,7 @@ $id_padre&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1038]</span>
+	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1078]</span>
 </div>
 <br />
 
@@ -1099,7 +1088,7 @@ $datos&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 645]</span>
+	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 663]</span>
 </div>
 <br />
 
@@ -1114,7 +1103,7 @@ $nuevos_padres&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Cambia la asociación de una fila con sus padres
+	<p align="center" class="short-description"><strong>Cambia los padres de una fila
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1143,7 +1132,7 @@ $nuevos_padres&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 990]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1025]</span>
 </div>
 <br />
 
@@ -1159,7 +1148,7 @@ $clave = array()]&nbsp;
 
 	<p align="center" class="short-description"><strong>Carga la tabla restringiendo POR valores especificos de campos
 </strong></p>
-
+<span class="description"><p>Si los datos contienen una unica fila, esta se pone como cursor de la tabla</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1180,7 +1169,7 @@ $clave = array()]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1004]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1044]</span>
 </div>
 <br />
 
@@ -1196,7 +1185,7 @@ $datos&nbsp;
 
 	<p align="center" class="short-description"><strong>Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)
 </strong></p>
-
+<span class="description"><p>Si los datos contienen una unica fila, esta se pone como cursor de la tabla</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1217,7 +1206,7 @@ $datos&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">control_estructura_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 844]</span>
+	<span class="method-title">control_estructura_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 875]</span>
 </div>
 <br />
 
@@ -1261,7 +1250,7 @@ $fila&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 944]</span>
+	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 978]</span>
 </div>
 <br />
 
@@ -1273,7 +1262,9 @@ $fila&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Valida que la cantidad de filas supere el mínimo establecido
+</strong></p>
+
 	<br />
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -1291,7 +1282,7 @@ $fila&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1090]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1130]</span>
 </div>
 <br />
 
@@ -1321,7 +1312,7 @@ $fila&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 668]</span>
+	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 686]</span>
 </div>
 <br />
 
@@ -1337,7 +1328,7 @@ $id&nbsp;
 
 	<p align="center" class="short-description"><strong>Elimina una fila de la tabla en memoria
 </strong></p>
-
+<span class="description"><p>En caso de que la fila sea el cursor actual de la tabla, este ultimo se resetea</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1365,7 +1356,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 701]</span>
+	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 719]</span>
 </div>
 <br />
 
@@ -1389,7 +1380,7 @@ $con_cursores = false]&nbsp;
 				<td>
 				<span class="var-name">$con_cursores:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Tiene en cuenta los cursores del padre</span>			</td></tr>
+				<span class="var-description"> Tiene en cuenta los cursores del padre para afectar solo sus filas hijas, por defecto no</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1402,7 +1393,7 @@ $con_cursores = false]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1078]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1118]</span>
 </div>
 <br />
 
@@ -1427,19 +1418,21 @@ $con_cursores = false]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 995]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1034]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_cargada(
+		<code>boolean esta_cargada(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>La tabla esta cargada con datos?
+</strong></p>
+
 	<br />
 	
 
@@ -1450,7 +1443,7 @@ $con_cursores = false]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 917]</span>
+	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 948]</span>
 </div>
 <br />
 
@@ -1487,7 +1480,7 @@ $fila&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 837]</span>
+	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 868]</span>
 </div>
 <br />
 
@@ -1495,28 +1488,30 @@ $fila&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void evt__validar_ingreso(
-
-$fila, [
+array
+$fila, [mixed
 $id = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Datos de la fila</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$id:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Id. interno de la fila, si tiene (en el caso modificacion de la fila)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1536,21 +1531,23 @@ $id = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 491]</span>
+	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 511]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void existe_fila(
+		<code>boolean existe_fila(
 mixed
 $id&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Existe una determina fila? (la fila puede estar marcada como para borrar)
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1571,7 +1568,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1210]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1263]</span>
 </div>
 <br />
 
@@ -1596,7 +1593,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_estructura_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1186]</span>
+	<span class="method-title">generar_estructura_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1239]</span>
 </div>
 <br />
 
@@ -1626,7 +1623,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 809]</span>
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 835]</span>
 </div>
 <br />
 
@@ -1651,21 +1648,21 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1166]</span>
+	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1213]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_alias(
+		<code>string get_alias(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla
+	<p align="center" class="short-description"><strong>Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs
 </strong></p>
-
+<span class="description"><p>Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla</p></span>
 	<br />
 	
 
@@ -1676,7 +1673,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1135]</span>
+	<span class="method-title">get_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1178]</span>
 </div>
 <br />
 
@@ -1688,7 +1685,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la estructura interna que mantiene registro de las modificaciones/altas/bajas producidas en memoria
+</strong></p>
+
 	<br />
 	
 
@@ -1699,14 +1698,14 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 483]</span>
+	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 501]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_cantidad_filas(
+		<code>integer get_cantidad_filas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1724,7 +1723,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 214]</span>
+	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 221]</span>
 </div>
 <br />
 
@@ -1736,16 +1735,11 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Cantidad de filas que sufrieron cambios desde la carga</td>
-  </tr>
-</table>
-<br />
+	<p align="center" class="short-description"><strong>Retorna la cantidad de filas que sufrieron cambios desde la carga, y por lo tanto se van a sincronizar
+</strong></p>
 
+	<br />
+	
 
 		
 		<br />
@@ -1754,7 +1748,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 184]</span>
+	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 180]</span>
 </div>
 <br />
 
@@ -1766,7 +1760,7 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Columnas que son son claves en la tabla
+	<p align="center" class="short-description"><strong>Retorna las columnas que son claves en la tabla
 </strong></p>
 
 	<br />
@@ -1779,7 +1773,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 193]</span>
+	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 190]</span>
 </div>
 <br />
 
@@ -1793,7 +1787,9 @@ $id_fila&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna el valor de la clave para un fila dada
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1821,14 +1817,14 @@ $id_fila&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 468]</span>
+	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 485]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_columna(
+		<code>mixed get_columna(
 string
 $columna&nbsp;
 )</code>
@@ -1849,7 +1845,14 @@ $columna&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>NULL si no cursor o no hay filas</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -1858,7 +1861,7 @@ $columna&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1145]</span>
+	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1186]</span>
 </div>
 <br />
 
@@ -1870,7 +1873,9 @@ $columna&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna el nombre de las columnas de esta tabla
+</strong></p>
+
 	<br />
 	
 
@@ -1881,7 +1886,7 @@ $columna&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1130]</span>
+	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1170]</span>
 </div>
 <br />
 
@@ -1904,7 +1909,7 @@ $columna&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 312]</span>
+	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 324]</span>
 </div>
 <br />
 
@@ -1916,37 +1921,9 @@ $columna&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Id. interno de la fila donde se encuentra actualmente el cursor de la tabla</td>
-  </tr>
-</table>
-<br />
+	<p align="center" class="short-description"><strong>Retorna el Id. interno de la fila donde se encuentra actualmente el cursor de la tabla
+</strong></p>
 
-
-		
-		<br />
-</div>
-<a name="methodget_datos_originales" id="get_datos_originales"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">get_datos_originales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1140]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_datos_originales(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
 	<br />
 	
 
@@ -1954,24 +1931,26 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_fila" id="get_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 422]</span>
+	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 436]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_fila(
+		<code>array get_fila(
 mixed
 $id&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna el contenido de una fila, a partir de su clave interna
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1983,16 +1962,23 @@ $id&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>columna =&gt; valor. En caso de no existir la fila retorna NULL</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_filas" id="get_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 339]</span>
+	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 351]</span>
 </div>
 <br />
 
@@ -2008,17 +1994,11 @@ $usar_cursores = true]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna el conjunto de filas que respeta las condiciones dadas
+	<p align="center" class="short-description"><strong>Retorna el conjunto de filas que respeta las condiciones dadas  Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
 </strong></p>
-<span class="description"><p>Este conjunto de filas es afectado por la presencia de cursores en las tablas padres</p></span>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$usar_cursores:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Este conjunto de filas es afectado por la presencia de cursores en las tablas padres</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
@@ -2030,7 +2010,13 @@ $usar_cursores = true]&nbsp;
 				<td>
 				<span class="var-name">$usar_id_fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Hace que las claves del array devuelto sean las claves internas del dbr</span>			</td></tr>
+				<span class="var-description"> Hace que las claves del array resultante sean las claves internas del datos_tabla (sino se usa una clave posicional)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Este conjunto de filas es afectado por la presencia de cursores en las tablas padres</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2047,19 +2033,19 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_fila_columna" id="get_fila_columna"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 439]</span>
+	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_fila_columna(
+		<code>mixed get_fila_columna(
 mixed
-$id, 
+$id, string
 $columna&nbsp;
 )</code>
     </td></tr></table>
@@ -2077,36 +2063,45 @@ $columna&nbsp;
 				<td>
 				<span class="var-description"> Id. interno de la fila</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$columna:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Nombre de la columna</span>			</td></tr>
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>En caso de no existir, retorna NULL</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_fuente" id="get_fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1150]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1195]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_fuente(
+		<code>string get_fuente(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna el nombre de la <a href="../../Fuentes/toba_fuente_datos.html">fuente de datos</a> utilizado por este componente
+</strong></p>
+
 	<br />
 	
 
@@ -2114,10 +2109,10 @@ $columna&nbsp;
 		<br />
 </div>
 <a name="methodget_id_filas" id="get_id_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 363]</span>
+	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 375]</span>
 </div>
 <br />
 
@@ -2157,10 +2152,10 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_filas_a_sincronizar" id="get_id_filas_a_sincronizar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 230]</span>
+	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
 </div>
 <br />
 
@@ -2168,28 +2163,30 @@ $usar_cursores = true]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>array get_id_filas_a_sincronizar(
-[
+[array
 $cambios = array(&quot;d&quot;,&quot;i&quot;,&quot;u&quot;)]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna lasfilas que sufrieron cambios desde la carga
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$cambios:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Combinación de tipos de cambio a buscar: d, i o u  (por defecto los tres)</span>			</td></tr>
 				</table>
 
 	<br />
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Ids. internos de las filas que sufrieron cambios desde la carga</td>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Ids. internos</td>
   </tr>
 </table>
 <br />
@@ -2199,10 +2196,10 @@ $cambios = array(&quot;d&quot;,&quot;i&quot;,&quot;u&quot;)]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_fila_condicion" id="get_id_fila_condicion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 393]</span>
+	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 405]</span>
 </div>
 <br />
 
@@ -2250,10 +2247,10 @@ $usar_cursores = true]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_fila_padre" id="get_id_fila_padre"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 158]</span>
+	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 150]</span>
 </div>
 <br />
 
@@ -2294,10 +2291,10 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_persistidor" id="get_persistidor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 965]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 999]</span>
 </div>
 <br />
 
@@ -2309,7 +2306,7 @@ $id_fila&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna el admin. de persistencia que asiste a este objeto
+	<p align="center" class="short-description"><strong>Retorna el admin. de persistencia que asiste a este objeto durante la sincronización
 </strong></p>
 
 	<br />
@@ -2319,10 +2316,10 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_proximo_id" id="get_proximo_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 79]</span>
+	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 76]</span>
 </div>
 <br />
 
@@ -2344,45 +2341,22 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_relacion" id="get_relacion"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 170]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_relacion(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodget_relaciones_con_padres" id="get_relaciones_con_padres"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_relaciones_con_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 110]</span>
+	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 166]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code><a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a> get_relaciones_con_padres(
+		<code><a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a> get_relacion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna las relaciones con las tablas padre
+	<p align="center" class="short-description"><strong>Retorna la <a href="../../Componentes/Persistencia/toba_datos_relacion.html">relacion</a> que contiene a esta tabla, si existe
 </strong></p>
 
 	<br />
@@ -2391,11 +2365,43 @@ $id_fila&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_tabla" id="get_tabla"><!-- --></a>
+<a name="methodget_relaciones_con_padres" id="get_relaciones_con_padres"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1158]</span>
+	<span class="method-title">get_relaciones_con_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_relaciones_con_padres(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Retorna las relaciones con las tablas padre
+</strong></p>
+
+	<br />
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>de toba_relacion_entre_tablas</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_tabla" id="get_tabla"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1203]</span>
 </div>
 <br />
 
@@ -2417,56 +2423,74 @@ $id_fila&nbsp;
 		<br />
 </div>
 <a name="methodget_tope_max_filas" id="get_tope_max_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 201]</span>
+	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 202]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_tope_max_filas(
+		<code>integer, get_tope_max_filas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la cantidad maxima de filas que puede contener la tabla (si existe tal restriccion)
+</strong></p>
+
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>0 si no hay tope</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_tope_min_filas" id="get_tope_min_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 206]</span>
+	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 212]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_tope_min_filas(
+		<code>integer, get_tope_min_filas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la cantidad minima de fila que debe contener la tabla (si existe tal restriccion)
+</strong></p>
+
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>0 si no hay tope</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_valores_columna" id="get_valores_columna"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
+	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 471]</span>
 </div>
 <br />
 
@@ -2494,16 +2518,23 @@ $columna&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo plano de valores</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodhay_cursor" id="hay_cursor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 322]</span>
+	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 334]</span>
 </div>
 <br />
 
@@ -2524,59 +2555,11 @@ $columna&nbsp;
 		
 		<br />
 </div>
-<a name="methodlog" id="log"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 87]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void log(
-
-$txt&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$txt:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-<strong>Information Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>El objeto deberia tener directamente algo asi</td>
-  </tr>
-</table>
-
-		
-		<br />
-</div>
 <a name="methodmodificar_fila" id="modificar_fila"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 582]</span>
+	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 602]</span>
 </div>
 <br />
 
@@ -2591,7 +2574,7 @@ $fila&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Modifica una fila de la tabla en memoria
+	<p align="center" class="short-description"><strong>Modifica los valores de una fila de la tabla en memoria  Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -2607,7 +2590,7 @@ $fila&nbsp;
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Contenido de la fila, puede ser incompleto</span>			</td></tr>
+				<span class="var-description"> Contenido de la fila, en formato columna=&gt;valor, puede ser incompleto</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2627,7 +2610,7 @@ $fila&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">normalizar_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 507]</span>
+	<span class="method-title">normalizar_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 527]</span>
 </div>
 <br />
 
@@ -2671,7 +2654,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">notificar_fin_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1123]</span>
+	<span class="method-title">notificar_fin_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1163]</span>
 </div>
 <br />
 
@@ -2696,7 +2679,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">notificar_hijos_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 146]</span>
+	<span class="method-title">notificar_hijos_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 138]</span>
 </div>
 <br />
 
@@ -2721,7 +2704,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">notificar_padres_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 134]</span>
+	<span class="method-title">notificar_padres_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 126]</span>
 </div>
 <br />
 
@@ -2733,7 +2716,7 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Aviso a las relaciones padres que el componente HIJO se CARGO
+	<p align="center" class="short-description"><strong>Aviso a las relacion padres que el componente HIJO se CARGO
 </strong></p>
 
 	<br />
@@ -2746,7 +2729,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 533]</span>
+	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 553]</span>
 </div>
 <br />
 
@@ -2762,7 +2745,7 @@ $id_nuevo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Crea una nueva fila en memoria
+	<p align="center" class="short-description"><strong>Crea una nueva fila en la tabla en memoria
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -2772,13 +2755,13 @@ $id_nuevo = null]&nbsp;
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Asociativo campo-&gt;valor a insertar</span>			</td></tr>
+				<span class="var-description"> Asociativo campo=&gt;valor a insertar</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$ids_padres:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Asociativo padre =&gt;id de las filas padres de esta nueva,                            en caso de que no se brinde, se utilizan las posiciones actuales de estas tablas padres</span>			</td></tr>
+				<span class="var-description"> Asociativo padre =&gt;id de las filas padres de esta nueva fila,                            en caso de que no se brinde, se utilizan los cursores actuales en estas tablas padres</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
 				<td>
@@ -2804,19 +2787,21 @@ $id_nuevo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1177]</span>
+	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1230]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void posee_columnas_externas(
+		<code>boolean posee_columnas_externas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.
+</strong></p>
+
 	<br />
 	
 
@@ -2827,7 +2812,7 @@ $id_nuevo = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 749]</span>
+	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 775]</span>
 </div>
 <br />
 
@@ -2843,7 +2828,7 @@ $filas&nbsp;
 
 	<p align="center" class="short-description"><strong>Procesa los cambios masivos de filas
 </strong></p>
-<span class="description"><p>Para procesar es necesario indicar el estado  de cada fila utilizando una columna referenciada con la constante 'apex_ei_analisis_fila'</p></span>
+<span class="description"><p>El id de la fila se asume que la key del registro o la columna apex_datos_clave_fila  Para procesar es necesario indicar el estado de cada fila utilizando una columna referenciada con la constante 'apex_ei_analisis_fila' los valores pueden ser: <ul><li>'A': Alta</li><li>'B': Baja</li><li>'M': Modificacion</li></ul></p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2851,7 +2836,7 @@ $filas&nbsp;
 				<td>
 				<span class="var-name">$filas:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Filas en formato RecordSet</span>			</td></tr>
+				<span class="var-description"> Filas en formato RecordSet, cada registro debe contener un valor para la constante apex_ei_analisis_fila</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2864,7 +2849,7 @@ $filas&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">regenerar_estructura_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1196]</span>
+	<span class="method-title">regenerar_estructura_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1249]</span>
 </div>
 <br />
 
@@ -2894,7 +2879,7 @@ $filas&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1217]</span>
+	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1275]</span>
 </div>
 <br />
 
@@ -2902,24 +2887,26 @@ $filas&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void registrar_cambio(
-
-$fila, 
+mixed
+$fila, string
 $estado&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Fuerza una cambio directo a la estructura interna que mantiene registro de los cambios
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Id. interno de la fila</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$estado:&nbsp;</span></td>
 				<td>
@@ -2939,46 +2926,11 @@ $estado&nbsp;
 		
 		<br />
 </div>
-<a name="methodregistrar_contenedor" id="registrar_contenedor"><!-- --></a>
+<a name="methodreservar_id_fila" id="reservar_id_fila"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_contenedor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 96]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void registrar_contenedor(
-
-$contenedor&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$contenedor:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodreservar_id_fila" id="reservar_id_fila"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 69]</span>
+	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 66]</span>
 </div>
 <br />
 
@@ -3000,10 +2952,10 @@ $contenedor&nbsp;
 		<br />
 </div>
 <a name="methodresetear" id="resetear"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1099]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1139]</span>
 </div>
 <br />
 
@@ -3015,7 +2967,7 @@ $contenedor&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Deja la tabla sin carga alguna, se pierden todos los cambios realizados
+	<p align="center" class="short-description"><strong>Deja la tabla sin carga alguna, se pierden todos los cambios realizados desde la carga
 </strong></p>
 
 	<br />
@@ -3025,10 +2977,10 @@ $contenedor&nbsp;
 		<br />
 </div>
 <a name="methodresetear_cursor" id="resetear_cursor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 304]</span>
+	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 315]</span>
 </div>
 <br />
 
@@ -3050,10 +3002,10 @@ $contenedor&nbsp;
 		<br />
 </div>
 <a name="methodset" id="set"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 795]</span>
+	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 821]</span>
 </div>
 <br />
 
@@ -3077,7 +3029,7 @@ $fila&nbsp;
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Contenido total o parcial de la fila</span>			</td></tr>
+				<span class="var-description"> Contenido total o parcial de la fila a crear o modificar</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3087,10 +3039,10 @@ $fila&nbsp;
 		<br />
 </div>
 <a name="methodset_columna_valor" id="set_columna_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 731]</span>
+	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 754]</span>
 </div>
 <br />
 
@@ -3098,9 +3050,9 @@ $fila&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_columna_valor(
-
-$columna, 
-$valor, [
+string
+$columna, mixed
+$valor, [boolean
 $con_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
@@ -3112,23 +3064,23 @@ $con_cursores = false]&nbsp;
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$columna:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Nombre de la columna a modificar</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$valor:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Nuevo valor comun a toda la columna</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$con_cursores:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Tiene en cuenta los cursores del padre para afectar sus filas hijas, por defecto no</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3138,10 +3090,10 @@ $con_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodset_cursor" id="set_cursor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 291]</span>
+	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 302]</span>
 </div>
 <br />
 
@@ -3155,7 +3107,7 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Fija el cursor en una fila dada
+	<p align="center" class="short-description"><strong>Fija el cursor en una fila dada  Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la única  y sus tablas padres e hijas también. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -3175,10 +3127,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodset_fila_columna_valor" id="set_fila_columna_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 714]</span>
+	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 733]</span>
 </div>
 <br />
 
@@ -3188,7 +3140,7 @@ $id&nbsp;
 		<code>void set_fila_columna_valor(
 mixed
 $id, string
-$columna, 
+$columna, mixed
 $valor&nbsp;
 )</code>
     </td></tr></table>
@@ -3212,48 +3164,11 @@ $valor&nbsp;
 				<td>
 				<span class="var-description"> Columna o campo de la fila</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$valor:&nbsp;</span></td>
 				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodset_nombre_rol" id="set_nombre_rol"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">set_nombre_rol</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 270]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void set_nombre_rol(
-
-$nombre&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Determina el nombre del rol que cumple esta tabla en una relación
-</strong></p>
-
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
-				<td>
-							</td></tr>
+				<span class="var-description"> Nuevo valor</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3266,7 +3181,7 @@ $nombre&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 278]</span>
+	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 287]</span>
 </div>
 <br />
 
@@ -3280,7 +3195,7 @@ $columnas&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Indica una combinacion de columnas que no debe duplicarse
+	<p align="center" class="short-description"><strong>Indica una combinacion de columnas cuyos valores no deben duplicarse (similar a un unique de sql)
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -3303,7 +3218,7 @@ $columnas&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 245]</span>
+	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 258]</span>
 </div>
 <br />
 
@@ -3311,21 +3226,23 @@ $columnas&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_tope_max_filas(
-
+integer
 $cantidad&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Cambia la cantidad maxima de filas que puede contener la tabla
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$cantidad:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 0 si no hay tope</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3338,7 +3255,7 @@ $cantidad&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 256]</span>
+	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 273]</span>
 </div>
 <br />
 
@@ -3346,21 +3263,23 @@ $cantidad&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_tope_min_filas(
-
+integer
 $cantidad&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Cambia la cantidad mínima de filas que debe contener la tabla
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$cantidad:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 0 si no hay tope</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3373,7 +3292,7 @@ $cantidad&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1068]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 1108]</span>
 </div>
 <br />
 
@@ -3405,7 +3324,7 @@ $cantidad&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 900]</span>
+	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 931]</span>
 </div>
 <br />
 
@@ -3441,7 +3360,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cambios</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 32]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 30]</span>
 		</span>
 	</div>
 
@@ -3465,7 +3384,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cargada</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 37]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
 
@@ -3489,7 +3408,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$clave</span>
-						<span class="smalllinenumber">[line 22]</span>
+						<span class="smalllinenumber">[line 21]</span>
 		</span>
 	</div>
 
@@ -3513,31 +3432,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$columnas</span>
-						<span class="smalllinenumber">[line 23]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$contenedor" id="$contenedor"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$contenedor</span>
-			 = <span class="var-default"> null</span>			<span class="smalllinenumber">[line 39]</span>
+						<span class="smalllinenumber">[line 22]</span>
 		</span>
 	</div>
 
@@ -3555,13 +3450,13 @@ $cantidad&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cursor" id="$cursor"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cursor</span>
-						<span class="smalllinenumber">[line 36]</span>
+						<span class="smalllinenumber">[line 34]</span>
 		</span>
 	</div>
 
@@ -3579,13 +3474,13 @@ $cantidad&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$datos" id="$datos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$datos</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 33]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -3603,37 +3498,13 @@ $cantidad&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$datos_originales" id="$datos_originales"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$datos_originales</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 34]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$nombre_rol" id="$nombre_rol"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$nombre_rol</span>
-						<span class="smalllinenumber">[line 25]</span>
+			<span class="var-name">$datos_originales</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 32]</span>
 		</span>
 	</div>
 
@@ -3657,7 +3528,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$no_duplicado</span>
-						<span class="smalllinenumber">[line 27]</span>
+						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -3681,7 +3552,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$persistidor</span>
-						<span class="smalllinenumber">[line 20]</span>
+						<span class="smalllinenumber">[line 19]</span>
 		</span>
 	</div>
 
@@ -3705,7 +3576,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$posee_columnas_ext</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 24]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
 
@@ -3729,7 +3600,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$proxima_fila</span>
-			 = <span class="var-default"> 0</span>			<span class="smalllinenumber">[line 35]</span>
+			 = <span class="var-default"> 0</span>			<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -3753,7 +3624,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$relaciones_con_hijos</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 41]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 38]</span>
 		</span>
 	</div>
 
@@ -3777,7 +3648,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$relaciones_con_padres</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 40]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 37]</span>
 		</span>
 	</div>
 
@@ -3801,7 +3672,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$tope_max_filas</span>
-						<span class="smalllinenumber">[line 29]</span>
+						<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -3825,7 +3696,7 @@ $cantidad&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$tope_min_filas</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 28]</span>
 		</span>
 	</div>
 

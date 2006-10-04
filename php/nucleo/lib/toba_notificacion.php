@@ -4,6 +4,7 @@
  * Clase que mantiene notificaciones al usuario a mostrarse en el página actual
  * 
  * @package SalidaGrafica
+ * @jsdoc notificacion notificacion 
  */
 class toba_notificacion
 {

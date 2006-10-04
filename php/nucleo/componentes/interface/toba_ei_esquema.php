@@ -6,6 +6,7 @@ require_once("lib/manejador_archivos.php");
  * Genera un esquema utilizando GraphViz
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ei ei
  */
 class toba_ei_esquema extends toba_ei
 {

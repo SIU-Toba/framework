@@ -100,7 +100,7 @@
 </strong></p>
 
 		<p class="notes">
-			Ubicada en /lib/toba_recurso.php [<span class="field">line 9</span>]
+			Ubicada en /nucleo/lib/toba_recurso.php [<span class="field">line 9</span>]
 		</p>
 
 		
@@ -133,28 +133,28 @@
 											<span class="method-result">void</span>&nbsp;&nbsp;
 					</td>
 					<td class="method-definition"><a href="#imagen" title="details" class="method-name">imagen</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna el tag &lt;img&gt;</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition">static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#imagen_apl" title="details" class="method-name">imagen_apl</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna una imagen del framework</td></tr>
+					<td class="method-definition">Construye un tag &lt;img&gt;</td></tr>
 				</div>
 																<div class="method-definition">
 					<tr><td class="method-definition">static
 											<span class="method-result">void</span>&nbsp;&nbsp;
 					</td>
 					<td class="method-definition"><a href="#imagen_de_origen" title="details" class="method-name">imagen_de_origen</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Alias de imagen_Toba o imagen_proyecto dependiendo del origen</td></tr>
 				</div>
 																<div class="method-definition">
 					<tr><td class="method-definition">static
 											<span class="method-result">void</span>&nbsp;&nbsp;
 					</td>
-					<td class="method-definition"><a href="#imagen_pro" title="details" class="method-name">imagen_pro</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna una imagen del proyecto</td></tr>
+					<td class="method-definition"><a href="#imagen_proyecto" title="details" class="method-name">imagen_proyecto</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Retorna una imagen ubicada en el directorio www/img del proyecto</td></tr>
+				</div>
+																<div class="method-definition">
+					<tr><td class="method-definition">static
+											<span class="method-result">void</span>&nbsp;&nbsp;
+					</td>
+					<td class="method-definition"><a href="#imagen_toba" title="details" class="method-name">imagen_toba</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Retorna una imagen comun a todo el framework (ubicada en $toba_dir/www/img)</td></tr>
 				</div>
 																<div class="method-definition">
 					<tr><td class="method-definition">static
@@ -174,20 +174,6 @@
 					<tr><td class="method-definition">static
 											<span class="method-result">string</span>&nbsp;&nbsp;
 					</td>
-					<td class="method-definition"><a href="#path_apl" title="details" class="method-name">path_apl</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna la URL base de toba</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition">static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#path_pro" title="details" class="method-name">path_pro</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition">static
-											<span class="method-result">string</span>&nbsp;&nbsp;
-					</td>
 					<td class="method-definition"><a href="#url_proyecto" title="details" class="method-name">url_proyecto</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna la URL base del proyecto</td></tr>
 				</div>
@@ -198,7 +184,7 @@
 					<td class="method-definition"><a href="#url_toba" title="details" class="method-name">url_toba</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)</td></tr>
 				</div>
-																																																																																																								</table>
+																																																																																								</table>
 			</div>
 			<br />
 		</div>
@@ -218,7 +204,7 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 158]</span>
+	<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 142]</span>
 </div>
 <br />
 
@@ -276,7 +262,7 @@ $clases_css = '']&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
+	<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 114]</span>
 </div>
 <br />
 
@@ -296,7 +282,7 @@ $estilo = '']&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna el tag &lt;img&gt;
+	<p align="center" class="short-description"><strong>Construye un tag &lt;img&gt;
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -351,18 +337,134 @@ $estilo = '']&nbsp;
 		
 		<br />
 </div>
-<a name="methodimagen_apl" id="imagen_apl"><!-- --></a>
+<a name="methodimagen_de_origen" id="imagen_de_origen"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method imagen_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 109]</span>
+	<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 55]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void imagen_apl(
+		<code>static void imagen_de_origen(
+
+$nombre, string
+$origen&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Alias de imagen_Toba o imagen_proyecto dependiendo del origen
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$origen:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Si es 'apex' usa imagen_toba sino del proyecto</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nombre:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodimagen_proyecto" id="imagen_proyecto"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">static method imagen_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 73]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void imagen_proyecto(
+string
+$imagen, [boolean
+$html = false], [string
+$ancho = null], [string
+$alto = null], [string
+$tooltip = null], [string
+$mapa = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Retorna una imagen ubicada en el directorio www/img del proyecto
+</strong></p>
+
+			<strong>Parámetros:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$imagen:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Path relativo a www/img de la imagen a generar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$html:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Generar el TAG 'img' (por def. false)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ancho de la imagen (no oblig.)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$alto:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Alto de la imagen (no oblig.)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tooltip:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ayuda o tooltip que se muestra (por def. ninguna)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mapa:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> (no oblig.)</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodimagen_toba" id="imagen_toba"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">static method imagen_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 93]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void imagen_toba(
 string
 $imagen, [boolean
 $html = false], [string
@@ -375,7 +477,7 @@ $tooltip&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna una imagen del framework
+	<p align="center" class="short-description"><strong>Retorna una imagen comun a todo el framework (ubicada en $toba_dir/www/img)
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -430,125 +532,11 @@ $tooltip&nbsp;
 		
 		<br />
 </div>
-<a name="methodimagen_de_origen" id="imagen_de_origen"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void imagen_de_origen(
-
-$nombre, 
-$origen&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$origen:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodimagen_pro" id="imagen_pro"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">static method imagen_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 88]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void imagen_pro(
-string
-$imagen, [boolean
-$html = false], [string
-$ancho = null], [string
-$alto = null], [string
-$tooltip = null], [string
-$mapa = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Retorna una imagen del proyecto
-</strong></p>
-
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$imagen:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Path relativo a www/img de la imagen a generar</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$html:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Generar el TAG 'img' (por def. false)</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$ancho:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Ancho de la imagen (no oblig.)</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$alto:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Alto de la imagen (no oblig.)</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$tooltip:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Ayuda o tooltip que se muestra (por def. ninguna)</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$mapa:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> (no oblig.)</span>			</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodjs" id="js"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 188]</span>
+	<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 172]</span>
 </div>
 <br />
 
@@ -585,7 +573,7 @@ $javascript&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 200]</span>
+	<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 182]</span>
 </div>
 <br />
 
@@ -625,81 +613,11 @@ $rol = 'screen']&nbsp;
 		
 		<br />
 </div>
-<a name="methodpath_apl" id="path_apl"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">static method path_apl</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 63]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static string path_apl(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Retorna la URL base de toba
-</strong></p>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodpath_pro" id="path_pro"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">static method path_pro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 54]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void path_pro(
-[
-$proyecto = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$proyecto:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>usar toba_recurso::url_toba()</td>
-  </tr>
-  <tr>
-    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../SalidaGrafica/toba_recurso.html#methodurl_toba">toba_recurso::url_toba()</a></td>
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
 <a name="methodurl_proyecto" id="url_proyecto"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 18]</span>
+	<span class="method-title">static method url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 16]</span>
 </div>
 <br />
 
@@ -736,7 +654,7 @@ $proyecto = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
+	<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 34]</span>
 </div>
 <br />
 

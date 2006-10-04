@@ -71,7 +71,6 @@ class toba_ef_oculto extends toba_ef
  * @subpackage Efs
  */
 class toba_ef_oculto_usuario extends toba_ef_oculto
-//Este elemento maneja un campo ques una secuencia
 {
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)

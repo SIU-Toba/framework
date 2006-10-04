@@ -192,6 +192,7 @@ abstract class toba_ef_seleccion extends toba_ef
  * Combo equivalente a un <select> en HTML 
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_combo ef_combo 
  */
 class toba_ef_combo extends toba_ef_seleccion
 {
@@ -232,6 +233,7 @@ class toba_ef_combo extends toba_ef_seleccion
  * Radio buttons equivalentes a <input type='radio'>
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_radio ef_radio
  */
 class toba_ef_radio extends toba_ef_seleccion 
 {

@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -154,16 +153,17 @@
 </strong></p>
 <span class="description"><p>Los efs son controles o widgets que forman parte de un formulario, tienen lógica de validación y formato tanto en js como en php.  Aquellos controles que se basan en la metáfora de selección permiten cargar sus opciones en base a métodos php, consultas SQL y lista de valores fijos.</p></span>
 		<p class="notes">
-			Ubicada en /componentes/interface/efs/toba_ef.php [<span class="field">line 25</span>]
+			Ubicada en /nucleo/componentes/interface/efs/toba_ef.php [<span class="field">line 26</span>]
 		</p>
 
 		
 		<pre></pre>
 
 		
-				<strong>Author(s):</strong>
+		<!--		
+		<strong>Author(s):</strong>
 		<ul>
-		  			 		  		</ul>
+		  			 		  			 		  		</ul> -->
 		
 		<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -173,6 +173,11 @@
 </table>
 <br />
 
+<table border="0" cellspacing="0" cellpadding="0">
+							
+		<tr><td><strong>Clase Javascript equivalente:</strong>&nbsp;&nbsp;</td>
+			<td><a href='../../../api_js/ef.html'>ef</a></td></tr>
+	</table>
 		</td>
 		</tr></table>
 	</div>
@@ -427,15 +432,15 @@
 					<th class="class-table-header">Descripción</th>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a></td>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_multi_seleccion.html">toba_ef_multi_seleccion</a></td>
 					<td>
-											Triple editbox que constituyen las 3 partes del CUIT/CUIL
+											Elemento que permite la selección de varios valores. Clase base abstracta
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_upload.html">toba_ef_upload</a></td>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_seleccion.html">toba_ef_seleccion</a></td>
 					<td>
-											Ef que selecciona un archivo de su sistema para que esté disponible en el servidor
+											Clase base de los elementos de formulario que permiten seleccionar un único elemento
 										</td>
 				</tr>
 								<tr>
@@ -451,15 +456,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_seleccion.html">toba_ef_seleccion</a></td>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_upload.html">toba_ef_upload</a></td>
 					<td>
-											Clase base de los elementos de formulario que permiten seleccionar un único elemento
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_sin_estado.html">toba_ef_sin_estado</a></td>
-					<td>
-											Clase base de los efs que no mantienen estado
+											Ef que selecciona un archivo de su sistema para que esté disponible en el servidor
 										</td>
 				</tr>
 								<tr>
@@ -469,15 +468,21 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_sin_estado.html">toba_ef_sin_estado</a></td>
+					<td>
+											Clase base de los efs que no mantienen estado
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a></td>
 					<td>
 											Elemento editable equivalente a un &lt;input type='text'&gt;  Puede manejar una mascara.
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_multi_seleccion.html">toba_ef_multi_seleccion</a></td>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a></td>
 					<td>
-											Elemento que permite la selección de varios valores. Clase base abstracta
+											Triple editbox que constituyen las 3 partes del CUIT/CUIL
 										</td>
 				</tr>
 							</table>
@@ -495,10 +500,10 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 120]</span>
+	<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 121]</span>
 </div>
 <br />
 
@@ -519,10 +524,13 @@
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros">toba_ef_cuit::get_lista_parametros()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_lista_parametros">toba_ef_multi_seleccion::get_lista_parametros()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_lista_parametros">toba_ef_upload::get_lista_parametros()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodget_lista_parametros">toba_ef_multi_seleccion_lista::get_lista_parametros()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodget_lista_parametros">toba_ef_multi_seleccion_doble::get_lista_parametros()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_lista_parametros">toba_ef_checkbox::get_lista_parametros()</a>
@@ -531,10 +539,13 @@
 				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_lista_parametros">toba_ef_html::get_lista_parametros()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_lista_parametros">toba_ef_fieldset::get_lista_parametros()</a>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_lista_parametros">toba_ef_upload::get_lista_parametros()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_lista_parametros">toba_ef_fijo::get_lista_parametros()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_lista_parametros">toba_ef_fieldset::get_lista_parametros()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodget_lista_parametros">toba_ef_editable::get_lista_parametros()</a>
@@ -555,22 +566,16 @@
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_lista_parametros">toba_ef_editable_textarea::get_lista_parametros()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_lista_parametros">toba_ef_multi_seleccion::get_lista_parametros()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodget_lista_parametros">toba_ef_multi_seleccion_lista::get_lista_parametros()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodget_lista_parametros">toba_ef_multi_seleccion_doble::get_lista_parametros()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros">toba_ef_cuit::get_lista_parametros()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_lista_parametros_carga" id="get_lista_parametros_carga"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 125]</span>
+	<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 126]</span>
 </div>
 <br />
 
@@ -591,7 +596,7 @@
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros_carga">toba_ef_cuit::get_lista_parametros_carga()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_lista_parametros_carga">toba_ef_multi_seleccion::get_lista_parametros_carga()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_lista_parametros_carga">toba_ef_seleccion::get_lista_parametros_carga()</a>
@@ -603,16 +608,16 @@
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros_carga">toba_ef_popup::get_lista_parametros_carga()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_lista_parametros_carga">toba_ef_multi_seleccion::get_lista_parametros_carga()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_lista_parametros_carga">toba_ef_cuit::get_lista_parametros_carga()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_lista_parametros_carga_basico" id="get_lista_parametros_carga_basico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">static method get_lista_parametros_carga_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
+	<span class="method-title">static method get_lista_parametros_carga_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 131]</span>
 </div>
 <br />
 
@@ -633,10 +638,10 @@
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 56]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 57]</span>
 </div>
 <br />
 
@@ -718,7 +723,13 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#method__construct">toba_ef_upload::__construct()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#method__construct">toba_ef_multi_seleccion::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#method__construct">toba_ef_multi_seleccion_lista::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#method__construct">toba_ef_seleccion::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#method__construct">toba_ef_checkbox::__construct()</a>
@@ -727,13 +738,7 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_html.html#method__construct">toba_ef_html::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#method__construct">toba_ef_seleccion::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#method__construct">toba_ef_sin_estado::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_fieldset.html#method__construct">toba_ef_fieldset::__construct()</a>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#method__construct">toba_ef_upload::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#method__construct">toba_ef_oculto::__construct()</a>
@@ -743,6 +748,12 @@ $parametros&nbsp;
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#method__construct">toba_ef_oculto_usuario::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#method__construct">toba_ef_sin_estado::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_fieldset.html#method__construct">toba_ef_fieldset::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#method__construct">toba_ef_editable::__construct()</a>
@@ -765,20 +776,14 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#method__construct">toba_ef_editable_textarea::__construct()</a>
 							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#method__construct">toba_ef_multi_seleccion::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#method__construct">toba_ef_multi_seleccion_lista::__construct()</a>
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 478]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 479]</span>
 </div>
 <br />
 
@@ -801,16 +806,16 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcargar_estado_post">toba_ef_cuit::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodcargar_estado_post">toba_ef_multi_seleccion::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcargar_estado_post">toba_ef_upload::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodcargar_estado_post">toba_ef_seleccion::cargar_estado_post()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcargar_estado_post">toba_ef_checkbox::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodcargar_estado_post">toba_ef_seleccion::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcargar_estado_post">toba_ef_upload::cargar_estado_post()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodcargar_estado_post">toba_ef_oculto::cargar_estado_post()</a>
@@ -820,16 +825,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodcargar_estado_post">toba_ef_editable::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodcargar_estado_post">toba_ef_multi_seleccion::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcargar_estado_post">toba_ef_cuit::cargar_estado_post()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcarga_depende_de_estado" id="carga_depende_de_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 166]</span>
+	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 167]</span>
 </div>
 <br />
 
@@ -858,10 +863,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 494]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 495]</span>
 </div>
 <br />
 
@@ -884,19 +889,25 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcrear_objeto_js">toba_ef_cuit::crear_objeto_js()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodcrear_objeto_js">toba_ef_multi_seleccion_lista::crear_objeto_js()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcrear_objeto_js">toba_ef_upload::crear_objeto_js()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_check.html#methodcrear_objeto_js">toba_ef_multi_seleccion_check::crear_objeto_js()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcrear_objeto_js">toba_ef_checkbox::crear_objeto_js()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodcrear_objeto_js">toba_ef_multi_seleccion_doble::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_combo.html#methodcrear_objeto_js">toba_ef_combo::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_radio.html#methodcrear_objeto_js">toba_ef_radio::crear_objeto_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcrear_objeto_js">toba_ef_checkbox::crear_objeto_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcrear_objeto_js">toba_ef_upload::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodcrear_objeto_js">toba_ef_fijo::crear_objeto_js()</a>
@@ -926,22 +937,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodcrear_objeto_js">toba_ef_editable_textarea::crear_objeto_js()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodcrear_objeto_js">toba_ef_multi_seleccion_lista::crear_objeto_js()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_check.html#methodcrear_objeto_js">toba_ef_multi_seleccion_check::crear_objeto_js()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodcrear_objeto_js">toba_ef_multi_seleccion_doble::crear_objeto_js()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcrear_objeto_js">toba_ef_cuit::crear_objeto_js()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodesta_expandido" id="esta_expandido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 268]</span>
+	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 269]</span>
 </div>
 <br />
 
@@ -970,10 +975,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_estado_unico" id="es_estado_unico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 157]</span>
+	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 158]</span>
 </div>
 <br />
 
@@ -1002,10 +1007,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_obligatorio" id="es_obligatorio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 249]</span>
+	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 250]</span>
 </div>
 <br />
 
@@ -1034,10 +1039,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_seleccionable" id="es_seleccionable"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 149]</span>
+	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 150]</span>
 </div>
 <br />
 
@@ -1060,19 +1065,19 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodes_seleccionable">toba_ef_seleccion::es_seleccionable()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodes_seleccionable">toba_ef_multi_seleccion::es_seleccionable()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodes_seleccionable">toba_ef_multi_seleccion::es_seleccionable()</a>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodes_seleccionable">toba_ef_seleccion::es_seleccionable()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_campos_clave" id="get_campos_clave"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 198]</span>
+	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 199]</span>
 </div>
 <br />
 
@@ -1094,10 +1099,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_campo_valor" id="get_campo_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 208]</span>
+	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 209]</span>
 </div>
 <br />
 
@@ -1126,10 +1131,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 525]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 526]</span>
 </div>
 <br />
 
@@ -1159,10 +1164,10 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_consumo_javascript">toba_ef_cuit::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_consumo_javascript">toba_ef_multi_seleccion::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_consumo_javascript">toba_ef_upload::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_consumo_javascript">toba_ef_seleccion::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_consumo_javascript">toba_ef_checkbox::get_consumo_javascript()</a>
@@ -1171,13 +1176,13 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_consumo_javascript">toba_ef_html::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_consumo_javascript">toba_ef_seleccion::get_consumo_javascript()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_consumo_javascript">toba_ef_sin_estado::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_consumo_javascript">toba_ef_upload::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_consumo_javascript">toba_ef_fijo::get_consumo_javascript()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_consumo_javascript">toba_ef_sin_estado::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodget_consumo_javascript">toba_ef_editable::get_consumo_javascript()</a>
@@ -1192,16 +1197,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_consumo_javascript">toba_ef_editable_textarea::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_consumo_javascript">toba_ef_multi_seleccion::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_consumo_javascript">toba_ef_cuit::get_consumo_javascript()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_cuando_cambia_valor" id="get_cuando_cambia_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 542]</span>
+	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 543]</span>
 </div>
 <br />
 
@@ -1230,10 +1235,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_dato" id="get_dato"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 300]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 301]</span>
 </div>
 <br />
 
@@ -1255,10 +1260,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_descripcion" id="get_descripcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 291]</span>
+	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 292]</span>
 </div>
 <br />
 
@@ -1280,10 +1285,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_descripcion_estado" id="get_descripcion_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 337]</span>
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 338]</span>
 </div>
 <br />
 
@@ -1306,23 +1311,23 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_descripcion_estado">toba_ef_checkbox::get_descripcion_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_descripcion_estado">toba_ef_multi_seleccion::get_descripcion_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_descripcion_estado">toba_ef_seleccion::get_descripcion_estado()</a>
 								: Retorna la descripción asociada a la opción actualmente seleccionada
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_descripcion_estado">toba_ef_multi_seleccion::get_descripcion_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_descripcion_estado">toba_ef_checkbox::get_descripcion_estado()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_estado" id="get_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 322]</span>
+	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 323]</span>
 </div>
 <br />
 
@@ -1352,6 +1357,10 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_estado">toba_ef_multi_seleccion::get_estado()</a>
+								: Puede retornar el estado serializado (un unico string) o en un arreglo dependiendo de su definición en el editor
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_estado">toba_ef_seleccion::get_estado()</a>
 							</li>
 					<li>
@@ -1360,18 +1369,14 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_estado">toba_ef_editable_fecha::get_estado()</a>
 							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_estado">toba_ef_multi_seleccion::get_estado()</a>
-								: Puede retornar el estado serializado (un unico string) o en un arreglo dependiendo de su definición en el editor
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_estilo_etiqueta" id="get_estilo_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 257]</span>
+	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 258]</span>
 </div>
 <br />
 
@@ -1393,10 +1398,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_etiqueta" id="get_etiqueta"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 281]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 282]</span>
 </div>
 <br />
 
@@ -1418,10 +1423,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 273]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 274]</span>
 </div>
 <br />
 
@@ -1441,10 +1446,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_id_form" id="get_id_form"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 313]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 314]</span>
 </div>
 <br />
 
@@ -1464,10 +1469,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_id_form_orig" id="get_id_form_orig"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 308]</span>
+	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 309]</span>
 </div>
 <br />
 
@@ -1489,10 +1494,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_input" id="get_input"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 556]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 557]</span>
 </div>
 <br />
 
@@ -1522,16 +1527,13 @@ $parametros&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_input">toba_ef_cuit::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodget_input">toba_ef_multi_seleccion_lista::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_input">toba_ef_upload::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_check.html#methodget_input">toba_ef_multi_seleccion_check::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_input">toba_ef_checkbox::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_input">toba_ef_html::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodget_input">toba_ef_multi_seleccion_doble::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_combo.html#methodget_input">toba_ef_combo::get_input()</a>
@@ -1540,16 +1542,25 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_radio.html#methodget_input">toba_ef_radio::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_barra_divisora.html#methodget_input">toba_ef_barra_divisora::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_input">toba_ef_checkbox::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_input">toba_ef_fieldset::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_input">toba_ef_html::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_input">toba_ef_upload::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodget_input">toba_ef_oculto::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_input">toba_ef_fijo::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_barra_divisora.html#methodget_input">toba_ef_barra_divisora::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_input">toba_ef_fieldset::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodget_input">toba_ef_editable::get_input()</a>
@@ -1567,22 +1578,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_input">toba_ef_editable_textarea::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodget_input">toba_ef_multi_seleccion_lista::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_check.html#methodget_input">toba_ef_multi_seleccion_check::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodget_input">toba_ef_multi_seleccion_doble::get_input()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_input">toba_ef_cuit::get_input()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodget_maestros" id="get_maestros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 188]</span>
+	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 189]</span>
 </div>
 <br />
 
@@ -1611,10 +1616,10 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodir_a_fila" id="ir_a_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 395]</span>
+	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 396]</span>
 </div>
 <br />
 
@@ -1648,10 +1653,10 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodobjeto_js" id="objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 503]</span>
+	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 504]</span>
 </div>
 <br />
 
@@ -1673,10 +1678,10 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodparametros_js" id="parametros_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 511]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 512]</span>
 </div>
 <br />
 
@@ -1706,6 +1711,12 @@ $agregado = &quot;&quot;]&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodparametros_js">toba_ef_multi_seleccion::parametros_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodparametros_js">toba_ef_multi_seleccion_doble::parametros_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodparametros_js">toba_ef_editable::parametros_js()</a>
 							</li>
 					<li>
@@ -1717,20 +1728,14 @@ $agregado = &quot;&quot;]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodparametros_js">toba_ef_editable_textarea::parametros_js()</a>
 							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodparametros_js">toba_ef_multi_seleccion::parametros_js()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodparametros_js">toba_ef_multi_seleccion_doble::parametros_js()</a>
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodresetear_estado" id="resetear_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 362]</span>
+	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 363]</span>
 </div>
 <br />
 
@@ -1753,13 +1758,13 @@ $agregado = &quot;&quot;]&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodresetear_estado">toba_ef_sin_estado::resetear_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodresetear_estado">toba_ef_oculto::resetear_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#methodresetear_estado">toba_ef_oculto_usuario::resetear_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodresetear_estado">toba_ef_sin_estado::resetear_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodresetear_estado">toba_ef_popup::resetear_estado()</a>
@@ -1768,10 +1773,10 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodseleccionado" id="seleccionado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 353]</span>
+	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 354]</span>
 </div>
 <br />
 
@@ -1800,10 +1805,10 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodset_cuando_cambia_valor" id="set_cuando_cambia_valor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 534]</span>
+	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 535]</span>
 </div>
 <br />
 
@@ -1837,10 +1842,10 @@ $js&nbsp;
 		<br />
 </div>
 <a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 415]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 416]</span>
 </div>
 <br />
 
@@ -1874,10 +1879,10 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodset_estado" id="set_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 466]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 467]</span>
 </div>
 <br />
 
@@ -1912,16 +1917,13 @@ $estado&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodset_estado">toba_ef_cuit::set_estado()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodset_estado">toba_ef_checkbox::set_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodset_estado">toba_ef_multi_seleccion::set_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodset_estado">toba_ef_seleccion::set_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodset_estado">toba_ef_sin_estado::set_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodset_estado">toba_ef_checkbox::set_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodset_estado">toba_ef_oculto::set_estado()</a>
@@ -1933,6 +1935,9 @@ $estado&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#methodset_estado">toba_ef_oculto_usuario::set_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodset_estado">toba_ef_sin_estado::set_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodset_estado">toba_ef_editable::set_estado()</a>
 							</li>
 					<li>
@@ -1942,16 +1947,16 @@ $estado&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodset_estado">toba_ef_editable_textarea::set_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodset_estado">toba_ef_multi_seleccion::set_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodset_estado">toba_ef_cuit::set_estado()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodset_estilo_etiqueta" id="set_estilo_etiqueta"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 446]</span>
+	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 447]</span>
 </div>
 <br />
 
@@ -1985,10 +1990,10 @@ $estilo&nbsp;
 		<br />
 </div>
 <a name="methodset_etiqueta" id="set_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 405]</span>
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 406]</span>
 </div>
 <br />
 
@@ -2022,10 +2027,10 @@ $etiqueta&nbsp;
 		<br />
 </div>
 <a name="methodset_expandido" id="set_expandido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 457]</span>
+	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 458]</span>
 </div>
 <br />
 
@@ -2059,10 +2064,10 @@ $expandido&nbsp;
 		<br />
 </div>
 <a name="methodset_obligatorio" id="set_obligatorio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 437]</span>
+	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 438]</span>
 </div>
 <br />
 
@@ -2096,10 +2101,10 @@ $obligatorio = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_solo_lectura" id="set_solo_lectura"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 426]</span>
+	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 427]</span>
 </div>
 <br />
 
@@ -2133,10 +2138,10 @@ $solo_lectura = true]&nbsp;
 		<br />
 </div>
 <a name="methodson_campos_posicionales" id="son_campos_posicionales"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 217]</span>
+	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 218]</span>
 </div>
 <br />
 
@@ -2158,10 +2163,10 @@ $solo_lectura = true]&nbsp;
 		<br />
 </div>
 <a name="methodtiene_estado" id="tiene_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 345]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 346]</span>
 </div>
 <br />
 
@@ -2184,13 +2189,16 @@ $solo_lectura = true]&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_upload.html#methodtiene_estado">toba_ef_upload::tiene_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodtiene_estado">toba_ef_multi_seleccion::tiene_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodtiene_estado">toba_ef_seleccion::tiene_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodtiene_estado">toba_ef_checkbox::tiene_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodtiene_estado">toba_ef_seleccion::tiene_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_upload.html#methodtiene_estado">toba_ef_upload::tiene_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodtiene_estado">toba_ef_sin_estado::tiene_estado()</a>
@@ -2198,17 +2206,14 @@ $solo_lectura = true]&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodtiene_estado">toba_ef_editable::tiene_estado()</a>
 							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodtiene_estado">toba_ef_multi_seleccion::tiene_estado()</a>
-							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodtiene_etiqueta" id="tiene_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 175]</span>
+	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 176]</span>
 </div>
 <br />
 
@@ -2237,10 +2242,10 @@ $solo_lectura = true]&nbsp;
 		<br />
 </div>
 <a name="methodtiene_opciones_cargadas" id="tiene_opciones_cargadas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 238]</span>
+	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
 </div>
 <br />
 
@@ -2262,10 +2267,10 @@ $solo_lectura = true]&nbsp;
 		<br />
 </div>
 <a name="methodvalidar_estado" id="validar_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 371]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 372]</span>
 </div>
 <br />
 
@@ -2295,7 +2300,8 @@ $solo_lectura = true]&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodvalidar_estado">toba_ef_cuit::validar_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodvalidar_estado">toba_ef_multi_seleccion::validar_estado()</a>
+								: La validación verifica si se cumple con la cantidad mínima y máxima
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodvalidar_estado">toba_ef_upload::validar_estado()</a>
@@ -2313,8 +2319,7 @@ $solo_lectura = true]&nbsp;
 								: Valida que sea una fecha válida con la funcion php checkdate
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodvalidar_estado">toba_ef_multi_seleccion::validar_estado()</a>
-								: La validación verifica si se cumple con la cantidad mínima y máxima
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodvalidar_estado">toba_ef_cuit::validar_estado()</a>
 							</li>
 				</ul>
 		<br />
@@ -2328,13 +2333,13 @@ $solo_lectura = true]&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$agregado_form" id="$agregado_form"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$agregado_form</span>
-						<span class="smalllinenumber">[line 44]</span>
+						<span class="smalllinenumber">[line 45]</span>
 		</span>
 	</div>
 
@@ -2352,13 +2357,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$ancho_etiqueta" id="$ancho_etiqueta"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$ancho_etiqueta</span>
-			 = <span class="var-default"> 150</span>			<span class="smalllinenumber">[line 42]</span>
+			 = <span class="var-default"> 150</span>			<span class="smalllinenumber">[line 43]</span>
 		</span>
 	</div>
 
@@ -2376,13 +2381,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$campos_clave" id="$campos_clave"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$campos_clave</span>
-			 = <span class="var-default">array(0)</span>			<span class="smalllinenumber">[line 52]</span>
+			 = <span class="var-default">array(0)</span>			<span class="smalllinenumber">[line 53]</span>
 		</span>
 	</div>
 
@@ -2400,13 +2405,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$campo_valor" id="$campo_valor"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$campo_valor</span>
-						<span class="smalllinenumber">[line 53]</span>
+						<span class="smalllinenumber">[line 54]</span>
 		</span>
 	</div>
 
@@ -2424,13 +2429,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cascada_relajada" id="$cascada_relajada"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cascada_relajada</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 47]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 48]</span>
 		</span>
 	</div>
 
@@ -2448,13 +2453,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$cuando_cambia_valor" id="$cuando_cambia_valor"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cuando_cambia_valor</span>
-			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 48]</span>
+			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 49]</span>
 		</span>
 	</div>
 
@@ -2472,60 +2477,12 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$dato" id="$dato"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$dato</span>
-						<span class="smalllinenumber">[line 34]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$descripcion" id="$descripcion"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$descripcion</span>
-						<span class="smalllinenumber">[line 31]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$estado" id="$estado"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$estado</span>
+			<span class="var-name">$dato</span>
 						<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
@@ -2543,14 +2500,62 @@ $solo_lectura = true]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$estado_defecto" id="$estado_defecto"><!-- --></A>
+<a name="var$descripcion" id="$descripcion"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$descripcion</span>
+						<span class="smalllinenumber">[line 32]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$estado" id="$estado"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$estado_defecto</span>
+			<span class="var-name">$estado</span>
 						<span class="smalllinenumber">[line 36]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$estado_defecto" id="$estado_defecto"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$estado_defecto</span>
+						<span class="smalllinenumber">[line 37]</span>
 		</span>
 	</div>
 
@@ -2575,13 +2580,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$estilo_etiqueta" id="$estilo_etiqueta"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$estilo_etiqueta</span>
-			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 43]</span>
+			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 44]</span>
 		</span>
 	</div>
 
@@ -2599,13 +2604,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$etiqueta" id="$etiqueta"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$etiqueta</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2623,13 +2628,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$expandido" id="$expandido"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$expandido</span>
-			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 41]</span>
+			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 42]</span>
 		</span>
 	</div>
 
@@ -2647,84 +2652,12 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id" id="$id"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id</span>
-						<span class="smalllinenumber">[line 28]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$id_form" id="$id_form"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$id_form</span>
-						<span class="smalllinenumber">[line 33]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$id_form_orig" id="$id_form_orig"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$id_form_orig</span>
-						<span class="smalllinenumber">[line 32]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$id_padre" id="$id_padre"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$id_padre</span>
 						<span class="smalllinenumber">[line 29]</span>
 		</span>
 	</div>
@@ -2742,14 +2675,86 @@ $solo_lectura = true]&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$input_extra" id="$input_extra"><!-- --></A>
+<a name="var$id_form" id="$id_form"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$id_form</span>
+						<span class="smalllinenumber">[line 34]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$id_form_orig" id="$id_form_orig"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$id_form_orig</span>
+						<span class="smalllinenumber">[line 33]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$id_padre" id="$id_padre"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$id_padre</span>
+						<span class="smalllinenumber">[line 30]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$input_extra" id="$input_extra"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$input_extra</span>
-			 = <span class="var-default"> &quot;&quot;</span>			<span class="smalllinenumber">[line 40]</span>
+			 = <span class="var-default"> &quot;&quot;</span>			<span class="smalllinenumber">[line 41]</span>
 		</span>
 	</div>
 
@@ -2767,13 +2772,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$javascript" id="$javascript"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$javascript</span>
-			 = <span class="var-default">&quot;&quot;</span>			<span class="smalllinenumber">[line 39]</span>
+			 = <span class="var-default">&quot;&quot;</span>			<span class="smalllinenumber">[line 40]</span>
 		</span>
 	</div>
 
@@ -2791,13 +2796,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$maestros" id="$maestros"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$maestros</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 49]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 50]</span>
 		</span>
 	</div>
 
@@ -2815,13 +2820,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$obligatorio" id="$obligatorio"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$obligatorio</span>
-						<span class="smalllinenumber">[line 37]</span>
+						<span class="smalllinenumber">[line 38]</span>
 		</span>
 	</div>
 
@@ -2839,13 +2844,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$opciones_cargadas" id="$opciones_cargadas"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$opciones_cargadas</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 54]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 55]</span>
 		</span>
 	</div>
 
@@ -2863,13 +2868,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$padre" id="$padre"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$padre</span>
-						<span class="smalllinenumber">[line 27]</span>
+						<span class="smalllinenumber">[line 28]</span>
 		</span>
 	</div>
 
@@ -2887,13 +2892,13 @@ $solo_lectura = true]&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$solo_lectura" id="$solo_lectura"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$solo_lectura</span>
-						<span class="smalllinenumber">[line 38]</span>
+						<span class="smalllinenumber">[line 39]</span>
 		</span>
 	</div>
 

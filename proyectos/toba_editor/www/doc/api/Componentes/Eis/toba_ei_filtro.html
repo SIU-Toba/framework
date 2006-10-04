@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -154,7 +153,7 @@
 </strong></p>
 
 		<p class="notes">
-			Ubicada en /componentes/interface/toba_ei_filtro.php [<span class="field">line 9</span>]
+			Ubicada en /nucleo/componentes/interface/toba_ei_filtro.php [<span class="field">line 10</span>]
 		</p>
 
 		
@@ -167,8 +166,17 @@
          --toba_ei_filtro</pre>
 
 		
+		<!--		
+		<strong>Author(s):</strong>
+		<ul>
+		  			 		  		</ul> -->
 		
 		
+<table border="0" cellspacing="0" cellpadding="0">
+							
+		<tr><td><strong>Clase Javascript equivalente:</strong>&nbsp;&nbsp;</td>
+			<td><a href='../../../api_js/ei_formulario.html'>ei_formulario</a></td></tr>
+	</table>
 		</td>
 		</tr></table>
 	</div>
@@ -885,12 +893,6 @@
 											<span class="method-definition">Genera la barra con el título y los íconos</span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_barra_sup_especifica">toba_ei::generar_html_barra_sup_especifica()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ventana de extensión para incluir HTML junto a la barra del titulo e iconos</span>
-										</dd>
-																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_boton">toba_ei::generar_html_boton()</a></span>
 										</dt>
 										<dd>
@@ -919,6 +921,12 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Retorna el grupo de eventos activos</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_html_barra_editor">toba_ei::get_html_barra_editor()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_id_form">toba_ei::get_id_form()</a></span>
@@ -960,7 +968,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana posterior a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente cierra su configuración</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpreparar_componente">toba_ei::preparar_componente()</a></span>
@@ -972,7 +980,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana previa a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente deja su estado interno listo para la configuración del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodreportar_evento">toba_ei::reportar_evento()</a></span>
@@ -1190,6 +1198,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -1243,7 +1257,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_envoltura_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 13]</span>
+	<span class="method-title">generar_envoltura_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 14]</span>
 </div>
 <br />
 
@@ -1303,7 +1317,7 @@ $editor = null]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$item_editor</span>
-			 = <span class="var-default"> '/admin/objetos_toba/editores/ei_filtro'</span>			<span class="smalllinenumber">[line 11]</span>
+			 = <span class="var-default"> '/admin/objetos_toba/editores/ei_filtro'</span>			<span class="smalllinenumber">[line 12]</span>
 		</span>
 	</div>
 

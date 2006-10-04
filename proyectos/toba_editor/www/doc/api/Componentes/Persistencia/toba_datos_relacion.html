@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -150,9 +149,11 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		
+        		<p align="center" class="short-description"><strong>Mantiene un conjunto relacionado de <a href="../../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+</strong></p>
+
 		<p class="notes">
-			Ubicada en /componentes/persistencia/toba_datos_relacion.php [<span class="field">line 12</span>]
+			Ubicada en /nucleo/componentes/persistencia/toba_datos_relacion.php [<span class="field">line 14</span>]
 		</p>
 
 		
@@ -161,15 +162,15 @@
    --toba_datos_relacion</pre>
 
 		
-				<strong>Author(s):</strong>
+		<!--		
+		<strong>Author(s):</strong>
 		<ul>
-		  			 		  		</ul>
+		  			 		  		</ul> -->
 		
 		
-<strong>Information Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
-			<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>En el dump_esquema incluir la posición actual de los cursores</td></tr>
-	</table>
+						<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td>En el dump_esquema incluir la posición actual de los cursores</td></tr>
+				</table>
 		</td>
 		</tr></table>
 	</div>
@@ -184,26 +185,12 @@
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
 																																																																																																																																																												<div class="method-definition">
 					<tr><td class="method-definition">static
-											<span class="method-result">void</span>&nbsp;&nbsp;
+											<span class="method-result">Structures_Graph</span>&nbsp;&nbsp;
 					</td>
 					<td class="method-definition"><a href="#grafo_relaciones" title="details" class="method-name">grafo_relaciones</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna un grafo representando un conjunto de tablas y sus relaciones</td></tr>
 				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition">static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#hay_ciclos" title="details" class="method-name">hay_ciclos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																																								<div class="method-definition">
-					<tr><td class="method-definition">static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#orden_topologico" title="details" class="method-name">orden_topologico</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">toba_datos_relacion</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -249,14 +236,14 @@
 					<td class="method-definition">Elimina y sincroniza en el medio de persistencia todos los datos cargados en la relación</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#esta_cargado" title="details" class="method-name">esta_cargado</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">La relacion ha sido cargada con datos?</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__validar" title="details" class="method-name">evt__validar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Lugar para validaciones específicas, se ejecuta justo antes de la sincronización</td></tr>
+					<td class="method-definition">Ventana para validaciones específicas, se ejecuta justo antes de la sincronización</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
@@ -266,12 +253,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#forzar_insercion" title="details" class="method-name">forzar_insercion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas</td></tr>
+					<td class="method-definition">Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas  Esto implica que a la hora de la sincronización se van a generar INSERTS para todas las filas.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_conjunto_datos_interno" title="details" class="method-name">get_conjunto_datos_interno</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la estructura de datos utilizada por las tablas para mantener registro del estado de sus datos</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
@@ -281,7 +268,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_lista_tablas" title="details" class="method-name">get_lista_tablas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna los identificadores de los datos_tabla incluídos</td></tr>
+					<td class="method-definition">Retorna los identificadores de los datos_tabla incluídos en la relación</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_relacion_db.html">toba_ap_relacion_db</a></span>&nbsp;&nbsp;</td>
@@ -293,12 +280,7 @@
 										<td class="method-definition"><a href="#get_tablas_raiz" title="details" class="method-name">get_tablas_raiz</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el id de las tablas que no tienen padres en la relación</td></tr>
 				</div>
-																																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#log" title="details" class="method-name">log</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#orden_carga" title="details" class="method-name">orden_carga</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el orden hacia adelante en el cual se deben cargar las tablas</td></tr>
@@ -308,15 +290,10 @@
 										<td class="method-definition"><a href="#orden_sincronizacion" title="details" class="method-name">orden_sincronizacion</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el orden hacia adelante en el cual se deben sincronizar las tablas</td></tr>
 				</div>
-																								<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#registrar_evento" title="details" class="method-name">registrar_evento</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#resetear" title="details" class="method-name">resetear</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna al estado inicial a todas las tablas incluídas</td></tr>
+					<td class="method-definition">Retorna al estado inicial todas las tablas incluídas</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -326,7 +303,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_cargado" title="details" class="method-name">set_cargado</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Notifica a la relacion que sus tablas han sido o no cargadas</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -336,7 +313,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#tabla" title="details" class="method-name">tabla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna un datos_tabla</td></tr>
+					<td class="method-definition">Retorna una referencia a una tabla perteneciente a la relación</td></tr>
 				</div>
 												</table>
 			</div>
@@ -674,6 +651,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -726,14 +709,14 @@
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 252]</span>
+	<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 246]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void grafo_relaciones(
+		<code>static Structures_Graph grafo_relaciones(
 
 $tablas, 
 $relaciones&nbsp;
@@ -741,91 +724,9 @@ $relaciones&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$tablas:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$relaciones:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
+	<p align="center" class="short-description"><strong>Retorna un grafo representando un conjunto de tablas y sus relaciones
+</strong></p>
 
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodhay_ciclos" id="hay_ciclos"><!-- --></a>
-<div class="oddrow">
-
-<div class="method-header">
-	<span class="method-title">static method hay_ciclos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 207]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void hay_ciclos(
-
-$tablas, 
-$relaciones&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$tablas:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$relaciones:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodorden_topologico" id="orden_topologico"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">static method orden_topologico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 238]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void orden_topologico(
-
-$tablas, 
-$relaciones&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -853,7 +754,7 @@ $relaciones&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 21]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 23]</span>
 </div>
 <br />
 
@@ -893,7 +794,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 396]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 388]</span>
 </div>
 <br />
 
@@ -937,7 +838,7 @@ $clave = array()]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 34]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
 </div>
 <br />
 
@@ -965,7 +866,7 @@ $clave = array()]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 346]</span>
+	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 335]</span>
 </div>
 <br />
 
@@ -990,7 +891,7 @@ $clave = array()]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 109]</span>
+	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 110]</span>
 </div>
 <br />
 
@@ -1015,7 +916,7 @@ $clave = array()]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 122]</span>
+	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 123]</span>
 </div>
 <br />
 
@@ -1052,7 +953,7 @@ $titulo = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dump_esquema_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 167]</span>
+	<span class="method-title">dump_esquema_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 168]</span>
 </div>
 <br />
 
@@ -1094,7 +995,7 @@ $nodo&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 458]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 461]</span>
 </div>
 <br />
 
@@ -1113,6 +1014,9 @@ $nodo&nbsp;
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Persistencia/toba_datos_relacion.html#methodeliminar_todo">toba_datos_relacion::eliminar_todo()</a></td>
+  </tr>
+  <tr>
     <td class="indent"><strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 0.8.4, usar eliminar_todo, es más explícito</td>
   </tr>
 </table>
@@ -1126,7 +1030,7 @@ $nodo&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 448]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 450]</span>
 </div>
 <br />
 
@@ -1151,19 +1055,21 @@ $nodo&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">esta_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 411]</span>
+	<span class="method-title">esta_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 407]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_cargado(
+		<code>boolean esta_cargado(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>La relacion ha sido cargada con datos?
+</strong></p>
+
 	<br />
 	
 
@@ -1174,7 +1080,7 @@ $nodo&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 341]</span>
+	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 330]</span>
 </div>
 <br />
 
@@ -1186,7 +1092,7 @@ $nodo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Lugar para validaciones específicas, se ejecuta justo antes de la sincronización
+	<p align="center" class="short-description"><strong>Ventana para validaciones específicas, se ejecuta justo antes de la sincronización
 </strong></p>
 
 	<br />
@@ -1206,7 +1112,7 @@ $nodo&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 307]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 300]</span>
 </div>
 <br />
 
@@ -1243,7 +1149,7 @@ $tabla&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 424]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 426]</span>
 </div>
 <br />
 
@@ -1255,9 +1161,9 @@ $tabla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas
+	<p align="center" class="short-description"><strong>Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas  Esto implica que a la hora de la sincronización se van a generar INSERTS para todas las filas.
 </strong></p>
-
+<span class="description"><p>Se utiliza para forzar una clonación completa de los datos una relación.</p></span>
 	<br />
 	
 
@@ -1268,7 +1174,7 @@ $tabla&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 353]</span>
+	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 345]</span>
 </div>
 <br />
 
@@ -1280,7 +1186,9 @@ $tabla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la estructura de datos utilizada por las tablas para mantener registro del estado de sus datos
+</strong></p>
+
 	<br />
 	
 
@@ -1291,7 +1199,7 @@ $tabla&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 477]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 480]</span>
 </div>
 <br />
 
@@ -1316,7 +1224,7 @@ $tabla&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 282]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 276]</span>
 </div>
 <br />
 
@@ -1328,7 +1236,7 @@ $tabla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna los identificadores de los datos_tabla incluídos
+	<p align="center" class="short-description"><strong>Retorna los identificadores de los datos_tabla incluídos en la relación
 </strong></p>
 
 	<br />
@@ -1341,7 +1249,7 @@ $tabla&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 369]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 361]</span>
 </div>
 <br />
 
@@ -1366,7 +1274,7 @@ $tabla&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 468]</span>
+	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 471]</span>
 </div>
 <br />
 
@@ -1387,59 +1295,11 @@ $tabla&nbsp;
 		
 		<br />
 </div>
-<a name="methodlog" id="log"><!-- --></a>
+<a name="methodorden_carga" id="orden_carga"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 485]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void log(
-
-$txt&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$txt:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-<strong>Information Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>El objeto deberia tener directamente algo asi</td>
-  </tr>
-</table>
-
-		
-		<br />
-</div>
-<a name="methodorden_carga" id="orden_carga"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 233]</span>
+	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 237]</span>
 </div>
 <br />
 
@@ -1458,7 +1318,7 @@ $txt&nbsp;
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo de toba_datos_tabla</td>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo id_tabla =&gt; toba_datos_tabla</td>
   </tr>
 </table>
 <br />
@@ -1468,10 +1328,10 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodorden_sincronizacion" id="orden_sincronizacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 218]</span>
+	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 214]</span>
 </div>
 <br />
 
@@ -1485,12 +1345,12 @@ $txt&nbsp;
 
 	<p align="center" class="short-description"><strong>Retorna el orden hacia adelante en el cual se deben sincronizar las tablas
 </strong></p>
-
+<span class="description"><p>El orden predeterminado es el orden topologico de las tablas</p></span>
 	<br />
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo de toba_datos_tabla</td>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo id_tabla =&gt; toba_datos_tabla</td>
   </tr>
 </table>
 <br />
@@ -1499,60 +1359,11 @@ $txt&nbsp;
 		
 		<br />
 </div>
-<a name="methodregistrar_evento" id="registrar_evento"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 312]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void registrar_evento(
-
-$elemento, 
-$evento, 
-$parametros&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$elemento:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$evento:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$parametros:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodresetear" id="resetear"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 320]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 309]</span>
 </div>
 <br />
 
@@ -1564,9 +1375,9 @@ $parametros&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna al estado inicial a todas las tablas incluídas
+	<p align="center" class="short-description"><strong>Retorna al estado inicial todas las tablas incluídas
 </strong></p>
-
+<span class="description"><p>Para volver a utilizar estas tablas se debe cargar nuevamente la relación con datos</p></span>
 	<br />
 	
 
@@ -1577,7 +1388,7 @@ $parametros&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 331]</span>
+	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 320]</span>
 </div>
 <br />
 
@@ -1610,17 +1421,19 @@ $parametros&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_cargado(
-
+boolean
 $cargado&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Notifica a la relacion que sus tablas han sido o no cargadas
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$cargado:&nbsp;</span></td>
 				<td>
@@ -1637,7 +1450,7 @@ $cargado&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 434]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 436]</span>
 </div>
 <br />
 
@@ -1662,7 +1475,7 @@ $cargado&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 292]</span>
+	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 286]</span>
 </div>
 <br />
 
@@ -1676,7 +1489,7 @@ $tabla&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Retorna un datos_tabla
+	<p align="center" class="short-description"><strong>Retorna una referencia a una tabla perteneciente a la relación
 </strong></p>
 
 			<strong>Parámetros:</strong><br />
@@ -1710,7 +1523,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			static <span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$debug_pasadas</span>
-						<span class="smalllinenumber">[line 19]</span>
+						<span class="smalllinenumber">[line 21]</span>
 		</span>
 	</div>
 
@@ -1733,7 +1546,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cargado</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 17]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 19]</span>
 		</span>
 	</div>
 
@@ -1757,7 +1570,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$persistidor</span>
-						<span class="smalllinenumber">[line 16]</span>
+						<span class="smalllinenumber">[line 18]</span>
 		</span>
 	</div>
 
@@ -1781,7 +1594,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$relaciones</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 14]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 16]</span>
 		</span>
 	</div>
 
@@ -1805,7 +1618,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$relaciones_mapeos</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 18]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
 		</span>
 	</div>
 
@@ -1829,7 +1642,7 @@ $tabla&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$tablas_raiz</span>
-						<span class="smalllinenumber">[line 15]</span>
+						<span class="smalllinenumber">[line 17]</span>
 		</span>
 	</div>
 

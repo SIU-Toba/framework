@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -155,7 +154,7 @@
 </strong></p>
 
 		<p class="notes">
-			Ubicada en /componentes/interface/toba_ei.php [<span class="field">line 20</span>]
+			Ubicada en /nucleo/componentes/interface/toba_ei.php [<span class="field">line 21</span>]
 		</p>
 
 		
@@ -164,9 +163,10 @@
    --toba_ei</pre>
 
 		
-				<strong>Author(s):</strong>
+		<!--		
+		<strong>Author(s):</strong>
 		<ul>
-		  			 		  		</ul>
+		  			 		  			 		  		</ul> -->
 		
 		<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -176,6 +176,11 @@
 </table>
 <br />
 
+<table border="0" cellspacing="0" cellpadding="0">
+							
+		<tr><td><strong>Clase Javascript equivalente:</strong>&nbsp;&nbsp;</td>
+			<td><a href='../../../api_js/ei.html'>ei</a></td></tr>
+	</table>
 		</td>
 		</tr></table>
 	</div>
@@ -270,11 +275,6 @@
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#generar_html_barra_sup_especifica" title="details" class="method-name">generar_html_barra_sup_especifica</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Ventana de extensión para incluir HTML junto a la barra del titulo e iconos</td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#generar_html_boton" title="details" class="method-name">generar_html_boton</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
 				</div>
@@ -297,6 +297,11 @@
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_grupo_eventos_activo" title="details" class="method-name">get_grupo_eventos_activo</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Retorna el grupo de eventos activos</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#get_html_barra_editor" title="details" class="method-name">get_html_barra_editor</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition"></td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -331,7 +336,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#post_configurar" title="details" class="method-name">post_configurar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Ventana posterior a la configuración del componente</td></tr>
+					<td class="method-definition">Espacio donde el componente cierra su configuración</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -341,7 +346,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pre_configurar" title="details" class="method-name">pre_configurar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Ventana previa a la configuración del componente</td></tr>
+					<td class="method-definition">Espacio donde el componente deja su estado interno listo para la configuración del componente</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -389,39 +394,9 @@
 					<th class="class-table-header">Descripción</th>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_calendario.html">toba_ei_calendario</a></td>
-					<td>
-											Calendario para visualizar contenidos diarios y seleccionar días o semanas.
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_archivos.html">toba_ei_archivos</a></td>
-					<td>
-											Permite navegar el sistema de archivos del servidor bajo una carpeta dada
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_pantalla.html">toba_ei_pantalla</a></td>
 					<td>
 											Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_arbol.html">toba_ei_arbol</a></td>
-					<td>
-											Muestra un árbol donde el usuario puede colapsar/descolapsar niveles  Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX  Cada nodo debe implementar la interfaz toba_nodo_arbol
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_esquema.html">toba_ei_esquema</a></td>
-					<td>
-											Genera un esquema utilizando GraphViz
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ci.html">toba_ci</a></td>
-					<td>
-											Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
 										</td>
 				</tr>
 								<tr>
@@ -431,9 +406,39 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ci.html">toba_ci</a></td>
+					<td>
+											Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_archivos.html">toba_ei_archivos</a></td>
+					<td>
+											Permite navegar el sistema de archivos del servidor bajo una carpeta dada
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_arbol.html">toba_ei_arbol</a></td>
+					<td>
+											Muestra un árbol donde el usuario puede colapsar/descolapsar niveles  Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX  Cada nodo debe implementar la interfaz toba_nodo_arbol
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_formulario.html">toba_ei_formulario</a></td>
 					<td>
 											Un formulario simple presenta una grilla de campos editables.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_esquema.html">toba_ei_esquema</a></td>
+					<td>
+											Genera un esquema utilizando GraphViz
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_calendario.html">toba_ei_calendario</a></td>
+					<td>
+											Calendario para visualizar contenidos diarios y seleccionar días o semanas.
 										</td>
 				</tr>
 							</table>
@@ -770,6 +775,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -820,10 +831,10 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 37]</span>
 </div>
 <br />
 
@@ -861,25 +872,19 @@ $definicion&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -887,14 +892,20 @@ $definicion&nbsp;
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodagregar_evento" id="agregar_evento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 116]</span>
+	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 117]</span>
 </div>
 <br />
 
@@ -928,10 +939,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodcant_eventos_sobre_fila" id="cant_eventos_sobre_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 177]</span>
+	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 178]</span>
 </div>
 <br />
 
@@ -951,10 +962,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodcargar_lista_eventos" id="cargar_lista_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 147]</span>
+	<span class="method-title">cargar_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 148]</span>
 </div>
 <br />
 
@@ -982,33 +993,33 @@ $id&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodcargar_lista_eventos">toba_ei_calendario::cargar_lista_eventos()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#methodcargar_lista_eventos">toba_ei_archivos::cargar_lista_eventos()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_pantalla.html#methodcargar_lista_eventos">toba_ei_pantalla::cargar_lista_eventos()</a>
-								: Carga la lista de eventos definidos desde el administrador
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_arbol.html#methodcargar_lista_eventos">toba_ei_arbol::cargar_lista_eventos()</a>
 								: Carga la lista de eventos definidos desde el administrador
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methodcargar_lista_eventos">toba_ei_cuadro::cargar_lista_eventos()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#methodcargar_lista_eventos">toba_ei_archivos::cargar_lista_eventos()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_arbol.html#methodcargar_lista_eventos">toba_ei_arbol::cargar_lista_eventos()</a>
+								: Carga la lista de eventos definidos desde el administrador
+							</li>
+					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodcargar_lista_eventos">toba_ei_formulario_ml::cargar_lista_eventos()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodcargar_lista_eventos">toba_ei_calendario::cargar_lista_eventos()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcolapsar" id="colapsar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 332]</span>
+	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 333]</span>
 </div>
 <br />
 
@@ -1030,7 +1041,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 461]</span>
@@ -1063,19 +1074,16 @@ $id&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodcrear_objeto_js">toba_ei_calendario::crear_objeto_js()</a>
+				<a href="../../Componentes/Eis/toba_ei_pantalla.html#methodcrear_objeto_js">toba_ei_pantalla::crear_objeto_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methodcrear_objeto_js">toba_ei_cuadro::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_archivos.html#methodcrear_objeto_js">toba_ei_archivos::crear_objeto_js()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_pantalla.html#methodcrear_objeto_js">toba_ei_pantalla::crear_objeto_js()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_arbol.html#methodcrear_objeto_js">toba_ei_arbol::crear_objeto_js()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methodcrear_objeto_js">toba_ei_cuadro::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#methodcrear_objeto_js">toba_ei_formulario::crear_objeto_js()</a>
@@ -1083,14 +1091,17 @@ $id&nbsp;
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodcrear_objeto_js">toba_ei_formulario_ml::crear_objeto_js()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodcrear_objeto_js">toba_ei_calendario::crear_objeto_js()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 56]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 57]</span>
 </div>
 <br />
 
@@ -1118,16 +1129,13 @@ $id&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
@@ -1135,14 +1143,17 @@ $id&nbsp;
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 185]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 186]</span>
 </div>
 <br />
 
@@ -1165,7 +1176,11 @@ $id&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddisparar_eventos">toba_ei_calendario::disparar_eventos()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddisparar_eventos">toba_ei_cuadro::disparar_eventos()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ci.html#methoddisparar_eventos">toba_ci::disparar_eventos()</a>
+								: Se disparan los eventos propios y se les ordena a las dependencias que gatillen sus eventos
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_archivos.html#methoddisparar_eventos">toba_ei_archivos::disparar_eventos()</a>
@@ -1174,26 +1189,22 @@ $id&nbsp;
 				<a href="../../Componentes/Eis/toba_ei_arbol.html#methoddisparar_eventos">toba_ei_arbol::disparar_eventos()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ci.html#methoddisparar_eventos">toba_ci::disparar_eventos()</a>
-								: Se disparan los eventos propios y se les ordena a las dependencias que gatillen sus eventos
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddisparar_eventos">toba_ei_cuadro::disparar_eventos()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#methoddisparar_eventos">toba_ei_formulario::disparar_eventos()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methoddisparar_eventos">toba_ei_formulario_ml::disparar_eventos()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddisparar_eventos">toba_ei_calendario::disparar_eventos()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodeliminar_evento" id="eliminar_evento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 129]</span>
+	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 130]</span>
 </div>
 <br />
 
@@ -1227,10 +1238,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevento" id="evento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 100]</span>
+	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 101]</span>
 </div>
 <br />
 
@@ -1272,7 +1283,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodextender_objeto_js" id="extender_objeto_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">extender_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 470]</span>
@@ -1304,10 +1315,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodfiltrar_eventos" id="filtrar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">filtrar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 238]</span>
+	<span class="method-title">filtrar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 239]</span>
 </div>
 <br />
 
@@ -1336,10 +1347,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_boton" id="generar_boton"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 317]</span>
+	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 318]</span>
 </div>
 <br />
 
@@ -1380,10 +1391,10 @@ $excluir_botonera = true]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_botones" id="generar_botones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 277]</span>
+	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 278]</span>
 </div>
 <br />
 
@@ -1417,10 +1428,10 @@ $clase = '']&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_botones_eventos" id="generar_botones_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 288]</span>
+	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 289]</span>
 </div>
 <br />
 
@@ -1449,10 +1460,10 @@ $clase = '']&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html_barra_sup" id="generar_html_barra_sup"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 372]</span>
+	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 366]</span>
 </div>
 <br />
 
@@ -1499,36 +1510,11 @@ $estilo = &quot;&quot;]&nbsp;
 		
 		<br />
 </div>
-<a name="methodgenerar_html_barra_sup_especifica" id="generar_html_barra_sup_especifica"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">generar_html_barra_sup_especifica</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 361]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void generar_html_barra_sup_especifica(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Ventana de extensión para incluir HTML junto a la barra del titulo e iconos
-</strong></p>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodgenerar_html_boton" id="generar_html_boton"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 299]</span>
+	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 300]</span>
 </div>
 <br />
 
@@ -1597,6 +1583,7 @@ $evento&nbsp;
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#methodgenerar_js">toba_ci::generar_js()</a>
+								: Delega la generacion de js a la pantalla actual
 							</li>
 				</ul>
 		<br />
@@ -1633,29 +1620,29 @@ $evento&nbsp;
 		<div class="notes">Redefinido en descendientes como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodget_consumo_javascript">toba_ei_calendario::get_consumo_javascript()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#methodget_consumo_javascript">toba_ei_archivos::get_consumo_javascript()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_pantalla.html#methodget_consumo_javascript">toba_ei_pantalla::get_consumo_javascript()</a>
 								: Retorna los consumos javascript requerido por este objeto y sus dependencias
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_arbol.html#methodget_consumo_javascript">toba_ei_arbol::get_consumo_javascript()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methodget_consumo_javascript">toba_ei_cuadro::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#methodget_consumo_javascript">toba_ci::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methodget_consumo_javascript">toba_ei_cuadro::get_consumo_javascript()</a>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#methodget_consumo_javascript">toba_ei_archivos::get_consumo_javascript()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_arbol.html#methodget_consumo_javascript">toba_ei_arbol::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#methodget_consumo_javascript">toba_ei_formulario::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodget_consumo_javascript">toba_ei_formulario_ml::get_consumo_javascript()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methodget_consumo_javascript">toba_ei_calendario::get_consumo_javascript()</a>
 							</li>
 				</ul>
 		<br />
@@ -1664,7 +1651,7 @@ $evento&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 164]</span>
+	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 165]</span>
 </div>
 <br />
 
@@ -1696,7 +1683,7 @@ $evento&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 230]</span>
+	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 231]</span>
 </div>
 <br />
 
@@ -1717,8 +1704,31 @@ $evento&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_id_form" id="get_id_form"><!-- --></a>
+<a name="methodget_html_barra_editor" id="get_html_barra_editor"><!-- --></a>
 <div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">get_html_barra_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 404]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_html_barra_editor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id_form" id="get_id_form"><!-- --></a>
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 418]</span>
@@ -1741,7 +1751,7 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodget_id_objeto_js" id="get_id_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">get_id_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 453]</span>
@@ -1766,10 +1776,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_eventos_internos" id="get_lista_eventos_internos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 212]</span>
+	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 213]</span>
 </div>
 <br />
 
@@ -1791,10 +1801,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_eventos_usuario" id="get_lista_eventos_usuario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 203]</span>
+	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 204]</span>
 </div>
 <br />
 
@@ -1816,10 +1826,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodhay_botones" id="hay_botones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 263]</span>
+	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 264]</span>
 </div>
 <br />
 
@@ -1841,7 +1851,7 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodiniciar_objeto_js" id="iniciar_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">iniciar_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 476]</span>
@@ -1873,10 +1883,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodpost_configurar" id="post_configurar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 87]</span>
+	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 88]</span>
 </div>
 <br />
 
@@ -1888,7 +1898,7 @@ $evento&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Ventana posterior a la configuración del componente
+	<p align="center" class="short-description"><strong>Espacio donde el componente cierra su configuración
 </strong></p>
 
 	<br />
@@ -1912,10 +1922,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodpreparar_componente" id="preparar_componente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 48]</span>
+	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 49]</span>
 </div>
 <br />
 
@@ -1952,10 +1962,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodpre_configurar" id="pre_configurar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 80]</span>
+	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 81]</span>
 </div>
 <br />
 
@@ -1967,7 +1977,7 @@ $evento&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<p align="center" class="short-description"><strong>Ventana previa a la configuración del componente
+	<p align="center" class="short-description"><strong>Espacio donde el componente deja su estado interno listo para la configuración del componente
 </strong></p>
 
 	<br />
@@ -1982,6 +1992,7 @@ $evento&nbsp;
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#methodpre_configurar">toba_ci::pre_configurar()</a>
+								: Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodpre_configurar">toba_ei_formulario_ml::pre_configurar()</a>
@@ -1990,10 +2001,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodreportar_evento" id="reportar_evento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 190]</span>
+	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 191]</span>
 </div>
 <br />
 
@@ -2034,10 +2045,10 @@ $evento&nbsp;
 		<br />
 </div>
 <a name="methodset_colapsable" id="set_colapsable"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 342]</span>
+	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 343]</span>
 </div>
 <br />
 
@@ -2071,10 +2082,10 @@ $colapsable&nbsp;
 		<br />
 </div>
 <a name="methodset_grupo_eventos_activo" id="set_grupo_eventos_activo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 222]</span>
+	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 223]</span>
 </div>
 <br />
 
@@ -2108,10 +2119,10 @@ $grupo&nbsp;
 		<br />
 </div>
 <a name="methodset_titulo" id="set_titulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 353]</span>
+	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 354]</span>
 </div>
 <br />
 
@@ -2145,7 +2156,7 @@ $titulo&nbsp;
 		<br />
 </div>
 <a name="methodvista_impresion" id="vista_impresion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 498]</span>
@@ -2189,7 +2200,7 @@ $salida&nbsp;
 		<br />
 </div>
 <a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 508]</span>
@@ -2247,13 +2258,13 @@ $salida&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$botones_graficados_ad_hoc" id="$botones_graficados_ad_hoc"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$botones_graficados_ad_hoc</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 31]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 32]</span>
 		</span>
 	</div>
 
@@ -2271,13 +2282,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$colapsado" id="$colapsado"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$colapsado</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 25]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 26]</span>
 		</span>
 	</div>
 
@@ -2295,13 +2306,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$eventos" id="$eventos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$eventos</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 27]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 28]</span>
 		</span>
 	</div>
 
@@ -2326,36 +2337,12 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$eventos_usuario" id="$eventos_usuario"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$eventos_usuario</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 28]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$eventos_usuario_utilizados" id="$eventos_usuario_utilizados"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$eventos_usuario_utilizados</span>
+			<span class="var-name">$eventos_usuario</span>
 			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 29]</span>
 		</span>
 	</div>
@@ -2373,14 +2360,38 @@ $salida&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$eventos_usuario_utilizados_sobre_fila" id="$eventos_usuario_utilizados_sobre_fila"><!-- --></A>
+<a name="var$eventos_usuario_utilizados" id="$eventos_usuario_utilizados"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$eventos_usuario_utilizados</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 30]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$eventos_usuario_utilizados_sobre_fila" id="$eventos_usuario_utilizados_sobre_fila"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$eventos_usuario_utilizados_sobre_fila</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2398,13 +2409,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$evento_implicito" id="$evento_implicito"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$evento_implicito</span>
-			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 26]</span>
+			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -2422,13 +2433,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$grupo_eventos_activo" id="$grupo_eventos_activo"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$grupo_eventos_activo</span>
-			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 32]</span>
+			 = <span class="var-default"> ''</span>			<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -2446,13 +2457,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$info_eventos" id="$info_eventos"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$info_eventos</span>
-						<span class="smalllinenumber">[line 24]</span>
+						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -2470,13 +2481,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$objeto_js" id="$objeto_js"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$objeto_js</span>
-						<span class="smalllinenumber">[line 23]</span>
+						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
 
@@ -2501,13 +2512,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$prefijo" id="$prefijo"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$prefijo</span>
-			 = <span class="var-default"> 'ei'</span>			<span class="smalllinenumber">[line 34]</span>
+			 = <span class="var-default"> 'ei'</span>			<span class="smalllinenumber">[line 35]</span>
 		</span>
 	</div>
 
@@ -2525,35 +2536,35 @@ $salida&nbsp;
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#var$prefijo">toba_ei_calendario::$prefijo</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_arbol.html#var$prefijo">toba_ei_arbol::$prefijo</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_esquema.html#var$prefijo">toba_ei_esquema::$prefijo</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#var$prefijo">toba_ei_cuadro::$prefijo</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#var$prefijo">toba_ci::$prefijo</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#var$prefijo">toba_ei_cuadro::$prefijo</a>
+				<a href="../../Componentes/Eis/toba_ei_arbol.html#var$prefijo">toba_ei_arbol::$prefijo</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#var$prefijo">toba_ei_formulario::$prefijo</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_esquema.html#var$prefijo">toba_ei_esquema::$prefijo</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#var$prefijo">toba_ei_calendario::$prefijo</a>
 							</li>
 				</ul>
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$submit" id="$submit"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$submit</span>
-						<span class="smalllinenumber">[line 22]</span>
+						<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
 
@@ -2578,13 +2589,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$utilizar_impresion_html" id="$utilizar_impresion_html"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$utilizar_impresion_html</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 33]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 34]</span>
 		</span>
 	</div>
 

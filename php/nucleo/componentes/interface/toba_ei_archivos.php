@@ -6,6 +6,7 @@ require_once("lib/manejador_archivos.php");
  * Permite navegar el sistema de archivos del servidor bajo una carpeta dada
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ei_archivos ei_archivos
  */
 class toba_ei_archivos extends toba_ei
 {

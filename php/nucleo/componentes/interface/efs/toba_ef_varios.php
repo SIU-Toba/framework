@@ -5,6 +5,7 @@ require_once("toba_ef_oculto.php");
  * Muestra un checkbox con el tag <input type='checkbox'>
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_checkbox ef_checkbox
  */
 class toba_ef_checkbox extends toba_ef
 {
@@ -143,6 +144,7 @@ class toba_ef_checkbox extends toba_ef
 /**
  * Muestra un <div> con el estado actual dentro
  * Útil para incluir contenidos estáticos en el formulario
+ * @jsdoc ef_fijo ef_fijo
  */
 class toba_ef_fijo extends toba_ef_oculto
 {
@@ -210,6 +212,7 @@ class toba_ef_fijo extends toba_ef_oculto
  * Incluye un editor HTML WYSYWYG llamado fckeditor
  * El HTML generado por este editor es bastante pobre en estructura, debería ser utilizado solo por usuarios finales
  * y no por desarrolladores que quieran agregar contenido dinámicamente a la aplicación.
+ * @jsdoc ef ef
  */
 class toba_ef_html extends toba_ef
 {

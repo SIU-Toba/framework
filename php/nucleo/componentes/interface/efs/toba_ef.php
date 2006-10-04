@@ -21,6 +21,7 @@ require_once("toba_ef_cuit.php");
  * 
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef ef
  */
 abstract class toba_ef
 {

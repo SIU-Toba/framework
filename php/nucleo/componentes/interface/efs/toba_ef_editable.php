@@ -6,6 +6,7 @@ require_once('nucleo/lib/interface/toba_formateo.php');
  * Puede manejar una mascara.
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable ef_editable
  */
 class toba_ef_editable extends toba_ef
 {
@@ -143,6 +144,7 @@ class toba_ef_editable extends toba_ef
  * Elemento editable que sólo permite ingresar números
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable_numero ef_editable_numero
  */
 class toba_ef_editable_numero extends toba_ef_editable
 {
@@ -269,6 +271,7 @@ class toba_ef_editable_numero extends toba_ef_editable
  * Elemento editable que sólo permite ingresar números que representan un valor monetario
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable_moneda ef_editable_moneda
  */
 class toba_ef_editable_moneda extends toba_ef_editable_numero
 {
@@ -289,6 +292,7 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
  * Elemento editable que sólo permite ingresar números que representan un porcentaje
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable_porcentaje ef_editable_porcentaje
  */
 class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 {
@@ -320,6 +324,7 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
  * Elemento editable que permite ingresar contraseñas, con o sin campo de confirmación
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable_clave ef_editable_clave
  */
 class toba_ef_editable_clave extends toba_ef_editable
 {
@@ -366,6 +371,7 @@ class toba_ef_editable_clave extends toba_ef_editable
  * Elemento editable que permite ingresar fechas
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_editable_fecha ef_editable_fecha
  */
 class toba_ef_editable_fecha extends toba_ef_editable
 {
@@ -462,6 +468,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
  * Elemento editable que permite ingresar textos largos, equivalene a un tag <textarea>
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_textarea ef_textarea
  */
 class toba_ef_editable_textarea extends toba_ef_editable
 {

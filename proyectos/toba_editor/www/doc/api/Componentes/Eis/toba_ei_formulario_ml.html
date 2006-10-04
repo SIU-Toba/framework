@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -154,7 +153,7 @@
 </strong></p>
 <span class="description"><p>La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.</p><p>Como el formulario ML tiene la posibilidad de agregar nuevas filas completamente en el cliente, brinda un servicio que permite analizar lo acontecido con las filas enviadas al cliente.  Así si por ejemplo se envían 3 filas y el cliente modifica dos, la otra la borra y agrega una nueva el método de análisis evita que el programador tenga que comparar el estado de las filas enviadas con el recibido.</p></span>
 		<p class="notes">
-			Ubicada en /componentes/interface/toba_ei_formulario_ml.php [<span class="field">line 14</span>]
+			Ubicada en /nucleo/componentes/interface/toba_ei_formulario_ml.php [<span class="field">line 15</span>]
 		</p>
 
 		
@@ -167,8 +166,17 @@
          --toba_ei_formulario_ml</pre>
 
 		
+		<!--		
+		<strong>Author(s):</strong>
+		<ul>
+		  			 		  		</ul> -->
 		
 		
+<table border="0" cellspacing="0" cellpadding="0">
+							
+		<tr><td><strong>Clase Javascript equivalente:</strong>&nbsp;&nbsp;</td>
+			<td><a href='../../../api_js/ei_formulario_ml.html'>ei_formulario_ml</a></td></tr>
+	</table>
 		</td>
 		</tr></table>
 	</div>
@@ -1060,12 +1068,6 @@
 											<span class="method-definition">Genera la barra con el título y los íconos</span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_barra_sup_especifica">toba_ei::generar_html_barra_sup_especifica()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ventana de extensión para incluir HTML junto a la barra del titulo e iconos</span>
-										</dd>
-																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_boton">toba_ei::generar_html_boton()</a></span>
 										</dt>
 										<dd>
@@ -1094,6 +1096,12 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Retorna el grupo de eventos activos</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_html_barra_editor">toba_ei::get_html_barra_editor()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_id_form">toba_ei::get_id_form()</a></span>
@@ -1135,7 +1143,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana posterior a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente cierra su configuración</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpreparar_componente">toba_ei::preparar_componente()</a></span>
@@ -1147,7 +1155,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana previa a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente deja su estado interno listo para la configuración del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodreportar_evento">toba_ei::reportar_evento()</a></span>
@@ -1365,6 +1373,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -1415,10 +1429,10 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 28]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 29]</span>
 </div>
 <br />
 
@@ -1455,10 +1469,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodagregar_registro" id="agregar_registro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">agregar_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 417]</span>
+	<span class="method-title">agregar_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 418]</span>
 </div>
 <br />
 
@@ -1499,10 +1513,10 @@ $valores = array()]&nbsp;
 		<br />
 </div>
 <a name="methodcargar_ef_a_registro" id="cargar_ef_a_registro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_ef_a_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 471]</span>
+	<span class="method-title">cargar_ef_a_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 472]</span>
 </div>
 <br />
 
@@ -1543,10 +1557,10 @@ $id_registro&nbsp;
 		<br />
 </div>
 <a name="methodcargar_lista_eventos" id="cargar_lista_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 784]</span>
+	<span class="method-title">cargar_lista_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 785]</span>
 </div>
 <br />
 
@@ -1578,10 +1592,10 @@ $id_registro&nbsp;
 		<br />
 </div>
 <a name="methodcargar_post" id="cargar_post"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 207]</span>
+	<span class="method-title">cargar_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 208]</span>
 </div>
 <br />
 
@@ -1610,10 +1624,10 @@ $id_registro&nbsp;
 		<br />
 </div>
 <a name="methodcargar_registro_a_ef" id="cargar_registro_a_ef"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cargar_registro_a_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 496]</span>
+	<span class="method-title">cargar_registro_a_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 497]</span>
 </div>
 <br />
 
@@ -1661,10 +1675,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methodcarga_inicial" id="carga_inicial"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">carga_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 194]</span>
+	<span class="method-title">carga_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 195]</span>
 </div>
 <br />
 
@@ -1686,10 +1700,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 796]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 797]</span>
 </div>
 <br />
 
@@ -1721,10 +1735,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddatos_cargados" id="datos_cargados"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">datos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 455]</span>
+	<span class="method-title">datos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 456]</span>
 </div>
 <br />
 
@@ -1746,10 +1760,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddesactivar_agregado_filas" id="desactivar_agregado_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">desactivar_agregado_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
+	<span class="method-title">desactivar_agregado_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 104]</span>
 </div>
 <br />
 
@@ -1771,10 +1785,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddeseleccionar" id="deseleccionar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 84]</span>
+	<span class="method-title">deseleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 85]</span>
 </div>
 <br />
 
@@ -1796,10 +1810,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
 </div>
 <br />
 
@@ -1824,10 +1838,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 113]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 114]</span>
 </div>
 <br />
 
@@ -1852,10 +1866,10 @@ $datos_registro&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_eventos_especifico" id="disparar_eventos_especifico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 134]</span>
+	<span class="method-title">disparar_eventos_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 135]</span>
 </div>
 <br />
 
@@ -1901,10 +1915,10 @@ $implicito = null]&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_eventos_granulares" id="disparar_eventos_granulares"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos_granulares</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 169]</span>
+	<span class="method-title">disparar_eventos_granulares</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 170]</span>
 </div>
 <br />
 
@@ -1931,10 +1945,10 @@ $implicito = null]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_botonera_manejo_filas" id="generar_botonera_manejo_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 754]</span>
+	<span class="method-title">generar_botonera_manejo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 755]</span>
 </div>
 <br />
 
@@ -1963,10 +1977,10 @@ $implicito = null]&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_etiqueta_ef" id="generar_etiqueta_ef"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_etiqueta_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 613]</span>
+	<span class="method-title">generar_etiqueta_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 614]</span>
 </div>
 <br />
 
@@ -2011,10 +2025,10 @@ $ef&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_formulario" id="generar_formulario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 539]</span>
+	<span class="method-title">generar_formulario</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 540]</span>
 </div>
 <br />
 
@@ -2046,10 +2060,10 @@ $ef&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_formulario_cuerpo" id="generar_formulario_cuerpo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 663]</span>
+	<span class="method-title">generar_formulario_cuerpo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 664]</span>
 </div>
 <br />
 
@@ -2076,10 +2090,10 @@ $ef&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_formulario_encabezado" id="generar_formulario_encabezado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 588]</span>
+	<span class="method-title">generar_formulario_encabezado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
 </div>
 <br />
 
@@ -2106,10 +2120,10 @@ $ef&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_formulario_pie" id="generar_formulario_pie"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 635]</span>
+	<span class="method-title">generar_formulario_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 636]</span>
 </div>
 <br />
 
@@ -2148,10 +2162,10 @@ $colspan&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_lineas" id="get_cantidad_lineas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_cantidad_lineas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 277]</span>
+	<span class="method-title">get_cantidad_lineas</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 278]</span>
 </div>
 <br />
 
@@ -2173,10 +2187,10 @@ $colspan&nbsp;
 		<br />
 </div>
 <a name="methodget_clave_fila" id="get_clave_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 331]</span>
+	<span class="method-title">get_clave_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 332]</span>
 </div>
 <br />
 
@@ -2215,10 +2229,10 @@ $fila&nbsp;
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 828]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 829]</span>
 </div>
 <br />
 
@@ -2243,10 +2257,10 @@ $fila&nbsp;
 		<br />
 </div>
 <a name="methodget_datos" id="get_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 289]</span>
+	<span class="method-title">get_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 290]</span>
 </div>
 <br />
 
@@ -2293,10 +2307,10 @@ $analizar_diferencias = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_objeto_js_ef" id="get_objeto_js_ef"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_objeto_js_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 823]</span>
+	<span class="method-title">get_objeto_js_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 824]</span>
 </div>
 <br />
 
@@ -2333,10 +2347,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodinicializar_especifico" id="inicializar_especifico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 42]</span>
+	<span class="method-title">inicializar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 43]</span>
 </div>
 <br />
 
@@ -2368,10 +2382,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodlimpiar_interface" id="limpiar_interface"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 260]</span>
+	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 261]</span>
 </div>
 <br />
 
@@ -2399,10 +2413,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodpre_configurar" id="pre_configurar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 350]</span>
+	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 351]</span>
 </div>
 <br />
 
@@ -2422,16 +2436,16 @@ $id&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></dt>
-						<dd>Ventana previa a la configuración del componente</dd>
+						<dd>Espacio donde el componente deja su estado interno listo para la configuración del componente</dd>
 					</dl>
 		
 		<br />
 </div>
 <a name="methodseleccionar" id="seleccionar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 94]</span>
+	<span class="method-title">seleccionar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 95]</span>
 </div>
 <br />
 
@@ -2465,10 +2479,10 @@ $clave&nbsp;
 		<br />
 </div>
 <a name="methodset_datos" id="set_datos"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 363]</span>
+	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 364]</span>
 </div>
 <br />
 
@@ -2508,10 +2522,10 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodset_metodo_analisis" id="set_metodo_analisis"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_metodo_analisis</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 64]</span>
+	<span class="method-title">set_metodo_analisis</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 65]</span>
 </div>
 <br />
 
@@ -2545,10 +2559,10 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodset_proximo_id" id="set_proximo_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 445]</span>
+	<span class="method-title">set_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 446]</span>
 </div>
 <br />
 
@@ -2582,10 +2596,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodset_registro_nuevo" id="set_registro_nuevo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">set_registro_nuevo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 432]</span>
+	<span class="method-title">set_registro_nuevo</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 433]</span>
 </div>
 <br />
 
@@ -2626,10 +2640,10 @@ $template = array()]&nbsp;
 		<br />
 </div>
 <a name="methodvalidar_estado" id="validar_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 241]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 242]</span>
 </div>
 <br />
 
@@ -2666,10 +2680,10 @@ $template = array()]&nbsp;
 		<br />
 </div>
 <a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 839]</span>
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 840]</span>
 </div>
 <br />
 
@@ -2714,84 +2728,12 @@ $salida&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 			<a name="var$analizar_diferencias" id="$analizar_diferencias"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$analizar_diferencias</span>
-			 = <span class="var-default">false</span>			<span class="smalllinenumber">[line 21]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$clave_seleccionada" id="$clave_seleccionada"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$clave_seleccionada</span>
-						<span class="smalllinenumber">[line 18]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$datos" id="$datos"><!-- --></A>
-<div class="oddrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$datos</span>
-						<span class="smalllinenumber">[line 16]</span>
-		</span>
-	</div>
-
-		<strong>Notas Extras:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-  </tr>
-</table>
-<br />
-
-
-	
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="var$eventos_granulares" id="$eventos_granulares"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">mixed</span>&nbsp;&nbsp;
-			<span class="var-name">$eventos_granulares</span>
 			 = <span class="var-default">false</span>			<span class="smalllinenumber">[line 22]</span>
 		</span>
 	</div>
@@ -2809,14 +2751,86 @@ $salida&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="var$filas_recibidas" id="$filas_recibidas"><!-- --></A>
+<a name="var$clave_seleccionada" id="$clave_seleccionada"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$clave_seleccionada</span>
+						<span class="smalllinenumber">[line 19]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$datos" id="$datos"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$datos</span>
+						<span class="smalllinenumber">[line 17]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$eventos_granulares" id="$eventos_granulares"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
+			<span class="var-name">$eventos_granulares</span>
+			 = <span class="var-default">false</span>			<span class="smalllinenumber">[line 23]</span>
+		</span>
+	</div>
+
+		<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="var$filas_recibidas" id="$filas_recibidas"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$filas_recibidas</span>
-						<span class="smalllinenumber">[line 20]</span>
+						<span class="smalllinenumber">[line 21]</span>
 		</span>
 	</div>
 
@@ -2834,13 +2848,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$id_fila_actual" id="$id_fila_actual"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$id_fila_actual</span>
-						<span class="smalllinenumber">[line 25]</span>
+						<span class="smalllinenumber">[line 26]</span>
 		</span>
 	</div>
 
@@ -2858,13 +2872,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$item_editor" id="$item_editor"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$item_editor</span>
-			 = <span class="var-default"> '/admin/objetos_toba/editores/ei_formulario_ml'</span>			<span class="smalllinenumber">[line 26]</span>
+			 = <span class="var-default"> '/admin/objetos_toba/editores/ei_formulario_ml'</span>			<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -2887,13 +2901,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$lista_ef_totales" id="$lista_ef_totales"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$lista_ef_totales</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 17]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 18]</span>
 		</span>
 	</div>
 
@@ -2911,13 +2925,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$ordenes" id="$ordenes"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$ordenes</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 23]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
 
@@ -2935,13 +2949,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$registro_nuevo" id="$registro_nuevo"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$registro_nuevo</span>
-			 = <span class="var-default">false</span>			<span class="smalllinenumber">[line 24]</span>
+			 = <span class="var-default">false</span>			<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -2959,13 +2973,13 @@ $salida&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="var$siguiente_id_fila" id="$siguiente_id_fila"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$siguiente_id_fila</span>
-						<span class="smalllinenumber">[line 19]</span>
+						<span class="smalllinenumber">[line 20]</span>
 		</span>
 	</div>
 

@@ -63,6 +63,7 @@ abstract class toba_ef_sin_estado extends toba_ef
  * Incluye una barra separadora con la etiqueta como texto, utiliza la clase css ef-barra-divisora
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef ef
  */
 class toba_ef_barra_divisora extends toba_ef_sin_estado
 {
@@ -79,6 +80,7 @@ class toba_ef_barra_divisora extends toba_ef_sin_estado
  * Incluye un fieldset que permite juntar varios efs con una etiqueta común
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef ef
  */
 class toba_ef_fieldset extends toba_ef_sin_estado
 {

@@ -30,8 +30,8 @@
   <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
     <td colspan="2" class="header-menu">
-  		  [ <a href="classtrees_SalidaGrafica.html" class="menu">árbol de herencia: SalidaGrafica</a> ]
-		  [ <a href="elementindex_SalidaGrafica.html" class="menu">índice: SalidaGrafica</a> ]
+  		  [ <a href="classtrees_Centrales.html" class="menu">árbol de herencia: Centrales</a> ]
+		  [ <a href="elementindex_Centrales.html" class="menu">índice: Centrales</a> ]
 		  [ <a href="elementindex.html" class="menu">índice general</a> ]
     </td>
   </tr>
@@ -41,7 +41,7 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr valign="top">
     <td width="195" class="menu">
-		<div class="package-title">SalidaGrafica</div>
+		<div class="package-title">Centrales</div>
 
       <br />
                                     
@@ -75,19 +75,14 @@
 <ul>
     <li>Cuando la arquitectura 1 se acabe sacar el 3er parametro, es para que el ambs pueda crear un ut-form</li>
 </ul>
-<h3><a href="Componentes/Persistencia/toba_datos_tabla.html#methodlog">toba_datos_tabla::log()</a></h3>
+<h3><a href="Componentes/Negocio/toba_cn.html#methodprocesar">toba_cn::procesar()</a></h3>
 <ul>
-    <li>El objeto deberia tener directamente algo asi</li>
-</ul>
-<h3><a href="Componentes/Persistencia/toba_datos_relacion.html#methodlog">toba_datos_relacion::log()</a></h3>
-<ul>
-    <li>El objeto deberia tener directamente algo asi</li>
+    <li>Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales</li>
 </ul>
 <h3><a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></h3>
 <ul>
     <li>Como se implementa la carga de columnas externas??</li>
     <li>Donde se hacen los controles pre-sincronizacion (nulos db)??</li>
-    <li>Esta clase no deberia utilizar ADOdb!!!</li>
     <li>Hay que definir el manejo de claves (en base a toba_datos_relacion)</li>
     <li>Poder desactivar el control de sincronizacion (¿se necesita esto?)</li>
 </ul>
@@ -102,11 +97,6 @@
 <h3><a href="Componentes/Eis/toba_ei_formulario.html">toba_ei_formulario</a></h3>
 <ul>
     <li>Los EF deberian cargar su estado en el momento de obtener la interface, no en su creacion.</li>
-</ul>
-<h3><a href="Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a></h3>
-<ul>
-    <li>actualizacion dinamica del MAPEO de filas</li>
-    <li>cuando sea necesario el mapeo de filas, esta clase va tener que mantener su estado en la sesion</li>
 </ul>
 <h3><a href="Componentes/Eis/toba_ei_formulario_ml.html#methodvalidar_estado">toba_ei_formulario_ml::validar_estado()</a></h3>
 <ul>
@@ -129,7 +119,7 @@
 </ul>
 <h3><a href="Centrales/toba_vinculador.html">toba_vinculador</a></h3>
 <ul>
-    <li>que no se necesiten permisos al autovinculo!, agregar un nivel de vinculos globales para un OBJETO puntual</li>
+    <li>agregar un nivel de vinculos globales para un OBJETO puntual</li>
 </ul>
 <br />
 <div class="credit">

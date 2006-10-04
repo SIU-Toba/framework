@@ -10,6 +10,7 @@ require_once('3ros/activecalendar/activecalendar.php');
  * Calendario para visualizar contenidos diarios y seleccionar días o semanas.
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ei_calendario ei_calendario
  */
 class toba_ei_calendario extends toba_ei
 {

@@ -13,6 +13,7 @@ require_once('nucleo/lib/toba_tab.php');
  * 
  * @package Componentes
  * @subpackage Eis
+ * @jsdoc ci ci
  */
 class toba_ei_pantalla extends toba_ei
 {

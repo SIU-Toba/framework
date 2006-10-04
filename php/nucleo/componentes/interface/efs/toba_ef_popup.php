@@ -6,6 +6,7 @@
  * armar el item de popup ni su forma de elección del valor
  * @package Componentes
  * @subpackage Efs
+ * @jsdoc ef_popup ef_popup
  */
 class toba_ef_popup extends toba_ef_editable
 {

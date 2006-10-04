@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -154,7 +153,7 @@
 </strong></p>
 <span class="description"><p>Este componente puede mantener sus propiedades en sesion con solo prefijar los nombres de variables con s__ (por ej. protected $s__cuit )</p></span>
 		<p class="notes">
-			Ubicada en /componentes/interface/toba_ci.php [<span class="field">line 14</span>]
+			Ubicada en /nucleo/componentes/interface/toba_ci.php [<span class="field">line 15</span>]
 		</p>
 
 		
@@ -165,8 +164,17 @@
       --toba_ci</pre>
 
 		
+		<!--		
+		<strong>Author(s):</strong>
+		<ul>
+		  			 		  		</ul> -->
 		
 		
+<table border="0" cellspacing="0" cellpadding="0">
+							
+		<tr><td><strong>Clase Javascript equivalente:</strong>&nbsp;&nbsp;</td>
+			<td><a href='../../../api_js/ci.html'>ci</a></td></tr>
+	</table>
 		</td>
 		</tr></table>
 	</div>
@@ -179,7 +187,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																<div class="method-definition">
+																																																																																																																																																																																																																																																																																																																																																																																								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">toba_ci</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition"></td></tr>
@@ -187,7 +195,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#asignar_controlador_negocio" title="details" class="method-name">asignar_controlador_negocio</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Asocia al componente un controlador de negocio</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -197,7 +205,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#configurar_dep" title="details" class="method-name">configurar_dep</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Se configura una dependencia, se busca un callback `conf__` y si este callback responde cargar estos datos la dependencia</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -220,14 +228,14 @@
 					<td class="method-definition"></td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">Objeto</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/toba_componente.html">toba_componente</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#dependencia" title="details" class="method-name">dependencia</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#dependencia_esta_configurada" title="details" class="method-name">dependencia_esta_configurada</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Una dependencia ya ha sido configurada por este CI?</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -237,7 +245,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#disparar_entrega_datos_cn" title="details" class="method-name">disparar_entrega_datos_cn</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método a llamar al final de la transacción de negocios para cargar al cn de esta operación con información de los cis</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -247,7 +255,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#disparar_evento_propio" title="details" class="method-name">disparar_evento_propio</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Dispara los eventos de usuarios o el de cambio de tab</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -257,7 +265,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#disparar_obtencion_datos_cn" title="details" class="method-name">disparar_obtencion_datos_cn</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método a llamar al inicio de la transacción de negocios para llenar los cis de esta operación con información del cn</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -272,12 +280,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__entregar_datos_cn" title="details" class="method-name">evt__entregar_datos_cn</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana de extensión pensada para que el ci le brinde datos al cn al comenzar el tránsito de una transacción.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__get_datos_cn" title="details" class="method-name">evt__get_datos_cn</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana de extensión pensada para que el ci le pida datos al cn al empezar el tránsito de una transacción.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -291,23 +299,18 @@
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#evt__validar_datos" title="details" class="method-name">evt__validar_datos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Validar el estado interno, dispara una excepcion si falla</td></tr>
-				</div>
-																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#fin" title="details" class="method-name">fin</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Ventana de extensión previa a la destrucción del componente, al final de la atención de los servicios</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#generar_html" title="details" class="method-name">generar_html</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Delega la generacion de html a la pantalla actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#generar_js" title="details" class="method-name">generar_js</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Delega la generacion de js a la pantalla actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -325,19 +328,19 @@
 					<td class="method-definition">Devuelve la lista de dependencias que se utlizaron para generar el servicio anterior (atender los eventos actuales)</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_id_pantalla" title="details" class="method-name">get_id_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna el id de la pantalla actualmente seleccionada para graficar</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_info_pantalla" title="details" class="method-name">get_info_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna los metadatos de una pantalla</td></tr>
 				</div>
 																<div class="method-definition">
-											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+											<tr><td class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_pantalla_inicial" title="details" class="method-name">get_pantalla_inicial</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la pantalla que se muestra al iniciar el componente en la operación  Por defecto retorna la primer pantalla definida en el editor.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -352,12 +355,12 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#inicializar_dependencia" title="details" class="method-name">inicializar_dependencia</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Método interno de inicialización de una dependencia</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#inicializar_dependencias" title="details" class="method-name">inicializar_dependencias</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Carga las dependencias y las inicializa</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -372,7 +375,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result"><a href="../../Componentes/Eis/toba_ei_pantalla.html">toba_ei_pantalla</a></span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pantalla" title="details" class="method-name">pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Retorna la referencia a la pantalla a graficar</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -392,7 +395,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#pre_configurar" title="details" class="method-name">pre_configurar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -402,7 +405,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#set_pantalla" title="details" class="method-name">set_pantalla</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Cambia la pantalla a utilizar en el servicio actual</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -738,12 +741,6 @@
 											<span class="method-definition">Genera la barra con el título y los íconos</span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_barra_sup_especifica">toba_ei::generar_html_barra_sup_especifica()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ventana de extensión para incluir HTML junto a la barra del titulo e iconos</span>
-										</dd>
-																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodgenerar_html_boton">toba_ei::generar_html_boton()</a></span>
 										</dt>
 										<dd>
@@ -772,6 +769,12 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Retorna el grupo de eventos activos</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_html_barra_editor">toba_ei::get_html_barra_editor()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_id_form">toba_ei::get_id_form()</a></span>
@@ -813,7 +816,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana posterior a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente cierra su configuración</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpreparar_componente">toba_ei::preparar_componente()</a></span>
@@ -825,7 +828,7 @@
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ventana previa a la configuración del componente</span>
+											<span class="method-definition">Espacio donde el componente deja su estado interno listo para la configuración del componente</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodreportar_evento">toba_ei::reportar_evento()</a></span>
@@ -1043,6 +1046,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -1093,10 +1102,10 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 35]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
 </div>
 <br />
 
@@ -1133,10 +1142,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodasignar_controlador_negocio" id="asignar_controlador_negocio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 135]</span>
+	<span class="method-title">asignar_controlador_negocio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 140]</span>
 </div>
 <br />
 
@@ -1144,17 +1153,19 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void asignar_controlador_negocio(
-
+<a href="../../Componentes/Negocio/toba_cn.html">toba_cn</a>
 $controlador&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Asocia al componente un controlador de negocio
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type"><a href="../../Componentes/Negocio/toba_cn.html">toba_cn</a></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$controlador:&nbsp;</span></td>
 				<td>
@@ -1162,16 +1173,23 @@ $controlador&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodconf" id="conf"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">conf</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 558]</span>
+	<span class="method-title">conf</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 599]</span>
 </div>
 <br />
 
@@ -1200,10 +1218,10 @@ $controlador&nbsp;
 		<br />
 </div>
 <a name="methodconfigurar_dep" id="configurar_dep"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">configurar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 528]</span>
+	<span class="method-title">configurar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 566]</span>
 </div>
 <br />
 
@@ -1217,7 +1235,9 @@ $dep&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Se configura una dependencia, se busca un callback `conf__` y si este callback responde cargar estos datos la dependencia
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1242,10 +1262,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_cambio_pantalla" id="controlar_cambio_pantalla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_cambio_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 237]</span>
+	<span class="method-title">controlar_cambio_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 260]</span>
 </div>
 <br />
 
@@ -1274,10 +1294,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_eventos_propios" id="controlar_eventos_propios"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 258]</span>
+	<span class="method-title">controlar_eventos_propios</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 281]</span>
 </div>
 <br />
 
@@ -1306,10 +1326,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methoddefinir_pantalla_eventos" id="definir_pantalla_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">definir_pantalla_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 466]</span>
+	<span class="method-title">definir_pantalla_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 492]</span>
 </div>
 <br />
 
@@ -1338,10 +1358,10 @@ $dep&nbsp;
 		<br />
 </div>
 <a name="methoddep" id="dep"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 437]</span>
+	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 463]</span>
 </div>
 <br />
 
@@ -1387,17 +1407,17 @@ $carga_en_demanda = true]&nbsp;
 		<br />
 </div>
 <a name="methoddependencia" id="dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 415]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 441]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>Objeto dependencia(
+		<code><a href="../../Componentes/toba_componente.html">toba_componente</a> dependencia(
 string
 $id, [
 $carga_en_demanda = true], boolean
@@ -1444,10 +1464,10 @@ $cargar_en_demanda&nbsp;
 		<br />
 </div>
 <a name="methoddependencia_esta_configurada" id="dependencia_esta_configurada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">dependencia_esta_configurada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 548]</span>
+	<span class="method-title">dependencia_esta_configurada</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 589]</span>
 </div>
 <br />
 
@@ -1461,7 +1481,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Una dependencia ya ha sido configurada por este CI?
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1473,16 +1495,23 @@ $id&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 48]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 49]</span>
 </div>
 <br />
 
@@ -1508,10 +1537,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_entrega_datos_cn" id="disparar_entrega_datos_cn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 164]</span>
+	<span class="method-title">disparar_entrega_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 185]</span>
 </div>
 <br />
 
@@ -1523,18 +1552,27 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método a llamar al final de la transacción de negocios para cargar al cn de esta operación con información de los cis
+</strong></p>
+<span class="description"><p>Recorre recursivamente todas las dependencias cis llamando al metodo evt__engrega_datos_cn</p></span>
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_ci.html#methodevt__entregar_datos_cn">toba_ci::evt__entregar_datos_cn()</a></td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methoddisparar_eventos" id="disparar_eventos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 204]</span>
+	<span class="method-title">disparar_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 227]</span>
 </div>
 <br />
 
@@ -1568,10 +1606,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_evento_propio" id="disparar_evento_propio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 273]</span>
+	<span class="method-title">disparar_evento_propio</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 299]</span>
 </div>
 <br />
 
@@ -1583,7 +1621,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Dispara los eventos de usuarios o el de cambio de tab
+</strong></p>
+
 	<br />
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -1598,10 +1638,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_limpieza_memoria" id="disparar_limpieza_memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 106]</span>
+	<span class="method-title">disparar_limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
 </div>
 <br />
 
@@ -1623,10 +1663,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_obtencion_datos_cn" id="disparar_obtencion_datos_cn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 142]</span>
+	<span class="method-title">disparar_obtencion_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 153]</span>
 </div>
 <br />
 
@@ -1634,34 +1674,43 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void disparar_obtencion_datos_cn(
-[
-$modo = null]&nbsp;
+[mixed
+$parametros = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método a llamar al inicio de la transacción de negocios para llenar los cis de esta operación con información del cn
+</strong></p>
+<span class="description"><p>Recorre recursivamente todas las dependencias cis llamando al metodo evt__get_datos_cn</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$modo:&nbsp;</span></td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Parametros particulares de esta carga, su significado lo decide la operación</span>			</td></tr>
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_ci.html#methodevt__get_datos_cn">toba_ci::evt__get_datos_cn()</a></td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodevento" id="evento"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 608]</span>
+	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 655]</span>
 </div>
 <br />
 
@@ -1701,10 +1750,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__cancelar" id="evt__cancelar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 346]</span>
+	<span class="method-title">evt__cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 366]</span>
 </div>
 <br />
 
@@ -1726,10 +1775,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__entregar_datos_cn" id="evt__entregar_datos_cn"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 180]</span>
+	<span class="method-title">evt__entregar_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 203]</span>
 </div>
 <br />
 
@@ -1741,7 +1790,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana de extensión pensada para que el ci le brinde datos al cn al comenzar el tránsito de una transacción.
+</strong></p>
+<span class="description"><p>Es el dialogo final que existe entre este ci particular y el cn global de la operación</p></span>
 	<br />
 	
 
@@ -1749,10 +1800,10 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodevt__get_datos_cn" id="evt__get_datos_cn"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__get_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 156]</span>
+	<span class="method-title">evt__get_datos_cn</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 172]</span>
 </div>
 <br />
 
@@ -1761,14 +1812,23 @@ $id&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void evt__get_datos_cn(
 [
-$modo = null]&nbsp;
+$modo = null], mixed
+$parametros&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana de extensión pensada para que el ci le pida datos al cn al empezar el tránsito de una transacción.
+</strong></p>
+<span class="description"><p>Es el dialogo inicial que existe entre este ci particular y el cn global de la operación</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Parametros particulares de esta carga, su significado lo decide la operación</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -1784,10 +1844,10 @@ $modo = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__limpieza_memoria" id="evt__limpieza_memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 123]</span>
+	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 124]</span>
 </div>
 <br />
 
@@ -1821,10 +1881,10 @@ $no_borrar = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__procesar" id="evt__procesar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
+	<span class="method-title">evt__procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 378]</span>
 </div>
 <br />
 
@@ -1845,36 +1905,11 @@ $no_borrar = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodevt__validar_datos" id="evt__validar_datos"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 341]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void evt__validar_datos(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<p align="center" class="short-description"><strong>Validar el estado interno, dispara una excepcion si falla
-</strong></p>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodfin" id="fin"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 65]</span>
+	<span class="method-title">fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 66]</span>
 </div>
 <br />
 
@@ -1899,7 +1934,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 626]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 685]</span>
 </div>
 <br />
 
@@ -1911,7 +1946,9 @@ $no_borrar = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Delega la generacion de html a la pantalla actual
+</strong></p>
+
 	<br />
 	
 
@@ -1922,7 +1959,7 @@ $no_borrar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 636]</span>
+	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 698]</span>
 </div>
 <br />
 
@@ -1934,7 +1971,9 @@ $no_borrar = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Delega la generacion de js a la pantalla actual
+</strong></p>
+
 	<br />
 	
 
@@ -1951,7 +1990,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 631]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 690]</span>
 </div>
 <br />
 
@@ -1979,7 +2018,7 @@ $no_borrar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 186]</span>
+	<span class="method-title">get_dependencias_ci</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 209]</span>
 </div>
 <br />
 
@@ -1993,7 +2032,14 @@ $no_borrar = null]&nbsp;
 
 	
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -2002,7 +2048,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_dependencias_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 445]</span>
+	<span class="method-title">get_dependencias_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 471]</span>
 </div>
 <br />
 
@@ -2034,19 +2080,21 @@ $no_borrar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_id_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 621]</span>
+	<span class="method-title">get_id_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 677]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_id_pantalla(
+		<code>string get_id_pantalla(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna el id de la pantalla actualmente seleccionada para graficar
+</strong></p>
+
 	<br />
 	<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -2064,7 +2112,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">get_info_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 560]</span>
+	<span class="method-title">get_info_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 604]</span>
 </div>
 <br />
 
@@ -2078,7 +2126,9 @@ $id&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna los metadatos de una pantalla
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2106,21 +2156,30 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 477]</span>
+	<span class="method-title">get_pantalla_inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 509]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_pantalla_inicial(
+		<code>string get_pantalla_inicial(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la pantalla que se muestra al iniciar el componente en la operación  Por defecto retorna la primer pantalla definida en el editor.
+</strong></p>
+<span class="description"><p>Extender para definir una pantalla distinta a través de un método dinámico</p></span>
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>Identificado de la pantalla</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -2129,7 +2188,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 97]</span>
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
 </div>
 <br />
 
@@ -2154,7 +2213,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 67]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 68]</span>
 </div>
 <br />
 
@@ -2195,7 +2254,7 @@ $parametro = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 394]</span>
+	<span class="method-title">inicializar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 420]</span>
 </div>
 <br />
 
@@ -2210,7 +2269,9 @@ $parametro&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Método interno de inicialización de una dependencia
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -2228,7 +2289,14 @@ $parametro&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -2237,7 +2305,7 @@ $parametro&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 373]</span>
+	<span class="method-title">inicializar_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 397]</span>
 </div>
 <br />
 
@@ -2245,17 +2313,19 @@ $parametro&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void inicializar_dependencias(
-
+unknown_type
 $dependencias&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Carga las dependencias y las inicializa
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">unknown_type</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$dependencias:&nbsp;</span></td>
 				<td>
@@ -2263,7 +2333,14 @@ $dependencias&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -2272,7 +2349,7 @@ $dependencias&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ini__operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 91]</span>
+	<span class="method-title">ini__operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 92]</span>
 </div>
 <br />
 
@@ -2297,7 +2374,7 @@ $dependencias&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 486]</span>
+	<span class="method-title">ir_a_limitrofe</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 518]</span>
 </div>
 <br />
 
@@ -2329,7 +2406,7 @@ $dependencias&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 572]</span>
+	<span class="method-title">pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 619]</span>
 </div>
 <br />
 
@@ -2341,7 +2418,9 @@ $dependencias&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Retorna la referencia a la pantalla a graficar
+</strong></p>
+<span class="description"><p>Una vez que se invoca este metodo se fija la pantalla para el resto del pedido de pagina  Es importante relegar esta desicion en caso de querer variar la pantalla a mostrar dinamicamente</p></span>
 	<br />
 	
 
@@ -2352,7 +2431,7 @@ $dependencias&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 553]</span>
+	<span class="method-title">post_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 594]</span>
 </div>
 <br />
 
@@ -2372,7 +2451,7 @@ $dependencias&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a></dt>
-						<dd>Ventana posterior a la configuración del componente</dd>
+						<dd>Espacio donde el componente cierra su configuración</dd>
 					</dl>
 		
 		<br />
@@ -2381,7 +2460,7 @@ $dependencias&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 232]</span>
+	<span class="method-title">post_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 255]</span>
 </div>
 <br />
 
@@ -2413,7 +2492,7 @@ $dependencias&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 46]</span>
+	<span class="method-title">preparar_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 47]</span>
 </div>
 <br />
 
@@ -2451,7 +2530,7 @@ $dependencias&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 508]</span>
+	<span class="method-title">pre_configurar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 543]</span>
 </div>
 <br />
 
@@ -2463,7 +2542,9 @@ $dependencias&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias
+</strong></p>
+
 	<br />
 	
 
@@ -2471,7 +2552,7 @@ $dependencias&nbsp;
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt><a href="../../Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a></dt>
-						<dd>Ventana previa a la configuración del componente</dd>
+						<dd>Espacio donde el componente deja su estado interno listo para la configuración del componente</dd>
 					</dl>
 		
 		<br />
@@ -2480,7 +2561,7 @@ $dependencias&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 320]</span>
+	<span class="method-title">registrar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 344]</span>
 </div>
 <br />
 
@@ -2524,7 +2605,7 @@ $evento&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">set_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 613]</span>
+	<span class="method-title">set_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 665]</span>
 </div>
 <br />
 
@@ -2532,21 +2613,23 @@ $evento&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_pantalla(
-
+string
 $id&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Cambia la pantalla a utilizar en el servicio actual
+</strong></p>
+<span class="description"><p>El cambio recien sera efectivo cuando se utilize la pantalla con el metodo pantalla()</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$id:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Identificador de la pantalla, tal como se definio en el editor</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2566,7 +2649,7 @@ $id&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">wizard_avanza</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 499]</span>
+	<span class="method-title">wizard_avanza</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 531]</span>
 </div>
 <br />
 
@@ -2609,7 +2692,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$cn</span>
-			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 18]</span>
+			 = <span class="var-default">null</span>			<span class="smalllinenumber">[line 19]</span>
 		</span>
 	</div>
 
@@ -2633,7 +2716,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_ci</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 19]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
 		</span>
 	</div>
 
@@ -2657,7 +2740,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_configuradas</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 22]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 23]</span>
 		</span>
 	</div>
 
@@ -2681,7 +2764,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_gi</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 20]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 21]</span>
 		</span>
 	</div>
 
@@ -2705,7 +2788,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$dependencias_inicializadas</span>
-			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 21]</span>
+			 = <span class="var-default">array()</span>			<span class="smalllinenumber">[line 22]</span>
 		</span>
 	</div>
 
@@ -2729,7 +2812,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$en_servicio</span>
-			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 31]</span>
+			 = <span class="var-default"> false</span>			<span class="smalllinenumber">[line 32]</span>
 		</span>
 	</div>
 
@@ -2753,7 +2836,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$eventos</span>
-						<span class="smalllinenumber">[line 23]</span>
+						<span class="smalllinenumber">[line 24]</span>
 		</span>
 	</div>
 
@@ -2782,7 +2865,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$evento_actual</span>
-						<span class="smalllinenumber">[line 24]</span>
+						<span class="smalllinenumber">[line 25]</span>
 		</span>
 	</div>
 
@@ -2806,7 +2889,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$evento_actual_param</span>
-						<span class="smalllinenumber">[line 25]</span>
+						<span class="smalllinenumber">[line 26]</span>
 		</span>
 	</div>
 
@@ -2830,7 +2913,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$ini_operacion</span>
-			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 32]</span>
+			 = <span class="var-default"> true</span>			<span class="smalllinenumber">[line 33]</span>
 		</span>
 	</div>
 
@@ -2854,7 +2937,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$pantalla_id_eventos</span>
-						<span class="smalllinenumber">[line 28]</span>
+						<span class="smalllinenumber">[line 29]</span>
 		</span>
 	</div>
 
@@ -2878,7 +2961,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$pantalla_servicio</span>
-						<span class="smalllinenumber">[line 30]</span>
+						<span class="smalllinenumber">[line 31]</span>
 		</span>
 	</div>
 
@@ -2902,7 +2985,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$posicion_botonera</span>
-						<span class="smalllinenumber">[line 26]</span>
+						<span class="smalllinenumber">[line 27]</span>
 		</span>
 	</div>
 
@@ -2926,7 +3009,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$prefijo</span>
-			 = <span class="var-default"> 'ci'</span>			<span class="smalllinenumber">[line 17]</span>
+			 = <span class="var-default"> 'ci'</span>			<span class="smalllinenumber">[line 18]</span>
 		</span>
 	</div>
 
@@ -2955,7 +3038,7 @@ $id&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$wizard_sentido_navegacion</span>
-						<span class="smalllinenumber">[line 33]</span>
+						<span class="smalllinenumber">[line 34]</span>
 		</span>
 	</div>
 

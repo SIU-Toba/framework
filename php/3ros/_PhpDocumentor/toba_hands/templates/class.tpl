@@ -63,6 +63,7 @@
 		{/if}
 
 		{if count($tags) > 0}
+<!--		
 		<strong>Author(s):</strong>
 		<ul>
 		  {section name=tag loop=$tags}
@@ -70,7 +71,7 @@
 			 <li>{$tags[tag].data}</li>
 			 {/if}
 		  {/section}
-		</ul>
+		</ul> -->
 		{/if}
 
 		{include file="classtags.tpl" tags=$tags}

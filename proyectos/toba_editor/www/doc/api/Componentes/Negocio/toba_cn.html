@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="../../Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -150,11 +149,11 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<p align="center" class="short-description"><strong>Padre de todas las clases que definen componentes
+        		<p align="center" class="short-description"><strong>Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
 </strong></p>
-
+<span class="description"><p>Separar la carga y utilizacion de los datos (inicio y fin de una transaccion de negocios)  permite:   -Lograr una maxima independencia entre la logica de pantalla y de la de negocio,   -Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes  Estas flexibilidad se consigue a expensas de una mayor burocracia y complejidad en el manejo de datos.</p></span>
 		<p class="notes">
-			Ubicada en /componentes/negocio/toba_cn.php [<span class="field">line 9</span>]
+			Ubicada en /nucleo/componentes/negocio/toba_cn.php [<span class="field">line 15</span>]
 		</p>
 
 		
@@ -190,7 +189,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#cancelar" title="details" class="method-name">cancelar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Limpia la memoria propia</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -200,17 +199,17 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__limpieza_memoria" title="details" class="method-name">evt__limpieza_memoria</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Evento que se dispara cuando se limpia la memoria</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__procesar_especifico" title="details" class="method-name">evt__procesar_especifico</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana para incluir el procesamiento de negocio</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#evt__validar_datos" title="details" class="method-name">evt__validar_datos</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana de validacion que se ejecuta al inicio del procesamiento final</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -220,7 +219,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#ini" title="details" class="method-name">ini</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -230,7 +229,7 @@
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#procesar" title="details" class="method-name">procesar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">El procesamiento se dispara cuando la entrega de datos ci-&gt;cn ha finalizado</td></tr>
 				</div>
 												</table>
 			</div>
@@ -568,6 +567,12 @@
 											<span class="method-definition">Metodo generico de invocar callbacks en el propio objeto</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodlog">toba_componente::log()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Shortcut de <a href="../../Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodmantener_estado_sesion">toba_componente::mantener_estado_sesion()</a></span>
 										</dt>
 										<dd>
@@ -621,7 +626,7 @@
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 13]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 19]</span>
 </div>
 <br />
 
@@ -661,7 +666,7 @@ $id&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 125]</span>
 </div>
 <br />
 
@@ -669,25 +674,20 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void abortar_transaccion(
-[
-$mensaje = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$mensaje:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td>toba_db::abortar_transaccion()</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -696,7 +696,7 @@ $mensaje = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 45]</span>
+	<span class="method-title">cancelar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 51]</span>
 </div>
 <br />
 
@@ -708,7 +708,9 @@ $mensaje = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Limpia la memoria propia
+</strong></p>
+
 	<br />
 	
 
@@ -719,7 +721,7 @@ $mensaje = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 110]</span>
+	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 134]</span>
 </div>
 <br />
 
@@ -745,7 +747,14 @@ $sentencias_sql&nbsp;
 				</table>
 
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td>toba_db::ejecutar()</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -754,7 +763,7 @@ $sentencias_sql&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 25]</span>
+	<span class="method-title">evt__limpieza_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 36]</span>
 </div>
 <br />
 
@@ -768,7 +777,9 @@ $no_borrar = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Evento que se dispara cuando se limpia la memoria
+</strong></p>
+
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -789,7 +800,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">evt__procesar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 80]</span>
+	<span class="method-title">evt__procesar_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 97]</span>
 </div>
 <br />
 
@@ -801,7 +812,9 @@ $no_borrar = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana para incluir el procesamiento de negocio
+</strong></p>
+<span class="description"><p>En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error</p></span>
 	<br />
 	
 
@@ -812,7 +825,7 @@ $no_borrar = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 74]</span>
+	<span class="method-title">evt__validar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 90]</span>
 </div>
 <br />
 
@@ -824,7 +837,9 @@ $no_borrar = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana de validacion que se ejecuta al inicio del procesamiento final
+</strong></p>
+<span class="description"><p>En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error</p></span>
 	<br />
 	
 
@@ -835,7 +850,7 @@ $no_borrar = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">finalizar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 96]</span>
+	<span class="method-title">finalizar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 116]</span>
 </div>
 <br />
 
@@ -843,25 +858,20 @@ $no_borrar = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void finalizar_transaccion(
-[
-$mensaje = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
-			<strong>Parámetros:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$mensaje:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td>toba_db::cerrar_transaccion()</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -870,7 +880,7 @@ $mensaje = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 20]</span>
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 29]</span>
 </div>
 <br />
 
@@ -882,7 +892,9 @@ $mensaje = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+</strong></p>
+
 	<br />
 	
 
@@ -893,7 +905,7 @@ $mensaje = null]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">iniciar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 89]</span>
+	<span class="method-title">iniciar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
 </div>
 <br />
 
@@ -907,7 +919,14 @@ $mensaje = null]&nbsp;
 
 	
 	<br />
-	
+	<strong>Notas Extras:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See:</strong>&nbsp;&nbsp;</td><td>toba_db::abrir_transaccion()</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -916,7 +935,7 @@ $mensaje = null]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 52]</span>
+	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 66]</span>
 </div>
 <br />
 
@@ -930,7 +949,9 @@ $parametros = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>El procesamiento se dispara cuando la entrega de datos ci-&gt;cn ha finalizado
+</strong></p>
+<span class="description"><p>Se inicia una transaccion de base de datos y dentro de ella se llama a : <ul><li><a href="../../Componentes/Negocio/toba_cn.html#methodevt__validar_datos">evt__validar_datos</a></li><li><a href="../../Componentes/Negocio/toba_cn.html#methodevt__procesar_especifico">evt__procesar_especifico</a></li></ul>  Una vez terminada la transacción se invoca a la limpieza de memoria</p></span>
 			<strong>Parámetros:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -943,6 +964,12 @@ $parametros = null]&nbsp;
 
 	<br />
 	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales</td>
+  </tr>
+</table>
 
 		
 		<br />
@@ -962,7 +989,7 @@ $parametros = null]&nbsp;
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$transaccion_abierta</span>
-						<span class="smalllinenumber">[line 11]</span>
+						<span class="smalllinenumber">[line 17]</span>
 		</span>
 	</div>
 

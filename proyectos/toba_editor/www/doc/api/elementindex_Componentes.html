@@ -17,13 +17,13 @@
         	        		|
         	              	<a href="li_Centrales.html">Centrales</a>
         	        		|
-        	              	<a href="li_Debug.html">Debug</a>
-        	        		|
         	              	<a href="li_Componentes.html">Componentes</a>
+        	        		|
+        	              	<a href="li_Varios.html">Varios</a>
         	        		|
         	              	<a href="li_Fuentes.html">Fuentes</a>
         	        		|
-        	              	<a href="li_Varios.html">Varios</a>
+        	              	<a href="li_Debug.html">Debug</a>
         	           </div>
     	<div class="header-top-right-subpackage"></div></td>
   </tr>
@@ -73,7 +73,6 @@
 	    <span style="padding-left: 1em;">		<a href="Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a>    </span>	 <br />
-	    <span style="padding-left: 1em;">		<a href="Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a>    </span>	 <br />
 	    <span style="padding-left: 1em;">		<a href="Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a>    </span>	 <br />
 	  </div>
   <div class="package">
@@ -138,9 +137,9 @@
 	<ul>
 				<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Centrales.html">Centrales</a></li>
+							<li><a href="elementindex_Varios.html">Varios</a></li>
+					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
 					<li><a href="elementindex_Debug.html">Debug</a></li>
-							<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
-					<li><a href="elementindex_Varios.html">Varios</a></li>
 			</ul>
 	[ <a href="elementindex_Componentes.html#a">a</a> ]
 	[ <a href="elementindex_Componentes.html#b">b</a> ]
@@ -239,8 +238,6 @@
 							<dt><b>__construct</b></dt>
 				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#method__construct">toba_relacion_entre_tablas::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#method__construct">toba_datos_tabla::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#method__construct">toba_datos_relacion::__construct()</a></dd>
@@ -262,7 +259,7 @@
 							<dt><b>agregar_dependencia</b></dt>
 				<dd>in file toba_componente.php, method <a href="Componentes/toba_componente.html#methodagregar_dependencia">toba_componente::agregar_dependencia()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Agregar dinámicamente una dependencia al componente actual</dd>
 							<dt><b>apex_callback_sin_rpta</b></dt>
-				<dd>in file toba_componente.php, constant <a href="Componentes/_componentes---toba_componente.php.html#defineapex_callback_sin_rpta">apex_callback_sin_rpta</a></dd>
+				<dd>in file toba_componente.php, constant <a href="Componentes/_nucleo---componentes---toba_componente.php.html#defineapex_callback_sin_rpta">apex_callback_sin_rpta</a></dd>
 							<dt><b>$agregado_form</b></dt>
 				<dd>in file toba_ef.php, variable <a href="Componentes/Efs/toba_ef.html#var$agregado_form">toba_ef::$agregado_form</a></dd>
 							<dt><b>$ajustable</b></dt>
@@ -278,9 +275,9 @@
 							<dt><b>$archivo_subido</b></dt>
 				<dd>in file toba_ef_upload.php, variable <a href="Componentes/Efs/toba_ef_upload.html#var$archivo_subido">toba_ef_upload::$archivo_subido</a></dd>
 							<dt><b>apex_ef_cascada</b></dt>
-				<dd>in file toba_ef.php, constant <a href="Componentes/Efs/_componentes---interface---efs---toba_ef.php.html#defineapex_ef_cascada">apex_ef_cascada</a></dd>
+				<dd>in file toba_ef.php, constant <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef.php.html#defineapex_ef_cascada">apex_ef_cascada</a></dd>
 							<dt><b>apex_ef_no_seteado</b></dt>
-				<dd>in file toba_ef.php, constant <a href="Componentes/Efs/_componentes---interface---efs---toba_ef.php.html#defineapex_ef_no_seteado">apex_ef_no_seteado</a></dd>
+				<dd>in file toba_ef.php, constant <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef.php.html#defineapex_ef_no_seteado">apex_ef_no_seteado</a></dd>
 							<dt><b>$activado</b></dt>
 				<dd>in file toba_boton.php, variable <a href="Componentes/Eis/toba_boton.html#var$activado">toba_boton::$activado</a></dd>
 							<dt><b>$acumulador</b></dt>
@@ -314,65 +311,61 @@
 							<dt><b>anular</b></dt>
 				<dd>in file toba_boton.php, method <a href="Componentes/Eis/toba_boton.html#methodanular">toba_boton::anular()</a></dd>
 							<dt><b>apex_cuadro_cc_anidado</b></dt>
-				<dd>in file toba_ei_cuadro.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei_cuadro.php.html#defineapex_cuadro_cc_anidado">apex_cuadro_cc_anidado</a></dd>
+				<dd>in file toba_ei_cuadro.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_cuadro.php.html#defineapex_cuadro_cc_anidado">apex_cuadro_cc_anidado</a></dd>
 							<dt><b>apex_cuadro_cc_tabular</b></dt>
-				<dd>in file toba_ei_cuadro.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei_cuadro.php.html#defineapex_cuadro_cc_tabular">apex_cuadro_cc_tabular</a></dd>
+				<dd>in file toba_ei_cuadro.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_cuadro.php.html#defineapex_cuadro_cc_tabular">apex_cuadro_cc_tabular</a></dd>
 							<dt><b>apex_datos_clave_fila</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_datos_clave_fila">apex_datos_clave_fila</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_datos_clave_fila">apex_datos_clave_fila</a></dd>
 							<dt><b>apex_db_registros_clave</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_db_registros_clave">apex_db_registros_clave</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_db_registros_clave">apex_db_registros_clave</a></dd>
 							<dt><b>apex_ei_analisis_fila</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_analisis_fila">apex_ei_analisis_fila</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_analisis_fila">apex_ei_analisis_fila</a></dd>
 							<dt><b>apex_ei_evento</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_evento">apex_ei_evento</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_evento">apex_ei_evento</a></dd>
 							<dt><b>apex_ei_evt_maneja_datos</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_evt_maneja_datos">apex_ei_evt_maneja_datos</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_evt_maneja_datos">apex_ei_evt_maneja_datos</a></dd>
 							<dt><b>apex_ei_evt_no_maneja_datos</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_evt_no_maneja_datos">apex_ei_evt_no_maneja_datos</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_evt_no_maneja_datos">apex_ei_evt_no_maneja_datos</a></dd>
 							<dt><b>apex_ei_evt_sin_rpta</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_evt_sin_rpta">apex_ei_evt_sin_rpta</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_evt_sin_rpta">apex_ei_evt_sin_rpta</a></dd>
 							<dt><b>apex_ei_separador</b></dt>
-				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html#defineapex_ei_separador">apex_ei_separador</a></dd>
+				<dd>in file toba_ei.php, constant <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html#defineapex_ei_separador">apex_ei_separador</a></dd>
 							<dt><b>asignar_controlador_negocio</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodasignar_controlador_negocio">toba_ci::asignar_controlador_negocio()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodasignar_controlador_negocio">toba_ci::asignar_controlador_negocio()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Asocia al componente un controlador de negocio</dd>
 							<dt><b>abortar_transaccion</b></dt>
 				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodabortar_transaccion">toba_cn::abortar_transaccion()</a></dd>
 							<dt><b>$alias</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$alias">toba_ap_tabla_db::$alias</a></dd>
 							<dt><b>activar_baja_logica</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_baja_logica">toba_ap_tabla_db::activar_baja_logica()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Activa el mecanismo de baja lógica  En este mecanismo en lugar de hacer DELETES actualiza una columna</dd>
-							<dt><b>activar_control_sincro</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_control_sincro">toba_ap_tabla_db::activar_control_sincro()</a></dd>
 							<dt><b>activar_inner_join</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodactivar_inner_join">toba_ap_tabla_db_mt::activar_inner_join()</a></dd>
 							<dt><b>activar_modificacion_clave</b></dt>
-				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodactivar_modificacion_clave">toba_ap_tabla::activar_modificacion_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Permite que las modificaciones puedan cambiar las claves de una fila</dd>
-							<dt><b>activar_modificacion_clave</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_modificacion_clave">toba_ap_tabla_db::activar_modificacion_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Permite que las modificaciones puedan cambiar las claves del registro</dd>
+							<dt><b>activar_modificacion_clave</b></dt>
+				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodactivar_modificacion_clave">toba_ap_tabla::activar_modificacion_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Permite que las modificaciones puedan cambiar las claves de una fila</dd>
 							<dt><b>activar_outer_join</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodactivar_outer_join">toba_ap_tabla_db_mt::activar_outer_join()</a></dd>
 							<dt><b>activar_proceso_carga_externa_dao</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_proceso_carga_externa_dao">toba_ap_tabla_db::activar_proceso_carga_externa_dao()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_proceso_carga_externa_dao">toba_ap_tabla_db::activar_proceso_carga_externa_dao()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga una columna separada del proceso común de carga  Se brinda un DAO que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</dd>
 							<dt><b>activar_proceso_carga_externa_sql</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_proceso_carga_externa_sql">toba_ap_tabla_db::activar_proceso_carga_externa_sql()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_proceso_carga_externa_sql">toba_ap_tabla_db::activar_proceso_carga_externa_sql()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga una columna separada del proceso común de carga  Se brinda una query que carga una o más columnas denominadas como 'externas'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</dd>
 							<dt><b>activar_transaccion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodactivar_transaccion">toba_ap_relacion_db::activar_transaccion()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_transaccion">toba_ap_tabla_db::activar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utilizar una transaccion de BD cuando sincroniza la tabla</dd>
 							<dt><b>activar_transaccion</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactivar_transaccion">toba_ap_tabla_db::activar_transaccion()</a></dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodactivar_transaccion">toba_ap_relacion_db::activar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Comando que fuerza una transacción a la hora de la sincronización</dd>
 							<dt><b>actualizar_columnas_predeterminadas_db</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodactualizar_columnas_predeterminadas_db">toba_ap_tabla_db::actualizar_columnas_predeterminadas_db()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Actualiza en los registros los valores generados por el motor durante la transacción</dd>
 							<dt><b>actualizar_estructura_control</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodactualizar_estructura_control">toba_ap_tabla_db_mt::actualizar_estructura_control()</a></dd>
 							<dt><b>agregar_relacion_con_hijo</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodagregar_relacion_con_hijo">toba_datos_tabla::agregar_relacion_con_hijo()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodagregar_relacion_con_hijo">toba_datos_tabla::agregar_relacion_con_hijo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Informa a la tabla que existe una tabla hija de la actual</dd>
 							<dt><b>agregar_relacion_con_padre</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodagregar_relacion_con_padre">toba_datos_tabla::agregar_relacion_con_padre()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodagregar_relacion_con_padre">toba_datos_tabla::agregar_relacion_con_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Informa a la tabla que existe una tabla padre</dd>
 							<dt><b>anexar_datos</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodanexar_datos">toba_datos_tabla::anexar_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior)</dd>
 							<dt><b>apex_db_registros_separador</b></dt>
-				<dd>in file toba_ap_tabla_db.php, constant <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap_tabla_db.php.html#defineapex_db_registros_separador">apex_db_registros_separador</a></dd>
-							<dt><b>asociar_fila_con_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodasociar_fila_con_padre">toba_relacion_entre_tablas::asociar_fila_con_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Asocia una fila hija con su padre</dd>
+				<dd>in file toba_ap_tabla_db.php, constant <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap_tabla_db.php.html#defineapex_db_registros_separador">apex_db_registros_separador</a></dd>
 					</dl>
 	</div>
 	<a name="b"></a>
@@ -398,12 +391,6 @@
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$baja_logica_columna">toba_ap_tabla_db::$baja_logica_columna</a></dd>
 							<dt><b>$baja_logica_valor</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$baja_logica_valor">toba_ap_tabla_db::$baja_logica_valor</a></dd>
-							<dt><b>$borrado_en_cascada</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$borrado_en_cascada">toba_relacion_entre_tablas::$borrado_en_cascada</a></dd>
-							<dt><b>buscar_id_padre_fila</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodbuscar_id_padre_fila">toba_relacion_entre_tablas::buscar_id_padre_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca en la tabla padre el id que machea con la fila hijo</dd>
-							<dt><b>buscar_padre_de</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodbuscar_padre_de">toba_relacion_entre_tablas::buscar_padre_de()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca en el mapeo el padre que tiene un hijo dado.</dd>
 					</dl>
 	</div>
 	<a name="c"></a>
@@ -608,7 +595,7 @@
 							<dt><b>conf</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodconf">toba_ci::conf()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para hacer una configuración personalizada del ci</dd>
 							<dt><b>configurar_dep</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodconfigurar_dep">toba_ci::configurar_dep()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodconfigurar_dep">toba_ci::configurar_dep()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Se configura una dependencia, se busca un callback `conf__` y si este callback responde cargar estos datos la dependencia</dd>
 							<dt><b>controlar_cambio_pantalla</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodcontrolar_cambio_pantalla">toba_ci::controlar_cambio_pantalla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Si existio un cambio explicito de pantalla se notifican las callbacks de entrada-salida</dd>
 							<dt><b>controlar_eventos_propios</b></dt>
@@ -632,7 +619,7 @@
 							<dt><b>crear_objeto_js</b></dt>
 				<dd>in file toba_ei_calendario.php, method <a href="Componentes/Eis/toba_ei_calendario.html#methodcrear_objeto_js">toba_ei_calendario::crear_objeto_js()</a></dd>
 							<dt><b>cancelar</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodcancelar">toba_cn::cancelar()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodcancelar">toba_cn::cancelar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Limpia la memoria propia</dd>
 							<dt><b>$cambios</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$cambios">toba_ap_tabla_db::$cambios</a></dd>
 							<dt><b>$cambios</b></dt>
@@ -646,61 +633,49 @@
 							<dt><b>$clave</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$clave">toba_datos_tabla::$clave</a></dd>
 							<dt><b>$columnas</b></dt>
-				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$columnas">toba_datos_tabla::$columnas</a></dd>
-							<dt><b>$columnas</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$columnas">toba_ap_tabla_db::$columnas</a></dd>
+							<dt><b>$columnas</b></dt>
+				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$columnas">toba_datos_tabla::$columnas</a></dd>
 							<dt><b>$columnas_predeterminadas_db</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$columnas_predeterminadas_db">toba_ap_tabla_db::$columnas_predeterminadas_db</a></dd>
-							<dt><b>$contenedor</b></dt>
-				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$contenedor">toba_datos_tabla::$contenedor</a></dd>
 							<dt><b>$control_sincro_db</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$control_sincro_db">toba_ap_tabla_db::$control_sincro_db</a></dd>
 							<dt><b>$cursor</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$cursor">toba_datos_tabla::$cursor</a></dd>
-							<dt><b>cambiar_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodcambiar_padre">toba_relacion_entre_tablas::cambiar_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reemplaza el mapeo de una fila hija por un nuevo padre</dd>
 							<dt><b>cambiar_padre_fila</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcambiar_padre_fila">toba_datos_tabla::cambiar_padre_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia la asociación de una fila con sus padres</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcambiar_padre_fila">toba_datos_tabla::cambiar_padre_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia los padres de una fila</dd>
 							<dt><b>cargar</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodcargar">toba_datos_relacion::cargar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utiliza la carga por clave del administrador de persistencia</dd>
 							<dt><b>cargar</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar">toba_ap_tabla_db::cargar()</a></dd>
-							<dt><b>cargar</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcargar">toba_datos_tabla::cargar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga la tabla restringiendo POR valores especificos de campos</dd>
-							<dt><b>cargar</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodcargar">toba_ap_relacion_db::cargar()</a></dd>
-							<dt><b>cargar_con_datos</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcargar_con_datos">toba_datos_tabla::cargar_con_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)</dd>
 							<dt><b>cargar_con_datos</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_con_datos">toba_ap_tabla_db::cargar_con_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociado CON un conjunto de datos especifico</dd>
+							<dt><b>cargar_con_datos</b></dt>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcargar_con_datos">toba_datos_tabla::cargar_con_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga la tabla en memoria con un nuevo set de datos (se borra todo estado anterior)</dd>
 							<dt><b>cargar_con_sql</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_con_sql">toba_ap_tabla_db::cargar_con_sql()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociado CON una query SQL directa</dd>
 							<dt><b>cargar_con_where</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_con_where">toba_ap_tabla_db::cargar_con_where()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociaciado a partir de una clausula where</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_con_where">toba_ap_tabla_db::cargar_con_where()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociaciado a partir de una clausula where personalizada</dd>
 							<dt><b>cargar_con_wheres</b></dt>
 				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodcargar_con_wheres">toba_ap_relacion_db::cargar_con_wheres()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga las tablas de la relación especificando wheres particulares para las distintas tablas</dd>
 							<dt><b>cargar_con_where_from_especifico</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_con_where_from_especifico">toba_ap_tabla_db::cargar_con_where_from_especifico()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas, el entorno no incide en ellas</dd>
 							<dt><b>cargar_por_clave</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_por_clave">toba_ap_tabla_db::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla</dd>
+				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodcargar_por_clave">toba_ap_tabla::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave</dd>
 							<dt><b>cargar_por_clave</b></dt>
 				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_relacion.html#methodcargar_por_clave">toba_ap_relacion::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cargar una relaciÃ³n completa a partir de la clave de una de las tablas raiz</dd>
 							<dt><b>cargar_por_clave</b></dt>
-				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodcargar_por_clave">toba_ap_tabla::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave</dd>
-							<dt><b>cargar_por_clave</b></dt>
 				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodcargar_por_clave">toba_ap_relacion_db::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Se cargan las tablas de la relación restringiendo por las claves de las tablas raiz</dd>
-							<dt><b>cargar_tabla_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodcargar_tabla_hijo">toba_relacion_entre_tablas::cargar_tabla_hijo()</a></dd>
+							<dt><b>cargar_por_clave</b></dt>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcargar_por_clave">toba_ap_tabla_db::cargar_por_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla</dd>
 							<dt><b>completar_campos_externos_fila</b></dt>
 				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodcompletar_campos_externos_fila">toba_ap_tabla::completar_campos_externos_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Mecanismo de recuperaciÃ³n de valores para las columnas externas.</dd>
 							<dt><b>completar_campos_externos_fila</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcompletar_campos_externos_fila">toba_ap_tabla_db::completar_campos_externos_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Recuperacion de valores para las columnas externas.</dd>
-							<dt><b>controlar_alteracion_db</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodcontrolar_alteracion_db">toba_ap_tabla_db::controlar_alteracion_db()</a></dd>
 							<dt><b>control_estructura_fila</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcontrol_estructura_fila">toba_datos_tabla::control_estructura_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Controla que los campos del registro existan</dd>
 							<dt><b>control_tope_minimo_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcontrol_tope_minimo_filas">toba_datos_tabla::control_tope_minimo_filas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodcontrol_tope_minimo_filas">toba_datos_tabla::control_tope_minimo_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Valida que la cantidad de filas supere el mínimo establecido</dd>
 					</dl>
 	</div>
 	<a name="d"></a>
@@ -767,7 +742,7 @@
 							<dt><b>dependencia</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddependencia">toba_ci::dependencia()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga</dd>
 							<dt><b>dependencia_esta_configurada</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddependencia_esta_configurada">toba_ci::dependencia_esta_configurada()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddependencia_esta_configurada">toba_ci::dependencia_esta_configurada()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Una dependencia ya ha sido configurada por este CI?</dd>
 							<dt><b>desactivar</b></dt>
 				<dd>in file toba_boton.php, method <a href="Componentes/Eis/toba_boton.html#methoddesactivar">toba_boton::desactivar()</a></dd>
 							<dt><b>desactivar_agregado_filas</b></dt>
@@ -793,7 +768,7 @@
 							<dt><b>destruir</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a></dd>
 							<dt><b>disparar_entrega_datos_cn</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_entrega_datos_cn">toba_ci::disparar_entrega_datos_cn()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_entrega_datos_cn">toba_ci::disparar_entrega_datos_cn()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Método a llamar al final de la transacción de negocios para cargar al cn de esta operación con información de los cis</dd>
 							<dt><b>disparar_eventos</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methoddisparar_eventos">toba_ei_formulario_ml::disparar_eventos()</a></dd>
 							<dt><b>disparar_eventos</b></dt>
@@ -815,11 +790,11 @@
 							<dt><b>disparar_eventos_granulares</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methoddisparar_eventos_granulares">toba_ei_formulario_ml::disparar_eventos_granulares()</a></dd>
 							<dt><b>disparar_evento_propio</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_evento_propio">toba_ci::disparar_evento_propio()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_evento_propio">toba_ci::disparar_evento_propio()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dispara los eventos de usuarios o el de cambio de tab</dd>
 							<dt><b>disparar_limpieza_memoria</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_limpieza_memoria">toba_ci::disparar_limpieza_memoria()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Borra la memoria de todas las dependencias y la propia</dd>
 							<dt><b>disparar_obtencion_datos_cn</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_obtencion_datos_cn">toba_ci::disparar_obtencion_datos_cn()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methoddisparar_obtencion_datos_cn">toba_ci::disparar_obtencion_datos_cn()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Método a llamar al inicio de la transacción de negocios para llenar los cis de esta operación con información del cn</dd>
 							<dt><b>$datos</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$datos">toba_datos_tabla::$datos</a></dd>
 							<dt><b>$datos</b></dt>
@@ -828,12 +803,10 @@
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$datos_originales">toba_datos_tabla::$datos_originales</a></dd>
 							<dt><b>$debug_pasadas</b></dt>
 				<dd>in file toba_datos_relacion.php, variable <a href="Componentes/Persistencia/toba_datos_relacion.html#var$debug_pasadas">toba_datos_relacion::$debug_pasadas</a></dd>
-							<dt><b>desactivar_control_sincro</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methoddesactivar_control_sincro">toba_ap_tabla_db::desactivar_control_sincro()</a></dd>
 							<dt><b>desactivar_transaccion</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methoddesactivar_transaccion">toba_ap_tabla_db::desactivar_transaccion()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methoddesactivar_transaccion">toba_ap_tabla_db::desactivar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;No utilizar una transaccion de BD cuando sincroniza la tabla</dd>
 							<dt><b>desactivar_transaccion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methoddesactivar_transaccion">toba_ap_relacion_db::desactivar_transaccion()</a></dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methoddesactivar_transaccion">toba_ap_relacion_db::desactivar_transaccion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;No utilizar una transacción a la hora de la sincronización.</dd>
 							<dt><b>destruir</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methoddestruir">toba_datos_relacion::destruir()</a></dd>
 							<dt><b>disparar_validacion_tablas</b></dt>
@@ -990,15 +963,13 @@
 							<dt><b>evt__cancelar</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__cancelar">toba_ci::evt__cancelar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado</dd>
 							<dt><b>evt__entregar_datos_cn</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__entregar_datos_cn">toba_ci::evt__entregar_datos_cn()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__entregar_datos_cn">toba_ci::evt__entregar_datos_cn()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión pensada para que el ci le brinde datos al cn al comenzar el tránsito de una transacción.</dd>
 							<dt><b>evt__get_datos_cn</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__get_datos_cn">toba_ci::evt__get_datos_cn()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__get_datos_cn">toba_ci::evt__get_datos_cn()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión pensada para que el ci le pida datos al cn al empezar el tránsito de una transacción.</dd>
 							<dt><b>evt__limpieza_memoria</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__limpieza_memoria">toba_ci::evt__limpieza_memoria()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Borra la memoria de este CI y lo reinicializa</dd>
 							<dt><b>evt__procesar</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__procesar">toba_ci::evt__procesar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Evento predefinido de procesar, en caso de existir el cn le entrega los datos y limpia la memoria</dd>
-							<dt><b>evt__validar_datos</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodevt__validar_datos">toba_ci::evt__validar_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Validar el estado interno, dispara una excepcion si falla</dd>
 							<dt><b>existen_cortes_control</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodexisten_cortes_control">toba_ei_cuadro::existen_cortes_control()</a></dd>
 							<dt><b>existe_paginado</b></dt>
@@ -1008,17 +979,17 @@
 							<dt><b>ejecutar_sql</b></dt>
 				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodejecutar_sql">toba_cn::ejecutar_sql()</a></dd>
 							<dt><b>evt__limpieza_memoria</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__limpieza_memoria">toba_cn::evt__limpieza_memoria()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__limpieza_memoria">toba_cn::evt__limpieza_memoria()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Evento que se dispara cuando se limpia la memoria</dd>
 							<dt><b>evt__procesar_especifico</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__procesar_especifico">toba_cn::evt__procesar_especifico()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__procesar_especifico">toba_cn::evt__procesar_especifico()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluir el procesamiento de negocio</dd>
 							<dt><b>evt__validar_datos</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__validar_datos">toba_cn::evt__validar_datos()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodevt__validar_datos">toba_cn::evt__validar_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de validacion que se ejecuta al inicio del procesamiento final</dd>
 							<dt><b>ejecutar_sql</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodejecutar_sql">toba_ap_tabla_db::ejecutar_sql()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Alias de la función global ejecutar_sql</dd>
-							<dt><b>eliminar</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodeliminar">toba_datos_relacion::eliminar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Usar eliminar_todo, es más explícito</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodejecutar_sql">toba_ap_tabla_db::ejecutar_sql()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Shortcut de toba_db::ejecutar()</dd>
 							<dt><b>eliminar</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodeliminar">toba_datos_tabla::eliminar()</a></dd>
+							<dt><b>eliminar</b></dt>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodeliminar">toba_datos_relacion::eliminar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Usar eliminar_todo, es más explícito</dd>
 							<dt><b>eliminar</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodeliminar">toba_ap_tabla_db_mt::eliminar()</a></dd>
 							<dt><b>eliminar_fila</b></dt>
@@ -1028,63 +999,53 @@
 							<dt><b>eliminar_plan</b></dt>
 				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodeliminar_plan">toba_ap_relacion_db::eliminar_plan()</a></dd>
 							<dt><b>eliminar_registro_db</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodeliminar_registro_db">toba_ap_tabla_db::eliminar_registro_db()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodeliminar_registro_db">toba_ap_tabla_db::eliminar_registro_db()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un delete de un registro en la base</dd>
 							<dt><b>eliminar_todo</b></dt>
 				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodeliminar_todo">toba_ap_relacion_db::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina cada elemento de las tabla de la relación y luego sincroniza con la base</dd>
 							<dt><b>eliminar_todo</b></dt>
-				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_relacion.html#methodeliminar_todo">toba_ap_relacion::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina del medio de persistencia toda la relaciÃ³n cargada</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodeliminar_todo">toba_datos_relacion::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina y sincroniza en el medio de persistencia todos los datos cargados en la relación</dd>
 							<dt><b>eliminar_todo</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodeliminar_todo">toba_datos_tabla::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina todas las filas de la tabla en memoria y sincroniza con el medio de persistencia</dd>
 							<dt><b>eliminar_todo</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodeliminar_todo">toba_datos_relacion::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina y sincroniza en el medio de persistencia todos los datos cargados en la relación</dd>
+				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_relacion.html#methodeliminar_todo">toba_ap_relacion::eliminar_todo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Elimina del medio de persistencia toda la relaciÃ³n cargada</dd>
 							<dt><b>esta_cargada</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodesta_cargada">toba_datos_tabla::esta_cargada()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodesta_cargada">toba_datos_tabla::esta_cargada()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;La tabla esta cargada con datos?</dd>
 							<dt><b>esta_cargado</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodesta_cargado">toba_datos_relacion::esta_cargado()</a></dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodesta_cargado">toba_ap_relacion_db::esta_cargado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;La relacion tiene datos cargados?</dd>
 							<dt><b>esta_cargado</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodesta_cargado">toba_ap_relacion_db::esta_cargado()</a></dd>
-							<dt><b>evt__carga_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodevt__carga_hijo">toba_relacion_entre_tablas::evt__carga_hijo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El elemento HIJO de la relacion notifica que se CARGO.</dd>
-							<dt><b>evt__eliminacion_fila_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodevt__eliminacion_fila_hijo">toba_relacion_entre_tablas::evt__eliminacion_fila_hijo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El hijo notifica que se elimina una fila, se saca del mapeo</dd>
-							<dt><b>evt__eliminacion_fila_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodevt__eliminacion_fila_padre">toba_relacion_entre_tablas::evt__eliminacion_fila_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El padre notifica que se elimina una fila</dd>
-							<dt><b>evt__modificacion_fila_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodevt__modificacion_fila_hijo">toba_relacion_entre_tablas::evt__modificacion_fila_hijo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El hijo notifica la modificación de una fila  Se analiza si se modifica alguna columna que una a la relación.</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodesta_cargado">toba_datos_relacion::esta_cargado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;La relacion ha sido cargada con datos?</dd>
 							<dt><b>evt__post_delete</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_delete">toba_ap_tabla_db::evt__post_delete()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión posterior al borrado de un registro durante una sincronización con la base</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_delete">toba_ap_tabla_db::evt__post_delete()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión posterior al borrado de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__post_eliminacion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__post_eliminacion">toba_ap_relacion_db::evt__post_eliminacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__post_eliminacion">toba_ap_relacion_db::evt__post_eliminacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación</dd>
 							<dt><b>evt__post_insert</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_insert">toba_ap_tabla_db::evt__post_insert()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión posterior a la inserción de un registro durante una sincronización con la base</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_insert">toba_ap_tabla_db::evt__post_insert()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__post_sincronizacion</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_sincronizacion">toba_ap_tabla_db::evt__post_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__post_sincronizacion">toba_ap_relacion_db::evt__post_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización</dd>
 							<dt><b>evt__post_sincronizacion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__post_sincronizacion">toba_ap_relacion_db::evt__post_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_sincronizacion">toba_ap_tabla_db::evt__post_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos</dd>
 							<dt><b>evt__post_update</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_update">toba_ap_tabla_db::evt__post_update()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión posterior a la actualización de un registro durante una sincronización con la base</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__post_update">toba_ap_tabla_db::evt__post_update()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__pre_delete</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_delete">toba_ap_tabla_db::evt__pre_delete()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión previa al borrado de un registro durante una sincronización con la base</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_delete">toba_ap_tabla_db::evt__pre_delete()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión previa al borrado de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__pre_eliminacion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__pre_eliminacion">toba_ap_relacion_db::evt__pre_eliminacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__pre_eliminacion">toba_ap_relacion_db::evt__pre_eliminacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación</dd>
 							<dt><b>evt__pre_insert</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_insert">toba_ap_tabla_db::evt__pre_insert()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión previo a la inserción de un registro durante una sincronización con la base</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_insert">toba_ap_tabla_db::evt__pre_insert()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión previo a la inserción de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__pre_sincronizacion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__pre_sincronizacion">toba_ap_relacion_db::evt__pre_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodevt__pre_sincronizacion">toba_ap_relacion_db::evt__pre_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar</dd>
 							<dt><b>evt__pre_sincronizacion</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_sincronizacion">toba_ap_tabla_db::evt__pre_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es el lugar para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_sincronizacion">toba_ap_tabla_db::evt__pre_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos</dd>
 							<dt><b>evt__pre_update</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_update">toba_ap_tabla_db::evt__pre_update()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Esta es una ventana de extensión previo a la actualización de un registro durante una sincronización con la base</dd>
-							<dt><b>evt__sincronizacion_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodevt__sincronizacion_padre">toba_relacion_entre_tablas::evt__sincronizacion_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El elemento PADRE de la relacion notifica que se SINCRONIZO:</dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodevt__pre_update">toba_ap_tabla_db::evt__pre_update()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión previo a la actualización de un registro durante una sincronización con la base</dd>
 							<dt><b>evt__validar</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodevt__validar">toba_datos_relacion::evt__validar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Lugar para validaciones específicas, se ejecuta justo antes de la sincronización</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodevt__validar">toba_datos_relacion::evt__validar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para validaciones específicas, se ejecuta justo antes de la sincronización</dd>
 							<dt><b>evt__validar_fila</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodevt__validar_fila">toba_datos_tabla::evt__validar_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana para hacer validaciones particulares previo a la sincronización</dd>
 							<dt><b>evt__validar_ingreso</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodevt__validar_ingreso">toba_datos_tabla::evt__validar_ingreso()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodevt__validar_ingreso">toba_datos_tabla::evt__validar_ingreso()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria</dd>
 							<dt><b>existe_fila</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodexiste_fila">toba_datos_tabla::existe_fila()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodexiste_fila">toba_datos_tabla::existe_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Existe una determina fila? (la fila puede estar marcada como para borrar)</dd>
 							<dt><b>existe_tabla</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodexiste_tabla">toba_datos_relacion::existe_tabla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina si una tabla es parte de la relación</dd>
 					</dl>
@@ -1127,7 +1088,7 @@
 							<dt><b>fecha</b></dt>
 				<dd>in file toba_tipo_datos.php, method <a href="Componentes/Persistencia/toba_tipo_datos.html#methodfecha">toba_tipo_datos::fecha()</a></dd>
 							<dt><b>forzar_insercion</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodforzar_insercion">toba_datos_relacion::forzar_insercion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodforzar_insercion">toba_datos_relacion::forzar_insercion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fuerza a que los datos_tabla contenidos marquen todos sus filas como nuevas  Esto implica que a la hora de la sincronización se van a generar INSERTS para todas las filas.</dd>
 							<dt><b>forzar_insercion</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodforzar_insercion">toba_datos_tabla::forzar_insercion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina que todas las filas de la tabla son nuevas</dd>
 					</dl>
@@ -1366,13 +1327,13 @@
 							<dt><b>generar_esquema</b></dt>
 				<dd>in file toba_ei_esquema.php, method <a href="Componentes/Eis/toba_ei_esquema.html#methodgenerar_esquema">toba_ei_esquema::generar_esquema()</a></dd>
 							<dt><b>generar_etiqueta_ef</b></dt>
-				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodgenerar_etiqueta_ef">toba_ei_formulario_ml::generar_etiqueta_ef()</a></dd>
-							<dt><b>generar_etiqueta_ef</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_etiqueta_ef">toba_ei_formulario::generar_etiqueta_ef()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;General el html de la etiqueta de un ef especifico</dd>
-							<dt><b>generar_formulario</b></dt>
-				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_formulario">toba_ei_formulario::generar_formulario()</a></dd>
+							<dt><b>generar_etiqueta_ef</b></dt>
+				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodgenerar_etiqueta_ef">toba_ei_formulario_ml::generar_etiqueta_ef()</a></dd>
 							<dt><b>generar_formulario</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodgenerar_formulario">toba_ei_formulario_ml::generar_formulario()</a></dd>
+							<dt><b>generar_formulario</b></dt>
+				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_formulario">toba_ei_formulario::generar_formulario()</a></dd>
 							<dt><b>generar_formulario_cuerpo</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodgenerar_formulario_cuerpo">toba_ei_formulario_ml::generar_formulario_cuerpo()</a></dd>
 							<dt><b>generar_formulario_encabezado</b></dt>
@@ -1380,41 +1341,39 @@
 							<dt><b>generar_formulario_pie</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodgenerar_formulario_pie">toba_ei_formulario_ml::generar_formulario_pie()</a></dd>
 							<dt><b>generar_html</b></dt>
+				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_html">toba_ei_formulario::generar_html()</a></dd>
+							<dt><b>generar_html</b></dt>
+				<dd>in file toba_ei_esquema.php, method <a href="Componentes/Eis/toba_ei_esquema.html#methodgenerar_html">toba_ei_esquema::generar_html()</a></dd>
+							<dt><b>generar_html</b></dt>
 				<dd>in file toba_ei_calendario.php, method <a href="Componentes/Eis/toba_ei_calendario.html#methodgenerar_html">toba_ei_calendario::generar_html()</a></dd>
 							<dt><b>generar_html</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodgenerar_html">toba_ei_cuadro::generar_html()</a></dd>
 							<dt><b>generar_html</b></dt>
-				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_html">toba_ei_formulario::generar_html()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodgenerar_html">toba_ci::generar_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Delega la generacion de html a la pantalla actual</dd>
+							<dt><b>generar_html</b></dt>
+				<dd>in file toba_ei_archivos.php, method <a href="Componentes/Eis/toba_ei_archivos.html#methodgenerar_html">toba_ei_archivos::generar_html()</a></dd>
 							<dt><b>generar_html</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_html">toba_ei_pantalla::generar_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el html de todo el componente, incluyendo hiddens necesarios para el correcto funcionamiento del componente</dd>
 							<dt><b>generar_html</b></dt>
 				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodgenerar_html">toba_ei_arbol::generar_html()</a></dd>
-							<dt><b>generar_html</b></dt>
-				<dd>in file toba_ei_esquema.php, method <a href="Componentes/Eis/toba_ei_esquema.html#methodgenerar_html">toba_ei_esquema::generar_html()</a></dd>
-							<dt><b>generar_html</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodgenerar_html">toba_ci::generar_html()</a></dd>
-							<dt><b>generar_html</b></dt>
-				<dd>in file toba_ei_archivos.php, method <a href="Componentes/Eis/toba_ei_archivos.html#methodgenerar_html">toba_ei_archivos::generar_html()</a></dd>
 							<dt><b>generar_html_barra_sup</b></dt>
 				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodgenerar_html_barra_sup">toba_ei::generar_html_barra_sup()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera la barra con el título y los íconos</dd>
-							<dt><b>generar_html_barra_sup_especifica</b></dt>
-				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodgenerar_html_barra_sup_especifica">toba_ei::generar_html_barra_sup_especifica()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión para incluir HTML junto a la barra del titulo e iconos</dd>
 							<dt><b>generar_html_boton</b></dt>
 				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodgenerar_html_boton">toba_ei::generar_html_boton()</a></dd>
 							<dt><b>generar_html_contenido</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_html_contenido">toba_ei_pantalla::generar_html_contenido()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Grafica el contenido de la pantalla actual, por defecto incluye una sección de descripción</dd>
 							<dt><b>generar_html_cuerpo</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_html_cuerpo">toba_ei_pantalla::generar_html_cuerpo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el html de la barra tabs, el toc (si tiene) y el contenido de las dependencias actuales</dd>
-							<dt><b>generar_html_dependencias</b></dt>
-				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_html_dependencias">toba_ei_pantalla::generar_html_dependencias()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dispara la generación de html de los objetos contenidos en esta pantalla</dd>
 							<dt><b>generar_html_ef</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_html_ef">toba_ei_formulario::generar_html_ef()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera la etiqueta y el componente HTML de un ef</dd>
 							<dt><b>generar_js</b></dt>
-				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_js">toba_ei_pantalla::generar_js()</a></dd>
-							<dt><b>generar_js</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodgenerar_js">toba_ci::generar_js()</a></dd>
-							<dt><b>generar_js</b></dt>
 				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodgenerar_js">toba_ei::generar_js()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente</dd>
+							<dt><b>generar_js</b></dt>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodgenerar_js">toba_ci::generar_js()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Delega la generacion de js a la pantalla actual</dd>
+							<dt><b>generar_js</b></dt>
+				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_js">toba_ei_pantalla::generar_js()</a></dd>
+							<dt><b>generar_layout</b></dt>
+				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodgenerar_layout">toba_ei_pantalla::generar_layout()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dispara la generación de html de los objetos contenidos en esta pantalla</dd>
 							<dt><b>generar_layout</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodgenerar_layout">toba_ei_formulario::generar_layout()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el cuerpo del formulario conteniendo la lista de efs</dd>
 							<dt><b>generar_paginado</b></dt>
@@ -1440,9 +1399,9 @@
 							<dt><b>get_clave</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_clave">toba_ei_cuadro::get_clave()</a></dd>
 							<dt><b>get_clave_fila</b></dt>
-				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_clave_fila">toba_ei_cuadro::get_clave_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la clave serializada de una fila dada</dd>
-							<dt><b>get_clave_fila</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodget_clave_fila">toba_ei_formulario_ml::get_clave_fila()</a></dd>
+							<dt><b>get_clave_fila</b></dt>
+				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_clave_fila">toba_ei_cuadro::get_clave_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la clave serializada de una fila dada</dd>
 							<dt><b>get_clave_fila_array</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_clave_fila_array">toba_ei_cuadro::get_clave_fila_array()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un arreglo con las claves de la fila dada</dd>
 							<dt><b>get_clave_seleccionada</b></dt>
@@ -1450,31 +1409,31 @@
 							<dt><b>get_columnas</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_columnas">toba_ei_cuadro::get_columnas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la definición de las columnas actuales del cuadro</dd>
 							<dt><b>get_consumo_javascript</b></dt>
+				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodget_consumo_javascript">toba_ei_formulario::get_consumo_javascript()</a></dd>
+							<dt><b>get_consumo_javascript</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodget_consumo_javascript">toba_ei_pantalla::get_consumo_javascript()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los consumos javascript requerido por este objeto y sus dependencias</dd>
+							<dt><b>get_consumo_javascript</b></dt>
+				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodget_consumo_javascript">toba_ei_arbol::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodget_consumo_javascript">toba_ei_formulario_ml::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
 				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodget_consumo_javascript">toba_ei::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
-				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodget_consumo_javascript">toba_ei_formulario::get_consumo_javascript()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_consumo_javascript">toba_ci::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
 				<dd>in file toba_ei_archivos.php, method <a href="Componentes/Eis/toba_ei_archivos.html#methodget_consumo_javascript">toba_ei_archivos::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
-				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodget_consumo_javascript">toba_ei_arbol::get_consumo_javascript()</a></dd>
+				<dd>in file toba_ei_calendario.php, method <a href="Componentes/Eis/toba_ei_calendario.html#methodget_consumo_javascript">toba_ei_calendario::get_consumo_javascript()</a></dd>
 							<dt><b>get_consumo_javascript</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_consumo_javascript">toba_ei_cuadro::get_consumo_javascript()</a></dd>
-							<dt><b>get_consumo_javascript</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_consumo_javascript">toba_ci::get_consumo_javascript()</a></dd>
-							<dt><b>get_consumo_javascript</b></dt>
-				<dd>in file toba_ei_calendario.php, method <a href="Componentes/Eis/toba_ei_calendario.html#methodget_consumo_javascript">toba_ei_calendario::get_consumo_javascript()</a></dd>
 							<dt><b>get_contenido</b></dt>
 				<dd>in file toba_ei_calendario.php, method <a href="Componentes/Eis/toba_ei_calendario.html#methodget_contenido">toba_ei_calendario::get_contenido()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el contenido extra asociado a un día</dd>
 							<dt><b>get_datos</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodget_datos">toba_ei_formulario::get_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Recupera el estado actual del formulario.</dd>
 							<dt><b>get_datos</b></dt>
-				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodget_datos">toba_ei_formulario_ml::get_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el set de datos que maneja actualmente el componente</dd>
-							<dt><b>get_datos</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_datos">toba_ei_cuadro::get_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el conjunto de datos que actualmente posee el cuadro</dd>
+							<dt><b>get_datos</b></dt>
+				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodget_datos">toba_ei_formulario_ml::get_datos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el set de datos que maneja actualmente el componente</dd>
 							<dt><b>get_dependencias_ci</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_dependencias_ci">toba_ci::get_dependencias_ci()</a></dd>
 							<dt><b>get_dependencias_eventos</b></dt>
@@ -1498,9 +1457,11 @@
 							<dt><b>get_hijos</b></dt>
 				<dd>in file interfaces.php, method <a href="Componentes/Eis/toba_nodo_arbol.html#methodget_hijos">toba_nodo_arbol::get_hijos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Arreglo con los hijos toba_nodo_arbol</dd>
 							<dt><b>get_html</b></dt>
-				<dd>in file toba_evento_usuario.php, method <a href="Componentes/Eis/toba_evento_usuario.html#methodget_html">toba_evento_usuario::get_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el HTML del BOTON</dd>
-							<dt><b>get_html</b></dt>
 				<dd>in file toba_tab.php, method <a href="Componentes/Eis/toba_tab.html#methodget_html">toba_tab::get_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el HTML del tab</dd>
+							<dt><b>get_html</b></dt>
+				<dd>in file toba_evento_usuario.php, method <a href="Componentes/Eis/toba_evento_usuario.html#methodget_html">toba_evento_usuario::get_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el HTML del BOTON</dd>
+							<dt><b>get_html_barra_editor</b></dt>
+				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodget_html_barra_editor">toba_ei::get_html_barra_editor()</a></dd>
 							<dt><b>get_iconos</b></dt>
 				<dd>in file interfaces.php, method <a href="Componentes/Eis/toba_nodo_arbol.html#methodget_iconos">toba_nodo_arbol::get_iconos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Arreglo de iconos asociados al nodo</dd>
 							<dt><b>get_id</b></dt>
@@ -1512,7 +1473,7 @@
 							<dt><b>get_id_objeto_js</b></dt>
 				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodget_id_objeto_js">toba_ei::get_id_objeto_js()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el id del componente en javascript.</dd>
 							<dt><b>get_id_pantalla</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_id_pantalla">toba_ci::get_id_pantalla()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_id_pantalla">toba_ci::get_id_pantalla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el id de la pantalla actualmente seleccionada para graficar</dd>
 							<dt><b>get_imagen</b></dt>
 				<dd>in file toba_boton.php, method <a href="Componentes/Eis/toba_boton.html#methodget_imagen">toba_boton::get_imagen()</a></dd>
 							<dt><b>get_imagen_url_rel</b></dt>
@@ -1520,7 +1481,7 @@
 							<dt><b>get_info_extra</b></dt>
 				<dd>in file interfaces.php, method <a href="Componentes/Eis/toba_nodo_arbol.html#methodget_info_extra">toba_nodo_arbol::get_info_extra()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Información extra contextual a la situación actual del nodo</dd>
 							<dt><b>get_info_pantalla</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_info_pantalla">toba_ci::get_info_pantalla()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_info_pantalla">toba_ci::get_info_pantalla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los metadatos de una pantalla</dd>
 							<dt><b>get_lista_dependencias</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodget_lista_dependencias">toba_ei_pantalla::get_lista_dependencias()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los ID de las dependencias que se utilizan en esta pantalla</dd>
 							<dt><b>get_lista_eventos_internos</b></dt>
@@ -1548,7 +1509,7 @@
 							<dt><b>get_pagina_actual</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodget_pagina_actual">toba_ei_cuadro::get_pagina_actual()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la página actualmente seleccionada por el usuario, si existe el paginado</dd>
 							<dt><b>get_pantalla_inicial</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_pantalla_inicial">toba_ci::get_pantalla_inicial()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodget_pantalla_inicial">toba_ci::get_pantalla_inicial()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la pantalla que se muestra al iniciar el componente en la operación  Por defecto retorna la primer pantalla definida en el editor.</dd>
 							<dt><b>get_parametros</b></dt>
 				<dd>in file toba_evento_usuario.php, method <a href="Componentes/Eis/toba_evento_usuario.html#methodget_parametros">toba_evento_usuario::get_parametros()</a></dd>
 							<dt><b>get_path_relativo</b></dt>
@@ -1582,77 +1543,65 @@
 							<dt><b>generar_sql_update</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodgenerar_sql_update">toba_ap_tabla_db::generar_sql_update()</a></dd>
 							<dt><b>generar_sql_where_registro</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodgenerar_sql_where_registro">toba_ap_tabla_db::generar_sql_where_registro()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodgenerar_sql_where_registro">toba_ap_tabla_db::generar_sql_where_registro()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera la sentencia WHERE correspondiente a la clave de un registro</dd>
 							<dt><b>get</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget">toba_datos_tabla::get()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el contenido de la fila donde se encuentra posicionado el cursor interno</dd>
 							<dt><b>get_alias</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_alias">toba_datos_tabla::get_alias()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Se toma el primero seteado de: el alias definido, el rol en la relación o el nombre de la tabla</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_alias">toba_datos_tabla::get_alias()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el alias utilizado para desambiguar la tabla en uniones tales como JOINs</dd>
 							<dt><b>get_cambios</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cambios">toba_datos_tabla::get_cambios()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cambios">toba_datos_tabla::get_cambios()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la estructura interna que mantiene registro de las modificaciones/altas/bajas producidas en memoria</dd>
 							<dt><b>get_cantidad_filas</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cantidad_filas">toba_datos_tabla::get_cantidad_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cantidad de filas que tiene la tabla en memoria</dd>
 							<dt><b>get_cantidad_filas_a_sincronizar</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cantidad_filas_a_sincronizar">toba_datos_tabla::get_cantidad_filas_a_sincronizar()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cantidad_filas_a_sincronizar">toba_datos_tabla::get_cantidad_filas_a_sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la cantidad de filas que sufrieron cambios desde la carga, y por lo tanto se van a sincronizar</dd>
 							<dt><b>get_clave</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_clave">toba_datos_tabla::get_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Columnas que son son claves en la tabla</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_clave">toba_datos_tabla::get_clave()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna las columnas que son claves en la tabla</dd>
 							<dt><b>get_clave</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodget_clave">toba_ap_tabla_db_mt::get_clave()</a></dd>
 							<dt><b>get_clave_valor</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_clave_valor">toba_datos_tabla::get_clave_valor()</a></dd>
-							<dt><b>get_clave_valor</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodget_clave_valor">toba_ap_tabla_db_mt::get_clave_valor()</a></dd>
+							<dt><b>get_clave_valor</b></dt>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_clave_valor">toba_datos_tabla::get_clave_valor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el valor de la clave para un fila dada</dd>
 							<dt><b>get_columna</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_columna">toba_datos_tabla::get_columna()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el valor de la columna de la fila actualmente seleccionada como cursor</dd>
 							<dt><b>get_columnas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_columnas">toba_datos_tabla::get_columnas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_columnas">toba_datos_tabla::get_columnas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el nombre de las columnas de esta tabla</dd>
 							<dt><b>get_conjunto_datos_interno</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_conjunto_datos_interno">toba_datos_tabla::get_conjunto_datos_interno()</a></dd>
 							<dt><b>get_conjunto_datos_interno</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_conjunto_datos_interno">toba_datos_relacion::get_conjunto_datos_interno()</a></dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_conjunto_datos_interno">toba_datos_relacion::get_conjunto_datos_interno()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la estructura de datos utilizada por las tablas para mantener registro del estado de sus datos</dd>
 							<dt><b>get_cursor</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cursor">toba_datos_tabla::get_cursor()</a></dd>
-							<dt><b>get_datos_originales</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_datos_originales">toba_datos_tabla::get_datos_originales()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_cursor">toba_datos_tabla::get_cursor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el Id. interno de la fila donde se encuentra actualmente el cursor de la tabla</dd>
 							<dt><b>get_estado_datos_tabla</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodget_estado_datos_tabla">toba_ap_tabla_db::get_estado_datos_tabla()</a></dd>
 							<dt><b>get_fila</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_fila">toba_datos_tabla::get_fila()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_fila">toba_datos_tabla::get_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el contenido de una fila, a partir de su clave interna</dd>
 							<dt><b>get_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_filas">toba_datos_tabla::get_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el conjunto de filas que respeta las condiciones dadas</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_filas">toba_datos_tabla::get_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el conjunto de filas que respeta las condiciones dadas  Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.</dd>
 							<dt><b>get_fila_columna</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_fila_columna">toba_datos_tabla::get_fila_columna()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el valor de una columna en una fila dada</dd>
 							<dt><b>get_fuente</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_fuente">toba_datos_tabla::get_fuente()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_fuente">toba_datos_tabla::get_fuente()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el nombre de la <a href="Fuentes/toba_fuente_datos.html">fuente de datos</a> utilizado por este componente</dd>
 							<dt><b>get_fuente</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_fuente">toba_datos_relacion::get_fuente()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fuente de datos que utiliza el objeto y sus dependencias</dd>
 							<dt><b>get_id_filas</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_filas">toba_datos_tabla::get_id_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los ids de todas las filas (sin eliminar) de esta tabla</dd>
 							<dt><b>get_id_filas_a_sincronizar</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_filas_a_sincronizar">toba_datos_tabla::get_id_filas_a_sincronizar()</a></dd>
-							<dt><b>get_id_filas_hijas</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_id_filas_hijas">toba_relacion_entre_tablas::get_id_filas_hijas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dada la condicion del cursor de la tabla padre, retorna las filas hijas asociadas</dd>
-							<dt><b>get_id_filas_hijas_de</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_id_filas_hijas_de">toba_relacion_entre_tablas::get_id_filas_hijas_de()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna aquellas filas cuyo padre en la tabla relacionada es el paráemtro</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_filas_a_sincronizar">toba_datos_tabla::get_id_filas_a_sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna lasfilas que sufrieron cambios desde la carga</dd>
 							<dt><b>get_id_fila_condicion</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_fila_condicion">toba_datos_tabla::get_id_fila_condicion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca los registros en memoria que cumplen una condicion.</dd>
 							<dt><b>get_id_fila_padre</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_id_fila_padre">toba_datos_tabla::get_id_fila_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca en la tabla padre el id de fila padre que corresponde a la fila hija especificada</dd>
-							<dt><b>get_id_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_id_padre">toba_relacion_entre_tablas::get_id_padre()</a></dd>
 							<dt><b>get_lista_tablas</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_lista_tablas">toba_datos_relacion::get_lista_tablas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los identificadores de los datos_tabla incluídos</dd>
-							<dt><b>get_mapeo_campos</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_mapeo_campos">toba_relacion_entre_tablas::get_mapeo_campos()</a></dd>
-							<dt><b>get_mapeo_filas</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_mapeo_filas">toba_relacion_entre_tablas::get_mapeo_filas()</a></dd>
-							<dt><b>get_persistidor</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_persistidor">toba_datos_tabla::get_persistidor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el admin. de persistencia que asiste a este objeto</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_lista_tablas">toba_datos_relacion::get_lista_tablas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los identificadores de los datos_tabla incluídos en la relación</dd>
 							<dt><b>get_persistidor</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_persistidor">toba_datos_relacion::get_persistidor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna una referenca al Adm.Persistencia de la relación</dd>
+							<dt><b>get_persistidor</b></dt>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_persistidor">toba_datos_tabla::get_persistidor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el admin. de persistencia que asiste a este objeto durante la sincronización</dd>
 							<dt><b>get_proximo_id</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_proximo_id">toba_datos_tabla::get_proximo_id()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el proximo id interno a ser utilizado</dd>
 							<dt><b>get_relacion</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_relacion">toba_datos_tabla::get_relacion()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_relacion">toba_datos_tabla::get_relacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la <a href="Componentes/Persistencia/toba_datos_relacion.html">relacion</a> que contiene a esta tabla, si existe</dd>
 							<dt><b>get_relaciones_con_padres</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_relaciones_con_padres">toba_datos_tabla::get_relaciones_con_padres()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna las relaciones con las tablas padre</dd>
 							<dt><b>get_sql_de_carga</b></dt>
@@ -1664,17 +1613,13 @@
 							<dt><b>get_tablas_raiz</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodget_tablas_raiz">toba_datos_relacion::get_tablas_raiz()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el id de las tablas que no tienen padres en la relación</dd>
 							<dt><b>get_tope_max_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_tope_max_filas">toba_datos_tabla::get_tope_max_filas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_tope_max_filas">toba_datos_tabla::get_tope_max_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la cantidad maxima de filas que puede contener la tabla (si existe tal restriccion)</dd>
 							<dt><b>get_tope_min_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_tope_min_filas">toba_datos_tabla::get_tope_min_filas()</a></dd>
-							<dt><b>get_txt</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_txt">toba_relacion_entre_tablas::get_txt()</a></dd>
-							<dt><b>get_txt_error_base</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodget_txt_error_base">toba_relacion_entre_tablas::get_txt_error_base()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_tope_min_filas">toba_datos_tabla::get_tope_min_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la cantidad minima de fila que debe contener la tabla (si existe tal restriccion)</dd>
 							<dt><b>get_valores_columna</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodget_valores_columna">toba_datos_tabla::get_valores_columna()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna los valores de una columna específica</dd>
 							<dt><b>grafo_relaciones</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodgrafo_relaciones">toba_datos_relacion::grafo_relaciones()</a></dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodgrafo_relaciones">toba_datos_relacion::grafo_relaciones()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un grafo representando un conjunto de tablas y sus relaciones</dd>
 					</dl>
 	</div>
 	<a name="h"></a>
@@ -1706,12 +1651,8 @@
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodhtml_mensaje_cuadro_vacio">toba_ei_cuadro::html_mensaje_cuadro_vacio()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera el html que el cuadro muestra cuando no tiene datos cargados</dd>
 							<dt><b>html_pie</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodhtml_pie">toba_ei_cuadro::html_pie()</a></dd>
-							<dt><b>hay_ciclos</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodhay_ciclos">toba_datos_relacion::hay_ciclos()</a></dd>
 							<dt><b>hay_cursor</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodhay_cursor">toba_datos_tabla::hay_cursor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Hay una fila seleccionada por el cursor?</dd>
-							<dt><b>hay_cursor_en_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodhay_cursor_en_padre">toba_relacion_entre_tablas::hay_cursor_en_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina si la tabla padre tiene una fila seteada como 'actual'</dd>
 					</dl>
 	</div>
 	<a name="i"></a>
@@ -1735,8 +1676,6 @@
 				<dd>in file toba_componente.php, variable <a href="Componentes/toba_componente.html#var$info">toba_componente::$info</a></dd>
 							<dt><b>$info_dependencias</b></dt>
 				<dd>in file toba_componente.php, variable <a href="Componentes/toba_componente.html#var$info_dependencias">toba_componente::$info_dependencias</a></dd>
-							<dt><b>interfaces.php</b></dt>
-				<dd>procedural page <a href="Componentes/_componentes---definicion---interfaces.php.html">interfaces.php</a></dd>
 							<dt><b>informar</b></dt>
 				<dd>in file toba_componente.php, method <a href="Componentes/toba_componente.html#methodinformar">toba_componente::informar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Informa un mensaje predefinido al usuario, usando toba::notificacion() y toba::mensajes()</dd>
 							<dt><b>informar_msg</b></dt>
@@ -1747,6 +1686,8 @@
 				<dd>in file toba_cargador.php, method <a href="Componentes/toba_cargador.html#methodinstancia">toba_cargador::instancia()</a></dd>
 							<dt><b>invocar_callback</b></dt>
 				<dd>in file toba_componente.php, method <a href="Componentes/toba_componente.html#methodinvocar_callback">toba_componente::invocar_callback()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Metodo generico de invocar callbacks en el propio objeto</dd>
+							<dt><b>interfaces.php</b></dt>
+				<dd>procedural page <a href="Componentes/_nucleo---componentes---definicion---interfaces.php.html">interfaces.php</a></dd>
 							<dt><b>$id</b></dt>
 				<dd>in file toba_ef.php, variable <a href="Componentes/Efs/toba_ef.html#var$id">toba_ef::$id</a></dd>
 							<dt><b>$id_form</b></dt>
@@ -1774,15 +1715,13 @@
 							<dt><b>$ini_operacion</b></dt>
 				<dd>in file toba_ci.php, variable <a href="Componentes/Eis/toba_ci.html#var$ini_operacion">toba_ci::$ini_operacion</a></dd>
 							<dt><b>$item_editor</b></dt>
-				<dd>in file toba_ei_formulario.php, variable <a href="Componentes/Eis/toba_ei_formulario.html#var$item_editor">toba_ei_formulario::$item_editor</a></dd>
-							<dt><b>$item_editor</b></dt>
 				<dd>in file toba_ei_filtro.php, variable <a href="Componentes/Eis/toba_ei_filtro.html#var$item_editor">toba_ei_filtro::$item_editor</a></dd>
+							<dt><b>$item_editor</b></dt>
+				<dd>in file toba_ei_formulario.php, variable <a href="Componentes/Eis/toba_ei_formulario.html#var$item_editor">toba_ei_formulario::$item_editor</a></dd>
 							<dt><b>$item_editor</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, variable <a href="Componentes/Eis/toba_ei_formulario_ml.html#var$item_editor">toba_ei_formulario_ml::$item_editor</a></dd>
 							<dt><b>$item_propiedades</b></dt>
 				<dd>in file toba_ei_arbol.php, variable <a href="Componentes/Eis/toba_ei_arbol.html#var$item_propiedades">toba_ei_arbol::$item_propiedades</a></dd>
-							<dt><b>interfaces.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---interfaces.php.html">interfaces.php</a></dd>
 							<dt><b>ini</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodini">toba_ci::ini()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</dd>
 							<dt><b>inicializar</b></dt>
@@ -1792,9 +1731,9 @@
 							<dt><b>inicializar</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodinicializar">toba_ci::inicializar()</a></dd>
 							<dt><b>inicializar_dependencia</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodinicializar_dependencia">toba_ci::inicializar_dependencia()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodinicializar_dependencia">toba_ci::inicializar_dependencia()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Método interno de inicialización de una dependencia</dd>
 							<dt><b>inicializar_dependencias</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodinicializar_dependencias">toba_ci::inicializar_dependencias()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodinicializar_dependencias">toba_ci::inicializar_dependencias()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Carga las dependencias y las inicializa</dd>
 							<dt><b>inicializar_especifico</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodinicializar_especifico">toba_ei_formulario::inicializar_especifico()</a></dd>
 							<dt><b>inicializar_especifico</b></dt>
@@ -1811,8 +1750,10 @@
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodini__operacion">toba_ci::ini__operacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión que se ejecuta cuando el componente se inicia en la operación.</dd>
 							<dt><b>ir_a_limitrofe</b></dt>
 				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodir_a_limitrofe">toba_ci::ir_a_limitrofe()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Recorre las pantallas en el sentido actual buscando una válida para mostrar</dd>
+							<dt><b>interfaces.php</b></dt>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---interfaces.php.html">interfaces.php</a></dd>
 							<dt><b>ini</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</dd>
 							<dt><b>iniciar_transaccion</b></dt>
 				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodiniciar_transaccion">toba_cn::iniciar_transaccion()</a></dd>
 							<dt><b>info</b></dt>
@@ -1828,7 +1769,7 @@
 							<dt><b>insertar</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodinsertar">toba_ap_tabla_db_mt::insertar()</a></dd>
 							<dt><b>insertar_registro_db</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodinsertar_registro_db">toba_ap_tabla_db::insertar_registro_db()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodinsertar_registro_db">toba_ap_tabla_db::insertar_registro_db()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Inserta un registro en la base y recupera su secuencia si la tiene</dd>
 					</dl>
 	</div>
 	<a name="j"></a>
@@ -1855,6 +1796,8 @@
 		<dl>
 							<dt><b>$lista_dependencias</b></dt>
 				<dd>in file toba_componente.php, variable <a href="Componentes/toba_componente.html#var$lista_dependencias">toba_componente::$lista_dependencias</a></dd>
+							<dt><b>log</b></dt>
+				<dd>in file toba_componente.php, method <a href="Componentes/toba_componente.html#methodlog">toba_componente::log()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Shortcut de <a href="Debug/toba_logger.html#methoddebug">toba::logger()->debug</a> que incluye información básica del componente actual</dd>
 							<dt><b>$lineas</b></dt>
 				<dd>in file toba_ef_editable.php, variable <a href="Componentes/Efs/toba_ef_editable_textarea.html#var$lineas">toba_ef_editable_textarea::$lineas</a></dd>
 							<dt><b>$lista_ef</b></dt>
@@ -1874,11 +1817,7 @@
 							<dt><b>limpiar_interface</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodlimpiar_interface">toba_ei_formulario::limpiar_interface()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Borra los datos actuales y resetea el estado de los efs</dd>
 							<dt><b>log</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodlog">toba_datos_tabla::log()</a></dd>
-							<dt><b>log</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodlog">toba_datos_relacion::log()</a></dd>
-							<dt><b>log</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodlog">toba_ap_tabla_db::log()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodlog">toba_ap_tabla_db::log()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Shorcut a toba::logger()-&gt;debug incluyendo infomación básica del componente</dd>
 					</dl>
 	</div>
 	<a name="m"></a>
@@ -1930,24 +1869,14 @@
 				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodmostrar_nodo">toba_ei_arbol::mostrar_nodo()</a></dd>
 							<dt><b>mostrar_utilerias</b></dt>
 				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodmostrar_utilerias">toba_ei_arbol::mostrar_utilerias()</a></dd>
-							<dt><b>$mapeo_campos</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$mapeo_campos">toba_relacion_entre_tablas::$mapeo_campos</a></dd>
-							<dt><b>$mapeo_filas</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$mapeo_filas">toba_relacion_entre_tablas::$mapeo_filas</a></dd>
 							<dt><b>$msg_error_sincro</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$msg_error_sincro">toba_ap_tabla_db::$msg_error_sincro</a></dd>
-							<dt><b>mapear_campos</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodmapear_campos">toba_relacion_entre_tablas::mapear_campos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Macheo de campos claves entre PADRE e HIJO</dd>
-							<dt><b>mapear_fila_a_formato_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodmapear_fila_a_formato_hijo">toba_relacion_entre_tablas::mapear_fila_a_formato_hijo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la traducción de los campos de la fila padre a la hija</dd>
-							<dt><b>mapear_fila_a_formato_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodmapear_fila_a_formato_padre">toba_relacion_entre_tablas::mapear_fila_a_formato_padre()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la traducción de los campos de la fila hija a la padre</dd>
 							<dt><b>modificar</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html#methodmodificar">toba_ap_tabla_db_mt::modificar()</a></dd>
 							<dt><b>modificar_fila</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodmodificar_fila">toba_datos_tabla::modificar_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Modifica una fila de la tabla en memoria</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodmodificar_fila">toba_datos_tabla::modificar_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Modifica los valores de una fila de la tabla en memoria  Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.</dd>
 							<dt><b>modificar_registro_db</b></dt>
-				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodmodificar_registro_db">toba_ap_tabla_db::modificar_registro_db()</a></dd>
+				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodmodificar_registro_db">toba_ap_tabla_db::modificar_registro_db()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta un update de un registro en la base</dd>
 					</dl>
 	</div>
 	<a name="n"></a>
@@ -1975,8 +1904,6 @@
 				<dd>in file toba_ei_pantalla.php, variable <a href="Componentes/Eis/toba_ei_pantalla.html#var$nombre_formulario">toba_ei_pantalla::$nombre_formulario</a></dd>
 							<dt><b>nodo_es_visible</b></dt>
 				<dd>in file toba_ei_arbol.php, method <a href="Componentes/Eis/toba_ei_arbol.html#methodnodo_es_visible">toba_ei_arbol::nodo_es_visible()</a></dd>
-							<dt><b>$nombre_rol</b></dt>
-				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$nombre_rol">toba_datos_tabla::$nombre_rol</a></dd>
 							<dt><b>$no_duplicado</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$no_duplicado">toba_datos_tabla::$no_duplicado</a></dd>
 							<dt><b>normalizar_id</b></dt>
@@ -1986,9 +1913,9 @@
 							<dt><b>notificar_hijos_sincronizacion</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodnotificar_hijos_sincronizacion">toba_datos_tabla::notificar_hijos_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Aviso a las relaciones hijas que el componente PADRE sincrozo sus actualizaciones</dd>
 							<dt><b>notificar_padres_carga</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodnotificar_padres_carga">toba_datos_tabla::notificar_padres_carga()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Aviso a las relaciones padres que el componente HIJO se CARGO</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodnotificar_padres_carga">toba_datos_tabla::notificar_padres_carga()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Aviso a las relacion padres que el componente HIJO se CARGO</dd>
 							<dt><b>nueva_fila</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodnueva_fila">toba_datos_tabla::nueva_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Crea una nueva fila en memoria</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodnueva_fila">toba_datos_tabla::nueva_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Crea una nueva fila en la tabla en memoria</dd>
 							<dt><b>numero</b></dt>
 				<dd>in file toba_tipo_datos.php, method <a href="Componentes/Persistencia/toba_tipo_datos.html#methodnumero">toba_tipo_datos::numero()</a></dd>
 					</dl>
@@ -2046,8 +1973,6 @@
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodorden_carga">toba_datos_relacion::orden_carga()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el orden hacia adelante en el cual se deben cargar las tablas</dd>
 							<dt><b>orden_sincronizacion</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodorden_sincronizacion">toba_datos_relacion::orden_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el orden hacia adelante en el cual se deben sincronizar las tablas</dd>
-							<dt><b>orden_topologico</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodorden_topologico">toba_datos_relacion::orden_topologico()</a></dd>
 					</dl>
 	</div>
 	<a name="p"></a>
@@ -2110,7 +2035,7 @@
 							<dt><b>$prefijo</b></dt>
 				<dd>in file toba_ei.php, variable <a href="Componentes/Eis/toba_ei.html#var$prefijo">toba_ei::$prefijo</a></dd>
 							<dt><b>pantalla</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodpantalla">toba_ci::pantalla()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodpantalla">toba_ci::pantalla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la referencia a la pantalla a graficar</dd>
 							<dt><b>pdf_cabecera_corte_control</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodpdf_cabecera_corte_control">toba_ei_cuadro::pdf_cabecera_corte_control()</a></dd>
 							<dt><b>pdf_mensaje_cuadro_vacio</b></dt>
@@ -2138,7 +2063,7 @@
 							<dt><b>post_configurar</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodpost_configurar">toba_ei_formulario::post_configurar()</a></dd>
 							<dt><b>post_configurar</b></dt>
-				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana posterior a la configuración del componente</dd>
+				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodpost_configurar">toba_ei::post_configurar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Espacio donde el componente cierra su configuración</dd>
 							<dt><b>post_eventos</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodpost_eventos">toba_ei_formulario::post_eventos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Acciones a realizar posteriormente al disparo de eventos</dd>
 							<dt><b>post_eventos</b></dt>
@@ -2152,15 +2077,15 @@
 							<dt><b>pre_configurar</b></dt>
 				<dd>in file toba_ei_formulario_ml.php, method <a href="Componentes/Eis/toba_ei_formulario_ml.html#methodpre_configurar">toba_ei_formulario_ml::pre_configurar()</a></dd>
 							<dt><b>pre_configurar</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodpre_configurar">toba_ci::pre_configurar()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodpre_configurar">toba_ci::pre_configurar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias</dd>
 							<dt><b>pre_configurar</b></dt>
-				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ventana previa a la configuración del componente</dd>
+				<dd>in file toba_ei.php, method <a href="Componentes/Eis/toba_ei.html#methodpre_configurar">toba_ei::pre_configurar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Espacio donde el componente deja su estado interno listo para la configuración del componente</dd>
 							<dt><b>pre_eventos</b></dt>
 				<dd>in file toba_ei_formulario.php, method <a href="Componentes/Eis/toba_ei_formulario.html#methodpre_eventos">toba_ei_formulario::pre_eventos()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Acciones a realizar previo al disparo de los eventos</dd>
 							<dt><b>procesar_definicion</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodprocesar_definicion">toba_ei_cuadro::procesar_definicion()</a></dd>
 							<dt><b>procesar</b></dt>
-				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodprocesar">toba_cn::procesar()</a></dd>
+				<dd>in file toba_cn.php, method <a href="Componentes/Negocio/toba_cn.html#methodprocesar">toba_cn::procesar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El procesamiento se dispara cuando la entrega de datos ci-&gt;cn ha finalizado</dd>
 							<dt><b>$persistidor</b></dt>
 				<dd>in file toba_datos_relacion.php, variable <a href="Componentes/Persistencia/toba_datos_relacion.html#var$persistidor">toba_datos_relacion::$persistidor</a></dd>
 							<dt><b>$persistidor</b></dt>
@@ -2172,11 +2097,11 @@
 							<dt><b>$proxima_fila</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$proxima_fila">toba_datos_tabla::$proxima_fila</a></dd>
 							<dt><b>posee_columnas_externas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodposee_columnas_externas">toba_datos_tabla::posee_columnas_externas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodposee_columnas_externas">toba_datos_tabla::posee_columnas_externas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</dd>
 							<dt><b>procesar_filas</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodprocesar_filas">toba_datos_tabla::procesar_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Procesa los cambios masivos de filas</dd>
 							<dt><b>proceso_sincronizacion</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodproceso_sincronizacion">toba_ap_relacion_db::proceso_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincronizo las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodproceso_sincronizacion">toba_ap_relacion_db::proceso_sincronizacion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones</dd>
 					</dl>
 	</div>
 	<a name="r"></a>
@@ -2247,27 +2172,21 @@
 							<dt><b>regenerar_estructura_cambios</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodregenerar_estructura_cambios">toba_datos_tabla::regenerar_estructura_cambios()</a></dd>
 							<dt><b>registrar_cambio</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodregistrar_cambio">toba_datos_tabla::registrar_cambio()</a></dd>
-							<dt><b>registrar_contenedor</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodregistrar_contenedor">toba_datos_tabla::registrar_contenedor()</a></dd>
-							<dt><b>registrar_evento</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodregistrar_evento">toba_datos_relacion::registrar_evento()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodregistrar_cambio">toba_datos_tabla::registrar_cambio()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fuerza una cambio directo a la estructura interna que mantiene registro de los cambios</dd>
 							<dt><b>registrar_recuperacion_valor_db</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodregistrar_recuperacion_valor_db">toba_ap_tabla_db::registrar_recuperacion_valor_db()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Registra el valor generado por el motor de un columna</dd>
 							<dt><b>reservar_id_fila</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodreservar_id_fila">toba_datos_tabla::reservar_id_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reserva un id interno y lo retorna</dd>
 							<dt><b>resetear</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodresetear">toba_relacion_entre_tablas::resetear()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodresetear">toba_datos_tabla::resetear()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Deja la tabla sin carga alguna, se pierden todos los cambios realizados desde la carga</dd>
 							<dt><b>resetear</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodresetear">toba_datos_tabla::resetear()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Deja la tabla sin carga alguna, se pierden todos los cambios realizados</dd>
-							<dt><b>resetear</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodresetear">toba_datos_relacion::resetear()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna al estado inicial a todas las tablas incluídas</dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodresetear">toba_datos_relacion::resetear()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna al estado inicial todas las tablas incluídas</dd>
 							<dt><b>resetear_cursor</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodresetear_cursor">toba_datos_tabla::resetear_cursor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Asegura que el cursor no se encuentre posicionado en ninguna fila específica</dd>
 							<dt><b>resetear_cursores</b></dt>
 				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodresetear_cursores">toba_datos_relacion::resetear_cursores()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Asegura que ningún cursor de alguna tabla se encuentre posicionado en ninguna fila específica</dd>
 							<dt><b>retrasar_constraints</b></dt>
-				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodretrasar_constraints">toba_ap_relacion_db::retrasar_constraints()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Intenta retrazar el chequeo de constraints hasta el final de la transacción</dd>
+				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodretrasar_constraints">toba_ap_relacion_db::retrasar_constraints()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retraza el chequeo de constraints hasta el final de la transacción</dd>
 					</dl>
 	</div>
 	<a name="s"></a>
@@ -2412,7 +2331,7 @@
 							<dt><b>set_pagina_actual</b></dt>
 				<dd>in file toba_ei_cuadro.php, method <a href="Componentes/Eis/toba_ei_cuadro.html#methodset_pagina_actual">toba_ei_cuadro::set_pagina_actual()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fuerza al cuadro a mostrar una página específica</dd>
 							<dt><b>set_pantalla</b></dt>
-				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodset_pantalla">toba_ci::set_pantalla()</a></dd>
+				<dd>in file toba_ci.php, method <a href="Componentes/Eis/toba_ci.html#methodset_pantalla">toba_ci::set_pantalla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia la pantalla a utilizar en el servicio actual</dd>
 							<dt><b>set_parametros</b></dt>
 				<dd>in file toba_evento_usuario.php, method <a href="Componentes/Eis/toba_evento_usuario.html#methodset_parametros">toba_evento_usuario::set_parametros()</a></dd>
 							<dt><b>set_path</b></dt>
@@ -2444,35 +2363,31 @@
 							<dt><b>set</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset">toba_datos_tabla::set()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia el contenido de la fila donde se encuentra el cursor interno  En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella</dd>
 							<dt><b>set_cargado</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodset_cargado">toba_datos_relacion::set_cargado()</a></dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodset_cargado">toba_datos_relacion::set_cargado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Notifica a la relacion que sus tablas han sido o no cargadas</dd>
 							<dt><b>set_columna_valor</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_columna_valor">toba_datos_tabla::set_columna_valor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia el valor de una columna en todas las filas</dd>
 							<dt><b>set_cursor</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_cursor">toba_datos_tabla::set_cursor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fija el cursor en una fila dada</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_cursor">toba_datos_tabla::set_cursor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Fija el cursor en una fila dada  Cuando la tabla tiene un cursor muchas de sus operaciones empiezan a tratar a esta fila como la única  y sus tablas padres e hijas también. Por ejemplo al pedir las filas de la tabla hija solo retorna aquellas filas hijas del registro cursor de la tabla padre.</dd>
 							<dt><b>set_fila_columna_valor</b></dt>
 				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_fila_columna_valor">toba_datos_tabla::set_fila_columna_valor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia el valor de una columna de una fila especifica</dd>
-							<dt><b>set_mapeo_filas</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodset_mapeo_filas">toba_relacion_entre_tablas::set_mapeo_filas()</a></dd>
-							<dt><b>set_nombre_rol</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_nombre_rol">toba_datos_tabla::set_nombre_rol()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Determina el nombre del rol que cumple esta tabla en una relación</dd>
 							<dt><b>set_no_duplicado</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_no_duplicado">toba_datos_tabla::set_no_duplicado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Indica una combinacion de columnas que no debe duplicarse</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_no_duplicado">toba_datos_tabla::set_no_duplicado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Indica una combinacion de columnas cuyos valores no deben duplicarse (similar a un unique de sql)</dd>
 							<dt><b>set_tope_max_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_tope_max_filas">toba_datos_tabla::set_tope_max_filas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_tope_max_filas">toba_datos_tabla::set_tope_max_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia la cantidad maxima de filas que puede contener la tabla</dd>
 							<dt><b>set_tope_min_filas</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_tope_min_filas">toba_datos_tabla::set_tope_min_filas()</a></dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodset_tope_min_filas">toba_datos_tabla::set_tope_min_filas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Cambia la cantidad mínima de filas que debe contener la tabla</dd>
+							<dt><b>sincronizar</b></dt>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodsincronizar">toba_datos_relacion::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios con el medio de persistencia</dd>
+							<dt><b>sincronizar</b></dt>
+				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_relacion.html#methodsincronizar">toba_ap_relacion::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios en la relacion con el medio de persistencia</dd>
 							<dt><b>sincronizar</b></dt>
 				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_tabla.html#methodsincronizar">toba_ap_tabla::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios en la tabla con el medio de persistencia</dd>
 							<dt><b>sincronizar</b></dt>
 				<dd>in file toba_ap_relacion_db.php, method <a href="Componentes/Persistencia/toba_ap_relacion_db.html#methodsincronizar">toba_ap_relacion_db::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios con la base de datos</dd>
 							<dt><b>sincronizar</b></dt>
-				<dd>in file toba_ap.php, method <a href="Componentes/Persistencia/toba_ap_relacion.html#methodsincronizar">toba_ap_relacion::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios en la relacion con el medio de persistencia</dd>
-							<dt><b>sincronizar</b></dt>
-				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodsincronizar">toba_datos_tabla::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza la tabla en memoria con el medio físico a travéz del administrador de persistencia.</dd>
-							<dt><b>sincronizar</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodsincronizar">toba_ap_tabla_db::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios en los registros de esta tabla con la base de datos</dd>
 							<dt><b>sincronizar</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodsincronizar">toba_datos_relacion::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza los cambios con el medio de persistencia</dd>
+				<dd>in file toba_datos_tabla.php, method <a href="Componentes/Persistencia/toba_datos_tabla.html#methodsincronizar">toba_datos_tabla::sincronizar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza la tabla en memoria con el medio físico a travéz del administrador de persistencia.</dd>
 							<dt><b>sincronizar_actualizados</b></dt>
 				<dd>in file toba_ap_tabla_db.php, method <a href="Componentes/Persistencia/toba_ap_tabla_db.html#methodsincronizar_actualizados">toba_ap_tabla_db::sincronizar_actualizados()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sincroniza con la BD aquellos registros que suponen actualizaciones</dd>
 							<dt><b>sincronizar_actualizados</b></dt>
@@ -2497,13 +2412,13 @@
 		<h2>t</h2>
 		<dl>
 							<dt><b>toba_cargador.php</b></dt>
-				<dd>procedural page <a href="Componentes/_componentes---toba_cargador.php.html">toba_cargador.php</a></dd>
+				<dd>procedural page <a href="Componentes/_nucleo---componentes---toba_cargador.php.html">toba_cargador.php</a></dd>
 							<dt><b>toba_catalogo.php</b></dt>
-				<dd>procedural page <a href="Componentes/_componentes---toba_catalogo.php.html">toba_catalogo.php</a></dd>
+				<dd>procedural page <a href="Componentes/_nucleo---componentes---toba_catalogo.php.html">toba_catalogo.php</a></dd>
 							<dt><b>toba_componente.php</b></dt>
-				<dd>procedural page <a href="Componentes/_componentes---toba_componente.php.html">toba_componente.php</a></dd>
+				<dd>procedural page <a href="Componentes/_nucleo---componentes---toba_componente.php.html">toba_componente.php</a></dd>
 							<dt><b>toba_constructor.php</b></dt>
-				<dd>procedural page <a href="Componentes/_componentes---toba_constructor.php.html">toba_constructor.php</a></dd>
+				<dd>procedural page <a href="Componentes/_nucleo---componentes---toba_constructor.php.html">toba_constructor.php</a></dd>
 							<dt><b>toba_cargador</b></dt>
 				<dd>in file toba_cargador.php, class <a href="Componentes/toba_cargador.html">toba_cargador</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Puerta de acceso a los metadatos de los componentes del proyecto actual</dd>
 							<dt><b>toba_catalogo</b></dt>
@@ -2517,43 +2432,45 @@
 							<dt><b>$tamanio</b></dt>
 				<dd>in file toba_ef_multi_seleccion.php, variable <a href="Componentes/Efs/toba_ef_multi_seleccion.html#var$tamanio">toba_ef_multi_seleccion::$tamanio</a></dd>
 							<dt><b>$tamano</b></dt>
-				<dd>in file toba_ef_editable.php, variable <a href="Componentes/Efs/toba_ef_editable_numero.html#var$tamano">toba_ef_editable_numero::$tamano</a></dd>
-							<dt><b>$tamano</b></dt>
 				<dd>in file toba_ef_editable.php, variable <a href="Componentes/Efs/toba_ef_editable.html#var$tamano">toba_ef_editable::$tamano</a></dd>
 							<dt><b>$tamano</b></dt>
 				<dd>in file toba_ef_editable.php, variable <a href="Componentes/Efs/toba_ef_editable_moneda.html#var$tamano">toba_ef_editable_moneda::$tamano</a></dd>
+							<dt><b>$tamano</b></dt>
+				<dd>in file toba_ef_editable.php, variable <a href="Componentes/Efs/toba_ef_editable_numero.html#var$tamano">toba_ef_editable_numero::$tamano</a></dd>
 							<dt><b>toba_ef.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef.php.html">toba_ef.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef.php.html">toba_ef.php</a></dd>
 							<dt><b>toba_ef_combo.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_combo.php.html">toba_ef_combo.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_combo.php.html">toba_ef_combo.php</a></dd>
+							<dt><b>toba_ef_cuit.php</b></dt>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_cuit.php.html">toba_ef_cuit.php</a></dd>
 							<dt><b>toba_ef_editable.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_editable.php.html">toba_ef_editable.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_editable.php.html">toba_ef_editable.php</a></dd>
 							<dt><b>toba_ef_multi_seleccion.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_multi_seleccion.php.html">toba_ef_multi_seleccion.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_multi_seleccion.php.html">toba_ef_multi_seleccion.php</a></dd>
 							<dt><b>toba_ef_oculto.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_oculto.php.html">toba_ef_oculto.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_oculto.php.html">toba_ef_oculto.php</a></dd>
 							<dt><b>toba_ef_popup.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_popup.php.html">toba_ef_popup.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_popup.php.html">toba_ef_popup.php</a></dd>
 							<dt><b>toba_ef_sin_estado.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_sin_estado.php.html">toba_ef_sin_estado.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_sin_estado.php.html">toba_ef_sin_estado.php</a></dd>
 							<dt><b>toba_ef_upload.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_upload.php.html">toba_ef_upload.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_upload.php.html">toba_ef_upload.php</a></dd>
 							<dt><b>toba_ef_varios.php</b></dt>
-				<dd>procedural page <a href="Componentes/Efs/_componentes---interface---efs---toba_ef_varios.php.html">toba_ef_varios.php</a></dd>
+				<dd>procedural page <a href="Componentes/Efs/_nucleo---componentes---interface---efs---toba_ef_varios.php.html">toba_ef_varios.php</a></dd>
 							<dt><b>tiene_estado</b></dt>
-				<dd>in file toba_ef_sin_estado.php, method <a href="Componentes/Efs/toba_ef_sin_estado.html#methodtiene_estado">toba_ef_sin_estado::tiene_estado()</a></dd>
+				<dd>in file toba_ef_varios.php, method <a href="Componentes/Efs/toba_ef_checkbox.html#methodtiene_estado">toba_ef_checkbox::tiene_estado()</a></dd>
+							<dt><b>tiene_estado</b></dt>
+				<dd>in file toba_ef_combo.php, method <a href="Componentes/Efs/toba_ef_seleccion.html#methodtiene_estado">toba_ef_seleccion::tiene_estado()</a></dd>
 							<dt><b>tiene_estado</b></dt>
 				<dd>in file toba_ef_upload.php, method <a href="Componentes/Efs/toba_ef_upload.html#methodtiene_estado">toba_ef_upload::tiene_estado()</a></dd>
 							<dt><b>tiene_estado</b></dt>
-				<dd>in file toba_ef_multi_seleccion.php, method <a href="Componentes/Efs/toba_ef_multi_seleccion.html#methodtiene_estado">toba_ef_multi_seleccion::tiene_estado()</a></dd>
+				<dd>in file toba_ef_sin_estado.php, method <a href="Componentes/Efs/toba_ef_sin_estado.html#methodtiene_estado">toba_ef_sin_estado::tiene_estado()</a></dd>
 							<dt><b>tiene_estado</b></dt>
-				<dd>in file toba_ef_varios.php, method <a href="Componentes/Efs/toba_ef_checkbox.html#methodtiene_estado">toba_ef_checkbox::tiene_estado()</a></dd>
+				<dd>in file toba_ef_multi_seleccion.php, method <a href="Componentes/Efs/toba_ef_multi_seleccion.html#methodtiene_estado">toba_ef_multi_seleccion::tiene_estado()</a></dd>
 							<dt><b>tiene_estado</b></dt>
 				<dd>in file toba_ef.php, method <a href="Componentes/Efs/toba_ef.html#methodtiene_estado">toba_ef::tiene_estado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna true si el ef tiene un valor o estado distinto al nulo</dd>
 							<dt><b>tiene_estado</b></dt>
 				<dd>in file toba_ef_editable.php, method <a href="Componentes/Efs/toba_ef_editable.html#methodtiene_estado">toba_ef_editable::tiene_estado()</a></dd>
-							<dt><b>tiene_estado</b></dt>
-				<dd>in file toba_ef_combo.php, method <a href="Componentes/Efs/toba_ef_seleccion.html#methodtiene_estado">toba_ef_seleccion::tiene_estado()</a></dd>
 							<dt><b>tiene_etiqueta</b></dt>
 				<dd>in file toba_ef_sin_estado.php, method <a href="Componentes/Efs/toba_ef_sin_estado.html#methodtiene_etiqueta">toba_ef_sin_estado::tiene_etiqueta()</a></dd>
 							<dt><b>tiene_etiqueta</b></dt>
@@ -2619,33 +2536,33 @@
 							<dt><b>$todos_abiertos</b></dt>
 				<dd>in file toba_ei_arbol.php, variable <a href="Componentes/Eis/toba_ei_arbol.html#var$todos_abiertos">toba_ei_arbol::$todos_abiertos</a></dd>
 							<dt><b>toba_ci.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ci.php.html">toba_ci.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ci.php.html">toba_ci.php</a></dd>
 							<dt><b>toba_ei.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei.php.html">toba_ei.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei.php.html">toba_ei.php</a></dd>
 							<dt><b>toba_ei_arbol.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_arbol.php.html">toba_ei_arbol.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_arbol.php.html">toba_ei_arbol.php</a></dd>
 							<dt><b>toba_ei_archivos.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_archivos.php.html">toba_ei_archivos.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_archivos.php.html">toba_ei_archivos.php</a></dd>
 							<dt><b>toba_ei_calendario.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_calendario.php.html">toba_ei_calendario.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_calendario.php.html">toba_ei_calendario.php</a></dd>
 							<dt><b>toba_ei_cuadro.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_cuadro.php.html">toba_ei_cuadro.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_cuadro.php.html">toba_ei_cuadro.php</a></dd>
 							<dt><b>toba_ei_esquema.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_esquema.php.html">toba_ei_esquema.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_esquema.php.html">toba_ei_esquema.php</a></dd>
 							<dt><b>toba_ei_filtro.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_filtro.php.html">toba_ei_filtro.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_filtro.php.html">toba_ei_filtro.php</a></dd>
 							<dt><b>toba_ei_formulario.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_formulario.php.html">toba_ei_formulario.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_formulario.php.html">toba_ei_formulario.php</a></dd>
 							<dt><b>toba_ei_formulario_ml.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_formulario_ml.php.html">toba_ei_formulario_ml.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_formulario_ml.php.html">toba_ei_formulario_ml.php</a></dd>
 							<dt><b>toba_ei_pantalla.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_componentes---interface---toba_ei_pantalla.php.html">toba_ei_pantalla.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---componentes---interface---toba_ei_pantalla.php.html">toba_ei_pantalla.php</a></dd>
 							<dt><b>toba_boton.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_lib---toba_boton.php.html">toba_boton.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---lib---toba_boton.php.html">toba_boton.php</a></dd>
 							<dt><b>toba_evento_usuario.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_lib---toba_evento_usuario.php.html">toba_evento_usuario.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---lib---toba_evento_usuario.php.html">toba_evento_usuario.php</a></dd>
 							<dt><b>toba_tab.php</b></dt>
-				<dd>procedural page <a href="Componentes/Eis/_lib---toba_tab.php.html">toba_tab.php</a></dd>
+				<dd>procedural page <a href="Componentes/Eis/_nucleo---lib---toba_tab.php.html">toba_tab.php</a></dd>
 							<dt><b>tab</b></dt>
 				<dd>in file toba_ei_pantalla.php, method <a href="Componentes/Eis/toba_ei_pantalla.html#methodtab">toba_ei_pantalla::tab()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Acceso a un tab o solapa específico</dd>
 							<dt><b>tiene_hijos_cargados</b></dt>
@@ -2685,51 +2602,35 @@
 							<dt><b>$transaccion_abierta</b></dt>
 				<dd>in file toba_cn.php, variable <a href="Componentes/Negocio/toba_cn.html#var$transaccion_abierta">toba_cn::$transaccion_abierta</a></dd>
 							<dt><b>toba_cn.php</b></dt>
-				<dd>procedural page <a href="Componentes/Negocio/_componentes---negocio---toba_cn.php.html">toba_cn.php</a></dd>
+				<dd>procedural page <a href="Componentes/Negocio/_nucleo---componentes---negocio---toba_cn.php.html">toba_cn.php</a></dd>
 							<dt><b>toba_cn</b></dt>
-				<dd>in file toba_cn.php, class <a href="Componentes/Negocio/toba_cn.html">toba_cn</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Padre de todas las clases que definen componentes</dd>
+				<dd>in file toba_cn.php, class <a href="Componentes/Negocio/toba_cn.html">toba_cn</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)</dd>
 							<dt><b>$tabla</b></dt>
 				<dd>in file toba_ap_tabla_db.php, variable <a href="Componentes/Persistencia/toba_ap_tabla_db.html#var$tabla">toba_ap_tabla_db::$tabla</a></dd>
 							<dt><b>$tablas_raiz</b></dt>
 				<dd>in file toba_datos_relacion.php, variable <a href="Componentes/Persistencia/toba_datos_relacion.html#var$tablas_raiz">toba_datos_relacion::$tablas_raiz</a></dd>
-							<dt><b>$tabla_hijo</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_hijo">toba_relacion_entre_tablas::$tabla_hijo</a></dd>
-							<dt><b>$tabla_hijo_claves</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_hijo_claves">toba_relacion_entre_tablas::$tabla_hijo_claves</a></dd>
-							<dt><b>$tabla_hijo_id</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_hijo_id">toba_relacion_entre_tablas::$tabla_hijo_id</a></dd>
-							<dt><b>$tabla_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_padre">toba_relacion_entre_tablas::$tabla_padre</a></dd>
-							<dt><b>$tabla_padre_claves</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_padre_claves">toba_relacion_entre_tablas::$tabla_padre_claves</a></dd>
-							<dt><b>$tabla_padre_id</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, variable <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#var$tabla_padre_id">toba_relacion_entre_tablas::$tabla_padre_id</a></dd>
 							<dt><b>$tope_max_filas</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$tope_max_filas">toba_datos_tabla::$tope_max_filas</a></dd>
 							<dt><b>$tope_min_filas</b></dt>
 				<dd>in file toba_datos_tabla.php, variable <a href="Componentes/Persistencia/toba_datos_tabla.html#var$tope_min_filas">toba_datos_tabla::$tope_min_filas</a></dd>
 							<dt><b>toba_ap.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap.php.html">toba_ap.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap.php.html">toba_ap.php</a></dd>
 							<dt><b>toba_ap_relacion_db.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap_relacion_db.php.html">toba_ap_relacion_db.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap_relacion_db.php.html">toba_ap_relacion_db.php</a></dd>
 							<dt><b>toba_ap_tabla_db.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap_tabla_db.php.html">toba_ap_tabla_db.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap_tabla_db.php.html">toba_ap_tabla_db.php</a></dd>
 							<dt><b>toba_ap_tabla_db_mt.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap_tabla_db_mt.php.html">toba_ap_tabla_db_mt.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap_tabla_db_mt.php.html">toba_ap_tabla_db_mt.php</a></dd>
 							<dt><b>toba_ap_tabla_db_s.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_ap_tabla_db_s.php.html">toba_ap_tabla_db_s.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_ap_tabla_db_s.php.html">toba_ap_tabla_db_s.php</a></dd>
 							<dt><b>toba_datos_relacion.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_datos_relacion.php.html">toba_datos_relacion.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_datos_relacion.php.html">toba_datos_relacion.php</a></dd>
 							<dt><b>toba_datos_tabla.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_datos_tabla.php.html">toba_datos_tabla.php</a></dd>
-							<dt><b>toba_relacion_entre_tablas.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_relacion_entre_tablas.php.html">toba_relacion_entre_tablas.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_datos_tabla.php.html">toba_datos_tabla.php</a></dd>
 							<dt><b>toba_tipo_datos.php</b></dt>
-				<dd>procedural page <a href="Componentes/Persistencia/_componentes---persistencia---toba_tipo_datos.php.html">toba_tipo_datos.php</a></dd>
+				<dd>procedural page <a href="Componentes/Persistencia/_nucleo---componentes---persistencia---toba_tipo_datos.php.html">toba_tipo_datos.php</a></dd>
 							<dt><b>tabla</b></dt>
-				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodtabla">toba_datos_relacion::tabla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna un datos_tabla</dd>
-							<dt><b>tabla_padre</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, method <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html#methodtabla_padre">toba_relacion_entre_tablas::tabla_padre()</a></dd>
+				<dd>in file toba_datos_relacion.php, method <a href="Componentes/Persistencia/toba_datos_relacion.html#methodtabla">toba_datos_relacion::tabla()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna una referencia a una tabla perteneciente a la relación</dd>
 							<dt><b>toba_ap_relacion</b></dt>
 				<dd>in file toba_ap.php, class <a href="Componentes/Persistencia/toba_ap_relacion.html">toba_ap_relacion</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Interface: Administrador de persistencia de un conjunto relacionado de tablas</dd>
 							<dt><b>toba_ap_relacion_db</b></dt>
@@ -2737,17 +2638,15 @@
 							<dt><b>toba_ap_tabla</b></dt>
 				<dd>in file toba_ap.php, class <a href="Componentes/Persistencia/toba_ap_tabla.html">toba_ap_tabla</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Interface: Administradorr de persistencia de una estructura de datos tipo tabla, un contenedor de filas de datos</dd>
 							<dt><b>toba_ap_tabla_db</b></dt>
-				<dd>in file toba_ap_tabla_db.php, class <a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Administrador de persistencia a una tabla de DB desde un toba_datos_tabla  Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos</dd>
+				<dd>in file toba_ap_tabla_db.php, class <a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Administrador de persistencia a una tabla de DB desde un <a href="Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>  Supone que la tabla de datos se va a mapear a algun tipo de estructura en una base de datos</dd>
 							<dt><b>toba_ap_tabla_db_mt</b></dt>
 				<dd>in file toba_ap_tabla_db_mt.php, class <a href="Componentes/Persistencia/toba_ap_tabla_db_mt.html">toba_ap_tabla_db_mt</a></dd>
 							<dt><b>toba_ap_tabla_db_s</b></dt>
 				<dd>in file toba_ap_tabla_db_s.php, class <a href="Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Clase que se mantiene por compatibildad hacia atrás</dd>
 							<dt><b>toba_datos_relacion</b></dt>
-				<dd>in file toba_datos_relacion.php, class <a href="Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></dd>
+				<dd>in file toba_datos_relacion.php, class <a href="Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Mantiene un conjunto relacionado de <a href="Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)</dd>
 							<dt><b>toba_datos_tabla</b></dt>
-				<dd>in file toba_datos_tabla.php, class <a href="Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Representa una estructura tipo tabla o RecordSet en memoria</dd>
-							<dt><b>toba_relacion_entre_tablas</b></dt>
-				<dd>in file toba_relacion_entre_tablas.php, class <a href="Componentes/Persistencia/toba_relacion_entre_tablas.html">toba_relacion_entre_tablas</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Representa la relacion entre dos tablas</dd>
+				<dd>in file toba_datos_tabla.php, class <a href="Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Representa una estructura tabular tipo tabla o RecordSet en memoria</dd>
 							<dt><b>toba_tipo_datos</b></dt>
 				<dd>in file toba_tipo_datos.php, class <a href="Componentes/Persistencia/toba_tipo_datos.html">toba_tipo_datos</a></dd>
 					</dl>
