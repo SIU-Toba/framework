@@ -1,5 +1,5 @@
 <?php
-require_once('objetos/ei_filtro - ei_cuadro/dao.php');
+require_once('componentes/ei_filtro - ei_cuadro/dao.php');
   
 class extension_ci extends toba_ci
 {

@@ -78,7 +78,7 @@ class ci_cuadro_cc extends toba_ci
 	
 	private function get_info_localidades()
 	{
-		require_once('objetos/datos_ejemplos.php');
+		require_once('componentes/datos_ejemplos.php');
 		return datos_ejemplos::get_localidades();
 	}
 
