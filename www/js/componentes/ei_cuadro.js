@@ -1,11 +1,11 @@
 
 ei_cuadro.prototype = new ei();
-var def = ei_cuadro.prototype;
 ei_cuadro.prototype.constructor = ei_cuadro;
 
 /**
  * @class Un ei_cuadro es una grilla de registros.
  * @constructor
+ * @phpdoc Componentes/Eis/toba_ei_cuadro toba_ei_cuadro
  */
 function ei_cuadro(instancia, input_submit) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM

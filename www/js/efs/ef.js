@@ -14,7 +14,7 @@ var apex_ef_total = 's';
 /**
  * @class Clase base de los elementos de formulario. 
  * @constructor
- * @base
+ * @phpdoc Componentes/Efs/toba_ef toba_ef
  */
 function ef(id_form, etiqueta, obligatorio, colapsable) {
 
@@ -411,6 +411,7 @@ ef_fijo.prototype.constructor = ef_fijo;
 	/**
 	 * @class Elemento que contiene HTML estático
 	 * @constructor
+	 * @phpdoc Componentes/Efs/toba_ef_fijo toba_ef_fijo
 	 */
 	function ef_fijo(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);

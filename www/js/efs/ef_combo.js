@@ -4,6 +4,7 @@ ef_combo.prototype.constructor = ef_combo;
 	/**
 	 * @class Combo equivalente a un tag SELECT en HTML 
 	 * @constructor
+	 * @phpdoc Componentes/Efs/toba_ef_combo toba_ef_combo
 	 */
 	function ef_combo(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
@@ -121,6 +122,7 @@ ef_radio.prototype.constructor = ef_radio;
 	/**
 	 * @class Radio buttons equivalentes a <em>input type='radio'</em>
 	 * @constructor
+	 * @phpdoc Componentes/Efs/toba_ef_radio toba_ef_radio
 	 */
 	function ef_radio(id_form, etiqueta, obligatorio, colapsado) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);

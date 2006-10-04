@@ -7,6 +7,8 @@ var notificacion;
  * Su funcionamiento se basa en encolar mensajes con notificacion.agregar() y luego mostrarlos con notificacion.mostrar()
  * Los proyectos pueden variar la forma en que se muestran las notificaciones definiendo un nuevo metodo notificacion.tipo_ventana.<br>
  * Por defecto <em>notificacion.tipo_ventana = notificacion.ventana_modal</em>
+ * @constructor
+ * @phpdoc SalidaGrafica/toba_notificacion toba::notificacion()
  **/
 notificacion = new function() {
 	this._mensajes = [];

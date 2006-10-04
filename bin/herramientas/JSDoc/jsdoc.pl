@@ -1141,6 +1141,15 @@ sub format_link {
     }
 }
 
+sub trim {
+    my $string = shift;
+    for ($string) {
+        s/^\s+//;
+        s/\s+$//;
+    }
+    return $string;
+}
+
 
 #
 # Initializes the customizable maps for @attributes
@@ -1167,6 +1176,12 @@ sub initialize_param_maps {
                 '<B>Version: </B>' .
                     join(', ', @{$_[0]}) . '<BR/><BR/>' 
             },
+        phpdoc =>
+            sub {
+            	my @partes = split(/ /, join('', @{$_[0]}));
+                '<B>Clase PHP equivalente: </B><a href="../api/' .
+                    $partes[0] . '.html">'.$partes[1].'</a><BR/><BR/>' 
+            },            
         requires =>
             sub {
                 '<B>Requires:</B><UL>- ' .

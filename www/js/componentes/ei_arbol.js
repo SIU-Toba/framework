@@ -5,6 +5,7 @@ ei_arbol.prototype.constructor = ei_arbol;
 /**
  * @class Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
  * @constructor
+ * @phpdoc Componentes/Eis/toba_ei_arbol toba_ei_arbol
  */
 function ei_arbol(instancia, input_submit, autovinculo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM

@@ -2,24 +2,25 @@
 ei_formulario_ml.prototype = new ei_formulario();
 ei_formulario_ml.prototype.constructor = ei_formulario_ml;
 
-	/**
-	 * @class Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
- 	 * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
- 	 * Contiene una serie de ca campos se los denomina Elementos de Formulario (efs).
- 	 * @see ef
- 	 * @constructor
-	 */
-	function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
-									proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
-		ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
-														input_submit, maestros, esclavos, invalidos);
-		this._filas = filas;					//Carga inicial de las filas
-		this._proximo_id = proximo_id;
-		this._pila_deshacer = [];		//Pila de acciones a deshacer
-		this._ef_con_totales = {};		//Lisa de efs que quieren sumarizar
-		this._seleccionada = seleccionada;
-		this._agregado_en_linea = en_linea;
-	}
+/**
+ * @class Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. 
+ * La definición y uso de la grilla de campos es similar al formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+ * Contiene una serie de ca campos se los denomina Elementos de Formulario (efs).
+ * @see ef
+ * @constructor
+ * @phpdoc Componentes/Eis/toba_ei_formulario_ml toba_ei_formulario_ml
+ */
+function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas, 
+								proximo_id, seleccionada, en_linea, maestros, esclavos, invalidos) {
+	ei_formulario.prototype.constructor.call(this, id, instancia, rango_tabs, 
+													input_submit, maestros, esclavos, invalidos);
+	this._filas = filas;					//Carga inicial de las filas
+	this._proximo_id = proximo_id;
+	this._pila_deshacer = [];		//Pila de acciones a deshacer
+	this._ef_con_totales = {};		//Lisa de efs que quieren sumarizar
+	this._seleccionada = seleccionada;
+	this._agregado_en_linea = en_linea;
+}
 
 	ei_formulario_ml.prototype.iniciar = function() {
 		//Iniciar las filas

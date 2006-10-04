@@ -5,6 +5,7 @@ ei_archivos.prototype.constructor = ei_archivos;
 /**
  * @class Permite navegar el sistema de archivos del servidor bajo una carpeta inicial
  * @constructor
+ * @phpdoc Componentes/Eis/toba_ei_archivos toba_ei_archivos
  */
 function ei_archivos(instancia, input_submit, path_relativo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM

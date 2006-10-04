@@ -4,6 +4,7 @@
  * @param validar ¿Se debe validar antes de hacer submit?
  * @param confirmar ¿Se debe confirmar antes de hacer submit?
  * @constructor 
+ * @phpdoc Componentes/Eis/toba_ei toba_ei
  */
 function evento_ei(id, validar, confirmar, parametros) {
 	this.id = id;

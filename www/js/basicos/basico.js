@@ -18,8 +18,9 @@ function trim(s){
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
 }
 
-
-//Retorna la primer ocurrencia de alguna de estas cadenas
+/**
+ * Retorna la primer ocurrencia de alguna de estas cadenas
+ */
 String.prototype.primer_ocurrencia = function (cadenas) {
 	var primera = this.length;
 	for (var i =0 ; i < cadenas.length; i++) {
@@ -31,7 +32,9 @@ String.prototype.primer_ocurrencia = function (cadenas) {
 	return primera;
 };
 
-//Retorna la ultima ocurrencia de alguna de estas cadenas
+/**
+ * Retorna la ultima ocurrencia de alguna de estas cadenas
+ */
 String.prototype.ultima_ocurrencia = function (cadenas) {
 	var ultima = 0;
 	for (var i =0 ; i < cadenas.length; i++) {
@@ -43,12 +46,16 @@ String.prototype.ultima_ocurrencia = function (cadenas) {
 	return ultima;
 };
 
-//Retorna el quote necesario para usar en una exp. regular
+/**
+ * Retorna el quote necesario para usar en una exp. regular
+ */
 String.prototype.quote_exp_reg = function () {
 	return this.reemplazar('$', '\\$');
 };
 
-//Reemplaza todas las ocurrencias de un string en otro
+/**
+ * Reemplaza todas las ocurrencias de un string en otro
+ */
 String.prototype.reemplazar = function (buscado, nuevo) {
 	var srchNdx = 0; 
 	var newStr = ""; 
@@ -61,6 +68,9 @@ String.prototype.reemplazar = function (buscado, nuevo) {
 	return newStr;
 };
 
+/**
+ * Intercambia las ocurrencias de un caracter con las de otro
+ */
 String.prototype.intercambiar_caracteres = function(c1, c2) {
 	var car_template = '_^_';
 	var v1 = this.reemplazar(c2, car_template);
