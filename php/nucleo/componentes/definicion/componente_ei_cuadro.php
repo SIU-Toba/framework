@@ -46,15 +46,12 @@ class componente_ei_cuadro extends componente_ei
 										c.dao_nucleo					as  dao_clase,			
 										c.dao_metodo					as  dao_metodo,
 										c.dao_parametros				as  dao_parametros,
-										n.archivo 						as	dao_archivo,
+										''		 						as	dao_archivo,
 										c.cc_modo						as	cc_modo,						
 										c.cc_modo_anidado_colap			as	cc_modo_anidado_colap,		
 										c.cc_modo_anidado_totcol		as	cc_modo_anidado_totcol,		
 										c.cc_modo_anidado_totcua		as	cc_modo_anidado_totcua		
 							 FROM		apex_objeto_cuadro c
-							 			LEFT OUTER JOIN	apex_nucleo n
-							 			ON c.dao_nucleo_proyecto = n.proyecto
-							 			AND c.dao_nucleo = n.nucleo
 							 WHERE	objeto_cuadro_proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
 			$sql['info_cuadro']['sql'] .= "	AND		objeto_cuadro='$componente' ";	

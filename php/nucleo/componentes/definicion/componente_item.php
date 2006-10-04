@@ -27,7 +27,6 @@ class componente_item implements toba_componente_definicion
 						i.actividad_buffer as					item_act_buffer,	
 						i.actividad_patron_proyecto as			item_act_patron_proyecto,
 						i.actividad_patron as					item_act_patron,	
-						p.archivo as							item_act_patron_script,	
 						i.actividad_accion as					item_act_accion_script,	
 						i.solicitud_tipo as						item_solic_tipo,	
 						i.solicitud_registrar as				item_solic_registrar,
@@ -65,7 +64,6 @@ class componente_item implements toba_componente_definicion
 				FROM	apex_item i	
 							LEFT OUTER JOIN apex_item_zona z	ON	( i.zona_proyecto	= z.proyecto AND i.zona	= z.zona	)
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)
-							LEFT OUTER JOIN apex_patron	p ON (i.actividad_patron =	p.patron AND i.actividad_patron_proyecto =	p.proyecto)
 							LEFT OUTER JOIN	apex_pagina_tipo pt	ON (pt.pagina_tipo	= i.pagina_tipo	AND	pt.proyecto	= i.pagina_tipo_proyecto)
 				WHERE	i.proyecto = '$proyecto'";
 		if ( isset($componente) ) {

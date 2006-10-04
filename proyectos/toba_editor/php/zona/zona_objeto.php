@@ -19,11 +19,7 @@ class zona_objeto extends zona_editor
 							c.instanciador_item as			clase_instanciador,
 							c.archivo as					clase_archivo,
 							c.plan_dump_objeto as 			clase_plan_sql,
-							c.vinculos as					clase_vinculos,
-							( SELECT count(*) 
-								FROM apex_clase_dependencias cd 
-								WHERE c.clase = cd.clase_consumidora 
-								AND c.proyecto = cd.clase_consumidora_proyecto ) as clase_dep
+							c.vinculos as					clase_vinculos
 					FROM	apex_objeto o,
 							apex_clase c
 					WHERE	o.clase = c.clase

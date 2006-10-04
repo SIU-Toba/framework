@@ -2,6 +2,14 @@
 
 class tablas_instancia
 {
+	static function get_lista_global()
+	{
+		return array (
+  0 => 'apex_revision',
+  1 => 'apex_instancia',
+);
+	}
+
 	static function get_lista_global_usuario()
 	{
 		return array (
@@ -25,26 +33,17 @@ class tablas_instancia
 );
 	}
 
-	static function get_lista_global()
-	{
-		return array (
-  0 => 'apex_revision',
-  1 => 'apex_instancia',
-);
-	}
-
 	static function get_lista_proyecto_log()
 	{
 		return array (
   0 => 'apex_solicitud',
   1 => 'apex_sesion_browser',
   2 => 'apex_solicitud_browser',
-  3 => 'apex_solicitud_wddx',
-  4 => 'apex_solicitud_consola',
-  5 => 'apex_solicitud_cronometro',
-  6 => 'apex_solicitud_observacion',
-  7 => 'apex_solicitud_obj_observacion',
-  8 => 'apex_log_objeto',
+  3 => 'apex_solicitud_consola',
+  4 => 'apex_solicitud_cronometro',
+  5 => 'apex_solicitud_observacion',
+  6 => 'apex_solicitud_obj_observacion',
+  7 => 'apex_log_objeto',
 );
 	}
 
@@ -54,6 +53,50 @@ class tablas_instancia
   0 => 'apex_log_sistema',
   1 => 'apex_log_error_login',
   2 => 'apex_log_ip_rechazada',
+);
+	}
+
+	static function apex_revision()
+	{
+		return array (
+  'archivo' => 'pgsql_a00_tablas_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'revision',
+  'zona' => 'general',
+  'desc' => 'Especifica la revision del SVN con que se creo el proyecto',
+  'version' => '1.0',
+  'instancia' => '1',
+  'columnas' => 
+  array (
+    0 => 'revision',
+    1 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_instancia()
+	{
+		return array (
+  'archivo' => 'pgsql_a00_tablas_instancia.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'instancia',
+  'instancia' => '1',
+  'zona' => 'general',
+  'desc' => 'Datos de la instancia',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'instancia',
+    1 => 'version',
+    2 => 'institucion',
+    3 => 'observaciones',
+    4 => 'administrador_1',
+    5 => 'administrador_2',
+    6 => 'administrador_3',
+    7 => 'creacion',
+  ),
 );
 	}
 
@@ -186,50 +229,6 @@ class tablas_instancia
 );
 	}
 
-	static function apex_revision()
-	{
-		return array (
-  'archivo' => 'pgsql_a00_tablas_instancia.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'revision',
-  'zona' => 'general',
-  'desc' => 'Especifica la revision del SVN con que se creo el proyecto',
-  'version' => '1.0',
-  'instancia' => '1',
-  'columnas' => 
-  array (
-    0 => 'revision',
-    1 => 'creacion',
-  ),
-);
-	}
-
-	static function apex_instancia()
-	{
-		return array (
-  'archivo' => 'pgsql_a00_tablas_instancia.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'instancia',
-  'instancia' => '1',
-  'zona' => 'general',
-  'desc' => 'Datos de la instancia',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'instancia',
-    1 => 'version',
-    2 => 'institucion',
-    3 => 'observaciones',
-    4 => 'administrador_1',
-    5 => 'administrador_2',
-    6 => 'administrador_3',
-    7 => 'creacion',
-  ),
-);
-	}
-
 	static function apex_solicitud()
 	{
 		return array (
@@ -296,31 +295,6 @@ class tablas_instancia
     0 => 'solicitud_browser',
     1 => 'sesion_browser',
     2 => 'ip',
-  ),
-);
-	}
-
-	static function apex_solicitud_wddx()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_solicitudes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'solicitud_wddx',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '((apex_solicitud.solicitud = dd.solicitud_wddx) AND (apex_solicitud.proyecto =\\\'%%\\\'))',
-  'zona' => 'solicitud',
-  'desc' => '',
-  'historica' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'solicitud_wddx',
-    1 => 'usuario',
-    2 => 'ip',
-    3 => 'instancia',
-    4 => 'instancia_usuario',
-    5 => 'paquete',
   ),
 );
 	}

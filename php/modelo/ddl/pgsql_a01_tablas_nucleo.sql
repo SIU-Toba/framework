@@ -4,94 +4,6 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
-
-CREATE TABLE			apex_elemento_infra
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: elemento_infra
---: zona: general
---: desc: Representa	un	elemento	de	la	infraestructura
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	elemento_infra				varchar(15)		NOT NULL,
-	descripcion					varchar(255)	NOT NULL,
-	CONSTRAINT	"apex_elemento_infra_pk" PRIMARY	KEY ("elemento_infra")
-);
---#################################################################################################
-
-CREATE TABLE			apex_elemento_infra_tabla
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: elemento_infra, tabla, columna_clave_proyecto
---: zona: general
---: desc: Representa	una tabla donde se almacena parte del elemento
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	elemento_infra				varchar(15)		NOT NULL,
-	tabla						varchar(30)		NOT NULL,
-	columna_clave_proyecto		varchar(40)		NOT NULL,
-	columna_clave				varchar(80)		NOT NULL,
-	orden						smallint		NOT NULL,
-	descripcion					varchar(255)	NOT NULL,
-	dependiente					smallint		NULL,
-	proc_borrar					smallint		NULL,
-	proc_exportar				smallint		NULL,
-	proc_clonar					smallint		NULL,
-	obligatoria					smallint		NULL,
-	CONSTRAINT	"apex_elem_infra_tabla_pk"	PRIMARY KEY	("elemento_infra","tabla","columna_clave_proyecto","columna_clave"),
-	CONSTRAINT	"apex_elem_infra_tabla_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################
-
-CREATE SEQUENCE apex_elemento_infra_input_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
-CREATE TABLE			apex_elemento_infra_input
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: entrada
---: zona: general
---: desc: En esta tabla se guardan los elementos toba recibidos desde otras instancias
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	entrada						int4			DEFAULT nextval('"apex_elemento_infra_input_seq"'::text) NOT NULL, 
-	elemento_infra				varchar(15)		NOT NULL,
-	descripcion					varchar(255)	NULL,
-	ip_origen					varchar(40)		NULL,
-	ip_destino					varchar(40)		NULL,
-	datos						text			NOT NULL,
-	datos2_test					text			NOT NULL,
-	ingreso						timestamp(0) without	time zone	DEFAULT current_timestamp NOT	NULL,
-	CONSTRAINT	"apex_elem_infra_input_pk"	PRIMARY KEY	("entrada"),
-	CONSTRAINT	"apex_elem_infra_input_fk_e" FOREIGN KEY ("elemento_infra")	REFERENCES "apex_elemento_infra"	("elemento_infra") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################
-
-CREATE TABLE			apex_estilo_paleta
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: estilo_paleta
---: zona: general
---: desc: Representa	una serie de colores
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	estilo_paleta				varchar(15)		NOT NULL,
-	color_1						char(6)			NULL,
-	color_2						char(6)			NULL,
-	color_3						char(6)			NULL,
-	color_4						char(6)			NULL,
-	color_5						char(6)			NULL,
-	color_6						char(6)			NULL,
-	CONSTRAINT	"apex_estilo_paleta_pk"	PRIMARY KEY	("estilo_paleta")
-);
---#################################################################################################
-
 CREATE TABLE			apex_estilo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -108,13 +20,8 @@ CREATE TABLE			apex_estilo
 	estilo_paleta_s			varchar(15)		NULL,
 	estilo_paleta_n			varchar(15)		NULL,
 	estilo_paleta_e			varchar(15)		NULL,
-	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo"),
-	CONSTRAINT	"apex_estilo_fk_pal_p" FOREIGN KEY ("estilo_paleta_p") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_s" FOREIGN KEY ("estilo_paleta_s") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_n" FOREIGN KEY ("estilo_paleta_n") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_estilo_fk_pal_e" FOREIGN KEY ("estilo_paleta_e") REFERENCES	"apex_estilo_paleta"	("estilo_paleta")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo")
 );
---#################################################################################################
 
 --#################################################################################################
 
@@ -290,22 +197,6 @@ CREATE TABLE apex_recurso_origen
 	CONSTRAINT	"apex_rec_origen_pk"	PRIMARY KEY	("recurso_origen") 
 );
 --#################################################################################################--
-
-CREATE TABLE apex_repositorio
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: repositorio
---: zona: general
---: desc: Listado	de	repositorios a	los que me puedo conectar
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	repositorio					varchar(80)		NOT NULL,
-	descripcion					varchar(255)	NULL,
-	CONSTRAINT	"apex_repositorio_pk" PRIMARY	KEY ("repositorio")
-);
---#################################################################################################
 
 CREATE TABLE apex_nivel_acceso
 ---------------------------------------------------------------------------------------------------
@@ -487,28 +378,6 @@ CREATE TABLE apex_columna_proceso
 	parametros							varchar(255)	NULL,
 	CONSTRAINT	"apex_columna_proceso_pk" PRIMARY KEY ("columna_proceso") 
 );
---###################################################################################################
-
-CREATE TABLE apex_pdf_propiedad 
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: pdf_propiedad
---: zona: objeto
---: desc:
---: historica: 0
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-  pdf_propiedad 						varchar(30) 	NOT NULL, 
-  descripcion   						varchar(255) 	NOT NULL, 
-  requerido     						varchar(20)		NULL, 
-  proyecto 								varchar(15) 	NOT NULL, 
-  exclusiva_columna						smallint 		NULL,
-  exclusiva_tabla						smallint 		NULL,
-  CONSTRAINT apex_pdfprop_pk PRIMARY KEY (pdf_propiedad), 
-  CONSTRAINT apex_pdfprop_fk_proyecto FOREIGN KEY (proyecto) REFERENCES apex_proyecto (proyecto) ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
 
 --**************************************************************************************************
 --**************************************************************************************************
@@ -644,73 +513,9 @@ CREATE TABLE apex_usuario_proyecto
 
 --**************************************************************************************************
 --**************************************************************************************************
---******************	  ELEMENTOS	CENTRALES (item, patron, clase y	objeto)	 ************************
+--******************	  ELEMENTOS	CENTRALES (item, clase y objeto)	 ***************************
 --**************************************************************************************************
 --**************************************************************************************************
-
-CREATE TABLE apex_patron
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: patron
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	proyecto					varchar(15)		NOT NULL,
-	patron					varchar(20)		NOT NULL,
-	archivo					varchar(80)		NOT NULL,
-	descripcion				varchar(250)	NULL,
-	descripcion_corta		varchar(40)		NULL,	--	NOT NULL,
-	exclusivo_toba			smallint			NULL,
-	autodoc					smallint			NULL,
-	CONSTRAINT	"apex_patron_pk" PRIMARY KEY ("proyecto","patron"),
-	CONSTRAINT	"apex_patron_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
-
-CREATE TABLE apex_patron_info
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: patron
---: dump_where: ( patron_proyecto = '%%' )
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	patron_proyecto					varchar(15)		NOT NULL,
-	patron							varchar(20)		NOT NULL,
-	descripcion_breve				varchar(255)	NULL,
-	descripcion_larga				text			NULL,
-	CONSTRAINT	"apex_patron_info_pk" PRIMARY	KEY ("patron_proyecto","patron"),
-	CONSTRAINT	"apex_patron_info_fk_patron" FOREIGN KEY ("patron_proyecto","patron") REFERENCES	"apex_patron" ("proyecto","patron")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
-
-CREATE SEQUENCE apex_buffer_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
-CREATE TABLE apex_buffer
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: buffer
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	proyecto						varchar(15)		NOT NULL,
-	buffer							int4			DEFAULT nextval('"apex_buffer_seq"'::text) NOT NULL, 
-	descripcion_corta				varchar(40)		NULL,	--	NOT NULL,
-	descripcion						varchar(255)	NOT NULL,
-	cuerpo							text			NULL,
-	archivo_origen					varchar(150)	NULL,
-	CONSTRAINT	"apex_buffer_pk" PRIMARY KEY ("proyecto","buffer"),
-	CONSTRAINT	"apex_buffer_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
 
 CREATE TABLE apex_item_zona
 ---------------------------------------------------------------------------------------------------
@@ -760,12 +565,12 @@ CREATE TABLE apex_item
 	solicitud_tipo					varchar(20)		NULL,
 	pagina_tipo_proyecto			varchar(15)		NULL,
 	pagina_tipo						varchar(20)		NULL,
-	nombre							varchar(80)		NOT NULL,
-	descripcion						varchar			NULL,
 	actividad_buffer_proyecto		varchar(15)		NULL,
 	actividad_buffer				int4			NULL,
 	actividad_patron_proyecto		varchar(15)		NULL,
 	actividad_patron				varchar(20)		NULL,
+	nombre							varchar(80)		NOT NULL,
+	descripcion						varchar			NULL,
 	actividad_accion				varchar(80)		NULL,
 	menu							smallint		NULL,
 	orden							float			NULL,
@@ -792,8 +597,6 @@ CREATE TABLE apex_item
 	CONSTRAINT	"apex_item_uq_path" UNIQUE	("proyecto","item"),
 	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_padre"	FOREIGN KEY	("padre_proyecto","padre")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_buffer" FOREIGN	KEY ("actividad_buffer_proyecto","actividad_buffer") REFERENCES "apex_buffer"	("proyecto","buffer") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_patron" FOREIGN	KEY ("actividad_patron_proyecto","actividad_patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_solic_tipo" FOREIGN KEY ("solicitud_tipo")	REFERENCES "apex_solicitud_tipo"	("solicitud_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_solic_ot"	FOREIGN KEY	("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo"	("proyecto","solicitud_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_item_fk_niv_acc" FOREIGN KEY ("nivel_acceso") REFERENCES	"apex_nivel_acceso" ("nivel_acceso") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
@@ -899,91 +702,6 @@ CREATE TABLE apex_clase
 );
 --#################################################################################################
 
-CREATE TABLE apex_clase_info
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: clase
---: dump_where: (	clase_proyecto	= '%%' )
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	clase_proyecto					varchar(15)		NOT NULL,
-	clase							varchar(60)		NOT NULL,
-	descripcion_breve				varchar(255)	NULL,
-	descripcion_larga				text			NULL,
-	CONSTRAINT	"apex_clase_info_pk"	 PRIMARY	KEY ("clase_proyecto","clase"),
-	CONSTRAINT	"apex_clase_info_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
-
-CREATE TABLE apex_clase_dependencias
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: clase_consumidora, identificador
---: dump_where: (	clase_consumidora_proyecto	= '%%' )
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	clase_consumidora_proyecto	varchar(15)			NOT NULL,
-	clase_consumidora				varchar(60)		NOT NULL,
-	identificador					varchar(20)		NOT NULL,
-	descripcion						varchar(250)	NULL,	  
-	clase_proveedora_proyecto	varchar(15)			NOT NULL,	--	Las dependencias pueden	ser de esta	clase	o de una	heredada
-	clase_proveedora				varchar(60)		NOT NULL,
-	CONSTRAINT	"apex_clase_depen_pk" PRIMARY	KEY ("clase_consumidora_proyecto","clase_consumidora","identificador"),
-	CONSTRAINT	"apex_clase_depen_fk_clase_c"	FOREIGN KEY	("clase_consumidora_proyecto","clase_consumidora")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_depen_fk_clase_p"	FOREIGN KEY	("clase_proveedora_proyecto","clase_proveedora") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################
-
-CREATE TABLE apex_patron_dependencias
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: patron, clase
---: dump_where: (	patron_proyecto =	'%%' )
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	patron_proyecto					varchar(15)		NOT NULL,
-	patron							varchar(20)		NOT NULL,
-	clase_proyecto					varchar(15)		NOT NULL,
-	clase							varchar(60)		NOT NULL,
-	cantidad_minima					smallint		NOT NULL,
-	cantidad_maxima					smallint		NOT NULL,
-	descripcion						varchar(250)	NULL,
-	CONSTRAINT	"apex_patron_depen_pk"	 PRIMARY	KEY ("patron_proyecto","patron","clase_proyecto","clase"),
-	CONSTRAINT	"apex_patron_depen_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_patron_depen_fk_patron"	FOREIGN KEY	("patron_proyecto","patron") REFERENCES "apex_patron"	("proyecto","patron") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################--
-
-CREATE TABLE apex_objeto_categoria
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: objeto_categoria
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	proyecto							varchar(15)		NOT NULL,
-	objeto_categoria				varchar(30)		NOT NULL,
-	descripcion						varchar(255)	NULL,
-	CONSTRAINT	"apex_obj_categoria_pk"	PRIMARY KEY	("proyecto","objeto_categoria"),
-	CONSTRAINT	"apex_obj_categoria_fk_proy" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################
-
 CREATE TABLE apex_solicitud_obj_obs_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1048,9 +766,8 @@ CREATE TABLE apex_objeto
 	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_solic_ot" FOREIGN KEY ("solicitud_obj_obs_tipo") REFERENCES "apex_solicitud_obj_obs_tipo" ("solicitud_obj_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 --  CONSTRAINT  "apex_objeto_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_categ" FOREIGN KEY ("objeto_categoria_proyecto","objeto_categoria")	REFERENCES "apex_objeto_categoria" ("proyecto","objeto_categoria") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################
 
@@ -1179,64 +896,6 @@ CREATE TABLE apex_item_objeto
 );
 --#################################################################################################
 
-CREATE TABLE apex_vinculo_tipo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: vinculo_tipo
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	vinculo_tipo						varchar(10)		NOT NULL,
-	descripcion_corta					varchar(40)		NULL,	--	NOT NULL,
-	descripcion							varchar(255)	NOT NULL,
-	CONSTRAINT	"apex_vinculo_tipo_pk" PRIMARY KEY ("vinculo_tipo")
-);
---#################################################################################################--
-
-CREATE TABLE apex_vinculo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: origen_item, origen_objeto, destino_item, destino_objeto
---: dump_where: (	origen_item_proyecto	= '%%' )	
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	origen_item_id						int4				NULL,	
-	origen_item_proyecto				varchar(15)		NOT NULL,
-	origen_item							varchar(60)		NOT NULL,
-	origen_objeto_proyecto			varchar(15)		NOT NULL,
-	origen_objeto						int4				NOT NULL,
-	destino_item_id					int4				NULL,	
-	destino_item_proyecto			varchar(15)		NOT NULL,
-	destino_item						varchar(60)		NOT NULL,
-	destino_objeto_proyecto			varchar(15)		NOT NULL,	--	Objeto que tiene que	recibir el valor
-	destino_objeto						int4				NOT NULL,	--	
-	frame									varchar(60)		NULL,
-	canal									varchar(40)		NULL,			--	Clave	utilizada para	expandir	el	valor
-	indice								varchar(20)		NOT NULL,	--	Indice para	que el consumidor	recupere	el	vinculo
-	vinculo_tipo						varchar(10)		NOT NULL,	--	Como se habre el vinculo? popup,	zoom,	etc
-	inicializacion						varchar(100)	NULL,			--	En	el	caso de un POPUP,	tamao, etc.
-	operacion							smallint			NULL,			--	flag que	indica si el vinculo	implica una	propagacion	de	la	operacion o	no	(util	para determinar permisos en cascada)
-	texto									varchar(60)		NULL,			--	Texto	del LINK
-	imagen_recurso_origen			varchar(10)		NULL,			--	Lugar	donde	se	guardo la imagen:	toba o proyecto
-	imagen								varchar(60)		NULL,			--	path a la imagen
-	CONSTRAINT	"apex_vinc_pk"	PRIMARY KEY	("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto"),
---	  CONSTRAINT  "apex_vinc_pk" UNIQUE	 ("origen_item_proyecto","origen_item","origen_objeto_proyecto","origen_objeto","destino_item_proyecto","destino_item","destino_objeto_proyecto","destino_objeto","indice"),
-	CONSTRAINT	"apex_vinc_fk_item_o" FOREIGN	KEY ("origen_item_proyecto","origen_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_item_d" FOREIGN	KEY ("destino_item_proyecto","destino_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_o"	FOREIGN KEY	("origen_objeto_proyecto","origen_objeto") REFERENCES	"apex_objeto" ("proyecto","objeto")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_obj_d"	FOREIGN KEY	("destino_objeto_proyecto","destino_objeto")	REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE	ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_vinc_fk_tipo" FOREIGN KEY ("vinculo_tipo") REFERENCES	"apex_vinculo_tipo" ("vinculo_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-);
---#################################################################################################
-
 CREATE TABLE apex_usuario_grupo_acc_item
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -1329,77 +988,6 @@ CREATE TABLE apex_admin_param_previsualizazion
     											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
  
---**************************************************************************************************
---**************************************************************************************************
---********************************	 DOCUMENTACION	del NUCLEO	 ************************************
---**************************************************************************************************
---**************************************************************************************************
-
-
-CREATE SEQUENCE apex_nucleo_tipo_seq INCREMENT 1 MINVALUE 0	MAXVALUE	9223372036854775807 CACHE 1;
-CREATE TABLE apex_nucleo_tipo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: nucleo_tipo
---: zona: nucleo
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	nucleo_tipo							int4				DEFAULT nextval('"apex_nucleo_tipo_seq"'::text)	NOT NULL, 
-	descripcion_corta					varchar(40)		NOT NULL,
-	descripcion							varchar(250)	NOT NULL,
-	orden									float				NULL,
-	CONSTRAINT	"apex_nucleo_tipo_pk"	PRIMARY KEY	("nucleo_tipo")
-);
---#################################################################################################
-
-CREATE TABLE apex_nucleo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: nucleo
---: zona: nucleo
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	proyecto								varchar(15)		NOT NULL,
-	nucleo								varchar(60)		NOT NULL,
-	nucleo_tipo							varchar(15)		NOT NULL,
-	archivo								varchar(80)		NOT NULL,
-	descripcion							varchar(250)	NOT NULL,
-	descripcion_corta					varchar(40)		NULL,	--	NOT NULL,
-	doc_nucleo							varchar(255)	NULL,			--> GIF donde hay	un	Diagrama
-	doc_db								varchar(60)		NULL,			--> GIF donde hay	un	DER de las tablas	que necesita la nucleo.
-	doc_sql								varchar(60)		NULL,			--> path	al	archivo que	crea las	tablas.
-	autodoc								smallint			NULL,
-	orden									float				NULL,
-	CONSTRAINT	"apex_nucleo_pk"	 PRIMARY	KEY ("proyecto","nucleo"),
-	CONSTRAINT	"apex_nucleo_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_nucleo_fk_tipo" FOREIGN	KEY ("nucleo_tipo") REFERENCES "apex_nucleo_tipo" ("nucleo_tipo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
-
-CREATE TABLE apex_nucleo_info
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: nucleo
---: dump_where: (	nucleo_proyecto =	'%%' )
---: zona: nucleo
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	nucleo_proyecto					varchar(15)		NOT NULL,
-	nucleo								varchar(60)		NOT NULL,
-	descripcion_breve					varchar(255)	NULL,
-	descripcion_larga					text				NULL,
-	CONSTRAINT	"apex_nucleo_info_pk" PRIMARY	KEY ("nucleo_proyecto","nucleo"),
-	CONSTRAINT	"apex_nucleo_info_fk_nucleo" FOREIGN KEY ("nucleo_proyecto","nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
 --#################################################################################################
 
 CREATE TABLE apex_conversion

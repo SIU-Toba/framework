@@ -83,34 +83,6 @@ CREATE TABLE apex_solicitud_browser
 );
 --###################################################################################################
 
-CREATE TABLE apex_solicitud_wddx
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: multiproyecto
---: dump_order_by: solicitud_wddx
---: dump_from: apex_solicitud
---: dump_where: ((apex_solicitud.solicitud = dd.solicitud_wddx) AND (apex_solicitud.proyecto ='%%'))
---: zona: solicitud
---: desc:
---: historica: 1
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	solicitud_wddx				int4			NOT NULL, 
-	usuario						varchar(20) 	NOT NULL,
-	ip							varchar(20)		NULL,
-	instancia					varchar(80) 	NOT NULL,
-	instancia_usuario			varchar(20) 	NOT NULL,
-	paquete						text			NULL,
-	CONSTRAINT	"apex_sol_wddx_pk" PRIMARY KEY ("solicitud_wddx"),
---  Este constraint no funcionan porque debe estar tambien el proyecto en esta tabla
---	CONSTRAINT	"apex_sol_wddx_fk_sol" FOREIGN KEY ("solicitud_wddx") REFERENCES "apex_solicitud" ("solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE, 
---	CONSTRAINT	"apex_sol_wddx_fk_sol" FOREIGN KEY ("solicitud_wddx") REFERENCES "apex_solicitud" ("solicitud") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_sol_wddx_fk_usu" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
---	CONSTRAINT	"apex_sol_wddx_fk_usu" FOREIGN KEY ("usuario") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---###################################################################################################
-
 CREATE TABLE apex_solicitud_consola
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba

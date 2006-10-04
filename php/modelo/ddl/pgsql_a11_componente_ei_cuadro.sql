@@ -53,8 +53,7 @@ CREATE TABLE apex_objeto_cuadro
 	cc_modo_anidado_totcol		smallint		NULL,		-- Tipo anidado: Desplegar columnas horizontalmente
 	cc_modo_anidado_totcua		smallint		NULL,		-- Tipo anidado: El total del ultimo nivel adosarlo al cuadro
 	CONSTRAINT  "apex_objeto_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro"),
-	CONSTRAINT  "apex_objeto_cuadro_fk_objeto"  FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_objeto_cuadro_fk_nucleo" FOREIGN KEY ("dao_nucleo_proyecto","dao_nucleo") REFERENCES	"apex_nucleo" ("proyecto","nucleo")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_objeto_cuadro_fk_objeto"  FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
