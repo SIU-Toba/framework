@@ -11,12 +11,9 @@ class zona_item extends zona_editor
 	{
 		//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
 		//Las claves de los registros que los ABM manejan son asociativas
-		$sql = 	"	SELECT	i.*,
-					p.archivo as 	actividad_patron_archivo
-					FROM	apex_item i, apex_patron p
-					WHERE	i.actividad_patron = p.patron
-                    AND     i.actividad_patron_proyecto = p.proyecto
-					AND		i.proyecto='{$this->editable_id[0]}'
+		$sql = 	"	SELECT	i.*
+					FROM	apex_item i
+					WHERE	i.proyecto='{$this->editable_id[0]}'
 					AND		item='{$this->editable_id[1]}';";
 		$rs = toba::db()->consultar($sql);
 		if(empty($rs)) {
