@@ -1,9 +1,10 @@
 {if count($api_tags) > 0}
-<strong>Notas Extras:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
 {section name=tag loop=$api_tags}
   <tr>
-    <td class="indent"><strong>{$api_tags[tag].keyword|capitalize}:</strong>&nbsp;&nbsp;</td><td>{$api_tags[tag].data}</td>
+    <td class="indent">
+    	<strong>{$api_tags[tag].keyword|capitalize}:</strong>&nbsp;&nbsp;</td><td>{$api_tags[tag].data}</td>
+    	
   </tr>
 {/section}
 </table>

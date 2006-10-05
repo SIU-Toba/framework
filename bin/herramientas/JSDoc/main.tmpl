@@ -13,7 +13,7 @@
   <tr>
 
 	<td class="header-top-left"><img src="../api/media/logo.png" border="0"/></td>
-    <td class="header-top-right">API JS de SIU-Toba<br />
+    <td class="header-top-right"><img height=64 border='0' style='vertical-align: middle' src="../api/media/javascript.png" /><br />
   </tr>
 
   <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
@@ -53,15 +53,15 @@
 
 <h2 class="class-name">Clase <TMPL_VAR NAME="classname"></h2>
 
+<br />
 <a name="sec-description"></a>
 <div class="info-box">
 
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
-							<a href="#sec-method-summary">Métodos</a>
-			|			
-									<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
-			|							<a href="#sec-vars">Propiedades</a>
+							<a href="#sec-inherited">Métodos Heredados</a> |			
+							<a href="#sec-method-summary">Métodos</a> 			|			
+									<a href="#sec-vars">Propiedades</a>
 							
 			</div>
 
@@ -75,20 +75,11 @@
    	</TMPL_IF>			
 
 
-		<p class="notes">
-			Ubicada en /toba_ef_multi_seleccion.php [<span class="field">line 401</span>]
-		</p>
-
 <PRE><TMPL_VAR name="class_tree"></PRE>
-<TMPL_IF NAME="subclasses">
-   <DL>
-   <DT>
-      <B>Subclases directas:</B> 
-      <DD>
-               <TMPL_VAR NAME="subclasses">
-      </DD>
-   </DL>
-</TMPL_IF>		
+
+		<p class="notes">
+			Ubicada en <TMPL_VAR name="filename">
+		</p>
 
 <TMPL_IF NAME="inner_classes">
 <A NAME="inner_classes"><!-- --></A>
@@ -106,59 +97,35 @@
 </TMPL_LOOP>
 </TABLE>
 &nbsp;
-</TMPL_IF>      
-      
-		<table border="0" cellspacing="0" cellpadding="0">
-		<tr><td colspan="2"><a href='../../../api_js/ef_multi_seleccion_doble.html'><strong>Clase Javascript equivalente: ef_multi_seleccion_doble</strong></a></td></tr>
-		</table>
-<br>
+</TMPL_IF>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+	<TMPL_IF NAME="wiki">
+		<tr>
+			<td colspan="2"><strong><a href='../wiki/trac/toba/wiki/<TMPL_VAR name="wiki">.html'>
+				<img border='0' style='vertical-align: middle' src="../api/media/wiki-small.png" />
+			Documentación WIKI</a></strong></td></tr>
+	</TMPL_IF>	
+	<TMPL_IF NAME="phpdoc_link">
+			<tr><td colspan="2"><a href='../api/<TMPL_VAR name="phpdoc_link">'>
+			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
+			<strong>Clase PHP equivalente: <TMPL_VAR name="phpdoc_texto"></strong></a></td></tr>
+	<br>
+	</TMPL_IF>
+	</table>
 		</td>
 		</tr></table>
 	</div>
 </div>
 
+<TMPL_IF NAME="subclasses">
+<div class="info-box">
+		<div class="info-box-title">Subclases directas</div>
+		<div class="info-box-body"><TMPL_VAR name="subclasses">
+		</div>
+	</div>
+</TMPL_IF>	
 
-<!-- =========== FIELD SUMMARY =========== -->
-<TMPL_IF NAME="fields">
-   <A NAME="field_summary"><!-- --></A>
-      <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-         <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-            <TD COLSPAN=2><FONT SIZE="+2">
-               <B>Field Summary</B></FONT></TD>
-         </TR>
-
-   <!-- This is one instance field summary -->
-   <TMPL_LOOP name="fields">
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-   <CODE><TMPL_IF NAME="is_private">&lt;private&gt;&nbsp;</TMPL_IF><TMPL_IF NAME="is_class_field">&lt;static&gt; </TMPL_IF><TMPL_IF NAME="is_final">&nbsp;&lt;final&gt;</TMPL_IF>&nbsp;<TMPL_VAR NAME="type"></CODE></FONT></TD>
-   <TD><CODE><B><A HREF="#<TMPL_IF NAME="is_class_field">!s!</TMPL_IF><TMPL_VAR name="field_name">"><TMPL_VAR name="field_name"></A></B></CODE>
-   <BR>
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TMPL_VAR name="field_summary"></TD>
-   </TR>
-   </TMPL_LOOP>
-
-   </TABLE>
-   &nbsp;
-   </TMPL_IF>
-
-   <TMPL_LOOP name="field_inheritance">
-   <TMPL_IF NAME="inherited_fields">
-   &nbsp;<A NAME=""><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-   <TD><B>Fields inherited from class <A HREF="<TMPL_VAR name="superclass_name">.html"><TMPL_VAR name="superclass_name"></A></B></TD>
-   </TR>
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD><CODE>
-   <TMPL_VAR NAME="inherited_fields">
-   </CODE></TD>
-   </TR>
-</TABLE>
-&nbsp;
-</TMPL_IF>
-</TMPL_LOOP>
-<!-- =========== END FIELD SUMMARY =========== -->
 
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <TMPL_IF NAME="constructor_args">
@@ -167,7 +134,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 					<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-					<td colspan="2" class="method-definition"><a href="<TMPL_VAR name="classname">.html#<TMPL_VAR name="classname">()" title="detalles" class="method-name"><TMPL_VAR name="classname"></a>
+					<tr><td colspan="2" class="method-definition"><a href="<TMPL_VAR name="classname">.html#<TMPL_VAR name="classname">()" title="detalles" class="method-name"><TMPL_VAR name="classname"></a>
 						<TMPL_VAR name="constructor_args"></td>
 					<td class="method-definition"> <TMPL_VAR name="constructor_summary"></td>					
 					</tr></table>
@@ -177,6 +144,15 @@
 </div>
 </TMPL_IF>
 <!-- ======== END CONSTRUCTOR SUMMARY ======== -->
+
+<a name="sec-inherited"></a>
+<TMPL_LOOP name="method_inheritance">
+<div class="info-box">
+		<div class="info-box-title">Métodos heredados de <a href="<TMPL_VAR name="superclass_name">.html"><TMPL_VAR name="superclass_name"></a></div>
+		<div class="info-box-body"><TMPL_VAR NAME="inherited_methods">
+		</div>
+	</div>
+</TMPL_LOOP>
 
 
 <!-- ========== METHOD SUMMARY =========== -->
@@ -204,71 +180,68 @@
 	</div>
 </TMPL_IF>
 <!-- ========== END METHOD SUMMARY =========== -->
-<TMPL_LOOP name="method_inheritance">
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TD><B>Methods inherited from class <a href="<TMPL_VAR name="superclass_name">.html"><TMPL_VAR name="superclass_name"></a></B></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>
-<!-- Inherited methods -->
-<TMPL_VAR NAME="inherited_methods">
-</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-</TMPL_LOOP>
 
-
- <!-- ========= CONSTRUCTOR DETAIL START ======== -->
-<TMPL_IF NAME="constructor_args">
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1>
-      <FONT SIZE="+2"><B>Constructor Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
-<A NAME="<TMPL_VAR name="classname">()"><!-- --></A><H3>
-<TMPL_VAR name="classname"></H3>
-<PRE><B><TMPL_VAR name="classname"></B><TMPL_VAR name="constructor_args"></PRE>
-
-<TMPL_IF NAME="constructor_detail">
-<UL>
-   <TMPL_VAR name="constructor_detail">
-</UL>
-</TMPL_IF>
-
-<TMPL_IF name="constructor_params">
-   <UL>
-   <B>Parameters:</B>
-   <TMPL_LOOP name="constructor_params">
-     <UL><CODE><TMPL_VAR name="varname"></CODE> - <TMPL_VAR name="vardescrip">
-     </UL>
-   </TMPL_LOOP>
-   </TMPL_IF>
-   </UL>
-</TMPL_IF>
-
-<!-- Constructor return value(s) -->
-<TMPL_IF name="constructor_returns">
-   <UL>
-   <B>Returns:</B>
-     <UL>
-     <TMPL_VAR name="constructor_returns"> 
-     </UL>
-   </UL>
-</TMPL_IF>
-<!-- End constructor return value(s) -->
-
-<TMPL_IF NAME="methods">
+<br>
 <a name="sec-methods"></a>
 <div class="info-box">
 	<div class="info-box-body">
+ <!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<TMPL_IF NAME="constructor_args">
+<A NAME="constructor_detail"><!-- --></A>
+<A NAME="<TMPL_VAR name="classname">()"><!-- --></A>
+	<div class="evenrow">
+			<div class="method-header">
+				<span class="method-title"><TMPL_VAR name="classname"></span>
+			</div>
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code><B><TMPL_VAR name="classname"></B><TMPL_VAR name="constructor_args"></code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>			
+			<TMPL_IF NAME="constructor_detail">			
+			<p class="description">
+  				<UL><TMPL_VAR name="constructor_detail"></UL>
+			</p>
+			</TMPL_IF>
+
+		   <!-- METHOD PARAMETERS START -->
+		   <TMPL_IF name="constructor_params">
+			<strong>Parámetros:</strong><br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				 <TMPL_LOOP name="constructor_params">
+				<tr>
+					<td class="indent">
+						<span class="var-name"><TMPL_VAR name="varname"></span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"><TMPL_VAR name="vardescrip"></span>
+					</td>
+				</tr>
+				</TMPL_LOOP>
+			</table>		   
+		   </TMPL_IF>
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			<TMPL_IF name="constructor_returns">
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent"><TMPL_VAR name="constructor_returns"></td>
+			  </tr>
+			</table>
+   			</TMPL_IF>				
+		</div>			
+</TMPL_IF>
+
+<TMPL_IF NAME="methods">
 		<a name='method_detail'></a>
-		
 		
 		<TMPL_LOOP name="methods">
    		<A id="<TMPL_VAR name="method_name">" NAME="<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><!-- --></A>	
@@ -336,17 +309,55 @@
 		   
 		</div>
 		</TMPL_LOOP>
+</TMPL_IF>
 	</div>
+</div>
+
+
+<br />
+
+<TMPL_IF NAME="fields">
+<a name="sec-vars"></a>
+<div class="info-box">
+		<div class="info-box-title">Propiedades</div>
+		<div class="info-box-body">
+		   	<TMPL_LOOP NAME="fields">
+			 <A NAME="<TMPL_IF NAME="is_class_field">!s!</TMPL_IF><TMPL_VAR NAME="field_name">"><!-- --></A>
+	   		 <TMPL_IF NAME="__odd__">
+				<div class="oddrow">
+				<TMPL_ELSE>
+				<div class="evenrow">
+			 </TMPL_IF>
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type"><TMPL_IF NAME="is_private">&lt;private&gt;&nbsp;</TMPL_IF><TMPL_IF NAME="is_class_field">&lt;static&gt;&nbsp;</TMPL_IF><TMPL_IF NAME="is_final">&lt;final&gt;&nbsp;</TMPL_IF><TMPL_VAR NAME="type"></span>&nbsp;&nbsp;
+						<span class="var-name"><TMPL_VAR NAME="field_name"></span>
+					</span>
+					<TMPL_IF name="field_description">
+						<p class="description">
+			  				<UL><TMPL_VAR name="field_description"></UL>
+						</p>
+					</TMPL_IF>						
+				</div>
+				<TMPL_IF NAME="const_link">
+				   <UL>
+				    <P>
+				    <DL>
+				    <DT><B>See Also:</B><DD><A HREF="constant-values.html#java.awt.AWTEvent.COMPONENT_EVENT_MASK">Constant Field Values</A></DL>
+				    </DL>
+			   		</UL>							    
+			   </TMPL_IF>
+			</div>			   
+			</TMPL_LOOP>
+		</div>
 </div>
 </TMPL_IF>
 
 <br />
 <div class="credit">
 	<hr class="separator" />
-	
 	Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 	<br />        
-	
 	Documentación generada por <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
 </div>
       </td></tr></table>

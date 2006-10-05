@@ -3,9 +3,13 @@
 {if $methods[methods].static}
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
-
 <div class="method-header">
-	<span class="method-title">static method {$methods[methods].function_name}</span>&nbsp;&nbsp;<span class="smalllinenumber">[line {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}]</span>
+	{section name=tag loop=$methods[methods].api_tags}
+	    {if $methods[methods].api_tags[tag].data eq "protected"}
+    	<img border='0' title='protected' style='vertical-align: middle' src="{$subdir}media/candado.png" />
+    	{/if}
+	{/section}
+	<span class="method-title">static method {$methods[methods].function_name}</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}]</span>
 </div>
 <br />
 
@@ -27,7 +31,7 @@
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc}
 
 	{if $methods[methods].params}
-		<strong>Parámetros:</strong><br />
+		Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 		{section name=params loop=$methods[methods].params}
 			<tr><td class="indent">
@@ -45,7 +49,6 @@
 	{include file="tags.tpl" api_tags=$methods[methods].api_tags info_tags=$methods[methods].info_tags}
 
 	{if $methods[methods].method_overrides}
-		<hr class="separator" />
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$methods[methods].method_overrides.link}</dt>
@@ -55,7 +58,6 @@
 		</dl>
 	{/if}
 	{if $methods[methods].method_implements}
-		<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 	{section name=imp loop=$methods[methods].method_implements}
 		<dl>
@@ -68,7 +70,6 @@
 	{/if}
 
 	{if $methods[methods].descmethod}
-		<hr class="separator" />
 		<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}
@@ -90,9 +91,13 @@
 {if !$methods[methods].static}
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
-
 <div class="method-header">
-	<span class="method-title">{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}</span>&nbsp;&nbsp;<span class="smalllinenumber">[line {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}]</span>
+	{section name=tag loop=$methods[methods].api_tags}
+	    {if $methods[methods].api_tags[tag].data eq "protected"}
+    	<img border='0' title='protected' style='vertical-align: middle' src="{$subdir}media/candado.png" />
+    	{/if}
+	{/section}
+	<span class="method-title">{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}]</span>
 </div>
 <br />
 
@@ -114,7 +119,7 @@
 	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc}
 
 	{if $methods[methods].params}
-		<strong>Parámetros:</strong><br />
+		Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 		{section name=params loop=$methods[methods].params}
 			<tr><td class="indent">
@@ -132,7 +137,6 @@
 	{include file="tags.tpl" api_tags=$methods[methods].api_tags info_tags=$methods[methods].info_tags}
 
 	{if $methods[methods].method_overrides}
-		<hr class="separator" />
 		<div class="notes">Redefinición de:</div>
 		<dl>
 			<dt>{$methods[methods].method_overrides.link}</dt>
@@ -142,7 +146,6 @@
 		</dl>
 	{/if}
 	{if $methods[methods].method_implements}
-		<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 	{section name=imp loop=$methods[methods].method_implements}
 		<dl>
@@ -155,7 +158,6 @@
 	{/if}
 
 	{if $methods[methods].descmethod}
-		<hr class="separator" />
 		<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}

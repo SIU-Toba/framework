@@ -1,6 +1,6 @@
 {include file="header.tpl" eltype="clase" hasel=true contents=$classcontents}
 
-<h2 class="class-name">{if $is_interface}Interface{else}Clase{/if} {$class_name}</h2>
+<h2 class="class-name">{if $is_interface}Interface{/if} {$class_name}</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -8,18 +8,19 @@
 		{if $children || $vars || $ivars || $methods || $imethods || $consts || $iconsts}
 			<span class="disabled">Resúmen de la {if $is_interface}Interface{else}Clase{/if}</span> |
 		{/if}
-		{if $methods || $imethods}
-			<a href="#sec-method-summary">Métodos</a>
-			{if $vars || $ivars || $children || $consts || $iconsts}|{/if}			
-		{/if}
+
 		{if $children}
 			<a href="#sec-descendents">Subclases</a>
 			{if $vars || $ivars || $consts || $iconsts}|{/if}
 		{/if}
 		{if $ivars || $imethods}
-			<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
+			<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
+		{if $methods || $imethods}
+			<a href="#sec-method-summary">Métodos</a>
+			{if $vars || $ivars || $children || $consts || $iconsts}|{/if}			
+		{/if}		
 		{if $vars || $ivars}
 			<a href="#sec-vars">Propiedades</a>
 			{if $consts || $iconsts}|{/if}
@@ -42,9 +43,7 @@
         {/if}
 		{include file="docblock.tpl" type="class" sdesc=$sdesc desc=$desc}
 
-		<p class="notes">
-			Ubicada en {$source_location} [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
-		</p>
+
 
 		{if $tutorial}
 			<hr class="separator" />
@@ -62,24 +61,94 @@
 			</div>
 		{/if}
 
-		{if count($tags) > 0}
-<!--		
-		<strong>Author(s):</strong>
-		<ul>
-		  {section name=tag loop=$tags}
-			 {if $tags[tag].keyword eq "author"}
-			 <li>{$tags[tag].data}</li>
-			 {/if}
-		  {/section}
-		</ul> -->
-		{/if}
-
+		<p class="notes">
+			Ubicada en {$source_location} [<span class="field">line {if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>]
+		</p>	
 		{include file="classtags.tpl" tags=$tags}
+	
 		</td>
 		</tr></table>
 	</div>
 </div>
 
+
+{if $children}
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Subclases directas</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				{section name=kids loop=$children}
+				<tr>
+					<td style="padding-right: 2em">{$children[kids].link}</td>
+					<td>
+					{if $children[kids].sdesc}
+						{$children[kids].sdesc}
+					{else}
+						{$children[kids].desc}
+					{/if}
+					</td>
+				</tr>
+				{/section}
+			</table>
+			<br />
+		</div>
+	</div>
+{/if}
+
+
+
+{if $ivars || $imethods || $iconsts}
+	<a name="sec-inherited"></a>
+	<div class="info-box">
+		<div class="info-box-title">Propiedades y Métodos Heredados</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header" width="30%">Propiedades Heredadas</th>
+					<th class="class-table-header" width="40%">Métodos Heredados</th>
+				</tr>
+				<tr>
+					<td width="30%">
+						{section name=ivars loop=$ivars}
+							<p>Heredado de <span class="classname">{$ivars[ivars].parent_class}</span></p>
+							<blockquote>
+								<dl>
+									{section name=ivars2 loop=$ivars[ivars].ivars}
+										<dt>
+											<span class="method-definition">{$ivars[ivars].ivars[ivars2].link}</span>
+										</dt>
+										<dd>
+											<span class="method-definition">{$ivars[ivars].ivars[ivars2].ivars_sdesc}</span>
+										</dd>
+									{/section}
+								</dl>
+							</blockquote>
+						{/section}
+					</td>
+					<td width="40%">
+						{section name=imethods loop=$imethods}
+							<p>Heredado de <span class="classname">{$imethods[imethods].parent_class}</span></p>
+							<blockquote>
+								<dl>
+									{section name=im2 loop=$imethods[imethods].imethods}
+										<dt>
+											<span class="method-definition">{$imethods[imethods].imethods[im2].link}</span>
+										</dt>
+										<dd>
+											<span class="method-definition">{$imethods[imethods].imethods[im2].sdesc}</span>
+										</dd>
+									{/section}
+								</dl>
+							</blockquote>
+						{/section}
+					</td>
+				</tr>
+			</table>
+			<br />
+		</div>
+	</div>
+{/if}
 
 {if $methods}
 	<a name="sec-method-summary"></a>
@@ -118,103 +187,7 @@
 	</div>
 {/if}
 
-{if $children}
-	<a name="sec-descendents"></a>
-	<div class="info-box">
-		<div class="info-box-title">Subclases directas</div>
-		<div class="info-box-body">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header">Clase Hija</th>
-					<th class="class-table-header">Descripción</th>
-				</tr>
-				{section name=kids loop=$children}
-				<tr>
-					<td style="padding-right: 2em">{$children[kids].link}</td>
-					<td>
-					{if $children[kids].sdesc}
-						{$children[kids].sdesc}
-					{else}
-						{$children[kids].desc}
-					{/if}
-					</td>
-				</tr>
-				{/section}
-			</table>
-			<br />
-		</div>
-	</div>
-{/if}
 
-{if $ivars || $imethods || $iconsts}
-	<a name="sec-inherited"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades, Constantes y Métodos Heredados</div>
-		<div class="info-box-body">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header" width="30%">Propiedades Heredadas</th>
-					<th class="class-table-header" width="40%">Métodos Heredados</th>
-					<th class="class-table-header" width="30%">Constantes Heredadas</th>
-				</tr>
-				<tr>
-					<td width="30%">
-						{section name=ivars loop=$ivars}
-							<p>Heredado de <span class="classname">{$ivars[ivars].parent_class}</span></p>
-							<blockquote>
-								<dl>
-									{section name=ivars2 loop=$ivars[ivars].ivars}
-										<dt>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].ivars_sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-					<td width="40%">
-						{section name=imethods loop=$imethods}
-							<p>Heredado de <span class="classname">{$imethods[imethods].parent_class}</span></p>
-							<blockquote>
-								<dl>
-									{section name=im2 loop=$imethods[imethods].imethods}
-										<dt>
-											<span class="method-definition">{$imethods[imethods].imethods[im2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$imethods[imethods].imethods[im2].sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-					<td width="30%">
-						{section name=iconsts loop=$iconsts}
-							<p>Heredado de <span class="classname">{$iconsts[iconsts].parent_class}</span></p>
-							<blockquote>
-								<dl>
-									{section name=iconsts2 loop=$iconsts[iconsts].iconsts}
-										<dt>
-											<span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$iconsts[iconsts].iconsts[iconsts2].iconsts_sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-				</tr>
-			</table>
-			<br />
-		</div>
-	</div>
-{/if}
 
 {if $consts}
 	<a name="sec-const-summary"></a>

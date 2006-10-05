@@ -18,7 +18,7 @@ use JSDoc;
 use JSDoc::XML;
 use JSDoc::XMI;
 use JavaScript::Syntax::HTML qw(to_html);
-
+use Data::Dumper;
 
 use constant LOCATION           => dirname($0) . '/';
 use constant MAIN_TMPL          => "main.tmpl";
@@ -215,11 +215,11 @@ sub output_class_templates {
                 unless (!$OPTIONS{PRIVATE} 
                     && $$CLASSES{$superclass}->{constructor_vars}->{private});
         }
-
         my $file_overview = $class->{constructor_vars}->{filename} ?
                 sprintf('overview-summary-%s.html', 
                     mangle($class->{constructor_vars}->{filename}))
                 : '';
+		my @partes_phpdoc = split(/ /, join('', $class->{constructor_vars}->{phpdoc}[0]));                
         &output_template(MAIN_TMPL, "$classname.html", {
             next_class          => $next_class,
             prev_class          => $prev_class,
@@ -245,7 +245,11 @@ sub output_class_templates {
             project_name        => $OPTIONS{PROJECT_NAME},
             page_footer         => $OPTIONS{PAGE_FOOTER},
             ctime               => $TIME,
-			classnames 			=> [ grep { defined($$CLASSES{$_->{classname}}) } @CLASSNAMES ]
+			classnames 			=> [ grep { defined($$CLASSES{$_->{classname}}) } @CLASSNAMES ],
+			phpdoc_link			=> $partes_phpdoc[0],
+			phpdoc_texto		=> $partes_phpdoc[1],
+			wiki				=> trim($class->{constructor_vars}->{wiki}[0]),
+			filename			=> $class->{constructor_vars}->{filename}
         }, 1);
     }
 }
@@ -1180,23 +1184,17 @@ sub initialize_param_maps {
                 '<B>Version: </B>' .
                     join(', ', @{$_[0]}) . '<BR/><BR/>' 
             },
-        phpdoc =>
-            sub {
-            	my @partes = split(/ /, join('', @{$_[0]}));
-                '<br><b>Clase PHP equivalente: </B><a href="../api/' .
-                    $partes[0] . '.html">'.$partes[1].'</a><BR/><BR/>' 
-            },            
         requires =>
             sub {
                 '<B>Requires:</B><UL>- ' .
                 join('<BR/>- ', map {&format_link($_)} @{$_[0]}) . "</UL>"
             },
-        filename =>
-            sub {
-                sprintf '<br><I>Defined in %s</I><BR/><BR/>', 
-                    sprintf("<a href='overview-summary-%s.html'>%s</a>", 
-                        mangle($_[0]), $_[0]);
-            },
+        #filename =>
+         #   sub {
+#                sprintf '<br><I>Defined in %s</I><BR/><BR/>', 
+ #                   sprintf("<a href='overview-summary-%s.html'>%s</a>", 
+ #                       mangle($_[0]), $_[0]);
+  #          },
         overviewfile => 
             sub {
                 my ($content, $fh) = "";

@@ -11,26 +11,30 @@
 <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
   <tr>
 	<td class="header-top-left"><img src="{$subdir}media/logo.png" border="0" alt="phpDocumentor {$phpdocver}" /></td>
-    <td class="header-top-right">{$maintitle}<br />
-  	<div class="package">
+  	<td class="header-top-center"><br>
+  		<div class="package">
       {section name=packagelist loop=$packageindex}
         	<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
         	{if ! $smarty.section.packagelist.last}
         		|
         	{/if}
       {/section}
-     </div>
-    	<div class="header-top-right-subpackage">{$subpackage}</div></td>
+      </div>
+   	</td>	
+    <td class="header-top-right">
+     <img height=64 border='0' style='vertical-align: middle' src="{$subdir}media/php.png" />
+    	</td>
   </tr>
-  <tr><td colspan="2" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr><td colspan="3" class="header-line">
+  <img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
-    <td colspan="2" class="header-menu">
+    <td colspan="3" class="header-menu">
   		  [ <a href="{$subdir}classtrees_{$package}.html" class="menu">árbol de herencia: {$package}</a> ]
 		  [ <a href="{$subdir}elementindex_{$package}.html" class="menu">índice: {$package}</a> ]
 		  [ <a href="{$subdir}elementindex.html" class="menu">índice general</a> ]
     </td>
   </tr>
-  <tr><td colspan="2" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr><td colspan="3" class="header-line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
 </table>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -100,5 +104,5 @@
 {if !$hasel}{assign var="hasel" value=false}{/if}
 {if $eltype == 'clase' && $is_interface}{assign var="eltype" value="interface"}{/if}
 {if $hasel}
-<h1>{$eltype|capitalize}: {$class_name}</h1>
+<h1>{$class_name}</h1>
 {/if}

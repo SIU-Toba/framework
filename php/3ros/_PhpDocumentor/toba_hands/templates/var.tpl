@@ -86,8 +86,6 @@
 		{/section}
 		</ul>
 	{/if}
-	<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 {/if}
 {/section}

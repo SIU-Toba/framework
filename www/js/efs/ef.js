@@ -15,6 +15,7 @@ var apex_ef_total = 's';
  * @class Clase base de los elementos de formulario. 
  * @constructor
  * @phpdoc Componentes/Efs/toba_ef toba_ef
+ * @wiki Referencia/efs
  */
 function ef(id_form, etiqueta, obligatorio, colapsable) {
 
