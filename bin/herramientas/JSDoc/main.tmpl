@@ -5,81 +5,91 @@
 <TITLE>
 <TMPL_VAR name="classname">
 </TITLE>
-<LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 </HEAD>
-<SCRIPT>
-function asd()
-{
-parent.document.title="<TMPL_VAR name="classname">";
-}
-</SCRIPT>
-<BODY BGCOLOR="white" onload="asd();">
+<BODY BGCOLOR="white">
 
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <TMPL_IF NAME="file_overview"> <A HREF="<TMPL_VAR NAME="file_overview">"></TMPL_IF><FONT CLASS="NavBarFont1"><TMPL_IF NAME="file_overview"><B></TMPL_IF>File<TMPL_IF NAME="file_overview"></B></TMPL_IF></FONT><TMPL_IF NAME="file_overview"></A></TMPL_IF>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"--><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B><TMPL_VAR NAME="project_name"></B>
-</EM>
-</TD
-</TR>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
 
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<!-- =========== END OF NAVBAR =========== -->
-<HR>
+	<td class="header-top-left"><img src="../api/media/logo.png" border="0"/></td>
+    <td class="header-top-right">API JS de SIU-Toba<br />
+  </tr>
 
-<!-- ======== START OF CLASS DATA ======== -->
-<H2>Class <TMPL_VAR NAME="classname"></H2>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="overview-tree.html" class="menu">árbol de herencia</a> ]
+		  [ <a href="index-all.html" class="menu">índice general</a> ]
+    </td>
+
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Clases</div>
+
+      <br />
+      <div class="package">
+	<TMPL_LOOP name="classnames">
+		<span style="padding-left: 1em;">		
+		<a href="<TMPL_VAR name="classname">.html"><TMPL_VAR name="classname"></a>    
+		</span>
+	 	<br />
+	</TMPL_LOOP>	 	
+	  </div>
+                        
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1><TMPL_VAR NAME="classname"></h1>
+
+<h2 class="class-name">Clase <TMPL_VAR NAME="classname"></h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-method-summary">Métodos</a>
+			|			
+									<a href="#sec-inherited">Propiedades, Constantes y Métodos Heredados</a>
+			|							<a href="#sec-vars">Propiedades</a>
+							
+			</div>
+
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+	   <TMPL_IF NAME="class_summary">
+      		<p align="center" class="short-description"><strong>
+   			<TMPL_VAR name="class_summary">
+			</strong></p>	
+   	</TMPL_IF>			
+
+
+		<p class="notes">
+			Ubicada en /toba_ef_multi_seleccion.php [<span class="field">line 401</span>]
+		</p>
+
 <PRE><TMPL_VAR name="class_tree"></PRE>
 <TMPL_IF NAME="subclasses">
    <DL>
    <DT>
-      <B>Direct Known Subclasses:</B> 
+      <B>Subclases directas:</B> 
       <DD>
                <TMPL_VAR NAME="subclasses">
       </DD>
    </DL>
-</TMPL_IF>
+</TMPL_IF>		
 
-<HR>
-<DL>
-   <!-- Class definition -->
-   <DT><TMPL_IF NAME="class_attribs"><TMPL_VAR NAME="class_attribs">&nbsp;</TMPL_IF>class 
-   <B><TMPL_VAR NAME="classname"></B>
-   <TMPL_IF NAME="superclass">
-      <DT>extends <TMPL_VAR NAME="superclass"> 
-   </TMPL_IF>
-
-</DL>
-   <TMPL_IF NAME="class_summary">
-   <P>
-   <TMPL_VAR name="class_summary">
-   </P>
-   </TMPL_IF>
-   <HR>
-
-<!-- ======== NESTED CLASS SUMMARY ======== -->
 <TMPL_IF NAME="inner_classes">
 <A NAME="inner_classes"><!-- --></A>
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
@@ -96,8 +106,16 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TMPL_LOOP>
 </TABLE>
 &nbsp;
-</TMPL_IF>
-<!-- ======== END NESTED CLASS SUMMARY ======== -->
+</TMPL_IF>      
+      
+		<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td colspan="2"><a href='../../../api_js/ef_multi_seleccion_doble.html'><strong>Clase Javascript equivalente: ef_multi_seleccion_doble</strong></a></td></tr>
+		</table>
+<br>
+		</td>
+		</tr></table>
+	</div>
+</div>
 
 
 <!-- =========== FIELD SUMMARY =========== -->
@@ -140,68 +158,52 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 &nbsp;
 </TMPL_IF>
 </TMPL_LOOP>
-
 <!-- =========== END FIELD SUMMARY =========== -->
-
 
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <TMPL_IF NAME="constructor_args">
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD>
-      <CODE>
-	 <B>
-	    <A HREF="<TMPL_VAR name="classname">.html#<TMPL_VAR name="classname">()"><TMPL_VAR name="classname"></A> 
-	 </B>
-	 <TMPL_VAR name="constructor_args">
-      </CODE>
-      <BR>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <TMPL_VAR name="constructor_summary">
-      </TD>
-</TR>
-</TABLE>
+<div class="info-box">
+<div class="info-box-title">Constructor</div>
+		<div class="info-box-body">
+			<div class="method-summary">
+					<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+					<td colspan="2" class="method-definition"><a href="<TMPL_VAR name="classname">.html#<TMPL_VAR name="classname">()" title="detalles" class="method-name"><TMPL_VAR name="classname"></a>
+						<TMPL_VAR name="constructor_args"></td>
+					<td class="method-definition"> <TMPL_VAR name="constructor_summary"></td>					
+					</tr></table>
+						
+			</div>
+		</div>
+</div>
 </TMPL_IF>
 <!-- ======== END CONSTRUCTOR SUMMARY ======== -->
 
-&nbsp;
 
 <!-- ========== METHOD SUMMARY =========== -->
 <TMPL_IF NAME="methods">
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TD>
-</TR>
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+			<TMPL_LOOP name="methods">
+					<tr><td class="method-definition"><TMPL_IF NAME="is_class_method">&lt;static&gt;</TMPL_IF>
+													 <TMPL_IF NAME="is_private">lt;private&gt; </TMPL_IF>
+											<span class="method-result"><TMPL_VAR NAME="type"></span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><TMPL_VAR name="method_name"></A><TMPL_VAR name="method_arguments">
+					</td>
 
-<TMPL_LOOP name="methods">
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE><TMPL_IF NAME="is_class_method">&lt;static&gt;</TMPL_IF><TMPL_IF NAME="is_private">&nbsp;&lt;private&gt; </TMPL_IF>&nbsp;<TMPL_VAR NAME="type"></CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><TMPL_VAR name="method_name"></A></B><TMPL_VAR name="method_arguments">
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 <TMPL_VAR name="method_summary">
-      </TD>
-   </TR>
-</TMPL_LOOP>
-
-</TABLE>
+					<td class="method-definition"> <TMPL_VAR name="method_summary"></td></tr>
+			</TMPL_LOOP>
+			</table>
+			</div>			
+		</div>
+	</div>
 </TMPL_IF>
-
+<!-- ========== END METHOD SUMMARY =========== -->
 <TMPL_LOOP name="method_inheritance">
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
@@ -217,40 +219,9 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TABLE>
 &nbsp;
 </TMPL_LOOP>
-<P>
-<!-- ========== END METHOD SUMMARY =========== -->
 
 
-<!-- ============ FIELD DETAIL START =========== -->
-<TMPL_IF NAME="fields">
-   <A NAME="field_detail"><!-- --></A>
-   <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-      <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-         <TD COLSPAN=1><FONT SIZE="+2"><B>Field Detail</B></FONT></TD>
-      </TR>
-   </TABLE>
-
-   <TMPL_LOOP NAME="fields">
-   <A NAME="<TMPL_IF NAME="is_class_field">!s!</TMPL_IF><TMPL_VAR NAME="field_name">"><!-- --></A>
-   <H3><TMPL_VAR NAME="field_name"></H3>
-   <PRE><TMPL_IF NAME="is_private">&lt;private&gt;&nbsp;</TMPL_IF><TMPL_IF NAME="is_class_field">&lt;static&gt;&nbsp;</TMPL_IF><TMPL_IF NAME="is_final">&lt;final&gt;&nbsp;</TMPL_IF><TMPL_VAR NAME="type">&nbsp;<B><TMPL_VAR NAME="field_name"></B></PRE>
-   <UL>
-   <TMPL_VAR NAME="field_description">
-   <TMPL_IF NAME="const_link">
-    <P>
-    <DL>
-    <DT><B>See Also:</B><DD><A HREF="constant-values.html#java.awt.AWTEvent.COMPONENT_EVENT_MASK">Constant Field Values</A></DL>
-    </DL>
-
-   </TMPL_IF>
-   </UL>
-   <HR>
-   </TMPL_LOOP>
-</TMPL_IF>
-
-<!-- ============ FIELD DETAIL END =========== -->
-
-    <!-- ========= CONSTRUCTOR DETAIL START ======== -->
+ <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 <TMPL_IF NAME="constructor_args">
 <A NAME="constructor_detail"><!-- --></A>
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
@@ -260,7 +231,6 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
       </TD>
    </TR>
 </TABLE>
-
 <A NAME="<TMPL_VAR name="classname">()"><!-- --></A><H3>
 <TMPL_VAR name="classname"></H3>
 <PRE><B><TMPL_VAR name="classname"></B><TMPL_VAR name="constructor_args"></PRE>
@@ -293,136 +263,96 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 </TMPL_IF>
 <!-- End constructor return value(s) -->
 
-<!-- ADDITIONAL ATTRIBUTES -->
-<TMPL_IF name="constructor_attrs">
-<UL>   
-<TMPL_VAR name="constructor_attrs">
-</UL>
-</TMPL_IF>
-<HR/>
-<!-- END ADDITIONAL ATTRIBUTES  -->
-
-<!-- ========= CONSTRUCTOR DETAIL END ======== -->
-
-
-<!-- ============ METHOD DETAIL START ========== -->
 <TMPL_IF NAME="methods">
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1><FONT SIZE="+2">
-         <B>Method Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
-
-<!-- One single method detail entry -->
-<TMPL_LOOP name="methods">
-   <A NAME="<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><!-- --></A>
-   <H3><TMPL_VAR name="method_name"></H3>
-   <PRE><TMPL_IF NAME="is_class_method">&lt;static&gt; </TMPL_IF><TMPL_IF NAME="is_private">&nbsp;&lt;private&gt; </TMPL_IF><TMPL_VAR NAME="type"> <B><TMPL_VAR name="method_name"></B><TMPL_VAR name="method_arguments"></PRE>
-   <TMPL_IF name="method_description">
-      <UL><TMPL_VAR name="method_description"></UL>
-   </TMPL_IF>
-
-   <!-- METHOD PARAMETERS START -->
-   <TMPL_IF name="method_params">
-   <UL>
-   <B>Parameters:</B>
-   <TMPL_LOOP name="method_params">
-     <UL><CODE><TMPL_VAR name="varname"></CODE> - <TMPL_VAR name="vardescrip">
-      </UL> 
-   </TMPL_LOOP>
-   </UL>
-   </TMPL_IF>
-   <!-- METHOD PARAMETERS END -->
-
-   <TMPL_IF name="method_returns">
-   <UL>
-   <B>Returns:</B>
-        <UL>
-        <TMPL_VAR name="method_returns"> 
-        </UL>
-   </UL>
-   </TMPL_IF>
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   <TMPL_IF name="attributes">
-   <UL>   
-   <TMPL_VAR name="attributes">
-   </UL>
-   </TMPL_IF>
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-</TMPL_LOOP>
+<a name="sec-methods"></a>
+<div class="info-box">
+	<div class="info-box-body">
+		<a name='method_detail'></a>
+		
+		
+		<TMPL_LOOP name="methods">
+   		<A id="<TMPL_VAR name="method_name">" NAME="<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><!-- --></A>	
+	   		 <TMPL_IF NAME="__odd__">
+				<div class="oddrow">
+				<TMPL_ELSE>
+				<div class="evenrow">
+			 </TMPL_IF>
+		 
+			<div class="method-header">
+				<span class="method-title"><TMPL_VAR name="method_name"></span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code><TMPL_IF NAME="is_class_method">&lt;static&gt; </TMPL_IF><TMPL_IF NAME="is_private">&nbsp;&lt;private&gt; </TMPL_IF><TMPL_VAR NAME="type"> <B><TMPL_VAR name="method_name"></B><TMPL_VAR name="method_arguments"></code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			<TMPL_IF name="method_description">
+				<p class="description">
+	  				<UL><TMPL_VAR name="method_description"></UL>
+				</p>
+			</TMPL_IF>			
+			
+		   <!-- METHOD PARAMETERS START -->
+		   <TMPL_IF name="method_params">
+			<strong>Parámetros:</strong><br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				<TMPL_LOOP name="method_params">
+				<tr>
+					<td class="indent">
+						<span class="var-name"><TMPL_VAR name="varname"></span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"><TMPL_VAR name="vardescrip"></span>
+					</td>
+				</tr>
+				</TMPL_LOOP>
+			</table>		   
+		   </TMPL_IF>
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			<TMPL_IF name="method_returns">
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent"><TMPL_VAR name="method_returns"></td>
+			  </tr>
+			</table>
+   			</TMPL_IF>			
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   <TMPL_IF name="attributes">
+		   <UL>   
+			   <TMPL_VAR name="attributes">
+		   </UL>
+		   </TMPL_IF>
+		   
+		</div>
+		</TMPL_LOOP>
+	</div>
+</div>
 </TMPL_IF>
 
-<!-- ============ METHOD DETAIL END ========== -->
+<br />
+<div class="credit">
+	<hr class="separator" />
+	
+	Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />        
+	
+	Documentación generada por <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
+</div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
 
-<!-- ========= END OF CLASS DATA ========= -->
-
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <TMPL_IF NAME="file_overview"> <A HREF="<TMPL_VAR NAME="file_overview">"></TMPL_IF><FONT CLASS="NavBarFont1"><TMPL_IF NAME="file_overview"><B></TMPL_IF>File<TMPL_IF NAME="file_overview"></B></TMPL_IF></FONT><TMPL_IF NAME="file_overview"></A></TMPL_IF>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B><TMPL_VAR NAME="project_name"></B>
-</EM>
-</TD
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<TMPL_IF NAME="prev_class"><A HREF="<TMPL_VAR NAME="prev_class">.html"></TMPL_IF><B>PREV CLASS</B><TMPL_IF NAME="prev_class"></A></TMPL_IF><!-- 
-   NEXT CLASS 
--->
-&nbsp;<TMPL_IF NAME="next_class"><A HREF="<TMPL_VAR NAME="next_class">.html"></TMPL_IF><B>NEXT CLASS</B><TMPL_IF NAME="next_class"></A></TMPL_IF></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="<TMPL_VAR NAME="classname">.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;
-<SCRIPT>
-  <!--
-  if(window==top) {
-    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
-  }
-  //-->
-</SCRIPT>
-<NOSCRIPT>
-<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>
-</NOSCRIPT>
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-
-<!-- =========== END OF NAVBAR =========== -->
-
-<HR>
-<FONT SIZE="-1">
-<TMPL_VAR NAME="page_footer">
-</FONT>
-<div class="jsdoc_ctime">
-Desarrollado por <a href="http://www.siu.edu.ar/">SIU</a><br>
-Documentación generada por <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a></div>
 </BODY>
 </HTML>

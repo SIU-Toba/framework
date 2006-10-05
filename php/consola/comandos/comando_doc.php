@@ -26,6 +26,18 @@ class comando_doc extends comando_toba
 					-*WikiMacros* -*RecentChanges*';
 		system($comando);
 
+		//-- Busca el archivo css del wik y modifica algunos estilos
+		$cambios = "
+			#altlinks, #search, #header, #metanav, #ctxtnav, #mainnav {
+				display: none;
+			}
+			#footer {
+				display: none;
+			}
+		";
+		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
+		file_put_contents($archivo_css, $cambios, FILE_APPEND);
+		
 		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");
 	}
 	
@@ -47,12 +59,12 @@ class comando_doc extends comando_toba
 		
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "API de SIU-Toba";
-		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/interface/efs';
+		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
+		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/interface/efs';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
 		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
-		$_phpDocumentor_setting['customtags'] = 'jsdoc';
+		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki';
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");

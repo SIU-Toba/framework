@@ -13,7 +13,7 @@
 			{if $vars || $ivars || $children || $consts || $iconsts}|{/if}			
 		{/if}
 		{if $children}
-			<a href="#sec-descendents">Descendientes</a>
+			<a href="#sec-descendents">Subclases</a>
 			{if $vars || $ivars || $consts || $iconsts}|{/if}
 		{/if}
 		{if $ivars || $imethods}
@@ -121,7 +121,7 @@
 {if $children}
 	<a name="sec-descendents"></a>
 	<div class="info-box">
-		<div class="info-box-title">Descendientes directos</div>
+		<div class="info-box-title">Subclases directas</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>

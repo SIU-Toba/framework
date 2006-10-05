@@ -101,6 +101,7 @@ sub output_template {
     if (!$TMPL_CACHE{$tmplname}){
         $TMPL_CACHE{$tmplname} = new HTML::Template( 
             die_on_bad_params    => 0, 
+            loop_context_vars	 => 1,
             filename             => $tmplname);
     }
     my $tmpl = $TMPL_CACHE{$tmplname};
@@ -151,11 +152,14 @@ sub output_xml {
 # Gather information for each class and output its template
 #
 sub output_class_templates {
-    
+
     # Note the class name for later, including classes that aren't defined
     # but are used for inheritance
     my %seen;
     @CLASSNAMES =  sort { lc $a->{classname} cmp lc $b->{classname}} 
+
+    
+        
     grep { !$seen{$_->{classname}}++ }
         (map {classname => $_} ,
         grep { not defined $CLASSES->{$_}->{constructor_vars}->{private} 
@@ -216,7 +220,6 @@ sub output_class_templates {
                 sprintf('overview-summary-%s.html', 
                     mangle($class->{constructor_vars}->{filename}))
                 : '';
-        
         &output_template(MAIN_TMPL, "$classname.html", {
             next_class          => $next_class,
             prev_class          => $prev_class,
@@ -241,7 +244,8 @@ sub output_class_templates {
             inner_classes       => $class->{inner_classes},
             project_name        => $OPTIONS{PROJECT_NAME},
             page_footer         => $OPTIONS{PAGE_FOOTER},
-            ctime               => $TIME
+            ctime               => $TIME,
+			classnames 			=> [ grep { defined($$CLASSES{$_->{classname}}) } @CLASSNAMES ]
         }, 1);
     }
 }
@@ -1179,7 +1183,7 @@ sub initialize_param_maps {
         phpdoc =>
             sub {
             	my @partes = split(/ /, join('', @{$_[0]}));
-                '<B>Clase PHP equivalente: </B><a href="../api/' .
+                '<br><b>Clase PHP equivalente: </B><a href="../api/' .
                     $partes[0] . '.html">'.$partes[1].'</a><BR/><BR/>' 
             },            
         requires =>

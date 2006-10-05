@@ -69,7 +69,7 @@
 
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
-		<div class="notes">Redefinido en descendientes como:</div>
+		<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}
 			<li>
@@ -156,7 +156,7 @@
 
 	{if $methods[methods].descmethod}
 		<hr class="separator" />
-		<div class="notes">Redefinido en descendientes como:</div>
+		<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 		{section name=dm loop=$methods[methods].descmethod}
 			<li>
