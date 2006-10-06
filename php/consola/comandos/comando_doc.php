@@ -20,12 +20,14 @@ class comando_doc extends comando_toba
 	function opcion__wiki()
 	{
 		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';		
+		
+		//--- Se borra lo viejo (para que se de cuenta svn)
 		$lista = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
 
-				
+		//--- Se baja de la web		
 		$comando = 'httrack "https://localhost/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
@@ -40,11 +42,54 @@ class comando_doc extends comando_toba
 			#footer {
 				display: none;
 			}
+			td.header-menu{ background-color: #8B0408; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
+				border: 1px solid #333366; color: white;
+			}
+			td.header-top-left{font-size: 16pt; font-weight: bold; padding: 10px; text-align: left; }
+			td.header-top-center{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right;
+				padding-top: 40px;
+			 }
+			td.header-top-right{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right; }
+			
+			.menu { color:white;}
+			body { margin: 0; padding: 0; }
+			.wiki { padding-left: 10px; }			
 		";
 		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
 		file_put_contents($archivo_css, $cambios, FILE_APPEND);
 		
-		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
+		//--- Busca los html y les agrega la 'barra' de navegacion
+		$html = "
+			<body>
+			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
+			  <tr>
+			
+				<td class='header-top-left'><img src='../../../../api/media/logo.png' border='0'/></td>
+			    <td class='header-top-right'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/wiki.png' />
+			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentación PHP'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/php-small.png' /></a> 
+			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentación PHP'>    		
+			    	<img border='0' style='vertical-align: middle' src='../../../../api/media/javascript-small.png' /></a>
+			  </tr>
+			
+			  <tr>
+			    <td colspan='2' class='header-menu'>
+			  		  [ <a href='' class='menu'>Ver online</a> ]
+			    </td>
+			
+			  </tr>
+			  <tr><td colspan='2' class='header-line'><img src='../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			</table>
+		";
+		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$cant = count($archivos);
+		$this->consola->mensaje("Convirtiendo $cant archivos");		
+		foreach ($archivos as $archivo) {
+			$contenido = file_get_contents($archivo);
+			str_replace('<body>', $html, $contenido);
+			file_put_contents($archivo, $contenido);
+		}
 	}
 	
 	/**
@@ -64,7 +109,7 @@ class comando_doc extends comando_toba
 		ini_set("include_path", ini_get("include_path"). $separador . $dir);
 		
 		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['title'] = "API de SIU-Toba";
+		$_phpDocumentor_setting['title'] = "API PHP";
 		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
 		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/interface/efs';
 		$_phpDocumentor_setting['target'] = $dest;
@@ -75,6 +120,17 @@ class comando_doc extends comando_toba
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
 		
+	
+		$redirect = '
+			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN""http://www.w3.org/TR/REC-html40/loose.dtd">
+			<HTML>
+			<HEAD>
+			<META HTTP-EQUIV="refresh" CONTENT="0;Centrales/toba.html">
+			</HEAD>
+			<BODY>
+			</BODY>		
+		';
+		file_put_contents($dest.'/index.html', $redirect);
 		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
 	}
 

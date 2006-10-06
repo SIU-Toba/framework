@@ -158,7 +158,7 @@
 				{section name=methods loop=$methods}
 				{if $methods[methods].static}
 				<div class="method-definition">
-					<tr><td class="method-definition">static
+					<tr><td class="method-definition" nowrap>static
 					{if $methods[methods].function_return}
 						<span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;
 					{/if}</td>
@@ -171,7 +171,7 @@
 				{if !$methods[methods].static}
 				<div class="method-definition">
 					{if $methods[methods].function_return}
-						<tr><td class="method-definition"><span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;</td>
+						<tr><td nowrap class="method-definition"><span class="method-result">{$methods[methods].function_return}</span>&nbsp;&nbsp;</td>
 					{/if}
 					<td class="method-definition"><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">{$methods[methods].sdesc}</td></tr>
