@@ -1,31 +1,29 @@
 {include file="header.tpl" eltype="clase" hasel=true contents=$classcontents}
 
-<h2 class="class-name">{if $is_interface}Interface{/if} {$class_name}</h2>
-
 <a name="sec-description"></a>
 <div class="info-box">
 	<div class="nav-bar">
-		{if $children || $vars || $ivars || $methods || $imethods || $consts || $iconsts}
+		{if $children || $vars || $methods || $imethods || $consts || $iconsts}
 			<span class="disabled">Resúmen de la {if $is_interface}Interface{else}Clase{/if}</span> |
 		{/if}
 
 		{if $children}
 			<a href="#sec-descendents">Subclases</a>
-			{if $vars || $ivars || $consts || $iconsts}|{/if}
+			{if $vars || $consts}|{/if}
 		{/if}
 		{if $ivars || $imethods}
 			<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
-			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
+			{if $vars  || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
 		{if $methods || $imethods}
 			<a href="#sec-method-summary">Métodos</a>
-			{if $vars || $ivars || $children || $consts || $iconsts}|{/if}			
+			{if $vars || $children || $consts || $iconsts}|{/if}			
 		{/if}		
-		{if $vars || $ivars}
+		{if $vars}
 			<a href="#sec-vars">Propiedades</a>
 			{if $consts || $iconsts}|{/if}
 		{/if}		
-		{if $consts || $iconsts}
+		{if $consts}
 			<a href="#sec-consts">Constantes</a>
 		{/if}
 	</div>
@@ -98,15 +96,15 @@
 
 
 
-{if $ivars || $imethods || $iconsts}
+{if $ivars || $imethods}
 	<a name="sec-inherited"></a>
 	<div class="info-box">
 		<div class="info-box-title">Propiedades y Métodos Heredados</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
-					<th class="class-table-header" width="30%">Propiedades Heredadas</th>
-					<th class="class-table-header" width="40%">Métodos Heredados</th>
+					<th class="class-table-header" width="30%">Propiedades</th>
+					<th class="class-table-header" width="40%">Métodos</th>
 				</tr>
 				<tr>
 					<td width="30%">
@@ -221,9 +219,7 @@
 		</div>
 	</div>
 {/if}
-
-
-{if $vars || $ivars}
+{if $vars}
 	<a name="sec-vars"></a>
 	<div class="info-box">
 		<div class="info-box-title">Propiedades</div>
@@ -234,7 +230,7 @@
 {/if}
 
 
-{if $consts || $consts}
+{if $consts}
 	<a name="sec-consts"></a>
 	<div class="info-box">
 		<div class="info-box-title">Constantes</div>

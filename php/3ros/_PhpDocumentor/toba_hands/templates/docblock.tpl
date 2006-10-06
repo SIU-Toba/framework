@@ -1,5 +1,3 @@
-{if $sdesc != ''}
-<p align="center" class="short-description"><strong>{$sdesc|default:''}
-</strong></p>
+{if $sdesc != '' ||  $desc != ''}
+<div class="description">{$sdesc|default:''} {$desc|default:''}</div>
 {/if}
-{if $desc != ''}<div class="description">{$desc|default:''}</div>{/if}

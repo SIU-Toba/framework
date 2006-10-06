@@ -5,742 +5,1040 @@
 <TITLE>
 toba
 </TITLE>
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
-<SCRIPT>
-function asd()
-{
-parent.document.title="toba";
-}
-</SCRIPT>
-<BODY BGCOLOR="white" onload="asd();">
+<BODY BGCOLOR="white">
 
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-toba.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"--><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
 
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<!-- =========== END OF NAVBAR =========== -->
-<HR>
+	<td class="header-top-left"><img src="../api/media/logo.png" border="0"/></td>
+    <td class="header-top-right">
+    	<a href='../wiki/trac/toba/wiki/WikiStart.html' title="Navegar hacia la documentación WIKI">
+    		<img border='0' style='vertical-align: middle' src="../api/media/wiki-small.png" /></a>    
+    	<a href='../api/index.html'  title="Navegar hacia la documentación PHP">
+    		<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" /></a> 
+    	<img height=64 border='0' style='vertical-align: middle' src="../api/media/javascript.png" />    		
+  </tr>
 
-<!-- ======== START OF CLASS DATA ======== -->
-<H2>Class toba</H2>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="overview-tree.html" class="menu">árbol de herencia</a> ]
+		  [ <a href="index-all.html" class="menu">índice general</a> ]
+    </td>
+
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Clases</div>
+
+      <br />
+      <div class="package">
+	
+		<span style="padding-left: 1em;">		
+		<a href="ci.html">ci</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="cronometro.html">cronometro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef.html">ef</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_checkbox.html">ef_checkbox</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_combo.html">ef_combo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_cuit.html">ef_cuit</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable.html">ef_editable</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_clave.html">ef_editable_clave</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_fecha.html">ef_editable_fecha</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_moneda.html">ef_editable_moneda</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_numero.html">ef_editable_numero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_porcentaje.html">ef_editable_porcentaje</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_fijo.html">ef_fijo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_check.html">ef_multi_seleccion_check</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_doble.html">ef_multi_seleccion_doble</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_lista.html">ef_multi_seleccion_lista</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_popup.html">ef_popup</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_radio.html">ef_radio</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_textarea.html">ef_textarea</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_upload.html">ef_upload</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei.html">ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_arbol.html">ei_arbol</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_archivos.html">ei_archivos</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_calendario.html">ei_calendario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_cuadro.html">ei_cuadro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario.html">ei_formulario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario_ml.html">ei_formulario_ml</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="evento_ei.html">evento_ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="financiero.html">financiero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="GLOBALES.html">GLOBALES</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="simpleMenu.html">simpleMenu</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="String.html">String</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="toba.html">toba</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+		 	
+	  </div>
+                        
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>toba</h1>
+
+<br />
+<a name="sec-description"></a>
+<div class="info-box">
+
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-inherited">Métodos Heredados</a> |			
+							<a href="#sec-method-summary">Métodos</a> 			|			
+									<a href="#sec-vars">Propiedades</a>
+							
+			</div>
+
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+	   
+      		<div class="description">
+   			<BR/>Clase estática con servicios globales al framework, usar sin instanciar por ej. <em>toba.componentes();</em>
+ <BR/>
+			</div>	
+   				
+
+
 <PRE>Object
    |
    +--<b>toba</b>
 </PRE>
 
-
-<HR>
-<DL>
-   <!-- Class definition -->
-   <DT>class 
-   <B>toba</B>
-   
-
-</DL>
-   
-   <P>
-   <BR/>Clase estática con servicios globales al framework, usar sin instanciar por ej. <em>toba.componentes();</em>
- <BR/><br><I>Defined in <a href='overview-summary-toba.js.html'>toba.js</a></I><BR/><BR/>
-   </P>
-   
-   <HR>
-
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-
-<!-- ======== END NESTED CLASS SUMMARY ======== -->
+		<p class="notes">
+			Ubicada en toba.js
+		</p>
 
 
-<!-- =========== FIELD SUMMARY =========== -->
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		
+	
+	</table>
+		</td>
+		</tr></table>
+	</div>
+</div>
+
+	
+
+<a name="sec-inherited"></a>
 
 
-   
-
-<!-- =========== END FIELD SUMMARY =========== -->
-
-
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD>
-      <CODE>
-	 <B>
-	    <A HREF="toba.html#toba()">toba</A> 
-	 </B>
-	 ()
-      </CODE>
-      <BR>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      
-      </TD>
-</TR>
-</TABLE>
-
-<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
-
-&nbsp;
 
 <!-- ========== METHOD SUMMARY =========== -->
 
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TD>
-</TR>
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">Array</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!analizar_respuesta_servicio">analizar_respuesta_servicio</A>(respuesta)
+					</td>
 
+					<td class="method-definition"> Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">string</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!componentes">componentes</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;Array</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!analizar_respuesta_servicio">analizar_respuesta_servicio</A></B>(respuesta)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba-->
-      </TD>
-   </TR>
+					<td class="method-definition"> Retorna los ids de los componentes instanciados en esta página</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!comunicar_eventos">comunicar_eventos</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;string</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!componentes">componentes</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna los ids de los componentes instanciados en esta página
-      </TD>
-   </TR>
+					<td class="method-definition"> Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
+ o a través de httprequest (AJAX)</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!comunicar_vinculo">comunicar_vinculo</A>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!comunicar_eventos">comunicar_eventos</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
- o a través de httprequest (AJAX)
-      </TD>
-   </TR>
+					<td class="method-definition"> Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
+ debido a que la respuesta no es sincronica</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!error_comunicacion">error_comunicacion</A>(error)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!comunicar_vinculo">comunicar_vinculo</A></B>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
- debido a que la respuesta no es sincronica
-      </TD>
-   </TR>
+					<td class="method-definition"> Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
+ Redefinir en caso de querer mostrar algun mensaje o accion distinta</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!fin_aguardar">fin_aguardar</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!error_comunicacion">error_comunicacion</A></B>(error)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
- Redefinir en caso de querer mostrar algun mensaje o accion distinta
-      </TD>
-   </TR>
+					<td class="method-definition"> Oculta el div/imagen de 'Procesando'</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">string</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!imagen">imagen</A>(nombre)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!fin_aguardar">fin_aguardar</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Oculta el div/imagen de 'Procesando'
-      </TD>
-   </TR>
+					<td class="method-definition"> Retorna una referencia a la URL de una imagen especifica</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!incluir">incluir</A>(&lt;array&gt; consumos)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;string</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!imagen">imagen</A></B>(nombre)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna una referencia a la URL de una imagen especifica
-      </TD>
-   </TR>
+					<td class="method-definition"> Incluye una lista de consumos javascript en forma dinamica</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!inicio_aguardar">inicio_aguardar</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!incluir">incluir</A></B>(&lt;array&gt; consumos)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Incluye una lista de consumos javascript en forma dinamica
-      </TD>
-   </TR>
+					<td class="method-definition"> Muestra un div/imagen contienendo un mensaje de 'Procesando'</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!servicio__html_parcial">servicio__html_parcial</A>(respuesta)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!inicio_aguardar">inicio_aguardar</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Muestra un div/imagen contienendo un mensaje de 'Procesando'
-      </TD>
-   </TR>
+					<td class="method-definition"> Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
+ La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!set_aguardar">set_aguardar</A>(&lt;boolean&gt; aguardar)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!servicio__html_parcial">servicio__html_parcial</A></B>(respuesta)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
- La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto
-      </TD>
-   </TR>
+					<td class="method-definition"> Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
+ hacen pedidos asincronicos (ajax)</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!set_ajax">set_ajax</A>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!set_aguardar">set_aguardar</A></B>(&lt;boolean&gt; aguardar)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
- hacen pedidos asincronicos (ajax)
-      </TD>
-   </TR>
+					<td class="method-definition"> Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
+ en lugar del request clásico POST/GET a todo el framework</td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!set_ajax">set_ajax</A></B>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
- en lugar del request clásico POST/GET a todo el framework
-      </TD>
-   </TR>
-
-
-</TABLE>
-
-
-
-<P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
-
-<!-- ============ FIELD DETAIL START =========== -->
-
-
-<!-- ============ FIELD DETAIL END =========== -->
-
-    <!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<br>
+<a name="sec-methods"></a>
+<div class="info-box">
+	<div class="info-box-body">
+	
+ <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1>
-      <FONT SIZE="+2"><B>Constructor Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
+<A NAME="toba()"><!-- --></A>
+	<div class="evenrow">
+			<div class="method-header">
+				<span class="method-title">toba</span>
+			</div>
+			<br />			
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>toba ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>			
+			
 
-<A NAME="toba()"><!-- --></A><H3>
-toba</H3>
-<PRE><B>toba</B>()</PRE>
-
-
-
-
-   </UL>
-
-
-<!-- Constructor return value(s) -->
-
-<!-- End constructor return value(s) -->
-
-<!-- ADDITIONAL ATTRIBUTES -->
-
-<HR/>
-<!-- END ADDITIONAL ATTRIBUTES  -->
-
-<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+							
+		</div>			
 
 
-<!-- ============ METHOD DETAIL START ========== -->
 
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1><FONT SIZE="+2">
-         <B>Method Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
-
-<!-- One single method detail entry -->
-
-   <A NAME="!s!analizar_respuesta_servicio"><!-- --></A>
-   <H3>analizar_respuesta_servicio</H3>
-   <PRE>&lt;static&gt; Array <B>analizar_respuesta_servicio</B>(respuesta)</PRE>
-   
-      <UL>Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!componentes"><!-- --></A>
-   <H3>componentes</H3>
-   <PRE>&lt;static&gt; string <B>componentes</B>()</PRE>
-   
-      <UL>Retorna los ids de los componentes instanciados en esta página</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!comunicar_eventos"><!-- --></A>
-   <H3>comunicar_eventos</H3>
-   <PRE>&lt;static&gt; void <B>comunicar_eventos</B>()</PRE>
-   
-      <UL>Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
+		<a name='method_detail'></a>
+		
+		
+   		<A id="analizar_respuesta_servicio" NAME="!s!analizar_respuesta_servicio"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">analizar_respuesta_servicio</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; Array analizar_respuesta_servicio (respuesta)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="componentes" NAME="!s!componentes"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">componentes</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; string componentes ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna los ids de los componentes instanciados en esta página</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="comunicar_eventos" NAME="!s!comunicar_eventos"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">comunicar_eventos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void comunicar_eventos ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
  o a través de httprequest (AJAX)</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
-   </UL>
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!comunicar_vinculo"><!-- --></A>
-   <H3>comunicar_vinculo</H3>
-   <PRE>&lt;static&gt; void <B>comunicar_vinculo</B>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)</PRE>
-   
-      <UL>Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="comunicar_vinculo" NAME="!s!comunicar_vinculo"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">comunicar_vinculo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void comunicar_vinculo (&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
  debido a que la respuesta no es sincronica</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>vinculo</CODE> -  Vinculo creado con el vinculador  
-      </UL> 
-   
-     <UL><CODE>nombre_callback</CODE> -  Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta) 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!error_comunicacion"><!-- --></A>
-   <H3>error_comunicacion</H3>
-   <PRE>&lt;static&gt; void <B>error_comunicacion</B>(error)</PRE>
-   
-      <UL>Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">vinculo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Vinculo creado con el vinculador  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">nombre_callback</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta) 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="error_comunicacion" NAME="!s!error_comunicacion"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">error_comunicacion</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void error_comunicacion (error)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
  Redefinir en caso de querer mostrar algun mensaje o accion distinta</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!fin_aguardar"><!-- --></A>
-   <H3>fin_aguardar</H3>
-   <PRE>&lt;static&gt; void <B>fin_aguardar</B>()</PRE>
-   
-      <UL>Oculta el div/imagen de 'Procesando'</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
-   </UL>
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!imagen"><!-- --></A>
-   <H3>imagen</H3>
-   <PRE>&lt;static&gt; string <B>imagen</B>(nombre)</PRE>
-   
-      <UL>Retorna una referencia a la URL de una imagen especifica</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!incluir"><!-- --></A>
-   <H3>incluir</H3>
-   <PRE>&lt;static&gt; void <B>incluir</B>(&lt;array&gt; consumos)</PRE>
-   
-      <UL>Incluye una lista de consumos javascript en forma dinamica</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>consumos</CODE> -  Lista de consumos relativos a www/js, sin extension .js (eg. efs/ef_combo) 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!inicio_aguardar"><!-- --></A>
-   <H3>inicio_aguardar</H3>
-   <PRE>&lt;static&gt; void <B>inicio_aguardar</B>()</PRE>
-   
-      <UL>Muestra un div/imagen contienendo un mensaje de 'Procesando'</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#!s!fin_aguardar">fin_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
-   </UL>
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!servicio__html_parcial"><!-- --></A>
-   <H3>servicio__html_parcial</H3>
-   <PRE>&lt;static&gt; void <B>servicio__html_parcial</B>(respuesta)</PRE>
-   
-      <UL>Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="fin_aguardar" NAME="!s!fin_aguardar"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">fin_aguardar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void fin_aguardar ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Oculta el div/imagen de 'Procesando'</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="imagen" NAME="!s!imagen"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">imagen</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; string imagen (nombre)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna una referencia a la URL de una imagen especifica</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="incluir" NAME="!s!incluir"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">incluir</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void incluir (&lt;array&gt; consumos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Incluye una lista de consumos javascript en forma dinamica</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">consumos</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Lista de consumos relativos a www/js, sin extension .js (eg. efs/ef_combo) 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="inicio_aguardar" NAME="!s!inicio_aguardar"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">inicio_aguardar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void inicio_aguardar ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Muestra un div/imagen contienendo un mensaje de 'Procesando'</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#!s!fin_aguardar">fin_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="servicio__html_parcial" NAME="!s!servicio__html_parcial"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">servicio__html_parcial</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void servicio__html_parcial (respuesta)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
  La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
-   </UL>
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!set_aguardar"><!-- --></A>
-   <H3>set_aguardar</H3>
-   <PRE>&lt;static&gt; void <B>set_aguardar</B>(&lt;boolean&gt; aguardar)</PRE>
-   
-      <UL>Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="set_aguardar" NAME="!s!set_aguardar"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_aguardar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_aguardar (&lt;boolean&gt; aguardar)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
  hacen pedidos asincronicos (ajax)</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>aguardar</CODE> -  habilitar el mensaje?  
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <UL>   
-   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!fin_aguardar">fin_aguardar()</a></UL>
-   </UL>
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!set_ajax"><!-- --></A>
-   <H3>set_ajax</H3>
-   <PRE>&lt;static&gt; void <B>set_ajax</B>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)</PRE>
-   
-      <UL>Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">aguardar</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> habilitar el mensaje?  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!fin_aguardar">fin_aguardar()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="set_ajax" NAME="!s!set_ajax"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_ajax</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void set_ajax (&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
  en lugar del request clásico POST/GET a todo el framework</UL>
-   
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">componente</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Componente que se va a comunicar con su par PHP  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">servicio</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Método de esta clase que escucha la respuesta del servidor (servicio) 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
 
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>componente</CODE> -  Componente que se va a comunicar con su par PHP  
-      </UL> 
-   
-     <UL><CODE>servicio</CODE> -  Método de esta clase que escucha la respuesta del servidor (servicio) 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
+	</div>
+</div>
 
-   
 
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
+<br />
 
 
 
-<!-- ============ METHOD DETAIL END ========== -->
+<br />
+<div class="credit">
+	<hr class="separator" />
+	Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />        
+	Documentación generada con <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
+</div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
 
-<!-- ========= END OF CLASS DATA ========= -->
-
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-toba.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="String.html"><B>PREV CLASS</B></A><!-- 
-   NEXT CLASS 
--->
-&nbsp;<A HREF="vinculador.html"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="toba.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;
-<SCRIPT>
-  <!--
-  if(window==top) {
-    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
-  }
-  //-->
-</SCRIPT>
-<NOSCRIPT>
-<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>
-</NOSCRIPT>
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-
-<!-- =========== END OF NAVBAR =========== -->
-
-<HR>
-<FONT SIZE="-1">
-
-</FONT>
-<div class="jsdoc_ctime">
-Desarrollado por <a href="http://www.siu.edu.ar/">SIU</a><br>
-Documentación generada por <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a></div>
 </BODY>
 </HTML>

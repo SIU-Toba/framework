@@ -5,449 +5,653 @@
 <TITLE>
 String
 </TITLE>
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
-<SCRIPT>
-function asd()
-{
-parent.document.title="String";
-}
-</SCRIPT>
-<BODY BGCOLOR="white" onload="asd();">
+<BODY BGCOLOR="white">
 
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <FONT CLASS="NavBarFont1">File</FONT>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"--><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
 
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<!-- =========== END OF NAVBAR =========== -->
-<HR>
+	<td class="header-top-left"><img src="../api/media/logo.png" border="0"/></td>
+    <td class="header-top-right">
+    	<a href='../wiki/trac/toba/wiki/WikiStart.html' title="Navegar hacia la documentación WIKI">
+    		<img border='0' style='vertical-align: middle' src="../api/media/wiki-small.png" /></a>    
+    	<a href='../api/index.html'  title="Navegar hacia la documentación PHP">
+    		<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" /></a> 
+    	<img height=64 border='0' style='vertical-align: middle' src="../api/media/javascript.png" />    		
+  </tr>
 
-<!-- ======== START OF CLASS DATA ======== -->
-<H2>Class String</H2>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="overview-tree.html" class="menu">árbol de herencia</a> ]
+		  [ <a href="index-all.html" class="menu">índice general</a> ]
+    </td>
+
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Clases</div>
+
+      <br />
+      <div class="package">
+	
+		<span style="padding-left: 1em;">		
+		<a href="ci.html">ci</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="cronometro.html">cronometro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef.html">ef</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_checkbox.html">ef_checkbox</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_combo.html">ef_combo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_cuit.html">ef_cuit</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable.html">ef_editable</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_clave.html">ef_editable_clave</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_fecha.html">ef_editable_fecha</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_moneda.html">ef_editable_moneda</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_numero.html">ef_editable_numero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_porcentaje.html">ef_editable_porcentaje</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_fijo.html">ef_fijo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_check.html">ef_multi_seleccion_check</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_doble.html">ef_multi_seleccion_doble</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_lista.html">ef_multi_seleccion_lista</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_popup.html">ef_popup</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_radio.html">ef_radio</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_textarea.html">ef_textarea</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_upload.html">ef_upload</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei.html">ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_arbol.html">ei_arbol</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_archivos.html">ei_archivos</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_calendario.html">ei_calendario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_cuadro.html">ei_cuadro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario.html">ei_formulario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario_ml.html">ei_formulario_ml</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="evento_ei.html">evento_ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="financiero.html">financiero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="GLOBALES.html">GLOBALES</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="simpleMenu.html">simpleMenu</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="String.html">String</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="toba.html">toba</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+		 	
+	  </div>
+                        
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>String</h1>
+
+<br />
+<a name="sec-description"></a>
+<div class="info-box">
+
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-inherited">Métodos Heredados</a> |			
+							<a href="#sec-method-summary">Métodos</a> 			|			
+									<a href="#sec-vars">Propiedades</a>
+							
+			</div>
+
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+	   			
+
+
 <PRE>Object
    |
    +--<b>String</b>
 </PRE>
 
-
-<HR>
-<DL>
-   <!-- Class definition -->
-   <DT>class 
-   <B>String</B>
-   
-
-</DL>
-   
-   <HR>
-
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-
-<!-- ======== END NESTED CLASS SUMMARY ======== -->
+		<p class="notes">
+			Ubicada en 
+		</p>
 
 
-<!-- =========== FIELD SUMMARY =========== -->
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		
+	
+	</table>
+		</td>
+		</tr></table>
+	</div>
+</div>
+
+	
+
+<a name="sec-inherited"></a>
 
 
-   
-
-<!-- =========== END FIELD SUMMARY =========== -->
-
-
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
-
-&nbsp;
 
 <!-- ========== METHOD SUMMARY =========== -->
 
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TD>
-</TR>
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#intercambiar_caracteres">intercambiar_caracteres</A>(c1, c2)
+					</td>
 
+					<td class="method-definition"> Intercambia las ocurrencias de un caracter con las de otro</td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#pad">pad</A>(l, s, t)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#intercambiar_caracteres">intercambiar_caracteres</A></B>(c1, c2)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Intercambia las ocurrencias de un caracter con las de otro
-      </TD>
-   </TR>
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#primer_ocurrencia">primer_ocurrencia</A>(cadenas)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#pad">pad</A></B>(l, s, t)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
+					<td class="method-definition"> Retorna la primer ocurrencia de alguna de estas cadenas</td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#quote_exp_reg">quote_exp_reg</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#primer_ocurrencia">primer_ocurrencia</A></B>(cadenas)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna la primer ocurrencia de alguna de estas cadenas
-      </TD>
-   </TR>
+					<td class="method-definition"> Retorna el quote necesario para usar en una exp.</td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#reemplazar">reemplazar</A>(buscado, nuevo)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#quote_exp_reg">quote_exp_reg</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna el quote necesario para usar en una exp.
-      </TD>
-   </TR>
+					<td class="method-definition"> Reemplaza todas las ocurrencias de un string en otro</td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#trim">trim</A>()
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#reemplazar">reemplazar</A></B>(buscado, nuevo)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Reemplaza todas las ocurrencias de un string en otro
-      </TD>
-   </TR>
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition">
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#ultima_ocurrencia">ultima_ocurrencia</A>(cadenas)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#trim">trim</A></B>()
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-      </TD>
-   </TR>
+					<td class="method-definition"> Retorna la ultima ocurrencia de alguna de estas cadenas</td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&nbsp;Object</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#ultima_ocurrencia">ultima_ocurrencia</A></B>(cadenas)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Retorna la ultima ocurrencia de alguna de estas cadenas
-      </TD>
-   </TR>
-
-
-</TABLE>
-
-
-
-<P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
-
-<!-- ============ FIELD DETAIL START =========== -->
-
-
-<!-- ============ FIELD DETAIL END =========== -->
-
-    <!-- ========= CONSTRUCTOR DETAIL START ======== -->
-
-
-<!-- Constructor return value(s) -->
-
-<!-- End constructor return value(s) -->
-
-<!-- ADDITIONAL ATTRIBUTES -->
-
-<HR/>
-<!-- END ADDITIONAL ATTRIBUTES  -->
-
-<!-- ========= CONSTRUCTOR DETAIL END ======== -->
-
-
-<!-- ============ METHOD DETAIL START ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1><FONT SIZE="+2">
-         <B>Method Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
-
-<!-- One single method detail entry -->
-
-   <A NAME="intercambiar_caracteres"><!-- --></A>
-   <H3>intercambiar_caracteres</H3>
-   <PRE>Object <B>intercambiar_caracteres</B>(c1, c2)</PRE>
-   
-      <UL>Intercambia las ocurrencias de un caracter con las de otro</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="pad"><!-- --></A>
-   <H3>pad</H3>
-   <PRE>Object <B>pad</B>(l, s, t)</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="primer_ocurrencia"><!-- --></A>
-   <H3>primer_ocurrencia</H3>
-   <PRE>Object <B>primer_ocurrencia</B>(cadenas)</PRE>
-   
-      <UL>Retorna la primer ocurrencia de alguna de estas cadenas</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="quote_exp_reg"><!-- --></A>
-   <H3>quote_exp_reg</H3>
-   <PRE>Object <B>quote_exp_reg</B>()</PRE>
-   
-      <UL>Retorna el quote necesario para usar en una exp. regular</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="reemplazar"><!-- --></A>
-   <H3>reemplazar</H3>
-   <PRE>Object <B>reemplazar</B>(buscado, nuevo)</PRE>
-   
-      <UL>Reemplaza todas las ocurrencias de un string en otro</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="trim"><!-- --></A>
-   <H3>trim</H3>
-   <PRE>Object <B>trim</B>()</PRE>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="ultima_ocurrencia"><!-- --></A>
-   <H3>ultima_ocurrencia</H3>
-   <PRE>Object <B>ultima_ocurrencia</B>(cadenas)</PRE>
-   
-      <UL>Retorna la ultima ocurrencia de alguna de estas cadenas</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
+<br>
+<a name="sec-methods"></a>
+<div class="info-box">
+	<div class="info-box-body">
+	
+ <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 
 
-<!-- ============ METHOD DETAIL END ========== -->
+		<a name='method_detail'></a>
+		
+		
+   		<A id="intercambiar_caracteres" NAME="intercambiar_caracteres"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">intercambiar_caracteres</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object intercambiar_caracteres (c1, c2)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Intercambia las ocurrencias de un caracter con las de otro</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="pad" NAME="pad"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">pad</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object pad (l, s, t)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="primer_ocurrencia" NAME="primer_ocurrencia"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">primer_ocurrencia</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object primer_ocurrencia (cadenas)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna la primer ocurrencia de alguna de estas cadenas</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="quote_exp_reg" NAME="quote_exp_reg"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">quote_exp_reg</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object quote_exp_reg ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna el quote necesario para usar en una exp. regular</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="reemplazar" NAME="reemplazar"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">reemplazar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object reemplazar (buscado, nuevo)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Reemplaza todas las ocurrencias de un string en otro</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="trim" NAME="trim"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">trim</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object trim ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="ultima_ocurrencia" NAME="ultima_ocurrencia"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">ultima_ocurrencia</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object ultima_ocurrencia (cadenas)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna la ultima ocurrencia de alguna de estas cadenas</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
 
-<!-- ========= END OF CLASS DATA ========= -->
+	</div>
+</div>
 
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"> <FONT CLASS="NavBarFont1">File</FONT>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
 
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="simpleMenu.html"><B>PREV CLASS</B></A><!-- 
-   NEXT CLASS 
--->
-&nbsp;<A HREF="toba.html"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="String.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;
-<SCRIPT>
-  <!--
-  if(window==top) {
-    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
-  }
-  //-->
-</SCRIPT>
-<NOSCRIPT>
-<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>
-</NOSCRIPT>
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
+<br />
 
-<!-- =========== END OF NAVBAR =========== -->
 
-<HR>
-<FONT SIZE="-1">
 
-</FONT>
-<div class="jsdoc_ctime">
-Desarrollado por <a href="http://www.siu.edu.ar/">SIU</a><br>
-Documentación generada por <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a></div>
+<br />
+<div class="credit">
+	<hr class="separator" />
+	Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />        
+	Documentación generada con <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
+</div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
 </BODY>
 </HTML>

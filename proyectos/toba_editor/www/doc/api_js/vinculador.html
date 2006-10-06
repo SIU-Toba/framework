@@ -5,654 +5,972 @@
 <TITLE>
 vinculador
 </TITLE>
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
 </HEAD>
-<SCRIPT>
-function asd()
-{
-parent.document.title="vinculador";
-}
-</SCRIPT>
-<BODY BGCOLOR="white" onload="asd();">
+<BODY BGCOLOR="white">
 
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-vinculador.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev">&nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"--><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
 
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<!-- =========== END OF NAVBAR =========== -->
-<HR>
+	<td class="header-top-left"><img src="../api/media/logo.png" border="0"/></td>
+    <td class="header-top-right">
+    	<a href='../wiki/trac/toba/wiki/WikiStart.html' title="Navegar hacia la documentación WIKI">
+    		<img border='0' style='vertical-align: middle' src="../api/media/wiki-small.png" /></a>    
+    	<a href='../api/index.html'  title="Navegar hacia la documentación PHP">
+    		<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" /></a> 
+    	<img height=64 border='0' style='vertical-align: middle' src="../api/media/javascript.png" />    		
+  </tr>
 
-<!-- ======== START OF CLASS DATA ======== -->
-<H2>Class vinculador</H2>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="overview-tree.html" class="menu">árbol de herencia</a> ]
+		  [ <a href="index-all.html" class="menu">índice general</a> ]
+    </td>
+
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../api/media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Clases</div>
+
+      <br />
+      <div class="package">
+	
+		<span style="padding-left: 1em;">		
+		<a href="ci.html">ci</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="cronometro.html">cronometro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef.html">ef</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_checkbox.html">ef_checkbox</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_combo.html">ef_combo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_cuit.html">ef_cuit</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable.html">ef_editable</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_clave.html">ef_editable_clave</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_fecha.html">ef_editable_fecha</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_moneda.html">ef_editable_moneda</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_numero.html">ef_editable_numero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_editable_porcentaje.html">ef_editable_porcentaje</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_fijo.html">ef_fijo</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion.html">ef_multi_seleccion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_check.html">ef_multi_seleccion_check</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_doble.html">ef_multi_seleccion_doble</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_multi_seleccion_lista.html">ef_multi_seleccion_lista</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_popup.html">ef_popup</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_radio.html">ef_radio</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_textarea.html">ef_textarea</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ef_upload.html">ef_upload</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei.html">ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_arbol.html">ei_arbol</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_archivos.html">ei_archivos</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_calendario.html">ei_calendario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_cuadro.html">ei_cuadro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario.html">ei_formulario</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="ei_formulario_ml.html">ei_formulario_ml</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="evento_ei.html">evento_ei</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="financiero.html">financiero</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="GLOBALES.html">GLOBALES</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="notificacion.html">notificacion</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="simpleMenu.html">simpleMenu</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="String.html">String</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="toba.html">toba</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
+		<a href="vinculador.html">vinculador</a>    
+		</span>
+	 	<br />
+		 	
+	  </div>
+                        
+	<div id="topdiv">
+			<p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
+	</div>
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>vinculador</h1>
+
+<br />
+<a name="sec-description"></a>
+<div class="info-box">
+
+	<div class="nav-bar">
+					<span class="disabled">Resúmen de la Clase</span> |
+							<a href="#sec-inherited">Métodos Heredados</a> |			
+							<a href="#sec-method-summary">Métodos</a> 			|			
+									<a href="#sec-vars">Propiedades</a>
+							
+			</div>
+
+	<div class="info-box-body">
+		<table width="100%" border="0">
+		<tr><td valign="top" width="60%" class="class-overview">
+	   
+      		<div class="description">
+   			<BR/>Permite construir URLs para navegar hacia items del proyecto pasando parámetros específicos
+ <BR/>
+			</div>	
+   				
+
+
 <PRE>Object
    |
    +--<b>vinculador</b>
 </PRE>
 
-
-<HR>
-<DL>
-   <!-- Class definition -->
-   <DT>class 
-   <B>vinculador</B>
-   
-
-</DL>
-   
-   <P>
-   <BR/>Permite construir URLs para navegar hacia items del proyecto pasando parámetros específicos
- <BR/><B>Clase PHP equivalente: </B><a href="../api/Centrales/toba_vinculador.html">toba::vinculador()</a><BR/><BR/><br><I>Defined in <a href='overview-summary-vinculador.js.html'>vinculador.js</a></I><BR/><BR/>
-   </P>
-   
-   <HR>
-
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-
-<!-- ======== END NESTED CLASS SUMMARY ======== -->
+		<p class="notes">
+			Ubicada en vinculador.js
+		</p>
 
 
-<!-- =========== FIELD SUMMARY =========== -->
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		
+	
+			<tr><td colspan="2"><a href='../api/Centrales/toba_vinculador'>
+			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
+			<strong>Clase PHP equivalente: toba::vinculador()</strong></a></td></tr>
+	<br>
+	
+	</table>
+		</td>
+		</tr></table>
+	</div>
+</div>
+
+	
+
+<a name="sec-inherited"></a>
 
 
-   
-
-<!-- =========== END FIELD SUMMARY =========== -->
-
-
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-   <TD>
-      <CODE>
-	 <B>
-	    <A HREF="vinculador.html#vinculador()">vinculador</A> 
-	 </B>
-	 ()
-      </CODE>
-      <BR>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      
-      </TD>
-</TR>
-</TABLE>
-
-<!-- ======== END CONSTRUCTOR SUMMARY ======== -->
-
-&nbsp;
 
 <!-- ========== METHOD SUMMARY =========== -->
 
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TD COLSPAN=2><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TD>
-</TR>
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-body">
+		<div class="method-summary">		
+			<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!activar_vinculo">activar_vinculo</A>(&lt;string&gt; identificador)
+					</td>
 
+					<td class="method-definition"> Activa un vinculo registrado en PHP previamente desactivado</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!agregar_parametros">agregar_parametros</A>(&lt;string&gt; identificador, &lt;Object&gt; parametros)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!activar_vinculo">activar_vinculo</A></B>(&lt;string&gt; identificador)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Activa un vinculo registrado en PHP previamente desactivado
-      </TD>
-   </TR>
+					<td class="method-definition"> Toma un vinculo registrado en PHP y le agrega parametros</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!agregar_vinculo">agregar_vinculo</A>(identificador, datos)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!agregar_parametros">agregar_parametros</A></B>(&lt;string&gt; identificador, &lt;Object&gt; parametros)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Toma un vinculo registrado en PHP y le agrega parametros
-      </TD>
-   </TR>
+					<td class="method-definition"> Registra un nuevo vinculo
+ A travez de este metodo el vinculador de PHP habla con el de JS.</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result"><a href="String.html">String</a></span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!concatenar_parametros_url">concatenar_parametros_url</A>(&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!agregar_vinculo">agregar_vinculo</A></B>(identificador, datos)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Registra un nuevo vinculo
- A travez de este metodo el vinculador de PHP habla con el de JS.
-      </TD>
-   </TR>
+					<td class="method-definition"> Toma una URL y le agrega parametros</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result"><a href="String.html">String</a></span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!crear">crear</A>(&lt;string&gt; destino, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;<a href="String.html">String</a></CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!concatenar_parametros_url">concatenar_parametros_url</A></B>(&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Toma una URL y le agrega parametros
-      </TD>
-   </TR>
+					<td class="method-definition"> Crea una URL hacia un item especifico</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result"><a href="String.html">String</a></span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!crear_autovinculo">crear_autovinculo</A>(&lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;<a href="String.html">String</a></CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!crear">crear</A></B>(&lt;string&gt; destino, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Crea una URL hacia un item especifico
-      </TD>
-   </TR>
+					<td class="method-definition"> Crea una URL hacia el item actual</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!desactivar_vinculo">desactivar_vinculo</A>(&lt;string&gt; identificador)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;<a href="String.html">String</a></CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!crear_autovinculo">crear_autovinculo</A></B>(&lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Crea una URL hacia el item actual
-      </TD>
-   </TR>
+					<td class="method-definition"> Desactiva un vinculo registrado en PHP.</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!invocar">invocar</A>(&lt;string&gt; identificador)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!desactivar_vinculo">desactivar_vinculo</A></B>(&lt;string&gt; identificador)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Desactiva un vinculo registrado en PHP.
-      </TD>
-   </TR>
+					<td class="method-definition"> Invoca un vinculo registrado en PHP</td></tr>
+			
+					<tr><td class="method-definition">&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td class="method-definition">
+						<a class="method-name" href="#!s!ir_a_proyecto">ir_a_proyecto</A>(&lt;string&gt; proyecto)
+					</td>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!invocar">invocar</A></B>(&lt;string&gt; identificador)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Invoca un vinculo registrado en PHP
-      </TD>
-   </TR>
+					<td class="method-definition"> Navega hacia otro proyecto</td></tr>
+			
+			</table>
+			</div>			
+		</div>
+	</div>
 
-   <TR BGCOLOR="white" CLASS="TableRowColor">
-      <TD ALIGN="right" VALIGN="top" WIDTH="1%">
-	 <FONT SIZE="-1">
-	    <CODE>&lt;static&gt;&nbsp;void</CODE>
-	 </FONT>
-      </TD>
-      <TD>
-	 <CODE>
-	    <B>
-	       <A HREF="#!s!ir_a_proyecto">ir_a_proyecto</A></B>(&lt;string&gt; proyecto)
-	 </CODE>
-	 <BR>
-	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 Navega hacia otro proyecto
-      </TD>
-   </TR>
-
-
-</TABLE>
-
-
-
-<P>
 <!-- ========== END METHOD SUMMARY =========== -->
 
-
-<!-- ============ FIELD DETAIL START =========== -->
-
-
-<!-- ============ FIELD DETAIL END =========== -->
-
-    <!-- ========= CONSTRUCTOR DETAIL START ======== -->
+<br>
+<a name="sec-methods"></a>
+<div class="info-box">
+	<div class="info-box-body">
+	
+ <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1>
-      <FONT SIZE="+2"><B>Constructor Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
+<A NAME="vinculador()"><!-- --></A>
+	<div class="evenrow">
+			<div class="method-header">
+				<span class="method-title">vinculador</span>
+			</div>
+			<br />			
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>vinculador ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>			
+			
 
-<A NAME="vinculador()"><!-- --></A><H3>
-vinculador</H3>
-<PRE><B>vinculador</B>()</PRE>
-
-
-
-
-   </UL>
-
-
-<!-- Constructor return value(s) -->
-
-<!-- End constructor return value(s) -->
-
-<!-- ADDITIONAL ATTRIBUTES -->
-
-<HR/>
-<!-- END ADDITIONAL ATTRIBUTES  -->
-
-<!-- ========= CONSTRUCTOR DETAIL END ======== -->
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+							
+		</div>			
 
 
-<!-- ============ METHOD DETAIL START ========== -->
 
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" WIDTH="100%">
-   <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-      <TD COLSPAN=1><FONT SIZE="+2">
-         <B>Method Detail</B></FONT>
-      </TD>
-   </TR>
-</TABLE>
-
-<!-- One single method detail entry -->
-
-   <A NAME="!s!activar_vinculo"><!-- --></A>
-   <H3>activar_vinculo</H3>
-   <PRE>&lt;static&gt; void <B>activar_vinculo</B>(&lt;string&gt; identificador)</PRE>
-   
-      <UL>Activa un vinculo registrado en PHP previamente desactivado</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>identificador</CODE> -  Id. del vinculo previamente generado 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!agregar_parametros"><!-- --></A>
-   <H3>agregar_parametros</H3>
-   <PRE>&lt;static&gt; void <B>agregar_parametros</B>(&lt;string&gt; identificador, &lt;Object&gt; parametros)</PRE>
-   
-      <UL>Toma un vinculo registrado en PHP y le agrega parametros</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>identificador</CODE> -  Id. del vinculo previamente generado  
-      </UL> 
-   
-     <UL><CODE>parametros</CODE> -  Objeto asociativo parametro=>valor (ej. {'precio': 123} )	  	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!agregar_vinculo"><!-- --></A>
-   <H3>agregar_vinculo</H3>
-   <PRE>&lt;static&gt; void <B>agregar_vinculo</B>(identificador, datos)</PRE>
-   
-      <UL>Registra un nuevo vinculo
+		<a name='method_detail'></a>
+		
+		
+   		<A id="activar_vinculo" NAME="!s!activar_vinculo"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">activar_vinculo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void activar_vinculo (&lt;string&gt; identificador)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Activa un vinculo registrado en PHP previamente desactivado</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">identificador</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="agregar_parametros" NAME="!s!agregar_parametros"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">agregar_parametros</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void agregar_parametros (&lt;string&gt; identificador, &lt;Object&gt; parametros)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Toma un vinculo registrado en PHP y le agrega parametros</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">identificador</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del vinculo previamente generado  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )	  	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="agregar_vinculo" NAME="!s!agregar_vinculo"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">agregar_vinculo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void agregar_vinculo (identificador, datos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Registra un nuevo vinculo
  A travez de este metodo el vinculador de PHP habla con el de JS.</UL>
-   
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="concatenar_parametros_url" NAME="!s!concatenar_parametros_url"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">concatenar_parametros_url</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; <a href="String.html">String</a> concatenar_parametros_url (&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Toma una URL y le agrega parametros</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">vinculo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> URL original  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="crear" NAME="!s!crear"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">crear</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; <a href="String.html">String</a> crear (&lt;string&gt; destino, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Crea una URL hacia un item especifico</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">destino</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Item destino  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">servicio</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Servicio a solicitar (opcional) por defecto generar_html  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">objetos</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Ids. de componentes destino del servicio (opcional)  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="crear_autovinculo" NAME="!s!crear_autovinculo"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">crear_autovinculo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; <a href="String.html">String</a> crear_autovinculo (&lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Crea una URL hacia el item actual</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">servicio</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Servicio a solicitar (opcional) por defecto generar_html  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto asociativo parametro=>valor (ej. {'precio': 123} )  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">objetos</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Ids. de componentes destino del servicio (opcional)  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="desactivar_vinculo" NAME="!s!desactivar_vinculo"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">desactivar_vinculo</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void desactivar_vinculo (&lt;string&gt; identificador)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Desactiva un vinculo registrado en PHP. De esta forma no se va a invocar</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">identificador</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="invocar" NAME="!s!invocar"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">invocar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void invocar (&lt;string&gt; identificador)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Invoca un vinculo registrado en PHP</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">identificador</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del vinculo previamente generado 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="ir_a_proyecto" NAME="!s!ir_a_proyecto"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">ir_a_proyecto</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void ir_a_proyecto (&lt;string&gt; proyecto)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Navega hacia otro proyecto</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">proyecto</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del proyecto destino 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
 
-   <!-- METHOD PARAMETERS START -->
-   
-   <!-- METHOD PARAMETERS END -->
+	</div>
+</div>
 
-   
 
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!concatenar_parametros_url"><!-- --></A>
-   <H3>concatenar_parametros_url</H3>
-   <PRE>&lt;static&gt; <a href="String.html">String</a> <B>concatenar_parametros_url</B>(&lt;<a href="String.html">String</a>&gt; vinculo, &lt;Object&gt; parametros)</PRE>
-   
-      <UL>Toma una URL y le agrega parametros</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>vinculo</CODE> -  URL original  
-      </UL> 
-   
-     <UL><CODE>parametros</CODE> -  Objeto asociativo parametro=>valor (ej. {'precio': 123} )  
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!crear"><!-- --></A>
-   <H3>crear</H3>
-   <PRE>&lt;static&gt; <a href="String.html">String</a> <B>crear</B>(&lt;string&gt; destino, &lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)</PRE>
-   
-      <UL>Crea una URL hacia un item especifico</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>destino</CODE> -  Item destino  
-      </UL> 
-   
-     <UL><CODE>servicio</CODE> -  Servicio a solicitar (opcional) por defecto generar_html  
-      </UL> 
-   
-     <UL><CODE>parametros</CODE> -  Objeto asociativo parametro=>valor (ej. {'precio': 123} )  
-      </UL> 
-   
-     <UL><CODE>objetos</CODE> -  Ids. de componentes destino del servicio (opcional)  
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!crear_autovinculo"><!-- --></A>
-   <H3>crear_autovinculo</H3>
-   <PRE>&lt;static&gt; <a href="String.html">String</a> <B>crear_autovinculo</B>(&lt;string&gt; servicio, &lt;Object&gt; parametros, &lt;Array&gt; objetos)</PRE>
-   
-      <UL>Crea una URL hacia el item actual</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>servicio</CODE> -  Servicio a solicitar (opcional) por defecto generar_html  
-      </UL> 
-   
-     <UL><CODE>parametros</CODE> -  Objeto asociativo parametro=>valor (ej. {'precio': 123} )  
-      </UL> 
-   
-     <UL><CODE>objetos</CODE> -  Ids. de componentes destino del servicio (opcional)  
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!desactivar_vinculo"><!-- --></A>
-   <H3>desactivar_vinculo</H3>
-   <PRE>&lt;static&gt; void <B>desactivar_vinculo</B>(&lt;string&gt; identificador)</PRE>
-   
-      <UL>Desactiva un vinculo registrado en PHP. De esta forma no se va a invocar</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>identificador</CODE> -  Id. del vinculo previamente generado 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!invocar"><!-- --></A>
-   <H3>invocar</H3>
-   <PRE>&lt;static&gt; void <B>invocar</B>(&lt;string&gt; identificador)</PRE>
-   
-      <UL>Invoca un vinculo registrado en PHP</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>identificador</CODE> -  Id. del vinculo previamente generado 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
-
-   <A NAME="!s!ir_a_proyecto"><!-- --></A>
-   <H3>ir_a_proyecto</H3>
-   <PRE>&lt;static&gt; void <B>ir_a_proyecto</B>(&lt;string&gt; proyecto)</PRE>
-   
-      <UL>Navega hacia otro proyecto</UL>
-   
-
-   <!-- METHOD PARAMETERS START -->
-   
-   <UL>
-   <B>Parameters:</B>
-   
-     <UL><CODE>proyecto</CODE> -  Id. del proyecto destino 	   
-      </UL> 
-   
-   </UL>
-   
-   <!-- METHOD PARAMETERS END -->
-
-   
-
-   <!-- ADDITIONAL ATTRIBUTES START -->
-   
-   <!-- ADDITIONAL ATTRIBUTES  END -->
-<HR>
+<br />
 
 
 
-<!-- ============ METHOD DETAIL END ========== -->
+<br />
+<div class="credit">
+	<hr class="separator" />
+	Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
+	<br />        
+	Documentación generada con <a href="http://jsdoc.sourceforge.net/">JSDoc</a>
+</div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
 
-<!-- ========= END OF CLASS DATA ========= -->
-
-<!-- ========== START OF NAVBAR ========== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0">
-<TR>
-<TD COLSPAN=3 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">  <A HREF="overview-summary-vinculador.js.html"><FONT CLASS="NavBarFont1"><B>File</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="overview-tree.html"><FONT CLASS="NavBarFont1"><b>Tree</b></FONT></A>&nbsp;</TD>
-  <!--TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1"-->    <!--A HREF="deprecated-list.html"--><!--FONT CLASS="NavBarFont1">Deprecated</FONT--><!--/A--><!--&nbsp;</TD-->
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-<B>SIU-Toba</B>
-</EM>
-</TD
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="toba.html"><B>PREV CLASS</B></A><!-- 
-   NEXT CLASS 
--->
-&nbsp;<B>NEXT CLASS</B></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="vinculador.html" TARGET="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;
-<SCRIPT>
-  <!--
-  if(window==top) {
-    document.writeln('<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>');
-  }
-  //-->
-</SCRIPT>
-<NOSCRIPT>
-<A HREF="allclasses-noframe.html" TARGET=""><B>All Classes</B></A>
-</NOSCRIPT>
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-
-<!-- =========== END OF NAVBAR =========== -->
-
-<HR>
-<FONT SIZE="-1">
-
-</FONT>
-<div class="jsdoc_ctime">
-Desarrollado por <a href="http://www.siu.edu.ar/">SIU</a><br>
-Documentación generada por <a href="http://jsdoc.sourceforge.net/" target="_parent">JSDoc</a></div>
 </BODY>
 </HTML>

@@ -4,7 +4,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada por <a href="{$phpdocwebsite}">phpDocumentor {$phpdocversion}</a>
+		    Documentación generada con <a href="{$phpdocwebsite}">phpDocumentor {$phpdocversion}</a>
 	      </div>
       </td></tr></table>
     </td>

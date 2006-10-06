@@ -18,13 +18,16 @@ td.code{ padding-left: 2em; padding-right: 1em; text-indent: -2em; }
 td.code-border{ }
 td.header-line{  }
 td.header-menu{ background-color: #666699; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
-	border: 1px solid #333366;
+	border: 1px solid #333366; color: white;
 }
 td.header-top-left{font-size: 16pt; font-weight: bold; padding: 10px; text-align: left; }
-td.header-top-center{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: center; }
+td.header-top-center{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right;
+	padding-top: 40px;
+ }
 td.header-top-right{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right; }
 td.indent { padding-left: 1em; }
 .menu { background-color: #F0F0F0; border-right: 1px dashed #999999;}
+a.menu { background-color: transparent; color: white; border: none;}
 td.menu{ padding: 2px; padding-left: 5px;}
 td.type,.folder-title,.method-result,.include-type{ font-style: italic; }
 ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
@@ -82,9 +85,14 @@ ul{ margin-left: 0px; padding-left: 8px; vertical-align: top; }
 .var-summary-description { font-size: 8pt; font-weight: normal;  }
 .var-description{ font-weight: normal; }
 .var-header{ }
-.var-name, .const-name, .method-title,.method-name,.include-name,.var-name,.field { font-weight: bold; }
+.method-title,.method-name,.include-name,.field { font-weight: bold; }
+.var-name, .const-name { font-style: italic; }
 .method-title { font-size: 12pt; }
 .var-summary,.method-summary{ font-size: 8pt;}
+div.method-summary { 
+	padding-bottom: 20px;
+	border-bottom: 1px solid #666699;
+}
 .var-title{ margin-bottom: .3em; }
 .var-type{  font-style: italic; }
 .var-type-summary{  font-size: 8pt; font-style: italic; padding-left: 1em; }
@@ -154,6 +162,7 @@ h2.class-name {display:none}
 	padding-right: 5px;
 }
 #topdiv {
+	background-color: #F6F2F6;
 	right: 0;
 }
 #todolist {

@@ -11,7 +11,7 @@
 <table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
   <tr>
 	<td class="header-top-left"><img src="{$subdir}media/logo.png" border="0" alt="phpDocumentor {$phpdocver}" /></td>
-  	<td class="header-top-center"><br>
+  	<td class="header-top-center">
   		<div class="package">
       {section name=packagelist loop=$packageindex}
         	<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
@@ -22,7 +22,11 @@
       </div>
    	</td>	
     <td class="header-top-right">
-     <img height=64 border='0' style='vertical-align: middle' src="{$subdir}media/php.png" />
+    	<a href='{$subdir}../wiki/trac/toba/wiki/WikiStart.html' title="Navegar hacia la documentación WIKI">
+    		<img border='0' style='vertical-align: middle' src="{$subdir}media/wiki-small.png" /></a>    
+     	<img height=64 border='0' style='vertical-align: middle' src="{$subdir}media/php.png" />  
+    	<a href='{$subdir}../api_js/index.html'  title="Navegar hacia la documentación JAVASCRIPT">
+    		<img border='0' style='vertical-align: middle' src="{$subdir}media/javascript-small.png" /></a> 
     	</td>
   </tr>
   <tr><td colspan="3" class="header-line">
@@ -95,7 +99,7 @@
 	</div> -->
 {/if}
 	<div id="topdiv">
-			<p><a href="javascript:scroll(0,0)">Subir</a></p>
+			<p><a href="javascript:scroll(0,0)">[ Top ]</a></p>
 	</div>
     </td>
     <td>
