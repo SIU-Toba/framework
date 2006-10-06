@@ -20,10 +20,16 @@ class comando_doc extends comando_toba
 	function opcion__wiki()
 	{
 		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';		
-		$comando = 'httrack "https://desarrollos2.siu.edu.ar/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
+		$lista = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		foreach ($lista as $arch) {
+			unlink($arch);
+		}
+
+				
+		$comando = 'httrack "https://localhost/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
-					-*WikiMacros* -*RecentChanges*';
+					-*WikiMacros* -*RecentChanges* -*Desarrollo*';
 		system($comando);
 
 		//-- Busca el archivo css del wik y modifica algunos estilos
@@ -38,7 +44,7 @@ class comando_doc extends comando_toba
 		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
 		file_put_contents($archivo_css, $cambios, FILE_APPEND);
 		
-		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");
+		//$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 	
 	/**
@@ -99,7 +105,7 @@ class comando_doc extends comando_toba
 
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
-		$this->consola->mensaje("\t".$archivo);
+		$this->consola->mensaje_directo(".");
 		$utf8 = file_get_contents($archivo);
 		$iso = iconv($desde, $hasta, $utf8);
 		file_put_contents($archivo, $iso);
