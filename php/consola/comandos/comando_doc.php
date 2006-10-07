@@ -117,7 +117,9 @@ class comando_doc extends comando_toba
 	 */
 	function opcion__api()
 	{
+		
 		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
+
 		$lista = manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
@@ -139,18 +141,14 @@ class comando_doc extends comando_toba
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
+
+		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)
+		$indice = file_get_contents($dest.'/Centrales/toba.html');
+		$indice = str_replace('../../', '#BASE#', $indice);
+		$indice = str_replace('../', '', $indice);
+		$indice = str_replace('#BASE#', '../', $indice);
+		file_put_contents($dest.'/index.html', $indice);
 		
-	
-		$redirect = '
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN""http://www.w3.org/TR/REC-html40/loose.dtd">
-			<HTML>
-			<HEAD>
-			<META HTTP-EQUIV="refresh" CONTENT="0;Centrales/toba.html">
-			</HEAD>
-			<BODY>
-			</BODY>		
-		';
-		file_put_contents($dest.'/index.html', $redirect);
 		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
 	}
 
@@ -175,6 +173,9 @@ class comando_doc extends comando_toba
 				"--recursive --directory $destino --no-sources ".
 				"--project-name \"SIU-Toba\" $directorios ";
 		system($cmd);
+
+		//-- La clase toba es la clase inicial
+		copy($destino.'/toba.html', $destino.'/index.html');
 		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
 	
