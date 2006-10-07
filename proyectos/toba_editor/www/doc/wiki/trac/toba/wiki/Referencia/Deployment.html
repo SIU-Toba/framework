@@ -2,36 +2,75 @@
     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Referencia/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+ <title>Referencia/Deployment - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
+
+/* trac php syntax highlighting */
+.code-block {
+    line-height: 1em;
+    font-family: Courier, monotype;
+    font-size: 12px;
+    }
+.h_question { color: #0000BB; } /* highlight.default */
+.hphp_commentline { color: #FF8000; } /* highlight.comment */
+.hphp_operator { color: #007700; } /* highlight.keyword */
+.hphp_word { color: #007700; } /* highlight.keyword */
+.hphp_default {}
+.hphp_variable { color: #0000BB; } /* highlight.default */
+.hphp_hstring { color: #DD0000; } /* highlight.string */
+.hphp_simplestring { color: #DD0000; } /* highlight.string */
+.h_tagunknown {}
+.h_default {}
+
+.code-keyword { color: #007700; font-weight: normal; }
+.code-lang { color: #0000BB; font-weight: normal; }
+.code-comment { color: #FF8000; font-weight: normal;}
+.code-string { color: #DD0000; font-weight: normal;}
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
-<body>
+
+			<body>
+			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
+			  <tr>
+			
+				<td class='header-top-left'><img src='../../../../../api/media/logo.png' border='0'/></td>
+			    <td class='header-top-right'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/wiki.png' />
+			    	<a href='../../../../../api/index.html'  title='Navegar hacia la documentaciÃ³n PHP'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/php-small.png' /></a> 
+			    	<a href='../../../../../api_js/index.html'  title='Navegar hacia la documentaciÃ³n Javascript'>    		
+			    	<img border='0' style='vertical-align: middle' src='../../../../../api/media/javascript-small.png' /></a>
+			  </tr>
+			
+			  <tr>
+			    <td colspan='2' class='header-menu'>
+			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Deployment' title='El sitio online contiene contenidos mas detallados y actualizados'
+						class='menu'>Ver online</a> ]
+			    </td>
+			
+			  </tr>
+			  <tr><td colspan='2' class='header-line'><img src='../../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			</table>
+		
 
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
- <div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div>
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
+ 
 </form>
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
 <div id="main">
 
 
@@ -42,9 +81,9 @@
  <ul>
   <li><a href="../../wiki.html">Start Page</a></li>
   <li><a href="../TitleIndex.html">Title Index</a></li>
-  <li><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
+  <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
   
-   <li class="last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?action=history">Page History</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?action=history">Page History</a></li>
   
  </ul>
  <hr />
@@ -60,15 +99,15 @@
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Deployment
 </p>
 <h1 id="DeploymentdeToba">Deployment de Toba</h1>
-<h2 id="Escenarios">Escenarios</h2>
 <p>
 Los siguientes escenarios asumen la existencia de un control de versiones para el proyecto e instalaciones remotas.
 </p>
-<h3 id="MúltiplesInstalacionesdeTobaenunamismamáquina">Múltiples Instalaciones de Toba en una misma máquina</h3>
+<h2 id="MÃºltiplesInstalacionesdeTobaenunamismamÃ¡quina">MÃºltiples Instalaciones de Toba en una misma mÃ¡quina</h2>
 <p>
-Para tener mútliples instalaciones de Toba en una misma máquina se deben tener en cuenta ciertas pautas adicionales a las básicas descriptas del proceso de <a class="wiki" href="../Instalacion.html">Instalación</a>.
+Para tener mÃºtliples instalaciones de Toba en una misma mÃ¡quina se deben tener en cuenta ciertas pautas adicionales a las bÃ¡sicas descriptas del proceso de <a class="wiki" href="../Instalacion.html">InstalaciÃ³n</a>.
 </p>
-<ul><li>Además de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para los puntos de acceso, de modo que definan la variable de entorno $TOBA_DIR con la versión correcta de Toba. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuración de Apache debería contener los alias:
+<ul><li>En el include_path de PHP no debe estar incluÃ­do ninguna referencia a alguno de los toba instalados.
+</li></ul><ul><li>AdemÃ¡s de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para los puntos de acceso, de modo que definan la variable de entorno $TOBA_DIR con la versiÃ³n correcta de Toba. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuraciÃ³n de Apache deberÃ­a contener los alias:
 </li></ul><pre class="wiki">    Alias /toba_1 &#34;d:/toba_1/www&#34;
     &lt;Directory &#34;d:/toba_1/www/&#34;&gt;
         SetEnv TOBA_DIR d:/toba_1
@@ -94,52 +133,57 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener e
 <p>
  
 </p>
-<ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicación de los mismos, además de setear el valor de las variables de entorno $toba_dir y $toba_instancia. Si, por ejemplo, quisiéramos cargar la instancia de produccion de la instalación <i>toba_1</i>, los pasos a seguir para un entorno tipo linux serían los siguientes:
+<ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicaciÃ³n de los mismos, ademÃ¡s de setear el valor de las variables de entorno $toba_dir y $toba_instancia. Si, por ejemplo, quisiÃ©ramos cargar la instancia de produccion de la instalaciÃ³n <i>toba_1</i>, los pasos a seguir para un entorno tipo linux serÃ­an los siguientes:
 <pre class="wiki">export toba_dir=d:/toba_1
 export toba_instancia=produccion
 export PATH=$PATH:$toba_dir
 toba instancia cargar
 </pre>
 </li></ul><p>
-Es importante que antes de ejecutar scripts administrativos se determine el valor de la variable $toba_dir, dado que podría haber instancias con el mismo nombre en instalaciones diferentes. Este valor se consulta con:
+Una forma de evitar olvidos y errores seteando estas variables, es crear un comando por instalaciÃ³n que sea la puerta de entrada a la misma. AsÃ­ no se utilizarÃ­a el comando 'toba' para las operaciones administrativas sino mas bien uno relacionado con la versiÃ³n utilizada, por ejemplo 'toba_trunk' o 'toba_costos'. Por ejemplo usando bash, se podria crear el comando toba_trunk y ponerlo en /usr/bin:
 </p>
-<pre class="wiki">echo $toba_dir
+<pre class="wiki">export toba_dir=/home/usuario/proyectos/toba
+export toba_instancia=desarrollo
+$toba_dir/bin/toba $*
 </pre>
-<h3 id="PasajeDesarrolloProducción">Pasaje Desarrollo - Producción</h3>
 <p>
-El escenario más común es tener una única instancia de desarrollo y actualizar otra instancia (generalmente Producción o Testing) de manera periódica. Este escenario puede describirse en cinco pasos:
+Y cada vez que se necesita ejecutar un comando de instalaciÃ³n se utiliza el comando 'toba_trunk' en lugar de 'toba'
+</p>
+<h2 id="PasajeDesarrolloProducciÃ³n">Pasaje Desarrollo - ProducciÃ³n</h2>
+<p>
+El escenario mÃ¡s comÃºn es tener una Ãºnica instancia de desarrollo y actualizar otra instancia (generalmente ProducciÃ³n o Testing) de manera periÃ³dica. Este escenario puede describirse en cinco pasos:
 </p>
 <p>
-<a href="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png?format=raw"  style="" /></a>
+<a href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
 </p>
-<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estubieron utilizando el Administrador en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
+<ol><li><i>Desarrollo</i> - ExportaciÃ³n de metadatos: Siempre en desarrollo los Ãºltimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lÃ³gico porque los desarrolladores estubieron utilizando el Administrador en forma conjunta con esta instancia. La exportaciÃ³n se hace de la siguiente forma:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
-</li></ol><ol><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
-</li></ol><ol><li><i>Produccion</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción el primer paso es actualizar el proyecto en cuestión, esto traera los metadatos y el código actualizado.
-</li></ol><ol><li><i>Produccion</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
+</li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportaciÃ³n es la actualizaciÃ³n de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de cÃ³digo existentes se suben las modificaciones (commit) creando una nueva revisiÃ³n, almacenada en un repositorio central.
+</li><li><i>Produccion</i> - ActualizaciÃ³n de la nueva revisiÃ³n: Suponiendo que se toma la decisiÃ³n de actualizar el sistema en producciÃ³n el primer paso es actualizar el proyecto en cuestiÃ³n, esto traera los metadatos y el cÃ³digo actualizado.
+</li><li><i>Produccion</i> - ExportaciÃ³n de informaciÃ³n local: Lo Ãºnico que se necesita de la instancia en producciÃ³n son sus usuarios, logs y demÃ¡s metadatos considerados propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
 <pre class="wiki">toba instancia exportar_local
 </pre>
 </li><li><i>Produccion</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
 <pre class="wiki">toba proyecto regenerar -p mi_proyecto
 </pre>
-</li></ol><h3 id="ActualizacióndeToba">Actualización de Toba</h3>
+</li></ol><h2 id="ActualizaciÃ³ndeToba">ActualizaciÃ³n de Toba</h2>
 <p>
-Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica reiniciar la instancia:
+Muchas veces es necesario actualizar la versiÃ³n de toba con la que se estÃ¡ desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualizaciÃ³n, ya que actualizar toba muchas veces (no todas) implica reiniciar la instancia:
 </p>
 <p>
-<a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.png" style="padding:0; border:none"><img src="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/attachment/wiki/Referencia/Deployment/actualizacion_toba.png?format=raw"  style="" /></a>
+<a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/Deployment/actualizacion_toba41f0.png?format=raw" /></a>
 </p>
-<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y versionarlo. Así que para cada proyecto propio ubicado en esta instancia se debe hacer:
+<ol><li>Exportar Metadatos del proyecto: Como los Ãºltimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y versionarlo. AsÃ­ que para cada proyecto propio ubicado en esta instancia se debe hacer:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
-</li><li>Exportación de información local: (YA NO ES NECESARIO: La exportación del proyecto actualmente también exporta la información local)
-</li><li>Actualizar Toba: Se trae la nueva revisión de Toba desde el SVN.
-</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="missing wiki" href="Versiones.html" rel="nofollow">Versiones Toba?</a>), para ello ejecutar:
+</li><li>ExportaciÃ³n de informaciÃ³n local: (YA NO ES NECESARIO: La exportaciÃ³n del proyecto actualmente tambiÃ©n exporta la informaciÃ³n local)
+</li><li>Actualizar Toba: Se trae la nueva revisiÃ³n de Toba desde el SVN.
+</li><li>ActualizaciÃ³n de metadatos: Es posible que la nueva versiÃ³n requiera alguna migraciÃ³n automÃ¡tica (ver <a class="missing wiki" href="Versiones.html" rel="nofollow">Versiones Toba?</a>), para ello ejecutar:
 <pre class="wiki">toba instalacion migrar
 </pre>
 </li></ol><p>
-Por si la migración afecto algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
+Por si la migraciÃ³n afecto algÃºn metadato del proyecto es necesario volver a exportar al sistema de archivos:
 </p>
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
@@ -149,16 +193,16 @@ Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el s
 <pre class="wiki">toba instancia regenerar
 </pre>
 <p>
-Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
+Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportaciÃ³n no se efectuÃ³ o se efectuÃ³ con errores se perderÃ¡n los datos del proyecto y sÃ³lo serÃ¡ posible recuperarlos desde alguna revisiÃ³n del SVN del proyecto o algÃºn backup manual.
 </p>
 <p>
-Hay una razón por la cual la exportación se debe hacer antes que la actualización de código. Es posible que el nuevo código de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba más viejo). Si se quiere hacer la exportación luego de la actualización, este nuevo código va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracción de los metadatos hacia el sistema de archivos. Hay una solución a este error, siempre y cuando no se haya ejecutado el tercer paso por la razón explicada en el párrafo anterior. La solución es volver atrás la revisión de toba a la misma con la que se generó la instancia y rearrancar el proceso.
+Hay una razÃ³n por la cual la exportaciÃ³n se debe hacer antes que la actualizaciÃ³n de cÃ³digo. Es posible que el nuevo cÃ³digo de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba mÃ¡s viejo). Si se quiere hacer la exportaciÃ³n luego de la actualizaciÃ³n, este nuevo cÃ³digo va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracciÃ³n de los metadatos hacia el sistema de archivos. Hay una soluciÃ³n a este error, siempre y cuando no se haya ejecutado el tercer paso por la razÃ³n explicada en el pÃ¡rrafo anterior. La soluciÃ³n es volver atrÃ¡s la revisiÃ³n de toba a la misma con la que se generÃ³ la instancia y rearrancar el proceso.
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion.png">desarrollo_produccion.png</a> (30.4 kB) - added by seba on 07/14/05 14:40:32.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.png">actualizacion_toba.png</a> (14.5 kB) - added by seba on 07/14/05 16:01:09.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png">desarrollo_produccion.png</a> (30.4 kB) - added by seba on 07/14/05 14:40:32.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html">actualizacion_toba.png</a> (14.5 kB) - added by seba on 07/14/05 16:01:09.</li>
     </ul>
   
   
@@ -170,7 +214,7 @@ Hay una razón por la cual la exportación se debe hacer antes que la actualizació
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/Deployment?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/Deployment?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -179,16 +223,17 @@ Hay una razón por la cual la exportación se debe hacer antes que la actualizació
  <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.com/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.9.5</strong></a><br />
   By <a href="../../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el Programa SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
 
  </body>
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
 

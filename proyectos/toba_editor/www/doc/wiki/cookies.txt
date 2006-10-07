@@ -1,4 +1,5 @@
 # HTTrack Website Copier Cookie File
 # This file format is compatible with Netscape cookies
 desarrollos2.siu.edu.ar	TRUE	/trac/toba	FALSE	1999999999	trac_session	0de7dc726dc85889954a9e81
+localhost	TRUE	/trac/toba	FALSE	1999999999	trac_session	382573d66bdeaf8f823967b1
 

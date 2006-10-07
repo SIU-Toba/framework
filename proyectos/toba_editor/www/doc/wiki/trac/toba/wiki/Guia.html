@@ -2,36 +2,75 @@
     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Guia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Guia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+ <title>Guia - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://localhost/trac/toba/wiki/Guia?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
+
+/* trac php syntax highlighting */
+.code-block {
+    line-height: 1em;
+    font-family: Courier, monotype;
+    font-size: 12px;
+    }
+.h_question { color: #0000BB; } /* highlight.default */
+.hphp_commentline { color: #FF8000; } /* highlight.comment */
+.hphp_operator { color: #007700; } /* highlight.keyword */
+.hphp_word { color: #007700; } /* highlight.keyword */
+.hphp_default {}
+.hphp_variable { color: #0000BB; } /* highlight.default */
+.hphp_hstring { color: #DD0000; } /* highlight.string */
+.hphp_simplestring { color: #DD0000; } /* highlight.string */
+.h_tagunknown {}
+.h_default {}
+
+.code-keyword { color: #007700; font-weight: normal; }
+.code-lang { color: #0000BB; font-weight: normal; }
+.code-comment { color: #FF8000; font-weight: normal;}
+.code-string { color: #DD0000; font-weight: normal;}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
-<body>
+
+			<body>
+			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
+			  <tr>
+			
+				<td class='header-top-left'><img src='../../../../api/media/logo.png' border='0'/></td>
+			    <td class='header-top-right'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/wiki.png' />
+			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentación PHP'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/php-small.png' /></a> 
+			    	<a href='../../../../api_js/index.html'  title='Navegar hacia la documentación Javascript'>    		
+			    	<img border='0' style='vertical-align: middle' src='../../../../api/media/javascript-small.png' /></a>
+			  </tr>
+			
+			  <tr>
+			    <td colspan='2' class='header-menu'>
+			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Guia' title='El sitio online contiene contenidos mas detallados y actualizados'
+						class='menu'>Ver online</a> ]
+			    </td>
+			
+			  </tr>
+			  <tr><td colspan='2' class='header-line'><img src='../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			</table>
+		
 
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
- <div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div>
+<form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
+ 
 </form>
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
 <div id="main">
 
 
@@ -42,9 +81,9 @@
  <ul>
   <li><a href="../wiki.html">Start Page</a></li>
   <li><a href="TitleIndex.html">Title Index</a></li>
-  <li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
+  <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
   
-   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Guia?action=history">Page History</a></li>
+   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Guia?action=history">Page History</a></li>
   
  </ul>
  <hr />
@@ -59,27 +98,27 @@
     <div id="searchable"><p>
 <a href="WikiStart.html">Inicio</a> / Guia
 </p>
-<h2 id="Funcionalidadest�ndar">Funcionalidad est�ndar</h2>
-<ul><li>Cat�logo de clases est�ndares de TOBA
-</li><li>Cat�logo de bases de datos conectadas al entorno. Incluye una ventana para ejecutar sentencias SQL
-</li><li>Crear nuevas clases gen�ricas o extender clases existentes
-</li><li>Resumen de m�todos / funciones contenidas en una clase
-</li><li>Creaci�n de nuevos proyectos dentro del entorno
+<h2 id="Funcionalidadestándar">Funcionalidad estándar</h2>
+<ul><li>Catálogo de clases estándares de TOBA
+</li><li>Catálogo de bases de datos conectadas al entorno. Incluye una ventana para ejecutar sentencias SQL
+</li><li>Crear nuevas clases genéricas o extender clases existentes
+</li><li>Resumen de métodos / funciones contenidas en una clase
+</li><li>Creación de nuevos proyectos dentro del entorno
 </li></ul><h2 id="Proyectos">Proyectos</h2>
-<ul><li>Cat�logo de operaciones del proyecto
-</li><li>Cat�logo de objetos del proyecto
-</li><li>Cat�logo de objetos est�ticos?
-</li><li>Cat�logo de objetos clasificados por la capa arquitect�nica en la cual est�n contenidos. Ejemplo: Elementos de Interface, Controladores de Negocio, etc.
-</li><li>Visualizador del c�digo PHP asociado a una clase o archivo PHP
+<ul><li>Catálogo de operaciones del proyecto
+</li><li>Catálogo de objetos del proyecto
+</li><li>Catálogo de objetos estáticos?
+</li><li>Catálogo de objetos clasificados por la capa arquitectónica en la cual están contenidos. Ejemplo: Elementos de Interface, Controladores de Negocio, etc.
+</li><li>Visualizador del código PHP asociado a una clase o archivo PHP
 </li><li>Editor de propiedades de los objetos (para todos los objetos creados en forma declarativa)
 </li><li>Instanciador de objetos para comprobar su funcionamiento
 </li><li>Vista que relaciona operaciones y objetos que la implementan
-</li><li>Administraci�n de usuarios de cada proyecto
-</li><li>Configurar el estilo gr�fico de los distintos componentes del proyecto
+</li><li>Administración de usuarios de cada proyecto
+</li><li>Configurar el estilo gráfico de los distintos componentes del proyecto
 </li><li>Niveles de seguridad para acceso a los objetos de cada proyecto
 </li></ul><h2 id="Entornocolaborativo">Entorno colaborativo</h2>
 <ul><li>Notas entre desarrolladores
-</li><li>Descripci�n de objetos
+</li><li>Descripción de objetos
 </li><li>Mecanismo para bajar un proyecto entero, transferirlo a otro lugar y restaurarlo
 </li></ul></div>
    </div>
@@ -93,7 +132,7 @@
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Guia?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Guia?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -102,16 +141,17 @@
  <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  Powered by <a href="../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.9.5</strong></a><br />
   By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por el SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
 
  </body>
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
 

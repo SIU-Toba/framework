@@ -70,7 +70,9 @@ input[type=reset][disabled] {
 }
 input[type=text], input.textwidget, textarea { border: 1px solid #d7d7d7 }
 input[type=text], input.textwidget { padding: .25em .5em }
-input[type=text]:focus, textarea:focus { border: 1px solid #886 }
+input[type=text]:focus, input.textwidget:focus, textarea:focus {
+ border: 1px solid #886;
+}
 option { border-bottom: 1px dotted #d7d7d7 }
 fieldset { border: 1px solid #d7d7d7; padding: .5em; margin: 0 }
 fieldset.iefix { background: transparent; border: none; padding: 0; margin: 0 }
@@ -384,3 +386,23 @@ div.system-message p.system-message-title { font-weight: bold; }
  #header, #altlinks, #footer { display: none }
  .nav, form, .buttons form { display: none }
 }
+
+			#altlinks, #search, #header, #metanav, #ctxtnav, #mainnav {
+				display: none;
+			}
+			#footer {
+				display: none;
+			}
+			td.header-menu{ background-color: #BD0000; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
+				border: 1px solid #333366; color: white;
+			}
+			td.header-top-left{font-size: 16pt; font-weight: bold; padding: 10px; text-align: left; }
+			td.header-top-center{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right;
+				padding-top: 40px;
+			 }
+			td.header-top-right{ font-size: 16pt; font-weight: bold; padding: 10px; text-align: right; }
+			
+			.menu { color:white;}
+			body { margin: 0; padding: 0; }
+			div.wiki { padding-left: 10px; }			
+		

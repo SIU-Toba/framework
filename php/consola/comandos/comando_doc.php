@@ -31,7 +31,7 @@ class comando_doc extends comando_toba
 		$comando = 'httrack "https://localhost/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
-					-*WikiMacros* -*RecentChanges* -*Desarrollo*';
+					-*WikiMacros* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*reuniones*';
 		system($comando);
 
 		//-- Busca el archivo css del wik y modifica algunos estilos
@@ -42,7 +42,7 @@ class comando_doc extends comando_toba
 			#footer {
 				display: none;
 			}
-			td.header-menu{ background-color: #8B0408; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
+			td.header-menu{ background-color: #BD0000; font-size: 8pt; padding: 2px; padding-right: 5px; text-align: right; 
 				border: 1px solid #333366; color: white;
 			}
 			td.header-top-left{font-size: 16pt; font-weight: bold; padding: 10px; text-align: left; }
@@ -53,41 +53,61 @@ class comando_doc extends comando_toba
 			
 			.menu { color:white;}
 			body { margin: 0; padding: 0; }
-			.wiki { padding-left: 10px; }			
+			div.wiki { padding-left: 10px; }			
 		";
 		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
 		file_put_contents($archivo_css, $cambios, FILE_APPEND);
 		
 		//--- Busca los html y les agrega la 'barra' de navegacion
-		$html = "
+		$html_inicio = "
 			<body>
 			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
 			  <tr>
 			
-				<td class='header-top-left'><img src='../../../../api/media/logo.png' border='0'/></td>
+				<td class='header-top-left'><img src='{BASE}api/media/logo.png' border='0'/></td>
 			    <td class='header-top-right'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/wiki.png' />
-			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentaci贸n PHP'>
-			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/php-small.png' /></a> 
-			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentaci贸n PHP'>    		
-			    	<img border='0' style='vertical-align: middle' src='../../../../api/media/javascript-small.png' /></a>
+			    		<img border='0' style='vertical-align: middle' src='{BASE}api/media/wiki.png' />
+			    	<a href='{BASE}api/index.html'  title='Navegar hacia la documentaci贸n PHP'>
+			    		<img border='0' style='vertical-align: middle' src='{BASE}api/media/php-small.png' /></a> 
+			    	<a href='{BASE}api_js/index.html'  title='Navegar hacia la documentaci贸n Javascript'>    		
+			    	<img border='0' style='vertical-align: middle' src='{BASE}api/media/javascript-small.png' /></a>
 			  </tr>
 			
 			  <tr>
 			    <td colspan='2' class='header-menu'>
-			  		  [ <a href='' class='menu'>Ver online</a> ]
+			  		  [ <a href='http://desarrollos2.siu.edu.ar{ACTUAL}' title='El sitio online contiene contenidos mas detallados y actualizados'
+						class='menu'>Ver online</a> ]
 			    </td>
 			
 			  </tr>
-			  <tr><td colspan='2' class='header-line'><img src='../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			  <tr><td colspan='2' class='header-line'><img src='{BASE}api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
 			</table>
 		";
+		/*$html_fin = '
+			<div class="credit">
+    			    <hr class="separator" />Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>. <br />        
+		            Documentaci髇 generada con <a href="http://trac.edgewall.org/">Trac</a>
+		         </div>
+			 </body>';*/
+		 
 		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		$cant = count($archivos);
 		$this->consola->mensaje("Convirtiendo $cant archivos");		
 		foreach ($archivos as $archivo) {
 			$contenido = file_get_contents($archivo);
-			str_replace('<body>', $html, $contenido);
+			
+			//--- Convierte un nombre de archivo en una url para navegar online
+			$url = str_replace($destino, '', $archivo);
+			$url = str_replace('.html', '', $url);
+			$reemplazo = str_replace('{ACTUAL}', $url, $html_inicio);
+			
+			//--- Busca la cantidad de barras en el archivo actual y hace la misma cantidad de retrocesos (../)
+			$base = str_repeat('../', substr_count($url, '/'));
+			$reemplazo = str_replace('{BASE}', $base, $reemplazo);
+			
+			//--- Escribe los reemplazos
+			$contenido = str_replace('<body>', $reemplazo, $contenido);
+			//$contenido = str_replace('</body>', $html_fin, $contenido);
 			file_put_contents($archivo, $contenido);
 		}
 	}

@@ -2,36 +2,75 @@
     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Instalacion - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+ <title>Instalacion - SIU-Toba - Trac</title><link rel="start" href="../wiki.html" /><link rel="search" href="../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="TracGuide.html" /><link rel="stylesheet" href="../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
+
+/* trac php syntax highlighting */
+.code-block {
+    line-height: 1em;
+    font-family: Courier, monotype;
+    font-size: 12px;
+    }
+.h_question { color: #0000BB; } /* highlight.default */
+.hphp_commentline { color: #FF8000; } /* highlight.comment */
+.hphp_operator { color: #007700; } /* highlight.keyword */
+.hphp_word { color: #007700; } /* highlight.keyword */
+.hphp_default {}
+.hphp_variable { color: #0000BB; } /* highlight.default */
+.hphp_hstring { color: #DD0000; } /* highlight.string */
+.hphp_simplestring { color: #DD0000; } /* highlight.string */
+.h_tagunknown {}
+.h_default {}
+
+.code-keyword { color: #007700; font-weight: normal; }
+.code-lang { color: #0000BB; font-weight: normal; }
+.code-comment { color: #FF8000; font-weight: normal;}
+.code-string { color: #DD0000; font-weight: normal;}
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
-<body>
+
+			<body>
+			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
+			  <tr>
+			
+				<td class='header-top-left'><img src='../../../../api/media/logo.png' border='0'/></td>
+			    <td class='header-top-right'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/wiki.png' />
+			    	<a href='../../../../api/index.html'  title='Navegar hacia la documentaci贸n PHP'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../api/media/php-small.png' /></a> 
+			    	<a href='../../../../api_js/index.html'  title='Navegar hacia la documentaci贸n Javascript'>    		
+			    	<img border='0' style='vertical-align: middle' src='../../../../api/media/javascript-small.png' /></a>
+			  </tr>
+			
+			  <tr>
+			    <td colspan='2' class='header-menu'>
+			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion' title='El sitio online contiene contenidos mas detallados y actualizados'
+						class='menu'>Ver online</a> ]
+			    </td>
+			
+			  </tr>
+			  <tr><td colspan='2' class='header-line'><img src='../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			</table>
+		
 
 
 <div id="banner">
 
-<div id="header"><a id="logo" href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+<div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
-<form id="search" action="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" method="get">
- <div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div>
+<form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
+ 
 </form>
 
 
 
-<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about" accesskey="9">About Trac</a></li></ul></div>
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/roadmap" accesskey="3">Roadmap</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/browser">Browse Source</a></li><li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/report">View Tickets</a></li><li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/search" accesskey="4">Search</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
 <div id="main">
 
 
@@ -42,9 +81,9 @@
  <ul>
   <li><a href="../wiki.html">Start Page</a></li>
   <li><a href="TitleIndex.html">Title Index</a></li>
-  <li><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
+  <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
   
-   <li class="last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion?action=history">Page History</a></li>
+   <li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?action=history">Page History</a></li>
   
  </ul>
  <hr />
@@ -59,16 +98,98 @@
     <div id="searchable"><p>
 <a href="WikiStart.html">Inicio</a> / Instalacion
 </p>
-<ol><li>Ver <a class="wiki" href="Instalacion/RequisitosPrevios.html">Requisitos Previos</a>
-</li><li><a class="wiki" href="Instalacion/CrearProyecto.html">Crear un nuevo proyecto</a>
-</li><li>Configurar <a class="wiki" href="Referencia/PuntosDeAcceso.html">Puntos de Acceso</a>
+<h1 id="Pasosdelainstalaci贸n">Pasos de la instalaci贸n</h1>
+<h2 id="Gu铆aR谩pidaWindows">Gu铆a R谩pida Windows</h2>
+<ol><li>Instalar la 煤ltima versi贸n estable de la serie <strong>2.0.x</strong> de Apache desde <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>, con las opciones por defecto.
+</li><li>(OPCIONAL) Instalar la 煤ltima versi贸n estable de PostgreSQL desde <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>, con las opciones por defecto.
+</li><li>(OPCIONAL) Instalar la 煤ltima versi贸n estable de Subversion desde <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91</a>
+</li><li>Bajar el zip de PHP versi贸n 5.1.2 o superior desde <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>http://ar.php.net/downloads.php</a> 
+</li><li>Descomprimir el zip en <tt>c:\php</tt>
+</li><li>Agregar <tt>c:\php</tt> en el path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
+</li><li>Copiar el archivo <tt>c:\php\php.ini.dist</tt> hacia <tt>c:\windows\php.ini</tt> y modificar las siguientes directivas:
+<ul><li>Buscar la l铆nea <tt>error_reporting  =  E_ALL &amp; ~E_NOTICE</tt> y reemplazar por <tt>error_reporting  =  E_ALL</tt>
+</li><li>Buscar la l铆nea <tt>magic_quotes_gpc = On</tt>  y pasarla a <tt>magic_quotes_gpc = Off</tt>
+</li><li>Cambiar <tt>extension_dir</tt> a <tt>extension_dir = &#34;c:/php/ext&#34;</tt>
+</li><li>Agregar o descomentar estas dos l铆neas:
+<pre class="wiki">extension=php_pdo.dll
+extension=php_pdo_pgsql.dll
+</pre>
+</li></ul></li><li>Editar el archivo <tt>C:\Archivos de Programa\Apache Group\Apache2\conf\httpd.conf</tt>, agregar estas l铆neas:
+<pre class="wiki">AddType application/x-httpd-php .php
+LoadModule php5_module &#34;c:/php/php5apache2.dll&#34;
+</pre>
+</li><li>Reiniciar el servidor apache para terminar la instalaci贸n de php.
+</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o descargar</a> el c贸digo fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
+</li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones.
+</li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
+</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url seg煤n el identificador que ha dado al proyecto).
+</li></ol><h2 id="Gu铆aR谩pidaGNU/Linuxdistrosdebianoderivados">Gu铆a R谩pida GNU/Linux (distros debian o derivados)</h2>
+<ol><li>Ejecutar como superusuario: 
+<pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pdo php5-pdo-pgsql subversion postgresql-8.1 postgresql-client-8.1 graphviz
+</pre>
+</li><li>Editar el archivo <tt>/etc/php5/apache2/php.ini</tt> y <tt>/etc/php5/cli/php.ini</tt>:
+<ul><li>Buscar la l铆nea <tt>error_reporting  =  E_ALL &amp; ~E_NOTICE</tt> y reemplazar por <tt>error_reporting  =  E_ALL</tt>
+</li><li>Buscar la l铆nea <tt>magic_quotes_gpc = On</tt>  y pasarla a <tt>magic_quotes_gpc = Off</tt>
+</li></ul></li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o bajar</a> el c贸digo fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
+</li><li>Ejecutar y seguir las instrucciones:
+<pre class="wiki">cd ~/proyectos/toba/bin
+./instalar
+</pre>
+</li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
+</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url seg煤n el identificador que ha dado al proyecto).
+</li></ol><hr />
+<h2 id="Detallesdelainstalaci贸n">Detalles de la instalaci贸n</h2>
+<h3 id="Apache">Apache</h3>
+<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>.
+</li><li>Versi贸n 2.0.x: Tener en cuenta las <a class="ext-link" href="../../../external.html?link=http://ar2.php.net/manual/en/faq.installation.php#faq.installation.apache2"><span class="icon"></span>precauciones</a> que recomienda PHP.
+</li></ul><h3 id="PHP">PHP</h3>
+<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.php.net/downloads.php"><span class="icon"></span>http://www.php.net/downloads.php</a>.
+</li><li>Versi贸n: 5.1.2 o superior
+</li><li>Extensiones m铆nimas necesarias:
+<ul><li>php_pdo
+</li><li>php_pdo_pgsql
+</li></ul></li><li>Configuraciones recomendadas para php.ini distintas a las por defecto:
+<ul><li>Aumentar el tama帽o m谩ximo de memoria a utilizar: <tt>memory_limit = 64M</tt>
+</li><li>No poner requisitos de tiempo m谩ximo de ejecuci贸n: <tt>max_execution_time = 0</tt>
+</li><li>Desactivar las 'magic_quotes': <tt>magic_quotes_gpc = off</tt>. Si no se tiene acceso al php.ini hay una solucion utilizando <a class="ext-link" href="../../../external.html?link=http://www.php.net/manual/en/security.magicquotes.php#55935"><span class="icon"></span>un archivo .htaccess</a>
+</li><li>Aumentar los limites de POST y de tama帽os de archivos:
+<ul><li><tt>post_max_size = 8 M</tt>
+</li><li><tt>upload_max_filesize = 8 M</tt>
+</li></ul></li><li>En desarrollo, mostrar por pantalla todos los sucesos: <tt>error_reporting = E_ALL</tt>
+</li></ul></li></ul><h3 id="PostgreSQL">PostgreSQL</h3>
+<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>.
+</li><li>Versi贸n: 7.4 o mayor.
+</li><li>Si se instala versi贸n 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificaci贸n local (encoding)</a>.
+</li><li>Desde la versi贸n 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon"></span>por defecto no permite m谩s joins en forma impl铆cita en los DELETES</a>, para la regeneraci贸n y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cl谩usula <tt>add_missing_from</tt> de la configuraci贸n de postgreSQL.
+</li></ul><h3 id="ClienteSVN">Cliente SVN</h3>
+<p>
+El cliente SVN es necesario cuando:
+</p>
+<ol><li>El proyecto se encuentra versionado. Los comandos administrativos que manejan los metadatos van a utilizar el cliente SVN de l铆nea de comandos (<tt>svn.exe</tt>) para sincronizar los metadatos con el repositorio.
+</li><li><a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">Obtener el c贸digo fuente</a> del toba (Para esto es indistinto utilizar un cliente SVN visual o uno de linea de comandos).
+</li></ol><ul><li>URL: 
+<ul><li><a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/"><span class="icon"></span>Cliente de linea de comandos</a>.
+</li><li>Cliente recomandado para windows: <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.tigris.org/download.html"><span class="icon"></span>TortoiseSVN</a>
+</li></ul></li><li>Versi贸n: 1.2 o mayor
+</li><li>Si se instala sobre linux, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificaci贸n local (encoding)</a>.
+</li></ul><h3 id="Graphvizopcional">Graphviz (opcional)</h3>
+<p>
+Graphviz es una herramienta que permite renderizar esquemas en base a una descripcion de los mismos. La misma constituye la base sobre  la que opera el componente <a class="wiki" href="Referencia/Objetos/ei_esquema.html">ei_esquema</a>, utilizado dentro del toba para mostrar las relaciones entre tablas que constituyen al componente de persistencia <a class="wiki" href="Referencia/Objetos/datos_relacion.html">datos_relacion</a>. Si bien la utilizacion de la herramienta es opcional, la instalacion esta recomendada porque facilita mucho la utilizacion de este componentes, sobre todo el debug del procesamiento llevado a cabo por el mismo.
+</p>
+<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.graphviz.org/Download.php"><span class="icon"></span>http://www.graphviz.org/Download.php</a>
+</li><li>Versi贸n: 2.5 o superior
+</li></ul><h3 id="Toba">Toba</h3>
+<p>
+Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">codigo fuente</a> del toba, se puede ejecutar la instalaci贸n autom谩tica o ejecuta la siguiente lista de pasos equivalentes:
+</p>
+<ol><li>Preparar el entorno para la ejecucion de los <a class="wiki" href="Referencia/Consola.html">comandos administrativos</a>.
+</li><li>Configurar la <strong><a class="wiki" href="Referencia/Instalacion.html">instalacion</a></strong>.
+</li><li>Crear una <strong><a class="wiki" href="Referencia/Instancia.html">instancia</a></strong>.
+</li><li>Crear o cargar un <strong><a class="wiki" href="Referencia/Proyecto.html">Proyecto</a></strong>.
+</li><li><a class="wiki" href="Instalacion/ConfigurarApache.html">Configurar Apache</a> para publicar el acceso a los proyectos.
 </li></ol></div>
    </div>
    
-    <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../attachment/wiki/Instalacion/TOBA - PROGRAMACION.doc">TOBA - PROGRAMACION.doc</a> (80.0 kB) -<q>Pasos para programaci髇 con el esquema viejo de Toba.</q>, added by dspagnuolo@siu.edu.ar on 05/31/05 12:37:31.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Instalacion/SIU_KOLLA_Instalacion_en_Windows.doc">SIU_KOLLA_Instalacion_en_Windows.doc</a> (102.0 kB) -<q>Instalaci髇 de un proyecto basado en TOBA (sin acceso al desarrollo de Toba)</q>, added by dspagnuolo@siu.edu.ar on 05/31/05 12:40:10.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Instalacion/Instalacion.doc">Instalacion.doc</a> (58.0 kB) -<q>Instructivo de instalaci髇 entregado con la versi髇 beta de Pampa W3</q>, added by Ignacio on 07/20/05 08:27:39.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Instalacion/Quilmes - Instalaci&#xc3;&#xb3;n Toba.doc">Quilmes - Instalaci髇 Toba.doc</a> (52.5 kB) -<q>Instructivo hecho por SIU-Quilmes para instalar toba</q>, added by seba on 09/27/05 14:44:33.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Instalacion/Quilmes - Instalaci&#xc3;&#xb3;n SIU-Quilmes.doc">Quilmes - Instalaci髇 SIU-Quilmes.doc</a> (30.5 kB) -<q>Instructivo de instalaci髇 de SIU-Quilmes</q>, added by seba on 09/27/05 14:45:27.</li>
-    </ul>
-  
   
   <script type="text/javascript">
    addHeadingLinks(document.getElementById("searchable"));
@@ -78,7 +199,7 @@
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Instalacion?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 
@@ -87,16 +208,17 @@
  <a id="tracpowered" href="../../../external.html?link=http://trac.edgewall.com/"><img src="../chrome/common/trac_logo_mini.png" height="30" width="107"
    alt="Trac Powered"/></a>
  <p class="left">
-  Powered by <a href="../../../external.html?link=https://desarrollos2.siu.edu.ar/trac/toba/about"><strong>Trac 0.9.2</strong></a><br />
+  Powered by <a href="../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.9.5</strong></a><br />
   By <a href="../../../external.html?link=http://www.edgewall.com/">Edgewall Software</a>.
  </p>
  <p class="right">
-  Creado por el Programa SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+  Creado por el SIU<br /><a href="../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
  </p>
 </div>
 
 
 
  </body>
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 </html>
 
