@@ -391,7 +391,7 @@ class nucleo extends elemento_modelo
 			$pantallas = $instancia->get_db()->consultar($sql);
 			$clase_php->agregar_metodo_datos( 'get_pantallas_'.$datos['clase'] , $pantallas );
 		}
-		$dir = toba_dir()."/php/nucleo/componentes/info";
+		$dir = toba_dir()."/php/modelo/componentes";
 		$clase_php->guardar( $dir.'/datos_editores.php' );
 	}
 	

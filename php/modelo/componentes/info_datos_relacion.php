@@ -32,7 +32,7 @@ class info_datos_relacion extends info_componente
 		);
 		if (isset($this->datos['info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
-			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_clase']) ) {
+			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_archivo']) ) {
 				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',

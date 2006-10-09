@@ -2,6 +2,7 @@
 require_once("nucleo/componentes/interface/interfaces.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
+require_once('admin_util.php');
 
 class info_item implements toba_nodo_arbol 
 {
@@ -315,6 +316,12 @@ class info_item implements toba_nodo_arbol
 					'ayuda'=> "El ITEM se registra"
 				);				
 			}
+			if ( $this->posee_accion_predefinida() && ! $this->existe_php_accion() ) {
+				$iconos[] = array(
+					'imagen' => toba_recurso::imagen_toba("php_inexistente.gif", false),
+					'ayuda'=> "Existe un PHP plano asociado al item, pero el archivo no existe en el path especificado."
+				);				
+			}
 		}
 		return $iconos;
 	}	
@@ -362,11 +369,11 @@ class info_item implements toba_nodo_arbol
 			);
 			
 			// Accion!
-			if ($this->datos['basica']['item_act_accion_script'] != '') {
+			if ( $this->posee_accion_predefinida() && $this->existe_php_accion() ) {
 				$utilerias[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 				$utilerias[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 			}			
-						
+
 		}
 		if (!$this->es_carpeta() && 
 				$this->get_tipo_solicitud() != 'consola' &&
@@ -387,6 +394,15 @@ class info_item implements toba_nodo_arbol
 		return $utilerias;
 	}	
 	
+	function posee_accion_predefinida()
+	{
+		return ($this->datos['basica']['item_act_accion_script'] != '');
+	}
+	
+	function existe_php_accion()
+	{
+		return admin_util::existe_archivo_subclase($this->datos['basica']['item_act_accion_script']);
+	}
 
 	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')
 	{

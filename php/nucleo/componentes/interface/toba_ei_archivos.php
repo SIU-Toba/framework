@@ -105,6 +105,10 @@ class toba_ei_archivos extends toba_ei
 	function set_path($path)
 	{
 		$this->dir_actual = $this->path_absoluto.$path;
+		if( ! is_dir($this->dir_actual) ) {
+			toba::logger()->notice("El directorio especificado ('$path') no existe.");
+			$this->dir_actual = $this->path_absoluto;
+		}
 	}
 
 	/**
