@@ -6,6 +6,7 @@
  * Para navegar hacia estos items puede construir URLs e incluirlos en algún TAG
  * @package Centrales
  * @jsdoc vinculador vinculador
+ * @wiki Referencia/Item Vincula ítems
  * @todo agregar un nivel de vinculos globales para un OBJETO puntual
  */
 class toba_vinculador 

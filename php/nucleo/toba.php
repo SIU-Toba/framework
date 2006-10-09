@@ -60,7 +60,7 @@ class toba
 	}
 	
 	/**
-	 * Retorna la referencia al administrador de permisos especiales
+	 * Retorna la referencia al administrador de permisos globales
 	 *	@return toba_permisos
 	 */
 	static function permisos()

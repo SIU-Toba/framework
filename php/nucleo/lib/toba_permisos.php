@@ -48,6 +48,7 @@ class toba_permisos
 	 *
 	 * @param string $permiso Indice del permiso a validar
 	 * @param boolean $lanzar_excepcion Si el usuario no posee el permiso, se lanza una excepción, sino retorna falso
+	 * @throws toba_error_permisos
 	 */
 	function validar($permiso, $lanzar_excepcion=true)
 	{
