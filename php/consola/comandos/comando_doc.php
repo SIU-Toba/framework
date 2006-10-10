@@ -133,11 +133,11 @@ class comando_doc extends comando_toba
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "API PHP";
 		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/interface/efs';
+		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/interface';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
 		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
-		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki';
+		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki,ventana';
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['ignore'] = 'componente*.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");

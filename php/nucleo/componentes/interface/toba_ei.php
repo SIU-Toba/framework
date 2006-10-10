@@ -496,6 +496,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Ventana de extensión javascript del componente
+	 * @ventana
 	 */
 	protected function extender_objeto_js()
 	{}

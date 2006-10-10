@@ -92,11 +92,19 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 <div class="method-header">
+	{section name=tag loop=$methods[methods].info_tags}
+	    {if $methods[methods].info_tags[tag].keyword eq "ventana"}
+    		<img border='0' title='protected' style='vertical-align: middle' src="{$subdir}media/ventana.png" />    	
+    	{/if}
+	{/section}
+
 	{section name=tag loop=$methods[methods].api_tags}
 	    {if $methods[methods].api_tags[tag].data eq "protected"}
     	<img border='0' title='protected' style='vertical-align: middle' src="{$subdir}media/candado.png" />
     	{/if}
 	{/section}
+	
+	
 	<span class="method-title">{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}]</span>
 </div>
 <br />
