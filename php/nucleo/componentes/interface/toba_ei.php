@@ -45,6 +45,7 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * Extensión de la construcción del componente
 	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
+	 * @ignore 
 	 */
 	protected function preparar_componente()
 	{
@@ -77,13 +78,15 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Espacio donde el componente deja su estado interno listo para la configuración del componente
+	 * @ignore 
 	 */
 	function pre_configurar()
 	{
 	}
 
 	/**
-	 *  Espacio donde el componente cierra su configuración
+	 * Espacio donde el componente cierra su configuración
+	 * @ignore 
 	 */
 	function post_configurar()
 	{
@@ -142,9 +145,10 @@ abstract class toba_ei extends toba_componente
 
 	//--- Manejo interno --------------------------------------
 	
-	/*
-	*	Carga la lista de eventos definidos desde el editor
-	*/		
+	/**
+	 * Carga la lista de eventos definidos desde el editor
+	 * @ignore 
+	 */
 	protected function cargar_lista_eventos()
 	{
 		foreach ($this->info_eventos as $info_evento) {
@@ -175,6 +179,10 @@ abstract class toba_ei extends toba_componente
 		return $this->eventos_usuario_utilizados_sobre_fila;
 	}
 	
+	/**
+	 * Retorna la cantidad de eventos que fueron definidos a nivel de fila
+	 * @return integer
+	 */	
 	function cant_eventos_sobre_fila()
 	{
 		return count( $this->get_eventos_sobre_fila() );
@@ -182,11 +190,14 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Inicia la etapa de eventos en este componente
+	 * @ignore 
 	 */
 	function disparar_eventos(){}
 		
 	/**
-	 * Reporto un evento en mi controlador
+	 * Reporta un evento en el componente controlador
+	 * Puede recibir N parametros adicionales (ej <pre>$this->reportar_evento('modificacion', $datos, $fila,...)</pre>)
+	 * @param string $evento Id. del evento a disparar
 	 */
 	protected function reportar_evento($evento)
 	{
@@ -235,6 +246,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Dispara el filtrado de eventos en base a grupos
+	 * @ignore 
 	 */
 	protected function filtrar_eventos()
 	{
@@ -260,6 +272,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Retorna true si alguno de los eventos definidos por el usuario se va a graficar en la botonera del componente
+	 * @return boolean
 	 */
 	function hay_botones() 
 	{
@@ -284,7 +297,7 @@ abstract class toba_ei extends toba_componente
 	}	
 	
 	/**
-	 * Genera los botones de todos los eventos marcardos para aparecer en la botonera.
+	 * Genera los botones de todos los eventos marcados para aparecer en la botonera.
 	 */
 	protected function generar_botones_eventos()
 	{
@@ -297,6 +310,10 @@ abstract class toba_ei extends toba_componente
 		}
 	}
 
+	/**
+	 * Genera el html de un botón específico
+	 * @param toba_evento_usuario $evento
+	 */
 	protected function generar_html_boton($evento)
 	{
 		//--- Link al editor
@@ -313,7 +330,9 @@ abstract class toba_ei extends toba_componente
 	}
 
 	/**
-	*	Metodo para graficar un boton por orden del usuario
+	* Metodo para graficar un boton por orden del usuario
+	* @param string $id_evento Id. del evento a generar el botón
+	* @param boolean $excluir_botonera El botón no se incluye en la botonera predeterminada del componente
 	*/
 	function generar_boton($id_evento, $excluir_botonera=true)
 	{
@@ -401,6 +420,9 @@ abstract class toba_ei extends toba_componente
 		echo "</div>";
 	}
 
+	/**
+	 * @ignore 
+	 */
 	function get_html_barra_editor()
 	{
 		$salida = '';
@@ -415,6 +437,10 @@ abstract class toba_ei extends toba_componente
 		return $salida;
 	}
 	
+	/**
+	 * Retorna el identificador base para los campos HTML
+	 * @return string
+	 */
 	function get_id_form()
 	{
 		return $this->submit;	
@@ -426,6 +452,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * @return array Liberias js a utilizar, se especifican con el path relativo a www/js sin la extension .js
+	 * @ignore 
 	 */
 	function get_consumo_javascript()
 	{
@@ -434,6 +461,7 @@ abstract class toba_ei extends toba_componente
 	
 	/**
 	 * Sentencias de creacion, extensión e inicialización en js del objeto js que controla este componente
+	 * @ignore 
 	 */
 	function generar_js()
 	{
@@ -449,6 +477,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Retorna el id del componente en javascript.
+	 * @return string
 	 */
 	function get_id_objeto_js()
 	{
@@ -457,6 +486,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Sentencia de creacion del componente en javascript
+	 * @ignore 
 	 */	
 	protected function crear_objeto_js()
 	{
@@ -472,6 +502,7 @@ abstract class toba_ei extends toba_componente
 
 	/**
 	 * Termina la construcción del objeto javscript asociado al componente
+	 * @ignore 
 	 */
 	protected function iniciar_objeto_js()
 	{

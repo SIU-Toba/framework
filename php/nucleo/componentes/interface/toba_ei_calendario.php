@@ -84,6 +84,9 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_seleccion_dia()
 	{
 		$this->dia_seleccionado = null;
@@ -103,6 +106,9 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_seleccion_semana()
 	{
 		$this->semana_seleccionada = null;
@@ -120,6 +126,9 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_cambio_mes()
 	{
 		if (isset($this->memoria['mes_actual']))
@@ -134,6 +143,9 @@ class toba_ei_calendario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
@@ -141,7 +153,10 @@ class toba_ei_calendario extends toba_ei
 		$this->eventos['seleccionar_semana'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar la semana');
 		$this->eventos['cambiar_mes'] = array('maneja_datos'=>true, 'ayuda'=> 'Cambiar de mes');
 	}
-	
+
+	/**
+	 * @ignore 
+	 */	
 	function disparar_eventos()
 	{
 		$this->cargar_seleccion_dia();
@@ -178,12 +193,18 @@ class toba_ei_calendario extends toba_ei
 
 		echo $this->calendario->showMonth($this->objeto_js, $this->eventos, $this->get_html_barra_editor() );
 	}
-	
+
+	/**
+	 * @ignore 
+	 */	
 	function getActYear()
 	{
 		return $this->calendario->actyear;
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	function getActMonth()
 	{
 		return $this->calendario->actmonth;
@@ -203,6 +224,9 @@ class toba_ei_calendario extends toba_ei
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -211,6 +235,9 @@ class toba_ei_calendario extends toba_ei
 
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */	
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
@@ -224,6 +251,8 @@ class toba_ei_calendario extends toba_ei
 /**
  * Clase interna de calendario que utiliza activecalendar
  * @package Varios
+ * @ignore 
+ * 
  */
 class calendario extends activecalendar
 {

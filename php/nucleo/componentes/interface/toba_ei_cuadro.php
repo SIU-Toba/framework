@@ -60,6 +60,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Método interno para iniciar el componente una vez construido
+	 * @ignore 
 	 */
 	function inicializar($parametros)
 	{
@@ -70,6 +71,9 @@ class toba_ei_cuadro extends toba_ei
 		$this->submit_paginado = $this->submit."__pagina_actual";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function procesar_definicion()
 	{
 		$estructura_datos = array();
@@ -141,8 +145,9 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * Si el usuario declaro funciones de sumarizacion por algun corte,
 	 * esta funcion las agrega en la planificacion de la ejecucion.
+	 * @ignore 
 	 */
-	private function inspeccionar_sumarizaciones_usuario()
+	protected function inspeccionar_sumarizaciones_usuario()
 	{
 		//Si soy una subclase
 		if($this->info['subclase']){
@@ -181,7 +186,10 @@ class toba_ei_cuadro extends toba_ei
 		}		
 	}
 
-	private function get_desc_sumarizacion($texto)
+	/**
+	 * @ignore 
+	 */
+	protected function get_desc_sumarizacion($texto)
 	{
 	    $desc =  parsear_doc_comment( $texto );
 		return trim($desc != '')? $desc : 'Descripcion no definida';
@@ -202,6 +210,9 @@ class toba_ei_cuadro extends toba_ei
 //############################        EVENTOS        #############################
 //################################################################################
 
+	/**
+	 * @ignore 
+	 */
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
@@ -213,6 +224,9 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	function disparar_eventos()
 	{
 		if (isset($this->memoria['eventos']['ordenar'])) {
@@ -284,7 +298,10 @@ class toba_ei_cuadro extends toba_ei
 //############################   Procesos GENERALES   ############################
 //################################################################################
 
-	private function validar_estructura_datos()
+	/**
+	 * @ignore 
+	 */
+	protected function validar_estructura_datos()
 	{
 		$muestra = current($this->datos);
 		if (!is_array($muestra)) {
@@ -313,11 +330,13 @@ class toba_ei_cuadro extends toba_ei
 		return (count($this->datos) > 0);
 	}
 
-	private function calcular_totales_generales()
-	//Esto esta duplicado en el calculo de cortes de control por optimizacion
+	/**
+	 * @ignore 
+	 * Esto esta duplicado en el calculo de cortes de control por optimizacion
+	 */
+	protected function calcular_totales_generales()
 	{
-		foreach(array_keys($this->datos) as $dato)
-		{
+		foreach(array_keys($this->datos) as $dato) {
 			//Incremento el acumulador general
 			if(isset($this->acumulador)){
 				foreach(array_keys($this->acumulador) as $columna){
@@ -331,6 +350,9 @@ class toba_ei_cuadro extends toba_ei
 //############################   CLAVE  y  SELECCION   ###########################
 //################################################################################
 
+	/**
+	 * @ignore 
+	 */
 	protected function inicializar_manejo_clave()
 	{
         if($this->info_cuadro["clave_datos_tabla"]){										//Clave del DT
@@ -350,6 +372,9 @@ class toba_ei_cuadro extends toba_ei
 		$this->clave_seleccionada = null;
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function finalizar_seleccion()
 	{
 		if (isset($this->clave_seleccionada)) {
@@ -359,6 +384,9 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_seleccion()
 	{	
 		$this->clave_seleccionada = null;
@@ -467,7 +495,10 @@ class toba_ei_cuadro extends toba_ei
 	{
 		return $this->info_cuadro["paginar"];
 	}
-
+	
+	/**
+	 * @ignore 
+	 */
 	protected function inicializar_paginado()
 	{
 		if(isset($this->memoria["pagina_actual"])){
@@ -480,6 +511,9 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function finalizar_paginado()
 	{
 		if (isset($this->pagina_actual)) {
@@ -492,6 +526,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * Pagina los datos actuales del cuadro
 	 * Restringe los datos a la pagina actual y calcula la cantidad de paginas posibles
+	 * @ignore 
 	 */
 	protected function generar_paginado()
 	{
@@ -566,6 +601,9 @@ class toba_ei_cuadro extends toba_ei
 		$this->pagina_actual = $pag;	
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_cambio_pagina()
 	{	
 		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 
@@ -581,6 +619,9 @@ class toba_ei_cuadro extends toba_ei
 		return (count($this->info_cuadro_cortes)>0);
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	function planificar_cortes_control()
 	/*
 		Primera pasada por las filas del SET de datos.
@@ -650,6 +691,9 @@ class toba_ei_cuadro extends toba_ei
 //#################################    ORDEN    ##################################
 //################################################################################
 
+	/**
+	 * @ignore 
+	 */
 	protected function finalizar_ordenamiento()
 	{
 		if (isset($this->orden_columna)) {
@@ -666,6 +710,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Actualiza el estado actual del ordenamiento en base a la memoria anterior y lo que dice el usuario a través del POST
+	 * @ignore 
 	 */
 	protected function refrescar_ordenamiento()
 	{
@@ -705,7 +750,8 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-	 * Método interno de ordenamiento de los datos
+	 * Método estandar de ordenamiento de los datos, utilizando array_multisort
+	 * Heredar en caso de querer cambiar el mecanismo de ordenamiento
 	 */
     protected function ordenar()
 	{
@@ -794,6 +840,9 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function inicializar_generacion()
 	{
 		$this->cantidad_columnas = count($this->info_cuadro_columna);
@@ -967,13 +1016,19 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	/**
+	 * Genera la cabecera del cuadro, por defecto muestra el titulo, si tiene
+	 */
 	protected function html_cabecera()
 	{
         if(trim($this->info_cuadro["subtitulo"])<>""){
             echo $this->info_cuadro["subtitulo"];
         }
 	}
-	
+
+	/**
+	 * Genera el pie del cuadro
+	 */	
 	protected function html_pie()
 	{
 	}
@@ -1033,7 +1088,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
-		Genera el COTENIDO de la cabecera del corte de control
+		Genera el CONTENIDO de la cabecera del corte de control
 			Muestra las columnas seleccionadas como descripcion del corte separadas por comas
 	*/
 	protected function html_cabecera_cc_contenido(&$nodo)
@@ -1047,13 +1102,15 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+				
 	/**
-		Genera el PIE del corte de control
-			Estaria bueno que esto consuma primitivas para:
-				- no pisarse con el contenido anidado.
-				- reutilizar en la regeneracion completa.
-	*/
-	private function html_pie_corte_control(&$nodo)
+	 * Genera el PIE del corte de control
+	 * Estaria bueno que esto consuma primitivas para:
+	 * 	- no pisarse con el contenido anidado.
+	 * 	- reutilizar en la regeneracion completa.
+	 * @ignore 
+	 */
+	protected function html_pie_corte_control(&$nodo)
 	{
 		if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
 			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
@@ -1123,10 +1180,13 @@ class toba_ei_cuadro extends toba_ei
 		return "Cantidad de filas: ";
 	}
 	
+			
 	/**
-		Genera el CONTENIDO de la cabecera del PIE del corte de control
-			Muestra las columnas seleccionadas como descripcion del corte separadas por comas
-	*/
+	 * Retorna el CONTENIDO de la cabecera del PIE del corte de control
+	 * Muestra las columnas seleccionadas como descripcion del corte separadas por comas
+	 * @return string
+	 * @ignore 
+	 */
 	protected function html_cabecera_pie_cc_contenido(&$nodo)
 	{
 		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
@@ -1284,6 +1344,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Genera la cabecera de una columna
+	 * @ignore 
 	 */
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     {
@@ -1323,6 +1384,9 @@ class toba_ei_cuadro extends toba_ei
 		echo $editor;
     }
 
+    /**
+     * @ignore 
+     */
 	protected function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
 	{
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
@@ -1438,13 +1502,18 @@ class toba_ei_cuadro extends toba_ei
 	//---- JAVASCRIPT --
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
 		echo $identado."window.{$this->objeto_js} = new ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
 	}
 
-
+	/**
+	 * @ignore 
+	 */
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
@@ -1456,6 +1525,9 @@ class toba_ei_cuadro extends toba_ei
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	function vista_impresion_html( $salida )
 	{
 		$salida->subtitulo( $this->get_titulo() );

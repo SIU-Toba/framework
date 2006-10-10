@@ -54,6 +54,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Método interno para iniciar el componente una vez construido
+	 * @ignore 
 	 */	
 	function inicializar($parametros)
 	{
@@ -74,6 +75,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Crea los objetos efs asociados al formulario actual
+	 * @ignore 
 	 */
 	protected function crear_elementos_formulario()
 	{
@@ -130,6 +132,9 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function inicializar_especifico()
 	{
 		$this->set_grupo_eventos_activo('no_cargado');
@@ -141,6 +146,7 @@ class toba_ei_formulario extends toba_ei
 
 	/**
 	 * Acciones a realizar previo al disparo de los eventos
+	 * @ignore 
 	 */
 	function pre_eventos()
 	{
@@ -158,6 +164,7 @@ class toba_ei_formulario extends toba_ei
 
 	/**
 	 * Acciones a realizar posteriormente al disparo de eventos
+	 * @ignore 
 	 */
 	function post_eventos()
 	{
@@ -176,6 +183,9 @@ class toba_ei_formulario extends toba_ei
 		$this->lista_ef_post = $this->lista_efs_servicio;
 	}	
 	
+	/**
+	 * @ignore 
+	 */
 	function disparar_eventos()
 	{
 		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
@@ -231,6 +241,7 @@ class toba_ei_formulario extends toba_ei
 
 	/**
 	 * Analiza los efs buscando maestros y esclavos y notificandolos entre si
+	 * @ignore 
 	 */
 	function registrar_cascadas()
 	{
@@ -267,6 +278,7 @@ class toba_ei_formulario extends toba_ei
 
 	/**
 	 * Retorna todos los ids de los efs
+	 * @return array
 	 */
 	function get_nombres_ef()
 	{
@@ -275,6 +287,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Retorna la lista de identificadores que no estan desactivados
+	 * @return array
 	 */
 	protected function get_efs_activos()
 	{
@@ -426,6 +439,9 @@ class toba_ei_formulario extends toba_ei
 		return $registro;
 	}
 
+	/**
+	 * @ignore 
+	 */
 	function post_configurar()
 	{
 		parent::post_configurar();
@@ -514,6 +530,7 @@ class toba_ei_formulario extends toba_ei
 	
 	/**
 	 * Carga los efs que permiten seleccionar su valor a partir de opciones
+	 * @ignore 
 	 */
 	protected function cargar_opciones_efs()
 	{
@@ -557,6 +574,9 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function ef_requiere_carga($id_ef)
 	{
 		return 
@@ -565,6 +585,9 @@ class toba_ei_formulario extends toba_ei
 			|| isset($this->parametros_carga_efs[$id_ef]['carga_sql']);
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function ejecutar_metodo_carga_ef($id_ef, $maestros = array())
 	{
 		$parametros = $this->parametros_carga_efs[$id_ef];
@@ -608,6 +631,9 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function ef_metodo_carga_lista($id_ef, $parametros, $maestros)
 	{
 		$elementos = explode(",", $parametros['carga_lista']);
@@ -625,6 +651,9 @@ class toba_ei_formulario extends toba_ei
 		return $valores;
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional)
 	{
 		//--- Si la SQL contenia comillas fueron quoteadas cuando se guardaron en la base
@@ -649,6 +678,9 @@ class toba_ei_formulario extends toba_ei
 		return toba::db($parametros['carga_fuente'])->consultar($parametros['carga_sql'], $modo);
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
 		if (isset($parametros['carga_include'])) {
@@ -755,6 +787,9 @@ class toba_ei_formulario extends toba_ei
 		$this->flag_out = true;
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function generar_formulario()
 	{
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
@@ -853,6 +888,9 @@ class toba_ei_formulario extends toba_ei
 		echo "<label style='_width:{$this->ancho_etiqueta};' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_vinculo_editor($id_ef)
 	{
 		if (toba_editor::modo_prueba()) {
@@ -867,6 +905,9 @@ class toba_ei_formulario extends toba_ei
 	//------------------------------ JAVASCRIPT  ------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -881,11 +922,19 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 
+	/**
+	 * Retorna una referencia al ef en javascript
+	 * @param string $id Id. del ef
+	 * @return string
+	 */
 	function get_objeto_js_ef($id)
 	{
 		return "{$this->objeto_js}.ef('$id')";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
@@ -919,6 +968,11 @@ class toba_ei_formulario extends toba_ei
 		echo "</table>\n";
 	}
 	
+	/**
+	 * Retorna un formato legible del estado actual de un ef
+	 * @param string $id_ef 
+	 * @return string
+	 */
 	protected function get_valor_imprimible_ef( $id_ef ) 
 	{
 		require_once('nucleo/lib/interface/formateo.php');

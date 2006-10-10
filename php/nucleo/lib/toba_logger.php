@@ -12,6 +12,28 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
  * Mantiene una serie de sucesos no visibles al usuario y los almacena para el posterior analisis
  * Los sucesos tienen una categoria (debug, info, error, etc.) y el proyecto que la produjo
  * 
+ * Para loguear información de debug:
+ * 		<pre>toba::logger()->debug($mensaje);</pre>
+ * 
+ * Para imprimir el valor de una variable en el log
+ * 		<pre>toba::logger()->var_dump($variable);</pre>
+ * 
+ * Para guardar la traza actual de ejecución:
+ * 		<pre>toba::logget()->trace();</pre>
+ * 
+ * Para loguear algun error interno:
+ * 		<pre>toba::logget()->error('El importe nunca debio ser negativo!');</pre>
+ * 
+ *
+ * Desde el punto de acceso es posible definir el nivel máximo que se guarda, los niveles son:
+ *  - TOBA_LOG_CRIT: 2
+ *  - TOBA_LOG_ERROR: 3
+ *  - TOBA_LOG_WARNING: 4
+ *  - TOBA_LOG_WARNING: 5
+ *  - TOBA_LOG_WARNING: 6
+ *  - TOBA_LOG_DEBUG: 7
+ * 
+ * @wiki Referencia/PuntosDeAcceso El nivel actual se define en el Punto de Acceso
  * @package Debug
  */
 class toba_logger
@@ -103,7 +125,7 @@ class toba_logger
 	}
 	
 	/**
-	 * Desactiva el logger en el pedido de página actual
+	 * Desactiva el logger durante todo el pedido de página actual
 	 */
 	function desactivar()
 	{
@@ -112,6 +134,9 @@ class toba_logger
 	}
 	
 	
+	/**
+	 * @ignore 
+	 */
 	protected function registrar_mensaje($mensaje, $proyecto, $nivel)
 	{
 		if ($nivel <= $this->nivel_maximo) {
@@ -133,6 +158,9 @@ class toba_logger
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function extraer_mensaje($mensaje)
 	{
         if (is_object($mensaje)) {

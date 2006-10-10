@@ -11,6 +11,9 @@ class toba_ei_filtro extends toba_ei_formulario
 {
 	protected $item_editor = '/admin/objetos_toba/editores/ei_filtro';
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function generar_envoltura_ef($ef, $editor=null)
 	{
 		$clase = 'ei-form-fila';

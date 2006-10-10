@@ -34,6 +34,9 @@ class toba_ei_archivos extends toba_ei
 		parent::destruir();
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
@@ -43,6 +46,9 @@ class toba_ei_archivos extends toba_ei
 		$this->eventos['crear_archivo'] = array();
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	function disparar_eventos()
 	{
 		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
@@ -78,6 +84,10 @@ class toba_ei_archivos extends toba_ei
 		}
 	}
 	
+	/**
+	 * Retorna el path relativo en donde se encuentra apuntando actualmente
+	 * @return string
+	 */
 	function get_path_relativo()
 	{
 		if (! isset($this->path_absoluto))
@@ -198,6 +208,9 @@ class toba_ei_archivos extends toba_ei
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -205,6 +218,9 @@ class toba_ei_archivos extends toba_ei
 		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();

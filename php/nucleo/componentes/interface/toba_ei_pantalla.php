@@ -39,6 +39,9 @@ class toba_ei_pantalla extends toba_ei
 		$this->id_en_controlador = $id_en_padre;
 	}	
 
+	/**
+	 * @ignore 
+	 */
 	function pre_configurar()
 	{
 		$this->cargar_lista_dep();
@@ -49,6 +52,7 @@ class toba_ei_pantalla extends toba_ei
 	/**
 	 * En la post_configuracion ya estan definidas las dependencias que participan
 	 * Asi que es hora de pedir al controlador que construya los objetos, los inicialize y configure
+	 * @ignore 
 	 */
 	function post_configurar()
 	{
@@ -121,6 +125,9 @@ class toba_ei_pantalla extends toba_ei
 		return $this->lista_dependencias;
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function cargar_lista_dep()
 	{
 		//Busco la definicion standard para la etapa
@@ -185,6 +192,7 @@ class toba_ei_pantalla extends toba_ei
 
 	/**
 	 * Carga la lista de botones que representan a las pestañas o tabs que se muestran en la pantalla actual
+	 * @ignore 
 	 */
 	protected function cargar_lista_tabs()
 	{
@@ -209,6 +217,7 @@ class toba_ei_pantalla extends toba_ei
 	 * Carga la lista de eventos definidos desde el administrador 
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
 	 * y agrega los tabs como eventos
+	 * @ignore 
 	 */
 	protected function cargar_lista_eventos()
 	{
@@ -297,6 +306,7 @@ class toba_ei_pantalla extends toba_ei
 
 	/**
 	 * Genera el html de la barra tabs, el toc (si tiene) y el contenido de las dependencias actuales
+	 * @ignore 
 	 */
 	protected function generar_html_cuerpo()
 	{
@@ -343,6 +353,7 @@ class toba_ei_pantalla extends toba_ei
 
 	/**
 	 * Grafica el contenido de la pantalla actual, por defecto incluye una sección de descripción
+	 * @ignore 
 	 */
 	protected function generar_html_contenido()
 	{
@@ -383,6 +394,7 @@ class toba_ei_pantalla extends toba_ei
 
 	/**
 	 * Genera la tabla de contenidos del modo navegacion wizard
+	 * @ignore 
 	 */
 	protected function generar_toc_wizard()
 	{
@@ -404,7 +416,9 @@ class toba_ei_pantalla extends toba_ei
 		echo "</ol>";
 	}
 	
-
+	/**
+	 * @ignore 
+	 */
 	protected function generar_tabs_horizontales()
 	{
 		$estilo = 'background: url("'.toba_recurso::imagen_toba('tabs/bg.gif').'") repeat-x bottom;';
@@ -419,6 +433,9 @@ class toba_ei_pantalla extends toba_ei
 		echo "</ul></div>";
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	protected function generar_tabs_verticales()
 	{
 		echo "<div  class='ci-tabs-v-solapa' style='height:20px'> </div>";
@@ -432,6 +449,9 @@ class toba_ei_pantalla extends toba_ei
 		echo "<div class='ci-tabs-v-solapa' style='height:99%;'></div>";
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function generar_utilidades_impresion_html()
 	{
 		$id_frame = "{$this->submit}_print";
@@ -473,6 +493,7 @@ class toba_ei_pantalla extends toba_ei
 	/**
 	 * Retorna los consumos javascript requerido por este objeto y sus dependencias
 	 * @return array
+	 * @ignore 
 	 */
 	function get_consumo_javascript()
 	{
@@ -487,6 +508,9 @@ class toba_ei_pantalla extends toba_ei
 		return $consumo_js;
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();	
@@ -508,6 +532,9 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	function generar_js()
 	{
 		$identado = toba_js::instancia()->identado();

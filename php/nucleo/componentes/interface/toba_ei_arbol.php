@@ -43,6 +43,9 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function cargar_eventos()
 	{
 		parent::cargar_lista_eventos();		
@@ -98,6 +101,7 @@ class toba_ei_arbol extends toba_ei
 	 * Carga la lista de eventos definidos desde el administrador 
 	 * La redefinicion filtra solo aquellos utilizados en esta pantalla
 	 * y agrega los tabs como eventos
+	 * @ignore 
 	 */
 	protected function cargar_lista_eventos()
 	{
@@ -105,6 +109,9 @@ class toba_ei_arbol extends toba_ei
 		$this->eventos['ver_propiedades'] = array('maneja_datos' => true);
 	}	
 	
+	/**
+	 * @ignore 
+	 */
 	function disparar_eventos()
 	{
 		//Se guarda el layout del arbol actual				
@@ -175,6 +182,9 @@ class toba_ei_arbol extends toba_ei
 		echo $salida;
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0)
 	{
 		//Determina si el nodo es visible en la apertura
@@ -195,7 +205,10 @@ class toba_ei_arbol extends toba_ei
 		$salida .= "</li>\n";
 		return $salida;
 	}
-	
+
+	/**
+	 * @ignore 
+	 */	
 	protected function recorrer_hijos($nodo, $nivel)
 	{
 		$salida = "";
@@ -205,6 +218,9 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
 		$salida = '';
@@ -241,8 +257,11 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 	
+	/**
+	 * Determina si un nodo es visible fijandose en la apertura de nodos
+	 * @ignore 
+	 */	
 	protected function nodo_es_visible($nodo, $nivel)
-	//Determina si un nodo es visible viendo en la apertura de nodos
 	{
 		$cargado_parcial = !$nodo->es_hoja() && $nodo->tiene_hijos_cargados();
 		if ($this->todos_abiertos) {
@@ -255,6 +274,9 @@ class toba_ei_arbol extends toba_ei
 		return ($nivel < $this->nivel_apertura) && $cargado_parcial;
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function mostrar_iconos($nodo)
 	{
 		$salida = '';
@@ -269,6 +291,9 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	protected function mostrar_utilerias($nodo)
 	{
 		$salida = "";
@@ -324,6 +349,9 @@ class toba_ei_arbol extends toba_ei
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -334,8 +362,9 @@ class toba_ei_arbol extends toba_ei
 												 '{$this->submit}', '$autovinculo');\n";
 	}
 
-	//-------------------------------------------------------------------------------
-
+	/**
+	 * @ignore 
+	 */
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();

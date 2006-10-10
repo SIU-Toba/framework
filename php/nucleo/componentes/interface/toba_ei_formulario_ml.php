@@ -40,6 +40,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		parent::destruir();
 	}	
 		
+	/**
+	 * @ignore 
+	 */
 	protected function inicializar_especifico()
 	{
 		//Se incluyen los totales
@@ -111,6 +114,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//--------------------------------	PROCESOS  -----------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	function disparar_eventos()
 	{
 		//Veo si se devolvio algun evento!
@@ -132,6 +138,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->limpiar_interface();
 	}	
 	
+	/**
+	 * @ignore 
+	 */
 	protected function disparar_eventos_especifico($evento, $implicito=null)
 	{
 		$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
@@ -167,6 +176,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 	}
 		
+	/**
+	 * @ignore 
+	 */
 	protected function disparar_eventos_granulares()
 	{
 		$this->validar_estado();
@@ -204,6 +216,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	/**
 	 * Carga en $this->datos los valores recibidos del POST
+	 * @ignore 
 	 */
 	protected function cargar_post()
 	{
@@ -348,6 +361,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function pre_configurar()
 	{
 		parent::pre_configurar();
@@ -468,6 +484,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 
 	/**
 	 * Carga los datos de una fila específica a partir de los valores de los efs de esa fila
+	 * @ignore 
 	 */
 	protected function cargar_ef_a_registro($id_registro)
 	{
@@ -493,6 +510,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 
 	/**
 	 * Carga los efs en base a los datos de una fila específica
+	 * @ignore 
 	 */
 	protected function cargar_registro_a_ef($id_fila, $datos_registro)
 	{
@@ -537,6 +555,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//----------------------------	  SALIDA	  -----------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function generar_formulario()
 	{
 		$this->rango_tabs = manejador_tabs::instancia()->reservar(1000);		
@@ -586,6 +607,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "\n</div>";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_formulario_encabezado()
 	{
 		//------ TITULOS -----	
@@ -633,6 +657,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "<span class='$estilo'>$etiqueta $editor $desc</span>\n";
 	}	
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_formulario_pie($colspan)
 	{
 		//------ Totales y Eventos------
@@ -661,6 +688,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "</td></tr>\n";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_formulario_cuerpo()
 	{
 		if ($this->registro_nuevo !== false) {
@@ -782,6 +812,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//--------------------------------	EVENTOS  -------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
@@ -794,6 +827,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */	
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
@@ -826,6 +862,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		return "{$this->objeto_js}.ef('$id').ir_a_fila('{$this->id_fila_actual}')";
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	function get_consumo_javascript()
 	{
 		$consumos = parent::get_consumo_javascript();

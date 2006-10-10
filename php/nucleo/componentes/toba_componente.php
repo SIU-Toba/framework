@@ -63,12 +63,16 @@ abstract class toba_componente
 
 	/**
 	 * Método interno para iniciar el componente una vez construido
+	 * @ignore 
 	 */
 	function inicializar($parametros=array())
 	{
 		$this->parametros = $parametros;
 	}
-	
+
+	/**
+	 * Destructor del componente
+	 */	
 	function destruir()
 	{
 		//Persisto informacion
@@ -80,6 +84,9 @@ abstract class toba_componente
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */	
 	function get_clave_memoria_global()
 	{
 		return $this->id_ses_grec;
@@ -93,21 +100,36 @@ abstract class toba_componente
 		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
 	}
 		
+	/**
+	 * @ignore
+	 */
 	function get_txt()
 	{
-		return "objeto(".$this->id[1]."): ";	
+		return "componente(".$this->id[1]."): ";	
 	}
 
+	/**
+	 * Retorna el nombre del componente según se definió en el editor
+	 * @return string
+	 */
 	function get_nombre()
 	{
 		return $this->info['nombre'];
 	}
 
+	/**
+	 * Retorna el título del componente (nombre visible al usuario)
+	 * @return string
+	 */
 	function get_titulo()
 	{
 		return $this->info['titulo'];
 	}
 
+	/**
+	 * Retorna el identificador del componente
+	 * @return integer
+	 */
 	function get_id()
 	{
 		return $this->id;	
@@ -122,11 +144,6 @@ abstract class toba_componente
 		return $this->controlador;	
 	}
 	
-	function existe_ayuda()
-	{
-		return (trim($this->info['objeto_existe_ayuda'])!="");
-	}
-
 	/**
 	 * Metodo generico de invocar callbacks en el propio objeto
 	 *
@@ -156,6 +173,7 @@ abstract class toba_componente
 	 * @param mixed $indice Indice del mensaje en el componente
 	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 * @return string Mensaje parseado
+	 * @see toba_mensajes
 	 */
 	function get_mensaje($indice, $parametros=null)
 	{
@@ -170,10 +188,13 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Informa un mensaje al usuario, usando toba::notificacion()
+	 * Informa un mensaje al usuario
 	 *
 	 * @param string $mensaje Mensaje a mostrar
 	 * @param string $nivel Severidad: info o error
+	 * 
+	 * @see toba_mensajes
+	 * @see toba_notificacion
 	 */
 	function informar_msg($mensaje, $nivel=null)
 	{
@@ -186,6 +207,9 @@ abstract class toba_componente
 	 * @param mixed $indice Indice del mensaje predefinido
 	 * @param mixed $parametros Parámetros posicionales a ser reemplazados en el mensaje (puede ser uno solo o un array)
 	 * @param string $nivel Severidad: info o error
+	 * 
+ 	 * @see toba_mensajes
+	 * @see toba_notificacion
 	 */
 	function informar($indice, $parametros=null,$nivel=null)
 	{
@@ -203,6 +227,7 @@ abstract class toba_componente
 
 	/**
 	 * Persiste el array '$this->memoria' para utilizarlo en la proxima invocacion del objeto
+	 * @ignore 
 	 */
 	function memorizar()
 	{
@@ -213,6 +238,7 @@ abstract class toba_componente
 	
 	/**
 	 * Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
+	 * @ignore
 	 */
 	function cargar_memoria()
 	{
@@ -224,6 +250,7 @@ abstract class toba_componente
 	/**
 	 * Controla la existencia de la memoria
 	 * SI la memoria no se cargo se corta la ejecucion y despliega un mensaje
+	 * @ignore 
 	 */
 	function controlar_memoria()
 	{
@@ -233,7 +260,7 @@ abstract class toba_componente
 	}
 
 	/**
-	 * Elimina toda la memoria interna y su rastro
+	 * Elimina toda la memoria interna actual y de pedidos anteriores
 	 */
 	function borrar_memoria()
 	{
@@ -241,13 +268,6 @@ abstract class toba_componente
 		toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],null);
 	}
 
-	/**
-	 * Indica si en el pedido anterior este componente dejo algo en memoria (requiere que la memoria se encuentre cargada)
-	 */
-	function existio_memoria_previa()
-	{
-		return $this->memoria_existencia_previa;
-	}
 	
 	//-------------------------------------------------------------------------------
 	//-----------------   Memoria de propiedades     --------------------------------
@@ -263,6 +283,7 @@ abstract class toba_componente
 	
 	/**
 	 * Determina las propiedades que se almacenaran en sesion
+	 * @ignore 
 	 */
 	protected function definir_propiedades_sesion()
 	{
@@ -289,6 +310,7 @@ abstract class toba_componente
 
 	/**
 	 * Carga en la clase actual los valores de las propiedades almacenadas en sesion
+	 * @ignore 
 	 */
 	protected function recuperar_estado_sesion()
 	{
@@ -328,6 +350,7 @@ abstract class toba_componente
 	
 	/**
 	 * Guarda en sesion aquellas propiedades del componente marcadas anteriormente como pertenecientes a sesion
+	 * @ignore 
 	 */
 	function guardar_estado_sesion()
 	{
@@ -374,7 +397,7 @@ abstract class toba_componente
 
 	/**
 	 * Elimina de la sesion las propiedades de este componente, a su vez pone en null estas propiedades en este objeto
-	 * @param array $no_eliminar Excepciones, propiedades que no se van a resetear
+	 * @param array $no_eliminar Excepciones, propiedades que no se van a poner en null
 	 */
 	function eliminar_estado_sesion($no_eliminar=null)
 	{
@@ -390,7 +413,7 @@ abstract class toba_componente
 	
 	/**
 	 * Construye un arreglo con los valores de todas las propiedades a almacenarse en sesion
-	 * @return array(propiedad => valor)
+	 * @return array Arreglo(propiedad => valor)
 	 */
 	function get_estado_sesion()
 	{
@@ -433,6 +456,7 @@ abstract class toba_componente
 	
 	/**
 	 * Arma un hash interno de las dependencias, utilizo durante la construccion
+	 * @ignore 
 	 */
 	protected function cargar_info_dependencias()
 	{
@@ -460,6 +484,15 @@ abstract class toba_componente
 	}	
 	
 	/**
+	 * @see dependencia
+	 * @return toba_componente
+	 */
+	function dep($id, $carga_en_demanda = true)
+	{
+		return $this->dependencia($id, $carga_en_demanda);
+	}	
+	
+	/**
 	 * Agregar dinámicamente una dependencia al componente actual
 	 *
 	 * @param string $identificador ID. del componente
@@ -480,6 +513,7 @@ abstract class toba_componente
 	 * @param unknown_type $identificador
 	 * @param unknown_type $parametros
 	 * @return unknown
+	 * @ignore 
 	 */
 	function cargar_dependencia($identificador)
  	{
@@ -513,7 +547,8 @@ abstract class toba_componente
 	}
 	
 	/**
-	 * Devuelve las dependencias cuya clase coincide con la expresion regular pasada como parametro
+	 * Devuelve las dependencias cuya clase de componente coincide con la expresion regular pasada como parametro
+	 * @return array
 	 */
 	function get_dependencias_clase($ereg_busqueda)
 	{

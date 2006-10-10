@@ -59,6 +59,9 @@ class toba_ei_esquema extends toba_ei
 		echo "</table>\n";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_esquema($contenido, $formato, $es_dirigido=true, $ancho=null, $alto=null)
 	{
 		$parametros = array("contenido" => $contenido, 

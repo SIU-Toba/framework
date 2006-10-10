@@ -43,9 +43,13 @@ class toba_ci extends toba_ei
 	/**
 	 * Extensión de la construcción del componente
 	 * No recomendado como ventana de extensión, salvo que se asegure llamar al padre
+	 * @ignore 
 	 */	
 	protected function preparar_componente(){}
 
+	/**
+	 * Destructor del componente
+	 */	
 	function destruir()
 	{
 		$this->fin();
@@ -65,6 +69,9 @@ class toba_ci extends toba_ei
 	 */
 	function fin() {}
 
+	/**
+	 * @ignore 
+	 */
 	function inicializar($parametro=null)
 	{
 		if(isset($parametro)){
@@ -120,6 +127,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Borra la memoria de este CI y lo reinicializa
+	 * @param array $no_borrar Excepciones, propiedades que no se van a poner en null
 	 */
 	function evt__limpieza_memoria($no_borrar=null)
 	{
@@ -223,6 +231,7 @@ class toba_ci extends toba_ei
 	 * Se disparan los eventos propios y se les ordena a las dependencias que gatillen sus eventos
 	 * Cualquier error de usuario que aparezca, sea donde sea, se atrapa en la solicitud
 	 * @todo Esto esta bien? --> cuando aparece el primer error no se sigan procesando las cosas... solo se puede atrapar un error.
+	 * @ignore 
 	 */
 	function disparar_eventos()
 	{
@@ -250,12 +259,13 @@ class toba_ci extends toba_ei
 	}
 	
 	/**
-	 * Callback que se ejecuta una vez que todos los eventos se han disparado para este objeto
+	 * Ventana que se ejecuta una vez que todos los eventos se han disparado para este objeto
 	 */
 	protected function post_eventos() {}
 	
 	/**
-	 *	Si existio un cambio explicito de pantalla se notifican las callbacks de entrada-salida
+	 * Si existio un cambio explicito de pantalla se notifican las callbacks de entrada-salida
+	 * @ignore 
 	 */
 	protected function controlar_cambio_pantalla()
 	{
@@ -277,6 +287,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Reconoce que evento del CI se ejecuto
+	 * @ignore 
 	 */
 	protected function controlar_eventos_propios()
 	{
@@ -295,6 +306,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Dispara los eventos de usuarios o el de cambio de tab
+	 * @ignore 
 	 */
 	protected function disparar_evento_propio()
 	{
@@ -336,10 +348,11 @@ class toba_ci extends toba_ei
 		
 	
 	/**
-	 * Se disparan eventos dentro del nivel actual
-	 * Puede recibir N parametros adicionales
+	 * Dispara un evento dentro del nivel actual
+	 * Puede recibir N parametros adicionales (ej <pre>$this->registrar_evento('form', ',modificacion', $datos, $fila,...)</pre>)
 	 * @param string $id Id. o rol que tiene la dependencia en este objeto
 	 * @param string $evento Id. del evento
+	 * @ignore 
 	 */
 	function registrar_evento($id, $evento) 
 	{
@@ -393,6 +406,7 @@ class toba_ci extends toba_ei
 	/**
 	 * Carga las dependencias y las inicializa
 	 * @param unknown_type $dependencias
+	 * @ignore 
 	 */
 	protected function inicializar_dependencias( $dependencias )
 	{
@@ -416,6 +430,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Método interno de inicialización de una dependencia
+	 * @ignore 
 	 */
 	protected function inicializar_dependencia($dep, $parametro)
 	{
@@ -457,16 +472,10 @@ class toba_ci extends toba_ei
 		return $dependencia;
 	}
 	
-	/**
-	 * @see dependencia
-	 */
-	function dep($id, $carga_en_demanda = true)
-	{
-		return $this->dependencia($id, $carga_en_demanda);
-	}
-	
+
 	/**
 	 * Devuelve la lista de dependencias que se utlizaron para generar el servicio anterior (atender los eventos actuales)
+	 * @ignore 
 	 */
 	protected function get_dependencias_eventos()
 	{
@@ -488,6 +497,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Define la pantalla de eventos (servicio del request anterior)
+	 * @ignore 
 	 */
 	protected function definir_pantalla_eventos()
 	{
@@ -527,6 +537,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Retorna true si la navegación por wizard recibio un 'siguiente' en la ultima solicitud
+	 * @return boolean
 	 */
 	protected function wizard_avanza()
 	{
@@ -539,6 +550,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Momento donde se decide finalmente la pantalla a graficar y se configuran las dependencias
+	 * @ignore 
 	 */
 	function pre_configurar()
 	{
@@ -562,6 +574,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Se configura una dependencia, se busca un callback `conf__` y si este callback responde cargar estos datos la dependencia
+	 * @ignore 
 	 */
 	protected function configurar_dep($dep)
 	{
@@ -585,12 +598,16 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Una dependencia ya ha sido configurada por este CI?
+	 * @ignore 
 	 */
 	protected function dependencia_esta_configurada($id)
 	{
 		return in_array($id, $this->dependencias_configuradas);
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function post_configurar(){}
 
 	/**
@@ -599,7 +616,8 @@ class toba_ci extends toba_ei
 	protected function conf() {}
 	
 	/**
-	 * Retorna los metadatos de una pantalla
+	 * Retorna los metadatos de una pantalla específica perteneciente a este ci
+	 * @return array
 	 */
 	protected function get_info_pantalla($id)
 	{
@@ -650,7 +668,8 @@ class toba_ci extends toba_ei
 	}
 
 	/**
-	*	Shortcut para acceder a un evento propio (en realidad es de la pantalla)
+	* Shortcut para acceder a un evento propio (en realidad es de la pantalla)
+	* @return toba_evento_usuario 
 	*/
 	function evento($id)
 	{
@@ -680,19 +699,23 @@ class toba_ci extends toba_ei
 	}
 
 	/**
-	 * Delega la generacion de html a la pantalla actual
+	 * Genera el html de la pantalla actual
 	 */
 	function generar_html()
 	{
 		$this->pantalla()->generar_html();	
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function get_consumo_javascript()
 	{
 		return $this->pantalla()->get_consumo_javascript();
 	}
 	
 	/**
+	 * @ignore 
 	 * Delega la generacion de js a la pantalla actual
 	 */
 	function generar_js()
