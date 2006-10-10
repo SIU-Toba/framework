@@ -14,15 +14,23 @@ class toba_tp_basico_titulo extends toba_tp_basico
 
 	protected function barra_superior()
 	{
-		$info = toba::solicitud()->get_datos_item();			
+		$info = toba::solicitud()->get_datos_item();
 		echo "<div class='item-barra'>";
 		if (trim($info['item_descripcion']) != '') {
 			echo "<div class='item-barra-ayuda'>";
 			echo toba_recurso::imagen_toba("ayuda_grande.gif", true, 22, 22, trim($info['item_descripcion']));
 			echo "</div>";
 		}		
-		echo "<div class='item-barra-tit'>".$info['item_nombre']."</div>";
+		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
 		echo "</div>\n\n";
+	}
+	
+	/**
+	 * Retorna el título del item actual, utilizado en la barra superior
+	 */
+	protected function titulo_item()
+	{
+		return toba::solicitud()->get_datos_item('item_nombre');
 	}
 	
 	function pre_contenido()

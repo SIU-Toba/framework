@@ -390,7 +390,7 @@ ef.prototype.constructor = ef;
 	};
 
 	/**
-	 * @deprecated Usar get_estado()
+	 * @deprecated Desde la version 1.0 usar get_estado()
 	 * @see #get_estado
 	 */
 	ef.prototype.valor = function() {
@@ -398,7 +398,7 @@ ef.prototype.constructor = ef;
 	};
 
 	/**
-	 * @deprecated Usar set_estado()
+	 * @deprecated Desde la versión 1.0 usar set_estado()
 	 * @see #set_estado
 	 */
 	ef.prototype.cambiar_valor = function(nuevo) {

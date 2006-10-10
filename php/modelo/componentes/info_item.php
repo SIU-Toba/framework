@@ -2,7 +2,6 @@
 require_once("nucleo/componentes/interface/interfaces.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
-require_once('admin_util.php');
 
 class info_item implements toba_nodo_arbol 
 {
@@ -35,7 +34,7 @@ class info_item implements toba_nodo_arbol
 	function cargar_dependencias()
 	{
 		//Si hay objetos asociados...
-		if (count($this->datos['objetos'])>0)	{
+		if (isset($this->datos['objetos']) && count($this->datos['objetos'])>0)	{
 			for ($a=0; $a<count($this->datos['objetos']); $a++) {
 				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
 				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
@@ -401,6 +400,7 @@ class info_item implements toba_nodo_arbol
 	
 	function existe_php_accion()
 	{
+		require_once('admin_util.php');		
 		return admin_util::existe_archivo_subclase($this->datos['basica']['item_act_accion_script']);
 	}
 

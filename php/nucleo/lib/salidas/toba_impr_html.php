@@ -3,6 +3,7 @@ require_once('toba_impresion.php');
 
 /**
  * Genera un HTML básico pensado para impresión con un browser
+ * Toma un conjunto de componentes e les invoca el método <pre>vista_impresion</pre>
  * @package SalidaGrafica
  */
 class toba_impr_html implements toba_impresion
@@ -29,7 +30,7 @@ class toba_impr_html implements toba_impresion
 		$this->generar_html_pie();
 	}
 
-	private function generar_html_encabezado()
+	protected function generar_html_encabezado()
 	{
 		echo "<html><head>";
 		$estilo = toba::proyecto()->get_parametro('estilo');
@@ -60,7 +61,7 @@ class toba_impr_html implements toba_impresion
 		echo "<div class='marco-impresion'>";
 	}
 
-	private function generar_html_pie()
+	protected function generar_html_pie()
 	{
 		echo "</div>";
 		echo "</body></html>";

@@ -58,9 +58,12 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 	 *	Metodo aún no implementado!!!
 	 */
 	ef_multi_seleccion.prototype.set_estado = function(nuevo) {
-		alert('metodo no implementado');
+		alert('metodo set_estado del ef_multi_seleccion no implementado');
 	};	
-	
+
+	ef_multi_seleccion.prototype.resetear_estado = function() {
+		this.seleccionar_todo(false);
+	};	
 	
 // ########################################################################################################
 // ########################################################################################################
@@ -118,7 +121,7 @@ ef_multi_seleccion_lista.constructor = ef_multi_seleccion_lista;
 			elem.options[i].selected = todos;
 		}
 	};
-
+	
 	
 // ########################################################################################################
 // ########################################################################################################
@@ -270,6 +273,18 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 		}
 		return valores;
 	};
+	
+	/**
+	 * Selecciona todos o ningún los elementos de la lista
+	 * @param {boolean} todos True seleciona todos, false ninguno
+	 */
+	ef_multi_seleccion_doble.prototype.seleccionar_todo = function(todos) {
+		if (todos) {
+			this.pasar_a_derecha();
+		} else {
+			this.pasar_a_izquierda();
+		}
+	};	
 	
 	/**
 	 *	Selecciona todos los elementos de la lista
