@@ -1,5 +1,5 @@
 <?php
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 
 /**
  * Construye los objetos php relacionados con componentes especificos
@@ -112,7 +112,7 @@ class toba_constructor
 		$directorio_componentes = toba_instancia::get_path_proyecto() . '/metadatos_compilados/componentes';		
 		$prefijo = 'php_';
 		if ( $tipo == 'item' ) {
-			$nombre = $prefijo . manejador_archivos::nombre_valido( $id['componente'] );
+			$nombre = $prefijo . toba_manejador_archivos::nombre_valido( $id['componente'] );
 		} else {
 			$nombre = $prefijo . $id['componente'];
 		}

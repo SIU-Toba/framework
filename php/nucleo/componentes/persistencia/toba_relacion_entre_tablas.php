@@ -26,7 +26,7 @@ class toba_relacion_entre_tablas
 	function __construct($tabla_padre, $tabla_padre_clave, $tabla_padre_id, 
 							$tabla_hijo, $tabla_hijo_clave, $tabla_hijo_id)
 	{
-		asercion::arrays_igual_largo($tabla_padre_clave, $tabla_hijo_clave);
+		toba_asercion::arrays_igual_largo($tabla_padre_clave, $tabla_hijo_clave);
 		$this->tabla_padre = $tabla_padre;
 		$this->tabla_padre_claves = $tabla_padre_clave;
 		$this->tabla_padre_id = $tabla_padre_id;

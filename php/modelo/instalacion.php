@@ -1,8 +1,8 @@
 <?
 require_once('modelo/lib/elemento_modelo.php');
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 require_once('modelo/lib/version_toba.php');
-require_once('lib/ini.php');
+require_once('lib/toba_ini.php');
 
 /**
 *	@todo:	Control de que la estructura de los INIs sea correcta
@@ -211,8 +211,8 @@ class instalacion extends elemento_modelo
 	*/
 	function conectar_base_parametros( $parametros )
 	{
-		$archivo = "lib/db/db_" . $parametros['motor'] . ".php";
-		$clase = "db_" . $parametros['motor'];
+		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
+		$clase = "toba_db_" . $parametros['motor'];
 		require_once($archivo);
 		$db = new $clase(	$parametros['profile'],
 							$parametros['usuario'],
@@ -244,8 +244,8 @@ class instalacion extends elemento_modelo
 	{
 		$archivo = self::get_archivo_alias_apache();
 		copy( toba_dir(). '/php/modelo/var/toba.conf', $archivo );
-		$editor = new editor_archivos();
-		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );		
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
 		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
 		$editor->procesar_archivo( $archivo );
 	}
@@ -273,11 +273,11 @@ class instalacion extends elemento_modelo
 		
 		//--- Se agrega el proyecto al archivo
 		$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
-		$editor = new editor_texto();
-		$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );		
+		$editor = new toba_editor_texto();
+		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
 		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
 		$editor->agregar_sustitucion( '|__proyecto_alias__|', $alias );
-		$editor->agregar_sustitucion( '|__proyecto_dir__|', manejador_archivos::path_a_unix($dir) );
+		$editor->agregar_sustitucion( '|__proyecto_dir__|', toba_manejador_archivos::path_a_unix($dir) );
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
 		$salida = $editor->procesar( $template );
 		$salida = "\n\t#Creado automáticamente por Toba - ".date('D/M/Y H:m:s').$salida;
@@ -303,7 +303,7 @@ class instalacion extends elemento_modelo
 	static function borrar_directorio()
 	{
 		if (is_dir( self::dir_base() ) ) {
-			manejador_archivos::eliminar_directorio(self::dir_base());
+			toba_manejador_archivos::eliminar_directorio(self::dir_base());
 			toba_logger::instancia()->debug("Borrado directorio ".self::dir_base());			
 		}		
 	}
@@ -327,7 +327,7 @@ class instalacion extends elemento_modelo
 	*/
 	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null, $editor='start' )
 	{
-		$ini = new ini();
+		$ini = new toba_ini();
 		$ini->agregar_titulo( self::info_basica_titulo );
 		$ini->agregar_entrada( 'id_grupo_desarrollo', $id_grupo_desarrollo );
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
@@ -343,7 +343,7 @@ class instalacion extends elemento_modelo
 	 */
 	function cambiar_info_basica($datos)
 	{
-		$ini = new ini(self::archivo_info_basica());
+		$ini = new toba_ini(self::archivo_info_basica());
 		foreach ($datos as $entrada => $valor) {
 			if ($ini->existe_entrada($entrada)) {
 				$ini->set_datos_entrada($entrada, $valor);
@@ -377,7 +377,7 @@ class instalacion extends elemento_modelo
 	*/
 	static function crear_info_bases( $lista_bases = array() )
 	{
-		$ini = new ini();
+		$ini = new toba_ini();
 		$ini->agregar_titulo( self::info_bases_titulo );
 		foreach( $lista_bases as $id => $base ) {
 			//Valido que la definicion sea correcta
@@ -414,7 +414,7 @@ class instalacion extends elemento_modelo
 				throw new toba_error("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores) );	
 			}
 		}
-		$ini = new ini( self::archivo_info_bases() );
+		$ini = new toba_ini( self::archivo_info_bases() );
 		$ini->agregar_titulo( self::info_bases_titulo );
 		$ini->agregar_entrada( $id_base, $parametros );
 		$ini->guardar();
@@ -423,7 +423,7 @@ class instalacion extends elemento_modelo
 	
 	static function eliminar_db( $id_base )
 	{
-		$ini = new ini( self::archivo_info_bases() );
+		$ini = new toba_ini( self::archivo_info_bases() );
 		$ini->agregar_titulo( self::info_bases_titulo );
 		$ini->eliminar_entrada( $id_base );
 		$ini->guardar();

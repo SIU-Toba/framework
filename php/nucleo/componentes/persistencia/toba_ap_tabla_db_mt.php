@@ -423,7 +423,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 			}
 		}
 		else{
-			asercion::error("El tipo de JOIN debe ser INNER o OUTER");
+			toba_asercion::error("El tipo de JOIN debe ser INNER o OUTER");
 		}
 		$this->log("SQL de carga - " . $sql); 
 		return $sql;

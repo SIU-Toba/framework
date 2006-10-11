@@ -1,9 +1,9 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
-require_once('lib/manejador_archivos.php');
-require_once('lib/sincronizador_archivos.php');
-require_once('lib/reflexion/clase_datos.php');
+require_once('lib/toba_manejador_archivos.php');
+require_once('lib/toba_sincronizador_archivos.php');
+require_once('lib/reflexion/toba_clase_datos.php');
 
 class nucleo extends elemento_modelo
 {
@@ -35,7 +35,7 @@ class nucleo extends elemento_modelo
 	function get_sincronizador()
 	{
 		if ( ! isset( $this->sincro_archivos ) ) {
-			$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
+			$this->sincro_archivos = new toba_sincronizador_archivos( $this->get_dir_metadatos(), '|apex_|' );
 		}
 		return $this->sincro_archivos;
 	}
@@ -83,7 +83,7 @@ class nucleo extends elemento_modelo
 	{
 		$directorio = $this->get_dir_ddl();
 		$patron = '|pgsql_a.*\.sql|';
-		$this->archivos = manejador_archivos::get_archivos_directorio( $directorio, $patron );
+		$this->archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, $patron );
 	}
 
 	/**
@@ -232,7 +232,7 @@ class nucleo extends elemento_modelo
 	{
 		foreach(array_keys($this->plan) as $nombre ) {
 			$this->manejador_interface->titulo( $nombre );
-			$clase = new clase_datos( $nombre );
+			$clase = new toba_clase_datos( $nombre );
 			//Creo los indices
 			foreach ( $this->plan[$nombre]['indices'] as $id => $indice) {
 				$clase->agregar_metodo_datos( $id, $indice );
@@ -251,7 +251,7 @@ class nucleo extends elemento_modelo
 		$this->manejador_interface->titulo("Creacion de catalogos");
 		foreach( array_keys( $this->catalogo ) as $nombre ) {
 			$this->manejador_interface->mensaje( "Catalogo: $nombre" );
-			$clase = new clase_datos( $nombre );
+			$clase = new toba_clase_datos( $nombre );
 			//Informacion de cada tabla
 			$clase->agregar_metodo_datos( 'get_tablas' , $this->catalogo[ $nombre ] );
 			$clase->guardar( $this->get_dir_estructura_db() .'/'.$nombre.'.php' );
@@ -276,7 +276,7 @@ class nucleo extends elemento_modelo
 	{
 		try {
 			$this->manejador_interface->titulo( "Tablas NUCLEO" );
-			manejador_archivos::crear_arbol_directorios( $this->get_dir_metadatos() );
+			toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_metadatos() );
 			foreach ( tablas_nucleo::get_lista() as $tabla ) {
 				$this->manejador_interface->mensaje( "tabla  --  $tabla" );
 				$definicion = tablas_nucleo::$tabla();
@@ -372,7 +372,7 @@ class nucleo extends elemento_modelo
 					o.clase = 'objeto_ci'";
 		$rs = $instancia->get_db()->consultar($sql);
 		
-		$clase_php = new clase_datos( "datos_editores" );		
+		$clase_php = new toba_clase_datos( "datos_editores" );		
 		foreach ($rs as $datos) {
 			//--- Se buscan las pantallas asociadas a un CI especifico
 			$this->manejador_interface->mensaje("Procesando " . $datos['clase'] . "...");
@@ -412,7 +412,7 @@ class nucleo extends elemento_modelo
 		
 		$dirs = array($dir_js.'/basicos', $dir_js.'/componentes', $dir_js.'/efs');
 		foreach ($dirs as $directorio) {
-			$nuevos = manejador_archivos::get_archivos_directorio($directorio, $patron_incl);
+			$nuevos = toba_manejador_archivos::get_archivos_directorio($directorio, $patron_incl);
 			$archivos = array_merge($archivos, $nuevos);
 		}
 		if (isset($patron_excl)) {

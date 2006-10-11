@@ -1,7 +1,7 @@
 <?php
 require_once('nucleo/componentes/interface/toba_ci.php');
-require_once('lib/reflexion/archivo_php.php');
-require_once('lib/reflexion/clase_php.php');
+require_once('lib/reflexion/toba_archivo_php.php');
+require_once('lib/reflexion/toba_clase_php.php');
 
 /**
 *	Este CI tiene dos objetivos: crear, mostrar y analizar subclases del framework
@@ -25,7 +25,7 @@ class ci_editor_php extends toba_ci
 		if (isset($archivo)) {	//********* Se indico un archivo especifico por GET
 			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$archivo =  $path_proyecto . $archivo;
-			$this->archivo_php = new archivo_php($archivo);	
+			$this->archivo_php = new toba_archivo_php($archivo);	
 		} else {				//********* Se accedio a un componente a travez de su ZONA
 			$datos = toba::zona()->get_info();
 			if(!isset($datos)){
@@ -58,8 +58,8 @@ class ci_editor_php extends toba_ci
 				throw new toba_error('El componente no tiene una subclase definida');	
 			}			
 			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $subclase_archivo;
-			$this->archivo_php = new archivo_php($path);
-			$this->clase_php = new clase_php($this->archivo_php, $meta_clase);
+			$this->archivo_php = new toba_archivo_php($path);
+			$this->clase_php = new toba_clase_php($this->archivo_php, $meta_clase);
 			$this->meta_clase = $meta_clase;
 		}
 	}

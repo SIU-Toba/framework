@@ -417,7 +417,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function inicializar_dependencias( $dependencias )
 	{
-		asercion::es_array($dependencias,"No hay dependencias definidas");
+		toba_asercion::es_array($dependencias,"No hay dependencias definidas");
 		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true), 'toba');
 		//Parametros a generales
 		$parametro["nombre_formulario"] = $this->nombre_formulario;

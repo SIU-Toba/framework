@@ -780,7 +780,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function procesar_filas($filas)
 	{
-		asercion::es_array($filas,"toba_datos_tabla - El parametro no es un array.");
+		toba_asercion::es_array($filas,"toba_datos_tabla - El parametro no es un array.");
 		//--- Controlo estructura
 		foreach(array_keys($filas) as $id){
 			if(!isset($filas[$id][apex_ei_analisis_fila])){

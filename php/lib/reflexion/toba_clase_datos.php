@@ -4,7 +4,7 @@
 	metodos proveen informacion fija.
 */
 
-class clase_datos
+class toba_clase_datos
 {
 	private $nombre;
 	private $path = null;

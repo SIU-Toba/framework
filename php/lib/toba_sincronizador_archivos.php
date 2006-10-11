@@ -1,5 +1,5 @@
 <?
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 /*
 *	Sincroniza el arbol de archivos manejado con la generacion
 *	automatica de archivos basados en la base.
@@ -7,7 +7,7 @@ require_once('lib/manejador_archivos.php');
 *			generar, esta clase se encarga de que una baja en la base
 *			este sincronizada con una baja en el sistema de archivos (fs o svn)
 */
-class sincronizador_archivos
+class toba_sincronizador_archivos
 {
 	
 	private $tipo_manejo;
@@ -39,7 +39,7 @@ class sincronizador_archivos
 	
 	private function cargar_archivos_originales()
 	{
-		$this->archivos_originales = manejador_archivos::get_archivos_directorio( 	$this->dir, 
+		$this->archivos_originales = toba_manejador_archivos::get_archivos_directorio( 	$this->dir, 
 																					$this->patron_archivos, 
 																					true );
 	}

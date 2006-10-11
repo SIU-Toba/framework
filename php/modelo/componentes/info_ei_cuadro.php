@@ -11,7 +11,9 @@ class info_ei_cuadro extends info_ei
 	{
 		$molde = $this->get_molde_vacio();
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );		
-		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );		
+		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );
+		// Cortes de control
+		
 		return $molde;
 	}
 

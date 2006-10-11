@@ -1,6 +1,6 @@
 <?php
 
-class editor_texto
+class toba_editor_texto
 {
 	protected $sustituciones;
 	protected $id_sustitucion;
@@ -21,7 +21,7 @@ class editor_texto
 	}
 }
 
-class editor_archivos extends editor_texto
+class toba_editor_archivos extends toba_editor_texto
 {
 	function procesar_archivo( $archivo )
 	{

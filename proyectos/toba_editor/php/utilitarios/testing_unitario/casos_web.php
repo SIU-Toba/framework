@@ -1,8 +1,8 @@
 <?php
 require_once('utilitarios/testing_unitario/reporter_toba.php');
 require_once('modelo/lib/testing_unitario/lista_casos.php');
-require_once("lib/reflexion/archivo_php.php");
-require_once("lib/manejador_archivos.php");
+require_once("lib/reflexion/toba_archivo_php.php");
+require_once("lib/toba_manejador_archivos.php");
 
 class casos_web extends toba_ci
 {
@@ -31,7 +31,7 @@ class casos_web extends toba_ci
 	{
 	    foreach (lista_casos::get_casos() as $caso) {
 			if ($caso['id'] == $caso_sel['id']) {
-				$archivo = new archivo_php($caso['archivo']);
+				$archivo = new toba_archivo_php($caso['archivo']);
 				$archivo->abrir();
 			}	
 		}	
@@ -86,7 +86,7 @@ class pantalla_testing extends toba_ei_pantalla
 					
 					//--- COBERTURA DE CODIGO (OPCIONAL) ----
 					$arch = 'PHPUnit2/Util/CodeCoverage/Renderer.php';
-					manejador_archivos::existe_archivo_en_path($arch);
+					toba_manejador_archivos::existe_archivo_en_path($arch);
 					if (function_exists("xdebug_start_code_coverage") && $existe) {
 						require_once($arch);
 						$cubiertos = xdebug_get_code_coverage();

@@ -11,7 +11,7 @@ define("apex_sql_from","%f%");
 /**
 *	Representa una conexión a la base de datos 
 */
-class db
+class toba_db
 {
 	protected $conexion;			//Conexion ADOdb
 	protected $motor;

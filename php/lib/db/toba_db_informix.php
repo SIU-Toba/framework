@@ -1,7 +1,7 @@
 <?
-require_once("db.php");
+require_once("toba_db.php");
 
-class db_informix extends db
+class toba_db_informix extends toba_db
 {
 	function __construct($profile, $usuario, $clave, $base)
 	{

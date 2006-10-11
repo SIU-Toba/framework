@@ -197,7 +197,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function cargar_por_clave($clave, $anexar_datos=false)
 	{
-		asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
+		toba_asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where($clave);
 		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos);
 	}
@@ -225,8 +225,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
 	{
-		asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
-		asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
+		toba_asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
+		toba_asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
 		$this->log("Cargar de DB");
 		$sql = $this->generar_sql_select($where, $from);
 		return $this->cargar_con_sql($sql, $anexar_datos);

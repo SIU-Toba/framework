@@ -1,8 +1,8 @@
 <?php
 require_once('migracion_toba.php');
-require_once('lib/parseo.php');
-require_once('lib/manejador_archivos.php');
-require_once('lib/editor_archivos.php');
+require_once('lib/toba_parseo.php');
+require_once('lib/toba_manejador_archivos.php');
+require_once('lib/toba_editor_archivos.php');
 
 class migracion_1_0_0 extends migracion_toba
 {
@@ -516,23 +516,23 @@ class migracion_1_0_0 extends migracion_toba
 
 	function proyecto__path_includes()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion('|nucleo/lib/asercion.php|'						,'lib/toba_asercion.php');          
+		$editor->agregar_sustitucion('|nucleo/lib/cache_db.php|'              			,'lib/toba_cache_db.php');               
+		$editor->agregar_sustitucion('|nucleo/lib/editor_archivos.php|'       			,'lib/toba_editor_archivos.php');
+		$editor->agregar_sustitucion('|nucleo/lib/encriptador.php|'           			,'lib/toba_encriptador.php');      
+		$editor->agregar_sustitucion('|nucleo/lib/ini.php|'                   			,'lib/toba_ini.php');          
+		$editor->agregar_sustitucion('|nucleo/lib/manejador_archivos.php|'	   			,'lib/toba_manejador_archivos.php');
+		$editor->agregar_sustitucion('|nucleo/lib/parseo.php|'                			,'lib/toba_parseo.php');   
+		$editor->agregar_sustitucion('|nucleo/lib/sincronizador_archivos.php|'			,'lib/toba_sincronizador_archivos.php');
+		$editor->agregar_sustitucion('|nucleo/lib/sql.php|'                   			,'lib/toba_sql.php');
+		$editor->agregar_sustitucion('|nucleo/lib/texto.php|'                 			,'lib/toba_texto.php');
+		$editor->agregar_sustitucion('|nucleo/lib/varios.php|'							,'lib/toba_varios.php');
+		$editor->agregar_sustitucion('|nucleo/lib/reflexion/toba_archivo_php.php|'		,'lib/reflexion/toba_archivo_php.php');
+		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_datos.php|' 			,'lib/reflexion/toba_clase_datos.php');
+		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_php.php|'   			,'lib/reflexion/toba_clase_php.php');
 		$editor->agregar_sustitucion('|nucleo/browser/zona/zona.php|'					,'nucleo/lib/zona.php');
-		$editor->agregar_sustitucion('|nucleo/lib/asercion.php|'						,'lib/asercion.php');          
-		$editor->agregar_sustitucion('|nucleo/lib/cache_db.php|'              			,'lib/cache_db.php');               
-		$editor->agregar_sustitucion('|nucleo/lib/db.php|'                    			,'lib/db.php');                     
-		$editor->agregar_sustitucion('|nucleo/lib/editor_archivos.php|'       			,'lib/editor_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/encriptador.php|'           			,'lib/encriptador.php');      
-		$editor->agregar_sustitucion('|nucleo/lib/ini.php|'                   			,'lib/ini.php');          
-		$editor->agregar_sustitucion('|nucleo/lib/manejador_archivos.php|'	   			,'lib/manejador_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/parseo.php|'                			,'lib/parseo.php');   
-		$editor->agregar_sustitucion('|nucleo/lib/sincronizador_archivos.php|'			,'lib/sincronizador_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/sql.php|'                   			,'lib/sql.php');
-		$editor->agregar_sustitucion('|nucleo/lib/texto.php|'                 			,'lib/texto.php');
-		$editor->agregar_sustitucion('|nucleo/lib/varios.php|'							,'lib/varios.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/archivo_php.php|'			,'lib/reflexion/archivo_php.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_datos.php|' 			,'lib/reflexion/clase_datos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_php.php|'   			,'lib/reflexion/clase_php.php');
+		$editor->agregar_sustitucion('|nucleo/lib/db.php|'                    			,'nucleo/lib/toba_db.php');                     
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto.php|'               ,'nucleo/componentes/objeto.php'                 			);		
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ci.php|'            ,'nucleo/componentes/interface/objeto_ci.php'              );
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ci_abm.php|'          ,'nucleo/componentes/interface/objeto_ci_abm.php'          );
@@ -552,7 +552,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_html.php|'            ,'nucleo/componentes/transversales/objeto_html.php'        );
 		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_lista.php|'           ,'nucleo/componentes/transversales/objeto_lista.php'       );
 		$editor->agregar_sustitucion('|nucleo/persistencia/|' 					          ,'nucleo/componentes/persistencia/' 					      );
-		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
@@ -722,7 +722,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada(');
 		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
 		$editor->agregar_sustitucion('/evt__inicializar\(/', 'ini(');
-		$archivos = manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
@@ -768,7 +768,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/ap_relacion_db/',		'toba_ap_relacion_db');
 		$editor->agregar_sustitucion('/ap_tabla_db/',			'toba_ap_tabla_db');
 		$editor->agregar_sustitucion('/mensaje::/',				'toba::mensajes()->');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
@@ -793,7 +793,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/toba::get_cronometro/',		'toba::cronometro');
 		$editor->agregar_sustitucion('/toba::get_sesion/',			'toba::sesion');
 		$editor->agregar_sustitucion('/toba::get_usuario/',			'toba::usuario');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
@@ -801,7 +801,7 @@ class migracion_1_0_0 extends migracion_toba
 	{
 		$editor = new editor_archivos();		
 		$editor->agregar_sustitucion('/cola_mensajes\./',			'notificacion.');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
 	
@@ -831,7 +831,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/toba_recurso::path_apl/',		'toba_recurso::url_toba');
 		$editor->agregar_sustitucion('/toba_recurso::imagen_apl/',		'toba_recurso::imagen_toba');
 		$editor->agregar_sustitucion('/toba_recurso::imagen_pro/',		'toba_recurso::imagen_proyecto');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}
 	
@@ -853,7 +853,7 @@ class migracion_1_0_0 extends migracion_toba
 		$editor->agregar_sustitucion('/eliminar_dato_global/', 							'eliminar_dato');
 		$editor->agregar_sustitucion('/existe_dato_global/', 							'existe_dato');
 		$editor->agregar_sustitucion('/limpiar_memoria_global/', 						'limpiar_datos');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}	
 	
@@ -861,7 +861,7 @@ class migracion_1_0_0 extends migracion_toba
 	{
 		$editor = new editor_archivos();
 		$editor->agregar_sustitucion('/toba::hilo/', 		'toba::memoria');
-		$archivos = manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);				
 	}
 	

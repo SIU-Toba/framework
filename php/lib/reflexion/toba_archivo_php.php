@@ -1,7 +1,7 @@
 <?php
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 
-class archivo_php
+class toba_archivo_php
 {
 	protected $nombre;
 	protected $fp = null;
@@ -54,13 +54,13 @@ class archivo_php
 		if (strlen($cmd) == 0) {
 			throw new toba_error_def("No se encuentra definido el editor por defecto a utilizar en la instalación");
 		}
-		if (manejador_archivos::es_windows()) {
-			$archivo = manejador_archivos::path_a_windows($this->nombre);
+		if (toba_manejador_archivos::es_windows()) {
+			$archivo = toba_manejador_archivos::path_a_windows($this->nombre);
 			$com = "$cmd $archivo";
 			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
 			exec($com);
 		} else {
-			$archivo = manejador_archivos::path_a_unix($this->nombre);
+			$archivo = toba_manejador_archivos::path_a_unix($this->nombre);
 			$archivo = str_replace(" ", "\\ ", $archivo);
 			$com = "$cmd $archivo";
 			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
@@ -111,7 +111,7 @@ class archivo_php
 		echo htmlentities($this->contenido);
 		echo "</pre>";
 */		
-		manejador_archivos::crear_arbol_directorios(dirname($this->nombre));
+		toba_manejador_archivos::crear_arbol_directorios(dirname($this->nombre));
 		file_put_contents($this->nombre, $this->contenido);
 	}	
 	

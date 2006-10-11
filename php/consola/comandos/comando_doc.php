@@ -22,7 +22,7 @@ class comando_doc extends comando_toba
 		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';		
 		
 		//--- Se borra lo viejo (para que se de cuenta svn)
-		$lista = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
@@ -90,7 +90,7 @@ class comando_doc extends comando_toba
 		         </div>
 			 </body>';*/
 		 
-		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		$cant = count($archivos);
 		$this->consola->mensaje("Convirtiendo $cant archivos");		
 		foreach ($archivos as $archivo) {
@@ -120,7 +120,7 @@ class comando_doc extends comando_toba
 		
 		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
 
-		$lista = manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
+		$lista = toba_manejador_archivos::get_archivos_directorio($dest, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
@@ -159,7 +159,7 @@ class comando_doc extends comando_toba
 	function opcion__api_js()
 	{
 		$destino = toba_dir().'/proyectos/toba_editor/www/doc/api_js';
-		$lista = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
@@ -192,7 +192,7 @@ class comando_doc extends comando_toba
 	protected function convertir_codificacion_dir($destino, $desde="UTF-8", $hasta="ISO-8859-1")
 	{
 		//Se buscan los archivos .html del arbol de directorios
-		$archivos = manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
 		$cant = count($archivos);
 		$this->consola->mensaje("Convirtiendo $cant archivos de codificacion $desde a $hasta:");		
 		foreach ($archivos as $archivo) {

@@ -109,7 +109,7 @@ class toba
 
 	static function encriptador()
 	{
-		return encriptador::instancia();	
+		return toba_encriptador::instancia();	
 	}
 
 	/**

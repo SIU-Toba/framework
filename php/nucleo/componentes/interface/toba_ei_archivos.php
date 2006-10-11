@@ -1,6 +1,6 @@
 <?php
 require_once("toba_ei.php");
-require_once("lib/manejador_archivos.php");
+require_once("lib/toba_manejador_archivos.php");
 
 /**
  * Permite navegar el sistema de archivos del servidor bajo una carpeta dada
@@ -65,17 +65,17 @@ class toba_ei_archivos extends toba_ei
 							   throw new toba_error("El path es invalido");
 							}				
 						}
-						$this->dir_actual = manejador_archivos::path_a_unix(realpath($seleccion));
+						$this->dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
 						break;
 					case 'crear_carpeta': 
 						$parametros = str_replace('.', '', $parametros);
 						$seleccion = $this->dir_actual."/$parametros";
-						manejador_archivos::crear_arbol_directorios($seleccion);
+						toba_manejador_archivos::crear_arbol_directorios($seleccion);
 						break;
 					case 'crear_archivo': 
 						$parametros = str_replace('/', '', $parametros);
 						$seleccion = $this->dir_actual."/$parametros";	
-						manejador_archivos::crear_archivo_con_datos($seleccion, "");
+						toba_manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
 					default:
 						$this->reportar_evento( $evento, $seleccion );

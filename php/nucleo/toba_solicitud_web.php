@@ -1,15 +1,15 @@
 <?php
-require_once("nucleo/lib/toba_recurso.php");						//Encapsulamiento de la llamada a toba_recursos
+require_once("lib/toba_parseo.php");				       		//Funciones de parseo
+require_once("nucleo/lib/toba_recurso.php");					//Encapsulamiento de la llamada a toba_recursos
 require_once("nucleo/lib/toba_js.php");							//Encapsulamiento de la utilidades javascript
 require_once("nucleo/lib/toba_debug.php");						//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/lib/toba_memoria.php");						//Canal de comunicacion inter-ejecutable
-require_once("nucleo/lib/interface/toba_formateo.php"); 			//Funciones de formateo de columnas
+require_once("nucleo/lib/toba_memoria.php");					//Canal de comunicacion inter-ejecutable
+require_once("nucleo/lib/interface/toba_formateo.php"); 		//Funciones de formateo de columnas
 require_once("nucleo/lib/interface/toba_form.php");				//inputs HTML
 require_once("nucleo/lib/interface/toba_ei.php"); 				//elementos basicos de interface
-require_once("nucleo/tipo_pagina/toba_tipo_pagina.php");			//Clase base de Tipo de pagina generico
+require_once("nucleo/tipo_pagina/toba_tipo_pagina.php");		//Clase base de Tipo de pagina generico
 require_once("nucleo/menu/toba_menu.php");						//Clase base de Menu 
 require_once("nucleo/lib/toba_zona.php");
-require_once("lib/parseo.php");					       		//Funciones de parseo
 
 /**
  * Solicitud pensada para contener el ciclo request-response http

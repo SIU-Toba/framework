@@ -1,5 +1,5 @@
 <?php 
-require_once('lib/reflexion/archivo_php.php');
+require_once('lib/reflexion/toba_archivo_php.php');
 
 class ci_php extends toba_ci
 {
@@ -16,7 +16,7 @@ class ci_php extends toba_ci
 		if (isset($archivo)) {	//********* Se indico un archivo especifico por GET
 			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$archivo =  $path_proyecto . $archivo;
-			$this->archivo_php = new archivo_php($archivo);	
+			$this->toba_archivo_php = new toba_archivo_php($archivo);	
 		} else {				//********* Se accedio a un componente a travez de su ZONA
 			$datos = toba::zona()->get_info();
 			toba::logger()->var_dump($datos);
@@ -30,15 +30,15 @@ class ci_php extends toba_ci
 			if (!$datos['actividad_accion']) {
 				throw new toba_error('El item no tiene un archivo php definido');	
 			}			
-			//- 3 - Creo el archivo_php y la clase_php que quiero mostrar
+			//- 3 - Creo el toba_archivo_php y la clase_php que quiero mostrar
 			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['actividad_accion'];
-			$this->archivo_php = new archivo_php($path);
+			$this->toba_archivo_php = new toba_archivo_php($path);
 		}
 	}
 	
-	function archivo_php()
+	function toba_archivo_php()
 	{
-		return $this->archivo_php;
+		return $this->toba_archivo_php;
 	}		
 	
 	//-------------------------------------------------------------------------------
@@ -52,10 +52,10 @@ class ci_php extends toba_ci
 	
 	function abrir_archivo()
 	{
-		if( !$this->archivo_php->existe() ) {
-			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $this->archivo_php->nombre() . '\').');	
+		if( !$this->toba_archivo_php->existe() ) {
+			throw new toba_error('Se solicito la apertura de un archivo inexistente (\'' . $this->toba_archivo_php->nombre() . '\').');	
 		}
-		$this->archivo_php->abrir();		
+		$this->toba_archivo_php->abrir();		
 	}	
 	
 }
@@ -67,9 +67,9 @@ class pantalla_codigo extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		ei_separador("ARCHIVO: ". $this->controlador->archivo_php()->nombre());
+		ei_separador("ARCHIVO: ". $this->controlador->toba_archivo_php()->nombre());
 		echo "<div style='overflow: auto; height: 420px; width: 550px; padding: 5px; text-align:left; background-color: #ffffff; font-size: 11px;'>";
-		$this->controlador->archivo_php()->mostrar();
+		$this->controlador->toba_archivo_php()->mostrar();
 	}
 }
 

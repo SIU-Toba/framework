@@ -1,5 +1,5 @@
 <?php
-require_once('lib/cache_db.php');
+require_once('lib/toba_cache_db.php');
 require_once('modelo/estructura_db/tablas_componente.php');
 
 /**
@@ -151,10 +151,10 @@ class toba_cargador
 	{
 		$this->cache_metadatos_simples_proyecto = $proyecto;
 		if ( isset ( $db ) ) {
-			$this->cache_metadatos_simples = new cache_db( $db );
+			$this->cache_metadatos_simples = new toba_cache_db( $db );
 		} else {
 			//Acceso por el nucleo
-			$this->cache_metadatos_simples = new cache_db( toba_instancia::get_db() );
+			$this->cache_metadatos_simples = new toba_cache_db( toba_instancia::get_db() );
 		}
 		foreach ( tablas_componente::get_lista() as $tabla ) {
 			$definicion = tablas_componente::$tabla();

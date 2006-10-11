@@ -1,11 +1,11 @@
 <?
-require_once("db.php");
+require_once("toba_db.php");
 
-class db_mysql extends db
+class toba_db_odbc extends toba_db
 {
 	function __construct($profile, $usuario, $clave, $base)
 	{
-		$this->motor = "mysql";
+		$this->motor = "odbc";
 		parent::__construct($profile, $usuario, $clave, $base);
 	}
 }

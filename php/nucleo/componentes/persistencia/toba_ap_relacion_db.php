@@ -70,7 +70,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function cargar_por_clave($clave)
 	{
-		asercion::es_array($clave,"AP toba_datos_relacion -  ERROR: La clave debe ser un array");
+		toba_asercion::es_array($clave,"AP toba_datos_relacion -  ERROR: La clave debe ser un array");
 		$this->objeto_relacion->resetear();		
 		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
 		$tablas = $this->objeto_relacion->orden_carga();		

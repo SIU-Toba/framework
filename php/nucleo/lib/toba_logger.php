@@ -1,5 +1,5 @@
 <?php
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
 define('TOBA_LOG_ERROR',    3);     /** Error conditions */
@@ -457,7 +457,7 @@ class toba_logger
 		//--- Asegura que el path esta creado
 		$path = $this->directorio_logs();
 		$path_completo = $path ."/".$archivo;
-		manejador_archivos::crear_arbol_directorios($path, $permisos);
+		toba_manejador_archivos::crear_arbol_directorios($path, $permisos);
 
 		$es_nuevo = false;
 		if (!file_exists($path_completo)) {
@@ -497,7 +497,7 @@ class toba_logger
 		}
 		//Encuentra los archivos
 		$patron = "/$archivo\.([0-9]+)/";
-		$archivos = manejador_archivos::get_archivos_directorio($path);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($path);
 		sort($archivos);
 
 		//¿Cual es el numero de cada uno?
@@ -537,7 +537,7 @@ class toba_logger
 		if (apex_log_archivo_backup_compr) {
 			//Se comprime
 			$nuevo = $path_completo . ".$sig.gz";
-			manejador_archivos::comprimir_archivo($path_completo, 5, $nuevo);
+			toba_manejador_archivos::comprimir_archivo($path_completo, 5, $nuevo);
 			unlink($path_completo);
 		} else {
 			$nuevo = $path_completo . ".$sig";
@@ -551,7 +551,7 @@ class toba_logger
 	function borrar_archivos_logs()
 	{
 		$patron = "/sistema.log/";
-		$archivos = manejador_archivos::get_archivos_directorio($this->directorio_logs(), $patron);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->directorio_logs(), $patron);
 		foreach ($archivos as $archivo) {
 			unlink($archivo);			
 		}

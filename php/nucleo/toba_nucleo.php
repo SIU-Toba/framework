@@ -1,24 +1,24 @@
 <?php
-require_once('lib/asercion.php');    		   	   			//Aserciones
-require_once('lib/toba_db.php');				    				//Manejo de bases (utiliza abodb340)
-require_once('lib/encriptador.php');						//Encriptador
-require_once('lib/varios.php');								//Funciones genericas (Manejo de paths, etc.)
-require_once('lib/sql.php');								//Libreria de manipulacion del SQL
-require_once('nucleo/lib/toba_error.php');				//Excepciones del TOBA
+require_once('lib/toba_asercion.php');    			   	   			//Aserciones
+require_once('lib/toba_db.php');			    				//Manejo de bases (utiliza abodb340)
+require_once('lib/toba_encriptador.php');						//Encriptador
+require_once('lib/toba_varios.php');							//Funciones genericas (Manejo de paths, etc.)
+require_once('lib/toba_sql.php');								//Libreria de manipulacion del SQL
+require_once('nucleo/lib/toba_error.php');						//Excepciones del TOBA
 require_once('nucleo/lib/toba_logger.php');						//toba_logger
 require_once('nucleo/lib/toba_mensajes.php');					//Modulo de mensajes parametrizables
 require_once('nucleo/lib/toba_notificacion.php');				//Cola de mensajes utilizada durante la EJECUCION
 require_once('nucleo/lib/toba_permisos.php');					//Administrador de permisos particulares
-require_once('nucleo/lib/toba_recurso.php');						//Obtencion de imágenes de la aplicación
-require_once('nucleo/lib/toba_usuario.php');	  			//Informacion sobre el usuario
+require_once('nucleo/lib/toba_recurso.php');					//Obtencion de imágenes de la aplicación
+require_once('nucleo/lib/toba_usuario.php');	  				//Informacion sobre el usuario
 require_once('nucleo/lib/toba_editor.php');			 	 		//Interaccion con el EDITOR
 require_once('nucleo/lib/toba_cronometro.php');          		//Cronometrar ejecucion
-require_once('nucleo/lib/toba_instalacion.php');			//Informacion sobre la instalacion
-require_once('nucleo/lib/toba_instancia.php');				//Informacion sobre la instancia
-require_once('nucleo/lib/toba_proyecto.php');	   			//Informacion sobre el proyecto
-require_once('nucleo/componentes/toba_constructor.php');	//Constructor de componentes
-require_once('nucleo/componentes/toba_cargador.php');		//Cargador de componentes
-require_once('nucleo/componentes/toba_catalogo.php');		//Catalogo de componentes
+require_once('nucleo/lib/toba_instalacion.php');				//Informacion sobre la instalacion
+require_once('nucleo/lib/toba_instancia.php');					//Informacion sobre la instancia
+require_once('nucleo/lib/toba_proyecto.php');	   				//Informacion sobre el proyecto
+require_once('nucleo/componentes/toba_constructor.php');		//Constructor de componentes
+require_once('nucleo/componentes/toba_cargador.php');			//Cargador de componentes
+require_once('nucleo/componentes/toba_catalogo.php');			//Catalogo de componentes
 
 
 /**

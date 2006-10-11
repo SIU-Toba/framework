@@ -2,7 +2,7 @@
 /**
 *	Basado en la encriptacion de ADOdb
 */
-class encriptador
+class toba_encriptador
 {
 	static private $instancia;
 	var $clave;
@@ -13,7 +13,7 @@ class encriptador
 	
 	static function instancia() {
 		if (!isset(self::$instancia)) {
-			self::$instancia = new encriptador();	
+			self::$instancia = new toba_encriptador();	
 		}
 		return self::$instancia;	
 	}	

@@ -1,7 +1,7 @@
 <?php
 require_once("nucleo/componentes/interface/interfaces.php");
 require_once("interfaces.php");
-require_once("lib/manejador_archivos.php");
+require_once("lib/toba_manejador_archivos.php");
 require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 require_once('lib/reflexion/toba_molde_clase.php');
@@ -174,7 +174,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 			$dr->tabla('base')->set_fila_columna_valor(0, 'subclase_archivo', $nuevo_archivo);
 			//--- Si el dir. destino no existe, se lo crea
 			if (!file_exists($path_destino.$dir_subclases)) {
-				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
 			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
 		}

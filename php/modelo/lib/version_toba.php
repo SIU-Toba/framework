@@ -1,5 +1,5 @@
 <?php
-require_once('lib/manejador_archivos.php');
+require_once('lib/toba_manejador_archivos.php');
 //require_once("modelo/migraciones/migracion_toba.php");
 
 class version_toba
@@ -95,7 +95,7 @@ class version_toba
 			$dir = $path_migraciones;
 		}
 		$exp = "/migracion_([0-9]+)_([0-9]+)_([0-9]+)\\.php/";
-		$archivos = manejador_archivos::get_archivos_directorio($dir, $exp, false);
+		$archivos = toba_manejador_archivos::get_archivos_directorio($dir, $exp, false);
 		sort($archivos);
 		$versiones = array();
 		foreach ($archivos as $archivo) {

@@ -4,9 +4,9 @@ require_once('modelo/instalacion.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
-require_once('lib/manejador_archivos.php');
-require_once('lib/sincronizador_archivos.php');
-require_once('lib/reflexion/clase_datos.php');
+require_once('lib/toba_manejador_archivos.php');
+require_once('lib/toba_sincronizador_archivos.php');
+require_once('lib/reflexion/toba_clase_datos.php');
 /**
 *	@todo
 *		- Falta un parametrizar en el ini de la instancia si la base toba es independiente o adosada al negocio
@@ -52,7 +52,7 @@ class instancia extends elemento_modelo
 	{
 		if ( ! isset( $this->sincro_archivos ) ) {
 			$regex = "#datos.sql|$this->nombre_log|usuarios.sql#"; // No hay que interferir con archivos de otras celulas
-			$this->sincro_archivos = new sincronizador_archivos( $this->dir, $regex );
+			$this->sincro_archivos = new toba_sincronizador_archivos( $this->dir, $regex );
 		}
 		return $this->sincro_archivos;
 	}
@@ -227,7 +227,7 @@ class instancia extends elemento_modelo
 			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			if ( is_dir( $dir_proyecto ) ) {
-				manejador_archivos::eliminar_directorio( $dir_proyecto );			
+				toba_manejador_archivos::eliminar_directorio( $dir_proyecto );			
 			}
 			toba_logger::instancia()->debug("Desvinculado el proyecto '$proyecto' de la instancia");
 		}
@@ -237,7 +237,7 @@ class instancia extends elemento_modelo
 
 	function get_ini()
 	{
-		$ini = new ini( $this->dir . '/' . self::toba_instancia );
+		$ini = new toba_ini( $this->dir . '/' . self::toba_instancia );
 		$ini->agregar_titulo( self::toba_instancia_titulo );
 		return $ini;
 	}
@@ -290,7 +290,7 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje("Exportando datos globales", false);		
 		$dir_global = $this->get_dir() . '/' . self::dir_datos_globales;
-		manejador_archivos::crear_arbol_directorios( $dir_global );
+		toba_manejador_archivos::crear_arbol_directorios( $dir_global );
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
 		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
@@ -332,7 +332,7 @@ class instancia extends elemento_modelo
 			$this->manejador_interface->mensaje("Exportando proyecto $proyecto", false);
 			toba_logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
-			manejador_archivos::crear_arbol_directorios( $dir_proyecto );
+			toba_manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
@@ -444,7 +444,7 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje('Creando las tablas del sistema', false);
 		$directorio = nucleo::get_dir_ddl();
-		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
@@ -459,7 +459,7 @@ class instancia extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje('Cargando datos del nucleo', false);
 		$directorio = nucleo::get_dir_metadatos();
-		$archivos = manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
@@ -489,7 +489,7 @@ class instancia extends elemento_modelo
 	private function cargar_informacion_instancia()
 	{
 		$this->manejador_interface->mensaje('Cargando datos de la instancia', false);
-		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir() );
+		$subdirs = toba_manejador_archivos::get_subdirectorios( $this->get_dir() );
 		$proyectos = $this->get_lista_proyectos_vinculados();
 		$nombres_carp = array('global');
 		foreach ($proyectos as $proy) {
@@ -498,7 +498,7 @@ class instancia extends elemento_modelo
 		foreach ( $nombres_carp as $carp ) {
 			$dir = $this->get_dir()."/".$carp;
 			if (file_exists($dir)) {
-				$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+				$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 				foreach( $archivos as $archivo ) {
 					$cant = $this->get_db()->ejecutar_archivo( $archivo );
 					toba_logger::instancia()->debug($archivo . ". ($cant)");
@@ -514,7 +514,7 @@ class instancia extends elemento_modelo
 		$this->manejador_interface->mensaje("Cargando datos locales de la instancia", false);
 		toba_logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
-		$archivos = manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
 		foreach ( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
@@ -708,7 +708,7 @@ class instancia extends elemento_modelo
 			toba_logger::instancia()->debug("Creado directorio $dir");
 		}
 		//Creo la clase que proporciona informacion sobre la instancia
-		$ini = new ini();
+		$ini = new toba_ini();
 		$ini->agregar_titulo( self::toba_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
 		$ini->agregar_entrada( 'proyectos', implode(', ', array_keys($lista_proyectos)) );
@@ -744,7 +744,7 @@ class instancia extends elemento_modelo
 	{
 		$dirs = array();
 		try {
-			$temp = manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.self::dir_prefijo.'|' );
+			$temp = toba_manejador_archivos::get_subdirectorios( instalacion::dir_base() , '|^'.self::dir_prefijo.'|' );
 			foreach ( $temp as $dir ) {
 				$temp_dir = explode( self::dir_prefijo, $dir );
 				if (count($temp_dir) > 1) {

@@ -1,6 +1,6 @@
 <?
 require_once("toba_ei.php");						//Ancestro de todos los OE
-require_once("lib/manejador_archivos.php");
+require_once("lib/toba_manejador_archivos.php");
 
 /**
  * Genera un esquema utilizando GraphViz
@@ -110,8 +110,8 @@ class toba_ei_esquema extends toba_ei
 	{
 		$nombre_archivo = mt_rand() . '.' . $formato;
 		$dir_temp = toba::instalacion()->get_path_temp();
-		$grafico = manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
-		$salida = manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
+		$grafico = toba_manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
+		$salida = toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 		
 		file_put_contents($grafico, $contenido);
 		

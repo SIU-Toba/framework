@@ -3,10 +3,10 @@ require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
 require_once('nucleo/componentes/toba_catalogo.php');
 require_once('nucleo/componentes/toba_cargador.php');
-require_once('lib/manejador_archivos.php');
-require_once('lib/sincronizador_archivos.php');
-require_once('lib/editor_archivos.php');
-require_once('lib/reflexion/clase_datos.php');
+require_once('lib/toba_manejador_archivos.php');
+require_once('lib/toba_sincronizador_archivos.php');
+require_once('lib/toba_editor_archivos.php');
+require_once('lib/reflexion/toba_clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
@@ -43,7 +43,7 @@ class proyecto extends elemento_modelo
 	function get_sincronizador()
 	{
 		if ( ! isset( $this->sincro_archivos ) ) {
-			$this->sincro_archivos = new sincronizador_archivos( $this->get_dir_dump() );
+			$this->sincro_archivos = new toba_sincronizador_archivos( $this->get_dir_dump() );
 		}
 		return $this->sincro_archivos;
 	}
@@ -140,7 +140,7 @@ class proyecto extends elemento_modelo
 	private function exportar_tablas()
 	{
 		$this->manejador_interface->mensaje("Exportando datos generales", false);
-		manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
+		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
 			$definicion = tablas_proyecto::$tabla();
 			//Genero el SQL
@@ -199,8 +199,8 @@ class proyecto extends elemento_modelo
 	private function exportar_componente( $tipo, $id )
 	{
 		$directorio = $this->get_dir_componentes() . '/' . $tipo;
-		manejador_archivos::crear_arbol_directorios( $directorio );
-		$archivo = manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
+		toba_manejador_archivos::crear_arbol_directorios( $directorio );
+		$archivo = toba_manejador_archivos::nombre_valido( self::dump_prefijo_componentes . $id['componente'] );
 		$contenido =&  $this->get_contenido_componente( $tipo, $id );
 		$this->guardar_archivo( $directorio .'/'. $archivo . '.sql', $contenido ); 
 		toba_logger::instancia()->debug("COMPONENTE $tipo  --  " . $id['componente'] . 
@@ -273,7 +273,7 @@ class proyecto extends elemento_modelo
 	private function cargar_tablas()
 	{
 		$this->manejador_interface->mensaje('Cargando datos globales', false);
-		$archivos = manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );
 		$cant_total = 0;
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
@@ -287,9 +287,9 @@ class proyecto extends elemento_modelo
 	private function cargar_componentes()
 	{
 		$this->manejador_interface->mensaje('Cargando componentes', false);		
-		$subdirs = manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
+		$subdirs = toba_manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
 		foreach ( $subdirs as $dir ) {
-			$archivos = manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
 			foreach( $archivos as $archivo ) {
 				$cant = $this->db->ejecutar_archivo( $archivo );
 				toba_logger::instancia()->debug($archivo . " ($cant)");
@@ -413,7 +413,7 @@ class proyecto extends elemento_modelo
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
 			$this->manejador_interface->titulo( $tipo );
 			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
-			manejador_archivos::crear_arbol_directorios( $path );
+			toba_manejador_archivos::crear_arbol_directorios( $path );
 			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente );
 			}
@@ -426,9 +426,9 @@ class proyecto extends elemento_modelo
 	function compilar_componente( $tipo, $id )
 	{
 		//Armo la clase compilada
-		$nombre = manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
+		$nombre = toba_manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
 		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
-		$clase = new clase_datos( $nombre );		
+		$clase = new toba_clase_datos( $nombre );		
 		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
@@ -449,10 +449,10 @@ class proyecto extends elemento_modelo
 	{
 		//Armo la clase compilada
 		$this->manejador_interface->mensaje("Creando tabla de tipos.");
-		$clase = new clase_datos( self::compilar_archivo_referencia );		
+		$clase = new toba_clase_datos( self::compilar_archivo_referencia );		
 		$clase->agregar_metodo_datos('get_datos',$this->compilacion_tabla_tipos);
 		//Creo el archivo
-		$archivo = manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
+		$archivo = toba_manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
 		$path = $this->get_dir_componentes_compilados() .'/'. $archivo . '.php';
 		$clase->guardar( $path );
 	}
@@ -696,15 +696,15 @@ class proyecto extends elemento_modelo
 			//- 2 - Modificaciones en el sistema de archivos
 			$dir_proyecto = $instancia->get_path_proyecto($nombre);
 			// Creo la CARPETA del PROYECTO
-			manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
+			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 			
 			//--- Creo el archivo PROYECTO
 			file_put_contents($dir_proyecto.'/PROYECTO', $nombre);
 			// Modifico los archivos
-			$editor = new editor_archivos();
+			$editor = new toba_editor_archivos();
 			$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
 			$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
-			$editor->agregar_sustitucion( '|__toba_dir__|', manejador_archivos::path_a_unix( toba_dir() ) );
+			$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
 			// Asocio el proyecto a la instancia
 			$instancia->vincular_proyecto( $nombre );
@@ -731,7 +731,7 @@ class proyecto extends elemento_modelo
 			// Borro la carpeta creada
 			if ( is_dir( $dir_proyecto ) ) {
 				$instancia->desvincular_proyecto( $nombre );
-				manejador_archivos::eliminar_directorio( $dir_proyecto );
+				toba_manejador_archivos::eliminar_directorio( $dir_proyecto );
 			}	
 			throw $e;
 		}

@@ -71,7 +71,7 @@ class info_datos_relacion extends info_componente
 			$dr->tabla('prop_basicas')->set_fila_columna_valor(0, 'ap_archivo', $nuevo_archivo);
 			//--- Si el dir. destino no existe, se lo crea
 			if (!file_exists($path_destino.$dir_subclases)) {
-				manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
 			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);
 		}

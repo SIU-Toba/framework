@@ -1,6 +1,6 @@
 <?php
-require_once('lib/reflexion/archivo_php.php');
-require_once('lib/reflexion/clase_php.php');
+require_once('lib/reflexion/toba_archivo_php.php');
+require_once('lib/reflexion/toba_clase_php.php');
 
 class test_reflexion extends test_toba
 {
@@ -56,7 +56,7 @@ class test_reflexion extends test_toba
 	function test_creacion_archivo_y_directorio()
 	{
 		$path = dirname(__FILE__)."/dir1/dir2/archivo.php";
-		$archivo = new archivo_php($path);
+		$archivo = new toba_archivo_php($path);
 		$archivo->crear_basico();
 		$this->assertTrue(file_exists($path));
 		
@@ -73,12 +73,12 @@ class test_reflexion extends test_toba
 		$this->padre = "padre_hijo_vacio";
 
 		//Se crea el archivo del hijo
-		$archivo = new archivo_php($this->path_hijo());
+		$archivo = new toba_archivo_php($this->path_hijo());
 		$archivo->crear_basico(); 
 
 		//Se genera la subclase
-		$padre = new archivo_php($this->path_padre());
-		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
+		$padre = new toba_archivo_php($this->path_padre());
+		$clase = new toba_clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
 		$clase->set_meta_clase( new info_componente(array()));
 		$clase->generar($this->generar_todo()); 
 
@@ -114,9 +114,9 @@ class test_reflexion extends test_toba
 		$this->crear_archivo_hijo($contenido);
 		
 		//Se genera la subclase
-		$archivo = new archivo_php($this->path_hijo());
-		$padre = new archivo_php($this->path_padre());
-		$clase = new clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
+		$archivo = new toba_archivo_php($this->path_hijo());
+		$padre = new toba_archivo_php($this->path_padre());
+		$clase = new toba_clase_php($this->hijo, $archivo, $this->padre, $this->path_padre());
 		$clase->set_meta_clase( new info_componente(array()));		
 		$clase->generar($this->generar_todo()); 
 

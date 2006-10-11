@@ -1,10 +1,10 @@
 <?php
-require_once('archivo_php.php');
+require_once('toba_archivo_php.php');
 /**
 *	Representa a la EDICION de una CLASE del ambiente. 
 *	Tiene capacidades de generacion y analisis MOLDES aportados por la METACLASE del compone
 */
-class clase_php
+class toba_clase_php
 {		
 	protected $archivo;
 	protected $meta_clase;				//la clase que conoce el contenido de la clase que se esta editando

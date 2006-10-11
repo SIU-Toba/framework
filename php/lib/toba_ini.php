@@ -1,6 +1,6 @@
 <?
 
-class ini
+class toba_ini
 {
 	private $path = null;
 	private $titulo;

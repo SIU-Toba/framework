@@ -4,7 +4,7 @@
 	para porder solicitar subconjuntos de datos
 */
 
-class cache_db
+class toba_cache_db
 {
 	private $db;
 	private $tablas = array();

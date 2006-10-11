@@ -2,7 +2,7 @@
 /**
 *	Manipulacion de archivos
 */
-class manejador_archivos
+class toba_manejador_archivos
 {
 	static private $caracteres_invalidos = array('*', '?', '/', '>', '<', '"', "'", ':', '|');
 	static private $caracteres_reemplazo = array('%', '$', '_', ')', '(', '-',  '.', ';', ',');

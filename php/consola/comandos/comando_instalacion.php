@@ -289,7 +289,7 @@ class comando_instalacion extends comando_toba
 		//--- Si el proyecto existe, lo borra
 		$existe_proyecto = proyecto::existe($id_proyecto);
 		if ($existe_proyecto && $forzar_instalacion) {
-			manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
+			toba_manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
 			$existe_proyecto = false;
 		}		
 		
@@ -332,8 +332,8 @@ class comando_instalacion extends comando_toba
 		$this->consola->separador();
 		$this->consola->mensaje("La instalación del framework ha finalizado, para su correcta ejecución se necesita notificar a Apache y a la consola de su presencia");
 		$this->consola->mensaje("");
-		if (manejador_archivos::es_windows()) {		
-			$toba_conf = manejador_archivos::path_a_unix($toba_conf);
+		if (toba_manejador_archivos::es_windows()) {		
+			$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
 			$this->consola->mensaje("Para Apache: agregar en el archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
 			$this->consola->mensaje("     Include \"$toba_conf\"");;
 		} else {
@@ -342,8 +342,8 @@ class comando_instalacion extends comando_toba
 		}
 		$this->consola->mensaje("");
 		$this->consola->mensaje("Para la consola: se necesitan agregar al entorno las siguientes directivas:");
-		if (manejador_archivos::es_windows()) {
-			$dir_base = manejador_archivos::path_a_windows(instalacion::dir_base());
+		if (toba_manejador_archivos::es_windows()) {
+			$dir_base = toba_manejador_archivos::path_a_windows(instalacion::dir_base());
 			$this->consola->mensaje("   set toba_dir=".$dir_base);
 			$this->consola->mensaje("   set toba_instancia=desarrollo");
 			$this->consola->mensaje("   set PATH=%PATH%;%toba_dir%/bin");

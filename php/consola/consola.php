@@ -1,13 +1,13 @@
 <?
-require_once("lib/asercion.php"); 		      	   	//Aserciones
-require_once("nucleo/lib/toba_cronometro.php");          //Cronometrar ejecucion
-require_once("lib/varios.php");				//Funciones genericas (Manejo de paths, etc.)
-require_once("lib/sql.php");					//Libreria de manipulacion del SQL
-require_once("nucleo/lib/toba_error.php");		//Excepciones del TOBA
-require_once("nucleo/lib/toba_logger.php");				//Logger
-require_once("lib/parseo.php");       	   	//Parseo
-require_once("lib/texto.php");       	   	//Manipulacion de texto
+require_once("lib/toba_asercion.php"); 		      	   	//Aserciones
+require_once("lib/toba_varios.php");				//Funciones genericas (Manejo de paths, etc.)
+require_once("lib/toba_sql.php");					//Libreria de manipulacion del SQL
+require_once("lib/toba_parseo.php");       			   	//Parseo
+require_once("lib/toba_texto.php");       	   		//Manipulacion de texto
 require_once("modelo/lib/gui.php");
+require_once("nucleo/lib/toba_cronometro.php");     //Cronometrar ejecucion
+require_once("nucleo/lib/toba_error.php");			//Excepciones del TOBA
+require_once("nucleo/lib/toba_logger.php");			//Logger
 require_once("consola/lib/Table.php");
 require_once("consola/lib/Getopt.php");
 require_once("consola/lib/formulario_consola.php");
