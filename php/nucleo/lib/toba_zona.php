@@ -184,6 +184,7 @@ class toba_zona
 	
 	/**
 	 * Ventana de extensión para incluir más opciones a la barra superior
+	 * @ventana
 	 */
 	function generar_html_barra_especifico()
 	{	
@@ -191,6 +192,7 @@ class toba_zona
 	
 	/**
 	 * Ventana de extensión para incluir más opciones en una barra inferior
+	 * @ventana
 	 */	
 	function generar_html_barra_inferior()
 	{

@@ -8,7 +8,7 @@
 interface toba_ap_tabla
 {
 	/**
-	 * Mecanismo de recuperaciÃ³n de valores para las columnas externas.
+	 * Mecanismo de recuperación de valores para las columnas externas.
 	 * @param array $fila Fila que toma de referencia la carga externa
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados del medio de persistencia

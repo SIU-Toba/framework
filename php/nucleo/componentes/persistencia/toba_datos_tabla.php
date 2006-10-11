@@ -85,6 +85,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Informa a la tabla que existe una tabla padre
 	 * @param toba_relacion_entre_tablas $relacion
+	 * @ignore 
 	 */
 	function agregar_relacion_con_padre($relacion, $id_padre)
 	{
@@ -94,6 +95,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Retorna las relaciones con las tablas padre
 	 * @return array de {@link toba_relacion_entre_tablas toba_relacion_entre_tablas}
+	 * @ignore 
 	 */
 	function get_relaciones_con_padres()
 	{
@@ -103,6 +105,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Informa a la tabla que existe una tabla hija de la actual
 	 * @param toba_relacion_entre_tablas $relacion
+	 * @ignore 
 	 */	
 	function agregar_relacion_con_hijo($relacion, $id_hijo)
 	{
@@ -122,6 +125,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Aviso a las relacion padres que el componente HIJO se CARGO
+	 * @ignore 
 	 */
 	function notificar_padres_carga()
 	{
@@ -134,6 +138,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Aviso a las relaciones hijas que el componente PADRE sincrozo sus actualizaciones
+	 * @ignore 
 	 */
 	function notificar_hijos_sincronizacion()
 	{
@@ -145,7 +150,7 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	*	Busca en la tabla padre el id de fila padre que corresponde a la fila hija especificada
+	* Busca en la tabla padre el id de fila padre que corresponde a la fila hija especificada
 	*/
 	function get_id_fila_padre($tabla_padre, $id_fila)
 	{
@@ -523,6 +528,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Valida un id interno y a la vez permite aceptarlo como parte de un arreglo en
 	 * la columna apex_datos_clave_fila
+	 * @ignore 
 	 */
 	protected function normalizar_id($id)
 	{
@@ -864,13 +870,16 @@ class toba_datos_tabla extends toba_componente
 	 * Ventana de validacion que se invoca cuando se crea o modifica una fila en memoria
 	 * @param array $fila Datos de la fila
 	 * @param mixed $id Id. interno de la fila, si tiene (en el caso modificacion de la fila)
+	 * 
+	 * @ventana
 	 */
 	protected function evt__validar_ingreso($fila, $id=null){}
 
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * 	Controla que los campos del registro existan
+	 * Controla que los campos del registro existan
+	 * @ignore 
 	 */
 	protected function control_estructura_fila($fila)
 	{
@@ -926,7 +935,7 @@ class toba_datos_tabla extends toba_componente
 	//-------------------------------------------------------------------------------
 
 	/**
-	 * Validacion de toda la tabla que se produce previo a la sincronización
+	 * Validacion de toda la tabla necesaria previa a la sincronización
 	 */
 	function validar()
 	{
@@ -944,6 +953,8 @@ class toba_datos_tabla extends toba_componente
 	 * Ventana para hacer validaciones particulares previo a la sincronización
 	 * El proceso puede ser abortado con un toba_error, el mensaje se muestra al usuario
 	 * @param array $fila Asociativo clave-valor de la fila a validar
+	 * 
+	 * @ventana
 	 */
 	function evt__validar_fila($fila){}
 
@@ -1159,6 +1170,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * El AP avisa que terminóla sincronización
+	 * @ignore 
 	 */
 	function notificar_fin_sincronizacion()
 	{
@@ -1167,6 +1179,9 @@ class toba_datos_tabla extends toba_componente
 
 	/*--- De mi al AP ---*/
 
+	/**
+	 * @ignore 
+	 */
 	function get_conjunto_datos_interno()
 	{
 		return $this->datos;
@@ -1174,6 +1189,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna la estructura interna que mantiene registro de las modificaciones/altas/bajas producidas en memoria
+	 * @ignore 
 	 */
 	function get_cambios()
 	{
@@ -1236,6 +1252,9 @@ class toba_datos_tabla extends toba_componente
 	//-- Manejo de la estructura de cambios
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	protected function generar_estructura_cambios()
 	{
 		//Genero la estructura de control
@@ -1246,6 +1265,9 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function regenerar_estructura_cambios()
 	{
 		//BORRO los datos eliminados

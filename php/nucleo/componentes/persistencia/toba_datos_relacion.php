@@ -165,6 +165,9 @@ class toba_datos_relacion extends toba_componente
 		toba_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function dump_esquema_relaciones($nodo)
 	{
 		$datos = $nodo->getData();		
@@ -326,6 +329,7 @@ class toba_datos_relacion extends toba_componente
 	
 	/**
 	 * Ventana para validaciones específicas, se ejecuta justo antes de la sincronización
+	 * @ventana
 	 */
 	protected function evt__validar(){}
 
@@ -341,6 +345,7 @@ class toba_datos_relacion extends toba_componente
 
 	/**
 	 * Retorna la estructura de datos utilizada por las tablas para mantener registro del estado de sus datos
+	 * @return array
 	 */
 	function get_conjunto_datos_interno()
 	{

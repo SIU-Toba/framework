@@ -66,6 +66,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Ventana de extensión previa a la destrucción del componente, al final de la atención de los servicios
+	 * @ventana
 	 */
 	function fin() {}
 
@@ -95,12 +96,14 @@ class toba_ci extends toba_ei
 	 * 		si por ejemplo se encuentra en la 3er pantalla del ci principal.
 	 *  - Si se ejecuta una limpieza de memoria (comportamiento por defecto del evt__cancelar)
 	 * 
+	 * @ventana
 	 */
 	function ini__operacion() {}
 	
 	/**
 	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
 	 * Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente
+	 * @ventana
 	 */
 	function ini() {}
 	
@@ -176,6 +179,8 @@ class toba_ci extends toba_ei
 	 * Ventana de extensión pensada para que el ci le pida datos al cn al empezar el tránsito de una transacción.
 	 * Es el dialogo inicial que existe entre este ci particular y el cn global de la operación
 	 * @param mixed $parametros Parametros particulares de esta carga, su significado lo decide la operación
+	 * 
+	 * @ventana
 	 */
 	function evt__get_datos_cn( $modo=null )
 	{
@@ -207,6 +212,7 @@ class toba_ci extends toba_ei
 	/**
 	 * Ventana de extensión pensada para que el ci le brinde datos al cn al comenzar el tránsito de una transacción.
 	 * Es el dialogo final que existe entre este ci particular y el cn global de la operación
+	 * @ventana
 	 */	
 	function evt__entregar_datos_cn()
 	{
@@ -260,6 +266,7 @@ class toba_ci extends toba_ei
 	
 	/**
 	 * Ventana que se ejecuta una vez que todos los eventos se han disparado para este objeto
+	 * @ventana
 	 */
 	protected function post_eventos() {}
 	
@@ -612,6 +619,7 @@ class toba_ci extends toba_ei
 
 	/**
 	 * Ventana para hacer una configuración personalizada del ci
+	 * @ventana
 	 */
 	protected function conf() {}
 	

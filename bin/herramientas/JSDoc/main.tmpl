@@ -144,16 +144,16 @@
 <TMPL_IF NAME="methods">
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-title">Métodos</div>
 		<div class="info-box-body">
 		<div class="method-summary">		
-			<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
+			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 			<TMPL_LOOP name="methods">
 					<tr><td class="method-definition " nowrap><TMPL_IF NAME="is_class_method">&lt;static&gt;</TMPL_IF>
 													 <TMPL_IF NAME="is_private">lt;private&gt; </TMPL_IF>
 											<span class="method-result"><TMPL_VAR NAME="type"></span>
 					</td>
-					<td class="method-definition">
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#<TMPL_IF NAME="is_class_method">!s!</TMPL_IF><TMPL_VAR name="method_name">"><TMPL_VAR name="method_name"></A><TMPL_VAR name="method_arguments">
 					</td>
 

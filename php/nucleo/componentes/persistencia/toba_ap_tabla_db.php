@@ -66,9 +66,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	
 	/**
 	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * @ventana
 	 */
 	protected function inicializar(){}
 
+	/**
+	 * @ignore 
+	 */
 	protected function get_estado_datos_tabla()
 	{
 		$this->cambios = $this->objeto_tabla->get_cambios();
@@ -83,6 +87,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
 	}
 
+	/**
+	 * Método de debug que retorna las propiedades internas
+	 * @return array
+	 */	
 	function info()
 	{
 		return get_object_vars($this);
@@ -387,6 +395,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Inserta un registro en la base y recupera su secuencia si la tiene
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */
 	protected function insertar_registro_db($id_registro)
 	{
@@ -407,6 +416,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Ejecuta un update de un registro en la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */
 	protected function modificar_registro_db($id_registro)
 	{
@@ -420,6 +430,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Ejecuta un delete de un registro en la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */
 	protected function eliminar_registro_db($id_registro)
 	{
@@ -432,6 +443,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Registra el valor generado por el motor de un columna
 	 * @param string $id_registro Id. interno del registro
+	 * @ignore  
 	 */
 	protected function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
 	{
@@ -440,6 +452,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	
 	/**
 	 * Actualiza en los registros los valores generados por el motor durante la transacción
+	 * @ignore 
 	 */
 	protected function actualizar_columnas_predeterminadas_db()
 	{
@@ -455,48 +468,56 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar con la base de datos
 	 * La transacción con la bd ya fue iniciada (si es que esta definida)
+	 * @ventana
 	 */
 	protected function evt__pre_sincronizacion(){}
 	
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos antes de terminar de sincronizar con la base de datos
 	 * La transacción con la bd aún no se terminó (si es que esta definida)
+	 * @ventana
 	 */	
 	protected function evt__post_sincronizacion(){}
 	
 	/**
 	 * Ventana de extensión previo a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */	
 	protected function evt__pre_insert($id_registro){}
 	
 	/**
 	 * Ventana de extensión posterior a la inserción de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */	
 	protected function evt__post_insert($id_registro){}
 	
 	/**
 	 * Ventana de extensión previo a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */		
 	protected function evt__pre_update($id_registro){}
 
 	/**
 	 * Ventana de extensión posterior a la actualización de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */	
 	protected function evt__post_update($id_registro){}
 
 	/**
 	 * Ventana de extensión previa al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */
 	protected function evt__pre_delete($id_registro){}
 
 	/**
 	 * Ventana de extensión posterior al borrado de un registro durante una sincronización con la base
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ventana
 	 */
 	protected function evt__post_delete($id_registro){}
 
@@ -518,6 +539,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
 	 * @param boolean $alias Útil para cuando se generan SELECTs complejos
 	 * @return array Clausulas where
+	 * 
+	 * @ignore 
 	 */
 	protected function generar_clausula_where_lineal($clave,$alias=true)
 	{
@@ -542,6 +565,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * y las asociaciones con los padres
 	 * @param array $clave Arreglo asociativo clave - valor de la clave a filtrar
 	 * @return array Clausulas where
+	 * 
+	 * @ignore 
 	 */
 	protected function generar_clausula_where($clave=array())
 	{
@@ -559,6 +584,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Retorna una clausula where restringiendo los campos relacionados según un select de una tabla padre
+	 * @ignore 
 	 */
 	protected function generar_clausula_subselect($persistidor_padre, $mapeo_campos)
 	{
@@ -579,6 +605,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 * @return string Consulta armada
+	 * @ignore 
 	 */
 	protected function generar_sql_select($where=array(), $from=null, $columnas=null)
 	{
@@ -613,6 +640,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Retorna la sentencia sql utilizada previamente para la carga de esta tabla, pero seleccionando solo algunos campos
 	 * @param array $campos Columnas que se traen de la carga
+	 * 
+	 * @ignore 
 	 */
 	function get_sql_de_carga($campos)
 	{
@@ -625,6 +654,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */
 	protected function generar_sql_insert($id_registro)
 	{
@@ -657,6 +687,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */	
 	function generar_sql_update($id_registro)
 	// Modificacion de claves
@@ -695,6 +726,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */
 	protected function generar_sql_delete($id_registro)
 	{
@@ -713,6 +745,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Genera la sentencia WHERE correspondiente a la clave de un registro
 	 * @param mixed $id_registro Clave interna del registro
+	 * @ignore 
 	 */	
 	function generar_sql_where_registro($id_registro)
 	{
@@ -748,7 +781,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * @param string $evento 
 	 * @return array Se devuelven los valores recuperados de la DB.
 	 * 
-	 * @todo Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)* 
+	 * @todo Este mecanismo requiere OPTIMIZACION (Mas que nada para la carga inicial)
+	 * @ignore 
 	 */
 	function completar_campos_externos_fila($fila, $evento=null)
 	{

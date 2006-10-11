@@ -9,6 +9,7 @@ abstract class toba_menu
 {
 	/**
 	 * Ventana para retornar nombre de los .css a incluir
+	 * @ventana
 	 */
 	function plantilla_css()
 	{

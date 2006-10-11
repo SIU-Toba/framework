@@ -94,7 +94,7 @@
 <div class="method-header">
 	{section name=tag loop=$methods[methods].info_tags}
 	    {if $methods[methods].info_tags[tag].keyword eq "ventana"}
-    		<img border='0' title='protected' style='vertical-align: middle' src="{$subdir}media/ventana.png" />    	
+    		<img border='0' title='Ventana de extensión' src="{$subdir}media/ventana.png" />    	
     	{/if}
 	{/section}
 

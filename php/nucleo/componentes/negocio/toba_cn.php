@@ -25,6 +25,7 @@ class toba_cn extends toba_componente
 
 	/**
 	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 * @ventana
 	 */
 	function ini()
 	{
@@ -86,6 +87,7 @@ class toba_cn extends toba_componente
 	/**
 	 * Ventana de validacion que se ejecuta al inicio del procesamiento final
 	 * En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error
+	 * @ventana
 	 */
 	function evt__validar_datos()
 	{}
@@ -93,6 +95,7 @@ class toba_cn extends toba_componente
 	/**
 	 * Ventana para incluir el procesamiento de negocio
 	 * En caso de querer abortar el procesamiento lanzar una excepcion que herede de toba_error
+	 * @ventana
 	 */
 	function evt__procesar_especifico()
 	{}

@@ -30,6 +30,7 @@ abstract class toba_componente
 	protected $parametros;								// Parametros de inicializacion provistos por el controlador	
 	
 	/**
+	 * Contiene el componente controlador o padre del componente actual
 	 * @var toba_ci
 	 */
 	protected $controlador;

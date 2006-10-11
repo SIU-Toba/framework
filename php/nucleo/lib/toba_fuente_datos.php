@@ -28,11 +28,13 @@ class toba_fuente_datos
 	
 	/**
 	*	Ventana para personalizar las acciones previas a la conexión
+	* @ventana
 	*/
 	function pre_conectar() {}
 	
 	/**
-	*	Ventana para personalizar las acciones posteriores a la conexión
+	* Ventana para personalizar las acciones posteriores a la conexión
+	* @ventana
 	*/
 	function post_conectar() {}
 }

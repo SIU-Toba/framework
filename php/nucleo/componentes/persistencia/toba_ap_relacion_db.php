@@ -21,6 +21,10 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		$this->activar_transaccion();
 	}
 
+	/**
+	 * Método de debug que retorna las propiedades internas
+	 * @return array
+	 */
 	function info()
 	{
 		return get_object_vars($this);
@@ -39,7 +43,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	}
 
 	/**
-	 * No utilizar una transacción a la hora de la sincronización.
+	 * Fuerza a no utilizar una transacción a la hora de la sincronización.
 	 * Generalmente por que la transaccion la abre/cierra algun proceso de nivel superior
 	 */
 	function desactivar_transaccion()		
@@ -147,6 +151,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 
 	/**
 	 * Sincroniza las tabla de la raiz, de ahi en mas sigue el proceso a travez de las relaciones
+	 * @ignore 
 	 */
 	protected function proceso_sincronizacion()
 	{
@@ -173,12 +178,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a sincronizar
 	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 * @ventana
 	 */
 	protected function evt__pre_sincronizacion(){}
 	
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la sincronización
 	 * La transacción con la bd aún no fue terminada (si es que hay)
+	 * @ventana
 	 */	
 	protected function evt__post_sincronizacion(){}
 
@@ -216,6 +223,9 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function eliminar_plan()
 	{
 		$tablas = $this->objeto_relacion->orden_sincronizacion();		
@@ -228,12 +238,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos previo a la eliminación
 	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 * @ventana
 	 */
 	protected function evt__pre_eliminacion(){}
 	
 	/**
 	 * Ventana para incluír validaciones (disparar una excepcion) o disparar procesos posteriores a la eliminación
 	 * La transacción con la bd ya fue iniciada (si es que hay)
+	 * @ventana
 	 */	
 	protected function evt__post_eliminacion(){}
 
