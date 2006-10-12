@@ -323,6 +323,7 @@ class comando_instalacion extends comando_toba
 		$id_instancia = $this->get_entorno_id_instancia(true);
 		$proyectos = proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
+			//--- Elimina el proyecto toba_testing 
 			unset($proyectos['toba_testing']);
 		}
 		instancia::crear_instancia( $id_instancia, $base, $proyectos );
@@ -337,6 +338,9 @@ class comando_instalacion extends comando_toba
 		//--- Crea el proyecto
 		if (!$existe_proyecto ) {
 			proyecto::crear( $instancia, $id_proyecto, array() );
+			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
+			$nuevo_proyecto->actualizar_login();
+			$nuevo_proyecto->exportar();			
 		}
 		
 		//--- Vincula un usuario a todos los proyectos
@@ -345,9 +349,7 @@ class comando_instalacion extends comando_toba
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
 		}
-		$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
-		$nuevo_proyecto->actualizar_login();
-		$nuevo_proyecto->exportar();
+
 		$instancia->exportar_local();
 		
 		//--- Crea los nuevos alias

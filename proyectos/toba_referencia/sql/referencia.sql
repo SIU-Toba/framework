@@ -215,8 +215,8 @@ INSERT INTO ref_juegos VALUES (5, 'Reversi', NULL);
 -- Data for Name: ref_persona; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO ref_persona VALUES (2, 'Jose', NULL);
-INSERT INTO ref_persona VALUES (1, 'Horacio', NULL);
+INSERT INTO ref_persona VALUES (2, 'Jose', '2000-5-8');
+INSERT INTO ref_persona VALUES (1, 'Horacio', '2000-3-3');
 
 
 --

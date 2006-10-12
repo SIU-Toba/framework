@@ -40,6 +40,16 @@ class consultas
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where;";
 		return consultar_fuente($sql);
 	}
+	
+	function get_persona_datos($persona)
+	{
+		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona WHERE id='{$persona['id']}'";
+		$rs = consultar_fuente($sql);
+		if (! empty($rs)) {
+			return current($rs);
+		}
+		return $rs;
+	}
 
 	/**
 		Retorna los dias de la semana

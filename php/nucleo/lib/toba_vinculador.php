@@ -226,9 +226,12 @@ class toba_vinculador
 	
 	static function url_a_variable($url)
 	{
-		if (strpos($url, apex_qs_separador) === false) {
+		if (strpos($url, apex_qs_separador) === false && strpos($url, apex_qs_sep_interno) === false) {
+			//--- string simple
 			return urldecode($url);
 		}
+		
+		//--- Era una arreglo
 		$salida = array();
 		$partes = explode(apex_qs_separador, $url);
 		foreach ($partes as $parte) {

@@ -13,6 +13,8 @@
 * 		Esto es necesario cuando: las caracteristicas del elemento cambian la interface,
 * 									Se desee proveer acceso a elementos asociados, etc.
 * @package SalidaGrafica
+* 
+* @wiki Referencia/Zona
 */
 class toba_zona
 {
@@ -45,6 +47,10 @@ class toba_zona
 		unset($this->editable_info);
 	}
 
+	/**
+	 * La zona posee un editable cargado?
+	 * @return boolean
+	 */
 	function cargada()
 	{
 		return isset($this->editable_id);
@@ -59,12 +65,15 @@ class toba_zona
 	function cargar($id)
 	{
 		//--- Cambio ??
-		if (!isset($this->editable_id) || $id !== $this->editable_id) {
+		if (!isset($this->editable_info) || !isset($this->editable_id) || $id !== $this->editable_id) {
 			$this->editable_id = $id;
 			$this->cargar_info();
 		}
 	}
 	
+	/**
+	 * Vuelve a ejecutar el método de carga de información o descripción del editable
+	 */
 	function recargar()
 	{
 		if(isset($this->editable_id)){
@@ -87,6 +96,7 @@ class toba_zona
 
 	/**
 	 * Retorna el id del editable actualmente cargado
+	 * @return mixed
 	 */
 	function get_editable()
 	{
@@ -157,7 +167,10 @@ class toba_zona
 	}
 
 	/**
-	 * Genera el html de la seccion de ITEMs VECINOS en la barra
+	 * Genera el html de la seccion de ITEMs pertenecientes ala barra
+	 * Extender en caso de querer cambiar radicamente la forma de mostrar iconos,
+	 * probar antes si con estilos no es posible encontrar el layout buscado
+	 * @ventana
 	 */
 	function generar_html_barra_vinculos()
 	{
