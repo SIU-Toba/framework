@@ -500,10 +500,10 @@ abstract class toba_componente
 	 * @param string $proyecto 
 	 * @param string $tipo Tipo de componente
 	 */
-	function agregar_dependencia( $identificador, $proyecto, $tipo )
+	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
 		$sig = count($this->info_dependencias);
-		$this->info_dependencias[$sig] = toba_proyecto::get_definicion_dependencia($tipo, $identificador);
+		$this->info_dependencias[$sig] = toba_proyecto::get_definicion_dependencia($objeto, $identificador);
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	
 	}

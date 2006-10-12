@@ -267,8 +267,17 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'php_inexistente.gif', false);
 			}
 		}
+		// Instanciador
+		if ( $this instanceof info_ei_formulario || $this instanceof info_ei_cuadro ) {
+			$iconos[] = array(
+				'imagen' => toba_recurso::imagen_toba("objetos/instanciar.gif", false),
+				'ayuda' => 'Previsualizar el componente',
+				'vinculo' => toba::vinculador()->generar_solicitud( toba_editor::get_id(), 3316, $this->acceso_zona(),
+																		false, false, null, true, 'central')
+			);
+		}
+		//Editor
 		if (isset($this->datos['info']['clase_editor_proyecto'])) {
-			// Instanciador
 			$ayuda = null;
 			if (in_array($this->datos['info']['clase'], dao_editores::get_clases_validas())) {
 				require_once("datos_editores.php");

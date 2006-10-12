@@ -61,9 +61,17 @@ class zona_objeto extends zona_editor
 		}
 		parent::generar_html_barra_vinculos();		
 
+		//INSTANCIADOR
+		$clases_instanciables = array('objeto_ei_cuadro','objeto_ei_formulario','objeto_ei_formulario_ml','objeto_ei_filtro');
+		if (in_array($this->editable_info['clase'], $clases_instanciables)) {
+			$vinculo = toba::vinculador()->crear_vinculo( toba_editor::get_id(), 3316, array(), array('zona' => true, 'menu' => true));
+			echo "<a href='$vinculo'>".toba_recurso::imagen_toba('objetos/instanciar.gif', true, null, null, 'Simular la ejecucion del componente')."</a>\n";
+		}
+
+		// EDITOR
 		$editor_item = $this->editable_info['clase_editor'];
 		$editor_proyecto = $this->editable_info['clase_editor_proyecto'];
-		$vinculo = toba::vinculador()->crear_vinculo( $editor_proyecto, $editor_item, array(), array('zona' => true));
+		$vinculo = toba::vinculador()->crear_vinculo( $editor_proyecto, $editor_item, array(), array('zona' => true, 'menu' => true));
 		echo "<a href='$vinculo'>".toba_recurso::imagen_toba('objetos/editar.gif', true, null, null, 'Editar el componente')."</a>\n";
 	}
 
