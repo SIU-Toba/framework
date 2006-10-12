@@ -227,7 +227,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		toba_asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
 		toba_asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
-		$this->log("Cargar de DB");
 		$sql = $this->generar_sql_select($where, $from);
 		return $this->cargar_con_sql($sql, $anexar_datos);
 	}
@@ -812,7 +811,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					// - 2 - Reemplazo valores llave con los parametros correspondientes a la fila actual
 					foreach( $parametros['col_parametro'] as $col_llave ){
 						$valor_llave = $fila[$col_llave];
-						$sql = ereg_replace( apex_db_registros_separador . $col_llave . apex_db_registros_separador, $valor_llave, $sql);
+						$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
 					}
 					// - 3 - Ejecuto SQL
 					$datos = toba::db($this->fuente)->consultar($sql);

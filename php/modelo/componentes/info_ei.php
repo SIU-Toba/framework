@@ -1,6 +1,5 @@
 <?php
 require_once('info_componente.php');
-require_once('admin_util.php');
 
 abstract class info_ei extends info_componente
 {

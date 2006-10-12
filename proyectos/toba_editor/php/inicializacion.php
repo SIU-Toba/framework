@@ -1,4 +1,7 @@
 <?
+require_once('admin_util.php');		
+
+
 //*********  FRAMES entorno EDICION ************
 //-- FRAME control
 define("apex_frame_control","frame_control");

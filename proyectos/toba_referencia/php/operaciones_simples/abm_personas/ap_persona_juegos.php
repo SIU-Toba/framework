@@ -1,6 +1,7 @@
-<?
+<?php
+require_once('nucleo/componentes/persistencia/toba_ap_tabla_db.php');
 
-class ap_persona_juegos extends toba_ap_tabla_db_s
+class ap_persona_juegos extends toba_ap_tabla_db
 {
 	/*
 		Cuando una persona da de alta un JUEGO, se los anota en la oferta de juegos!

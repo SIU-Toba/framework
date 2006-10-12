@@ -34,7 +34,7 @@ class consultas
 		$where = '';
 		if(isset($filtro)){
 			if(isset($filtro['nombre'])){
-				$where = " WHERE nombre LIKE '%{$filtro['nombre']}%'";
+				$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
 			}
 		}
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where;";

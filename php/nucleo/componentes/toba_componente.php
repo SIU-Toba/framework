@@ -98,7 +98,7 @@ abstract class toba_componente
 	 */
 	protected function log($txt)
 	{
-		toba::logger()->debug($this->get_txt() . __CLASS__. "' " . $txt, 'toba');
+		toba::logger()->debug($this->get_txt() . get_class($this). ": " . $txt, 'toba');
 	}
 		
 	/**

@@ -64,7 +64,7 @@ class comando_instalacion extends comando_toba
 	}
 
 	/**
-	*	Agrega una BASE en la instalacion. [-d 'id_base']
+	*	Agrega una BASE en la instalacion [-d 'id_base']. Opcionalmente toma los datos de otra base  [-o base_origen]
 	*/
 	function opcion__agregar_db()
 	{
@@ -72,13 +72,24 @@ class comando_instalacion extends comando_toba
 		if ( $this->get_instalacion()->existe_base_datos_definida( $def ) ) {
 			throw new toba_error( "Ya existe una base definida con el ID '$def'");
 		}
-		$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
-		$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
-		$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE' ) );
-		$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO' ) );
-		$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
-		$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
-		$datos = $form->procesar();
+		$param = $this->get_parametros();
+		if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
+			$origen =  $param['-o'];
+			if (! $this->get_instalacion()->existe_base_datos_definida($origen)) {
+				throw new toba_error( "No existe la base origen '$origen'");
+			}
+			$datos = $this->get_instalacion()->get_parametros_base($origen);
+			
+		} else {
+			$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
+			$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
+			$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE' ) );
+			$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO' ) );
+			$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
+			$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
+			$datos = $form->procesar();
+			
+		}		
 		$this->get_instalacion()->agregar_db( $def, $datos );
 	}
 
@@ -146,6 +157,21 @@ class comando_instalacion extends comando_toba
 			$this->consola->error("No es posible conectarse a '$def'");
 		}
 	}
+	
+	/**
+	* Ejecuta un archivo sql contra una base. [-d 'id_base'] -a archivo
+	*/
+	function opcion__ejecutar_sql()
+	{
+		$param = $this->get_parametros();
+		if ( isset($param['-a']) &&  (trim($param['-a']) != '') ) {
+			$archivo = $param['-a'];
+		} else {
+			throw new toba_error("Es necesario indicar el archivo a ejecutar. Utilice el modificador '-a'");
+		}		
+		$db = $this->get_instalacion()->conectar_base($this->get_id_base_actual());
+		$db->ejecutar_archivo($archivo);
+	}	
 
 	/**
 	*	Crea una instalacion.

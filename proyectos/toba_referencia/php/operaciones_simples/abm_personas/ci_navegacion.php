@@ -4,19 +4,8 @@ require_once('operaciones_simples/consultas.php');
 //----------------------------------------------------------------
 class ci_navegacion extends toba_ci
 {
-	protected $pantalla = "seleccion";
-	protected $filtro;
-	protected $seleccion;
+	protected $s__filtro;
 	
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = "pantalla";
-		$propiedades[] = "filtro";
-		$propiedades[] = "seleccion";
-		return $propiedades;
-	}
-
 	function get_relacion()
 	{
 		return $this->dependencia('datos');
@@ -27,27 +16,22 @@ class ci_navegacion extends toba_ci
 		return $this->dependencia("editor");
 	}
 
-	function get_pantalla_actual()
-	{
-		return $this->pantalla;
-	}
-
 	function evt__agregar()
 	{
-		$this->pantalla = 'edicion';
+		$this->set_pantalla('edicion');
 	}
 	
 	function evt__eliminar()
 	{
 		$this->get_relacion()->eliminar();
-		$this->pantalla = 'seleccion';
+		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__cancelar()
 	{
 		$this->get_editor()->disparar_limpieza_memoria();
 		$this->get_relacion()->resetear();
-		$this->pantalla = 'seleccion';
+		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__procesar()
@@ -55,7 +39,7 @@ class ci_navegacion extends toba_ci
 		$this->dependencia('editor')->disparar_limpieza_memoria();
 		$this->get_relacion()->sincronizar();
 		$this->get_relacion()->resetear();
-		$this->pantalla = 'seleccion';
+		$this->set_pantalla('seleccion');
 	}
 
 	//-------------------------------------------------------------------
@@ -66,26 +50,26 @@ class ci_navegacion extends toba_ci
 
 	function evt__filtro_personas__filtrar($datos)
 	{
-		$this->filtro = $datos;
+		$this->s__filtro = $datos;
 	}
 
 	function conf__filtro_personas()
 	{
-		if(isset($this->filtro)){
-			return $this->filtro;
+		if(isset($this->s__filtro)){
+			return $this->s__filtro;
 		}
 	}
 
 	function evt__filtro_personas__cancelar(){
-		unset($this->filtro);	
+		unset($this->s__filtro);	
 	}
 
 	//-------- CUADRO ----
 
 	function conf__cuadro_personas()
 	{
-		if(isset($this->filtro)){
-			return consultas::get_personas($this->filtro);
+		if(isset($this->s__filtro)){
+			return consultas::get_personas($this->s__filtro);
 		}else{
 			return consultas::get_personas();
 		}
@@ -93,9 +77,8 @@ class ci_navegacion extends toba_ci
 
 	function evt__cuadro_personas__seleccion($id)
 	{
-		$this->seleccion = $id;
-		$this->get_relacion()->cargar($this->seleccion);
-		$this->pantalla = 'edicion';
+		$this->get_relacion()->cargar($id);
+		$this->set_pantalla('edicion');
 	}
 	
 	function evt__cuadro_personas__eliminar($seleccion)
