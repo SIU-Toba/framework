@@ -109,7 +109,7 @@ var tipclick = {
  	}
 };
 
-var html = '<div id="tipclick_div" onmouseover="if (window.tipclick) return tipclick._continue()" onmouseout="if (window.tipclick) return tipclick._stop()"></div>';
+var html = '<div id="tipclick_div" onmouseover="if (typeof window.tipclick != \'undefined\' && window.tipclick !== null) return window.tipclick._continue()" onmouseout="if (typeof window.tipclick != \'undefined\' && window.tipclick !== null) return window.tipclick._stop()"></div>';
 if (typeof pagina_cargada != 'undefined' && pagina_cargada) {
 	document.body.innerHTML += html;	
 } else {

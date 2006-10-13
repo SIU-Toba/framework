@@ -66,6 +66,7 @@ class toba_zona
 	{
 		//--- Cambio ??
 		if (!isset($this->editable_info) || !isset($this->editable_id) || $id !== $this->editable_id) {
+			toba::logger()->debug("Cargando la zona '{$this->id}' con el editable '".var_export($id, true)."'");
 			$this->editable_id = $id;
 			$this->cargar_info();
 		}

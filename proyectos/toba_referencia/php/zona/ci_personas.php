@@ -16,22 +16,25 @@ class ci_personas extends toba_ci
 		toba::zona()->resetear();	
 	}
 	
-	//-----------------------------------------------------------------------------------
-	//---- DEPENDENCIAS -----------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	//---- cuadro -----------------------------------------------------------------------
-
-	function evt__cuadro__seleccion($seleccion)
+	function evt__cuadro__cargar($seleccion)
 	{
 		toba::zona()->cargar($seleccion);
 	}
 
-	//El formato del retorno debe ser array( array('columna' => valor, ...), ...)
 	function conf__cuadro($componente)
 	{
 		return consultas::get_personas();
 	}
+	
+	/**
+	 * Fuerza a que el vinculo de la fila del cuadro cargue la zona con el id de la fila
+	 */
+	function conf_evt__cuadro__cargar_url(toba_evento_usuario $evento, $fila)
+	{
+		$evento->vinculo()->set_editable_zona(array('id' => $evento->get_parametros()));
+	}
+
+	
 }
 
 ?>

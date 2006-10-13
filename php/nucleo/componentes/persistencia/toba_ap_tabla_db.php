@@ -193,6 +193,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Carga el datos_tabla asociado restringiendo POR valores especificos de campos de la tabla
 	 *
 	 * @param array $clave Arreglo asociativo campo-valor
+	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
 	function cargar_por_clave($clave, $anexar_datos=false)
@@ -206,6 +207,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Carga el datos_tabla asociaciado a partir de una clausula where personalizada
 	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
+	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
 	function cargar_con_where($clausula, $anexar_datos=false)
@@ -221,6 +223,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Carga el datos_tabla asociado CON clausulas WHERE y FROM especificas, el entorno no incide en ellas
  	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
+	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
@@ -233,6 +236,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 
 	/**
 	 * Carga el datos_tabla asociado CON una query SQL directa
+	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
 	function cargar_con_sql($sql, $anexar_datos=false)
@@ -252,6 +256,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	/**
 	 * Carga el datos_tabla asociado CON un conjunto de datos especifico
 	 * @param array $datos Datos a cargar en formato RecordSet. No incluye las columnas externas.
+	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
 	function cargar_con_datos($datos, $anexar_datos=false)

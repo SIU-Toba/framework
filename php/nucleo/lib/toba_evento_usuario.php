@@ -12,12 +12,15 @@ class toba_evento_usuario extends toba_boton
 	protected $parametros = null;
 
 	/**
-	*	Devuelve el vinculo asociado al evento
+	* Devuelve el vinculo asociado al evento
+	* @param boolean $forzar_instancia Por defecto solo se crea una instancia de un vinculo asociada al evento,
+	* 		con este parámetro fuerza a crear un nuevo objeto vinculo
+	* @return toba_vinculo
 	*/
-	function vinculo()
+	function vinculo($forzar_instancia=false)
 	{
 		if ( $this->posee_accion_vincular() ) {
-			if ( !isset( $this->vinculo ) ) {
+			if ( !isset($this->vinculo) || $forzar_instancia) {
 				$this->vinculo = new toba_vinculo(	toba::proyecto()->get_id(), 
 										$this->datos['accion_vinculo_item'],
 										$this->datos['accion_vinculo_popup'],

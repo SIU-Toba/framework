@@ -1253,7 +1253,8 @@ class toba_ei_cuadro extends toba_ei
 						//1: Posiciono al evento en la fila
 						$evento->set_parametros($clave_fila);
 						if($evento->posee_accion_vincular()){
-							$evento->vinculo()->set_parametros($this->get_clave_fila_array($f));	
+							//-- Si es un vinculo, fuerza a crear una nueva instancia del vinculo en el evento asi aloja al id de la fila y sus conf.
+							$evento->vinculo(true)->set_parametros($this->get_clave_fila_array($f));	
 						}
 						//2: Ventana de modificacion del evento por fila
 						//- a - ¿Existe una callback de modificacion en el CONTROLADOR?

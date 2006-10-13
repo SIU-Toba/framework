@@ -391,5 +391,17 @@ class toba_vinculador
 			}
 		}
 	}
+	
+	/**
+	 * Método de debug que dumpea el estado actual de los vinculos registrados
+	 */
+	function info()
+	{
+		echo "<ul>";
+		foreach( $this->vinculos as $id => $vinculo ) {
+			echo "<li>$id: ".var_export($vinculo, true)."</li>";
+		}
+		echo "</ul>";
+	}
 }
 ?>

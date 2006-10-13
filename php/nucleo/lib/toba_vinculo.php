@@ -70,6 +70,17 @@ class toba_vinculo
 	{
 		$this->parametros[$clave] = $valor;
 	}
+	
+	/**
+	 * Agrega a la URL generado un parámetro que carga automáticamente la zona del item destino del vínculo
+	 * @param mixed $editable Valor común de los items a cargar en la zona
+	 * @see toba_zona
+	 */
+	function set_editable_zona($editable)
+	{
+		$this->parametros[apex_hilo_qs_zona] = toba::vinculador()->variable_a_url($editable);
+	}
+	
 
 	function get_parametros()
 	{
