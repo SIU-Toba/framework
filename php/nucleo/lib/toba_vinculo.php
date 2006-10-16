@@ -3,6 +3,7 @@
 /**
  * Mantiene un vinculo especifico y brinda una api para poder manipularlo
  * @package Centrales
+ * @jsdoc vinculador vinculador
  */
 class toba_vinculo
 {

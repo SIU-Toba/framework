@@ -23,10 +23,13 @@ class toba_tp_popup extends toba_tp_basico_titulo
 	
 		echo toba_js::abrir();
 		echo "
-			function seleccionar(clave, descripcion)
-			{
+			function seleccionar(clave, descripcion) {
 				window.opener.popup_callback('". $ef_popup ."', clave, descripcion);
 				window.close();
+			}
+			function respuesta_ef_popup(parametros) {
+				var seleccion = parametros.split('||');
+				seleccionar(seleccion[0], seleccion[1]);
 			}
 		";
 		echo toba_js::cerrar();

@@ -40,9 +40,9 @@ class extension_ci extends toba_ci
 		$this->dep('ml_php')->set_registro_nuevo(array('fecha' => date('Y-m-d'), 'importe' => 100));
 	}
 	
-	function conf__ml_php()
+	function conf__ml_php($ml)
 	{
-		return $this->conf__ml();	
+		return $this->conf__ml($ml);	
 	}
 	
 	function evt__ml_php__modificacion($datos)

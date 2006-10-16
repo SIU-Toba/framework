@@ -13,7 +13,7 @@ var notificacion;
 notificacion = new function() {
 	this._mensajes = [];
 	this._responsable = null;
-}
+};
 	
 	/**
 	 * Agrega un mensaje a la cola de notificaciones

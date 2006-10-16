@@ -270,14 +270,14 @@
 	}
 	//-----------------------------------------------------------------
 	//Clase que otorga rangos para asignación de tabs
-	class manejador_tabs 
+	class toba_manejador_tabs 
 	{
 		static private $instancia;
 		static function instancia() {
-			if(! manejador_tabs::$instancia) { 
-				manejador_tabs::$instancia = new manejador_tabs(); 
+			if (! toba_manejador_tabs::$instancia) { 
+				toba_manejador_tabs::$instancia = new toba_manejador_tabs(); 
 			}
-			return manejador_tabs::$instancia;
+			return toba_manejador_tabs::$instancia;
 		}		
 
 		protected $proximo_tab = 1;
@@ -298,11 +298,11 @@
 	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
 	*	Util para simulaciones
 	*/
-	class objeto_de_mentira
+	class toba_objeto_de_mentira
 	{
 		function __call($m, $a)
 		{
-			return new objeto_de_mentira();	
+			return new toba_objeto_de_mentira();	
 		}	
 		
 		function __set($p, $v)
@@ -311,7 +311,7 @@
 		
 		function __get($p)
 		{
-			return new objeto_de_mentira();
+			return new toba_objeto_de_mentira();
 		}
 	}
 

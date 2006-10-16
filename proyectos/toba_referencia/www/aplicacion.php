@@ -4,7 +4,7 @@ define("apex_pa_proyecto",'toba_referencia');
 #---- NIVEL de ACCESO minimo permitido
 //define("apex_pa_nivel_acceso_item","0");//Nivel de ITEMs que se pueden solicitar
 //define("apex_pa_nivel_acceso_usuario","0");//Nivel de USUARIOS
-
+define("apex_pa_validacion_debug",1);
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------
 //--------------------------------------------------------------------------

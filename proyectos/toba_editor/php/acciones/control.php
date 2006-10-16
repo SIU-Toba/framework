@@ -55,14 +55,14 @@ function mostrar_ocultar_frame() {
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_toba("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
+		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_toba("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
 		 <? echo toba_recurso::imagen_toba("logo_barra_apex.gif",true)?>
 		 </td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
 <?
-		echo "<td class='listado-barra-superior-tabi'>";
-		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";		
+		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
+		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
         echo toba_form::image('cambiar',toba_recurso::imagen_toba('cambiar_proyecto.gif',false), $js_cambio);
         echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
@@ -78,14 +78,14 @@ function mostrar_ocultar_frame() {
 
 		echo "<td class='listado-barra-superior-tabi'>";
 		$img = toba_recurso::imagen_toba('items/instanciar.gif', true);
-		echo "<a href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
+		echo "<a title='Previsualiza el proyecto' href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
 		echo "</td>";		
 ?>
 		<td><? echo gif_nulo(5,1) ?></td>
 
 		<td class='listado-tabi'>
-        <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
-        <? echo toba_recurso::imagen_toba("actividad_local.gif",true,null,null,"LOG de modificacion de componentes") ?></a></td>
+        <a title='LOG de modificación de componentes' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
+        <? echo toba_recurso::imagen_toba("actividad_local.gif",true) ?></a></td>
 
 <?
 	$parametros = array();
@@ -100,13 +100,13 @@ function mostrar_ocultar_frame() {
          <td class='listado-tabi'><? echo $url ?></td>
 
          <td class='listado-tabi'>
-        <a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
-		 <? echo toba_recurso::imagen_toba("home.gif",true,null,null,"Pagina inicial") ?></a></td>
+        <a title='Página inicial del editor' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
+		 <? echo toba_recurso::imagen_toba("home.gif",true) ?></a></td>
 
 
 		<td><? echo gif_nulo(3,1) ?></td>
-         <td><a href="#" class="list-obj"  onclick='javascript:salir();return false;'>
-		 <? echo toba_recurso::imagen_toba("finalizar_sesion.gif",true,null,null,"Finalizar SESION") ?></a></td>
+         <td><a title='Cerrar la sesión' href="#" class="list-obj"  onclick='javascript:salir();return false;'>
+		 <? echo toba_recurso::imagen_toba("finalizar_sesion.gif",true) ?></a></td>
 		<td><? echo gif_nulo(3,1) ?></td>
 
 	</tr>
@@ -123,32 +123,32 @@ function mostrar_ocultar_frame() {
 
 		 <td class='listado-tabi'><? echo toba_recurso::imagen_toba("items/item.gif",true) ?></td>
 		 <td class='listado-tabn' <? echo $js_cambiar_color_1 ?> >
-		<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">ITEMS</a>
+		<a title="Listado de Operaciones disponibles en el Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">ITEMS</a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		 <td class='listado-tabi'><? echo toba_recurso::imagen_toba("objetos/objeto.gif",true) ?></td>
 		<td class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
-		<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">COMPONENTES</a>
+		<a title="Listado de Componentes creados en el Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">COMPONENTES</a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		<td  class='listado-tabi'>
-		<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.gif",true,null,null,"Configurar Proyecto") ?></a>
+		<a title="Configuraciones generales del Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-		<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
+		<a title="Configuración de Usuarios, Permisos y Grupos de Acceso" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-			<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("testing.gif",true,null,null,"Testing automático") ?></a>
+			<a title='Testing Automático' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>
-			<a href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("objetos/objeto_nuevo.gif",true,null,null,"Crear Objeto") ?></a>
+			<a title="Crear un nuevo Componente" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("objetos/objeto_nuevo.gif",true) ?></a>
 		</td>
 		
 		

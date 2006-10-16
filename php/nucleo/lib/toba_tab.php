@@ -26,7 +26,7 @@ class toba_tab extends toba_boton
 		static $id_tab = 1;
 		$evento = $this->datos['identificador'];
 		$contenido = '';
-		$tab_order = manejador_tabs::instancia()->siguiente();		
+		$tab_order = toba_manejador_tabs::instancia()->siguiente();		
 		$img = $this->get_imagen();
 		if(!isset($img) && $tipo == 'H') {
 			$img = gif_nulo(1, 16);

@@ -53,17 +53,17 @@
 
       <br />
                           <div class="package">
-		    		<a href="../Fuentes/toba_admin_fuentes.html">					admin_fuentes
-					</a>    	
+		    			<a href="../Fuentes/toba_admin_fuentes.html">					admin_fuentes
+					</a>    		
 	 <br />
-	    		<a href="../Fuentes/toba_dba.html">					dba
-					</a>    	
+	    			<a href="../Fuentes/toba_dba.html">					dba
+					</a>    		
 	 <br />
-	    		<a href="../Fuentes/toba_fuente_datos.html">					fuente_datos
-					</a>    	
+	    			<a href="../Fuentes/toba_fuente_datos.html">					fuente_datos
+					</a>    		
 	 <br />
-	    		<a href="../Fuentes/toba_mensajes.html">					mensajes
-					</a>    	
+	    			<a href="../Fuentes/toba_mensajes.html">					mensajes
+					</a>    		
 	 <br />
 	  </div>
                         
@@ -108,7 +108,6 @@
 			Ubicada en /nucleo/lib/toba_dba.php [<span class="field">line 11</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
-				<tr><td><strong>Todo:</strong>&nbsp;&nbsp;</td><td><ul></ul><ul><li>Hay que buscar una forma mejor de menejar las conexiones a la instancia que con 'instancia' + apex_pa_instancia</li></ul></td></tr>
 			
 	</table>
 <br>
@@ -125,58 +124,48 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</span></div>
+		<div class="info-box-title">Métodos</div>
 		<div class="info-box-body">
 			<div class="method-summary">
-				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-												<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#cargar_bases_definidas" title="details" class="method-name">cargar_bases_definidas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Levanta la lista de bases definidas</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#desconectar" title="details" class="method-name">desconectar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Desconecta una DB</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#existe_conexion" title="details" class="method-name">existe_conexion</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">¿Hay una conexión abierta a la base?</td></tr>
-				</div>
-																								<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result"><a href="../Centrales/db.html">db</a></span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#get_db" title="details" class="method-name">get_db</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Retorna una referencia a una CONEXION con una base</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#get_parametros_base" title="details" class="method-name">get_parametros_base</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Busca la definicion de una base en 'bases.ini'</td></tr>
-				</div>
-																<div class="method-definition">
-					<tr><td class="method-definition" nowrap>static
-											<span class="method-result">void</span>&nbsp;&nbsp;
-					</td>
-					<td class="method-definition"><a href="#refrescar" title="details" class="method-name">refrescar</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition">Fuerza la recarga de los parametros de una conexion y reconecta a la base</td></tr>
-				</div>
-																																												<div class="method-definition">
-											<tr><td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#get_bases_definidas" title="details" class="method-name">get_bases_definidas</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
-				</div>
-																																				</table>
+				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
+															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#cargar_bases_definidas" title="details" class="method-name">cargar_bases_definidas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Levanta la lista de bases definidas</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#desconectar" title="details" class="method-name">desconectar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Desconecta una DB</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#existe_conexion" title="details" class="method-name">existe_conexion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">¿Hay una conexión abierta a la base?</td></tr>
+																													<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">db</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_db" title="details" class="method-name">get_db</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna una referencia a una CONEXION con una base</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_parametros_base" title="details" class="method-name">get_parametros_base</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Busca la definicion de una base en 'bases.ini'</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#refrescar" title="details" class="method-name">refrescar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Fuerza la recarga de los parametros de una conexion y reconecta a la base</td></tr>
+																																																			<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_bases_definidas" title="details" class="method-name">get_bases_definidas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																								</table>
 			</div>
 			<br />
 		</div>
@@ -209,7 +198,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcargar_bases_definidas" id="cargar_bases_definidas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method cargar_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
 </div>
@@ -232,7 +221,7 @@
 		<br />
 </div>
 <a name="methoddesconectar" id="desconectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
 </div>
@@ -267,7 +256,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste_conexion" id="existe_conexion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
@@ -302,7 +291,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_db" id="get_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
@@ -311,7 +300,7 @@ $nombre&nbsp;
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static <a href="../Centrales/db.html">db</a> get_db(
+		<code>static db get_db(
 string
 $nombre&nbsp;
 )</code>
@@ -337,7 +326,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros_base" id="get_parametros_base"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method get_parametros_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
 </div>
@@ -372,7 +361,7 @@ $id_base&nbsp;
 		<br />
 </div>
 <a name="methodrefrescar" id="refrescar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
 </div>
@@ -408,9 +397,12 @@ $nombre&nbsp;
 </div>
 
 <a name="methodget_bases_definidas" id="get_bases_definidas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
+	
+		
+	
+	<span class="method-title">get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
 </div>
 <br />
 
@@ -438,7 +430,7 @@ $nombre&nbsp;
 		<div class="info-box-title">Constantes</div>
 		<div class="info-box-body">
 			<a name="constpath_archivo_bases" id="path_archivo_bases"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">

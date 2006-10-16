@@ -124,7 +124,8 @@ class toba_ci extends toba_ei
 			$this->dependencias[$dep]->disparar_limpieza_memoria();
 		}
 		$this->evt__limpieza_memoria(array('ini_operacion'));
-		$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');		
+		unset($this->pantalla_id_eventos);		
+		$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');	
 		$this->ini__operacion();
 	}
 	

@@ -108,6 +108,7 @@ class toba_vinculador
 	 * @param boolean $menu El vinculo esta solicitado por el menu?
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
 	 * @return string URL hacia el ítem solicitado
+	 * @deprecated Desde 1.0 usar crear_vinculo o crear_autovinculo
 	 */
 	function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
@@ -212,6 +213,12 @@ class toba_vinculador
 	//---------------------------- CONVERSIONES  ------------------------------------------
 	//-------------------------------------------------------------------------------------
 
+	/**
+	 * Empaqueta una variable compleja (ej. array) para poder ser parte de una URL
+	 * @param mixed $variable Arreglo o tipo basico
+	 * @return string
+	 * @see toba_vinculador::url_a_variable
+	 */
 	static function variable_a_url($variable)
 	{
 		if (! is_array($variable)) {
@@ -223,7 +230,13 @@ class toba_vinculador
 		}
 		return implode(apex_qs_separador, $salida);
 	}
-	
+
+	/**
+	 * Desemmpaqueta una variable compleja (ej. array) que formaba parte de una URL
+	 * @param mixed $url Parte de una url que contiene una variable
+	 * @return miexed
+	 * @see toba_vinculador::variable_a_url
+	 */
 	static function url_a_variable($url)
 	{
 		if (strpos($url, apex_qs_separador) === false && strpos($url, apex_qs_sep_interno) === false) {
@@ -250,6 +263,9 @@ class toba_vinculador
 	//------------------------------ CONTROL de ACCESO  -----------------------------------
 	//-------------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */	
 	protected function cargar_vinculos_posibles()
 	{
 		$usuario = toba::usuario()->get_id();
@@ -262,6 +278,9 @@ class toba_vinculador
 		}
 	}
 
+	/**
+	 * @ignore 
+	 */
 	protected function posee_acceso_item($proyecto, $item)
 	{
 		if(array_key_exists('vinculos_posibles',$_SESSION['toba']['instancia'])){

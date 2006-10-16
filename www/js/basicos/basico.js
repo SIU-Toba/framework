@@ -83,10 +83,31 @@ String.prototype.trim = function() {
     return this.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
 };
 
-String.prototype.pad = function(l, s, t){
-    return s || (s = " "), (l -= this.length) > 0 ? (s = new Array(Math.ceil(l / s.length)
-        + 1).join(s)).substr(0, t = !t ? l : t == 1 ? 0 : Math.ceil(l / 2))
-        + this + s.substr(0, l - t) : this;
+String.prototype.pad = function(len, str, side) {
+	var s = len-this.length;
+	if (s<=0) {
+		return this;
+	}
+	if (!str.length) {
+		str = " ";	
+	}
+	var slen = str.length;
+	var p = "";
+	while (slen<=s) {
+		s -= slen;
+		p += str;
+	}
+	p += str.substring(0, s);
+	var mid = Math.floor(p.length/2);
+	if (side == "PAD_RIGHT") {
+		return this+p;
+	} else if (side == "PAD_LEFT") {
+		return p+this;
+	} else if (side == "PAD_BOTH") {
+		return p.substr(0, mid)+this+p.substr(mid);
+	} else {
+		return this+p;
+	}
 };
 
 //---ARRAY
@@ -249,10 +270,11 @@ function abrir_popup(id, url, opciones, extra, dep) {
  * @class Clase estatica que permite recolectar el tiempo de ejecución entre distintos sucesos
  * @constructor
  */
+
 var cronometro;
 cronometro = new function() {
 	this.res = [];
-}
+};
 	cronometro.limpiar = function() {
 		this.res = [];
 	};
@@ -268,7 +290,7 @@ cronometro = new function() {
 			}
 		}
 		return html;
-	}
+	};
 
 function cambiar_colapsado(boton, cuerpo) {
 	if (cuerpo.style.display == 'none') {
@@ -276,7 +298,7 @@ function cambiar_colapsado(boton, cuerpo) {
 	} else {
 		colapsar(boton, cuerpo);
 	}
-};
+}
 
 function colapsar (boton, cuerpo) {
 	if (boton) {

@@ -3,7 +3,7 @@ var financiero;
  * @class Metodos estaticos con servicios relacionados con el formato financiero
  */
 financiero = new function() {
-}
+};
 	
 	/**
 	 * Formatea un número utilizando el formato moneda local

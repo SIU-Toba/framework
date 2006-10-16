@@ -129,7 +129,7 @@ class toba_evento_usuario extends toba_boton
 	function get_html($id_submit, $id_componente)
 	{
 		if ( $this->anulado ) return null;
-		$tab_order = manejador_tabs::instancia()->siguiente();
+		$tab_order = toba_manejador_tabs::instancia()->siguiente();
 		$tip = '';
 		if (isset($this->datos['ayuda'])) {
 			$tip = $this->datos['ayuda'];
@@ -159,24 +159,25 @@ class toba_evento_usuario extends toba_boton
 			} else {
 				$js = "onclick=\"imprimir_html('$url');\"";
 			}
-			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador
 			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
-			if( isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
-				// Escribo la sentencia que invocaria el vinculo
-				$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
-				return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-												$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
+			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
+				return;
 			}
+			// Escribo la sentencia que invocaria el vinculo
+			$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
+		} elseif ( $this->datos['accion'] == 'P' ) {
+			//--- En una respuesta a un ef_popup
+			$js = "onclick=\"respuesta_ef_popup('$this->parametros');\"";
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
-			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		}
+		return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+										$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
+		
 	}
 
 	/**
@@ -186,10 +187,11 @@ class toba_evento_usuario extends toba_boton
 	{
 		$js_confirm = $this->posee_confirmacion() ? "'".$this->get_msg_confirmacion()."'" : "''";
 		$js_validar = $this->maneja_datos() ? "true" : "false";
-		if (is_array($this->parametros))
+		if (is_array($this->parametros)) {
 			$param = ", ".toba_js::arreglo($this->parametros, true);
-		else		
+		} else {
 			$param = (isset($this->parametros)) ? ", '".$this->parametros."'" : '';
+		}
 		return "new evento_ei('".$this->get_id()."', $js_validar, $js_confirm $param)";
 	}
 }

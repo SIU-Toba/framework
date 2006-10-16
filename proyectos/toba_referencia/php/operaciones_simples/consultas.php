@@ -5,7 +5,7 @@ class consultas
 	/**
 		Retorna la lista de juegos
 	*/
-	function get_juegos()
+	static function get_juegos()
 	{
 		$sql = "SELECT id, nombre, descripcion FROM ref_juegos;";
 		return consultar_fuente($sql);
@@ -14,7 +14,7 @@ class consultas
 	/**
 		Retorna la lista de deportes
 	*/
-	function get_deportes($filtro=null)
+	static function get_deportes($filtro=null)
 	{
 		$where = '';
 		if(isset($filtro)){
@@ -29,7 +29,7 @@ class consultas
 	/**
 		Retorna la lista de personas
 	*/
-	function get_personas($filtro=null)
+	static function get_personas($filtro=null)
 	{
 		$where = '';
 		if(isset($filtro)){
@@ -37,11 +37,11 @@ class consultas
 				$where = " WHERE nombre ILIKE '%{$filtro['nombre']}%'";
 			}
 		}
-		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where;";
+		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where ORDER BY nombre";
 		return consultar_fuente($sql);
 	}
 	
-	function get_persona_datos($persona)
+	static function get_persona_datos($persona)
 	{
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona WHERE id='{$persona['id']}'";
 		$rs = consultar_fuente($sql);
@@ -50,11 +50,21 @@ class consultas
 		}
 		return $rs;
 	}
+	
+	static function get_persona_nombre($persona)
+	{
+		if (isset($persona)) {
+			$datos = self::get_persona_datos($persona);
+			return $datos['nombre'];
+		} else {
+			return '';	
+		}
+	}
 
 	/**
 		Retorna los dias de la semana
 	*/
-	function get_dias_semana()
+	static function get_dias_semana()
 	{
 		$dias[0]['id'] = '0';
 		$dias[0]['desc'] = 'Lunes';
@@ -76,7 +86,7 @@ class consultas
 	/**
 		Devuelve un dia con el formato que necesita el DAO
 	*/
-	function get_dia_semana($dia)
+	static function get_dia_semana($dia)
 	{
 		$dias = self::get_dias_semana();
 		$d[0]['desc_dia_semana'] = $dias[$dia]['desc'];
@@ -86,7 +96,7 @@ class consultas
 	/**
 		Retorna las horas del dia
 	*/
-	function get_horas_dia()
+	static function get_horas_dia()
 	{
 		for($a=0;$a<24;$a++){
 			$horas[$a]['id'] = $a+1;	

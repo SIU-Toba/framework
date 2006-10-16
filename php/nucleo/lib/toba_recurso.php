@@ -137,9 +137,10 @@ class toba_recurso {
 	 * @param char $tecla Tecla utiliza para acceder a la acción que contiene la ayuda, puede ser nula
 	 * @param string $ayuda Ayuda que se va a incluir en la acción, no debe contener comillas simples sin quotear
 	 * @param string $clases_css Clases css que se deben incluir en el tag en donde va la ayuda
+	 * @param int $delay_ayuda Milisegundos que tarda en mostrarse la ayuda
 	 * @return Atributos a incluir en un tag img, a, div, etc.
 	 */
-	static function ayuda($tecla, $ayuda='', $clases_css='')
+	static function ayuda($tecla, $ayuda='', $clases_css='', $delay_ayuda=1000)
 	{
 		$ayuda_extra = '';
 		$a = '';
@@ -152,7 +153,7 @@ class toba_recurso {
 			$ayuda = toba_parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 			$ayuda = str_replace(array("\""), "`", $ayuda);
-			$a .= " onmouseover=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.show('$ayuda',this,event);\" onmouseout=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.hide();\" ";
+			$a .= " onmouseover=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.show('$ayuda',this,event, $delay_ayuda);\" onmouseout=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.hide();\" ";
 			$clases_css .= ' ayuda';
 		} else {
 			$a .= " title='$ayuda_extra'";

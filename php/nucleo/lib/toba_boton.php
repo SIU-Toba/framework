@@ -103,12 +103,15 @@ class toba_boton
 		$this->datos['ayuda'] = $texto;
 	}
 
-	function set_imagen($url_relativa, $origen=null)
+	/**
+	 * Cambia la imagen asociada al botón
+	 * @param string $url_relativa Direccion de la imagen relativa a la carpeta www/img
+	 * @param string $origen La imagen pertenece al proyecto actual ('proyecto') o a toba ('apex')
+	 */
+	function set_imagen($url_relativa, $origen='apex')
 	{
-		if (isset($origen) && ( ($origen != 'apex') || ( $origen != 'proyecto') ) ) {
+		if ($origen != 'apex' &&  $origen != 'proyecto' ) {
 			throw new toba_error_def("EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
-		} else {
-			$origen = 'apex';	
 		}
 		$this->datos['imagen_recurso_origen'] = $origen;
 		$this->datos['imagen'] = $url_relativa;

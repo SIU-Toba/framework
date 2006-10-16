@@ -42,7 +42,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	 */
 	ci.prototype.dep = function(identificador) {
 		return this.dependencia(identificador);	
-	}
+	};
 	
 	ci.prototype.iniciar = function() {
 		for (var dep in this._deps) {
@@ -248,6 +248,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 			if (boton.onclick_viejo !== '') {
 				boton.onclick = boton.onclick_viejo;
 			}
+			boton.className = '';
 		}
 	};
 
@@ -261,6 +262,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		if(boton) {
 			boton.onclick_viejo = boton.onclick;
 			boton.onclick = '';
+			boton.className = 'ci-tabs-boton-desact';
 		}
 	};
 

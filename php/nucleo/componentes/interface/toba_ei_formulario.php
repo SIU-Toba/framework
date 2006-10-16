@@ -795,7 +795,7 @@ class toba_ei_formulario extends toba_ei
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();
-		$this->rango_tabs = manejador_tabs::instancia()->reservar(250);		
+		$this->rango_tabs = toba_manejador_tabs::instancia()->reservar(250);		
 				
 		$ancho = ($this->info_formulario['ancho'] != '') ? "style='width: {$this->info_formulario['ancho']}'" : '';
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";

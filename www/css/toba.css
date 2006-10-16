@@ -168,12 +168,16 @@ legend {
 	clear: both;
 	text-align: right;	
 }
-.ei-boton, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
+.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
 	font-size: 11px;
 	color: #231f20;
 	height: 24px;
 	background-color: #ffffff;
 }
+.ei-boton-izq {
+	float: left;
+}
+
 .ei-boton-defecto {
 	
 }
@@ -597,7 +601,6 @@ hides rule from IE5-Mac \*/
 	color:#333;
 	padding-bottom:5px;
 }
-
 .ci-tabs-h-cont, .ci-wiz-cont {
 	height: 100%;
 	width: 100%;
@@ -610,6 +613,12 @@ hides rule from IE5-Mac \*/
 	text-align: left;
 }
 
+a.ci-tabs-boton-desact {
+	color: #DDD;
+}
+a.ci-tabs-boton-desact:hover {
+	color: #DDD;
+}
 /*************************
 	Clase ei_arbol
 **************************/
@@ -786,13 +795,15 @@ hides rule from IE5-Mac \*/
 
 #tipclick_div{
 	position:absolute;
-	width: 200px;
 	visibility:hidden;
 	background-color: lightyellow;			 
 	padding: 2px;
 	border: 1px solid black;
 	line-height:18px;
 	z-index:100;
+	_width: 200px;
+	max-width: 200px;
+	font: normal normal normal 11px Tahoma, Verdana, Arial, Helvetica, sans-serif; 
 }			
 #div_calendario {
 	visibility:hidden;

@@ -8,7 +8,7 @@ var vinculador;
  */
 vinculador = new function() {
 	this._vinculos = [];	
-}
+};
 	/**
 	 * Crea una URL hacia el item actual
 	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
@@ -139,6 +139,6 @@ vinculador = new function() {
 	 */
 	vinculador.agregar_vinculo = function(identificador, datos) {
 		this._vinculos[ identificador ] = datos;
-	}
+	};
 
 toba.confirmar_inclusion('basicos/vinculador');

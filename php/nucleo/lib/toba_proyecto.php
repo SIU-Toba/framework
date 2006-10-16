@@ -11,7 +11,7 @@ require_once('toba_instancia.php');
 class toba_proyecto
 {
 	static private $instancia;
-	const prefijo_punto_acceso = 'pa_';
+	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
 	{

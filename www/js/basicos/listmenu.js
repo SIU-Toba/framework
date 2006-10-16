@@ -13,7 +13,7 @@ http://www.brothercake.com/scripts/listmenu/
 function simpleMenu(navid, orient)
 {
 	//if the dom is not supported, or this is opera 5 or 6, don't continue
-	var version = parseInt(navigator.appVersion);
+	var version = parseInt(navigator.appVersion, 10);
 	var opera5 = /opera[\/ ][56]/i.test(navigator.userAgent);
 	if(typeof document.getElementById == 'undefined' || opera5) { return; }
 	

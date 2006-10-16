@@ -379,7 +379,7 @@ ef.prototype.constructor = ef;
 	 */
 	ef.prototype.borrar_opciones = function() {
 		this.resetear_estado();
-	}
+	};
 
 	/**
 	 * Cambia las opciones disponibles de selección 

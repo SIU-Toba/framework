@@ -5,7 +5,10 @@ var tipclick = {
 	delay_disappear : 250,
 	delay_appear : 1000,
 
-	show : function(content, obj, e) {
+	show : function(content, obj, e, delay) {
+		if (typeof delay == 'undefined') {
+			delay = this.delay_appear;	
+		}
 		if (window.event) { 
 			event.cancelBubble=true;
 		} else if (e.stopPropagation) {
@@ -16,7 +19,7 @@ var tipclick = {
 		tooltip.innerHTML = content;
 		if ((e.type == "click" && tooltip.style.visibility == 'hidden') || e.type == "mouseover") {
 			var self = this;
-			this._show_handler = setTimeout(function() {self._do_show();}, this.delay_appear);
+			this._show_handler = setTimeout(function() {self._do_show();}, delay);
 		} else if (e.type=="click") {
 			tooltip.style.visibility = 'hidden';
 		}
