@@ -3,21 +3,16 @@ require_once('modelo/catalogo_modelo.php');
 
 class ci_login extends toba_ci
 {
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos';
-		return $propiedades;
-	}
-
+	protected $s__datos;
+	
 	function post_eventos()
 	{
-		if (isset($this->datos['usuario']) ) {
-			if (!isset($this->datos['clave'])) {
-				$this->datos['clave'] = null;
+		if (isset($this->s__datos['usuario']) ) {
+			if (!isset($this->s__datos['clave'])) {
+				$this->s__datos['clave'] = null;
 			}			
 			try {
-				toba::sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
+				toba::sesion()->iniciar($this->s__datos['usuario'], $this->s__datos['clave']);
 			} catch ( toba_error_login $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
@@ -39,16 +34,16 @@ class ci_login extends toba_ci
 
 	function evt__datos__modificacion($datos)
 	{
-		$this->datos = $datos;
+		$this->s__datos = $datos;
 	}
 
 	function conf__datos()
 	{
-		if (isset($this->datos)) {
-			if (isset($this->datos['clave'])) {
-				unset($this->datos['clave']);
+		if (isset($this->s__datos)) {
+			if (isset($this->s__datos['clave'])) {
+				unset($this->s__datos['clave']);
 			}
-			return $this->datos;	
+			return $this->s__datos;	
 		}
 	}
 
@@ -56,8 +51,8 @@ class ci_login extends toba_ci
 
 	function evt__seleccion_usuario__seleccion($seleccion)
 	{
-		$this->datos['usuario'] = $seleccion['usuario'];
-		$this->datos['clave'] = null;
+		$this->s__datos['usuario'] = $seleccion['usuario'];
+		$this->s__datos['clave'] = null;
 	}
 
 	function conf__seleccion_usuario()

@@ -15,9 +15,9 @@ class casos_web extends toba_ci
 		return $atributos;
 	}
 	
-	function conf__lista_archivos()
+	function conf__lista_archivos($cuadro)
 	{
-		$this->dependencias['lista_archivos']->colapsar();
+		$cuadro->colapsar();
 		$lista = array();
 	    foreach (lista_casos::get_casos() as $caso) {
 			if (in_array($caso['id'], $this->selecciones['casos'])) {
@@ -55,6 +55,7 @@ class casos_web extends toba_ci
 
 }
 
+####################################################################################
 
 class pantalla_testing extends toba_ei_pantalla 
 {
@@ -107,6 +108,7 @@ class pantalla_testing extends toba_ei_pantalla
 					    echo "<a href='{$path_temp['browser']}/cobertura.html' target='_blank'>Ver cobertura de código</a>";
 					}
 					//-------
+				
 				}
 			}
 		} catch (Exception $e) {
@@ -115,9 +117,12 @@ class pantalla_testing extends toba_ei_pantalla
 			else
 				echo $e;
 		}
-		echo "</div>";
+		echo "</div><br>";
+		$this->dep('lista_archivos')->generar_html();		
 	}	
 }
+
+####################################################################################
 
 class pantalla_seleccion  extends toba_ei_pantalla
 {

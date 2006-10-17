@@ -821,16 +821,23 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Cambia el contenido de la fila donde se encuentra el cursor interno
 	 * En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella
+	 * Si la fila es null, se borra la fila actual
 	 *
-	 * @param array $fila Contenido total o parcial de la fila a crear o modificar
+	 * @param array $fila Contenido total o parcial de la fila a crear o modificar (si es null borra la fila actual)
 	 */
 	function set($fila)
 	{
 		if($this->hay_cursor()){
-			$this->modificar_fila($this->get_cursor(), $fila);
+			if (isset($fila)) {
+				$this->modificar_fila($this->get_cursor(), $fila);
+			} else {
+				$this->eliminar_fila($this->get_cursor());
+			}
 		} else {
-			$id = $this->nueva_fila($fila);
-			$this->set_cursor($id);
+			if (isset($fila)) {
+				$id = $this->nueva_fila($fila);
+				$this->set_cursor($id);
+			}
 		}
 	}
 	

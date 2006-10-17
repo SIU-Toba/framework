@@ -50,7 +50,6 @@ class ci_propiedades extends toba_ci
 	
 	function evt__procesar()
 	{
-		$this->dependencia('datos')->tabla('proyecto')->set_fila_columna_valor(0,"proyecto",toba_editor::get_proyecto_cargado() );
 		$this->dependencia('datos')->sincronizar();
 		if (! isset($this->usuario_actual)) {
 			//Si era un alta
@@ -103,7 +102,14 @@ class ci_propiedades extends toba_ci
 
 	function evt__form_proyecto__modificacion($datos)
 	{
-		return $this->dependencia('datos')->tabla('proyecto')->set($datos);
+		if (isset($datos['usuario_grupo_acc'])) {
+			//--- Se agrega o cambia el grupo de acceso
+			$datos['proyecto'] = toba_editor::get_proyecto_cargado();
+			$this->dependencia('datos')->tabla('proyecto')->set($datos);
+		} else {
+			//--- Se elimina o se mantiene sin grupo de acceso en este proyecto
+			$this->dependencia('datos')->tabla('proyecto')->set(null);
+		}
 	}
 
 	function conf__form_proyecto()

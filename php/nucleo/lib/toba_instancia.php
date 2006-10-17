@@ -313,6 +313,7 @@ class toba_instancia
 	
 	static function registrar_error_login($usuario, $ip, $texto)
 	{
+		$texto = addslashes($texto);
 		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
 				VALUES ('$usuario',NULL,'$ip','1','$texto')";
 		self::get_db()->ejecutar($sql);
