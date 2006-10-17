@@ -1,4 +1,4 @@
-|<?php
+<?php
 require_once('toba_ei.php');
 require_once('nucleo/lib/toba_tab.php');
 
