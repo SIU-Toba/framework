@@ -423,15 +423,21 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * @ignore 
 	 */
+	function get_nombre_clase()
+	{
+		return str_replace('objeto', 'toba', $this->info['clase']);
+	}	
+
+	/**
+	 * @ignore 
+	 */
 	function get_html_barra_editor()
 	{
 		$salida = '';
 		if( toba_editor::modo_prueba() ){ 
 			$salida .= "<div class='div-editor'>";
-			//$salida .= '<span class="ei-barra-sup-iconos">';		
-			$salida .= toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item']);
-			//$salida .= '</span>';
-			$salida .= '<strong>[' . $this->info['objeto'] . ']</strong> - ' . $this->info["nombre"];
+			$salida .= toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item'], $this->info['clase']);
+			$salida .= '<strong>&nbsp;[' .$this->info['objeto'] . ']&nbsp;</strong>' . $this->info["nombre"];
 			$salida .= "</div>";
 		}		
 		return $salida;

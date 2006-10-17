@@ -1,4 +1,5 @@
 <?php
+require_once('modelo/componentes/datos_editores.php');
 
 /**
  * A travez de esta clase el nucleo registra al toba_editor
@@ -278,12 +279,12 @@ class toba_editor
 	/*
 	*	Acceso a la edicion del componente
 	*/
-	static function generar_zona_vinculos_componente( $componente, $editor )
+	static function generar_zona_vinculos_componente( $componente, $editor, $clase )
 	{
-		$salida = "<span class='div-editor'>";		
-		foreach(self::get_vinculos_componente($componente, $editor) as $vinculo) {
+		$salida = "<span class='ei-base' style='height: 55px' >";
+		foreach(self::get_vinculos_componente($componente, $editor, $clase) as $vinculo) {
 			$salida .= "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
+			$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
 			$salida .= "</a>\n";
 		}
 		$salida .= "</span>";
@@ -348,19 +349,21 @@ class toba_editor
 		return $vinculos;
 	}
 
-	static function get_vinculos_componente($componente,$editor) 
+	static function get_vinculos_componente($componente,$editor,$clase) 
 	{
 		$vinculos = array();
 		$opciones['celda_memoria'] = 'central';
+		$opciones['menu'] = true;
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
-		
-		//Vinculo al EDITOR del OBJETO
-		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente));
-		$vinculos[0]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
-		$vinculos[0]['frame'] = 'frame_centro';
-		$vinculos[0]['imagen'] = 'objetos/editar.gif';
-		$vinculos[0]['tip'] = 'Ir al editor del componente.';
+
+		$vinculos = call_user_func(array('datos_editores', 'get_pantallas_'.$clase));		
+		foreach(array_keys($vinculos) as $id) {
+			$parametros = array(apex_hilo_qs_zona => implode(apex_qs_separador,$componente),
+								'etapa' => $vinculos[$id]['identificador']);
+			$vinculos[$id]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+			$vinculos[$id]['frame'] = 'frame_centro';
+		}
 		return $vinculos;
 	}
 

@@ -201,7 +201,7 @@ class toba_proyecto
 					apex_clase c
 				WHERE
 					o.objeto = '$objeto' AND
-					o.proyecto = '".toba_proyecto::get_id()."' AND
+					o.proyecto = '".toba_editor::get_proyecto_cargado()."' AND
 					o.clase = c.clase AND
 					o.clase_proyecto = c.proyecto";
 		$res = self::get_db()->consultar($sql);

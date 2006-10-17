@@ -1,4 +1,4 @@
-<?php
+|<?php
 require_once('toba_ei.php');
 require_once('nucleo/lib/toba_tab.php');
 
@@ -276,6 +276,7 @@ class toba_ei_pantalla extends toba_ei
 		}
 		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
 		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td>\n";
+		echo $this->controlador->get_html_barra_editor();
 		$this->generar_html_barra_sup(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
