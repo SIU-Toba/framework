@@ -1,0 +1,1 @@
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES ('toba_referencia', 'referencia', 'Muestra el nombre jerárquico de la operación', 'tp_referencia', 'tp_referencia.php', NULL, NULL, NULL, NULL);
