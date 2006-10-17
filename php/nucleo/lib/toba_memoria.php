@@ -43,6 +43,7 @@ class toba_memoria
 	private $id;
 	private $url_actual;
 	private $item_solicitado;
+	private $item_solicitado_original = null;
 	private $hilo_referencia;
 	private $parametros;
 	private $reciclar_memoria = true;	//Habilita el reciclado de la memoria en la sesion
@@ -82,6 +83,7 @@ class toba_memoria
 			}elseif(count($item)==2){
 				//Dos parametros es OK!
 				$this->item_solicitado = $item;
+				$this->item_solicitado_original = $item;
 			}else{
 				$this->item_solicitado = null;
 			}
@@ -159,9 +161,10 @@ class toba_memoria
 
 	function set_item_solicitado( $item ) 
 	{
+		toba::logger()->debug('Se cambia el ítem solicitado a '.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 	}
-
+	
 	/**
 	 * Muestra el estado actual del hilo
 	 */
@@ -253,6 +256,18 @@ class toba_memoria
 			return $this->item_solicitado;
 		}
 	}
+
+	/**
+	 * Retorna el item requerido originalmente por el usuario en este pedido de página
+	 * Puede diferir del item actualmente atendido ya que se pudo hacer una redirección
+	 * @see get_item_solicitado
+	 * @return array [0]=>proyecto, [1]=>id_item
+	 */	
+	function get_item_solicitado_original()
+	{
+		return $this->item_solicitado_original;
+	}
+	
 
 
 	function usuario_solicita_cronometrar()

@@ -5,6 +5,20 @@ class ci_login extends toba_ci
 {
 	protected $s__datos;
 	
+	/**
+	 * Guarda el id del item original así se hace una redirección una vez logueado
+	 */
+	function ini__operacion()
+	{
+		//--- Si el usuario pidio originalmente algún item distinto al de login, se fuerza como item de inicio de sesión
+		$item_original = toba::memoria()->get_item_solicitado_original();
+		$item_actual = toba::memoria()->get_item_solicitado();
+		if (isset($item_original) && isset($item_actual) &&
+				$item_actual[1] != $item_original[1]) {
+			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
+		}		
+	}	
+	
 	function post_eventos()
 	{
 		if (isset($this->s__datos['usuario']) ) {
