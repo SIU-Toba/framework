@@ -64,7 +64,13 @@ class toba_menu_css extends toba_menu
 		} else {
 			//Es carpeta
 			$class = ($this->prof > 1) ? " class='carpeta'" : "";
-			$this->arbol .= $inden . "<li><a $class>" . $this->items[$nodo]['nombre'] . "</a>\n";
+			$img = '';
+			if (isset($this->items[$nodo]['imagen'])) {
+				$url_img = toba_recurso::imagen_de_origen($this->items[$nodo]['imagen'],
+												$this->items[$nodo]['imagen_recurso_origen']);
+				$img = "<img src='$url_img' border=0 /> ";								
+			}
+			$this->arbol .= $inden . "<li><a $class>".$img. $this->items[$nodo]['nombre'] . "</a>\n";
 			$this->arbol .= $inden . "\t<ul>\n";
 			$rs = $this->get_hijos ($nodo);
 			for ($i=0;$i<count($rs);$i++) {

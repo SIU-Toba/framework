@@ -249,7 +249,9 @@ class toba_proyecto
 						i.carpeta as 	carpeta, 
 						i.proyecto as	proyecto,
 						i.item as 		item,
-						i.nombre as 	nombre
+						i.nombre as 	nombre,
+						i.imagen,
+						i.imagen_recurso_origen
 				FROM 	apex_item i LEFT OUTER JOIN	apex_usuario_grupo_acc_item u ON
 							(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE

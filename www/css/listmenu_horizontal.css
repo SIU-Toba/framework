@@ -13,7 +13,11 @@ ul.horizontal, ul.horizontal li {
 	padding:0;
 	list-style-type:none;
 	font-size:100%;
-	}
+}
+
+ul.horizontal img {
+ vertical-align:middle;
+}
 
 ul.horizontal {
 	position:absolute;
@@ -81,6 +85,7 @@ ul.horizontal a, ul.horizontal a:visited {
 	text-decoration:none;
 	white-space: nowrap;
 	padding-left: 10px;	
+	line-height: 18px;	
 	}	
 
 

@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario.php');
 
 class extension_formulario extends toba_ei_formulario
 {
@@ -76,8 +75,6 @@ class extension_formulario extends toba_ei_formulario
 		";
 	}	
 	
-	
-
 }
 
 ?>

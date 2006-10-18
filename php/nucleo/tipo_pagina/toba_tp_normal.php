@@ -65,7 +65,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			$this->cambio_proyecto();
 		}		
 		//--- Logo
-		echo "<div style='height:{$this->alto_cabecera}'>";
+		echo "<div id='enc-logo' style='height:{$this->alto_cabecera}'>";
 		$this->mostrar_logo();
 		echo "</div>\n";
 	}
