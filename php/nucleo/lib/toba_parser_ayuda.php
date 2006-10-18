@@ -46,7 +46,7 @@ class toba_parser_ayuda
 	
 	protected static function parsear_wiki($id, $nombre)
 	{
-		$url = toba_recurso::url_proyecto()."/doc/wiki/trac/toba/wiki/$id.html";
+		$url = toba_recurso::url_proyecto()."/doc/wiki/trac/toba/wiki/$id";
 		$img = toba_recurso::imagen_toba("wiki.gif", true);
 		$tag = "<a href=$url target=wiki>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);

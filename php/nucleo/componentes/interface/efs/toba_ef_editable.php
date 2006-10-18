@@ -305,8 +305,8 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 	{
 		if (! isset($parametros['edit_tamano']))
 			$parametros['edit_tamano']= 4;
-		if (!isset($parametros['unidad'])) {
-			$parametros['unidad'] = '%';
+		if (!isset($parametros['edit_unidad'])) {
+			$parametros['edit_unidad'] = '%';
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
