@@ -68,7 +68,7 @@ ul.horizontal ul.wider, ul.horizontal ul.wider li {
 
 ul.horizontal ul ul {
 	 margin:-0.45em 0 0 15.65em;
-	}
+}
 
 @media Screen, Projection { 
 	ul.horizontal li:hover > ul { left:auto; }

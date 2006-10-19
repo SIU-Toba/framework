@@ -34,7 +34,16 @@ class toba_menu_css extends toba_menu
 								background-position: center right;
 								background-image: url("'.$this->imagen_nodo.'");
 							}
-						</style>';
+						</style>
+						<!--[if gte IE 7]>
+						<style type="text/css">
+							ul.horizontal ul ul {
+								margin-left: 200px;
+							}
+						</style>							
+						<![endif]-->
+			';
+		
 		$this->items = $this->items_de_menu(false);
 		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		
 		for ($i=0;$i<count($this->items);$i++) {
