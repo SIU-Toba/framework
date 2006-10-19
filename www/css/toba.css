@@ -501,11 +501,12 @@ legend {
 	padding-left: 0px;
 	padding-bottom: 5px;
 	padding-top: 15px;	
-	margin-left: 30px;
+	margin-left: 10px;
 	vertical-align: top;
 	white-space: nowrap;
 	text-align: left;
 	height: 100%;
+	list-style-type: none;
 }
 .ci-wiz-toc-pant-pasada, .ci-wiz-toc-pant-futuro {
 	color: gray;

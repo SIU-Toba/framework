@@ -69,10 +69,10 @@ class toba_boton
 		if (isset($this->datos['imagen']) && $this->datos['imagen'] != '') {
 			if (isset($this->datos['imagen_recurso_origen'])) {
 				$img = toba_recurso::imagen_de_origen($this->datos['imagen'], $this->datos['imagen_recurso_origen']);
+				return toba_recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 			} else {
-				$img = $this->datos['imagen'];
+				toba::logger()->warning("No se especifico el origen de la imagen '{$this->datos['imagen']}' del botón");
 			}
-			return toba_recurso::imagen($img, null, null, null, null, null, 'vertical-align: middle;').' ';
 		}
 	}
 

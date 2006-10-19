@@ -67,19 +67,14 @@ class toba_menu_css extends toba_menu
 			$item = $this->items[$nodo]['item'];
 			$this->arbol .= $inden . "<li><a tabindex='-1' href='$vinculo' " .
 							"title='".$this->items[$nodo]['nombre']."'>" . 
+							$this->get_imagen($nodo).
 							$this->items[$nodo]['nombre']."</a>";
 			$this->arbol .= $inden . "</li>\n";
 			$this->hay_algun_item = true;
 		} else {
 			//Es carpeta
 			$class = ($this->prof > 1) ? " class='carpeta'" : "";
-			$img = '';
-			if (isset($this->items[$nodo]['imagen'])) {
-				$url_img = toba_recurso::imagen_de_origen($this->items[$nodo]['imagen'],
-												$this->items[$nodo]['imagen_recurso_origen']);
-				$img = "<img src='$url_img' border=0 /> ";								
-			}
-			$this->arbol .= $inden . "<li><a $class>".$img. $this->items[$nodo]['nombre'] . "</a>\n";
+			$this->arbol .= $inden . "<li><a $class>".$this->get_imagen($nodo). $this->items[$nodo]['nombre'] . "</a>\n";
 			$this->arbol .= $inden . "\t<ul>\n";
 			$rs = $this->get_hijos ($nodo);
 			for ($i=0;$i<count($rs);$i++) {
@@ -90,6 +85,20 @@ class toba_menu_css extends toba_menu
 			$this->arbol .= $inden . "\t</ul>\n";
 			$this->arbol .= $inden . "</li>\n";
 		}
+	}
+	
+	function get_imagen($nodo)
+	{
+		$img = '';
+		if (isset($this->items[$nodo]['imagen'])) {
+			$url_img = toba_recurso::imagen_de_origen($this->items[$nodo]['imagen'],
+											$this->items[$nodo]['imagen_recurso_origen']);
+			$img = "<img src='$url_img' border=0 /> ";
+		} else {
+			$url_img = toba_recurso::imagen_toba('nulo.gif');
+			$img = "<img src='$url_img' width=1 height=16 border=0 />";
+		}		
+		return $img;
 	}
 	
 	function get_hijos($nodo)

@@ -17,7 +17,9 @@ ul.horizontal, ul.horizontal li {
 
 ul.horizontal img {
  vertical-align:middle;
+ margin-right: 2px;
 }
+
 
 ul.horizontal {
 	position:absolute;
@@ -84,9 +86,8 @@ ul.horizontal a, ul.horizontal a:visited {
 	color:black;
 	text-decoration:none;
 	white-space: nowrap;
-	padding-left: 10px;	
 	line-height: 18px;	
-	}	
+}	
 
 
 ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
@@ -104,7 +105,7 @@ ul.horizontal ul a { float:none !important; }
 	* html ul.horizontal li {
 		display:inline; 
 		f\loat:left; 
-		background:#ffffff; 
+		background: #E9E8E8; 
 		}
 	}
 * html ul.horizontal li { position:static; }
