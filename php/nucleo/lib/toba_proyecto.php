@@ -185,8 +185,9 @@ class toba_proyecto
 	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
-	function get_definicion_dependencia($objeto, $identificador)
+	function get_definicion_dependencia($objeto, $identificador, $proyecto=null)
 	{
+		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id() ;
 		$sql = "SELECT 
 					'$identificador' 	as identificador,
 					o.proyecto 			as proyecto,
@@ -201,7 +202,7 @@ class toba_proyecto
 					apex_clase c
 				WHERE
 					o.objeto = '$objeto' AND
-					o.proyecto = '".toba_editor::get_proyecto_cargado()."' AND
+					o.proyecto = '$proyecto' AND
 					o.clase = c.clase AND
 					o.clase_proyecto = c.proyecto";
 		$res = self::get_db()->consultar($sql);
