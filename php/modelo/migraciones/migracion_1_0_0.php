@@ -717,7 +717,7 @@ class migracion_1_0_0 extends migracion_toba
 	 */
 	function proyecto__cambio_api_ci()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/evt__(\w+)__carga\(/', 'conf__${1}(');		
 		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada(');
 		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
@@ -747,7 +747,7 @@ class migracion_1_0_0 extends migracion_toba
 	 */
 	function proyecto__namespace_toba()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/objeto_ci/', 			'toba_ci');
 		$editor->agregar_sustitucion('/objeto_ei/', 			'toba_ei');
 		$editor->agregar_sustitucion('/objeto_cn/', 			'toba_cn');
@@ -778,7 +778,7 @@ class migracion_1_0_0 extends migracion_toba
 	 */
 	function proyecto__cambio_convenciones_clase_toba()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/toba::get_logger/', 			'toba::logger');
 		$editor->agregar_sustitucion('/toba::get_nucleo/', 			'toba::nucleo');
 		$editor->agregar_sustitucion('/toba::get_solicitud/', 		'toba::solicitud');
@@ -799,7 +799,7 @@ class migracion_1_0_0 extends migracion_toba
 	
 	function proyecto__notificacion_js()
 	{
-		$editor = new editor_archivos();		
+		$editor = new toba_editor_archivos();		
 		$editor->agregar_sustitucion('/cola_mensajes\./',			'notificacion.');
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
@@ -813,7 +813,7 @@ class migracion_1_0_0 extends migracion_toba
 	function proyecto__cambio_api_varios()
 	{
  		
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/evt__obtener_datos_cn/', 		'evt__get_datos_cn');
 		$editor->agregar_sustitucion('/obtener_clave_fila/', 			'get_clave_fila');
 		$editor->agregar_sustitucion('/obtener_proyecto\(\)/', 			'get_proyecto()');
@@ -840,7 +840,7 @@ class migracion_1_0_0 extends migracion_toba
 	 */
 	function proyecto__cambio_api_hilo()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path/', 			'toba::proyecto()->get_path');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path_temp/', 				'toba::instalacion()->get_path_temp');
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_path/', 						'toba::instalacion()->get_path');
@@ -859,7 +859,7 @@ class migracion_1_0_0 extends migracion_toba
 	
 	function proyecto__cambio_memoria_por_hilo()
 	{
-		$editor = new editor_archivos();
+		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/toba::hilo/', 		'toba::memoria');
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);				
