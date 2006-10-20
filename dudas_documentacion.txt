@@ -1,8 +1,0 @@
-nucleo_toba: Cual es el significado de solicitud_en_proceso? Porque cuando se pone falso y luego se carga la solicitud no se vuelve a poner en true.
- 
-solicitud_web: Porque atrapa la excepcion_reset_nucleo y la vuelve a disparar?
- 
-toba_proyecto: Porque contiene a get_definicion_dependencia?
- 
-toba_ap_tabla_db_s: Se borra?
-

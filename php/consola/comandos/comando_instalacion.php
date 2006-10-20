@@ -339,8 +339,6 @@ class comando_instalacion extends comando_toba
 		if (!$existe_proyecto ) {
 			proyecto::crear( $instancia, $id_proyecto, array() );
 			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
-			$nuevo_proyecto->actualizar_login();
-			$nuevo_proyecto->exportar();			
 		}
 		
 		//--- Vincula un usuario a todos los proyectos
@@ -348,6 +346,12 @@ class comando_instalacion extends comando_toba
 		foreach( $instancia->get_proyectos() as $proyecto ) {
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
+		}
+		
+		//--- Crea el login y exporta el proyecto
+		if (!$existe_proyecto) {
+			$nuevo_proyecto->actualizar_login();	
+			$nuevo_proyecto->exportar();	
 		}
 
 		$instancia->exportar_local();

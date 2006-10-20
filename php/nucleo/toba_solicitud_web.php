@@ -53,9 +53,6 @@ class toba_solicitud_web extends toba_solicitud
 				$this->pre_proceso_servicio();
 			}
 			$this->procesar_servicios();
-		} catch( toba_reset_nucleo $e ) {
-			// Recarga del nucleo
-			throw $e;
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');
 			toba::notificacion()->agregar($e->getMessage(), "error");
