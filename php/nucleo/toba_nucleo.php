@@ -202,7 +202,7 @@ class toba_nucleo
 	 */
 	protected function iniciar_contexto_proyecto()
 	{
-		include_once("inicializacion.php");
+		toba::sesion()->iniciar_contexto();
 	}
 
 	function solicitud_en_proceso()

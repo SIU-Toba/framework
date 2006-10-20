@@ -90,7 +90,6 @@ class toba_sesion
 			//__falta: puerta de USUARIO ANONIMO
 			return false;
 		}
-		//Guardo el momento del ultimo request
 	}
 	
 	protected function controlar_fin_sesion()
@@ -188,6 +187,12 @@ class toba_sesion
 			}
 		}
 	}
+
+	/**
+	 * Ventana de inicializacion del contexto de ejecucion del proyecto
+	 * @ventana
+	 */
+	function iniciar_contexto() {}	
 
 	/**
 	 * Ventana de extensión del inicio de la sesion de un usuario
