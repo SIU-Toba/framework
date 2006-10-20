@@ -63,11 +63,12 @@ class menu_instancia implements toba_nodo_arbol
 	{
 		return 'info_extra';	
 	}
-	
+
 	function get_iconos()
 	{
 		$iconos = array();
-		
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('solic_browser.gif', false),
+							'ayuda' => 'Administrar usuarios de la instancia' );			
 		return $iconos;	
 	}
 	
@@ -78,6 +79,15 @@ class menu_instancia implements toba_nodo_arbol
 	function get_utilerias()
 	{
 		$utilerias = array();
+		$opciones['menu'] = true;
+		$opciones['celda_memoria'] = 'central';
+		$utilerias = array();
+		$utilerias[] = array(
+			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),
+			'ayuda' => 'Previsualizar el componente',
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', '/inicio', null, $opciones ),
+			'target' => 'central'
+		);
 		return $utilerias;	
 	}
 }

@@ -51,7 +51,7 @@ class menu_instancia_usuarios implements toba_nodo_arbol
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
 			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
-			'frame' => 'central'
+			'target' => 'central'
 		);
 		return $utilerias;	
 	}

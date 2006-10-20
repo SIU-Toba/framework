@@ -62,7 +62,8 @@ class menu_instancia_proyectos implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('dimension.gif', false),
+							'ayuda' => 'Administrar usuarios de la instancia' );			
 		return $iconos;	
 	}
 	
