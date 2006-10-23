@@ -83,6 +83,7 @@ class comando_proyecto extends comando_toba
 
 	/**
 	*	Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
+	* 	Opcionalmente crea el alias del proyecto
 	*/
 	function opcion__cargar()
 	{
@@ -112,6 +113,17 @@ class comando_proyecto extends comando_toba
 		} else {
 			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");	
 		}
+		
+		//--- Generación del alias
+		$this->consola->separador();
+		$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
+		if ($agregar) {
+			instalacion::agregar_alias_apache($p->get_alias(), $p->get_dir(), $p->get_instancia()->get_id());
+			$this->consola->separador();
+			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".instalacion::get_archivo_alias_apache().
+									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
+			$this->consola->separador();									
+		}		
 	}
 
 	/**
