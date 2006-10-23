@@ -1,6 +1,11 @@
 #editor_toggle button {
 	display:none;
 }
+.ei-barra-sup-desc-barra {
+	background-color: transparent;
+}
+
+
 
 .abm-fila, .abm-fila-oculta {
 	padding: 0px 10px 5px 8px;

@@ -7,7 +7,7 @@ class extension_filtro extends toba_ei_filtro
 	{
 		echo "
 			{$this->objeto_js}.evt__metodo__procesar = function() {
-				var es_dao = (this.ef('metodo').valor() == 'DAO');
+				var es_dao = (this.ef('metodo').valor() == 'estatico');
 				if (es_dao)
 					this.ef('importe').ocultar();					
 				else

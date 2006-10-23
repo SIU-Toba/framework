@@ -6,6 +6,7 @@
 	background-color: yellow; 
 	padding: 1px;
 	display: none;
+	z-index: 10000;
 }
 .editor-mostrar {
 	display: inline;
@@ -478,7 +479,7 @@ legend {
 	text-align: left;
 	height: 100%;
 }
-.ci-pant-desc, .ci-wiz-enc {
+.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
 	padding: 5px;
 	font-size: 11px;
 	color: #222222;

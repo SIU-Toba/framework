@@ -67,7 +67,7 @@ class toba_ei_pantalla extends toba_ei
 	 * Retorna la descripción de esta pantalla
 	 * @return string
 	 */
-	function get_descripcion()
+	function get_info_extra()
 	{
 		return trim($this->info_pantalla["descripcion"]);
 	}
@@ -359,7 +359,7 @@ class toba_ei_pantalla extends toba_ei
 	protected function generar_html_contenido()
 	{
 		//--- Descripcion de la PANTALLA
-		$descripcion = $this->get_descripcion();
+		$descripcion = $this->get_info_extra();
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if ($descripcion !="" || $es_wizard) {
 			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);

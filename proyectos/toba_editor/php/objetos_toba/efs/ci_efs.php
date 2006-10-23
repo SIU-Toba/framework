@@ -232,8 +232,13 @@ class ci_efs extends toba_ci
 	//---- PARAMETROS VARIOS
 	//---------------------------------
 	
-	function conf__param_varios()
+	function conf__param_varios(toba_ei_formulario $form)
 	{
+		$tipo_ef = $this->get_tipo_ef();
+		if (in_array($tipo_ef, array('ef_editable_numero','ef_editable_moneda', 'ef_editable_numero_porcentaje'))) {
+			$form->set_descripcion("Definir los [wiki:Referencia/efs/numero parámetros del número]");
+			$form->set_modo_descripcion(false);
+		}
 		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 				
 		//--- Se desactivan los efs que no forman parte de la definicion

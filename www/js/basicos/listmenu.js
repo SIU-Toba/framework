@@ -1,13 +1,3 @@
-/* SWIM2.0 :: Simple website menu
-****************************************************************
-* DOM scripting by brothercake -- http://www.brothercake.com/
-* Licensed under GPL -- http://www.gnu.org/copyleft/gpl.html
-****************************************************************
-* For professional menu solutions visit -- http://www.udm4.com/ 
-http://www.brothercake.com/scripts/listmenu/
-****************************************************************
-*/
-
 
 //menu object constructor
 function simpleMenu(navid, orient)

@@ -3,7 +3,7 @@ require_once('nucleo/componentes/interface/toba_ci.php');
 
 class extension_ci extends toba_ci
 {
-	protected $datos_filtro;
+	protected $s__filtro;
 	protected $datos_estaticos =  array(
 			array( 'fecha' => '2004-05-20', 'importe' => 12500), 
 			array( 'fecha' => '2004-05-21', 'importe' => 22200), 
@@ -22,25 +22,26 @@ class extension_ci extends toba_ci
 
 	function evt__filtro__filtrar($datos)
 	{
-		$this->datos_filtro = $datos;
+		$this->s__filtro = $datos;
 	}
 	
 	function evt__filtro__cancelar()
 	{
-		unset($this->datos_filtro);
+		unset($this->s__filtro);
 	}
 	
 	function conf__filtro()
 	{
-		if (isset($this->datos_filtro))
-			return $this->datos_filtro;
+		if (isset($this->s__filtro))
+			return $this->s__filtro;
 	}
 	
 
 	function conf__cuadro()
 	{
-		//El usuario decidió cargarlo a partir de este método?
-		if (isset($this->datos_filtro) && $this->datos_filtro['metodo'] == 'CI') {
+		if (!isset($this->s__filtro) || $this->s__filtro['metodo'] == 'estatica') {
+			return $this->datos_estaticos;
+		} else {
 			return $this->filtrar_importes();
 		}
 	}
@@ -73,7 +74,7 @@ class extension_ci extends toba_ci
 		//Esto normalmente se haría utilizando SQL...
 		$retorno = array();
 		foreach ($this->datos_estaticos as $dato) {
-			if ($this->datos_filtro['importe'] == '' || $this->datos_filtro['importe'] < $dato['importe'])
+			if ($this->s__filtro['importe'] == '' || $this->s__filtro['importe'] < $dato['importe'])
 				$retorno[] = $dato;
 		}
 		return $retorno;

@@ -159,7 +159,8 @@ class toba_ef_editable_numero extends toba_ef_editable
     	$param[] = 'edit_rango';
     	return $param;
     }
-    	
+    
+  	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		$this->estilo = "ef-numero";

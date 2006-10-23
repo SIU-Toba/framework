@@ -33,6 +33,7 @@ abstract class toba_ei extends toba_componente
 	protected $grupo_eventos_activo = '';				// Define el grupo de eventos activos
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
 	protected $prefijo = 'ei';
+	protected $modo_descripcion_tooltip = true;
 	
 	function __construct($definicion)
 	{
@@ -374,6 +375,23 @@ abstract class toba_ei extends toba_componente
 	{
 		$this->info['titulo'] = $titulo;
 	}
+	
+	/**
+	 * Cambia la descripción del componente para el servicio actual
+	 */	
+	function set_descripcion($desc)
+	{
+		$this->info["descripcion"] = $desc;
+	}
+	
+	/**
+	 * Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip)
+	 * @param boolean $tooltip Si es false la descripción se muestra como una barra aparte
+	 */
+	function set_modo_descripcion($tooltip=true)
+	{
+		$this->modo_descripcion_tooltip = $tooltip;
+	}
 		
 	/**
 	 * Genera la barra con el título y los íconos
@@ -384,40 +402,44 @@ abstract class toba_ei extends toba_componente
 	 */
 	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
-		if($control_titulo_vacio){
-			if(trim($this->info["titulo"])=="" && trim($titulo) == ''){
-				return;	
+		if (!$control_titulo_vacio || trim($this->info["titulo"])!="" || trim($titulo) != ''){
+			if (!isset($titulo)) {
+				$titulo = $this->info["titulo"];	
 			}
+			echo "<div class='ei-barra-sup $estilo'>";
+			//---Barra de mensajeria		
+			if (isset($this->objeto_js)) {
+				echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
+				echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
+				echo "</a>";
+			}
+			//--- Descripcion Tooltip
+			if(trim($this->info["descripcion"])!="" &&  $this->modo_descripcion_tooltip){
+				echo '<span class="ei-barra-sup-desc">';
+				echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $this->info["descripcion"]);
+				echo '</span>';
+			}
+	
+			
+			//---Barra de colapsado
+			$colapsado = "";
+			if ($this->info['colapsable'] && isset($this->objeto_js)) {
+				$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+				$img_min = toba_recurso::imagen_toba('sentido_asc_sel.gif', false);
+				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
+			}
+			//---Titulo
+			echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
+			echo "</div>";
 		}
-		if (!isset($titulo)) {
-			$titulo = $this->info["titulo"];	
-		}
-		echo "<div class='ei-barra-sup $estilo'>";
-		//---Barra de mensajeria		
-		if (isset($this->objeto_js)) {
-			echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
-			echo toba_recurso::imagen_toba('warning.gif', true, null, null, 'Muestra las notificaciones encontradas durante la última operación.');
-			echo "</a>";
-		}
-
-		//--- Descripcion	
-		if(trim($this->info["descripcion"])!=""){
-			echo '<span class="ei-barra-sup-desc">';
-			echo toba_recurso::imagen_toba("descripcion.gif",true,null,null,$this->info["descripcion"]);
-			echo '</span>';
-		}		
 		
-		//---Barra de colapsado
-		$colapsado = "";
-		if ($this->info['colapsable'] && isset($this->objeto_js)) {
-			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
-			$img_min = toba_recurso::imagen_toba('sentido_asc_sel.gif', false);
-			echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
-		}
-
-		//---Titulo
-		echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
-		echo "</div>";
+		//--- Descripcion con barra
+		if(trim($this->info["descripcion"])!="" &&  !$this->modo_descripcion_tooltip){
+				//--- Muestra una barra en lugar de un tooltip	
+			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
+			$descripcion = toba_parser_ayuda::parsear($this->info["descripcion"]);
+			echo "<div class='ei-barra-sup-desc-barra'>$imagen&nbsp;$descripcion</div>\n";
+		}				
 	}
 
 	/**

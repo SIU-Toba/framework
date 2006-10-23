@@ -119,16 +119,25 @@ abstract class toba_ef
 	//---------- Propiedades ESTATICAS del ef -------------
 	//-----------------------------------------------------	
 	
+	/**
+	 * @ignore 
+	 */
 	static function get_lista_parametros()
 	{
 		return array();
 	}	
-		
+
+	/**
+	 * @ignore 
+	 */	
 	static function get_lista_parametros_carga()
 	{
 		return array();	
 	}
 	
+	/**
+	 * @ignore 
+	 */	
 	static function get_lista_parametros_carga_basico()
 	{
 		return array(
