@@ -413,7 +413,7 @@ CREATE TABLE apex_usuario
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	usuario							varchar(20)		NOT NULL,
+	usuario							varchar(60)		NOT NULL,
 	clave							varchar(128)	NOT NULL,
 	nombre							varchar(255)	NULL,
 	usuario_tipodoc					varchar(10)		NULL,
@@ -501,7 +501,7 @@ CREATE TABLE apex_usuario_proyecto
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto							varchar(15)		NOT NULL,
-	usuario							varchar(20)		NOT NULL,
+	usuario							varchar(60)		NOT NULL,
 	usuario_grupo_acc				varchar(20)		NOT NULL,
 	usuario_perfil_datos			varchar(20)		NOT NULL,
 	CONSTRAINT	"apex_usu_proy_pk"  PRIMARY KEY ("proyecto","usuario"),
