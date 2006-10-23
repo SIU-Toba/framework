@@ -48,7 +48,7 @@ CREATE TABLE apex_sesion_browser
 (
 	sesion_browser				int4			DEFAULT nextval('"apex_sesion_browser_seq"'::text) NOT NULL, 
 	proyecto					varchar(15)		NOT NULL,
-	usuario						varchar(20) 	NOT NULL,
+	usuario						varchar(60) 	NOT NULL,
 	ingreso						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	egreso						timestamp(0) 	without time zone		NULL,
 	observaciones				varchar(255)	NULL,
@@ -97,7 +97,7 @@ CREATE TABLE apex_solicitud_consola
 ---------------------------------------------------------------------------------------------------
 (
 	solicitud_consola			int4				NOT NULL, 
-	usuario						varchar(20)			NOT NULL,
+	usuario						varchar(60)			NOT NULL,
 	ip							varchar(20)			NULL,
 	llamada						varchar				NULL,
 	entorno						text				NULL,
@@ -209,7 +209,7 @@ CREATE TABLE apex_log_objeto
 (
 	log_objeto							int4			DEFAULT nextval('"apex_log_objeto_seq"'::text) NOT NULL, 
 	momento								timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
-	usuario								varchar(20) 	NULL,
+	usuario								varchar(60) 	NULL,
 	objeto_proyecto          			varchar(15)  	NOT NULL,
 	objeto								int4			NULL,
 	item								varchar(60)		NULL,
@@ -239,7 +239,7 @@ CREATE TABLE apex_log_sistema
 (
 	log_sistema		 			int4				DEFAULT nextval('"apex_log_sistema_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
-	usuario						varchar(20) 		NULL,
+	usuario						varchar(60) 		NULL,
 	log_sistema_tipo			varchar(20) 		NOT NULL,
 	observaciones				text				NULL,
 	CONSTRAINT	"apex_log_sis_pk" PRIMARY KEY ("log_sistema"),
@@ -263,7 +263,7 @@ CREATE TABLE apex_log_error_login
 (
 	log_error_login 			int4				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
-	usuario						varchar(20) 		NULL,
+	usuario						varchar(60) 		NULL,
 	clave						varchar(20) 		NULL,
 	ip							varchar(20)			NULL,
 	gravedad					smallint			NULL,
