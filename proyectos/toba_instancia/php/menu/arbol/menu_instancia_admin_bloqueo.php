@@ -12,17 +12,17 @@ class menu_instancia_admin_bloqueo implements toba_nodo_arbol
 	
 	function get_id()
 	{
-		return 'usuarios';	
+		return 'bloqueo_ip';	
 	}
 	
 	function get_nombre_corto()
 	{
-		return 'Usuarios';	
+		return 'Bloqueo de IPs';	
 	}
 	
 	function get_nombre_largo()
 	{
-		return 'Adminisracion de usuarios';	
+		return 'Administrar bloqueo de IPs';	
 	}
 	
 	function get_info_extra()
@@ -33,7 +33,7 @@ class menu_instancia_admin_bloqueo implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("solic_consola.gif", false),
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("error.gif", false),
 							'ayuda' => 'Administrar usuarios de la instancia' );		
 		return $iconos;	
 	}

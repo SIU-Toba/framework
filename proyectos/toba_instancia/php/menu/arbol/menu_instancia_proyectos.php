@@ -1,13 +1,18 @@
 <?php
-require_once("nucleo/componentes/interface/interfaces.php");
+require_once('nucleo/componentes/interface/interfaces.php');
+require_once('menu/arbol/menu_proyecto.php');
 
 class menu_instancia_proyectos implements toba_nodo_arbol
 {
+	protected $padre;
 	protected $estructura;
 	
-	function __construct()
+	function __construct($padre)
 	{
-		$this->estructura = array();
+		$this->padre = $padre;
+		foreach( admin_instancia::ref()->get_lista_proyectos() as $proyecto ) {
+			$this->estructura[] = new menu_proyecto( $proyecto, $this );
+		}
 	}
 
 	function es_hoja()
@@ -22,7 +27,7 @@ class menu_instancia_proyectos implements toba_nodo_arbol
 	
 	function get_padre()
 	{
-		return null;	
+		return $this->padre;	
 	}
 	
 	/**
@@ -41,36 +46,32 @@ class menu_instancia_proyectos implements toba_nodo_arbol
 	
 	function get_id()
 	{
-		return 'menu_instancia';	
+		return 'menu_proyectos';	
 	}
 	
 	function get_nombre_corto()
 	{
-		return 'instancia';	
+		return 'Proyectos';	
 	}
 	
 	function get_nombre_largo()
 	{
-		return 'hola';	
+		return 'Proyectos disponibles en la instancias';	
 	}
 	
 	function get_info_extra()
 	{
-		return 'info_extra';	
+		return null;	
 	}
 	
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('dimension.gif', false),
-							'ayuda' => 'Administrar usuarios de la instancia' );			
-		return $iconos;	
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("seleccionar.gif", false),
+							'ayuda' => null );		
+		return $iconos;
 	}
 	
-	/**
-	 * Arreglo de utilerias (similares a los iconos pero secundarios
-	 * Formato de nodos y utilerias: array('imagen' => , 'ayuda' => ,  'vinculo' => )
-	 */
 	function get_utilerias()
 	{
 		$utilerias = array();

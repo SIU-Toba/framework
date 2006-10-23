@@ -33,7 +33,7 @@ class menu_instancia_usuarios implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/usuario.gif", false),
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("preferencias.gif", false),
 							'ayuda' => 'Administrar usuarios de la instancia' );		
 		return $iconos;	
 	}

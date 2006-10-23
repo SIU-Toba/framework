@@ -10,8 +10,8 @@ class menu_instancia implements toba_nodo_arbol
 	
 	function __construct()
 	{
-		$this->hijos[] = new menu_instancia_proyectos($this);
 		$this->hijos[] = new menu_instancia_usuarios($this);
+		$this->hijos[] = new menu_instancia_proyectos($this);
 		$this->hijos[] = new menu_instancia_admin($this);
 	}
 
@@ -67,7 +67,7 @@ class menu_instancia implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('solic_browser.gif', false),
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('dimension.gif', false),
 							'ayuda' => 'Administrar usuarios de la instancia' );			
 		return $iconos;	
 	}
