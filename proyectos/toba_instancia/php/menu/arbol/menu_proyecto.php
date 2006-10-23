@@ -1,22 +1,27 @@
 <?php
-require_once("nucleo/componentes/interface/interfaces.php");
+require_once('nucleo/componentes/interface/interfaces.php');
+require_once('menu/arbol/menu_proyecto_usuarios.php');
+require_once('menu/arbol/menu_proyecto_sesiones.php');
 
 class menu_proyecto implements toba_nodo_arbol
 {
 	protected $proyecto;
 	protected $padre;
 	protected $datos;
+	protected $estructura;
 	
 	function __construct($proyecto, $padre)
 	{
 		$this->proyecto = $proyecto;
 		$this->padre = $padre;
 		$this->datos = consultas_instancia::get_datos_proyecto($this->proyecto);
+		$this->estructura[] = new menu_proyecto_usuarios($this->proyecto, $this);
+		$this->estructura[] = new menu_proyecto_sesiones($this->proyecto, $this);
 	}
 	
 	function get_id()
 	{
-		return $this->datos['proyecto'];
+		return $this->proyecto;
 	}
 	
 	function get_nombre_corto()
@@ -50,7 +55,7 @@ class menu_proyecto implements toba_nodo_arbol
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3338, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	
@@ -63,17 +68,17 @@ class menu_proyecto implements toba_nodo_arbol
 	
 	function tiene_hijos_cargados()
 	{
-		return false;	
+		return true;	
 	}
 	
 	function es_hoja()
 	{
-		return true;
+		return false;
 	}
 	
 	function get_hijos()
 	{
-		return null;
+		return $this->estructura;
 	}
 
 	function tiene_propiedades()

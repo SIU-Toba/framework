@@ -51,9 +51,9 @@ class menu_instancia_admin implements toba_nodo_arbol
 		$opciones['celda_memoria'] = 'central';
 		$utilerias = array();
 		$utilerias[] = array(
-			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
+			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3340, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

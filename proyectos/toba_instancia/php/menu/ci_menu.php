@@ -23,7 +23,7 @@ class ci_menu extends toba_ci
 	{
 		$instancia = new menu_instancia('desarrollo');
 		$componente->set_datos( array($instancia) );
-		$componente->set_todos_abiertos();
+		$componente->set_nivel_apertura(2);
 	}
 }
 

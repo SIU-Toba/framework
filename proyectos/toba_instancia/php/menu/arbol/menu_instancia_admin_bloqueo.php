@@ -17,7 +17,7 @@ class menu_instancia_admin_bloqueo implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'Bloqueo de IPs';	
+		return 'Bloqueo de IPs ['. consultas_instancia::get_cantidad_ips_rechazadas() .']';	
 	}
 	
 	function get_nombre_largo()
@@ -50,7 +50,7 @@ class menu_instancia_admin_bloqueo implements toba_nodo_arbol
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3332, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

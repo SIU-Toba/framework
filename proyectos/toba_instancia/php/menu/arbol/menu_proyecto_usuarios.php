@@ -3,10 +3,12 @@ require_once("nucleo/componentes/interface/interfaces.php");
 
 class menu_proyecto_usuarios implements toba_nodo_arbol
 {
+	protected $proyecto;
 	protected $padre;
 	
-	function __construct($padre)
+	function __construct($proyecto, $padre)
 	{
+		$this->proyecto = $proyecto;
 		$this->padre = $padre;
 	}
 	
@@ -17,7 +19,7 @@ class menu_proyecto_usuarios implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'Usuarios';	
+		return 'Usuarios Vinculados ['. consultas_instancia::get_cantidad_usuarios_proyecto($this->proyecto) .']';	
 	}
 	
 	function get_nombre_largo()
@@ -50,7 +52,7 @@ class menu_proyecto_usuarios implements toba_nodo_arbol
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3334, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

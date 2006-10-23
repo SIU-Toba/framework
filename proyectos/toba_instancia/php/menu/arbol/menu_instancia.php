@@ -51,12 +51,12 @@ class menu_instancia implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'instancia';	
+		return 'Instancia: ' . toba::sesion()->get_id_instancia();	
 	}
 	
 	function get_nombre_largo()
 	{
-		return 'hola';	
+		return $this->get_nombre_corto();
 	}
 	
 	function get_info_extra()

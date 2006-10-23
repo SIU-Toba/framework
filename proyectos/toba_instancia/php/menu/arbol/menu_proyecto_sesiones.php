@@ -3,10 +3,12 @@ require_once("nucleo/componentes/interface/interfaces.php");
 
 class menu_proyecto_sesiones implements toba_nodo_arbol
 {
+	protected $proyecto;
 	protected $padre;
 	
-	function __construct($padre)
+	function __construct($proyecto, $padre)
 	{
+		$this->proyecto = $proyecto;
 		$this->padre = $padre;
 	}
 	
@@ -17,12 +19,12 @@ class menu_proyecto_sesiones implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'Usuarios';	
+		return 'Log de sesiones ['. consultas_instancia::get_cantidad_sesiones_proyecto($this->proyecto) .']';	
 	}
 	
 	function get_nombre_largo()
 	{
-		return 'Adminisracion de usuarios';	
+		return null;	
 	}
 	
 	function get_info_extra()
@@ -33,7 +35,7 @@ class menu_proyecto_sesiones implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("preferencias.gif", false),
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("doc.gif", false),
 							'ayuda' => 'Administrar usuarios de la instancia' );		
 		return $iconos;	
 	}
@@ -50,7 +52,7 @@ class menu_proyecto_sesiones implements toba_nodo_arbol
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3336, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

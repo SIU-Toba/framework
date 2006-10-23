@@ -17,7 +17,7 @@ class menu_instancia_usuarios implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'Usuarios';	
+		return 'Usuarios ['. consultas_instancia::get_cantidad_usuarios() .']';	
 	}
 	
 	function get_nombre_largo()
