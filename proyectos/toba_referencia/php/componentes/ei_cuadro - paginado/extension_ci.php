@@ -1,6 +1,5 @@
 <?php
-require_once('componentes/ei_filtro - ei_cuadro/dao.php');
-  
+
 class extension_ci extends toba_ci
 {
 	protected $orden;
@@ -35,20 +34,15 @@ class extension_ci extends toba_ci
 	{
 		return $this->get_datos();	
 	}
+
 	
-	function evt__cuadro__cant_reg()
-	{
-		return count($this->get_datos());	
-	}
-	
-	function conf__cuadro()
+	function conf__cuadro($cuadro)
 	{
 		$datos = $this->get_datos();
-		$this->dep('cuadro')->set_total_registros(count($datos));
-		$tamanio_pagina = $this->dep('cuadro')->get_tamanio_pagina();
-		$pagina_actual = $this->dep('cuadro')->get_pagina_actual();
-		$offset = ($pagina_actual - 1) * $tamanio_pagina;
-		return array_slice($datos, $offset, $tamanio_pagina);		
+		$cuadro->set_total_registros(count($datos));
+		$tamanio_pagina = $cuadro->get_tamanio_pagina();
+		$offset = ($cuadro->get_pagina_actual() - 1) * $tamanio_pagina;
+		$cuadro->set_datos(array_slice($datos, $offset, $tamanio_pagina));
 	}
 	
 	function evt__cuadro__ordenar($orden)
