@@ -127,6 +127,7 @@ class info_ci extends info_ei
 				$evento[0]['maneja_datos'] = 1;
 				$evento[0]['orden'] = 0;
 				$evento[0]['en_botonera'] = 1;
+				$evento[0]['defecto'] = 1;
 				$evento[1]['identificador'] = "cancelar";
 				$evento[1]['etiqueta'] = "&Cancelar";
 				$evento[1]['maneja_datos'] = 0;

@@ -75,6 +75,23 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.filas = function () { return this._filas; };
 	
 	/**
+	 * Retorna el estado actual del formulario en un Arreglo que contiene un Objeto asociativo id_ef=>valor (formato RecordSet)
+	 *	@type Object
+	 */
+	ei_formulario_ml.prototype.get_datos = function() {
+		var datos = [];
+		var i=0;
+		for (fila in this._filas) {
+			datos[i] = {};
+			for (var id_ef in this._efs) {
+				datos[i][id_ef] = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
+			}
+			i++;
+		}
+		return datos;
+	}	
+	
+	/**
 	 * @private
 	 */
 	ei_formulario_ml.prototype.procesar = function (id_ef, fila, es_inicial, es_particular) {

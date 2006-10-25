@@ -61,6 +61,18 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	ei_formulario.prototype.ef = function(id) {
 		return this._efs[id];
 	};
+	
+	/**
+	 * Retorna el estado actual de los efs en un Objeto asociativo id_ef=>valor
+	 *	@type Object
+	 */
+	ei_formulario.prototype.get_datos = function() {
+		var datos = {};
+		for (var id_ef in this._efs) {
+			datos[id_ef] = this._efs[id_ef].get_estado();
+		}
+		return datos;
+	}
 
 	/**
 	 * Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)

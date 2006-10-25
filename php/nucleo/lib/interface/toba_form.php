@@ -138,7 +138,7 @@ class toba_form
 		$estilo_inline = isset($estilo_inline) ? "style='" . $estilo_inline . "'": '';
 		$habilitado = $habilitado ? '' : 'DISABLED';
         return  "<button type='$tipo' name='$nombre' $id value='$valor' $tab $acceso $extra $estilo_inline $habilitado>".
-				"$html</button>\n";
+				"<span>$html</span></button>\n";
     }
 
     static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
