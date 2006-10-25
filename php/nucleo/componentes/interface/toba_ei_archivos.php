@@ -98,7 +98,7 @@ class toba_ei_archivos extends toba_ei
 	}	
 	
 	/**
-	 * El listado de archivos comienza desde este directorio y la respuesta tambien sera analizada en este contexto
+	 * Indica que el listado de archivos comienza desde este directorio y la respuesta tambien sera analizada en este contexto
 	 * @param string $dir Path absoluto del que sera la base de todos los paths relativos
 	 */
 	function set_path_absoluto($dir)

@@ -1,5 +1,5 @@
 /**
- * @class Representa un evento que será consumido por un CI
+ * @class Representa un evento que será consumido por un componente, es sólo una estructura de datos
  * @param id Identificador del evento, ej: 'modificar'
  * @param validar ¿Se debe validar antes de hacer submit?
  * @param confirmar ¿Se debe confirmar antes de hacer submit?
