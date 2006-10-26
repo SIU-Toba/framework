@@ -743,6 +743,22 @@ class migracion_1_0_0 extends migracion_toba
 	}
 	
 	/**
+	*	Usa la primera fuente de datos como fuente por defecto.
+	*/
+	function proyecto__fuente_por_defecto()
+	{
+		$sql = "
+			UPDATE apex_proyecto 
+				SET fuente_datos = (SELECT fuente_datos 
+									FROM apex_fuente_datos 
+									WHERE proyecto = '{$this->elemento->get_id()}'
+									LIMIT 1)
+			WHERE proyecto = '{$this->elemento->get_id()}';
+			";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}
+
+	/**
 	 * Todas las clases del nucleo deben estar precedidas por toba_
 	 */
 	function proyecto__namespace_toba()
