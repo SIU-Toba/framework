@@ -132,6 +132,13 @@ class migracion_1_0_0 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN subclase			varchar(80)";
 		$sql[] = "ALTER TABLE apex_objeto_ci_pantalla ADD COLUMN subclase_archivo	varchar(80)";
 		
+		//-- Cambio en las solicitudes
+		$sql[] = "ALTER TABLE apex_solicitud_cronometro 	ADD COLUMN proyecto					varchar(15)";
+		$sql[] = "ALTER TABLE apex_solicitud_observacion 	ADD COLUMN proyecto					varchar(15)";
+		$sql[] = "ALTER TABLE apex_solicitud_consola 		ADD COLUMN proyecto					varchar(15)";
+		$sql[] = "ALTER TABLE apex_solicitud_browser 		ADD COLUMN solicitud_proyecto		varchar(15)";
+		$sql[] = "ALTER TABLE apex_solicitud_browser 		ADD COLUMN proyecto					varchar(15)";
+		
 		$this->elemento->get_db()->ejecutar($sql);
 	
 	}
@@ -906,6 +913,5 @@ class migracion_1_0_0 extends migracion_toba
 				";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}
-	
 }
 ?>
