@@ -126,7 +126,7 @@ class toba_evento_usuario extends toba_boton
 	/**
 	*	Genera el HTML del BOTON
 	*/
-	function get_html($id_submit, $id_componente)
+	function get_html($id_submit, $objeto_js, $id_componente)
 	{
 		if ( $this->anulado ) return null;
 		$tab_order = toba_manejador_tabs::instancia()->siguiente();
@@ -151,7 +151,7 @@ class toba_evento_usuario extends toba_boton
 		if ( $this->posee_accion_imprimir() ) {
 			// ---*** IMPRIMIR HTML ***---
 			$opciones['servicio'] = 'vista_toba_impr_html';
-			$opciones['objetos_destino'] = array( $this->id );
+			$opciones['objetos_destino'] = array( $id_componente );
 			//$opciones['celda_memoria'] = 'popup';
 			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
 			if ( $this->datos['accion_imphtml_debug'] == 1 ) {
@@ -167,13 +167,13 @@ class toba_evento_usuario extends toba_boton
 				return;
 			}
 			// Escribo la sentencia que invocaria el vinculo
-			$js = "onclick=\"{$id_componente}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
+			$js = "onclick=\"{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
 		} elseif ( $this->datos['accion'] == 'P' ) {
 			//--- En una respuesta a un ef_popup
 			$js = "onclick=\"respuesta_ef_popup('$this->parametros');\"";
 		} else {
 			// Manejo estandar de eventos
-			$js = "onclick=\"{$id_componente}.set_evento(".$this->get_evt_javascript().");\"";
+			$js = "onclick=\"{$objeto_js}.set_evento(".$this->get_evt_javascript().");\"";
 		}
 		return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
 										$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);

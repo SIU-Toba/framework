@@ -975,7 +975,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function get_valor_imprimible_ef( $id_ef ) 
 	{
-		require_once('nucleo/lib/interface/formateo.php');
+		require_once('nucleo/lib/interface/toba_formateo.php');
 		$ef = $this->elemento_formulario[$id_ef];
 		$valor = $ef->get_descripcion_estado();
 		if ( $ef instanceof toba_ef_editable_moneda ) {

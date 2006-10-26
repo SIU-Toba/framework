@@ -326,7 +326,7 @@ abstract class toba_ei extends toba_componente
 			$this->utilizar_impresion_html = true;					
 		}
 		if( ! $evento->esta_anulado() ) {
-			echo $evento->get_html($this->submit, $this->objeto_js);
+			echo $evento->get_html($this->submit, $this->objeto_js, $this->id);
 		}
 	}
 
