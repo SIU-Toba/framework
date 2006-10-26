@@ -131,4 +131,14 @@ class ci_catalogo_items extends ci_catalogo
 	}
 	
 }
+
+class pant_catalogo_items extends toba_ei_pantalla 
+{
+	function generar_layout()
+	{
+		foreach($this->dependencias as $dep) {
+			$dep->generar_html();
+		}
+	}	
+}
 ?>
