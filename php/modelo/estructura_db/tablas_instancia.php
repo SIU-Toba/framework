@@ -327,7 +327,7 @@ class tablas_instancia
   'archivo' => 'pgsql_a03_tablas_solicitudes.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'solicitud',
+  'dump_order_by' => 'solicitud, marca',
   'zona' => 'solicitud',
   'desc' => '',
   'historica' => '1',
