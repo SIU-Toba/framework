@@ -10,17 +10,16 @@ require_once("nucleo/lib/toba_vinculador.php");
  */
 abstract class toba_solicitud
 {
-	protected $id;							//ID de la solicitud	
+	protected $id;								//ID de la solicitud	
 	protected $info;							//Propiedeades	de	la	solicitud extraidas de la base
 	protected $info_objetos;					//Informacion sobre los	objetos asociados	al	item
-	protected $indice_objetos;				//Indice	de	objetos asociados	por CLASE
+	protected $indice_objetos;					//Indice	de	objetos asociados	por CLASE
 	protected $objetos = array();				//Objetos standarts asociados	al	ITEM
 	protected $objetos_indice_actual = 0;		//Posicion actual	del array de objetos	
 	protected $observaciones;					//Array de observaciones realizadas	durante la solicitud	
-	protected $observaciones_objeto;			//Observaciones realizadas	por objetos	STANDART	
 	protected $registrar_db;					//Indica	si	se	va	a registrar	la	solicitud
-	protected $cronometrar;					//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
-	protected $log;							//Objeto que mantiene el log de la ejecucion
+	protected $cronometrar;						//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
+	protected $log;								//Objeto que mantiene el log de la ejecucion
 
 	function __construct($item, $usuario)	
 	{
@@ -40,6 +39,11 @@ abstract class toba_solicitud
 		}
 
 		$this->id =	toba_instancia::get_id_solicitud();
+
+		//--- Identifico si la solicitd se deber registrar
+		if ($this->info['basica']['item_solic_registrar']) {
+			$this->registrar_db	= true;
+		}
 
 		//--- Identifico si la solicitud tiene que	realizar	observaciones
 		if(isset($this->info['basica']['item_solic_obs_tipo'])){
@@ -104,9 +108,6 @@ abstract class toba_solicitud
 	//--------------------------  AUDITORIA Y	LOG --------------------------
 	//------------------------------------------------------------------------
 
-	/**
-	 * @deprecated Esperando una refactorización en versiones futuras
-	 */
 	function registrar()	
 	{
 		if($this->registrar_db) {
@@ -147,21 +148,6 @@ abstract class toba_solicitud
 		}	
 		$this->observaciones[] = array($tipo,$observacion);
 		//ei_arbol($this->observaciones);
-		if($cortar_ejecucion){
-			//Corto la ejecucion	de	la	solicitud
-			$this->registrar_db();
-			exit();
-		}
-	}
-
-	/**
-	 * @deprecated Esperando una refactorización en versiones futuras
-	 */
-	function observar_objeto($objeto, $tipo, $observacion, $forzar_registro=true,	$mostrar=true,	$cortar_ejecucion=false)
-	{
-		if($forzar_registro)	$this->registrar_db=true;
-		if($mostrar) echo	ei_mensaje($observacion,$tipo);
-		$this->observaciones_objeto[]	= array($objeto,$tipo,$observacion);
 		if($cortar_ejecucion){
 			//Corto la ejecucion	de	la	solicitud
 			$this->registrar_db();

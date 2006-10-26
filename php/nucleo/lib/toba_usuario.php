@@ -36,7 +36,9 @@ class toba_usuario implements toba_interface_usuario
 	*/
 	function cargar($id_usuario, $clave=null)
 	{
-		$this->autenticar($id_usuario, $clave);
+		if (php_sapi_name() !== 'cli') {
+			$this->autenticar($id_usuario, $clave);
+		}
 		$_SESSION['toba']['usuario'] = toba_instancia::get_info_usuario($id_usuario);
 	}
 	

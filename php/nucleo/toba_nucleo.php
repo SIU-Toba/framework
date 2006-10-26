@@ -109,11 +109,10 @@ class toba_nucleo
 			define('apex_pa_instancia', $instancia);
 			define('apex_pa_proyecto' , $proyecto);
 			$this->preparar_include_path();			
-			$this->iniciar_contexto_proyecto();						
 			toba::sesion()->iniciar($usuario);
+			$this->iniciar_contexto_proyecto();
 			//$this->solicitud = new toba_solicitud_consola($proyecto, $item, $usuario);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'item');
-			$this->iniciar_contexto_proyecto();
 			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
