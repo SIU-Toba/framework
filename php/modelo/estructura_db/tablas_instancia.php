@@ -42,8 +42,7 @@ class tablas_instancia
   3 => 'apex_solicitud_consola',
   4 => 'apex_solicitud_cronometro',
   5 => 'apex_solicitud_observacion',
-  6 => 'apex_solicitud_obj_observacion',
-  7 => 'apex_log_objeto',
+  6 => 'apex_log_objeto',
 );
 	}
 
@@ -285,16 +284,16 @@ class tablas_instancia
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_browser',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '(apex_solicitud.solicitud = dd.solicitud_browser) AND (apex_solicitud.proyecto =\\\'%%\\\')',
   'desc' => '',
   'historica' => '1',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'solicitud_browser',
+    0 => 'proyecto',
     1 => 'sesion_browser',
-    2 => 'ip',
+    2 => 'solicitud_proyecto',
+    3 => 'solicitud_browser',
+    4 => 'ip',
   ),
 );
 	}
@@ -306,19 +305,18 @@ class tablas_instancia
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_consola',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '((apex_solicitud.solicitud = dd.solicitud_consola) AND (apex_solicitud.proyecto =\\\'%%\\\'))',
   'zona' => 'solicitud',
   'desc' => '',
   'historica' => '1',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'solicitud_consola',
-    1 => 'usuario',
-    2 => 'ip',
-    3 => 'llamada',
-    4 => 'entorno',
+    0 => 'proyecto',
+    1 => 'solicitud_consola',
+    2 => 'usuario',
+    3 => 'ip',
+    4 => 'llamada',
+    5 => 'entorno',
   ),
 );
 	}
@@ -330,19 +328,18 @@ class tablas_instancia
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '((apex_solicitud.solicitud = dd.solicitud) AND (apex_solicitud.proyecto =\\\'%%\\\'))',
   'zona' => 'solicitud',
   'desc' => '',
   'historica' => '1',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'solicitud',
-    1 => 'marca',
-    2 => 'nivel_ejecucion',
-    3 => 'texto',
-    4 => 'tiempo',
+    0 => 'proyecto',
+    1 => 'solicitud',
+    2 => 'marca',
+    3 => 'nivel_ejecucion',
+    4 => 'texto',
+    5 => 'tiempo',
   ),
 );
 	}
@@ -354,43 +351,17 @@ class tablas_instancia
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'solicitud_observacion',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '((apex_solicitud.solicitud = dd.solicitud_observacion) AND (apex_solicitud.proyecto =\\\'%%\\\'))',
   'zona' => 'solicitud',
   'desc' => '',
   'historica' => '1',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'solicitud_observacion',
-    1 => 'solicitud_obs_tipo_proyecto',
-    2 => 'solicitud_obs_tipo',
-    3 => 'solicitud',
-    4 => 'observacion',
-  ),
-);
-	}
-
-	static function apex_solicitud_obj_observacion()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_solicitudes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'solicitud_obj_observacion',
-  'dump_from' => 'apex_solicitud',
-  'dump_where' => '((apex_solicitud.solicitud = dd.solicitud) AND (apex_solicitud.proyecto =\\\'%%\\\'))',
-  'zona' => 'solicitud',
-  'desc' => '',
-  'historica' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'solicitud_obj_observacion',
-    1 => 'solicitud_obj_obs_tipo',
-    2 => 'solicitud',
-    3 => 'objeto_proyecto',
-    4 => 'objeto',
+    0 => 'proyecto',
+    1 => 'solicitud',
+    2 => 'solicitud_observacion',
+    3 => 'solicitud_obs_tipo_proyecto',
+    4 => 'solicitud_obs_tipo',
     5 => 'observacion',
   ),
 );

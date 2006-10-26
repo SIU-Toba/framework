@@ -116,14 +116,14 @@ abstract class toba_solicitud
 												$this->info['basica']['item'], $this->get_tipo());
 			// Cronometro
 			if($this->cronometrar){	
-				toba::cronometro()->registrar($this->id);
+				toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
 			}
 			// Observaciones
 			if(count($this->observaciones)>0) {
 				for($i=0;$i<count($this->observaciones);$i++) {
 					$tipo[0] = $this->observaciones[$i][0][0];
 					$tipo[1] = $this->observaciones[$i][0][1];
-					toba_instancia::registrar_solicitud_observaciones($this->id, $tipo, $this->observaciones[$i][1]);
+					toba_instancia::registrar_solicitud_observaciones($this->info['basica']['item_proyecto'], $this->id, $tipo, $this->observaciones[$i][1]);
 				}
 			}
 		}

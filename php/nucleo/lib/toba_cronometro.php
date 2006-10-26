@@ -61,7 +61,7 @@ class toba_cronometro
 	/**
 	 * 	Guardar el la base las marcas del CRONOMETRO
 	 */
-	function registrar($solicitud)
+	function registrar($proyecto, $solicitud)
 	{
 		//dump_arbol($this->marcas);
 		$temp = $this->marcas[0]['t'];
@@ -73,9 +73,7 @@ class toba_cronometro
 			$tiempo = number_format(($momento - $temp),3,'.','');
 			//echo "$f-3 TIEM: $tiempo<br>";
 			if($this->marcas[$f]['n']!="INICIO"){
-				$sql = "INSERT INTO apex_solicitud_cronometro(solicitud, marca, nivel_ejecucion, texto, tiempo) VALUES ('$solicitud','$f','{$this->marcas[$f]['niv']}','{$this->marcas[$f]['n']}','$tiempo');";
-				//echo "$sql<br>";
-				toba_instancia::get_db()->sql($sql);
+				toba::instancia()->registrar_marca_cronometro($proyecto, $solicitud, $f, $this->marcas[$f]['niv'], $this->marcas[$f]['n'], $tiempo);
 			}
 			$temp = $momento;
 		}

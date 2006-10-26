@@ -14,17 +14,16 @@ class tablas_proyecto
   6 => 'apex_usuario_grupo_acc',
   7 => 'apex_item_zona',
   8 => 'apex_clase',
-  9 => 'apex_solicitud_obj_obs_tipo',
-  10 => 'apex_usuario_grupo_acc_item',
-  11 => 'apex_conversion',
-  12 => 'apex_nota',
-  13 => 'apex_item_nota',
-  14 => 'apex_objeto_nota',
-  15 => 'apex_msg',
-  16 => 'apex_item_msg',
-  17 => 'apex_objeto_msg',
-  18 => 'apex_permiso',
-  19 => 'apex_permiso_grupo_acc',
+  9 => 'apex_usuario_grupo_acc_item',
+  10 => 'apex_conversion',
+  11 => 'apex_nota',
+  12 => 'apex_item_nota',
+  13 => 'apex_objeto_nota',
+  14 => 'apex_msg',
+  15 => 'apex_item_msg',
+  16 => 'apex_objeto_msg',
+  17 => 'apex_permiso',
+  18 => 'apex_permiso_grupo_acc',
 );
 	}
 
@@ -292,27 +291,6 @@ class tablas_proyecto
     26 => 'parametro_b',
     27 => 'parametro_c',
     28 => 'exclusivo_toba',
-  ),
-);
-	}
-
-	static function apex_solicitud_obj_obs_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo_multiproyecto',
-  'dump_order_by' => 'solicitud_obj_obs_tipo',
-  'dump_where' => '(	clase_proyecto	= \\\'%%\\\' )',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'solicitud_obj_obs_tipo',
-    1 => 'descripcion',
-    2 => 'clase_proyecto',
-    3 => 'clase',
   ),
 );
 	}

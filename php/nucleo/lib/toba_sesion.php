@@ -116,6 +116,7 @@ class toba_sesion
 			$id = toba_instancia::get_id_sesion();
 			toba_instancia::abrir_sesion(	$id, toba::usuario()->get_id(), $proyecto );
 			$_SESSION['toba']["id"] = $id;
+			$_SESSION['toba']['proyecto_inicial'] = $proyecto;
 			$_SESSION['toba']["apex_pa_ID"] = apex_pa_ID; //Punto de acceso utilizado para abrir la sesion
 			$_SESSION['toba']["inicio"]=time();
 			//PATHs
@@ -228,6 +229,11 @@ class toba_sesion
 	function get_id()
 	{
 		return $_SESSION['toba']['id'];
+	}
+
+	function get_proyecto()
+	{
+		return $_SESSION['toba']['proyecto_inicial'];
 	}
 
 	//---------------------------------------------------------------

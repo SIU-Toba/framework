@@ -12,18 +12,16 @@ class tablas_nucleo
   4 => 'apex_grafico',
   5 => 'apex_recurso_origen',
   6 => 'apex_nivel_acceso',
-  7 => 'apex_nivel_ejecucion',
-  8 => 'apex_solicitud_tipo',
-  9 => 'apex_columna_estilo',
-  10 => 'apex_columna_formato',
-  11 => 'apex_columna_proceso',
-  12 => 'apex_usuario_tipodoc',
-  13 => 'apex_clase_tipo',
-  14 => 'apex_nota_tipo',
-  15 => 'apex_msg_tipo',
-  16 => 'apex_objeto_mt_me_tipo_nav',
-  17 => 'apex_admin_persistencia',
-  18 => 'apex_tipo_datos',
+  7 => 'apex_solicitud_tipo',
+  8 => 'apex_columna_estilo',
+  9 => 'apex_columna_formato',
+  10 => 'apex_usuario_tipodoc',
+  11 => 'apex_clase_tipo',
+  12 => 'apex_nota_tipo',
+  13 => 'apex_msg_tipo',
+  14 => 'apex_objeto_mt_me_tipo_nav',
+  15 => 'apex_admin_persistencia',
+  16 => 'apex_tipo_datos',
 );
 	}
 
@@ -36,8 +34,7 @@ class tablas_nucleo
   3 => 'apex_solicitud_obs_tipo',
   4 => 'apex_pagina_tipo',
   5 => 'apex_clase',
-  6 => 'apex_solicitud_obj_obs_tipo',
-  7 => 'apex_msg',
+  6 => 'apex_msg',
 );
 	}
 
@@ -260,24 +257,6 @@ class tablas_nucleo
 );
 	}
 
-	static function apex_nivel_ejecucion()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'nivel_ejecucion',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'nivel_ejecucion',
-    1 => 'descripcion',
-  ),
-);
-	}
-
 	static function apex_solicitud_tipo()
 	{
 		return array (
@@ -410,29 +389,6 @@ class tablas_nucleo
 );
 	}
 
-	static function apex_columna_proceso()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'columna_proceso',
-  'zona' => 'general',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'columna_proceso',
-    1 => 'funcion',
-    2 => 'archivo',
-    3 => 'descripcion',
-    4 => 'descripcion_corta',
-    5 => 'parametros',
-  ),
-);
-	}
-
 	static function apex_usuario_tipodoc()
 	{
 		return array (
@@ -514,27 +470,6 @@ class tablas_nucleo
     26 => 'parametro_b',
     27 => 'parametro_c',
     28 => 'exclusivo_toba',
-  ),
-);
-	}
-
-	static function apex_solicitud_obj_obs_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo_multiproyecto',
-  'dump_order_by' => 'solicitud_obj_obs_tipo',
-  'dump_where' => '(	clase_proyecto	= \\\'%%\\\' )',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'solicitud_obj_obs_tipo',
-    1 => 'descripcion',
-    2 => 'clase_proyecto',
-    3 => 'clase',
   ),
 );
 	}

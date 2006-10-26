@@ -233,29 +233,34 @@ class toba_instancia
 		self::get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_observaciones( $id, $tipo, $observacion )
+	static function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
 	{
-		$sql = "INSERT	INTO apex_solicitud_observacion (solicitud,solicitud_obs_tipo_proyecto,solicitud_obs_tipo,observacion) 
-				VALUES ('$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
+		$sql = "INSERT	INTO apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion) 
+				VALUES ('$proyecto', '$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
 		self::get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_browser($id, $sesion, $ip)
+	static function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
-		$sql = "INSERT INTO apex_solicitud_browser (solicitud_browser, sesion_browser, ip) VALUES ('$id','$sesion','$ip');";
+		$sql = "INSERT INTO apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip) VALUES ('$proyecto','$id','$sesion_proyecto','$sesion','$ip');";
 		self::get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_consola($id, $usuario, $llamada)
+	static function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
-		$sql = "INSERT INTO apex_toba_solicitud_consola (toba_solicitud_consola, usuario, llamada) VALUES ('$id','$usuario','$llamada');";
+		$sql = "INSERT INTO apex_toba_solicitud_consola (proyecto, toba_solicitud_consola, usuario, llamada) VALUES ('$proyecto','$id','$usuario','$llamada');";
+		self::get_db()->ejecutar($sql);
+	}
+
+	static function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
+	{
+		$sql = "INSERT INTO apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) VALUES ('$proyecto','$solicitud','$marca','$nivel','$texto','$tiempo');";
 		self::get_db()->ejecutar($sql);
 	}
 
 	static function log_sistema($tipo,$mensaje)
 	{
-		$mensaje = addslashes($mensaje);
-		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','$mensaje')";
+		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','".addslashes($mensaje)."')";
 		self::get_db()->ejecutar($sql);
 	}
 

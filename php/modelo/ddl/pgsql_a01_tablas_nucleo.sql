@@ -215,22 +215,6 @@ CREATE TABLE apex_nivel_acceso
 );
 --#################################################################################################
 
-CREATE TABLE apex_nivel_ejecucion
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: nivel_ejecucion
---: zona: general
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(	
-	nivel_ejecucion			varchar(15)		NOT NULL,
-	descripcion					varchar(255)	NOT NULL,
-	CONSTRAINT	"apex_nivel_ejecucion_pk"	 PRIMARY	KEY ("nivel_ejecucion")
-);
---#################################################################################################
-
 CREATE TABLE apex_solicitud_tipo
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
@@ -354,29 +338,6 @@ CREATE TABLE apex_columna_formato
 	descripcion_corta					varchar(40)		NULL,
 	parametros							varchar(255)	NULL,
 	CONSTRAINT	"apex_columna_formato_pk" PRIMARY KEY ("columna_formato") 
-);
-
---###################################################################################################
-
-CREATE SEQUENCE apex_columna_proceso_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
-CREATE TABLE apex_columna_proceso
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: columna_proceso
---: zona: general
---: desc:
---: historica:	0
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	columna_proceso					int4				DEFAULT nextval('"apex_columna_proceso_seq"'::text) NOT NULL, 
-	funcion								varchar(40)		NOT NULL,
-	archivo								varchar(80)		NULL,
-	descripcion							varchar(255)	NULL,
-	descripcion_corta					varchar(40)		NULL,
-	parametros							varchar(255)	NULL,
-	CONSTRAINT	"apex_columna_proceso_pk" PRIMARY KEY ("columna_proceso") 
 );
 
 --**************************************************************************************************
@@ -702,26 +663,6 @@ CREATE TABLE apex_clase
 );
 --#################################################################################################
 
-CREATE TABLE apex_solicitud_obj_obs_tipo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo_multiproyecto
---: dump_order_by: solicitud_obj_obs_tipo
---: dump_where: (	clase_proyecto	= '%%' )
---: zona: central
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	solicitud_obj_obs_tipo				varchar(20)		NOT NULL,
-	descripcion							varchar(255)	NOT NULL,
-	clase_proyecto						varchar(15)		NULL,
-	clase								varchar(60)		NULL,
-	CONSTRAINT	"apex_sol_obj_obs_tipo_pk"	PRIMARY KEY	("solicitud_obj_obs_tipo"),
-	CONSTRAINT	"apex_sol_obj_obs_tipo_fk_clase"	FOREIGN KEY	("clase_proyecto","clase")	REFERENCES "apex_clase"	("proyecto","clase")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---#################################################################################################
-
 CREATE SEQUENCE apex_objeto_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto
 ---------------------------------------------------------------------------------------------------
@@ -751,9 +692,9 @@ CREATE TABLE apex_objeto
 	descripcion							varchar			NULL,
 	fuente_datos_proyecto				varchar(15)		NULL,
 	fuente_datos						varchar(20)		NULL,
-	solicitud_registrar					smallint		NULL,
-	solicitud_obj_obs_tipo				varchar(20)		NULL,
-	solicitud_obj_observacion			varchar(255)	NULL,
+	solicitud_registrar					smallint		NULL,	-- no mas
+	solicitud_obj_obs_tipo				varchar(20)		NULL,	-- no mas
+	solicitud_obj_observacion			varchar(255)	NULL,	-- no mas
 	parametro_a							varchar(100)	NULL,
 	parametro_b							varchar(100)	NULL,
 	parametro_c							varchar(100)	NULL,
@@ -765,7 +706,6 @@ CREATE TABLE apex_objeto
 	CONSTRAINT	"apex_objeto_pk"	 PRIMARY	KEY ("proyecto","objeto"),
 	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_objeto_fk_solic_ot" FOREIGN KEY ("solicitud_obj_obs_tipo") REFERENCES "apex_solicitud_obj_obs_tipo" ("solicitud_obj_obs_tipo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
 --  CONSTRAINT  "apex_objeto_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 );

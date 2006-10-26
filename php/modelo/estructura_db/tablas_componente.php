@@ -13,19 +13,17 @@ class tablas_componente
   5 => 'apex_objeto_eventos',
   6 => 'apex_item_objeto',
   7 => 'apex_objeto_mt_me',
-  8 => 'apex_objeto_mt_me_etapa',
-  9 => 'apex_objeto_ci_pantalla',
-  10 => 'apex_objeto_cuadro',
-  11 => 'apex_objeto_cuadro_cc',
-  12 => 'apex_objeto_ei_cuadro_columna',
-  13 => 'apex_objeto_ut_formulario',
-  14 => 'apex_objeto_ut_formulario_ef',
-  15 => 'apex_objeto_ei_formulario_ef',
-  16 => 'apex_objeto_esquema',
-  17 => 'apex_objeto_db_registros',
-  18 => 'apex_objeto_db_registros_col',
-  19 => 'apex_objeto_datos_rel',
-  20 => 'apex_objeto_datos_rel_asoc',
+  8 => 'apex_objeto_ci_pantalla',
+  9 => 'apex_objeto_cuadro',
+  10 => 'apex_objeto_cuadro_cc',
+  11 => 'apex_objeto_ei_cuadro_columna',
+  12 => 'apex_objeto_ut_formulario',
+  13 => 'apex_objeto_ei_formulario_ef',
+  14 => 'apex_objeto_esquema',
+  15 => 'apex_objeto_db_registros',
+  16 => 'apex_objeto_db_registros_col',
+  17 => 'apex_objeto_datos_rel',
+  18 => 'apex_objeto_datos_rel_asoc',
 );
 	}
 
@@ -315,43 +313,6 @@ class tablas_componente
 );
 	}
 
-	static function apex_objeto_mt_me_etapa()
-	{
-		return array (
-  'archivo' => 'pgsql_a10_componente_ci.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_mt_me_proyecto',
-  'dump_clave_componente' => 'objeto_mt_me',
-  'dump_order_by' => 'objeto_mt_me,	posicion',
-  'dump_where' => '(	objeto_mt_me_proyecto =	\\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'objeto_mt_me_proyecto',
-    1 => 'objeto_mt_me',
-    2 => 'posicion',
-    3 => 'orden',
-    4 => 'etiqueta',
-    5 => 'descripcion',
-    6 => 'tip',
-    7 => 'imagen_recurso_origen',
-    8 => 'imagen',
-    9 => 'objetos',
-    10 => 'objetos_adhoc',
-    11 => 'pre_condicion',
-    12 => 'post_condicion',
-    13 => 'gen_interface_pre',
-    14 => 'gen_interface_post',
-    15 => 'ev_procesar',
-    16 => 'ev_cancelar',
-  ),
-);
-	}
-
 	static function apex_objeto_ci_pantalla()
 	{
 		return array (
@@ -556,50 +517,6 @@ class tablas_componente
     27 => 'ev_seleccion',
     28 => 'alto',
     29 => 'analisis_cambios',
-  ),
-);
-	}
-
-	static function apex_objeto_ut_formulario_ef()
-	{
-		return array (
-  'archivo' => 'pgsql_a12_componente_ei_formulario.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_ut_formulario_proyecto',
-  'dump_clave_componente' => 'objeto_ut_formulario',
-  'dump_order_by' => 'objeto_ut_formulario, identificador',
-  'dump_where' => '( objeto_ut_formulario_proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'objeto_ut_formulario_proyecto',
-    1 => 'objeto_ut_formulario',
-    2 => 'identificador',
-    3 => 'columnas',
-    4 => 'clave_primaria',
-    5 => 'obligatorio',
-    6 => 'elemento_formulario',
-    7 => 'inicializacion',
-    8 => 'orden',
-    9 => 'etiqueta',
-    10 => 'descripcion',
-    11 => 'colapsado',
-    12 => 'desactivado',
-    13 => 'no_sql',
-    14 => 'total',
-    15 => 'clave_primaria_padre',
-    16 => 'listar',
-    17 => 'lista_cabecera',
-    18 => 'lista_orden',
-    19 => 'lista_columna_estilo',
-    20 => 'lista_valor_sql',
-    21 => 'lista_valor_sql_formato',
-    22 => 'lista_valor_sql_esp',
-    23 => 'lista_ancho',
   ),
 );
 	}

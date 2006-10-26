@@ -59,43 +59,6 @@ CREATE TABLE apex_objeto_mt_me
 	CONSTRAINT	"obj_objeto_mt_me_fk_tnav" FOREIGN	KEY ("tipo_navegacion")	REFERENCES "apex_objeto_mt_me_tipo_nav" ("tipo_navegacion") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
 --###################################################################################################
-
-CREATE TABLE apex_objeto_mt_me_etapa
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: componente
---: dump_clave_proyecto: objeto_mt_me_proyecto
---: dump_clave_componente: objeto_mt_me
---: dump_order_by: objeto_mt_me,	posicion
---: dump_where: (	objeto_mt_me_proyecto =	'%%' )
---: zona: objeto
---: desc:
---: historica:	0
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	objeto_mt_me_proyecto				varchar(15)			NOT NULL,
-	objeto_mt_me						int4				NOT NULL,
-	posicion							smallint			NOT NULL,
-	orden								smallint			NULL,	-- Hay que ponerlo como NOT NULL
-	etiqueta							varchar(80)			NULL,
-	descripcion							varchar(255)		NULL,
-	tip									varchar(80)			NULL,
-	imagen_recurso_origen				varchar(10)			NULL,
-	imagen								varchar(60)			NULL,
-	objetos								varchar(80)			NULL, 	-- ya no se usan!
-	objetos_adhoc						varchar(80)			NULL, 	-- ya no se usan!
-	pre_condicion						varchar(40)			NULL,	-- ya no se usan!
-	post_condicion						varchar(40)			NULL,	-- ya no se usan!
-	gen_interface_pre					varchar(40)			NULL,	-- ya no se usan!
-	gen_interface_post					varchar(40)			NULL,	-- ya no se usan!
-	ev_procesar							smallint			NULL, 	-- Esta etapa muestra el boton procesar
-	ev_cancelar							smallint			NULL, 	-- Esta etapa muestra el boton cancelar
-	CONSTRAINT	"apex_mt_me__pk" PRIMARY KEY ("objeto_mt_me_proyecto","objeto_mt_me","posicion"),
-	CONSTRAINT	"apex_mt_me__fk_padre" FOREIGN KEY ("objeto_mt_me_proyecto","objeto_mt_me") REFERENCES	"apex_objeto_mt_me" ("objeto_mt_me_proyecto","objeto_mt_me") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_item_fk_rec_orig"	FOREIGN KEY	("imagen_recurso_origen") REFERENCES "apex_recurso_origen" ("recurso_origen")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
-);
---###################################################################################################
 --###################################################################################################
 
 CREATE SEQUENCE apex_obj_ci_pantalla_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
