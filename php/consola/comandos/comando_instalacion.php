@@ -366,21 +366,20 @@ class comando_instalacion extends comando_toba
 		$this->consola->mensaje("");
 		if (toba_manejador_archivos::es_windows()) {		
 			$toba_conf = toba_manejador_archivos::path_a_unix($toba_conf);
-			$this->consola->mensaje("Para Apache: agregar en el archivo '\Apache2\conf\httpd.conf' la siguiente directiva: ");
+			$this->consola->mensaje("Para Apache: agregar en el archivo '\Apache2\conf\httpd.conf' la siguiente directiva y reiniciarlo: ");
 			$this->consola->mensaje("     Include \"$toba_conf\"");;
 		} else {
-			$this->consola->mensaje("Para Apache: ejecutar el siguiente comando como superusuario (se asume una distro tipo debian): ");
-			$this->consola->mensaje("  ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");;			
+			$this->consola->mensaje("Para Apache: ejecutar el siguiente comando como superusuario y reiniciarlo (se asume una distro tipo debian): ");
+			$this->consola->mensaje("  ln -s $toba_conf /etc/apache2/sites-enabled/$nombre_toba");
 		}
 		$this->consola->mensaje("");
 		$this->consola->mensaje("Para la consola: se necesitan agregar al entorno las siguientes directivas:");
 		if (toba_manejador_archivos::es_windows()) {
-			$dir_base = toba_manejador_archivos::path_a_windows(instalacion::dir_base());
-			$this->consola->mensaje("   set toba_dir=".$dir_base);
+			$this->consola->mensaje("   set toba_dir=".toba_dir());
 			$this->consola->mensaje("   set toba_instancia=desarrollo");
 			$this->consola->mensaje("   set PATH=%PATH%;%toba_dir%/bin");
 		} else {
-			$this->consola->mensaje("   export toba_dir=".instalacion::dir_base());
+			$this->consola->mensaje("   export toba_dir=".toba_dir());
 			$this->consola->mensaje("   export toba_instancia=desarrollo");
 			$this->consola->mensaje('   export PATH="$toba_dir/bin:$PATH"');
 		}
