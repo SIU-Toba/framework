@@ -169,7 +169,8 @@ legend {
 }
 .ei-botonera {
 	clear: both;
-	text-align: right;	
+	text-align: right;
+	height:25px;
 }
 .ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
 	font-size: 11px;

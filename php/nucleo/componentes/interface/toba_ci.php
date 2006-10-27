@@ -283,13 +283,19 @@ class toba_ci extends toba_ei
 		
 		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
 		if ($cambio_pantalla_explicito) { 
-			// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
-			$evento_salida = apex_ei_evento . apex_ei_separador . $this->pantalla_id_eventos . apex_ei_separador . "salida";
-			$this->invocar_callback($evento_salida);				
-
-			// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
-			$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
-			$this->invocar_callback($evento_entrada);
+			try {
+				// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
+				$evento_salida = apex_ei_evento . apex_ei_separador . $this->pantalla_id_eventos . apex_ei_separador . "salida";
+				$this->invocar_callback($evento_salida);				
+	
+				// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
+				$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
+				$this->invocar_callback($evento_entrada);
+			} catch (toba_error $e) {
+				//--- Si se lanza una excepción se recupera el id de la pantalla original
+				$this->pantalla_id_servicio = $this->pantalla_id_eventos;
+				throw $e;	
+			}
 		}
 	}
 

@@ -30,7 +30,6 @@ class ci_principal extends ci_editores_toba
 	function evt__prop_basicas__modificacion($datos)
 	{
 		$this->get_entidad()->tabla("prop_basicas")->set($datos);
-		
 	}
 
 	//*******************************************************************
