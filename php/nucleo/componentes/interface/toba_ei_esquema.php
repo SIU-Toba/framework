@@ -7,6 +7,7 @@ require_once("lib/toba_manejador_archivos.php");
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei ei
+ * @wiki Referencia/Objetos/ei_esquema
  */
 class toba_ei_esquema extends toba_ei
 {

@@ -17,6 +17,7 @@ define('apex_ei_evt_no_maneja_datos', -1);
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei ei
+ * @wiki Referencia/Objetos
  */
 abstract class toba_ei extends toba_componente
 {

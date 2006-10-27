@@ -11,6 +11,7 @@ require_once('nucleo/lib/toba_parser_ayuda.php');
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ci ci
+ * @wiki Referencia/Objetos/ci
  */
 class toba_ci extends toba_ei
 {

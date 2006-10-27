@@ -9,6 +9,7 @@ require_once("nucleo/componentes/interface/efs/toba_ef.php");
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei_formulario ei_formulario
+ * @wiki Referencia/Objetos/ei_formulario
  */
 class toba_ei_formulario extends toba_ei
 {

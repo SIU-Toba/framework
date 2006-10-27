@@ -10,6 +10,7 @@ require_once("toba_ei.php");
 * @package Componentes
 * @subpackage Eis
 * @jsdoc ei_arbol ei_arbol
+* @wiki Referencia/Objetos/ei_arbol
 */
 class toba_ei_arbol extends toba_ei
 {

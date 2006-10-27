@@ -10,7 +10,8 @@ require_once("toba_ei_formulario.php");
  * 
  * @package Componentes
  * @subpackage Eis
-  * @jsdoc ei_formulario_ml ei_formulario_ml 
+ * @jsdoc ei_formulario_ml ei_formulario_ml 
+ * Referencia/Objetos/ei_formulario_ml
  */
 class toba_ei_formulario_ml extends toba_ei_formulario
 {

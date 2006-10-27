@@ -6,6 +6,7 @@ require_once("toba_ei_formulario.php");
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei_formulario ei_formulario
+ * @wiki Referencia/Objetos/ei_filtro
  */
 class toba_ei_filtro extends toba_ei_formulario
 {

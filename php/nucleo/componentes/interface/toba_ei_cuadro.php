@@ -11,6 +11,7 @@ define("apex_cuadro_cc_anidado","a");
  * @package Componentes
  * @subpackage Eis
  * @jsdoc ei_cuadro ei_cuadro 
+ * @wiki Referencia/Objetos/ei_cuadro
  */
 class toba_ei_cuadro extends toba_ei
 {

@@ -7,6 +7,7 @@
 	padding: 1px;
 	display: none;
 	z-index: 10000;
+	font-size: 8px;
 }
 .editor-mostrar {
 	display: inline;
