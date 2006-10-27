@@ -282,8 +282,7 @@ class toba_ei_pantalla extends toba_ei
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 
 		//--> Botonera
-		$con_botonera = $this->hay_botones();
-		if($con_botonera && ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") ) {
+		if ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") {
 			$this->generar_botones('ci-botonera');
 		}
 		//--> Cuerpo del CI
@@ -293,7 +292,7 @@ class toba_ei_pantalla extends toba_ei
 		echo "</div>\n";
 		
 		//--> Botonera
-		if($con_botonera && ($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos")) {
+		if($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos") {
 			$this->generar_botones('ci-botonera');
 		}
 		if ( $this->utilizar_impresion_html ) {

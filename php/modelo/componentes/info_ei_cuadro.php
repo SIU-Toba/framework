@@ -24,7 +24,7 @@ class info_ei_cuadro extends info_ei
 		$eventos = parent::eventos_predefinidos();	
 		if ($this->ordenable()){
 			$eventos['ordenar']['parametros'] = array('columna','sentido');
-			$eventos['ordenar']['comentarios'] = "\$sentido puede ser \"des\" o \"asc\"";
+			$eventos['ordenar']['comentarios'] = array("\$sentido puede ser \"des\" o \"asc\"");
 		}
 		return $eventos;
 	}

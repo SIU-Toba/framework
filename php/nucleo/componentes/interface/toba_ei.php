@@ -292,9 +292,11 @@ abstract class toba_ei extends toba_componente
 	function generar_botones($clase = '')
 	{
 		//----------- Generacion
-		echo "<div class='ei-botonera $clase'>";
-		$this->generar_botones_eventos();
-		echo "</div>";
+		if ($this->hay_botones()) {
+			echo "<div class='ei-botonera $clase'>";
+			$this->generar_botones_eventos();
+			echo "</div>";
+		}
 	}	
 	
 	/**
