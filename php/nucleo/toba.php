@@ -102,9 +102,9 @@ class toba
 	 * @param string $id_fuente
 	 * @return toba_db
 	 */
-	static function db($id_fuente=null)
+	static function db($id_fuente=null, $proyecto=null)
 	{
-		return toba_admin_fuentes::instancia()->get_fuente($id_fuente)->get_db();
+		return toba_admin_fuentes::instancia()->get_fuente($id_fuente, $proyecto)->get_db();
 	}
 
 	static function encriptador()

@@ -211,16 +211,22 @@ class toba_proyecto
 
 	//------------------------  FUENTES  -------------------------
 
-	function get_info_fuente_datos($id_fuente)
+	function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
+		if (! isset($proyecto)) {
+			$proyecto = toba_proyecto::get_id();
+		}
 		$sql = "SELECT 	*,
 						link_instancia 		as link_base_archivo,
 						fuente_datos_motor 	as motor,
 						host 				as profile
 				FROM 	apex_fuente_datos
 				WHERE	fuente_datos = '$id_fuente'
-				AND 	proyecto = '".toba_proyecto::get_id()."';";
+				AND 	proyecto = '$proyecto'";
 		$rs = self::get_db()->consultar($sql);
+		if (empty($rs)) {
+			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
+		}
 		return $rs[0];
 	}
 	

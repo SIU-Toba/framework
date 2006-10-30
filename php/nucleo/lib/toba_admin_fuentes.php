@@ -30,13 +30,13 @@ class toba_admin_fuentes
 		return $predeterminada;
 	}
 	
-	function get_fuente($id)
+	function get_fuente($id, $proyecto=null)
 	{
 		if(!isset($id)) {
 			$id = $this->get_fuente_predeterminada(true);	
 		}
 		if ( !isset($this->fuentes[$id]) ) {
-			$parametros = toba_proyecto::get_info_fuente_datos($id);
+			$parametros = toba_proyecto::get_info_fuente_datos($id, $proyecto);
 			if (isset($parametros['subclase_archivo'])) {
 				$archivo = $parametros['subclase_archivo'];
 			} else {

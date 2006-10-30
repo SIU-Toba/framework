@@ -117,7 +117,7 @@ class ci_principal extends ci_editores_toba
 		$reg = $this->get_entidad()->tabla("base")->get();
 		$proyecto = $reg['fuente_datos_proyecto'];
 		$id_fuente = $reg['fuente_datos'];
-		$fuente = toba::db($id_fuente);
+		$fuente = toba::db($id_fuente, toba_editor::get_proyecto_cargado());
 		try{
 			$columnas = $fuente->get_definicion_columnas($tabla);
 			foreach(array_keys($columnas) as $id){
