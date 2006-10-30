@@ -86,18 +86,21 @@ class toba_relacion_entre_tablas
 	 * El elemento HIJO de la relacion notifica que se CARGO.
 	 * Se arman los mapeos de las filas
 	 */
-	function evt__carga_hijo()
+	function evt__carga_hijo($reg_hijos=null)
 	{
 		//Se mapean las filas de las tablas
 		//Si la tabla padre tiene un solo registro, la carga se realiza utilizando la clave de este
-		if( $this->tabla_padre->get_cantidad_filas() == 1) {
+		if( $this->tabla_padre->get_cantidad_filas() == 1 && ! isset($reg_hijos)) {
 			//Los mapeos son simples, son todos hijos de la unica fila)
 			$id_padre = $this->tabla_padre->get_cursor();
 			$this->mapeo_filas[$id_padre] = $this->tabla_hijo->get_id_filas(false);
 		} else {
 			//Se arman los mapeos de filas
 			//Quizás se podría optimizar recorriendo en primer lugar los hijos
-			foreach($this->tabla_padre->get_id_filas(false) as $id_padre) {
+			if (! isset($reg_hijos)) {
+				$reg_hijos = $this->tabla_padre->get_id_filas(false);
+			}
+			foreach($reg_hijos as $id_padre) {
 				$fila_padre = $this->tabla_padre->get_fila($id_padre);
 				$claves = $this->mapear_fila_a_formato_hijo($fila_padre);
 				$hijas = $this->tabla_hijo->get_id_fila_condicion($claves, false);

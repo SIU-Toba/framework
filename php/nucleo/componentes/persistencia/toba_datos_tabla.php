@@ -127,11 +127,11 @@ class toba_datos_tabla extends toba_componente
 	 * Aviso a las relacion padres que el componente HIJO se CARGO
 	 * @ignore 
 	 */
-	function notificar_padres_carga()
+	function notificar_padres_carga($reg_hijos=null)
 	{
 		if(isset($this->relaciones_con_padres)){
 			foreach ($this->relaciones_con_padres as $relacion) {
-				$relacion->evt__carga_hijo();
+				$relacion->evt__carga_hijo($reg_hijos);
 			}
 		}
 	}
@@ -1092,8 +1092,9 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior)
 	 * @param array $datos en formato RecordSet
+	 * @param boolean $usar_cursores Los datos cargados se marcan como hijos de los cursores actuales en las tablas padre, sino son hijos del padre que tenia en la base 
 	 */
-	function anexar_datos($datos)
+	function anexar_datos($datos, $usar_cursores=true)
 	{
 		$this->log("Anexado de datos [" . count($datos) . "]");
 		//Controlo que no se haya excedido el tope de registros
@@ -1106,16 +1107,26 @@ class toba_datos_tabla extends toba_componente
 			}
 		}
 		//Agrego las filas
-		foreach( $datos as $fila ){
+		$hijos = array();
+		foreach( $datos as $fila ) {
 			$this->datos[$this->proxima_fila] = $fila;
 			$this->cambios[$this->proxima_fila]['estado']="db";
 			$this->cambios[$this->proxima_fila]['clave']= $this->get_clave_valor($this->proxima_fila);			
-			$this->proxima_fila++;
+			if ($usar_cursores) {
+				//Se notifica a las relaciones a los padres.
+				foreach ($this->relaciones_con_padres as $padre => $relacion) {
+					$relacion->asociar_fila_con_padre($this->proxima_fila, null);
+	            }
+			}
+			$hijos[] = $this->proxima_fila;
+			$this->proxima_fila++;            
 		}
 		//Marco la tabla como cargada
 		$this->cargada = true;
-		//Disparo la actulizacion de los mapeos con las tablas padres
-		$this->notificar_padres_carga();
+		if (! $usar_cursores) {
+			//Disparo la actulizacion de los mapeos con las tablas padres
+			$this->notificar_padres_carga($hijos);
+		}
 	}
 		
 	/**
