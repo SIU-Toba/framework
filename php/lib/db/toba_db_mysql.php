@@ -1,6 +1,11 @@
 <?
 require_once("toba_db.php");
 
+/**
+ * Driver de conexión con mysql.
+ * @package Fuentes
+ * @subpackage Drivers
+ */
 class toba_db_mysql extends toba_db
 {
 	function __construct($profile, $usuario, $clave, $base)

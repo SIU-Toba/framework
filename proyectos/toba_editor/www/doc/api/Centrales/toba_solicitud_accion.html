@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_db_mysql</title>
+	<title>Docs For Class toba_solicitud_accion</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -69,21 +69,6 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db.html">					db
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_informix.html">					db_informix
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_mysql.html">					db_mysql
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_odbc.html">					db_odbc
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_postgres7.html">					db_postgres7
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
@@ -156,6 +141,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud.html">					solicitud
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_accion.html">					solicitud_accion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
@@ -237,7 +225,7 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba_db_mysql</h1>
+<h1>toba_solicitud_accion</h1>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -254,18 +242,18 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Representa una conexión a la base de datos </div>
+        		<div class="description">Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes. </div>
 
 
 
 		
-		<pre><a href="../Centrales/toba_db.html">toba_db</a>
+		<pre><a href="../Centrales/toba_solicitud.html">toba_solicitud</a>
    |
-   --toba_db_mysql</pre>
+   --toba_solicitud_accion</pre>
 
 		
 		<p class="notes">
-			Ubicada en /lib/db/toba_db_mysql.php [<span class="field">line 4</span>]
+			Ubicada en /nucleo/toba_solicitud_accion.php [<span class="field">line 9</span>]
 		</p>	
 		<br>
 	
@@ -289,53 +277,65 @@
 				</tr>
 				<tr>
 					<td width="30%">
-													<p>Heredado de <span class="classname"><a href="../Centrales/toba_db.html">toba_db</a></span></p>
+													<p>Heredado de <span class="classname"><a href="../Centrales/toba_solicitud.html">toba_solicitud</a></span></p>
 							<blockquote>
 								<dl>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$base">toba_db::$base</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$cronometrar">toba_solicitud::$cronometrar</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$clave">toba_db::$clave</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$id">toba_solicitud::$id</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$conexion">toba_db::$conexion</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$indice_objetos">toba_solicitud::$indice_objetos</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$debug">toba_db::$debug</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$info">toba_solicitud::$info</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$debug_sql_id">toba_db::$debug_sql_id</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$info_objetos">toba_solicitud::$info_objetos</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$motor">toba_db::$motor</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$log">toba_solicitud::$log</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$profile">toba_db::$profile</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$objetos">toba_solicitud::$objetos</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#var$usuario">toba_db::$usuario</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$objetos_indice_actual">toba_solicitud::$objetos_indice_actual</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$observaciones">toba_solicitud::$observaciones</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#var$registrar_db">toba_solicitud::$registrar_db</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -344,122 +344,92 @@
 							</blockquote>
 											</td>
 					<td width="40%">
-													<p>Heredado de <span class="classname"><a href="../Centrales/toba_db.html">toba_db</a></span></p>
+													<p>Heredado de <span class="classname"><a href="../Centrales/toba_solicitud.html">toba_solicitud</a></span></p>
 							<blockquote>
 								<dl>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#method__construct">toba_db::__construct()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#method__construct">toba_solicitud::__construct()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodabortar_transaccion">toba_db::abortar_transaccion()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodcargar_objeto">toba_solicitud::cargar_objeto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Construye un componente y lo mantiene en un slot interno</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodcrear_zona">toba_solicitud::crear_zona()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodabrir_transaccion">toba_db::abrir_transaccion()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodes_item_publico">toba_solicitud::es_item_publico()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodcerrar_transaccion">toba_db::cerrar_transaccion()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodexiste_ayuda">toba_solicitud::existe_ayuda()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodconectar">toba_db::conectar()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodfinalizar_objetos">toba_solicitud::finalizar_objetos()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Crea una conexion a la base</span>
+											<span class="method-definition">Destruye los componentes asociados a la operación y el hilo</span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodconsultar">toba_db::consultar()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodget_datos_item">toba_solicitud::get_datos_item()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition">Ejecuta una consulta sql</span>
+											<span class="method-definition">Retorna un arreglo de datos básicos del item que se esta ejecutando</span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methoddestruir">toba_db::destruir()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodget_id">toba_solicitud::get_id()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodejecutar">toba_db::ejecutar()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ejecuta un comando sql o un conjunto de ellos</span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodejecutar_archivo">toba_db::ejecutar_archivo()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ejecuta los comandos disponibles en un archivo</span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodejecutar_transaccion">toba_db::ejecutar_transaccion()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Ejecuta un conjunto de comandos dentro de una transacción</span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodget_definicion_columnas">toba_db::get_definicion_columnas()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodget_tipo">toba_solicitud::get_tipo()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodget_dsn">toba_db::get_dsn()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodhay_zona">toba_solicitud::hay_zona()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Hay una zona asignada y creada?</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodobservar">toba_solicitud::observar()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodget_error_toba">toba_db::get_error_toba()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Mapea el error de la base al modulo de mensajes del toba</span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodget_parametros">toba_db::get_parametros()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodprocesar">toba_solicitud::procesar()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodget_tipo_datos_generico">toba_db::get_tipo_datos_generico()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Mapea un tipo de datos especifico de un motor a uno generico de toba</span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodlog_debug">toba_db::log_debug()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodregistrar">toba_solicitud::registrar()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodrecuperar_secuencia">toba_db::recuperar_secuencia()</a></span>
+											<span class="method-definition"><a href="../Centrales/toba_solicitud.html#methodzona">toba_solicitud::zona()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodretrazar_constraints">toba_db::retrazar_constraints()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition"></span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Centrales/toba_db.html#methodset_modo_debug">toba_db::set_modo_debug()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado</span>
 										</dd>
 																	</dl>
 							</blockquote>
@@ -476,12 +446,19 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																												<tr>
+																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">toba_db_mysql</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">toba_solicitud_accion</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#procesar" title="details" class="method-name">procesar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 													</table>
 			</div>
@@ -506,19 +483,16 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 6]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>toba_db_mysql __construct(
+		<code>toba_solicitud_accion __construct(
 
-$profile, 
-$usuario, 
-$clave, 
-$base&nbsp;
+$info&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -529,25 +503,7 @@ $base&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$profile:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$usuario:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clave:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$base:&nbsp;</span></td>
+				<span class="var-name">$info:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -557,7 +513,36 @@ $base&nbsp;
 
 			<div class="notes">Redefinición de:</div>
 		<dl>
-			<dt><a href="../Centrales/toba_db.html#method__construct">toba_db::__construct()</a></dt>
+			<dt><a href="../Centrales/toba_solicitud.html#method__construct">toba_solicitud::__construct()</a></dt>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodprocesar" id="procesar"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void procesar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../Centrales/toba_solicitud.html#methodprocesar">toba_solicitud::procesar()</a></dt>
 					</dl>
 		
 		<br />

@@ -402,15 +402,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_evento_usuario.html">toba_evento_usuario</a></td>
-					<td>
-											Representa la forma de graficar un evento
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_tab.html">toba_tab</a></td>
 					<td>
 											Representa a un tab o solapa, ya sea vertical u horizontal
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_evento_usuario.html">toba_evento_usuario</a></td>
+					<td>
+											Representa la forma de graficar un evento
 										</td>
 				</tr>
 							</table>
@@ -559,7 +559,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_imagen" title="details" class="method-name">set_imagen</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Cambia la imagen asociada al botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -634,7 +634,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">activar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
+	<span class="method-title">activar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -659,7 +659,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">anular</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
+	<span class="method-title">anular</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -684,7 +684,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
+	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
 </div>
 <br />
 
@@ -909,7 +909,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
 </div>
 <br />
 
@@ -934,7 +934,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">ocultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
+	<span class="method-title">ocultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -984,7 +984,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">restituir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
+	<span class="method-title">restituir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
 </div>
 <br />
 
@@ -1083,7 +1083,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">set_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">set_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
 </div>
 <br />
 
@@ -1091,28 +1091,29 @@ $id&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_imagen(
-
-$url_relativa, [
-$origen = null]&nbsp;
+string
+$url_relativa, [string
+$origen = 'apex']&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Cambia la imagen asociada al botón </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$url_relativa:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Direccion de la imagen relativa a la carpeta www/img</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$origen:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> La imagen pertenece al proyecto actual ('proyecto') o a toba ('apex')</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1164,7 +1165,7 @@ $texto&nbsp;
 	
 		
 	
-	<span class="method-title">set_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
+	<span class="method-title">set_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
 </div>
 <br />
 

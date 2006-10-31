@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_http</title>
+	<title>Docs For Class toba_menu_yui</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -125,32 +125,36 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba_http</h1>
+<h1>toba_menu_yui</h1>
 
 <a name="sec-description"></a>
 <div class="info-box">
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-						
+							<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
+			|							<a href="#sec-method-summary">Métodos</a>
+			|			
 				
-				
+					<a href="#sec-vars">Propiedades</a>
+							
 			</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Maneja HEADERS de HTTP. <p>Hay que llamarla antes de devolver cualquier tipo de contenido o llamar a session_start</p></div>
+        		<div class="description">Menu CSS basado la YUI </div>
 
 
 
 		
-		<pre></pre>
+		<pre><a href="../SalidaGrafica/toba_menu.html">toba_menu</a>
+   |
+   --toba_menu_yui</pre>
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_http.php [<span class="field">line 9</span>]
+			Ubicada en /nucleo/menu/toba_menu_yui.php [<span class="field">line 7</span>]
 		</p>	
 		<br>
 	
@@ -163,6 +167,48 @@
 
 
 
+	<a name="sec-inherited"></a>
+	<div class="info-box">
+		<div class="info-box-title">Propiedades y Métodos Heredados</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header" width="30%">Propiedades</th>
+					<th class="class-table-header" width="40%">Métodos</th>
+				</tr>
+				<tr>
+					<td width="30%">
+											</td>
+					<td width="40%">
+													<p>Heredado de <span class="classname"><a href="../SalidaGrafica/toba_menu.html">toba_menu</a></span></p>
+							<blockquote>
+								<dl>
+																			<dt>
+											<span class="method-definition"><a href="../SalidaGrafica/toba_menu.html#methoditems_de_menu">toba_menu::items_de_menu()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../SalidaGrafica/toba_menu.html#methodmostrar">toba_menu::mostrar()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Muestra el contenido del menu</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../SalidaGrafica/toba_menu.html#methodplantilla_css">toba_menu::plantilla_css()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ventana para retornar nombre de los .css a incluir</span>
+										</dd>
+																	</dl>
+							</blockquote>
+											</td>
+				</tr>
+			</table>
+			<br />
+		</div>
+	</div>
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
@@ -170,32 +216,49 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-															<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																																																																									<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#cache" title="details" class="method-name">cache</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">toba_menu_yui</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#encoding" title="details" class="method-name">encoding</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_hijos" title="details" class="method-name">get_hijos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#headers_standart" title="details" class="method-name">headers_standart</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_padres" title="details" class="method-name">get_padres</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#no_cache" title="details" class="method-name">no_cache</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#mostrar" title="details" class="method-name">mostrar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
-						<td class="method-definition"><a href="#pdf" title="details" class="method-name">pdf</a>()&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#plantilla_css" title="details" class="method-name">plantilla_css</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																														</table>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#preparar_arbol" title="details" class="method-name">preparar_arbol</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+													</table>
 			</div>
 			<br />
 		</div>
@@ -211,39 +274,21 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodcache" id="cache"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method cache</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
-</div>
-<br />
 
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void cache(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodencoding" id="encoding"><!-- --></a>
+<a name="method__construct" id="__construct"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method encoding</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
+	
+		
+	
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void encoding(
+		<code>toba_menu_yui __construct(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -255,61 +300,154 @@
 		
 		<br />
 </div>
-<a name="methodheaders_standart" id="headers_standart"><!-- --></a>
+<a name="methodget_hijos" id="get_hijos"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method headers_standart</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
+	
+		
+	
+	<span class="method-title">get_hijos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void headers_standart(
+		<code>void get_hijos(
+
+$nodo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
 		
 		<br />
 </div>
-<a name="methodno_cache" id="no_cache"><!-- --></a>
+<a name="methodget_padres" id="get_padres"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method no_cache</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+	
+		
+	
+	<span class="method-title">get_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void no_cache(
+		<code>void get_padres(
+
+$nodo&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
 		
 		<br />
 </div>
-<a name="methodpdf" id="pdf"><!-- --></a>
+<a name="methodmostrar" id="mostrar"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+	
+		
+	
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void pdf(
+		<code>void mostrar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../SalidaGrafica/toba_menu.html#methodmostrar">toba_menu::mostrar()</a></dt>
+						<dd>Muestra el contenido del menu</dd>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodplantilla_css" id="plantilla_css"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">plantilla_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void plantilla_css(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../SalidaGrafica/toba_menu.html#methodplantilla_css">toba_menu::plantilla_css()</a></dt>
+						<dd>Ventana para retornar nombre de los .css a incluir</dd>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodpreparar_arbol" id="preparar_arbol"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">preparar_arbol</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void preparar_arbol(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -321,8 +459,13 @@
 		
 		<br />
 </div>
-
 		</div>
+	</div>
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Propiedades</div>
+		<div class="info-box-body">
+					</div>
 	</div>
 
 

@@ -479,6 +479,12 @@
 											<span class="method-definition"></span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#var$modo_descripcion_tooltip">toba_ei::$modo_descripcion_tooltip</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#var$objeto_js">toba_ei::$objeto_js</a></span>
 										</dt>
 										<dd>
@@ -761,10 +767,22 @@
 											<span class="method-definition">Determina si el componente podra ser colapsado/descolapsado por el usuario</span>
 										</dd>
 																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_descripcion">toba_ei::set_descripcion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia la descripción del componente para el servicio actual</span>
+										</dd>
+																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_grupo_eventos_activo">toba_ei::set_grupo_eventos_activo()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition">Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo</span>
+										</dd>
+																			<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_modo_descripcion">toba_ei::set_modo_descripcion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip)</span>
 										</dd>
 																			<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_titulo">toba_ei::set_titulo()</a></span>
@@ -990,7 +1008,7 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_descripcion" title="details" class="method-name">get_descripcion</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_info_extra" title="details" class="method-name">get_info_extra</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la descripción de esta pantalla</td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -1052,7 +1070,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1107,7 +1125,7 @@ $objeto_js&nbsp;
 		<br />
 </div>
 <a name="methodagregar_dep" id="agregar_dep"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1145,7 +1163,7 @@ $id_obj&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_dep" id="eliminar_dep"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1183,7 +1201,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_tab" id="eliminar_tab"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -1229,7 +1247,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_html" id="generar_html"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1255,7 +1273,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodgenerar_layout" id="generar_layout"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
@@ -1289,20 +1307,20 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_descripcion" id="get_descripcion"><!-- --></a>
-<div class="evenrow">
+<a name="methodget_info_extra" id="get_info_extra"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+	<span class="method-title">get_info_extra</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>string get_descripcion(
+		<code>string get_info_extra(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1316,7 +1334,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_dependencias" id="get_lista_dependencias"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1342,7 +1360,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tabs" id="get_lista_tabs"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -1376,7 +1394,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodset_controlador" id="set_controlador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1425,7 +1443,7 @@ $id_en_padre = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1459,11 +1477,16 @@ $descr&nbsp;
 	<br />
 	
 
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Eis/toba_ei.html#methodset_descripcion">toba_ei::set_descripcion()</a></dt>
+						<dd>Cambia la descripción del componente para el servicio actual</dd>
+					</dl>
 		
 		<br />
 </div>
 <a name="methodtab" id="tab"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -1509,7 +1532,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodvista_impresion" id="vista_impresion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		

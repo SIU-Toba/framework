@@ -1,6 +1,11 @@
 <?
 require_once("toba_db.php");
 
+/**
+ * Driver de conexión con postgres
+ * @package Fuentes
+ * @subpackage Drivers
+ */
 class toba_db_postgres7 extends toba_db
 {
 	function __construct($profile, $usuario, $clave, $base)

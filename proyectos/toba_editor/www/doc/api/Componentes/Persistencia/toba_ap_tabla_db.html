@@ -413,15 +413,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a></td>
-					<td>
-											Clase que se mantiene por compatibildad hacia atrás
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_mt.html">toba_ap_tabla_db_mt</a></td>
 					<td>
 											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">toba_ap_tabla_db_s</a></td>
+					<td>
+											Clase que se mantiene por compatibildad hacia atrás
 										</td>
 				</tr>
 							</table>
@@ -529,7 +529,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ejecutar_sql" title="details" class="method-name">ejecutar_sql</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Shortcut de <a href="../../Centrales/toba_db.html#methodejecutar">toba::db()->ejecutar</a></td></tr>
+						<td class="method-definition">Shortcut de <a href="../../Fuentes/toba_db.html#methodejecutar">toba::db()->ejecutar</a></td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
@@ -955,7 +955,7 @@ $sincro_continua = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 262]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 267]</span>
 </div>
 <br />
 
@@ -965,7 +965,8 @@ $sincro_continua = true]&nbsp;
 		<code>boolean cargar_con_datos(
 array
 $datos, [boolean
-$anexar_datos = false]&nbsp;
+$anexar_datos = false], [boolean
+$usar_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -986,6 +987,12 @@ $anexar_datos = false]&nbsp;
 				<span class="var-name">$anexar_datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1008,7 +1015,7 @@ $anexar_datos = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 242]</span>
+	<span class="method-title">cargar_con_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -1018,7 +1025,8 @@ $anexar_datos = false]&nbsp;
 		<code>boolean cargar_con_sql(
 
 $sql, [boolean
-$anexar_datos = false]&nbsp;
+$anexar_datos = false], [boolean
+$usar_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1033,6 +1041,12 @@ $anexar_datos = false]&nbsp;
 				<span class="var-name">$anexar_datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -1061,7 +1075,7 @@ $anexar_datos = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
+	<span class="method-title">cargar_con_where</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
 </div>
 <br />
 
@@ -1071,7 +1085,8 @@ $anexar_datos = false]&nbsp;
 		<code>boolean cargar_con_where(
 string
 $clausula, [boolean
-$anexar_datos = false]&nbsp;
+$anexar_datos = false], [boolean
+$usar_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1092,6 +1107,12 @@ $anexar_datos = false]&nbsp;
 				<span class="var-name">$anexar_datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1114,7 +1135,7 @@ $anexar_datos = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 229]</span>
+	<span class="method-title">cargar_con_where_from_especifico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -1125,7 +1146,8 @@ $anexar_datos = false]&nbsp;
 [array
 $where = null], [array
 $from = null], [boolean
-$anexar_datos = false]&nbsp;
+$anexar_datos = false], [boolean
+$usar_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1152,6 +1174,12 @@ $anexar_datos = false]&nbsp;
 				<span class="var-name">$anexar_datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1174,7 +1202,7 @@ $anexar_datos = false]&nbsp;
 	
 		    		
 	
-	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
+	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
 </div>
 <br />
 
@@ -1184,7 +1212,8 @@ $anexar_datos = false]&nbsp;
 		<code>boolean cargar_por_clave(
 array
 $clave, [boolean
-$anexar_datos = false]&nbsp;
+$anexar_datos = false], [boolean
+$usar_cursores = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1205,6 +1234,12 @@ $anexar_datos = false]&nbsp;
 				<span class="var-name">$anexar_datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1259,7 +1294,7 @@ $anexar_datos = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 535]</span>
+	<span class="method-title">ejecutar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
 </div>
 <br />
 
@@ -1273,7 +1308,7 @@ $sql&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Shortcut de <a href="../../Centrales/toba_db.html#methodejecutar">toba::db()->ejecutar</a> </div>
+	<div class="description">Shortcut de <a href="../../Fuentes/toba_db.html#methodejecutar">toba::db()->ejecutar</a> </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1307,7 +1342,7 @@ $sql&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 526]</span>
+	<span class="method-title">evt__post_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 531]</span>
 </div>
 <br />
 
@@ -1361,7 +1396,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 498]</span>
+	<span class="method-title">evt__post_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 503]</span>
 </div>
 <br />
 
@@ -1415,7 +1450,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 484]</span>
+	<span class="method-title">evt__post_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 489]</span>
 </div>
 <br />
 
@@ -1457,7 +1492,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 512]</span>
+	<span class="method-title">evt__post_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 517]</span>
 </div>
 <br />
 
@@ -1511,7 +1546,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
+	<span class="method-title">evt__pre_delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 524]</span>
 </div>
 <br />
 
@@ -1565,7 +1600,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 491]</span>
+	<span class="method-title">evt__pre_insert</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 496]</span>
 </div>
 <br />
 
@@ -1619,7 +1654,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
+	<span class="method-title">evt__pre_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 482]</span>
 </div>
 <br />
 
@@ -1661,7 +1696,7 @@ $id_registro&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 505]</span>
+	<span class="method-title">evt__pre_update</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
 </div>
 <br />
 
@@ -1713,7 +1748,7 @@ $id_registro&nbsp;
 	
 		
 	
-	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 766]</span>
+	<span class="method-title">get_sql_inserts</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 771]</span>
 </div>
 <br />
 
@@ -1854,7 +1889,7 @@ $txt&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 312]</span>
 </div>
 <br />
 
@@ -1899,7 +1934,7 @@ $txt&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 380]</span>
+	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
 </div>
 <br />
 
@@ -1938,7 +1973,7 @@ $txt&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 338]</span>
+	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
 </div>
 <br />
 
@@ -1977,7 +2012,7 @@ $txt&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
+	<span class="method-title">sincronizar_insertados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 363]</span>
 </div>
 <br />
 

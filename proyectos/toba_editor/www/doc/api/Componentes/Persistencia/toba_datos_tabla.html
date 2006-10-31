@@ -723,7 +723,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#anexar_datos" title="details" class="method-name">anexar_datos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior)</td></tr>
+						<td class="method-definition">Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior).</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -942,7 +942,7 @@
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_tabla.html">toba_ap_tabla</a></span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_persistidor" title="details" class="method-name">get_persistidor</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización</td></tr>
 																				<tr>
@@ -1057,7 +1057,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set" title="details" class="method-name">set</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Cambia el contenido de la fila donde se encuentra el cursor interno  En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella</td></tr>
+						<td class="method-definition">Cambia el contenido de la fila donde se encuentra el cursor interno  En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella  Si la fila es null, se borra la fila actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1178,7 +1178,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1089]</span>
+	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1099]</span>
 </div>
 <br />
 
@@ -1187,12 +1187,13 @@ $id&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void anexar_datos(
 array
-$datos&nbsp;
+$datos, [boolean
+$usar_cursores = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior) </div>
+	<div class="description">Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior). <p>Se asume que el set de datos llega desde el mecanismo de persistencia.</p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1202,6 +1203,12 @@ $datos&nbsp;
 				<span class="var-name">$datos:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> en formato RecordSet</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$usar_cursores:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Los datos cargados se marcan como hijos de los cursores actuales en las tablas padre, sino son hijos del padre que tenia en la base</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1261,7 +1268,7 @@ $nuevos_padres&nbsp;
 	
 		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1036]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1043]</span>
 </div>
 <br />
 
@@ -1299,7 +1306,7 @@ $clave = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1055]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1062]</span>
 </div>
 <br />
 
@@ -1338,7 +1345,7 @@ $datos&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 989]</span>
+	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 996]</span>
 </div>
 <br />
 
@@ -1372,7 +1379,7 @@ $datos&nbsp;
 	
 		    		
 	
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1141]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1161]</span>
 </div>
 <br />
 
@@ -1489,7 +1496,7 @@ $con_cursores = false]&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1129]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1149]</span>
 </div>
 <br />
 
@@ -1515,7 +1522,7 @@ $con_cursores = false]&nbsp;
 	
 		
 	
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1045]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1052]</span>
 </div>
 <br />
 
@@ -1542,7 +1549,7 @@ $con_cursores = false]&nbsp;
     		
 		
 	
-	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 959]</span>
+	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 966]</span>
 </div>
 <br />
 
@@ -1588,7 +1595,7 @@ $fila&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 876]</span>
+	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 883]</span>
 </div>
 <br />
 
@@ -1685,7 +1692,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1285]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1305]</span>
 </div>
 <br />
 
@@ -1711,7 +1718,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 841]</span>
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 848]</span>
 </div>
 <br />
 
@@ -1737,7 +1744,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1229]</span>
+	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1249]</span>
 </div>
 <br />
 
@@ -1933,7 +1940,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1202]</span>
+	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1222]</span>
 </div>
 <br />
 
@@ -2144,7 +2151,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1211]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1231]</span>
 </div>
 <br />
 
@@ -2358,14 +2365,14 @@ $id_fila&nbsp;
 	
 		
 	
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1010]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1017]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code><a href="../../Componentes/Persistencia/toba_ap_tabla.html">toba_ap_tabla</a> get_persistidor(
+		<code><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a> get_persistidor(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -2436,7 +2443,7 @@ $id_fila&nbsp;
 	
 		
 	
-	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1219]</span>
+	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1239]</span>
 </div>
 <br />
 
@@ -2715,7 +2722,7 @@ $id_nuevo = null]&nbsp;
 	
 		
 	
-	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1246]</span>
+	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1266]</span>
 </div>
 <br />
 
@@ -2780,7 +2787,7 @@ $filas&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1297]</span>
+	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1317]</span>
 </div>
 <br />
 
@@ -2859,7 +2866,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1150]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1170]</span>
 </div>
 <br />
 
@@ -2911,7 +2918,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 827]</span>
+	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 828]</span>
 </div>
 <br />
 
@@ -2925,7 +2932,7 @@ $fila&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Cambia el contenido de la fila donde se encuentra el cursor interno  En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella </div>
+	<div class="description">Cambia el contenido de la fila donde se encuentra el cursor interno  En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella  Si la fila es null, se borra la fila actual </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -2934,7 +2941,7 @@ $fila&nbsp;
 				<td>
 				<span class="var-name">$fila:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Contenido total o parcial de la fila a crear o modificar</span>			</td></tr>
+				<span class="var-description"> Contenido total o parcial de la fila a crear o modificar (si es null borra la fila actual)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3205,7 +3212,7 @@ $cantidad&nbsp;
 	
 		    		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1119]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1139]</span>
 </div>
 <br />
 
@@ -3239,7 +3246,7 @@ $cantidad&nbsp;
 	
 		
 	
-	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 940]</span>
+	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 947]</span>
 </div>
 <br />
 

@@ -389,10 +389,17 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/componentes/interface/toba_ei.php [<span class="field">line 21</span>]
+			Ubicada en /nucleo/componentes/interface/toba_ei.php [<span class="field">line 22</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
-			
+				
+		<tr>
+			<td colspan="2"><strong><a href='../../../wiki/trac/toba/wiki/Referencia/Objetos.html'>
+				<img border='0' style='vertical-align: middle' src="../../media/wiki-small.png" />
+													Documentación WIKI
+									</a></strong></td></tr>
+		
+				
 			
 		<tr><td colspan="2"><a href='../../../api_js/ei.html'>
 		<img border='0' style='vertical-align: middle' src="../../media/javascript-small.png" />
@@ -418,39 +425,9 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_calendario.html">toba_ei_calendario</a></td>
-					<td>
-											Calendario para visualizar contenidos diarios y seleccionar días o semanas.
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_archivos.html">toba_ei_archivos</a></td>
-					<td>
-											Permite navegar el sistema de archivos del servidor bajo una carpeta dada
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_pantalla.html">toba_ei_pantalla</a></td>
 					<td>
 											Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_arbol.html">toba_ei_arbol</a></td>
-					<td>
-											Muestra un árbol donde el usuario puede colapsar/descolapsar niveles  Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX  Cada nodo debe implementar la interfaz toba_nodo_arbol
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_esquema.html">toba_ei_esquema</a></td>
-					<td>
-											Genera un esquema utilizando GraphViz
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ci.html">toba_ci</a></td>
-					<td>
-											Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
 										</td>
 				</tr>
 								<tr>
@@ -460,9 +437,39 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ci.html">toba_ci</a></td>
+					<td>
+											Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_archivos.html">toba_ei_archivos</a></td>
+					<td>
+											Permite navegar el sistema de archivos del servidor bajo una carpeta dada
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_arbol.html">toba_ei_arbol</a></td>
+					<td>
+											Muestra un árbol donde el usuario puede colapsar/descolapsar niveles  Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX  Cada nodo debe implementar la interfaz toba_nodo_arbol
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_formulario.html">toba_ei_formulario</a></td>
 					<td>
 											Un formulario simple presenta una grilla de campos editables.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_esquema.html">toba_ei_esquema</a></td>
+					<td>
+											Genera un esquema utilizando GraphViz
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_calendario.html">toba_ei_calendario</a></td>
+					<td>
+											Calendario para visualizar contenidos diarios y seleccionar días o semanas.
 										</td>
 				</tr>
 							</table>
@@ -778,7 +785,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																													<tr>
+																																																																																																																																																																																																																																																																															<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -942,8 +949,22 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_descripcion" title="details" class="method-name">set_descripcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia la descripción del componente para el servicio actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_grupo_eventos_activo" title="details" class="method-name">set_grupo_eventos_activo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Activa un grupo de eventos, excluyendo a aquellos eventos que no pertenecen al mismo</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_modo_descripcion" title="details" class="method-name">set_modo_descripcion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip)</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -988,7 +1009,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
 </div>
 <br />
 
@@ -1024,31 +1045,31 @@ $definicion&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -1059,7 +1080,7 @@ $definicion&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
+	<span class="method-title">agregar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 122]</span>
 </div>
 <br />
 
@@ -1097,7 +1118,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">cant_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 
@@ -1123,7 +1144,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 352]</span>
+	<span class="method-title">colapsar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 356]</span>
 </div>
 <br />
 
@@ -1149,7 +1170,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 58]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
@@ -1175,23 +1196,23 @@ $id&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+				<a href="../../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
 							</li>
 				</ul>
 		<br />
@@ -1202,7 +1223,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
+	<span class="method-title">eliminar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
 </div>
 <br />
 
@@ -1240,7 +1261,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+	<span class="method-title">evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -1287,7 +1308,7 @@ $id&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">extender_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 501]</span>
+	<span class="method-title">extender_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 532]</span>
 </div>
 <br />
 
@@ -1327,7 +1348,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
+	<span class="method-title">generar_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 341]</span>
 </div>
 <br />
 
@@ -1372,7 +1393,7 @@ $excluir_botonera = true]&nbsp;
 	
 		
 	
-	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 291]</span>
+	<span class="method-title">generar_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 293]</span>
 </div>
 <br />
 
@@ -1411,7 +1432,7 @@ $clase = '']&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 302]</span>
+	<span class="method-title">generar_botones_eventos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
 </div>
 <br />
 
@@ -1445,7 +1466,7 @@ $clase = '']&nbsp;
 	
 		
 	
-	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+	<span class="method-title">generar_html_barra_sup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
 </div>
 <br />
 
@@ -1498,7 +1519,7 @@ $estilo = &quot;&quot;]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 317]</span>
+	<span class="method-title">generar_html_boton</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
 </div>
 <br />
 
@@ -1544,7 +1565,7 @@ $evento&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
+	<span class="method-title">get_eventos_sobre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
 </div>
 <br />
 
@@ -1578,7 +1599,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 242]</span>
+	<span class="method-title">get_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 244]</span>
 </div>
 <br />
 
@@ -1604,7 +1625,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 444]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 475]</span>
 </div>
 <br />
 
@@ -1630,7 +1651,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 482]</span>
+	<span class="method-title">get_id_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 513]</span>
 </div>
 <br />
 
@@ -1656,7 +1677,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">get_lista_eventos_internos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
 </div>
 <br />
 
@@ -1682,7 +1703,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
+	<span class="method-title">get_lista_eventos_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
 </div>
 <br />
 
@@ -1708,7 +1729,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+	<span class="method-title">hay_botones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
 </div>
 <br />
 
@@ -1735,7 +1756,7 @@ $evento&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">reportar_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
 </div>
 <br />
 
@@ -1781,7 +1802,7 @@ $evento&nbsp;
 	
 		
 	
-	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 362]</span>
+	<span class="method-title">set_colapsable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 366]</span>
 </div>
 <br />
 
@@ -1813,13 +1834,58 @@ $colapsable&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_grupo_eventos_activo" id="set_grupo_eventos_activo"><!-- --></a>
+<a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 234]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_descripcion(
+
+$desc&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia la descripción del componente para el servicio actual </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$desc:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_pantalla.html#methodset_descripcion">toba_ei_pantalla::set_descripcion()</a>
+								: Cambia la descripción de esta pantalla
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodset_grupo_eventos_activo" id="set_grupo_eventos_activo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_grupo_eventos_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
 </div>
 <br />
 
@@ -1851,13 +1917,51 @@ $grupo&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_modo_descripcion" id="set_modo_descripcion"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_modo_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 394]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_modo_descripcion(
+[boolean
+$tooltip = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia el modo en el que se muestra la descripción del componente (por defecto con un tooltip) </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tooltip:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Si es false la descripción se muestra como una barra aparte</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_titulo" id="set_titulo"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 373]</span>
+	<span class="method-title">set_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
 </div>
 <br />
 
@@ -1895,7 +1999,7 @@ $titulo&nbsp;
 	
 		
 	
-	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 530]</span>
+	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 561]</span>
 </div>
 <br />
 
@@ -1939,7 +2043,7 @@ $salida&nbsp;
 	
 		
 	
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 571]</span>
 </div>
 <br />
 

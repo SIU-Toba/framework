@@ -71,21 +71,6 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
-	    			<a href="../Centrales/toba_db.html">					db
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_informix.html">					db_informix
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_mysql.html">					db_mysql
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_odbc.html">					db_odbc
-					</a>    		
-	 <br />
-	    			<a href="../Centrales/toba_db_postgres7.html">					db_postgres7
-					</a>    		
-	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -156,6 +141,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud.html">					solicitud
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_solicitud_accion.html">					solicitud_accion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_consola.html">					solicitud_consola
@@ -289,7 +277,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																		<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																																																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -374,11 +362,26 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_proyecto" title="details" class="method-name">get_proyecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">Excepcion</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#iniciar" title="details" class="method-name">iniciar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Intenta iniciar la sesion de un par usuario/clave</td></tr>
+																				<tr>
+						<td nowrap align="right">
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
+						    																
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#iniciar_contexto" title="details" class="method-name">iniciar_contexto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana de inicializacion del contexto de ejecucion del proyecto</td></tr>
 																													<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -530,7 +533,7 @@ $clase = 'toba_sesion']&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">conf__actualizar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
+	<span class="method-title">conf__actualizar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
 </div>
 <br />
 
@@ -572,7 +575,7 @@ $clase = 'toba_sesion']&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">conf__fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">conf__fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
 </div>
 <br />
 
@@ -614,7 +617,7 @@ $clase = 'toba_sesion']&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">conf__inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
+	<span class="method-title">conf__inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
 </div>
 <br />
 
@@ -693,7 +696,7 @@ $usuario&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">controlar_fin_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">controlar_fin_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -726,7 +729,7 @@ $usuario&nbsp;
 	
 		    		
 	
-	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -772,7 +775,7 @@ $observaciones = &quot;&quot;]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
+	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -806,7 +809,7 @@ $observaciones = &quot;&quot;]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
 </div>
 <br />
 
@@ -825,13 +828,38 @@ $observaciones = &quot;&quot;]&nbsp;
 		
 		<br />
 </div>
-<a name="methodiniciar" id="iniciar"><!-- --></a>
+<a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_proyecto(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodiniciar" id="iniciar"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -878,6 +906,39 @@ $clave = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodiniciar_contexto" id="iniciar_contexto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
+    		
+		
+	
+	<span class="method-title">iniciar_contexto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void iniciar_contexto(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ventana de inicializacion del contexto de ejecucion del proyecto </div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
 <a name="methodvalidar_dia" id="validar_dia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
@@ -885,7 +946,7 @@ $clave = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">validar_dia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
+	<span class="method-title">validar_dia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
 </div>
 <br />
 
@@ -931,7 +992,7 @@ $dias&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">validar_horario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 272]</span>
+	<span class="method-title">validar_horario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
 </div>
 <br />
 
@@ -984,7 +1045,7 @@ $hora_salida&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">validar_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
+	<span class="method-title">validar_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 272]</span>
 </div>
 <br />
 
@@ -1030,7 +1091,7 @@ $ip&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">validar_vencimiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
+	<span class="method-title">validar_vencimiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 245]</span>
 </div>
 <br />
 

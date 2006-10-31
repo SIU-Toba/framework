@@ -9,11 +9,13 @@ define("apex_sql_where","%w%");
 define("apex_sql_from","%f%");
 
 /**
-*	Representa una conexión a la base de datos 
+* Representa una conexión a la base de datos. Permite ejecutar comandos y consultas SQL
+* En forma predeterminada utiliza los drivers PDO que tiene php desde la versión 5.1
+* @package Fuentes
 */
 class toba_db
 {
-	protected $conexion;			//Conexion ADOdb
+	protected $conexion;	//Recurso
 	protected $motor;
 	protected $profile;
 	protected $usuario;
