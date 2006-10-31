@@ -4,7 +4,7 @@ require_once("nucleo/componentes/toba_componente.php");
 /**
  * Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
  * 
- * Separar la carga y utilizacion de los datos (inicio y fin de una transaccion de negocios)
+ * Separar la carga y utilización de los datos (inicio y fin de una transaccion de negocios)
  * permite:
  *  -Lograr una maxima independencia entre la logica de pantalla y de la de negocio, 
  *  -Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes
