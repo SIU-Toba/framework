@@ -194,13 +194,14 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 *
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
+	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
-	function cargar_por_clave($clave, $anexar_datos=false)
+	function cargar_por_clave($clave, $anexar_datos=false, $usar_cursores=false)
 	{
 		toba_asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where($clave);
-		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos);
+		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos, $usar_cursores);
 	}
 
 
@@ -208,15 +209,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 * Carga el datos_tabla asociaciado a partir de una clausula where personalizada
 	 * @param string $clausula Cláusula where que será anexada con un AND a las cláusulas básicas de la tabla
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
+	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningun registro
 	 */
-	function cargar_con_where($clausula, $anexar_datos=false)
+	function cargar_con_where($clausula, $anexar_datos=false, $usar_cursores=false)
 	{
 		$where_basico = $this->generar_clausula_where();
 		if (trim($clausula) != '') {
 			$where_basico[] = $clausula;
 		}
-		return $this->cargar_con_where_from_especifico($where_basico, null, $anexar_datos);
+		return $this->cargar_con_where_from_especifico($where_basico, null, $anexar_datos, $usar_cursores);
 	}
 
 	/**
@@ -224,22 +226,24 @@ class toba_ap_tabla_db implements toba_ap_tabla
  	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
+	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false)
+	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false, $usar_cursores=false)
 	{
 		toba_asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
 		toba_asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
 		$sql = $this->generar_sql_select($where, $from);
-		return $this->cargar_con_sql($sql, $anexar_datos);
+		return $this->cargar_con_sql($sql, $anexar_datos, $usar_cursores);
 	}
 
 	/**
 	 * Carga el datos_tabla asociado CON una query SQL directa
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
+	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningún registro
 	 */
-	function cargar_con_sql($sql, $anexar_datos=false)
+	function cargar_con_sql($sql, $anexar_datos=false, $usar_cursores=false)
 	{
 		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
@@ -250,16 +254,17 @@ class toba_ap_tabla_db implements toba_ap_tabla
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new toba_error('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
 		}
-		return $this->cargar_con_datos($datos, $anexar_datos);
+		return $this->cargar_con_datos($datos, $anexar_datos, $usar_cursores);
 	}
 	
 	/**
 	 * Carga el datos_tabla asociado CON un conjunto de datos especifico
 	 * @param array $datos Datos a cargar en formato RecordSet. No incluye las columnas externas.
 	 * @param boolean $anexar_datos Si es false borra todos los datos actuales de la tabla, sino los mantiene y adjunto los nuevos
+	 * @param boolean $usar_cursores En caso de anexar datos, fuerza a que los padres de la fila sean los cursores actuales de las tablas padre
 	 * @return boolean Falso si no se encontro ningún registro
 	 */	
-	function cargar_con_datos($datos, $anexar_datos=false)
+	function cargar_con_datos($datos, $anexar_datos=false, $usar_cursores=false)
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
@@ -281,7 +286,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 			// Lleno la TABLA
 			if( $anexar_datos ) {
-				$this->objeto_tabla->anexar_datos($datos);
+				$this->objeto_tabla->anexar_datos($datos, $usar_cursores);
 			} else {
 				$this->objeto_tabla->cargar_con_datos($datos);
 			}
@@ -652,7 +657,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if (isset($this->sql_carga)) {
 			return $this->generar_sql_select($this->sql_carga['where'], $this->sql_carga['from'], $campos);
 		} else {
-			throw new toba_error("AP-TABLA Db: La tabla no ha sido cargada anteriormente");
+			throw new toba_error("AP-TABLA Db: La tabla no ha sido cargada en este pedido de página");
 		}
 	}
 	

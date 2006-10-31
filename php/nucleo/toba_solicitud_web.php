@@ -217,7 +217,6 @@ class toba_solicitud_web extends toba_solicitud
 			}
 			//--- Fin del form y parte inferior del tipo de página
 			echo toba_form::cerrar();
-
 		} else {
 			include($accion);	
 		}

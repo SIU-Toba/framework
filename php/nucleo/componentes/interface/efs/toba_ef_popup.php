@@ -75,9 +75,6 @@ class toba_ef_popup extends toba_ef_editable
 			$this->solo_lectura = 1;
 		}
 		$this->descripcion_estado = $descripcion;		
-		if (!isset($this->estado)) {
-			$this->estado = $descripcion;
-		}
 	}
 	
 	function get_input()

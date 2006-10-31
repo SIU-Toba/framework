@@ -131,6 +131,8 @@ class toba_ei_formulario extends toba_ei
 				$this->elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->info_formulario_ef[$a]['etiqueta_estilo'] );
 			}
 		}
+		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
+		$this->registrar_cascadas();
 	}
 	
 	/**

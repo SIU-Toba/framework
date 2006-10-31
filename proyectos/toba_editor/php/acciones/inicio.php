@@ -69,16 +69,16 @@ echo '<div style="text-align:left">';
 	$url_trac = admin_util::get_url_desarrollos();
 	$url_login = $url_trac.'/trac/toba/login';
 	$trac = array();
-	$trac[] = array('url' => array('Documentación online de la última versión' => $url_trac.'/trac/toba/wiki/*'.$url_login,
+	$trac[] = array('url' => array('Documentación online de la última versión' => $url_trac.'/trac/toba/wiki*'.$url_login,
 								),
 					'img' => 'admin/botones/wiki80.png', 'frame' => 'trac');
-	$trac[] = array('url' => array('Planificación de versiones futuras' => $url_trac.'/trac/toba/roadmap/*'.$url_login,
+	$trac[] = array('url' => array('Planificación de versiones futuras' => $url_trac.'/trac/toba/roadmap*'.$url_login,
 								),
 					'img' => 'admin/botones/roadmap80.png', 'frame' => 'trac');
-	$trac[] = array('url' => array('Bugs y mejoras pendientes' => $url_trac.'/trac/toba/report/3/*'.$url_login,
+	$trac[] = array('url' => array('Bugs y mejoras pendientes' => $url_trac.'/trac/toba/report/3*'.$url_login,
 								),
 					'img' => 'admin/botones/tickets80.png', 'frame' => 'trac');
-	$trac[] = array('url' => array('Línea de tiempo del proyecto' =>$url_trac.'/trac/toba/timeline/*'.$url_login,
+	$trac[] = array('url' => array('Línea de tiempo del proyecto' =>$url_trac.'/trac/toba/timeline*'.$url_login,
 								),
 							'img' => 'admin/botones/timeline80.png', 'frame' => 'trac');
 	$trac[] = array('url' => array('Documentación de la API de la última versión' => $url_trac.'/toba_trunk/doc/api/index.html',

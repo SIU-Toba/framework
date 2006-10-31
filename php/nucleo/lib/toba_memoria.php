@@ -76,20 +76,7 @@ class toba_memoria
             //del sistema implica que las cosas funcionen mal!
         }
 		//-[2]- Que ITEM se solicito?
-		if(isset($_GET[apex_hilo_qs_item])){
-			$item = explode(apex_qs_separador,$_GET[apex_hilo_qs_item]);
-            if(count($item)==0){
-				$this->item_solicitado = null;
-			}elseif(count($item)==2){
-				//Dos parametros es OK!
-				$this->item_solicitado = $item;
-				$this->item_solicitado_original = $item;
-			}else{
-				$this->item_solicitado = null;
-			}
-		}else{
-            $this->item_solicitado = null;//No hay parametro
-        }
+		$this->item_solicitado = self::get_item_solicitado_original();
 		//-[3]- Recupero los parametros
 		$this->parametros = array();
 		foreach (array_keys($_GET) as $clave) {
@@ -263,9 +250,20 @@ class toba_memoria
 	 * @see get_item_solicitado
 	 * @return array [0]=>proyecto, [1]=>id_item
 	 */	
-	function get_item_solicitado_original()
+	static function get_item_solicitado_original()
 	{
-		return $this->item_solicitado_original;
+		if (isset($_GET[apex_hilo_qs_item])){
+			$item = explode(apex_qs_separador,$_GET[apex_hilo_qs_item]);
+            if(count($item)==0){
+				return null;
+			} elseif(count($item)==2){
+				return $item;
+			}else{
+				return null;
+			}
+		}else{
+            return null;//No hay parametro
+        }		
 	}
 	
 
@@ -440,9 +438,11 @@ class toba_memoria
 	 * No es una buena opción para guardar información de la aplicación sino mas bien cosas relacionadas con la seguridad
 	 * y funcioanmiento interno del framework
 	 */
-	function set_dato_sincronizado($indice, $datos)
+	function set_dato_sincronizado($indice, $datos, $celda=null)
 	{
-		$celda = $this->get_celda_memoria_actual();
+		if (!isset($celda)) {
+			$celda = $this->get_celda_memoria_actual();
+		}
 		$_SESSION[$celda]["hilo"][$this->id][$indice]=$datos;
 	}
 	

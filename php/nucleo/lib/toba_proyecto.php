@@ -11,14 +11,25 @@ require_once('toba_instancia.php');
 class toba_proyecto
 {
 	static private $instancia;
+	static private $id_proyecto;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
 	{
-		if(! defined('apex_pa_proyecto') ){
-			throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
+		if (! isset(self::$id_proyecto)) {
+			$item = toba_memoria::get_item_solicitado_original();
+			//-- El proyecto viene por url
+			if (isset($item) && isset($item[0])) {
+				self::$id_proyecto = $item[0];
+			} else {
+				//--- Si no viene por url, se toma la constante
+				if(! defined('apex_pa_proyecto') ){
+					throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
+				} 
+				self::$id_proyecto = apex_pa_proyecto;
+			}
 		}
-		return apex_pa_proyecto;
+		return self::$id_proyecto;
 	}
 	
 	/**

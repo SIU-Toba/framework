@@ -1012,7 +1012,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Retorna el admin. de persistencia que asiste a este objeto durante la sincronización
-	 * @return toba_ap_tabla
+	 * @return toba_ap_tabla_db
 	 */
 	function get_persistidor()
 	{
@@ -1090,7 +1090,9 @@ class toba_datos_tabla extends toba_componente
 	}
 
 	/**
-	 * Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior)
+	 * Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior). 
+	 * Se asume que el set de datos llega desde el mecanismo de persistencia.
+	 * 
 	 * @param array $datos en formato RecordSet
 	 * @param boolean $usar_cursores Los datos cargados se marcan como hijos de los cursores actuales en las tablas padre, sino son hijos del padre que tenia en la base 
 	 */
