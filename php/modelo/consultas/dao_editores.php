@@ -520,8 +520,7 @@ class dao_editores
 		$sql = "SELECT proyecto, solicitud_obs_tipo, 
 						descripcion 
 				FROM apex_solicitud_obs_tipo 
-				WHERE (criterio = 'item' OR criterio='sistema')
-				AND ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' ) ";
+				WHERE ( proyecto = 'toba' OR proyecto = '". contexto_info::get_proyecto() ."' ) ";
 		return contexto_info::get_db()->consultar($sql);
 	}
 

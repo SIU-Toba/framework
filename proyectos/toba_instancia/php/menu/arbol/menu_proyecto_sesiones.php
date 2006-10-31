@@ -52,7 +52,7 @@ class menu_proyecto_sesiones implements toba_nodo_arbol
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3336, null, $opciones ),
+			'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3336, array('proyecto'=>$this->proyecto), $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

@@ -3,7 +3,7 @@ require_once("nucleo/lib/toba_memoria.php");
 require_once("nucleo/lib/toba_vinculador.php");
 
 /**
- * Una solicitud es la representación de una operación o item en runtime
+ * Una solicitud es la representación de una operación o item accedida por un usuario en runtime
  * Contiene e instancia a los componentes de la operación
  * 
  * @package Centrales
@@ -16,18 +16,13 @@ abstract class toba_solicitud
 	protected $indice_objetos;					//Indice	de	objetos asociados	por CLASE
 	protected $objetos = array();				//Objetos standarts asociados	al	ITEM
 	protected $objetos_indice_actual = 0;		//Posicion actual	del array de objetos	
-	protected $observaciones;					//Array de observaciones realizadas	durante la solicitud	
+	protected $observaciones = array();			//Array de observaciones realizadas	durante la solicitud	
 	protected $registrar_db;					//Indica	si	se	va	a registrar	la	solicitud
 	protected $cronometrar;						//Indica	si	se	va	a registrar	el	cronometro de la solicitud	
 	protected $log;								//Objeto que mantiene el log de la ejecucion
 
 	function __construct($item, $usuario)	
 	{
-		//Le pregunto al HILO si se solicito cronometrar la PAGINA
-		if(toba::memoria()->usuario_solicita_cronometrar()){
-			$this->registrar_db = true;
-			$this->cronometrar = true;
-		}		
 		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		$this->item = $item;
 		$this->usuario = $usuario;
@@ -40,23 +35,29 @@ abstract class toba_solicitud
 
 		$this->id =	toba_instancia::get_id_solicitud();
 
-		//--- Identifico si la solicitd se deber registrar
+		//-- Cargo los OBJETOS que se encuentran asociados
+		$this->log = toba::logger();
+
+		//---------- LOG de SOlICITUDES --------------------
+		//Se debe cronometrar la pagina?
+		if(toba::memoria()->usuario_solicita_cronometrar()){
+			$this->registrar_db = true;
+			$this->cronometrar = true;
+		}		
+		//-- Identifico si la solicitd se deber registrar
 		if ($this->info['basica']['item_solic_registrar']) {
 			$this->registrar_db	= true;
 		}
+		/*
+		//-- Observaciones automaticas? -> en espera a algun requerimiento que le de forma al esquema
+		if( $this->info['basica']['item_solic_registrar'] && $this->info['basica']['item_solic_obs_tipo']){
+			$tipo = array($this->info['basica']['item_solic_obs_tipo_proyecto'],$this->info['basica']['item_solic_obs_tipo']);
+			$this->observar($this->info['basica']['item_solic_observacion'],$tipo);
+		}*/
 
-		//--- Identifico si la solicitud tiene que	realizar	observaciones
-		if(isset($this->info['basica']['item_solic_obs_tipo'])){
-			$tipo	= array($this->info['basica']['item_solic_obs_tipo_proyecto'],$this->info['basica']['item_solic_obs_tipo']);
-			$this->observar($tipo,$this->info['basica']['item_solic_observacion'],false,false);
-		}
-
-		//--- Cargo los OBJETOS que se encuentran asociados
-		$this->log = toba::logger();
-		toba::cronometro()->marcar('SOLICITUD: Cargar	info ITEM',apex_nivel_nucleo);
+		toba::cronometro()->marcar('SOLICITUD: Creacion',apex_nivel_nucleo);
 	}
 	
-
 	/**
 	 * Construye un componente y lo mantiene en un slot interno
 	 *
@@ -110,49 +111,38 @@ abstract class toba_solicitud
 
 	function registrar()	
 	{
-		if($this->registrar_db) {
+		if($this->registrar_db || (count($this->observaciones) > 0) ) {
 			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
-			// Solicitud
+			// Guardo solicitud
 			toba_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
-												$this->info['basica']['item'], $this->get_tipo());
-			// Cronometro
+													$this->info['basica']['item'], $this->get_tipo());
+			// Guardo cronometro
 			if($this->cronometrar){	
 				toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
 			}
-			// Observaciones
+			// Guardo observaciones
 			if(count($this->observaciones)>0) {
 				for($i=0;$i<count($this->observaciones);$i++) {
-					$tipo[0] = $this->observaciones[$i][0][0];
-					$tipo[1] = $this->observaciones[$i][0][1];
-					toba_instancia::registrar_solicitud_observaciones($this->info['basica']['item_proyecto'], $this->id, $tipo, $this->observaciones[$i][1]);
+					toba_instancia::registrar_solicitud_observaciones(	$this->info['basica']['item_proyecto'], 
+																		$this->id, 
+																		$this->observaciones[$i]['tipo'], 
+																		$this->observaciones[$i]['observacion'] );
 				}
 			}
 		}
 	}
 
 	/**
-	 * @deprecated Esperando una refactorización en versiones futuras
+	 * Permite asociar observaciones al registro de la solicitud actual
 	 */
-	function observar($tipo,$observacion,$forzar_registro=true,$mostrar=true,$cortar_ejecucion=false)
+	function observar($observacion, $tipo=null)
 	{
-		if(!is_array($tipo)){
-			$tipo	= array("toba","error");
+		if(!isset($tipo)){
+			$tipo = array('toba','info');
+		}else{
+			$tipo = array(toba::proyecto()->get_id(), $tipo);		
 		}
-		if($forzar_registro)	$this->registrar_db=true;
-		if($mostrar){
-			if( $this->get_tipo() =="consola"){
-				echo $observacion	."\n";	
-			}else {	
-				echo ei_mensaje($observacion,$tipo);
-			}
-		}	
-		$this->observaciones[] = array($tipo,$observacion);
-		//ei_arbol($this->observaciones);
-		if($cortar_ejecucion){
-			//Corto la ejecucion	de	la	solicitud
-			$this->registrar_db();
-			exit();
-		}
+		$this->observaciones[] = array('tipo'=>$tipo,'observacion'=>$observacion);
 	}
 
 	//----------------------------------------------------------

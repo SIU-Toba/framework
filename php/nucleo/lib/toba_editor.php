@@ -214,6 +214,8 @@ class toba_editor
 					}
 					if (sujeto.opener) {
 						sujeto = sujeto.opener;
+					} else if (sujeto.top.opener) {
+						sujeto = sujeto.top.opener;
 					} else {
 						//-- No hay mas padres, me rindo
 						rendido = true;
