@@ -871,13 +871,13 @@ class toba_ei_formulario extends toba_ei
 	protected function generar_etiqueta_ef($ef)
 	{
 		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
+		$marca ='';		
 		if ($estilo == '') {
 	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
 	    	        $estilo = 'ei-form-etiq-oblig';
 					$marca = '(*)';
         	} else {
 	            $estilo = 'ei-form-etiq';
-				$marca ='';
     	    }
 		}
 		$desc = $this->elemento_formulario[$ef]->get_descripcion();
