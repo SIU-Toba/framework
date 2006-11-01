@@ -74,7 +74,7 @@ class consultas_instancia
 					WHERE se.proyecto = '$proyecto'
 					$where
 					GROUP BY 1,2,3,4,5
-					ORDER BY 3 DESC;";
+					ORDER BY ingreso DESC;";
 		return toba::db()->consultar($sql);		
 	}
 
@@ -84,33 +84,39 @@ class consultas_instancia
 				SELECT	s.solicitud as id,
 						s.item_proyecto as item_proyecto,
 						s.item as item,
+						i.nombre as item_nombre,
 						s.momento as momento,
 						s.tiempo_respuesta as tiempo,
 						count(so.solicitud_observacion) as observaciones
-				FROM 	apex_solicitud s,
-						apex_solicitud_browser sb
+				FROM 	apex_solicitud_browser sb,
+						apex_item i,
+						apex_solicitud s
 						LEFT OUTER JOIN apex_solicitud_observacion so
-							ON sb.solicitud_browser = so.solicitud_observacion
-							AND sb.solicitud_proyecto = so.proyecto
+							ON s.solicitud = so.solicitud
+							AND s.proyecto = so.proyecto
 				WHERE	s.solicitud = sb.solicitud_browser
 				AND	s.proyecto = sb.solicitud_proyecto
+				AND	s.item = i.item
+				AND s.item_proyecto = i.proyecto
 				AND	sb.sesion_browser = '$sesion'
-				GROUP BY 1,2,3,4,5
-				ORDER BY 4 DESC;";
+				GROUP BY 1,2,3,4,5,6
+				ORDER BY s.momento DESC;";
 		return toba::db()->consultar($sql);		
 	}
 	
 	static function get_solicitud_observaciones($solicitud)
 	{
 		$sql = "
-				SELECT 	observacion,
+				SELECT 	solicitud_observacion,
+						observacion,
 						ot.descripcion
 				FROM apex_solicitud_observacion o
 					LEFT OUTER JOIN apex_solicitud_obs_tipo ot
 						ON ot.solicitud_obs_tipo = o.solicitud_obs_tipo
 						AND ot.proyecto = o.solicitud_obs_tipo_proyecto
-				WHERE o.solicitud_observacion = '$solicitud';";
-		return toba::db()->consultar($sql);		
+				WHERE o.solicitud = '$solicitud'
+				ORDER BY 1;";
+		return toba::db()->consultar($sql);
 	}
 	
 	static function get_solicitudes_consola($proyecto, $filtro)

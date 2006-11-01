@@ -43,5 +43,27 @@ class admin_instancia
 		}
 		return self::$instanciacion;	
 	}
+	
+	//------------------------------------------------------------
+	//-- Manejo del bloqueo de IPs
+	//------------------------------------------------------------
+	
+	function get_lista_ips_rechazadas()
+	{
+		$sql = "SELECT momento, ip as cantidad FROM apex_log_ip_rechazada;";
+		return toba::db()->consultar($sql);
+	}
+	
+	function eliminar_bloqueo($ip)
+	{
+		$sql = "DELETE FROM apex_log_ip_rechazada WHERE ip = '$ip';";
+		toba::db()->ejecutar($sql);
+	}
+	
+	function eliminar_bloqueos()
+	{
+		$sql = "DELETE FROM apex_log_ip_rechazada;";
+		toba::db()->ejecutar($sql);
+	}
 }
 ?>

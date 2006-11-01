@@ -47,7 +47,7 @@ class menu_proyecto_usuarios implements toba_nodo_arbol
 	function get_utilerias()
 	{
 		$opciones['menu'] = true;
-		$opciones['celda_memoria'] = 'central';
+		$opciones['celda_memoria'] = 'centro';
 		$utilerias = array();
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),

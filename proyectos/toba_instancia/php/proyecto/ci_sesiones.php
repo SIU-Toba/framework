@@ -11,7 +11,6 @@ class ci_sesiones extends toba_ci
 
 	function ini()
 	{
-		
 		$proyecto = toba::memoria()->get_parametro('proyecto');
 		if(isset($proyecto)) $this->s__proyecto = $proyecto;
 	}

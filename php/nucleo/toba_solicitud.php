@@ -111,7 +111,8 @@ abstract class toba_solicitud
 
 	function registrar()	
 	{
-		if($this->registrar_db || (count($this->observaciones) > 0) ) {
+		if (count($this->observaciones) > 0) $this->registrar_db = true;
+		if( $this->registrar_db ) {
 			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Guardo solicitud
 			toba_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
