@@ -333,8 +333,12 @@ class toba_instancia
 
 	static function bloquear_ip($ip)
 	{
-		$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
-		self::get_db()->ejecutar($sql);
+		try {
+			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
+			self::get_db()->ejecutar($sql);
+		} catch ( toba_error $e ) {
+			//La ip ya esta rechazada	
+		}
 	}
 }
 ?>
