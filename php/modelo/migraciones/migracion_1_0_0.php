@@ -564,6 +564,18 @@ class migracion_1_0_0 extends migracion_toba
 	}
 	
 	/**
+	 * En toba 1.0 hay una unica plantilla de estilos: toba
+	 */
+	function proyecto__migracion_estilos()
+	{
+		$sql = "
+			UPDATE apex_proyecto SET estilo='toba' WHERE proyecto='{$this->elemento->get_id()}'
+		";
+		$cant = $this->elemento->get_db()->ejecutar($sql);	
+		return $cant;	
+	}
+	
+	/**
 	 * La clase lista-col-titulo paso a ser ei-cuadro-col-tit
 	 */
 	function proyecto__migracion_css_cuadro()
