@@ -1039,6 +1039,7 @@ class toba_ei_cuadro extends toba_ei
 	 * @param string $texto Texto a mostrar en base a la definición del componente
 	 */
 	protected function html_mensaje_cuadro_vacio($texto){
+		echo $this->get_html_barra_editor();
 		echo ei_mensaje($texto);
 	}
 	

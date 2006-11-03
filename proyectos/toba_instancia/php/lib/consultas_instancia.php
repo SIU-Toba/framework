@@ -15,20 +15,6 @@ class consultas_instancia
 		return $rs[0];
 	}
 
-	static function get_cantidad_usuarios()
-	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario;";
-		$rs = toba::db()->consultar($sql);
-		return $rs[0]['cantidad'];
-	}
-
-	static function get_cantidad_usuarios_proyecto($proyecto)
-	{
-		$sql = "SELECT count(*) as cantidad FROM apex_usuario_proyecto WHERE proyecto = '$proyecto';";
-		$rs = toba::db()->consultar($sql);
-		return $rs[0]['cantidad'];
-	}
-
 	static function get_cantidad_ips_rechazadas()
 	{
 		$sql = "SELECT count(*) as cantidad FROM apex_log_ip_rechazada;";
@@ -140,6 +126,39 @@ class consultas_instancia
 	//---------------------------------------------------------------------
 	//------ Usuarios -----------------------------------------------------
 	//---------------------------------------------------------------------
+
+	function get_lista_usuarios($filtro = null)
+	{
+		$where = '';
+		$condiciones = array();
+		if(isset($filtro)){
+			if(isset($filtro['nombre'])){
+				$condiciones[] = "(nombre ILIKE '%{$filtro['nombre']}%')";
+			}
+		}
+		if($condiciones) {
+			$where = ' WHERE ' . implode(' AND ',$condiciones);	
+		}
+		$sql = "SELECT 	usuario,
+						nombre
+				FROM apex_usuario
+				$where;";
+		return toba::db()->consultar($sql);		
+	}
+
+	static function get_cantidad_usuarios()
+	{
+		$sql = "SELECT count(*) as cantidad FROM apex_usuario;";
+		$rs = toba::db()->consultar($sql);
+		return $rs[0]['cantidad'];
+	}
+
+	static function get_cantidad_usuarios_proyecto($proyecto)
+	{
+		$sql = "SELECT count(*) as cantidad FROM apex_usuario_proyecto WHERE proyecto = '$proyecto';";
+		$rs = toba::db()->consultar($sql);
+		return $rs[0]['cantidad'];
+	}
 
 
 }

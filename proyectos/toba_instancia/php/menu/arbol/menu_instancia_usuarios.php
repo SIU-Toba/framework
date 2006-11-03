@@ -45,12 +45,12 @@ class menu_instancia_usuarios implements toba_nodo_arbol
 	function get_utilerias()
 	{
 		$opciones['menu'] = true;
-		$opciones['celda_memoria'] = 'central';
+		$opciones['celda_memoria'] = 'centro';
 		$utilerias = array();
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->generar_solicitud( 'toba_instancia', 3331, null, $opciones ),
+			'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3344, null, $opciones ),
 			'target' => 'central'
 		);
 		return $utilerias;	

@@ -88,7 +88,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', '19', '/admin/usuarios');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', NULL, '/admin/usuarios/grupo');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', '216', '/admin/usuarios/listado');
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', '306', '/admin/usuarios/propiedades');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', '222', '/basicos/cronometro');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', NULL, '1240');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'documentador', NULL, '3280');
