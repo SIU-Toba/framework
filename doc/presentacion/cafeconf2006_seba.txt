@@ -1,0 +1,87 @@
+== Introducción ==
+Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU
+
+=== Contexto ===
+
+=== Requisitos ===
+ * Abstraer tecnologías web (no ser guru en css, javascript, html, server-side, base de datos, etc.)
+ * Accesible con poco o sin capacitación (poder utilizar grandes cantidades de programadores junior, administradores, tecnicos de las unis...)
+ * Posibilidad de desarrollar sistemas puntuales en pocas semanas. (RAD!)
+ * Utilizar tecnologías abiertas
+ * Un buen balance entre flexibilidad y agilidad, algo que pueda acompañar el continuo crecimiento de los sistemas.
+ * Poder concentrar los esfuerzos en 'negocios' complejos (menos cosas contextuales)
+ * Hacer los ABMs en dos patadas.
+
+=== Nuestra solución: Alto nivel ===
+ * Un ambiente gráfico de edición => Construcción basada en definición (WYSIWYG Web!)
+ * Minimizar la programación (lo facil facil, lo muy dificil posible)
+ * Stack completo open-source: Linux, Apache, Php, Postgres/Mysql
+ * Trabajo grupal local o a distancia a través de herramientas y convenciones (el SIU tiene grupos distribuidos en distintas ciudades)
+ * IDE Web pensada para desarrolladores e interfaz de línea de comandos para el deployment-mantenimiento de los sistemas.
+ * Focalizado en sist. transaccionales (son los más dificiles, aunque los de presentación son los mas usuales)
+
+=== Nuestra solución: Detalles ===
+ * Creación de interfaces ricas en forma declarativa (HTML, JS, CSS, AJAX).
+ * Separación en capas (~MVC por debajo cuerda).
+ * Transparencia al problema Request/Response.
+ * El resto de cosas tipicas de framework (Autorización, Autentificación, Validaciones, Logging, menus, etc.)
+ * Posibilita el manejo de transacciones complejas (transacciones multi-etapa).
+ * Muy buen grado de reutilización tanto de la definición de componentes como de programación (totalmente POO).
+ * Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
+
+=== Toba hoy en el SIU ===
+ * API madura y estable (~ 3 años de desarrollo y consumo, llegamos a la 1.0!).
+ * 20 librerías open-source (lgpl-apachebsd) o de dominio público utilizadas.
+ * 14 Proyectos implementados (mismas calidades ext. e int.:  arquitectura, look&feel, requisitos, forma de extensión, etc.)
+ * Integración entre sistemas => oficina virtual
+ * Cuantos programadores?
+ * Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
+
+== Arquitectura ==
+Esto parece un poco excesivo para una charla así.... 
+
+=== Basada en definiciones === 
+ * Editor: Ambiente web que edita metadatos (creado con la misma herramienta)
+ * Comandos administrativos: Deployment, exportación, importación, tareas automatizadas.
+ * Modelo: API interna de bajo nivel que consumen el editor y los comandos administrativos
+ * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos
+
+=== Núcleo ===
+ * Arquitectura de componentes
+ * Divididos en capas con distintas responsabilidades: Una operación se define en base a componentes. 
+Estos cubren distintos aspectos de una operación, categorizándolos según su función: interface, control o persistencia.
+ El comportamiento particular de los componentes es determinado por:
+    * La definición usando el editor.
+    * La extensión PHP del componente.
+    * La extensión Javascript del componente. 
+
+=== Componentes de interface ===
+ * Consistencia visual y de comportamientos.
+ * Interfaces ricas, comportamientos avanzados (ocultando complejidad de js, html y css (también AJAX), aunque sin perder flexibilidad)
+ * Cross-browser
+ 
+=== Control de interface ===
+ * Mantiene el concepto de navegación en una operación, constituyendo distintas pantallas.
+ * Contiene y controla otros componentes como cuadros, filtros, formularios o incluso otros ci. Permite escuchar eventos propios o de componentes contenidos y configurarlos, definiendo así el comportamiento de las operaciones.
+ * Mantiene el estado de la operación a través de los distintos pedidos de página, utilizando el mecanismo de persistencia en sesión.
+ * Determina el marco transaccional de la operación, procesando los cambios al final de una transacción lógica que atraviesa varios pedidos de página. 
+
+=== Negocio ===
+Este componente permite unificar la carga y entrega de datos y servicios a una jerarquía completa de componentes de interface (especialmente a los cis). 
+Separar la carga y utilización de los datos (inicio y fin de una transacción de negocios) permite:
+ * Lograr una máxima independencia entre la logica de pantalla y de la de negocio,
+ * Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes 
+
+=== Persistencia ===
+ * Los componentes de persistencia brindan tres servicios a la aplicación:
+  * Cargar un conjunto de datos relacionados
+  * Mantener en memoria los cambios realizados por el usuario a estos datos
+  * Finalmente sincronizarlos con el medio de persistencia cuando sea solicitado. 
+ * Solución tabular no ORM
+
+=== Todo Junto ===
+ * Armando marcos transaccionales:
+http://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional
+
+
+== Demo del Ambiente ==
