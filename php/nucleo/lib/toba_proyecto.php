@@ -159,10 +159,24 @@ class toba_proyecto
 	function get_path()
 	{
 		return $_SESSION['toba']["path_proyecto"];
+	}
+
+	/**
+	 * Retorna el path base absoluto del directorio temporal no-navegable del proyecto
+	 * (mi_proyecto/temp);
+	 */
+	function get_path_temp()
+	{
+		$dir = $_SESSION['toba']["path_proyecto"]."/temp";
+		if (!file_exists($dir)) {
+			mkdir($dir, 0700);
+		}
+		return $dir;
 	}	
 	
 	/**
 	 * Retorna path y URL de la carpeta navegable del proyecto actual
+	 * (mi_proyecto/www);
 	 * @return array con claves 'path' (en el sist.arch.) y 'url' (URL navegable)
 	 */
 	function get_www($archivo="")
@@ -177,8 +191,9 @@ class toba_proyecto
 	}
 	
 	/**
-	 * Retorna el path y url del directorio temporal navegable del proyecto
+	 * Retorna el path y url del directorio temporal navegable del proyecto (mi_proyecto/www/temp);
 	 * En caso de no existir, crea el directorio
+	 * Si se pasa un path relativo como parámetro retorna el path absoluto del archivo en el directorio temporal
 	 * @return array con claves 'path' (en el sist.arch.) y 'url' (URL navegable)
 	 */
 	function get_www_temp($archivo='')
