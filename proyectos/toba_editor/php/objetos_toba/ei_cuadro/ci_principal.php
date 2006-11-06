@@ -20,7 +20,6 @@ class ci_principal extends ci_editores_toba
 		//¿Se selecciono un ef desde afuera?
 		if (isset($col)) {
 			$this->set_pantalla(2);
-			echo "ACA";
 			$id_interno = $this->get_entidad()->tabla("columnas")->get_id_fila_condicion(array('clave'=>$col));
 			if (count($id_interno) == 1) {
 				$this->evt__columnas_lista__seleccion($id_interno[0]);			

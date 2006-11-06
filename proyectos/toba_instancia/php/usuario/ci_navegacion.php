@@ -83,25 +83,5 @@ class ci_navegacion extends toba_ci
 		$this->dep('datos')->cargar($id);
 		$this->evt__eliminar();	
 	}
-
-	//---- Info BASICA -------------------------------------------------------
-
-	function evt__basica__modificacion($datos)
-	{
-		if ($datos['clave'] == self::clave_falsa ) {
-			unset($datos['clave']);	
-		}
-		$this->dep('datos')->tabla('basica')->set($datos);
-		$this->evt__guardar();
-	}
-
-	function conf__basica()
-	{
-		$datos = $this->dep('datos')->tabla('basica')->get();
-		if (isset($datos)) {
-			$datos['clave'] = self::clave_falsa;
-		}
-		return $datos;
-	}
 }
 ?>

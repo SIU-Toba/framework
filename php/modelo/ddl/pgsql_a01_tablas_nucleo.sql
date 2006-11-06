@@ -462,9 +462,9 @@ CREATE TABLE apex_usuario_proyecto
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto							varchar(15)		NOT NULL,
-	usuario							varchar(60)		NOT NULL,
-	usuario_grupo_acc				varchar(20)		NOT NULL,
-	usuario_perfil_datos			varchar(20)		NOT NULL,
+	usuario							varchar(60)			NOT NULL,
+	usuario_grupo_acc				varchar(20)			NOT NULL,
+	usuario_perfil_datos			varchar(20)			NULL,
 	CONSTRAINT	"apex_usu_proy_pk"  PRIMARY KEY ("proyecto","usuario"),
 	CONSTRAINT	"apex_usu_proy_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	CASCADE ON UPDATE	CASCADE DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_usu_proy_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,

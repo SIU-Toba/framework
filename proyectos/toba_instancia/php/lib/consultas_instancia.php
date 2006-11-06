@@ -4,7 +4,7 @@ class consultas_instancia
 {
 	static function get_lista_proyectos()
 	{
-		$sql = "SELECT proyecto FROM apex_proyecto;";
+		$sql = "SELECT proyecto FROM apex_proyecto WHERE proyecto <> 'toba';";
 		return toba::db()->consultar($sql);
 	}
 
@@ -160,6 +160,18 @@ class consultas_instancia
 		return $rs[0]['cantidad'];
 	}
 
+	//---------------------------------------------------------------------
+	//------ Grupos de Acceso ---------------------------------------------
+	//---------------------------------------------------------------------
 
+	static function get_lista_grupos_acceso_proyecto($proyecto)
+	{
+		$sql = "SELECT 	usuario_grupo_acc,
+						nombre,
+						descripcion
+				FROM apex_usuario_grupo_acc
+				WHERE proyecto = '$proyecto';";
+		return toba::db()->consultar($sql);
+	}
 }
 ?>
