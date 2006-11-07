@@ -108,16 +108,17 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
 
 == Demo del Ambiente ==
  * Paseo:
-   * Recorrido Contextos
-	 * Ver el sistema
-	 * Ver la composicion de una operacion
-	 * Editar los componentes de una operacion
-     * Previsualizar
-   * Agregar una operacion
-   * Agregar componentes a la operacion
-     * Lectura de metadatos de la db para hacer DTs
-     * Lectura de DTs para hacer componentes visuales
- * Operaciones completas
+   * Recorrido Contextos.
+     * Significado de los paneles.
+	 * Ver la estructura completa de la aplicacion.
+	 * Ver la composicion de una operacion.
+	 * Editar los componentes de una operacion.
+     * Previsualizar.
+   * Agregar una operacion (aparece en el menu).
+   * Agregar componentes a la operacion.
+     * Lectura de metadatos de la db para hacer DTs.
+     * Lectura de DTs para hacer componentes visuales.
+ * Inspeccionar Operaciones completas.
    * Para cada una: Mostrar lo que hace, como estan compuestas, dar una idea del encadenamiento
    * Tipos a mostrar:
      * ABM simple.
