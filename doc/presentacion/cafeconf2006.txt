@@ -1,11 +1,31 @@
 == Introducción ==
 Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU
+Buenos dias, somos Jb y Sm y vamos a presentar el SIU-Toba.
+El SIU-Toba es la herramienta de desarrollo web que utiliza el Programa SIU (ministerio de educacion) para construir aplicaciones.
+La misma comenzo a desarrollarse a principios del 2003 (lleva casi 4 años de desarrollo).
+En este momento en el que existen tantos framewors de desarrollo, parece necesario justificar la creacion de una herramienta nueva. Por este motivo, vamos a comenzar la presentacion comentando a que se dedica el programa siu y cuales fueron las necesidades contextuales que determinaron la forma que cobro la herramienta.
 
 === Agenda ===
 Una diapo mostrando el programa de la presentacion, el titulo de esta diapo se repite en el comienzo de 
 cada capitulo para contextualizar un poco.
 
 === Contexto ===
+ * Tipo de problemas a resolver:
+   * Sistemas transaccionales de gestion: Logica de negocio compleja. Destinados a universidades. Eje: Robustez, mantenibilidad, configurables. No deben haber limitaciones sobre la construccion
+   * Sistemas medianos y chicos, para articular circuitos administrativos simples. Eje: Tienen que resolverse rapido y de manera coherente.
+ * Equipo de trabajo
+   * Madurez a nivel negocio.
+   * Ya existia el concepto de infraestructura.
+   * No hay mucha experiencia WEB, si mucha experiencia de escritorio.
+   * Equipo distribuido geograficamente
+   * Estilo SIU.
+ * Politica del siu respecto de sus desarrollos
+   * Las universidades son socios.
+   * No limitarse a conseguir recursos (lengujae)
+	
+ Conclusion:
+	- Frameworks contemporaneos (2003) orientados al CRUD o al CMS (Hacen agua cuando la interface y el modelo de datos subyacente difieren.)
+	- No se parte de un modelo ideal, se parte de necesidades concretas.
 
 === Objetivos ===
  * Abstraer tecnologías web (no ser guru en css, javascript, html, server-side, base de datos, etc.)
@@ -33,7 +53,7 @@ cada capitulo para contextualizar un poco.
  * El resto de cosas tipicas de framework (Autorización, Autentificación, Validaciones, Logging, menus, etc.)
 
 === Toba hoy en el SIU ===
- * Maduro y estable (~ 3 años de desarrollo y consumo, llegamos a la 1.0!).
+ * Maduro y estable (~ 4 años de desarrollo y consumo, llegamos a la 1.0!).
  * API limpia y simple
  * Asegurada compatibilidad hacia atrás por largos períodos de tiempo
  * 20 librerías open-source (lgpl-apachebsd) o de dominio público utilizadas.
@@ -41,22 +61,9 @@ cada capitulo para contextualizar un poco.
  * Integración entre sistemas => oficina virtual
  * Cuantos programadores?
 
- 
- 
- 
- 
- 
- 
- 
- 
-== Arquitectura ==
-Esto parece un poco excesivo para una charla así.... 
-Y si se va mixturando con ejemplos?
-
 === Arquitectura === 
  * Editor: Ambiente web que edita metadatos (creado con la misma herramienta)
  * Comandos administrativos: Deployment, exportación, importación, tareas automatizadas.
- * Modelo: API interna de bajo nivel que consumen el editor y los comandos administrativos
  * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos y tiene el API consumible
 
 === Editor ===
@@ -83,7 +90,7 @@ Estos cubren distintos aspectos de una operación, categorizándolos según su func
  * Mantiene el estado de la operación a través de los distintos pedidos de página, utilizando el mecanismo de persistencia en sesión.
  * Determina el marco transaccional de la operación, procesando los cambios al final de una transacción lógica que atraviesa varios pedidos de página. 
 
-=== Negocio ===
+=== Negocio === Esto lo dejamos???
 Este componente permite unificar la carga y entrega de datos y servicios a una jerarquía completa de componentes de interface (especialmente a los cis). 
 Separar la carga y utilización de los datos (inicio y fin de una transacción de negocios) permite:
  * Lograr una máxima independencia entre la logica de pantalla y de la de negocio,
@@ -98,13 +105,23 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
 
 === Todo Junto ===
  * Armando marcos transaccionales:
-http://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional
-
-
-
-
-
-
-
 
 == Demo del Ambiente ==
+ * Paseo:
+   * Recorrido Contextos
+	 * Ver el sistema
+	 * Ver la composicion de una operacion
+	 * Editar los componentes de una operacion
+     * Previsualizar
+   * Agregar una operacion
+   * Agregar componentes a la operacion
+     * Lectura de metadatos de la db para hacer DTs
+     * Lectura de DTs para hacer componentes visuales
+ * Operaciones completas
+   * Para cada una: Mostrar lo que hace, como estan compuestas, dar una idea del encadenamiento
+   * Tipos a mostrar:
+     * ABM simple.
+     * ABM complejo.
+     * Transaccion compleja, persistencia toba.
+     * Transaccion compleja, persistencia ad-hoc.
+
