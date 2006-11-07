@@ -1,0 +1,121 @@
+(Las cosas estan a distinto nivel de apertura, algunas a nivel palabras a decir, otras a nivel punteo de temas)
+
+1. Hola
+-------
+
+	Buenos dias, somos Jb y Sm y vamos a presentar el SIU-Toba.
+	El SIU-Toba es la herramienta de desarrollo web que utiliza el Programa SIU (ministerio de educacion) para construir aplicaciones.
+	La misma comenzo a desarrollarse a principios del 2003 (lleva casi 4 años de desarrollo).
+	En este momento en el que existen tantos framewors de desarrollo, parece necesario justificar la creacion de una herramienta nueva. Por este motivo, vamos a comenzar la presentacion comentando a que se dedica el programa siu y cuales fueron las necesidades contextuales que determinaron la forma que cobro la herramienta.
+	
+2. Contexto inicial
+-------------------
+
+	a) Problemas a resolver
+		- Grandes: 	Sistemas transaccionales de gestion. Logica de negocio compleja. Para universidades
+					Eje: Robustez, mantenibilidad, configurables. No deben haber limitaciones sobre la construccion
+		- Chicos:	Sistemas medianos y chicos, para articular circuitos administrativos simples
+					Eje: Tienen que resolverse rapido y de manera coherente.
+	b) Equipo de trabajo
+		* Equipo exigente:
+			- Madurez a nivel negocio.
+			- Ya existia el concepto de infraestructura
+		* No hay mucha experiencia WEB, si mucha experiencia de escritorio.
+		* Equipo distribuido geograficamente
+		* Estilo SIU.
+	c) Politica del siu respecto de sus desarrollos
+		* Las universidades son socios.
+		* No limitarse a conseguir recursos (lengujae)
+		
+	Conclusion:
+		- No se parte de un modelo ideal, se parte de necesidades concretas que necesitan.
+		- Frameworks conteporaneos (2003) orientados al CRUD o al CMS (Hacen agua cuando la interface y el modelo de datos subyacente difieren.)
+		
+3. Caracteristicas surgen en relacion a las necesidades
+-------------------------------------------------------
+
+	Caracteristicas:
+		- IDE, declarativo, componentes:
+			- rapido, 
+			- Minimiza la programacion
+			- abstrae del conocimiento de tecnologias subyacentes
+			- alta reutilizacion
+		- Extensible: APi sencilla y potente.
+		- Combinacion de tecnologias abiertas.
+		- Resuelve problemas transversales:
+			- Seguridad
+			- Logging
+		- Acompaña el desarrollo colaborativo.
+		- Acompaña el proceso de desarrollo
+
+	Conclusion: permite focalizarse en la logica de negocio
+
+4. Arquitectura
+---------------
+
+	CAPAS: (mvc?)
+		Interface: Componentes visuales.
+			* Ocultar complejidad tecnologica (HTML/JS/CSS/AJAX)
+			* Ocultar problemas cross-browser.
+			* Diseño sencillo y rapido.
+		Control: 
+			* Ocultar request/response: eventos y servicios.
+			* Manejo del control del sistema.
+		Persistencia: 
+			* El problema del marco transaccional en WEB.
+			* Abstraccion del trabajo y no del modelo transaccional.
+	
+6. Paseo por del IDE
+--------------------
+
+	Conceptos basicos: 
+		Proyecto.
+		Items (Unidad accesible)
+		Componentes (Bloque basico). Son Extensibles.
+	Contextos: edicion, previsualizacion
+	Hilo Utilizado en la construccion de operaciones.
+		- Se identifican componentes necesarios, se categorizan en capas
+		- Se definien utilizando el IDE
+		- Se extiende el funcionamiento en PHP
+	- Paseo:
+		- Crear unos items, ver como impacta en el menu.
+		- Asociar componentes: CIs y EIs
+
+7. Mostrar operaciones terminadas
+---------------------------------
+
+	Logica para mostrar cada cosa:
+		- Mostrar lo que hacen
+		- Mostrar como estan compuestas
+		- Dar una idea muy superficial del encadenamiento de eventos en codigo
+
+	* ABM simple.
+	* ABM complejo.
+	* Transaccion compleja, persistencia toba.
+	* Transaccion compleja, persistencia ad-hoc.
+
+8. Notas sobre el estado actual
+-------------------------------
+
+	(idea: dejar una nocion del tamaño de toba
+	
+	SIU: 
+		11 años
+		60 programadores
+		25 proyectos (4 grandes)
+		mas de 700 implementaciones en la UUNN
+		
+	TOBA: 
+		4 años, 3 años de uso.
+		20 programadores
+		14 proyectos (2 grandes, 5 medianos, 7 chicos)
+
+9. Preguntas
+------------
+
+10. Si queda tiempo: detalles interesantes
+-----------------------------------------
+
+	- Toba usa toba
+	- API js en accion
+	- Notas sobre nuestra metodologia de trabajo.
