@@ -1,9 +1,5 @@
 == Introducción ==
 Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU
-Buenos dias, somos Jb y Sm y vamos a presentar el SIU-Toba.
-El SIU-Toba es la herramienta de desarrollo web que utiliza el Programa SIU (ministerio de educacion) para construir aplicaciones.
-La misma comenzo a desarrollarse a principios del 2003 (lleva casi 4 años de desarrollo).
-En este momento en el que existen tantos framewors de desarrollo, parece necesario justificar la creacion de una herramienta nueva. Por este motivo, vamos a comenzar la presentacion comentando a que se dedica el programa siu y cuales fueron las necesidades contextuales que determinaron la forma que cobro la herramienta.
 
 === Agenda ===
 Una diapo mostrando el programa de la presentacion, el titulo de esta diapo se repite en el comienzo de 
@@ -107,7 +103,7 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
  * Armando marcos transaccionales:
 
 == Demo del Ambiente ==
- * Paseo:
+ * Paseo (1.0.2):
    * Recorrer los contextos.
      * Significado de los paneles.
 	 * Ver la estructura completa del proyecto.
@@ -120,7 +116,7 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
      * Lectura de metadatos de la db para hacer DTs.
      * Lectura de DTs para hacer componentes visuales.
    * Extension de componentes. Editor PHP toba
- * Operaciones completas.
+ * Operaciones completas (0.9.1).
    * Para cada una: 
      * Mostrar lo que hace
      * como esta compuesta
