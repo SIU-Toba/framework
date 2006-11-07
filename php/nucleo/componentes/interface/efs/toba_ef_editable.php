@@ -71,9 +71,9 @@ class toba_ef_editable extends toba_ef
 	 * En el caso del editable las opciones representa su estado por defecto
 	 * @param string $opciones
 	 */
-	function set_opciones($opciones)
+	function set_opciones($opciones, $maestros_cargados=true)
 	{
-		if ($opciones === null) {
+		if (! $maestros_cargados) {
 			$this->solo_lectura = true;
 		}
 		if (!isset($this->estado)) {

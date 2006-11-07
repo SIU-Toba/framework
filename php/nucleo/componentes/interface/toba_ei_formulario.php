@@ -563,15 +563,14 @@ class toba_ei_formulario extends toba_ei
 					}
 				}
 				if (! $cargado) {
+					$datos = null;
 					if ($cargar) {
 						if ($this->elemento_formulario[$id_ef]->carga_depende_de_estado()) {
 							$param[$id_ef] = $this->elemento_formulario[$id_ef]->get_estado();
 						}
 						$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
-					} else {
-						$datos = null;	
 					}
-					$this->elemento_formulario[$id_ef]->set_opciones($datos);
+					$this->elemento_formulario[$id_ef]->set_opciones($datos, $cargar);
 				}
 			}
 		}

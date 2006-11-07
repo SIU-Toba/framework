@@ -66,12 +66,12 @@ class toba_ef_popup extends toba_ef_editable
 		return true;	
 	}
 	
-	function set_opciones($descripcion=null)
+	function set_opciones($descripcion, $maestros_cargados=true)
 	{
 		//--- No se actualiza $this->opciones_cargadas porque los popups requieren
 		//--- que siempre se refresquen sus opciones porque se basan en su estado
 		
-		if (!isset($descripcion)) {
+		if (! $maestros_cargados) {
 			$this->solo_lectura = 1;
 		}
 		$this->descripcion_estado = $descripcion;		

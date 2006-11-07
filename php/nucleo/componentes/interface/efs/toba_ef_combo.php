@@ -54,10 +54,10 @@ abstract class toba_ef_seleccion extends toba_ef
 	 * Cambia el conjunto de opciones disponibles para que el usuario seleecione
 	 * @param array $datos Arreglo asociativo clave => valor. Si es null se asume que el ef esta temporalmente deshabilitado
 	 */
-	function set_opciones($datos)
+	function set_opciones($datos, $maestros_cargados=true)
 	{
 		$this->opciones_cargadas = true;
-		if ($datos == null) {
+		if (! $maestros_cargados) {
 			$this->input_extra = " disabled ";
 		}
 		$this->opciones = $datos;

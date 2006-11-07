@@ -89,7 +89,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return isset($this->estado) && !$this->es_estado_nulo($this->estado);
 	}	
 	
-	function set_opciones($datos)
+	function set_opciones($datos, $maestros_cargados=true)
 	{
 		$this->opciones_cargadas = true;		
 		if (!isset($datos)) {
