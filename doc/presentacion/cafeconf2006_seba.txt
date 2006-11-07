@@ -1,9 +1,13 @@
 == Introducción ==
 Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU
 
+=== Agenda ===
+Una diapo mostrando el programa de la presentacion, el titulo de esta diapo se repite en el comienzo de 
+cada capitulo para contextualizar un poco.
+
 === Contexto ===
 
-=== Requisitos ===
+=== Objetivos ===
  * Abstraer tecnologías web (no ser guru en css, javascript, html, server-side, base de datos, etc.)
  * Accesible con poco o sin capacitación (poder utilizar grandes cantidades de programadores junior, administradores, tecnicos de las unis...)
  * Posibilidad de desarrollar sistemas puntuales en pocas semanas. (RAD!)
@@ -12,42 +16,51 @@ Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado 
  * Poder concentrar los esfuerzos en 'negocios' complejos (menos cosas contextuales)
  * Hacer los ABMs en dos patadas.
 
-=== Nuestra solución: Alto nivel ===
+=== Nuestra solución ===
  * Un ambiente gráfico de edición => Construcción basada en definición (WYSIWYG Web!)
  * Minimizar la programación (lo facil facil, lo muy dificil posible)
- * Stack completo open-source: Linux, Apache, Php, Postgres/Mysql
+ * Stack completo open-source: Linux, Apache, Php, Postgres/Mysql (* Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.)
  * Trabajo grupal local o a distancia a través de herramientas y convenciones (el SIU tiene grupos distribuidos en distintas ciudades)
  * IDE Web pensada para desarrolladores e interfaz de línea de comandos para el deployment-mantenimiento de los sistemas.
  * Focalizado en sist. transaccionales (son los más dificiles, aunque los de presentación son los mas usuales)
 
-=== Nuestra solución: Detalles ===
+=== Nuestra solución ===
  * Creación de interfaces ricas en forma declarativa (HTML, JS, CSS, AJAX).
  * Separación en capas (~MVC por debajo cuerda).
  * Transparencia al problema Request/Response.
- * El resto de cosas tipicas de framework (Autorización, Autentificación, Validaciones, Logging, menus, etc.)
  * Posibilita el manejo de transacciones complejas (transacciones multi-etapa).
  * Muy buen grado de reutilización tanto de la definición de componentes como de programación (totalmente POO).
- * Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
+ * El resto de cosas tipicas de framework (Autorización, Autentificación, Validaciones, Logging, menus, etc.)
 
 === Toba hoy en el SIU ===
- * API madura y estable (~ 3 años de desarrollo y consumo, llegamos a la 1.0!).
+ * Maduro y estable (~ 3 años de desarrollo y consumo, llegamos a la 1.0!).
+ * API limpia y simple
+ * Asegurada compatibilidad hacia atrás por largos períodos de tiempo
  * 20 librerías open-source (lgpl-apachebsd) o de dominio público utilizadas.
  * 14 Proyectos implementados (mismas calidades ext. e int.:  arquitectura, look&feel, requisitos, forma de extensión, etc.)
  * Integración entre sistemas => oficina virtual
  * Cuantos programadores?
- * Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 == Arquitectura ==
 Esto parece un poco excesivo para una charla así.... 
+Y si se va mixturando con ejemplos?
 
-=== Basada en definiciones === 
+=== Arquitectura === 
  * Editor: Ambiente web que edita metadatos (creado con la misma herramienta)
  * Comandos administrativos: Deployment, exportación, importación, tareas automatizadas.
  * Modelo: API interna de bajo nivel que consumen el editor y los comandos administrativos
- * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos
+ * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos y tiene el API consumible
 
 === Núcleo ===
- * Arquitectura de componentes
+ * Arquitectura de componentes (Alguna diapo con un grafico)
  * Divididos en capas con distintas responsabilidades: Una operación se define en base a componentes. 
 Estos cubren distintos aspectos de una operación, categorizándolos según su función: interface, control o persistencia.
  El comportamiento particular de los componentes es determinado por:
@@ -82,6 +95,12 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
 === Todo Junto ===
  * Armando marcos transaccionales:
 http://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/MarcoTransaccional
+
+
+
+
+
+
 
 
 == Demo del Ambiente ==
