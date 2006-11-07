@@ -59,8 +59,12 @@ Y si se va mixturando con ejemplos?
  * Modelo: API interna de bajo nivel que consumen el editor y los comandos administrativos
  * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos y tiene el API consumible
 
+=== Editor ===
+Una diapo con un screenshot y explicando las partes del editor (los frames)
+
 === Núcleo ===
- * Arquitectura de componentes (Alguna diapo con un grafico)
+Con un gráfico 
+ * Basado componentes
  * Divididos en capas con distintas responsabilidades: Una operación se define en base a componentes. 
 Estos cubren distintos aspectos de una operación, categorizándolos según su función: interface, control o persistencia.
  El comportamiento particular de los componentes es determinado por:
