@@ -1,11 +1,11 @@
 == Introducción ==
-Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU
+Explicación de que es Toba en palabras: es un ambiente de desarrollo web creado por el SIU...
 
 === Agenda ===
 Una diapo mostrando el programa de la presentacion, el titulo de esta diapo se repite en el comienzo de 
 cada capitulo para contextualizar un poco.
 
-=== Contexto ===
+=== Contexto: SIU ===
  * Tipo de problemas a resolver:
    * Sistemas transaccionales de gestion: Logica de negocio compleja. Destinados a universidades. Eje: Robustez, mantenibilidad, configurables. No deben haber limitaciones sobre la construccion
    * Sistemas medianos y chicos, para articular circuitos administrativos simples. Eje: Tienen que resolverse rapido y de manera coherente.
@@ -19,23 +19,22 @@ cada capitulo para contextualizar un poco.
    * Las universidades son socios.
    * No limitarse a conseguir recursos (lengujae)
 	
- Conclusion:
+Conclusion:
 	- Frameworks contemporaneos (2003) orientados al CRUD o al CMS (Hacen agua cuando la interface y el modelo de datos subyacente difieren.)
 	- No se parte de un modelo ideal, se parte de necesidades concretas.
 
 === Objetivos ===
  * Abstraer tecnologías web (no ser guru en css, javascript, html, server-side, base de datos, etc.)
  * Accesible con poco o sin capacitación (poder utilizar grandes cantidades de programadores junior, administradores, tecnicos de las unis...)
- * Posibilidad de desarrollar sistemas puntuales en pocas semanas. (RAD!)
+ * Posibilidad de desarrollar sistemas puntuales en pocas semanas. (RAD!, Hacer los ABMs en dos patadas.)
  * Utilizar tecnologías abiertas
  * Un buen balance entre flexibilidad y agilidad, algo que pueda acompañar el continuo crecimiento de los sistemas.
  * Poder concentrar los esfuerzos en 'negocios' complejos (menos cosas contextuales)
- * Hacer los ABMs en dos patadas.
 
 === Nuestra solución ===
  * Un ambiente gráfico de edición => Construcción basada en definición (WYSIWYG Web!)
  * Minimizar la programación (lo facil facil, lo muy dificil posible)
- * Stack completo open-source: Linux, Apache, Php, Postgres/Mysql (* Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.)
+ * Stack completo open-source: Linux, Apache, Php, Postgres/Mysql (Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.)
  * Trabajo grupal local o a distancia a través de herramientas y convenciones (el SIU tiene grupos distribuidos en distintas ciudades)
  * IDE Web pensada para desarrolladores e interfaz de línea de comandos para el deployment-mantenimiento de los sistemas.
  * Focalizado en sist. transaccionales (son los más dificiles, aunque los de presentación son los mas usuales)
@@ -62,9 +61,6 @@ cada capitulo para contextualizar un poco.
  * Comandos administrativos: Deployment, exportación, importación, tareas automatizadas.
  * Núcleo: Runtime que necesitan los proyectos en producción, interpreta los metadatos y tiene el API consumible
 
-=== Editor ===
-Una diapo con un screenshot y explicando las partes del editor (los frames)
-
 === Núcleo ===
 Con un gráfico 
  * Basado componentes
@@ -80,7 +76,7 @@ Estos cubren distintos aspectos de una operación, categorizándolos según su func
  * Interfaces ricas, comportamientos avanzados (ocultando complejidad de js, html y css (también AJAX), aunque sin perder flexibilidad)
  * Cross-browser
  
-=== Control de interface ===
+=== Control de control ===
  * Mantiene el concepto de navegación en una operación, constituyendo distintas pantallas.
  * Contiene y controla otros componentes como cuadros, filtros, formularios o incluso otros ci. Permite escuchar eventos propios o de componentes contenidos y configurarlos, definiendo así el comportamiento de las operaciones.
  * Mantiene el estado de la operación a través de los distintos pedidos de página, utilizando el mecanismo de persistencia en sesión.
@@ -93,15 +89,15 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
  * Tener un lugar centralizado para brindar servicios comunes a una jerarquia de componentes 
 
 === Persistencia ===
- * Los componentes de persistencia brindan tres servicios a la aplicación:
-  * Cargar un conjunto de datos relacionados
-  * Mantener en memoria los cambios realizados por el usuario a estos datos
-  * Finalmente sincronizarlos con el medio de persistencia cuando sea solicitado. 
  * Solución tabular no ORM
+   * Cargan un conjunto de datos relacionados
+   * Mantienen en memoria los cambios realizados por el usuario a estos datos
+   * Finalmente sincroniza con el medio de persistencia cuando sea solicitado. 
+ * Permite armar marcos transaccionales
 
-=== Todo Junto ===
- * Armando marcos transaccionales:
-
+ === Editor ===
+Una diapo con un screenshot y explicando las partes del editor (los frames)
+ 
 == Demo del Ambiente ==
  * Paseo (1.0.2):
    * Recorrer los contextos.
@@ -111,8 +107,8 @@ Separar la carga y utilización de los datos (inicio y fin de una transacción de 
 	 * Editar los componentes de una operacion.
      * Previsualizar.
    * Ver una operacion armada: tipos de componentes.
-   * Agregar una operacion (aparece en el menu).
-   * Agregar componentes a la operacion.
+   * Creación de una operacion (aparece en el menu).
+   * Creación de componentes.
      * Lectura de metadatos de la db para hacer DTs.
      * Lectura de DTs para hacer componentes visuales.
    * Extension de componentes. Editor PHP toba
