@@ -63,6 +63,20 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	/**
+	 * Retorna un objeto asociativo id_ef => ef, para usarlo en algun ciclo, por ej.
+	 * for (id_ef in this.efs()) {
+	 *		this.ef(id_ef).metodo()
+	 * }
+	 * @type Object
+	 * @see ef
+	 */
+	ei_formulario.prototype.efs = function() {
+		return this._efs;
+	};
+	
+	
+	
+	/**
 	 * Retorna el estado actual de los efs en un Objeto asociativo id_ef=>valor
 	 *	@type Object
 	 */

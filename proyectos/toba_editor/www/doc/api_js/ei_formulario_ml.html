@@ -292,7 +292,7 @@ ei_formulario_ml
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei_formulario.html">ei_formulario</a></div>
-		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#nodo">nodo</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
+		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#efs">efs</a>, <a href="ei_formulario.html#nodo">nodo</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
 		</div>
 	</div>
 
@@ -471,6 +471,16 @@ ei_formulario_ml
       this.ef('nombre').ir_a_fila(filas[id_fila]).set_estado('nuevo');
       this.seleccionar(filas[id_fila]);
  }</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#get_datos">get_datos</A>()
+					</td>
+
+					<td class="method-definition"> Retorna el estado actual del formulario en un Arreglo que contiene un Objeto asociativo id_ef=>valor (formato RecordSet)</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -1252,10 +1262,48 @@ ei_formulario_ml
 		   
 		</div>
 		
-   		<A id="intercambiar_filas" NAME="intercambiar_filas"><!-- --></A>	
+   		<A id="get_datos" NAME="get_datos"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">get_datos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object get_datos ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna el estado actual del formulario en un Arreglo que contiene un Objeto asociativo id_ef=>valor (formato RecordSet)</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="intercambiar_filas" NAME="intercambiar_filas"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">intercambiar_filas</span>
@@ -1315,8 +1363,8 @@ ei_formulario_ml
 		
    		<A id="refrescar_foco" NAME="refrescar_foco"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">refrescar_foco</span>
@@ -1353,8 +1401,8 @@ ei_formulario_ml
 		
    		<A id="refrescar_todo" NAME="refrescar_todo"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">refrescar_todo</span>
@@ -1391,8 +1439,8 @@ ei_formulario_ml
 		
    		<A id="resetear_errores" NAME="resetear_errores"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">resetear_errores</span>
@@ -1429,8 +1477,8 @@ ei_formulario_ml
 		
    		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">seleccionar</span>
@@ -1467,8 +1515,8 @@ ei_formulario_ml
 		
    		<A id="subir_seleccionada" NAME="subir_seleccionada"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">subir_seleccionada</span>
@@ -1505,8 +1553,8 @@ ei_formulario_ml
 		
    		<A id="submit" NAME="submit"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>
@@ -1544,8 +1592,8 @@ ei_formulario_ml
 		
    		<A id="total" NAME="total"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">total</span>
@@ -1582,8 +1630,8 @@ ei_formulario_ml
 		
    		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">validar</span>
