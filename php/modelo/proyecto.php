@@ -129,8 +129,8 @@ class proyecto extends elemento_modelo
 		}
 		try {
 			$this->exportar_tablas();
-			$this->exportar_permisos();
 			$this->exportar_componentes();
+			$this->exportar_permisos();
 			$this->sincronizar_archivos();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
@@ -190,39 +190,6 @@ class proyecto extends elemento_modelo
 			$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 		}
 		return $contenido;
-	}
-
-	//-- PERMISOS -------------------------------------------------------------
-
-	private function exportar_permisos()
-	{
-		$this->manejador_interface->mensaje("Exportando permisos", false);
-		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
-		foreach( $this->get_lista_permisos() as $permiso ) {
-			toba_logger::instancia()->debug("PERMISO  $permiso");
-			$contenido = '';		
-			$where = "usuario_grupo_acc = '$permiso'";
-			foreach($tablas as $tabla) {
-				$contenido .= $this->get_contenido_tabla($tabla, $where);
-			}
-			if ( $contenido ) {
-				$this->guardar_archivo( $this->get_dir_permisos() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
-				$this->manejador_interface->mensaje_directo('.');
-			}			
-		}
-		$this->manejador_interface->mensaje("OK");
-	}
-
-	function get_lista_permisos()
-	{
-		$sql = "SELECT usuario_grupo_acc as id FROM apex_usuario_grupo_acc WHERE proyecto = '".$this->get_id()."'";
-		$permisos = $this->db->consultar($sql);
-		$datos = array();
-		foreach($permisos as $permiso) {
-			$datos[] = $permiso['id'];	
-		}
-		return $datos;
 	}
 
 	//-- COMPONENTES -------------------------------------------------------------
@@ -285,6 +252,39 @@ class proyecto extends elemento_modelo
 		return $contenido;		
 	}
 
+	//-- PERMISOS -------------------------------------------------------------
+
+	private function exportar_permisos()
+	{
+		$this->manejador_interface->mensaje("Exportando permisos", false);
+		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
+		foreach( $this->get_lista_permisos() as $permiso ) {
+			toba_logger::instancia()->debug("PERMISO  $permiso");
+			$contenido = '';		
+			$where = "usuario_grupo_acc = '$permiso'";
+			foreach($tablas as $tabla) {
+				$contenido .= $this->get_contenido_tabla($tabla, $where);
+			}
+			if ( $contenido ) {
+				$this->guardar_archivo( $this->get_dir_permisos() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
+				$this->manejador_interface->mensaje_directo('.');
+			}			
+		}
+		$this->manejador_interface->mensaje("OK");
+	}
+
+	function get_lista_permisos()
+	{
+		$sql = "SELECT usuario_grupo_acc as id FROM apex_usuario_grupo_acc WHERE proyecto = '".$this->get_id()."'";
+		$permisos = $this->db->consultar($sql);
+		$datos = array();
+		foreach($permisos as $permiso) {
+			$datos[] = $permiso['id'];	
+		}
+		return $datos;
+	}
+
 	//-----------------------------------------------------------
 	//	CARGAR
 	//-----------------------------------------------------------
@@ -319,6 +319,7 @@ class proyecto extends elemento_modelo
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
+		$this->cargar_permisos();
 	}
 
 	private function cargar_tablas()
@@ -335,6 +336,20 @@ class proyecto extends elemento_modelo
 		$this->manejador_interface->mensaje("OK");
 	}
 	
+	private function cargar_permisos()
+	{
+		$this->manejador_interface->mensaje('Cargando permisos', false);
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
+		$cant_total = 0;
+		foreach( $archivos as $archivo ) {
+			$cant = $this->db->ejecutar_archivo( $archivo );
+			toba_logger::instancia()->debug($archivo . ". ($cant)");
+			$this->manejador_interface->mensaje_directo('.');
+			$cant_total++;
+		}
+		$this->manejador_interface->mensaje("OK");
+	}
+
 	private function cargar_componentes()
 	{
 		$this->manejador_interface->mensaje('Cargando componentes', false);		
