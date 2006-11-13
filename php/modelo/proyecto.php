@@ -23,6 +23,7 @@ class proyecto extends elemento_modelo
 	private $sincro_archivos;
 	private $db;
 	const dump_prefijo_componentes = 'dump_';
+	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
 	const compilar_prefijo_componentes = 'php_';	
 	const template_proyecto = '/php/modelo/template_proyecto';
@@ -83,6 +84,11 @@ class proyecto extends elemento_modelo
 		return $this->get_dir_dump() . '/tablas';
 	}
 
+	function get_dir_permisos()
+	{
+		return $this->get_dir_dump() . '/permisos';
+	}
+	
 	function get_dir_componentes_compilados()
 	{
 		return $this->dir . '/metadatos_compilados/componentes';
@@ -123,6 +129,7 @@ class proyecto extends elemento_modelo
 		}
 		try {
 			$this->exportar_tablas();
+			$this->exportar_permisos();
 			$this->exportar_componentes();
 			$this->sincronizar_archivos();
 		} catch ( toba_error $e ) {
@@ -137,37 +144,14 @@ class proyecto extends elemento_modelo
 		$this->manejador_interface->lista( $obs, 'Observaciones' );
 	}
 
+	//-- TABLAS -------------------------------------------------------------
+
 	private function exportar_tablas()
 	{
 		$this->manejador_interface->mensaje("Exportando datos generales", false);
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_tablas() );
 		foreach ( tablas_proyecto::get_lista() as $tabla ) {
-			$definicion = tablas_proyecto::$tabla();
-			//Genero el SQL
-			if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
-       			$w = stripslashes($definicion['dump_where']);
-       			$where = ereg_replace("%%",$this->get_id(), $w);
-            } else {
-       			$where = " ( proyecto = '".$this->get_id()."')";
-			}
-			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
-					" FROM $tabla " .
-					" WHERE $where " .
-					//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
-					" ORDER BY {$definicion['dump_order_by']} ;\n";
-			//$this->manejador_interface->mensaje( $sql );
-			$contenido = "";
-			$datos = $this->db->consultar($sql);
-			$regs = count( $datos );
-			if ( $regs > 1 ) {
-				$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
-				$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-			
-			}
-			toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
-			for ( $a = 0; $a < $regs ; $a++ ) {
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
-			}
+			$contenido = $this->get_contenido_tabla($tabla);			
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_archivo( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 			}
@@ -175,6 +159,73 @@ class proyecto extends elemento_modelo
 		}
 		$this->manejador_interface->mensaje("OK");
 	}
+
+	private function get_contenido_tabla($tabla, $where_extra=null)
+	{
+		$definicion = tablas_proyecto::$tabla();
+		//Genero el SQL
+		if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
+   			$w = stripslashes($definicion['dump_where']);
+   			$where = ereg_replace("%%",$this->get_id(), $w);
+        } else {
+   			$where = " ( proyecto = '".$this->get_id()."')";
+		}
+		if(isset($where_extra)) $where = $where . ' AND ('. $where_extra .')';
+		$sql = "SELECT " . implode(', ', $definicion['columnas']) .
+				" FROM $tabla " .
+				" WHERE $where " .
+				//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
+				" ORDER BY {$definicion['dump_order_by']} ;\n";
+		//$this->manejador_interface->mensaje( $sql );
+		$contenido = "";
+		$datos = $this->db->consultar($sql);
+		$regs = count( $datos );
+		if ( $regs > 1 ) {
+			$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
+			$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
+		
+		}
+		toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
+		for ( $a = 0; $a < $regs ; $a++ ) {
+			$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+		}
+		return $contenido;
+	}
+
+	//-- PERMISOS -------------------------------------------------------------
+
+	private function exportar_permisos()
+	{
+		$this->manejador_interface->mensaje("Exportando permisos", false);
+		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
+		foreach( $this->get_lista_permisos() as $permiso ) {
+			toba_logger::instancia()->debug("PERMISO  $permiso");
+			$contenido = '';		
+			$where = "usuario_grupo_acc = '$permiso'";
+			foreach($tablas as $tabla) {
+				$contenido .= $this->get_contenido_tabla($tabla, $where);
+			}
+			if ( $contenido ) {
+				$this->guardar_archivo( $this->get_dir_permisos() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
+				$this->manejador_interface->mensaje_directo('.');
+			}			
+		}
+		$this->manejador_interface->mensaje("OK");
+	}
+
+	function get_lista_permisos()
+	{
+		$sql = "SELECT usuario_grupo_acc as id FROM apex_usuario_grupo_acc WHERE proyecto = '".$this->get_id()."'";
+		$permisos = $this->db->consultar($sql);
+		$datos = array();
+		foreach($permisos as $permiso) {
+			$datos[] = $permiso['id'];	
+		}
+		return $datos;
+	}
+
+	//-- COMPONENTES -------------------------------------------------------------
 
 	/*
 	*	Exporta los componentes

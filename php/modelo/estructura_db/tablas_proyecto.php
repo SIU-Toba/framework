@@ -11,19 +11,25 @@ class tablas_proyecto
   3 => 'apex_solicitud_obs_tipo',
   4 => 'apex_pagina_tipo',
   5 => 'apex_usuario_perfil_datos',
-  6 => 'apex_usuario_grupo_acc',
-  7 => 'apex_item_zona',
-  8 => 'apex_clase',
-  9 => 'apex_usuario_grupo_acc_item',
-  10 => 'apex_conversion',
-  11 => 'apex_nota',
-  12 => 'apex_item_nota',
-  13 => 'apex_objeto_nota',
-  14 => 'apex_msg',
-  15 => 'apex_item_msg',
-  16 => 'apex_objeto_msg',
-  17 => 'apex_permiso',
-  18 => 'apex_permiso_grupo_acc',
+  6 => 'apex_item_zona',
+  7 => 'apex_clase',
+  8 => 'apex_conversion',
+  9 => 'apex_nota',
+  10 => 'apex_item_nota',
+  11 => 'apex_objeto_nota',
+  12 => 'apex_msg',
+  13 => 'apex_item_msg',
+  14 => 'apex_objeto_msg',
+  15 => 'apex_permiso',
+);
+	}
+
+	static function get_lista_permisos()
+	{
+		return array (
+  0 => 'apex_usuario_grupo_acc',
+  1 => 'apex_usuario_grupo_acc_item',
+  2 => 'apex_permiso_grupo_acc',
 );
 	}
 
@@ -204,7 +210,7 @@ class tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'usuario_grupo_acc',
   'zona' => 'usuario',
   'desc' => '',
@@ -300,7 +306,7 @@ class tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a01_tablas_nucleo.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'usuario_grupo_acc, item',
   'zona' => 'usuario, item',
   'desc' => '',
@@ -526,7 +532,7 @@ class tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a05_tablas_permisos.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'permiso, usuario_grupo_acc',
   'zona' => 'usuario',
   'desc' => '',

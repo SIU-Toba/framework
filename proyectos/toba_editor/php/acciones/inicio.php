@@ -1,4 +1,5 @@
 <?php
+return;
 echo '<div style="text-align:left">';
 	require_once('modelo/instalacion.php');
 	require_once('admin_util.php');

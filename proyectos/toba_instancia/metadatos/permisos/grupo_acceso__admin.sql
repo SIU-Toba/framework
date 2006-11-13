@@ -1,3 +1,4 @@
+INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion, vencimiento, dias, hora_entrada, hora_salida, listar) VALUES ('toba_instancia', 'admin', 'Administrador', '0', 'Accede a toda la funcionalidad', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_instancia', 'admin', NULL, '/inicio');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_instancia', 'admin', NULL, '3321');
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_instancia', 'admin', NULL, '3323');

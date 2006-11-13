@@ -426,7 +426,7 @@ CREATE TABLE apex_usuario_perfil_datos
 CREATE TABLE apex_usuario_grupo_acc
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: usuario_grupo_acc
 --: zona: usuario
 --: desc:
@@ -839,7 +839,7 @@ CREATE TABLE apex_item_objeto
 CREATE TABLE apex_usuario_grupo_acc_item
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: usuario_grupo_acc, item
 --: zona: usuario, item
 --: desc:

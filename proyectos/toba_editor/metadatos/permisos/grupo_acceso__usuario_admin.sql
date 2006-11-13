@@ -1,0 +1,15 @@
+INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion, vencimiento, dias, hora_entrada, hora_salida, listar) VALUES ('toba_editor', 'usuario_admin', 'Coordinador', '10', 'Administra el acceso a usuarios', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '/admin/apex/elementos/error');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', '294', '/admin/apex/elementos/vinculos_generales');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '/admin/items/catalogo_unificado');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', '282', '/admin/objetos/clonador');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '/admin/objetos/editores/editor_estilos');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '/admin/objetos/mensajes');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', '302', '/admin/objetos/php');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '/admin/objetos_toba/selector_archivo');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '1240');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '3280');
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES ('toba_editor', 'usuario_admin', NULL, '1000045');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('toba_editor', 'usuario_admin', '2');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('toba_editor', 'usuario_admin', '5');
+INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES ('toba_editor', 'usuario_admin', '10');
