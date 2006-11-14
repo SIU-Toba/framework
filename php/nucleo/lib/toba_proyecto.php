@@ -143,7 +143,7 @@ class toba_proyecto
 				WHERE	proyecto = '".toba_proyecto::get_id()."';";
 		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_error("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia");	
+			throw new toba_error("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
 		return $rs[0];
 	}

@@ -143,6 +143,15 @@ class toba_ei_formulario extends toba_ei
 		$this->set_grupo_eventos_activo('no_cargado');
 	}
 
+	/*
+	*	Setea el tamaño minimo para la etiqueta del ef. El tamaño debe incluir la medida utilizada.
+	*	@param string $ancho Tamaño de la etiqueta ej: '150px'
+	*/
+	protected function set_ancho_etiqueta($ancho)
+	{
+		$this->ancho_etiqueta = $ancho;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//--------------------------------	EVENTOS  -----------------------------------
 	//-------------------------------------------------------------------------------
