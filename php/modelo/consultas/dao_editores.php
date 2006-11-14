@@ -525,7 +525,7 @@ class dao_editores
 	}
 
 	/**
-	* FUENTEs de DATOS
+	* Lista de FUENTEs de DATOS
 	*/
 	function get_fuentes_datos($proyecto=null)
 	{
@@ -539,6 +539,28 @@ class dao_editores
 		return contexto_info::get_db()->consultar($sql);	
 	}
 
+	/**
+	* Propiedadesd de una FUENTEs de DATOS
+	*/
+	function get_info_fuente_datos($id_fuente, $proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = contexto_info::get_proyecto();
+		}
+		$sql = "SELECT 	*,
+						link_instancia 		as link_base_archivo,
+						fuente_datos_motor 	as motor,
+						host 				as profile
+				FROM 	apex_fuente_datos
+				WHERE	fuente_datos = '$id_fuente'
+				AND 	proyecto = '$proyecto'";
+		$rs = contexto_info::get_db()->consultar($sql);
+		if (empty($rs)) {
+			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
+		}
+		return $rs[0];
+	}
+	
 	/**
 	 * Determina si el proyecto cuenta con una fuente de datos propia
 	 */
