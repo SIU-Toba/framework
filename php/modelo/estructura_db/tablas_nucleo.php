@@ -128,6 +128,10 @@ class tablas_nucleo
     33 => 'log_archivo',
     34 => 'log_archivo_nivel',
     35 => 'fuente_datos',
+    36 => 'version',
+    37 => 'version_fecha',
+    38 => 'version_detalle',
+    39 => 'version_link',
   ),
 );
 	}

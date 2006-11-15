@@ -101,7 +101,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		echo "<span class='enc-usuario-id'>".toba::usuario()->get_id()."</span>";
 		echo '</div>';		
 	}		
-	
+
 	function pie()
 	{
 		parent::pie();	

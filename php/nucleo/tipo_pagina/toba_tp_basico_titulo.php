@@ -23,6 +23,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
+		//$this->info_version();
 		echo "</div>\n\n";
 	}
 	
@@ -33,7 +34,17 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	{
 		return toba::solicitud()->get_datos_item('item_nombre');
 	}
-	
+
+	protected function info_version()
+	{
+		$version = toba::proyecto()->get_parametro('version');
+		if( $version ) {
+			echo '<div class="enc-version">';		
+			echo $version;
+			echo '</div>';		
+		}
+	}	
+		
 	function pre_contenido()
 	{
 		echo "\n<div align='center' class='cuerpo'>\n";

@@ -73,5 +73,17 @@ class ci_proyecto extends toba_ci
 	{
 		return $this->dependencia('datos')->get();
 	}
+
+	//---- version -------------------------------------------------------
+	
+	function evt__version__modificacion($datos)
+	{
+		$this->dependencia('datos')->set($datos);
+	}
+
+	function conf__version($ei)
+	{
+		return $this->dependencia('datos')->get();
+	}	
 }
 ?>

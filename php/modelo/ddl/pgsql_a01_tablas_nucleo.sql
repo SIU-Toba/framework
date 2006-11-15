@@ -90,6 +90,10 @@ CREATE TABLE			apex_proyecto
 	log_archivo						smallint		NULL,
 	log_archivo_nivel				smallint		NULL,
 	fuente_datos					varchar(20)		NULL,--NOT
+	version							varchar(20)		NULL,
+	version_fecha					date			NULL,
+	version_detalle					varchar(255)	NULL,
+	version_link					varchar(60)		NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
 	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","tem_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,

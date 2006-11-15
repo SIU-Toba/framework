@@ -137,7 +137,11 @@ class toba_proyecto
 						item_pre_sesion   		       	,
 						log_archivo						,
 						log_archivo_nivel				,
-						fuente_datos
+						fuente_datos					,
+						version							,
+						version_fecha					,
+						version_detalle					,
+						version_link
 				FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
 						ON (p.menu = m.menu)
 				WHERE	proyecto = '".toba_proyecto::get_id()."';";

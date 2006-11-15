@@ -108,6 +108,11 @@ legend {
 	margin-top: 5px;
 	text-align: right;
 }
+.enc-version {
+	float: right;
+	margin-top: 5px;
+	text-align: right;
+}
 .enc-usuario-nom {
 	display: block;
 	font-weight: bold;

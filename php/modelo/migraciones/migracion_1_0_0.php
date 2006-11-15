@@ -103,6 +103,10 @@ class migracion_1_0_0 extends migracion_toba
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	log_archivo						smallint		";
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	log_archivo_nivel				smallint		";
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	fuente_datos					varchar(20)		";	
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version							varchar(20)		";	
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_fecha					date			";	
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_detalle					varchar(255)	";	
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_link					varchar(60)		";	
 		
 		//--- Cambios a la zona
 		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_archivo				varchar(255)	";
