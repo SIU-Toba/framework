@@ -180,6 +180,9 @@ class toba_instancia
 		return self::get_db()->consultar($sql);	
 	}
 
+	/**
+	*	Devuelve el grupo de acceso de un usuario
+	*/
 	static function get_grupo_acceso($usuario, $proyecto)
 	{
 		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,

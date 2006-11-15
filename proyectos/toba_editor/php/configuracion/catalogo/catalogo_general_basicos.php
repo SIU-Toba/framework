@@ -1,33 +1,28 @@
 <?php
 require_once('nucleo/componentes/interface/interfaces.php');
 
-class catalogo_fuentes_fuente implements toba_nodo_arbol
+class catalogo_general_basicos implements toba_nodo_arbol
 {
 	protected $padre;
-	protected $id;
-	protected $datos;
-	protected $estructura;
 	
-	function __construct($padre, $id)
+	function __construct($padre)
 	{
 		$this->padre = $padre;
-		$this->id = $id;
-		$this->datos = dao_editores::get_info_fuente_datos($this->id);
 	}
 	
 	function get_id()
 	{
-		return $this->id;
+		return null;
 	}
 	
 	function get_nombre_corto()
 	{
-		return $this->datos['descripcion_corta'];
+		return 'Parametros Basicos';
 	}
 	
 	function get_nombre_largo()
 	{
-		return $this->datos['descripcion_corta'];
+		return null;
 	}
 	
 	function get_info_extra()
@@ -38,7 +33,7 @@ class catalogo_fuentes_fuente implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("objetos/datos_relacion.gif", false),
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("proyecto.gif", false),
 							'ayuda' => null );		
 		return $iconos;
 	}
@@ -47,12 +42,11 @@ class catalogo_fuentes_fuente implements toba_nodo_arbol
 	{
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = 'central';
-		$parametros = array( apex_hilo_qs_zona => $this->datos['proyecto'] .apex_qs_separador. $this->id);
 		$utilerias = array();
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
-			'ayuda' => 'Editar fuente de datos',
-			'vinculo' => toba::vinculador()->generar_solicitud( toba_editor::get_id(), '/admin/datos/fuente', $parametros, $opciones ),
+			'ayuda' => 'Editar parametros basicos',
+			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/proyectos/propiedades', $opciones ),
 			'target' => apex_frame_centro
 		);
 		return $utilerias;	

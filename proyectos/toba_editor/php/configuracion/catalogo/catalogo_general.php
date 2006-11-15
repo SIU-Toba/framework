@@ -1,14 +1,24 @@
 <?php
 require_once("nucleo/componentes/interface/interfaces.php");
-require_once('catalogo_fuentes.php');
+require_once('catalogo_general_tipo_pagina.php');
+require_once('catalogo_general_basicos.php');
+require_once('catalogo_general_zona.php');
+require_once('catalogo_general_mensajes.php');
+require_once('catalogo_general_efs.php');
+require_once('catalogo_general_derechos.php');
 
-class catalogo implements toba_nodo_arbol
+class catalogo_general implements toba_nodo_arbol
 {
 	protected $hijos;
 	
 	function __construct()
 	{
-		$this->hijos[] = new catalogo_fuentes($this);
+		$this->hijos[] = new catalogo_general_basicos($this);
+		$this->hijos[] = new catalogo_general_tipo_pagina($this);
+		$this->hijos[] = new catalogo_general_zona($this);
+		$this->hijos[] = new catalogo_general_mensajes($this);
+		$this->hijos[] = new catalogo_general_efs($this);
+		$this->hijos[] = new catalogo_general_derechos($this);
 	}
 
 	function es_hoja()
@@ -26,10 +36,6 @@ class catalogo implements toba_nodo_arbol
 		return null;	
 	}
 	
-	/**
-	 * ¿Los hijos del nodo estan cargados o cuando se requieran hay que ir a buscarlos al server?
-	 * @return boolean
-	 */
 	function tiene_hijos_cargados()
 	{
 		return true;	
@@ -52,12 +58,12 @@ class catalogo implements toba_nodo_arbol
 	
 	function get_nombre_largo()
 	{
-		return $this->get_nombre_corto();
+		return null;
 	}
 	
 	function get_info_extra()
 	{
-		return 'info_extra';	
+		return null;	
 	}
 
 	function get_iconos()
@@ -68,10 +74,6 @@ class catalogo implements toba_nodo_arbol
 		return $iconos;	
 	}
 	
-	/**
-	 * Arreglo de utilerias (similares a los iconos pero secundarios
-	 * Formato de nodos y utilerias: array('imagen' => , 'ayuda' => ,  'vinculo' => )
-	 */
 	function get_utilerias()
 	{
 		return null;

@@ -2,12 +2,22 @@
 
 class ci_fuentes extends toba_ci
 {
+	protected $carga_ok;
+
 	function ini()
 	{
 		if ($editable = toba::zona()->get_editable()) {
 			$clave['proyecto'] = toba_editor::get_proyecto_cargado();
 			$this->dependencia('datos')->cargar($clave);
+			$this->carga_ok = $this->dependencia('datos')->cargar($clave);
 		}			
+	}
+
+	function conf()
+	{
+		if(!$this->carga_ok) {
+			$this->pantalla()->eliminar_evento('eliminar');
+		}	
 	}
 
 	function get_lista_bases()

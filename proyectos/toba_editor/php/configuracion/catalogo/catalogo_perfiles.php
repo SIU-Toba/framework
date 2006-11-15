@@ -1,16 +1,15 @@
 <?php
 require_once("nucleo/componentes/interface/interfaces.php");
-require_once("modelo/consultas/dao_editores.php");
-require_once("catalogo_fuentes_fuente.php");
+require_once("modelo/consultas/dao_permisos.php");
+require_once("catalogo_perfiles_grupo.php");
 
-class catalogo_fuentes implements toba_nodo_arbol
+class catalogo_perfiles implements toba_nodo_arbol
 {
-	protected $hijos = array();
 
 	function __construct()
 	{
-		foreach( dao_editores::get_fuentes_datos() as $fuente ) {
-			$this->hijos[] = new catalogo_fuentes_fuente( $this, $fuente['fuente_datos'] );
+		foreach( dao_permisos::get_grupos_acceso() as $grupo ) {
+			$this->estructura[] = new catalogo_perfiles_grupo( $this, $grupo['usuario_grupo_acc'], $grupo['nombre'] );
 		}
 	}
 	
@@ -21,7 +20,7 @@ class catalogo_fuentes implements toba_nodo_arbol
 	
 	function get_nombre_corto()
 	{
-		return 'Fuentes de Datos';	
+		return 'Grupos de Acceso';	
 	}
 	
 	function get_nombre_largo()
@@ -37,8 +36,8 @@ class catalogo_fuentes implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
-		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("solic_consola.gif", false),
-							'ayuda' => 'Administrar fuentes de datos' );		
+		$iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba("preferencias.gif", false),
+							'ayuda' => 'Administrar GRUPOS de ACCESO' );		
 		return $iconos;	
 	}
 	
@@ -53,8 +52,8 @@ class catalogo_fuentes implements toba_nodo_arbol
 		$utilerias = array();
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("ml/agregar.gif", false),
-			'ayuda' => 'Crear FUENTE de DATOS',
-			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/datos/fuente', null, $opciones ),
+			'ayuda' => 'Crear un nuevo grupo de acceso',
+			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/usuarios/grupo', null, $opciones ),
 			'target' => apex_frame_centro
 		);
 		return $utilerias;	
@@ -77,7 +76,7 @@ class catalogo_fuentes implements toba_nodo_arbol
 	
 	function get_hijos()
 	{
-		return $this->hijos;
+		return $this->estructura;
 	}
 
 	//¿El nodo tiene propiedades extra a mostrar?

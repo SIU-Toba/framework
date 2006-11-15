@@ -9,7 +9,6 @@ class ci_menu extends toba_ci
 
 	//---- arbol ------------------------------------------------------------------------
 
-	//arreglo asociativo 'id_del_nodo' => 0|1 determinando si esta abierto o no
 	function evt__arbol__cambio_apertura($apertura)
 	{
 	}
