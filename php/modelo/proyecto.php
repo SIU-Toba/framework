@@ -1,6 +1,8 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
+require_once('modelo/consultas/dao_permisos.php');
+require_once('modelo/info/contexto_info.php');
 require_once('nucleo/componentes/toba_catalogo.php');
 require_once('nucleo/componentes/toba_cargador.php');
 require_once('lib/toba_manejador_archivos.php');
@@ -38,6 +40,8 @@ class proyecto extends elemento_modelo
 			throw new toba_error("PROYECTO: El proyecto '{$this->identificador}' es invalido. (la carpeta '{$this->dir}' no existe)");
 		}
 		$this->db = $this->instancia->get_db();
+		contexto_info::set_db($this->get_db());
+		contexto_info::set_proyecto($this->identificador);
 		toba_logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
 	}
 
@@ -276,11 +280,10 @@ class proyecto extends elemento_modelo
 
 	function get_lista_permisos()
 	{
-		$sql = "SELECT usuario_grupo_acc as id FROM apex_usuario_grupo_acc WHERE proyecto = '".$this->get_id()."'";
-		$permisos = $this->db->consultar($sql);
+		$permisos = dao_permisos::get_grupos_acceso();
 		$datos = array();
 		foreach($permisos as $permiso) {
-			$datos[] = $permiso['id'];	
+			$datos[] = $permiso['usuario_grupo_acc'];	
 		}
 		return $datos;
 	}
