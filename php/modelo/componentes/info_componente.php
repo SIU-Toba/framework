@@ -36,7 +36,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 			for ( $a=0; $a<count($this->datos['info_dependencias']); $a++) {
 				$clave['proyecto'] = $this->datos['info_dependencias'][$a]['proyecto'];
 				$clave['componente'] = $this->datos['info_dependencias'][$a]['objeto'];
-				$this->subelementos[$a]= toba_constructor::get_info( $clave );
+				$this->subelementos[$a]= toba_constructor::get_info( $clave, null, true, null, true );
 				$this->subelementos[$a]->set_consumidor($this, $this->datos['info_dependencias'][$a] );
 			}
 		}
