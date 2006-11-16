@@ -88,6 +88,7 @@ class consultas
 	*/
 	static function get_dia_semana($dia)
 	{
+		var_dump($dia);
 		$dias = self::get_dias_semana();
 		$d[0]['desc_dia_semana'] = $dias[$dia]['desc'];
 		return $d;

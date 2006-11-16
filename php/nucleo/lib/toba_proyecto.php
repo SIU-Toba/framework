@@ -270,7 +270,7 @@ class toba_proyecto
 	 * @param string $grupo_acceso Por defecto el del usuario actual
 	 * @return array RecordSet contienendo información de los items
 	 */
-	function items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
+	function get_items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
 	{
 		$rest = "";
 		if ($solo_primer_nivel) {

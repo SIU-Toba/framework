@@ -844,7 +844,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
 					} else {
 						if( method_exists($this, $parametros['metodo'])) {
-							$datos = $this->$parametros['metodo']($param_dao);				
+							$datos = call_user_func_array(array($this,$parametros['metodo']), $param_dao);				
 						} else {
 							throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa. El metodo: '. $parametros['metodo'] .' no esta definido');
 						}

@@ -1,3 +1,9 @@
 #menu-h {
 	left:-100px;
 }
+#zona_zona_tutorial .zona-items {
+	text-align: center;
+	float:none;
+	background-color: transparent;
+	border: none;
+}

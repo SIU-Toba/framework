@@ -20,6 +20,8 @@ class toba_ei_arbol extends toba_ei
 	protected $nivel_apertura = 1;
 	protected $datos_apertura;
 	protected $todos_abiertos = false;
+	protected $mostrar_utilerias = true;
+	protected $mostrar_propiedades_nodos = true;
 	protected $frame_destino = null;
 	
 	function __construct($datos)
@@ -78,6 +80,16 @@ class toba_ei_arbol extends toba_ei
 	function set_todos_abiertos()
 	{
 		$this->todos_abiertos = true;	
+	}
+	
+	function set_mostrar_utilerias($mostrar)
+	{
+		$this->mostrar_utilerias = $mostrar;	
+	}
+	
+	function set_mostrar_propiedades_nodos($mostrar)
+	{
+		$this->mostrar_propiedades_nodos = $mostrar;	
 	}
 	
 	/**
@@ -226,7 +238,7 @@ class toba_ei_arbol extends toba_ei
 	{
 		$salida = '';
 		$salida .= $this->mostrar_utilerias($nodo);
-		if (! $nodo->es_hoja()) {
+		if ($this->mostrar_propiedades_nodos && ! $nodo->es_hoja()) {
 			if ($es_visible) {
 				$img_exp_contr = toba_recurso::imagen_toba('arbol/contraer.gif', false); 
 			} else {
@@ -249,7 +261,7 @@ class toba_ei_arbol extends toba_ei
 		
 		$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
 		$nombre= "<span $ayuda>$corto</span>";
-		if ($nodo->tiene_propiedades()) {
+		if ($this->mostrar_propiedades_nodos && $nodo->tiene_propiedades()) {
 			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
 						"class='ei-arbol-ver-prop'>$nombre</a>";			
 		} else {
@@ -297,6 +309,9 @@ class toba_ei_arbol extends toba_ei
 	 */	
 	protected function mostrar_utilerias($nodo)
 	{
+		if (! $this->mostrar_utilerias) {
+			return '';	
+		}
 		$salida = "";
 		$utilerias = $nodo->get_utilerias();
 		if (count($utilerias) > 0) {

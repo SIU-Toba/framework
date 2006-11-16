@@ -136,7 +136,7 @@ class toba_ei_cuadro extends toba_ei
 			if (!isset($valor['estilo']))
 				$columnas[$clave]['estilo'] = 'col-tex-p1';
 			if (!isset($valor['estilo_titulo']))
-				$columnas[$clave]['estilo_titulo'] = 'lista-col-titulo';
+				$columnas[$clave]['estilo_titulo'] = 'ei-cuadro-col-tit';
 			if (!isset($valor['estilo_titulo']))
 				$columnas[$clave]['total_cc'] = '';
 		}

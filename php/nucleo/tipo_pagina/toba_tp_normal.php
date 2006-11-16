@@ -70,6 +70,10 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		echo "</div>\n";
 	}
 
+	/**
+	 * Genera el HTML que posibilita cambiar entre procesos
+	 * @ventana
+	 */
 	protected function cambio_proyecto()
 	{
 		$proyectos = toba_instancia::get_proyectos_accesibles();
@@ -96,10 +100,10 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	
 	protected function info_usuario()
 	{
-		echo '<div class="enc-usuario">';		
+		echo '<div class="enc-usuario">';
 		echo "<span class='enc-usuario-nom'>".toba::usuario()->get_nombre()."</span>";
 		echo "<span class='enc-usuario-id'>".toba::usuario()->get_id()."</span>";
-		echo '</div>';		
+		echo '</div>';
 	}		
 
 	function pie()
