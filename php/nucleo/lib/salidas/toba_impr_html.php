@@ -58,13 +58,22 @@ class toba_impr_html implements toba_impresion
 					toba_recurso::imagen_toba('impresora.gif',true,null,null).
 			"    Imprimir</button>";		
 		echo "</div>";
-		echo "<div class='marco-impresion'>";
+		echo $this->encabezado();
 	}
 
-	protected function generar_html_pie()
+	private function generar_html_pie()
 	{
+		$this->pie();
 		echo "</div>";
 		echo "</body></html>";
+	}
+
+	protected function encabezado()
+	{
+	}
+	
+	protected function pie()
+	{
 	}
 
 	//------------------------------------------------------------------------

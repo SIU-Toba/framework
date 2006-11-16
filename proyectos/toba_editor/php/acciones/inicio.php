@@ -109,7 +109,7 @@ echo '<div style="text-align:left">';
 	echo "</div>";
 	
 	echo "<div style='padding:4px; background-color: white;border: 1px solid gray'>";
-	echo  toba_parser_ayuda::parsear("Conectado a la [wiki:Referencia/Instancia Instancia]  <strong>".toba_instancia::get_id()."</strong> :");
+	echo  toba_parser_ayuda::parsear("Editando el [wiki:Referencia/Instancia proyecto] <strong>".toba_editor::get_proyecto_cargado()."</strong> en la [wiki:Referencia/Instancia instancia]  <strong>".toba_editor::get_id_instancia_activa()."</strong> :");
 	echo "<ul style='margin-top: 0px;'>";
 	
 	foreach (toba::db()->get_parametros() as $clave => $valor) {

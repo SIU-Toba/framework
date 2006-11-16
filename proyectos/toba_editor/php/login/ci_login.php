@@ -21,13 +21,13 @@ class pantalla_login extends toba_ei_pantalla
 
 class ci_login extends toba_ci
 {
-	protected $datos = array();
+	protected $s__datos = array();
 
-	function mantener_estado_sesion()
+	function conf()
 	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'datos';
-		return $propiedades;
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
+			$this->pantalla()->eliminar_evento('ingresar');
+		}
 	}
 
 	//-------------------------------------------------------------------
@@ -38,20 +38,20 @@ class ci_login extends toba_ci
 
 	function evt__datos__modificacion($datos)
 	{
-		$this->datos = $datos;
+		$this->s__datos = $datos;
 		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
-			if ( $this->datos['autologin'] ) {
-				$this->datos['usuario'] = $this->datos['autologin'];
+			if ( $this->s__datos['autologin'] ) {
+				$this->s__datos['usuario'] = $this->s__datos['autologin'];
 			}
 		}
 		
-		if ( isset($this->datos['instancia']) && isset($this->datos['proyecto']) && isset($this->datos['usuario']) ) {
-			if (!isset($this->datos['clave'])) {
-				$this->datos['clave'] = null;
+		if ( isset($this->s__datos['instancia']) && isset($this->s__datos['proyecto']) && isset($this->s__datos['usuario']) ) {
+			if (!isset($this->s__datos['clave'])) {
+				$this->s__datos['clave'] = null;
 			}			
 			try {
-				toba_editor::iniciar($this->datos['instancia'], $this->datos['proyecto']);
-				toba::sesion()->iniciar($this->datos['usuario'], $this->datos['clave']);
+				toba_editor::iniciar($this->s__datos['instancia'], $this->s__datos['proyecto']);
+				toba::sesion()->iniciar($this->s__datos['usuario'], $this->s__datos['clave']);
 			} catch ( toba_error_login $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
@@ -65,10 +65,10 @@ class ci_login extends toba_ci
 		} else {
 			$this->dependencia('datos')->desactivar_efs('autologin');
 		}
-		if (isset($this->datos['clave'])) {
-			unset($this->datos['clave']);
+		if (isset($this->s__datos['clave'])) {
+			unset($this->s__datos['clave']);
 		}
-		return $this->datos;	
+		return $this->s__datos;	
 	}
 
 	//--- COMBOS ----------------------------------------------------------------

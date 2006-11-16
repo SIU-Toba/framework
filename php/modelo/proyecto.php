@@ -342,15 +342,19 @@ class proyecto extends elemento_modelo
 	private function cargar_permisos()
 	{
 		$this->manejador_interface->mensaje('Cargando permisos', false);
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
-		$cant_total = 0;
-		foreach( $archivos as $archivo ) {
-			$cant = $this->db->ejecutar_archivo( $archivo );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->mensaje_directo('.');
-			$cant_total++;
+		try {
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
+			$cant_total = 0;
+			foreach( $archivos as $archivo ) {
+				$cant = $this->db->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->mensaje_directo('.');
+				$cant_total++;
+			}
+			$this->manejador_interface->mensaje("OK");
+		} catch (toba_error $e) {
+			$this->manejador_interface->mensaje($e->getMessage());
 		}
-		$this->manejador_interface->mensaje("OK");
 	}
 
 	private function cargar_componentes()
