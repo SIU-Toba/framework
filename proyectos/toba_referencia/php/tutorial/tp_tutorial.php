@@ -18,5 +18,10 @@ class tp_tutorial extends tp_referencia
 		<?php
 	}	
 	
+	function titulo_item()
+	{
+		return 'Tutorial';	
+	}
+	
 }
 ?>

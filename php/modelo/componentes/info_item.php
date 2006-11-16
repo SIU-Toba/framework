@@ -400,7 +400,11 @@ class info_item implements toba_nodo_arbol
 	
 	function existe_php_accion()
 	{
-		return admin_util::existe_archivo_subclase($this->datos['basica']['item_act_accion_script']);
+		if (class_exists('admin_util')) {
+			return admin_util::existe_archivo_subclase($this->datos['basica']['item_act_accion_script']);
+		} else {
+			return false;	
+		}
 	}
 
 	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')

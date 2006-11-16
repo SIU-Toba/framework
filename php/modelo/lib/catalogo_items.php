@@ -28,7 +28,7 @@ class catalogo_items
 			$id_item_inicial = '__raiz__';	
 		}
 		
-		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial);
+		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial, $opciones);
 		$filtro_items = "";		
 		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
 			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
@@ -100,8 +100,11 @@ class catalogo_items
 			);
 	}
 	
-	protected function debe_cargar_en_profundidad($id_item)
+	protected function debe_cargar_en_profundidad($id_item, $opciones)
 	{
+		if (isset($opciones['sin_componentes'])) {
+			return false;
+		}
 		$sql = "SELECT carpeta FROM apex_item i WHERE 
 					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
 		$rs = contexto_info::get_db()->consultar($sql);

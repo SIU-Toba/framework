@@ -178,6 +178,7 @@ abstract class toba_solicitud
 	}
 	
 	/**
+	 * Retorna un id que representa a todo el pedido de página actual
 	 * @return array(proyecto, item)
 	 */
 	function get_id()
