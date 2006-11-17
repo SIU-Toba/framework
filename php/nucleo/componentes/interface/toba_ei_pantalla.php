@@ -63,11 +63,21 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
+	function get_etiqueta()
+	{
+		return $this->info_pantalla["etiqueta"];
+	}
+	
+	function set_etiqueta($nueva)
+	{
+		$this->info_pantalla["etiqueta"] = $nueva;
+	}
+	
 	/**
 	 * Retorna la descripción de esta pantalla
 	 * @return string
 	 */
-	function get_info_extra()
+	function get_descripcion()
 	{
 		return trim($this->info_pantalla["descripcion"]);
 	}
@@ -235,7 +245,7 @@ class toba_ei_pantalla extends toba_ei
 			case "tab_h":
 			case "tab_v":
 				foreach ($this->lista_tabs as $id => $tab) {
-					$this->eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);
+					$this->registrar_evento_cambio_tab($id);
 				}
 				break;
 			case "wizard":
@@ -259,6 +269,16 @@ class toba_ei_pantalla extends toba_ei
 		}		
 	}
 
+	/**
+	 * Deja registrado en el componente que en el cliente (javascript) se va a consumir el api de cambio de tabs
+	 * Esto es necesario explitarlo cuando la forma de navegación no es a través de tabs
+	 * @param string $id Id. de la pantalla a la que se va permitir cambiar en el cliente
+	 */
+	function registrar_evento_cambio_tab($id)
+	{
+		$this->eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);		
+	}
+	
 	//---------------------------------------------------------------
 	//-------------------------- SALIDA HTML --------------------------
 	//----------------------------------------------------------------
@@ -358,14 +378,14 @@ class toba_ei_pantalla extends toba_ei
 	protected function generar_html_contenido()
 	{
 		//--- Descripcion de la PANTALLA
-		$descripcion = $this->get_info_extra();
+		$descripcion = $this->get_descripcion();
 		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
 		if ($descripcion !="" || $es_wizard) {
 			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
 			$descripcion = toba_parser_ayuda::parsear($descripcion);
 			if ($es_wizard) {
 				$html = "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
-				$html .= $this->info_pantalla["etiqueta"];
+				$html .= $this->get_etiqueta();
 				$html .= "</div><div class='ci-wiz-descr'>$descripcion</div></div>";
 				echo $html;
 			} else {

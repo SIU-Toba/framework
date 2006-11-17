@@ -14,6 +14,24 @@ class tp_tutorial extends tp_referencia
 				background-color: white;
 				font-size: 12px;
 			}
+			.screenshot {
+				display:block;
+				margin: 10px 0px 10px 50px;
+			}
+			.screenshot img {
+				border: 1px outset gray;			
+			}
+			.tutorial-agenda {
+				margin-left: 20%;
+				margin-right: 20%;				
+				display: block;
+			}
+			.tutorial-agenda li {
+				padding-top: 10px;
+			}
+			.tutorial-agenda a {
+				font-size: 20px;			
+			}
 		</style>			
 		<?php
 	}	
