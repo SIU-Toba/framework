@@ -110,7 +110,7 @@ class toba_ef_upload extends toba_ef
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
-		}
+		}		
 		if ($this->archivo_subido) {
 			$id = $this->estado['error'];
 			switch($id){
@@ -128,7 +128,7 @@ class toba_ef_upload extends toba_ef
 				default:
 					return "Ha ocurrido un error cargando el archivo ($id)";
 			}
-			if (isset($this->extensiones_validas)) {
+			if (isset($this->extensiones_validas) && $this->tiene_estado()) {
 				$rep = $_FILES[$this->id_form]['name'];
 				$ext = substr($rep, strrpos($rep, '.') + 1);
 				if (! in_array(strtolower($ext), $this->extensiones_validas)) {
