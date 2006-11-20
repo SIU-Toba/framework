@@ -1,4 +1,5 @@
 <?php
+
 	require_once('modelo/catalogo_modelo.php');
 	
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
@@ -99,6 +100,11 @@ function mostrar_ocultar_frame() {
 ?>
          <td class='listado-tabi'><? echo $url ?></td>
 
+         <td class='listado-tabi'>
+        <a title='Indice de la ayuda disponible' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
+		 <? echo toba_recurso::imagen_toba("ayuda.gif",true) ?></a></td>
+         
+         
          <td class='listado-tabi'>
         <a title='Página inicial del editor' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
 		 <? echo toba_recurso::imagen_toba("home.gif",true) ?></a></td>

@@ -276,14 +276,21 @@ class toba_instancia
 	{
 		$salida = array();
 		foreach ($proys as $pro) {
-			//incluyo el archivo de informacion basica de la INSTANCIA
-			if (isset($_SESSION['toba']['instancia'][$pro]['url'])) {
-				$salida[$pro] = $_SESSION['toba']['instancia'][$pro]['url'];
-			} else {
-				$salida[$pro] = '/'.$pro;
-			}
+			$salida[$pro] = self::get_url_proyecto($pro);
 		}
 		return $salida;
+	}
+	
+	/**
+	 * Retorna las url asociada a un proyecto particular de la instancia
+	 */	
+	static function get_url_proyecto($proy)
+	{
+		if (isset($_SESSION['toba']['instancia'][$proy]['url'])) {
+			return $_SESSION['toba']['instancia'][$proy]['url'];
+		} else {
+			return '/'.$proy;
+		}
 	}
 
 	/**

@@ -15,16 +15,11 @@ class toba_recurso {
 	 */	
 	static function url_proyecto($proyecto = null)
 	{
-		if (isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
-			$alias = $_SERVER['TOBA_PROYECTO_ALIAS'];
-		} else {
-			if (!isset($proyecto)) {
-				$alias = toba::proyecto()->get_id();
-			} else {
-				$alias = $proyecto;
-			}
-		}
-		return '/'.$alias;		
+		$es_actual = (!isset($proyecto) || toba::proyecto()->get_id() == $proyecto);
+		if ($es_actual && isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
+			return '/'.$_SERVER['TOBA_PROYECTO_ALIAS'];
+		} 
+		return toba_instancia::get_url_proyecto($proyecto);
 	}
 	
 	/**

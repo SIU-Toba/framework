@@ -48,7 +48,7 @@ class admin_util
 	static function get_url_desarrollos()
 	{
 		$host = (toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
-		return "https://$host.siu.edu.ar";
+		return "http://$host.siu.edu.ar";
 	}
 	
 	static function get_icono_abrir_php($archivo)
