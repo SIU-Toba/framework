@@ -251,16 +251,22 @@ class toba_ei_arbol extends toba_ei
 		}
 		$salida .= $this->mostrar_iconos($nodo);
 		
-		//Nombre
+		//Nombre y ayuda
 		$corto = $this->acortar_nombre($nodo->get_nombre_corto());
-		$title= "<b>Nombre</b>: ".$nodo->get_nombre_largo()."<br><b>Id</b>:  ".$nodo->get_id();
+		$id = $nodo->get_id();
+		$largo = $nodo->get_nombre_largo();
 		$extra = $nodo->get_info_extra();
-		if ($extra != '') {
-			$title .= "<hr>$extra";
+
+		if($largo || $id || $extra) {
+			$title= "<b>Nombre</b>: $largo<br><b>Id</b>:  $id";
+			if ($extra != '') {
+				$title .= "<hr>$extra";
+			}
+			$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
+			$nombre= "<span $ayuda>$corto</span>";
+		} else {
+			$nombre = $corto;	
 		}
-		
-		$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
-		$nombre= "<span $ayuda>$corto</span>";
 		if ($this->mostrar_propiedades_nodos && $nodo->tiene_propiedades()) {
 			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
 						"class='ei-arbol-ver-prop'>$nombre</a>";			
