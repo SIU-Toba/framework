@@ -105,6 +105,9 @@ class toba_db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
+				if (strlen($sql) > 10000) {
+					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
+				}
 				throw new toba_error_db("ERROR ejecutando SQL. ".
 										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
