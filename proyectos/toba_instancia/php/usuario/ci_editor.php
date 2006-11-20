@@ -37,6 +37,11 @@ class ci_editor extends toba_ci
 
 	//---- Asociacion a PROYECTOS -------------------------------------------------
 
+	function evt__proyecto__salida()
+	{
+		$this->datos('proyecto')->resetear_cursor();		
+	}
+
 	function evt__cuadro_proyectos__seleccion($seleccion)
 	{
 		$this->datos('proyecto')->set_cursor($seleccion);
@@ -47,26 +52,26 @@ class ci_editor extends toba_ci
 		$componente->set_datos($this->datos('proyecto')->get_filas());
 	}
 
-	function evt__basica__alta($datos)
+	function evt__form_proyectos__alta($datos)
 	{
-		
+		$this->datos('proyecto')->nueva_fila($datos);
 	}
 
 	function evt__form_proyectos__modificacion($datos)
 	{
-		if ($datos['clave'] == self::clave_falsa ) {
+		if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
 		}
 		$this->datos('proyecto')->set($datos);
 		$this->datos('proyecto')->resetear_cursor();
 	}
 
-	function evt__basica__baja()
+	function evt__form_proyectos__baja()
 	{
-		
+		$this->datos('proyecto')->eliminar_fila( $this->datos('proyecto')->get_cursor() );
 	}
 	
-	function evt__basica__cancelar()
+	function evt__form_proyectos__cancelar()
 	{
 		$this->datos('proyecto')->resetear_cursor();
 	}

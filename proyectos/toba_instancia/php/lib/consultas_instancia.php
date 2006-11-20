@@ -169,8 +169,18 @@ class consultas_instancia
 		$sql = "SELECT 	usuario_grupo_acc,
 						nombre,
 						descripcion
-				FROM apex_usuario_grupo_acc
-				WHERE proyecto = '$proyecto';";
+				FROM 	apex_usuario_grupo_acc
+				WHERE 	proyecto = '$proyecto';";
+		return toba::db()->consultar($sql);
+	}
+	
+	function get_descripcion_grupo_acceso($proyecto, $grupo)
+	{
+		$sql = "SELECT 	nombre as 			grupo_acceso,
+						descripcion as 		grupo_acceso_desc
+				FROM 	apex_usuario_grupo_acc
+				WHERE 	proyecto = '$proyecto'
+				AND 	usuario_grupo_acc = '$grupo';";
 		return toba::db()->consultar($sql);
 	}
 }

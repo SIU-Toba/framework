@@ -10,7 +10,7 @@
 
 <frameset rows="*" cols="380,*" frameborder="YES" border="1" bordercolor="#553DA1" framespacing="0" id='frameset_admin'>
   <frame src="<? echo toba::vinculador()->generar_solicitud('toba_instancia','3321',null,false,false,null,true,'lateral')?>" name="lateral" scrolling="auto">
-  <frame src="<? echo toba::vinculador()->generar_solicitud('toba_instancia','/inicio')?>" name="central" scrolling="auto">
+  <frame src="<? echo toba::vinculador()->generar_solicitud('toba_instancia','3340')?>" name="central" scrolling="auto">
 </frameset>
 
 </html>
