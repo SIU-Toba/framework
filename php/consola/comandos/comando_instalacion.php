@@ -310,14 +310,16 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Pregunta identificador del Proyecto
-		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios)', true);
+		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);
 
-		//--- Si el proyecto existe, lo borra
-		$existe_proyecto = proyecto::existe($id_proyecto);
-		if ($existe_proyecto && $forzar_instalacion) {
-			toba_manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
-			$existe_proyecto = false;
-		}		
+		//--- Si ingreso un proyecto y existe, lo borra
+		if ($id_proyecto != '') {
+			$existe_proyecto = proyecto::existe($id_proyecto);
+			if ($existe_proyecto && $forzar_instalacion) {
+				toba_manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
+				$existe_proyecto = false;
+			}
+		}
 		
 		//--- Crea la instancia
 		$id_instancia = $this->get_entorno_id_instancia(true);
@@ -336,7 +338,7 @@ class comando_instalacion extends comando_toba
 		$instancia->set_version( instalacion::get_version_actual());
 		
 		//--- Crea el proyecto
-		if (!$existe_proyecto ) {
+		if ($id_proyecto != '' && !$existe_proyecto ) {
 			proyecto::crear( $instancia, $id_proyecto, array() );
 			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
 		}
@@ -349,7 +351,7 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Crea el login y exporta el proyecto
-		if (!$existe_proyecto) {
+		if (isset($nuevo_proyecto)) {
 			$nuevo_proyecto->actualizar_login();	
 			$nuevo_proyecto->exportar();	
 		}
