@@ -48,43 +48,10 @@ class pant_creacion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo "
-			Es muy similar a crear un ítem. Dentro del editor del proyecto:
-			<ol>
-				<li>Desde el menú principal ir a la vista de ítems: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/boton_items.png', true)."</span></li>
-				<li>Expandir las utilerías de una carpeta donde estará contenido el ítem (por ejemplo la raiz): 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_expandir.png', true)."</span></li>
-				<li>Presionar el ícono de creación de ítem: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_icono.png', true)."</span></li>
-				<li>En las propiedadese básicas indicar el nombre del ítem (por ejemplo <em>Pago a terceros</em>) e indicar que forma parte del menú: <span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_basicas.png', true)."</span></li>
-				<li>Presionar <strong>Guardar</strong>: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_guardar.png', true)."</span></li>
-				<li>En el árbol de la izquierda se puede visualizar el ítem creado. Ahora es posible previsualizar el ítem en la aplicación: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_creado.png', true)."</span></li>
-			</ol>
-		";
+		echo mostrar_video('items/items-crear');
 	}
 }
 
 
-class pant_carpeta extends pant_tutorial 
-{
-	function generar_layout()
-	{
-		echo "
-			Dentro del editor del proyecto:
-			<ol>
-				<li>Desde el menú principal ir a la vista de ítems: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/boton_items.png', true)."</span></li>
-				<li>Expandir las utilerías de una carpeta donde estará contenida la carpeta (por ejemplo la raiz): 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_expandir.png', true)."</span></li>
-				<li>Presionar el ícono de creación de carpeta: 
-						<span class='screenshot'>".toba_recurso::imagen_proyecto('tutorial/nuevo_item_icono.png', true)."</span></li>
-				<li>El resto de los pasos son iguales a los de un ítem común</li>
-			</ol>
-		";
-	}	
-}
 
 ?>
