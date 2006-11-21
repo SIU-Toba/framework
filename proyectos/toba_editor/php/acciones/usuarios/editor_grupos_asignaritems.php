@@ -85,7 +85,7 @@
 			?>
 			          <td  class='ei-arbol-nodo' width='100%'  colspan='<? echo ($maximo-$nivel)+3?>'>
 			<? 
-				$extra = " camino='".separador_camino.implode(separador_camino, $item->get_camino())."' ";
+				$extra = " camino='".separador_camino.implode(separador_camino, $item->get_camino()).separador_camino."' ";
 				echo toba_form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 
 			          	<?=$item->get_nombre()?>
@@ -121,7 +121,7 @@ function cascada(item_padre, estado)
 {
 	var item_actual, regex_item_padre, x, ultimo_elemento;
 	formulario = document.<? echo $formulario ?>;
-	regex_item_padre = '<? echo separador_camino; ?>' + item_padre;
+	regex_item_padre = '<? echo separador_camino; ?>' + item_padre + '<? echo separador_camino; ?>';
 	for (x=0 ; x < formulario.elements.length ; x++)	
 	{
 		if(formulario.elements[x].type=="checkbox")
