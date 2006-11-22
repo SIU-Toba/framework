@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php');
+php_referencia::instancia()->agregar(__FILE__);
 
 class extension_ci extends toba_ci
 {

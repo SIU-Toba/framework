@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 
 class pantalla_destino extends toba_ei_pantalla 
 {

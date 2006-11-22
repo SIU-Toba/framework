@@ -1,13 +1,10 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php');
+php_referencia::instancia()->agregar(__FILE__);
 
 class ci_mensajes extends toba_ci
 {
-
-	function __construct($id)
+	function ini()
 	{
-		parent::__construct($id);
-		
 		//Mensaje propio del objeto
 		$m_propio = $this->get_mensaje('info_local', array('uno', 'dos', 'tres'));
 		//Mensaje a nivel global del proyecto

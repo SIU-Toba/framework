@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 
 class form_persona_juegos extends toba_ei_formulario_ml
 {

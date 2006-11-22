@@ -7,3 +7,25 @@
 	background-color: transparent;
 	border: none;
 }
+a {
+  text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#php-referencia-cont {
+	bottom: 0;
+	right: 0;
+	position: fixed;
+	background-color:white;
+	border: 1px solid black;
+	padding: 5px;
+}
+.php-referencia {
+	background-color:white;
+	border: 1px solid black;
+	padding: 5px;
+
+}

@@ -1,10 +1,10 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class ci_mascaras extends toba_ci
 {
 	protected $s__datos;
 
-	
 	function ini()
 	{
 		if (! isset($this->datos)) {	

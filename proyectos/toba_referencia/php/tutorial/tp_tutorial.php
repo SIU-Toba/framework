@@ -30,7 +30,7 @@ class tp_tutorial extends tp_referencia
 				padding-top: 10px;
 			}
 			.tutorial-agenda a {
-				font-size: 20px;			
+				font-size: 16px;
 			}
 		</style>			
 		<?php

@@ -192,7 +192,8 @@ class toba_sesion
 	}
 
 	/**
-	 * Ventana de inicializacion del contexto de ejecucion del proyecto
+	 * Ventana de inicializacion del contexto de ejecucion del proyecto en el pedido de página actual
+	 * (antiguo inicializacion.php)
 	 * @ventana
 	 */
 	function iniciar_contexto() {}	

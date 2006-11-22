@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class filtrado_directo_php extends toba_ci
 {

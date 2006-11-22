@@ -149,5 +149,20 @@ class toba_usuario implements toba_interface_usuario
 			return null;
 		}		
 	}	
+	
+	/*
+	*	Devuelve el valor contenido en el parametro de usuario especificado.
+	*	@param 	$parametro	char	Identificador del parametro de usuario, las opciones validas son 'A','B' o 'C'
+	*	@return $value	Retorna el valor del parametro o null si es que no se encuentra seteado.
+	*/
+	function get_parametro($parametro)
+	{
+		$nombre_parametro = 'parametro_'. strtolower(trim($parametro));	//Las opciones correctas son 'a','b' o 'c'
+		if (isset($_SESSION['toba']['usuario'][$nombre_parametro])){
+			return $_SESSION['toba']['usuario'][$nombre_parametro];
+		}else{
+			return null;
+		}
+	}
 }
 ?>

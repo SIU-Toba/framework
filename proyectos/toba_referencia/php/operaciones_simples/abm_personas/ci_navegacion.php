@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 require_once('operaciones_simples/consultas.php'); 
 
 //----------------------------------------------------------------

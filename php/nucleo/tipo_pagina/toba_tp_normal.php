@@ -106,9 +106,5 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		echo '</div>';
 	}		
 
-	function pie()
-	{
-		parent::pie();	
-	}
 }
 ?>

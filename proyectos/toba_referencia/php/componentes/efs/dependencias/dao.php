@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 
 /*
 *	En este dao las búsquedas son estáticas, generalmente terminarían en una SQL

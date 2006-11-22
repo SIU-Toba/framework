@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class eiform_ocultar_desactivar2 extends toba_ei_formulario
 {

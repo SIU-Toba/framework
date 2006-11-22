@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class ci_ocultar_deshabilitar extends toba_ci
 {

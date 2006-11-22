@@ -1,6 +1,6 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario_ml.php'); 
-//--------------------------------------------------------------------
+php_referencia::instancia()->agregar(__FILE__);
+
 class form_ml_solo_lectura extends toba_ei_formulario_ml
 {
 	function extender_objeto_js()

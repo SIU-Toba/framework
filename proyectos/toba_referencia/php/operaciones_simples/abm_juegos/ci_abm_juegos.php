@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
+php_referencia::instancia()->agregar(__FILE__);
 require_once('operaciones_simples/consultas.php'); 
 
 class ci_abm_juegos extends toba_ci

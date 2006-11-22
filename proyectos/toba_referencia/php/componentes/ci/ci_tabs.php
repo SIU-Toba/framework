@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class ci_tabs extends toba_ci
 {

@@ -1,6 +1,5 @@
 <?php
-  
-require_once('nucleo/componentes/interface/toba_ei_formulario.php');
+php_referencia::instancia()->agregar(__FILE__);
 
 class extension_form extends toba_ei_formulario
 {

@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_filtro.php');
+php_referencia::instancia()->agregar(__FILE__);
 
 class extension_filtro extends toba_ei_filtro
 {

@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 
 class cuadro_origen extends toba_ei_cuadro
 {

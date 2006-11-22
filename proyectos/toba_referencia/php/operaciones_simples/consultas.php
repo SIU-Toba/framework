@@ -1,4 +1,5 @@
 <?
+php_referencia::instancia()->agregar(__FILE__);
 
 class consultas
 {

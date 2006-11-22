@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 
 class pantalla_dos_columnas extends toba_ei_pantalla 
 {

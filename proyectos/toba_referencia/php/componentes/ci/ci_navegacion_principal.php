@@ -1,4 +1,6 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
+
 class ci_navegacion_principal extends toba_ci
 {
 	protected $precio_entrada = 300;

@@ -1,5 +1,5 @@
 <?
-require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
+php_referencia::instancia()->agregar(__FILE__);
 
 class extendion_cuadro_estetica extends toba_ei_cuadro
 {

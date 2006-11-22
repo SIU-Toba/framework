@@ -1,4 +1,5 @@
 <?php
+php_referencia::instancia()->agregar(__FILE__);
 
 class extension_formulario extends toba_ei_formulario
 {

@@ -1,6 +1,6 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
-//--------------------------------------------------------------------
+php_referencia::instancia()->agregar(__FILE__);
+
 class ci_esquemas extends toba_ci
 {
 	protected $fuente = "
