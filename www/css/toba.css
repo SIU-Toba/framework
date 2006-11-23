@@ -109,8 +109,10 @@ legend {
 	text-align: right;
 }
 .enc-version {
+	border: 1px solid gray;
+	padding: 4px; 
+	background-color: white;
 	float: right;
-	margin-top: 5px;
 	text-align: right;
 }
 .enc-usuario-nom {
@@ -766,7 +768,7 @@ a.ci-tabs-boton-desact:hover {
 }
 .item-barra-tit {
 	font-weight: bold;
-	font-size: 11px;;
+	font-size: 11px;
 	display: inline;
 	margin-left: 5px;
 	vertical-align: top;

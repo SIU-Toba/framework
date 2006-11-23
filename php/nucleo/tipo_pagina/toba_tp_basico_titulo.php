@@ -23,7 +23,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
-		//$this->info_version();
+		$this->info_version();
 		echo "</div>\n\n";
 	}
 	
@@ -39,8 +39,27 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	{
 		$version = toba::proyecto()->get_parametro('version');
 		if( $version ) {
-			echo '<div class="enc-version">';		
-			echo $version;
+			$info = '';
+			$version_fecha = toba::proyecto()->get_parametro('version_fecha');
+			if($version_fecha) {
+				$info .= "Lanzamiento: <strong>$version_fecha</strong> <br>";	
+			}			
+			$version_detalle = toba::proyecto()->get_parametro('version_detalle');
+			if($version_detalle) {
+				$info .= "<hr>$version_detalle<br>";	
+			}
+			$version_link = toba::proyecto()->get_parametro('version_link');
+			if($version_link) {
+				$info .= "<hr><a href=\'http://$version_link\' target=\"_bank\">Más información</a><br>";	
+			}
+			if($info) {
+				$info = "Version: <strong>$version</strong><br>" . $info;
+				$info = toba_recurso::ayuda(null, $info, 'enc-version');
+			}else{
+				$info = "class='enc-version'";
+			}
+			echo "<div $info >";		
+			echo 'Versión <strong>' . $version .'</strong>';
 			echo '</div>';		
 		}
 	}	
