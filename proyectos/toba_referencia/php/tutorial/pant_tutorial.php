@@ -23,7 +23,7 @@ class pant_agenda extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		echo "<ol class='tutorial-agenda'>";
+		echo "<div class='tutorial-agenda'><ol>";
 		foreach ($this->lista_tabs as $id => $pantalla) {
 			if ($id != $this->id_en_controlador) {
 				$this->registrar_evento_cambio_tab($id);
@@ -34,7 +34,7 @@ class pant_agenda extends toba_ei_pantalla
 				echo "</li>";
 			}
 		}	
-		echo "</ol>";
+		echo "</ol></div>";
 	}
 }
 

@@ -22,9 +22,11 @@ class tp_tutorial extends tp_referencia
 				border: 1px outset gray;			
 			}
 			.tutorial-agenda {
-				margin-left: 20%;
-				margin-right: 20%;				
-				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				width: 400px;
+			}
+			.tutorial-agenda ol {
 			}
 			.tutorial-agenda li {
 				padding-top: 10px;
@@ -32,9 +34,20 @@ class tp_tutorial extends tp_referencia
 			.tutorial-agenda a {
 				font-size: 16px;
 			}
-			.ci-wiz-titulo {
+			.ci-wiz-titulo, h2 {
 				font-size: 1.5em; 
 			}
+			.lista-separada {
+				list-style-image: url('<?php echo toba_recurso::imagen_toba('archivos/carpeta.gif'); ?>');
+			}
+			.lista-separada li {
+				margin-top: 10px;
+			}	
+			.lista-separada .proyectos {
+				background-color: #EEEAEE;
+				border: 1px solid gray;
+			}
+
 		</style>			
 		<?php
 	}	
@@ -75,4 +88,5 @@ function mostrar_video($video)
 	   </script>  	
    ';	
 }
+
 ?>

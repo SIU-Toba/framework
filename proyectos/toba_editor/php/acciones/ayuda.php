@@ -26,7 +26,7 @@
 require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
-$url_trac = admin_util::get_url_desarrollos();
+$url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 $url_referencia = toba_recurso::url_proyecto('toba_referencia');
 

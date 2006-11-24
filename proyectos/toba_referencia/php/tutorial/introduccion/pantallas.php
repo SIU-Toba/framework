@@ -1,5 +1,6 @@
 <?php 
 require_once("tutorial/pant_tutorial.php");
+require_once('nucleo/lib/toba_parser_ayuda.php');
 
 class pant_definicion extends pant_tutorial
 {
@@ -27,16 +28,95 @@ class pant_definicion extends pant_tutorial
 			<p>
 				El flujo de desarrollo con la herramienta podría definirse así:
 				<ol>
-					<li>Se utiliza el <strong>editor web</strong> para definir una operación, sus pantallas, sus componentes gráficos, tablas que se consumen, etc.
-					<li>Se define en un editor PHP a elección el código para cubrir lógica particular de la operación.
+					<li>Se utiliza el <strong>editor web</strong> de toba para definir una operación, sus pantallas, 
+							sus componentes gráficos, tablas que se consumen, etc. Todo esto se almacena en metadatos en una base de datos.
+					<li>Se utiliza un <strong>editor PHP</strong> a elección el código para cubrir lógica particular de la operación.
 					<li>Durante este proceso se va probando la operación desde el mismo <strong>editor web</strong> haciendo ajustes contextuales.
-					<li>Una vez terminada se utilizan los <strong>comandos administrativos</strong> para exportar la operación desde el puesto de desarrollo e 
-						importarla en el sistema en producción
-					<li>En el sistema en producción el proyecto sólo necesita las <strong>librerías</strong> o <em>runtime</em> para ejecutar.
+					<li>Una vez terminada se utilizan los <strong>comandos administrativos</strong> para exportar el proyecto 
+						desde el puesto de desarrollo e importarlo en el sistema en producción.
+					<li>En el sistema en producción sólo necesita las <strong>librerías</strong> o <em>runtime</em>
+						 para ejecutar el proyecto (código + metadatos).
 				</ol>
 			</p>
 		
 		";
+	}
+}
+
+class pant_directorios extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		$comandos = toba_parser_ayuda::parsear_wiki('Referencia/Consola', 'comandos de consola', 'toba_editor');
+		$wiki = toba_parser_ayuda::parsear_wiki('WikiStart', 'wiki', 'toba_editor');
+		$puntos_de_acceso = toba_parser_ayuda::parsear_wiki('Referencia/PuntosDeAcceso', 'puntos de acceso', 'toba_editor');
+		$api = toba_parser_ayuda::parsear_api('index', 'se encuentra publicada', 'toba_editor');
+		$proyectos = toba_parser_ayuda::parsear_wiki('Proyectos#Internos', 'proyectos propios', 'toba_editor');
+		echo " 
+			<p>
+			Para familizarse más con el ambiente, vamos a presentar su estructura de directorios y una breve descripción de sus funciones:
+			<ul class='lista-separada'>
+				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos, 
+						a este directorio es necesario incluirlo en el PATH del sistema operativo.
+						
+				<li><strong>doc</strong>: La mejor documentación del proyecto se encuentra en el $wiki y en este tutorial.
+				
+				<li><strong>instalacion</strong>: Contiene toda la configuración local (base que se utilza, proyectos que se editan, alias de apache, etc.)
+													y los metadatos locales (logs, usuarios, etc.).
+				
+				<li><strong>php</strong>
+					<ul>
+						<li><strong>3ros</strong>: Librerías de 3ros utilizadas en el proyecto.
+						
+						<li><strong>consola</strong>: Código fuente de los comandos administrativos de consola.
+						
+						<li><strong>contrib</strong>: Código contribuido por los proyectos, que aún no pertenecen al núcleo 
+													pero que esta bueno	compartir.
+						
+						<li><strong>lib</strong>: Clases sueltas propias comunes a todo el ambiente
+						
+						<li><strong>modelo</strong>: Contiene una serie de clases que utilizan el editor y los comandos
+								para editar metadatos y código. Forman una base útil para armar otras herramientas consumiendo una API de alto nivel. 
+								Por ejemplo si el proyecto determina que es necesario desarrollar un instalador con
+								prestaciones extras, es un buen comienzo consumir estas clases.
+						
+						<li><strong>nucleo</strong>: <em>Runtime</em> o conjunto de clases que se utilizan en la ejecución de un proyecto.
+										La documentación de las clases $api.
+					</ul>
+				<li><strong>proyectos</strong>: Este directorio contiene los $proyectos del ambiente y es el lugar sugerido 
+												para los nuevos proyectos, aunque pueden situarlos en cualquier directorio, 
+												si están aquí es más fácil configurarlos.
+					<div class='proyectos'>
+					<ul>
+						<li>...
+						<li><strong>proyecto_x</strong>:
+							<ul>
+								<li><strong>metadatos</strong>: Contiene la última exportación de metadatos del proyecto.
+								<li><strong>php</strong>: Directorio que será parte del <em>include_path</em> de PHP, 
+															se asume que el proyecto pondra sus extensiones y demás código aquí.
+								<li><strong>temp</strong>: Directorio temporal no-navegable propio del proyecto
+								<li><strong>www</strong>: Directorio navegable que contiene los $puntos_de_acceso a la aplicación.
+									<ul>
+										<li><strong>css</strong>: Plantillas de estilos CSS del proyecto.									
+										<li><strong>img</strong>: Imagenes propias del proyecto.
+										<li><strong>temp</strong>:  Directorio temporal navegable del proyecto.
+									</ul>
+							</ul>
+						<li>...
+					</ul>		
+					</div>		
+				<li><strong>temp</strong>: Directorio temporal no-navegable común.
+				<li><strong>var</strong>: Recursos internos a Toba.
+				<li><strong>www</strong>: Directorio navegable que contiene recursos web que consumen el <em>runtime</em> y los proyectos.
+					<ul>
+						<li><strong>css</strong>: Plantillas de estilos CSS disponibles.
+						<li><strong>img</strong>: Imagenes comunes que pueden utilizar los proyectos.
+						<li><strong>js</strong>: Clases javascript propias y de 3eros.
+						<li><strong>temp</strong>: Directorio temporal navegable común.
+					</ul>
+			</ul>
+		";	
+		
 	}
 }
 

@@ -9,7 +9,7 @@ echo "</div>";
 
 //--- VERSION
 
-$url_trac = admin_util::get_url_desarrollos();
+$url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 
 $version = instalacion::get_version_actual();

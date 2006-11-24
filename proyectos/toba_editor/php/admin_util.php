@@ -45,12 +45,6 @@ class admin_util
 		echo toba_js::cerrar();		
 	}
 	
-	static function get_url_desarrollos()
-	{
-		$host = (toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
-		return "http://$host.siu.edu.ar";
-	}
-	
 	static function get_icono_abrir_php($archivo)
 	{
 		$parametros = array('archivo' => $archivo);

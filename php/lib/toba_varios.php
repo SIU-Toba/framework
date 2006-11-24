@@ -370,4 +370,10 @@
 			ini_set("include_path", $i_path . ":.:" . $dir);
 		}
 	}
+	
+	function get_url_desarrollos()
+	{
+		$host = (toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
+		return "http://$host.siu.edu.ar";
+	}	
 ?>
