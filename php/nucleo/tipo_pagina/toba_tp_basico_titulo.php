@@ -23,7 +23,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
-		$this->info_version();
+		//$this->info_version();
 		echo "</div>\n\n";
 	}
 	

@@ -32,6 +32,9 @@ class tp_tutorial extends tp_referencia
 			.tutorial-agenda a {
 				font-size: 16px;
 			}
+			.ci-wiz-titulo {
+				font-size: 1.5em; 
+			}
 		</style>			
 		<?php
 	}	
