@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,11 +150,40 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Configuración">Configuración</a></li><li>
+<a href="#Eventos">Eventos</a></li><li>
+<a href="#Ejemplo">Ejemplo</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_archivos
 </p>
-<h1 id="ObjetoArchivos">Objeto Archivos</h1>
+<h1 id="ei_archivos">ei_archivos</h1>
 <p>
-<a href="../../../attachment/wiki/Referencia/Objetos/ei_archivos/objeto_ei_archivos.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/ei_archivos/objeto_ei_archivos41f0.png?format=raw" alt="Ejemplo" title="Ejemplo" /></a>
+<a href="../../../attachment/wiki/Referencia/Objetos/ei_archivos/objeto_ei_archivos.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/ei_archivos/objeto_ei_archivos41f0.png?format=raw" alt="Ejemplo" title="Ejemplo" style="float:right" /></a>
+Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/archivos.gif' /> ei_archivos permite navegar una parte segura del <strong>sistema de archivos del servidor</strong> (no del cliente) en donde se pueden crear carpetas, archivos y seleccionar los mismos. Para usar un componente que permita seleccionar archivos en el cliente usar un <a class="wiki" href="ei_formulario.html">Referencia/Objetos/ei_formulario</a> con un <a class="wiki" href="../efs/upload.html">ef_upload</a>.
+</p>
+<p>
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_archivos.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_archivos</a> <br />
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei_archivos.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei_archivos</a>
+</p>
+<h2 id="Configuración">Configuración</h2>
+<p>
+El componente no se carga con datos, sino que se puede:
+</p>
+<ul><li>Cambiar el path inicial desde donde puede navegar el usuario: <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_archivos.html#set_path_absoluto' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> set_path_absoluto()</a>
+</li><li>Indicar cuales son las extensiones a mostrar <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_archivos.html#set_extensiones_validas' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> set_extensiones_validas()</a>
+</li></ul><h2 id="Eventos">Eventos</h2>
+<p>
+El componente maneja internamente tres eventos dependiendo de la interacción del usuario:
+</p>
+<ul><li><tt>crear_carpeta</tt>
+</li><li><tt>crear_archivo</tt>
+</li><li><tt>ir_a_carpeta</tt>
+</li></ul><p>
+Por ahora estos eventos no son notificados al ci.
+</p>
+<h2 id="Ejemplo">Ejemplo</h2>
+<p>
+En el editor de toba se encuentra utilizado varias veces para poder seleccionar/crear el archivo de extensión de un componente.
 </p>
 </div>
    </div>

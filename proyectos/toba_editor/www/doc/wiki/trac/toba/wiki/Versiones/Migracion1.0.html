@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,22 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Pasosdelamigración">Pasos de la migración</a></li><li>
+<a href="#Cambiosqueefectuaelmigradorautomático">Cambios que efectua el migrador automático</a><ol><li><a href="#Metadatos">Metadatos</a></li><li>
+<a href="#Código">Código</a></li></ol><li><a href="#Cambiosquerequierenmigraciónmanual">Cambios que requieren migración manual</a><ol><li><a href="#Cambiosgenerales">Cambios generales</a></li><li>
+<a href="#Cambiosgeneralesdenomenclatura">Cambios generales de nomenclatura</a></li><li>
+<a href="#CambiosaAPIdelhilo">Cambios a API del hilo</a></li><li>
+<a href="#CambiosdeAPIacomponentes">Cambios de API a componentes</a></li><li>
+<a href="#CambiodeAPIacis">Cambio de API a cis</a></li><li>
+<a href="#CambiodeAPIenlosformulariosyfiltros">Cambio de API en los formularios y filtros</a></li><li>
+<a href="#CambiosdeAPIdelosefs">Cambios de API de los efs</a></li><li>
+<a href="#Efpopup">Ef popup</a></li><li>
+<a href="#Efcheckbox">Ef checkbox</a></li><li>
+<a href="#Efeditable">Ef editable</a></li><li>
+<a href="#Estilosdeimpresion">Estilos de impresion</a></li><li>
+<a href="#Inicializaciondelcontextodelproyecto">Inicializacion del contexto del proyecto</a></li><li>
+<a href="#CambiodeAPIdelasfuentesdedatos">Cambio de API de las fuentes de datos</a></li></ol></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / Migracion1.0.0
 </p>
 <h1 id="InstruccionesdeMigraciónhacialaversión1.0">Instrucciones de Migración hacia la versión 1.0</h1>
@@ -142,7 +212,9 @@
    
 </p>
 <h2 id="Cambiosquerequierenmigraciónmanual">Cambios que requieren migración manual</h2>
-<h3 id="Cambiosgeneralesdenomenclatura">Cambios generales de nomenclatura</h3>
+<h3 id="Cambiosgenerales">Cambios generales</h3>
+<ul><li>Aquellos items utilizados para salidas no-html (como sacar un pdf, un excel, etc.), deberían utilizar la <a class="wiki" href="../Referencia/Solicitud.html#SolicituddeAcci%C3%B3nPHP">solicitud_accion</a> y no la web.
+</li></ul><h3 id="Cambiosgeneralesdenomenclatura">Cambios generales de nomenclatura</h3>
 <ul><li>Para cambiar el estado de algo usar set_ (salvo que sea un proceso complejo y que tenga en sí mismo un nombre, por ejemplo 'registrar_tal_cosa'
 </li><li>Para obtener el estado usar get_. Los booleanos creo que pueden ser una buena excepcion, es mas representativo preguntar es_par() que get_par()
 </li><li>Cuando algo genera html con echos llamarlo generar_
@@ -210,7 +282,32 @@ El valor seteado se asume en '1'  y el no seteado en '0'.
 <p>
 El estilo de una etiqueta en vista_impresion pasa a ser <tt>ef-etiqueta</tt> (el mismo usado en el html comun) en lugar de <tt>lista-col-titulo</tt> (que se usa para cuadros).
 </p>
-</div>
+<h3 id="Inicializaciondelcontextodelproyecto">Inicializacion del contexto del proyecto</h3>
+<p>
+El codigo de inicializacion que se ubicaba en el archivo <strong>inicializacion.php</strong> se traslada a la ventana <strong>iniciar_contexto</strong> de la clase <strong>toba_sesion</strong>. Si el proyecto utilizaba esta funcionalidad, debe extender esta clase del nucleo (crear una clase que extetienda la sesion y definir la extension desde el editor) y trasladar el codigo del archivo a la ventana especificada.
+</p>
+<h3 id="CambiodeAPIdelasfuentesdedatos">Cambio de API de las fuentes de datos</h3>
+<ul><li>La función <tt>ejecutar_sql</tt> pasa a ser <tt>ejecutar_fuente</tt> (para hacerle similar a <tt>consultar_fuente</tt>)
+</li><li>
+</li><li>Estas funciones globales se eliminaron
+<pre class="wiki">	function abrir_base($id,$parm)
+	function abrir_fuente_datos($id, $proyecto=null)
+	function existe_conexion($id)
+	function obtener_fuente($id, $ado=null)
+	function recuperar_datos($sql, $fuente=&#34;instancia&#34;, $ado=null)
+	function recuperar_secuencia($secuencia, $fuente=&#34;instancia&#34;)
+</pre>
+</li><li>De la clase toba_db se elimina <tt>ejecutar_sql</tt> (usar <tt>ejecutar</tt> a secas)
+</li><li><tt>ejecutar_transaccion</tt> no retorna más un arreglo con el mensaje de exito
+</li><li>La fuente por defecto se define en las propiedades básicas del proyecto, y no se asume <tt>instancia</tt>
+</li><li>Constantes de tipo de fetch:
+<pre class="wiki">	define('apex_db_asociativo', ADODB_FETCH_ASSOC);
+	define('apex_db_numerico', ADODB_FETCH_NUM);
+				
+	define('toba_db_fetch_asoc', PDO::FETCH_ASSOC);
+	define('toba_db_fetch_num', PDO::FETCH_NUM);
+</pre>
+</li></ul></div>
    </div>
    
   

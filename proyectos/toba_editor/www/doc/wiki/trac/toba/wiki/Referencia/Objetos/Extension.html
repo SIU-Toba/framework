@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,58 +150,40 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Formadeextensión">Forma de extensión</a></li><li>
+<a href="#Tiposdeextensión">Tipos de extensión</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / Extension
 </p>
-<h1 id="ExtensióndeunObjetoToba">Extensión de un Objeto Toba</h1>
-<h2 id="Queesunaextensión">¿Que es una extensión?</h2>
+<h1 id="ExtensióndeunComponente">Extensión de un Componente</h1>
 <p>
-Los objetos tienen comportamientos genéricos predefinidos, es probable que, en mayor o menor medida, la aplicación necesite adaptar este comportamiento a sus necesidades en situaciones específicas. Para eso existe la posibilidad de extender cada uno de los objetos definidos en Toba.
+Los componentes tienen comportamientos genéricos predefinidos, es probable que, en mayor o menor medida, la aplicación necesite adaptar este comportamiento a sus necesidades en situaciones específicas, para eso existe la posibilidad de extender cada uno de los componentes, consumiendo sus ventanas y API pública.
 </p>
-<h2 id="Cómoseextiende">¿Cómo se extiende?</h2>
 <p>
-La extensión se da en código a través de herencia, creando una subclase del objeto en cuestión y especificándola durante la <a class="wiki" href="Definicion.html">definición del objeto</a>. Para esto se debe especificar el nombre de la subclase y el archivo donde se localiza. Ya a nivel del código es necesario heredar del tipo de objeto buscado, por ejemplo si estamos construyendo un formulario muy particular se necesita extender el <a class="wiki" href="ei_formulario.html">objeto_ei_formulario</a>:
+Es posible abrir desde el editor-toba el editor de texto asociado a archivos .php conteniendo la subclase en cuestión. Sólo es necesario <a class="wiki" href="../AbrirPhp.html">como configurar el sistema</a> y hacer uso de los iconos de apertura de archivos <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/reflexion/abrir.gif' />.
+</p>
+<h2 id="Formadeextensión">Forma de extensión</h2>
+<p>
+La extensión se da en código a través de herencia, creando una subclase del objeto en cuestión y especificándola durante la definición del componente en el editor. Para esto se debe especificar el nombre de la subclase y el archivo donde se localiza. Ya a nivel del código es necesario heredar del tipo de componente base, por ejemplo si estamos construyendo un formulario muy particular se necesita extender el <a class="wiki" href="ei_formulario.html">toba_ei_formulario</a>:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-</span><span class="code-keyword">require_once(</span><span class="code-string">'nucleo/browser/clases/objeto_ei_formulario.php'</span><span class="code-keyword">);
-
-class </span><span class="code-lang">extension_formulario </span><span class="code-keyword">extends </span><span class="code-lang">objeto_ei_formulario
-</span><span class="code-keyword">{
-    </span><span class="code-comment">//Redefiniciones y eventos
-</span><span class="code-keyword">}
-
+    </span><span class="code-keyword">class </span><span class="code-lang">extension_formulario </span><span class="code-keyword">extends </span><span class="code-lang">toba_ei_formulario
+    </span><span class="code-keyword">{
+    }
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Al inicio del archivo de extensión se debe incluir el archivo donde se encuentra el objeto original, generalmente toma la forma de <i>nucleo/browser/clases/objeto_nombre.php</i>.
-</p>
-<h2 id="Automatizacióndelaextensión">Automatización de la extensión</h2>
-<p>
-Utilizando generación de código es posible generar automáticamente tanto el archivo PHP como la subclase específica. Una vez definido el objeto (y sus posibles dependencias) se puede crear la subclase indicando un path del archivo PHP y un nombre de subclase, en el ícono PHP de la definición del objeto-toba se muestran las opciones de creación y análisis de la subclase.<br />
-<a href="../../../attachment/wiki/Referencia/Objetos/Extension/editor_php.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/Extension/editor_php41f0.png?format=raw" alt="Icono de editor PHP" title="Icono de editor PHP" /></a>
-<a href="../../../attachment/wiki/Referencia/Objetos/Extension/crear_archivo.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/Extension/crear_archivo41f0.png?format=raw" alt="Creación del archivo PHP" title="Creación del archivo PHP" /></a>
-<a href="../../../attachment/wiki/Referencia/Objetos/Extension/crear_subclase.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/Extension/crear_subclase41f0.png?format=raw" alt="Creación de la subclase" title="Creación de la subclase" /></a>
+Utilizando generación de código es posible generar automáticamente tanto el archivo PHP como la subclase específica. Una vez definido el componente (y sus posibles dependencias) se puede crear la subclase indicando un path del archivo PHP y un nombre de subclase, en el ícono <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/php.gif' /> de la definición del componentes se muestran las opciones de creación y análisis de la subclase.<br />
 </p>
 <h2 id="Tiposdeextensión">Tipos de extensión</h2>
 <p>
 Básicamente hoy se cuenta con dos modos bastante distintos de extensión
 </p>
-<ul><li>Eventos: Los <a class="wiki" href="../Eventos.html">listeners de eventos</a> es la forma de extensión menos intrusiva ya que sólo permite consumir la interface del objeto.
-</li><li>Redefinición: Al heredar de una clase se pueden redefinir ciertos métodos (por ejemplo obtener_html) modificando radicalmente el comportamiento del objeto mediante su implementación.
-</li></ul><h2 id="Cuándoextender">¿Cuándo extender?</h2>
-<p>
-Según el <a class="wiki" href="../Objetos.html">tipo de objeto</a> la extensión es mas o menos necesaria dependiendo de la capacidad <strong>declarativa</strong> con que cuenta un objeto. A medida que la funcionalidad se aleja de simples decisiones o descripciones, la programación empieza a ser necesaria (y con ella la extensión). Por ejemplo el trabajo de un <a class="wiki" href="ci.html">CI</a> es mucho más dificil de hacerlo declarativo que el de un <a class="wiki" href="ei_cuadro.html">ei_cuadro</a>. Otro punto a tener en cuenta es la relación costo-beneficio de una extensión, cuando la extensión no es un evento y recae en la extensión por redefinición se cuenta con una herramienta poderosa y peligrosa. Poderosa porque se puede cambiar por completo el compartimiento, peligrosa porque futuras versiones del objeto pueden no funcionar bien con esta extensión, ya que no sólo se confía en las interfaces sino también en la implementación.
-</p>
-<h2 id="Abrirlaextensión">Abrir la extensión</h2>
-<p>
-Es posible abrir el editor asociado a archivos .php conteniendo la subclase en cuestión.Ver <a class="wiki" href="../AbrirPhp.html">como configurar el sistema</a>.
-</p>
-</div>
+<ul><li><strong>Eventos</strong>: Los <a class="wiki" href="../Eventos.html">listeners de eventos</a> es la forma de extensión menos intrusiva ya que sólo permite consumir la interface del objeto.
+</li><li><strong>Redefinición</strong>: Al heredar de una clase se pueden redefinir ciertos métodos (por ejemplo <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_pantalla.html#generar_layout' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> generar_layout</a>) modificando radicalmente el comportamiento del objeto mediante su implementación. En la documentación API los métodos recomendados para extender llevan a su lado un ícono de <img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/doc/api/media/ventana.png' /> ventana. Otros métodos protegidos son extensibles también, pero si no poseen la ventana no se asegura que en futura versiones del framework será soportado ya que se está cambiando su implementación interna.
+</li></ul></div>
    </div>
    
-    <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/Extension/editor_php.html">editor_php.png</a> (6.9 kB) -<q>Icono de editor PHP</q>, added by seba on 07/08/05 12:24:37.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/Extension/crear_archivo.html">crear_archivo.png</a> (6.1 kB) -<q>Creación del archivo PHP</q>, added by seba on 07/08/05 12:27:30.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/Extension/crear_subclase.html">crear_subclase.png</a> (7.4 kB) -<q>Creación de la subclase</q>, added by seba on 07/08/05 12:32:28.</li>
-    </ul>
-  
   
   <script type="text/javascript">
    addHeadingLinks(document.getElementById("searchable"));

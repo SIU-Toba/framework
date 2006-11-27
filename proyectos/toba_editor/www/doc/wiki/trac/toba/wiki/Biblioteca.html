@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -96,13 +150,25 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Apache">Apache</a></li><li>
+<a href="#JSHTML">JS - HTML</a></li><li>
+<a href="#CSS">CSS</a></li><li>
+<a href="#PHP">PHP</a></li><li>
+<a href="#Lenguajes">Lenguajes</a></li><li>
+<a href="#Seguridad">Seguridad</a></li><li>
+<a href="#SubversionSVN">Subversion (SVN)</a></li><li>
+<a href="#Varios">Varios</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Biblioteca
 </p>
 <h1 id="Biblioteca">Biblioteca</h1>
 <p>
 Se listan lecturas vistas al pasar que parecen interesantes:
 </p>
-<h2 id="JSHTML">JS - HTML</h2>
+<h2 id="Apache">Apache</h2>
+<ul><li><a class="ext-link" href="../../../external.html?link=http://public.yahoo.com/~radwin/talks/yapache-oscon2006.htm"><span class="icon"></span>Hacking Apache (yahoo)</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://public.yahoo.com/~radwin/talks/http-caching-apachecon2005.htm"><span class="icon"></span>Caching http</a>
+</li></ul><h2 id="JSHTML">JS - HTML</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://jibbering.com/faq/faq_notes/closures.html"><span class="icon"></span>Closures</a> en Javascript.
 </li><li>Preguntas frecuentes sobre <a class="ext-link" href="../../../external.html?link=https://blueprints.dev.java.net/ajax-faq.html#ajax"><span class="icon"></span>AJAX</a>
 </li><li>Tutorial simple de <a class="ext-link" href="../../../external.html?link=http://www.webpasties.com/xmlHttpRequest/xmlHttpRequest_tutorial_1.html"><span class="icon"></span>XMLHttpRequest</a>.
@@ -110,6 +176,7 @@ Se listan lecturas vistas al pasar que parecen interesantes:
 </li><li><a class="ext-link" href="../../../external.html?link=http://channel9.msdn.com/wiki/default.aspx/Channel9.InternetExplorerProgrammingBugs"><span class="icon"></span>IE Programming Bugs</a>. Solución al bug de los <a class="ext-link" href="../../../external.html?link=http://20.targetprocess.com/2006/07/ie6-select-and-z-index-problem.html"><span class="icon"></span>combos y z-index</a>. Hay una <a class="ext-link" href="../../../external.html?link=http://www.softcomplex.com/products/tigra_hints/demo.html"><span class="icon"></span>libreria</a> de tooltips que pasa por encima de los combo.
 </li><li><a class="ext-link" href="../../../external.html?link=http://particletree.com/demos/combo-box-demo/"><span class="icon"></span>Combo Editable</a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.dustindiaz.com/top-ten-javascript"><span class="icon"></span>Top 10 custom JavaScript functions of all time</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://dev.opera.com/articles/view/48/"><span class="icon"></span>Tips para JS eficiente</a>
 </li></ul><h2 id="CSS">CSS</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://css.maxdesign.com.au/"><span class="icon"></span>Tutoriales</a> <strong>muy buenos</strong> sobre CSS.
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.brainjar.com/css/positioning/default.asp"><span class="icon"></span>Posicionamiento</a> CSS.
@@ -130,6 +197,8 @@ Se listan lecturas vistas al pasar que parecen interesantes:
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.ipersec.com/index.php?q=en/bench_ea_vs_apc"><span class="icon"></span>Comparando</a> APC contra eaccelerator.
 </li><li>Tutorial de <a class="ext-link" href="../../../external.html?link=http://www.sitepoint.com/blogs/2006/09/26/the-joy-of-regular-expressions-1/"><span class="icon"></span>exp.reg. en PHP</a>
 </li><li>Extensión nativa de <a class="ext-link" href="../../../external.html?link=http://graphviz.php-baustelle.de/examples/example.php"><span class="icon"></span>Graphviz en php</a>
+</li><li>Muy buen <a class="ext-link" href="../../../external.html?link=http://www.dreamprojections.com/syntaxhighlighter/Tests/PHP.html"><span class="icon"></span>SyntaxHighlighter</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://www.php.net/UPDATE_5_2.txt"><span class="icon"></span>Migración a PHP 5.2</a>
 </li></ul><h2 id="Lenguajes">Lenguajes</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://www.mindview.net/WebLog/log-0025"><span class="icon"></span>Strong Typing vs. Strong Testing</a>.
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.agiledata.org/essays/concurrencyControl.html"><span class="icon"></span>Introduction to Concurrency Control</a>

@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,24 +150,25 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#MúltiplesInstalaciones">Múltiples Instalaciones</a></li><li>
+<a href="#PasajeDesarrolloProducción">Pasaje Desarrollo - Producción</a></li><li>
+<a href="#ActualizacióndeToba">Actualización de Toba</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Deployment
 </p>
-<h1 id="DeploymentdeToba">Deployment de Toba</h1>
+<h1 id="Casosdeusodedeployment">Casos de uso de deployment</h1>
 <p>
 Los siguientes escenarios asumen la existencia de un control de versiones para el proyecto e instalaciones remotas.
 </p>
-<h2 id="MúltiplesInstalacionesdeTobaenunamismamáquina">Múltiples Instalaciones de Toba en una misma máquina</h2>
+<h2 id="MúltiplesInstalaciones">Múltiples Instalaciones</h2>
 <p>
 Para tener mútliples instalaciones de Toba en una misma máquina se deben tener en cuenta ciertas pautas adicionales a las básicas descriptas del proceso de <a class="wiki" href="../Instalacion.html">Instalación</a>.
 </p>
 <ul><li>En el include_path de PHP no debe estar incluído ninguna referencia a alguno de los toba instalados.
-</li></ul><ul><li>Además de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para los puntos de acceso, de modo que definan la variable de entorno $TOBA_DIR con la versión correcta de Toba. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuración de Apache debería contener los alias:
+</li></ul><ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicación de los mismos, además de setear el valor de las variables de entorno $toba_dir y $toba_instancia. El detalle de cómo crear estos ambientes se encuentra en la <a class="wiki" href="Consola.html">configuración de la consola</a>.
+</li></ul><ul><li>Además de tener varias carpetas conteniendo las diferentes versiones de Toba, vamos a configurar igual cantidad de alias para el framework. Tomemos como ejemplo el caso de dos instalaciones: una en el directorio <i>d:/toba_1</i>, la otra en <i>d:/toba_2</i>. La configuración de Apache debería contener inicialmente estos alias:
 </li></ul><pre class="wiki">    Alias /toba_1 &#34;d:/toba_1/www&#34;
     &lt;Directory &#34;d:/toba_1/www/&#34;&gt;
-        SetEnv TOBA_DIR d:/toba_1
-        SetEnv TOBA_ALIAS toba_1
-        Options Indexes MultiViews FollowSymLinks
-		DirectoryIndex aplicacion.php
         AllowOverride None
         Order allow,deny
         Allow from all
@@ -123,8 +178,6 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
     &lt;Directory &#34;d:/toba_2/www/&#34;&gt;
         SetEnv TOBA_DIR D:/toba_2
         SetEnv TOBA_ALIAS toba_2
-        Options Indexes MultiViews FollowSymLinks
-		DirectoryIndex aplicacion.php
         AllowOverride None
         Order allow,deny
         Allow from all
@@ -133,22 +186,35 @@ Para tener mútliples instalaciones de Toba en una misma máquina se deben tener
 <p>
  
 </p>
-<ul><li>Para ejecutar scripts administrativos (del tipo instancia o proyecto, por ejemplo) vamos a necesitar previamente agregar al path la ubicación de los mismos, además de setear el valor de las variables de entorno $toba_dir y $toba_instancia. Si, por ejemplo, quisiéramos cargar la instancia de produccion de la instalación <i>toba_1</i>, los pasos a seguir para un entorno tipo linux serían los siguientes:
-<pre class="wiki">export toba_dir=d:/toba_1
-export toba_instancia=produccion
-export PATH=$PATH:$toba_dir
-toba instancia cargar
+<ul><li>Cuando se defina el alias de cada proyecto se deberá especificar que versión de toba (alias de toba) utiliza, por ejemplo si tengo proyecto_1 utiliza toba_1 y proyecto_2 a toba_2:
+</li></ul><pre class="wiki"> 
+    Alias /proyecto_1 &#34;d:/toba_1/proyectos/proyecto_1/www&#34;
+    &lt;Directory &#34;d:/toba_1/proyectos/proyecto_1/www/&#34;&gt;
+                SetEnv TOBA_DIR			&#34;d:/toba_1&#34;
+                SetEnv TOBA_ALIAS		&#34;toba_1&#34;
+                SetEnv TOBA_PROYECTO_ALIAS	&#34;proyecto_1&#34;
+                SetEnv TOBA_INSTANCIA		&#34;desarrollo&#34;
+                DirectoryIndex aplicacion.php
+        Options MultiViews
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+
+    Alias /proyecto_2 &#34;d:/toba_1/proyectos/proyecto_2/www&#34;
+    &lt;Directory &#34;d:/toba_1/proyectos/proyecto_2/www/&#34;&gt;
+                SetEnv TOBA_DIR			&#34;d:/toba_2&#34;
+                SetEnv TOBA_ALIAS		&#34;toba_2&#34;
+                SetEnv TOBA_PROYECTO_ALIAS	&#34;proyecto_2&#34;
+                SetEnv TOBA_INSTANCIA		&#34;desarrollo&#34;
+                DirectoryIndex aplicacion.php
+        Options MultiViews
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+
 </pre>
-</li></ul><p>
-Una forma de evitar olvidos y errores seteando estas variables, es crear un comando por instalación que sea la puerta de entrada a la misma. Así no se utilizaría el comando 'toba' para las operaciones administrativas sino mas bien uno relacionado con la versión utilizada, por ejemplo 'toba_trunk' o 'toba_costos'. Por ejemplo usando bash, se podria crear el comando toba_trunk y ponerlo en /usr/bin:
-</p>
-<pre class="wiki">export toba_dir=/home/usuario/proyectos/toba
-export toba_instancia=desarrollo
-$toba_dir/bin/toba $*
-</pre>
-<p>
-Y cada vez que se necesita ejecutar un comando de instalación se utiliza el comando 'toba_trunk' en lugar de 'toba'
-</p>
 <h2 id="PasajeDesarrolloProducción">Pasaje Desarrollo - Producción</h2>
 <p>
 El escenario más común es tener una única instancia de desarrollo y actualizar otra instancia (generalmente Producción o Testing) de manera periódica. Este escenario puede describirse en cinco pasos:
@@ -156,34 +222,33 @@ El escenario más común es tener una única instancia de desarrollo y actualiza
 <p>
 <a href="../../../../external.html?link=https://localhost/trac/toba/attachment/wiki/Referencia/Deployment/desarrollo_produccion.png" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/Deployment/desarrollo_produccion41f0.png?format=raw" /></a>
 </p>
-<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estubieron utilizando el Administrador en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
+<ol><li><i>Desarrollo</i> - Exportación de metadatos: Siempre en desarrollo los últimos metadatos se encuentran en la base de datos (la instancia) y no en el sistema de archivos, esto es lógico porque los desarrolladores estuvieron utilizando el Editor en forma conjunta con esta instancia. La exportación se hace de la siguiente forma:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
 </li><li><i>Desarrollo</i> - Commit de los nuevos archivos: El resultado de la exportación es la actualización de los archivos ubicados en la carpeta <i>metadatos</i> del proyecto. Junto a las modificaciones de código existentes se suben las modificaciones (commit) creando una nueva revisión, almacenada en un repositorio central.
-</li><li><i>Produccion</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción el primer paso es actualizar el proyecto en cuestión, esto traera los metadatos y el código actualizado.
-</li><li><i>Produccion</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenandose en el sistema de archivos:
+</li><li><i>Producción</i> - Actualización de la nueva revisión: Suponiendo que se toma la decisión de actualizar el sistema en producción, el primer paso es actualizar el proyecto en cuestión, esto traerá los metadatos y el código actualizado.
+</li><li><i>Producción</i> - Exportación de información local: Lo único que se necesita de la instancia en producción son sus usuarios, logs y demás metadatos considerados locales o propios de la instancia, para el resto de los metadatos valen los de desarrollo. Entonces es necesario exportar los datos locales de esta instancia almacenándose en el sistema de archivos:
 <pre class="wiki">toba instancia exportar_local
 </pre>
-</li><li><i>Produccion</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
+</li><li><i>Producción</i> - Regenerar el proyecto: Ahora que tanto los metadatos de desarrollo como los de los usuarios se encuentran en el sistema de archivos es posible regenerar el proyecto:
 <pre class="wiki">toba proyecto regenerar -p mi_proyecto
 </pre>
 </li></ol><h2 id="ActualizacióndeToba">Actualización de Toba</h2>
 <p>
-Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica reiniciar la instancia:
+Muchas veces es necesario actualizar la versión de toba con la que se está desarrollando (arreglo de bugs, nuevas funcionalidades deseadas, etc.), para esto hay que tener el cuidado de exportar los metadatos previo a la actualización, ya que actualizar toba muchas veces (no todas) implica regenerar la instancia.
 </p>
 <p>
 <a href="../../attachment/wiki/Referencia/Deployment/actualizacion_toba.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/Deployment/actualizacion_toba41f0.png?format=raw" /></a>
 </p>
-<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y versionarlo. Así que para cada proyecto propio ubicado en esta instancia se debe hacer:
+<ol><li>Exportar Metadatos del proyecto: Como los últimos metadatos se encuentran en la base de datos (la instancia) es necesario llevarlas al sistema de archivos y <strong>versionarlos</strong>. Para cada proyecto propio ubicado en esta instancia se debe hacer:
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
-</li><li>Exportación de información local: (YA NO ES NECESARIO: La exportación del proyecto actualmente también exporta la información local)
-</li><li>Actualizar Toba: Se trae la nueva revisión de Toba desde el SVN.
-</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="missing wiki" href="Versiones.html" rel="nofollow">Versiones Toba?</a>), para ello ejecutar:
+</li><li>Actualizar Toba: Se actualiza la nueva revisión de Toba desde el repositorio SVN.
+</li><li>Actualización de metadatos: Es posible que la nueva versión requiera alguna migración automática (ver <a class="wiki" href="../Versiones.html">Versiones Toba</a>), para ello ejecutar:
 <pre class="wiki">toba instalacion migrar
 </pre>
 </li></ol><p>
-Por si la migración afecto algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
+Por si la migración afecta algún metadato del proyecto es necesario volver a exportar al sistema de archivos:
 </p>
 <pre class="wiki">toba proyecto exportar -p mi_proyecto
 </pre>
@@ -193,10 +258,10 @@ Con los nuevos metadatos de toba y los metadatos exportados del proyecto en el s
 <pre class="wiki">toba instancia regenerar
 </pre>
 <p>
-Cabe notar que instancia regenerar como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
+Cabe notar que <tt>instancia regenerar</tt> como primer paso borra el contenido de la base, por lo que si la exportación no se efectuó o se efectuó con errores se perderán los datos del proyecto y sólo será posible recuperarlos desde alguna revisión del SVN del proyecto o algún backup manual.
 </p>
 <p>
-Hay una razón por la cual la exportación se debe hacer antes que la actualización de código. Es posible que el nuevo código de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba más viejo). Si se quiere hacer la exportación luego de la actualización, este nuevo código va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracción de los metadatos hacia el sistema de archivos. Hay una solución a este error, siempre y cuando no se haya ejecutado el tercer paso por la razón explicada en el párrafo anterior. La solución es volver atrás la revisión de toba a la misma con la que se generó la instancia y rearrancar el proceso.
+Hay una razón por la cual la exportación se debe hacer antes que la actualización de código. Es posible que el nuevo código de toba haga referencia a nuevas columnas o nuevos campos no presentes en la instancia actual del proyecto (porque fue creada usando un toba más viejo). Si se quiere hacer la exportación luego de la actualización, este nuevo código va a querer exportar esta estructura de base de datos nueva no presente en la instancia actual, imposibilitando la extracción de los metadatos hacia el sistema de archivos. Hay una solución a este error, siempre y cuando no se haya ejecutado el tercer paso por la razón explicada en el párrafo anterior. La solución es volver atrás la revisión de toba a la misma con la que se generó la instancia y reiniciar el proceso.
 </p>
 </div>
    </div>

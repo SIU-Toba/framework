@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -96,45 +150,52 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li class="active"><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#CreacióndeunaOperación">Creación de una Operación</a></li><li>
+<a href="#Utilidadestransversales">Utilidades transversales</a></li><li>
+<a href="#Administracióndeproyectos">Administración de proyectos</a></li><li>
+<a href="#ProyectosEjemplo">Proyectos Ejemplo</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Referencia
 </p>
-<h1 id="Referencia">Referencia</h1>
-<h2 id="ConceptosBásicos">Conceptos Básicos</h2>
+<h1 id="ConceptosBásicos">Conceptos Básicos</h1>
 <p>
-Existen conceptos básicos independientes de la programación particular de las operaciones. 
+Para utilizar toba se necesita una <strong><a class="wiki" href="Referencia/Instalacion.html">Instalación</a></strong> que es ni más ni menos el sistema de archivos conteniendo una versión de Toba. Dentro de este sistema de archivos se encuentra una serie de <strong><a class="wiki" href="Referencia/Proyecto.html">Proyectos</a></strong> en sus respectivas versiones. Tanto la instalación de toba como los proyectos además de contener el código fuente contienen los metadatos de las operaciones, de esta forma se puede distribuir un proyecto llevando tanto el código como los metadatos a un sistema de producción. 
 </p>
 <p>
-Para utilizar toba se necesita una <strong><a class="wiki" href="Referencia/Instalacion.html">Instalación</a></strong> que es ni mas ni menos el sistema de archivos conteniendo una versión de Toba. Dentro de este sistema de archivos se encuentra una serie de <strong><a class="wiki" href="Referencia/Proyecto.html">Proyectos</a></strong> en sus respectivas versiones. Tanto la instalación de toba como los proyectos además de contener el código fuente contienen los metadatos de las operaciones, de esta forma se puede distribuir un proyecto llevando tanto el código como los metadatos a un sistema de producción. 
+Para modificar estos metadatos en forma grupal y a través de un editor es necesario cargar estos metadatos desde el sistema de archivos hacia una base de datos, esta base se denomina una <strong><a class="wiki" href="Referencia/Instancia.html">Instancia Toba</a></strong>. Así el sistema puede tener distintas instancias como producción, desarrollo, testing, pruebas_varias, etc.
 </p>
 <p>
-Ahora, modificar estos archivos de metadatos en forma manual es extremadamente difícil, más aún si es un desarrollo grupal, es mucho más cómodo si están en una base de datos. Entonces el siguiente paso es pasar estos metadatos desde el sistema de archivos a una base de datos, esta base se denomina una <strong><a class="wiki" href="Referencia/Instancia.html">Instancia Toba</a></strong>. Así el sistema puede tener distintas instancias (producción, desarrollo, testing, pruebas_varias, o cualquier otra que se crea necesaria).
-</p>
+Durante la ejecución, el usuario ingresa una URL en el navegador, allí se liga a una instalación, instancia y opciones específicas de ejecución. Esta unión entre URL y entorno de ejecución se lo conoce como <i><a class="wiki" href="Referencia/PuntosDeAcceso.html">Punto de Acceso</a><strong>.
+</strong></i></p>
+<h2 id="CreacióndeunaOperación">Creación de una Operación</h2>
+<blockquote>
 <p>
-Hasta acá tenemos una instalación y diferentes instancias, es deseable que cuando se ejecute el sistema se pueda optar cual es la instancia a utilizar, para esto se dispone de diferentes <strong><a class="wiki" href="Referencia/PuntosDeAcceso.html">Puntos de Acceso</a></strong>, que son las páginas iniciales de la ejecución, que entre sus configuraciones básicas dictan que instancia utilizar de las disponibles.
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/objetos/objeto.gif' /> <strong><a class="wiki" href="Referencia/Objetos.html">Componentes</a></strong> y sus <img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Referencia/Eventos.html">Eventos</a>. <br />
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/items/item.gif' /> <a class="wiki" href="Referencia/Item.html">Ítem</a> u operación.<br />
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/zona.gif' /> <a class="wiki" href="Referencia/Zona.html">Zonas</a>: agrupación de operaciones relacionadas.<br />
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/fuente.gif' /> <a class="wiki" href="Referencia/FuenteDatos.html">Fuentes de Datos</a>.<br />
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/mensaje.gif' /> <a class="wiki" href="Referencia/Mensajes.html">Mensajes y notificaciones</a>.<br />
 </p>
-<h2 id="ProgramacióndeunaOperación">Programación de una Operación</h2>
-<ul><li>Utilizando el <a class="missing wiki" href="Administrador.html" rel="nofollow">Administrador?</a>.
-</li><li>Construyendo un <a class="wiki" href="Referencia/Item.html">Item</a>.
-</li><li><a class="wiki" href="Referencia/MarcoTransaccional.html">Marco transaccional</a> de una operación.
-</li><li>Utilizando los <strong><a class="wiki" href="Referencia/Objetos.html">Objetos Toba</a></strong> y sus <a class="wiki" href="Referencia/Eventos.html">Eventos</a>.
-</li><li>Referenciando a una <a class="wiki" href="Referencia/FuenteDatos.html">Fuente de Datos</a>.
-</li><li>Utilización de <a class="wiki" href="Referencia/Mensajes.html">mensajes y notificaciones</a>.
-</li></ul><p>
-También hay una explicación de la <a class="wiki" href="Referencia/Ejecucion.html">ejecución de toba</a>.
+</blockquote>
+<p>
+También hay una explicación del <a class="wiki" href="Referencia/MarcoTransaccional.html">Marco transaccional</a> de una operación y una traza general de <a class="wiki" href="Referencia/Ejecucion.html">ejecución de toba</a>.
 </p>
 <h2 id="Utilidadestransversales">Utilidades transversales</h2>
-<ul><li><a class="wiki" href="Referencia/TipoPagina.html">Tipos de página</a> (incluir en las operaciones encabezados y pies personalizados).
-</li><li><a class="wiki" href="Referencia/Marco.html">Marcos</a> (frames personalizados de la aplicación).
-</li><li><a class="wiki" href="Referencia/Menu.html">Menú de la aplicación</a>.
-</li><li><a class="wiki" href="Referencia/Plantillas.html">Plantillas CSS</a> personalizadas.
-</li></ul><h2 id="Administracióndeproyectos">Administración de proyectos</h2>
-<ul><li>Uso de la <a class="wiki" href="Referencia/Consola.html">Consola de administración</a>.
-</li><li><a class="missing wiki" href="Referencia/Consola/Comandos.html" rel="nofollow">Lista de comandos de consola útiles?</a>.
+<blockquote>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/tipo_pagina.gif' /> <a class="wiki" href="Referencia/TipoPagina.html">Tipos de página</a>: incluye recursos, encabezados y pies personalizados.<br />
+<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/css.gif' /> <a class="wiki" href="Referencia/Plantillas.html">Personalización de estilos</a>.<br />
+<a class="wiki" href="Referencia/Menu.html">Menú de la aplicación</a>.<br />
+<a class="wiki" href="Referencia/Ayuda.html">Ayuda contextual</a>.
+</p>
+</blockquote>
+<h2 id="Administracióndeproyectos">Administración de proyectos</h2>
+<ul><li>Configuración de la  <a class="wiki" href="Referencia/Consola.html">Consola de administración</a>.
+</li><li><a class="wiki" href="Referencia/Consola/Comandos.html">Lista de comandos de consola útiles</a>.
 </li><li><a class="wiki" href="Versiones.html">Esquema de versiones</a>: Migración y esquema de releases de toba.
 </li><li><a class="wiki" href="Referencia/Deployment.html">Casos de uso de deployment</a>. 
 </li></ul><h2 id="ProyectosEjemplo">Proyectos Ejemplo</h2>
-<ul><li><a class="wiki" href="Proyectos/Referencia.html">TobaReferencia</a>: Proyecto que acompaña la documentación.
-</li><li><a class="wiki" href="Proyectos/TobaTesting.html">TobaTesting</a>: El proyecto base del testing automático consume distintos aspectos de Toba.
+<ul><li><a class="wiki" href="Proyectos/Referencia.html">Referencia</a>: Proyecto que acompaña la documentación.
 </li></ul></div>
    </div>
    

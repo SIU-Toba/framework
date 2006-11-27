@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,51 +150,65 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li class="active"><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Interface">Interface</a></li><li>
+<a href="#Controladores">Controladores</a></li><li>
+<a href="#Persistencia">Persistencia</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Objetos
 </p>
-<h1 id="ObjetosToba">Objetos Toba</h1>
+<h1 id="Componentes">Componentes</h1>
 <p>
-Una operación se define en base a los llamados <i>objetos Toba</i>. Estos objetos cubren distintos aspectos de una operación, categorizándolos según su función: interface, navegación, negocio o persistencia. Como todo elemento de Toba, el comportamiento particular de los objetos es determinado por:
+Una operación se define en base a <i>componentes</i>. Estos cubren distintos aspectos de una operación, categorizándolos según su función: interface, control o persistencia. El comportamiento particular de los componentes es determinado por:
 </p>
-<ol><li>La definición estática objeto usando el administrador. Ver <a class="wiki" href="Objetos/Definicion.html">Definición de un objeto</a>.
-</li><li>La manipulación del objeto en ejecución a través de servicios. Ver <a class="wiki" href="Objetos/Extension.html">Extensión de un objeto</a>.
-</li></ol><h2 id="Elementosdeinterfaceei">Elementos de interface (ei)</h2>
+<ul><li>La definición usando el editor. 
+</li><li>La <a class="wiki" href="Objetos/Extension.html">extensión PHP</a> del componente.
+</li><li>La <a class="wiki" href="ExtensionesJavascript.html">extensión Javascript</a> del componente.
+</li></ul><h2 id="Interface">Interface</h2>
 <p>
-Los objetos de interface son componentes gráficos usuales en aplicaciones empresariales como formularios, filtros y cuadros.
-Dentro de Toba se los conoce como <i>elementos de interface</i> o su abreviación <i>ei</i>. Actualmente, los objetos de interface definidos son:
+Los Elementos de interface (ei) son controles gráficos puros:
 </p>
-<ul><li><a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a>: Formulario de edición simple.
-</li><li><a class="wiki" href="Objetos/ei_formulario_ml.html">ei_formulario_ml</a>: Formulario de edición de múltiples líneas.
-</li><li><a class="wiki" href="Objetos/ei_filtro.html">ei_filtro</a>:  Filtro de selección.
-</li><li><a class="wiki" href="Objetos/ei_cuadro.html">ei_cuadro</a>: Grilla para mostrar y seleccionar datos.
-</li><li><a class="wiki" href="Objetos/ei_calendario.html">ei_calendario</a>: Calendario para visualizar contenidos diarios y seleccionar días o semanas.
-</li><li><a class="wiki" href="Objetos/ei_arbol.html">ei_arbol</a>: Visualiza una estructura de árbol en HTML.
-</li><li><a class="wiki" href="Objetos/ei_archivos.html">ei_archivos</a>: Permite navegar el sistema de archivos del servidor bajo una carpeta dada.
-</li><li><a class="wiki" href="Objetos/ei_esquema.html">ei_esquema</a>: Muestra un esquema utilizando <a class="ext-link" href="../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>.
-</li></ul><p>
-Cada ei dispara un conjunto predefinido de <a class="wiki" href="Eventos.html">Eventos</a>, por ejemplo por defecto el formulario posee los eventos Alta, Modificación, Baja y Cancelar. Las capas inferiores toman estos eventos brindando comportamiento a cada ei, por ejemplo en el caso del formulario le daría una lógica de ABM.
-</p>
-<h2 id="Controladoresdeinterfaceci">Controladores de interface (ci)</h2>
+<blockquote>
 <p>
-Estos objetos son una abstracción de las distintas pantallas por las que atraviesa una operación. En cada uno de estos estados sirven como contenedores de otros objetos de interface y determinan la carga y comportamiento particular en torno a esta operación. Por determinar el flujo de la operación se los conoce como <i>controladores de interface</i> o su abreviación <i>ci</i>:
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a>: Formulario de edición simple y sus <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="efs.html">elementos de formulario (efs)</a>.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> <a class="wiki" href="Objetos/ei_formulario_ml.html">ei_formulario_ml</a>: Formulario de edición de múltiples líneas.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_filtro.html">ei_filtro</a>:  Filtro de selección.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/cuadro_array.gif' /> <a class="wiki" href="Objetos/ei_cuadro.html">ei_cuadro</a>: Grilla para mostrar y seleccionar datos.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/calendario.gif' /> <a class="wiki" href="Objetos/ei_calendario.html">ei_calendario</a>: Calendario para visualizar contenidos diarios y seleccionar días o semanas.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/arbol.gif' /> <a class="wiki" href="Objetos/ei_arbol.html">ei_arbol</a>: Visualiza una estructura de árbol en HTML.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/archivos.gif' /> <a class="wiki" href="Objetos/ei_archivos.html">ei_archivos</a>: Permite navegar el sistema de archivos del servidor bajo una carpeta dada.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/esquema.gif' /> <a class="wiki" href="Objetos/ei_esquema.html">ei_esquema</a>: Muestra un esquema utilizando <a class="ext-link" href="../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>.<br />
 </p>
-<ul><li><a class="wiki" href="Objetos/ci.html">Controlador de Interface básico</a>.
-</li></ul><p>
-En los CI se escuchan los <a class="wiki" href="Eventos.html">eventos</a> generados por los EI u otros CI contenidos, almacenando en su memoria los datos necesarios para el siguiente pedido.
-</p>
-<h2 id="Controladoresdenegociocn">Controladores de negocio (cn)</h2>
+</blockquote>
+<ul><li>Comunicación <i>Cliente</i> →  <i>Servidor</i>: Cada uno de estos componentes dispara distintos <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/reflexion/evento.gif' /> <strong><a class="wiki" href="Eventos.html">eventos</a></strong> que representan las interacciones del usuario. Por ejemplo a un formulario se le puede definir los eventos Alta, Modificación, Baja y Cancelar. Las capas inferiores toman estos eventos brindando comportamiento a estas acciones, en este caso dándole una lógica de ABM.
+</li></ul><ul><li>Comunicación <i>Servidor</i> →  <i>Cliente</i>: Una vez escuchados todos los eventos se entra en una etapa de <strong><a class="wiki" href="Configuracion.html">configuración</a></strong> de los componentes, preparándolos para la próxima renderización o <strong><a class="wiki" href="Solicitud.html#Tiposdeservicio">servicio</a></strong>. Por ejemplo, en el caso de la lógica ABM, durante la configuración se le brindará los datos al formulario, se harán solo-lecutra algunos campos y demás. Finalmente se brindaría el servicio generando el HTML del formulario en cuestión.
+</li></ul><h2 id="Controladores">Controladores</h2>
+<blockquote>
 <p>
-Estos objetos sirven para desacoplar la logica de la interface de los servicios de la clases de negocio propias. Son utiles cuando existen muchas clases de negocio que necesitan llamarse desde la operacion o cuando existe una familia de operaciones que comparten sub-controladores de interface y necesita centralizarce la informacion cargada antes de procesarla. Esto necesita de mas explicacion.
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="Objetos/ci.html">Controlador de Interface</a> (ci): Contienen otros componentes <a class="wiki" href="Configuracion.html">configurándolos</a>, escuchando sus <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Eventos.html">eventos</a>, agrupándolos en pantallas y determinando la lógica de navegación entre las mismas. Son el nexo entre las capas de <i>datos</i> o <i>negocio</i> y la de <i>interface</i>.
 </p>
-<h2 id="Elementosquemanejandatosdatos">Elementos que manejan datos (datos)</h2>
+</blockquote>
+<blockquote>
 <p>
-Estos objetos permiten modelar tablas y registros de una base relacional o algún medio que maneje datos tabulares, brindando servicios transaccionales a las capas superiores. En estos objetos se describen las estructuras y asociaciones de las tablas involucradas en una operación y la forma en que los registros serán sincronizados al final de la misma. 
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/negocio.gif' /> <a class="wiki" href="Objetos/cn.html">Controlador de Negocio</a> (cn): desacoplan la lógica de la interface de las clases de negocio propias o de los componentes de datos. 
 </p>
-<ul><li><a class="wiki" href="Objetos/Persistencia.html">Introducción a los objetos de persistencia</a>.
-</li><li><a class="wiki" href="Objetos/datos_tabla.html">datos_tabla</a>: Abstracción de una tabla
-</li><li><a class="wiki" href="Objetos/datos_relacion.html">datos_relacion</a>: Abstracción de una relación entre tablas.
-</li><li><a class="wiki" href="Objetos/AP.html">Administrador de persistencia</a>: Mecanismo de carga y sincronización con un medio de persistencia.
-</li></ul><p>
+</blockquote>
+<h2 id="Persistencia">Persistencia</h2>
+<p>
+Los elementos de persistencia (prefijados como <i>datos</i>) permiten modelar tablas y registros de una base relacional o algún otro medio que maneje datos tabulares, brindando servicios transaccionales a las capas superiores. En estos componentes se describen las estructuras y asociaciones de las tablas involucradas en una operación y la forma en que los registros serán sincronizados al final de la misma. 
+</p>
+<blockquote>
+<p>
+<a class="wiki" href="Objetos/Persistencia.html">Introducción a los componentes de persistencia</a>.
+</p>
+</blockquote>
+<blockquote>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="Objetos/datos_tabla.html">datos_tabla</a>: Abstracción de una tabla.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="Objetos/datos_relacion.html">datos_relacion</a>: Abstracción de una relación entre tablas.<br />
+<a class="wiki" href="Objetos/AP.html">Administradores de persistencia</a>: Mecanismos de carga y sincronización con un medio de persistencia.
+</p>
+</blockquote>
+<p>
 Ver el funcionamiento de las clases de persistencia con un <a class="wiki" href="../Tutorial/Persistencia.html">ejemplo</a>.
 </p>
 </div>

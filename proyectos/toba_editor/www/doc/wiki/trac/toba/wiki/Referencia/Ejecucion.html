@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,40 +150,122 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li class="active"><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Ingreso">Ingreso</a></li><li>
+<a href="#Accesoalnúcleo">Acceso al núcleo</a></li><li>
+<a href="#EjecucióndelaSolicitud">Ejecución de la Solicitud</a></li><li>
+<a href="#Componentes">Componentes</a><ol><li><a href="#Construcción">Construcción</a></li><li>
+<a href="#Atencióndeeventos">Atención de eventos</a></li><li>
+<a href="#Configuración">Configuración</a></li><li>
+<a href="#Generacióndelservicio">Generación del servicio</a></li></ol><li><a href="#Ejecuciónenelcliente">Ejecución en el cliente</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Ejecucion
 </p>
 <h1 id="Seguimientodelaejecución">Seguimiento de la ejecución</h1>
 <p>
-A continuación se van a listar los aspectos más importantes de le ejecución toba en un entorno Web.
-</p>
-<h2 id="ConceptosPrevios">Conceptos Previos</h2>
-<p>
 Para desarrolladores nuevos a las aplicaciones Web surge un nuevo concepto llamado <i>request</i> o <i>pedido</i> que marca la comunicación entre el lado cliente y servidor.<br />
-Al no permanecer en memoria entre pedidos, PHP almacena un entorno mínimo de datos en las llamadas <i>variables de sesión</i>, por ejemplo mantienen el usuario logueado y toda aquella información persistente durante la <i>sesión</i> del usuario. Toda otra información es descartada cuando la página termina de <i>servirse</i>, siendo necesario re-ejecutar en cada pedido (esto implica parsear e interpretar nuevamente) para volver a disponer de estos datos.
+Al no permanecer en memoria entre pedidos, PHP almacena un entorno mínimo de datos en las llamadas <i>variables de sesión</i>, por ejemplo mantienen el usuario logueado y toda aquella información persistente durante la <i>sesión</i> del usuario. Esta información de la sesión es almacenada por PHP en archivos físicos en forma predeterminada, con lo cual prácticamente no hay memoria compartida entre distintos pedidos de página. Toda otra información es descartada cuando la página termina de <i>servirse</i>.
 </p>
 <h2 id="Ingreso">Ingreso</h2>
 <p>
-Las sesiones de trabajo en Toba siempre pasan a través de un <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a>, esto se conoce en la industria como <a class="ext-link" href="../../../../external.html?link=http://java.sun.com/blueprints/patterns/FrontController.html"><span class="icon"></span>FrontController</a> dejando de lado el <a class="ext-link" href="../../../../external.html?link=http://www.martinfowler.com/eaaCatalog/pageController.html"><span class="icon"></span>PageController</a> clásico en aplicaciones PHP.
-La URL que ingresa el usuario direcciona este punto de acceso, por ejemplo:
+Las sesiones de trabajo en los proyectos creados con Toba siempre pasan a través de un único <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a>, esto se conoce como <a class="ext-link" href="../../../../external.html?link=http://java.sun.com/blueprints/patterns/FrontController.html"><span class="icon"></span>FrontController</a> dejando de lado el <a class="ext-link" href="../../../../external.html?link=http://www.martinfowler.com/eaaCatalog/pageController.html"><span class="icon"></span>PageController</a> clásico en aplicaciones PHP. 
+</p>
+<p>
+En un <a class="ext-link" href="../../../../external.html?link=http://www.martinfowler.com/eaaCatalog/pageController.html"><span class="icon"></span>PageController</a> existen un gran número de páginas web publicadas, cada una atendiendo distintas operaciones y casos dentro de las operaciones. Por ejemplo si queremos modificar un recibo, una posible URL sería:
+</p>
+<pre class="wiki">http://localhost/mi_proyecto/recibo/modificar.php?id=15
+</pre>
+<p>
+En cambio en un controlador frontal la URL inicial es siempre la misma, existe una sola página publicada. En el caso de Toba esa página por defecto es <strong>aplicacion.php</strong>. La URL que ingresa el usuario direcciona a este punto de acceso, por ejemplo:
 </p>
 <pre class="wiki">http://localhost/mi_proyecto/aplicacion.php
 </pre>
 <p>
-Es por este archivo (<i>aplicacion.php</i>) por donde pasarán los siguientes pedidos, recibiendo como parámetros la operación y atributos propios de esa operación entre otras cosas. En este punto de acceso están las primeras configuraciones de ejecución, incluyen la <a class="wiki" href="Instancia.html">instancia</a> a ejecutar.<br />
-Cuando las variables de sesión no están presentes es signo de que el usuario no está logueado y se produce la autentificación.
+Es por este archivo (<i>aplicacion.php</i>) por donde pasarán los siguientes pedidos, recibiendo como parámetros la operación y atributos propios de esa operación, entre otras cosas. Entre el punto de acceso y el alias que publica se pueden repartir todas las configuraciones exclusivas de la ejecución por ejemplo:
 </p>
-<h2 id="VinculaciónalaInstancia">Vinculación a la Instancia</h2>
+<ul><li>Qúe <a class="wiki" href="Instalacion.html">instalación</a> se utiliza (Constante Apache TOBA_DIR)
+</li><li>Qué <a class="wiki" href="Instancia.html">instancia</a> posee los metadatos a utilizar. (Constante Apache TOBA_INSTANCIA)
+</li><li>Qué <a class="wiki" href="Proyecto.html">proyecto</a> se va a ejecutar (constante PHP apex_pa_proyecto)
+</li><li>En donde se encuentra ubicado el contenido estático de toba: css, js e imagenes (Constante Apache TOBA_ALIAS)
+</li><li>En dónde se encuentra ubicado el contenido estático del proyecto (Constante Apache TOBA_PROYECTO_ALIAS)
+</li><li>Ver más configuraciones en el <a class="wiki" href="PuntosDeAcceso.html">punto de acceso</a>.
+</li></ul><h2 id="Accesoalnúcleo">Acceso al núcleo</h2>
 <p>
-En este punto de acceso (aplicacion.php) se determina con qué <a class="wiki" href="Instancia.html">instancia</a> se ejecutará. La instancia determina entre otras cosas que versión del proyecto se ejecuta y con qué usuarios. En el punto de acceso también se definen constantes que sirven de configuración para por ejemplo permitir o no logins anónimos. Una vez determinadas estas constantes se incluye el núcleo de ejecución de toba
+El fin del punto de acceso incluye al núcleo de toba, El núcleo de Toba es la espina dorsal de la ejecución y posee distintas entradas:
 </p>
-<h2 id="Ejecucióndelítem">Ejecución del ítem</h2>
-<p>
-Toda ejecución se hace contra un <a class="wiki" href="Item.html">ítem u operación</a> específica. En el caso particular del ingreso hay una constante definida en el punto de acceso que determina cual es el ítem por defecto a mostrar. El ítem tiene dos funciones principales:
-</p>
-<ul><li>Atender los <a class="wiki" href="Eventos.html">Eventos</a> producidos en la etapa anterior.
-</li><li>Brindar los <a class="missing wiki" href="Servicios.html" rel="nofollow">Servicios?</a> requeridos para formar la siguiente pantalla.
+<ul><li>Acceso via Web: el clásico que se utiliza generalmente en la aplicación
+</li><li>Acceso via Consola: utilizado para procesos batch o administrativos que no requieren interacción con un usuario final.
 </li></ul><p>
-Así todos los objetos que constituyen el ítem actual primero atienden los eventos que se notificaron (vía $_POST) y luego construye la salida en base al servicio requerido (vía $_GET).
+El acceso web es el más rico y es el que seguiremos en esta traza. 
+</p>
+<p>
+El núcleo determina la <a class="wiki" href="Instancia.html">instancia</a> y el <a class="wiki" href="Proyecto.html">proyecto</a> en el cual se debe iniciar o refrescar la <strong>sesión</strong>. El inicio de sesión se da cuando el usuario brinda su contraseña allí se produce la autentificación del mismo y se dice que la sesión está iniciada. A partir de allí los sucesivos pedidos de página por parte del usuario utilizan esta sesión refrescándola. Se incluye la carpeta <tt>mi_proyecto/php</tt> dentro del include_path de PHP y se ejecutan las ventanas de la <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_sesion.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> sesión</a>.
+</p>
+<h2 id="EjecucióndelaSolicitud">Ejecución de la Solicitud</h2>
+<p>
+La <a class="missing wiki" href="Memoria.html" rel="nofollow">Memoria?</a> de toba (enmascarando al GET/POST/SESSION) busca que <a class="wiki" href="Item.html">ítem</a> se pidio via la URL.  Para saber cómo ejecutar el ítem se busca en sus metadatos, utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor</a> encargado de buscar en la base de datos de la instancia o en su versión pre-compilada la información asociada al ítem.
+</p>
+<p>
+Una vez conocidos los metadatos del ítem toma el controla de la ejecución su <a class="wiki" href="Solicitud.html">Solicitud</a> asociada. El caso general es utilizar la llamada <tt>solicitud_web</tt> que introduce las etapas de:
+</p>
+<ul><li>Creación de la <a class="wiki" href="Zona.html">Zona</a> asociada al ítem, si posee
+</li><li>Crear los <a class="wiki" href="Objetos.html">Componentes</a> asociados directamente al ítem. Antes se les busca su definición en los metadatos utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor de componentes</a>.
+</li><li>Disparar en estos componentes la atención de <a class="wiki" href="Eventos.html">Eventos</a> producidos en la etapa anterior (Antender el $_POST)
+</li><li>Generación del <a class="wiki" href="Solicitud.html#Tiposdeservicio">Servicio</a> solicitado, generalmente <tt>generar_html</tt>:
+<ul><li>Utilizar el <a class="wiki" href="TipoPagina.html">tipo de página</a> para incluir el encabezado y pie de página e incluir recursos estáticos.
+</li><li>Disparar en los componentes la generación de la interface
+</li><li>Incluir los consumos javascript de estos componentes.
+</li></ul></li></ul><p>
+Generalmente el componente cabecera asociado al ítem es el llamado <a class="wiki" href="Objetos/ci.html">Controlador de interface</a>
+</p>
+<h2 id="Componentes">Componentes</h2>
+<p>
+La <tt>solicitud_web</tt> delega la ejecución a los componentes, y en particular al <a class="wiki" href="Objetos/ci.html">Controlador de interface</a> asociado directamente al ítem. Este ci es la raíz de un árbol de componentes donde se van a producir las etapas principales de ejecución en el pedido de página:
+</p>
+<h3 id="Construcción">Construcción</h3>
+<p>
+Una vez que el constructor consigue la definición del componente, este se crea como objeto php y se inicializa. Algunas veces en el código se referencia a esto como <i>carga</i> del componente, pero no tiene nada que ver con la carga de datos que sufren en la configuración los componentes.
+</p>
+<h3 id="Atencióndeeventos">Atención de eventos</h3>
+<p>
+El CI busca aquellas dependencias que participaron en la construcción de la pantalla anterior y las crea. La creación de componentes es siempre recursiva (un ci puede tener otros cis y así sucesivamente). A estos componentes se les pide que disparen sus <a class="wiki" href="Eventos.html">eventos</a>, es decir que lean del $_POST para ver que pasó en el browser. Se buscan los listeners definidos en el ci contenedor y se les pasa la info del evento.
+</p>
+<pre class="wiki">function evt__listado__seleccion($id);
+function evt__formulario__modificacion($datos);
+function evt__cancelar();
+</pre>
+<h3 id="Configuración">Configuración</h3>
+<p>
+Una vez que todo el pasado fue atendido, es necesario comenzar la construcción de una nueva página. El ci invoca a la ventana de configuración:
+</p>
+<pre class="wiki">function conf()
+</pre>
+<p>
+Luego se decide que pantalla mostrar, ya sea porque el usuario la pidio o porque el programador la forzo en los eventos o en la configuración general. Una vez que se sabe cual es la pantalla se invoca su configuración:
+</p>
+<pre class="wiki">function conf__pant_cheque()
+</pre>
+<p>
+En la configuración se pueden agregar/quitar depedencias, eventos o tabs. Una vez que esta configuración termina se determina qué dependencias se van a mostrar en la pantalla y para cada una de ellas se ejecuta su configuración
+</p>
+<pre class="wiki">function conf__form_cheque(toba_ei_formulario $form);
+function conf__listado(toba_ei_cuadro $cuadro);
+...
+</pre>
+<p>
+En estas configuraciones se puede consumir el API de estos componentes para cargarle datos, ocultar algunas cosas y demás.
+</p>
+<h3 id="Generacióndelservicio">Generación del servicio</h3>
+<p>
+Una vez que todo está configurado se invoca la generación de html de todos los componentes participantes en el servicio. Generalmente en esto el proyecto no tiene ventanas de programación, exceptuando algunos componentes que permiten cambiar su layout:
+</p>
+<pre class="wiki">function generar_layout();
+</pre>
+<h2 id="Ejecuciónenelcliente">Ejecución en el cliente</h2>
+<p>
+Una vez que el HTML es ejecutado por el browser los componentes cuentan en javascript a representantes similares a los de PHP. Estos objetos javascript tienen una API que posibilita decidir en forma conjunta cuando y cómo viajar nuevamente al servidor.
+</p>
+<p>
+Cuando un componente decide viajar al servidor (proceso denominado <i>submit</i>), se pregunta a todos los componentes participantes si pueden hacerlo (validando su estado) y en caso de hacerlo dejan en el $_POST las pistas para que posteriormente la atención de eventos de esos componentes en PHP puedan atraparlas.
 </p>
 </div>
    </div>

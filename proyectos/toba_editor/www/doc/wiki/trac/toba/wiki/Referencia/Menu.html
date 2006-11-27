@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,26 +150,20 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Menu
 </p>
-<h1 id="Menudelaaplicacion">Menu de la aplicacion</h1>
-<h2 id="Tiposdemenúdisponibles">Tipos de menú disponibles</h2>
+<h1 id="Menúdelaaplicación">Menú de la aplicación</h1>
 <p>
-Actualmente el único tipo de menú disponible en Toba es <a class="ext-link" href="../../../../external.html?link=http://toba.siu.edu.ar/trac/wiki/Referencia/Marco"><span class="icon"></span>el menú Milonic</a>. Este tipo de menú trabaja bien en un esquema de frames (incluso pasa por encima de los combo de el IE) y tiene un nivel alto de personalización, el mayor problema que tiene es que es lento y pesado. Por eso se quiere armar un menú 'liviano' basado en CSS.
-</p>
-<p>
-Puede verse el código fuente de <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/menu/menu_milonic_frames.php">Milonic</a> y de la clase abstracta padre <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/menu/menu.php">menu y menu_recorrido</a>.
-</p>
-<h2 id="Seleccióndelmenú">Selección del menú</h2>
-<p>
-Desde el administrador del proyecto, seleccionar <i>Proyecto</i> &gt; <i>Propiedades Básicas</i>, allí se puede seleccionar el tipo de menú a utilizar (por ahora sólo Milonic en frames). Si se extendió el menú para incluir alguna particularización, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
+Desde el editor ir a la Configuración <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.gif' /> y luego a <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/proyecto.gif' /> Propiedades Básicas. Allí se puede seleccionar el tipo de menú a utilizar. Se puede extender el menú para incluir alguna personalización, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
 </p>
 <pre class="wiki">...
 define(&#34;apex_pa_menu_archivo&#34;, &#34;extension_nucleo/menu_miproyecto.php&#34;);
 ...
 </pre>
 <p>
-Se toma la convensión de que el nombre de la clase es igual al nombre del archivo (sin la extensión).
+Se toma la convención de que el nombre de la clase es igual al nombre del archivo (sin la extensión).
 </p>
 </div>
    </div>

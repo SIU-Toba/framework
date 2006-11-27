@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,9 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><ol><li><a href="#Conservandoelusuariodelservicio">Conservando el usuario del servicio</a></li><li>
+<a href="#Cambiandoelusuario">Cambiando el usuario</a></li></ol></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / AbrirPhp
 </p>
 <h1 id="AbrirunarchivoPHPenuneditorexterno">Abrir un archivo PHP en un editor externo</h1>
@@ -105,13 +162,27 @@ Abrir un archivo en el sistema de ventanas del sistema operativo desde un servid
 <ul><li>Generalmente apache corre usando un usuario especial y como php corre adentro de este, todo proceso disparado desde php se abre utilizando el usuario de Apace (generalmente Local Service en windows o www-data en linux), por lo que es probable que no se tomen las configuraciones del usuario de escritorio.
 </li><li>Apache corre en background como servicio por lo que no es directo hacer que abra un proceso en el sistema de ventanas
 </li></ul><h1 id="Windows">Windows</h1>
-<ul><li>Sistemas probados: Windows XP SP2 y Windows 2003 con Apache2
-</li><li>Requisitos: Configurar apache para que pueda abrir procesos de escritorio. Para esto ultimo ir a las propiedades del servicio, solapa 'Log On' y activar la opción 'Allow service to interact with desktop'.
-</li><li>Particularidades: Como apache corre con un usuario aparte (Local service por defecto) el editor se abre utilizando este usuario, por lo que si el editor soporta el esquema de multiples usuarios tendrá sus configuraciones particulares y abrira una instancia nueva del editor. Por lo general funciona de la siguiente forma:
-<ul><li>Cuando no hay un editor abierto y se pide abrir el archivo se inicia un editor con el usuario 'Local Service'
+<p>
+Sistemas probados: Windows XP SP2 y Windows 2003 con Apache2
+Por defecto en la configuración se ejecuta un <tt>start nombre_archivo</tt> y dependiendo de las configuraciones actuales se abre el editor predeterminado. Es posible personalizar el comando cambiando la entrada <strong>editor_php</strong> del archivo <i>instalacion.ini</i>.
+</p>
+<h3 id="Conservandoelusuariodelservicio">Conservando el usuario del servicio</h3>
+<p>
+Configurar apache para que pueda abrir procesos de escritorio. Para esto ultimo ir a las propiedades del servicio, solapa 'Log On' y activar la opción 'Allow service to interact with desktop'.
+</p>
+<p>
+Como apache corre con un usuario aparte (Local service por defecto) el editor se abre utilizando este usuario, por lo que si el editor soporta el esquema de multiples usuarios tendrá sus configuraciones particulares y abrira una instancia nueva del editor. Por lo general funciona de la siguiente forma:
+</p>
+<ul><li><ul><li>Cuando no hay un editor abierto y se pide abrir el archivo se inicia un editor con el usuario 'Local Service'
 </li><li>Cuando hay un editor abierto (con el usuario deseado) y se pide abrir el archivo se reutiliza el editor permaneciendo el usuario.
-</li></ul></li><li>Comando de ejecucion: Por defecto en la configuración se ejecuta un <tt>start nombre_archivo</tt> y dependiendo de las configuraciones actuales se abre el editor predeterminado. Es posible personalizar el comando cambiando la entrada <strong>editor_php</strong> del archivo <i>instalacion.ini</i>.
-</li></ul><h1 id="Linux">Linux</h1>
+</li></ul></li></ul><h3 id="Cambiandoelusuario">Cambiando el usuario</h3>
+<p>
+Si se desea que el editor utilice el usuario propio, se deberá setear el servicio para que se loguee con esos datos como se ve en la siguiente pantalla para un usuario "Administrator":
+</p>
+<p>
+<a href="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache41f0.png?format=raw" width="417" style="float:center" /></a>
+</p>
+<h1 id="Linux">Linux</h1>
 <ul><li>Sistemas probados: Debian con KDE y Kubuntu
 </li><li>Requisitos:
 <ul><li>Primero hay que permitir que un proceso externo pueda abrir algo en el sistema de ventanas, para eso abrir una consola y ejecutar <tt>xhost +</tt>, esto seguramente deja alguna ventana abierta de seguridad (no fue necesario con kubuntu, si con debian).
@@ -128,6 +199,10 @@ El comando kfmclient es el equivalente del start de windows (gnome utiliza gnome
 </div>
    </div>
    
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/AbrirPhp/servicio_apache.html">servicio_apache.png</a> (30.5 kB) - added by andres on 10/31/06 16:47:42.</li>
+    </ul>
+  
   
   <script type="text/javascript">
    addHeadingLinks(document.getElementById("searchable"));

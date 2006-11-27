@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,11 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Configuraciondelaconsola">Configuracion de la consola</a></li><li>
+<a href="#Configuraciónavanzada">Configuración avanzada</a><ol><li><a href="#UtilizandoWindows">Utilizando Windows</a></li><li>
+<a href="#Utilizandolinux">Utilizando linux</a></li><li>
+<a href="#Formaalternativa">Forma alternativa</a></li></ol></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Consola
 </p>
 <h1 id="ConsolaAdministrativa">Consola Administrativa</h1>
@@ -105,7 +164,7 @@ El objetivo de la consola es llevar a cabo el mantenimiento de los elementos cen
 <h2 id="Configuraciondelaconsola">Configuracion de la consola</h2>
 <ul><li>Definir las VARIABLES de ENTORNO:
 <ul><li><strong>toba_dir</strong> [obligatoria] : Directorio donde se encuentra instalado el toba.
-</li><li><strong>toba_instancia</strong> [opcional]: Instacia por defecto. Si no existe hay que agregar '-i' en los comandos que utilicen instancias (casi todos).
+</li><li><strong>toba_instancia</strong> [opcional]: Instancia por defecto. Si no existe hay que agregar '-i' en los comandos que utilicen instancias (casi todos).
 </li><li><strong>toba_proyecto</strong> [opcional]: Proyecto por defecto. Si no existe hay que agregar '-p' en los comandos que utilicen proyectos.
 </li></ul></li><li>Agregar en el <strong>PATH</strong>
 <ul><li>El intérprete de PHP: Chequear la existencia del intérprete con el comando 
@@ -119,19 +178,41 @@ El objetivo de la consola es llevar a cabo el mantenimiento de los elementos cen
 </pre>
 </li></ul></li></ul><h2 id="Configuraciónavanzada">Configuración avanzada</h2>
 <p>
-Cuando se cuenta con dos o más versiones distintas de toba en una misma máquina es necesario crear distintos "ambientes" para la administración de los mismos.
+Cuando se cuenta con dos o más versiones distintas de toba en una misma máquina es necesario crear distintos <i>ambientes</i> para la administración de los mismos.
 </p>
 <p>
-La forma de crear distintos ambientes es no incluir ninguna variable de entorno ni modificar el PATH en las configuraciones por defecto del sistema, sino relegarlo a la ejecución puntual de comandos. Por ejemplo si se cuenta con dos instalaciones totalmente distintas de toba toba_0.9.0 y toba_0.9.1 se crearían dos archivos ejecutables, uno que inicialize el ambiente para la version 0.9.0 de toba y el otro para la 0.9.1
+La forma de crear estos ambientes es no incluir ninguna variable de entorno ni modificar el PATH en las configuraciones por defecto del sistema, sino relegarlo a la ejecución puntual de comandos. Por ejemplo si se cuenta con dos instalaciones totalmente distintas de toba toba_0.9.0 y toba_0.9.1 se crearían dos archivos ejecutables, uno que inicie el ambiente para la versión 0.9.0 de toba y el otro para la 0.9.1
 </p>
+<h3 id="UtilizandoWindows">Utilizando Windows</h3>
+<pre class="wiki">@echo off
+REM Archivo toba_0.9.0.bat
+set toba_dir=d:\proyectos\toba_0.9.0
+set toba_instancia=desarrollo
+d:
+set PATH=%PATH%;%toba_dir%/bin
+cd %toba_dir%
+</pre>
+<pre class="wiki">@echo off
+REM Archivo toba_0.9.1.bat
+set toba_dir=d:\proyectos\toba_0.9.1
+set toba_instancia=desarrollo
+d:
+set PATH=%PATH%;%toba_dir%/bin
+cd %toba_dir%
+</pre>
+<p>
+A la hora de usar uno u otro ambiente ejecutar el .bat adecuado, por ej:
+</p>
+<pre class="wiki">C:\&gt;toba_0.9.1.bat
+</pre>
 <h3 id="Utilizandolinux">Utilizando linux</h3>
-<pre class="wiki">#toba_0.9.0
+<pre class="wiki">#Archivo toba_0.9.0
 export toba_dir=/home/usuario/proyectos/toba_0.9.0
 export toba_instancia=desarrollo
 export PATH=&#34;$toba_dir/bin:$PATH&#34;
 cd $toba_dir
 </pre>
-<pre class="wiki">#toba_0.9.1
+<pre class="wiki">#Archivo toba_0.9.1
 export toba_dir=/home/usuario/proyectos/toba_0.9.1
 export toba_instancia=desarrollo
 export PATH=&#34;$toba_dir/bin:$PATH&#34;
@@ -145,28 +226,17 @@ Es importante ejecutar el comando precedido por <strong>un punto y un espacio</s
 <p>
 Crea el ambiente para la versión 0.9.0
 </p>
-<h3 id="UtilizandoWindows">Utilizando Windows</h3>
-<pre class="wiki">@echo off
-REM toba_0.9.0.bat
-set toba_dir=d:\proyectos\toba_0.9.0
-set toba_instancia=desarrollo
-d:
-set PATH=%PATH%;%toba_dir%/bin
-cd %toba_dir%
-</pre>
-<pre class="wiki">@echo off
-REM toba_0.9.1.bat
-set toba_dir=d:\proyectos\toba_0.9.1
-set toba_instancia=desarrollo
-d:
-set PATH=%PATH%;%toba_dir%/bin
-cd %toba_dir%
+<h3 id="Formaalternativa">Forma alternativa</h3>
+<p>
+Una forma de evitar olvidos y errores seteando estas variables, es crear un comando por instalación que sea la puerta de entrada a la misma. Así no se utilizaría el comando 'toba' para las operaciones administrativas sino mas bien uno relacionado con la versión utilizada, por ejemplo 'toba_trunk' o 'toba_costos'. Por ejemplo usando bash, se podria crear el comando toba_trunk y ponerlo en /usr/bin:
+</p>
+<pre class="wiki">export toba_dir=/home/usuario/proyectos/toba
+export toba_instancia=desarrollo
+$toba_dir/bin/toba $*
 </pre>
 <p>
-A la hora de usar uno u otro ambiente ejecutar el .bat adecuado
+Y cada vez que se necesita ejecutar un comando de instalación se utiliza el comando 'toba_trunk' en lugar de 'toba'
 </p>
-<pre class="wiki">C:\Documents and Settings\Administrator&gt;toba_0.9.1.bat
-</pre>
 </div>
    </div>
    

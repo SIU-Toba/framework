@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="chrome/common/js/trac.js"></script>
 </head>
@@ -95,16 +149,20 @@
   
   
    <div class="wikipage">
-    <div id="searchable">
-<p>
-<strong>SIU-Toba</strong> es un ambiente de desarrollo o <a class="ext-link" href="../../external.html?link=http://es.wikipedia.org/wiki/Framework"><span class="icon"></span>framework</a> Web creado por <a href="../../external.html?link=http://www.siu.edu.ar/">SIU</a> con el objetivo de brindar una herramienta <a class="ext-link" href="../../external.html?link=http://en.wikipedia.org/wiki/Rapid_Application_Development"><span class="icon"></span>RAD</a> para aplicaciones transaccionales de pequeña a mediana escala.
+    <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="wiki/Instalacion.html">Instalación</a></li><li><a href="wiki/Referencia.html">Conceptos Básicos</a></li><li><a href="wiki/Referencia/Objetos.html">Componentes</a></li><li><a href="wiki/Referencia/Eventos.html">Eventos</a></li><li><a href="wiki/Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="wiki/Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="wiki/Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="wiki/Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="wiki/Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><ol><li><a href="#Documentación">Documentación</a></li><li>
+<a href="#Desarrollo">Desarrollo</a></li></ol></li></ol></li></ol></div>
+
+<strong>SIU-Toba</strong> es un ambiente de desarrollo Web creado por <a href="../../external.html?link=http://www.siu.edu.ar/">SIU</a> con el objetivo de brindar una herramienta de desarrollo rápido para construir aplicaciones transaccionales. Posee una arquitectura basada en componentes y una IDE de edición.
 </p>
-<ul><li><a class="wiki" href="wiki/Introduccion.html">Introducción</a>. Visión y características generales.
-</li><li><a class="wiki" href="wiki/Tecnologia.html">Tecnología</a>. Herramientas utilizadas.
+<ul><li><a class="wiki" href="wiki/Introduccion.html">Características</a>.
+</li><li><a class="wiki" href="wiki/Tecnologia.html">Tecnologías utilizadas</a>.
 </li></ul><h3 id="Documentación">Documentación</h3>
 <ul><li><strong><a class="wiki" href="wiki/Instalacion.html">Instalación</a></strong>.
 </li><li><strong><a class="wiki" href="wiki/Referencia.html">Conceptos</a></strong>.
-</li><li><strong><a href='../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html#' target='_blank'>API</a></strong>.
+</li><li><a href='../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../toba_editor_trunk/doc/api/media/php-small.png' /> API php</a>.
+</li><li><a href='../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../toba_editor_trunk/doc/api/media/javascript-small.png' /> API javascript</a>.
 </li></ul><h3 id="Desarrollo">Desarrollo</h3>
 <ul><li><a class="wiki" href="../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo">Organizacion general</a>. 
 </li><li><a class="wiki" href="wiki/Versiones.html">Versiones</a>.

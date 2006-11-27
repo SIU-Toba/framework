@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,10 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Creaciónmanual">Creación manual</a></li><li>
+<a href="#DistribucióndeCarpetas">Distribución de Carpetas</a></li><li>
+<a href="#Detallesdelaconfiguración">Detalles de la configuración</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Instalacion
 </p>
 <h1 id="Instalación">Instalación</h1>
@@ -104,12 +162,12 @@ Una instalación es una carpeta que contiene una versión de Toba. Una instalaci
 </p>
 <blockquote>
 <p>
-<strong>ATENCION</strong>: La carpeta no debe encontrarse dentro del <i>DOCUMENT ROOT</i> de apache, toba posee archivos de configuración y otros elementos que no deben ser accedidos desde afuera del servidor. El acceso web debe realizarse sobre puntos acotados que se <a class="wiki" href="../Instalacion/ConfigurarApache.html">configuran explícitamente</a>. 
+<strong>ATENCION</strong>: La carpeta no debe encontrarse dentro del <i>DOCUMENT ROOT</i> de apache, toba posee archivos de configuración y otros elementos que no deben ser accedidos desde afuera del servidor. El acceso web debe realizarse sobre <a class="wiki" href="PuntosDeAcceso.html">puntos acotados</a> que se <a class="wiki" href="../Instalacion/ConfigurarApache.html">configuran explícitamente</a>. 
 </p>
 </blockquote>
-<h2 id="Creación">Creación</h2>
+<h2 id="Creaciónmanual">Creación manual</h2>
 <p>
-La primera vez que se utiliza una instalación de toba hay <i>crearla</i>, esto es atravezar una serie de preguntas para crear las configuraciones iniciales, 
+La primera vez que se utiliza una instalación de toba hay <i>crearla</i>, esto es atravesar una serie de preguntas para crear las configuraciones iniciales, 
 </p>
 <pre class="wiki">toba instalacion crear
 </pre>
@@ -128,24 +186,22 @@ USUARIO: postgres
 CLAVE: **********
 BASE: toba
 </pre>
-<h2 id="Detallesdelaconfiguración">Detalles de la configuración</h2>
-<p>
-En la carpeta principal de toba existe una carpeta no versionada llamada "instalacion" que contiene todas las configuraciones de la instalación incluyendo la de las instancias contenidas. Existen dos configuraciones principales de una instalación:
-</p>
-<ul><li>Qué <a class="wiki" href="Instancia.html">Instancias</a> tiene definidas, determinado por carpetas <tt>toba/instalacion/i__nombre</tt> donde <tt>nombre</tt> es la identificación de la instancia.
-</li><li>Qué <strong>bases de datos</strong> se utilizan en la instalación, se definen en el archivo <tt>toba/instalacion/bases.ini</tt>.
-</li><li>Configuraciones varias, globales a toda la instancia en el archivo <tt>toba/instalacion/instalacion.ini</tt>.
-</li></ul><h2 id="DistribucióndeCarpetas">Distribución de Carpetas</h2>
+<h2 id="DistribucióndeCarpetas">Distribución de Carpetas</h2>
 <ul><li><i>toba</i>
 <ul><li><i>bin</i>: Lugar donde recide el comando de consola <tt>toba</tt>
 </li><li><i>doc</i>: Documentación interna del proyecto
 </li><li><i>php</i>: Código de Toba
 </li><li><i>proyectos</i>: Arbol de directorio de los distintos <a class="wiki" href="Proyecto.html">Proyectos</a>.
-</li><li><i>www</i>: Contiene archivos estaticos (imagenes, javascript) y los <a class="wiki" href="PuntosDeAcceso.html">Puntos de Acceso</a> del mismo administrador de toba.
-</li></ul></li></ul><p>
-   
+</li><li><i>www</i>: Contiene archivos estaticos (imagenes, css, javascript, etc.) 
+</li><li><i>instalacion</i>: Carpeta que contiene detalles de esta instalación puntual
+</li></ul></li></ul><h2 id="Detallesdelaconfiguración">Detalles de la configuración</h2>
+<p>
+En la carpeta principal de toba existe una carpeta no versionada llamada <strong>instalacion</strong> que contiene todas las configuraciones de la instalación incluyendo la de las instancias contenidas. Existen dos configuraciones principales de una instalación:
 </p>
-</div>
+<ul><li>Qué <a class="wiki" href="Instancia.html">Instancias</a> tiene definidas, determinado por carpetas <tt>toba/instalacion/i__nombre</tt> donde <tt>nombre</tt> es la identificación de la instancia.
+</li><li>Qué <strong>bases de datos</strong> se utilizan en la instalación, se definen en el archivo <tt>toba/instalacion/bases.ini</tt>.
+</li><li>Configuraciones varias, globales a toda la instancia en el archivo <tt>toba/instalacion/instalacion.ini</tt>.
+</li></ul></div>
    </div>
    
   

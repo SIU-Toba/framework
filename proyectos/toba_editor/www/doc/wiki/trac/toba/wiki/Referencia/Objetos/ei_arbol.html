@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,33 +150,41 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Carga">Carga</a></li><li>
+<a href="#Eventospredefinidos">Eventos predefinidos</a></li><li>
+<a href="#Ejemplo">Ejemplo</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_arbol
 </p>
-<h1 id="Objetoárbol">Objeto árbol</h1>
+<h1 id="Árbol">Árbol</h1>
 <p>
-<a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.241f0.png?format=raw" alt="Ejemplo de árbol" title="Ejemplo de árbol" /></a>
-El objeto_ei_arbol tiene como objetivo representar una estructura de árbol en pantalla con posibilidad de incluír funcionalidades de pantallas alrededor de cada nodo del árbol tales como iconos, utilerías, colapsados, ayuda extendida, etc.
+Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/arbol.gif' /> ei_arbol representa gráficamente una estructura de árbol con posibilidad de incluir funcionalidades referentes a cada nodo del árbol tales como iconos, utilerías, colapsados, ayuda extendida, etc.
+Actualmente la definición del objeto utilizando el editor es muy básica, todo el comportamiento se define en forma de código.
 </p>
-<h2 id="Definición">Definición</h2>
 <p>
-Actualmente la definición del objeto utilizando el administrador es muy básica, todo el comportamiento se define en forma de código.
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_arbol.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_arbol</a> <br />
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei_arbol.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei_arbol</a>
 </p>
 <h2 id="Carga">Carga</h2>
 <p>
-El evento carga del ei_arbol espera recibir de parte del CI que lo contiene un objeto que implemente la interface <strong>recorrible_como_arbol</strong> (<a class="source" href="../../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/componentes/info/interfaces.php">Ver detalles de la interface</a>. Este objeto será considerado como el nodo raiz y será el punto de inicio del recorrido a partir de su método <i>hijos()</i>.
+En la configuración se espera recibir de parte del CI que lo contiene un objeto que implemente la interface <strong><a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_nodo_arbol.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_nodo_arbol</a></strong>. Este objeto será considerado como el nodo raíz y será el punto de inicio del recorrido a partir de su método <i>get_hijos()</i>. Cuando el árbol a cargar se puede hacer muy grande existe la posibilidad de que el árbol vaya cargando sus ramas bajo demanda, utilizando AJAX, invocando el evento <tt>cargar_nodo</tt> en el servidor. Un nodo así se lo denomina <i>parcialmente cargado</i> cuando el nodo <strong>no es hoja</strong> (tiene hijos) pero sus hijos no están cargados:
 </p>
+<pre class="wiki">!$nodo-&gt;es_hoja() &amp;&amp; !$nodo-&gt;tiene_hijos_cargados()
+</pre>
 <h2 id="Eventospredefinidos">Eventos predefinidos</h2>
 <ul><li>cambio_apertura: Se dispara cuando al volver al server el objeto descubre que el usuario ha cambiado la apertura de alguno de los nodos. El evento envía un arreglo asociativo 'id_del_nodo' =&gt; 0|1 determinando si esta abierto o no.
 </li><li>ver_propiedades: Cuando un nodo tiene_propiedades(), el usuario puede clickear sobre el, en este evento se acarrea el identificador del nodo que fue seleccionado.
+</li><li>cargar_nodo: Este evento se dispara en el proceso de carga a demanda de nodos (usando AJAX). Cuando un nodo responde que tiene hijos pero no se brindan las referencias a estos hijos el árbol asume que estos nodos se quieren cargar en demanda, acarreando el id del nodo como parámetro de este evento. La respuesta de este evento debe ser el nodo del árbol que implementa la interfaz <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_nodo_arbol.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_nodo_arbol</a>.
 </li></ul><h2 id="Ejemplo">Ejemplo</h2>
 <p>
-Por ahora el catalogo de items, en el frame de la izquierda del administrador, es el ejemplo más claro de este objeto.
+Por ahora el catalogo de items, en el frame de la izquierda del editor, es el ejemplo más claro de este objeto.
+<a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/ei_arbol.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/ei_arbol/ei_arbol41f0.png?format=raw" /></a>
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/objeto_ei_arbol.2.html">objeto_ei_arbol.2.png</a> (27.9 kB) -<q>Ejemplo de árbol</q>, added by seba on 11/11/05 16:56:57.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/ei_arbol/ei_arbol.html">ei_arbol.png</a> (13.9 kB) - added by seba on 10/25/06 11:09:06.</li>
     </ul>
   
   

@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,15 +150,19 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#ConstruccióndeMensajes">Construcción de Mensajes</a></li><li>
+<a href="#Notificación">Notificación</a></li><li>
+<a href="#Ejemplos">Ejemplos</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Mensajes
 </p>
 <h1 id="MensajesyNotificaciones">Mensajes y Notificaciones</h1>
 <p>
-Toba brinda mecanismos para hacer más uniforme la construcción de mensajes y notificarlos al cliente.
+Toba brinda mecanismos para hacer más uniforme la construcción de <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/mensaje.gif' /> mensajes y notificarlos al cliente.
 </p>
 <h2 id="ConstruccióndeMensajes">Construcción de Mensajes</h2>
 <p>
-Existe la posibilidad de centralizar el armado de mensajes a través de la clase <strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_mensajes.html#' target='_blank'>toba::mensajes()</a></strong>. Esta clase brinda servicios para instanciar plantillas de mensajes definidas a nivel global del proyecto o a nivel de un único componente. 
+Existe la posibilidad de centralizar el armado de mensajes a través de la clase <strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_mensajes.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::mensajes()</a></strong>. Esta clase brinda servicios para instanciar plantillas de mensajes definidas a nivel global del proyecto o a nivel de un único componente. 
 </p>
 <p>
 El mensaje actúa como plantilla dejando marcas para su posterior instanciación. Estas marcas toman la forma de <i>%posicion%</i>:
@@ -132,7 +190,7 @@ El mensaje resultante es el siguiente:
 </pre>
 <h2 id="Notificación">Notificación</h2>
 <p>
-Una vez construidos los mensajes, ya sea con la forma anterior o en forma manual, se los puede agrupa en una <strong>notificación</strong> para ser presentada posteriormente al cliente. Esta agrupación se hace con la clase <strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_notificacion.html#' target='_blank'>toba::notificacion()</a></strong>
+Una vez construidos los mensajes, ya sea con la forma anterior o en forma manual, se los puede agrupa en una <strong>notificación</strong> para ser presentada posteriormente al cliente. Esta agrupación se hace con la clase <strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_notificacion.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba::notificacion()</a></strong>
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     toba</span><span class="code-keyword">::</span><span class="code-lang">notificacion</span><span class="code-keyword">()-&gt;</span><span class="code-lang">agregar</span><span class="code-keyword">(</span><span class="code-string">"Error al procesar"</span><span class="code-keyword">);
@@ -150,7 +208,8 @@ Cuando el error se detecta desde la <a class="wiki" href="Objetos/Extension.html
 </span></span>
 </pre></div><h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo de construcción y notificación de mensajes en el proyecto <a class="wiki" href="../Proyectos/Referencia.html">Referencia</a>, ítem <i>Mensajes y Notificaciones</i>.
+Existe un ejemplo de construcción y notificación de mensajes en el proyecto <a class="wiki" href="../Proyectos/Referencia.html">Referencia</a>, ítem <i>Mensajes y Notificaciones</i>.<br />
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/mensajes_notificaciones' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ver un ejemplo online</a></strong>
 </p>
 </div>
    </div>

@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,8 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><ol><li><a href="#Internos">Internos</a></li></ol></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Proyectos
 </p>
 <h1 id="Proyectosconsumidores">Proyectos consumidores</h1>
@@ -108,7 +164,8 @@ Estos son los proyectos del SIU que utilizan al toba como entorno de desarrollo.
 </td></tr><tr><td>SPU - Transferencias</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO</td><td>staffbb@siu.edu.ar
 </td></tr><tr><td>SIU - Tehuelche</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO
 </td></tr><tr><td>SIU - Pilaga</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO
-</td></tr><tr><td>SPU - Legalizaciones</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO
+</td></tr><tr><td>SPU - Legalizaciones</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO</td><td>staffbb@siu.edu.ar
+</td></tr><tr><td>Censo Guaraní</td><td>branches/post_0.9.1</td><td>NO</td><td>NO</td><td>NO
 </td></tr><tr><td>SIU - Araucano (Módulo de Aspirantes)</td><td>branches/post_0.8.3.3</td><td>NO</td><td>NO</td><td>NO
 </td></tr><tr><td>SIU - Voluntariado</td><td>branches/post_0.8.3.3</td><td>NO</td><td>NO</td><td>NO</td><td>staffbb@siu.edu.ar
 </td></tr><tr><td>SIU - Pampa W3</td><td>branches/post_0.8.3.3</td><td>SI</td><td>NO</td><td>NO
@@ -117,17 +174,18 @@ Estos son los proyectos del SIU que utilizan al toba como entorno de desarrollo.
 </td></tr><tr><td>SIU - Calchaquí</td><td>branches/0.8.2_agentes</td><td>SI</td><td>SI</td><td>NO</td><td>staffbb@siu.edu.ar
 </td></tr><tr><td>SPU - Agentes</td><td>branches/0.8.2_agentes</td><td>SI</td><td>SI</td><td>NO</td><td>staffbb@siu.edu.ar
 </td></tr><tr><td>Costos por Proyecto (interno)</td><td>branches/0.8.2_agentes</td><td>SI</td><td>NO</td><td>NO</td><td>staffbb@siu.edu.ar
-</td></tr><tr><td>Censo Guaraní</td><td>tags/0.8.3.2</td><td>NO</td><td>NO</td><td>NO
 </td></tr></table>
 <ul><li><i>(*1) Indica si se utilizan los componentes transversales (interface/db) propios de la arquitectura obsoleta de toba.</i>
 </li><li><i>(*2) Indica si se utilizan las clases de persistencia obsoletas.</i>
 </li><li><i>(*3) Indica si se utilizan las primitivas de manejo de recordset de ADO (moveNext, fetchRow, etc.).</i>
 </li></ul><h3 id="Internos">Internos</h3>
 <p>
-Estos proyectos forman parte del ambiente.
+Estos proyectos forman parte del ambiente:
 </p>
-<ul><li><a class="wiki" href="Proyectos/Referencia.html">Referencia de documentación</a>.
-</li><li><a class="wiki" href="Proyectos/TobaTesting.html">Toba - Testing</a>.
+<ul><li><a class="missing wiki" href="Proyectos/toba_editor.html" rel="nofollow">toba_editor?</a>: IDE para editar un <a class="wiki" href="Referencia/Proyecto.html">proyecto</a>.
+</li><li><a class="wiki" href="Proyectos/toba_instancia.html">toba_instancia</a>: IDE para editar datos específicos de una <a class="wiki" href="Referencia/Instancia.html">instancia</a>.
+</li><li><a class="wiki" href="Proyectos/Referencia.html">toba_referencia</a>: Proyecto que da soporte a la documentación.
+</li><li><a class="wiki" href="Proyectos/TobaTesting.html">toba_testing</a>: Proyecto que contiene casos de test automáticos.
 </li></ul></div>
    </div>
    

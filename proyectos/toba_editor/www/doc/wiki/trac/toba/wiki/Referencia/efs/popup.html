@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,13 +150,16 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Objetos/Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#DefiniciónPopup">Definición Popup</a><ol><li><a href="#Comunicaciónconlaoperación">Comunicación con la operación</a></li></ol><li><a href="#Operaciónprincipal">Operación principal</a></li><li>
+<a href="#Ejemplo">Ejemplo</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../efs.html">efs</a> / popup
 </p>
 <h1 id="EFPopup">EF Popup</h1>
 <p>
 El ef_popup se utiliza para obtener una combinación clave-valor desde una página popup. Para esto se necesitan dos cosas: La operación o ítem principal y la operación que va a actuar como popup o diálogo.
 </p>
-<h2 id="Popup">Popup</h2>
+<h2 id="DefiniciónPopup">Definición Popup</h2>
 <p>
 El popup es un ítem con el <a class="wiki" href="../TipoPagina.html">tipo de página</a> popup. Este tipo de pagina mantiene viva la conexión con la ventana original y brinda una función javascript para comunicar los valores seleccionados a la operacion principal: <tt>seleccionar(clave, descripcion)</tt>. El popup puede tener cualquier estructura, a manera de ejemplo se muestra una estructura típica, que consiste de un ci y un cuadro:
 </p>
@@ -112,26 +169,14 @@ El popup es un ítem con el <a class="wiki" href="../TipoPagina.html">tipo de p�
 <p>
 <a href="../../../attachment/wiki/Referencia/efs/popup/definicion_cuadro.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/efs/popup/definicion_cuadro41f0.png?format=raw" alt="Definición básica del cuadro del popup" title="Definición básica del cuadro del popup" /></a>
 </p>
+<h3 id="Comunicaciónconlaoperación">Comunicación con la operación</h3>
 <p>
-El cuadro debe invocar a esta función javascript <tt>seleccionar</tt> cuando sea seleccionado el elemento. La función javascript <tt>seleccionar</tt> comunica los nuevos valores y cierra la ventana de popup. Asumiendo que el cuadro maneja una clave que contiene el id y la descripción del registro y que se le definió un evento <tt>seleccion</tt> a nivel fila, la siguiente extensión javascript posibilita la comunicación con la pantalla original:
+La particularidad de este cuadro es que ante una selección en lugar de comunicar el evento hacia PHP retorna el valor seleccionado a la operación principal. Este comportamiento es posible gracias a una Acción de evento <strong>Respuesta ef_popup</strong>. Esta acción se definiría así en el cuadro.
 </p>
-<div class="code"><pre><span class="code-lang">&lt;?php
-</span><span class="code-keyword">class </span><span class="code-lang">cuadro_popup </span><span class="code-keyword">extends </span><span class="code-lang">objeto_ei_cuadro
-</span><span class="code-keyword">{
-    function </span><span class="code-lang">extender_objeto_js</span><span class="code-keyword">()
-    {
-        echo </span><span class="code-string">"
-            {$this-&gt;objeto_js}.evt__seleccion = function(id) {
-                var seleccion = id.split('||');
-                seleccionar(seleccion[0], seleccion[1]);
-                return false;
-            }
-        "</span><span class="code-keyword">;
-    }
-}
-</span><span class="code-lang">?&gt;
-</span></span>
-</pre></div><h2 id="Operaciónprincipal">Operación principal</h2>
+<p>
+<a href="../../../attachment/wiki/Referencia/efs/popup/evento_seleccion.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/efs/popup/evento_seleccion41f0.png?format=raw" /></a>
+</p>
+<h2 id="Operaciónprincipal">Operación principal</h2>
 <p>
 <a href="../../../attachment/wiki/Referencia/efs/popup/operacion_ppal.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/efs/popup/operacion_ppal41f0.png?format=raw" alt="Captura de la estructura de la operación principal" title="Captura de la estructura de la operación principal" /></a>
 </p>
@@ -143,13 +188,17 @@ En el formulario de la operación se define un ef de tipo <strong>ef_popup</stro
 </p>
 <p>
 Al clickear sobre el icono de apertura, se abre el item definido en una ventana popup.
-Cuando el valor lo carga el usuario el par clave-descripción lo brinda explícitamente desde la selección. Cuando se quiere cargar el ef desde el servidor también se debe explicitar este par, esto se hace definiendo un <a class="missing wiki" href="../MecanismoConsulta.html" rel="nofollow">mecanismo de consulta?</a> (llamado anteriormente DAO). A este mecanismo le llega la clave y debe retornar el valor asociado.
+Cuando el valor lo carga el usuario el par clave-descripción lo brinda explícitamente desde la selección. Cuando se quiere cargar el ef desde el servidor también se debe explicitar este par, esto se hace definiendo la <strong><a class="wiki" href="../efs.html#CargadeOpciones">carga de opciones del ef</a></strong> (llamado anteriormente DAO). A este mecanismo le llega la clave y debe retornar el valor asociado.
+</p>
+<h2 id="Ejemplo">Ejemplo</h2>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000048' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Popup</a>
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/definicion_form.html">definicion_form.png</a> (24.6 kB) -<q>Definición del ef_popup</q>, added by seba on 09/01/06 10:30:49.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/definicion_cuadro.html">definicion_cuadro.png</a> (23.0 kB) -<q>Definición básica del cuadro del popup</q>, added by seba on 09/01/06 10:31:55.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/operacion_ppal.html">operacion_ppal.png</a> (7.8 kB) -<q>Captura de la estructura de la operación principal</q>, added by seba on 09/01/06 10:35:51.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/operacion_popup.html">operacion_popup.png</a> (8.5 kB) -<q>Captura de la estructura del dialogo</q>, added by seba on 09/01/06 10:36:16.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/definicion_form.html">definicion_form.png</a> (24.6 kB) -<q>Definición del ef_popup</q>, added by seba on 09/01/06 10:30:49.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/definicion_cuadro.html">definicion_cuadro.png</a> (23.0 kB) -<q>Definición básica del cuadro del popup</q>, added by seba on 09/01/06 10:31:55.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/operacion_ppal.html">operacion_ppal.png</a> (7.8 kB) -<q>Captura de la estructura de la operación principal</q>, added by seba on 09/01/06 10:35:51.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/operacion_popup.html">operacion_popup.png</a> (8.5 kB) -<q>Captura de la estructura del dialogo</q>, added by seba on 09/01/06 10:36:16.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/efs/popup/evento_seleccion.html">evento_seleccion.png</a> (16.7 kB) - added by seba on 10/20/06 11:34:22.</li>
     </ul>
   
   

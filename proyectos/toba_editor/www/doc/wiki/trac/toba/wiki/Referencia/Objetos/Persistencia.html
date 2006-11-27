@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,30 +150,43 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li class="active"><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Beneficios">Beneficios</a></li><li>
+<a href="#ComportamientoGeneral">Comportamiento General</a><ol><li><a href="#Duranteladefinición">Durante la definición</a></li><li>
+<a href="#Durantelaejecución">Durante la ejecución</a></li></ol></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / Persistencia
 </p>
-<h1 id="Introducciónalosobjetosdepersistencia">Introducción a los objetos de persistencia</h1>
+<h1 id="Introducciónaloscomponentesdepersistencia">Introducción a los componentes de persistencia</h1>
 <p>
-Los objetos de persistencia tienen como objetivo resolver una problematica bien puntual: ayudar al controlador de interface en el progreso del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a>. Esto es cargar un conjunto de datos relacionados, mantener los <i>cambios</i> realizados por el usuario a estos datos en memoria y finalmente sincronizarlos con el medio de persistencia cuando sea solicitado.
+Los componentes de persistencia brindan tres servicios a la aplicación: 
 </p>
-<h2 id="Porqué">¿Porqué?</h2>
+<ul><li>Cargar un conjunto de datos relacionados
+</li><li>Mantener en memoria los <i>cambios</i> realizados por el usuario a estos datos 
+</li><li>Finalmente sincronizarlos con el medio de persistencia cuando sea solicitado.
+</li></ul><p>
+Estos servicios ayudan al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">controlador de interface</a> a garantizar del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a> de una operación.
+</p>
+<h2 id="Beneficios">Beneficios</h2>
 <p>
-Cuando los datos a manejar son simples, es fácil mantener la información entre pedidos de página en la sesión en forma plana, en toba esto lo hace generalmente el <a class="wiki" href="ci.html">objeto_ci</a>. Cuando los datos empiezan a ser complejos, fruto del manejo de relaciones en la base de datos, es muy tedioso tener que mantener estas estructuras en forma manual. La solución a este problema es describir en forma de objeto toba a las <strong>tablas</strong> y <strong>relaciones</strong> que se van a manipular en la transacción. 
+Cuando los datos a manejar son simples, es fácil mantener entre pedidos de página la información en la sesión en forma plana, en toba esto lo hace generalmente el CI. Cuando los datos empiezan a ser complejos, fruto del manejo de relaciones en la base de datos, es difícil que mantener estas estructuras en forma manual.
 </p>
 <p>
-La solución que brindan estos objetos son:
+La solución a este problema es describir en forma de componentes a las <strong>tablas</strong> y <strong>relaciones</strong> que se van a manipular en la transacción. 
 </p>
-<ul><li>Guardar el estado de los datos que manejan, el CI sólo tendrá que guardar en sesión información relacionada con la presentación pero ya no más los datos de la operación.
+<p>
+La solución que brindan estos componentes son:
+</p>
+<ul><li>Guardar el estado de los datos que se manejan en la operación. El ci sólo tendrá que guardar en sesión información relacionada con la presentación pero ya no más los datos de la operación.
 </li><li>Brindar una API de manipulación de datos orientada a datos tabulares.
-</li><li>Brindar un mecanismo de carga y sincronización, esto es manejado por una clase aparte llamada <a class="wiki" href="AP.html">Administrador de persistencia</a>, es la que en definitiva forma las query de carga y los comandos update, insert y delete para el caso de una base de datos relacional.
+</li><li>Brindar un mecanismo de carga y sincronización. Para mantener independencia con el medio, este proceso es guiado por una clase separada llamada <a class="wiki" href="AP.html">Administrador de persistencia</a>, es la que en definitiva forma las query de carga y los comandos update, insert y delete para el caso de una base de datos relacional.
 </li></ul><p>
  
 </p>
 <h2 id="ComportamientoGeneral">Comportamiento General</h2>
 <h3 id="Duranteladefinición">Durante la definición</h3>
-<ul><li>Se modelan datos tabulares, generalmente tablas de una BD relacional. El objeto utilizado es el <a class="wiki" href="datos_tabla.html">objeto_datos_tabla</a>.
-</li><li>Se modelan las relaciones entre estas tabla (utilizando el objeto <a class="wiki" href="datos_relacion.html">objeto_datos_relacion</a>).
-</li><li>Se asigna la relación al CI encargado de la transacción.
+<ul><li>Se modelan datos tabulares, generalmente tablas de una base relacional. El componente utilizado es el <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>.
+</li><li>Se modelan las relaciones entre estas tabla (utilizando el componente <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>).
+</li><li>Se asigna la relación al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">CI</a> encargado de la transacción.
 </li></ul><p>
 <a href="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia41f0.png?format=raw" /></a>
 </p>
@@ -127,66 +194,51 @@ La solución que brindan estos objetos son:
 <p>
 Siempre desde el CI encargado de la transacción:
 </p>
-<ul><li>Se <strong>cargan datos</strong> en la relación con una restricción (generalmente la clave de la tabla principal que se está editando), en caso del alta de un nuevo registro se resetea la relación (por si estaba cargada con algún dato previamente). Generalmente la condición de alta o modificación de un conjunto de datos se tiene antes de llegar a este punto (generalmente desde un CI de nivel superior que da la posibilidad al usuario de crear una entidad nueva o editar una existente), por lo que se utilizan dos atributos del objeto <i>es_nuevo</i> e <i>id_editado</i>.
+<ul><li>Se <strong>cargan datos</strong> en la relación con una restricción (generalmente la clave de la tabla principal que se está editando), en caso del alta de un nuevo registro se resetea la relación (por si estaba cargada con algún dato previamente). 
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">protected </span><span class="code-lang">$es_nuevo </span><span class="code-keyword">= </span><span class="code-lang">false</span><span class="code-keyword">;
-    protected </span><span class="code-lang">$id_editado</span><span class="code-keyword">;
-
-    function </span><span class="code-lang">mantener_estado_sesion</span><span class="code-keyword">()
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__cuadro_personas__seleccion</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">)
     {
-        </span><span class="code-lang">$props </span><span class="code-keyword">= </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">mantener_estado_sesion</span><span class="code-keyword">();
-        </span><span class="code-lang">$props</span><span class="code-keyword">[] = </span><span class="code-string">'id_editado'</span><span class="code-keyword">;
-        return </span><span class="code-lang">$props</span><span class="code-keyword">;
-    }
-
-    </span><span class="code-comment">/**
-    *    Retorna el datos_relacion de esta operación
-    */
-    </span><span class="code-keyword">function </span><span class="code-lang">get_relacion</span><span class="code-keyword">()
-    {
-        if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">es_nuevo</span><span class="code-keyword">) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">resetear</span><span class="code-keyword">();
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">es_nuevo </span><span class="code-keyword">= </span><span class="code-lang">false</span><span class="code-keyword">;
-        }
-        if (isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">)) {
-            </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">cargar</span><span class="code-keyword">(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">);
-            unset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">id_editado</span><span class="code-keyword">);
-        }
-        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'relacion'</span><span class="code-keyword">);
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dep</span><span class="code-keyword">(</span><span class="code-string">'datos'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">cargar</span><span class="code-keyword">(</span><span class="code-lang">$id</span><span class="code-keyword">);
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_pantalla</span><span class="code-keyword">(</span><span class="code-string">'edicion'</span><span class="code-keyword">);
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li></ul><ul><li>Los eventos de los distintos elementos de interface (eis) son ruteados hacia el datos_tabla correspondiente. Por ejemplo el carga de un formulario se alimenta del datos_tabla que contiene los datos que se quieren manipular, lo mismo sucede cuando se produce la modificación. El siguiente ejemplo <strong>trabaja con un solo registro</strong> por eso la simplicidad de la llamada:
+</pre></div></li></ul><ul><li>Los eventos de los distintos elementos de interface (eis) son ruteados hacia el datos_tabla correspondiente. Por ejemplo en la configuración de un formulario se alimenta del datos_tabla que contiene los datos que se quieren manipular, lo mismo sucede cuando se produce la modificación. El siguiente ejemplo <strong>trabaja con un solo registro</strong> por eso la simplicidad de la llamada:
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">evt__aula__carga</span><span class="code-keyword">()
+    </span><span class="code-keyword">function </span><span class="code-lang">conf__formulario</span><span class="code-keyword">()
     {
-        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_relacion</span><span class="code-keyword">()-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">(</span><span class="code-string">'aula'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">get</span><span class="code-keyword">();
+        return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dep</span><span class="code-keyword">(</span><span class="code-string">'datos'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">(</span><span class="code-string">'personas'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">get</span><span class="code-keyword">();
     }
     
-    function </span><span class="code-lang">evt__aula__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
+    function </span><span class="code-lang">evt__formulario__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
     {
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_relacion</span><span class="code-keyword">()-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">(</span><span class="code-string">'aula'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">set</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dep</span><span class="code-keyword">(</span><span class="code-string">'datos'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">tabla</span><span class="code-keyword">(</span><span class="code-string">'personas'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">set</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li><li>Cuando el CI quiere finalizar la transacción (por ejemplo el usuario decide guardar), se pide sincronizar el datos_relacion.
+</pre></div></li></ul><ul><li>Cuando el CI quiere finalizar la transacción (por ejemplo el usuario decide <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/guardar.gif' /> guardar), se pide <strong>sincronizar</strong> el datos_relacion. En este caso se elige volver a la pantalla de selección luego de la sincronización.
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">evt__guardar</span><span class="code-keyword">()
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__procesar</span><span class="code-keyword">()
     {
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_relacion</span><span class="code-keyword">()-&gt;</span><span class="code-lang">sincronizar</span><span class="code-keyword">();
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dep</span><span class="code-keyword">(</span><span class="code-string">'datos'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">sincronizar</span><span class="code-keyword">();
+        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_pantalla</span><span class="code-keyword">(</span><span class="code-string">'seleccion'</span><span class="code-keyword">);
     }
+
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></li></ul><p>
-Estos son los pasos para escenarios sencillos, para más información sobre los servicios que brindan estos objetos se encuentra en:
+Estos son los pasos para escenarios sencillos, para más información sobre los servicios que brindan estos componentes se encuentra en:
 </p>
-<ul><li><a class="wiki" href="datos_relacion.html">objeto_datos_relacion</a>
-</li><li><a class="wiki" href="datos_tabla.html">objeto_datos_tabla</a>
-</li></ul></div>
+<ul><li><img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>
+</li><li><img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>
+</li></ul><p>
+Ver el funcionamiento de las clases de persistencia con un <a class="wiki" href="../../Tutorial/Persistencia.html">ejemplo</a>.
+</p>
+</div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.html">intro_persistencia.png</a> (5.0 kB) - added by seba on 11/14/05 13:08:23.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.html">intro_persistencia.png</a> (9.9 kB) - added by seba on 10/12/06 11:31:13.</li>
     </ul>
   
   

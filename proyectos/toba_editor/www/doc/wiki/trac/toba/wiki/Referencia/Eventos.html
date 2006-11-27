@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,35 +150,73 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li class="active"><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Modelos">Modelos</a></li><li>
+<a href="#Propiedades">Propiedades</a></li><li>
+<a href="#Agrupación">Agrupación</a></li><li>
+<a href="#Listeners">Listeners</a></li><li>
+<a href="#Configuraciónenejecución">Configuración en ejecución</a><ol><li><a href="#EnPHP">En PHP</a></li><li>
+<a href="#EnJavascript">En Javascript</a></li></ol><li><a href="#Accionespredefinidas">Acciones predefinidas</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Eventos
 </p>
-<h1 id="Eventos">Eventos</h1>
+<h1 id="EventosdeComponentes">Eventos de Componentes</h1>
 <p>
-Un evento es un suceso que ocurre tanto en los elementos de interface (ei) como en sus contenedores, los controladores de interface (ci). El evento sirve como medio de comunicación del cliente con el servidor, llevando los parámetros particulares del suceso. Cuando en un momento dado uno de los objetos en pantalla pide ir al servidor, el resto de los objetos comunica también sus eventos.
+Un <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/reflexion/evento.gif' /> evento representa la interacción del usuario ("El usuario <i>presiona guardar</i> enviando los datos de la factura") a través de un <a class="wiki" href="Objetos.html">componente</a> de interfaz. El evento sirve como medio de comunicación del cliente con el servidor, llevando los parámetros particulares del suceso. 
 </p>
-<h2 id="Tiposdeeventos">Tipos de eventos</h2>
 <p>
-Los eventos pueden dividirse en dos grandes grupos
+Como se encuentra en un ambiente web, la comunicación entre cliente y servidor no es continua, se le dice <strong>desconectada</strong>. El usuario trabaja en su browser modificando la información que se visualiza en la página actual y cuando decide ir al servidor (ej. Guardar) todos los componentes de esa pantalla seguramente van a notificar los distintos sucesos que acontecieron durante su estadía en el cliente. Este es un concepto fundamental que diferencia a las aplicaciones web de las de escritorio, en donde este dialogo tiene más frecuencia y menor caudal.
 </p>
-<ul><li>Disparados para atender la pantalla anterior. Por ejemplo el evento generado cuando el usuario pide ordenar un listado
-</li><li>Disparados para generar la próxima pantalla. Por ejemplo el evento de carga de datos de una grilla.
-</li></ul><h2 id="Cuálessonloseventosexistentes">¿Cuáles son los eventos existentes?</h2>
 <p>
-Para todos los objetos existe un evento común denominado <i>carga</i> que permite inicializar el objeto con un conjunto de datos específico, este evento se lanza justo antes de construir la interfaz gráfica. Luego, cada <a class="wiki" href="Objetos.html">Objeto</a> posee distintos modelos de eventos disponibles en el editor del mismo. Por ejemplo un ei_formulario tiene dos modelos, uno clásico ABM (cuatro eventos: alta, baja, modificacion y cancelar) y otro básico que sólo incluye la modificación como evento implícito.
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_evento_usuario.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_evento_usuario</a>: Forma gráfica que contiene el disparador del evento (por ej. un botón) <br />
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/evento_ei.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> evento_ei</a>: Estructura de datos que representa un evento en javascript.
 </p>
-<h2 id="Cómoseescuchaunevento">¿Cómo se escucha un evento?</h2>
+<h2 id="Modelos">Modelos</h2>
 <p>
-<i>Escuchar</i> un evento es definir un método en el <a class="wiki" href="Objetos/ci.html">Controlador de Interface</a> que lo contiene, este será invocado cuando el suceso ocurre. El nombre de este método necesita estar definido con el prefijo <tt>evt__</tt> seguido por el id del objeto origen, con el nombre de evento como sufijo <tt>__evento</tt>. Por ejemplo en el caso de un alta en un formulario <i>id_formulario</i> se dispara el evento <i>alta</i>, y se puede escuchar desde su contenedor definiendo el siguiente método:
+Cada <a class="wiki" href="Objetos.html">componente</a> posee distintos modelos de eventos que pueden ser utilizados en la definición en el editor. Por ejemplo un <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a> tiene dos modelos, uno clásico ABM (cuatro eventos: alta, baja, modificacion y cancelar) y otro básico que sólo incluye la modificación como evento implícito, sin botón asociado.
+</p>
+<p>
+El programador no está forzado a utilizar estos modelos, pueden crear sus propios eventos y utilizar los modelos sólo como punto inicial en la definición de los eventos.
+</p>
+<h2 id="Propiedades">Propiedades</h2>
+<ul><li><strong>Identificador</strong>: Nombre lógico del evento, determina el nombre que toman los listeners y la forma en general de referenciarlos.
+</li></ul><ul><li><strong>Etiqueta</strong>: Es el nombre a nivel de usuario del evento, este nombre será el label del botón si se define en botonera.
+</li></ul><ul><li><strong>Imagen</strong>: En el caso de se muestren como botones se antepone la imagen al texto del botón.
+</li></ul><ul><li><strong>En botonera</strong>: El evento se muestra disponible como botón en el área de botonera del objeto.
+</li></ul><ul><li><strong>Implícito</strong>: Un evento implícito se lanza cuando el usuario no explicita ningún otro evento en el componente. Por ejemplo si se cuenta con tres formularios que contienen eventos implícitos y se decide cambiar de solapa, éstos notificaran estos eventos al servidor a pesar de que el usuario no presionó ningún botón de estos formularios.
+</li></ul><ul><li><strong>Maneja datos</strong>: Indica si el evento depende de los datos cargados, esto condiciona la validación del componente. Por ejemplo el evento <i>cancelar</i> no maneja_datos por lo que no es necesario validarlo, lo mismo sucede al <i>borrar</i>, en cambio el <i>alta</i> o la <i>modificacion</i> sí manejan datos y requieren validación.
+</li></ul><ul><li><strong>Predeterminado</strong>: Indica que el botón se dispara en forma predeterminada al presionar la tecla ENTER (excepto dentro de un textarea o que no se tenga foco en el documento). La idea es que exista uno solo por pantalla y que sea el botón más obvio (y menos peligroso) de la pantalla. En caso de existir más de uno en una página el browser utiliza el primero en el orden del fuente HTML.
+</li></ul><ul><li><strong>Estilo</strong>: Clase CSS a aplicar al botón que dispara el evento. Por defecto la clase css es <i>ei-boton</i> alineándose a la derecha en la botonera. Es posible ingresar la clase <i>ei-boton-izq</i> que alinea el botón a la izquierda de la botonera, o cualquier clase definida en el CSS del proyecto. Es posible ingresar más de una valor, separando las clases con un espacio.
+</li></ul><ul><li><strong>Confirmación</strong>: Indica si el evento necesita una confirmación explícita del usuario para lanzarse. Es común encontrarlo en eliminaciones, en caso de no querer la confirmación dejarla vacía.
+</li></ul><ul><li><strong>Ayuda</strong>: Descripción del significado del evento. Generalmente se muestra como tooltip.
+</li></ul><ul><li><strong>Sobre Fila</strong>: Propiedad que sólo entienden aquellos objetos con múltiples filas, como el <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/cuadro_array.gif' /> <a class="wiki" href="Objetos/ei_cuadro.html">cuadro</a> o el <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> <a class="wiki" href="Objetos/ei_formulario_ml.html">formulario_ml</a> e indica que el evento opera sobre una única fila y no sobre todo el conjunto de datos. El evento se mostrará al lado de cada fila. <img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||2246' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de filtrado de eventos a nivel fila</a></strong>
+</li></ul><ul><li><strong>Pantallas</strong>: Solo aplica a eventos de un <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="Objetos/ci.html">ci</a>, determina en cuales pantallas se mostrará el evento. Otra forma de setear lo mismo es editar la pantalla y seleccionar qué eventos mostrar.
+</li></ul><ul><li><strong>Grupos</strong>: se pueden definir varios separándolos por coma, ver más abajo sobre su utilidad.
+</li></ul><h2 id="Agrupación">Agrupación</h2>
+<p>
+A través de la propiedad <strong>Grupos</strong> es posible agrupar los  eventos a los que pertenece el evento en cuestión. La conveniencia de esta funcionalidad es poder activar y desactivar conjuntos de eventos con un sólo método. 
+Existe un servicio <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#set_grupo_eventos_activo' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> set_grupo_eventos_activo</a> que permite definir el grupo activo en tiempo de ejecución. Los componentes <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a> y <a class="wiki" href="Objetos/ei_filtro.html">ei_filtro</a> poseen un comportamiento predefinido respecto de este tema: 
+</p>
+<ul><li>Cuando se inicializa el elemento en se establece al grupo 'no_cargado' como activo.
+</li><li>Si se brindan datos al componente durante su configuración se establece el grupo 'cargado' como activo.
+</li></ul><p>
+Esta funcionalidad permite definir el comportamiento predeterminado del formulario en un ABM simple: Cuando el formulario esta vacío muestra un boton 'Agregar', si se le cargaron datos muestra los botones 'Modificación', 'Baja' y 'Cancelar'. También es el comportamiento normal de un filtro: Cuando se encuentra vacío muestra un botón 'filtrar' y cuando esta cargado un botón 'filtrar' y otro 'cancelar'.
+</p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3305' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de activar/desactivar eventos agrupados</a></strong>
+</p>
+<h2 id="Listeners">Listeners</h2>
+<p>
+<i>Escuchar</i> un evento es definir un método en el <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="Objetos/ci.html">ci</a> contenedor del componente. Este método denominado <strong>listener</strong> será invocado informando a través de parámetros el contexto del evento. El nombre de este método necesita estar definido con el prefijo <tt>evt__</tt> seguido por el id del objeto origen, con el nombre de evento como sufijo <tt>__evento</tt>. Por ejemplo en el caso de un alta en un formulario <i>form</i> se dispara el evento <i>alta</i>, y se puede escuchar desde su contenedor definiendo el siguiente método:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">evt__id_formulario__alta</span><span class="code-keyword">(</span><span class="code-lang">$registro</span><span class="code-keyword">)
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__form__alta</span><span class="code-keyword">(</span><span class="code-lang">$registro</span><span class="code-keyword">)
     {
         </span><span class="code-comment">//Código que reacciona al evento
     </span><span class="code-keyword">}
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-En caso de que este método no sea definido, el evento queda sin atrapar, informándose en el <a class="missing wiki" href="Logging.html" rel="nofollow">log por pantalla?</a>. Cuando el evento es lanzado por el mismo CI, el id del objeto origen es omitido, por ejemplo el evento <i>procesar</i> del CI se escucha de la siguiente manera:
+En caso de que este método no sea definido, el evento queda sin atrapar, informándose en el <a class="missing wiki" href="Logging.html" rel="nofollow">logger?</a>. Cuando el evento es lanzado por el mismo CI, el id del componente origen es omitido, por ejemplo el evento <i>procesar</i> del CI se escucha de la siguiente manera:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__procesar</span><span class="code-keyword">()
@@ -133,58 +225,60 @@ En caso de que este método no sea definido, el evento queda sin atrapar, inform
     </span><span class="code-keyword">}
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h2 id="Cómoselanzaunevento">¿Cómo se lanza un evento?</h2>
-<p>
-Los eventos tienen una forma general de lanzarse a través de un botón que el usuario debe clickear explícitamente. Otros más particulares se lanzan a partir de una imagen (por ejemplo el ordenamiento de un <a class="wiki" href="Objetos/ei_cuadro.html">cuadro</a>), con el cambio de solapa en un <a class="missing wiki" href="Objetos/ci_me_tab.html" rel="nofollow">ci con tabs?</a> o implícitamente en la construcción de la interface, como el evento <i>carga</i>.<br />
-De todos los eventos de un objeto, uno puede estar definido como <i>implícito</i>. Un evento por implícito será lanzado en caso de que ningún evento sea disparado por el usuario. Un ejemplo clásico es un formulario sin botones que siempre lanza el evento <i>modificacion</i>. Es posible cambiar el evento por defecto desde el editor de objetos (recomendado), o en ejecución desde el CI, en caso de que dependa de una condición dinámica:
+</pre></div><p>
+La forma de atrapar estos eventos en javascript es similar, sólo que siempre se utiliza esta última notación <tt>evt__evento</tt>. Por ejemplo se puede atrapar el evento cancelar de un formulario justo cuando el usuario lo invoca en javascript:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
-    $this</span><span class="code-keyword">-&gt;</span><span class="code-lang">dependencia</span><span class="code-keyword">(</span><span class="code-string">'formulario'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">set_evento_defecto</span><span class="code-keyword">(</span><span class="code-string">'alta'</span><span class="code-keyword">);
-</span><span class="code-lang">?&gt;
-</span></span>
-</pre></div><h2 id="ListadeEventospersonalizados">Lista de Eventos personalizados</h2>
-<p>
-Cuando la ocurrencia de un evento depende de condiciones en ejecución se recomienda redefinir el método get_lista_eventos para sacar el evento según las circunstancias:
-</p>
-<div class="code"><pre><span class="code-lang">&lt;?php
-    </span><span class="code-keyword">function </span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">()
+</span><span class="code-keyword">class </span><span class="code-lang">extension_formulario </span><span class="code-keyword">extends </span><span class="code-lang">toba_ei_formulario
+</span><span class="code-keyword">{
+    function </span><span class="code-lang">extender_objeto_js</span><span class="code-keyword">()
     {
-        </span><span class="code-lang">$eventos </span><span class="code-keyword">= </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">get_lista_eventos</span><span class="code-keyword">();
-        if (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">condicion</span><span class="code-keyword">) {
-            unset(</span><span class="code-lang">$eventos</span><span class="code-keyword">[</span><span class="code-string">'evento_1'</span><span class="code-keyword">]);
-        } else {
-            unset(</span><span class="code-lang">$eventos</span><span class="code-keyword">[</span><span class="code-string">'evento_2'</span><span class="code-keyword">]);
-        }
-        return </span><span class="code-lang">$eventos</span><span class="code-keyword">;
-    }
+        </span><span class="code-comment">//--Agrega una confirmación al cancelar en caso de que algo dinamico pase...
+        </span><span class="code-keyword">echo </span><span class="code-string">"
+            {$this-&gt;objeto_js}.evt__cancelar = function() {
+                if (condicion_dinamica) {
+                    return confirm('¿Esta seguro?');
+                } else {
+                    return true;
+                }
+            }
+        "</span><span class="code-keyword">;
+    }    
+}
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h2 id="Propiedades">Propiedades</h2>
-<ul><li><strong>Identificador</strong>: nombre lógico del evento, determina la forma que toman los listeners.
-</li><li><strong>Etiqueta</strong>: Es el nombre a nivel de usuario del evento, este nombre será el label del botón si se define en botonera.
-</li><li><strong>Imagen</strong>: Omagen que se muestra, sólo aplica a objetos que renderizen el evento como imagen. En el caso de se muestren como botones se antepone la imagen al texto del botón.
-</li><li><strong>Implícito</strong>: Un evento implícito se lanza cuando ningún evento se selecciona por el usuario, útil cuando se quiere brindar comportamientos por defecto.
-</li><li><strong>En botonera</strong>: El evento se muestra como botón en el área de botonera del objeto.
-</li><li><strong>Estilo</strong>: Clase css asociada al componente gráfico que muestra el disparador del evento.
-</li><li><strong>Confirmación</strong>: Indica si el evento necesita una confirmación explícita del usuario para lanzarse. Es común encontrarlo en eliminaciones, en caso de no querer la confirmación dejarla vacía.
-</li><li><strong>Ayuda</strong> (string): Descripción del significado del evento. Generalmente se muestra como tooltip.
-</li><li><strong>Sobre Fila</strong>: Propiedad que sólo entienden aquellos objetos con múltiples filas (por ejemplo el <a class="wiki" href="Objetos/ei_cuadro.html">cuadro</a> o el <a class="wiki" href="Objetos/ei_formulario_ml.html">formulario mulilínea</a> e indica que el evento opera sobre una única fila y no sobre todo el conjunto de datos.
-</li><li><strong>Maneja datos</strong>: Indica si el evento depende de los datos cargados, esto condiciona la validación del objeto. Por ejemplo el evento <i>cancelar</i> no maneja_datos por lo que no es necesario validarlo, lo mismo sucede al <i>borrar</i>, en cambio el <i>alta</i> o la <i>modificacion</i> sí manejan datos y requieren validación.
-</li><li><strong>Grupos</strong>: Grupos de eventos a los que pertenece el evento en cuestion, se pueden definir varios separandolos por coma. La conveniencia de esta funcionalidad es activar y desactivar conjuntos de eventos. Existe un metodo en el ancestro de los componentes de tipo 'Elemento de Interfaz' ( set_grupo_eventos_activo($nombre_grupo) ) que permite setear el grupo activo en tiempo de ejecución. Los componentes <a class="wiki" href="Objetos/ei_formulario.html">ei_formulario</a> y <a class="wiki" href="Objetos/ei_formulario.html">ei_filtro</a> poseen un comportamiento predefinido respecto de este tema: 
-<ul><li>Cuando se inicializa el elemento en se establece al grupo 'no_cargado' como activo.
-</li><li>Si se llama al metodo cargar_datos() del mismo (este metodo es llamado por el toba cuando se crea define un metodo de carga de datos para un componente) se establece el grupo 'cargado' como activo.
-</li></ul></li></ul><blockquote>
+</pre></div><h2 id="Configuraciónenejecución">Configuración en ejecución</h2>
 <p>
-Esta funcionalidad permite definir el comportamiento deseado en algunas aplicaciones comunes del formulario, como el ABM simple (Cuando el formulario esta vacio muestra un boton 'Agregar', si se le cargaron datos muestra los botones 'Modificacion', 'Baja' y 'Cancelar') y tambien el comportamiento normal de un filtro (Cuando se encuentra vacio muestra un boton 'filtrar' y cuando esta cargado un boton 'filtrar' y otro 'cancelar').
+Los botones,imagenes y demás propiedades de los eventos pueden ser modificados en ejecución
 </p>
-</blockquote>
+<h3 id="EnPHP">En PHP</h3>
+<p>
+Existe una clase llamada <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_evento_usuario.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_evento_usuario</a> que contiene los servicios para modificar a un evento. La forma de acceder a este objeto es a través del método <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#evento' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> evento($id)</a> del componente. Por ejemplo configurando un formulario:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+</span><span class="code-keyword">function </span><span class="code-lang">conf_form</span><span class="code-keyword">(</span><span class="code-lang">$form</span><span class="code-keyword">)
+{
+    </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">evento</span><span class="code-keyword">(</span><span class="code-string">'modificacion'</span><span class="code-keyword">)-&gt;</span><span class="code-lang">set_etiqueta</span><span class="code-keyword">(</span><span class="code-string">'Modificar!!!'</span><span class="code-keyword">);
+}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3315' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de configuración PHP</a></strong>
+</p>
+<h3 id="EnJavascript">En Javascript</h3>
+<p>
+Generalmente requiere una <a class="wiki" href="ExtensionesJavascript.html">extensión del componente</a>. El evento en sí no tiene una API propia sino que es parte del api del <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei</a> (por ej. <tt>ocultar_boton</tt>, <tt>mostrar_boton</tt>, etc.). También se puede acceder al elemento HTML que contiene el evento con el método <tt>get_boton($id)</tt>.
+</p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3313' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de configuración JS</a></strong>
+</p>
 <h2 id="Accionespredefinidas">Acciones predefinidas</h2>
 <p>
-Existen acciones predefinidas que pueden ser asignadas a los eventos. 
-Las acciones predefinidas disponibles actualmente son: 
+Existen acciones predefinidas que pueden ser asignadas a los eventos, esto evita tener que definir las acciones a través de listeners. Las acciones predefinidas disponibles actualmente son: 
 </p>
-<ul><li>Imprimir (Solo disponible en el componente <a class="wiki" href="Objetos/ci.html">controlador de interface</a>).
-</li><li><a class="wiki" href="Eventos/Vinculo.html">Vincular</a> (Que permite navegar a un nuevo item, dentro de la misma pagina o en un popup).
+<ul><li><strong>Imprimir</strong>: Solo disponible en el componente <a class="wiki" href="Objetos/ci.html">controlador de interface</a>, imprime el ci en el cliente, utilizando el servicio <a class="wiki" href="Solicitud.html#Tiposdeservicio">Impresión HTML</a>, opcionalmente se puede mostrar una <i>Vista Previa</i> de la impresión. <img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000071' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Impresión HTML</a></strong>
+</li></ul><ul><li><strong><a class="wiki" href="Eventos/Vinculo.html">Vincular</a></strong>: permite navegar a un nuevo ítem, dentro de la misma pagina o en un popup. Crea automáticamente la URL y el tag html que lo contiene. <img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000071' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Vinculación</a></strong>
+</li></ul><ul><li><strong>Respuesta al <a class="wiki" href="efs/popup.html">ef_popup</a></strong>: Disponibles en los componentes que manejan fila (cuadro y form ml), consiste en brindar la clave de la fila actual al ef que invocó el popup. <img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000048' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Popup</a></strong>
 </li></ul></div>
    </div>
    

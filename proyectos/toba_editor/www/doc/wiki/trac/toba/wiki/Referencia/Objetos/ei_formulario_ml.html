@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,23 +150,53 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
+<a href="#Carga">Carga</a></li><li>
+<a href="#Eventos">Eventos</a><ol><li><a href="#Eventosquemanejandatos">Eventos que manejan datos</a></li><li>
+<a href="#Selecciones">Selecciones</a></li></ol><li><a href="#MétodosdeAnálisis">Métodos de Análisis</a><ol><li><a href="#Análisisenlínea">Análisis en línea</a></li><li>
+<a href="#Análisisporeventos">Análisis por eventos</a></li></ol><li><a href="#AgregaryQuitarlíneas">Agregar y Quitar líneas</a></li><li>
+<a href="#ValidacionesenPHP">Validaciones en PHP</a></li><li>
+<a href="#ExtensiónJS">Extensión JS</a><ol><li><a href="#Validacióngeneralyeventos">Validación general y eventos</a></li><li>
+<a href="#Validacióndeefs">Validación de efs</a></li><li>
+<a href="#Procesamientodeefs">Procesamiento de efs</a></li></ol><li><a href="#Ejemplos">Ejemplos</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_formulario_ml
 </p>
 <h1 id="FormularioMultilínea">Formulario Multilínea</h1>
 <p>
-Un formulario multilínea (ei_formulario_ml) presenta una grilla de campos repetidos una cantidad dada de filas permitiendo recrear la carga de distintos registros con la misma estructura. La definición y uso de la grilla de campos es similar al <a class="wiki" href="ei_formulario.html">formulario simple</a> con el agregado de lógica para manejar un número arbitrario de filas.
+Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> formulario multilínea (ei_formulario_ml) presenta una grilla de  <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="../efs.html">campos</a> repetidos una cantidad dada de filas. permitiendo recrear la carga de distintos registros con la misma estructura. La definición y uso de la grilla de campos es similar al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="ei_formulario.html">formulario simple</a> con el agregado de lógica para manejar un número arbitrario de filas.
+</p>
+<p>
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario_ml.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_formulario_ml</a> <br />
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei_formulario_ml.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei_formulario_ml</a>
 </p>
 <h2 id="Definición">Definición</h2>
-<ul><li>Ancho: Pixeles o porcentaje que ocupa el objeto gráficamente. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
-</li><li>Líneas: En la definición se puede incluir una cantidad inicial de filas una  opción permite modificar esta cantidad de filas agregando nuevas o eliminando existentes. Durante la ejecución la cantidad y contenido de cada filas se especifica escuchando el evento <i>carga</i> como es común a todos los objetos.
-</li><li>Agregar/Quitar líneas: Se incluyen dos botones para agregar y quitar líneas. El agregado puede ser <i>en línea</i> utilizando javascript (más dinámico) o llendo al server como un evento más (más seguro para hacer validaciones o para incluír cascadas).
-</li><li>Ordenar líneas: Se incluyen dos controles para que el usuario pueda ordenar las líneas subiendolas o bajandolas. Si se defina una columna, el orden se envía a travez de esta columna sino el orden se refleja en el orden en que se envían estas filas a los eventos.
-</li><li>Numerar filas: A la izquierda de cada fila se incluye una numeración comenzando desde uno, es sólo para uso cosmético.
-</li><li>Análisis de cambios: Se explica más abajo.
-</li><li>EF - Totalizar: Dentro de la definición de un ef se puede marcar la opción <i>Totalizar</i>, esto implica que ante el cambio de un valor, esta columna se totaliza automáticamente (sería un procesamiento por defecto, ver la parte de javascript de este objeto para entender lo que es un procesamiento).
-</li></ul><h2 id="Eventos">Eventos</h2>
+<ul><li><i>Ancho</i>: Pixeles o porcentaje que ocupa el objeto gráficamente. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
+</li><li><i>Líneas</i>: En la definición se puede incluir una cantidad inicial de filas una  opción permite modificar esta cantidad de filas agregando nuevas o eliminando existentes. Durante la ejecución la cantidad y contenido de cada filas se especifica durante la configuración del componente.
+</li><li><i>Agregar/Quitar líneas</i>: Se incluyen dos botones para agregar y quitar líneas. El agregado puede ser <i>en línea</i> utilizando javascript (más dinámico) o llendo al server como un evento más (más seguro para hacer validaciones o para incluír cascadas).
+</li></ul><ul><li><i>Ordenar líneas</i>: Se incluyen dos controles para que el usuario pueda ordenar las líneas subiendolas o bajandolas. Si se defina una columna, el orden se envía a travez de esta columna sino el orden se refleja en el orden en que se envían estas filas a los eventos. Este mismo formato se puede utilizar cuando se carga al componente en caso que se quiera enviar las líneas ordenadas al cliente.
+</li><li><i>Numerar filas</i>: A la izquierda de cada fila se incluye una numeración comenzando desde uno, es sólo para uso cosmético.
+</li><li><i>Análisis de cambios</i>: Se explica más abajo.
+</li><li><i>EF - Totalizar</i>: Dentro de la definición de un ef se puede marcar la opción <i>Totalizar</i>, esto implica que ante el cambio de un valor, esta columna se totaliza automáticamente (sería un procesamiento por defecto, ver la parte de javascript de este objeto para entender lo que es un procesamiento).
+</li></ul><h2 id="Carga">Carga</h2>
 <p>
-El rol gráfico del ML toma comportamientos del formulario común (en definitiva se están editando datos) pero también al cuadro ya que posee una estructura tabular. Es por esto que generalmente se lo utiliza tanto para modificar datos como para seleccionar existentes. El único modelo que se incluye inserta el evento modificación como implícito. Para agregar un evento como el de selección recuerde setearlo como 'A nivel de filas'.
+El ml espera en la carga un matriz con la primer dimensión representando el orden de las filas y la segunda un arreglo asociativo del tipo <tt>'id_ef' =&gt; valor</tt> . Cuando no se carga con datos al formulario se utilizan las filas vacías definidas en el editor.
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">conf__formulario</span><span class="code-keyword">(</span><span class="code-lang">$form</span><span class="code-keyword">)
+    {
+       </span><span class="code-lang">$datos </span><span class="code-keyword">= array(
+            array(</span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">1</span><span class="code-keyword">, </span><span class="code-string">'importe' </span><span class="code-keyword">=&gt; </span><span class="code-lang">100</span><span class="code-keyword">),
+            array(</span><span class="code-string">'id' </span><span class="code-keyword">=&gt; </span><span class="code-lang">3</span><span class="code-keyword">, </span><span class="code-string">'importe' </span><span class="code-keyword">=&gt; </span><span class="code-lang">412</span><span class="code-keyword">),
+        );
+    </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_datos</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
+    </span><span class="code-comment">//--- Para la carga, una forma alternativa al set_datos es retornar los datos (return $datos)
+    </span><span class="code-keyword">}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h2 id="Eventos">Eventos</h2>
+<p>
+El rol gráfico del ML toma comportamientos del formulario común (en definitiva se están editando datos) pero también al cuadro ya que posee una estructura tabular. Es por esto que generalmente se lo utiliza tanto para modificar datos como para seleccionar existentes. El único modelo que se incluye inserta el evento modificación como implícito. Para agregar un evento como el de selección recuerde ponerlo como 'A nivel de filas'.
 </p>
 <h3 id="Eventosquemanejandatos">Eventos que manejan datos</h3>
 <p>
@@ -134,7 +218,15 @@ Los eventos disparados por el ML varía según el tipo de 'Análisis de cambios'
 <p>
 Entran en esta categoría aquellos eventos declarados a nivel de fila. El evento se dispara llevando como parametro una clave que identifica la fila.
 </p>
-<h2 id="MétodosdeAnálisis">Métodos de Análisis</h2>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">evt__form__seleccion</span><span class="code-keyword">(</span><span class="code-lang">$fila</span><span class="code-keyword">)
+    {
+        </span><span class="code-lang">var_dump</span><span class="code-keyword">(</span><span class="code-lang">$fila</span><span class="code-keyword">);
+    }
+</span><span class="code-lang">?&gt;
+</span>int(1534)
+</span>
+</pre></div><h2 id="MétodosdeAnálisis">Métodos de Análisis</h2>
 <p>
 Muchas veces es necesario poder seguir la traza de las modificaciones en el cliente, que registro se modificaron, cuales se agregaron, cuales se borraron. Para esto se configura el 'Análisis de cambios', este análisis puede ser en línea o mediante eventos.
 </p>
@@ -180,27 +272,23 @@ Dando de baja el registro 12302.
 </span>
 </pre></div><h2 id="AgregaryQuitarlíneas">Agregar y Quitar líneas</h2>
 <p>
-Por omisión la función de agregar o quitar líneas se realiza en el cliente utilizando javascript, esto brinda mucho dinamismo a la operación sacrificando la posibilidad de incluir lógica de negocio confiable en el proceso. Cuando la desición de crear o eliminar filas debe pasar por lógica de negocio o cosas que depeden de la base de datos debe transferirse la responsabildad al lado servidor, es por eso que tanto agregar como quitar puede ser parametrizado para que hagan un viaje al servidor.
+Por omisión la función de agregar o quitar líneas se realiza en el cliente utilizando javascript, esto brinda mucho dinamismo a la operación sacrificando la posibilidad de incluir lógica de negocio confiable en el proceso. Cuando la decisión de crear o eliminar filas debe pasar por lógica de negocio o cosas que depeden de la base de datos, debe transferirse la responsabildad al lado servidor, es por eso que tanto agregar como quitar puede ser parametrizado para que hagan un viaje al servidor.
 </p>
-<h3 id="Agregandounafilaenelserver">Agregando una fila en el server</h3>
 <p>
-Como casi toda interacción con el cliente, el agregado se dispara en el servidor como un evento <strong>pedido_registro_nuevo</strong>. La respuesta de este evento puede ser:
+<strong>Agregado en el Server</strong>: Como casi toda interacción con el cliente, el agregado se dispara en el servidor como un evento <strong>pedido_registro_nuevo</strong>. El evento se puede:
 </p>
-<ul><li>Un booleano (true/false) que indica que esta permitido o no crear una nueva fila.
-</li><li>Un arreglo similar a una dimensión retornada en la carga, representando que sí esta permitido crearla y brindando una fila <i>template</i> para esta creación.
-</li></ul><p>
- 
-</p>
-<h3 id="Quitandounafilaenelserver">Quitando una fila en el server</h3>
-<h2 id="Carga">Carga</h2>
-<p>
-El ml espera en la carga un matriz con la primer dimensión representando el orden de las filas y la segunda un arreglo asociativo del tipo <tt>'id_ef' =&gt; valor</tt> . Cuando no se quiere cargar con datos hay dos opciones: no se escucha el evento, o no se retorna nada en este método, en este caso se carga el número de filas que se especificó en la definición.
-</p>
-<h2 id="ValidacionesenPHP">Validaciones en PHP</h2>
+<ul><li>No escuchar: en este caso se muesra al usuario un nuevo registro vacío
+</li><li>Escuchar y agregar un registro con el método <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario_ml.html#set_registro_nuevo' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> set_registro_nuevo</a>
+</li><li>Escuchar pero no agrega un registro: Rechaza la solicitud del usuario de agegar el registro.
+</li></ul><h2 id="ValidacionesenPHP">Validaciones en PHP</h2>
 <p>
 Ver las validaciones del <a class="wiki" href="ei_formulario.html">formulario simple</a>.
 </p>
 <h2 id="ExtensiónJS">Extensión JS</h2>
+<p>
+Se puede usar el mecanismo de <a class="wiki" href="../ExtensionesJavascript.html">extensión javascript</a> para agregar comportamientos en el cliente.
+Estas extensiones necesitan ser definidas en una subclase del componente, dentro del método <i><a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#extender_objeto_js' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> extender_objeto_js</a></i>.
+</p>
 <p>
 La extensión js se basa en la del <a class="wiki" href="ei_formulario.html">formulario simple</a>, con la diferencia que ahora varias filas de estos <a class="wiki" href="../efs.html">efs</a> están involucradas. Así, para direccionar desde javascript a un ef particular se hace referenciando a la fila específica ej: <tt>this.ef('id_ef').ir_a_fila(2).metodo()</tt>. El hecho que lo que era una lista de campos se convierta en un matriz hace que todas las extensiones se vuelvan un poco más complejas. 
 </p>
@@ -244,9 +332,9 @@ Es posible escuchar los <a class="wiki" href="../efs/Procesamientos.html">proces
         }
         
         {$this-&gt;objeto_js}.refrescar_importes = function(es_inicial, fila) {
-            var importe = this.ef('importe').ir_a_fila(fila).valor();
-            var descuento = this.ef('descuento').ir_a_fila(fila).valor();
-            this.ef('neto').ir_a_fila(fila).cambiar_valor(importe - descuento);
+            var importe = this.ef('importe').ir_a_fila(fila).get_estado();
+            var descuento = this.ef('descuento').ir_a_fila(fila).get_estado();
+            this.ef('neto').ir_a_fila(fila).set_estado(importe - descuento);
         }        
     "</span><span class="code-keyword">;
 </span><span class="code-lang">?&gt;
@@ -256,7 +344,10 @@ En el formulario multilínea existe un procesamiento opcional que puede ser agre
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-Existe un ejemplo con estas situaciones en el proyecto de Referencia, ítem Descripcion de Elementos/Objetos/Formularios/ei_formulario_ml.
+Existe un ejemplo en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, item <i>/Componentes/Formularios/Multilínea</i>.
+</p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario_ml' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de formulario ML</a></strong>
 </p>
 </div>
    </div>

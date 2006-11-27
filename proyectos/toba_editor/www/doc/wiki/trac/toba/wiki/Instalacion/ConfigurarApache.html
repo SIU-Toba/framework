@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,28 +150,36 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#IncluyendoaToba">Incluyendo a Toba</a></li><li>
+<a href="#Incluyendoaleditor">Incluyendo al editor</a></li><li>
+<a href="#Incluyendoalproyecto">Incluyendo al proyecto</a></li><li>
+<a href="#Reiniciandoelservidor">Reiniciando el servidor</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Instalacion.html">Instalacion</a> / ConfigurarApache
 </p>
 <h1 id="ConfiguracióndeApache">Configuración de Apache</h1>
 <p>
 Para poder ejecutar tanto el proyecto como el administrador de toba es necesario publicar directorios en el servidor Apache.
 </p>
+<blockquote>
+<p>
+<strong>ATENCION</strong>: La carpeta de toba no debe encontrarse dentro del <i>DOCUMENT ROOT</i> de apache, toba posee archivos de configuración y otros elementos que no deben ser accedidos desde afuera del servidor. El acceso web debe realizarse sobre <a class="wiki" href="../Referencia/PuntosDeAcceso.html">puntos acotados</a> que se configuran explícitamente. 
+</p>
+</blockquote>
 <h2 id="IncluyendoaToba">Incluyendo a Toba</h2>
 <p>
 Toba necesita tener un alias propio, esto permite que los componenentes puedan contar con recursos comunes (principalmente imagenes y javascript) a todos los proyectos de la instalación. 
 Durante la creación de la <a class="wiki" href="../Referencia/Instalacion.html">Instalación</a> se genero un archivo instalacion/toba.conf conteniendo una configuración típica de un Alias de Apache. 
 Este archivo tiene que ser incluído en la configuración general de Apache:
 </p>
-<ul><li>Si la instalación de Apache2 se dividió en partes (típico de sistemas linux), se necesita crear un link simbolico en /etc/apache2/sites-enabled:
+<ul><li>Si la instalación es monolitica (típico en sistemas windows) se necesita editar el archivo Apache2\conf\httpd.conf e incluir la línea:
+<pre class="wiki">include &#34;d:/proyectos/toba/instalacion/toba.conf&#34;
+</pre>
+</li></ul><ul><li>Si la instalación de Apache2 se dividió en partes (típico de sistemas linux), se necesita crear un link simbólico en /etc/apache2/sites-enabled:
 <pre class="wiki">sudo ln -s /home/usuario/proyectos/toba/instalacion/toba.conf  /etc/apache2/sites-enabled/toba
 </pre>
-</li><li>Si la instalación es monolitica (típico en sistemas windows) se necesita editar el archivo Apache2\conf\httpd.conf e incluir la línea:
-<pre class="wiki">...
-include &#34;d:/proyectos/toba/instalacion/toba.conf&#34;
-...
-</pre>
 </li></ul><p>
-El contenido típico de un toba.conf es el siguiente:
+El contenido básico de un toba.conf es el siguiente:
 </p>
 <pre class="wiki">    Alias /toba &#34;/home/usuario/proyectos/toba/www&#34;
     &lt;Directory &#34;/home/usuario/proyectos/toba/www/&#34;&gt;
@@ -128,11 +190,14 @@ El contenido típico de un toba.conf es el siguiente:
     &lt;/Directory&gt;
 </pre>
 <p>
-El nombre del alias por defecto <i>toba</i> aunque puede ser cualquier otro, en ese caso declararlo con la variable de entorno 'TOBA_ALIAS', por ejemplo: <tt>SetEnv TOBA_ALIAS toba_0.9.1</tt>.
+El nombre del alias por defecto <i>toba</i> aunque puede ser cualquier otro. En caso de cambiarlo cada alias de proyecto debe informar el nuevo nombre con la variable de entorno 'TOBA_ALIAS', por ejemplo: <tt>SetEnv TOBA_ALIAS toba_0.9.1</tt>.
 </p>
 <h2 id="Incluyendoaleditor">Incluyendo al editor</h2>
-<pre class="wiki">	Alias /editor &#34;/home/usuario/proyectos/toba/proyectos/admin/www&#34;
-	&lt;Directory &#34;/home/usuario/proyectos/toba/proyectos/admin/www/&#34;&gt;
+<p>
+El editor de toba es un proyecto más:
+</p>
+<pre class="wiki">	Alias /editor &#34;/home/usuario/proyectos/toba/proyectos/toba_editor/www&#34;
+	&lt;Directory &#34;/home/usuario/proyectos/toba/proyectos/toba_editor/www/&#34;&gt;
 		SetEnv TOBA_DIR &#34;/home/usuario/proyectos/toba&#34;
 		SetEnv TOBA_ALIAS toba
 		SetENV TOBA_PROYECTO_ALIAS editor
@@ -145,12 +210,12 @@ El nombre del alias por defecto <i>toba</i> aunque puede ser cualquier otro, en 
 </pre>
 <h2 id="Incluyendoalproyecto">Incluyendo al proyecto</h2>
 <p>
-El proyecto necesita un alias (con el mismo nombre que el proyecto), la manera más sencilla es editar el archivo toba.conf para agregar el alias, por ejemplo para el proyecto <i>mi_proyecto</i>:
+El proyecto necesita un alias, la manera más sencilla es editar el archivo toba.conf para agregar el alias, por ejemplo para el proyecto <i>mi_proyecto</i>:
 </p>
 <pre class="wiki">	Alias /mi_proyecto &#34;/home/usuario/proyectos/toba/proyectos/mi_proyecto/www&#34;
 	&lt;Directory &#34;/home/usuario/proyectos/toba/proyectos/mi_proyecto/www/&#34;&gt;
 		SetEnv TOBA_DIR &#34;/home/usuario/proyectos/toba&#34;
-		SetEnv TOBA_ALAS toba
+		SetEnv TOBA_ALIAS toba
 		SetEnv TOBA_PROYECTO_ALIAS mi_proyecto
 		Options MultiViews
 		DirectoryIndex aplicacion.php
@@ -166,12 +231,12 @@ Si el proyecto consume un toba cuyo alias fue modificado, necesita declarar nuev
 <p>
 En ambos casos, luego de cambiar la configuración se debe reiniciar el servidor:
 </p>
-<ul><li>En linux:
-<pre class="wiki">sudo /etc/init.d/apache2 force-reload
-</pre>
-</li><li>En windows:
+<ul><li>En windows:
 <pre class="wiki">net stop apache2
 net start apache2
+</pre>
+</li><li>En linux:
+<pre class="wiki">sudo /etc/init.d/apache2 reload
 </pre>
 </li></ul></div>
    </div>

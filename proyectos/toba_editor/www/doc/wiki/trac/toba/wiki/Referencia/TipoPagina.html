@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,6 +150,11 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Utilizacióndelostiposdepágina">Utilización de los tipos de página</a></li><li>
+<a href="#Tiposdepáginapredefinidos">Tipos de página predefinidos</a></li><li>
+<a href="#Creacióndeunnuevotipodepágina">Creación de un nuevo tipo de página</a></li><li>
+<a href="#Ejemplodeextensióndeltipodepágina">Ejemplo de extensión del tipo de página</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / TipoPagina
 </p>
 <h1 id="Tiposdepágina">Tipos de página</h1>
@@ -103,83 +162,52 @@
 Los tipos de página determinan la salida anterior y posterior a la de una operación. Cada <a class="wiki" href="Item.html">ítem</a> tiene un tipo de página asociado. Crear nuevos tipos de página permite:
 </p>
 <ul><li>Crear encabezados y pie de página personalizados para distintos grupos de operaciones. 
+</li><li>Excluir el menú, o incluir otro tipo distinto de menú no contemplado.
 </li><li>Incluir recursos HTML comunes a un conjunto de operaciones.
 </li><li>Incluir salidas no tradicionales que requieren distintos encabezados HTTP o distintos tags HTML (Por ejemplo mostrar un PDF).
 </li></ul><h2 id="Utilizacióndelostiposdepágina">Utilización de los tipos de página</h2>
 <p>
 Los tipos de página se eligen en la definición del <a class="wiki" href="Item.html">ítem</a>, pudiendo optar entre los predefinidos y aquellos particulares del proyecto.
 </p>
-<h2 id="Creacióndeunnuevotipodepágina">Creación de un nuevo tipo de página</h2>
-<ol><li>Definir el tipo de página en el administrador: Desde el Administrador del proyecto accediendo al menu <strong>EXT</strong>, en la sección <strong>Tipo de página</strong> se puede dar de alta uno nuevo, asociado exclusivamente al proyecto. Allí se debe ingresar la clase y su ubicación dentro del sistema de archivos del proyecto.
-</li><li>Construir el nuevo tipo de página: Los tipos de página necesitan heredar de la clase abstracta tipo_pagina ubicada en la carpeta <i>$toba_dir/nucleo/browser/tipo_pagina</i>. En ese directorio se encuentran distintos tipos de página que se pueden tomar como modelo de extensión (también se encuentran los tipos de página viejos que no son clases).
-</li></ol><h2 id="Tiposdepáginapredefinidos">Tipos de página predefinidos</h2>
-<ul><li><strong>tipo_pagina</strong>: Clase abstracta que contiene los métodos encabezado() y pie() que los distintos tipos de página tienen que definir. <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tipo_pagina.php">Ver clase</a>.
-</li><li><strong>tp_basico</strong>: Crea lo mínimo necesario para incluir HTML (javascript básicos, <a class="missing wiki" href="Plantilla.html" rel="nofollow">plantilla css?</a> del proyecto, etc. No es recomendado para la extensión de un tipo de página que quiere incluirse en items de operaciones comunes (no incluye TODO el javascript ni estilos que necesitan los objetos toba). <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_basico.php">Ver clase</a>.
-</li><li> <strong>tp_normal</strong>: Inluye el HTML mínimo que necesita una operación clásica Toba, incluye el menú y una barra superior. Generalmente los proyectos van a heredar de este los tipos de página particulares. <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tp_normal.php">Ver clase</a>.
-</li></ul><h2 id="Ejemplodeextensióndeltipodepágina">Ejemplo de extensión del tipo de página</h2>
+<h2 id="Tiposdepáginapredefinidos">Tipos de página predefinidos</h2>
+<ul><li><strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_tipo_pagina.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> tipo_pagina</a></strong>: Clase abstracta que contiene los métodos encabezado() y pie() que los distintos tipos de página tienen que definir. <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/browser/tipo_pagina/tipo_pagina.php">Ver clase</a>.
+</li></ul><ul><li><strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_tp_basico.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> tp_basico</a></strong>: Crea lo mínimo necesario para incluir HTML (javascript básicos, <a class="missing wiki" href="Plantilla.html" rel="nofollow">plantilla css?</a> del proyecto, etc. No es recomendado para la extensión de un tipo de página que quiere incluirse en items de operaciones comunes (no incluye todo el javascript ni estilos que necesitan los objetos toba). 
+</li></ul><ul><li><strong><a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_tp_normal.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> tp_normal</a></strong>: Incluye el HTML mínimo que necesita una operación clásica Toba, incluye el menú y una barra superior. Generalmente los proyectos van a heredar los tipos de página particulares de éste.
+</li></ul><h2 id="Creacióndeunnuevotipodepágina">Creación de un nuevo tipo de página</h2>
+<ol><li>Definir el tipo de página en el editor: Desde el editor del proyecto accediendo al menú <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.gif' /><i>Configuración del Proyecto</i>, en la sección <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/tipo_pagina.gif' /><i>Tipo de página</i>, se puede dar de alta uno nuevo asociado exclusivamente al proyecto. Allí se debe ingresar la clase y su ubicación dentro del sistema de archivos del proyecto.
+</li><li>Construir el nuevo tipo de página: Los tipos de página necesitan heredar de una clase abstracta común <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_tipo_pagina.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_tipo_pagina</a>, ver en la documentación php los ejemplos de distintos tipos de página.
+</li></ol><h2 id="Ejemplodeextensióndeltipodepágina">Ejemplo de extensión del tipo de página</h2>
 <p>
-El siguiente es un tipo de página extendido utilizado para el proyecto SIU-Quilmes, las modificaciones son:
+El siguiente es un tipo de página extendido utilizado para el proyecto SIU-Quilmes, en la barra superior muestra un nombre jerárquico del ítem (ej Clientes &gt; Formas de Pago &gt; Listado):
 </p>
-<ul><li>En el título de página (y por ende en la barra superior) muestra un nombre jerarquico del item (ej Clientes &gt; Formas de Pago &gt; Listado)
-</li><li>Agrega una función particular javascript que permite mostrar un mensaje de espera que se llama antes de entrar en un procesamiento largo.
-</li></ul><div class="code"><pre><span class="code-lang">&lt;?php
+<div class="code"><pre><span class="code-lang">&lt;?php
+</span><span class="code-keyword">require_once(</span><span class="code-string">"nucleo/tipo_pagina/toba_tp_normal.php"</span><span class="code-keyword">);
+require_once(</span><span class="code-string">"modelo/componentes/info_item.php"</span><span class="code-keyword">);
 
-</span><span class="code-keyword">require_once(</span><span class="code-string">"nucleo/browser/tipo_pagina/tp_normal.php"</span><span class="code-keyword">);
-require_once(</span><span class="code-string">"nucleo/lib/item_toba.php"</span><span class="code-keyword">);
-
-class </span><span class="code-lang">tp_quilmes </span><span class="code-keyword">extends </span><span class="code-lang">tp_normal
+class </span><span class="code-lang">tp_referencia </span><span class="code-keyword">extends </span><span class="code-lang">toba_tp_normal
 </span><span class="code-keyword">{
     protected </span><span class="code-lang">$titulo</span><span class="code-keyword">;
     
-    function </span><span class="code-lang">titulo_pagina</span><span class="code-keyword">()
+    function </span><span class="code-lang">titulo_item</span><span class="code-keyword">()
     {
         if (! isset(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo</span><span class="code-keyword">)) {
-            </span><span class="code-lang">$info </span><span class="code-keyword">= </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">get_solicitud</span><span class="code-keyword">()-&gt;</span><span class="code-lang">get_datos_item</span><span class="code-keyword">();
-            </span><span class="code-lang">$item </span><span class="code-keyword">= new </span><span class="code-lang">item_toba</span><span class="code-keyword">();
-            </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_rama</span><span class="code-keyword">(</span><span class="code-lang">$info</span><span class="code-keyword">[</span><span class="code-string">'item_proyecto'</span><span class="code-keyword">], </span><span class="code-lang">$info</span><span class="code-keyword">[</span><span class="code-string">'item'</span><span class="code-keyword">]);
+            </span><span class="code-lang">$info</span><span class="code-keyword">[</span><span class="code-string">'basica'</span><span class="code-keyword">] = </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">solicitud</span><span class="code-keyword">()-&gt;</span><span class="code-lang">get_datos_item</span><span class="code-keyword">();
+            </span><span class="code-lang">$item </span><span class="code-keyword">= new </span><span class="code-lang">info_item</span><span class="code-keyword">(</span><span class="code-lang">$info</span><span class="code-keyword">);
+            </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">cargar_rama</span><span class="code-keyword">();
             
             </span><span class="code-comment">//Se recorre la rama
-            </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">nombre</span><span class="code-keyword">();
+            </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_nombre</span><span class="code-keyword">();
             while (</span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_padre</span><span class="code-keyword">() != </span><span class="code-lang">null</span><span class="code-keyword">) {
                 </span><span class="code-lang">$item </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_padre</span><span class="code-keyword">();
-                </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">nombre</span><span class="code-keyword">() . </span><span class="code-string">" &gt; "</span><span class="code-keyword">.  </span><span class="code-lang">$camino</span><span class="code-keyword">;
+                if (! </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">es_raiz</span><span class="code-keyword">()) {
+                    </span><span class="code-lang">$camino </span><span class="code-keyword">= </span><span class="code-lang">$item</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_nombre</span><span class="code-keyword">() . </span><span class="code-string">" &gt; "</span><span class="code-keyword">.  </span><span class="code-lang">$camino</span><span class="code-keyword">;
+                }
             }
             </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo </span><span class="code-keyword">= </span><span class="code-lang">$camino</span><span class="code-keyword">;
         }
         return </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">titulo</span><span class="code-keyword">;
     }
-    
-    
-    function </span><span class="code-lang">comienzo_cuerpo</span><span class="code-keyword">()
-    {
-        </span><span class="code-lang">parent</span><span class="code-keyword">::</span><span class="code-lang">comienzo_cuerpo</span><span class="code-keyword">();
-        echo </span><span class="code-lang">js</span><span class="code-keyword">::</span><span class="code-lang">abrir</span><span class="code-keyword">();
-        echo </span><span class="code-string">" 
-            function esperar_operacion()
-            {
-                var capa_espera = document.getElementById('capa_espera');
-                if (capa_espera)
-                    capa_espera.style.display = '';
-                return true;
-            }
-        "</span><span class="code-keyword">;
-        echo </span><span class="code-lang">js</span><span class="code-keyword">::</span><span class="code-lang">cerrar</span><span class="code-keyword">();
-</span><span class="code-lang">?&gt;
-</span>        &lt;div id='capa_espera' style=" width:100%;text-align:center; display:none; position:absolute; bottom:0px;"&gt;
-            &lt;div  style=" text-align:center; padding: 3px; border-color: #CCCCCC; border: 1px solid; background-color:#FFFFFF;  z-index: 1000;"&gt;
-                &lt;table style=" width:100%; text-align:center;" class="tabla-0"&gt;
-                    &lt;tr&gt;&lt;td&gt;
-                    <span class="code-lang">&lt;?php </span><span class="code-keyword">echo </span><span class="code-lang">recurso</span><span class="code-keyword">::</span><span class="code-lang">imagen_pro</span><span class="code-keyword">(</span><span class="code-string">'aguarde.gif'</span><span class="code-keyword">, </span><span class="code-lang">true</span><span class="code-keyword">); </span><span class="code-lang">?&gt;
-</span>                    &lt;/td&gt;&lt;/tr&gt;
-                    &lt;tr&gt;&lt;td&gt;
-                    &lt;strong&gt;Por favor aguarde...&lt;/strong&gt;
-                    &lt;/td&gt;
-                    &lt;/tr&gt;
-                &lt;/table&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-<span class="code-lang">&lt;?php
-    </span><span class="code-keyword">}
+}
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div></div>

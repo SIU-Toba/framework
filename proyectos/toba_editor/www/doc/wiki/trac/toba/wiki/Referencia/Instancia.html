@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,34 +150,49 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Configuración">Configuración</a></li><li>
+<a href="#Comandosútiles">Comandos útiles</a><ol><li><a href="#Creacióndeunainstancia">Creación de una instancia</a></li><li>
+<a href="#Regeneracióndeunainstancia">Regeneración de una instancia</a></li><li>
+<a href="#Exportacióndelainstancia">Exportación de la instancia</a></li></ol><li><a href="#Administracióngráfica">Administración gráfica</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Instancia
 </p>
 <h1 id="Instancias">Instancias</h1>
 <p>
-Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo los del mismo <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a> (ya que <a class="wiki" href="../TobaConsumeToba.html">TobaConsumeToba</a>). Por esto recibe el nombre de <strong>instanciación de un proyecto</strong>, ya que un <a class="wiki" href="Proyecto.html">Proyecto</a> puede estar contenido en muchas instancias diferentes.<br /><br />
+Una instancia contiene los metadatos de un conjunto de proyectos, incluyendo entre ellos al mismo Editor (ya que <a class="wiki" href="../TobaConsumeToba.html">TobaConsumeToba</a>). Por esto recibe el nombre de <strong>instanciación de un proyecto</strong>, ya que un <a class="wiki" href="Proyecto.html">Proyecto</a> puede estar contenido en muchas instancias diferentes.<br /><br />
 <a href="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/Instancia/instancias_y_proyectos41f0.png?format=raw" alt="Una instancia contiene distintos proyectos" title="Una instancia contiene distintos proyectos" /></a>
+</p>
+<p>
+Una instancia puede contener distintos proyectos. La instancia posee metadatos propios como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definición de estos metadatos se encuentran en el directorio global dentro de la carpeta <tt>i__nombre</tt>. Aquellos metadatos de la instancia pero referidos a un proyecto particular se exportan a la carpeta <tt>p__nombreproyecto</tt>.
 </p>
 <h2 id="Configuración">Configuración</h2>
 <p>
 Una instancia posee un nombre (desarrollo, produccion, testing, etc) y con ese nombre debe existir una carpeta <tt>i__nombre</tt> en el directorio <i>toba/instalacion</i>. Esta carpeta posee el archivo <strong>instancia.ini</strong> que contiene
 </p>
-<ul><li>La lista de proyectos que se incluyen en la instancia
-</li><li>La base de datos que se va a utilizar para almacenar los metadatos, es un puntero hacia las bases definidas en la <a class="wiki" href="Instalacion.html">Instalación</a>.
-</li></ul><h2 id="Composición">Composición</h2>
-<p>
-Una instancia puede contener distintos proyectos, entre ellos se encuentra el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a>. La instancia posee metadatos propios como los <strong>Usuarios</strong> que no pertenecen a un proyecto particular sino que son globales a la instancia y se relacionan con los distintos proyectos en diferentes roles. Una vez exportada la instancia la definición de estos metadatos se encuentran en el directorio global dentro de la carpeta <tt>i__nombre</tt>. Aquellos metadatos de la instancia pero referidos a un proyecto particular se exportan a la carpeta <tt>p__nombreproyecto</tt>.
+<ul><li><tt>base</tt>: La base de datos que se va a utilizar para almacenar los metadatos, es un puntero hacia las bases definidas en la <a class="wiki" href="Instalacion.html">Instalación</a>.
+</li><li><tt>proyectos</tt>: La lista de proyectos que se incluyen en la instancia
+</li><li>Una sección por proyecto, para poder indicar:
+<ul><li><tt>url</tt>: Especificar en caso que el alias del proyecto difiera de su id.
+</li><li><tt>path</tt>: Especificar en caso de que el proyecto no se encuentre fuere del directorio <tt>proyectos</tt>.
+</li></ul></li></ul><p>
+Por ejemplo:
 </p>
-<h2 id="Creacióndeunainstancia">Creación de una instancia</h2>
+<pre class="wiki">[legalizaciones]
+url = /mi_legalizaciones
+path = /var/proyectos/legalizaciones
+</pre>
+<h2 id="Comandosútiles">Comandos útiles</h2>
+<h3 id="Creacióndeunainstancia">Creación de una instancia</h3>
 <p>
-La administración de las instancias se realiza bajo la <a class="wiki" href="Consola.html">consola</a>, la variable de entorno <i>toba_instancia' determina que instancia se utiliza implícitamente en estos comandos.
-En particular cuando se cuenta con una <a class="wiki" href="Instalacion.html">Instalación</a> inicial es necesario definir los parametros de una instancia, para eso se ejecuta:
-</i></p>
+La administración de las instancias se realiza bajo la <a class="wiki" href="Consola.html">consola</a>, la variable de entorno <i>toba_instancia</i> determina que instancia se utiliza implícitamente en estos comandos.
+En particular cuando se cuenta con una <a class="wiki" href="Instalacion.html">Instalación</a> inicial es necesario definir los parámetros de una instancia, para eso se ejecuta:
+</p>
 <pre class="wiki">toba instancia crear
 </pre>
 <p>
 Se selecciona una base ya definida (Si no se encuentra ninguna ver la <a class="wiki" href="Instalacion.html">creación de una instalación</a>), luego se crea la base de datos asociada a la instancia y se pide ingresar un usuario para posteriormente poder ingresar al ambiente.
 </p>
-<h2 id="Regeneracióndeunainstancia">Regeneración de una instancia</h2>
+<h3 id="Regeneracióndeunainstancia">Regeneración de una instancia</h3>
 <p>
 Para ver la instancia actual ejecutar:
 </p>
@@ -137,7 +206,7 @@ Luego de definir las configuraciones de la instancia es posible regenerar todos 
 <p>
 Este comando pide dos confirmaciones: primeramente pregunta si se quieren exportar los metadatos locales (es seguro responder que sí, ya que sino se pierde toda la información relacionada con los usuarios y demás actividad local). Luego, si la base ya existía, pide la confirmación de la regeneración, ya que la base necesita ser borrada para volver a cargarse, este proceso no tiene vuelta atrás excepto que se haya exportado la base anteriormente.
 </p>
-<h2 id="Exportacióndelainstancia">Exportación de la instancia</h2>
+<h3 id="Exportacióndelainstancia">Exportación de la instancia</h3>
 <p>
 Cuando se habla de exportar la instancia, implica exportar los <strong>metadatos propios</strong> de la instancia y los metadatos de los proyectos contenidos:
 </p>
@@ -148,7 +217,15 @@ Si solo se desea exportar los <strong>metadatos propios</strong> de la instancia
 </p>
 <pre class="wiki">toba instancia exportar_local
 </pre>
-</div>
+<h2 id="Administracióngráfica">Administración gráfica</h2>
+<p>
+Es posible administrar gráficamente la instancia utilizando el proyecto <a class="wiki" href="../Proyectos/toba_instancia.html">toba_instancia</a>, pudiendo entre otras cosas:
+</p>
+<ul><li>Crear o editar usuarios.
+</li><li>Asignar o cancelar la asignación de usuarios a proyectos.
+</li><li>Visualizar el log de acceso de usuarios a un proyecto
+</li><li>Administrar la lista de ips bloqueadas
+</li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>

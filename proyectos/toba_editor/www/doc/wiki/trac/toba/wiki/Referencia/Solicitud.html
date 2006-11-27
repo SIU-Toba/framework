@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,11 +150,38 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#SolicitudWeb">Solicitud Web</a><ol><li><a href="#Tiposdeservicio">Tipos de servicio</a></li></ol><li><a href="#SolicituddeAcciónPHP">Solicitud de Acción PHP</a></li><li>
+<a href="#SolicituddeConsola">Solicitud de Consola</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Solicitud
 </p>
-<h2 id="Solicitud">Solicitud</h2>
+<h1 id="Solicitud">Solicitud</h1>
 <p>
-La solicitud determina el entorno en donde será ejecutado un <a class="wiki" href="Item.html">ítem</a>. Esta clase contiene la información de lo que fue solicitado y es la encargada de incluir las clases del núcleo que van a estar disponible en la ejecución.
+La solicitud determina el entorno en donde será ejecutado un <a class="wiki" href="Item.html">ítem</a>. Esta clase contiene la información de lo solicitado, es la encargada de incluir las clases del núcleo y del hilo en general de ejecución.
+</p>
+<h2 id="SolicitudWeb">Solicitud Web</h2>
+<p>
+La <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_solicitud_web.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> solicitud_web</a> abstrae el ciclo <i>request - response</i> en dos etapas llamadas <strong>Eventos</strong> y <strong>Servicios</strong> permitiendo ejecutar el esquema de <a class="wiki" href="Objetos.html">Componentes</a> del framework.
+</p>
+<ul><li>Eventos: abstrae la etapa http <tt>request</tt>. Todos los componentes que participaron del pedido de página anterior son instanciados y escuchan si su par javascript dejo alguna huella en el <tt>$_POST</tt> de php. A medida de que cada componente descubre los <a class="wiki" href="Eventos.html">eventos</a> acontecidos, se escuchan las callbacks definidas en el <a class="wiki" href="Objetos/ci.html">Controlador</a> del componente, permitiendo al proyecto actuar acorde a los eventos producidos.
+</li></ul><ul><li>Servicios: abstre la etapa http <tt>response</tt>: Una vez superada la etapa de eventos (<i>lo que pasó</i>) se dispone a construir el formato de salida (<i>lo que vendrá</i>). Por lo general el formato de salida (denominado <i>servicio</i>) es el html (<i>servicio generar_html</i>). Nuevamente se necesita consultar al proyecto cómo estos componentes van a graficarse, que datos poseen. Allí es cuando se entra en la etapa de <i>configuración</i> del servicio, nuevamente se escuchan callbacks que van configurando uno a uno los distintos componentes.
+</li></ul><h3 id="Tiposdeservicio">Tipos de servicio</h3>
+<ul><li><tt>generar_html</tt>: Es el servicio predeterminado, incluye el <a class="wiki" href="TipoPagina.html">Tipo de página</a> y la <a class="wiki" href="Zona.html">Zona</a> del ítem. Y luego ejecuta el método <tt>generar_html</tt> de todos los componentes en forma recursiva, incluyendo todo el javascript estático y dinámico que todos los componentes requieren.
+</li></ul><ul><li><tt>vista_toba_impr_html</tt>: Utiliza una clase que implemente la interface <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_impresion.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_impresion</a> (por ejemplo <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/SalidaGrafica/toba_impr_html.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> impr_html</a>) para construir un html pensado para impresión. Al CI principal de la operación el destino del servicio se le invoca el método <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei.html#vista_impresion_html' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> vista_impresion_html</a>, el cual el programador puede extender para armar su propio layout de la impresión.
+</li></ul><ul><li><tt>cascadas_efs</tt>: Escucha un pedido de <a class="wiki" href="efs.html#Cascadas">cascadas de efs</a>, ejecutando en el formulario el método <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario.html#servicio__cascadas_efs' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> servicio__cascadas_efs</a>.
+</li></ul><ul><li><tt>ejecutar</tt>: Ejecuta el método <tt>servicio__ejecutar</tt> en el componente seleccionado en el servicio. La idea es brindar una forma sencilla de comunicación entre un componente en javascript con su par PHP.
+</li></ul><h2 id="SolicituddeAcciónPHP">Solicitud de Acción PHP</h2>
+<p>
+La <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_solicitud_accion.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> solicitud_accion</a> permite ejecutar archivos php planos, sin acceso al esquema de componentes, menú, javascript, tipo de página, etc. Pensado para salidas muy distintas a las de una página web, que requieren enviar headers especiales y contenido en general no HTML.
+</p>
+<h2 id="SolicituddeConsola">Solicitud de Consola</h2>
+<p>
+La <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_solicitud_consola.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> solicitud_consola</a> permite ejecutar items en un esquema de consola a través del comando:
+</p>
+<pre class="wiki"> toba item ejecutar -p proyecto -t item -u usuario
+</pre>
+<p>
+Desde ya el ambiente de ejecución no cuenta con los <a class="wiki" href="Objetos.html">Componentes</a> disponibles en la solicitud_web ni el esquema eventos-servicios. La solicitud_consola ejecuta el archivo .php asociado al ítem, contando este con las mismas primitivas de toba que no sean exclusivas de un ambiente web, no aplica por ej. el esquema de componentes y el de memoria (POST, GET y SESSION).
 </p>
 </div>
    </div>

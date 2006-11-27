@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,63 +150,68 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li class="active"><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Requisitos">Requisitos</a></li><li>
+<a href="#Operación">Operación</a></li><li>
+<a href="#Pedidodepágina">Pedido de página</a></li><li>
+<a href="#Ejemplo">Ejemplo</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / MarcoTransaccional
 </p>
 <h1 id="MarcoTransaccional">Marco Transaccional</h1>
 <p>
-Una operación se puede pensar como una transición entre dos estados, atravesando por estados intermedios, internos a la construcción del cual no se toma conocimiento hasta que el producto está terminado, un nuevo estado es construido. La función de la aplicación es guiar al usuario en esta construcción, con suficiente información acerca del estado actual, restringiendo los caminos hacia inconsistencias pero flexibilizando para no entorpecer la capacidad constructiva. Esta construcción toma la forma de una <strong>transacción de negocio</strong>.
+Una operación se puede pensar como una transición entre dos estados. Entre estos dos estados existen estados intermedios, internos a la construcción, del cual no se toma conocimiento hasta que la entidad es finalmente construida. La función de la aplicación es guiar al usuario en esta construcción, con suficiente información acerca del estado actual, restringiendo los caminos hacia inconsistencias pero flexibilizando para no entorpecer la capacidad constructiva. Esta construcción toma la forma de una <strong>transacción de negocio</strong>.
 </p>
-<h2 id="Requisitosdeunatransacción">Requisitos de una transacción</h2>
+<h2 id="Requisitos">Requisitos</h2>
 <p>
-Una transacción de negocio tiene impuesta generalmente distintos requisitos: los efectos de la misma no serán conocidos en forma parcial (<strong>atomicidad</strong>), ni rompen las reglas preestablecidas (<strong>consistencia</strong>), su desarrollo se basa sobre datos certeros y su resultado no es conocido hasta su finalización (<strong>aislamiento</strong>), finalmente estos resultados perduran en el tiempo (<strong>durabilidad</strong>). Estos requisitos se conocen como ACID en base a las siglas de cada uno.<br />
+Una transacción de negocio tiene impuesta generalmente distintos requisitos: los efectos de la misma no serán conocidos en forma parcial (<strong>atomicidad</strong>), ni rompen las reglas preestablecidas (<strong>consistencia</strong>), su desarrollo se basa sobre datos certeros y su resultado no es conocido hasta su finalización (<strong>aislamiento</strong>), finalmente estos resultados perduran en el tiempo (<strong>durabilidad</strong>). Estos requisitos se conocen como <i>ACID</i> en base a las siglas de cada uno.<br />
 </p>
 <p>
 Las bases de datos relacionales, en mayor o menor medida, poseen mecanismos para garantizar estos requisitos simplemente incluyendo la operación dentro de una <i>transacción de base de datos</i>. Hay algunos problemas con esta solución, el primero es la llamada disponibilidad de los datos. Para asegurar la consistencia en general se utilizan bloqueos pesimistas, previniendo que los recursos sean utilizados por otros mientras la transacción está en curso, en una aplicación Web una transacción de negocios puede durar varios minutos, incluso por su naturaleza desconectada, varias horas. Bloquear <i>registros</i> por horas puede traer problemas graves de concurrencia, dejando ramas de operaciones inaplicables por causa del bloqueo. Es por esto que se construyen técnicas a un nivel superior utilizando los llamados <i>bloqueos optimistas</i>, relegando los bloqueos a nivel de base de datos hasta el final de la transacción de negocio y sólo aplicando restricciones a los datos que tienen valor real de negocio. Por ejemplo en los carritos de compras de ventas online, si hay disponible una única unidad de un producto no se previene que dos usuarios lo agreguen simultáneamente a su carrito, dejan los controles hasta el final de la transacción cuando el usuario confirma la adquisición, de lo contrario se pierde un potencial cliente en base a una suposición incorrecta (un alto porcentaje no hace un checkout de la elección).
 </p>
 <p>
-Aún cuando los motores brinden capacidad de bloqueos optimistas, desde el lenguaje de programación (en este caso PHP) se debería mantener abierta una conexión por sesión en curso (si cerrara la conexión cuando termina el pedido de página automáticamente se abortaría la transacción). Esto actualmente no es técnicamente posible, y si lo fuera sería tremendamente ineficiente para un sistema con mucha carga.
+Aún cuando los motores brinden capacidad de bloqueos optimistas, desde el lenguaje de programación (en este caso PHP) se debería mantener abierta una conexión con la base por cada sesión en curso (si cerrara la conexión cuando termina el pedido de página automáticamente se abortaría la transacción). Esto actualmente no es técnicamente posible, y si lo fuera sería tremendamente ineficiente para un sistema con mucha carga.
 </p>
-<h2 id="OperacionesenToba">Operaciones en Toba</h2>
+<h2 id="Operación">Operación</h2>
 <p>
-Una operación definida en toba traspasa por tres estados principales: un inicio, un desarrollo y un procesamiento final. El progreso se da a manera de turnos entre el lado cliente y el servidor, representados por HTML y PHP respectivamente. Dentro de una operación existen datos transaccionales y otros ordinarios, que no requieren las calidades vistas anteriormente. Estos datos ordinarios serán consultados en cada pedido de página, mientras que los transaccionales serán consultados al inicio de la operación, modificados durante el desarrollo (en forma de variables de sesión) y finalmente sincronizados con la fuente de datos al final de la operación a través de una transacción de base de datos.
-</p>
-<p>
-<a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/estados41f0.png?format=raw" alt="Progreso de una transacción de negocios" title="Progreso de una transacción de negocios" /></a>
+Una operación definida en toba traspasa por tres estados principales: un inicio, un desarrollo y un procesamiento final. El progreso se da a manera de turnos entre el lado cliente y el servidor, representados por el navegador y PHP respectivamente. Dentro de una operación existen datos transaccionales y otros ordinarios, que no requieren las calidades vistas anteriormente. Estos datos ordinarios serán consultados en cada pedido de página, mientras que los transaccionales serán consultados al inicio de la operación, modificados durante el desarrollo (en forma de variables de sesión) y finalmente sincronizados con la fuente de datos al final de la operación a través de una transacción de base de datos.
 </p>
 <p>
-El control general de un pedido de página está a cargo de un <a class="wiki" href="Objetos/ci.html">Controlador de interface</a>. Al inicio del pedido se restaura el estado del CI, este estado se persiste entre pedidos utilizando las variables de sesión de PHP, garantizando el <strong>aislamiento</strong> entre las distintas operaciones en ejecución. Por otro lado, desde los elementos de interface (<a class="wiki" href="Objetos.html">ei</a>) se reciben los <a class="wiki" href="Eventos.html">eventos</a> (datos proporcionados por el usuario). Estos eventos se <i>escuchan</i> en código recibiendo los datos como parámetro, allí es cuando se realizan chequeos y se cambia el estado interno de la operación. 
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/estados41f0.png?format=raw" /></a>
+</p>
+<h2 id="Pedidodepágina">Pedido de página</h2>
+<p>
+El control general de un pedido de página está a cargo de los <strong><a class="wiki" href="Objetos/ci.html">Controladores de interface</a></strong>. Al inicio del pedido se restaura el estado del CI, este estado se persiste entre pedidos utilizando las variables de sesión de PHP, garantizando el <strong>aislamiento</strong> entre las distintas operaciones en ejecución. Por otro lado, desde los elementos de interface (<a class="wiki" href="Objetos.html">ei</a>) se reciben los <strong><a class="wiki" href="Eventos.html">eventos</a></strong> (datos proporcionados por el usuario). Estos eventos se <i>escuchan</i> en código recibiendo los datos como parámetro, allí es cuando se realizan chequeos y se cambia el estado interno de la operación. Hay operaciones que por su complejidad requieren un número importante de <a class="wiki" href="Objetos/ci.html">Controladores de interface</a>, entonces lo que se hace es centralizar la información en un <strong><a class="wiki" href="Objetos/cn.html">Controladores de negocio</a></strong>.
 </p>
 <p>
-Luego del procesamiento de eventos provenientes del pedido anterior, el 
-ítem se prepara para brindar el <a class="missing wiki" href="Servicios.html" rel="nofollow">Servicio?</a> requerido, generalmente lanzando la construcción de la salida HTML. Finalmente el estado del CI vuelve a almacenarse en variables de sesión, listo para continuar el ciclo.
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/pedido41f0.png?format=raw" /></a>
 </p>
 <p>
-<a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/pedido41f0.png?format=raw" alt="Pedido de página en el medio de una transacción de negocios." title="Pedido de página en el medio de una transacción de negocios." /></a>
+Luego del procesamiento de eventos provenientes del pedido anterior, el ítem se prepara para brindar el <a class="wiki" href="Solicitud.html#Tiposdeservicio">servicio</a> requerido, generalmente lanzando la construcción de la salida HTML. Finalmente el estado de CIs,CNs y componentes de persistencia vuelve a almacenarse en variables de sesión, listo para continuar el ciclo.
 </p>
 <p>
-Por ejemplo si se tratara de una operación que recolectara direcciones de mail para posteriormente enviar un mensaje a esas cuentas, el gráfico anterior estaría instanciado de la siguiente manera:
-</p>
-<p>
-<a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido41f0.png?format=raw" alt="Ejemplo de un pedido de página involucrando un formulario de mails." title="Ejemplo de un pedido de página involucrando un formulario de mails." /></a>
-</p>
-<p>
-El ciclo finaliza con un evento (generalmente nombrado como <i>procesar</i>) localizado en el CI de la operación. Este evento es el encargado de sincronizar con la fuente de datos utilizando una transacción de base de datos que garantiza la <strong>atomicidad</strong> y <strong>durabilidad</strong> de la operación. Este evento es un lugar adecuado para realizar los controles finales sobre los datos obtenidos, garantizando así la <strong>consistencia</strong> de los mismos.
-</p>
-<h2 id="Trabajosobredatostabulares">Trabajo sobre datos tabulares</h2>
-<p>
-Cuando la información que se maneja en esta <i>transacción de negocios</i> es un conjunto de datos tabulares cuya carga y sincronización es con una base de datos relacional existen una serie de objetos que facilitan:
+Cuando la información que se maneja en esta <i>transacción de negocios</i> es un conjunto de datos tabulares cuya carga y sincronización es con una base de datos relacional existen una serie de componentes que facilitan:
 </p>
 <ul><li>La carga de los datos.
 </li><li>El trabajo dentro de la transacción.
 </li><li>La sincronización con el medio de persistencia.
 </li></ul><p>
-Se los conoce como <a class="wiki" href="Objetos/Persistencia.html">Objetos de Persistencia</a>
+Se los conoce como <a class="wiki" href="Objetos/Persistencia.html">Componentes de Persistencia</a>
+</p>
+<p>
+El ciclo finaliza con un evento (generalmente nombrado como <i>procesar</i>) localizado en el CI de la operación. Este evento es el encargado de sincronizar con la fuente de datos utilizando una transacción de base de datos que garantiza la <strong>atomicidad</strong> y <strong>durabilidad</strong> de la operación. Este evento es un lugar adecuado para realizar los controles finales sobre los datos obtenidos, garantizando así la <strong>consistencia</strong> de los mismos.
+</p>
+<h2 id="Ejemplo">Ejemplo</h2>
+<p>
+Por ejemplo si se tratara de una operación que recolectara direcciones de mail para posteriormente mostrando una grilla con las direcciones para ser enviadas, el gráfico anterior estaría instanciado de la siguiente manera:
+</p>
+<p>
+<a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido41f0.png?format=raw" /></a>
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.html">estados.png</a> (5.7 kB) -<q>Progreso de una transacción de negocios</q>, added by seba on 06/06/05 18:06:38.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.html">pedido.png</a> (5.0 kB) -<q>Pedido de página en el medio de una transacción de negocios.</q>, added by seba on 06/06/05 18:07:35.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.html">ejemplo_pedido.png</a> (4.4 kB) -<q>Ejemplo de un pedido de página involucrando un formulario de mails.</q>, added by seba on 06/06/05 18:08:23.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/estados.html">estados.png</a> (3.2 kB) - added by seba on 11/02/06 16:45:26.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/pedido.html">pedido.png</a> (4.8 kB) - added by seba on 11/02/06 17:51:44.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/MarcoTransaccional/ejemplo_pedido.html">ejemplo_pedido.png</a> (5.3 kB) - added by seba on 11/02/06 18:12:50.</li>
     </ul>
   
   

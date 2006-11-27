@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,20 +150,51 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Funcionamiento">Funcionamiento</a></li><li>
+<a href="#Formatos">Formatos</a></li><li>
+<a href="#Ejemplo">Ejemplo</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / ei_esquema
 </p>
-<h1 id="Objetoei_esquema">Objeto ei_esquema</h1>
+<h1 id="Esquema">Esquema</h1>
 <p>
-Un ei_esquema simplemente enmascara la generación de un esquema utilizando <a class="ext-link" href="../../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>. 
+Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/esquema.gif' /> ei_esquema genera un esquema utilizando <a class="ext-link" href="../../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>.
 </p>
-<h2 id="Carga">Carga</h2>
 <p>
-El evento carga del ei_esquema debe retornar una definición <a class="missing wiki" href="../../GraphViz.html" rel="nofollow">GraphViz?</a>, ver la documentación online de esta herramienta. 
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_esquema.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_esquema</a> <br />
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei</a>
 </p>
 <h2 id="Funcionamiento">Funcionamiento</h2>
 <p>
-Una vez suministrado la definición se invoca al comando asociado (si es un grafo dirigido se utiliza <strong>dot</strong> sino <strong>neato</strong>), se toma la salida de este comando y se deja disponible en un directorio temporal ($toba_dir/temp). 
-Dependiendo de cada formato se pone un tag html que hace referencia a un item, este item toma el archivo del directorio temporal hace un passthru al browser y posteriormente lo borra.
+En la configuración se debe suministrar una definición <a class="ext-link" href="../../../../../external.html?link=http://www.graphviz.org/"><span class="icon"></span>GraphViz</a>, ver la documentación online de esta herramienta. 
+Por ejemplo la siguiente es la definición del automata finito:
+</p>
+<pre class="wiki">digraph finite_state_machine {
+	rankdir=LR;
+	size=&#34;8,5&#34;
+	node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
+	node [shape = circle];
+	LR_0 -&gt; LR_2 [ label = &#34;SS(B)&#34; ];
+	LR_0 -&gt; LR_1 [ label = &#34;SS(S)&#34; ];
+	LR_1 -&gt; LR_3 [ label = &#34;S($end)&#34; ];
+	LR_2 -&gt; LR_6 [ label = &#34;SS(b)&#34; ];
+	LR_2 -&gt; LR_5 [ label = &#34;SS(a)&#34; ];
+	LR_2 -&gt; LR_4 [ label = &#34;S(A)&#34; ];
+	LR_5 -&gt; LR_7 [ label = &#34;S(b)&#34; ];
+	LR_5 -&gt; LR_5 [ label = &#34;S(a)&#34; ];
+	LR_6 -&gt; LR_6 [ label = &#34;S(b)&#34; ];
+	LR_6 -&gt; LR_5 [ label = &#34;S(a)&#34; ];
+	LR_7 -&gt; LR_8 [ label = &#34;S(b)&#34; ];
+	LR_7 -&gt; LR_5 [ label = &#34;S(a)&#34; ];
+	LR_8 -&gt; LR_6 [ label = &#34;S(b)&#34; ];
+	LR_8 -&gt; LR_5 [ label = &#34;S(a)&#34; ];
+}
+</pre>
+<p>
+<img src="../../../../../Gallery/directed/fsm.png" alt="http://www.graphviz.org/Gallery/directed/fsm.png" />
+</p>
+<p>
+Una vez suministrado la definición el componente inserta el tag HTML correcto según el tipo de formato de salida, este tag referencia a un URL donde el mismo componente estará esperando. Ya en el nuevo pedido de página, a través del esquema de servicios de toba, se invoca al comando asociado (si es un grafo dirigido se utiliza <strong>dot</strong> sino <strong>neato</strong>), se toma la salida de este comando y se pasa la salida al browser.
 </p>
 <h2 id="Formatos">Formatos</h2>
 <p>
@@ -118,7 +203,14 @@ La salida común es utilizando un formato de imagen (png o gif), aunque es posib
 <ul><li>Firefox: Desde la versión 1.5 lo soporta sin necesidad de ningún plugin, tanto con el tag &lt;embed&gt; como con &lt;object&gt;
 </li><li>IE: No tiene soporte, se necesita un <a class="ext-link" href="../../../../../external.html?link=http://www.adobe.com/svg/viewer/install/main.html"><span class="icon"></span>plugin de Adobe</a> (sólo funciona bien con el tag &lt;embed&gt;, justo el que no es estandar...)
 </li><li>Opera: Soporta un conjunto mínimo de cosas (no se puede incluír scripts) y sólo funciona con el tag &lt;object&gt;.
-</li></ul></div>
+</li></ul><h2 id="Ejemplo">Ejemplo</h2>
+<p>
+Existe un ejemplo de esquema en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>
+</p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3270' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de esquema</a></strong>
+</p>
+</div>
    </div>
    
   

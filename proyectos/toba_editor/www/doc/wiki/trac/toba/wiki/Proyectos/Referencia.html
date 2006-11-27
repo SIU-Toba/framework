@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,36 +150,50 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li class="active"><a href="Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#InstalaciónLocal">Instalación Local</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Proyectos.html">Proyectos</a> / Referencia
 </p>
-<h1 id="ProyectoDocReferencia">Proyecto Doc - Referencia</h1>
-<h2 id="Descripción">Descripción</h2>
+<h1 id="ProyectoReferencia">Proyecto Referencia</h1>
 <p>
-Este proyecto surge como extensión de los ejemplos que se ven en la documentación de referencia.
+Este proyecto surge como extensión de los ejemplos que se ven en la documentación de referencia. Existe una versión online del proyecto, aunque para entender en profundidad las operaciones es recomendado instalarlo localmente.
 </p>
-<h2 id="Instalación">Instalación</h2>
 <p>
-Una vez <a class="wiki" href="../Instalacion.html">instalado toba</a>:
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3294' title='Navega hacia el ejemplo en el proyecto online de referencia'>versión online navegable</a></strong>
 </p>
-<ol><li>Instalar un cliente SVN (bajo Windows recomendado <a class="ext-link" href="../../../../external.html?link=http://tortoisesvn.tigris.org/download.html"><span class="icon"></span>TortoiseSVN</a>).
-</li><li>Hacer un checkout del proyecto en el directorio toba/proyectos/referencia:
-<ol><li>Por línea de comando:
-<pre class="wiki">svn co https://toba.siu.edu.ar/toba/proyectos/trunk/referencia toba/proyectos/referencia
-</pre>
-</li><li>Usando un cliente gráfico apuntar a <a class="ext-link" href="../../../../external.html?link=https://toba.siu.edu.ar/toba/proyectos/trunk/referencia"><span class="icon"></span>https://toba.siu.edu.ar/toba/proyectos/trunk/referencia</a>
-</li></ol></li><li>Desde la consola ejecutar:
-<pre class="wiki">proyecto cargar referencia
-</pre>
-</li><li>Para poder utilizar los ítems que trabajan con una base de datos de ejemplo se debe ejecutar:
-<pre class="wiki">psql -U usuario -h localhost base_de_referencia $toba_dir/proyectos/referencia/sql/referencia.sql 
-</pre>
-</li></ol><p>
-Se asume que el usuario <strong>toba</strong> está presente en la <a class="wiki" href="../Referencia/Instancia.html">instancia</a>.
+<h2 id="InstalaciónLocal">Instalación Local</h2>
+<p>
+Si no se utilizó la <a class="wiki" href="../Instalacion.html">instalación automática</a> del framework, es necesario instalar manualmente este proyecto de ejemplo.
 </p>
-<h2 id="Ejecuciónbásica">Ejecución básica</h2>
-<ul><li>Desde el <a class="missing wiki" href="../Administrador.html" rel="nofollow">Administrador?</a> seleccionar el proyecto <i>Doc - Referencia</i>.
-</li><li>Seleccionar la vista de ítems.
-</li></ul></div>
+<blockquote>
+<p>
+1- Definir la base del proyecto:
+</p>
+<pre class="wiki"> toba instalacion agregar_db  -d toba_referencia
+</pre>
+</blockquote>
+<blockquote>
+<p>
+2- Crear la base físicamente:
+</p>
+<pre class="wiki"> toba instalacion crear_base -d toba_referencia 
+</pre>
+</blockquote>
+<blockquote>
+<p>
+3- Instalación del modelo de datos del proyecto:
+</p>
+<pre class="wiki"> toba instalacion ejecutar_sql -d toba_referencia -a $toba_dir/proyectos/toba_referencia/sql/referencia.sql
+</pre>
+</blockquote>
+<blockquote>
+<p>
+4- Inclusión del proyecto en la instancia:
+</p>
+<pre class="wiki"> toba proyecto cargar -p toba_referencia
+</pre>
+</blockquote>
+</div>
    </div>
    
   

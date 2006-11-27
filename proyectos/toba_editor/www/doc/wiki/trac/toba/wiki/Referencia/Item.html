@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,33 +150,31 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Propiedadesbásicas">Propiedades básicas</a></li><li>
+<a href="#Permisos">Permisos</a></li><li>
+<a href="#Navegaciónentreítems">Navegación entre ítems</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Item
 </p>
 <h1 id="Item">Item</h1>
 <p>
-Hablar de un ítem es referirse a la definición de una operación. La operación se encuentra incluída en un <a class="wiki" href="ArbolItems.html">árbol de ítems</a> dentro de una carpeta particular y su comportamiento está determinado por los <a class="wiki" href="Objetos.html">objetos</a> contenidos.
+Hablar de un ítem es referirse a la definición de una operación. La operación se encuentra incluída en un <a class="wiki" href="ArbolItems.html">árbol de ítems</a> dentro de una carpeta particular y su comportamiento está determinado por los <a class="wiki" href="Objetos.html">componentes</a> contenidos.
+Estos componentes se definen en forma de árbol con un  <a class="wiki" href="Objetos/ci.html">componente controlador de interface</a> como raiz.
 </p>
 <h2 id="Propiedadesbásicas">Propiedades básicas</h2>
-<ul><li>Identificador: El identificador permite referirse al ítem desde otro punto del administrador o desde el mismo código fuente. Se asigna automáticamente al crear el ítem.
-</li><li>Padre: Determina la <a class="wiki" href="Carpetas.html">carpeta</a> en donde estará el ítem.
-</li><li><a class="wiki" href="Solicitud.html">Tipo de Solicitud</a>: Determina el entorno en donde será ejecutado el ítem. El entorno usual es uno Web (<i>Solicitud Web</i>) aunque es posible uno de consola, útil para ejecuciones automáticas o scripts administrativos.
-</li><li><a class="wiki" href="TipoPagina.html">Tipo de página</a>: Permite variar el HTML incluído antes y después del contenido del ítem, por ejemplo para agregar una barra de navegación o un pie de página particular.
-</li><li>Menú y Orden: Si el ítem se marca como menú se podrá visualizar en la aplicación. Para esto es necesario que las carpetas que lo contienen estén en menú y el usuario logueado tenga permisos sobre estas carpetas y el mismo ítem.
+<ul><li>Identificador: El identificador permite referirse al ítem desde otro punto del administrador o desde el mismo código fuente. Se asigna automáticamente al crearse.
+</li></ul><ul><li>Padre: Determina la <a class="wiki" href="Carpetas.html">carpeta</a> en donde estará el ítem.
+</li></ul><ul><li><strong><a class="wiki" href="Solicitud.html">Tipo de Solicitud</a></strong>: Determina el entorno en donde será ejecutado el ítem. El entorno usual es uno Web (<i>Solicitud Web</i>) aunque es posible uno de consola (útil para ejecuciones automáticas o scripts administrativos) o una de acción PHP plana que permite ejecutar código sin relación con el esquema de componentes, menú, javascript, etc.
+</li></ul><ul><li><a class="wiki" href="TipoPagina.html">Tipo de página</a>: Permite variar el HTML incluído antes y después del contenido del ítem, por ejemplo para agregar una barra de navegación o un pie de página particular.
+</li></ul><ul><li>Menú y Orden: Si el ítem se marca como menú se podrá visualizar en la aplicación. Para esto es necesario que las carpetas que lo contienen estén en menú y el usuario logueado tenga permisos sobre estas carpetas y el mismo ítem.
+</li></ul><ul><li>PHP Plano: La ejecución del ítem se delega a la ejecución de un archivo PHP plano, sin poder acceder al esquema de componentes.
 </li></ul><h2 id="Permisos">Permisos</h2>
 <p>
-Para poder ejecutar un ítem es necesario asignar permisos básicos no sólo al ítem sino también a las carpetas en las que está contenido (ver <a class="missing wiki" href="Seguridad/Permisos.html" rel="nofollow">detalles de permisos?</a>).
-</p>
-<h2 id="Objetosasociados">Objetos asociados</h2>
-<p>
-El ítem necesita distintos <a class="wiki" href="Objetos.html">Objetos</a> para su ejecución, desde el Administrador es necesario asignar estos objetos. Generalmente se asocia un <a class="wiki" href="Objetos/ci.html">objeto controlador de interface</a>.
-</p>
-<h2 id="Creaciónyuso">Creación y uso</h2>
-<p>
-Desde el mismo administrador es posible instanciar el ítem para hacer una edición en línea. También es posible simular la ejecución de los <a class="wiki" href="Objetos.html">Objetos</a> asociados al ítem en forma independiente.
+Para poder ejecutar un ítem es necesario asignar permisos básicos no sólo al ítem sino también a las carpetas en las que está contenido (ver <a class="wiki" href="Seguridad/Permisos.html">detalles de permisos</a>).
 </p>
 <h2 id="Navegaciónentreítems">Navegación entre ítems</h2>
 <p>
-La navegación entre ítems pasa por un módulo de Toba: el <a class="missing wiki" href="Nucleo/Vinculador.html" rel="nofollow">Vinculador?</a>. El vinculador es el que determininará la posibilidad de acceso dependiendo de los permisos definidos en el ítem destino. Desde el administrador es necesario explicitar el destino de estos links y la forma que toman.
+La navegación entre ítems pasa por un módulo de Toba: el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Centrales/toba_vinculador.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Vinculador</a>. Éste es el encargado de crear la URL, validando que el usuario actual tenga permisos y pasando opcionalmente parámetros hacia la nueva operación.
 </p>
 </div>
    </div>

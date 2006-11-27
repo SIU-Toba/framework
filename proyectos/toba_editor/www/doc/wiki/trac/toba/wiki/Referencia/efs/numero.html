@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,14 +150,16 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Objetos/Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Parámetros">Parámetros</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../efs.html">efs</a> / numero
 </p>
 <h1 id="EFNúmero">EF Número</h1>
 <h2 id="Parámetros">Parámetros</h2>
-<ul><li>Rango de valores permitidos: Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. Por ejemplo (10...200] determina un rango desde 10 no inclusive hasta 200 inclusive. El rango se valida posterior al tipo del número y no durante. Tener en cuenta que para hacer la comparación de números se utiliza el tipo 'integer' de los lenguajes y estos tienen un límite en la cantidad de dígitos soportados.
-</li></ul><ul><li>Cant. Max. Caract.: Pone un límite en la cantidad de caracteres que es posible ingresar al &lt;input&gt;, incluyendo simbolos de puntuación, comas, decimales, etc. No hay siempre una relación directa entre el rango de un número y la cantidad de caracteres que este posee ya que por un lado los numeros pueden poseer o no decimales y por otro la mascara puede determinar que hayan o no caracteres de puntuacion. Por ejemplo en un rango [0..1000] pueden contener potencialmente 10 caracteres (ej "$ 1.234,56") o solamente 5 (ej "1.234") determinar la cantidad máxima automáticamente implicaría parsear la mascara antes para determinar cuantos caracteres son posibles. De todas formas cuando existen decimales el límite de caracteres no sirve como validación (por lo dicho anteriormente). 
-</li></ul><ul><li>Tamaño visual: Determina la cantidad de caracteres que son visibles sin scrollear, esto es el atributo size del &lt;input&gt;. Es un atributo estetico no afecta la validación.
-</li></ul><ul><li>Máscara: Formateo del numero mientras tipea, solo sirve como algo estetico y no se debe confiar en su 'validación' porque solo se hace en javascript. Un ejemplo de máscara sería ###.###,00. Para ver las máscaras soportadas ver el <a class="source" href="../../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/js/testing/test_mascaras.html">caso de test asociado</a>
+<ul><li><strong>Tamaño visual</strong>: Determina la cantidad de caracteres que son visibles sin scrollear, esto es el atributo size del &lt;input&gt;. Es un atributo estetico no afecta la validación.
+</li></ul><ul><li><strong>Tamaño Máximo</strong>: Pone un límite en la cantidad de caracteres que es posible ingresar al &lt;input&gt;, incluyendo simbolos de puntuación, comas, decimales, etc. No hay siempre una relación directa entre el rango de un número y la cantidad de caracteres que este posee ya que por un lado los numeros pueden poseer o no decimales y por otro la mascara puede determinar que hayan o no caracteres de puntuacion. Por ejemplo en un rango [0..1000] pueden contener potencialmente 10 caracteres (ej "$ 1.234,56") o solamente 5 (ej "1.234") determinar la cantidad máxima automáticamente implicaría parsear la mascara antes para determinar cuantos caracteres son posibles. De todas formas cuando existen decimales el límite de caracteres no sirve como validación (por lo dicho anteriormente). 
+</li></ul><ul><li><strong><a class="wiki" href="../efs.html#Máscaras">Máscaras</a></strong>: Formateo del numero mientras tipea, solo sirve como algo estético y no se debe confiar en su 'validación' porque solo se hace en javascript. Un ejemplo de máscara sería ###.###,00.
+</li></ul><ul><li><strong>Rango de valores</strong>: Intervalo de números permitidos. Los corchetes incluyen el límite, los paréntesis no, por defecto [0..*]. Por ejemplo (10...200] determina un rango desde 10 no inclusive hasta 200 inclusive. El rango se valida posteriormente al ingreso del número y no durante. Tener en cuenta que para hacer la comparación de números se utiliza el tipo 'integer' de los lenguajes y estos tienen un límite en la cantidad de dígitos soportados.
 </li></ul><p>
 Actualmente estos 4 parametros determinan el comportamiento del ef en el cliente y su uso deberia seguir este razonamiento:
 </p>

@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -96,13 +150,25 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li class="active"><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#GuíaRápidaWindows">Guía Rápida Windows</a></li><li>
+<a href="#GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</a></li><li>
+<a href="#Detallesdelainstalación">Detalles de la instalación</a><ol><li><a href="#Apache">Apache</a></li><li>
+<a href="#PHP">PHP</a></li><li>
+<a href="#PostgreSQL">PostgreSQL</a></li><li>
+<a href="#ClienteSVN">Cliente SVN</a></li><li>
+<a href="#Graphvizopcional">Graphviz (opcional)</a></li><li>
+<a href="#Toba">Toba</a></li></ol></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Instalacion
 </p>
 <h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
+<p>
+Las guías rápidas son las recomendadas para nuevas instalaciones de desarrollo, mientras que para instalaciones de producción es recomendado hacer instalaciones manuales de cada paso adaptándolas al servidor utilizado.
+</p>
 <h2 id="GuíaRápidaWindows">Guía Rápida Windows</h2>
 <ol><li>Instalar la última versión estable de la serie <strong>2.0.x</strong> de Apache desde <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>, con las opciones por defecto.
-</li><li>(OPCIONAL) Instalar la última versión estable de PostgreSQL desde <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>, con las opciones por defecto.
-</li><li>(OPCIONAL) Instalar la última versión estable de Subversion desde <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91</a>
+</li><li><sup>(opcional)</sup> Instalar la última versión estable de PostgreSQL desde <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>, con las opciones por defecto.
+</li><li><sup>(opcional)</sup> Instalar la última versión estable de Subversion desde <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91</a>
 </li><li>Bajar el zip de PHP versión 5.1.2 o superior desde <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>http://ar.php.net/downloads.php</a> 
 </li><li>Descomprimir el zip en <tt>c:\php</tt>
 </li><li>Agregar <tt>c:\php</tt> en el path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
@@ -123,9 +189,16 @@ LoadModule php5_module &#34;c:/php/php5apache2.dll&#34;
 </li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones.
 </li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
 </li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url según el identificador que ha dado al proyecto).
-</li></ol><h2 id="GuíaRápidaGNU/Linuxdistrosdebianoderivados">Guía Rápida GNU/Linux (distros debian o derivados)</h2>
-<ol><li>Ejecutar como superusuario: 
-<pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pdo php5-pdo-pgsql subversion postgresql-8.1 postgresql-client-8.1 graphviz
+</li></ol><h2 id="GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</h2>
+<p>
+Para distribuciones debian o derivados:
+</p>
+<ol><li>Revisar las <a class="wiki" href="Instalacion/FuentesAPT.html">fuentes de los paquetes</a>
+</li><li>Ejecutar como superusuario: 
+<pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pdo php5-pdo-pgsql
+</pre>
+</li><li><sup>(opcional)</sup> ejecutar:
+<pre class="wiki">apt-get install subversion postgresql-8.1 postgresql-client-8.1 graphviz
 </pre>
 </li><li>Editar el archivo <tt>/etc/php5/apache2/php.ini</tt> y <tt>/etc/php5/cli/php.ini</tt>:
 <ul><li>Buscar la línea <tt>error_reporting  =  E_ALL &amp; ~E_NOTICE</tt> y reemplazar por <tt>error_reporting  =  E_ALL</tt>

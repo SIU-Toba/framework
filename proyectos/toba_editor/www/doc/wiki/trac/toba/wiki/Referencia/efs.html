@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,65 +150,130 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
+<a href="#TiposdeElementos">Tipos de Elementos</a><ol><li><a href="#Elusuarioselecciona">El usuario <strong>selecciona</strong></a></li><li>
+<a href="#Elusuarioedita">El usuario <strong>edita</strong></a></li><li>
+<a href="#Elusuarioobservauncontenido">El usuario <strong>observa</strong> un contenido</a></li><li>
+<a href="#Elusuariosubeunarchivo">El usuario <strong>sube</strong> un archivo</a></li><li>
+<a href="#Esinvisiblealusuario">Es <strong>invisible</strong> al usuario</a></li></ol><li><a href="#CargadeOpciones">Carga de Opciones</a></li><li>
+<a href="#Cascadas">Cascadas</a></li><li>
+<a href="#Máscaras">Máscaras</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / efs
 </p>
 <h1 id="ElementosdeFormulario">Elementos de Formulario</h1>
 <p>
 Un elemento de formulario (abreviado <i>ef</i>) es la representación de un campo de edición. Los distintos tipos de ef en general encapsulan los <i>input</i> clásicos de HTML como un combo, un checkbox o un edit.
 </p>
+<p>
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Efs/toba_ef.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ef</a> <br />
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ef.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ef</a>
+</p>
 <h2 id="Definición">Definición</h2>
 <p>
-La definición de un ef siempre está manejada por el objeto contenedor (generalmente un formulario). Los atributos básicos que se incluyen son:
+La definición de un ef siempre está manejada por el componente contenedor (generalmente un <a class="wiki" href="Objetos/ei_formulario.html">formulario</a>). Los atributos básicos que se incluyen son:
 </p>
-<ul><li><i>Identificador</i>: Es la clave con la que se conoce al ef particular en su objeto contenedor.
-</li><li><i>Datos Manejados</i>: Un único ef puede manejar un conjunto de datos, cuando se sabe de antemano la cantidad de datos se puede especificar los identificadores de estos valores separados por coma. En caso de ser uno único se recomiendo usar el mismo dato que el identificador.
-</li><li><i>Colapsado</i>: El elemento y su etiqueta se muestran colapsados por defecto. 
+<ul><li><i>Identificador</i>: Es la clave con la que se conoce al ef en su componente contenedor.
+</li><li><i>Datos Manejados</i>: Muchas veces igual al identificador, el <strong>dato</strong> es como se conoce al ef en las capas inferiores. Por ejemplo cuando se quiere usar el API del ef se usa su <strong>identificador</strong> pero cuando el formulario informa sus datos lo hace utilizando este atributo como clave del arreglo asociativo. Cuando se sabe de antemano la cantidad de datos se puede especificar los identificadores de estos valores separados por coma. En caso de ser uno único se recomiendo usar el mismo dato que el identificador.
 </li></ul><h2 id="TiposdeElementos">Tipos de Elementos</h2>
+<div class="tablas-screenshots">
 <p>
 Los efs actualmente se pueden clasificar según la actividad que el usuario realiza:
 </p>
-<ul><li>El usuario <strong>selecciona</strong>:
+<h3 id="Elusuarioselecciona">El usuario <strong>selecciona</strong></h3>
 <ul><li>Selecciona un único elemento de un conjunto disponible:
-<ul><li><a class="missing wiki" href="efs/checkbox.html" rel="nofollow">checkbox?</a>: Selección entre dos elementos.
-</li><li><a class="missing wiki" href="efs/radio.html" rel="nofollow">radio?</a>: Pensado para conjuntos pequeños.
-</li><li><a class="missing wiki" href="efs/combo.html" rel="nofollow">combo?</a>: Pensado para conjuntos medianos cuyos elementos son fáciles de encontrar por nombre.
-</li><li><a class="wiki" href="efs/popup.html">popup</a>: Pensado para conjuntos grandes con métodos de búsqueda complejos
-</li></ul></li><li>Selecciona varios elementos del conjunto:
-<ul><li><a class="missing wiki" href="efs/multi_select.html" rel="nofollow">multi_select?</a>: Usando el componente clásico HTML, difícil de entender para usuarios novatos.
-</li><li><a class="missing wiki" href="efs/multi_doble.html" rel="nofollow">multi_doble?</a>: Cruzando los elementos de un lado al otro.
-</li><li><a class="missing wiki" href="efs/multi_checkbox.html" rel="nofollow">multi_checkbox?</a>: Grupo de checkbox.
-</li><li><a class="missing wiki" href="efs/multi_popup.html" rel="nofollow">multi_popup?</a>: Va seleccionando usando un popup.
-</li></ul></li></ul></li><li>El usuario <strong>edita</strong>:
-<ul><li><a class="missing wiki" href="efs/editable.html" rel="nofollow">editable?</a>: Una línea de texto.
-</li><li><a class="wiki" href="efs/numero.html">numero</a>: Un número.
-</li><li><a class="missing wiki" href="efs/moneda.html" rel="nofollow">moneda?</a>: Un número representando un importe en una moneda específica.
-</li><li><a class="missing wiki" href="efs/porcentaje.html" rel="nofollow">porcentaje?</a>: Un número representando un porcentaje.
-</li><li><a class="missing wiki" href="efs/fecha.html" rel="nofollow">fecha?</a>: Una fecha, con un calendario de ayuda.
-</li><li><a class="missing wiki" href="efs/editable_multilinea.html" rel="nofollow">editable_mulilinea?</a>: Múltiples líneas libremente, sin formato.
-</li><li><a class="missing wiki" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/efs/editable_formateado" rel="nofollow">editable_formateado?</a>: Edición de texto con formato.
-</li></ul></li><li>El usuario <strong>observa</strong> un contenido estático
-<ul><li><a class="missing wiki" href="efs/fijo.html" rel="nofollow">fijo?</a>: Muestra su valor como HTML.
-</li></ul></li><li>El usuario <strong>sube</strong> un archivo:
-<ul><li><a class="wiki" href="efs/upload.html">upload</a>: Selecciona un archivo de su sistema para que esté disponible en el servidor.
-</li></ul></li><li>Es <strong>invisible</strong> al usuario, pero su valor está disponible para el proceso interno:
-<ul><li><a class="missing wiki" href="efs/oculto.html" rel="nofollow">oculto?</a>: Guarda su valor como variable de sesión.
-</li><li><a class="missing wiki" href="efs/oculto_secuencia.html" rel="nofollow">oculto_secuencia?</a>: Si no tiene valor, este será determinado por la base de datos.
-</li><li><a class="missing wiki" href="efs/oculto_usuario.html" rel="nofollow">oculto_usuario?</a>: Su valor es el id del usuario actualmente logueado.
-</li><li><a class="missing wiki" href="efs/oculto_proyecto.html" rel="nofollow">oculto_proyecto?</a>: Su valor es el id del proyecto actual.
-</li></ul></li></ul><h2 id="Funcionamiento">Funcionamiento</h2>
+</li></ul><table class="wiki">
+<tr><td> <a href="../../attachment/wiki/Referencia/efs/checkbox.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/checkbox41f0.png?format=raw" /></a>  </td><td> checkbox                          </td><td> Selección entre dos estados. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/combo.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/combo41f0.png?format=raw" /></a>     </td><td> combo                             </td><td> Pensado para conjuntos medianos cuyos elementos son fáciles de encontrar por nombre.
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/radio.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/radio41f0.png?format=raw" /></a>     </td><td> radio                             </td><td> Pensado para conjuntos de datos pequeños.
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/popup.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/popup41f0.png?format=raw" /></a>     </td><td> <strong><a class="wiki" href="efs/popup.html">popup</a></strong> </td><td> Pensado para conjuntos grandes con métodos de búsqueda complejos. 
+</td></tr></table>
+<ul><li>Selecciona varios elementos del conjunto:
+</li></ul><table class="wiki">
+<tr><td> <a href="../../attachment/wiki/Referencia/efs/multi_select.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/multi_select41f0.png?format=raw" /></a>		</td><td>multi_select		</td><td> Usando el componente clásico HTML, difícil de entender para usuarios novatos. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/multi_doble.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/multi_doble41f0.png?format=raw" /></a>		</td><td>multi_doble		</td><td> Cruzando los elementos de un lado al otro.
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/multi_checkbox41f0.png?format=raw" /></a>	</td><td>multi_checkbox	</td><td> Tildando checkboxs.
+</td></tr></table>
+<h3 id="Elusuarioedita">El usuario <strong>edita</strong></h3>
+<table class="wiki">
+<tr><td> <a href="../../attachment/wiki/Referencia/efs/editable.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/editable41f0.png?format=raw" /></a> 	</td><td>editable 		            		    </td><td> Una línea de texto. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/numero.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/numero41f0.png?format=raw" /></a>	</td><td> <strong><a class="wiki" href="efs/numero.html">numero</a></strong> 	</td><td> Un número. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/moneda.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/moneda41f0.png?format=raw" /></a>	</td><td>moneda			                	</td><td> Un número representando un importe en una moneda específica.
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/porcentaje.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/porcentaje41f0.png?format=raw" /></a></td><td>  porcentaje		            	    </td><td> Un número representando un porcentaje. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/fecha.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/fecha41f0.png?format=raw" /></a> 	</td><td>fecha			                	    </td><td> Una fecha, con un calendario de ayuda. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/textarea.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/textarea41f0.png?format=raw" /></a>	</td><td>textarea		                		</td><td> Múltiples líneas libremente, sin formato. 
+</td></tr><tr><td>			            	</td><td>html			                		</td><td> Edición de texto con formato. 
+</td></tr></table>
+<h3 id="Elusuarioobservauncontenido">El usuario <strong>observa</strong> un contenido</h3>
+<table class="wiki">
+<tr><td> <a href="../../attachment/wiki/Referencia/efs/fijo.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/fijo41f0.png?format=raw" /></a> </td><td> fijo </td><td> Muestra su valor como HTML.
+</td></tr></table>
+<h3 id="Elusuariosubeunarchivo">El usuario <strong>sube</strong> un archivo</h3>
 <p>
-El funcionamiento de un ef se puede dividir en tres etapas:
+    
 </p>
-<ol><li>Carga del estado: El objeto que lo contiene le especifica un estado antes de mostrarse en pantalla.
-</li><li>Edición en el cliente: El ef, dependiendo de su tipo, muestra y permite al usuario influir en su valor.
-</li><li>Retorno del estado: En el siguiente pedido, el ef deja disponible al objeto que lo utiliza el nuevo estado, si lo hubiera.
-</li></ol><p>
-En la edición en el cliente es posible restringir los valores que pueden tomar los efs utilizando las llamadas <a class="wiki" href="efs/Dependencias.html">dependencias entre efs</a>.<br />
-Otros comportamientos particulares están a cargo del objeto contenedor, generalmente escuchan los <a class="wiki" href="efs/Procesamientos.html">procesamientos de efs</a>.
+<table class="wiki">
+<tr><td> <a href="../../attachment/wiki/Referencia/efs/upload.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/upload41f0.png?format=raw" /></a> </td><td> <strong><a class="wiki" href="efs/upload.html">upload</a></strong> </td><td> Selecciona un archivo de su sistema para que esté disponible en el servidor.
+</td></tr></table>
+<h3 id="Esinvisiblealusuario">Es <strong>invisible</strong> al usuario</h3>
+<p>
+Su valor sólo está disponible para el proceso interno
+</p>
+<ul><li>oculto: Guarda su valor como variable de sesión.
+</li><li>oculto_usuario: Su valor es el id del usuario actualmente logueado.
+</li><li>oculto_proyecto: Su valor es el id del proyecto actual.
+</li></ul></div>
+<h2 id="CargadeOpciones">Carga de Opciones</h2>
+<p>
+La forma de <strong>carga de datos</strong> a un ef es cargar el formulario que lo contiene, esta carga varia su <strong>estado</strong>.<br />
+Algunos efs necesitan aparte una <strong>carga de opciones</strong>, esta carga varia sus <strong>posibles estados</strong>. Por ejemplo un combo típico necesita por un lado saber su estado actual, es decir cuál de sus opciones está actualmente seleccionada, este estado se lo suministra la carga desde el CI contenedor. Suponiendo que el ef se llama 'persona' y el formulario 'alumno':
+</p>
+<pre class="wiki">function conf__alumno($form)
+{
+    $form-&gt;set_datos(array('persona' =&gt; 142));
+}
+</pre>
+<p>
+Este método en el CI contenedor cargará el <strong>estado</strong> del ef con la persona 142. Pero el combo también necesita conocer sus posibles valores y sus descripciones, entonces por ejemplo podemos cargar estas opciones con un método del mismo CI indicándolo en la definición del ef. El método tendría este formato:
+</p>
+<pre class="wiki">function cargar_alumno()
+{
+    return array(
+        array('id' =&gt; 100, 'nombre' =&gt; 'Juan Perez'),
+        array('id' =&gt; 142, 'nombre' =&gt; 'Cristian Fernandez'),
+        .....
+    );
+}
+</pre>
+<p>
+Dependiendo del tipo de ef existen distintos tipos de cargas las posibles son:
+</p>
+<ul><li><strong>Método PHP</strong>: Las opciones se cargan en base a la llamada a un método de una clase PHP. Este método puede ser del mismo CI que contiene al formulario o puede ser estático. La desventaja del método estático es que la carga no puede depender de alguna condición actual de la operación.
+</li><li><strong>Consulta SQL</strong>: Se incluye una consulta SQL directamente en la edición del ef, agiliza la definición pero tener SQLs disperasas por el editor puede ser un problema de organización del proyecto.
+</li><li><strong>Lista de Opciones</strong>: Las opciones se ingresan en la definición. En el ejemplo actual sería ingresar <tt>100/Juan Perez,142/Cristian Fernandez</tt>
+</li></ul><p>
+Generalmente el ef espera que se retorne un formato <a class="wiki" href="../RecordSet.html">RecordSet</a>, por eso en la definición se pregunta cuales son sus campos clave y su campo descripción. En el ejemplo el campo clave es <strong>id</strong> y <strong>nombre</strong> es su descripción.
 </p>
 <h2 id="Cascadas">Cascadas</h2>
+<p>
+Cuando el valor de un ef depende de los valores de otros efs del mismo formulario, estos se encuentran en <i>Cascada</i>. 
+En una cascada existen efs <strong>esclavos</strong> (cuyo valor depende de otros efs) y sus <strong>maestros</strong> (aquellos de los cuales dependen los esclavos), generalmente lo que condiciona el maestro en el esclavo es el conjunto de opciones que se muestran al usuario. Este tipo de dependencias son típicas en páginas web donde por ejemplo se ingresa el país en un combo y restringe automáticamente las localidades disponibles, en este ejemplo el país es maestro y la localidad es esclavo.
+</p>
+<p>
+La forma en la que se incide en los valores posibles del esclavo es en su carga. Si la carga es a través de un método PHP los valores de los maestros llegarán por parámetro en el orden que son declarados, en el caso de una consulta SQL se reemplazarán las ocurrencia de %id_ef_maestro% (donde id_ef_maestro es el identificador del ef maestro al actual). Por ejemplo si definimos que el ef localidades es esclavo de pais y provincia, la carga PHP recibiría estos dos parámetros:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+</span><span class="code-keyword">function </span><span class="code-lang">get_localidades</span><span class="code-keyword">(</span><span class="code-lang">$pais</span><span class="code-keyword">, </span><span class="code-lang">$provincia</span><span class="code-keyword">)
+{
+...
+}
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+No hay límite en la cantidad de maestros/esclavos en un formulario, solo existe la restricción de que no pueden existir ciclos de dependencias (ej. país es maestro de localidad que a su vez es maestro de país).
+</p>
 <table class="wiki">
-<tr><td><strong>Ef</strong>		</td><td><strong>Puede ser esclavo</strong>	</td><td><strong>Puede ser Maestro</strong>	</td><td><strong>Notas</strong>			
+<tr><td><strong>Tipo Ef</strong>		</td><td><strong>Puede ser esclavo</strong>	</td><td><strong>Puede ser Maestro</strong>	</td><td><strong>Notas</strong>			
 </td></tr><tr><td>combo		</td><td>		SI			</td><td>		SI			</td><td>				
 </td></tr><tr><td>radio		</td><td>		SI			</td><td>		SI			</td><td>				
 </td></tr><tr><td>popup		</td><td>		SI 	</td><td>		SI			</td><td>	La carga del popup espera retornar un solo valor, su descripción. Para que pueda funcionar totalmente como esclavo debería poder recibir dos valores (su estado y su descripcion), actualmente solo recibe uno por lo que sólo funciona en casos donde el estado y su descripción coinciden (generalmente cuando el popup es editable) 			
@@ -166,9 +285,24 @@ Otros comportamientos particulares están a cargo del objeto contenedor, general
 <p>
 El resto de los efs no participan del esquema de cascadas.
 </p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/efs/dependencias' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cascadas</a>
+</p>
+<h2 id="Máscaras">Máscaras</h2>
+<p>
+Algunos efs editables permiten incluir máscaras personalizadas. La máscara formatea el texto mientras el usuario tipea, solo sirve como algo estetico y no se debe confiar en su 'validación' porque solo se hace en javascript. Un ejemplo de máscara sería ###.###,00.
+Para ver las máscaras soportadas ver el <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/js/testing/test_mascaras.html">caso de test asociado</a>
+</p>
+<p>
+<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000070' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Máscaras</a>
+</p>
 </div>
    </div>
    
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/checkbox.html">checkbox.png</a> (168 bytes) - added by seba on 10/18/06 18:04:23.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/radio.html">radio.png</a> (480 bytes) - added by seba on 10/18/06 18:04:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo.html">combo.png</a> (403 bytes) - added by seba on 10/18/06 18:06:37.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/popup.html">popup.png</a> (0.8 kB) - added by seba on 10/18/06 18:15:16.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_select.html">multi_select.png</a> (0.5 kB) - added by seba on 10/18/06 18:16:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_doble.html">multi_doble.png</a> (1.0 kB) - added by seba on 10/18/06 18:18:13.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html">multi_checkbox.png</a> (376 bytes) - added by seba on 10/18/06 18:19:12.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/editable.html">editable.png</a> (372 bytes) - added by seba on 10/18/06 18:20:15.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fecha.html">fecha.png</a> (426 bytes) - added by seba on 10/18/06 18:36:02.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/numero.html">numero.png</a> (324 bytes) - added by seba on 10/18/06 18:36:21.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/moneda.html">moneda.png</a> (333 bytes) - added by seba on 10/18/06 18:36:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/porcentaje.html">porcentaje.png</a> (279 bytes) - added by seba on 10/18/06 18:37:07.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/textarea.html">textarea.png</a> (1.5 kB) - added by seba on 10/18/06 18:37:52.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/upload.html">upload.png</a> (0.6 kB) - added by seba on 10/18/06 18:42:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fijo.html">fijo.png</a> (0.9 kB) - added by seba on 10/20/06 10:31:00.</li>
+    </ul>
+  
   
   <script type="text/javascript">
    addHeadingLinks(document.getElementById("searchable"));

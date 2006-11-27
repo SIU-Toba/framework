@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,58 +150,54 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Creacióndeunpuntodeacceso">Creación de un punto de acceso</a></li><li>
+<a href="#ConfiguracionesImportantes">Configuraciones Importantes</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / PuntosDeAcceso
 </p>
 <h1 id="PuntosdeAcceso">Puntos de Acceso</h1>
-<h2 id="Quéson">¿Qué son?</h2>
 <p>
-Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso tanto al aplicativo de un proyecto como al administrador del mismo. Cada proyecto puede tener varios puntos de acceso, por defecto se proveen dos: una para la aplicación (aplicacion.php) y otro para el administrador (admin.php) y se ubican bajo el directorio <i>www</i> del proyecto.
+Los Puntos de Acceso (abreviado PA) son configuraciones que definen el ingreso al aplicativo de un proyecto. Generalmente son la página inicial por defecto en la <a class="wiki" href="../Instalacion/ConfigurarApache.html">Configuración de Apache</a>.
 </p>
-<h2 id="Cómocrearuno">¿Cómo crear uno?</h2>
 <p>
-Se recomienda tomar como modelo los puntos de acceso que están incluidos en el mismo Toba.
+Cada proyecto puede tener varios puntos de acceso, ubicándose generalmente bajo el directorio <i>www</i> del proyecto.
 </p>
-<ul><li>PA de la aplicación: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/aplicacion.php">source:trunk/www/aplicacion.php</a>
-</li><li>PA del administrador: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/admin.php">source:trunk/www/admin.php</a>
-</li></ul><p>
-Luego de modificar las configuraciones particulares es necesario notificar a Apache la existencia del nuevo PA. Para esto es necesario agregar al archivo <i>directorio_apache/conf/toba.conf</i> un alias al punto de acceso:
+<h2 id="Creacióndeunpuntodeacceso">Creación de un punto de acceso</h2>
+<p>
+En la creación del <a class="wiki" href="Proyecto.html">proyecto</a> se incluye un punto de acceso predeterminado denominado <i>aplicacion.php</i> , basado en el siguiente: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/modelo/template_proyecto/www/aplicacion.php">source:trunk/php/modelo/template_proyecto/www/aplicacion.php</a>
+</p>
+<p>
+Luego de modificar las configuraciones particulares es necesario notificar a Apache la existencia del nuevo PA. Como se ve en la <a class="wiki" href="../Instalacion/ConfigurarApache.html">Configuración de Apache</a> se agrega un alias apuntando al nuevo punto de acceso:
 </p>
 <pre class="wiki">    Alias /mi_proyecto &#34;d:/toba/proyectos/mi_proyecto/www&#34;
     &lt;Directory &#34;d:/toba/proyectos/mi_proyecto/www&#34;&gt;
         SetEnv TOBA_DIR d:/toba
         SetEnv TOBA_ALIAS toba
+        SetEnv TOBA_PROYECTO_ALIAS mi_proyecto
+        SetENV TOBA_INSTANCIA testing
         Options Indexes MultiViews
-            DirectoryIndex aplicacion.php
+            DirectoryIndex acceso_testing.php
         AllowOverride None
         Order allow,deny
         Allow from all
     &lt;/Directory&gt;
 </pre>
 <p>
-Notar que dentro del punto de acceso debemos setear el valor de la variable de entorno $TOBA_DIR, para que refiera al directorio donde se encuentra la instalación de Toba así como notificar con que alias se encuentra el directorio www de Toba con la variable $TOBA_ALIAS. Esto es necesario para el caso de varias instalaciones de Toba dentro de la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>), porque cada una obviamente estará en un directorio diferente.
+La razón por la que se define en forma redundante TOBA_DIR, TOBA_ALIAS y TOBA_PROYECTO_ALIAS es para soportar el caso de varias instalaciones de Toba en la misma máquina (ver <strong><a class="wiki" href="Deployment.html">casos de uso de deployment</a></strong>).
 </p>
 <h2 id="ConfiguracionesImportantes">Configuraciones Importantes</h2>
-<ul><li>Instancia: La variable apex_pa_instancia debe apuntar a la <a class="wiki" href="Instancia.html">instancia</a> que se quiere acceder, por ejemplo para acceder a una instancia particular <i>toba_prueba</i>:
-<pre class="wiki">define(&#34;apex_pa_instancia&#34;,&#34;toba_prueba&#34;);
+<ul><li>Instancia: La forma recomendada para definir la <a class="wiki" href="Instancia.html">Instancia</a> a utilizar en la ejecución es con una variable de entorno en el alias de apache (por ej. <tt> SetENV TOBA_INSTANCIA testing </tt>). Si no se define en el alias se puede hacer con una constante en el punto de acceso:
+<pre class="wiki">define(&#34;apex_pa_instancia&#34;,&#34;testing&#34;);
 </pre>
-</li></ul><ul><li>Acceso: Para desarrollo es muy práctico evitar pedir un login en cada acceso, para eso se usa la variable apex_pa_validacion_debug. <strong>Importante</strong>: Desactivar esta configuración en deployment.
-</li></ul><pre class="wiki">define(&#34;apex_pa_validacion_debug&#34;,1)
+</li></ul><ul><li>Acceso: Para desarrollo es muy práctico evitar pedir un login en cada acceso, para eso se usa una constante. <strong>Importante</strong>: Desactivar esta configuración en deployment.:
+<pre class="wiki">define(&#34;apex_pa_validacion_debug&#34;,1)
 </pre>
-<ul><li>Encriptación: Para maximizar la seguridad es posible encriptar el <i>querystring</i> seteando la variable apex_pa_encriptar_qs:
-<pre class="wiki">define(&#34;apex_pa_encriptar_qs&#34;,1);
-</pre>
-</li></ul><ul><li>Log: Es posible elegir el medio y el nivel de logging interno de Toba. Esto es útil para hacer trazas de desarrollo.
+</li></ul><ul><li>Log: Es posible elegir el medio y el nivel del <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Debug/toba_logger.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> log interno</a>. Esto es útil para hacer trazas de desarrollo.
 <pre class="wiki"># Nivel de log a ARCHIVO
-define(&#34;apex_pa_log_archivo&#34;,1);
-define(&#34;apex_pa_log_archivo_nivel&#34;,2);
-# Nivel de log a la DB
-define(&#34;apex_pa_log_db&#34;,1);
-define(&#34;apex_pa_log_db_nivel&#34;,2);
+define(&#34;apex_pa_log_archivo&#34;,1);  #Activa el log a archivo
+define(&#34;apex_pa_log_archivo_nivel&#34;,2); #El nivel máximo de sucesos aceptado es CRITICO (2)
 </pre>
-</li></ul><p>
-Ver <a class="missing wiki" href="../TobaSeguridad.html" rel="nofollow">TobaSeguridad?</a> para más información acerca de los mecanismos de seguridad existentes.
-</p>
-</div>
+</li></ul></div>
    </div>
    
   

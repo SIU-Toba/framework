@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -96,28 +150,23 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+
 <a href="WikiStart.html">Inicio</a> / Introduccion
 </p>
-<h1 id="Introducción">Introducción</h1>
-<p>
-SIU-Toba es un entorno de trabajo colaborativo que permite construir aplicativos empresariales de pequeña a mediana escala. Este ambiente presenta las características de una herramienta de desarrollo ágil, brindando un balance entre la velocidad de desarrollo, la calidad del producto construido y nivel de capacitación requerido. 
-</p>
-<h2 id="CaracterísticasGenerales">Características Generales</h2>
-<ul><li>Tecnología WEB. Utiliza PHP.
-</li><li>Diseño 100 % orientado a objetos.
-</li><li>Dispone de una GUI para el desarrollador.
-</li><li>Orientado al desarrollo declarativo.
-</li><li>Desarrollado con herramientas que no requiere licenciamiento y cuentan con una amplia comunidad de usuarios.
-</li><li>Permite desarrollo de aplicaciones con arquitectura en capas
-</li><li>Arquitectura con posibilidad de extensión de todos sus componentes.
-</li></ul><h2 id="Funcionalidades">Funcionalidades</h2>
-<ul><li>Autentificación y control de permisos de accesos de usuarios.
-</li><li>Esquema de menues dinámicos por usuario.
-</li><li>Look and feel customizado.
-</li><li>Log de accesos de usuarios.
-</li><li>Manejo de los errores/excepciones en forma integral.
-</li><li>Marco transaccional a las operaciones.
-</li><li>Interfaces graficas generadas en forma declarativa con validaciones y comportamientos predefinidos y extensibles.
+<h1 id="Características">Características</h1>
+<ul><li>Combinación de tecnologías abiertas (Apache, PHP, Postgres y un buen número de <a class="wiki" href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Consumo3ros">librerías open-source</a> integradas).
+</li><li>Separación en capas (~MVC).
+</li><li>Transparencia al problema Request/Response.
+</li><li>Creación de interfaces ricas en forma declarativa (HTML, JS, CSS, AJAX).
+</li><li>Seguridad (Autorización, Autentificación, Logging, etc.).
+</li><li>Posibilita el manejo de transacciones complejas (transacciones multi-etapa).
+</li><li>Muy buen grado de reutilización tanto de la definición de componentes como de programación (totalmente POO).
+</li><li>Trabajo grupal local o a distancia a través de herramientas y convenciones.
+</li><li>API madura y estable (~ 4 años de desarrollo y consumo).
+</li><li>Manejo de validaciones (cliente y servidor) y errores.
+</li><li>IDE Web pensada para desarrolladores e interfaz de línea de comandos para el deployment-mantenimiento de los sistemas.
+</li><li>Hereda todas las ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
 </li></ul></div>
    </div>
    

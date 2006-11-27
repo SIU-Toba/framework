@@ -28,6 +28,60 @@
 .code-lang { color: #0000BB; font-weight: normal; }
 .code-comment { color: #FF8000; font-weight: normal;}
 .code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+/*a {
+ color: #890C71;
+}*/
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -96,39 +150,82 @@
   
    <div class="wikipage">
     <div id="searchable"><p>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li class="active"><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
+<a href="#Programación">Programación</a><ol><li><a href="#Acceso">Acceso</a></li><li>
+<a href="#Cosastípicas">Cosas típicas</a></li><li>
+<a href="#Shortcuts">Shortcuts</a></li></ol><li><a href="#UsodesdedentrodeToba">Uso desde dentro de Toba</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / FuenteDatos
 </p>
 <h1 id="FuentedeDatos">Fuente de Datos</h1>
 <p>
-Una fuente de datos es una entidad que referencia a un motor de base de datos relacional y permite operar sobre este independientemente del vendedor específico al que pertenece. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcción de SQL compatible sigue quedando a cargo generalmente de los desarrolladores del proyecto.
+Una <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/fuente.gif' /> fuente de datos encapsula un mecanismo de entrada/salida de datos, típicamente una base relacional Esta clase contiene ventanas antes y despues de la conexión de la fuente y permite acceder al objeto <strong>db</strong> que es el que tiene el API de consultas/comandos. Esto no quiere decir que el lenguaje con el que se accede se abstrae o compatibiliza, el lenguaje sigue siendo SQL y la construcción de SQL compatible sigue quedando a cargo de los desarrolladores.
+</p>
+<p>
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_fuente_datos.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_fuente_datos</a> <br />
+<a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_db.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_db</a> <br />
 </p>
 <h2 id="Definición">Definición</h2>
 <p>
-Un proyecto puede tener asociada varias fuentes de datos, cada una representando a una base de datos distinta. Para administrar estas fuentes existe una sección en el Administrador llamada <i>Datos</i>, allí se puede detallar cómo está formada, los campos más importantes, además de los de conexión, son estos:
+Un proyecto puede tener asociada varias fuentes de datos, cada una representando a una base de datos distinta. Para administrar estas fuentes existe una sección en el Editor dentro de la <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.gif' /> configuración, allí se puede detallar cómo está formada:
 </p>
 <ul><li>Identificador: es el nombre con el que esta fuente puede ser referenciada desde Toba.
-</li><li>Link a info_bases.php: Si se selecciona, los parámetros de conexión de este formulario no se tendrán en cuenta, en cambio se tomarán los parámetros definidos en el archivo <i>instalacion/info_bases.php</i>.
-</li></ul><h2 id="Ejecución">Ejecución</h2>
+</li><li>Base: Identificador con el que se conoce la base en el archivo <tt>instalacion/bases.ini</tt>
+</li><li>Subclase: La fuente de datos puede tener una extensión para aprovechar las ventanas de pre y post conexión, ver el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_fuente_datos.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a>
+</li></ul><h2 id="Programación">Programación</h2>
+<h3 id="Acceso">Acceso</h3>
 <p>
-Durante la ejecución las fuentes de datos contienen estos parámetros estáticos junto a una instancia de la librería <a class="ext-link" href="../../../../external.html?link=http://adodb.sourceforge.net/"><span class="icon"></span>ADODb</a> para el acceso a la misma. Por performance las fuentes no se conectan hasta que sea necesario, esto es porque el objeto en ejecución la necesita o porque se utiliza en algún código ad-hoc. En este último caso, sabiendo que ningún otro procesamiento cargo esa fuente de datos, se debe abrir con la siguiente función global:
+Para acceder al objeto que representa una <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_fuente_datos.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> fuente de datos</a> dada:
 </p>
-<pre class="wiki">abrir_fuente_datos($nombre_fuente);
+<pre class="wiki">toba::fuente($id=null)
 </pre>
 <p>
-Una vez disponible la fuente puede obtenerse el objeto ADODb asociado con la siguiente sentencia:
+Para acceder al objeto que <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Fuentes/toba_db.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> representa la conexión</a>:
 </p>
-<pre class="wiki">toba::get_db($nombre_fuente0;
+<pre class="wiki">toba::db($id=null)
 </pre>
 <p>
-Donde $fuente es el nombre de la fuente de datos. Por ejemplo para poner en modo debug a esta librería es necesario ejecutar esta sentencia:
+En ambos caso si no se brinda el $id se utiliza la llamada <strong>fuente prederminada</strong> que se configura en las <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/proyecto.gif' /> propiedades básicas del proyecto en el editor.
 </p>
-<pre class="wiki">toba::get_db($fuente)-&gt;debug = true;
-</pre>
-<h2 id="Informaciónadicional">Información adicional</h2>
+<h3 id="Cosastípicas">Cosas típicas</h3>
+<ul><li>Consulta de una SQL, lo que se retorna es un arreglo PHP asociativo (también llamado formato <a class="wiki" href="../RecordSet.html">RecordSet</a>):
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $sql </span><span class="code-keyword">= </span><span class="code-string">"SELECT id, nombre FROM tabla..."
+    </span><span class="code-lang">$rs </span><span class="code-keyword">= </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">db</span><span class="code-keyword">()-&gt;</span><span class="code-lang">consultar</span><span class="code-keyword">(</span><span class="code-lang">$sql</span><span class="code-keyword">);
+    if (! empty(</span><span class="code-lang">$rs</span><span class="code-keyword">)) {
+        foreach (</span><span class="code-lang">$rs </span><span class="code-keyword">as </span><span class="code-lang">$fila</span><span class="code-keyword">) {
+            echo </span><span class="code-string">"{$fila['id']} es {$fila['nombre']} "</span><span class="code-keyword">;
+        } 
+    } else {
+        echo </span><span class="code-string">"No hay datos!"
+    </span><span class="code-keyword">}
+    </span><span class="code-comment">//--- Si la consulta falla (por ej. no existe la tabla), tira una excepcion toba_error_db
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></li></ul><ul><li>Ejecución de comandos dentro de una transacción, el ejecutar retorna la cantidad de registros afectados:
+<div class="code"><pre><span class="code-lang">&lt;?php
+    $sql </span><span class="code-keyword">= </span><span class="code-string">"UPDATE tabla SET nombre = id"</span><span class="code-keyword">;
+
+    </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">db</span><span class="code-keyword">()-&gt;</span><span class="code-lang">abrir_transaccion</span><span class="code-keyword">();
+    </span><span class="code-lang">$cant </span><span class="code-keyword">= </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">db</span><span class="code-keyword">()-&gt;</span><span class="code-lang">ejecutar</span><span class="code-keyword">(</span><span class="code-lang">$sql</span><span class="code-keyword">);
+    ....
+    </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">db</span><span class="code-keyword">()-&gt;</span><span class="code-lang">cerrar_transaccion</span><span class="code-keyword">();
+    
+    echo </span><span class="code-string">"Se modificaron $cant registros"</span><span class="code-keyword">;
+    </span><span class="code-comment">//--- Si el ejecutar falla (por ej. una restricción de clave foránea), tira una excepcion toba_error_db
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div></li></ul><h3 id="Shortcuts">Shortcuts</h3>
 <p>
-Más detalles en la <a class="ext-link" href="../../../../external.html?link=http://phplens.com/lens/adodb/docs-adodb.htm"><span class="icon"></span>documentación de la librería</a>.
+Existe una serie de <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/php/nucleo/lib/toba_db.php">funciones globales</a> que permiten ingresar comandos de una forma más rápida. En general la mejor convención sería utilizar un conjunto u otro de métodos en forma consistente, si el grupo decide utilizar los shortcuts que lo haga en forma consistente.
 </p>
-</div>
+<h2 id="UsodesdedentrodeToba">Uso desde dentro de Toba</h2>
+<p>
+Cuando lo que se está programando no es un proyecto, el consumo es así:
+</p>
+<ul><li>Núcleo: utilizar <tt> info_instancia::get_db()</tt>. Esto casi no es necesario porque todas las consultas estan dentro de info_instancia. No utilizar consultar_fuente NI toba::get_db() excepto para componetes (usan fuentes).
+</li><li>Modelo: utilizar <tt> contexto_info::get_db()</tt>. Esto devuelve la base seteada con <tt> contexto_info::set_db() </tt>. No utilizar <tt> consultar_fuente </tt> NI <tt> toba::get_db() </tt>, esto no es así en el segmento administrativo, donde la base se le pide a la instalacion
+</li></ul></div>
    </div>
    
   
