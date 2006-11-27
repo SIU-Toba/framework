@@ -243,7 +243,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Una solicitud es la representación de una operación o item en runtime  Contiene e instancia a los componentes de la operación </div>
+        		<div class="description">Una solicitud es la representación de una operación o item accedida por un usuario en runtime  Contiene e instancia a los componentes de la operación </div>
 
 
 
@@ -274,9 +274,9 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_consola.html">toba_solicitud_consola</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
 					<td>
-											Solicitud pensada para ejecutar items en la consola  De esta forma se cuenta con la capacidad de usar las librerias de toba  aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
+											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
 										</td>
 				</tr>
 								<tr>
@@ -286,9 +286,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_consola.html">toba_solicitud_consola</a></td>
 					<td>
-											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
+											Solicitud pensada para ejecutar items en la consola  De esta forma se cuenta con la capacidad de usar las librerias de toba  aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
 										</td>
 				</tr>
 							</table>
@@ -361,7 +361,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">array(proyecto,</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna un id que representa a todo el pedido de página actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -378,11 +378,11 @@
 						<td class="method-definition">Hay una zona asignada y creada?</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#observar" title="details" class="method-name">observar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Permite asociar observaciones al registro de la solicitud actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -422,7 +422,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -466,24 +466,24 @@ $usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
+				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcargar_objeto" id="cargar_objeto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
+	<span class="method-title">cargar_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
 </div>
 <br />
 
@@ -538,13 +538,13 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_zona" id="crear_zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">crear_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 193]</span>
 </div>
 <br />
 
@@ -572,12 +572,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodes_item_publico" id="es_item_publico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_item_publico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">es_item_publico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
 <br />
 
@@ -597,12 +597,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_ayuda" id="existe_ayuda"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">existe_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
 </div>
 <br />
 
@@ -622,12 +622,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar_objetos" id="finalizar_objetos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">finalizar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+	<span class="method-title">finalizar_objetos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
 </div>
 <br />
 
@@ -648,12 +648,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_datos_item" id="get_datos_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
+	<span class="method-title">get_datos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 
@@ -686,12 +686,12 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
 </div>
 <br />
 
@@ -703,7 +703,8 @@ $prop = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna un id que representa a todo el pedido de página actual </div>
+
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -719,12 +720,12 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo" id="get_tipo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 162]</span>
+	<span class="method-title">get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
 </div>
 <br />
 
@@ -744,12 +745,12 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodhay_zona" id="hay_zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
+	<span class="method-title">hay_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
 </div>
 <br />
 
@@ -770,12 +771,12 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodobservar" id="observar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
-		    		
+		
 	
-	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">observar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
 </div>
 <br />
 
@@ -784,24 +785,16 @@ $prop = null]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void observar(
 
-$tipo, 
 $observacion, [
-$forzar_registro = true], [
-$mostrar = true], [
-$cortar_ejecucion = false]&nbsp;
+$tipo = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Permite asociar observaciones al registro de la solicitud actual </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$tipo:&nbsp;</span></td>
-				<td>
-							</td></tr>
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -811,44 +804,24 @@ $cortar_ejecucion = false]&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$forzar_registro:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$mostrar:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$cortar_ejecucion:&nbsp;</span></td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Esperando una refactorización en versiones futuras</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
 </div>
 <a name="methodprocesar" id="procesar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">procesar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -876,25 +849,25 @@ $cortar_ejecucion = false]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
+				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
 								: Crea la zona, carga los componentes, procesa los eventos y los servicios
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodregistrar" id="registrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 112]</span>
 </div>
 <br />
 
@@ -914,21 +887,21 @@ $cortar_ejecucion = false]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
+				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
+	<span class="method-title">zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
 </div>
 <br />
 

@@ -960,7 +960,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																								<tr>
+																																																																																																																																																																			<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1008,8 +1008,15 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_info_extra" title="details" class="method-name">get_info_extra</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_descripcion" title="details" class="method-name">get_descripcion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la descripción de esta pantalla</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_etiqueta" title="details" class="method-name">get_etiqueta</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1029,6 +1036,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_evento_cambio_tab" title="details" class="method-name">registrar_evento_cambio_tab</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Deja registrado en el componente que en el cliente (javascript) se va a consumir el api de cambio de tabs</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_controlador" title="details" class="method-name">set_controlador</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -1038,6 +1052,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_descripcion" title="details" class="method-name">set_descripcion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cambia la descripción de esta pantalla</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_etiqueta" title="details" class="method-name">set_etiqueta</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -1130,7 +1151,7 @@ $objeto_js&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
+	<span class="method-title">agregar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -1168,7 +1189,7 @@ $id_obj&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+	<span class="method-title">eliminar_dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -1206,7 +1227,7 @@ $id&nbsp;
 	
 		    		
 	
-	<span class="method-title">eliminar_tab</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">eliminar_tab</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 180]</span>
 </div>
 <br />
 
@@ -1252,7 +1273,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 289]</span>
 </div>
 <br />
 
@@ -1279,7 +1300,7 @@ $id&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_layout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 383]</span>
+	<span class="method-title">generar_layout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 403]</span>
 </div>
 <br />
 
@@ -1307,20 +1328,20 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_info_extra" id="get_info_extra"><!-- --></a>
+<a name="methodget_descripcion" id="get_descripcion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_extra</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>string get_info_extra(
+		<code>string get_descripcion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1333,13 +1354,38 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_lista_dependencias" id="get_lista_dependencias"><!-- --></a>
+<a name="methodget_etiqueta" id="get_etiqueta"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_etiqueta(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_lista_dependencias" id="get_lista_dependencias"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_lista_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
 </div>
 <br />
 
@@ -1360,12 +1406,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tabs" id="get_lista_tabs"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_lista_tabs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
+	<span class="method-title">get_lista_tabs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
 </div>
 <br />
 
@@ -1389,6 +1435,44 @@ $id&nbsp;
 </table>
 <br />
 
+
+		
+		<br />
+</div>
+<a name="methodregistrar_evento_cambio_tab" id="registrar_evento_cambio_tab"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">registrar_evento_cambio_tab</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void registrar_evento_cambio_tab(
+string
+$id&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Deja registrado en el componente que en el cliente (javascript) se va a consumir el api de cambio de tabs <p>Esto es necesario explitarlo cuando la forma de navegación no es a través de tabs</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Id. de la pantalla a la que se va permitir cambiar en el cliente</span>			</td></tr>
+				</table>
+
+	<br />
+	
 
 		
 		<br />
@@ -1448,7 +1532,7 @@ $id_en_padre = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
 </div>
 <br />
 
@@ -1485,13 +1569,50 @@ $descr&nbsp;
 		
 		<br />
 </div>
-<a name="methodtab" id="tab"><!-- --></a>
+<a name="methodset_etiqueta" id="set_etiqueta"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_etiqueta(
+
+$nueva&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$nueva:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodtab" id="tab"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">tab</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">tab</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
 </div>
 <br />
 
@@ -1532,12 +1653,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodvista_impresion" id="vista_impresion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 555]</span>
+	<span class="method-title">vista_impresion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 575]</span>
 </div>
 <br />
 

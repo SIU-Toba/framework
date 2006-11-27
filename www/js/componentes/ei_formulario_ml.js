@@ -89,7 +89,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			i++;
 		}
 		return datos;
-	}	
+	};
 	
 	/**
 	 * @private

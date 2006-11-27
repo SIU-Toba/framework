@@ -86,7 +86,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			datos[id_ef] = this._efs[id_ef].get_estado();
 		}
 		return datos;
-	}
+	};
 
 	/**
 	 * Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)

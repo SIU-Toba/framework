@@ -310,7 +310,7 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Devuelve el grupo de acceso de un usuario</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -351,6 +351,11 @@
 						</td>
 						<td class="method-definition"><a href="#get_proyectos_accesibles" title="details" class="method-name">get_proyectos_accesibles</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la lista de proyectos a los cuales el usuario actual puede ingresar</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_url_proyecto" title="details" class="method-name">get_url_proyecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna las url asociada a un proyecto particular de la instancia</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -401,7 +406,7 @@
 						</td>
 						<td class="method-definition"><a href="#registrar_solicitud_observaciones" title="details" class="method-name">registrar_solicitud_observaciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																																																																																			<tr>
+																																																																																																																																																																																																												<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -475,7 +480,7 @@ $proyecto&nbsp;
 <a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
+		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 344]</span>
 </div>
 <br />
 
@@ -550,7 +555,7 @@ $observaciones = null]&nbsp;
 <a name="methodes_ip_rechazada" id="es_ip_rechazada"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
+		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
 </div>
 <br />
 
@@ -584,7 +589,7 @@ $ip&nbsp;
 <a name="methodget_cantidad_intentos_en_ventana_temporal" id="get_cantidad_intentos_en_ventana_temporal"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 327]</span>
+		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -683,7 +688,7 @@ $id_instancia&nbsp;
 <a name="methodget_grupo_acceso" id="get_grupo_acceso"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
+		<span class="method-title">static method get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
 </div>
 <br />
 
@@ -698,7 +703,8 @@ $proyecto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Devuelve el grupo de acceso de un usuario </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -769,7 +775,7 @@ $proyecto&nbsp;
 <a name="methodget_id_solicitud" id="get_id_solicitud"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+		<span class="method-title">static method get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
 </div>
 <br />
 
@@ -925,7 +931,7 @@ $proyecto&nbsp;
 <a name="methodget_proyectos_accesibles" id="get_proyectos_accesibles"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 289]</span>
+		<span class="method-title">static method get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 299]</span>
 </div>
 <br />
 
@@ -957,10 +963,45 @@ $refrescar = false]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_url_proyectos" id="get_url_proyectos"><!-- --></a>
+<a name="methodget_url_proyecto" id="get_url_proyecto"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 272]</span>
+		<span class="method-title">static method get_url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_url_proyecto(
+
+$proy&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna las url asociada a un proyecto particular de la instancia </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proy:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_url_proyectos" id="get_url_proyectos"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
 </div>
 <br />
 
@@ -993,9 +1034,9 @@ $proys&nbsp;
 		<br />
 </div>
 <a name="methodget_vinculos_posibles" id="get_vinculos_posibles"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculos_posibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+		<span class="method-title">static method get_vinculos_posibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -1028,7 +1069,7 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
 </div>
@@ -1050,9 +1091,9 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodlog_sistema" id="log_sistema"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method log_sistema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
+		<span class="method-title">static method log_sistema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
 </div>
 <br />
 
@@ -1091,9 +1132,9 @@ $mensaje&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_error_login" id="registrar_error_login"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
 </div>
 <br />
 
@@ -1139,9 +1180,9 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_marca_cronometro" id="registrar_marca_cronometro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
+		<span class="method-title">static method registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
 </div>
 <br />
 
@@ -1208,9 +1249,9 @@ $tiempo&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud" id="registrar_solicitud"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
+		<span class="method-title">static method registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
 </div>
 <br />
 
@@ -1263,9 +1304,9 @@ $tipo_solicitud&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_browser" id="registrar_solicitud_browser"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
+		<span class="method-title">static method registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -1325,9 +1366,9 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_consola" id="registrar_solicitud_consola"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 249]</span>
+		<span class="method-title">static method registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
 </div>
 <br />
 
@@ -1380,9 +1421,9 @@ $llamada&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_observaciones" id="registrar_solicitud_observaciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+		<span class="method-title">static method registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 239]</span>
 </div>
 <br />
 
@@ -1436,7 +1477,7 @@ $observacion&nbsp;
 </div>
 
 <a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
