@@ -110,6 +110,9 @@ echo "
 
 	
 echo "
+	<table border=0 width=100%>
+	<tr>
+	<td width=50%>
 		<ul>
 			<li>
 				<a href='$url_trac/trac/toba/newticket*$url_login' title='Lugar central de la documentación'>
@@ -141,7 +144,12 @@ echo "
 				<a href='$url_trac/toba_referencia_trunk/'>
 					<img src='".toba_recurso::imagen_proyecto('referencia_chico.png')."'>			
 					Proyecto Referencia</a>
-			</li>";
+			</li>
+		<ul>
+	</td>
+	<td>
+		<ul>		
+	";
 
 	//--- LINKS
 	$online = array();
@@ -177,5 +185,5 @@ echo "
 					
 	cuadro_ayuda("Otros", $online);
 	
-	echo "</ul>";
+	echo "</ul></td></tr></table>";
 ?>

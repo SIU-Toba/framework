@@ -61,7 +61,7 @@ class pant_directorios extends pant_tutorial
 						
 				<li><strong>doc</strong>: La mejor documentación del proyecto se encuentra en el $wiki y en este tutorial.
 				
-				<li><strong>instalacion</strong>: Contiene toda la configuración local (base que se utilza, proyectos que se editan, alias de apache, etc.)
+				<li><strong>instalacion</strong>: Contiene toda la configuración local (base que se utiliza, proyectos que se editan, alias de apache, etc.)
 													y los metadatos locales (logs, usuarios, etc.).
 				
 				<li><strong>php</strong>
@@ -119,5 +119,35 @@ class pant_directorios extends pant_tutorial
 		
 	}
 }
+
+class pant_ejecucion extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		echo "
+			
+		";
+	}
+}
+
+
+class pant_administracion extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Deployment', 'Casos de Uso de Deployment', 'toba_editor');		
+		echo "
+			<p>
+				Cuando utilizamos el <strong>editor web</strong> de Toba, estamos definiendo un proyecto en base a <strong>metadatos</strong>, almacenados
+				en una base de datos definida durante la instalación. Mientras estos metadatos no sean exportados al sistema de archivos no podrán ser compartidos
+				con otros grupos de trabajo.
+			</p>
+			<p>
+				Para analizar en más profundidad estas y otras situaciones puede ver los <strong>$wiki</strong>
+			</p>			
+		";
+	}
+}
+
 
 ?>
