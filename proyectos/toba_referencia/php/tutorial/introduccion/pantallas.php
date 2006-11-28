@@ -23,7 +23,7 @@ class pant_definicion extends pant_tutorial
 		";
 		$img = toba_recurso::imagen_proyecto('tutorial/esquema_general.png');
 		echo "
-			<h2>Flujo de trabajo</h2>
+			<h3>Flujo de trabajo</h3>
 			<img src='$img' style='float:right; padding:10px;'>
 			<p>
 				El flujo de desarrollo con la herramienta podría definirse así:
@@ -54,7 +54,7 @@ class pant_directorios extends pant_tutorial
 		$proyectos = toba_parser_ayuda::parsear_wiki('Proyectos#Internos', 'proyectos propios', 'toba_editor');
 		echo " 
 			<p>
-			Para familizarse más con el ambiente, vamos a presentar su estructura de directorios y una breve descripción de sus funciones:
+			Para familizar más con el ambiente, vamos a presentar su estructura de directorios y una breve descripción de sus funciones:
 			<ul class='lista-separada'>
 				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos, 
 						a este directorio es necesario incluirlo en el PATH del sistema operativo.
@@ -124,8 +124,33 @@ class pant_ejecucion extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$img = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_general.png');
+		$img2 = toba_recurso::imagen_proyecto('tutorial/esquema_ejecucion_detalles.png');
 		echo "
+		<p>
+			<img src='$img' style='float:right; padding:0px;'>		
+			En la introducción vimos que existe un <em>núcleo</em> o <em>Runtime</em> encargado de la ejecución.
+			A diferencia de una librería clásica, no existe el concepto de procedimiento principal o <em>main</em>
+			en el cual el programador incluye las librerías y las consume. En Toba la situación es distinta:			
+			<ul>
+				<li>El proyecto brinda un <em>punto de acceso</em> en donde se incluye al núcleo de toba (generalmente en aplicacion.php).
+				<li>A partir de allí el núcleo analiza los <strong>metadatos</strong> del proyecto y de la operación
+					puntual que se ejecuta, activando los componentes acordes.
+				<li>Si alguna clase del runtime o algún componente se encuentra extendido por el proyecto,
+						recién allí el programador puede incluir código propio, siempre enmarcado en un <em>plan
+						maestro</em> ya delineado.
+			</ul>
 			
+			<h3 style='clear:both'></h3>
+			Lo más interesante para mostrar en este tutorial es cómo el proyecto puede variar el comportamiento en ejecución.
+			En el siguiente gráfico se muestra un mayor detalle de la ejecución resaltando en gris los puntos
+			donde el proyecto tiene el control de la ejecución, ya sea con <strong>metadatos</strong> o 
+			con <strong>extensión</strong> de código. 
+			
+			<div style='text-align:center; margin-top:10px;'>
+			<img src='$img2'>		
+			</div>
+		</p>
 		";
 	}
 }
@@ -135,13 +160,31 @@ class pant_administracion extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$img = toba_recurso::imagen_proyecto('tutorial/administracion.png');		
 		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Deployment', 'Casos de Uso de Deployment', 'toba_editor');		
 		echo "
 			<p>
 				Cuando utilizamos el <strong>editor web</strong> de Toba, estamos definiendo un proyecto en base a <strong>metadatos</strong>, almacenados
-				en una base de datos definida durante la instalación. Mientras estos metadatos no sean exportados al sistema de archivos no podrán ser compartidos
-				con otros grupos de trabajo.
+				en una base de datos definida durante la instalación.
 			</p>
+			<p>
+				Lo positivo de esto es que, al estar centralizada, es posible que un grupo de desarrollo localizado en 
+				la misma red pueda utilizarlos en forma simultánea. Además se puede utilizar SQL tanto para manipular 
+				como para obtener los metadatos.
+			</p>
+			<p>
+				Lo negativo es que mientras estos metadatos no sean exportados al sistema de archivos no podrán ser compartidos
+				con otros grupos de trabajo o dentro de un mismo grupo geográficamente distante. Esta necesidad de 
+				importar - exportar metadatos se cubre usando los <strong>comandos de consola</strong>.
+				Como introducción a estos comandos necesitamos presentar dos:
+				<ul>
+				 <li><em>toba instancia exportar</em>: Exporta desde la base hacia el sistema de archivos
+				 <li><em>toba instancia regenerar</em>: Importa desde el sistema de archivos hacia la base
+				</ul>
+			</p>
+			<div style='text-align:center; margin-top:10px;'>
+			<img src='$img'>		
+			</div>			
 			<p>
 				Para analizar en más profundidad estas y otras situaciones puede ver los <strong>$wiki</strong>
 			</p>			

@@ -47,7 +47,9 @@ class tp_tutorial extends tp_referencia
 				background-color: #EEEAEE;
 				border: 1px solid gray;
 			}
-
+			li {
+				margin-bottom: 4px;
+			}
 		</style>			
 		<?php
 	}	

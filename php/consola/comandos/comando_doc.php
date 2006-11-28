@@ -53,7 +53,8 @@ class comando_doc extends comando_toba
 			
 			.menu { color:white;}
 			body { margin: 0; padding: 0; }
-			div.wiki { padding-left: 10px; }			
+			div.wiki { padding-left: 10px; }	
+			h2 {background-color: #BD0000 !important;}		
 		";
 		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
 		file_put_contents($archivo_css, $cambios, FILE_APPEND);
