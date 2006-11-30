@@ -197,8 +197,8 @@ class pant_configuracion extends pant_tutorial
 			<p>
 			Una vez atendidas las acciones del usuario, la operación se dispone a construir una nueva interface
 			a partir de sus componentes. Para ello primero se deben <strong>configurar</strong> los distintos
-			componentes que formarán parte de la salida HTML. Configurar un componente implica generalmente darle
-			datos y cambiar algún parámetro.
+			componentes que formarán parte de la salida HTML. Para configurar un componente se debe definir un 
+			método <em>conf__dependencia</em> donde <em>dependencia</em> es el id del componente en el CI.
 			</p>
 			<p>En el siguiente gráfico podemos ver donde estamos parados en el pedido de página actual
 			</p>
@@ -258,9 +258,15 @@ class pant_configuracion extends pant_tutorial
 ';			
 		echo "<div class='codigo'>";
 		highlight_string($codigo);
-		echo "</div>";			
+		echo "</div>";	
 
-		
+		echo "
+			<h3 style='clear:both'>Otras configuraciones</h3>
+			<p>
+			Además de componentes, el ci se puede configurar a sí mísmo (definiendo el método <em>conf</em>)
+			y a sus pantallas (<em>conf__idpant</em>)
+			</p>
+		";
 	}	
 }
 
@@ -270,7 +276,31 @@ class pant_sesion extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		echo "
+			</p>
+			Para cerrar el circuito eventos-configuración es necesario que el ci pueda
+			<strong>recordar</strong> la información que va recolectando entre pedidos 
+			de página. Esto se logra gracias a las llamadas <strong>variables de sesión</strong>.
+			</p>
+			<p>
+			La forma de indicar al framework que una propiedad sea mantenida en sesión es prefijar su nombre con s__ (de sesión),
+			en nuestro ejemplo mantendremos las direcciones y la selección actual en sesión:
+			</p>
+		";
+		$codigo = '
+<?php
+	class ci_abm_direcciones extends toba_ci
+	{
+		protected $s__direcciones;
+		protected $s__actual;
+		....
+	}
+?>
+';			
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";			
+		
 	}	
 }
 
@@ -280,7 +310,56 @@ class pant_navegacion extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		echo "
+			<p>
+			Para terminar con el ejemplo y para que sea un poco más 'real' faltaría
+			que al momento de seleccionar una dirección se navegue hacia la segunda pantalla,
+			y cuando borre o cancele la edición se navegue hacia la primer pantalla.
+			</p>
+			<p>
+			Usando la api del CI podemos lograr esto cambiando explícitamente de pantalla
+			en los eventos que nos interesan:
+			</p>
+		";
+		$codigo = '
+<?php
+...
+	/**
+	 * Cuando se selecciona del cuadro, se guarda en sesión la selección
+	 * Luego se fuerza la pantalla de edición
+	 */
+	function evt__cuadro__seleccion($seleccion)
+	{
+		$this->s__actual = $seleccion["email"];
+		$this->set_pantalla("pant_edicion");
+	}		
+	
+	/**
+	 * En la baja toma la seleccion actual y la elimina del arreglo de direcciones
+	 * Luego se vuelve al listado
+	 */
+	function evt__form__baja()
+	{
+		unset($this->s__direcciones[$this->s__actual]);
+		$this->set_pantalla("pant_listado");
+	}	
+	
+	/**
+	 * Cuando cancela la edición, se saca la selección actual y se vuelve al listado
+	 */
+	function evt__form__cancelar()
+	{
+		unset($this->s__actual);
+		$this->set_pantalla("pant_listado");
+	}
+...
+?>	
+';
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";		
+		$vinculo = toba::vinculador()->crear_vinculo(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));
+		echo "<p><a target='_blank' href='$vinculo'>Ver Ejemplo Completo</a></p>";
 	}	
 }
 

@@ -4,6 +4,7 @@ class php_referencia
 {
 	private static $instancia;
 	protected $archivos = array();
+	protected $expandido = false;
 	
 	/**
 	 * @return php_referencia
@@ -21,6 +22,11 @@ class php_referencia
 		$this->archivos[] = $archivo;	
 	}
 	
+	function set_expandido($expandido)
+	{
+		$this->expandido = $expandido;
+	}
+	
 	function mostrar()
 	{
 		if (! empty($this->archivos)) {
@@ -33,8 +39,9 @@ class php_referencia
 			}
 			echo "</ul></div>";
 			echo "<div id='archivos'>";
+			$oculto = ($this->expandido) ? "" : "style='display:none'";
 			foreach ($this->archivos as $i => $archivo) {
-				echo "<div id='archivo_$i' class='php-referencia' style='display:none'>";
+				echo "<div id='archivo_$i' class='php-referencia' $oculto>";
 				echo "<strong>$archivo</strong>:<br><br>";
 				highlight_file($archivo);
 				echo "</div>";

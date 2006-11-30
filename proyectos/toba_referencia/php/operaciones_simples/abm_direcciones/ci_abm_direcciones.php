@@ -1,5 +1,6 @@
 <?php 
 php_referencia::instancia()->agregar(__FILE__);
+php_referencia::instancia()->set_expandido(true);
 
 class ci_abm_direcciones extends toba_ci
 {
@@ -9,7 +10,12 @@ class ci_abm_direcciones extends toba_ci
 	function ini()
 	{
 		if (! isset($this->s__direcciones)) {
-			$this->s__direcciones = array();	
+			$this->s__direcciones = array(
+				'eperez@gmail.com' => 
+					array('email' => 'eperez@gmail.com', 'nombre' => 'Ernesto Perez'),
+				'msanchez@gmail.com' => 
+					array('email' => 'msanchez@gmail.com', 'nombre' => 'Maria Sanchez'),
+			);	
 		}	
 	}
 
@@ -48,6 +54,7 @@ class ci_abm_direcciones extends toba_ci
 	{
 		if (isset($this->s__actual)) {
 			$formulario->set_datos($this->s__direcciones[$this->s__actual]);	
+			$formulario->ef('email')->set_solo_lectura();
 		}
 	}	
 	
