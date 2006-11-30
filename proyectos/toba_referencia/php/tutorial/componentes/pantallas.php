@@ -152,7 +152,7 @@ class pant_extension extends pant_tutorial
 			tomar un primer contacto. Como se ve en los comentarios del código, en este caso se consumieron las formas de extensión vistas:
 			</p>
 		";
-		echo "<div style='padding: 10px; border: 1px solid black; background-color:#EEEAEE;'>";
+		echo "<div class='codigo'>";
 		highlight_string($codigo_ej);
 		echo "</div>";
 	}	

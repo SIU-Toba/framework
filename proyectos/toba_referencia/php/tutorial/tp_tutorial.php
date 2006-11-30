@@ -9,6 +9,11 @@ class tp_tutorial extends tp_referencia
 		parent::estilos_css();
 		?>
 		<style type="text/css">
+			.codigo {
+				padding: 10px; 
+				border: 1px solid black; 
+				background-color:#EEEAEE;		
+			}
 			.ci-cuerpo, .ci-wiz-cont {
 				border: none;
 				background-color: white;
@@ -49,6 +54,14 @@ class tp_tutorial extends tp_referencia
 			}
 			li {
 				margin-bottom: 4px;
+			}
+			.caption {
+				text-align: left;
+				margin-left: 10px;
+				margin-right: 10px;
+				font-size:80%;
+				font-style: italic;
+				display:block;
 			}
 		</style>			
 		<?php
