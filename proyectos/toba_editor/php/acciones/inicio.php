@@ -2,7 +2,6 @@
 require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
-
 echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
 echo toba_recurso::imagen_proyecto('logo.gif', true);
 echo "</div>";

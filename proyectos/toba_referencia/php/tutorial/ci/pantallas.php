@@ -66,6 +66,7 @@ class pant_ejemplo extends pant_tutorial
 			También esta la posibilidad de dar de alta una nueva dirección, navegando por la solapa
 			hacia la pantalla de edición.
 			</p>
+			
 			<h3>Definición de los componentes</h3>
 			<div style='float:right;padding: 10px;width: 310px;'>
 			<img src='$arbol'><br>
@@ -79,6 +80,13 @@ class pant_ejemplo extends pant_tutorial
 				<li>En la primer pantalla se crea un cuadro
 				<li>En la segunda pantalla se crea un formulario
 			</ol>
+			
+			<h3 style='clear:both'>Programación</h3>
+			<p>
+			Una vez definidos los componentes el resto del capítulo vamos a dedicarlo
+			a programar el comportamiento de la operación, siempre dentro de la extensión
+			del CI de la operación.
+			</p>
 		";
 	}	
 }
@@ -359,7 +367,8 @@ class pant_navegacion extends pant_tutorial
 		highlight_string($codigo);
 		echo "</div>";		
 		$vinculo = toba::vinculador()->crear_vinculo(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));
-		echo "<p><a target='_blank' href='$vinculo'>Ver Ejemplo Completo</a></p>";
+		echo "<p style='font-size:150%;text-align:center;'>
+				<a target='_blank' href='$vinculo'>Ver Ejemplo Completo</a></p>";
 	}	
 }
 

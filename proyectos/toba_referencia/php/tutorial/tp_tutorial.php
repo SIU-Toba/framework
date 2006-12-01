@@ -29,7 +29,7 @@ class tp_tutorial extends tp_referencia
 			.tutorial-agenda {
 				margin-left: auto;
 				margin-right: auto;
-				width: 400px;
+				width: 500px;
 			}
 			.tutorial-agenda ol {
 			}

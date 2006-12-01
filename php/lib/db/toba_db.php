@@ -120,9 +120,9 @@ class toba_db
 	/**
 	*	Ejecuta una consulta sql
 	*	@param string $sql Consulta
-	*	@param string $ado Modo Fecth de ADO, por defecto asociativo
-	*	@param boolean $obligatorio Si la consulta no retorna datos lanza una excepcion
-	*	@return array Resultado de la consulta en formato fila-columna
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
+	*	@return array Resultado de la consulta en formato recordset (filas x columnas), 
+	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
 	*	@throws toba_error_db en caso de error
 	*/	
 	function consultar($sql, $tipo_fetch=toba_db_fetch_asoc)
@@ -139,6 +139,31 @@ class toba_db
 									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
 									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
 		}
+	}
+	
+	/**
+	*	Ejecuta una consulta sql y retorna la primer fila del resultado.
+	* 	Es útil cuando se sabe de antemano que el resultado es una única fila
+	* 	
+	*	@param string $sql Consulta SQL
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
+	*	@return array Arreglo asociativo columna=>valor, falso en caso de resultado vacio
+	*	@throws toba_error_db en caso de error
+	*/		
+	function consultar_fila($sql, $tipo_fetch=toba_db_fetch_asoc)
+	{
+		if (! isset($tipo_fetch)) {
+			$tipo_fetch=toba_db_fetch_asoc;	
+		}		
+		try {
+			$statement = $this->conexion->query($sql);
+			if ($this->debug) $this->log_debug($sql);
+			return $statement->fetch($tipo_fetch);
+		} catch (PDOException $e) {
+			throw new toba_error_db("ERROR ejecutando SQL. " .
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
+		}		
 	}
 
 	function abrir_transaccion()

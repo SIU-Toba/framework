@@ -95,6 +95,26 @@ class ci_abm_direcciones extends toba_ci
 		$this->set_pantalla('pant_listado');
 	}
 
+	
+	/**
+	 * En esta operación NO se transaccionó a medida que se hiban cambiando las direcciones
+	 * La idea sería que esos cambios permanezcan en sesión hasta que el usuario 
+	 * decida guardarlos.
+	 * En este punto es que el usuario decide GUARDAR y aquí sería necesario analizar
+	 * puntualmente que hacer con cada dirección: si actualizarla, borrarla o agregarla.
+	 * 
+	 * Como se ve más adelante, los componentes de persistencia son los que facilitan
+	 * esta tarea, que de otra forma se tendría que hacer manualmente de alguna forma.
+	 * 
+	 * La otra opción sería transaccionar directamente con la base en cada evento.
+	 * Esta última forma es la típica de los sistemas web, 
+	 * pero para muchas operaciones no es una opción válida ya que generalmente es un requisito
+	 * que la operación sea una sola transacción a nivel aplicación (aunque no lo sea a nivel base de datos)
+	 */
+	function evt__procesar()
+	{
+		$this->informar_msg('Aca se formaría la SQL para sincronizar con la base de datos', 'info');
+	}
 }
 
 ?>
