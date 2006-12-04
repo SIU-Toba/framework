@@ -121,6 +121,7 @@ class pant_marco extends pant_tutorial
 					<li>Brindar una api para manejar los datos en sesión durante la operación
 					<li>Analizar los cambios y sincronizarlo con la base de datos al fin de la operación
 				</ul>
+			<p>
 			Estos tres pasos se pueden ver en la siguiente extensión de un CI:
 			</p>
 			<div style='width:230px;float:right;padding: 10px;border: 1px solid gray;background-color:white;'>
