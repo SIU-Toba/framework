@@ -78,13 +78,13 @@ class toba_ef_cuit extends toba_ef
 		if( !isset($this->estado)) { 
 			$this->estado="";
 		}
-		$this->input_extra .= " tabindex='".$this->padre->get_tab_index()."'";
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
 		$html = '<div class="ef-cuit">';
-		$html .= toba_form::text($this->id_form . "_1", substr($this->estado,0,2),$this->solo_lectura, 2, 2, 'ef-input', $this->javascript.$this->input_extra); 
+		$html .= toba_form::text($this->id_form . "_1", substr($this->estado,0,2),$this->solo_lectura, 2, 2, 'ef-input', $this->javascript.$this->input_extra.$tab); 
 		$html .= ' - ';
-		$html .= toba_form::text($this->id_form . "_2", substr($this->estado,2,8),$this->solo_lectura, 8, 8, 'ef-input', $this->javascript.$this->input_extra); 
+		$html .= toba_form::text($this->id_form . "_2", substr($this->estado,2,8),$this->solo_lectura, 8, 8, 'ef-input', $this->javascript.$this->input_extra.$tab); 
 		$html .= ' - ';		
-		$html .= toba_form::text($this->id_form . "_3", substr($this->estado,10,1),$this->solo_lectura, 1, 1, 'ef-input', $this->javascript.$this->input_extra); 
+		$html .= toba_form::text($this->id_form . "_3", substr($this->estado,10,1),$this->solo_lectura, 1, 1, 'ef-input', $this->javascript.$this->input_extra.$tab); 
 		$html .= '</div>';
 		return $html;
 	}

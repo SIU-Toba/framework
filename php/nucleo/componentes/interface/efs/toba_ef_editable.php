@@ -111,9 +111,8 @@ class toba_ef_editable extends toba_ef
 	function get_input()
 	{
 		$estado = htmlentities($this->estado,ENT_QUOTES); 
-		$tab = $this->padre->get_tab_index();
-		$this->input_extra .= " tabindex='$tab'";
-		$input = toba_form::text($this->id_form, $estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra);
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
+		$input = toba_form::text($this->id_form, $estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
 			$input .= ' '. $this->unidad;
 		}
@@ -349,12 +348,11 @@ class toba_ef_editable_clave extends toba_ef_editable
     
 	function get_input()
 	{
-		$tab = $this->padre->get_tab_index(2);
-		$this->input_extra .= " tabindex='$tab'";
+		$tab = ' tabindex="'.$this->padre->get_tab_index(2).'"';
 		$estado = isset($this->estado)? $this->estado : "";
 		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra);
+			$html .= "<br>".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
 		}
 		return $html;
 	}
@@ -419,11 +417,10 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	
 	function get_input()
 	{
-		$tab = $this->padre->get_tab_index();
-		$this->input_extra .= " tabindex='$tab'";
+		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,
-								$this->tamano, $this->estilo, $this->input_extra);
+								$this->tamano, $this->estilo, $this->input_extra.$tab);
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
@@ -548,9 +545,8 @@ class toba_ef_editable_textarea extends toba_ef_editable
 				$obj = $this->objeto_js();
 				$this->javascript .= "onkeydown=\"$obj.validar()\" onkeyup=\"$obj.validar()\"";
 			}
-			$tab = $this->padre->get_tab_index();
-			$this->input_extra .= " tabindex='$tab'";
-			$html .= toba_form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra);
+			$tab = ' tabindex="'.$this->padre->get_tab_index().'"';			
+			$html .= toba_form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra.$tab);
 		}
 		return $html;
 	}
