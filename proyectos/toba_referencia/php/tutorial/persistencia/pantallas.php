@@ -223,7 +223,6 @@ class pant_relaciones extends pant_tutorial
 			A medida que se van creando operaciones más complejas, trabajar con tablas aisladas
 			empieza a quedar corto. El problema surge de las relaciones entre las tablas. 
 			
-			<h3>Ejemplo</h3>
 			La idea es así: Una persona tiene juegos y deportes	asociados, se necesita
 			una operación que permita editar datos personales, sus juegos y deportes asociados
 			en una transacción que abarque la operación completa. 		
@@ -234,7 +233,22 @@ class pant_relaciones extends pant_tutorial
 			</div>
 			
 			<p style='font-size:150%;text-align:center;'>
-				<a target='_blank' href='$vinculo'>Ver Operación Terminada</a></p>";		
+				<a target='_blank' href='$vinculo'>Ver Operación Terminada</a>
+			</p>
+				Toba propone definir una relación <em>es padre de</em> entre las tablas.
+				En este caso se definiría así:<ul>
+					<li>persona <em>es padre de</em> persona_deportes
+					<li>persona <em>es padre de</em> persona_juegos
+				</ul>
+				Esta relación implica que:<ul>
+					<li>Si un registro de la tabla padre se elimina, se elimina su hijo.
+					<li>Cuando se crea un registro del hijo, se asocia automáticamente con un registro
+						de la tabla padre.
+				</ul>
+			<p>
+				Pasemos a ver cómo definir estas relaciones en el editor.
+			</p>
+		";		
 	}
 }
 
@@ -244,7 +258,7 @@ class pant_def_relaciones extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		
 	}
 }
 
@@ -254,7 +268,105 @@ class pant_carga extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-carga.png');
+		$logger = toba_recurso::imagen_toba('admin/logger.gif', true);
+		echo "
+			<img style='float:right;padding: 10px;' src='$img'>
+			<p>
+			La transacción a nivel operación se inicia cuando el componente <em>datos_relacion</em>
+			se carga con datos. A partir de allí todo el trabajo de Altas, Bajas y Modificaciones
+			debe impactar sobre los componentes <em>datos_tabla</em> de esa relación y no se sincronizará con la base de datos
+			hasta el final de la transacción.
+			</p>
+			<p>
+			La relación se carga como un todo, generalmente dando algún valor clave de las tablas raices.
+			En una relación una tabla raiz es aquella que no tiene padre, en este caso <em>ref_persona</em>.
+			La carga va formando las SQL de las tablas hijas en base a subselects de la tabla padre. 
+			También es posible pasarle otros criterios a la carga e incluso armar la consulta manualmente y pasarle directamente 
+			los datos a la relación, siendo estos casos menos comunes y no serán vistos en este capítulo.
+			</p>
+			<p style='clear:both'>
+			Para el caso particular del ejemplo, la relación se carga cuando se selecciona una persona
+			del cuadro, pasándole la clave de la selección:
+			</p>
+		";
+		
+		$codigo = '
+<?php
+	function evt__cuadro_personas__seleccion($id)
+	{
+		$this->dep("relacion")->cargar($id);
+		$this->set_pantalla("edicion");
+	}		
+?>
+';
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";
+?>
+<p>
+Si utilizamos el <?php echo $logger; ?> <strong>visor del logger</strong> durante la carga podemos ver las consultas
+que internamente utilizan los componentes para cargar la relación (en este caso con la persona '2').
+</p>
+<div class='codigo' style="font-size: 80%">
+<ul>
+<li> componente(1732): toba_datos_relacion: ***   Inicio CARGAR ****************************</li>
+<li> componente(1735): toba_datos_tabla: RESET!!</li>
+<li> componente(1734): toba_datos_tabla: RESET!!</li>
+<li> componente(1733): toba_datos_tabla: RESET!!</li>
+<li> AP: toba_ap_tabla_db_s- TABLA: ref_persona - OBJETO: toba_datos_tabla -- <pre>
+SQL de carga: 
+SELECT
+	persona.id, 
+	persona.nombre, 
+	persona.fecha_nac
+FROM
+	ref_persona as persona
+WHERE
+	( persona.id = 2 )</pre></li>
+<li> componente(1733): toba_datos_tabla: Carga de datos</li>
+<li> AP: ap_persona_deportes- TABLA: ref_persona_deportes - OBJETO: toba_datos_tabla -- <pre>
+SQL de carga: 
+SELECT
+	deportes.id, 
+	deportes.persona, 
+	deportes.deporte, 
+	deportes.dia_semana, 
+	deportes.hora_inicio, 
+	deportes.hora_fin
+FROM
+	ref_persona_deportes as deportes
+WHERE
+	(deportes.persona) IN (
+		SELECT
+			id
+		FROM
+			ref_persona as persona
+		WHERE
+			( persona.id = 2 ) )</pre></li><li> componente(1735): toba_datos_tabla: Carga de datos</li><li> AP: ap_persona_juegos- TABLA: ref_persona_juegos - OBJETO: toba_datos_tabla -- <pre>
+SQL de carga: 
+SELECT
+	juegos.id, 
+	juegos.persona, 
+	juegos.juego, 
+	juegos.dia_semana, 
+	juegos.hora_inicio, 
+	juegos.hora_fin
+FROM
+	ref_persona_juegos as juegos
+WHERE
+	(juegos.persona) IN (
+		SELECT
+			id
+		FROM
+			ref_persona as persona
+		WHERE
+			( persona.id = 2 ) )</pre></li>
+<li> componente(1734): toba_datos_tabla: Carga de datos</li>
+<li> componente(1732): toba_datos_relacion: ***   Fin CARGAR (OK) *************************
+</ul>
+</div>
+<?php
 	}
 }
 
@@ -264,7 +376,10 @@ class pant_api extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-api.png');
+		echo "
+			<img style='float:right;padding: 10px;' src='$img'>
+		";
 	}
 }
 
@@ -274,7 +389,10 @@ class pant_sincronizacion extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-sincronizacion.png');
+		echo "
+			<img style='float:right;padding: 10px;' src='$img'>
+		";
 	}
 }
 
