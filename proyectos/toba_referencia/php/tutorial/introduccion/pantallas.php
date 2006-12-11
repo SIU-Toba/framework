@@ -17,7 +17,7 @@ class pant_definicion extends pant_tutorial
 				</ul>
 			</p>
 			<p>
-				Las definiciones realizadas en el editor se las denomina <strong>metadatos</strong> , y junto a las definiciones en código conforman el
+				Las definiciones realizadas en el editor se las denomina <strong>metadatos</strong>, y junto a las definiciones en código conforman el
 				comportamiento del proyecto creado.
 			</p>
 		";
@@ -30,7 +30,7 @@ class pant_definicion extends pant_tutorial
 				<ol>
 					<li>Se utiliza el <strong>editor web</strong> de toba para definir una operación, sus pantallas, 
 							sus componentes gráficos, tablas que se consumen, etc. Todo esto se almacena en metadatos en una base de datos.
-					<li>Se utiliza un <strong>editor PHP</strong> a elección el código para cubrir lógica particular de la operación.
+					<li>Se utiliza un <strong>editor PHP</strong> para el código necesario para cubrir lógica particular de la operación.
 					<li>Durante este proceso se va probando la operación desde el mismo <strong>editor web</strong> haciendo ajustes contextuales.
 					<li>Una vez terminada se utilizan los <strong>comandos administrativos</strong> para exportar el proyecto 
 						desde el puesto de desarrollo e importarlo en el sistema en producción.
@@ -59,14 +59,14 @@ class pant_directorios extends pant_tutorial
 				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos, 
 						a este directorio es necesario incluirlo en el PATH del sistema operativo.
 						
-				<li><strong>doc</strong>: La mejor documentación del proyecto se encuentra en el $wiki y en este tutorial.
+				<li><strong>doc</strong>: Contiene documentación interna del proyecto, la mejor documentación para el desarrollador se encuentra en el $wiki y en este tutorial.
 				
 				<li><strong>instalacion</strong>: Contiene toda la configuración local (base que se utiliza, proyectos que se editan, alias de apache, etc.)
 													y los metadatos locales (logs, usuarios, etc.).
 				
 				<li><strong>php</strong>
 					<ul>
-						<li><strong>3ros</strong>: Librerías de 3ros utilizadas en el proyecto.
+						<li><strong>3ros</strong>: Librerías externas utilizadas en el proyecto.
 						
 						<li><strong>consola</strong>: Código fuente de los comandos administrativos de consola.
 						
@@ -89,11 +89,11 @@ class pant_directorios extends pant_tutorial
 					<div class='proyectos'>
 					<ul>
 						<li>...
-						<li><strong>proyecto_x</strong>:
+						<li><strong>mi_proyecto</strong>:
 							<ul>
 								<li><strong>metadatos</strong>: Contiene la última exportación de metadatos del proyecto.
 								<li><strong>php</strong>: Directorio que será parte del <em>include_path</em> de PHP, 
-															se asume que el proyecto pondra sus extensiones y demás código aquí.
+															se asume que el proyecto almacenará aquí sus extensiones y demás código.
 								<li><strong>temp</strong>: Directorio temporal no-navegable propio del proyecto
 								<li><strong>www</strong>: Directorio navegable que contiene los $puntos_de_acceso a la aplicación.
 									<ul>
@@ -111,7 +111,7 @@ class pant_directorios extends pant_tutorial
 					<ul>
 						<li><strong>css</strong>: Plantillas de estilos CSS disponibles.
 						<li><strong>img</strong>: Imagenes comunes que pueden utilizar los proyectos.
-						<li><strong>js</strong>: Clases javascript propias y de 3eros.
+						<li><strong>js</strong>: Clases javascript propias de toba y externas.
 						<li><strong>temp</strong>: Directorio temporal navegable común.
 					</ul>
 			</ul>
@@ -169,7 +169,7 @@ class pant_administracion extends pant_tutorial
 			</p>
 			<p>
 				Lo positivo de esto es que, al estar centralizada, es posible que un grupo de desarrollo localizado en 
-				la misma red pueda utilizarlos en forma simultánea. Además se puede utilizar SQL tanto para manipular 
+				la misma red pueda desarrollar sobre esta base en forma simultánea. Además se puede utilizar SQL tanto para manipular 
 				como para obtener los metadatos.
 			</p>
 			<p>

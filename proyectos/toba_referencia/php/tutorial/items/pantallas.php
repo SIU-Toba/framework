@@ -98,5 +98,23 @@ class pant_php_plano extends pant_tutorial
 	}	
 }
 
+//--------------------------------------------------------
+
+class pant_masinfo extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Item', 
+													'Documentación de un ítem',
+													'toba_editor');
+		echo "
+			<ul>
+				<li>$wiki1
+			</ul>
+		";
+	}
+}
+
+
 
 ?>

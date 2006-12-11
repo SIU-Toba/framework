@@ -158,4 +158,22 @@ class pant_extension extends pant_tutorial
 	}	
 }
 
+//--------------------------------------------------------
+
+class pant_masinfo extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Objetos', 
+													'Documentación de Componentes',
+													'toba_editor');
+		echo "
+			<ul>
+				<li>$wiki1
+			</ul>
+		";
+	}
+}
+
+
 ?>
