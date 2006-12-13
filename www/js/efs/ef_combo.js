@@ -124,8 +124,9 @@ ef_radio.prototype.constructor = ef_radio;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_radio toba_ef_radio
 	 */
-	function ef_radio(id_form, etiqueta, obligatorio, colapsado) {
+	function ef_radio(id_form, etiqueta, obligatorio, colapsado, cant_columnas) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		this._cant_columnas = cant_columnas;
 	}
 
 	//---Consultas	
@@ -182,17 +183,25 @@ ef_radio.prototype.constructor = ef_radio;
 	ef_radio.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = this.get_contenedor_opciones();
-		var nuevo = "";
+		var nuevo = "<table>";
 		var i=0;
 		if (valores[apex_ef_no_seteado]) {
 			nuevo += this._crear_label(this._id_form, apex_ef_no_seteado, valores[apex_ef_no_seteado], i);
 			delete(valores[apex_ef_no_seteado]);
 			i++;
 		}
+		//--- Tiene que reconstruir la tabla
 		for (id in valores) {
+    		if (i % this._cant_columnas == 0) {
+    			nuevo += "<tr>\n";	
+    		}			
 			nuevo += this._crear_label(this._id_form, id, valores[id], i);
 			i++;
+    		if (i % this._cant_columnas == 0) {
+    			nuevo += "</tr>\n";	
+    		}
 		}
+		nuevo += '</table>';
 		opciones.innerHTML = nuevo;
 		this.refrescar_callbacks();
 	};
@@ -202,9 +211,9 @@ ef_radio.prototype.constructor = ef_radio;
 	 */
 	ef_radio.prototype._crear_label = function(nombre, valor, etiqueta, i) {
 		var id = nombre + i;
-		nuevo = "<label class='ef-radio' for='"+ id + "'>";
+		nuevo = "<td><label class='ef-radio' for='"+ id + "'>";
 		nuevo += "<input name='" + nombre + "' id='" + id + "' type='radio' value='" + valor + "'/>";
-		nuevo += etiqueta + "</label>"; 
+		nuevo += etiqueta + "</label></td>\n"; 
 		return nuevo;
 	};
 	

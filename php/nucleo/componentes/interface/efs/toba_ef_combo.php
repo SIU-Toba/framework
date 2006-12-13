@@ -239,6 +239,21 @@ class toba_ef_radio extends toba_ef_seleccion
 {
 	protected $cantidad_columnas = 1;	
 	
+    static function get_lista_parametros()
+    {
+    	$param = toba_ef_seleccion::get_lista_parametros();
+    	$param[] = 'selec_cant_columnas';
+    	return $param;
+    }
+    
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		if (isset($parametros['selec_cant_columnas'])) {
+			$this->cantidad_columnas = $parametros['selec_cant_columnas'];
+		}
+	}    
+	
 	function set_cantidad_columnas($cantidad)
 	{
 		$this->cantidad_columnas = $cantidad;
@@ -291,7 +306,7 @@ class toba_ef_radio extends toba_ef_seleccion
 		
 	function crear_objeto_js()
 	{
-		return "new ef_radio({$this->parametros_js()})";
+		return "new ef_radio({$this->parametros_js()}, $this->cantidad_columnas)";
 	}	
 }
 

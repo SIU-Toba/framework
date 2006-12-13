@@ -5,31 +5,71 @@ class tablas_proyecto
 	static function get_lista()
 	{
 		return array (
-  0 => 'apex_proyecto',
-  1 => 'apex_fuente_datos',
-  2 => 'apex_elemento_formulario',
-  3 => 'apex_solicitud_obs_tipo',
-  4 => 'apex_pagina_tipo',
-  5 => 'apex_usuario_perfil_datos',
-  6 => 'apex_item_zona',
-  7 => 'apex_clase',
-  8 => 'apex_conversion',
-  9 => 'apex_nota',
-  10 => 'apex_item_nota',
-  11 => 'apex_objeto_nota',
-  12 => 'apex_msg',
-  13 => 'apex_item_msg',
-  14 => 'apex_objeto_msg',
-  15 => 'apex_permiso',
+  0 => 'apex_permiso',
+  1 => 'apex_proyecto',
+  2 => 'apex_fuente_datos',
+  3 => 'apex_elemento_formulario',
+  4 => 'apex_solicitud_obs_tipo',
+  5 => 'apex_pagina_tipo',
+  6 => 'apex_usuario_perfil_datos',
+  7 => 'apex_item_zona',
+  8 => 'apex_clase',
+  9 => 'apex_conversion',
+  10 => 'apex_nota',
+  11 => 'apex_item_nota',
+  12 => 'apex_objeto_nota',
+  13 => 'apex_msg',
+  14 => 'apex_item_msg',
+  15 => 'apex_objeto_msg',
 );
 	}
 
 	static function get_lista_permisos()
 	{
 		return array (
-  0 => 'apex_usuario_grupo_acc',
-  1 => 'apex_usuario_grupo_acc_item',
-  2 => 'apex_permiso_grupo_acc',
+  0 => 'apex_permiso_grupo_acc',
+  1 => 'apex_usuario_grupo_acc',
+  2 => 'apex_usuario_grupo_acc_item',
+);
+	}
+
+	static function apex_permiso()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'permiso',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'permiso',
+    1 => 'proyecto',
+    2 => 'nombre',
+    3 => 'descripcion',
+    4 => 'mensaje_particular',
+  ),
+);
+	}
+
+	static function apex_permiso_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'permiso, usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'permiso',
+  ),
 );
 	}
 
@@ -506,46 +546,6 @@ class tablas_proyecto
     8 => 'mensaje_c',
     9 => 'mensaje_customizable',
     10 => 'parametro_clase',
-  ),
-);
-	}
-
-	static function apex_permiso()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_permisos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'permiso',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'permiso',
-    1 => 'proyecto',
-    2 => 'nombre',
-    3 => 'descripcion',
-    4 => 'mensaje_particular',
-  ),
-);
-	}
-
-	static function apex_permiso_grupo_acc()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_permisos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'permisos',
-  'dump_order_by' => 'permiso, usuario_grupo_acc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'permiso',
   ),
 );
 	}

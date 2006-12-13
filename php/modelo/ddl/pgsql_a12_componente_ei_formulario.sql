@@ -132,6 +132,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	selec_utilidades					smallint		NULL,
 	selec_tamano						smallint		NULL,
 	selec_serializar					smallint		NULL,
+	selec_cant_columnas					smallint		NULL,
 	upload_extensiones					varchar(255)	NULL,
 	
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario","objeto_ei_formulario_fila"),

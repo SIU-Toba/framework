@@ -24,7 +24,6 @@ abstract class toba_ef_multi_seleccion extends toba_ef
     	$param[] = 'selec_cant_maxima';
     	$param[] = 'selec_utilidades';
     	$param[] = 'selec_serializar';
-    	$param[] = 'cantidad_columnas';
     	return $param;    	
     }
     
@@ -342,9 +341,24 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 {
 	protected $cantidad_columnas = 1;	
 	
+    static function get_lista_parametros()
+    {
+    	$param = toba_ef_multi_seleccion::get_lista_parametros();
+    	$param[] = 'selec_cant_columnas';
+    	return $param;    	
+    }	
+    
+	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
+	{
+		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
+		if (isset($parametros['selec_cant_columnas'])) {
+			$this->cantidad_columnas = $parametros['selec_cant_columnas'];
+		}
+	}
+    
 	function crear_objeto_js()
 	{
-		return "new ef_multi_seleccion_check({$this->parametros_js()})";
+		return "new ef_multi_seleccion_check({$this->parametros_js()}, $this->cantidad_columnas)";
 	}	
 	
 	function set_cantidad_columnas($cantidad)

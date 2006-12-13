@@ -134,8 +134,9 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion_check toba_ef_multi_seleccion_check
 	 */
-	function ef_multi_seleccion_check(id_form, etiqueta, obligatorio, colapsado, limites) {
+	function ef_multi_seleccion_check(id_form, etiqueta, obligatorio, colapsado, limites, cant_columnas) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
+		this._cant_columnas = cant_columnas;
 	}
 	
 	/**
@@ -200,15 +201,22 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 	ef_multi_seleccion_check.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var opciones = document.getElementById(this._id_form + '_opciones');		
-		var nuevo = "";
+		var nuevo = "<table>";
 		var i = 0;
 		for (clave in valores) {
+    		if (i % this._cant_columnas == 0) {
+    			nuevo += "<tr>\n";	
+    		}			
 			var id = this._id_form + i;
-			nuevo += "<label class='ef-multi-check' for='" + id + "'>";
+			nuevo += "<td><label class='ef-multi-check' for='" + id + "'>";
 			nuevo += "<input name='" + this._id_form + "[]' type='checkbox' value='" + clave + "' id='" + id +"' class='ef-checkbox'/>";
-			nuevo += valores[clave] + "</label>"; 
+			nuevo += valores[clave] + "</label></td>\n"; 
 			i++;
+    		if (i % this._cant_columnas == 0) {
+    			nuevo += "</tr>\n";	
+    		}			
 		}
+		nuevo += '</table>';		
 		opciones.innerHTML = nuevo;
 		if (typeof this._callback != 'undefined') {
 			this.cuando_cambia_valor(this._callback);
