@@ -17,13 +17,14 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 	//parametros validación
 	protected $cant_maxima;
 	protected $cant_minima;
-	
+		
     static function get_lista_parametros()
     {
     	$param[] = 'selec_cant_minima';
     	$param[] = 'selec_cant_maxima';
     	$param[] = 'selec_utilidades';
     	$param[] = 'selec_serializar';
+    	$param[] = 'cantidad_columnas';
     	return $param;    	
     }
     
@@ -276,6 +277,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		}
 	}
 	
+
 	
 }
 
@@ -338,52 +340,66 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
  */
 class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 {
+	protected $cantidad_columnas = 1;	
 	
 	function crear_objeto_js()
 	{
 		return "new ef_multi_seleccion_check({$this->parametros_js()})";
 	}	
 	
+	function set_cantidad_columnas($cantidad)
+	{
+		$this->cantidad_columnas = $cantidad;
+	}	
+	
+	function es_multicolumna()
+	{
+		return ($this->cantidad_columnas > 1);
+	}
+	
 	function get_input()
 	{
 		$estado = $this->get_estado_para_input();
 		$html = "";
-		if ($this->solo_lectura) {
-			$html .= "<div id='{$this->id_form}_opciones' style='clear:both'>";
-			foreach ($this->opciones as $id => $descripcion) {
-				$html .= "<label class='ef-multi-check'>";
-				if (in_array($id, $estado)) {
-					$html .= toba_recurso::imagen_toba('checked.gif',true,16,16);
-				} else  {
-					$html .= toba_recurso::imagen_toba('unchecked.gif',true,16,16);
-				}
-				$html .= "$descripcion</label>\n";
-			}
-			$html .= "</div>";			
-		} else {
-			if ($this->mostrar_utilidades)	{
-				$html .= "
-					<div id='{$this->id_form}_utilerias' class='ef-multi-sel-todos'>
-						<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> / 
-						<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
-				";
-			}		
-			$tab = $this->padre->get_tab_index();
-			$input_extra = " tabindex='$tab'";
-			
-			$html .= "<div id='{$this->id_form}_opciones'>";
-			$i =0;
-			foreach ($this->opciones as $clave => $descripcion) {
-				$id = $this->id_form.$i;
+		$i = 0;
+		$tab = $this->padre->get_tab_index();
+		$input_extra = " tabindex='$tab'";
+		
+		if ($this->mostrar_utilidades && !$this->solo_lectura)	{
+			$html .= "
+				<div id='{$this->id_form}_utilerias' class='ef-multi-sel-todos'>
+					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(true)\">Todos</a> / 
+					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
+			";
+		}
+		$html .= "<div id='{$this->id_form}_opciones'><table>\n";
+		foreach ($this->opciones as $clave => $descripcion) {
+			if ($i % $this->cantidad_columnas == 0) {
+    			$html .= "<tr>\n";	
+    		}
+			$id = $this->id_form.$i;			
+			$html .= "\t<td><label class='ef-multi-check' for='$id'>";				
+			if (! $this->solo_lectura) {
 				$checkeado = in_array($clave, $estado) ? "checked" : "";
-				$html .= "<label class='ef-multi-check' for='$id'>";
 				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox' $input_extra>";
 				$input_extra = '';
-				$html .= "$descripcion</label>\n";
-				$i++;
+			} else {
+				//---Caso solo-lectura	
+				$img = (in_array($id, $estado)) ? 'checked.gif' : 'unchecked.gif';
+				$html .= toba_recurso::imagen_toba($img,true,16,16);
 			}
-			$html .= "</div>";
+			$html .= "$descripcion</label></td>\n";		
+			$i++;
+			if ($i % $this->cantidad_columnas == 0) {
+    			$html .= "</tr>\n";	
+    		}  
 		}
+    	$sobran = $i % $this->cantidad_columnas;
+    	if ($sobran > 0) {
+    		$html .= str_repeat("\t<td></td>\n", $sobran);
+    		$html .= "</tr>\n";	
+    	}		
+		$html .= "</table></div>\n";  
 		return $html;
 	}	
 	

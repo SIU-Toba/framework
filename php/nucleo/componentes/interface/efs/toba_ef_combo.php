@@ -237,28 +237,55 @@ class toba_ef_combo extends toba_ef_seleccion
  */
 class toba_ef_radio extends toba_ef_seleccion 
 {
+	protected $cantidad_columnas = 1;	
+	
+	function set_cantidad_columnas($cantidad)
+	{
+		$this->cantidad_columnas = $cantidad;
+	}	
+	
 	function get_input()
 	{
 		$estado = $this->get_estado_para_input();
 		$callback = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		//--- Se guarda el callback en el <div> asi puede ser recuperada en caso de que se borren las opciones
-		$html = "<div id='opciones_{$this->id_form}' $callback>";
-		if ($this->solo_lectura) {
-			foreach ($this->opciones as $id => $descripcion) {
-				$html .= "<label class='ef-radio'>";
-				if ($id == $estado) {
-					$html .= toba_recurso::imagen_toba('radio_checked.gif',true,16,16);
-				} else  {
-					$html .= toba_recurso::imagen_toba('radio_unchecked.gif',true,16,16);
-				}
-				$html .= "$descripcion</label>\n";
+		$html = "<div id='opciones_{$this->id_form}' $callback>\n";
+		$html .= "<table>\n";
+    	if (!is_array($this->opciones)) {
+    		$datos = array();	
+    	} else {
+    		$datos = $this->opciones;	
+    	}
+		$i=0;
+		$tab_index = "tabindex='".$this->padre->get_tab_index()."'";
+    	foreach ($datos as $clave => $valor) {
+    		if ($i % $this->cantidad_columnas == 0) {
+    			$html .= "<tr>\n";	
+    		}
+	    	$id = $this->id_form . $i;    		
+	    	$html .= "\t<td><label class='ef-radio' for='$id'>";
+	    	$es_actual = (strval($estado) == strval($clave));
+			if (! $this->solo_lectura) {
+	    		$sel = ($es_actual) ? "checked" : "";
+				$html .= "<input type='radio' id='$id' name='{$this->id_form}' value='$clave' $sel $callback $tab_index />";
+				$tab_index = '';
+			} else {
+				//--- Caso solo lectura
+				$img = ($es_actual) ? 'radio_checked.gif' : 'radio_unchecked.gif';
+				$html .= toba_recurso::imagen_toba($img,true,16,16);
 			}
-		} else {
-			$tab = $this->padre->get_tab_index();
-			$tab_index = " tabindex='$tab'";
-			$html .= toba_form::radio($this->id_form, $estado, $this->opciones, null, $callback, $tab_index);
-		}
-		$html .= '</div>';
+			$html .= "$valor</label></td>\n";			
+    		$i++;
+    		if ($i % $this->cantidad_columnas == 0) {
+    			$html .= "</tr>\n";	
+    		}    		
+    	}
+    	$sobran = $i % $this->cantidad_columnas;
+    	if ($sobran > 0) {
+    		$html .= str_repeat("\t<td></td>\n", $sobran);
+    		$html .= "</tr>\n";	
+    	}
+		$html .= "</table></div>\n";    	
 		return $html;
 	}
 		
