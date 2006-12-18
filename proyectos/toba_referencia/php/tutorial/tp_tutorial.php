@@ -63,6 +63,10 @@ class tp_tutorial extends tp_referencia
 				font-style: italic;
 				display:block;
 			}
+			.img-ef {
+				background-color: #D5CECD;
+				border: 1px solid gray;
+			}			
 		</style>			
 		<?php
 	}	

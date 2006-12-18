@@ -7,7 +7,7 @@ class pant_definicion extends pant_tutorial
 	{
 		echo "
 			<p>
-			En el capítulo anterior (CI) se evitó un aspecto muy importante de una operación,
+			En el capítulo anterior (CI) se dejo de lado un aspecto muy importante de una operación:
 			la transacción con una base de datos. Las operaciones de Alta, Baja y Modificación
 			(ABM) fueron impactando en un arreglo en memoria que se mantiene en sesión, pero en
 			cuanto el usuario cierra la aplicación o navega hacia otra operación los cambios
@@ -16,11 +16,12 @@ class pant_definicion extends pant_tutorial
 			
 			<p>
 			Para armar una operación 'real' se debe transaccionar con una fuente de datos, generalmente
-			es una base de datos relacional así que vamos a concentrarnos en ellas. Existen dos formas 
-			principales en que puede <em>transaccionar</em> una operación, una inmediatamente producidos los eventos
-			y la otra recién luego de una confirmación explícita del usuario.
-			</p>
-			<br>
+			esta fuente es una base de datos relacional así que vamos a concentrarnos en ellas. Existen dos formas 
+			principales en que puede <em>transaccionar</em> una operación:
+			 <ul>
+			 	<li>inmediatamente producidos los eventos
+			 	<li>luego de una confirmación explícita del usuario
+			 </ul>
 		";
 
 	}
