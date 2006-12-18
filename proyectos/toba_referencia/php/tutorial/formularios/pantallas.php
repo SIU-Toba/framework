@@ -7,25 +7,64 @@ class pant_introduccion extends pant_tutorial
 	function generar_layout()
 	{
 		$intro = toba_recurso::imagen_proyecto('tutorial/form-intro.png');
+		$ciclo = toba_recurso::imagen_proyecto('tutorial/form-ciclo.png');
 		
 		echo "
-			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
-				<img src='$intro'>
-			</div>			
 			<p>
 				El formulario es un elemento de interface (ei) que permite
-				incluir grillas de campos o elementos de formularios (efs).
+				incluir grillas de campos o elementos de formularios (efs). Durante la configuración
+				se lo carga con un conjunto de datos y luego cuando vuelve al servidor informa
+				a través de sus eventos el nuevo conjunto de datos editado por el usuario.
 			</p>
+			<img style='clear:both' src='$ciclo' />			
 			<p>
+				La forma de carga del formulario es un arreglo asociativo id_ef=>estado, se le dice estado 
+				al valor que toma el ef actualmente, independientemente de su formato.
+				Por ejemplo para cargar el formulario de la imagen:
+				
 			</p>
-				<ul>
-					<li>Durante la configuración, el CI le carga un conjunto de datos con 
-						el cual se grafica en el navegador.
-					<li>El usuario edita el formulario, interactuando con la clase formulario y ef en javascript
-					<li>Cuando vuelve al server se notifica los nuevos datos del formulario a partir de un evento.
-				</ul>
-
+			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
+				<img src='$intro'>
+			</div>						
 		";
+		$codigo = '
+<?php
+...
+function conf__form(toba_ei_formulario $form)
+{
+	$datos = array(
+		"fecha" => "2006-12-11",
+		"editable" => "Texto",
+		"moneda" => "234.23",
+		"cuit" => "202806293",
+		....
+	);
+	$form->set_datos($datos);
+}
+...
+?>
+		';
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";
+		$codigo = '
+<?php
+...
+function evt__form__modificacion($datos)
+{
+	print_r($datos);
+}
+...
+Array ( [fecha] => 2006-12-11 [editable] => Texto [moneda] => 234.23 [cuit] => 202806293 )
+?>';
+		echo "
+		<p>
+			Los datos tienen el mismo formato cuando se disparan los eventos:
+		</p>
+		";
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";	
 	}
 }
 
@@ -35,6 +74,8 @@ class pant_tipos extends pant_tutorial
 	function generar_layout()
 	{
 		echo "
+			Los distintos tipos de elementos de formularios se pueden clasificar según la acción que 
+			el usuario realiza sobre ellos:
 			<h3>El usuario selecciona un elemento</h3>
 			<table class='listado-efs'>			
 				<tr>
@@ -121,7 +162,26 @@ class pant_tipos extends pant_tutorial
 					<td><strong>ef_editable_textarea</strong>: El usuario edita múltiples líneas de texto libremente, sin formato.
 					</td>
 				</tr>
+				<tr>
+					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/cuit.png',true)."</td>
+					<td><strong>ef_cuit</strong>: El usuario ingresa un número de CUIT/CUIL
+					</td>
+				</tr>				
 			</table>
+			
+			<h3>Otras acciones</h3>
+			<table class='listado-efs'>			
+				<tr>
+					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/upload.png',true)."</td>
+					<td><strong>ef_upload</strong>: El usuario selecciona un archivo de su sistema para que esté disponible en el servidor.
+					</td>
+				</tr>
+				<tr>
+					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/fijo.png',true)."</td>
+					<td><strong>ef_fijo</strong>: El usuario observa un contenido estático
+					</td>
+				</tr>				
+			</table>			
 		";
 	}
 }
@@ -141,6 +201,39 @@ class pant_opciones extends pant_tutorial
 {
 	function generar_layout()
 	{
+		echo "
+			<p>
+				De los distintos tipos de efs disponibles existen los llamados de <strong>selección</strong>,
+				estos permiten seleccionar su <strong>estado</strong> a partir de un conjunto de <strong>opciones</strong>.
+			<p>
+			<p>
+				La carga de los estados se vio anteriormente, se da durante la configuración del componente. La
+				carga de opciones se puede realizar a partir distintos mecanismos, dependiendo de cada tipo de ef. Por ejemplo el ef_combo
+				posee los siguientes mecanismos:
+			</p>
+			<ul>
+				<li>Lista de opciones: Las opciones son estáticas y se definen en el mismo editor.
+				<li>Consulta SQL: Las opciones provienen de una consulta que se especifica en el mismo editor.
+				<li>Método PHP: Las opciones surgen de la respuesta de un método de una clase PHP.
+			</ul>
+			<p>
+				En el caso del Método PHP se necesita escribir el método que retorne el conjunto de opciones
+				que se dispone:
+			</p>
+		";
+		$codigo = 
+"<?php 
+function alumnos_disponibles()
+{
+    return array(
+        array('id' => 100, 'nombre' => 'Juan Perez'),
+        array('id' => 142, 'nombre' => 'Cristian Fernandez'),
+        .....
+    );
+?>";	
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";	
 
 	}
 }
