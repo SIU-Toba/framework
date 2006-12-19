@@ -13,9 +13,10 @@ class toba_ei_filtro extends toba_ei_formulario
 	protected $item_editor = '/admin/objetos_toba/editores/ei_filtro';
 	
 	/**
-	 * @ignore 
-	 */	
-	protected function generar_envoltura_ef($ef, $editor=null)
+	 * Genera la etiqueta y el componente HTML de un ef
+	 * @param string $ef Identificador del ef
+	 */
+	protected function generar_html_ef($ef)
 	{
 		$clase = 'ei-form-fila';
 		$estilo_nodo = "";
@@ -26,14 +27,20 @@ class toba_ei_filtro extends toba_ei_formulario
 		}
 		if ($this->elemento_formulario[$ef]->seleccionado()) {
 			$clase .= ' ei-form-fila-filtrada';
-		}				
-		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
-		$this->generar_etiqueta_ef($ef);
-		echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta}'>\n";		
-		echo $this->elemento_formulario[$ef]->get_input();
-		echo "</div>";
-		echo "</div>\n";
-	}	
+		}		
+		if ($this->elemento_formulario[$ef]->tiene_etiqueta()) {
+			echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
+			$this->generar_etiqueta_ef($ef);
+			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
+			echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
+			echo $this->elemento_formulario[$ef]->get_input();
+			echo "</div>";
+			echo "</div>\n";
+		} else {		
+			echo $this->elemento_formulario[$ef]->get_input();
+		}
+	}
+	
 	
 }
 ?>

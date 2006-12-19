@@ -217,8 +217,8 @@ class pant_opciones extends pant_tutorial
 				<li>Método PHP: Las opciones surgen de la respuesta de un método de una clase PHP.
 			</ul>
 			<p>
-				En el caso del Método PHP se necesita escribir el método que retorne el conjunto de opciones
-				que se dispone:
+				En el caso del Método PHP se necesita escribir un método que retorne el conjunto de opciones
+				que dispone el combo:
 			</p>
 		";
 		$codigo = 
@@ -239,14 +239,73 @@ function alumnos_disponibles()
 }
 
 //--------------------------------------------------------
-class pant_popup extends pant_tutorial 
+class pant_ml extends pant_tutorial 
 {
 	function generar_layout()
 	{
-
+		$ml = toba_recurso::imagen_proyecto('tutorial/form-ml.png');
+		echo "
+			<div style='float: right' class='screenshot'>
+			<img src='$ml' />
+			</div>
+			<p>
+			Un formulario ML (multilínea)  permite editar varios registros con la misma estructura.
+			La definición y uso de la grilla de campos es similar al  formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
+			</p>
+			<p>
+			El formulario_ml puede tener un número fijo de filas o puede permitir que el usuario cree nuevas, tanto como en javascript 
+			(más dinámica pero menos control) o haciendo un pedido de página completo al server.
+			</p>
+			<p>
+				La forma que toman los datos, tanto en la carga como en el disparo de eventos es similar al del formulario simple
+				sólo que se encuentra dentro de un arreglo que representa las distintas filas:
+			</p>
+		";
+		$codigo ='
+<?php
+    function conf__form($form_ml)
+    {
+		$datos = array(
+			array("id" => 1, "importe" => 100),
+			array("id" => 3, "importe" => 412),
+			...
+		);
+		$form_ml->set_datos($datos);
+    }
+    
+    function evt__form__modificacion($datos)
+    {
+        //$datos es un arreglo de filas, donde cada una contiene arreglo ef=>valor
+    }    
+?>
+';
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";
+		
+		echo "
+			<p>
+			Al contener registros, los formularios ML  heredan funcionalidades que son propias de un cuadro.
+			Una de ellas es la capacidad de definir eventos a nivel de fila, como
+			por ejemplo la selección particular de una fila, al método que escucha
+			el evento se le reporta el número de fila seleccionada
+			</p>
+		";	
+		$codigo = '
+<?php
+    function evt__form__seleccion($fila)
+    {
+        var_dump($fila);
+    }
+?>
+int(1534)		
+';		
+		
+		echo "<div class='codigo'>";
+		highlight_string($codigo);
+		echo "</div>";		
 	}
 }
-
 
 //--------------------------------------------------------
 
