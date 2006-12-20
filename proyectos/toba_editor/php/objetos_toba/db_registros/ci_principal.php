@@ -28,6 +28,12 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 
+	function get_entidad()
+	{
+		$this->dependencia('datos')->tabla('externas')->set_es_unico_registro(false);
+		return parent::get_entidad();	
+	}
+	
 	function evt__procesar()
 	{
 		parent::evt__procesar();
@@ -72,6 +78,7 @@ class ci_principal extends ci_editores_toba
 	//*******************************************************************
 	//**  COLUMNAS  *****************************************************
 	//*******************************************************************
+	
 	
 	function conf__columnas()
 	{
@@ -130,6 +137,149 @@ class ci_principal extends ci_editores_toba
 			toba::notificacion()->agregar( $e->getMessage() );
 		}
 	}	
+	
+	//*******************************************************************
+	//**  EXTERNAS  *****************************************************
+	//*******************************************************************	
+	
+	/**
+	 * Configuración pantalla carga externa
+	 */
+	function conf__3()
+	{
+		if (! $this->get_entidad()->tabla('externas')->hay_cursor()) {
+			$this->pantalla()->eliminar_dep('detalle_carga');
+		}
+	}
+
+	function get_lista_columnas()
+	{
+		return $this->get_entidad()->tabla('columnas')->get_filas();
+	}
+	
+	function conf__externas(toba_ei_formulario_ml $ml)
+	{
+		$ml->set_proximo_id($this->get_entidad()->tabla('externas')->get_proximo_id());
+		$datos = $this->get_entidad()->tabla('externas')->get_filas(null,true);
+		foreach (array_keys($datos) as $id) {
+			$this->get_entidad()->tabla('externas')->set_cursor($id);
+			//--- De esta carga, se filtran las filas que son parametros y se buscan sus columnas padres
+			$datos[$id]['col_parametro'] = $this->get_ext_col(0);
+
+			//--- De esta carga, se filtran las filas que son resultado y se buscan sus columnas padres
+			$datos[$id]['col_resultado'] = $this->get_ext_col(1);
+			
+			$this->get_entidad()->tabla('externas')->restaurar_cursor();			
+		}
+		$ml->set_datos($datos);
+	}
+	
+	protected function get_ext_col($es_resultado)
+	{
+		$condicion = array('es_resultado' => $es_resultado);
+		$col_exts = $this->get_entidad()->tabla('externas_col')->get_id_fila_condicion($condicion);
+		return $this->get_entidad()->tabla('externas_col')->get_id_padres($col_exts, 'columnas');			
+	}
+	
+	function evt__externas__seleccion($id_ext)
+	{
+		$this->get_entidad()->tabla('externas')->set_cursor($id_ext);
+	}
+	
+	function evt__externas__modificacion($datos)
+	{
+		foreach ($datos as $id => $fila) {
+			if (isset($fila['col_parametro'])) {
+				$col_parametros = $fila['col_parametro'];
+				unset($fila['col_parametro']);
+			}
+			if (isset($fila['col_resultado'])) {			
+				$col_resultados = $fila['col_resultado'];
+				unset($fila['col_resultado']);
+			}
+			$accion = $fila[apex_ei_analisis_fila];
+			unset($fila[apex_ei_analisis_fila]);
+			switch($accion){
+				case "A":
+					$this->get_entidad()->tabla('externas')->nueva_fila($fila, null, $id);
+					$this->reasociar_columnas_externas($id, $col_parametros, $col_resultados);
+					break;	
+				case "B":
+					$this->get_entidad()->tabla('externas')->eliminar_fila($id);
+					break;	
+				case "M":
+					$this->get_entidad()->tabla('externas')->modificar_fila($id, $fila);
+					$this->reasociar_columnas_externas($id, $col_parametros, $col_resultados);					
+					break;	
+			}
+		}
+	}
+
+	/**
+	 * Asocia la carga externa con un conjunto de columnas
+	 * Como la asociacion es embebida, es seguro borrar todo primero y agregarlas nuevamente
+	 */
+	protected function reasociar_columnas_externas($id_ext, $col_parametros, $col_resultados)
+	{
+		$this->get_entidad()->tabla('externas')->set_cursor($id_ext);
+		
+		//---Se busca si el set actual es distinto al anterior
+		$col_parametro_actuales = $this->get_ext_col(0);
+		$col_resultado_actuales = $this->get_ext_col(1);
+		
+		//--- Si hay alguna diferencia, borra los actuales y agrega los nuevos
+		if ($col_parametros != $col_parametro_actuales || $col_resultados != $col_resultado_actuales) {
+			$this->get_entidad()->tabla('externas_col')->eliminar_filas(true);
+			//--- Columnas Parámetros
+			foreach($col_parametros as $col_par) {
+				$padre = array('externas' => $id_ext, 'columnas' => $col_par);
+				$this->get_entidad()->tabla('externas_col')->nueva_fila(array('es_resultado' => 0),
+																		$padre);
+			}
+			//--- Columnas Resultado
+			foreach($col_resultados as $col_par) {
+				$padre = array('externas' => $id_ext, 'columnas' => $col_par);
+				$this->get_entidad()->tabla('externas_col')->nueva_fila(array('es_resultado' => 1),
+																		$padre);
+			}
+		}
+		$this->get_entidad()->tabla('externas')->restaurar_cursor();
+	}
+
+	function conf__detalle_carga(toba_ei_formulario $form)
+	{
+		$datos = $this->get_entidad()->tabla('externas')->get();
+		if (isset($datos['tipo']) && $datos['tipo'] == 'sql') {
+			$lista = array();
+			foreach ($form->get_nombres_ef() as $id_ef) {
+				if ($id_ef != 'sql') {
+					$lista[] = $id_ef;	
+				}
+			}
+			$form->desactivar_efs($lista);
+		} else {
+			$form->desactivar_efs(array('sql'));
+		}
+		$form->set_datos($datos);
+	}		
+	
+	function evt__detalle_carga__cancelar()
+	{
+		$this->get_entidad()->tabla('externas')->resetear_cursor();		
+	}
+	
+	function evt__detalle_carga__modificacion($datos)
+	{
+		$this->get_entidad()->tabla('externas')->set($datos);
+	}
+	
+	function evt__detalle_carga__aceptar($datos)
+	{
+		$this->evt__detalle_carga__modificacion($datos);		
+		$this->get_entidad()->tabla('externas')->resetear_cursor();
+	}
+	
+
 
 }
 ?>

@@ -246,13 +246,13 @@ legend {
 	BORDER-COLLAPSE: collapse;
 	empty-cells: hide;
 }
-
 .ei-ml-columna {
 	padding: 2px 2px 4px 2px;
 	vertical-align: bottom;
 	color: #231f20;
 	text-align: center;
 	font-weight: normal;
+	border-bottom: 1px solid gray;	
 }
 
 .ei-ml-fila, .ei-ml-fila-selec {

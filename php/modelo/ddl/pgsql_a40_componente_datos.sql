@@ -107,6 +107,66 @@ CREATE TABLE apex_objeto_db_registros_col
 	CONSTRAINT  "apex_obj_dbr_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_dbr_col_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+
+CREATE SEQUENCE apex_objeto_dbr_ext_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_db_registros_ext
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
+--: dump_order_by: objeto, externa_id
+--: dump_where: ( objeto_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_proyecto    			   	varchar(15)		NOT NULL,
+	objeto 		                	int4       		NOT NULL,
+	externa_id						int4			DEFAULT nextval('"apex_objeto_dbr_ext_seq"'::text) 		NOT NULL, 
+	tipo							varchar(3)		NOT NULL,
+	sincro_continua					smallint		NULL,
+--- CARGA PHP
+	metodo							varchar(100)	NULL,
+	clase							varchar(100)	NULL,
+	include							varchar(255)	NULL,
+--- CARGA SQL
+	sql								varchar			NULL,
+	CONSTRAINT  "apex_obj_dbr_ext_pk" PRIMARY KEY ("objeto_proyecto","objeto","externa_id"),
+	CONSTRAINT  "apex_obj_dbr_ext_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
+);
+
+CREATE TABLE apex_objeto_db_registros_ext_col
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
+--: dump_order_by: objeto, externa_id
+--: dump_where: ( objeto_proyecto = '%%' )
+--: zona: objeto
+--: desc: Asocia una carga externa con una columna, ya sea como resultado o como parametro
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_proyecto    			   	varchar(15)		NOT NULL,
+	objeto 		                	int4       		NOT NULL,
+	externa_id						int4			NOT NULL,
+	col_id							int4			NOT NULL,
+	es_resultado					smallint		NULL,
+	CONSTRAINT  "apex_obj_dbr_ext_col_pk" PRIMARY KEY ("objeto_proyecto","objeto","externa_id","col_id"),
+	CONSTRAINT  "apex_obj_dbr_ext_col_fk_ext" FOREIGN KEY ("objeto_proyecto","objeto", "externa_id") 
+		REFERENCES "apex_objeto_db_registros_ext" ("objeto_proyecto","objeto","externa_id") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_obj_dbr_ext_col_fk_col" FOREIGN KEY ("objeto_proyecto","objeto", "col_id") 
+		REFERENCES "apex_objeto_db_registros_col" ("objeto_proyecto","objeto","col_id") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+		
+);
+
+
+
 --###################################################################################################
 --**************************************************************************************************
 --*************************************    objeto_datos_relacion    ********************************

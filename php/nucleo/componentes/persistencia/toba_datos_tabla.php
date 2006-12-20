@@ -26,12 +26,14 @@ class toba_datos_tabla extends toba_componente
 	// Definicion general
 	protected $tope_max_filas;					// Cantidad de maxima de datos permitida.
 	protected $tope_min_filas;					// Cantidad de minima de datos permitida.
+	protected $es_unico_registro=true;			//La tabla tiene com maximo un registro?
 	// ESTADO
 	protected $cambios = array();				// Cambios realizados sobre los datos
 	protected $datos = array();					// Datos cargados en el db_filas
 	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
 	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
 	protected $cursor;							// Puntero a una fila específica
+	protected $cursor_original;					// Backup del cursor que se usa para deshacer un seteo
 	protected $cargada = false;
 	// Relaciones con el exterior
 	protected $relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
@@ -149,20 +151,6 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
-	/**
-	* Busca en la tabla padre el id de fila padre que corresponde a la fila hija especificada
-	*/
-	function get_id_fila_padre($tabla_padre, $id_fila)
-	{
-		$id_fila = $this->normalizar_id($id_fila);
-		if(!isset($this->relaciones_con_padres[$tabla_padre])) {
-			throw new toba_error("La tabla padre '$tabla_padre' no existe");	
-		}
-		$id_fila_padre = $this->relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
-		if ( !($id_fila_padre === false) ) {
-			return $id_fila_padre;
-		}
-	}
 
 	/**
 	 * Retorna la {@link toba_datos_relacion relacion} que contiene a esta tabla, si existe
@@ -294,6 +282,11 @@ class toba_datos_tabla extends toba_componente
 		$this->no_duplicado[] = $columnas;
 	}
 
+	function set_es_unico_registro($unico)
+	{
+		$this->es_unico_registro = $unico;	
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- MANEJO DEL CURSOR INTERNO---------------------------------------------------
 	//-------------------------------------------------------------------------------
@@ -308,11 +301,23 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
+			$this->cursor_original = isset($this->cursor) ? $this->cursor : null;
 			$this->cursor = $id;	
+			$this->log("Nuevo cursor '{$this->cursor}' en reemplazo del anterior '{$this->cursor_original}'");
 		}else{
 			throw new toba_error($this->get_txt() . "La fila '$id' no es valida");
 		}
 	}	
+	
+	/**
+	 * Deshace el ultimo seteo de cursor
+	 */
+	function restaurar_cursor()
+	{
+		$this->cursor = $this->cursor_original;
+		$this->log("Se restaura el cursor '{$this->cursor_original}'");		
+	}
+
 	
 	/**
 	 * Asegura que el cursor no se encuentre posicionado en ninguna fila específica
@@ -320,6 +325,7 @@ class toba_datos_tabla extends toba_componente
 	function resetear_cursor()
 	{
 		unset($this->cursor);
+		$this->log("Se resetea el cursor");				
 	}
 	
 	/**
@@ -389,16 +395,42 @@ class toba_datos_tabla extends toba_componente
 			//Si algún padre tiene un cursor posicionado, 
 			//se restringe a solo las filas que son hijas de esos cursores
 			foreach ($this->relaciones_con_padres as $id => $rel_padre) {
+				//echo "$id: ".$rel_padre->hay_cursor_en_padre()."<br>";
 				if ($rel_padre->hay_cursor_en_padre()) {
 					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
-				} else {
-					$coincidencias = array();
-					break;
 				}
 			}
 		}
 		return $coincidencias;		
 	}
+
+	/**
+	 * Retorna los padres de un conjunto de registros especificos
+	 */
+	function get_id_padres($ids_propios, $tabla_padre)
+	{
+		$salida = array();
+		foreach ($ids_propios as $id_propio) {
+			$id_padre = $this->get_id_fila_padre($tabla_padre, $id_propio);
+			if ($id_padre !== null) {
+				$salida[] = $id_padre;	
+			}
+		}
+		return array_unique($salida);
+	}
+	
+	/**
+	* Busca en una tabla padre el id de fila padre que corresponde a la fila hija especificada
+	*/
+	function get_id_fila_padre($tabla_padre, $id_fila)
+	{
+		$id_fila = $this->normalizar_id($id_fila);
+		if(!isset($this->relaciones_con_padres[$tabla_padre])) {
+			throw new toba_error("La tabla padre '$tabla_padre' no existe");	
+		}
+		return $this->relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
+	}
+	
 	
 	/**
 	 * Busca los registros en memoria que cumplen una condicion.
@@ -1082,7 +1114,7 @@ class toba_datos_tabla extends toba_componente
 		//Marco la tabla como cargada
 		$this->cargada = true;
 		//Si es una unica fila se pone como cursor de la tabla
-		if (count($datos) == 1) {
+		if (count($datos) == 1 && $this->es_unico_registro) {
 			$this->cursor = 0;
 		}
 		//Disparo la actulizacion de los mapeos con las tablas padres

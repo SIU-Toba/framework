@@ -306,7 +306,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//Envia el ordenamiento como una columna aparte
 		$orden = 1;
 		foreach (array_keys($this->datos) as $id) {
-			if (isset($this->info_formulario['columna_orden'])) {
+			if (isset($this->info_formulario['columna_orden']) && $this->info_formulario['columna_orden'] != '') {
 				$this->datos[$id][$this->info_formulario['columna_orden']] = $orden;
 			}
 			$this->datos[$id][apex_datos_clave_fila] = $id;
