@@ -58,6 +58,47 @@ class componente_datos_tabla extends componente_toba
 		$sql["info_columnas"]['sql'] .= ";";
 		$sql["info_columnas"]['registros']='n';
 		$sql["info_columnas"]['obligatorio']=true;
+		
+		//------------ Externas ----------------
+		$sql["info_externas"]['sql'] = "SELECT	objeto_proyecto,
+						objeto 			,	
+						externa_id		,	
+						tipo			,	
+						sincro_continua	,	
+						metodo			,
+						clase			,	
+						include			,	
+						sql
+					 FROM		apex_objeto_db_registros_ext 
+					 WHERE		objeto_proyecto = '$proyecto' ";
+		if ( isset($componente) ) {
+			$sql["info_externas"]['sql'] .= "	AND		objeto='$componente' ";	
+		}
+		$sql["info_externas"]['sql'] .= ";";
+		$sql["info_externas"]['registros']='n';
+		$sql["info_externas"]['obligatorio']=false;
+		
+		//------------ Externas ----------------
+		$sql["info_externas_col"]['sql'] = "SELECT	ext_col.objeto_proyecto,
+						ext_col.objeto 			,	
+						ext_col.externa_id		,	
+						ext_col.es_resultado	,
+						col.columna				
+					 FROM	
+					 		apex_objeto_db_registros_ext_col ext_col,
+					 		apex_objeto_db_registros_col col
+					 WHERE		
+					 		ext_col.objeto_proyecto = '$proyecto' AND
+					 		col.objeto_proyecto = '$proyecto' AND
+					 		ext_col.col_id = col.col_id	
+					 	";
+		if ( isset($componente) ) {
+			$sql["info_externas_col"]['sql'] .= "	AND		ext_col.objeto='$componente' ";	
+		}
+		$sql["info_externas_col"]['sql'] .= ";";
+		$sql["info_externas_col"]['registros']='n';
+		$sql["info_externas_col"]['obligatorio']=false;
+				
 		return $sql;
 	}
 	

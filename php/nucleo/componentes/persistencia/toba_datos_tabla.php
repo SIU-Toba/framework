@@ -60,8 +60,43 @@ class toba_datos_tabla extends toba_componente
 				$this->posee_columnas_ext = true;
 			}
 		}
+		$this->activar_cargas_externas();
 	}
 
+	/**
+	 * @ignore 
+	 */
+	protected function activar_cargas_externas()
+	{
+		//--- Se recorren las cargas externas, el lugar ideal seria hacer esto en el ap, pero aca es mas simple y eficiente
+		if ($this->posee_columnas_ext) {
+			foreach($this->info_externas as $externa) {
+				$parametros = array();
+				$resultados = array();
+				//-- Se identifican las columnas de esta carga
+				foreach($this->info_externas_col as $ext_col) {
+					if ($ext_col['externa_id'] == $externa['externa_id']) {
+						if ($ext_col['es_resultado'] == 1) {
+							$resultados[] = $ext_col['columna'];
+						} else {
+							$parametros[] = $ext_col['columna'];
+						}	
+					}					
+				}
+				if ($externa['sql'] != '') {
+					//---Caso SQL
+					$this->get_persistidor()->activar_proceso_carga_externa_sql(
+							$externa['sql'], $parametros, $resultados, $externa['sincro_continua']);
+				} else {
+					//---Caso DAO
+					$this->get_persistidor()->activar_proceso_carga_externa_dao(
+							$externa['metodo'], $externa['clase'], $externa['include'],
+							$parametros, $resultados, $externa['sincro_continua']);					
+				}
+			}
+		}		
+	}
+	
 	/**
 	 * Reserva un id interno y lo retorna
 	 */

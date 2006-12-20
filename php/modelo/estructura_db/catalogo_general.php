@@ -73,10 +73,12 @@ class catalogo_general
   65 => 'apex_tipo_datos',
   66 => 'apex_objeto_db_registros',
   67 => 'apex_objeto_db_registros_col',
-  68 => 'apex_objeto_datos_rel',
-  69 => 'apex_objeto_datos_rel_asoc',
-  70 => 'apex_objeto_ut_formulario',
-  71 => 'apex_objeto_ei_formulario_ef',
+  68 => 'apex_objeto_db_registros_ext',
+  69 => 'apex_objeto_db_registros_ext_col',
+  70 => 'apex_objeto_datos_rel',
+  71 => 'apex_objeto_datos_rel_asoc',
+  72 => 'apex_objeto_ut_formulario',
+  73 => 'apex_objeto_ei_formulario_ef',
 );
 	}
 

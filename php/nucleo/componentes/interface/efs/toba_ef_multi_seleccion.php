@@ -10,6 +10,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 {
 	protected $opciones = array();
 	protected $tamanio;
+	protected $ancho;
 	protected $estado_nulo = array();
 	protected $serializar = false;	
 	protected $mostrar_utilidades;
@@ -52,7 +53,10 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 			$this->cant_minima = $parametros['selec_cant_minima'];
 			unset($parametros['selec_cant_minima']);
 		}
-		
+		if(isset($parametros['selec_ancho'])) {
+			$this->ancho = $parametros['selec_ancho'];
+			unset($parametros['selec_ancho']);
+		}		
 		if(isset($parametros["selec_serializar"]) && $parametros["selec_serializar"] != 0) {
 			$this->serializar = ',';
 		}				
@@ -295,6 +299,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
     {
     	$param = parent::get_lista_parametros();
     	$param[] = 'selec_tamano';
+    	$param[] = 'selec_ancho';
     	return $param;    	
     }	
 	
@@ -318,6 +323,9 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 		$tab = $this->padre->get_tab_index();
 		$extra = " tabindex='$tab'";
 		$extra .= ($this->solo_lectura) ? "disabled" : "";
+		if (isset($this->ancho)) {
+			$extra .= " style='width: {$this->ancho}'";
+		}
 		$html .= toba_form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
 		return $html;
 	}
@@ -434,6 +442,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
     {
     	$param = parent::get_lista_parametros();
     	$param[] = 'selec_tamano';
+    	$param[] = 'selec_ancho';
     	return $param;    	
     }	
 		
@@ -455,7 +464,10 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 	function get_input()
 	{
 		$tab = $this->padre->get_tab_index();
-		$extra = " tabindex='$tab'";		
+		$extra = " tabindex='$tab'";
+		if (isset($this->ancho)) {
+			$extra .= " style='width: {$this->ancho}'";
+		}		
 		$html = '';
 		$tamanio = isset($this->tamanio) ? $this->tamanio: count($this->opciones);
 		$estado = $this->get_estado_para_input();

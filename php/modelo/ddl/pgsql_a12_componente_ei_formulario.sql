@@ -131,6 +131,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	selec_cant_maxima					smallint		NULL,
 	selec_utilidades					smallint		NULL,
 	selec_tamano						smallint		NULL,
+	selec_ancho							varchar(30)		NULL,
 	selec_serializar					smallint		NULL,
 	selec_cant_columnas					smallint		NULL,
 	upload_extensiones					varchar(255)	NULL,

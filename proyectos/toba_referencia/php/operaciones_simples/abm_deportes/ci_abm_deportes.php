@@ -6,7 +6,6 @@ class ci_abm_deportes extends toba_ci
 {
 	protected $seleccion;
 	protected $filtro;
-	protected $pantalla_actual = 'seleccion';
 		
 	function mantener_estado_sesion()
 	{
@@ -25,20 +24,15 @@ class ci_abm_deportes extends toba_ci
 	function resetear()
 	{
 		$this->get_tabla()->resetear();
-		$this->pantalla_actual = 'seleccion';
+		$this->set_pantalla('seleccion');
 		if(isset($this->seleccion)){
 			unset($this->seleccion);
 		}
 	}
 
-	function get_pantalla_actual()
-	{
-		return $this->pantalla_actual;	
-	}
-	
 	function evt__agregar()
 	{
-		$this->pantalla_actual = 'edicion';
+		$this->set_pantalla('edicion');
 	}
 
 	//-------------------------------------------------------------------
@@ -76,7 +70,7 @@ class ci_abm_deportes extends toba_ci
 	function evt__cuadro__seleccion($seleccion)
 	{
 		$this->seleccion = $seleccion;
-		$this->pantalla_actual = 'edicion';
+		$this->set_pantalla('edicion');
 	}
 
 	function evt__cuadro__eliminar($seleccion)

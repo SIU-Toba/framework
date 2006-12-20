@@ -20,10 +20,12 @@ class tablas_componente
   12 => 'apex_objeto_esquema',
   13 => 'apex_objeto_db_registros',
   14 => 'apex_objeto_db_registros_col',
-  15 => 'apex_objeto_datos_rel',
-  16 => 'apex_objeto_datos_rel_asoc',
-  17 => 'apex_objeto_ut_formulario',
-  18 => 'apex_objeto_ei_formulario_ef',
+  15 => 'apex_objeto_db_registros_ext',
+  16 => 'apex_objeto_db_registros_ext_col',
+  17 => 'apex_objeto_datos_rel',
+  18 => 'apex_objeto_datos_rel_asoc',
+  19 => 'apex_objeto_ut_formulario',
+  20 => 'apex_objeto_ei_formulario_ef',
 );
 	}
 
@@ -566,6 +568,60 @@ class tablas_componente
 );
 	}
 
+	static function apex_objeto_db_registros_ext()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, externa_id',
+  'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_proyecto',
+    1 => 'objeto',
+    2 => 'externa_id',
+    3 => 'tipo',
+    4 => 'sincro_continua',
+    5 => 'metodo',
+    6 => 'clase',
+    7 => 'include',
+    8 => 'sql',
+  ),
+);
+	}
+
+	static function apex_objeto_db_registros_ext_col()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, externa_id',
+  'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => 'Asocia una carga externa con una columna, ya sea como resultado o como parametro',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_proyecto',
+    1 => 'objeto',
+    2 => 'externa_id',
+    3 => 'col_id',
+    4 => 'es_resultado',
+  ),
+);
+	}
+
 	static function apex_objeto_datos_rel()
 	{
 		return array (
@@ -752,9 +808,10 @@ class tablas_componente
     54 => 'selec_cant_maxima',
     55 => 'selec_utilidades',
     56 => 'selec_tamano',
-    57 => 'selec_serializar',
-    58 => 'selec_cant_columnas',
-    59 => 'upload_extensiones',
+    57 => 'selec_ancho',
+    58 => 'selec_serializar',
+    59 => 'selec_cant_columnas',
+    60 => 'upload_extensiones',
   ),
 );
 	}

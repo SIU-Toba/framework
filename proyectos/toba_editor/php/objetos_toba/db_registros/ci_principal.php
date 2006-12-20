@@ -152,10 +152,16 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 
-	function get_lista_columnas()
+	function get_lista_columnas_ext()
 	{
-		return $this->get_entidad()->tabla('columnas')->get_filas();
+		return $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 1));
 	}
+	
+	function get_lista_columnas_no_ext()
+	{
+		return $this->get_entidad()->tabla('columnas')->get_filas(array('externa' => 0));
+	}
+	
 	
 	function conf__externas(toba_ei_formulario_ml $ml)
 	{
