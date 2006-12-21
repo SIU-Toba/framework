@@ -108,6 +108,8 @@ CREATE TABLE apex_objeto_db_registros_col
 	CONSTRAINT  "apex_obj_dbr_col_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
+--###################################################################################################
+
 CREATE SEQUENCE apex_objeto_dbr_ext_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
 CREATE TABLE apex_objeto_db_registros_ext
 ---------------------------------------------------------------------------------------------------
@@ -138,13 +140,15 @@ CREATE TABLE apex_objeto_db_registros_ext
 	CONSTRAINT  "apex_obj_dbr_ext_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
 );
 
+--###################################################################################################
+
 CREATE TABLE apex_objeto_db_registros_ext_col
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: componente
 --: dump_clave_proyecto: objeto_proyecto
 --: dump_clave_componente: objeto
---: dump_order_by: objeto, externa_id
+--: dump_order_by: objeto, externa_id, col_id
 --: dump_where: ( objeto_proyecto = '%%' )
 --: zona: objeto
 --: desc: Asocia una carga externa con una columna, ya sea como resultado o como parametro

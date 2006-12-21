@@ -605,7 +605,7 @@ class tablas_componente
   'dump' => 'componente',
   'dump_clave_proyecto' => 'objeto_proyecto',
   'dump_clave_componente' => 'objeto',
-  'dump_order_by' => 'objeto, externa_id',
+  'dump_order_by' => 'objeto, externa_id, col_id',
   'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => 'Asocia una carga externa con una columna, ya sea como resultado o como parametro',

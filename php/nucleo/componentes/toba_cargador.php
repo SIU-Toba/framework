@@ -57,7 +57,7 @@ class toba_cargador
 		}
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
-			$db = toba_instancia::get_db();	
+			$db = toba_instancia::get_db();
 		}
 		$clase_def = toba_catalogo::get_nombre_clase_definicion( $tipo );
 		$estructura = call_user_func(array($clase_def,'get_estructura'));

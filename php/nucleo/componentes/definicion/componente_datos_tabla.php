@@ -12,6 +12,12 @@ class componente_datos_tabla extends componente_toba
 		$estructura[3]['tabla'] = 'apex_objeto_db_registros_col';
 		$estructura[3]['registros'] = 'n';
 		$estructura[3]['obligatorio'] = true;
+		$estructura[4]['tabla'] = 'apex_objeto_db_registros_ext';
+		$estructura[4]['registros'] = 'n';
+		$estructura[4]['obligatorio'] = false;		
+		$estructura[5]['tabla'] = 'apex_objeto_db_registros_ext_col';
+		$estructura[5]['registros'] = 'n';
+		$estructura[5]['obligatorio'] = false;		
 		return $estructura;		
 	}
 	

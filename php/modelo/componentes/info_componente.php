@@ -284,7 +284,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 				$metodo = "get_pantallas_".$this->datos['info']['clase'];
 				$pantallas = call_user_func(array("datos_editores", $metodo));
 				//-- Se incluye un vinculo a cada pantalla encontrada
-				$ayuda = "<div style=float:right>";
+				$ayuda = "<div class='editor-lista-vinculos'>";
 				foreach ($pantallas as $pantalla) {
 					$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
 					$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));

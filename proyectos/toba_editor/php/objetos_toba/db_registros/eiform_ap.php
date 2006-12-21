@@ -19,8 +19,8 @@ class eiform_ap extends toba_ei_formulario
 				this.ef('ap_clase').mostrar();
 				this.ef('ap_archivo').mostrar();
 			}else{
-				this.ef('ap_clase').ocultar();
-				this.ef('ap_archivo').ocultar();
+				this.ef('ap_clase').ocultar(true);
+				this.ef('ap_archivo').ocultar(true);
 			}
 		}
 		

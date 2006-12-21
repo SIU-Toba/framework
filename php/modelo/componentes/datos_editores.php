@@ -107,6 +107,12 @@ class datos_editores
     'etiqueta' => 'Columnas',
     'imagen' => 'objetos/columna.gif',
   ),
+  2 => 
+  array (
+    'identificador' => '3',
+    'etiqueta' => 'Carga externa',
+    'imagen' => 'objetos/carga_externa.png',
+  ),
 );
 	}
 
@@ -236,7 +242,7 @@ class datos_editores
   1 => 
   array (
     'identificador' => '2',
-    'etiqueta' => 'Elementos de Formulario',
+    'etiqueta' => 'Elementos (efs)',
     'imagen' => 'objetos/efs.gif',
   ),
   2 => 

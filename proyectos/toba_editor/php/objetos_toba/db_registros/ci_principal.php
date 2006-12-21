@@ -147,8 +147,15 @@ class ci_principal extends ci_editores_toba
 	 */
 	function conf__3()
 	{
-		if (! $this->get_entidad()->tabla('externas')->hay_cursor()) {
+		if (count($this->get_lista_columnas_ext()) == 0) {
 			$this->pantalla()->eliminar_dep('detalle_carga');
+			$this->pantalla()->eliminar_dep('externas');
+			$this->pantalla()->set_descripcion('La carga externa sólo es necesaria cuando se han definido'.
+								' columnas EXTERNAS');
+		} else {
+			if (! $this->get_entidad()->tabla('externas')->hay_cursor()) {
+				$this->pantalla()->eliminar_dep('detalle_carga');
+			}
 		}
 	}
 
