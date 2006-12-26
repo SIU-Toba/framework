@@ -7,17 +7,27 @@ class toba_archivo_php
 	protected $fp = null;
 	protected $contenido = '';
 	protected $archivo_abierto = false;
-	
+
+	/**
+	 * @param string $nombre Path completo del archivo
+	 */
 	function __construct($nombre)
 	{
 		$this->nombre = $nombre;	
 	}
 	
+	/**
+	 * Retorna la ruta completa del archivo
+	 */
 	function nombre()
 	{
 		return $this->nombre;
 	}
 	
+	/**
+	 * Retorna verdadero si el archivo no tiene texto
+	 * @return boolean
+	 */
 	function esta_vacio()
 	{
 		$this->edicion_inicio();
@@ -27,16 +37,27 @@ class toba_archivo_php
 			return false;
 	}
 	
+	/**
+	 * Retorna verdadero si el archivo esta creado
+	 * @return boolean
+	 */
 	function existe()
 	{
 		return file_exists($this->nombre) && is_file($this->nombre);
 	}
 
+	/**
+	 * Retorna verdadero si el archivo tiene definido una clase con este nombre
+	 * @return boolean
+	 */
 	function contiene_clase($nombre)
 	{
 		return strpos(file_get_contents($this->nombre), "class $nombre") !== false;
 	}
 	
+	/**
+	 * Muestra el código fuente del archivo en formato HTML
+	 */
 	function mostrar()
 	{
 		require_once("3ros/PHP_Highlight.php");
@@ -48,6 +69,9 @@ class toba_archivo_php
 		$h->toHtml(false, true, $formato_linea, true);
 	}
 	
+	/**
+	 * Utiliza una llamada al sist. operativo para que abra el archivo en un edtiro del sist. de ventanas del servidor
+	 */
 	function abrir()
 	{
 		$cmd = toba::instalacion()->get_editor_php();
@@ -69,6 +93,9 @@ class toba_archivo_php
 		}
 	}
 	
+	/**
+	 *	Incluye en el runtime PHP al archivo
+	 */
 	function incluir()
 	{
 		//Verifica que no se haya incluido previamente
@@ -83,6 +110,9 @@ class toba_archivo_php
 		}
 	}	
 	
+	/**
+	 * Crea el archivo con los tags php básicos
+	 */
 	function crear_basico()
 	{
 		$this->edicion_inicio();
@@ -94,6 +124,9 @@ class toba_archivo_php
 	//-------------------------EDITAR EL ARCHIVO -------------------------------------
 	//--------------------------------------------------------------------------------
 	
+	/**
+	 * Abre el archivo para edición
+	 */
 	function edicion_inicio()
 	{
 		if( ! $this->archivo_abierto ) {
@@ -105,6 +138,9 @@ class toba_archivo_php
 		}
 	}
 	
+	/**
+	 * Cierra el archivo
+	 */
 	function edicion_fin()
 	{
 /*		echo "Contenido: <pre>";
@@ -114,12 +150,18 @@ class toba_archivo_php
 		toba_manejador_archivos::crear_arbol_directorios(dirname($this->nombre));
 		file_put_contents($this->nombre, $this->contenido);
 	}	
-	
+
+	/**
+	 * Retorna el contenido del archivo
+	 */
 	function contenido()
 	{
 		return $this->contenido;
 	}
 	
+	/**
+	 * Agrega codigo al inicio del archivo (dentro del tag php)
+	 */
 	function insertar_al_inicio($codigo)
 	{
 		$pos = strpos($this->contenido, '<?php');
@@ -137,7 +179,10 @@ class toba_archivo_php
 		}
 		$this->contenido = $inicio."\n".$codigo.$final;
 	}
-	
+
+	/**
+	 * Agrega codigo al final del archivo (dentro del tag php)
+	 */	
 	function insertar_al_final($codigo)
 	{
 		$pos = strrpos($this->contenido, '?>');

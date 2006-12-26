@@ -134,7 +134,7 @@ class comando_doc extends comando_toba
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "API PHP";
 		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/,';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/';
+		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/persistencia/';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
 		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
@@ -179,8 +179,8 @@ class comando_doc extends comando_toba
 		copy($destino.'/toba.html', $destino.'/index.html');
 		$this->convertir_codificacion_dir($destino, "ISO-8859-1", "UTF-8");
 	}
-	
 
+	
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
 		$this->consola->mensaje_directo(".");

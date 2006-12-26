@@ -107,6 +107,10 @@ class toba
 		return toba_admin_fuentes::instancia()->get_fuente($id_fuente, $proyecto)->get_db();
 	}
 
+	/**
+	 * Retorna una referencia al encriptador
+	 * @return toba_encriptador
+	 */
 	static function encriptador()
 	{
 		return toba_encriptador::instancia();	

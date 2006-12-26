@@ -11,6 +11,9 @@ class toba_admin_fuentes
 	static private $instancia;
 	private $fuentes;
 	
+	/**
+	 * @return toba_admin_fuentes
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
@@ -21,6 +24,11 @@ class toba_admin_fuentes
 	
 	private function __construct() {}
 	
+	/**
+	 * Retorna el nombre de la fuente marcada en el editor como predeterminada
+	 * @param boolean $obligatorio Tira una excepción en caso de no existir
+	 * @return string
+	 */
 	function get_fuente_predeterminada($obligatorio=false)
 	{
 		$predeterminada = toba::proyecto()->get_parametro('fuente_datos');	
@@ -30,6 +38,13 @@ class toba_admin_fuentes
 		return $predeterminada;
 	}
 	
+	/**
+	 * Retorna una fuente de datos
+	 *
+	 * @param string $id Id. de la fuente
+	 * @param string $proyecto Proyecto al que pertenece la fuente
+	 * @return toba_fuente_datos
+	 */
 	function get_fuente($id, $proyecto=null)
 	{
 		if(!isset($id)) {

@@ -376,4 +376,30 @@
 		$host = (toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
 		return "http://$host.siu.edu.ar";
 	}	
+	
+	function comparar($valor1, $operador, $valor2)
+	{
+		switch ($operador) {
+			case '==':
+				return $valor1 == $valor2;
+				break;
+			case '===':
+				return $valor1 === $valor2;
+				break;
+			case '<':
+				return $valor1 < $valor2;
+				break;
+			case '<=':
+				return $valor1 <= $valor2;
+				break;
+			case '>':
+				return $valor1 > $valor2;
+				break;																
+			case '>=':
+				return $valor1 >= $valor2;
+				break;
+			default:
+				throw new toba_error("El operador $operador no está soportado");
+		}
+	}
 ?>

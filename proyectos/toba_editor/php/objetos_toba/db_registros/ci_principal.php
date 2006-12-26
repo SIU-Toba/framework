@@ -175,24 +175,27 @@ class ci_principal extends ci_editores_toba
 		$ml->set_proximo_id($this->get_entidad()->tabla('externas')->get_proximo_id());
 		$datos = $this->get_entidad()->tabla('externas')->get_filas(null,true);
 		foreach (array_keys($datos) as $id) {
-			$this->get_entidad()->tabla('externas')->set_cursor($id);
+			$buscador = $this->get_entidad()->tabla('externas_col')->nueva_busqueda();
+			$buscador->set_padre('externas', $id);
+			
 			//--- De esta carga, se filtran las filas que son parametros y se buscan sus columnas padres
-			$datos[$id]['col_parametro'] = $this->get_ext_col(0);
+			$datos[$id]['col_parametro'] = $this->get_columnas_externas($buscador, 0);
 
 			//--- De esta carga, se filtran las filas que son resultado y se buscan sus columnas padres
-			$datos[$id]['col_resultado'] = $this->get_ext_col(1);
+			$datos[$id]['col_resultado'] = $this->get_columnas_externas($buscador, 1);
 			
-			$this->get_entidad()->tabla('externas')->restaurar_cursor();			
 		}
 		$ml->set_datos($datos);
 	}
 	
-	protected function get_ext_col($es_resultado)
+	protected function get_columnas_externas($buscador, $es_resultado)
 	{
-		$condicion = array('es_resultado' => $es_resultado);
-		$col_exts = $this->get_entidad()->tabla('externas_col')->get_id_fila_condicion($condicion);
-		return $this->get_entidad()->tabla('externas_col')->get_id_padres($col_exts, 'columnas');			
+		$buscador->limpiar_condiciones();
+		$buscador->set_condicion('es_resultado', '==', $es_resultado);
+		$col_exts = $buscador->buscar_ids();
+		return $this->get_entidad()->tabla('externas_col')->get_id_padres($col_exts, 'columnas');
 	}
+
 	
 	function evt__externas__seleccion($id_ext)
 	{
@@ -235,14 +238,21 @@ class ci_principal extends ci_editores_toba
 	protected function reasociar_columnas_externas($id_ext, $col_parametros, $col_resultados)
 	{
 		$this->get_entidad()->tabla('externas')->set_cursor($id_ext);
+		$buscador = $this->get_entidad()->tabla('externas_col')->nueva_busqueda();
+		$buscador->set_padre('externas', $id_ext);		
 		
 		//---Se busca si el set actual es distinto al anterior
-		$col_parametro_actuales = $this->get_ext_col(0);
-		$col_resultado_actuales = $this->get_ext_col(1);
+		$col_parametro_actuales = $this->get_columnas_externas($buscador, 0);
+		$col_resultado_actuales = $this->get_columnas_externas($buscador, 1);
+		$buscador->limpiar_condiciones();
 		
 		//--- Si hay alguna diferencia, borra los actuales y agrega los nuevos
 		if ($col_parametros != $col_parametro_actuales || $col_resultados != $col_resultado_actuales) {
-			$this->get_entidad()->tabla('externas_col')->eliminar_filas(true);
+			
+			//--- Borra las columnas actuales
+			foreach ($buscador->buscar_ids() as $id_hija) {
+				$this->get_entidad()->tabla('externas_col')->eliminar_fila($id_hija);
+			}
 			//--- Columnas Parámetros
 			foreach($col_parametros as $col_par) {
 				$padre = array('externas' => $id_ext, 'columnas' => $col_par);

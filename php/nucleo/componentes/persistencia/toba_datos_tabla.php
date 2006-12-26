@@ -138,6 +138,16 @@ class toba_datos_tabla extends toba_componente
 	{
 		return $this->relaciones_con_padres;
 	}
+
+	/**
+	 * Retorna la relación con una tabla padre
+	 * @return {@link toba_relacion_entre_tablas toba_relacion_entre_tablas}
+	 * @ignore 
+	 */	
+	function get_relacion_con_padre($id_tabla_padre)
+	{
+		return $this->relaciones_con_padres[$id_tabla_padre];	
+	}
 	
 	/**
 	 * Informa a la tabla que existe una tabla hija de la actual
@@ -196,6 +206,16 @@ class toba_datos_tabla extends toba_componente
 		if (isset($this->controlador)) {
 			return $this->controlador;		
 		}
+	}
+
+	/**
+	 * Retorna un objeto en el cual se puede realizar busquedas complejas de registros en memoria
+	 * @return toba_datos_busqueda
+	 */
+	function nueva_busqueda()
+	{
+		require_once('toba_datos_busqueda.php');
+		return new toba_datos_busqueda($this->controlador, $this);		
 	}
 
 	//-------------------------------------------------------------------------------
@@ -433,12 +453,14 @@ class toba_datos_tabla extends toba_componente
 				//echo "$id: ".$rel_padre->hay_cursor_en_padre()."<br>";
 				if ($rel_padre->hay_cursor_en_padre()) {
 					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
+				} else {
+					$coincidencias = array();	
 				}
 			}
 		}
 		return $coincidencias;		
 	}
-
+	
 	/**
 	 * Retorna los padres de un conjunto de registros especificos
 	 */
@@ -471,6 +493,8 @@ class toba_datos_tabla extends toba_componente
 	 * Busca los registros en memoria que cumplen una condicion.
 	 * Solo se chequea la condicion de igualdad. No se chequean tipos
 	 * @param array $condiciones Asociativo de campo => valor.
+	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
+	 * 				por ejemplo array(array('id_persona','>=',10),...)
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres* 
 	 * @return array Ids. internos de las filas, pueden no estar numerado correlativamente
 	 */	
@@ -482,17 +506,25 @@ class toba_datos_tabla extends toba_componente
 		if(isset($condiciones)){
 			//Controlo que todas los campos que se utilizan para el filtrado existan
 			foreach( array_keys($condiciones) as $columna){
-				if( !isset($this->columnas[$columna]) ){
-					throw new toba_error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
-				}
+
 			}
 			foreach($coincidencias as $pos => $id_fila){
 				//Verifico las condiciones
 				foreach( array_keys($condiciones) as $campo){
-					if( $condiciones[$campo] != $this->datos[$id_fila][$campo] ){
+					if (is_array($condiciones[$campo])) {
+						list($columna, $operador, $valor) = $condiciones[$campo];
+					} else {
+						$columna = $campo;
+						$operador = '==';						
+						$valor = $condiciones[$campo];
+					}					
+					if( !isset($this->columnas[$columna]) ){
+						throw new toba_error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
+					}
+					if (! comparar($this->datos[$id_fila][$columna], $operador, $valor)) {
 						//Se filtra la fila porque no cumple las condiciones
 						unset($coincidencias[$pos]);
-						break;	
+						break;
 					}
 				}
 			}
@@ -1386,4 +1418,5 @@ class toba_datos_tabla extends toba_componente
 		$this->cambios[$fila]['estado'] = $estado;
 	}
 }
+
 ?>
