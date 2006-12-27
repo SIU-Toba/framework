@@ -924,7 +924,7 @@ CREATE TABLE apex_admin_param_previsualizazion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)		NOT NULL, 
-	usuario								varchar(20)		NOT NULL,
+	usuario								varchar(60)		NOT NULL,
 	grupo_acceso						varchar(20)		NOT NULL,
 	punto_acceso						varchar(100)	NOT NULL,
   CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario"),
