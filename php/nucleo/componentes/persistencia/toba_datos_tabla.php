@@ -819,9 +819,9 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Elimina todas las filas de la tabla en memoria
-	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre para afectar solo sus filas hijas, por defecto no
+	 * @param boolean $con_cursores Tiene en cuenta los cursores del padre para afectar solo sus filas hijas, por defecto utiliza cursores. 
 	 */
-	function eliminar_filas($con_cursores = false)
+	function eliminar_filas($con_cursores = true)
 	{
 		foreach($this->get_id_filas($con_cursores) as $fila) {
 			$this->eliminar_fila($fila);
