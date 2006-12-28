@@ -500,8 +500,24 @@ class toba_ci extends toba_ei
 			//Necesito cargar los daos dinamicos?
 			//Esto es posible si los EF chequean que su valor se encuentre entre los posibles
 			$this->inicializar_dependencias( $dependencias );
-			return $dependencias;
-		}else{
+			
+			//Se ordenan las dependencias: Por ultimo se atienden los cuadros y antes los ML
+			//Porque pueden contener eventos a nivel de fila que cambien algun cursor
+			//y cambien el procesamiento de los otros eventos
+			$cuadros = array();
+			$form_ml = array();
+			$otros = array();
+			foreach ($dependencias as $dep) {
+				if ($this->dependencias[$dep] instanceof toba_ei_cuadro) {
+					$cuadros[] = $dep;
+				} elseif ($this->dependencias[$dep] instanceof toba_ei_formulario_ml) {
+					$form_ml[] = $dep;
+				} else {
+					$otros[] = $dep;	
+				}
+			}
+			return array_merge($otros, $form_ml, $cuadros);
+		} else {
 			return array();
 		}
 	}
