@@ -581,7 +581,7 @@ legend {
 }
 .ci-tabs-h-lista ul {
 	margin:0;
-	padding:10px 10px 0;
+	padding:3px 3px 0;
 	list-style:none;
 }
 .ci-tabs-h-lista li {
@@ -612,7 +612,7 @@ hides rule from IE5-Mac \*/
 }
 .ci-tabs-h-solapa-sel a {
 	color:#333;
-	padding-bottom:5px;
+	padding-bottom:4px;
 }
 .ci-tabs-h-cont, .ci-wiz-cont {
 	height: 100%;
