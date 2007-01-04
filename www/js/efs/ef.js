@@ -426,4 +426,8 @@ ef_fijo.prototype.constructor = ef_fijo;
 		this.input().innerHTML = nuevo;
 	};	
 	
+	ef_fijo.prototype.get_estado = function() {
+		return this.input().innerHTML;
+	};		
+	
 toba.confirmar_inclusion('efs/ef');

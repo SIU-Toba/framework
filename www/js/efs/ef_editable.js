@@ -361,7 +361,7 @@ ef_textarea.prototype.constructor = ef_textarea;
 	
 	ef_textarea.prototype.iniciar = function(id, controlador) { 
 		ef.prototype.iniciar.call(this, id, controlador);
-		if (this._ajustable) {
+		if (this._ajustable && !ie) {
 			resizeTa.agregar_elemento(this.input());
 			resizeTa.init();
 		}

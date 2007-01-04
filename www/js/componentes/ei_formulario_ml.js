@@ -113,7 +113,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		var total = 0;	
 		for (fila in this._filas) {
 			valor = this._efs[id_ef].ir_a_fila(this._filas[fila]).get_estado();
-			valor = (valor === '' || isNaN(valor)) ? 0 : valor;
+			if (isNaN(valor) || typeof valor == 'string') {
+					valor = parseFloat(valor);
+					valor = (valor === '' || isNaN(valor)) ? 0 : valor;
+			}
 			total += valor;
 		}
 		return total;
