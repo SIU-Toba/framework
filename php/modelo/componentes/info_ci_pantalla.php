@@ -30,7 +30,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	
 	function tiene_dependencia($dep)
 	{
-		return in_array($dep, $this->dependencias);
+		return in_array($dep, $this->dependencias, true);
 	}
 
 	//---------------------------------------------------------------------	

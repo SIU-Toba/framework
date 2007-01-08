@@ -385,7 +385,7 @@ class catalogo_items
 			$item = $this->items[$id];
 			if (isset($this->items[$item->get_id_padre()])) {
 				$padre = $this->items[$item->get_id_padre()];
-	 			if ($padre != $item) {			
+	 			if ($padre !== $item) {			
 					$item->set_padre($padre);
 					$padre->agregar_hijo($item);
 				}
