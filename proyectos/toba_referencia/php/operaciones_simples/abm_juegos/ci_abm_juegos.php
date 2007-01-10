@@ -82,7 +82,7 @@ class ci_abm_juegos extends toba_ci
 	{
 		if(isset($this->seleccion_anterior)){
 			$t = $this->get_tabla();
-			$t->eliminar_filas();
+			$t->eliminar_filas(false);
 			$t->sincronizar();
 			$this->resetear();
 		}

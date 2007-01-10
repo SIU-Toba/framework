@@ -26,7 +26,7 @@ class ci_abm_basico extends toba_ci
 
 	function evt__formulario__baja()
 	{
-		$this->dependencia('datos')->eliminar_filas();
+		$this->dependencia('datos')->eliminar_filas(false);
 		$this->dependencia('datos')->sincronizar();
 		$this->dependencia('datos')->resetear();
 	}

@@ -77,7 +77,7 @@ class ci_abm_deportes extends toba_ci
 	{
 		$t = $this->get_tabla();
 		$t->cargar($seleccion);
-		$t->eliminar_filas();
+		$t->eliminar_filas(false);
 		$t->sincronizar();
 		$this->resetear();
 	}
@@ -120,7 +120,7 @@ class ci_abm_deportes extends toba_ci
 	{
 		if(isset($this->seleccion)){
 			$t = $this->get_tabla();
-			$t->eliminar_filas();
+			$t->eliminar_filas(false);
 			$t->sincronizar();
 			$this->resetear();
 		}

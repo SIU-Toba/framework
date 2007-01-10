@@ -6,7 +6,7 @@ class odt_permisos_grupos extends toba_datos_tabla
 	function set_grupos($grupos)
 	{
 		//Es más fácil borrar todo e insertar lo que viene
-		$this->eliminar_filas();
+		$this->eliminar_filas(false);
 		foreach ($grupos as $grupo) {
 			$this->nueva_fila(array('usuario_grupo_acc' => $grupo));
 		}
@@ -35,7 +35,7 @@ class odt_permisos_grupos extends toba_datos_tabla
 	function set_permisos($nuevos)
 	{
 		//Es más fácil borrar todo e insertar lo que viene
-		$this->eliminar_filas();
+		$this->eliminar_filas(false);
 		foreach ($nuevos as $permiso) {
 			$this->nueva_fila(array('permiso'=> $permiso));
 		}

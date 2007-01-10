@@ -18,7 +18,7 @@ class pant_introduccion extends pant_tutorial
 			</p>
 			<img style='clear:both' src='$ciclo' />			
 			<p>
-				La forma de carga del formulario es un arreglo asociativo id_ef=>estado, se le dice estado 
+				La forma de carga del formulario es un arreglo asociativo id_ef=>estado, se le dice <em>estado</em>
 				al valor que toma el ef actualmente, independientemente de su formato.
 				Por ejemplo para cargar el formulario de la imagen:
 				
@@ -201,6 +201,7 @@ class pant_opciones extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$opciones = toba_recurso::imagen_proyecto('tutorial/form-opciones.png');
 		echo "
 			<p>
 				De los distintos tipos de efs disponibles existen los llamados de <strong>selección</strong>,
@@ -217,8 +218,11 @@ class pant_opciones extends pant_tutorial
 				<li>Método PHP: Las opciones surgen de la respuesta de un método de una clase PHP.
 			</ul>
 			<p>
-				En el caso del Método PHP se necesita escribir un método que retorne el conjunto de opciones
-				que dispone el combo:
+				La forma recomendada es utilizar la carga por Método PHP, para esto se necesita:
+                    <ul>
+                    <li>Definir un método que retorne el conjunto de opciones disponibles en el combo</li>
+                    <li>Indicar en el editor-web que las opciones del combo se cargan con este método</li>
+                    </ul>
 			</p>
 		";
 		$codigo = 
@@ -231,10 +235,14 @@ function alumnos_disponibles()
         .....
     );
 ?>";	
+		echo "
+			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
+				<img src='$opciones'>
+			</div>";
 		echo "<div class='codigo'>";
 		highlight_string($codigo);
 		echo "</div>";	
-
+		
 	}
 }
 
@@ -253,8 +261,8 @@ class pant_ml extends pant_tutorial
 			La definición y uso de la grilla de campos es similar al  formulario simple con el agregado de lógica para manejar un número arbitrario de filas.
 			</p>
 			<p>
-			El formulario_ml puede tener un número fijo de filas o puede permitir que el usuario cree nuevas, tanto como en javascript 
-			(más dinámica pero menos control) o haciendo un pedido de página completo al server.
+			Este formulario puede tener un número fijo de filas o puede permitir que el usuario cree nuevas. La creación 
+            puede ser dinámica (utilizando javascript) o haciendo un pedido de página completo al server.
 			</p>
 			<p>
 				La forma que toman los datos, tanto en la carga como en el disparo de eventos es similar al del formulario simple
@@ -287,8 +295,8 @@ class pant_ml extends pant_tutorial
 			<p>
 			Al contener registros, los formularios ML  heredan funcionalidades que son propias de un cuadro.
 			Una de ellas es la capacidad de definir eventos a nivel de fila, como
-			por ejemplo la selección particular de una fila, al método que escucha
-			el evento se le reporta el número de fila seleccionada
+			por ejemplo la selección particular de una fila. En este caso al método que escucha
+			el evento se le reporta el número de fila seleccionada.
 			</p>
 		";	
 		$codigo = '

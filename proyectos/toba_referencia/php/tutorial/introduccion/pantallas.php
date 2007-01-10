@@ -54,15 +54,17 @@ class pant_directorios extends pant_tutorial
 		$proyectos = toba_parser_ayuda::parsear_wiki('Proyectos#Internos', 'proyectos propios', 'toba_editor');
 		echo " 
 			<p>
-			Para familizar más con el ambiente, vamos a presentar su estructura de directorios y una breve descripción de sus funciones:
+			La siguiente es una lista de los directorios más importantes de Toba y sus funcionalidades a alto nivel:
 			<ul class='lista-separada'>
 				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos, 
-						a este directorio es necesario incluirlo en el PATH del sistema operativo.
+						para poder ejecutarlos desde cualquier terminal/consola, a este directorio es necesario incluirlo en el PATH del sistema operativo.
 						
-				<li><strong>doc</strong>: Contiene documentación interna del proyecto, la mejor documentación para el desarrollador se encuentra en el $wiki y en este tutorial.
+				<li><strong>doc</strong>: Contiene documentación interna del proyecto. Para el desarrollador, la mejor documentación se encuentra en el $wiki y en este tutorial.
 				
 				<li><strong>instalacion</strong>: Contiene toda la configuración local (base que se utiliza, proyectos que se editan, alias de apache, etc.)
 													y los metadatos locales (logs, usuarios, etc.).
+													Generalmente es un directorio que no se versiona ya que solo contiene información local
+													de esta instalación.
 				
 				<li><strong>php</strong>
 					<ul>
@@ -133,12 +135,12 @@ class pant_ejecucion extends pant_tutorial
 			A diferencia de una librería clásica, no existe el concepto de procedimiento principal o <em>main</em>
 			en el cual el programador incluye las librerías y las consume. En Toba la situación es distinta:			
 			<ul>
-				<li>El proyecto brinda un <em>punto de acceso</em> en donde se incluye al núcleo de toba (generalmente en aplicacion.php).
+				<li>El proyecto brinda un <em>punto de acceso</em> en donde se incluye al núcleo de toba (generalmente es el archivo www/aplicacion.php).
 				<li>A partir de allí el núcleo analiza los <strong>metadatos</strong> del proyecto y de la operación
 					puntual que se ejecuta, activando los componentes acordes.
 				<li>Si alguna clase del runtime o algún componente se encuentra extendido por el proyecto,
-						recién allí el programador puede incluir código propio, siempre enmarcado en un <em>plan
-						maestro</em> ya delineado.
+						recién allí el programador puede incluir código propio, siempre enmarcado en un 'plan
+						maestro' ya delineado.
 			</ul>
 			
 			<h3 style='clear:both'></h3>
