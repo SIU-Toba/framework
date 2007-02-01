@@ -45,7 +45,9 @@ class toba_db
 	{
 		if(!isset($this->conexion)) {
 			try {
-				$opciones =	array(PDO::ATTR_PERSISTENT => false);
+				$opciones = array();
+				//--- Comentado por que da warning en php 5.2
+				//$opciones =	array(PDO::ATTR_PERSISTENT => false);
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {

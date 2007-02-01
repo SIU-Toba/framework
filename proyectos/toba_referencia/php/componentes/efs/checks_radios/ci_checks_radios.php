@@ -21,7 +21,7 @@ class ci_checks_radios extends toba_ci
 	{
 		$salida = array();
 		for ($i=0; $i < $this->cant; $i++) {
-			if (! isset($master) || $i % $master == 0) {
+			if (! isset($master) || $master == 0 || $i % $master == 0) {
 				$salida[] = array($i, "Opción $i");
 			}
 		}

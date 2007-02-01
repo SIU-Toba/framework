@@ -30,7 +30,7 @@ class pant_definicion extends pant_tutorial
 			
 			<div style='padding: 10px;width: 360px;clear:both;'>
 			<img src='$tabs'><br>
-			<span class='caption'>Ejecución del ítem, las pantallas se ven como solapas horizontales</span>
+			<span class='caption'>Ejecución de la operación, las pantallas se ven como solapas horizontales</span>
 			</div>				
 
 
@@ -73,7 +73,7 @@ class pant_ejemplo extends pant_tutorial
 			<span class='caption'>Definición en el editor de la operación con un CI de dos pantallas.
 			</span>
 			</div>					
-			El primer paso para la operación es definir los distintos componentes que lo componen:
+			El primer paso es definir los distintos componentes que componen la operación:
 			<ol>
 				<li>Un ítem
 				<li>Un CI con dos pantallas
@@ -111,13 +111,13 @@ class pant_eventos extends pant_tutorial
 		echo '
 			</div>		
 			<p>
-			Un <strong>Evento</strong> representa la interacción del usuario. En una aplicación web esto es que
-			desde el cliente (browser) se han realizado acciones que debe atenderlas el servidor, el lugar
-			para atender esas acciones es la extensión del CI.
+			Un <strong>Evento</strong> representa la interacción del usuario. Al ser aplicaciones web, esta interacción
+			surje en el cliente (navegador o browser) donde el usuario ha realizado acciones que deben ser atendendidas en el lado servidor.
+			 En el servidor el lugar para atender esas acciones es la extensión del CI.
 			 </p>
 			 <p>
  			Una vez que definimos los componentes es hora de extender el CI y definir una subclase vacía.
-			Lo primero que vamos a agregar a esta subclase es la atención de eventos del cuadro y el formulario.
+			Lo primero que vamos a agregar a esta subclase es la atención de eventos del cuadro y del formulario.
 			La forma de <em>atrapar</em> un evento es definir un método
 			<pre>
 			function evt__causante__evento($parametros)
@@ -163,7 +163,7 @@ class pant_eventos extends pant_tutorial
 		<h3 style='clear:both;'>Evento Alta del formulario</h3>
 		<p>
 			El segundo caso de evento lo vamos a tomar del formulario, cuando presionamos el botón
-			<em>Agregar</em> viaja por el POST una nueva dirección de email que el formulario entrega
+			<em>Agregar</em>, viaja por el POST una nueva dirección de email que el formulario entrega
 			con el evento <em>Alta</em>
 		</p>
 		<div style='float:right;padding: 10px;border: 1px solid gray;background-color:white;'>

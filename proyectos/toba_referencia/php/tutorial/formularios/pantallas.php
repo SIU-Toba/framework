@@ -94,6 +94,8 @@ class pant_tipos extends pant_tutorial
 					<td><strong>ef_radio</strong>: Selección entre varias opciones, pensado para conjuntos 
 								pequeños de datos, la elección es más explícita que en el combo, aunque
 								ocupa mucho espacio como para poner muchas opciones.
+						<a target='_blank' href='".toba::vinculador()->crear_vinculo(null, 1000096, array(), array('celda_memoria'=>'ejemplo'))."
+						'>Ver Ejemplo.</a>
 					</td>
 				</tr>
 				<tr>
@@ -102,6 +104,8 @@ class pant_tipos extends pant_tutorial
 						se realiza en una ventana aparte, en una operación separada. Pensado para conjuntos grandes 
 						con métodos de búsqueda complejos. La recomendación es usarlo sólo en casos
 						justificados, ya que el combo o el radio brindan en general una mejor experiencia al usuario.
+						<a target='_blank' href='".toba::vinculador()->crear_vinculo(null, 1000048, array(), array('celda_memoria'=>'ejemplo'))."
+						'>Ver Ejemplo.</a>
 					</td>
 				</tr>				
 			</table>
@@ -123,7 +127,9 @@ class pant_tipos extends pant_tutorial
 				</tr>
 				<tr>
 					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/multi_checkbox.png',true)."</td>
-					<td><strong>ef_multi_seleccion_check</strong>: Selecciona los elementos tildando checkboxes
+					<td><strong>ef_multi_seleccion_check</strong>: Selecciona los elementos tildando checkboxes.
+						<a target='_blank' href='".toba::vinculador()->crear_vinculo(null, 1000096, array(), array('celda_memoria'=>'ejemplo'))."
+						'>Ver Ejemplo.</a>
 					</td>
 				</tr>				
 			</table>			
@@ -174,6 +180,8 @@ class pant_tipos extends pant_tutorial
 				<tr>
 					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/upload.png',true)."</td>
 					<td><strong>ef_upload</strong>: El usuario selecciona un archivo de su sistema para que esté disponible en el servidor.
+						<a target='_blank' href='".toba::vinculador()->crear_vinculo(null, '/efs/ef_upload', array(), array('celda_memoria'=>'ejemplo'))."
+						'>Ver Ejemplo.</a>
 					</td>
 				</tr>
 				<tr>
@@ -311,7 +319,11 @@ int(1534)
 		
 		echo "<div class='codigo'>";
 		highlight_string($codigo);
-		echo "</div>";		
+		echo "</div>";
+		
+		$vinculo = toba::vinculador()->crear_vinculo(null, '/objetos/ei_formulario_ml', array(), array('celda_memoria'=>'ejemplo'));
+		echo "<p style='font-size:150%;text-align:center;'>
+				<a target='_blank' href='$vinculo'>Ver Ejemplo de Formulario ML</a></p>";
 	}
 }
 

@@ -75,7 +75,7 @@ class pant_php_plano extends pant_tutorial
 				<ul>
 				 <li><em>Con Componentes</em>: Es la forma recomendada para la mayoría de las operaciones, se ve más adelante en el tutorial.</li>
 				 <li><em>Programando su comportamiento</em>: Para casos de operaciones de consola, en lote o que tengan una salida gráfica totalmente irregular
-				 		 en donde el esquema de componentes no calza.</li>
+				 		 en donde el esquema de componentes no alcanza.</li>
 				 </ul>
 			</p>
 			<p>

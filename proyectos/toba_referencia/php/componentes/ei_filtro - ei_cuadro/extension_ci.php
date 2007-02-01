@@ -13,13 +13,6 @@ class extension_ci extends toba_ci
 			array( 'fecha' => '2005-05-22', 'importe' => 4500)	
 		);
 	
-    function mantener_estado_sesion() 
-    { 
-        $propiedades = parent::mantener_estado_sesion(); 
-		$propiedades[] = "datos_filtro"; 
-        return $propiedades; 
-    } 
-
 	function evt__filtro__filtrar($datos)
 	{
 		$this->s__filtro = $datos;

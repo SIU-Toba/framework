@@ -19,8 +19,8 @@ class pant_definicion extends pant_tutorial
 			esta fuente es una base de datos relacional así que vamos a concentrarnos en ellas. Existen dos formas 
 			principales en que puede <em>transaccionar</em> una operación:
 			 <ul>
-			 	<li>inmediatamente producidos los eventos
-			 	<li>luego de una confirmación explícita del usuario
+			 	<li>inmediatamente producidos los eventos, prácticamente en cada pedido de página.
+			 	<li>luego de una confirmación explícita del usuario.
 			 </ul>
 		";
 
@@ -38,7 +38,7 @@ class pant_inmediata extends pant_tutorial
 			<p>
 			Si los requisitos funcionales lo permiten, transaccionar inmediatamente cuando se produce el evento
 			es la forma más fácil y directa de programar una operación. Simplemente en cada 
-			método que escucha un evento se ejecuta un comando SQL y en las configuraciones se cargan
+			método que escucha un evento se ejecuta un comando SQL, y en las configuraciones se cargan
 			los componentes directamente desde una consulta SQL:
 			</p>
 			<div style='float:right;padding: 10px;border: 1px solid gray;background-color:white;'>
@@ -117,11 +117,11 @@ class pant_marco extends pant_tutorial
 			<p>
 			La solución que se da a nivel Toba es confiar el manejo de la transacción en unos <strong>componentes
 			de persistencia</strong>. Estos serán los encargados de:
-				<ul>
+				<ol>
 					<li>Hacer las consultas para obtener los datos al inicio de la operación/transacción
 					<li>Brindar una api para manejar los datos en sesión durante la operación
 					<li>Analizar los cambios y sincronizarlo con la base de datos al fin de la operación
-				</ul>
+				</ol>
 			<p>
 			Estos tres pasos se pueden ver en la siguiente extensión de un CI:
 			</p>
@@ -222,7 +222,8 @@ class pant_relaciones extends pant_tutorial
 		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-modelo.png');
 		echo "
 			A medida que se van creando operaciones más complejas, trabajar con tablas aisladas
-			empieza a quedar corto. El problema surge de las relaciones entre las tablas. 
+			empieza a quedar corto. El problema surge de las relaciones entre las tablas, podemos verlo
+			con un ejemplo.
 			
 			La idea es así: Una persona tiene juegos y deportes	asociados, se necesita
 			una operación que permita editar datos personales, sus juegos y deportes asociados
@@ -403,7 +404,7 @@ class pant_api extends pant_tutorial
 			<p>
 			Muchas de estas primitivas hacen referencia a una <strong>\$clave</strong>, vale notar
 			que este valor no es la clave real del registro en la base sino un valor interno
-			que maneja la tabla. Por ejemplo al crear una nueva_fila se le brinda una clave para 
+			que maneja el datos_tabla. Por ejemplo al crear una nueva_fila se le brinda una clave para 
 			futuras referencias siendo que aún en la base aún no existe esta fila.
 			Existe más información sobre las primitivas en la $api.
 			</p>
@@ -454,7 +455,7 @@ class pant_api extends pant_tutorial
 	//-- Formulario --
 		
 	/**
-	 *	Se carga al formulario con el deporte actualmente seleccionada
+	 *	Se carga al formulario con el deporte actualmente seleccionado
 	 */
 	function conf__form_deportes()
 	{

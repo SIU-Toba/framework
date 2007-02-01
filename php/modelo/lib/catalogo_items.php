@@ -344,7 +344,7 @@ class catalogo_items
 			}
 		}
 		foreach ($this->items as $pos => $item) {
-			if (!in_array($item, $seleccionados)) {
+			if (!in_array($item, $seleccionados, true)) {
 				$padre = $item->get_padre();
 				if ($padre != null)
 					$padre->quitar_hijo($item);

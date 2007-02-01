@@ -8,20 +8,20 @@ class pant_concepto extends pant_tutorial
 		echo "
 			<p>
 			Los componentes son unidades o elementos que cubren distintos aspectos de una operación.
-			Construir una operación en base a componentes brinda algunas buenas prestaciones:
+			Construir una operación en base a componentes permite:
 			 <ul>
-			 	<li>Un componente puede reutilizarse en distintas operaciones o en distintas partes de la misma operación
+			 	<li>Un componente pueda reutilizarse en distintas operaciones o en distintas partes de la misma operación.
 			 	<li>Los componentes se pueden componer o encastrar entre sí.
-			 	<li>Cada uno encapsula algún comportamiento complejo, que ya no es necesario programar.
-			 	<li>Al estar categorizados según su función, el sistema logra una separación en capas en forma transparente.
+			 	<li>Cada uno encapsule algún comportamiento complejo, que ya no es necesario programar.
+			 	<li>Al estar categorizados según su función, lograr en el sistema una separación en capas en forma transparente.
 			 </ul>
 			</p>
 			<p>
 			El comportamiento particular de un componente es determinado por:
 		    <ul>
-			    <li>La definición usando el editor.
-			    <li>La extensión PHP del componente.
-			    <li>La extensión Javascript del componente. 		
+			    <li>La definición usando el <strong>editor web</strong>.
+			    <li>La extensión PHP del componente, utilizando el <strong>editor php</strong> a gusto.
+			    <li>La extensión Javascript del componente, usando el editor a gusto. 		
 			</ul>
 			</p>
 			
@@ -46,12 +46,12 @@ class pant_tipos extends pant_tutorial
 				<li>Se grafica utilizando HTML.
 				<li>Tiene un comportamiento en el browser (usando javascript).
 				<li>Se comunica con su par en el servidor a traves del POST.
-				<li>Se analizan los nuevos datos o acciones y se notifican a la operación.
+				<li>Se analizan los nuevos datos o acciones y se notifican al control.
 			</ul>
 			
 			<h3>Control</h3>
-			El componente más interesante es el llamado <strong>controlador de interface</strong>
-			que oficia como intermediario entre las capas de datos o negocio y la interface, formando la 
+			El componente llamado <strong>controlador de interface</strong>
+			oficia como intermediario entre las capas de datos o negocio y la interface, formando la 
 			<em>plasticola</em> necesaria para construir una operación con componentes.
 			
 			<h3>Persistencia</h3>
@@ -122,14 +122,15 @@ class pant_extension extends pant_tutorial
 		$api = toba_parser_ayuda::parsear_api('li_Componentes', 'documentación API', 'toba_editor');		
 		echo "
 			<p>
-			El comportamiento de un componente se basa principalmente en su definición y,
+			El comportamiento de un componente se basa en su definición y,
 			en distinta medida según el tipo, su extensión en código.
 			</p>
 			<p>
-			La extensión se da en código a través de <strong>herencia</strong>, creando una subclase del componente en cuestión 
-			y notándolo durante la definición del componente en el editor. La extensión se puede hacer con dos motivos distintos:
+			La extensión en código se da a través de la <strong>herencia</strong>, creando una subclase del componente en cuestión 
+			y seleccionandola durante la definición del componente en el editor. Se podrían definir tres objetivos distintos a la hora de hacer una extensión
+			de un componente:
 			<ul>
-				<li><strong>Atender eventos</strong>: El componente eleva <em>preguntas</em> y notifica <em>sucesos</em>
+				<li><strong>Atender eventos</strong>: El componente notifica <em>sucesos</em>
 					y en la extensión se escuchan. A esta comunicación se la denomina <em>eventos</em> y sa la ve
 					más adelante en el tutorial.
 				
@@ -138,12 +139,11 @@ class pant_extension extends pant_tutorial
 					extender llevan a su lado un ícono de ventana
 					<img src='$ventana'>. 
 					Otros métodos protegidos son extensibles también, pero si no poseen la ventana 
-					no se asegura que en futura versiones del framework será soportado ya que se está 
-					cambiando la implementación interna del componente.
+					no se asegura que en futura versiones del framework serán soportados, ya que lo que 
+					se está extendiendo es un método interno.
 				
-				<li><strong>Extender el componente en Javascript</strong>: Este es un concepto más avanzado,
-				cada componente en PHP tiene su par en Javascript, y en la extensión es posible también
-				variar el comportamiento del componente en el browser.
+				<li><strong>Extender el componente en Javascript</strong>: Cada componente en PHP tiene su par en Javascript, 
+				por lo que en la extensión también es posible variar el comportamiento del componente en el cliente.
 			</ul>
 			</p>
 			<h3>Ejemplo</h3>			

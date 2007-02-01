@@ -11,14 +11,14 @@ class pant_definicion extends pant_tutorial
 				SIU-Toba es un Ambiente de Desarrollo Web que utiliza a PHP como lenguaje de programación.
 				Lo llamamos <strong>Ambiente</strong> porque es una suite de distintas utilidades:
 				<ul>
-					<li>Un conjunto de <strong>librerías</strong> que son consumidas en ejecución. También se lo puede llamar <em>framework</em> o <em>runtime</em>.
-					<li>Un <strong>editor web</strong> destinado a la definición/configuración del proyecto, creación de operaciones y definición de su comportamiento.
+					<li>Un conjunto de <strong>librerías</strong> que son consumidas en ejecución.
+					<li>Un <strong>editor web</strong> destinado a la definición/configuración del proyecto, creación de operaciones y definición de sus comportamiento.
 					<li>Un conjunto de <strong>comandos de consola</strong> destinados a administrar los proyectos creados con la herramienta.
 				</ul>
 			</p>
 			<p>
-				Las definiciones realizadas en el editor se las denomina <strong>metadatos</strong>, y junto a las definiciones en código conforman el
-				comportamiento del proyecto creado.
+				Las definiciones realizadas en el editor web se las denomina <strong>metadatos</strong>, y junto a las definiciones en código conforman el
+				comportamiento del proyecto creado. Durante el desarrollo estos metadatos son almacenados en una base de datos relacional denominada <strong>instancia</strong>.
 			</p>
 		";
 		$img = toba_recurso::imagen_proyecto('tutorial/esquema_general.png');
@@ -30,7 +30,7 @@ class pant_definicion extends pant_tutorial
 				<ol>
 					<li>Se utiliza el <strong>editor web</strong> de toba para definir una operación, sus pantallas, 
 							sus componentes gráficos, tablas que se consumen, etc. Todo esto se almacena en metadatos en una base de datos.
-					<li>Se utiliza un <strong>editor PHP</strong> para el código necesario para cubrir lógica particular de la operación.
+					<li>Se utiliza un <strong>editor PHP</strong> para crear el código necesario para cubrir lógica particular de la operación.
 					<li>Durante este proceso se va probando la operación desde el mismo <strong>editor web</strong> haciendo ajustes contextuales.
 					<li>Una vez terminada se utilizan los <strong>comandos administrativos</strong> para exportar el proyecto 
 						desde el puesto de desarrollo e importarlo en el sistema en producción.
@@ -56,8 +56,8 @@ class pant_directorios extends pant_tutorial
 			<p>
 			La siguiente es una lista de los directorios más importantes de Toba y sus funcionalidades a alto nivel:
 			<ul class='lista-separada'>
-				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos, 
-						para poder ejecutarlos desde cualquier terminal/consola, a este directorio es necesario incluirlo en el PATH del sistema operativo.
+				<li><strong>bin</strong>: Contiene la puerta de entrada a los $comandos.
+						Para poder ejecutarlos desde cualquier terminal/consola, a este directorio es necesario incluirlo en el PATH del sistema operativo.
 						
 				<li><strong>doc</strong>: Contiene documentación interna del proyecto. Para el desarrollador, la mejor documentación se encuentra en el $wiki y en este tutorial.
 				
@@ -83,10 +83,10 @@ class pant_directorios extends pant_tutorial
 								prestaciones extras, es un buen comienzo consumir estas clases.
 						
 						<li><strong>nucleo</strong>: <em>Runtime</em> o conjunto de clases que se utilizan en la ejecución de un proyecto.
-										La documentación de las clases $api.
+										La documentación de estas clases $api.
 					</ul>
 				<li><strong>proyectos</strong>: Este directorio contiene los $proyectos del ambiente y es el lugar sugerido 
-												para los nuevos proyectos, aunque pueden situarlos en cualquier directorio, 
+												para nuevos proyectos. Aunque pueden situarlos en cualquier directorio, 
 												si están aquí es más fácil configurarlos.
 					<div class='proyectos'>
 					<ul>
