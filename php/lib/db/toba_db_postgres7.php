@@ -17,7 +17,7 @@ class toba_db_postgres7 extends toba_db
 	function get_dsn()
 	{
 		//Falta el puerto!!
-		return "pgsql:host=$this->profile dbname=$this->base";	
+		return "pgsql:host=$this->profile;dbname=$this->base";	
 	}
 
 	/**
