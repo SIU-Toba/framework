@@ -133,10 +133,10 @@ class pant_filtros extends pant_tutorial
 		
 	function conf__cuadro()
 	{
-		if (! isset($this->s__filtro) ) {
-			//--- Retorna los datos sin filtrar
-		} else {
+		if (isset($this->s__filtro)) {
 			//--- Filtra los datos en base a $this->s__filtro y los retorna
+		} else {
+			//--- Retorna los datos sin filtrar
 		}
 	}
 ...
@@ -156,15 +156,68 @@ class pant_paginado extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$paginado = toba_recurso::imagen_proyecto('tutorial/cuadro-paginado.png');
 		echo "
-			Cuando la cantidad de registros a mostrar en el cuadro es muy grande está la posibilidad de 
-			dividir la visualización en páginas. Este paginado permite al usuario avanzar y retroceder entre conjuntos
+			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
+				<img src='$paginado'>
+			</div>				
+			<h3>Paginado</h3>
+			<p>
+			Cuando la cantidad de registros a mostrar en el cuadro es muy grande existe la posibilidad de 
+			dividir la visualización en distintaspáginas. Este paginado permite al usuario avanzar y retroceder entre conjuntos
 			de estos registros.
+			</p>
+			<p>
+			La división en páginas la puede hacer el mismo cuadro o hacerla manualmente el programador:
+			</p>
+				<ul>
+					<li>A cargo del cuadro: La división en páginas se produce cuando el cuadro recibe los datos en la configuración.
+						En el editor este modo de paginado se lo conoce como <em>Propio</em>.
+						Es la opción más adecuada cuando el conjunto de registros a mostrar es pequeño.
+					<li>Manualmente: La división en páginas la realiza el programador desde el CI contenedor. Al
+					cuadro sólo llega los datos de la página actual y la cantidad total de registros. Esta forma es la más eficiente
+					ya que sólo se consultan los registros a mostrar.
+				</ul>
+				
+			<h3>Ordenamiento</h3>
+			<p>
+			El cuadro también ofrece al usuario la posibilidad de ordenar el conjunto de datos por sus columnas. 
+			Al igual que el paginado existen dos posibilidades de ordenamiento:
+			</p>
+				<ul>
+					<li>El CI contenedor. Si así se decide se debe escuchar el evento evt__idcuadro__ordenar que recibe como parametro un arreglo conteniendo el sentido y la columna del orden. Por ejemplo: array('sentido' => 'asc', 'columna' => 'importe');. Estas opciones deberían incidir en el mecanismo de recepción de datos (típicamente el ORDER BY de una consulta SQL).
+					<li>El mismo cuadro: En caso que el evento no se escuche, el cuadro tomará la iniciativa de ordenar por sí mismo el set de datos. Para esto debe tener el conjunto completo de datos. Si por ejemplo el cuadro está páginado y sólo se carga la página actual, el cuadro sólo podrá ordenar esa página
+				</ul>
 		";
 		
 		$vinculo = toba::vinculador()->crear_vinculo(null, '/objetos/ei_cuadro', array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";			
+	}
+}
+
+class pant_cortes extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		$cortes = toba_recurso::imagen_proyecto('tutorial/cuadro-cortes.png');		
+		echo "
+			<div style='float:right;border: 1px solid gray;margin: 10px;background-color:white;'>
+				<img src='$cortes'>
+			</div>
+			<p>
+			Los <strong>Cortes de Control</strong> en un cuadro permiten agrupar las filas a partir de campos con valores comunes. 
+			Su finalidad es parcializar los datos para poder visualizarlos en un modo más comprensible, generalmente en un reporte.
+			Por ejemplo en un listado de localidades se podrían agrupar las mismas según a la zona donde pertenecen.
+			</p>
+			<p>
+			Los cortes se definen en el <strong>editor web</strong> seleccionando las columnas que agrupan y la columna que forma 
+			la descripción de la agrupación.
+			</p>
+		";
+		$vinculo = toba::vinculador()->crear_vinculo(null, '1240', array(), array('celda_memoria'=>'ejemplo'));
+		echo "<p style='font-size:150%;text-align:center;'>
+			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";		
 	}
 }
 
