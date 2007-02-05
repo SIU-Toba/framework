@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Datos de ACCESO y AUDITORIA necesarios para el funcionamiento del nucleo.
  * Enmascara principalmente al archivo de configuración instancia.ini de la instancia actual
@@ -10,7 +9,8 @@ class toba_instancia
 {
 	static private $instancia;
 	static protected $id;
-	
+	static private $memoria;							//Referencia al segmento de $_SESSION asignado
+		
 	/**
 	 * @return toba_instancia
 	 */
@@ -22,11 +22,16 @@ class toba_instancia
 		return self::$instancia;	
 	}
 
+	static function eliminar_instancia()
+	{
+		self::$instancia = null;
+	}
+
 	private function __construct()
 	{
-		if(!isset($_SESSION['toba']['instancia'])) {
-			//incluyo el archivo de informacion basica de la INSTANCIA
-			$_SESSION['toba']['instancia'] = self::get_datos_instancia( self::get_id() );
+		$this->memoria =& toba::manejador_sesiones()->segmento_info_instancia();
+		if(!$this->memoria) {
+			$this->memoria = $this->get_datos_instancia( self::get_id() );
 		}
 	}
 	
@@ -62,22 +67,13 @@ class toba_instancia
 	}
 	
 	/**
-	 * Destructor de la clase
-	 */	
-	function limpiar_memoria()
-	{
-		unset($_SESSION['toba']['instancia']);
-		self::$instancia = null;
-	}
-
-	/**
 	 * Retorna un vinculo a la base de datos que forma parte de la instancia
 	 * @return toba_db
 	 */
-	static function get_db()
+	function get_db()
 	{
-		if ( isset( $_SESSION['toba']['instancia']['base'] ) ) {
-			return toba_dba::get_db($_SESSION['toba']['instancia']['base']);
+		if ( isset( $this->memoria['base'] ) ) {
+			return toba_dba::get_db($this->memoria['base']);
 		} else {
 			throw new toba_error("INFO_INSTANCIA: El archivo de inicializacion de la INSTANCIA: '".self::$id."' no posee una BASE DEFINIDA");
 		}
@@ -86,11 +82,11 @@ class toba_instancia
 	/**
 	 * Retorna el path absoluto de un proyecto perteneciente a esta instancia
 	 */
-	static function get_path_proyecto($proyecto)
+	function get_path_proyecto($proyecto)
 	{
 		//incluyo el archivo de informacion basica de la INSTANCIA
-		if (isset($_SESSION['toba']['instancia'][$proyecto]['path'])) {
-			return $_SESSION['toba']['instancia'][$proyecto]['path'];
+		if (isset($this->memoria[$proyecto]['path'])) {
+			return $this->memoria[$proyecto]['path'];
 		} else {
 			return toba_dir() . "/proyectos/" . $proyecto;
 		}
@@ -102,31 +98,31 @@ class toba_instancia
 
 	//------------------------- SESION -------------------------------------
 	
-	static function get_id_sesion()
+	function get_id_sesion()
 	{
 		$sql = "SELECT nextval('apex_sesion_browser_seq'::text) as id;";
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
 			throw new toba_error("No es posible recuperar el ID de la sesion.");
 		}
 		return $rs[0]['id'];	
 	}
 	
-	static function abrir_sesion($sesion, $usuario, $proyecto)
+	function abrir_sesion($sesion, $usuario, $proyecto)
 	{
 		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
 		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$ip."','$proyecto','".session_id()."');";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 	
-	static function cerrar_sesion($sesion, $observaciones = null)
+	function cerrar_sesion($sesion, $observaciones = null)
 	{
 		if(isset($observaciones)){
 			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '$sesion';";
 		}else{
 			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '$sesion';";
 		}		
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
 	//------------------------- USUARIOS -------------------------------------
@@ -137,7 +133,7 @@ class toba_instancia
 	 *
 	 * @see toba_usuario
 	 */
-	static function get_info_usuario($usuario)
+	function get_info_usuario($usuario)
 	{
 		$sql = "SELECT	usuario as							id,
 						nombre as							nombre,
@@ -151,17 +147,17 @@ class toba_instancia
 						parametro_c as						parametro_c
 				FROM 	apex_usuario u
 				WHERE	usuario = '$usuario'";
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
 			throw new toba_error("El usuario '$usuario' no existe.");
 		}
 		return $rs[0];
 	}
 
-	static function get_info_autenticacion($usuario)
+	function get_info_autenticacion($usuario)
 	{
 		$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario='$usuario'";
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		if(empty($rs)){
 			//throw new toba_error("El usuario '$usuario' no existe.");
 			return array();
@@ -169,7 +165,7 @@ class toba_instancia
 		return $rs[0];
 	}
 
-	static function get_lista_usuarios()
+	function get_lista_usuarios()
 	{
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre
@@ -177,13 +173,13 @@ class toba_instancia
 				WHERE 	u.usuario = p.usuario
 				AND		p.proyecto = '".toba_proyecto::get_id()."'
 				ORDER BY 1;";
-		return self::get_db()->consultar($sql);	
+		return $this->get_db()->consultar($sql);	
 	}
 
 	/**
-	*	Devuelve el grupo de acceso de un usuario
+	*	Devuelve el grupo de acceso de un usuario para un proyecto
 	*/
-	static function get_grupo_acceso($usuario, $proyecto)
+	function get_grupo_acceso($usuario, $proyecto)
 	{
 		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,
 						up.usuario_perfil_datos as 				perfil_datos,
@@ -194,13 +190,18 @@ class toba_instancia
 				AND		up.proyecto = ga.proyecto
 				AND		up.usuario = '$usuario'
 				AND		up.proyecto = '$proyecto';";
-		return self::get_db()->consultar($sql);
+		$datos = $this->get_db()->consultar($sql);
+		if($datos){
+			return $datos[0]['grupo_acceso'];
+		} else {
+			return null;
+		}
 	}
 	
 	/**
 	*	Devuelve la lista de items a los que el usuario puede acceder
 	*/
-	static function get_vinculos_posibles($usuario)
+	function get_vinculos_posibles($usuario)
 	{
 		$sql = "SELECT	i.proyecto as proyecto,
 						i.item as item
@@ -213,58 +214,58 @@ class toba_instancia
 				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
                 AND     ui.proyecto = up.proyecto
                 AND     up.usuario = '$usuario';";
-		return self::get_db()->consultar($sql);
+		return $this->get_db()->consultar($sql);
 	}
 
 	//------------------------- LOG aplicacion -------------------------------------
 
-	static function get_id_solicitud()
+	function get_id_solicitud()
 	{
 		$sql = "SELECT	nextval('apex_solicitud_seq'::text) as id;";	
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		if (empty($rs)) {
 			throw new toba_error('No es posible generar un ID para la solicitud');
 		}
 		return $rs[0]['id'];
 	}
 
-	static function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
+	function registrar_solicitud($id, $proyecto, $item, $tipo_solicitud)
 	{
 		$tiempo = toba::cronometro()->tiempo_acumulado();
 		$sql = "INSERT	INTO apex_solicitud (proyecto, solicitud, solicitud_tipo, item_proyecto, item, tiempo_respuesta)	
 				VALUES ('$proyecto','$id','$tipo_solicitud','$proyecto','$item','$tiempo');";	
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
+	function registrar_solicitud_observaciones( $proyecto, $id, $tipo, $observacion )
 	{
 		$sql = "INSERT	INTO apex_solicitud_observacion (proyecto, solicitud, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, observacion) 
 				VALUES ('$proyecto', '$id','{$tipo[0]}','{$tipo[1]}','".addslashes($observacion)."');";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
+	function registrar_solicitud_browser($proyecto, $id, $sesion_proyecto, $sesion, $ip)
 	{
 		$sql = "INSERT INTO apex_solicitud_browser (solicitud_proyecto, solicitud_browser, proyecto, sesion_browser, ip) VALUES ('$proyecto','$id','$sesion_proyecto','$sesion','$ip');";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
+	function registrar_solicitud_consola($proyecto, $id, $usuario, $llamada)
 	{
 		$sql = "INSERT INTO apex_toba_solicitud_consola (proyecto, toba_solicitud_consola, usuario, llamada) VALUES ('$proyecto','$id','$usuario','$llamada');";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
+	function registrar_marca_cronometro($proyecto, $solicitud, $marca, $nivel, $texto, $tiempo)
 	{
 		$sql = "INSERT INTO apex_solicitud_cronometro(proyecto, solicitud, marca, nivel_ejecucion, texto, tiempo) VALUES ('$proyecto','$solicitud','$marca','$nivel','$texto','$tiempo');";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function log_sistema($tipo,$mensaje)
+	function log_sistema($tipo,$mensaje)
 	{
 		$sql = "INSERT INTO apex_log_sistema(usuario,log_sistema_tipo,observaciones) VALUES ('". $usuario . "','$tipo','".addslashes($mensaje)."')";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
 	//-------------------- PROYECTOS  ----------------------------
@@ -272,11 +273,11 @@ class toba_instancia
 	/**
 	 * Retorna las urls de los proyectos actualmente incluídos en la instancia
 	 */
-	static function get_url_proyectos($proys)
+	function get_url_proyectos($proys)
 	{
 		$salida = array();
 		foreach ($proys as $pro) {
-			$salida[$pro] = self::get_url_proyecto($pro);
+			$salida[$pro] = $this->get_url_proyecto($pro);
 		}
 		return $salida;
 	}
@@ -284,10 +285,10 @@ class toba_instancia
 	/**
 	 * Retorna las url asociada a un proyecto particular de la instancia
 	 */	
-	static function get_url_proyecto($proy)
+	function get_url_proyecto($proy)
 	{
-		if (isset($_SESSION['toba']['instancia'][$proy]['url'])) {
-			return $_SESSION['toba']['instancia'][$proy]['url'];
+		if (isset($this->memoria[$proy]['url'])) {
+			return $this->memoria[$proy]['url'];
 		} else {
 			return '/'.$proy;
 		}
@@ -296,9 +297,9 @@ class toba_instancia
 	/**
 	 * Retorna la lista de proyectos a los cuales el usuario actual puede ingresar
 	 */
-	static function get_proyectos_accesibles($refrescar=false)
+	function get_proyectos_accesibles($refrescar=false)
 	{
-		if ($refrescar || ! isset($_SESSION['toba']['instancia']['proyectos_accesibles'])) {
+		if ($refrescar || ! isset($this->memoria['proyectos_accesibles'])) {
 			$usuario = toba::usuario()->get_id();
 			$sql = "SELECT 		p.proyecto, 
 	    						p.descripcion_corta
@@ -308,44 +309,44 @@ class toba_instancia
 						AND  	listar_multiproyecto = 1 
 						AND		up.usuario = '$usuario'
 						ORDER BY orden;";
-			$_SESSION['toba']['instancia']['proyectos_accesibles'] =
-					 self::get_db()->consultar($sql, toba_db_fetch_num);
+			$this->memoria['proyectos_accesibles'] =
+					 $this->get_db()->consultar($sql, toba_db_fetch_num);
 		}
-		return $_SESSION['toba']['instancia']['proyectos_accesibles'];
+		return $this->memoria['proyectos_accesibles'];
 	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
 
-	static function es_ip_rechazada($ip)
+	function es_ip_rechazada($ip)
 	{
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='$ip'";
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		if ( empty($rs)) {
 			return false;
 		}
 		return true;
 	}
 	
-	static function registrar_error_login($usuario, $ip, $texto)
+	function registrar_error_login($usuario, $ip, $texto)
 	{
 		$texto = addslashes($texto);
 		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
 				VALUES ('$usuario',NULL,'$ip','1','$texto')";
-		self::get_db()->ejecutar($sql);
+		$this->get_db()->ejecutar($sql);
 	}
 
-	static function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal)
+	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal)
 	{
 		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0) AND ((now()-momento) < '$ventana_temporal min')";
-		$rs = self::get_db()->consultar($sql);
+		$rs = $this->get_db()->consultar($sql);
 		return $rs[0]['total'];
 	}
 
-	static function bloquear_ip($ip)
+	function bloquear_ip($ip)
 	{
 		try {
 			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
-			self::get_db()->ejecutar($sql);
+			$this->get_db()->ejecutar($sql);
 		} catch ( toba_error $e ) {
 			//La ip ya esta rechazada	
 		}

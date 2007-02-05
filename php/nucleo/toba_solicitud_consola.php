@@ -30,7 +30,7 @@ class toba_solicitud_consola extends toba_solicitud
 	 */
 	function ayuda()
 	{
-		$rs = toba_proyecto::get_menu_consola($this->info['basica']['item_proyecto'],$this->info['basica']['item']);	
+		$rs = toba::proyecto()->get_menu_consola($this->info['basica']['item_proyecto'],$this->info['basica']['item']);	
 		if ($rs) {
 			echo "\n**************** {$this->info['basica']['item_proyecto']} - {$this->info['basica']['item']}  *************\n";
 			echo "\n --- Descripcion\n\n";
@@ -105,7 +105,7 @@ class toba_solicitud_consola extends toba_solicitud
 		}
 		parent::registrar();
 		if($this->registrar_db){
-			toba_instancia::registrar_solicitud_consola($this->info['basica']['item_proyecto'], $this->id, $this->usuario, $str_llamada);
+			toba::instancia()->registrar_solicitud_consola($this->info['basica']['item_proyecto'], $this->id, $this->usuario, $str_llamada);
 		}
 	}
 }

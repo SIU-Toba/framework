@@ -13,6 +13,7 @@ class toba_vinculador
 {
 	protected $prefijo;			//Prefijo de cualquier URL
 	protected $vinculos = array();
+	protected $vinculos_posibles = array();
 	static private $instancia;
 	
 	static function instancia()
@@ -25,9 +26,7 @@ class toba_vinculador
 	
 	private function __construct()
 	{
-		//if(!isset($_SESSION['toba']['instancia']['vinculos_posibles'])){
-			$this->cargar_vinculos_posibles();			
-		//}
+		$this->cargar_vinculos_posibles();			
 		$this->prefijo = toba::memoria()->prefijo_vinculo();
 	}
 
@@ -161,7 +160,7 @@ class toba_vinculador
 		//Cual es la celda de memoria del proximo request?
 		if(!isset($celda_memoria)){
 			//Por defecto propago la celda actual del HILO
-			$celda_memoria = toba::memoria()->get_celda_memoria_actual();
+			$celda_memoria = toba::memoria()->get_celda_memoria_actual_id();
 		}		
 		$parametros_formateados .= "&". apex_hilo_qs_celda_memoria ."=". $celda_memoria;
 		//La proxima pagina va a CRONOMETRARSE?
@@ -271,10 +270,7 @@ class toba_vinculador
 		$usuario = toba::usuario()->get_id();
 		$rs = toba::instancia()->get_vinculos_posibles($usuario);
 		foreach($rs as $vinculo) {
-			$vinculos[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
-		}
-		if(isset($vinculos)) {
-			$_SESSION['toba']['instancia']['vinculos_posibles'] = $vinculos;
+			$this->vinculos_posibles[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
 		}
 	}
 
@@ -283,9 +279,7 @@ class toba_vinculador
 	 */
 	protected function posee_acceso_item($proyecto, $item)
 	{
-		if(array_key_exists('vinculos_posibles',$_SESSION['toba']['instancia'])){
-			return isset($_SESSION['toba']['instancia']['vinculos_posibles'][$proyecto.'-'.$item]);
-		}
+		return isset($this->vinculos_posibles[$proyecto.'-'.$item]);
 	}
 	
 	//-------------------------------------------------------------------------------------

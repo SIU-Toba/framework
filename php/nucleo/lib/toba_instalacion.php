@@ -9,6 +9,7 @@
 class toba_instalacion
 {
 	static private $instancia;
+	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	
 	/**
 	 * @return toba_instalacion
@@ -21,31 +22,28 @@ class toba_instalacion
 		return self::$instancia;	
 	}
 
-	private function __construct()
+	static function eliminar_instancia()
 	{
-		if (!isset($_SESSION['toba']['instalacion'])) {
-			$_SESSION['toba']['instalacion'] = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
-		}
-	}
-	
-	/**
-	 * Destructor de la clase
-	 */
-	function limpiar_memoria()
-	{
-		unset($_SESSION['toba']['instalacion']);
 		self::$instancia = null;
 	}
 
+	private function __construct()
+	{
+		$this->memoria =& toba::manejador_sesiones()->segmento_info_instalacion();
+		if(!$this->memoria) {
+			$this->memoria = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
+		}
+	}
+	
 	/**
 	 * Claves utilizadas para encriptar el querystring y cosas en la base
 	 * @return Arreglo asociativo db=>, get=>
 	 */
 	function get_claves_encriptacion()
 	{
-		if (isset($_SESSION['toba'])) {
-			$claves['db'] = $_SESSION['toba']['instalacion']['clave_db'];
-			$claves['get'] = $_SESSION['toba']['instalacion']['clave_querystring'];
+		if (isset($this->memoria)) {
+			$claves['db'] = $this->memoria['clave_db'];
+			$claves['get'] = $this->memoria['clave_querystring'];
 			return $claves;
 		}
 	}
@@ -58,8 +56,8 @@ class toba_instalacion
 	 */
 	function get_id_grupo_desarrollo()
 	{
-		if (isset($_SESSION['toba'])) {
-			return $_SESSION['toba']['instalacion']['id_grupo_desarrollo'];
+		if (isset($this->memoria)) {
+			return $this->memoria['id_grupo_desarrollo'];
 		}		
 	}
 	
@@ -68,8 +66,8 @@ class toba_instalacion
 	 */
 	function get_editor_php() 
 	{
-		if (isset($_SESSION['toba']['instalacion']['editor_php'])) {
-			return $_SESSION['toba']['instalacion']['editor_php'];
+		if (isset($this->memoria['editor_php'])) {
+			return $this->memoria['editor_php'];
 		}
 	}
 	
@@ -78,8 +76,8 @@ class toba_instalacion
 	 */
 	function es_js_comprimido()
 	{
-		if (isset($_SESSION['toba']['instalacion']['js_comprimido'])) {
-			return $_SESSION['toba']['instalacion']['js_comprimido'];
+		if (isset($this->memoria['js_comprimido'])) {
+			return $this->memoria['js_comprimido'];
 		} else {
 			return false;	
 		}
@@ -98,7 +96,7 @@ class toba_instalacion
 	 */
 	function get_path()
 	{
-		return $_SESSION['toba']["path"];
+		return toba_dir();
 	}	
 	
 	/**
@@ -108,7 +106,5 @@ class toba_instalacion
 	{
 		return toba_dir()."/temp";	
 	}
-	
-	
 }
 ?>

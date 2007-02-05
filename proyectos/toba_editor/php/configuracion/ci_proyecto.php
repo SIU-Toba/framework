@@ -38,7 +38,12 @@ class ci_proyecto extends toba_ci
 
 	function conf__basica($ei)
 	{
-		return $this->dependencia('datos')->get();
+		$datos = $this->dependencia('datos')->get();
+		if (isset($datos['item_inicio_sesion'])) {
+			$datos['carpeta_inicio_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_inicio_sesion'], 
+																					$datos['proyecto']);
+		}
+		return $datos;
 	}
 
 	//---- login -------------------------------------------------------
@@ -51,10 +56,6 @@ class ci_proyecto extends toba_ci
 	function conf__login($ei)
 	{
 		$datos = $this->dependencia('datos')->get();
-		if (isset($datos['item_inicio_sesion'])) {
-			$datos['carpeta_inicio_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_inicio_sesion'], 
-																					$datos['proyecto']);
-		}
 		if (isset($datos['item_pre_sesion'])) {
 			$datos['carpeta_pre_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_pre_sesion'], 
 																				$datos['proyecto']);

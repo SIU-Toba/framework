@@ -2,13 +2,15 @@
 require_once('modelo/componentes/datos_editores.php');
 
 /**
- * A travez de esta clase el nucleo registra al toba_editor
+ * A travez de esta clase el nucleo se relaciona con el proyecto toba_editor
  * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
  * proyecto editor y nucleo. Por simplicidad se deja todo junto.
  * @package Varios
  */
 class toba_editor
 {
+	private static $memoria;	// Bindeo a $_sesion
+
 	static function get_id()
 	{
 		return 'toba_editor';	
@@ -20,22 +22,37 @@ class toba_editor
 	*/
 	static function iniciar($instancia, $proyecto)
 	{
-		$_SESSION['toba']['_editor_']['instancia'] = $instancia;
-		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
+		if(!isset($instancia) || !isset($proyecto)) {
+			throw new toba_error('Editor: es necesario definir la instancia y proyecto a utilizar.');	
+		}
+		self::referenciar_memoria();
+		self::$memoria['instancia'] = $instancia;
+		self::$memoria['proyecto'] = $proyecto;
 		//Busco el ID de la base donde reside la instancia
-		$parametros_instancia = toba_instancia::get_datos_instancia($instancia);
-		$_SESSION['toba']['_editor_']['base'] = $parametros_instancia['base'];
+		$parametros_instancia = toba::instancia()->get_datos_instancia($instancia);
+		self::$memoria['base'] = $parametros_instancia['base'];
 		//Averiguo el punto de acceso del editor
 		$punto_acceso = explode('?', $_SERVER['PHP_SELF']);	
-		$_SESSION['toba']['_editor_']['punto_acceso'] = $punto_acceso[0];
+		self::$memoria['punto_acceso'] = $punto_acceso[0];
 	}
+	
+	static function referenciar_memoria()
+	{
+		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
+	}
+
+	static function finalizar()
+	{
+		toba::manejador_sesiones()->borrar_segmento_editor();
+	}
+
 	
 	/**
 	*	Indica si el EDITOR de metadatos se encuentra encendido
 	*/
 	static function activado()
 	{
-		if (isset($_SESSION['toba']['_editor_'])) {
+		if (count(self::$memoria)>0) {
 			return true;	
 		}
 		return false;
@@ -47,8 +64,8 @@ class toba_editor
 	*/
 	static function modo_prueba()
 	{
-		if (self::activado() && toba::sesion()->activa()) {
-			return $_SESSION['toba']['_editor_']['proyecto'] == toba_proyecto::get_id();
+		if (self::activado() && toba::manejador_sesiones()->existe_sesion_activa() ) {
+			return self::$memoria['proyecto'] == toba_proyecto::get_id();
 		}
 		return false;
 	}
@@ -56,34 +73,34 @@ class toba_editor
 	static function get_id_instancia_activa()
 	{
 		if (self::activado()) {
-			return $_SESSION['toba']['_editor_']['instancia'];
+			return self::$memoria['instancia'];
 		}
 	}
 
 	static function get_base_activa()
 	{
 		if (self::activado()) {
-			return toba_dba::get_db($_SESSION['toba']['_editor_']['base']);
+			return toba_dba::get_db(self::$memoria['base']);
 		}
 	}
 
 	static function get_proyecto_cargado()
 	{
 		if (self::activado()) {
-			return $_SESSION['toba']['_editor_']['proyecto'];
+			return self::$memoria['proyecto'];
 		}
 	}
 	
 	static function set_proyecto_cargado($proyecto)
 	{
-		$_SESSION['toba']['_editor_']['proyecto'] = $proyecto;
+		self::$memoria['proyecto'] = $proyecto;
 		self::get_parametros_previsualizacion(true);
 	}
 		
 	static function get_punto_acceso_editor()
 	{
 		if (self::activado()) {
-			return $_SESSION['toba']['_editor_']['punto_acceso'];
+			return self::$memoria['punto_acceso'];
 		}
 	}
 
@@ -98,11 +115,6 @@ class toba_editor
 		return false;		
 	}
 
-	static function limpiar_memoria()
-	{
-		unset($_SESSION['toba']['_editor_']);
-	}
-		
 	//---------------------------------------------------------------------------
 	//-- Manejo de la configuracion de PREVISUALIZACION
 	//-- ( La previsualizacion es la ejecucion de un proyecto desde el ADMIN)
@@ -133,16 +145,16 @@ class toba_editor
 	*/
 	static function get_parametros_previsualizacion($refrescar = false)
 	{
-		if ($refrescar || !isset($_SESSION['toba']['_editor_']['previsualizacion'])) {
+		if ($refrescar || !isset(self::$memoria['previsualizacion'])) {
 			$rs = self::get_parametros_previsualizacion_db();
 			if ($rs) {
-				$_SESSION['toba']['_editor_']['previsualizacion'] = $rs;
+				self::$memoria['previsualizacion'] = $rs;
 			} else {
-				$_SESSION['toba']['_editor_']['previsualizacion']['punto_acceso'] = null;
-				$_SESSION['toba']['_editor_']['previsualizacion']['grupo_acceso'] = null;
+				self::$memoria['previsualizacion']['punto_acceso'] = null;
+				self::$memoria['previsualizacion']['grupo_acceso'] = null;
 			}		
 		}
-		return 	$_SESSION['toba']['_editor_']['previsualizacion'];
+		return 	self::$memoria['previsualizacion'];
 	}
 	
 	/**
@@ -153,8 +165,8 @@ class toba_editor
 		if (!( array_key_exists('punto_acceso', $datos) && array_key_exists('grupo_acceso', $datos))) {
 			throw new toba_error('Los parametros de previsualizacion son incorrectos.');	
 		}
-		$_SESSION['toba']['_editor_']['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
-		$_SESSION['toba']['_editor_']['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];
+		self::$memoria['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
+		self::$memoria['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];
 		self::set_parametros_previsualizacion_db($datos);
 	}
 

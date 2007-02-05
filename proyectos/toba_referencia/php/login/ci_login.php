@@ -26,8 +26,8 @@ class ci_login extends toba_ci
 				$this->s__datos['clave'] = null;
 			}			
 			try {
-				toba::sesion()->iniciar($this->s__datos['usuario'], $this->s__datos['clave']);
-			} catch ( toba_error_login $e ) {
+				toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave']);
+			} catch ( toba_error_autenticacion $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
 		}
@@ -71,7 +71,7 @@ class ci_login extends toba_ci
 
 	function conf__seleccion_usuario()
 	{
-		return toba_instancia::get_lista_usuarios();
+		return toba::instancia()->get_lista_usuarios();
 	}
 	
 	//-------------------------------------------------------------------

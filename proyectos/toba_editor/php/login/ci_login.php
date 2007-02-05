@@ -16,7 +16,6 @@ class pantalla_login extends toba_ei_pantalla
 		echo toba_js::ejecutar($codigo_js);
 		parent::generar_html();	
 	}	
-	
 }
 
 class ci_login extends toba_ci
@@ -39,23 +38,26 @@ class ci_login extends toba_ci
 	function evt__datos__modificacion($datos)
 	{
 		$this->s__datos = $datos;
+		if ( ! isset($this->s__datos['instancia']) && isset($this->s__datos['proyecto']) 
+				&& ( isset($this->s__datos['usuario']) || isset($this->s__datos['autologin'])) ) {
+			toba::notificacion()->agregar('Es necesario completar todos los parametros.');
+		}
 		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
-			if ( $this->s__datos['autologin'] ) {
-				$this->s__datos['usuario'] = $this->s__datos['autologin'];
+			$this->s__datos['usuario'] = $this->s__datos['autologin'];
+			$this->s__datos['clave'] = null;
+		}else{
+			if (!isset($this->s__datos['clave'])) {
+				throw new toba_error('Es necesario ingresar la clave');
 			}
 		}
-		
-		if ( isset($this->s__datos['instancia']) && isset($this->s__datos['proyecto']) && isset($this->s__datos['usuario']) ) {
-			if (!isset($this->s__datos['clave'])) {
-				$this->s__datos['clave'] = null;
-			}			
-			try {
-				toba_editor::iniciar($this->s__datos['instancia'], $this->s__datos['proyecto']);
-				toba::sesion()->iniciar($this->s__datos['usuario'], $this->s__datos['clave']);
-			} catch ( toba_error_login $e ) {
-				toba::notificacion()->agregar( $e->getMessage() );
-			}
-		}		
+		try {
+			$datos_editor['instancia'] = $this->s__datos['instancia'];
+			$datos_editor['proyecto'] = $this->s__datos['proyecto'];
+			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
+		} catch ( toba_error $e ) {
+			//toba_editor::finalizar();
+			toba::notificacion()->agregar( $e->getMessage() );
+		}
 	}
 
 	function conf__datos()
@@ -114,7 +116,5 @@ class ci_login extends toba_ci
 		return $datos;
 	}
 	//-------------------------------------------------------------------
-	
 }
-
 ?>

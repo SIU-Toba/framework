@@ -58,7 +58,7 @@ class admin_util
 
 	static function existe_archivo_subclase($path_relativo)
 	{
-		$path_real = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
+		$path_real = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
 		return file_exists($path_real) && is_file($path_real);
 	}
 }

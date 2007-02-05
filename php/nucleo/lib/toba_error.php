@@ -57,9 +57,17 @@ class toba_error_permisos extends toba_error
 }
 
 /**
- * Excepción producida por un login incorrecto
+ * Excepción producida por un error en la autenticacion del usuario
  */
-class toba_error_login extends toba_error
+class toba_error_autenticacion extends toba_error
+{
+
+}
+
+/**
+ * Excepción producida por un error en la autorizacion del usuario
+ */
+class toba_error_autorizacion extends toba_error
 {
 
 }

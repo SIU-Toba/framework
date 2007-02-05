@@ -76,7 +76,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	 */
 	protected function cambio_proyecto()
 	{
-		$proyectos = toba_instancia::get_proyectos_accesibles();
+		$proyectos = toba::instancia()->get_proyectos_accesibles();
 		$actual = toba::proyecto()->get_id();
 		if (count($proyectos) > 1) {
 			//-- Si hay al menos dos proyectos
@@ -87,7 +87,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
 								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');
 			echo toba_js::abrir();
-			echo 'var url_proyectos = '.toba_js::arreglo(toba_instancia::get_url_proyectos(array_keys($datos)), true);
+			echo 'var url_proyectos = '.toba_js::arreglo(toba::instancia()->get_url_proyectos(array_keys($datos)), true);
 			echo toba_js::cerrar();
 			echo '</div>';
 		}

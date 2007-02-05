@@ -2,7 +2,7 @@
 
 class sesion_referencia extends toba_sesion 
 {
-	function iniciar_contexto()
+	function conf__activacion()
 	{
 		require_once('php_referencia.php');
 	}	

@@ -23,7 +23,7 @@ class ci_editor_php extends toba_ci
 	{
 		$archivo = toba::memoria()->get_parametro('archivo');
 		if (isset($archivo)) {	//********* Se indico un archivo especifico por GET
-			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$archivo =  $path_proyecto . $archivo;
 			$this->archivo_php = new toba_archivo_php($archivo);	
 		} else {				//********* Se accedio a un componente a travez de su ZONA
@@ -57,7 +57,7 @@ class ci_editor_php extends toba_ci
 			if(!$subclase_archivo || !$subclase_nombre){
 				throw new toba_error('El componente no tiene una subclase definida');	
 			}			
-			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $subclase_archivo;
+			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $subclase_archivo;
 			$this->archivo_php = new toba_archivo_php($path);
 			$this->clase_php = new toba_clase_php($this->archivo_php, $meta_clase);
 			$this->meta_clase = $meta_clase;

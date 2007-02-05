@@ -51,7 +51,7 @@ class toba_admin_fuentes
 			$id = $this->get_fuente_predeterminada(true);	
 		}
 		if ( !isset($this->fuentes[$id]) ) {
-			$parametros = toba_proyecto::get_info_fuente_datos($id, $proyecto);
+			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);
 			if (isset($parametros['subclase_archivo'])) {
 				$archivo = $parametros['subclase_archivo'];
 			} else {

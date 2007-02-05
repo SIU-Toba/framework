@@ -26,7 +26,7 @@ class toba_permisos
 	 */
 	protected function cargar($proyecto, $grupo)
 	{
-		$permisos = toba_proyecto::get_lista_permisos($grupo);
+		$permisos = toba::proyecto()->get_lista_permisos($grupo);
 		$this->permisos = array();
 		foreach ($permisos as $perm) {
 			$this->permisos[] = $perm['nombre'];
@@ -60,7 +60,7 @@ class toba_permisos
 			return true;
 		}
 		//No tiene el permiso, tratar de ver si el permiso existe y cuales son sus datos
-		$rs = toba_proyecto::get_descripcion_permiso($permiso);
+		$rs = toba::proyecto()->get_descripcion_permiso($permiso);
 		if 	(empty($rs)) {
 			throw new toba_error_def("El permiso '$permiso' no se encuentra definido en el sistema.");
 		}

@@ -19,7 +19,7 @@ class toba_recurso {
 		if ($es_actual && isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
 			return '/'.$_SERVER['TOBA_PROYECTO_ALIAS'];
 		} 
-		return toba_instancia::get_url_proyecto($proyecto);
+		return toba::instancia()->get_url_proyecto($proyecto);
 	}
 	
 	/**
@@ -187,7 +187,7 @@ class toba_recurso {
 		}
 		//Busca tambien en el proyecto
 		$proyecto = toba_proyecto::get_id();
-		$path = toba_instancia::get_path_proyecto($proyecto)."/www/css/$estilo.css";
+		$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$estilo.css";
 		if (file_exists($path)) {
 			$url = toba_recurso::url_proyecto($proyecto) . "/css/$estilo.css";
 			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			

@@ -51,7 +51,7 @@ class ci_login extends toba_ci
 			}			
 			try {
 				//toba_editor::iniciar($this->s__datos['instancia'], $this->s__datos['proyecto']);
-				toba::sesion()->iniciar($this->s__datos['usuario'], $this->s__datos['clave']);
+				toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave']);
 			} catch ( toba_error_login $e ) {
 				echo "AACA";
 				toba::notificacion()->agregar( $e->getMessage() );

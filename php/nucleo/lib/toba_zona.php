@@ -30,7 +30,7 @@ class toba_zona
 		$this->metodo_cons = $metodo_cons;
 		
 		//Creo la lista de los VECINOS de la ZONA
-		$this->items_vecinos = toba_proyecto::get_items_zona($id, toba::usuario()->get_id());
+		$this->items_vecinos = toba::proyecto()->get_items_zona($id, toba::usuario()->get_id());
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_id = toba::memoria()->get_parametro(apex_hilo_qs_zona);
 		if ( isset($this->editable_id) ) {

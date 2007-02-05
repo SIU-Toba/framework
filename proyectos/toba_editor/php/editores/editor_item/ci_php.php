@@ -14,7 +14,7 @@ class ci_php extends toba_ci
 	{
 		$archivo = toba::memoria()->get_parametro('archivo');
 		if (isset($archivo)) {	//********* Se indico un archivo especifico por GET
-			$path_proyecto = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
 			$archivo =  $path_proyecto . $archivo;
 			$this->toba_archivo_php = new toba_archivo_php($archivo);	
 		} else {				//********* Se accedio a un componente a travez de su ZONA
@@ -31,7 +31,7 @@ class ci_php extends toba_ci
 				throw new toba_error('El item no tiene un archivo php definido');	
 			}			
 			//- 3 - Creo el toba_archivo_php y la clase_php que quiero mostrar
-			$path = toba_instancia::get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['actividad_accion'];
+			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['actividad_accion'];
 			$this->toba_archivo_php = new toba_archivo_php($path);
 		}
 	}

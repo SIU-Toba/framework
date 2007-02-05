@@ -57,7 +57,7 @@ class toba_cargador
 		}
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
-			$db = toba_instancia::get_db();
+			$db = toba::instancia()->get_db();	
 		}
 		$clase_def = toba_catalogo::get_nombre_clase_definicion( $tipo );
 		$estructura = call_user_func(array($clase_def,'get_estructura'));
@@ -103,7 +103,7 @@ class toba_cargador
 		}
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
-			$db = toba_instancia::get_db();	
+			$db = toba::instancia()->get_db();	
 		}
 		$proyecto = $componente['proyecto'];
 		$id = $componente['componente'];		
@@ -154,7 +154,7 @@ class toba_cargador
 			$this->cache_metadatos_simples = new toba_cache_db( $db );
 		} else {
 			//Acceso por el nucleo
-			$this->cache_metadatos_simples = new toba_cache_db( toba_instancia::get_db() );
+			$this->cache_metadatos_simples = new toba_cache_db( toba::instancia()->get_db() );
 		}
 		foreach ( tablas_componente::get_lista() as $tabla ) {
 			$definicion = tablas_componente::$tabla();

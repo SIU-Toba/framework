@@ -64,7 +64,7 @@ class toba_catalogo
 					FROM apex_objeto
 					WHERE (objeto = '{$componente['componente']}')
 					AND (proyecto = '{$componente['proyecto']}')";
-		$datos = toba_instancia::get_db()->consultar($sql);
+		$datos = toba::instancia()->get_db()->consultar($sql);
 		return self::convertir_tipo( $datos[0]['clase'] );
 	}
 
@@ -75,7 +75,7 @@ class toba_catalogo
 	{
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
-			$db = toba_instancia::get_db();	
+			$db = toba::instancia()->get_db();	
 		}
 		if ($tipo_componente == 'item' ) {
 			$sql = "SELECT 	proyecto as 		proyecto,

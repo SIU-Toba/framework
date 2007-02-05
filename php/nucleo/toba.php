@@ -7,8 +7,8 @@ require_once('nucleo/toba_nucleo.php');
  */
 class toba
 {
-	static private $sesion;
 	static private $mensajes;
+	static private $contexto_ejecucion;
 
 	/**
 	 * @return toba_nucleo
@@ -17,7 +17,26 @@ class toba
 	{
 		return toba_nucleo::instancia();
 	}
-	
+
+	/**
+	 * @return toba_contexto_ejecucion
+	 */
+	static function contexto_ejecucion()
+	{
+		if (!isset(self::$contexto_ejecucion)) {
+			$subclase = toba::proyecto()->get_parametro('contexto_ejecucion_subclase');
+			$archivo = toba::proyecto()->get_parametro('contexto_ejecucion_subclase_archivo');
+			if( $subclase && $archivo ) {
+				require_once($archivo);
+				self::$contexto_ejecucion = new $subclase();
+			} else {
+				require_once('nucleo/lib/toba_contexto_ejecucion.php');
+				self::$contexto_ejecucion = new toba_contexto_ejecucion();
+			}
+		}
+		return self::$contexto_ejecucion;
+	}
+
 	/**
 	 * @return toba_solicitud_web
 	 */
@@ -129,17 +148,7 @@ class toba
 	 */
 	static function sesion()
 	{
-		if (!isset(self::$sesion)) {
-			$subclase = toba::proyecto()->get_parametro('sesion_subclase');
-			$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
-			if( $subclase && $archivo ) {
-				require_once($archivo);
-				self::$sesion = call_user_func(array($subclase,'instancia'),$subclase);
-			} else {
-				self::$sesion = toba_sesion::instancia();
-			}
-		}
-		return self::$sesion;
+		return toba_manejador_sesiones::instancia()->sesion();
 	}
 
 	/**
@@ -147,14 +156,7 @@ class toba
 	 */
 	static function usuario()
 	{
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			return call_user_func(array($subclase,'instancia'));
-		} else {
-			return toba_usuario::instancia();
-		}
+		return toba_manejador_sesiones::instancia()->usuario();
 	}
 	
 	/**
@@ -184,6 +186,13 @@ class toba
 		return toba_instalacion::instancia();
 	}	
 	
+	/**
+	* @ignore
+	*/
+	static function manejador_sesiones()
+	{
+		return toba_manejador_sesiones::instancia();
+	}		
 	
 }
 ?>

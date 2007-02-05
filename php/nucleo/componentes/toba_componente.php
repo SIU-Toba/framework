@@ -316,34 +316,22 @@ abstract class toba_componente
 	 */
 	protected function recuperar_estado_sesion()
 	{
-		if(toba::memoria()->existe_dato($this->id_ses_grec)){
+		if(toba::memoria()->existe_dato($this->id_ses_grec)) {
 			//Recupero las propiedades de la sesion
 			$temp = toba::memoria()->get_dato($this->id_ses_grec);
-			if(isset($temp["toba__indice_objetos_serializados"]))	//El objeto persistio otros objetos
-			{
-				/*
-					PERSISTENCIA de OBJETOS 
-					-----------------------
-					Hay una forma de no hacer este IF: 
-						Que en el consumo de "mantener_estado_sesion" se indique que propiedades son objetos.
-						Hay comprobar si la burocracia justifica el tiempo extra que implica este mecanismo o no.
-				*/
+			if(isset($temp["toba__indice_objetos_serializados"])) {			//El objeto persistio otros objetos
 				$objetos = $temp["toba__indice_objetos_serializados"];
 				unset($temp["toba__indice_objetos_serializados"]);
-				foreach(array_keys($temp) as $propiedad)
-				{
-					if(in_array($propiedad,$objetos)){
+				foreach(array_keys($temp) as $propiedad) {
+					if(in_array($propiedad,$objetos)) {
 						//La propiedad es un OBJETO!
 						$this->$propiedad = unserialize($temp[$propiedad]);
-					}else{
+					} else {
 						$this->$propiedad = $temp[$propiedad];
 					}
 				}
-			}
-			else //El objeto solo persistio variables
-			{
-				foreach(array_keys($temp) as $propiedad)
-				{
+			} else { 														//El objeto solo persistio variables
+				foreach(array_keys($temp) as $propiedad) {
 					$this->$propiedad = $temp[$propiedad];
 				}
 			}
@@ -363,34 +351,19 @@ abstract class toba_componente
 				$nombre_prop = $this->propiedades_sesion[$a];
 				if(isset($this->$nombre_prop)) {
 					if(is_object($this->$nombre_prop)){
-						/*
-							PERSISTENCIA de OBJETOS 
-							-----------------------
-							Esta es la forma mas sencilla de implementar esto para el caso en el que
-							el elemento persistidor permanece inactivo durante n request y luego vuelve
-							a la actividad. Lo malo es que que hay que saber que propiedades son objetos 
-							y cuales no.
-							ATENCION: 
-								Hay que tener mucho cuidado con las referencias circulares:
-								ej: 	un db_tablas posee un por composicion db_registros y
-										el db_registros posee una referencia a su controlador 	
-										que es el mismo el db_tablas...
-								En casos como este es necesario definir __sleep en el objeto hijo, para
-									anular el controlador y __wakeup en el padre para restablecerlo
-						*/
 						$temp[$this->propiedades_sesion[$a]] = serialize($this->$nombre_prop);
 						//Dejo la marca de que serialize un OBJETO.
 						$temp["toba__indice_objetos_serializados"][] = $this->propiedades_sesion[$a];
-					}else{
+					} else {
 						$temp[$this->propiedades_sesion[$a]] = $this->$nombre_prop;
 					}
 				}
 			}
-			if(isset($temp)){
+			if(isset($temp)) {
 				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
 				toba::memoria()->set_dato_operacion($this->id_ses_grec, $temp);
-			}else{
+			} else {
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
 				toba::memoria()->eliminar_dato($this->id_ses_grec);
 			}
@@ -504,7 +477,7 @@ abstract class toba_componente
 	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
 		$sig = count($this->info_dependencias);
-		$this->info_dependencias[$sig] = toba_proyecto::get_definicion_dependencia($objeto, $identificador, $proyecto);
+		$this->info_dependencias[$sig] = toba::proyecto()->get_definicion_dependencia($objeto, $identificador, $proyecto);
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	
 	}

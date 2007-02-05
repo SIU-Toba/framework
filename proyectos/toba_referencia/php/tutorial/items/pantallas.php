@@ -8,7 +8,7 @@ class ci_items extends toba_ci
 	{
 		if (class_exists('contexto_info')) {
 			contexto_info::set_proyecto('toba_referencia');
-			contexto_info::set_db(toba_instancia::get_db());
+			contexto_info::set_db(toba::instancia()->get_db());
 			$catalogador = new catalogo_items('toba_referencia');
 			$catalogador->cargar(array('menu' => 'SI'));
 			$arbol->set_mostrar_utilerias(false);

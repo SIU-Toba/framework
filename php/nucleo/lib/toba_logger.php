@@ -395,7 +395,7 @@ class toba_logger
 	function directorio_logs()
 	{
 		if (! isset($this->dir_logs)) {
-			$id_instancia =toba_instancia::get_id();
+			$id_instancia = toba_instancia::get_id();
 			$this->dir_logs = toba_dir()."/instalacion/i__".$id_instancia."/p__{$this->proyecto_actual}/logs";
 		}
 		return $this->dir_logs;

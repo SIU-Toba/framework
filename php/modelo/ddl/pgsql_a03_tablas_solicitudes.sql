@@ -237,7 +237,7 @@ CREATE TABLE apex_log_ip_rechazada
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	ip								varchar(20)								NOT NULL,
+	ip							varchar(20)								NOT NULL,
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT	"apex_ip_rechazada_pk" PRIMARY KEY ("ip")
 );

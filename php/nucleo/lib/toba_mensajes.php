@@ -27,7 +27,7 @@ class toba_mensajes
 	 */
 	static function get_toba($indice, $parametros=null)
 	{
-		$datos = toba_proyecto::get_mensaje_toba($indice);
+		$datos = toba::proyecto()->get_mensaje_toba($indice);
 		if(!is_array($datos)){
 			throw new toba_error_def("El mensaje $indice no EXISTE.");
 		}else{
@@ -46,7 +46,7 @@ class toba_mensajes
 	 */
 	static function get_proyecto($indice, $parametros=null)
 	{
-		$datos = toba_proyecto::get_mensaje_proyecto($indice);
+		$datos = toba::proyecto()->get_mensaje_proyecto($indice);
 		if(!is_array($datos)){
 			$mensaje = null;
 		}else{
@@ -65,7 +65,7 @@ class toba_mensajes
 	 */
 	static function get_componente($objeto, $indice, $parametros=null)
 	{
-		$datos = toba_proyecto::get_mensaje_objeto($objeto, $indice);
+		$datos = toba::proyecto()->get_mensaje_objeto($objeto, $indice);
 		if(!is_array($datos)){
 			//Retorna null para que siga la busqueda al GLOBAL
 			$mensaje = null;

@@ -328,7 +328,11 @@ class toba_solicitud_web extends toba_solicitud
 	{
 		parent::registrar( toba::proyecto()->get_id() );
 		if($this->registrar_db){
-			toba_instancia::registrar_solicitud_browser($this->info['basica']['item_proyecto'], $this->id, toba::sesion()->get_proyecto(), toba::sesion()->get_id(), $_SERVER['REMOTE_ADDR']);
+			toba::instancia()->registrar_solicitud_browser(	$this->info['basica']['item_proyecto'], 
+															$this->id, 
+															toba::proyecto()->get_id(),
+															toba::manejador_sesiones()->get_id_sesion(),
+															$_SERVER['REMOTE_ADDR']);
 		}
  	}
 }

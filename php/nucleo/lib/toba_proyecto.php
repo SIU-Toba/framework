@@ -12,6 +12,7 @@ class toba_proyecto
 {
 	static private $instancia;
 	static private $id_proyecto;
+	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -40,23 +41,21 @@ class toba_proyecto
 		if (!isset(self::$instancia)) {
 			self::$instancia = new toba_proyecto();	
 		}
-		return self::$instancia;	
+		return self::$instancia;
 	}
 
+	static function eliminar_instancia()
+	{
+		self::$instancia = null;
+	}
+	
 	private function __construct()
 	{
-		if ( !isset($_SESSION['toba']['proyectos'][self::get_id()])) {
-			$_SESSION['toba']['proyectos'][self::get_id()] = self::cargar_info_basica();
+		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto();
+		if (!$this->memoria) {
+			$this->memoria = self::cargar_info_basica();
+			toba::logger()->debug('Inicalizacion de TOBA_PROYECTO: ' . self::get_id(),'toba');
 		}
-	}
-
-	/**
-	 * Fuerza una recarga de toda la información cacheada
-	 */
-	function limpiar_memoria()
-	{
-		unset($_SESSION['toba']['proyectos'][self::get_id()]);
-		self::$instancia = null;
 	}
 
 	/**
@@ -67,10 +66,10 @@ class toba_proyecto
 	{
 		if( defined( self::prefijo_punto_acceso . $id ) ){
 			return constant(self::prefijo_punto_acceso . $id);
-		} elseif (isset($_SESSION['toba']['proyectos'][self::get_id()][$id])) {
-			return $_SESSION['toba']['proyectos'][self::get_id()][$id];
+		} elseif (isset($this->memoria[$id])) {
+			return $this->memoria[$id];
 		} else {
-			if( array_key_exists($id,$_SESSION['toba']['proyectos'][self::get_id()])) {
+			if( array_key_exists($id,$this->memoria)) {
 				return null;
 			}else{
 				throw new toba_error("INFO_PROYECTO: El parametro '$id' no se encuentra definido.");
@@ -83,7 +82,7 @@ class toba_proyecto
 	 */
 	function set_parametro($id, $valor)
 	{
-		$_SESSION['toba']['proyectos'][self::get_id()][$id] = $valor;
+		$this->memoria[$id] = $valor;
 	}
 
 	//----------------------------------------------------------------
@@ -121,6 +120,8 @@ class toba_proyecto
 						version_toba					,
 						requiere_validacion				,
 						usuario_anonimo					,
+						usuario_anonimo_desc			,
+						usuario_anonimo_grupos_acc		,
 						validacion_intentos				,
 						validacion_intentos_min			,
 						validacion_debug				,
@@ -128,6 +129,8 @@ class toba_proyecto
 						sesion_tiempo_maximo_min		,
 						sesion_subclase					,
 						sesion_subclase_archivo			,
+						contexto_ejecucion_subclase		,
+						contexto_ejecucion_subclase_archivo	,
 						usuario_subclase				,
 						usuario_subclase_archivo		,
 						encriptar_qs					,
@@ -151,7 +154,7 @@ class toba_proyecto
 		}
 		return $rs[0];
 	}
-	
+
 	function es_multiproyecto()
 	{
 		return $this->get_parametro('listar_multiproyecto');
@@ -162,7 +165,15 @@ class toba_proyecto
 	 */
 	function get_path()
 	{
-		return $_SESSION['toba']["path_proyecto"];
+		return toba::instancia()->get_path_proyecto(self::get_id());
+	}
+
+	/**
+	 * Retorna el path absoluto de la carpeta 'php' del proyecto
+	 */
+	function get_path_php()
+	{
+		return $this->get_path() . '/php';
 	}
 
 	/**
@@ -171,7 +182,7 @@ class toba_proyecto
 	 */
 	function get_path_temp()
 	{
-		$dir = $_SESSION['toba']["path_proyecto"]."/temp";
+		$dir = $this->get_path() . '/temp';
 		if (!file_exists($dir)) {
 			mkdir($dir, 0700);
 		}
@@ -210,8 +221,7 @@ class toba_proyecto
 		} else {
 			return $this->get_www('temp');
 		}
-	}	
-	
+	}
 	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
@@ -280,7 +290,7 @@ class toba_proyecto
 			$proyecto = self::get_id();
 		}
 		if (!isset($grupo_acceso)) {
-			$grupo_acceso = toba::sesion()->get_grupo_acceso();	
+			$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
 		}
 		$sql = "SELECT 	i.padre as 		padre,
 						i.carpeta as 	carpeta, 
@@ -305,7 +315,7 @@ class toba_proyecto
 	 * Valida que un grupo de acceso tenga acceso a un item
 	 * @return toba_error Si el grupo no tiene permisos suficientes
 	 */
-	static function control_acceso_item($item, $grupo_acceso)
+	static function puede_grupo_acceder_item($grupo_acceso, $item)
 	{
 		$sql = "	SELECT	1 as ok
 					FROM	apex_usuario_grupo_acc_item ui,
@@ -315,13 +325,19 @@ class toba_proyecto
 					AND	up.usuario_grupo_acc = '$grupo_acceso'
 					AND	ui.proyecto = '{$item[0]}'
 					AND	ui.item =	'{$item[1]}';";
-		$rs = self::get_db()->consultar($sql);
-		if(empty($rs)){
-			throw new toba_error('El usuario no posee permisos para acceder al item solicitado.');
-		}
+		$datos = self::get_db()->consultar($sql);
+		return ( ! empty($datos) );
 	}
 
 	//------------------------  Permisos  -------------------------
+	
+	function get_grupo_acceso_usuario_anonimo()
+	{
+		//$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
+		//$grupos = array_map('trim',$grupos);
+		//return $grupos;
+		return $this->get_parametro('usuario_anonimo_grupos_acc');
+	}
 	
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual

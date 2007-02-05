@@ -33,7 +33,7 @@ abstract class toba_solicitud
 			$objetos[] = $this->info['objetos'][$a]["objeto"];	
 		}
 
-		$this->id =	toba_instancia::get_id_solicitud();
+		$this->id =	toba::instancia()->get_id_solicitud();
 
 		//-- Cargo los OBJETOS que se encuentran asociados
 		$this->log = toba::logger();
@@ -115,7 +115,7 @@ abstract class toba_solicitud
 		if( $this->registrar_db ) {
 			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Guardo solicitud
-			toba_instancia::registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
+			toba::instancia()->registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 													$this->info['basica']['item'], $this->get_tipo());
 			// Guardo cronometro
 			if($this->cronometrar){	
@@ -124,7 +124,7 @@ abstract class toba_solicitud
 			// Guardo observaciones
 			if(count($this->observaciones)>0) {
 				for($i=0;$i<count($this->observaciones);$i++) {
-					toba_instancia::registrar_solicitud_observaciones(	$this->info['basica']['item_proyecto'], 
+					toba::instancia()->registrar_solicitud_observaciones(	$this->info['basica']['item_proyecto'], 
 																		$this->id, 
 																		$this->observaciones[$i]['tipo'], 
 																		$this->observaciones[$i]['observacion'] );

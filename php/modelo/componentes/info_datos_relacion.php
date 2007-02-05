@@ -62,9 +62,9 @@ class info_datos_relacion extends info_componente
 		if (isset($this->datos['info_estructura']['ap_archivo'])) {
 			$archivo = $this->datos['info_estructura']['ap_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba_instancia::get_path_proyecto(contexto_info::get_proyecto())."/php/";
+			$path_origen = toba::instancia()->get_path_proyecto(contexto_info::get_proyecto())."/php/";
 			if (isset($proyecto_dest)) {
-				$path_destino = toba_instancia::get_path_proyecto($proyecto_dest)."/php/";
+				$path_destino = toba::instancia()->get_path_proyecto($proyecto_dest)."/php/";
 			} else {
 				$path_destino = $path_origen;	
 			}

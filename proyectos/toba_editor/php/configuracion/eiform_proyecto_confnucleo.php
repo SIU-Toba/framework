@@ -34,6 +34,14 @@ class eiform_proyecto_confnucleo extends toba_ei_formulario
 				}
 			}
 			";
+		echo "						
+			{$this->objeto_js}.evt__ce_subclase_archivo__procesar = function(inicial) {
+				if (!inicial && this.ef('ce_subclase').valor() == '') {
+					var archivo = this.ef('ce_subclase_archivo').valor();
+					this.ef('ce_subclase').cambiar_valor( this.obtener_nombre_clase(archivo) );
+				}
+			}
+			";
 	}
 }
 

@@ -1,5 +1,5 @@
 <?php
-require_once('lib/toba_asercion.php');    			   	   			//Aserciones
+require_once('lib/toba_asercion.php');    			   	   		//Aserciones
 require_once('lib/toba_db.php');			    				//Manejo de bases (utiliza abodb340)
 require_once('lib/toba_encriptador.php');						//Encriptador
 require_once('lib/toba_varios.php');							//Funciones genericas (Manejo de paths, etc.)
@@ -7,19 +7,19 @@ require_once('lib/toba_sql.php');								//Libreria de manipulacion del SQL
 require_once('nucleo/lib/toba_error.php');						//Excepciones del TOBA
 require_once('nucleo/lib/toba_logger.php');						//toba_logger
 require_once('nucleo/lib/toba_mensajes.php');					//Modulo de mensajes parametrizables
+require_once('nucleo/lib/toba_memoria.php');					//Administrador de memoria
 require_once('nucleo/lib/toba_notificacion.php');				//Cola de mensajes utilizada durante la EJECUCION
 require_once('nucleo/lib/toba_permisos.php');					//Administrador de permisos particulares
 require_once('nucleo/lib/toba_recurso.php');					//Obtencion de imágenes de la aplicación
-require_once('nucleo/lib/toba_usuario.php');	  				//Informacion sobre el usuario
 require_once('nucleo/lib/toba_editor.php');			 	 		//Interaccion con el EDITOR
 require_once('nucleo/lib/toba_cronometro.php');          		//Cronometrar ejecucion
 require_once('nucleo/lib/toba_instalacion.php');				//Informacion sobre la instalacion
 require_once('nucleo/lib/toba_instancia.php');					//Informacion sobre la instancia
 require_once('nucleo/lib/toba_proyecto.php');	   				//Informacion sobre el proyecto
+require_once('nucleo/lib/toba_manejador_sesiones.php');			//Informacion sobre el proyecto
 require_once('nucleo/componentes/toba_constructor.php');		//Constructor de componentes
 require_once('nucleo/componentes/toba_cargador.php');			//Cargador de componentes
 require_once('nucleo/componentes/toba_catalogo.php');			//Catalogo de componentes
-
 
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
@@ -64,16 +64,15 @@ class toba_nucleo
 		try {
 			require_once('nucleo/toba_solicitud.php');
 			require_once('nucleo/lib/toba_http.php');				//Genera Encabezados de HTTP
-			require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP
-			session_start();
+			require_once('nucleo/lib/toba_sesion.php');				//Control de sesiones HTTP
+			$this->iniciar_contexto_ejecucion();
 		    toba_http::headers_standart();
-			$this->preparar_include_path();
-			$this->iniciar_contexto_proyecto();
 			try {
 				$this->solicitud = $this->cargar_solicitud();
 				$this->solicitud_en_proceso = true;
 				$this->solicitud->procesar();
 			} catch( toba_reset_nucleo $e ) {
+				toba::logger()->debug('Se recargo el nucleo','toba');
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
 					throw new toba_error('ERROR: El item no esta habilitado para provocar redirecciones.');
@@ -88,12 +87,13 @@ class toba_nucleo
 			}
 			$this->solicitud->registrar();
 			$this->solicitud->finalizar_objetos();
+			$this->finalizar_contexto_ejecucion();
 		} catch (Exception $e) {
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
-		toba::logger()->guardar();		
-		//echo cronometro::instancia()->tiempo_acumulado();
+		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
+		toba::logger()->guardar();
 	}
 
 	/**
@@ -103,14 +103,12 @@ class toba_nucleo
 	{
 		require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP		
 		require_once('nucleo/toba_solicitud.php');		
-		require_once("nucleo/toba_solicitud_consola.php");		
+		require_once('nucleo/toba_solicitud_consola.php');
 		$estado_proceso = null;
 		try {
 			define('apex_pa_instancia', $instancia);
 			define('apex_pa_proyecto' , $proyecto);
-			$this->preparar_include_path();			
-			$this->iniciar_contexto_proyecto();
-			toba::sesion()->iniciar($usuario);
+			$this->iniciar_contexto_ejecucion();			
 			//$this->solicitud = new toba_solicitud_consola($proyecto, $item, $usuario);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'item');
 			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
@@ -121,25 +119,31 @@ class toba_nucleo
 			toba::logger()->crit($e, 'toba');
 			echo $e;
 		}
+		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
+		toba::logger()->debug('Tiempo utilizado: ' . cronometro::instancia()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 		exit($estado_proceso);
 	}
 		
+	function solicitud_en_proceso()
+	{
+		return $this->solicitud_en_proceso;
+	}
+
 	/**
-	 * Se determia el item y se controla el acceso
+	 * Carga la SOLICITUD actual. Se determina el item y se controla el acceso al mismo
 	 */
 	function cargar_solicitud()
 	{
-		if (toba::sesion()->controlar_estado_activacion()) {
+		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
 			$item = $this->get_id_item('item_inicio_sesion');
-			$grupo_acceso = toba::sesion()->get_grupo_acceso();
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
-				toba_proyecto::control_acceso_item($item, $grupo_acceso);
+				$this->autorizar_acceso_item($item);
 			}
 			return $solicitud;
-		} else {
+		} else {														// Estoy fuera de la sesion. Solo se puede acceder a lo publico
 			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
@@ -154,7 +158,7 @@ class toba_nucleo
 					$item = $this->get_id_item('item_pre_sesion');
 					$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 					if (!$solicitud->es_item_publico()) {
-						throw new toba_error($mensaje_error);				
+						throw new toba_error($mensaje_error);		
 					}
 				} else {
 					throw new toba_error($mensaje_error);				
@@ -165,9 +169,9 @@ class toba_nucleo
 	}
 
 	/**
-	 * Averigua el ITEM ACTUAL. Si no existe y puede busca un ITEM PREDEFINIDO
+	 * Averigua el ITEM ACTUAL. Si no existe y puede busca el ITEM PREDEFINIDO pasado como parametro
 	 */
-	function get_id_item($predefinido=null,$forzar_predefinido=false)
+	protected function get_id_item($predefinido=null,$forzar_predefinido=false)
 	{
 		$item = toba::memoria()->get_item_solicitado();
 		if (!$item) {
@@ -182,31 +186,25 @@ class toba_nucleo
 		return $item;
 	}
 	
-	/**
-	 * Incluye la ruta del php de toba y del proyecto actual
-	 */
-	protected function preparar_include_path()
+	protected function autorizar_acceso_item($item)
 	{
-		$proyecto = toba::proyecto()->get_id();
-		$i_proy = toba::instancia()->get_path_proyecto($proyecto);
-		$i_proy_php = $i_proy  . "/php";
-		agregar_dir_include_path($i_proy_php);
-		$_SESSION['toba']["path_proyecto"] = $i_proy;
-		$_SESSION['toba']["path_proyecto_php"] = $i_proy_php;
-		//echo "PROYECTO: $proyecto - INCLUDE_PATH= \"" . ini_get("include_path") ."\"";
+		$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
+		if (! toba::proyecto()->puede_grupo_acceder_item($grupo_acceso, $item) ) {
+			throw new toba_error_autorizacion('El usuario no posee permisos para acceder al item solicitado.');
+		}
 	}
 
-	/**
-	 * Incluye la ventana de inicialización del proyecto
-	 */
-	protected function iniciar_contexto_proyecto()
+	protected function iniciar_contexto_ejecucion()
 	{
-		toba::sesion()->iniciar_contexto();
+		agregar_dir_include_path( toba::proyecto()->get_path_php() );
+		toba::contexto_ejecucion()->conf__inicial();
+		toba::manejador_sesiones()->iniciar();
 	}
 
-	function solicitud_en_proceso()
+	protected function finalizar_contexto_ejecucion()
 	{
-		return $this->solicitud_en_proceso;
+		toba::manejador_sesiones()->finalizar();
+		toba::contexto_ejecucion()->conf__final();
 	}
 }
 ?>
