@@ -198,25 +198,6 @@ class toba_instancia
 		}
 	}
 	
-	/**
-	*	Devuelve la lista de items a los que el usuario puede acceder
-	*/
-	function get_vinculos_posibles($usuario)
-	{
-		$sql = "SELECT	i.proyecto as proyecto,
-						i.item as item
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui,
-						apex_usuario_proyecto up
-				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
-				AND		ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
-                AND     ui.proyecto = up.proyecto
-                AND     up.usuario = '$usuario';";
-		return $this->get_db()->consultar($sql);
-	}
-
 	//------------------------- LOG aplicacion -------------------------------------
 
 	function get_id_solicitud()

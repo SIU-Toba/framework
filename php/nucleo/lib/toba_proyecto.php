@@ -312,6 +312,25 @@ class toba_proyecto
 	}	
 
 	/**
+	*	Devuelve la lista de items a los que un grupo puede acceder
+	*/
+	function get_vinculos_posibles($grupo_acceso=null)
+	{
+		if (!isset($grupo_acceso)) {
+			$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
+		}
+		$sql = "SELECT	i.proyecto as proyecto,
+						i.item as item
+				FROM	apex_item i,
+						apex_usuario_grupo_acc_item ui
+				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
+				AND		ui.item = i.item
+				AND		ui.proyecto = i.proyecto
+				AND		ui.usuario_grupo_acc = '$grupo_acceso';";
+		return $this->get_db()->consultar($sql);
+	}
+
+	/**
 	 * Valida que un grupo de acceso tenga acceso a un item
 	 * @return toba_error Si el grupo no tiene permisos suficientes
 	 */

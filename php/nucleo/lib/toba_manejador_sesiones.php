@@ -203,7 +203,7 @@ class toba_manejador_sesiones
 		if( (toba_editor::modo_prueba() && (toba_proyecto::get_id() != toba_editor::get_id()) ) ) {
 			return toba_editor::get_grupo_acceso_previsualizacion();
 		} else {
-			return $this->usuario->get_grupo_acceso();
+			return $this->usuario()->get_grupo_acceso();
 		}
 	}
 
@@ -258,6 +258,9 @@ class toba_manejador_sesiones
 	{
 		if( $this->existe_sesion_activa() ) {			//--> Hay una sesion para el proyecto actual
 			$this->cargar_contexto();
+			if ( $this->modo_previsualizacion() ) {
+				$this->activar_editor();
+			}
 			try {
 				$this->control_finalizacion_sesion();
 				$this->registrar_activacion_sesion();
@@ -519,6 +522,31 @@ class toba_manejador_sesiones
 		} else {
 			require_once('nucleo/lib/toba_sesion.php');
 			return new toba_sesion();
+		}
+	}
+
+	//------------------------------------------------------------------
+	//---  Relacion con el EDITOR --------------------------------------
+	//------------------------------------------------------------------
+
+	/**
+	*	Indica si el proyecto esta ejecutandose en modo previsualizacion
+	*/
+	private function modo_previsualizacion()
+	{
+		return ( isset($_SESSION['toba']['editor']) && 
+					$_SESSION['toba']['editor']['proyecto'] == $this->proyecto );
+	}
+
+	/**
+	*	Se encarga de inicializar a toba_editor en los proyectos ejecutados en modo previsualizacion
+	*	(la inicializacion esta en la activacion de la sesion del editor y no se invocaba 
+	*		cuando el proyecto estaba previsualizaciondose)
+	*/
+	private function activar_editor()
+	{
+		if( $this->proyecto != toba_editor::get_id() ) {
+			toba_editor::referenciar_memoria();
 		}
 	}
 

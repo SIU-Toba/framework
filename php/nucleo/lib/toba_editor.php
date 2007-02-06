@@ -93,6 +93,10 @@ class toba_editor
 	
 	static function set_proyecto_cargado($proyecto)
 	{
+		if (self::$memoria['proyecto'] != $proyecto ) {
+			//Cambio el proyecto que se esta editando, elimino la sesion del anterior.
+			self::limpiar_memoria_proyecto_cargado();
+		}
 		self::$memoria['proyecto'] = $proyecto;
 		self::get_parametros_previsualizacion(true);
 	}
@@ -113,6 +117,20 @@ class toba_editor
 			return self::get_proyecto_cargado() == self::get_id();
 		}
 		return false;		
+	}
+
+	static function limpiar_memoria_proyecto_cargado()
+	{
+		if ( ! toba_editor::acceso_recursivo() ) {	//Si se esta editando el editor, no es necesario
+			$proyecto = toba_editor::get_proyecto_cargado();
+			if ( toba::manejador_sesiones()->existe_sesion_activa($proyecto) ) {
+				$msg = 'El proyecto estaba en modo edicion y el usuario finalizo la sesion del editor.';
+				toba::manejador_sesiones()->abortar_sesion_proyecto($proyecto, $msg);
+			} elseif (toba::manejador_sesiones()->existe_proyecto_cargado($proyecto)) {
+				//El proyecto puede estar cargado para mostrar un item publico, como la pantalla de login.
+				toba::manejador_sesiones()->borrar_segmento_proyecto($proyecto);
+			}
+		}
 	}
 
 	//---------------------------------------------------------------------------

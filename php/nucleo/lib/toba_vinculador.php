@@ -130,6 +130,7 @@ class toba_vinculador
 		//Controlo que el usuario posea permisos para acceder al ITEM
 		if ( !$autovinculo ) {
 			if ( ! $this->posee_acceso_item($item_proyecto, $item) ) {
+				toba::logger()->info("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
 				return null;	
 			}
 		}
@@ -267,8 +268,7 @@ class toba_vinculador
 	 */	
 	protected function cargar_vinculos_posibles()
 	{
-		$usuario = toba::usuario()->get_id();
-		$rs = toba::instancia()->get_vinculos_posibles($usuario);
+		$rs = toba::proyecto()->get_vinculos_posibles();
 		foreach($rs as $vinculo) {
 			$this->vinculos_posibles[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
 		}

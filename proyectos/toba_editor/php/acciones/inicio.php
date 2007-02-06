@@ -6,6 +6,8 @@ echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
 echo toba_recurso::imagen_proyecto('logo.gif', true);
 echo "</div>";
 
+//ei_arbol($_SESSION, 'SESION', null, true);
+
 //--- VERSION
 
 $url_trac = get_url_desarrollos();

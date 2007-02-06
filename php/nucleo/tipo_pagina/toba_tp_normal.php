@@ -51,14 +51,16 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	
 	protected function cabecera_aplicacion()
 	{
-		//--- Salir
-		$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-		echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'"><img src='.
-				toba_recurso::imagen_toba('finalizar_sesion.gif').
-				' border="0"></a>';
-		
-		//--- Usuario
-		$this->info_usuario();
+		if ( toba::proyecto()->get_parametro('requiere_validacion') ) {
+			//--- Salir
+			$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
+			echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'"><img src='.
+					toba_recurso::imagen_toba('finalizar_sesion.gif').
+					' border="0"></a>';
+			
+			//--- Usuario
+			$this->info_usuario();
+		}
 		
 		//--- Proyecto
 		if(toba::proyecto()->es_multiproyecto()) {		

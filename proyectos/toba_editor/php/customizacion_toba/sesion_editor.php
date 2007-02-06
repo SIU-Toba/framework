@@ -18,19 +18,9 @@ class sesion_editor extends toba_sesion
 
 	function conf__final()
 	{
-		$this->conf__activacion();
+		$this->conf__activacion(); //Necesito referenciar memoria del editor.
 		//Si la sesion del proyecto editado no esta finalizada, la finalizo a la fuerza.
-		$proyecto = toba_editor::get_proyecto_cargado();
-		if ( $proyecto != toba_editor::get_id() ) {
-			if ( toba::manejador_sesiones()->existe_sesion_activa($proyecto) ) {
-				$msg = 'El proyecto estaba en modo edicion y el usuario finalizo la sesion del editor.';
-				toba::manejador_sesiones()->abortar_sesion_proyecto($proyecto, $msg);
-			} elseif (toba::manejador_sesiones()->existe_proyecto_cargado($proyecto)) {
-				//El proyecto puede estar cargado para mostrar un item publico, como la pantalla de login.
-				toba::manejador_sesiones()->borrar_segmento_proyecto($proyecto);
-			}
-			
-		}
+		toba_editor::limpiar_memoria_proyecto_cargado();
 		toba_editor::finalizar();		
 	}
 }
