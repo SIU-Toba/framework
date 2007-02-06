@@ -104,6 +104,12 @@ class analizador_logger_fs
 		return $logs;
 	}
 	
+	function get_cantidad_pedidos()
+	{
+		$logs = $this->get_logs_archivo();
+		return count($logs);
+	}
+	
 	function get_archivo_nombre()
 	{
 		return $this->archivo;	

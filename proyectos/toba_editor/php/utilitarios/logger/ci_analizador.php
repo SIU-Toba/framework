@@ -113,6 +113,29 @@ class ci_analizador extends toba_ci
 		$this->get_logger()->borrar_archivos_logs();	
 	}
 	
+	function evt__anterior()
+	{
+		if (isset($this->seleccion)) {
+			if ($this->seleccion == 'ultima') {
+				$this->seleccion = $this->analizador->get_cantidad_pedidos() -1;
+			} else {
+				$this->seleccion--;
+			}
+		}
+	}
+	
+	function evt__siguiente()
+	{
+		if (isset($this->seleccion)) {
+			$ultima = $this->analizador->get_cantidad_pedidos();
+			if ($this->seleccion == $ultima -1 ) {
+				$this->seleccion = 'ultima';	
+			} else {
+				$this->seleccion++;				
+			}
+		}
+	}
+	
 	//---- Eventos Filtro -------------------------------------------------------
 	
 	function evt__filtro__filtrar($opciones)

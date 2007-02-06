@@ -75,7 +75,16 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<div>";
 		echo "<span class='admin-logger-proyecto' title='{$this->analizador->get_archivo_nombre()}'>";
 		echo ucfirst($this->controlador->get_proyecto());
-		echo "<span class='admin-logger-selec'>$selec</span></span>";
+		echo "<span class='admin-logger-selec'>$selec</span>";
+		
+		//--- Botones anterior/siguiente
+		if ($seleccion != 1) {
+			$this->generar_boton('anterior');			
+		}
+		if ($seleccion != 'ultima') {
+			$this->generar_boton('siguiente');
+		}
+		echo "</span>";
 		$check = toba_form::checkbox("con_encabezados", 0, 1, "ef-checkbox", " onclick=\"toggle_nodo(document.getElementById('logger_encabezados'))\"");
 		echo "<label>$check Ver Encabezados</label><br>";
 
