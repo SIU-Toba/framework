@@ -4,27 +4,9 @@ require_once('operaciones_simples/consultas.php');
 
 class ci_abm_juegos extends toba_ci
 {
-	protected $seleccion;
-	protected $seleccion_anterior;
-
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'seleccion';			// Clave seleccionada por el cuadro
-		$propiedades[] = 'seleccion_anterior';	// Clave del registro cargado en el formulario
-		return $propiedades;
-	}
-
-	private function get_tabla() 
-	{
-		return $this->dependencia('datos');
-	}
-
 	function resetear()
 	{
-		$this->get_tabla()->resetear();
-		unset($this->seleccion);
-		unset($this->seleccion_anterior);
+		$this->dep('datos')->resetear();
 	}
 
 	//-------------------------------------------------------------------
@@ -40,52 +22,37 @@ class ci_abm_juegos extends toba_ci
 
 	function evt__cuadro__seleccion($seleccion)
 	{
-		$this->seleccion = $seleccion;
+		$this->dep('datos')->cargar($seleccion);
 	}
 
 	//-- FORMULARIO
 
 	function conf__formulario()
 	{
-		if(isset($this->seleccion)){
-			$this->seleccion_anterior = $this->seleccion;
-			$t = $this->get_tabla();
-			$t->cargar($this->seleccion);
-			return $t->get();
+		if ($this->dep('datos')->esta_cargada()) {
+			return $this->dep('datos')->get();	
 		}
 	}
 
 	function evt__formulario__alta($datos)
 	{
-		$t = $this->get_tabla();
-		$t->nueva_fila($datos);
-		try{
-			$t->sincronizar();
-			$this->resetear();
-		}catch(toba_error $e){
-			toba::notificacion()->agregar('Error insertando');
-			toba::logger()->error( $e->getMessage() );
-		}
+		$this->dep('datos')->nueva_fila($datos);
+		$this->dep('datos')->sincronizar();
+		$this->resetear();
 	}
 
 	function evt__formulario__modificacion($datos)
 	{
-		if(isset($this->seleccion_anterior)){
-			$t = $this->get_tabla();
-			$t->set($datos);
-			$t->sincronizar();
-			$this->resetear();
-		}
+		$this->dep('datos')->set($datos);
+		$this->dep('datos')->sincronizar();
+		$this->resetear();
 	}
 
 	function evt__formulario__baja()
 	{
-		if(isset($this->seleccion_anterior)){
-			$t = $this->get_tabla();
-			$t->eliminar_filas(false);
-			$t->sincronizar();
-			$this->resetear();
-		}
+		$this->dep('datos')->eliminar_filas();
+		$this->dep('datos')->sincronizar();
+		$this->resetear();
 	}
 
 	function evt__formulario__cancelar()

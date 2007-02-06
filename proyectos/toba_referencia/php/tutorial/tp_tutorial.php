@@ -11,6 +11,8 @@ class tp_tutorial extends tp_referencia
 		<style type="text/css">
 			.codigo {
 				padding: 10px; 
+				margin-top: 5px;
+				margin-bottom: 5px;
 				border: 1px solid black; 
 				background-color:#EEEAEE;		
 			}
@@ -109,4 +111,11 @@ function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
    ';	
 }
 
+function mostrar_php($codigo)
+{
+	$salida = highlight_string($codigo, true);
+	$salida = str_replace('&lt;?php<br />', '', $salida);
+	$salida = str_replace('?&gt;<br />', '', $salida);
+	return "<div class='codigo'>".$salida."</div>";
+}
 ?>

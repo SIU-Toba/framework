@@ -9,7 +9,7 @@ class consultas
 	static function get_juegos()
 	{
 		$sql = "SELECT id, nombre, descripcion FROM ref_juegos;";
-		return consultar_fuente($sql);
+		return toba::db()->consultar($sql);
 	}
 	
 	/**
