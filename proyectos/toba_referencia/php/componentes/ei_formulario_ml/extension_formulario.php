@@ -10,6 +10,15 @@ class extension_formulario_ml extends toba_ei_formulario_ml
 		* 	Valida que la fecha sea un lunes
 		*/
 		echo  "
+			/*{$this->objeto_js}.crear_fila_orig = {$this->objeto_js}.crear_fila;
+			{$this->objeto_js}.crear_fila = function() {
+				var hoy = new Date();
+				var hoy_texto = hoy.getDate() + '/' + hoy.getMonth() + '/' + hoy.getFullYear();
+				var nueva_fila = this._proximo_id;
+				this.crear_fila_orig();
+				this.ef('fecha').ir_a_fila(nueva_fila).set_estado(hoy_texto)
+			};*/
+			
 			{$this->objeto_js}.evt__fecha__validar = function (fila) {
 				var lunes = 1;
 				var ef_fecha = this.ef('fecha').ir_a_fila(fila);

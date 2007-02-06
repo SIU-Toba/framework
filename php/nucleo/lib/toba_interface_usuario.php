@@ -8,7 +8,6 @@ interface toba_interface_usuario
 {
 	static function autenticar($id_usuario, $clave, $datos_iniciales=null);
 
-	function __construct($id_usuario);
 	function get_id();
 	function get_nombre();
 	function get_grupo_acceso();
