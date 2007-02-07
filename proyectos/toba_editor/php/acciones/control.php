@@ -84,10 +84,6 @@ function mostrar_ocultar_frame() {
 ?>
 		<td><? echo gif_nulo(5,1) ?></td>
 
-		<td class='listado-tabi'>
-        <a title='LOG de modificación de componentes' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>">
-        <? echo toba_recurso::imagen_toba("actividad_local.gif",true) ?></a></td>
-
 <?
 	$parametros = array();
 	$html_extra = array('id' => 'vinculo_logger',
@@ -109,6 +105,9 @@ function mostrar_ocultar_frame() {
         <a title='Página inicial del editor' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
 		 <? echo toba_recurso::imagen_toba("home.gif",true) ?></a></td>
 
+		<td class='listado-tabi'>
+		<a title="Administracion de la INSTANCIA" href="<? echo toba::vinculador()->generar_solicitud('toba_instancia','3329',null,false,false,null,true) ?>" class="list-obj" target="_blank"><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
+		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
          <td><a title='Cerrar la sesión' href="#" class="list-obj"  onclick='javascript:salir();return false;'>
@@ -136,28 +135,33 @@ function mostrar_ocultar_frame() {
 
 		 <td class='listado-tabi'><? echo toba_recurso::imagen_toba("objetos/objeto.gif",true) ?></td>
 		<td class='listado-tabn' <? echo $js_cambiar_color_1 ?>>
-		<a title="Listado de Componentes creados en el Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">COMPONENTES</a>
+		<a title="Listado de Componentes creados en el Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo apex_frame_lista ?>">COMPONENTES</a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		<td  class='listado-tabi'>
-		<a title="Configuraciones generales del Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.gif",true) ?></a>
-		</td>
-
 		<td class='listado-tabi'>
-		<a title="Configuración de Usuarios, Permisos y Grupos de Acceso" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/usuarios/listado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
-		</td>
-
-		<td class='listado-tabi'>
-			<a title='Testing Automático' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
-		</td>
+        <a title='LOG de modificación de componentes' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("actividad_local.gif",true) ?></a>
+        </td>
 
 		<td class='listado-tabi'>
 			<a title="Crear un nuevo Componente" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("objetos/objeto_nuevo.gif",true) ?></a>
 		</td>
-		
-		
+
+		<td><? echo gif_nulo(3,1) ?></td>
+
+		<td class='listado-tabi'>
+		<a title="Configuración de la previsualización del proyecto" href="<? echo toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3287', array('menu'=>true, 'celda'=>'central') ) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("items/config_previsualizacion.gif",true) ?></a>
+		</td>
+
+		<td class='listado-tabi'>
+			<a title='Testing Automático' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<? echo apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
+		</td>
+
+		<td  class='listado-tabi'>
+		<a title="Configuración general del proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.gif",true) ?></a>
+		</td>
+
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		</tr>

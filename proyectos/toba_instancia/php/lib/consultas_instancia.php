@@ -160,6 +160,22 @@ class consultas_instancia
 		return $rs[0]['cantidad'];
 	}
 
+	static function get_usuarios_asociados_proyecto($proyecto, $filtro=null)
+	{
+		$sql = "SELECT 	up.proyecto as proyecto,
+						up.usuario as usuario, 
+						u.nombre as nombre,
+						g.nombre as grupo_acceso
+				FROM 	apex_usuario u,
+						apex_usuario_proyecto up,
+						apex_usuario_grupo_acc g
+				WHERE 	g.usuario_grupo_acc = up.usuario_grupo_acc
+				AND		g.proyecto = up.proyecto
+				AND		u.usuario = up.usuario
+				AND		up.proyecto = '$proyecto';";
+		return toba::db()->consultar($sql);
+	}
+	
 	//---------------------------------------------------------------------
 	//------ Grupos de Acceso ---------------------------------------------
 	//---------------------------------------------------------------------
