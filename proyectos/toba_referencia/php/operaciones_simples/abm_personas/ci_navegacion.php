@@ -17,6 +17,13 @@ class ci_navegacion extends toba_ci
 		return $this->dependencia("editor");
 	}
 
+	function conf__edicion()
+	{
+		if (! $this->get_relacion()->esta_cargado()) {
+			$this->pantalla()->eliminar_evento('eliminar');
+		}
+	}
+	
 	function evt__agregar()
 	{
 		$this->set_pantalla('edicion');
@@ -82,11 +89,5 @@ class ci_navegacion extends toba_ci
 		$this->set_pantalla('edicion');
 	}
 	
-	function evt__cuadro_personas__eliminar($seleccion)
-	{
-		$this->get_relacion()->cargar($seleccion);
-		$this->get_relacion()->eliminar();
-	}
-	//-------------------------------------------------------------------
 }
 ?>
