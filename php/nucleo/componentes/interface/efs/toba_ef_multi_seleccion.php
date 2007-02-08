@@ -400,15 +400,19 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
     			$html .= "<tr>\n";	
     		}
 			$id = $this->id_form.$i;			
-			$html .= "\t<td><label class='ef-multi-check' for='$id'>";				
+			$html .= "\t<td><label class='ef-multi-check' for='$id'>";
+			$ok = in_array($clave, $estado);
 			if (! $this->solo_lectura) {
-				$checkeado = in_array($clave, $estado) ? "checked" : "";
+				$checkeado =  $ok ? "checked" : "";
 				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox' $input_extra>";
 				$input_extra = '';
 			} else {
 				//---Caso solo-lectura	
-				$img = (in_array($id, $estado)) ? 'checked.gif' : 'unchecked.gif';
+				$img = $ok ? 'checked.gif' : 'unchecked.gif';
 				$html .= toba_recurso::imagen_toba($img,true,16,16);
+				if ($ok) {
+					$html .= "<input name='{$this->id_form}[]' id='$id' type='hidden' value='$clave'>";
+				}
 			}
 			$html .= "$descripcion</label></td>\n";		
 			$i++;
