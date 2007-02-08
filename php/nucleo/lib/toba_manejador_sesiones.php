@@ -300,7 +300,7 @@ class toba_manejador_sesiones
 	private function procesar_acceso_instancia($id_usuario=null, $datos_iniciales=null)
 	{
 		try {
-			$this->borrar_segmento_proyecto();//Potencialmente utilizado en items publicos
+			//$this->borrar_segmento_proyecto();//Potencialmente utilizado en items publicos
 			$this->cargar_usuario($id_usuario);
 			$this->registar_usuario();
 			$this->abrir_sesion($datos_iniciales);

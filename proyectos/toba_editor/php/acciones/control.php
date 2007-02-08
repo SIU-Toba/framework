@@ -36,6 +36,11 @@ function mostrar_ocultar_frame() {
 	}
 }
 
+function abrir_toba_instancia(){
+	var url = '<? echo toba::vinculador()->generar_solicitud('toba_instancia','3329',null,false,false,null,true) ?>';
+	var opciones = {'width': 1000, 'scrollbars' : true, 'height': 650, 'resizable': true};
+	abrir_popup('toba_instancia', url, opciones, null, false);
+}
 </script>
 
 <?
@@ -106,7 +111,7 @@ function mostrar_ocultar_frame() {
 		 <? echo toba_recurso::imagen_toba("home.gif",true) ?></a></td>
 
 		<td class='listado-tabi'>
-		<a title="Administracion de la INSTANCIA" href="<? echo toba::vinculador()->generar_solicitud('toba_instancia','3329',null,false,false,null,true) ?>" class="list-obj" target="_blank"><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
+		<a title="Administracion de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>

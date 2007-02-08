@@ -18,12 +18,13 @@ class menu_nodo_proyecto extends toba_nodo_basico
 									'ayuda' => null ) );
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = $this->celda;
+		/*
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),
 			'ayuda' => 'Informacion del proyecto',
 			'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3338, null, $opciones ),
 			'target' => $this->target
-		) );
+		) );*/
 		//----------- HIJOS -----------------------
 		$parametros = array('proyecto'=>$this->proyecto);
 		$usuarios = new toba_nodo_basico('Usuarios Vinculados ['. consultas_instancia::get_cantidad_usuarios_proyecto($this->proyecto) .']',$this);

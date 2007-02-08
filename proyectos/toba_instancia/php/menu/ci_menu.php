@@ -4,6 +4,11 @@ require_once("menu/menu_nodo_proyecto.php");
 
 class ci_menu extends toba_ci
 {
+	function conf()
+	{
+		$this->pantalla()->set_descripcion('Administración de la instancia <strong>'.toba::sesion()->get_id_instancia().'</strong>');	
+	}
+
 	function conf__arbol($componente)
 	{
 		$componente->set_datos( $this->construir_arbol() );
@@ -26,7 +31,7 @@ class ci_menu extends toba_ci
 							'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3344, null, $opciones ),
 							'target' => $target	) );
 		// nodo PROYECTOS
-		$nodo_proyectos	= new toba_nodo_basico('Proyectos');
+		$nodo_proyectos	= new toba_nodo_basico('<b>PROYECTOS</b>');
 		$nodo_proyectos->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("seleccionar.gif", false),
 												'ayuda' => null ) );
 		foreach( admin_instancia::ref()->get_lista_proyectos() as $proyecto ) {
@@ -34,7 +39,7 @@ class ci_menu extends toba_ci
 		}
 		$nodo_proyectos->set_hijos( $proyectos );
 		// nodo ADMINISTRACION
-		$nodo_admin = new toba_nodo_basico('Administracion');
+		$nodo_admin = new toba_nodo_basico('Administracion General');
 		$nodo_admin->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("configurar.gif", false),
 											'ayuda' => 'Administrar la instancia' ) );
 		$nodo_admin->agregar_utileria( array(
@@ -54,9 +59,9 @@ class ci_menu extends toba_ci
 			'target' => $target
 		) );
 
-		$nodo_admin->set_hijos(array($nodo_admin_bips));	
+		$nodo_admin->set_hijos(array($nodo_usuarios, $nodo_admin_bips));
 		//---------------------------
-		return array( $nodo_usuarios, $nodo_proyectos, $nodo_admin );
+		return array( $nodo_admin, $nodo_proyectos );
 	}
 }
 ?>
