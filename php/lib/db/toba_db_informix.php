@@ -8,10 +8,10 @@ require_once("toba_db.php");
  */
 class toba_db_informix extends toba_db
 {
-	function __construct($profile, $usuario, $clave, $base)
+	function __construct($profile, $usuario, $clave, $base, $puerto)
 	{
 		$this->motor = "informix";
-		parent::__construct($profile, $usuario, $clave, $base);
+		parent::__construct($profile, $usuario, $clave, $base, $puerto);
 	}
 	
 	function abrir_transaccion()

@@ -118,13 +118,15 @@ class toba_dba
 				&& isset($parametros['base']) ) ) {
 			throw new toba_error("DBA: La BASE '$id_base' no esta definida correctamente." );
 		}
+		$puerto = isset($parametros['puerto']) ? $parametros['puerto'] : '';
 		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
 		$clase = "toba_db_" . $parametros['motor'];
 		require_once($archivo);
 		$objeto_db = new $clase(	$parametros['profile'],
 									$parametros['usuario'],
 									$parametros['clave'],
-									$parametros['base'] );
+									$parametros['base'],
+									$puerto );
 		$objeto_db->conectar();
 		return $objeto_db;
 	}

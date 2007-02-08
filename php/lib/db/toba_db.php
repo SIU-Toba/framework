@@ -21,15 +21,17 @@ class toba_db
 	protected $usuario;
 	protected $clave;
 	protected $base;
+	protected $puerto;
 	protected $debug = false;
 	protected $debug_sql_id = 0;
 	
-	function __construct($profile, $usuario, $clave, $base)
+	function __construct($profile, $usuario, $clave, $base, $puerto=null)
 	{
 		$this->profile  = $profile;
 		$this->usuario  = $usuario;
 		$this->clave    = $clave;
 		$this->base     = $base;
+		$this->puerto = $puerto;
 	}
 
 	function destruir()

@@ -8,16 +8,16 @@ require_once("toba_db.php");
  */
 class toba_db_postgres7 extends toba_db
 {
-	function __construct($profile, $usuario, $clave, $base)
+	function __construct($profile, $usuario, $clave, $base, $puerto)
 	{
 		$this->motor = "postgres7";
-		parent::__construct($profile, $usuario, $clave, $base);
+		parent::__construct($profile, $usuario, $clave, $base, $puerto);
 	}
 
 	function get_dsn()
 	{
-		//Falta el puerto!!
-		return "pgsql:host=$this->profile;dbname=$this->base";	
+		$puerto = (isset($this->puerto)) ? "port={$this->puerto}": '';
+		return "pgsql:host=$this->profile;dbname=$this->base;$puerto";	
 	}
 
 	/**

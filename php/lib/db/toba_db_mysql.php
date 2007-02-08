@@ -8,15 +8,16 @@ require_once("toba_db.php");
  */
 class toba_db_mysql extends toba_db
 {
-	function __construct($profile, $usuario, $clave, $base)
+	function __construct($profile, $usuario, $clave, $base, $puerto)
 	{
 		$this->motor = "mysql";
-		parent::__construct($profile, $usuario, $clave, $base);
+		parent::__construct($profile, $usuario, $clave, $base, $puerto);
 	}
 	
 	function get_dsn()
 	{
-		return "mysql:host=$this->profile;dbname=$this->base";	
+		$puerto = (isset($this->puerto)) ? "port={$this->puerto}": '';		
+		return "mysql:host=$this->profile;dbname=$this->base;$puerto";	
 	}
 	
 }
