@@ -16,7 +16,7 @@ class toba_db_mysql extends toba_db
 	
 	function get_dsn()
 	{
-		$puerto = (isset($this->puerto)) ? "port={$this->puerto}": '';		
+		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
 		return "mysql:host=$this->profile;dbname=$this->base;$puerto";	
 	}
 	
