@@ -658,10 +658,7 @@ class toba_datos_tabla extends toba_componente
 	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
 	{
 		if( $this->tope_max_filas != 0){
-			if( !($this->get_cantidad_filas() < $this->tope_max_filas) ){
-				$info = 'filas: ' . $this->get_cantidad_filas() . ' tope: ' . $this->tope_max_filas;
-				throw new toba_error("No es posible agregar FILAS (TOPE MAX.) $info");
-			}
+			$this->control_tope_maximo_filas($this->get_cantidad_filas() + 1);
 		}
 		$this->notificar_contenedor("ins", $fila);
 		//Saco el campo que indica la posicion del registro
@@ -1035,7 +1032,7 @@ class toba_datos_tabla extends toba_componente
 			}
 		}
 	}
-
+	
 	//-------------------------------------------------------------------------------
 	//-- VALIDACION global
 	//-------------------------------------------------------------------------------
@@ -1099,11 +1096,24 @@ class toba_datos_tabla extends toba_componente
 			if( $this->tope_min_filas != 0){
 				if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
 					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new toba_error("datos_tabla '".$this->info['nombre']."': Los registros cargados no cumplen con el TOPE MINIMO necesario ({$this->tope_min_filas})");
+					throw new toba_error("La tabla <em>{$this->id_en_controlador}</em> requiere ingresar al menos {$this->tope_min_filas} registro/s (se encontraron
+					sólo {$this->get_cantidad_filas()}).");
 				}
 			}
 		}
 	}
+
+	/**
+	 * Valida que la cantidad de filas a crear no supere el maximo establecido
+	 */	
+	protected function control_tope_maximo_filas($cantidad)
+	{
+		if ($cantidad > $this->tope_max_filas) {
+			throw new toba_error("No está permitido ingresar más de {$this->tope_max_filas} registros
+									en la tabla <em>{$this->id_en_controlador}</em> (se encontraron $cantidad).");
+		}
+	}
+	
 
 	//-------------------------------------------------------------------------------
 	//-- PERSISTENCIA  -------------------------------------------------------------
@@ -1161,16 +1171,12 @@ class toba_datos_tabla extends toba_componente
 	function cargar_con_datos($datos)
 	{
 		$this->log("Carga de datos");
-		$this->datos = $datos;
+		$this->datos = null;
 		//Controlo que no se haya excedido el tope de registros
-		if( $this->tope_max_filas != 0){
-			if( $this->tope_max_filas < count( $this->datos ) ){
-				//Hay mas datos que los que permite el tope, todo mal
-				$this->datos = null;
-				$this->log("Se sobrepaso el tope maximo de registros en carga: " . count( $this->datos ) . " registros" );
-				throw new toba_error("Los registros cargados superan el TOPE MAXIMO de registros");
-			}
+		if( $this->tope_max_filas != 0) {
+			$this->control_tope_maximo_filas(count($datos));
 		}
+		$this->datos = $datos;		
 		if(false){	// Hay que pensar este esquema...
 			$this->datos_originales = $this->datos;
 		}
@@ -1200,12 +1206,7 @@ class toba_datos_tabla extends toba_componente
 		$this->log("Anexado de datos [" . count($datos) . "]");
 		//Controlo que no se haya excedido el tope de registros
 		if ($this->tope_max_filas != 0) {
-			$cantidad_filas_existentes = count($this->get_id_filas(false));				
-			$filas_resultantes = $cantidad_filas_existentes + count($datos);
-			if( $this->tope_max_filas < $filas_resultantes ){
-				$this->log("Se sobrepaso el tope maximo de registros en carga: $filas_resultantes registros" );
-				throw new toba_error("Los registros cargados superan el TOPE MAXIMO de registros");
-			}
+			$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
 		}
 		//Agrego las filas
 		$hijos = array();
