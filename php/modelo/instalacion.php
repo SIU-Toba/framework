@@ -217,7 +217,8 @@ class instalacion extends elemento_modelo
 		$db = new $clase(	$parametros['profile'],
 							$parametros['usuario'],
 							$parametros['clave'],
-							$parametros['base'] );
+							$parametros['base'],
+							isset($parametros['puerto']) ? $parametros['puerto'] : '' );
 		$db->conectar();
 		$datos_base = var_export($parametros, true);
 		toba_logger::instancia()->debug("Parametros de conexion: $datos_base");
