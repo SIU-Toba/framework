@@ -12,8 +12,8 @@ class pant_introduccion extends pant_tutorial
 				se puede dividir en dos grandes etapas:
 			</p>
 				<ol>
-					<li>Selección de una entidad existente o desición de crear una nueva
-					<li>Edición de la entidad (puede ser una modificación o un alta)
+					<li>Elección entre editar un entidad existente o crear una nueva.
+					<li>Edición de la entidad
 				</ol>
 			<img src='$arbol'>				
 			<p>
@@ -154,7 +154,165 @@ class pant_ci_edicion extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$tab1 = toba_recurso::imagen_proyecto('tutorial/abmc-tab1.png');
+		$tab2 = toba_recurso::imagen_proyecto('tutorial/abmc-tab2.png');
+		$tab3 = toba_recurso::imagen_proyecto('tutorial/abmc-tab3.png');
+		$codigo1 =	
+'<?php
+function conf__form_persona()
+{
+  return $this->get_relacion()->tabla("persona")->get();
+}
+
+function evt__form_persona__modificacion($registro)
+{
+	$this->get_relacion()->tabla("persona")->set($registro);
+}
+?>
+';
+		$codigo2 = 
+'<?php
+function conf__form_juegos()	
+{
+	return $this->get_relacion()->tabla("juegos")->get_filas(null,true);	
+}
+
+function evt__form_juegos__modificacion($datos)
+{
+	$this->get_relacion()->tabla("juegos")->procesar_filas($datos);	
+}
+?>';
+		$codigo3 = 
+'<?php
+protected $s__deporte;
+
+function conf__cuadro_deportes()	
+{
+	return $this->get_relacion()->tabla("deportes")->get_filas();	
+}
+
+function evt__cuadro_deportes__seleccion($seleccion) {	
+	$this->s__deporte = $seleccion;
+}
+
+function conf__form_deportes()
+{
+	if(isset($this->s__deporte)) {	
+		return $this->get_relacion()->tabla("deportes")->get_fila($this->s__deporte);	
+	}
+}
+
+function evt__form_deportes__modificacion($registro)
+{
+	if(isset($this->s__deporte)){
+		$this->get_relacion()->tabla("deportes")->modificar_fila($this->s__deporte, $registro);	
+		$this->evt__form_deportes__cancelar();	
+	}
+}
+
+function evt__form_deportes__baja()
+{
+	if(isset($this->s__deporte)){
+		$this->get_relacion()->tabla("deportes")->eliminar_fila( $this->s__deporte );	
+		$this->evt__form_deportes__cancelar();	
+	}
+}
+
+function evt__form_deportes__alta($registro)
+{
+	$this->get_relacion()->tabla("deportes")->nueva_fila($registro);
+}
+
+function evt__form_deportes__cancelar()
+{
+	unset($this->s__deporte);
+}
+?>
+';
+	$codigo4 =
+'<?php
+function conf__cuadro_deportes()	
+{
+	return $this->get_relacion()->tabla("deportes")->get_filas();	
+}
+
+function evt__cuadro_deportes__seleccion($seleccion) {	
+	$this->get_relacion()->tabla("deportes")->set_cursor($seleccion);
+}
+
+function conf__form_deportes()
+{
+	if ($this->get_relacion()->tabla("deportes")->hay_cursor()) {
+		return $this->get_relacion()->tabla("deportes")->get();
+	}
+}
+
+function evt__form_deportes__modificacion($registro)
+{
+	$this->get_relacion()->tabla("deportes")->set($registro);
+	$this->evt__form_deportes__cancelar();
+}
+
+function evt__form_deportes__baja()
+{
+	$this->get_relacion()->tabla("deportes")->set(null);
+	$this->evt__form_deportes__cancelar();
+}
+
+function evt__form_deportes__alta($registro)
+{
+	$this->get_relacion()->tabla("deportes")->nueva_fila($registro);
+}
+
+function evt__form_deportes__cancelar()
+{
+	$this->get_relacion()->tabla("deportes")->resetear_cursor();
+}
+?>
+';
+		echo "
+			<h2>Primer Tab: Formulario simple</h2>
+			<img src='$tab1'>
+			<p>En esta solapa se encuentra un formulario con un evento implícito <em>modificacion</em>.
+			Ya que se está editando la tabla cabecera de la relación (en este caso persona) sólo
+			es posible que exista un único registro de esta tabla en la relación.</p>
+			<p>
+			El método <em>set</em> del datos_tabla está preparado para estos casos, sólo se da cuenta
+			si no existe el registro lo crea y si existe lo modifica. La carga en la configuración también
+			es sencilla, con el método <em>get</em> se piden los datos del único registro, en caso de no 
+			existir este método retorna <em>null</em> mostrando el formulario vacío.
+			</p>
+			
+			".mostrar_php($codigo1)."
+			
+			<h2>Segundo Tab: Formulario ml</h2>
+			<img src='$tab2'>
+			".mostrar_php($codigo2)."
+			
+			<h2>Tercer Tab: Cuadro y Formulario</h2>
+			<img src='$tab3'>
+			<p>
+			
+			</p>
+			
+			".mostrar_php($codigo3)."
 		
+			<h2>Tercer Tab: Cuadro y Formulario - Forma altenativa</h2>
+			<p>La alternativa a mantener la selección en una variable de sesión y luego
+			usar la API del datos_tabla sobre esta fila (para obtener sus valores, modificarla o borrarla) 
+			es usar una utilidad del datos_tabla llamada <strong>cursor</strong>. El cursor
+			permite apuntar a una fila particular, haciendo que ciertas operaciones utilizen esa fila
+			como predeterminada. Por ejemplo si se fija el cursor en la fila 8 y luego, sea en el mismo u otro
+			pedido de página, se hace un set(\$datos) en esa tabla, los datos afectan a esta fila.
+			<p>
+			
+			<p>El cursor es de suma utilidad cuando se trabaja con relaciones más complejas ya que permite
+			fijar valores en ciertas tablas y operar en forma reiterada sobre registros relacionados de otras
+			tablas, esto se verá más adelante.</p>
+			
+			
+			".mostrar_php($codigo4)."
+		";
 	}
 }
 

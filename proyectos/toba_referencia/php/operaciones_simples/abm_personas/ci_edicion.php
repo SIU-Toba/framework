@@ -3,8 +3,6 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class ci_edicion extends toba_ci
 {
-	protected $s__deporte;
-
 	function get_relacion()	
 	{
 		return $this->controlador->get_relacion();
@@ -51,32 +49,28 @@ class ci_edicion extends toba_ci
 	}
 
 	function evt__cuadro_deportes__seleccion($seleccion) {	
-		$this->s__deporte = $seleccion;
+		$this->get_relacion()->tabla('deportes')->set_cursor($seleccion);
 	}
 	
 	//-- Formulario --
 
 	function conf__form_deportes()
 	{
-		if(isset($this->s__deporte)) {	
-			return $this->get_relacion()->tabla('deportes')->get_fila($this->s__deporte);	
+		if ($this->get_relacion()->tabla('deportes')->hay_cursor()) {
+			return $this->get_relacion()->tabla('deportes')->get();
 		}
 	}
 
 	function evt__form_deportes__modificacion($registro)
 	{
-		if(isset($this->s__deporte)){
-			$this->get_relacion()->tabla('deportes')->modificar_fila($this->s__deporte, $registro);	
-			$this->evt__form_deportes__cancelar();	
-		}
+		$this->get_relacion()->tabla('deportes')->set($registro);
+		$this->evt__form_deportes__cancelar();
 	}
 
 	function evt__form_deportes__baja()
 	{
-		if(isset($this->s__deporte)){
-			$this->get_relacion()->tabla('deportes')->eliminar_fila( $this->s__deporte );	
-			$this->evt__form_deportes__cancelar();	
-		}
+		$this->get_relacion()->tabla('deportes')->set(null);
+		$this->evt__form_deportes__cancelar();
 	}
 
 	function evt__form_deportes__alta($registro)
@@ -86,7 +80,7 @@ class ci_edicion extends toba_ci
 
 	function evt__form_deportes__cancelar()
 	{
-		unset($this->s__deporte);
+		$this->get_relacion()->tabla('deportes')->resetear_cursor();
 	}
 }
 ?>

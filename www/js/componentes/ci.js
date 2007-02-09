@@ -218,9 +218,20 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	 * @param {string} pantalla Id. de la pantalla destino
 	 */
 	ci.prototype.ir_a_pantalla = function(pantalla) {
-		this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
+		if (this.evt__salida_tab(pantalla)) {
+			this.set_evento(new evento_ei('cambiar_tab_' + pantalla, true, ''));
+		}
 	};
 	
+	/**
+	 * Permite escuchar la salida del tab actual y controlar si se puede hacer o no 
+	 * retornando true/false
+	 * @param {string} pantalla_destino Pantalla a la que se va a navegar
+	 * @type boolean
+	 */
+	ci.prototype.evt__salida_tab = function(pantalla_destino) {
+		return true;
+	}
 	
 	/**
 	 * Cuando el componente tiene navegacion wizard, navega hacia la pantalla anterior

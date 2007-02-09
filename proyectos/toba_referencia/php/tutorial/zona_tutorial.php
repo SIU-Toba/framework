@@ -16,6 +16,10 @@ class zona_tutorial extends toba_zona
 		$anterior = null;
 		$siguiente = null;
 		foreach($this->items_vecinos as $item){
+			if ($i % 6 == 0) {
+				$salida = substr($salida, 0, -2);
+				$salida .= "<br>";
+			}
 			$es_el_ultimo = (count($this->items_vecinos) == $i);
 			$es_el_actual = false;
 			if ($item['item'] == $id_actual) {
