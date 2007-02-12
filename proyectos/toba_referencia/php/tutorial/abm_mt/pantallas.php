@@ -5,7 +5,7 @@ class pant_introduccion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$arbol = toba_recurso::imagen_proyecto('tutorial/abmc-arbol.png');		
+		$arbol = toba_recurso::imagen_proyecto('tutorial/abm-mt-arbol.png');		
 		echo "
 			<p>
 				Cuando la entidad a editar en el ABM se compone de más de un tabla, la operación
@@ -62,8 +62,8 @@ class pant_ci_seleccion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$eventos1 = toba_recurso::imagen_proyecto('tutorial/abmc-navegacion.png');				
-		$eventos2 = toba_recurso::imagen_proyecto('tutorial/abmc-edicion.png');
+		$eventos1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-navegacion.png');				
+		$eventos2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-edicion.png');
 		$codigo = 
 '<?php
 ...(parte de la extensión del CI principal)...
@@ -154,9 +154,9 @@ class pant_ci_edicion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$tab1 = toba_recurso::imagen_proyecto('tutorial/abmc-tab1.png');
-		$tab2 = toba_recurso::imagen_proyecto('tutorial/abmc-tab2.png');
-		$tab3 = toba_recurso::imagen_proyecto('tutorial/abmc-tab3.png');
+		$tab1 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab1.png');
+		$tab2 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab2.png');
+		$tab3 = toba_recurso::imagen_proyecto('tutorial/abm-mt-tab3.png');
 		$codigo1 =	
 '<?php
 function conf__form_persona()
@@ -277,7 +277,7 @@ function evt__form_deportes__cancelar()
 			Ya que se está editando la tabla cabecera de la relación (en este caso persona) sólo
 			es posible que exista un único registro de esta tabla en la relación.</p>
 			<p>
-			El método <em>set</em> del datos_tabla está preparado para estos casos, sólo se da cuenta
+			El método <em>set</em> del datos_tabla está preparado para estos casos, 
 			si no existe el registro lo crea y si existe lo modifica. La carga en la configuración también
 			es sencilla, con el método <em>get</em> se piden los datos del único registro, en caso de no 
 			existir este método retorna <em>null</em> mostrando el formulario vacío.
@@ -287,17 +287,35 @@ function evt__form_deportes__cancelar()
 			
 			<h2>Segundo Tab: Formulario ml</h2>
 			<img src='$tab2'>
+			<p>En esta solapa, un formulario ML maneja las tres acciones (ABM) sobre una tabla
+			de la relación (juegos de una persona). Lo interesante del formulario ML es que las acciones
+			se realizan en javascript, informandolas al servidor como un bloque. El formato de la información
+			que recibe el servidor es una matriz, donde por cada fila se informa su estado (A, B o M) junto con
+			su nuevo valor (exceptuando la baja).</p>
+			<p>En lugar de recorrer esta estructura manualmente y con un case derivar cada acción de una fila 
+			a un método del datos_tabla, esta clase contiene un método <em>procesar_filas</em> que lo hace internamente.
+			Para la carga se utiliza el método <em>get_filas</em> con su segundo parámetro en verdadero, indicando que 
+			las filas se retornen en una matriz asociativa cuya clave sea la clave interna de la fila. Esto permite
+			que el ML y el datos_tabla mantengan los mismos valores de claves de las filas.
 			".mostrar_php($codigo2)."
 			
 			<h2>Tercer Tab: Cuadro y Formulario</h2>
 			<img src='$tab3'>
 			<p>
-			
+			La última solapa tiene un cuadro y un formulario que maneja las acciones sobre una tabla de la relación
+			(deportes de una persona). La estrategia aquí es manejar la interface de una forma clásica, en donde
+			en el cuadro se muestran las filas disponibles y al seleccionarlas se pueden editar o borrar.
 			</p>
-			
+			<p>
+			La primera forma de encararlo es mantener en sesión la fila seleccionada, si no existe tal fila
+			indica que el formulario se debe mostrar vacío dando lugar a una alta. Cuando un atributo de la 
+			clase comienza con <em>s__</em> indica que será mantenido en sesión, en este caso ese atributo es
+			<em>\$s__deporte</em>. Las operaciones de baja y modificación utilizan esta fila seleccionada
+			como parámetro para los métodos del datos_tabla.
+			</p>
 			".mostrar_php($codigo3)."
 		
-			<h2>Tercer Tab: Cuadro y Formulario - Forma altenativa</h2>
+			<h2>Tercer Tab: Forma altenativa</h2>
 			<p>La alternativa a mantener la selección en una variable de sesión y luego
 			usar la API del datos_tabla sobre esta fila (para obtener sus valores, modificarla o borrarla) 
 			es usar una utilidad del datos_tabla llamada <strong>cursor</strong>. El cursor
