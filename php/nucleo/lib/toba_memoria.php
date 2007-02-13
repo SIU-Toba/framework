@@ -30,7 +30,7 @@ define("apex_hilo_qs_objetos_destino", "toba-dest");
 
 
 /**
- * El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
+ * La memoria contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:
  *  - Memoria general de la aplicación
  *  - Memoria de las operaciones
  *  - Memoria sincronizada entre URLs (generalmente de interes interno al framework)

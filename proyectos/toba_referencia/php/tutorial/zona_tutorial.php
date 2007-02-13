@@ -10,16 +10,12 @@ class zona_tutorial extends toba_zona
 	
 	function generar_html_barra_vinculos()
 	{
-		$salida = '';
+		$salida = " ";
 		$id_actual = toba::solicitud()->get_datos_item('item');
 		$i = 1;
 		$anterior = null;
 		$siguiente = null;
 		foreach($this->items_vecinos as $item){
-			if ($i % 6 == 0) {
-				$salida = substr($salida, 0, -2);
-				$salida .= "<br>";
-			}
 			$es_el_ultimo = (count($this->items_vecinos) == $i);
 			$es_el_actual = false;
 			if ($item['item'] == $id_actual) {
@@ -42,6 +38,10 @@ class zona_tutorial extends toba_zona
 				$salida .= " | ";	
 			}
 			$i++;
+			if ($i % 5 == 0) {
+				$salida = substr($salida, 0, -2);
+				$salida .= "<br>";
+			}			
 		}
 		echo $salida;
 	}	

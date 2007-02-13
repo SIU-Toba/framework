@@ -89,7 +89,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">A travez de esta clase el nucleo registra al toba_editor  Esta es una clase muy particular, su contenido deberia repartirse entre modelo,  proyecto editor y nucleo. Por simplicidad se deja todo junto. </div>
+        		<div class="description">A travez de esta clase el nucleo se relaciona con el proyecto toba_editor  Esta es una clase muy particular, su contenido deberia repartirse entre modelo,  proyecto editor y nucleo. Por simplicidad se deja todo junto. </div>
 
 
 
@@ -128,6 +128,11 @@
 						</td>
 						<td class="method-definition"><a href="#activado" title="details" class="method-name">activado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Indica si el EDITOR de metadatos se encuentra encendido</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#finalizar" title="details" class="method-name">finalizar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -221,13 +226,18 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#limpiar_memoria" title="details" class="method-name">limpiar_memoria</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"><a href="#limpiar_memoria_proyecto_cargado" title="details" class="method-name">limpiar_memoria_proyecto_cargado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#modo_prueba" title="details" class="method-name">modo_prueba</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Indica si la ejecucion actual corresponde a la previsualizacion de un proyecto</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#referenciar_memoria" title="details" class="method-name">referenciar_memoria</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
@@ -243,7 +253,7 @@
 						</td>
 						<td class="method-definition"><a href="#set_proyecto_cargado" title="details" class="method-name">set_proyecto_cargado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																																																																																																																																		</table>
+																																																																																																																																																																																																																																																																				</table>
 			</div>
 			<br />
 		</div>
@@ -260,9 +270,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodacceso_recursivo" id="acceso_recursivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method acceso_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
+		<span class="method-title">static method acceso_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
 </div>
 <br />
 
@@ -283,9 +293,9 @@
 		<br />
 </div>
 <a name="methodactivado" id="activado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method activado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+		<span class="method-title">static method activado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
 </div>
 <br />
 
@@ -305,10 +315,32 @@
 		
 		<br />
 </div>
+<a name="methodfinalizar" id="finalizar"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void finalizar(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodgenerar_zona_vinculos_componente" id="generar_zona_vinculos_componente"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method generar_zona_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 286]</span>
+		<span class="method-title">static method generar_zona_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -356,7 +388,7 @@ $clase&nbsp;
 <a name="methodgenerar_zona_vinculos_item" id="generar_zona_vinculos_item"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method generar_zona_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+		<span class="method-title">static method generar_zona_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 270]</span>
 </div>
 <br />
 
@@ -390,7 +422,7 @@ $item&nbsp;
 <a name="methodget_base_activa" id="get_base_activa"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_base_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+		<span class="method-title">static method get_base_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
@@ -412,7 +444,7 @@ $item&nbsp;
 <a name="methodget_grupo_acceso_previsualizacion" id="get_grupo_acceso_previsualizacion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_grupo_acceso_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
+		<span class="method-title">static method get_grupo_acceso_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
 </div>
 <br />
 
@@ -434,7 +466,7 @@ $item&nbsp;
 <a name="methodget_id" id="get_id"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
+		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
 <br />
 
@@ -456,7 +488,7 @@ $item&nbsp;
 <a name="methodget_id_instancia_activa" id="get_id_instancia_activa"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_id_instancia_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+		<span class="method-title">static method get_id_instancia_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
 </div>
 <br />
 
@@ -478,7 +510,7 @@ $item&nbsp;
 <a name="methodget_parametros_previsualizacion" id="get_parametros_previsualizacion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
+		<span class="method-title">static method get_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -513,7 +545,7 @@ $refrescar = false]&nbsp;
 <a name="methodget_parametros_previsualizacion_db" id="get_parametros_previsualizacion_db"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+		<span class="method-title">static method get_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
 </div>
 <br />
 
@@ -535,7 +567,7 @@ $refrescar = false]&nbsp;
 <a name="methodget_parametros_previsualizacion_js" id="get_parametros_previsualizacion_js"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_parametros_previsualizacion_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
+		<span class="method-title">static method get_parametros_previsualizacion_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -558,7 +590,7 @@ $refrescar = false]&nbsp;
 <a name="methodget_proyecto_cargado" id="get_proyecto_cargado"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+		<span class="method-title">static method get_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
 </div>
 <br />
 
@@ -580,7 +612,7 @@ $refrescar = false]&nbsp;
 <a name="methodget_punto_acceso_editor" id="get_punto_acceso_editor"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_punto_acceso_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+		<span class="method-title">static method get_punto_acceso_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -602,7 +634,7 @@ $refrescar = false]&nbsp;
 <a name="methodget_vinculos_componente" id="get_vinculos_componente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 356]</span>
+		<span class="method-title">static method get_vinculos_componente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
 </div>
 <br />
 
@@ -650,7 +682,7 @@ $clase&nbsp;
 <a name="methodget_vinculos_item" id="get_vinculos_item"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
+		<span class="method-title">static method get_vinculos_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
 </div>
 <br />
 
@@ -684,7 +716,7 @@ $item&nbsp;
 <a name="methodget_vinculo_evento" id="get_vinculo_evento"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculo_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 374]</span>
+		<span class="method-title">static method get_vinculo_evento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 404]</span>
 </div>
 <br />
 
@@ -732,7 +764,7 @@ $evento&nbsp;
 <a name="methodget_vinculo_pantalla" id="get_vinculo_pantalla"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculo_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 389]</span>
+		<span class="method-title">static method get_vinculo_pantalla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 419]</span>
 </div>
 <br />
 
@@ -780,7 +812,7 @@ $pantalla&nbsp;
 <a name="methodget_vinculo_subcomponente" id="get_vinculo_subcomponente"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_vinculo_subcomponente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
+		<span class="method-title">static method get_vinculo_subcomponente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
 </div>
 <br />
 
@@ -835,7 +867,7 @@ $frame = 'frame_centro']&nbsp;
 <a name="methodiniciar" id="iniciar"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
+		<span class="method-title">static method iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
 </div>
 <br />
 
@@ -877,7 +909,7 @@ $proyecto&nbsp;
 <a name="methodjavascript_invocacion_editor" id="javascript_invocacion_editor"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method javascript_invocacion_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+		<span class="method-title">static method javascript_invocacion_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
 </div>
 <br />
 
@@ -897,17 +929,17 @@ $proyecto&nbsp;
 		
 		<br />
 </div>
-<a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
+<a name="methodlimpiar_memoria_proyecto_cargado" id="limpiar_memoria_proyecto_cargado"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+		<span class="method-title">static method limpiar_memoria_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 122]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void limpiar_memoria(
+		<code>static void limpiar_memoria_proyecto_cargado(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -922,7 +954,7 @@ $proyecto&nbsp;
 <a name="methodmodo_prueba" id="modo_prueba"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method modo_prueba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
+		<span class="method-title">static method modo_prueba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
 </div>
 <br />
 
@@ -942,10 +974,32 @@ $proyecto&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_parametros_previsualizacion" id="set_parametros_previsualizacion"><!-- --></a>
+<a name="methodreferenciar_memoria" id="referenciar_memoria"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method set_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 151]</span>
+		<span class="method-title">static method referenciar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void referenciar_memoria(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_parametros_previsualizacion" id="set_parametros_previsualizacion"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method set_parametros_previsualizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
 </div>
 <br />
 
@@ -978,9 +1032,9 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodset_parametros_previsualizacion_db" id="set_parametros_previsualizacion_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method set_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+		<span class="method-title">static method set_parametros_previsualizacion_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
 </div>
 <br />
 
@@ -1012,9 +1066,9 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodset_proyecto_cargado" id="set_proyecto_cargado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+		<span class="method-title">static method set_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
 </div>
 <br />
 
@@ -1057,7 +1111,7 @@ $proyecto&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

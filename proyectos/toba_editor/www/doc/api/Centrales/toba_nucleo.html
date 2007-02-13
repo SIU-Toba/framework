@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -270,12 +296,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																					<tr><td></td><td class="method-definition" nowrap>static
+																																																																																							<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																										<tr>
+																																	<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -291,18 +317,35 @@
 						<td class="method-definition">Punto de entrada http al nucleo</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#cargar_solicitud" title="details" class="method-name">cargar_solicitud</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Se determia el item y se controla el acceso</td></tr>
+												<td class="method-definition"><a href="#autorizar_acceso_item" title="details" class="method-name">autorizar_acceso_item</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#cargar_solicitud" title="details" class="method-name">cargar_solicitud</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Carga la SOLICITUD actual. Se determina el item y se controla el acceso al mismo</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#finalizar_contexto_ejecucion" title="details" class="method-name">finalizar_contexto_ejecucion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_id_item" title="details" class="method-name">get_id_item</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Averigua el ITEM ACTUAL. Si no existe y puede busca un ITEM PREDEFINIDO</td></tr>
+						<td class="method-definition">Averigua el ITEM ACTUAL. Si no existe y puede busca el ITEM PREDEFINIDO pasado como parametro</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -316,17 +359,9 @@
 						    									
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#iniciar_contexto_proyecto" title="details" class="method-name">iniciar_contexto_proyecto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Incluye la ventana de inicialización del proyecto</td></tr>
+												<td class="method-definition"><a href="#iniciar_contexto_ejecucion" title="details" class="method-name">iniciar_contexto_ejecucion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																													<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#preparar_include_path" title="details" class="method-name">preparar_include_path</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Incluye la ruta del php de toba y del proyecto actual</td></tr>
-																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -457,13 +492,59 @@ $usuario&nbsp;
 		
 		<br />
 </div>
-<a name="methodcargar_solicitud" id="cargar_solicitud"><!-- --></a>
+<a name="methodautorizar_acceso_item" id="autorizar_acceso_item"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">autorizar_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void autorizar_acceso_item(
+
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodcargar_solicitud" id="cargar_solicitud"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
+	<span class="method-title">cargar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -475,10 +556,44 @@ $usuario&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Se determia el item y se controla el acceso </div>
+	<div class="description">Carga la SOLICITUD actual. Se determina el item y se controla el acceso al mismo </div>
 
 	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodfinalizar_contexto_ejecucion" id="finalizar_contexto_ejecucion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">finalizar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void finalizar_contexto_ejecucion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -487,9 +602,10 @@ $usuario&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
 	
-	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
 </div>
 <br />
 
@@ -504,7 +620,7 @@ $forzar_predefinido = false]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Averigua el ITEM ACTUAL. Si no existe y puede busca un ITEM PREDEFINIDO </div>
+	<div class="description">Averigua el ITEM ACTUAL. Si no existe y puede busca el ITEM PREDEFINIDO pasado como parametro </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -523,7 +639,15 @@ $forzar_predefinido = false]&nbsp;
 				</table>
 
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -553,62 +677,26 @@ $forzar_predefinido = false]&nbsp;
 		
 		<br />
 </div>
-<a name="methodiniciar_contexto_proyecto" id="iniciar_contexto_proyecto"><!-- --></a>
+<a name="methodiniciar_contexto_ejecucion" id="iniciar_contexto_ejecucion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">iniciar_contexto_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">iniciar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void iniciar_contexto_proyecto(
+		<code>void iniciar_contexto_ejecucion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Incluye la ventana de inicialización del proyecto </div>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodpreparar_include_path" id="preparar_include_path"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
 	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">preparar_include_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void preparar_include_path(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Incluye la ruta del php de toba y del proyecto actual </div>
-
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -624,12 +712,12 @@ $forzar_predefinido = false]&nbsp;
 		<br />
 </div>
 <a name="methodsolicitud_en_proceso" id="solicitud_en_proceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
+	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
 </div>
 <br />
 
@@ -659,7 +747,7 @@ $forzar_predefinido = false]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

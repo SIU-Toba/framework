@@ -85,7 +85,9 @@
 <a href="#toba_cn.php">toba_cn.php</a><br>
 <a href="#toba_componente.php">toba_componente.php</a><br>
 <a href="#toba_constructor.php">toba_constructor.php</a><br>
+<a href="#toba_contexto_ejecucion.php">toba_contexto_ejecucion.php</a><br>
 <a href="#toba_cronometro.php">toba_cronometro.php</a><br>
+<a href="#toba_datos_busqueda.php">toba_datos_busqueda.php</a><br>
 <a href="#toba_datos_relacion.php">toba_datos_relacion.php</a><br>
 <a href="#toba_datos_tabla.php">toba_datos_tabla.php</a><br>
 <a href="#toba_db.php">toba_db.php</a><br>
@@ -129,10 +131,13 @@
 <a href="#toba_ini.php">toba_ini.php</a><br>
 <a href="#toba_instalacion.php">toba_instalacion.php</a><br>
 <a href="#toba_instancia.php">toba_instancia.php</a><br>
+<a href="#toba_interface_contexto_ejecucion.php">toba_interface_contexto_ejecucion.php</a><br>
+<a href="#toba_interface_sesion.php">toba_interface_sesion.php</a><br>
 <a href="#toba_interface_usuario.php">toba_interface_usuario.php</a><br>
 <a href="#toba_js.php">toba_js.php</a><br>
 <a href="#toba_logger.php">toba_logger.php</a><br>
 <a href="#toba_manejador_archivos.php">toba_manejador_archivos.php</a><br>
+<a href="#toba_manejador_sesiones.php">toba_manejador_sesiones.php</a><br>
 <a href="#toba_memoria.php">toba_memoria.php</a><br>
 <a href="#toba_mensajes.php">toba_mensajes.php</a><br>
 <a href="#toba_menu.php">toba_menu.php</a><br>
@@ -172,6 +177,9 @@
 <a href="#toba_tp_normal.php">toba_tp_normal.php</a><br>
 <a href="#toba_tp_popup.php">toba_tp_popup.php</a><br>
 <a href="#toba_usuario.php">toba_usuario.php</a><br>
+<a href="#toba_usuario_anonimo.php">toba_usuario_anonimo.php</a><br>
+<a href="#toba_usuario_basico.php">toba_usuario_basico.php</a><br>
+<a href="#toba_usuario_no_autenticado.php">toba_usuario_no_autenticado.php</a><br>
 <a href="#toba_varios.php">toba_varios.php</a><br>
 <a href="#toba_vinculador.php">toba_vinculador.php</a><br>
 <a href="#toba_vinculo.php">toba_vinculo.php</a><br>
@@ -179,16 +187,22 @@
 <a name="interfaces.php"></a>
 <h1>interfaces.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_componente_definicion", use another DocBlock to document the file<br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_nodo_arbol", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_componente_definicion", use another DocBlock to document the file<br>
+<b>Warning on line 10</b> - Undocumented method "get_estructura"<br>
+<b>Warning on line 12</b> - Undocumented method "get_vista_extendida"<br>
+<b>Warning on line 14</b> - Undocumented method "get_path_clase_runtime"<br>
+<b>Warning on line 16</b> - Undocumented method "get_nombre_clase_info"<br>
+<b>Warning on line 34</b> - Undocumented method "tiene_propiedades"<br>
 <a name="toba.php"></a>
 <h1>toba.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 184</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 197</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_admin_fuentes.php"></a>
 <h1>toba_admin_fuentes.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 55</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_admin_fuentes.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 24</b> - Undocumented method "__construct"<br>
+<b>Warning on line 70</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_admin_fuentes.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ap.php"></a>
 <h1>toba_ap.php</h1>
 <h2>Warnings:</h2><br>
@@ -200,10 +214,29 @@
 <a name="toba_ap_tabla_db.php"></a>
 <h1>toba_ap_tabla_db.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 884</b> - Undocumented method "controlar_alteracion_db"<br>
+<b>Warning on line 891</b> - Undocumented method "controlar_alteracion_db_array"<br>
+<b>Warning on line 898</b> - Undocumented method "controlar_alteracion_db_timestamp"<br>
 <b>Warning on line 901</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_ap_tabla_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ap_tabla_db_mt.php"></a>
 <h1>toba_ap_tabla_db_mt.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 36</b> - Undocumented method "validar_definicion"<br>
+<b>Warning on line 115</b> - Undocumented method "inicializar_definicion_campos"<br>
+<b>Warning on line 132</b> - Undocumented method "info_definicion"<br>
+<b>Warning on line 137</b> - Undocumented method "get_clave"<br>
+<b>Warning on line 142</b> - Undocumented method "get_clave_valor"<br>
+<b>Warning on line 151</b> - Undocumented method "get_clave_valor_tabla"<br>
+<b>Warning on line 160</b> - Undocumented method "activar_inner_join"<br>
+<b>Warning on line 165</b> - Undocumented method "activar_outer_join"<br>
+<b>Warning on line 186</b> - Undocumented method "identificar_tablas_comprometidas"<br>
+<b>Warning on line 219</b> - Undocumented method "generar_estructura_control_post_carga"<br>
+<b>Warning on line 261</b> - Undocumented method "actualizar_estructura_control"<br>
+<b>Warning on line 282</b> - Undocumented method "sincronizar_estructura_control"<br>
+<b>Warning on line 324</b> - Undocumented method "insertar"<br>
+<b>Warning on line 364</b> - Undocumented method "modificar"<br>
+<b>Warning on line 386</b> - Undocumented method "eliminar"<br>
+<b>Warning on line 429</b> - Undocumented method "generar_sql_select"<br>
 <b>Warning on line 432</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_ap_tabla_db_mt.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ap_tabla_db_s.php"></a>
 <h1>toba_ap_tabla_db_s.php</h1>
@@ -213,91 +246,200 @@
 <h1>toba_archivo_php.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_archivo_php<br>
-<b>Warning on line 153</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_archivo_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 4</b> - Undocumented class "toba_archivo_php"<br>
+<b>Warning on line 198</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_archivo_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_asercion.php"></a>
 <h1>toba_asercion.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 2</b> - Undocumented class "toba_asercion"<br>
 <b>Warning on line 2</b> - no @package tag was used in a DocBlock for class toba_asercion<br>
+<b>Warning on line 8</b> - Undocumented method "no_es_nulo"<br>
+<b>Warning on line 15</b> - Undocumented method "es_objeto"<br>
+<b>Warning on line 22</b> - Undocumented method "es_array"<br>
+<b>Warning on line 31</b> - Undocumented method "arrays_igual_largo"<br>
+<b>Warning on line 43</b> - Undocumented method "es_array_dimension"<br>
+<b>Warning on line 53</b> - Undocumented method "es_array_o_null"<br>
+<b>Warning on line 58</b> - Undocumented method "error"<br>
 <b>Warning on line 60</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_asercion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_boton.php"></a>
 <h1>toba_boton.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_boton", use another DocBlock to document the file<br>
+<b>Warning on line 30</b> - Undocumented method "__construct"<br>
+<b>Warning on line 37</b> - Undocumented method "esta_desactivado"<br>
+<b>Warning on line 42</b> - Undocumented method "esta_oculto"<br>
+<b>Warning on line 47</b> - Undocumented method "esta_anulado"<br>
+<b>Warning on line 52</b> - Undocumented method "posee_confirmacion"<br>
+<b>Warning on line 59</b> - Undocumented method "get_etiqueta"<br>
+<b>Warning on line 64</b> - Undocumented method "get_msg_ayuda"<br>
+<b>Warning on line 76</b> - Undocumented method "get_imagen"<br>
+<b>Warning on line 81</b> - Undocumented method "get_imagen_url_rel"<br>
+<b>Warning on line 86</b> - Undocumented method "get_msg_confirmacion"<br>
+<b>Warning on line 93</b> - Undocumented method "set_id"<br>
+<b>Warning on line 98</b> - Undocumented method "set_etiqueta"<br>
+<b>Warning on line 103</b> - Undocumented method "set_msg_ayuda"<br>
+<b>Warning on line 122</b> - Undocumented method "set_msg_confirmacion"<br>
+<b>Warning on line 129</b> - Undocumented method "desactivar"<br>
+<b>Warning on line 134</b> - Undocumented method "activar"<br>
+<b>Warning on line 139</b> - Undocumented method "ocultar"<br>
+<b>Warning on line 144</b> - Undocumented method "mostrar"<br>
+<b>Warning on line 151</b> - Undocumented method "anular"<br>
+<b>Warning on line 156</b> - Undocumented method "restituir"<br>
 <a name="toba_cache_db.php"></a>
 <h1>toba_cache_db.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - Undocumented class "toba_cache_db"<br>
 <b>Warning on line 7</b> - no @package tag was used in a DocBlock for class toba_cache_db<br>
+<b>Warning on line 15</b> - Undocumented method "__construct"<br>
+<b>Warning on line 35</b> - Undocumented method "get_datos_tabla"<br>
+<b>Warning on line 51</b> - Undocumented method "agregar_tabla"<br>
+<b>Warning on line 63</b> - Undocumented method "info"<br>
 <b>Warning on line 65</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_cache_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_cargador.php"></a>
 <h1>toba_cargador.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 25</b> - Undocumented method "__construct"<br>
+<b>Warning on line 40</b> - Undocumented method "destruir"<br>
+<b>Warning on line 171</b> - Undocumented method "crear_cache_simple"<br>
+<b>Warning on line 175</b> - Undocumented method "generar_cache_extendido"<br>
 <b>Warning on line 177</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/toba_cargador.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_catalogo.php"></a>
 <h1>toba_catalogo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_catalogo", use another DocBlock to document the file<br>
+<b>Warning on line 42</b> - Undocumented method "get_nombre_clase_definicion"<br>
+<b>Warning on line 50</b> - Undocumented method "get_nombre_clase_runtime"<br>
+<b>Warning on line 58</b> - Undocumented method "get_nombre_clase_info"<br>
+<b>Warning on line 68</b> - Undocumented method "get_tipo"<br>
+<b>Warning on line 106</b> - Undocumented method "control_clave_valida"<br>
+<b>Warning on line 123</b> - Undocumented method "convertir_tipo"<br>
 <a name="toba_ci.php"></a>
 <h1>toba_ci.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 743</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ci.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 41</b> - Undocumented method "__construct"<br>
+<b>Warning on line 231</b> - Undocumented method "get_dependencias_ci"<br>
+<b>Warning on line 759</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ci.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_clase_datos.php"></a>
 <h1>toba_clase_datos.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - Undocumented class "toba_clase_datos"<br>
 <b>Warning on line 7</b> - no @package tag was used in a DocBlock for class toba_clase_datos<br>
+<b>Warning on line 21</b> - Undocumented method "__construct"<br>
+<b>Warning on line 33</b> - Undocumented method "cargar_clase"<br>
+<b>Warning on line 42</b> - Undocumented method "existe_metodo"<br>
+<b>Warning on line 47</b> - Undocumented method "agregar_metodo_datos"<br>
+<b>Warning on line 56</b> - Undocumented method "eliminar_metodo_datos"<br>
+<b>Warning on line 65</b> - Undocumented method "get_datos_metodo"<br>
+<b>Warning on line 74</b> - Undocumented method "set_datos_metodo"<br>
+<b>Warning on line 90</b> - Undocumented method "guardar"<br>
+<b>Warning on line 104</b> - Undocumented method "generar_php"<br>
 <b>Warning on line 106</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_clase_datos.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_clase_php.php"></a>
 <h1>toba_clase_php.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - no @package tag was used in a DocBlock for class toba_clase_php<br>
+<b>Warning on line 15</b> - Undocumented method "__construct"<br>
+<b>Warning on line 20</b> - Undocumented method "nombre"<br>
+<b>Warning on line 52</b> - Undocumented method "get_codigo"<br>
+<b>Warning on line 74</b> - Undocumented method "analizar"<br>
 <b>Warning on line 76</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_clase_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_cn.php"></a>
 <h1>toba_cn.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 23</b> - Undocumented method "__construct"<br>
 <b>Warning on line 150</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/negocio/toba_cn.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_componente.php"></a>
 <h1>toba_componente.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 566</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/toba_componente.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 63</b> - Undocumented method "__construct"<br>
+<b>Warning on line 539</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/toba_componente.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_constructor.php"></a>
 <h1>toba_constructor.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 135</b> - Undocumented method "get_metadatos_compilados"<br>
+<b>Warning on line 140</b> - Undocumented method "set_refresco_forzado"<br>
 <b>Warning on line 142</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/toba_constructor.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_contexto_ejecucion.php"></a>
+<h1>toba_contexto_ejecucion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_contexto_ejecucion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_cronometro.php"></a>
 <h1>toba_cronometro.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 22</b> - Undocumented method "__construct"<br>
+<b>Warning on line 30</b> - Undocumented method "instancia"<br>
+<b>Warning on line 38</b> - Undocumented method "marcar"<br>
+<b>Warning on line 43</b> - Undocumented method "tiempo_acumulado"<br>
+<b>Warning on line 58</b> - Undocumented method "get_marcas"<br>
 <b>Warning on line 81</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_cronometro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_datos_busqueda.php"></a>
+<h1>toba_datos_busqueda.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_datos_busqueda", use another DocBlock to document the file<br>
 <a name="toba_datos_relacion.php"></a>
 <h1>toba_datos_relacion.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 33</b> - Undocumented method "__construct"<br>
+<b>Warning on line 47</b> - Undocumented method "destruir"<br>
 <b>Warning on line 491</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_datos_relacion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_datos_tabla.php"></a>
 <h1>toba_datos_tabla.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 1321</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_datos_tabla.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 63</b> - Undocumented method "__construct"<br>
+<b>Warning on line 170</b> - Undocumented method "notificar_contenedor"<br>
+<b>Warning on line 342</b> - Undocumented method "set_es_unico_registro"<br>
+<b>Warning on line 1422</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/persistencia/toba_datos_tabla.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_db.php"></a>
 <h1>toba_db.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 34</b> - Undocumented method "__construct"<br>
+<b>Warning on line 39</b> - Undocumented method "destruir"<br>
 <b>Warning on line 62</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
-<b>Warning on line 335</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 67</b> - Undocumented method "get_parametros"<br>
+<b>Warning on line 81</b> - Undocumented method "log_debug"<br>
+<b>Warning on line 176</b> - Undocumented method "abrir_transaccion"<br>
+<b>Warning on line 182</b> - Undocumented method "abortar_transaccion"<br>
+<b>Warning on line 188</b> - Undocumented method "cerrar_transaccion"<br>
+<b>Warning on line 229</b> - Undocumented method "get_dsn"<br>
+<b>Warning on line 234</b> - Undocumented method "recuperar_secuencia"<br>
+<b>Warning on line 239</b> - Undocumented method "retrazar_constraints"<br>
+<b>Warning on line 248</b> - Undocumented method "get_definicion_columnas"<br>
+<b>Warning on line 364</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_dba.php"></a>
 <h1>toba_dba.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_dba", use another DocBlock to document the file<br>
+<b>Warning on line 21</b> - Undocumented method "__construct"<br>
+<b>Warning on line 50</b> - Undocumented method "get_bases_definidas"<br>
+<b>Warning on line 150</b> - Undocumented method "existe_conexion_privado"<br>
 <a name="toba_db_informix.php"></a>
 <h1>toba_db_informix.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - Undocumented method "__construct"<br>
+<b>Warning on line 21</b> - Undocumented method "abrir_transaccion"<br>
+<b>Warning on line 28</b> - Undocumented method "abortar_transaccion"<br>
+<b>Warning on line 35</b> - Undocumented method "cerrar_transaccion"<br>
 <b>Warning on line 37</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db_informix.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_db_mysql.php"></a>
 <h1>toba_db_mysql.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 16</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db_mysql.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 14</b> - Undocumented method "__construct"<br>
+<b>Warning on line 20</b> - Undocumented method "get_dsn"<br>
+<b>Warning on line 23</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db_mysql.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_db_odbc.php"></a>
 <h1>toba_db_odbc.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - Undocumented method "__construct"<br>
 <b>Warning on line 16</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db_odbc.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_db_postgres7.php"></a>
 <h1>toba_db_postgres7.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 14</b> - Undocumented method "__construct"<br>
+<b>Warning on line 20</b> - Undocumented method "get_dsn"<br>
+<b>Warning on line 38</b> - Undocumented method "retrazar_constraints"<br>
+<b>Warning on line 45</b> - Undocumented method "abrir_transaccion"<br>
+<b>Warning on line 52</b> - Undocumented method "abortar_transaccion"<br>
+<b>Warning on line 59</b> - Undocumented method "cerrar_transaccion"<br>
 <b>Warning on line 137</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/db/toba_db_postgres7.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_debug.php"></a>
 <h1>toba_debug.php</h1>
@@ -306,119 +448,407 @@
 <a name="toba_editor.php"></a>
 <h1>toba_editor.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 403</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_editor.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 16</b> - Undocumented method "get_id"<br>
+<b>Warning on line 41</b> - Undocumented method "referenciar_memoria"<br>
+<b>Warning on line 46</b> - Undocumented method "finalizar"<br>
+<b>Warning on line 77</b> - Undocumented method "get_id_instancia_activa"<br>
+<b>Warning on line 84</b> - Undocumented method "get_base_activa"<br>
+<b>Warning on line 91</b> - Undocumented method "get_proyecto_cargado"<br>
+<b>Warning on line 101</b> - Undocumented method "set_proyecto_cargado"<br>
+<b>Warning on line 108</b> - Undocumented method "get_punto_acceso_editor"<br>
+<b>Warning on line 133</b> - Undocumented method "limpiar_memoria_proyecto_cargado"<br>
+<b>Warning on line 158</b> - Undocumented method "get_grupo_acceso_previsualizacion"<br>
+<b>Warning on line 202</b> - Undocumented method "get_parametros_previsualizacion_db"<br>
+<b>Warning on line 220</b> - Undocumented method "set_parametros_previsualizacion_db"<br>
+<b>Warning on line 310</b> - Undocumented method "generar_zona_vinculos_item"<br>
+<b>Warning on line 325</b> - Undocumented method "generar_zona_vinculos_componente"<br>
+<b>Warning on line 342</b> - Undocumented method "get_vinculo_subcomponente"<br>
+<b>Warning on line 383</b> - Undocumented method "get_vinculos_item"<br>
+<b>Warning on line 401</b> - Undocumented method "get_vinculos_componente"<br>
+<b>Warning on line 416</b> - Undocumented method "get_vinculo_evento"<br>
+<b>Warning on line 431</b> - Undocumented method "get_vinculo_pantalla"<br>
+<b>Warning on line 433</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_editor.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_editor_archivos.php"></a>
 <h1>toba_editor_archivos.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - Undocumented class "toba_editor_texto"<br>
 <b>Warning on line 3</b> - no @package tag was used in a DocBlock for class toba_editor_texto<br>
+<b>Warning on line 12</b> - Undocumented method "agregar_sustitucion"<br>
+<b>Warning on line 20</b> - Undocumented method "procesar"<br>
 <b>Warning on line 24</b> - no @package tag was used in a DocBlock for class toba_editor_archivos<br>
+<b>Warning on line 24</b> - Undocumented class "toba_editor_archivos"<br>
+<b>Warning on line 29</b> - Undocumented method "procesar_archivo"<br>
+<b>Warning on line 36</b> - Undocumented method "procesar_archivos"<br>
 <b>Warning on line 38</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_editor_archivos.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ef.php"></a>
 <h1>toba_ef.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 115</b> - Undocumented method "__construct"<br>
+<b>Warning on line 286</b> - Undocumented method "get_id"<br>
+<b>Warning on line 326</b> - Undocumented method "get_id_form"<br>
 <b>Warning on line 570</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ef_combo.php"></a>
 <h1>toba_ef_combo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_ef_seleccion", use another DocBlock to document the file<br>
+<b>Warning on line 21</b> - Undocumented method "get_lista_parametros_carga"<br>
+<b>Warning on line 45</b> - Undocumented method "__construct"<br>
+<b>Warning on line 50</b> - Undocumented method "es_seleccionable"<br>
+<b>Warning on line 77</b> - Undocumented method "get_estado"<br>
+<b>Warning on line 103</b> - Undocumented method "es_estado_nulo"<br>
+<b>Warning on line 122</b> - Undocumented method "get_estado_para_input"<br>
+<b>Warning on line 140</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 172</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 177</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 183</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 219</b> - Undocumented method "get_input"<br>
+<b>Warning on line 224</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 246</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 254</b> - Undocumented method "__construct"<br>
+<b>Warning on line 259</b> - Undocumented method "set_cantidad_columnas"<br>
+<b>Warning on line 304</b> - Undocumented method "get_input"<br>
+<b>Warning on line 309</b> - Undocumented method "crear_objeto_js"<br>
 <a name="toba_ef_cuit.php"></a>
 <h1>toba_ef_cuit.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_ef_cuit", use another DocBlock to document the file<br>
+<b>Warning on line 13</b> - Undocumented method "get_lista_parametros_carga"<br>
+<b>Warning on line 18</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 30</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 39</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 73</b> - Undocumented method "validar_estado"<br>
+<b>Warning on line 89</b> - Undocumented method "get_input"<br>
+<b>Warning on line 94</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 100</b> - Undocumented method "get_consumo_javascript"<br>
 <a name="toba_ef_editable.php"></a>
 <h1>toba_ef_editable.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 580</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef_editable.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 26</b> - Undocumented method "get_lista_parametros_carga"<br>
+<b>Warning on line 35</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 67</b> - Undocumented method "__construct"<br>
+<b>Warning on line 90</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 99</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 108</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 119</b> - Undocumented method "get_input"<br>
+<b>Warning on line 125</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 130</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 135</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 159</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 169</b> - Undocumented method "__construct"<br>
+<b>Warning on line 212</b> - Undocumented method "mensaje_validacion_rango"<br>
+<b>Warning on line 233</b> - Undocumented method "validar_rango"<br>
+<b>Warning on line 259</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 264</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 284</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 311</b> - Undocumented method "__construct"<br>
+<b>Warning on line 316</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 338</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 346</b> - Undocumented method "__construct"<br>
+<b>Warning on line 357</b> - Undocumented method "get_input"<br>
+<b>Warning on line 362</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 381</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 389</b> - Undocumented method "__construct"<br>
+<b>Warning on line 398</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 408</b> - Undocumented method "get_estado"<br>
+<b>Warning on line 415</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 430</b> - Undocumented method "get_input"<br>
+<b>Warning on line 459</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 489</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 519</b> - Undocumented method "__construct"<br>
+<b>Warning on line 528</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 551</b> - Undocumented method "get_input"<br>
+<b>Warning on line 561</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 566</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 573</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 576</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef_editable.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ef_multi_seleccion.php"></a>
 <h1>toba_ef_multi_seleccion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_ef_multi_seleccion", use another DocBlock to document the file<br>
+<b>Warning on line 28</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 33</b> - Undocumented method "get_lista_parametros_carga"<br>
+<b>Warning on line 88</b> - Undocumented method "__construct"<br>
+<b>Warning on line 93</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 102</b> - Undocumented method "set_opciones"<br>
+<b>Warning on line 119</b> - Undocumented method "es_estado_individual_nulo"<br>
+<b>Warning on line 130</b> - Undocumented method "es_estado_nulo"<br>
+<b>Warning on line 143</b> - Undocumented method "validar_estado_particular"<br>
+<b>Warning on line 158</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 186</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 218</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 223</b> - Undocumented method "es_seleccionable"<br>
+<b>Warning on line 228</b> - Undocumented method "es_estado_unico"<br>
+<b>Warning on line 234</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 244</b> - Undocumented method "get_descripcion_estado"<br>
+<b>Warning on line 280</b> - Undocumented method "get_estado_para_input"<br>
+<b>Warning on line 303</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 308</b> - Undocumented method "__construct"<br>
+<b>Warning on line 330</b> - Undocumented method "get_input"<br>
+<b>Warning on line 335</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 356</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 364</b> - Undocumented method "__construct"<br>
+<b>Warning on line 369</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 374</b> - Undocumented method "set_cantidad_columnas"<br>
+<b>Warning on line 379</b> - Undocumented method "es_multicolumna"<br>
+<b>Warning on line 429</b> - Undocumented method "get_input"<br>
+<b>Warning on line 450</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 460</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 465</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 505</b> - Undocumented method "get_input"<br>
 <a name="toba_ef_oculto.php"></a>
 <h1>toba_ef_oculto.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_ef_oculto", use another DocBlock to document the file<br>
+<b>Warning on line 18</b> - Undocumented method "__construct"<br>
+<b>Warning on line 23</b> - Undocumented method "clave_memoria"<br>
+<b>Warning on line 30</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 55</b> - Undocumented method "resetear_estado"<br>
+<b>Warning on line 60</b> - Undocumented method "get_input"<br>
+<b>Warning on line 79</b> - Undocumented method "__construct"<br>
+<b>Warning on line 84</b> - Undocumented method "resetear_estado"<br>
+<b>Warning on line 90</b> - Undocumented method "set_estado"<br>
 <a name="toba_ef_popup.php"></a>
 <h1>toba_ef_popup.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - DocBlock would be page-level, but precedes class "toba_ef_popup", use another DocBlock to document the file<br>
+<b>Warning on line 26</b> - Undocumented method "get_lista_parametros_carga"<br>
+<b>Warning on line 37</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 61</b> - Undocumented method "__construct"<br>
+<b>Warning on line 66</b> - Undocumented method "carga_depende_de_estado"<br>
+<b>Warning on line 77</b> - Undocumented method "set_opciones"<br>
+<b>Warning on line 108</b> - Undocumented method "get_input"<br>
+<b>Warning on line 113</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 119</b> - Undocumented method "parametros_js"<br>
+<b>Warning on line 124</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 135</b> - Undocumented method "resetear_estado"<br>
 <a name="toba_ef_sin_estado.php"></a>
 <h1>toba_ef_sin_estado.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_ef_sin_estado", use another DocBlock to document the file<br>
+<b>Warning on line 12</b> - Undocumented method "__construct"<br>
+<b>Warning on line 17</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 22</b> - Undocumented method "get_estado"<br>
+<b>Warning on line 27</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 32</b> - Undocumented method "resetear_estado"<br>
+<b>Warning on line 37</b> - Undocumented method "validar_estado"<br>
+<b>Warning on line 43</b> - Undocumented method "get_javascript"<br>
+<b>Warning on line 51</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 56</b> - Undocumented method "tiene_etiqueta"<br>
+<b>Warning on line 72</b> - Undocumented method "get_input"<br>
+<b>Warning on line 92</b> - Undocumented method "__construct"<br>
+<b>Warning on line 98</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 107</b> - Undocumented method "get_input"<br>
 <a name="toba_ef_upload.php"></a>
 <h1>toba_ef_upload.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 12</b> - DocBlock would be page-level, but precedes class "toba_ef_upload", use another DocBlock to document the file<br>
+<b>Warning on line 21</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 32</b> - Undocumented method "__construct"<br>
+<b>Warning on line 69</b> - Undocumented method "get_input"<br>
+<b>Warning on line 78</b> - Undocumented method "get_estado_input"<br>
+<b>Warning on line 89</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 94</b> - Undocumented method "es_archivo_vacio"<br>
+<b>Warning on line 100</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 148</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 153</b> - Undocumented method "crear_objeto_js"<br>
 <a name="toba_ef_varios.php"></a>
 <h1>toba_ef_varios.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 50</b> - Undocumented method "__construct"<br>
+<b>Warning on line 77</b> - Undocumented method "get_input"<br>
+<b>Warning on line 95</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 105</b> - Undocumented method "cargar_estado_post"<br>
+<b>Warning on line 111</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 117</b> - Undocumented method "tiene_estado"<br>
+<b>Warning on line 123</b> - Undocumented method "seleccionado"<br>
+<b>Warning on line 128</b> - Undocumented method "crear_objeto_js"<br>
+<b>Warning on line 137</b> - Undocumented method "get_descripcion_estado"<br>
 <b>Warning on line 149</b> - no @package tag was used in a DocBlock for class toba_ef_fijo<br>
+<b>Warning on line 157</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 169</b> - Undocumented method "__construct"<br>
+<b>Warning on line 183</b> - Undocumented method "set_estado"<br>
+<b>Warning on line 190</b> - Undocumented method "get_input"<br>
+<b>Warning on line 196</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 201</b> - Undocumented method "crear_objeto_js"<br>
 <b>Warning on line 217</b> - no @package tag was used in a DocBlock for class toba_ef_html<br>
+<b>Warning on line 228</b> - Undocumented method "get_lista_parametros"<br>
+<b>Warning on line 236</b> - Undocumented method "__construct"<br>
+<b>Warning on line 243</b> - Undocumented method "get_consumo_javascript"<br>
+<b>Warning on line 272</b> - Undocumented method "get_input"<br>
 <b>Warning on line 275</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/efs/toba_ef_varios.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei.php"></a>
 <h1>toba_ei.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - Page-level DocBlock precedes "function pre", use another DocBlock to document the source element<br>
+<b>Warning on line 44</b> - Undocumented method "__construct"<br>
 <b>Warning on line 575</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_arbol.php"></a>
 <h1>toba_ei_arbol.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 29</b> - Undocumented method "__construct"<br>
+<b>Warning on line 87</b> - Undocumented method "set_mostrar_utilerias"<br>
+<b>Warning on line 92</b> - Undocumented method "set_mostrar_propiedades_nodos"<br>
+<b>Warning on line 195</b> - Undocumented method "generar_html"<br>
 <b>Warning on line 398</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_arbol.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_archivos.php"></a>
 <h1>toba_ei_archivos.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 28</b> - Undocumented method "__construct"<br>
+<b>Warning on line 35</b> - Undocumented method "destruir"<br>
+<b>Warning on line 205</b> - Undocumented method "generar_html"<br>
 <b>Warning on line 233</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_archivos.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_calendario.php"></a>
 <h1>toba_ei_calendario.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 5</b> - Page-level DocBlock precedes "require_once toba_ei_calendario.php", use another DocBlock to document the source element<br>
+<b>Warning on line 34</b> - Undocumented method "__construct"<br>
+<b>Warning on line 57</b> - Undocumented method "destruir"<br>
+<b>Warning on line 194</b> - Undocumented method "generar_html"<br>
 <a name="toba_ei_cuadro.php"></a>
 <h1>toba_ei_cuadro.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 59</b> - Undocumented method "__construct"<br>
+<b>Warning on line 207</b> - Undocumented method "destruir"<br>
+<b>Warning on line 620</b> - Undocumented method "existen_cortes_control"<br>
+<b>Warning on line 795</b> - Undocumented method "get_estructura_datos"<br>
+<b>Warning on line 841</b> - Undocumented method "generar_salida"<br>
+<b>Warning on line 858</b> - Undocumented method "generar_inicio"<br>
+<b>Warning on line 863</b> - Undocumented method "generar_cuadro"<br>
+<b>Warning on line 868</b> - Undocumented method "generar_fin"<br>
+<b>Warning on line 873</b> - Undocumented method "generar_mensaje_cuadro_vacio"<br>
+<b>Warning on line 886</b> - Undocumented method "generar_cortes_control"<br>
+<b>Warning on line 911</b> - Undocumented method "crear_corte"<br>
+<b>Warning on line 916</b> - Undocumented method "generar_cabecera_corte_control"<br>
+<b>Warning on line 921</b> - Undocumented method "generar_pie_corte_control"<br>
+<b>Warning on line 926</b> - Undocumented method "generar_cc_inicio_nivel"<br>
+<b>Warning on line 931</b> - Undocumented method "generar_cc_fin_nivel"<br>
+<b>Warning on line 940</b> - Undocumented method "generar_html"<br>
+<b>Warning on line 984</b> - Undocumented method "html_inicio"<br>
+<b>Warning on line 1017</b> - Undocumented method "html_fin"<br>
+<b>Warning on line 1054</b> - Undocumented method "html_cc_inicio_nivel"<br>
+<b>Warning on line 1061</b> - Undocumented method "html_cc_fin_nivel"<br>
+<b>Warning on line 1066</b> - Undocumented method "get_nivel_css"<br>
+<b>Warning on line 1292</b> - Undocumented method "html_cuadro"<br>
+<b>Warning on line 1297</b> - Undocumented method "html_cuadro_inicio"<br>
+<b>Warning on line 1302</b> - Undocumented method "html_cuadro_fin"<br>
+<b>Warning on line 1345</b> - Undocumented method "html_cuadro_cabecera_columnas"<br>
+<b>Warning on line 1460</b> - Undocumented method "html_cuadro_sumarizacion"<br>
+<b>Warning on line 1501</b> - Undocumented method "html_barra_paginacion"<br>
+<b>Warning on line 1553</b> - Undocumented method "pdf_inicio"<br>
+<b>Warning on line 1568</b> - Undocumented method "pdf_fin"<br>
+<b>Warning on line 1572</b> - Undocumented method "pdf_cuadro"<br>
+<b>Warning on line 1576</b> - Undocumented method "pdf_mensaje_cuadro_vacio"<br>
+<b>Warning on line 1582</b> - Undocumented method "pdf_cabecera_corte_control"<br>
+<b>Warning on line 1586</b> - Undocumented method "pdf_pie_corte_control"<br>
+<b>Warning on line 1589</b> - Undocumented method "pdf_cc_inicio_nivel"<br>
+<b>Warning on line 1592</b> - Undocumented method "pdf_cc_fin_nivel"<br>
 <b>Warning on line 1594</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_cuadro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_esquema.php"></a>
 <h1>toba_ei_esquema.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 24</b> - Undocumented method "__construct"<br>
+<b>Warning on line 60</b> - Undocumented method "generar_html"<br>
 <b>Warning on line 188</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_esquema.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_filtro.php"></a>
 <h1>toba_ei_filtro.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 38</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_filtro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 45</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_filtro.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_formulario.php"></a>
 <h1>toba_ei_formulario.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 46</b> - Undocumented method "__construct"<br>
+<b>Warning on line 53</b> - Undocumented method "destruir"<br>
+<b>Warning on line 152</b> - Undocumented method "set_ancho_etiqueta"<br>
+<b>Warning on line 798</b> - Undocumented method "generar_html"<br>
+<b>Warning on line 979</b> - Undocumented method "vista_impresion_html"<br>
 <b>Warning on line 1007</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_formulario.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_formulario_ml.php"></a>
 <h1>toba_ei_formulario_ml.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 34</b> - Undocumented method "__construct"<br>
+<b>Warning on line 41</b> - Undocumented method "destruir"<br>
+<b>Warning on line 362</b> - Undocumented method "get_clave_fila"<br>
+<b>Warning on line 658</b> - Undocumented method "generar_etiqueta_ef"<br>
+<b>Warning on line 863</b> - Undocumented method "get_objeto_js_ef"<br>
+<b>Warning on line 918</b> - Undocumented method "vista_impresion_html"<br>
 <b>Warning on line 920</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_formulario_ml.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ei_pantalla.php"></a>
 <h1>toba_ei_pantalla.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 33</b> - Undocumented method "__construct"<br>
+<b>Warning on line 39</b> - Undocumented method "set_controlador"<br>
+<b>Warning on line 68</b> - Undocumented method "get_etiqueta"<br>
+<b>Warning on line 73</b> - Undocumented method "set_etiqueta"<br>
+<b>Warning on line 580</b> - Undocumented method "vista_impresion"<br>
 <b>Warning on line 584</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/componentes/interface/toba_ei_pantalla.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_encriptador.php"></a>
 <h1>toba_encriptador.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 5</b> - no @package tag was used in a DocBlock for class toba_encriptador<br>
+<b>Warning on line 11</b> - Undocumented method "__construct"<br>
+<b>Warning on line 18</b> - Undocumented method "instancia"<br>
+<b>Warning on line 28</b> - Undocumented method "cifrar"<br>
+<b>Warning on line 38</b> - Undocumented method "descifrar"<br>
+<b>Warning on line 55</b> - Undocumented method "keyED"<br>
+<b>Warning on line 71</b> - Undocumented method "Encrypt"<br>
+<b>Warning on line 83</b> - Undocumented method "Decrypt"<br>
+<b>Warning on line 101</b> - Undocumented method "RandPass"<br>
 <b>Warning on line 103</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_encriptador.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_error.php"></a>
 <h1>toba_error.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 11</b> - no @package tag was used in a DocBlock for class toba_error<br>
 <b>Warning on line 19</b> - no @package tag was used in a DocBlock for class toba_error_db<br>
+<b>Warning on line 26</b> - Undocumented method "__construct"<br>
+<b>Warning on line 31</b> - Undocumented method "get_sqlstate"<br>
 <b>Warning on line 38</b> - no @package tag was used in a DocBlock for class toba_error_usuario<br>
 <b>Warning on line 46</b> - no @package tag was used in a DocBlock for class toba_error_def<br>
 <b>Warning on line 54</b> - no @package tag was used in a DocBlock for class toba_error_permisos<br>
-<b>Warning on line 62</b> - no @package tag was used in a DocBlock for class toba_error_login<br>
-<b>Warning on line 68</b> - no @package tag was used in a DocBlock for class toba_error_validacion<br>
-<b>Warning on line 87</b> - no @package tag was used in a DocBlock for class toba_reset_nucleo<br>
+<b>Warning on line 62</b> - no @package tag was used in a DocBlock for class toba_error_autenticacion<br>
+<b>Warning on line 70</b> - no @package tag was used in a DocBlock for class toba_error_autorizacion<br>
+<b>Warning on line 76</b> - no @package tag was used in a DocBlock for class toba_error_validacion<br>
+<b>Warning on line 76</b> - Undocumented class "toba_error_validacion"<br>
+<b>Warning on line 83</b> - Undocumented method "__construct"<br>
+<b>Warning on line 88</b> - Undocumented method "get_causante"<br>
+<b>Warning on line 95</b> - no @package tag was used in a DocBlock for class toba_reset_nucleo<br>
+<b>Warning on line 101</b> - Undocumented method "set_item"<br>
+<b>Warning on line 106</b> - Undocumented method "get_item"<br>
 <a name="toba_evento_usuario.php"></a>
 <h1>toba_evento_usuario.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 45</b> - Undocumented method "maneja_datos"<br>
+<b>Warning on line 50</b> - Undocumented method "esta_sobre_fila"<br>
+<b>Warning on line 56</b> - Undocumented method "esta_en_botonera"<br>
+<b>Warning on line 61</b> - Undocumented method "es_implicito"<br>
+<b>Warning on line 75</b> - Undocumented method "posee_accion_asociada"<br>
+<b>Warning on line 80</b> - Undocumented method "posee_accion_imprimir"<br>
+<b>Warning on line 85</b> - Undocumented method "posee_accion_vincular"<br>
+<b>Warning on line 90</b> - Undocumented method "posee_grupo_asociado"<br>
+<b>Warning on line 95</b> - Undocumented method "pertenece_a_grupo"<br>
+<b>Warning on line 102</b> - Undocumented method "get_id"<br>
+<b>Warning on line 109</b> - Undocumented method "get_grupos"<br>
+<b>Warning on line 114</b> - Undocumented method "get_parametros"<br>
+<b>Warning on line 121</b> - Undocumented method "set_parametros"<br>
 <b>Warning on line 197</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_evento_usuario.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_form.php"></a>
 <h1>toba_form.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 21</b> - Undocumented method "text"<br>
+<b>Warning on line 49</b> - Undocumented method "select"<br>
+<b>Warning on line 63</b> - Undocumented method "multi_select"<br>
+<b>Warning on line 71</b> - Undocumented method "textarea"<br>
+<b>Warning on line 79</b> - Undocumented method "checkbox"<br>
+<b>Warning on line 97</b> - Undocumented method "radio"<br>
+<b>Warning on line 103</b> - Undocumented method "hidden"<br>
+<b>Warning on line 112</b> - Undocumented method "submit"<br>
+<b>Warning on line 119</b> - Undocumented method "image"<br>
+<b>Warning on line 128</b> - Undocumented method "button"<br>
+<b>Warning on line 141</b> - Undocumented method "button_html"<br>
+<b>Warning on line 148</b> - Undocumented method "password"<br>
+<b>Warning on line 155</b> - Undocumented method "archivo"<br>
+<b>Warning on line 169</b> - Undocumented method "abrir"<br>
+<b>Warning on line 174</b> - Undocumented method "cerrar"<br>
 <b>Warning on line 178</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/interface/toba_form.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_formateo.php"></a>
 <h1>toba_formateo.php</h1>
@@ -428,52 +858,184 @@
 <h1>toba_fuente_datos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_fuente_datos", use another DocBlock to document the file<br>
+<b>Warning on line 17</b> - Undocumented method "__construct"<br>
 <a name="toba_http.php"></a>
 <h1>toba_http.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_http", use another DocBlock to document the file<br>
+<b>Warning on line 15</b> - Undocumented method "cache"<br>
+<b>Warning on line 24</b> - Undocumented method "no_cache"<br>
+<b>Warning on line 30</b> - Undocumented method "pdf"<br>
+<b>Warning on line 35</b> - Undocumented method "encoding"<br>
+<b>Warning on line 52</b> - Undocumented method "headers_standart"<br>
 <a name="toba_impresion.php"></a>
 <h1>toba_impresion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_impresion", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - Undocumented method "titulo"<br>
+<b>Warning on line 9</b> - Undocumented method "subtitulo"<br>
+<b>Warning on line 10</b> - Undocumented method "mensaje"<br>
+<b>Warning on line 11</b> - Undocumented method "salto_pagina"<br>
 <a name="toba_impr_html.php"></a>
 <h1>toba_impr_html.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 18</b> - Undocumented method "asignar_objetos"<br>
+<b>Warning on line 61</b> - Undocumented method "generar_html_encabezado"<br>
+<b>Warning on line 68</b> - Undocumented method "generar_html_pie"<br>
+<b>Warning on line 72</b> - Undocumented method "encabezado"<br>
+<b>Warning on line 76</b> - Undocumented method "pie"<br>
+<b>Warning on line 85</b> - Undocumented method "salto_pagina"<br>
+<b>Warning on line 92</b> - Undocumented method "titulo"<br>
+<b>Warning on line 99</b> - Undocumented method "subtitulo"<br>
+<b>Warning on line 106</b> - Undocumented method "mensaje"<br>
 <b>Warning on line 108</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/salidas/toba_impr_html.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_ini.php"></a>
 <h1>toba_ini.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 3</b> - Undocumented class "toba_ini"<br>
 <b>Warning on line 3</b> - no @package tag was used in a DocBlock for class toba_ini<br>
+<b>Warning on line 16</b> - Undocumented method "__construct"<br>
+<b>Warning on line 21</b> - Undocumented method "agregar_titulo"<br>
+<b>Warning on line 30</b> - Undocumented method "existe_entrada"<br>
+<b>Warning on line 35</b> - Undocumented method "agregar_entrada"<br>
+<b>Warning on line 44</b> - Undocumented method "eliminar_entrada"<br>
+<b>Warning on line 53</b> - Undocumented method "get_datos_entrada"<br>
+<b>Warning on line 62</b> - Undocumented method "set_datos_entrada"<br>
+<b>Warning on line 78</b> - Undocumented method "guardar"<br>
+<b>Warning on line 101</b> - Undocumented method "generar_ini"<br>
 <b>Warning on line 103</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_ini.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_instalacion.php"></a>
 <h1>toba_instalacion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_instalacion", use another DocBlock to document the file<br>
+<b>Warning on line 27</b> - Undocumented method "eliminar_instancia"<br>
+<b>Warning on line 35</b> - Undocumented method "__construct"<br>
 <a name="toba_instancia.php"></a>
 <h1>toba_instancia.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_instancia", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_instancia", use another DocBlock to document the file<br>
+<b>Warning on line 27</b> - Undocumented method "eliminar_instancia"<br>
+<b>Warning on line 35</b> - Undocumented method "__construct"<br>
+<b>Warning on line 108</b> - Undocumented method "get_id_sesion"<br>
+<b>Warning on line 115</b> - Undocumented method "abrir_sesion"<br>
+<b>Warning on line 125</b> - Undocumented method "cerrar_sesion"<br>
+<b>Warning on line 165</b> - Undocumented method "get_info_autenticacion"<br>
+<b>Warning on line 176</b> - Undocumented method "get_lista_usuarios"<br>
+<b>Warning on line 210</b> - Undocumented method "get_id_solicitud"<br>
+<b>Warning on line 218</b> - Undocumented method "registrar_solicitud"<br>
+<b>Warning on line 225</b> - Undocumented method "registrar_solicitud_observaciones"<br>
+<b>Warning on line 231</b> - Undocumented method "registrar_solicitud_browser"<br>
+<b>Warning on line 237</b> - Undocumented method "registrar_solicitud_consola"<br>
+<b>Warning on line 243</b> - Undocumented method "registrar_marca_cronometro"<br>
+<b>Warning on line 249</b> - Undocumented method "log_sistema"<br>
+<b>Warning on line 308</b> - Undocumented method "es_ip_rechazada"<br>
+<b>Warning on line 316</b> - Undocumented method "registrar_error_login"<br>
+<b>Warning on line 323</b> - Undocumented method "get_cantidad_intentos_en_ventana_temporal"<br>
+<b>Warning on line 333</b> - Undocumented method "bloquear_ip"<br>
+<a name="toba_interface_contexto_ejecucion.php"></a>
+<h1>toba_interface_contexto_ejecucion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_interface_contexto_ejecucion", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - Undocumented method "conf__inicial"<br>
+<b>Warning on line 9</b> - Undocumented method "conf__final"<br>
+<a name="toba_interface_sesion.php"></a>
+<h1>toba_interface_sesion.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_interface_sesion", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - Undocumented method "iniciar_contexto"<br>
+<b>Warning on line 9</b> - Undocumented method "conf__inicial"<br>
+<b>Warning on line 10</b> - Undocumented method "conf__final"<br>
+<b>Warning on line 11</b> - Undocumented method "conf__activacion"<br>
 <a name="toba_interface_usuario.php"></a>
 <h1>toba_interface_usuario.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_interface_usuario", use another DocBlock to document the file<br>
+<b>Warning on line 8</b> - Undocumented method "autenticar"<br>
+<b>Warning on line 10</b> - Undocumented method "get_id"<br>
+<b>Warning on line 11</b> - Undocumented method "get_nombre"<br>
+<b>Warning on line 12</b> - Undocumented method "get_grupo_acceso"<br>
+<b>Warning on line 13</b> - Undocumented method "get_fecha_vencimiento"<br>
+<b>Warning on line 14</b> - Undocumented method "get_horario_permitido"<br>
+<b>Warning on line 15</b> - Undocumented method "get_dias_semana_permitidos"<br>
+<b>Warning on line 16</b> - Undocumented method "get_ip_permitida"<br>
 <a name="toba_js.php"></a>
 <h1>toba_js.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_js", use another DocBlock to document the file<br>
+<b>Warning on line 27</b> - Undocumented method "instancia"<br>
+<b>Warning on line 54</b> - Undocumented method "version"<br>
+<b>Warning on line 174</b> - Undocumented method "finalizar"<br>
 <a name="toba_logger.php"></a>
 <h1>toba_logger.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 115</b> - Undocumented method "get_proyecto_actual"<br>
+<b>Warning on line 124</b> - Undocumented method "get_usuario_actual"<br>
+<b>Warning on line 242</b> - Undocumented method "construir_traza"<br>
+<b>Warning on line 247</b> - Undocumented method "mensajes"<br>
+<b>Warning on line 252</b> - Undocumented method "get_cantidad_mensajes"<br>
+<b>Warning on line 257</b> - Undocumented method "get_niveles"<br>
+<b>Warning on line 369</b> - Undocumented method "mascara"<br>
+<b>Warning on line 374</b> - Undocumented method "mascara_hasta"<br>
+<b>Warning on line 401</b> - Undocumented method "directorio_logs"<br>
+<b>Warning on line 406</b> - Undocumented method "set_directorio_logs"<br>
+<b>Warning on line 451</b> - Undocumented method "guardar_en_archivo"<br>
+<b>Warning on line 480</b> - Undocumented method "guardar_archivo_log"<br>
+<b>Warning on line 487</b> - Undocumented method "anexar_a_archivo"<br>
+<b>Warning on line 545</b> - Undocumented method "ciclar_archivos_logs"<br>
 <b>Warning on line 560</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_logger.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_manejador_archivos.php"></a>
 <h1>toba_manejador_archivos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 5</b> - no @package tag was used in a DocBlock for class toba_manejador_archivos<br>
+<b>Warning on line 19</b> - Undocumented method "crear_arbol_directorios"<br>
+<b>Warning on line 27</b> - Undocumented method "crear_archivo_con_datos"<br>
+<b>Warning on line 32</b> - Undocumented method "es_windows"<br>
+<b>Warning on line 59</b> - Undocumented method "path_a_windows"<br>
+<b>Warning on line 64</b> - Undocumented method "path_a_unix"<br>
+<b>Warning on line 251</b> - Undocumented method "comprimir_archivo"<br>
 <b>Warning on line 253</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_manejador_archivos.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_manejador_sesiones.php"></a>
+<h1>toba_manejador_sesiones.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 9</b> - no @package tag was used in a DocBlock for class toba_manejador_sesiones<br>
+<b>Warning on line 36</b> - Undocumented method "__construct"<br>
+<b>Warning on line 368</b> - Undocumented method "cargar_usuario"<br>
+<b>Warning on line 374</b> - Undocumented method "registar_usuario"<br>
+<b>Warning on line 388</b> - Undocumented method "abrir_sesion"<br>
+<b>Warning on line 395</b> - Undocumented method "registrar_activacion_sesion"<br>
+<b>Warning on line 438</b> - Undocumented method "cerrar_sesion"<br>
+<b>Warning on line 446</b> - Undocumented method "desregistrar_usuario"<br>
+<b>Warning on line 470</b> - Undocumented method "guardar_contexto"<br>
+<b>Warning on line 497</b> - Undocumented method "cargar_contexto"<br>
+<b>Warning on line 512</b> - Undocumented method "get_usuario_proyecto"<br>
+<b>Warning on line 525</b> - Undocumented method "get_sesion_proyecto"<br>
+<b>Warning on line 610</b> - Undocumented method "segmento_info_instalacion"<br>
+<b>Warning on line 618</b> - Undocumented method "segmento_info_instancia"<br>
+<b>Warning on line 626</b> - Undocumented method "segmento_editor"<br>
+<b>Warning on line 634</b> - Undocumented method "segmento_info_proyecto"<br>
+<b>Warning on line 642</b> - Undocumented method "segmento_memoria_proyecto"<br>
+<b>Warning on line 651</b> - Undocumented method "borrar_segmento_instalacion"<br>
+<b>Warning on line 658</b> - Undocumented method "borrar_segmento_instancia"<br>
+<b>Warning on line 664</b> - Undocumented method "borrar_segmento_editor"<br>
+<b>Warning on line 672</b> - Undocumented method "borrar_segmento_proyecto"<br>
+<b>Warning on line 674</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_manejador_sesiones.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_memoria.php"></a>
 <h1>toba_memoria.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 688</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_memoria.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 64</b> - Undocumented method "instancia"<br>
+<b>Warning on line 141</b> - Undocumented method "__construct"<br>
+<b>Warning on line 160</b> - Undocumented method "get_celda_memoria_actual_id"<br>
+<b>Warning on line 166</b> - Undocumented method "set_item_solicitado"<br>
+<b>Warning on line 283</b> - Undocumented method "usuario_solicita_cronometrar"<br>
+<b>Warning on line 312</b> - Undocumented method "limpiar_memoria"<br>
+<b>Warning on line 317</b> - Undocumented method "dump"<br>
+<b>Warning on line 452</b> - Undocumented method "eliminar_dato_sincronizado"<br>
+<b>Warning on line 457</b> - Undocumented method "limpiar_memoria_sincronizada"<br>
+<b>Warning on line 467</b> - Undocumented method "reciclar_datos_sincronizados"<br>
+<b>Warning on line 643</b> - Undocumented method "finalizar"<br>
+<b>Warning on line 658</b> - Undocumented method "registrar_archivo_temporal"<br>
+<b>Warning on line 671</b> - Undocumented method "eliminar_archivos_temporales"<br>
+<b>Warning on line 673</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_memoria.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_mensajes.php"></a>
 <h1>toba_mensajes.php</h1>
 <h2>Warnings:</h2><br>
@@ -482,62 +1044,131 @@
 <h1>toba_menu.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_menu", use another DocBlock to document the file<br>
+<b>Warning on line 26</b> - Undocumented method "items_de_menu"<br>
 <a name="toba_menu_css.php"></a>
 <h1>toba_menu_css.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_menu_css", use another DocBlock to document the file<br>
+<b>Warning on line 17</b> - Undocumented method "__construct"<br>
+<b>Warning on line 23</b> - Undocumented method "plantilla_css"<br>
+<b>Warning on line 55</b> - Undocumented method "preparar_arbol"<br>
+<b>Warning on line 87</b> - Undocumented method "get_padres"<br>
+<b>Warning on line 101</b> - Undocumented method "get_imagen"<br>
+<b>Warning on line 112</b> - Undocumented method "get_hijos"<br>
+<b>Warning on line 124</b> - Undocumented method "mostrar"<br>
 <a name="toba_menu_yui.php"></a>
 <h1>toba_menu_yui.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_menu_yui", use another DocBlock to document the file<br>
+<b>Warning on line 18</b> - Undocumented method "__construct"<br>
+<b>Warning on line 24</b> - Undocumented method "plantilla_css"<br>
+<b>Warning on line 42</b> - Undocumented method "preparar_arbol"<br>
+<b>Warning on line 84</b> - Undocumented method "get_padres"<br>
+<b>Warning on line 95</b> - Undocumented method "get_hijos"<br>
+<b>Warning on line 241</b> - Undocumented method "mostrar"<br>
 <a name="toba_molde_clase.php"></a>
 <h1>toba_molde_clase.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 7</b> - Undocumented class "toba_molde_clase"<br>
 <b>Warning on line 7</b> - no @package tag was used in a DocBlock for class toba_molde_clase<br>
+<b>Warning on line 25</b> - Undocumented method "__construct"<br>
+<b>Warning on line 45</b> - Undocumented method "agregar"<br>
+<b>Warning on line 52</b> - Undocumented method "agregar_bloque"<br>
+<b>Warning on line 64</b> - Undocumented method "metodo_php"<br>
+<b>Warning on line 76</b> - Undocumented method "metodo_js"<br>
+<b>Warning on line 86</b> - Undocumented method "get_lista_metodos"<br>
+<b>Warning on line 132</b> - Undocumented method "get_codigo"<br>
+<b>Warning on line 142</b> - Undocumented method "filtrar_contenido"<br>
+<b>Warning on line 156</b> - Undocumented method "filtrar_metodos"<br>
+<b>Warning on line 195</b> - Undocumented method "colapsar_separadores"<br>
+<b>Warning on line 206</b> - Undocumented method "generar_codigo"<br>
+<b>Warning on line 217</b> - Undocumented method "generar_codigo_php"<br>
+<b>Warning on line 240</b> - Undocumented method "generar_codigo_js"<br>
+<b>Warning on line 251</b> - Undocumented method "set_muestra_analisis"<br>
+<b>Warning on line 268</b> - Undocumented method "analizar_php"<br>
+<b>Warning on line 272</b> - Undocumented method "analizar_js"<br>
+<b>Warning on line 277</b> - Undocumented method "get_ventanas_utilizadas"<br>
+<b>Warning on line 282</b> - Undocumented method "get_ventanas_no_utilizadas"<br>
+<b>Warning on line 287</b> - Undocumented method "get_metodos_usuario"<br>
+<b>Warning on line 295</b> - Undocumented method "get_analisis"<br>
 <b>Warning on line 298</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_clase.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_elemento.php"></a>
 <h1>toba_molde_elemento.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 3</b> - no @package tag was used in a DocBlock for class toba_molde_elemento<br>
+<b>Warning on line 3</b> - Undocumented class "toba_molde_elemento"<br>
+<b>Warning on line 11</b> - Undocumented method "get_nombre"<br>
+<b>Warning on line 16</b> - Undocumented method "identar"<br>
+<b>Warning on line 21</b> - Undocumented method "identado"<br>
+<b>Warning on line 26</b> - Undocumented method "get_caracteres_identacion"<br>
+<b>Warning on line 28</b> - Undocumented method "get_codigo"<br>
 <b>Warning on line 30</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_elemento.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_metodo.php"></a>
 <h1>toba_molde_metodo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_metodo<br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_metodo"<br>
+<b>Warning on line 22</b> - Undocumented method "__construct"<br>
+<b>Warning on line 27</b> - Undocumented method "get_descripcion"<br>
+<b>Warning on line 36</b> - Undocumented method "set_contenido"<br>
+<b>Warning on line 40</b> - Undocumented method "get_declaracion"<br>
+<b>Warning on line 60</b> - Undocumented method "get_codigo"<br>
 <b>Warning on line 62</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_metodo.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_metodo_js.php"></a>
 <h1>toba_molde_metodo_js.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_metodo_js"<br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_metodo_js<br>
+<b>Warning on line 11</b> - Undocumented method "get_declaracion"<br>
 <b>Warning on line 13</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_metodo_js.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_metodo_php.php"></a>
 <h1>toba_molde_metodo_php.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_metodo_php"<br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_metodo_php<br>
+<b>Warning on line 15</b> - Undocumented method "get_declaracion"<br>
 <b>Warning on line 17</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_metodo_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_separador.php"></a>
 <h1>toba_molde_separador.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_separador<br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_separador"<br>
+<b>Warning on line 18</b> - Undocumented method "__construct"<br>
+<b>Warning on line 23</b> - Undocumented method "ancho"<br>
+<b>Warning on line 28</b> - Undocumented method "get_tipo"<br>
+<b>Warning on line 33</b> - Undocumented method "get_descripcion"<br>
+<b>Warning on line 39</b> - Undocumented method "get_codigo"<br>
+<b>Warning on line 45</b> - Undocumented method "separador_chico"<br>
+<b>Warning on line 51</b> - Undocumented method "separador_grande"<br>
 <b>Warning on line 55</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_separador.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_separador_js.php"></a>
 <h1>toba_molde_separador_js.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_separador_js<br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_separador_js"<br>
 <b>Warning on line 7</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_separador_js.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_molde_separador_php.php"></a>
 <h1>toba_molde_separador_php.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 4</b> - no @package tag was used in a DocBlock for class toba_molde_separador_php<br>
+<b>Warning on line 4</b> - Undocumented class "toba_molde_separador_php"<br>
 <b>Warning on line 6</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/reflexion/toba_molde_separador_php.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_notificacion.php"></a>
 <h1>toba_notificacion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_notificacion", use another DocBlock to document the file<br>
+<b>Warning on line 19</b> - Undocumented method "instancia"<br>
+<b>Warning on line 23</b> - Undocumented method "__construct"<br>
 <a name="toba_nucleo.php"></a>
 <h1>toba_nucleo.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 211</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba_nucleo.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 40</b> - Undocumented method "__construct"<br>
+<b>Warning on line 48</b> - Undocumented method "instancia"<br>
+<b>Warning on line 131</b> - Undocumented method "solicitud_en_proceso"<br>
+<b>Warning on line 194</b> - Undocumented method "autorizar_acceso_item"<br>
+<b>Warning on line 201</b> - Undocumented method "iniciar_contexto_ejecucion"<br>
+<b>Warning on line 207</b> - Undocumented method "finalizar_contexto_ejecucion"<br>
+<b>Warning on line 209</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba_nucleo.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_parseo.php"></a>
 <h1>toba_parseo.php</h1>
 <h2>Warnings:</h2><br>
@@ -546,18 +1177,51 @@
 <h1>toba_parser_ayuda.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_parser_ayuda", use another DocBlock to document the file<br>
+<b>Warning on line 44</b> - Undocumented method "exp_reg"<br>
+<b>Warning on line 57</b> - Undocumented method "parsear_wiki"<br>
+<b>Warning on line 71</b> - Undocumented method "parsear_api"<br>
+<b>Warning on line 78</b> - Undocumented method "parsear_link"<br>
+<b>Warning on line 85</b> - Undocumented method "parsear_url"<br>
+<b>Warning on line 90</b> - Undocumented method "parsear_test"<br>
 <a name="toba_pdf.php"></a>
 <h1>toba_pdf.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_pdf", use another DocBlock to document the file<br>
+<b>Warning on line 25</b> - Undocumented method "__construct"<br>
+<b>Warning on line 30</b> - Undocumented method "asignar_objetos"<br>
+<b>Warning on line 62</b> - Undocumented method "generar_salida"<br>
+<b>Warning on line 71</b> - Undocumented method "generar_html"<br>
+<b>Warning on line 87</b> - Undocumented method "generar_html_encabezado"<br>
+<b>Warning on line 92</b> - Undocumented method "generar_html_pie"<br>
+<b>Warning on line 101</b> - Undocumented method "salto_pagina"<br>
+<b>Warning on line 106</b> - Undocumented method "titulo"<br>
+<b>Warning on line 111</b> - Undocumented method "subtitulo"<br>
+<b>Warning on line 116</b> - Undocumented method "mensaje"<br>
+<b>Warning on line 125</b> - Undocumented method "set_papel_tamanio"<br>
+<b>Warning on line 130</b> - Undocumented method "set_papel_orientacion"<br>
 <a name="toba_permisos.php"></a>
 <h1>toba_permisos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 7</b> - DocBlock would be page-level, but precedes class "toba_permisos", use another DocBlock to document the file<br>
+<b>Warning on line 17</b> - Undocumented method "instancia"<br>
+<b>Warning on line 21</b> - Undocumented method "__construct"<br>
 <a name="toba_proyecto.php"></a>
 <h1>toba_proyecto.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 433</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_proyecto.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 33</b> - Undocumented method "get_id"<br>
+<b>Warning on line 49</b> - Undocumented method "eliminar_instancia"<br>
+<b>Warning on line 58</b> - Undocumented method "__construct"<br>
+<b>Warning on line 155</b> - Undocumented method "cargar_info_basica"<br>
+<b>Warning on line 160</b> - Undocumented method "es_multiproyecto"<br>
+<b>Warning on line 249</b> - Undocumented method "get_definicion_dependencia"<br>
+<b>Warning on line 270</b> - Undocumented method "get_info_fuente_datos"<br>
+<b>Warning on line 358</b> - Undocumented method "get_grupo_acceso_usuario_anonimo"<br>
+<b>Warning on line 408</b> - Undocumented method "get_mensaje_toba"<br>
+<b>Warning on line 418</b> - Undocumented method "get_mensaje_proyecto"<br>
+<b>Warning on line 429</b> - Undocumented method "get_mensaje_objeto"<br>
+<b>Warning on line 455</b> - Undocumented method "get_items_zona"<br>
+<b>Warning on line 466</b> - Undocumented method "get_menu_consola"<br>
+<b>Warning on line 468</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_proyecto.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_recurso.php"></a>
 <h1>toba_recurso.php</h1>
 <h2>Warnings:</h2><br>
@@ -566,31 +1230,64 @@
 <h1>toba_relacion_entre_tablas.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_relacion_entre_tablas", use another DocBlock to document the file<br>
+<b>Warning on line 39</b> - Undocumented method "__construct"<br>
+<b>Warning on line 44</b> - Undocumented method "get_txt"<br>
+<b>Warning on line 53</b> - Undocumented method "set_mapeo_filas"<br>
+<b>Warning on line 58</b> - Undocumented method "get_mapeo_filas"<br>
+<b>Warning on line 63</b> - Undocumented method "get_mapeo_campos"<br>
+<b>Warning on line 78</b> - Undocumented method "tabla_padre"<br>
+<b>Warning on line 282</b> - Undocumented method "get_txt_error_base"<br>
+<b>Warning on line 329</b> - Undocumented method "cargar_tabla_hijo"<br>
+<b>Warning on line 372</b> - Undocumented method "resetear"<br>
 <a name="toba_sesion.php"></a>
 <h1>toba_sesion.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 298</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_sesion.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 15</b> - DocBlock would be page-level, but precedes class "toba_sesion", use another DocBlock to document the file<br>
 <a name="toba_sincronizador_archivos.php"></a>
 <h1>toba_sincronizador_archivos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - no @package tag was used in a DocBlock for class toba_sincronizador_archivos<br>
+<b>Warning on line 10</b> - Undocumented class "toba_sincronizador_archivos"<br>
+<b>Warning on line 32</b> - Undocumented method "__construct"<br>
+<b>Warning on line 37</b> - Undocumented method "info"<br>
+<b>Warning on line 44</b> - Undocumented method "cargar_archivos_originales"<br>
+<b>Warning on line 59</b> - Undocumented method "resolver_tipo"<br>
+<b>Warning on line 67</b> - Undocumented method "agregar_archivo"<br>
+<b>Warning on line 82</b> - Undocumented method "sincronizar"<br>
+<b>Warning on line 105</b> - Undocumented method "sincro_svn"<br>
+<b>Warning on line 116</b> - Undocumented method "sincro_fs"<br>
 <b>Warning on line 118</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_sincronizador_archivos.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_solicitud.php"></a>
 <h1>toba_solicitud.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 58</b> - Undocumented method "__construct"<br>
+<b>Warning on line 105</b> - Undocumented method "procesar"<br>
+<b>Warning on line 133</b> - Undocumented method "registrar"<br>
+<b>Warning on line 155</b> - Undocumented method "get_tipo"<br>
+<b>Warning on line 160</b> - Undocumented method "es_item_publico"<br>
+<b>Warning on line 165</b> - Undocumented method "existe_ayuda"<br>
+<b>Warning on line 209</b> - Undocumented method "crear_zona"<br>
 <b>Warning on line 229</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba_solicitud.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_solicitud_accion.php"></a>
 <h1>toba_solicitud_accion.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 9</b> - DocBlock would be page-level, but precedes class "toba_solicitud_accion", use another DocBlock to document the file<br>
+<b>Warning on line 15</b> - Undocumented method "__construct"<br>
+<b>Warning on line 25</b> - Undocumented method "procesar"<br>
 <a name="toba_solicitud_consola.php"></a>
 <h1>toba_solicitud_consola.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_solicitud_consola", use another DocBlock to document the file<br>
+<b>Warning on line 19</b> - Undocumented method "__construct"<br>
+<b>Warning on line 25</b> - Undocumented method "procesar"<br>
+<b>Warning on line 109</b> - Undocumented method "registrar"<br>
 <a name="toba_solicitud_web.php"></a>
 <h1>toba_solicitud_web.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 334</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba_solicitud_web.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 35</b> - Undocumented method "__construct"<br>
+<b>Warning on line 245</b> - Undocumented method "servicio__vista_pdf"<br>
+<b>Warning on line 336</b> - Undocumented method "registrar"<br>
+<b>Warning on line 338</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/toba_solicitud_web.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_sql.php"></a>
 <h1>toba_sql.php</h1>
 <h2>Warnings:</h2><br>
@@ -607,59 +1304,149 @@
 <h1>toba_tipo_datos.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 17</b> - DocBlock would be page-level, but precedes class "toba_tipo_datos", use another DocBlock to document the file<br>
+<b>Warning on line 20</b> - Undocumented method "numero"<br>
+<b>Warning on line 24</b> - Undocumented method "fecha"<br>
 <a name="toba_tipo_pagina.php"></a>
 <h1>toba_tipo_pagina.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 10</b> - DocBlock would be page-level, but precedes class "toba_tipo_pagina", use another DocBlock to document the file<br>
+<b>Warning on line 11</b> - Undocumented method "encabezado"<br>
+<b>Warning on line 12</b> - Undocumented method "pre_contenido"<br>
+<b>Warning on line 13</b> - Undocumented method "post_contenido"<br>
+<b>Warning on line 14</b> - Undocumented method "pie"<br>
 <a name="toba_tp_basico.php"></a>
 <h1>toba_tp_basico.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 14</b> - DocBlock would be page-level, but precedes class "toba_tp_basico", use another DocBlock to document the file<br>
+<b>Warning on line 23</b> - Undocumented method "encabezado"<br>
+<b>Warning on line 25</b> - Undocumented method "pre_contenido"<br>
+<b>Warning on line 27</b> - Undocumented method "post_contenido"<br>
+<b>Warning on line 33</b> - Undocumented method "pie"<br>
+<b>Warning on line 46</b> - Undocumented method "cabecera_html"<br>
+<b>Warning on line 52</b> - Undocumented method "titulo_pagina"<br>
+<b>Warning on line 57</b> - Undocumented method "encoding"<br>
+<b>Warning on line 64</b> - Undocumented method "plantillas_css"<br>
+<b>Warning on line 75</b> - Undocumented method "estilos_css"<br>
+<b>Warning on line 99</b> - Undocumented method "barra_superior"<br>
 <a name="toba_tp_basico_titulo.php"></a>
 <h1>toba_tp_basico_titulo.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 27</b> - Undocumented method "barra_superior"<br>
+<b>Warning on line 64</b> - Undocumented method "info_version"<br>
+<b>Warning on line 69</b> - Undocumented method "pre_contenido"<br>
+<b>Warning on line 74</b> - Undocumented method "post_contenido"<br>
 <b>Warning on line 77</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/tipo_pagina/toba_tp_basico_titulo.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_tp_logon.php"></a>
 <h1>toba_tp_logon.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 15</b> - Undocumented method "pre_contenido"<br>
+<b>Warning on line 24</b> - Undocumented method "post_contenido"<br>
 <b>Warning on line 26</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/tipo_pagina/toba_tp_logon.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_tp_normal.php"></a>
 <h1>toba_tp_normal.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 109</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/tipo_pagina/toba_tp_normal.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 24</b> - Undocumented method "__construct"<br>
+<b>Warning on line 31</b> - Undocumented method "comienzo_cuerpo"<br>
+<b>Warning on line 38</b> - Undocumented method "menu"<br>
+<b>Warning on line 49</b> - Undocumented method "plantillas_css"<br>
+<b>Warning on line 72</b> - Undocumented method "cabecera_aplicacion"<br>
+<b>Warning on line 100</b> - Undocumented method "mostrar_logo"<br>
+<b>Warning on line 108</b> - Undocumented method "info_usuario"<br>
+<b>Warning on line 111</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/tipo_pagina/toba_tp_normal.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_tp_popup.php"></a>
 <h1>toba_tp_popup.php</h1>
 <h2>Warnings:</h2><br>
+<b>Warning on line 36</b> - Undocumented method "comienzo_cuerpo"<br>
+<b>Warning on line 44</b> - Undocumented method "barra_superior"<br>
+<b>Warning on line 53</b> - Undocumented method "pie"<br>
 <b>Warning on line 58</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/tipo_pagina/toba_tp_popup.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_usuario.php"></a>
 <h1>toba_usuario.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 167</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_usuario.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 11</b> - Undocumented method "__construct"<br>
+<b>Warning on line 16</b> - Undocumented method "autenticar"<br>
+<b>Warning on line 21</b> - Undocumented method "get_id"<br>
+<b>Warning on line 26</b> - Undocumented method "get_nombre"<br>
+<b>Warning on line 31</b> - Undocumented method "get_grupo_acceso"<br>
+<b>Warning on line 36</b> - Undocumented method "get_fecha_vencimiento"<br>
+<b>Warning on line 41</b> - Undocumented method "get_horario_permitido"<br>
+<b>Warning on line 46</b> - Undocumented method "get_dias_semana_permitidos"<br>
+<b>Warning on line 51</b> - Undocumented method "get_ip_permitida"<br>
+<b>Warning on line 53</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_usuario.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_usuario_anonimo.php"></a>
+<h1>toba_usuario_anonimo.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - Undocumented method "get_id"<br>
+<b>Warning on line 17</b> - Undocumented method "get_nombre"<br>
+<b>Warning on line 22</b> - Undocumented method "get_grupo_acceso"<br>
+<b>Warning on line 24</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_usuario_anonimo.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_usuario_basico.php"></a>
+<h1>toba_usuario_basico.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 35</b> - Undocumented method "__construct"<br>
+<b>Warning on line 80</b> - Undocumented method "get_parametro"<br>
+<b>Warning on line 82</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_usuario_basico.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="toba_usuario_no_autenticado.php"></a>
+<h1>toba_usuario_no_autenticado.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 12</b> - Undocumented method "__construct"<br>
+<b>Warning on line 30</b> - File "/home/k7k0/proyectos/toba_trunk/php/nucleo/lib/toba_usuario_no_autenticado.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_varios.php"></a>
 <h1>toba_varios.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 273</b> - no @package tag was used in a DocBlock for class toba_manejador_tabs<br>
+<b>Warning on line 273</b> - Undocumented class "toba_manejador_tabs"<br>
+<b>Warning on line 280</b> - Undocumented method "instancia"<br>
+<b>Warning on line 288</b> - Undocumented method "reservar"<br>
+<b>Warning on line 293</b> - Undocumented method "siguiente"<br>
 <b>Warning on line 301</b> - no @package tag was used in a DocBlock for class toba_objeto_de_mentira<br>
-<b>Warning on line 378</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_varios.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 305</b> - Undocumented method "__call"<br>
+<b>Warning on line 309</b> - Undocumented method "__set"<br>
+<b>Warning on line 314</b> - Undocumented method "__get"<br>
+<b>Warning on line 404</b> - File "/home/k7k0/proyectos/toba_trunk/php/lib/toba_varios.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="toba_vinculador.php"></a>
 <h1>toba_vinculador.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 12</b> - DocBlock would be page-level, but precedes class "toba_vinculador", use another DocBlock to document the file<br>
+<b>Warning on line 24</b> - Undocumented method "instancia"<br>
+<b>Warning on line 30</b> - Undocumented method "__construct"<br>
+<b>Warning on line 89</b> - Undocumented method "registrar_vinculo"<br>
+<b>Warning on line 404</b> - Undocumented method "generar_js"<br>
 <a name="toba_vinculo.php"></a>
 <h1>toba_vinculo.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 8</b> - DocBlock would be page-level, but precedes class "toba_vinculo", use another DocBlock to document the file<br>
+<b>Warning on line 37</b> - Undocumented method "__construct"<br>
+<b>Warning on line 51</b> - Undocumented method "get_item"<br>
+<b>Warning on line 56</b> - Undocumented method "get_proyecto"<br>
+<b>Warning on line 88</b> - Undocumented method "get_parametros"<br>
+<b>Warning on line 93</b> - Undocumented method "set_opciones"<br>
+<b>Warning on line 98</b> - Undocumented method "get_opciones"<br>
+<b>Warning on line 103</b> - Undocumented method "agregar_opcion"<br>
+<b>Warning on line 108</b> - Undocumented method "activar_popup"<br>
+<b>Warning on line 113</b> - Undocumented method "desactivar_popup"<br>
+<b>Warning on line 118</b> - Undocumented method "estado_popup"<br>
+<b>Warning on line 123</b> - Undocumented method "set_popup_parametros"<br>
+<b>Warning on line 128</b> - Undocumented method "get_popup_parametros"<br>
+<b>Warning on line 133</b> - Undocumented method "set_target"<br>
+<b>Warning on line 138</b> - Undocumented method "get_target"<br>
 <a name="toba_zona.php"></a>
 <h1>toba_zona.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 19</b> - DocBlock would be page-level, but precedes class "toba_zona", use another DocBlock to document the file<br>
+<b>Warning on line 38</b> - Undocumented method "__construct"<br>
+<b>Warning on line 95</b> - Undocumented method "cargar_info"<br>
+<b>Warning on line 126</b> - Undocumented method "get_editable_nombre"<br>
+<b>Warning on line 135</b> - Undocumented method "get_editable_id"<br>
+<b>Warning on line 150</b> - Undocumented method "generar_html_barra_superior"<br>
+<b>Warning on line 167</b> - Undocumented method "generar_html_barra_nombre"<br>
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

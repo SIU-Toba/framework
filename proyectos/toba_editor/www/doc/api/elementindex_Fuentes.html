@@ -17,13 +17,13 @@
         	        		|
         	              	<a href="li_Centrales.html">Centrales</a>
         	        		|
-        	              	<a href="li_Debug.html">Debug</a>
-        	        		|
         	              	<a href="li_Componentes.html">Componentes</a>
+        	        		|
+        	              	<a href="li_Varios.html">Varios</a>
         	        		|
         	              	<a href="li_Fuentes.html">Fuentes</a>
         	        		|
-        	              	<a href="li_Varios.html">Varios</a>
+        	              	<a href="li_Debug.html">Debug</a>
         	            </div>
    	</td>	
     <td class="header-top-right">
@@ -111,9 +111,9 @@
 	<ul>
 				<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Centrales.html">Centrales</a></li>
-					<li><a href="elementindex_Debug.html">Debug</a></li>
 					<li><a href="elementindex_Componentes.html">Componentes</a></li>
-							<li><a href="elementindex_Varios.html">Varios</a></li>
+					<li><a href="elementindex_Varios.html">Varios</a></li>
+							<li><a href="elementindex_Debug.html">Debug</a></li>
 			</ul>
 	[ <a href="elementindex_Fuentes.html#a">a</a> ]
 	[ <a href="elementindex_Fuentes.html#b">b</a> ]
@@ -219,6 +219,8 @@
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodconectar">toba_db::conectar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Crea una conexion a la base</dd>
 							<dt><b>consultar</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodconsultar">toba_db::consultar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta una consulta sql</dd>
+							<dt><b>consultar_fila</b></dt>
+				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodconsultar_fila">toba_db::consultar_fila()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Ejecuta una consulta sql y retorna la primer fila del resultado.</dd>
 							<dt><b>cerrar_transaccion</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodcerrar_transaccion">toba_db_postgres7::cerrar_transaccion()</a></dd>
 							<dt><b>cerrar_transaccion</b></dt>
@@ -293,9 +295,9 @@
 							<dt><b>get_error_toba</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodget_error_toba">toba_db::get_error_toba()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Mapea el error de la base al modulo de mensajes del toba</dd>
 							<dt><b>get_fuente</b></dt>
-				<dd>in file toba_admin_fuentes.php, method <a href="Fuentes/toba_admin_fuentes.html#methodget_fuente">toba_admin_fuentes::get_fuente()</a></dd>
+				<dd>in file toba_admin_fuentes.php, method <a href="Fuentes/toba_admin_fuentes.html#methodget_fuente">toba_admin_fuentes::get_fuente()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna una fuente de datos</dd>
 							<dt><b>get_fuente_predeterminada</b></dt>
-				<dd>in file toba_admin_fuentes.php, method <a href="Fuentes/toba_admin_fuentes.html#methodget_fuente_predeterminada">toba_admin_fuentes::get_fuente_predeterminada()</a></dd>
+				<dd>in file toba_admin_fuentes.php, method <a href="Fuentes/toba_admin_fuentes.html#methodget_fuente_predeterminada">toba_admin_fuentes::get_fuente_predeterminada()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna el nombre de la fuente marcada en el editor como predeterminada</dd>
 							<dt><b>get_parametros</b></dt>
 				<dd>in file toba_db.php, method <a href="Fuentes/toba_db.html#methodget_parametros">toba_db::get_parametros()</a></dd>
 							<dt><b>get_parametros_base</b></dt>
@@ -310,6 +312,8 @@
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_definicion_columnas">toba_db_postgres7::get_definicion_columnas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Busca la definicion de un TABLA. Falta terminar</dd>
 							<dt><b>get_dsn</b></dt>
 				<dd>in file toba_db_postgres7.php, method <a href="Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a></dd>
+							<dt><b>get_dsn</b></dt>
+				<dd>in file toba_db_mysql.php, method <a href="Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a></dd>
 					</dl>
 	</div>
 	<a name="i"></a>
@@ -362,6 +366,8 @@
 		<dl>
 							<dt><b>$profile</b></dt>
 				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$profile">toba_db::$profile</a></dd>
+							<dt><b>$puerto</b></dt>
+				<dd>in file toba_db.php, variable <a href="Fuentes/toba_db.html#var$puerto">toba_db::$puerto</a></dd>
 							<dt><b>parsear_parametros</b></dt>
 				<dd>in file toba_mensajes.php, method <a href="Fuentes/toba_mensajes.html#methodparsear_parametros">toba_mensajes::parsear_parametros()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Si el mensaje fue definido con comodines (%numero%)</dd>
 							<dt><b>post_conectar</b></dt>
@@ -474,7 +480,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

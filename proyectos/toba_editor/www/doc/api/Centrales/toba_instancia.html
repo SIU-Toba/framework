@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -251,7 +277,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_instancia.php [<span class="field">line 9</span>]
+			Ubicada en /nucleo/lib/toba_instancia.php [<span class="field">line 8</span>]
 		</p>	
 		<br>
 	
@@ -271,149 +297,188 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-															<tr><td></td><td class="method-definition" nowrap>static
+																																										<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#abrir_sesion" title="details" class="method-name">abrir_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#bloquear_ip" title="details" class="method-name">bloquear_ip</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#cerrar_sesion" title="details" class="method-name">cerrar_sesion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#es_ip_rechazada" title="details" class="method-name">es_ip_rechazada</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_cantidad_intentos_en_ventana_temporal" title="details" class="method-name">get_cantidad_intentos_en_ventana_temporal</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																																						<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_datos_instancia" title="details" class="method-name">get_datos_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el contenido del archivo instancia.ini de la instancia</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result"><a href="../Fuentes/toba_db.html">toba_db</a></span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_db" title="details" class="method-name">get_db</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna un vinculo a la base de datos que forma parte de la instancia</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Devuelve el grupo de acceso de un usuario</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																																						<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el id de la instancia actual</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_id_sesion" title="details" class="method-name">get_id_sesion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_id_solicitud" title="details" class="method-name">get_id_solicitud</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_info_autenticacion" title="details" class="method-name">get_info_autenticacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_info_usuario" title="details" class="method-name">get_info_usuario</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna la información cruda de un usuario, tal como está en la base de datos  Para hacer preguntas del usuario actual utilizar toba::usuario()-&gt;</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_lista_usuarios" title="details" class="method-name">get_lista_usuarios</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_path_proyecto" title="details" class="method-name">get_path_proyecto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el path absoluto de un proyecto perteneciente a esta instancia</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_proyectos_accesibles" title="details" class="method-name">get_proyectos_accesibles</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna la lista de proyectos a los cuales el usuario actual puede ingresar</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_url_proyecto" title="details" class="method-name">get_url_proyecto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna las url asociada a un proyecto particular de la instancia</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_url_proyectos" title="details" class="method-name">get_url_proyectos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna las urls de los proyectos actualmente incluídos en la instancia</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_vinculos_posibles" title="details" class="method-name">get_vinculos_posibles</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Devuelve la lista de items a los que el usuario puede acceder</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																																																																																																					<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_instancia.html">toba_instancia</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																													<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#log_sistema" title="details" class="method-name">log_sistema</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_error_login" title="details" class="method-name">registrar_error_login</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_marca_cronometro" title="details" class="method-name">registrar_marca_cronometro</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_solicitud" title="details" class="method-name">registrar_solicitud</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_solicitud_browser" title="details" class="method-name">registrar_solicitud_browser</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_solicitud_consola" title="details" class="method-name">registrar_solicitud_consola</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#registrar_solicitud_observaciones" title="details" class="method-name">registrar_solicitud_observaciones</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																																																																																																																																																																																																												<tr>
+																																																																																							<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#limpiar_memoria" title="details" class="method-name">limpiar_memoria</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Destructor de la clase</td></tr>
-																																																																												</table>
+												<td class="method-definition"><a href="#abrir_sesion" title="details" class="method-name">abrir_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#bloquear_ip" title="details" class="method-name">bloquear_ip</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#cerrar_sesion" title="details" class="method-name">cerrar_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#es_ip_rechazada" title="details" class="method-name">es_ip_rechazada</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_cantidad_intentos_en_ventana_temporal" title="details" class="method-name">get_cantidad_intentos_en_ventana_temporal</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result"><a href="../Fuentes/toba_db.html">toba_db</a></span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_db" title="details" class="method-name">get_db</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un vinculo a la base de datos que forma parte de la instancia</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve el grupo de acceso de un usuario para un proyecto</td></tr>
+																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_id_sesion" title="details" class="method-name">get_id_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_id_solicitud" title="details" class="method-name">get_id_solicitud</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_info_autenticacion" title="details" class="method-name">get_info_autenticacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_info_usuario" title="details" class="method-name">get_info_usuario</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna la información cruda de un usuario, tal como está en la base de datos  Para hacer preguntas del usuario actual utilizar toba::usuario()-&gt;</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_lista_usuarios" title="details" class="method-name">get_lista_usuarios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_path_proyecto" title="details" class="method-name">get_path_proyecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el path absoluto de un proyecto perteneciente a esta instancia</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_proyectos_accesibles" title="details" class="method-name">get_proyectos_accesibles</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna la lista de proyectos a los cuales el usuario actual puede ingresar</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_url_proyecto" title="details" class="method-name">get_url_proyecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna las url asociada a un proyecto particular de la instancia</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_url_proyectos" title="details" class="method-name">get_url_proyectos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna las urls de los proyectos actualmente incluídos en la instancia</td></tr>
+																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#log_sistema" title="details" class="method-name">log_sistema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_error_login" title="details" class="method-name">registrar_error_login</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_marca_cronometro" title="details" class="method-name">registrar_marca_cronometro</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_solicitud" title="details" class="method-name">registrar_solicitud</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_solicitud_browser" title="details" class="method-name">registrar_solicitud_browser</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_solicitud_consola" title="details" class="method-name">registrar_solicitud_consola</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_solicitud_observaciones" title="details" class="method-name">registrar_solicitud_observaciones</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+													</table>
 			</div>
 			<br />
 		</div>
@@ -429,17 +494,123 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodabrir_sesion" id="abrir_sesion"><!-- --></a>
-<div class="oddrow">
+<a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
+		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void abrir_sesion(
+		<code>static void eliminar_instancia(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_datos_instancia" id="get_datos_instancia"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_datos_instancia(
+
+$id_instancia&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el contenido del archivo instancia.ini de la instancia </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_instancia:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_id" id="get_id"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_id(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el id de la instancia actual <p>La configuracion puede estar cono variable de entorno del servidor o una constante del PA</p></div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodinstancia" id="instancia"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="../Centrales/toba_instancia.html">toba_instancia</a> instancia(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+
+<a name="methodabrir_sesion" id="abrir_sesion"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">abrir_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void abrir_sesion(
 
 $sesion, 
 $usuario, 
@@ -478,16 +649,19 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodbloquear_ip" id="bloquear_ip"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 344]</span>
+	
+		
+	
+	<span class="method-title">bloquear_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void bloquear_ip(
+		<code>void bloquear_ip(
 
 $ip&nbsp;
 )</code>
@@ -512,16 +686,19 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_sesion" id="cerrar_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 122]</span>
+	
+		
+	
+	<span class="method-title">cerrar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void cerrar_sesion(
+		<code>void cerrar_sesion(
 
 $sesion, [
 $observaciones = null]&nbsp;
@@ -553,16 +730,19 @@ $observaciones = null]&nbsp;
 		<br />
 </div>
 <a name="methodes_ip_rechazada" id="es_ip_rechazada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+	
+		
+	
+	<span class="method-title">es_ip_rechazada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void es_ip_rechazada(
+		<code>void es_ip_rechazada(
 
 $ip&nbsp;
 )</code>
@@ -587,16 +767,19 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_intentos_en_ventana_temporal" id="get_cantidad_intentos_en_ventana_temporal"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
+	
+		
+	
+	<span class="method-title">get_cantidad_intentos_en_ventana_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_cantidad_intentos_en_ventana_temporal(
+		<code>void get_cantidad_intentos_en_ventana_temporal(
 
 $ip, 
 $ventana_temporal&nbsp;
@@ -627,52 +810,20 @@ $ventana_temporal&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_datos_instancia" id="get_datos_instancia"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-		<span class="method-title">static method get_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_datos_instancia(
-
-$id_instancia&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna el contenido del archivo instancia.ini de la instancia </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$id_instancia:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodget_db" id="get_db"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+	
+		
+	
+	<span class="method-title">get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static <a href="../Fuentes/toba_db.html">toba_db</a> get_db(
+		<code><a href="../Fuentes/toba_db.html">toba_db</a> get_db(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -688,14 +839,17 @@ $id_instancia&nbsp;
 <a name="methodget_grupo_acceso" id="get_grupo_acceso"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	
+		
+	
+	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_grupo_acceso(
+		<code>void get_grupo_acceso(
 
 $usuario, 
 $proyecto&nbsp;
@@ -703,7 +857,7 @@ $proyecto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Devuelve el grupo de acceso de un usuario </div>
+	<div class="description">Devuelve el grupo de acceso de un usuario para un proyecto </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -727,40 +881,20 @@ $proyecto&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_id" id="get_id"><!-- --></a>
+<a name="methodget_id_sesion" id="get_id_sesion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_id(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna el id de la instancia actual <p>La configuracion puede estar cono variable de entorno del servidor o una constante del PA</p></div>
-
-	<br />
 	
-
 		
-		<br />
-</div>
-<a name="methodget_id_sesion" id="get_id_sesion"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-		<span class="method-title">static method get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	
+	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_id_sesion(
+		<code>void get_id_sesion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -773,16 +907,19 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_id_solicitud" id="get_id_solicitud"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+	
+		
+	
+	<span class="method-title">get_id_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_id_solicitud(
+		<code>void get_id_solicitud(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -795,16 +932,19 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_info_autenticacion" id="get_info_autenticacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+	
+		
+	
+	<span class="method-title">get_info_autenticacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_info_autenticacion(
+		<code>void get_info_autenticacion(
 
 $usuario&nbsp;
 )</code>
@@ -829,16 +969,19 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_info_usuario" id="get_info_usuario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		    		<span class="method-title">static method get_info_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
+	
+		    		
+	
+	<span class="method-title">get_info_usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_info_usuario(
+		<code>void get_info_usuario(
 
 $usuario&nbsp;
 )</code>
@@ -872,16 +1015,19 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_usuarios" id="get_lista_usuarios"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	
+		
+	
+	<span class="method-title">get_lista_usuarios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 168]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_lista_usuarios(
+		<code>void get_lista_usuarios(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -894,16 +1040,19 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_path_proyecto" id="get_path_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_path_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	
+		
+	
+	<span class="method-title">get_path_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_path_proyecto(
+		<code>void get_path_proyecto(
 
 $proyecto&nbsp;
 )</code>
@@ -929,16 +1078,19 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodget_proyectos_accesibles" id="get_proyectos_accesibles"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 299]</span>
+	
+		
+	
+	<span class="method-title">get_proyectos_accesibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 281]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_proyectos_accesibles(
+		<code>void get_proyectos_accesibles(
 [
 $refrescar = false]&nbsp;
 )</code>
@@ -964,16 +1116,19 @@ $refrescar = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_url_proyecto" id="get_url_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
+	
+		
+	
+	<span class="method-title">get_url_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_url_proyecto(
+		<code>void get_url_proyecto(
 
 $proy&nbsp;
 )</code>
@@ -999,16 +1154,19 @@ $proy&nbsp;
 		<br />
 </div>
 <a name="methodget_url_proyectos" id="get_url_proyectos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
+	
+		
+	
+	<span class="method-title">get_url_proyectos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 257]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_url_proyectos(
+		<code>void get_url_proyectos(
 
 $proys&nbsp;
 )</code>
@@ -1033,74 +1191,20 @@ $proys&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_vinculos_posibles" id="get_vinculos_posibles"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method get_vinculos_posibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_vinculos_posibles(
-
-$usuario&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Devuelve la lista de items a los que el usuario puede acceder </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$usuario:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodinstancia" id="instancia"><!-- --></a>
+<a name="methodlog_sistema" id="log_sistema"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static <a href="../Centrales/toba_instancia.html">toba_instancia</a> instancia(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
 	
-	<br />
-	
-
 		
-		<br />
-</div>
-<a name="methodlog_sistema" id="log_sistema"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method log_sistema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
+	
+	<span class="method-title">log_sistema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void log_sistema(
+		<code>void log_sistema(
 
 $tipo, 
 $mensaje&nbsp;
@@ -1132,16 +1236,19 @@ $mensaje&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_error_login" id="registrar_error_login"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+	
+		
+	
+	<span class="method-title">registrar_error_login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 311]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_error_login(
+		<code>void registrar_error_login(
 
 $usuario, 
 $ip, 
@@ -1180,16 +1287,19 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_marca_cronometro" id="registrar_marca_cronometro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
+	
+		
+	
+	<span class="method-title">registrar_marca_cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_marca_cronometro(
+		<code>void registrar_marca_cronometro(
 
 $proyecto, 
 $solicitud, 
@@ -1249,16 +1359,19 @@ $tiempo&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud" id="registrar_solicitud"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
+	
+		
+	
+	<span class="method-title">registrar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_solicitud(
+		<code>void registrar_solicitud(
 
 $id, 
 $proyecto, 
@@ -1304,16 +1417,19 @@ $tipo_solicitud&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_browser" id="registrar_solicitud_browser"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
+	
+		
+	
+	<span class="method-title">registrar_solicitud_browser</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_solicitud_browser(
+		<code>void registrar_solicitud_browser(
 
 $proyecto, 
 $id, 
@@ -1366,16 +1482,19 @@ $ip&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_consola" id="registrar_solicitud_consola"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 252]</span>
+	
+		
+	
+	<span class="method-title">registrar_solicitud_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 234]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_solicitud_consola(
+		<code>void registrar_solicitud_consola(
 
 $proyecto, 
 $id, 
@@ -1421,16 +1540,19 @@ $llamada&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_solicitud_observaciones" id="registrar_solicitud_observaciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 239]</span>
+	
+		
+	
+	<span class="method-title">registrar_solicitud_observaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void registrar_solicitud_observaciones(
+		<code>void registrar_solicitud_observaciones(
 
 $proyecto, 
 $id, 
@@ -1475,33 +1597,6 @@ $observacion&nbsp;
 		
 		<br />
 </div>
-
-<a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void limpiar_memoria(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Destructor de la clase </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 		</div>
 	</div>
 	<a name="sec-vars"></a>
@@ -1519,7 +1614,7 @@ $observacion&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

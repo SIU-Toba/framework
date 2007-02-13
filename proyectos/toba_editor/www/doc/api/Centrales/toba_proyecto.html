@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -272,10 +298,10 @@
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 																								<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result"><a href="../Centrales/Errores/toba_error.html">toba_error</a></span>&nbsp;&nbsp;
+													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#control_acceso_item" title="details" class="method-name">control_acceso_item</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Valida que un grupo de acceso tenga acceso a un item</td></tr>
+						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Fuentes/toba_db.html">toba_db</a></span>&nbsp;&nbsp;
 						</td>
@@ -286,7 +312,7 @@
 						</td>
 						<td class="method-definition"><a href="#get_descripcion_permiso" title="details" class="method-name">get_descripcion_permiso</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna la descripción asociada a un permiso global particular del proy. actual</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
@@ -321,12 +347,17 @@
 						</td>
 						<td class="method-definition"><a href="#get_menu_consola" title="details" class="method-name">get_menu_consola</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																	<tr><td></td><td class="method-definition" nowrap>static
+																																																																																			<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_proyecto.html">toba_proyecto</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																										<tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="../Centrales/Errores/toba_error.html">toba_error</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#puede_grupo_acceder_item" title="details" class="method-name">puede_grupo_acceder_item</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Valida que un grupo de acceso tenga acceso a un item</td></tr>
+																																	<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
@@ -348,7 +379,14 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_definicion_dependencia" title="details" class="method-name">get_definicion_dependencia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																						<tr>
+																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_grupo_acceso_usuario_anonimo" title="details" class="method-name">get_grupo_acceso_usuario_anonimo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -381,8 +419,22 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_path_php" title="details" class="method-name">get_path_php</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' del proyecto</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_path_temp" title="details" class="method-name">get_path_temp</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el path base absoluto del directorio temporal no-navegable del proyecto</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_vinculos_posibles" title="details" class="method-name">get_vinculos_posibles</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Devuelve la lista de items a los que un grupo puede acceder</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -397,14 +449,7 @@
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_www_temp" title="details" class="method-name">get_www_temp</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el path y url del directorio temporal navegable del proyecto (mi_proyecto/www/temp);</td></tr>
-																													<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#limpiar_memoria" title="details" class="method-name">limpiar_memoria</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Fuerza una recarga de toda la información cacheada</td></tr>
-																				<tr>
+																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -443,52 +488,24 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodcontrol_acceso_item" id="control_acceso_item"><!-- --></a>
+<a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		    		<span class="method-title">static method control_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 308]</span>
+		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static <a href="../Centrales/Errores/toba_error.html">toba_error</a> control_acceso_item(
-
-$item, 
-$grupo_acceso&nbsp;
+		<code>static void eliminar_instancia(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Valida que un grupo de acceso tenga acceso a un item </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$item:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
+	
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Si el grupo no tiene permisos suficientes</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
@@ -496,7 +513,7 @@ $grupo_acceso&nbsp;
 <a name="methodget_db" id="get_db"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
 </div>
 <br />
 
@@ -519,7 +536,7 @@ $grupo_acceso&nbsp;
 <a name="methodget_descripcion_permiso" id="get_descripcion_permiso"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
+		<span class="method-title">static method get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 384]</span>
 </div>
 <br />
 
@@ -554,7 +571,7 @@ $permiso&nbsp;
 <a name="methodget_id" id="get_id"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
 </div>
 <br />
 
@@ -576,7 +593,7 @@ $permiso&nbsp;
 <a name="methodget_items_zona" id="get_items_zona"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
+		<span class="method-title">static method get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 434]</span>
 </div>
 <br />
 
@@ -617,7 +634,7 @@ $usuario&nbsp;
 <a name="methodget_lista_permisos" id="get_lista_permisos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+		<span class="method-title">static method get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -652,7 +669,7 @@ $grupo&nbsp;
 <a name="methodget_mensaje_objeto" id="get_mensaje_objeto"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 386]</span>
+		<span class="method-title">static method get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 421]</span>
 </div>
 <br />
 
@@ -693,7 +710,7 @@ $indice&nbsp;
 <a name="methodget_mensaje_proyecto" id="get_mensaje_proyecto"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 376]</span>
+		<span class="method-title">static method get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 411]</span>
 </div>
 <br />
 
@@ -727,7 +744,7 @@ $indice&nbsp;
 <a name="methodget_mensaje_toba" id="get_mensaje_toba"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 366]</span>
+		<span class="method-title">static method get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 401]</span>
 </div>
 <br />
 
@@ -761,7 +778,7 @@ $indice&nbsp;
 <a name="methodget_menu_consola" id="get_menu_consola"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_menu_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 425]</span>
+		<span class="method-title">static method get_menu_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
 </div>
 <br />
 
@@ -802,7 +819,7 @@ $item&nbsp;
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
 </div>
 <br />
 
@@ -821,15 +838,65 @@ $item&nbsp;
 		
 		<br />
 </div>
+<a name="methodpuede_grupo_acceder_item" id="puede_grupo_acceder_item"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		    		<span class="method-title">static method puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="../Centrales/Errores/toba_error.html">toba_error</a> puede_grupo_acceder_item(
+
+$grupo_acceso, 
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Valida que un grupo de acceso tenga acceso a un item </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Si el grupo no tiene permisos suficientes</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 
 <a name="methodcargar_info_basica" id="cargar_info_basica"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
+	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 
@@ -857,12 +924,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodes_multiproyecto" id="es_multiproyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
 <br />
 
@@ -882,12 +949,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodget_definicion_dependencia" id="get_definicion_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
 </div>
 <br />
 
@@ -932,13 +999,38 @@ $proyecto = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_grupo_acceso_usuario_anonimo" id="get_grupo_acceso_usuario_anonimo"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_grupo_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_grupo_acceso_usuario_anonimo(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_info_fuente_datos" id="get_info_fuente_datos"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 244]</span>
+	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 254]</span>
 </div>
 <br />
 
@@ -982,7 +1074,7 @@ $proyecto = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
+	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 283]</span>
 </div>
 <br />
 
@@ -1042,7 +1134,7 @@ $grupo_acceso = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
 </div>
 <br />
 
@@ -1088,7 +1180,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
+	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 166]</span>
 </div>
 <br />
 
@@ -1108,13 +1200,39 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_path_temp" id="get_path_temp"><!-- --></a>
+<a name="methodget_path_php" id="get_path_php"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_path_php(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el path absoluto de la carpeta 'php' del proyecto </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_path_temp" id="get_path_temp"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
 </div>
 <br />
 
@@ -1134,13 +1252,51 @@ $id&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_vinculos_posibles" id="get_vinculos_posibles"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_vinculos_posibles</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 317]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_vinculos_posibles(
+[
+$grupo_acceso = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Devuelve la lista de items a los que un grupo puede acceder </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_www" id="get_www"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -1186,7 +1342,7 @@ $archivo = &quot;&quot;]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
+	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
 </div>
 <br />
 
@@ -1226,39 +1382,13 @@ $archivo = '']&nbsp;
 		
 		<br />
 </div>
-<a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
+<a name="methodset_parametro" id="set_parametro"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void limpiar_memoria(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Fuerza una recarga de toda la información cacheada </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodset_parametro" id="set_parametro"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
+	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
 </div>
 <br />
 
@@ -1306,13 +1436,13 @@ $valor&nbsp;
 		<div class="info-box-title">Constantes</div>
 		<div class="info-box-body">
 			<a name="constprefijo_punto_acceso" id="prefijo_punto_acceso"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-name">prefijo_punto_acceso</span>
 			 = <span class="var-default"> 'apex_pa_'</span>
-			<span class="smalllinenumber">[line 15]</span>
+			<span class="smalllinenumber">[line 16]</span>
 		</span>
 	</div>
 
@@ -1329,7 +1459,7 @@ $valor&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

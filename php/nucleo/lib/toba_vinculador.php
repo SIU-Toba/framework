@@ -37,16 +37,15 @@ class toba_vinculador
 	 * @param string $item Item destino, por defecto el actual
 	 * @param array $parametros Parametros pasados al item, es un arreglo asociativo id_parametro => valor
 	 * @param array $opciones Arreglo asociativo de opciones ellas son:
-	 * 					zona => Activa la propagación automática del editable en la zona,
-	 * 					cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse,
-	 * 					param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL.
-	 									Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen,
-	 * 					texto => Texto del vínculo
-	 * 					menu => El vinculo esta solicitado por una opción menu?
-	 * 					celda_memoria => Namespace de memoria a utilizar, por defecto el actual
-	 * 					servicio => Servicio solicitado, por defecto get_html
-	 * 					objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
-	 * 					prefijo => Punto de acceso a llamar.
+	 * <code> zona => Activa la propagación automática del editable en la zona
+	 * cronometrar => Indica si la solicitud generada por este vinculo debe cronometrarse
+	 * param_html => Parametros para la construccion de HTML. Si esta presente se genera HTML en vez de una URL. Las claves asociativas son: frame, clase_css, texto, tipo [normal,popup], inicializacion, imagen_recurso_origen, imagen
+	 * texto => Texto del vínculo
+	 * menu => El vinculo esta solicitado por una opción menu?
+	 * celda_memoria => Namespace de memoria a utilizar, por defecto el actual
+	 * servicio => Servicio solicitado, por defecto get_html
+	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
+	 * prefijo => Punto de acceso a llamar.</code>
 	 * @return string Una URL o el link html en caso
 	 */
 	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())

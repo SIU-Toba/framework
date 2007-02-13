@@ -19,10 +19,10 @@ define('TOBA_LOG_DEBUG',    7);     /** Debug-level messages */
  * 		<pre>toba::logger()->var_dump($variable);</pre>
  * 
  * Para guardar la traza actual de ejecución:
- * 		<pre>toba::logget()->trace();</pre>
+ * 		<pre>toba::logger()->trace();</pre>
  * 
  * Para loguear algun error interno:
- * 		<pre>toba::logget()->error('El importe nunca debio ser negativo!');</pre>
+ * 		<pre>toba::logger()->error('El importe nunca debio ser negativo!');</pre>
  * 
  *
  * Desde el punto de acceso es posible definir el nivel máximo que se guarda, los niveles son:

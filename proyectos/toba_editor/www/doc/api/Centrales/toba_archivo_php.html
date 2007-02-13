@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -283,91 +309,91 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#abrir" title="details" class="method-name">abrir</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Utiliza una llamada al sist. operativo para que abra el archivo en un edtiro del sist. de ventanas del servidor</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#contenido" title="details" class="method-name">contenido</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna el contenido del archivo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#contiene_clase" title="details" class="method-name">contiene_clase</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna verdadero si el archivo tiene definido una clase con este nombre</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_basico" title="details" class="method-name">crear_basico</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Crea el archivo con los tags php básicos</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#edicion_fin" title="details" class="method-name">edicion_fin</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Cierra el archivo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#edicion_inicio" title="details" class="method-name">edicion_inicio</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Abre el archivo para edición</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#esta_vacio" title="details" class="method-name">esta_vacio</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna verdadero si el archivo no tiene texto</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#existe" title="details" class="method-name">existe</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna verdadero si el archivo esta creado</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#incluir" title="details" class="method-name">incluir</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Incluye en el runtime PHP al archivo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#insertar_al_final" title="details" class="method-name">insertar_al_final</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Agrega codigo al final del archivo (dentro del tag php)</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#insertar_al_inicio" title="details" class="method-name">insertar_al_inicio</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Agrega codigo al inicio del archivo (dentro del tag php)</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#mostrar" title="details" class="method-name">mostrar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Muestra el código fuente del archivo en formato HTML</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#nombre" title="details" class="method-name">nombre</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna la ruta completa del archivo</td></tr>
 													</table>
 			</div>
 			<br />
@@ -386,12 +412,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
 <br />
 
@@ -399,7 +425,7 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_archivo_php __construct(
-
+string
 $nombre&nbsp;
 )</code>
     </td></tr></table>
@@ -409,11 +435,11 @@ $nombre&nbsp;
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$nombre:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Path completo del archivo</span>			</td></tr>
 				</table>
 
 	<br />
@@ -423,12 +449,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodabrir" id="abrir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+	<span class="method-title">abrir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
 </div>
 <br />
 
@@ -440,7 +466,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Utiliza una llamada al sist. operativo para que abra el archivo en un edtiro del sist. de ventanas del servidor </div>
+
 	<br />
 	
 
@@ -448,12 +475,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontenido" id="contenido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+	<span class="method-title">contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
@@ -465,7 +492,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna el contenido del archivo </div>
+
 	<br />
 	
 
@@ -473,26 +501,27 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcontiene_clase" id="contiene_clase"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">contiene_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">contiene_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 53]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void contiene_clase(
+		<code>boolean contiene_clase(
 
 $nombre&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna verdadero si el archivo tiene definido una clase con este nombre </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -510,12 +539,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodcrear_basico" id="crear_basico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+	<span class="method-title">crear_basico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
 </div>
 <br />
 
@@ -527,7 +556,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Crea el archivo con los tags php básicos </div>
+
 	<br />
 	
 
@@ -535,12 +565,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodedicion_fin" id="edicion_fin"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">edicion_fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
+	<span class="method-title">edicion_fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -552,7 +582,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Cierra el archivo </div>
+
 	<br />
 	
 
@@ -560,12 +591,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodedicion_inicio" id="edicion_inicio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">edicion_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+	<span class="method-title">edicion_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
 </div>
 <br />
 
@@ -577,7 +608,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Abre el archivo para edición </div>
+
 	<br />
 	
 
@@ -585,24 +617,25 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodesta_vacio" id="esta_vacio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">esta_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
+	<span class="method-title">esta_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_vacio(
+		<code>boolean esta_vacio(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna verdadero si el archivo no tiene texto </div>
+
 	<br />
 	
 
@@ -610,24 +643,25 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste" id="existe"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">existe</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void existe(
+		<code>boolean existe(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna verdadero si el archivo esta creado </div>
+
 	<br />
 	
 
@@ -635,12 +669,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodincluir" id="incluir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">incluir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
+	<span class="method-title">incluir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -652,7 +686,8 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Incluye en el runtime PHP al archivo </div>
+
 	<br />
 	
 
@@ -660,12 +695,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodinsertar_al_final" id="insertar_al_final"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">insertar_al_final</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
+	<span class="method-title">insertar_al_final</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
 </div>
 <br />
 
@@ -679,7 +714,8 @@ $codigo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Agrega codigo al final del archivo (dentro del tag php) </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -697,12 +733,12 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodinsertar_al_inicio" id="insertar_al_inicio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">insertar_al_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
+	<span class="method-title">insertar_al_inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
 </div>
 <br />
 
@@ -716,7 +752,8 @@ $codigo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Agrega codigo al inicio del archivo (dentro del tag php) </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -734,12 +771,12 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodmostrar" id="mostrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
 </div>
 <br />
 
@@ -751,7 +788,8 @@ $codigo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Muestra el código fuente del archivo en formato HTML </div>
+
 	<br />
 	
 
@@ -759,12 +797,12 @@ $codigo&nbsp;
 		<br />
 </div>
 <a name="methodnombre" id="nombre"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
+	<span class="method-title">nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
 </div>
 <br />
 
@@ -776,7 +814,8 @@ $codigo&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna la ruta completa del archivo </div>
+
 	<br />
 	
 
@@ -800,7 +839,7 @@ $codigo&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

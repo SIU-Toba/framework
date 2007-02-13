@@ -185,7 +185,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																														<tr>
+																																																																																																																																																																																																							<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -227,6 +227,13 @@
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#consultar" title="details" class="method-name">consultar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ejecuta una consulta sql</td></tr>
+																				<tr>
+						<td nowrap align="right">
+														    																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#consultar_fila" title="details" class="method-name">consultar_fila</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ejecuta una consulta sql y retorna la primer fila del resultado.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -336,12 +343,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -353,7 +360,8 @@
 $profile, 
 $usuario, 
 $clave, 
-$base&nbsp;
+$base, [
+$puerto = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -385,6 +393,12 @@ $base&nbsp;
 				<span class="var-name">$base:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$puerto:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -409,12 +423,12 @@ $base&nbsp;
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
 </div>
 <br />
 
@@ -443,12 +457,12 @@ $base&nbsp;
 		<br />
 </div>
 <a name="methodabrir_transaccion" id="abrir_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
 <br />
 
@@ -477,12 +491,12 @@ $base&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
 <br />
 
@@ -511,12 +525,12 @@ $base&nbsp;
 		<br />
 </div>
 <a name="methodconectar" id="conectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
 </div>
 <br />
 
@@ -543,12 +557,12 @@ $base&nbsp;
 		<br />
 </div>
 <a name="methodconsultar" id="consultar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -557,10 +571,8 @@ $base&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>array consultar(
 string
-$sql, [
-$tipo_fetch = toba_db_fetch_asoc], string
-$ado, boolean
-$obligatorio&nbsp;
+$sql, [string
+$tipo_fetch = toba_db_fetch_asoc]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -578,28 +590,75 @@ $obligatorio&nbsp;
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$ado:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Modo Fecth de ADO, por defecto asociativo</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$obligatorio:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Si la consulta no retorna datos lanza una excepcion</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
 				<span class="var-name">$tipo_fetch:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Modo Fetch de ADO, por defecto toba_db_fetch_asoc</span>			</td></tr>
 				</table>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Resultado de la consulta en formato fila-columna</td>
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Resultado de la consulta en formato recordset (filas x columnas),                  un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo</td>
+    	
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Throws:</strong>&nbsp;&nbsp;</td><td>toba_error_db en caso de error</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
+<a name="methodconsultar_fila" id="consultar_fila"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		    	
+		    		
+	
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array consultar_fila(
+string
+$sql, [string
+$tipo_fetch = toba_db_fetch_asoc]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ejecuta una consulta sql y retorna la primer fila del resultado. <p>Es útil cuando se sabe de antemano que el resultado es una única fila</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Consulta SQL</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo_fetch:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Modo Fetch de ADO, por defecto toba_db_fetch_asoc</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Arreglo asociativo columna=&gt;valor, falso en caso de resultado vacio</td>
     	
   </tr>
 </table>
@@ -621,7 +680,7 @@ $obligatorio&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
 </div>
 <br />
 
@@ -646,7 +705,7 @@ $obligatorio&nbsp;
 		    	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
 </div>
 <br />
 
@@ -690,7 +749,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
 </div>
 <br />
 
@@ -728,7 +787,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
 </div>
 <br />
 
@@ -773,7 +832,7 @@ $sentencias&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -817,7 +876,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
 </div>
 <br />
 
@@ -839,6 +898,9 @@ $tabla&nbsp;
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
 							</li>
+					<li>
+				<a href="../Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -848,7 +910,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -893,7 +955,7 @@ $descripcion&nbsp;
 	
 		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 61]</span>
 </div>
 <br />
 
@@ -918,7 +980,7 @@ $descripcion&nbsp;
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -956,7 +1018,7 @@ $tipo&nbsp;
 	
 		
 	
-	<span class="method-title">log_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
+	<span class="method-title">log_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
 </div>
 <br />
 
@@ -993,7 +1055,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -1025,7 +1087,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
 </div>
 <br />
 
@@ -1056,7 +1118,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 69]</span>
+	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 73]</span>
 </div>
 <br />
 
@@ -1105,7 +1167,7 @@ $debug = true]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -241,7 +267,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION: <p><ul><li>Memoria general de la aplicación (el $_SESSION sin manejo)</li><li>Memoria de las operaciones</li><li>Memoria sincronizada entre URLs (generalmente de interes interno al framework)</li><li>Parametros del link desde donde se vino ($_GET)</li></ul></p></div>
+        		<div class="description">El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION: <p><ul><li>Memoria general de la aplicación</li><li>Memoria de las operaciones</li><li>Memoria sincronizada entre URLs (generalmente de interes interno al framework)</li><li>Parametros del link desde donde se vino ($_GET)</li></ul></p></div>
 
 
 
@@ -280,7 +306,7 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																													<tr>
+																																																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -299,14 +325,14 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#dump_celda_memoria" title="details" class="method-name">dump_celda_memoria</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#dump" title="details" class="method-name">dump</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#dump_memoria" title="details" class="method-name">dump_memoria</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#eliminar_archivos_temporales" title="details" class="method-name">eliminar_archivos_temporales</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -341,7 +367,7 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_celda_memoria_actual" title="details" class="method-name">get_celda_memoria_actual</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_celda_memoria_actual_id" title="details" class="method-name">get_celda_memoria_actual_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -439,15 +465,8 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#registrar_archivo" title="details" class="method-name">registrar_archivo</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#registrar_archivo_temporal" title="details" class="method-name">registrar_archivo_temporal</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#sesion_abierta" title="details" class="method-name">sesion_abierta</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Determina si la sesion fue abierta o aún no se ha logueado el usuario</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -514,9 +533,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_item_solicitado_original" id="get_item_solicitado_original"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		    		    		<span class="method-title">static method get_item_solicitado_original</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 253]</span>
+		    		    		<span class="method-title">static method get_item_solicitado_original</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
 </div>
 <br />
 
@@ -550,9 +569,9 @@
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
 </div>
 <br />
 
@@ -573,12 +592,12 @@
 </div>
 
 <a name="methoddesactivar_reciclado" id="desactivar_reciclado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">desactivar_reciclado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
+	<span class="method-title">desactivar_reciclado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
 </div>
 <br />
 
@@ -598,12 +617,12 @@
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
 </div>
 <br />
 
@@ -623,20 +642,20 @@
 		
 		<br />
 </div>
-<a name="methoddump_celda_memoria" id="dump_celda_memoria"><!-- --></a>
-<div class="evenrow">
+<a name="methoddump" id="dump"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_celda_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 315]</span>
+	<span class="method-title">dump</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 315]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void dump_celda_memoria(
+		<code>void dump(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -648,20 +667,20 @@
 		
 		<br />
 </div>
-<a name="methoddump_memoria" id="dump_memoria"><!-- --></a>
-<div class="oddrow">
+<a name="methodeliminar_archivos_temporales" id="eliminar_archivos_temporales"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
+	<span class="method-title">eliminar_archivos_temporales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 661]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void dump_memoria(
+		<code>void eliminar_archivos_temporales(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -674,12 +693,12 @@
 		<br />
 </div>
 <a name="methodeliminar_dato" id="eliminar_dato"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 400]</span>
+	<span class="method-title">eliminar_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 388]</span>
 </div>
 <br />
 
@@ -712,12 +731,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_dato_sincronizado" id="eliminar_dato_sincronizado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 463]</span>
+	<span class="method-title">eliminar_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 448]</span>
 </div>
 <br />
 
@@ -749,12 +768,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodexiste_dato" id="existe_dato"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 412]</span>
+	<span class="method-title">existe_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
 </div>
 <br />
 
@@ -787,12 +806,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar" id="finalizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 679]</span>
+	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 637]</span>
 </div>
 <br />
 
@@ -811,20 +830,20 @@ $indice&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_celda_memoria_actual" id="get_celda_memoria_actual"><!-- --></a>
-<div class="evenrow">
+<a name="methodget_celda_memoria_actual_id" id="get_celda_memoria_actual_id"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_celda_memoria_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 324]</span>
+	<span class="method-title">get_celda_memoria_actual_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_celda_memoria_actual(
+		<code>void get_celda_memoria_actual_id(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -837,12 +856,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_dato" id="get_dato"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 374]</span>
 </div>
 <br />
 
@@ -883,12 +902,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_dato_sincronizado" id="get_dato_sincronizado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 453]</span>
+	<span class="method-title">get_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 439]</span>
 </div>
 <br />
 
@@ -929,12 +948,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
 </div>
 <br />
 
@@ -955,12 +974,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_id_objetos_destino" id="get_id_objetos_destino"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_objetos_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+	<span class="method-title">get_id_objetos_destino</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
 </div>
 <br />
 
@@ -981,12 +1000,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_item_solicitado" id="get_item_solicitado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+	<span class="method-title">get_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -1015,12 +1034,12 @@ $indice&nbsp;
 		<br />
 </div>
 <a name="methodget_parametro" id="get_parametro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -1061,12 +1080,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros" id="get_parametros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 229]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
 </div>
 <br />
 
@@ -1095,12 +1114,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodget_servicio_solicitado" id="get_servicio_solicitado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
+	<span class="method-title">get_servicio_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -1121,12 +1140,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodinfo" id="info"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 
@@ -1147,12 +1166,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodlimpiar_datos" id="limpiar_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 421]</span>
+	<span class="method-title">limpiar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
 </div>
 <br />
 
@@ -1173,12 +1192,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodlimpiar_memoria" id="limpiar_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
+	<span class="method-title">limpiar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
 </div>
 <br />
 
@@ -1198,12 +1217,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodlimpiar_memoria_sincronizada" id="limpiar_memoria_sincronizada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_memoria_sincronizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 471]</span>
+	<span class="method-title">limpiar_memoria_sincronizada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 455]</span>
 </div>
 <br />
 
@@ -1223,12 +1242,12 @@ $canal&nbsp;
 		<br />
 </div>
 <a name="methodprefijo_vinculo" id="prefijo_vinculo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">prefijo_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
+	<span class="method-title">prefijo_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
 </div>
 <br />
 
@@ -1248,20 +1267,20 @@ $canal&nbsp;
 		
 		<br />
 </div>
-<a name="methodregistrar_archivo" id="registrar_archivo"><!-- --></a>
-<div class="evenrow">
+<a name="methodregistrar_archivo_temporal" id="registrar_archivo_temporal"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 661]</span>
+	<span class="method-title">registrar_archivo_temporal</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 654]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void registrar_archivo(
+		<code>void registrar_archivo_temporal(
 
 $archivo&nbsp;
 )</code>
@@ -1285,39 +1304,13 @@ $archivo&nbsp;
 		
 		<br />
 </div>
-<a name="methodsesion_abierta" id="sesion_abierta"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">sesion_abierta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void sesion_abierta(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Determina si la sesion fue abierta o aún no se ha logueado el usuario </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodset_dato" id="set_dato"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">set_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 354]</span>
+	<span class="method-title">set_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
 </div>
 <br />
 
@@ -1369,7 +1362,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_aplicacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 372]</span>
+	<span class="method-title">set_dato_aplicacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
 </div>
 <br />
 
@@ -1421,7 +1414,7 @@ $borrar_si_no_se_usa = false]&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 362]</span>
+	<span class="method-title">set_dato_operacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
 </div>
 <br />
 
@@ -1466,7 +1459,7 @@ $datos&nbsp;
 	
 		
 	
-	<span class="method-title">set_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 441]</span>
+	<span class="method-title">set_dato_sincronizado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 426]</span>
 </div>
 <br />
 
@@ -1518,7 +1511,7 @@ $celda = null]&nbsp;
 	
 		
 	
-	<span class="method-title">set_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+	<span class="method-title">set_item_solicitado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 163]</span>
 </div>
 <br />
 
@@ -1555,7 +1548,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">usuario_solicita_cronometrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 271]</span>
+	<span class="method-title">usuario_solicita_cronometrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
 </div>
 <br />
 
@@ -1580,7 +1573,7 @@ $item&nbsp;
 	
 		
 	
-	<span class="method-title">verificar_acceso_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
+	<span class="method-title">verificar_acceso_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 323]</span>
 </div>
 <br />
 
@@ -1610,7 +1603,7 @@ $item&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

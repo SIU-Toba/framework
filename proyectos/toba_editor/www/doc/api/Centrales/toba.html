@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -271,6 +297,11 @@
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result"><a href="../Centrales/toba_contexto_ejecucion.html">toba_contexto_ejecucion</a></span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#contexto_ejecucion" title="details" class="method-name">contexto_ejecucion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Debug/toba_cronometro.html">toba_cronometro</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#cronometro" title="details" class="method-name">cronometro</a>()&nbsp;&nbsp;</td>
@@ -281,10 +312,10 @@
 						<td class="method-definition"><a href="#db" title="details" class="method-name">db</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna una referencia a una base de datos</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+													<span class="method-result"><a href="../Centrales/toba_encriptador.html">toba_encriptador</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#encriptador" title="details" class="method-name">encriptador</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna una referencia al encriptador</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Fuentes/toba_fuente_datos.html">toba_fuente_datos</a></span>&nbsp;&nbsp;
 						</td>
@@ -360,7 +391,7 @@
 						</td>
 						<td class="method-definition"><a href="#zona" title="details" class="method-name">zona</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																																																																			</table>
+																																																																																																																																																																																												</table>
 			</div>
 			<br />
 		</div>
@@ -376,10 +407,32 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodcronometro" id="cronometro"><!-- --></a>
+<a name="methodcontexto_ejecucion" id="contexto_ejecucion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+		<span class="method-title">static method contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static <a href="../Centrales/toba_contexto_ejecucion.html">toba_contexto_ejecucion</a> contexto_ejecucion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodcronometro" id="cronometro"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method cronometro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -399,9 +452,9 @@
 		<br />
 </div>
 <a name="methoddb" id="db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+		<span class="method-title">static method db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
 </div>
 <br />
 
@@ -441,21 +494,22 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodencriptador" id="encriptador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method encriptador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
+		<span class="method-title">static method encriptador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void encriptador(
+		<code>static <a href="../Centrales/toba_encriptador.html">toba_encriptador</a> encriptador(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna una referencia al encriptador </div>
+
 	<br />
 	
 
@@ -463,9 +517,9 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodfuente" id="fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
+		<span class="method-title">static method fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
 </div>
 <br />
 
@@ -498,9 +552,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodinstalacion" id="instalacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 178]</span>
+		<span class="method-title">static method instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
 </div>
 <br />
 
@@ -521,9 +575,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 169]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
 </div>
 <br />
 
@@ -544,9 +598,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodlogger" id="logger"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method logger</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
+		<span class="method-title">static method logger</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 76]</span>
 </div>
 <br />
 
@@ -567,9 +621,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodmemoria" id="memoria"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
+		<span class="method-title">static method memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
 </div>
 <br />
 
@@ -589,9 +643,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodmensajes" id="mensajes"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
+		<span class="method-title">static method mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
 </div>
 <br />
 
@@ -611,9 +665,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodnotificacion" id="notificacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method notificacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 74]</span>
+		<span class="method-title">static method notificacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
 </div>
 <br />
 
@@ -633,7 +687,7 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodnucleo" id="nucleo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method nucleo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
@@ -655,9 +709,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodpermisos" id="permisos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+		<span class="method-title">static method permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
@@ -678,9 +732,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodproyecto" id="proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 160]</span>
+		<span class="method-title">static method proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 166]</span>
 </div>
 <br />
 
@@ -701,9 +755,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodsesion" id="sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+		<span class="method-title">static method sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -723,9 +777,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodsolicitud" id="solicitud"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+		<span class="method-title">static method solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
 </div>
 <br />
 
@@ -745,9 +799,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodusuario" id="usuario"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
+		<span class="method-title">static method usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
@@ -767,9 +821,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodvinculador" id="vinculador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method vinculador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+		<span class="method-title">static method vinculador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
 </div>
 <br />
 
@@ -789,9 +843,9 @@ $id_fuente = null]&nbsp;
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
+		<span class="method-title">static method zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
 </div>
 <br />
 
@@ -822,7 +876,7 @@ $id_fuente = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

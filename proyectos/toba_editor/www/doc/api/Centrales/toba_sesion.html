@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -233,10 +259,9 @@
 					<span class="disabled">Resúmen de la Clase</span> |
 		
 									<a href="#sec-method-summary">Métodos</a>
-			|			
+						
 				
-					<a href="#sec-vars">Propiedades</a>
-							
+				
 			</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
@@ -251,7 +276,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_sesion.php [<span class="field">line 17</span>]
+			Ubicada en /nucleo/lib/toba_sesion.php [<span class="field">line 15</span>]
 		</p>	
 		<br>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -277,143 +302,30 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																																																												<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">toba_sesion</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#activa" title="details" class="method-name">activa</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Hay una sesion iniciada?</td></tr>
-																				<tr>
+																																														<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
-						    																						    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
+						    																
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#conf__actualizar_sesion" title="details" class="method-name">conf__actualizar_sesion</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#conf__activacion" title="details" class="method-name">conf__activacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ventana de extensión de la refresco o actualización de la sesión actual</td></tr>
-																				<tr>
-						<td nowrap align="right">
-														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
-						    																						    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#conf__fin" title="details" class="method-name">conf__fin</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión del fin de la sesión actual</td></tr>
-																				<tr>
-						<td nowrap align="right">
-														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
-						    																						    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#conf__inicio" title="details" class="method-name">conf__inicio</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de extensión del inicio de la sesion de un usuario</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#controlar_estado_activacion" title="details" class="method-name">controlar_estado_activacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Refresca la sesion, esto se produce con una sesion activa() una vez por pedido de página</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#controlar_fin_sesion" title="details" class="method-name">controlar_fin_sesion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">Excepcion</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#finalizar" title="details" class="method-name">finalizar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Cierra una sesion</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el grupo de acceso de la sesion actual</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_proyecto" title="details" class="method-name">get_proyecto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">Excepcion</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#iniciar" title="details" class="method-name">iniciar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Intenta iniciar la sesion de un par usuario/clave</td></tr>
 																				<tr>
 						<td nowrap align="right">
 														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
 						    																
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#iniciar_contexto" title="details" class="method-name">iniciar_contexto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Ventana de inicializacion del contexto de ejecucion del proyecto en el pedido de página actual</td></tr>
-																													<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#validar_dia" title="details" class="method-name">validar_dia</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+												<td class="method-definition"><a href="#conf__final" title="details" class="method-name">conf__final</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana de extensión del fin de la sesión actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
+						    																
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#validar_horario" title="details" class="method-name">validar_horario</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#validar_ip" title="details" class="method-name">validar_ip</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#validar_vencimiento" title="details" class="method-name">validar_vencimiento</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+												<td class="method-definition"><a href="#conf__inicial" title="details" class="method-name">conf__inicial</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana de extensión del inicio de la sesion de un usuario</td></tr>
 													</table>
 			</div>
 			<br />
@@ -430,117 +342,22 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
-</div>
-<br />
 
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void instancia(
-[
-$clase = 'toba_sesion']&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clase:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>toba_sesion __construct(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodactiva" id="activa"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void activa(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Hay una sesion iniciada? </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodconf__actualizar_sesion" id="conf__actualizar_sesion"><!-- --></a>
+<a name="methodconf__activacion" id="conf__activacion"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
+		
 	
-	<span class="method-title">conf__actualizar_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
+	<span class="method-title">conf__activacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void conf__actualizar_sesion(
+		<code>void conf__activacion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -548,15 +365,7 @@ $clase = 'toba_sesion']&nbsp;
 	<div class="description">Ventana de extensión de la refresco o actualización de la sesión actual </div>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 <strong>Information Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -567,22 +376,21 @@ $clase = 'toba_sesion']&nbsp;
 		
 		<br />
 </div>
-<a name="methodconf__fin" id="conf__fin"><!-- --></a>
+<a name="methodconf__final" id="conf__final"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
+		
 	
-	<span class="method-title">conf__fin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 211]</span>
+	<span class="method-title">conf__final</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void conf__fin(
+		<code>void conf__final(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -590,15 +398,7 @@ $clase = 'toba_sesion']&nbsp;
 	<div class="description">Ventana de extensión del fin de la sesión actual </div>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 <strong>Information Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -609,324 +409,27 @@ $clase = 'toba_sesion']&nbsp;
 		
 		<br />
 </div>
-<a name="methodconf__inicio" id="conf__inicio"><!-- --></a>
+<a name="methodconf__inicial" id="conf__inicial"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
+		
 	
-	<span class="method-title">conf__inicio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
+	<span class="method-title">conf__inicial</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void conf__inicio(
-
-$usuario&nbsp;
+		<code>void conf__inicial(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Ventana de extensión del inicio de la sesion de un usuario </div>
 
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$usuario:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-<strong>Information Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
-  </tr>
-</table>
-
-		
-		<br />
-</div>
-<a name="methodcontrolar_estado_activacion" id="controlar_estado_activacion"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">controlar_estado_activacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void controlar_estado_activacion(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Refresca la sesion, esto se produce con una sesion activa() una vez por pedido de página </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodcontrolar_fin_sesion" id="controlar_fin_sesion"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">controlar_fin_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void controlar_fin_sesion(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodfinalizar" id="finalizar"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		    		
-	
-	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>Excepcion finalizar(
-[
-$observaciones = &quot;&quot;]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Cierra una sesion </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$observaciones:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>toba_reset_nucleo si hay una solicitud en curso</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodget_grupo_acceso" id="get_grupo_acceso"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		    		
-	
-	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_grupo_acceso(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna el grupo de acceso de la sesion actual </div>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../Centrales/toba_usuario.html#methodget_grupo_acceso">toba_usuario::get_grupo_acceso()</a></td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_id(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_proyecto(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodiniciar" id="iniciar"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		    		
-	
-	<span class="method-title">iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>Excepcion iniciar(
-
-$usuario, [
-$clave = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Intenta iniciar la sesion de un par usuario/clave </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$usuario:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$clave:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>toba_error si no valida</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodiniciar_contexto" id="iniciar_contexto"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
-    		
-		
-	
-	<span class="method-title">iniciar_contexto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void iniciar_contexto(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Ventana de inicializacion del contexto de ejecucion del proyecto en el pedido de página actual <p>(antiguo inicializacion.php)</p></div>
-
 	<br />
 	
 <strong>Information Tags:</strong><br />
@@ -935,208 +438,11 @@ $clave = null]&nbsp;
     <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
   </tr>
 </table>
-
-		
-		<br />
-</div>
-<a name="methodvalidar_dia" id="validar_dia"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">validar_dia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void validar_dia(
-
-$dias&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$dias:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodvalidar_horario" id="validar_horario"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">validar_horario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 286]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void validar_horario(
-
-$hora_entrada, 
-$hora_salida&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$hora_entrada:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$hora_salida:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodvalidar_ip" id="validar_ip"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">validar_ip</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void validar_ip(
-
-$ip&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$ip:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodvalidar_vencimiento" id="validar_vencimiento"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
-    			
-	
-	<span class="method-title">validar_vencimiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void validar_vencimiento(
-
-$vencimiento&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$vencimiento:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
 
 		
 		<br />
 </div>
 		</div>
-	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
 	</div>
 
 
@@ -1147,7 +453,7 @@ $vencimiento&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

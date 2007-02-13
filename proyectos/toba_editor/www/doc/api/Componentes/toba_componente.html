@@ -53,20 +53,6 @@
 
       <br />
                           <div class="package">
-		    			<a href="../Componentes/toba_cargador.html">					cargador
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_catalogo.html">					catalogo
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_componente.html">					componente
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_constructor.html">					constructor
-					</a>    		
-	 <br />
-	  </div>
-  <div class="package">
 			Eis<br />
 		    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_boton.html">					boton
@@ -140,6 +126,20 @@
 	 <br />
 	  </div>
   <div class="package">
+		    			<a href="../Componentes/toba_cargador.html">					cargador
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_catalogo.html">					catalogo
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_componente.html">					componente
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_constructor.html">					constructor
+					</a>    		
+	 <br />
+	  </div>
+  <div class="package">
 			Persistencia<br />
 		    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_relacion_db.html">					ap_relacion_db
@@ -158,6 +158,11 @@
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_tabla_db_s.html">					ap_tabla_db_s
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Persistencia/toba_datos_busqueda.html">					datos_busqueda
 					</a>    	    		</span>
     		
 	 <br />
@@ -321,16 +326,16 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Componentes/toba_componente_definicion.html">					componente_definicion
-					</a>    		
-	 <br />
-	  </div>
-  <div class="package">
 			Eis<br />
 		    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_nodo_arbol.html">					nodo_arbol
 					</a>    	    		</span>
     		
+	 <br />
+	  </div>
+  <div class="package">
+		    			<a href="../Componentes/toba_componente_definicion.html">					componente_definicion
+					</a>    		
 	 <br />
 	  </div>
   <div class="package">
@@ -429,15 +434,15 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
-					<td>
-											Representa una estructura tabular tipo tabla o RecordSet en memoria
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
 					<td>
 											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
+					<td>
+											Representa una estructura tabular tipo tabla o RecordSet en memoria
 										</td>
 				</tr>
 							</table>
@@ -636,7 +641,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -676,25 +681,19 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
-							</li>
-					<li>
 				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -703,24 +702,30 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Negocio/toba_cn.html#method__construct">toba_cn::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Persistencia/toba_datos_tabla.html#method__construct">toba_datos_tabla::__construct()</a>
+				<a href="../Componentes/Persistencia/toba_datos_relacion.html#method__construct">toba_datos_relacion::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Persistencia/toba_datos_relacion.html#method__construct">toba_datos_relacion::__construct()</a>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#method__construct">toba_datos_tabla::__construct()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodagregar_dependencia" id="agregar_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 504]</span>
+	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
 </div>
 <br />
 
@@ -774,7 +779,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodborrar_memoria" id="borrar_memoria"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -800,7 +805,7 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodcontrolador" id="controlador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -826,12 +831,12 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methoddep" id="dep"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 492]</span>
+	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 465]</span>
 </div>
 <br />
 
@@ -878,12 +883,12 @@ $carga_en_demanda = true]&nbsp;
 		<br />
 </div>
 <a name="methoddependencia" id="dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 480]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 453]</span>
 </div>
 <br />
 
@@ -937,12 +942,12 @@ $cargar_en_demanda&nbsp;
 		<br />
 </div>
 <a name="methoddependencia_cargada" id="dependencia_cargada"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
 </div>
 <br />
 
@@ -975,7 +980,7 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1005,17 +1010,14 @@ $id&nbsp;
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
@@ -1024,18 +1026,21 @@ $id&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
 							</li>
 					<li>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
+							</li>
+					<li>
 				<a href="../Componentes/Persistencia/toba_datos_relacion.html#methoddestruir">toba_datos_relacion::destruir()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodeliminar_estado_sesion" id="eliminar_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 404]</span>
+	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
 </div>
 <br />
 
@@ -1068,12 +1073,12 @@ $no_eliminar = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_dependencia" id="existe_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 546]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
 </div>
 <br />
 
@@ -1106,12 +1111,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodget_dependencias_clase" id="get_dependencias_clase"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 555]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
 </div>
 <br />
 
@@ -1144,12 +1149,12 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_estado_sesion" id="get_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 420]</span>
+	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 393]</span>
 </div>
 <br />
 
@@ -1178,7 +1183,7 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1204,7 +1209,7 @@ $ereg_busqueda&nbsp;
 		<br />
 </div>
 <a name="methodget_mensaje" id="get_mensaje"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		    		
@@ -1262,7 +1267,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -1288,7 +1293,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_titulo" id="get_titulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -1314,7 +1319,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodinformar" id="informar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		    		
@@ -1379,7 +1384,7 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinformar_msg" id="informar_msg"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		    		
@@ -1437,7 +1442,7 @@ $nivel = null]&nbsp;
 		<br />
 </div>
 <a name="methodinvocar_callback" id="invocar_callback"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1489,7 +1494,7 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodlog" id="log"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1536,7 +1541,7 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -1569,12 +1574,12 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodset_controlador" id="set_controlador"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 449]</span>
+	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 422]</span>
 </div>
 <br />
 
@@ -1620,7 +1625,7 @@ $id_en_padre = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_propiedades_sesion" id="set_propiedades_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -1673,7 +1678,7 @@ $props&nbsp;
 		<div class="info-box-title">Propiedades</div>
 		<div class="info-box-body">
 				<a name="var$controlador" id="$controlador"><!-- --></A>
-	<div class="evenrow">
+	<div class="oddrow">
 		<div class="var-header">
 			<span class="var-title">
 				<span class="var-type"><a href="../Componentes/Eis/toba_ci.html">toba_ci</a></span>&nbsp;&nbsp;
@@ -1706,7 +1711,7 @@ $props&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

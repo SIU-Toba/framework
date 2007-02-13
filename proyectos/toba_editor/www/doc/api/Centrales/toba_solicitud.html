@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -274,9 +300,9 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_consola.html">toba_solicitud_consola</a></td>
 					<td>
-											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
+											Solicitud pensada para ejecutar items en la consola  De esta forma se cuenta con la capacidad de usar las librerias de toba  aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
 										</td>
 				</tr>
 								<tr>
@@ -286,9 +312,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_consola.html">toba_solicitud_consola</a></td>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
 					<td>
-											Solicitud pensada para ejecutar items en la consola  De esta forma se cuenta con la capacidad de usar las librerias de toba  aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
+											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
 										</td>
 				</tr>
 							</table>
@@ -466,13 +492,13 @@ $usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
+				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
 							</li>
 				</ul>
 		<br />
@@ -849,14 +875,14 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
 								: Crea la zona, carga los componentes, procesa los eventos y los servicios
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
+				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
 							</li>
 				</ul>
 		<br />
@@ -887,10 +913,10 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
+				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
 							</li>
 					<li>
-				<a href="../Centrales/toba_solicitud_consola.html#methodregistrar">toba_solicitud_consola::registrar()</a>
+				<a href="../Centrales/toba_solicitud_web.html#methodregistrar">toba_solicitud_web::registrar()</a>
 							</li>
 				</ul>
 		<br />
@@ -937,7 +963,7 @@ $tipo = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>

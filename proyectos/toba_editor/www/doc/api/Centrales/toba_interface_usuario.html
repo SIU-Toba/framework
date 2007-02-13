@@ -71,6 +71,9 @@
 	    			<a href="../Centrales/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -90,6 +93,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_archivos.html">					manejador_archivos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_manejador_sesiones.html">					manejador_sesiones
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_manejador_tabs.html">					manejador_tabs
@@ -155,6 +161,15 @@
 	    			<a href="../Centrales/toba_usuario.html">					usuario
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_usuario_anonimo.html">					usuario_anonimo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_basico.html">					usuario_basico
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
@@ -170,17 +185,22 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autenticacion.html">					error_autenticacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Centrales/Errores/toba_error_autorizacion.html">					error_autorizacion
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_db.html">					error_db
 					</a>    	    		</span>
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
     			<a href="../Centrales/Errores/toba_error_def.html">					error_def
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Centrales/Errores/toba_error_login.html">					error_login
 					</a>    	    		</span>
     		
 	 <br />
@@ -208,7 +228,13 @@
                         <br />
       <b>Interfaces:</b><br />
         <div class="package">
-		    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
+		    			<a href="../Centrales/toba_interface_contexto_ejecucion.html">					interface_contexto_ejecucion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_sesion.html">					interface_sesion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_interface_usuario.html">					interface_usuario
 					</a>    		
 	 <br />
 	  </div>
@@ -270,14 +296,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																											<tr>
-						<td nowrap align="right">
-															
+															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#cargar" title="details" class="method-name">cargar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Debe llamarse antes que las demas, si ocure un fallo en la autentificacion debe disparar una excepcion de tipo 'toba_error_login'</td></tr>
-																				<tr>
+						<td class="method-definition"><a href="#autenticar" title="details" class="method-name">autenticar</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																																<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -297,7 +321,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Tiene que manejar N proyectos actuales simultaneamente</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -311,7 +335,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Deben llamarse despues que carga.</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -342,30 +366,26 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-
-<a name="methodcargar" id="cargar"><!-- --></a>
+<a name="methodautenticar" id="autenticar"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-	
-		
-	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 13]</span>
+		<span class="method-title">static method autenticar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 9]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void cargar(
+		<code>static void autenticar(
 
-$id_usuario, [
-$clave = null]&nbsp;
+$id_usuario, 
+$clave, [
+$datos_iniciales = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Debe llamarse antes que las demas, si ocure un fallo en la autentificacion debe disparar una excepcion de tipo 'toba_error_login' </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -380,6 +400,12 @@ $clave = null]&nbsp;
 				<span class="var-name">$clave:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos_iniciales:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -388,13 +414,14 @@ $clave = null]&nbsp;
 		
 		<br />
 </div>
+
 <a name="methodget_dias_semana_permitidos" id="get_dias_semana_permitidos"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dias_semana_permitidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
+	<span class="method-title">get_dias_semana_permitidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
 <br />
 
@@ -419,7 +446,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_fecha_vencimiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+	<span class="method-title">get_fecha_vencimiento</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
 <br />
 
@@ -444,7 +471,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
+	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 13]</span>
 </div>
 <br />
 
@@ -456,8 +483,7 @@ $clave = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Tiene que manejar N proyectos actuales simultaneamente </div>
-
+	
 	<br />
 	
 
@@ -470,7 +496,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_horario_permitido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	<span class="method-title">get_horario_permitido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
 </div>
 <br />
 
@@ -495,7 +521,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 20]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
 </div>
 <br />
 
@@ -507,8 +533,7 @@ $clave = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Deben llamarse despues que carga. </div>
-
+	
 	<br />
 	
 
@@ -521,7 +546,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_ip_permitida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 30]</span>
+	<span class="method-title">get_ip_permitida</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
 </div>
 <br />
 
@@ -546,7 +571,7 @@ $clave = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
+	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
 </div>
 <br />
 
@@ -576,7 +601,7 @@ $clave = null]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.0</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
 	      </div>
       </td></tr></table>
     </td>
