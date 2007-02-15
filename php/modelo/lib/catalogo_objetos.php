@@ -39,6 +39,9 @@ class catalogo_objetos
 		if (isset($opciones['extendidos'])) {
 			if ($opciones['extendidos'] == 'SI') {
 				$filtro_ext = "AND		o.subclase IS NOT NULL";
+				if (isset($opciones['subclase'])) {
+					$filtro_ext .= "\nAND o.subclase ILIKE '%{$opciones['subclase']}%'";
+				}				
 			} else {
 				$filtro_ext = "AND		o.subclase IS NULL";
 			}
