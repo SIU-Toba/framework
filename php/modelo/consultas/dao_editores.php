@@ -601,7 +601,7 @@ class dao_editores
 							|| coalesce(o.nombre, i.nombre) as componente_nombre,
 						l.objeto_proyecto as componente_proyecto,
 						coalesce(CAST(l.objeto as text), l.item) as componente_id,
-						coalesce(c.editor_proyecto,'toba') as editor_proyecto, 
+						coalesce(c.editor_proyecto,'toba_editor') as editor_proyecto, 
 						coalesce(c.editor_item,'/admin/items/editor_items') as editor_item,
 						coalesce(c.icono,'items/item.gif') as icono_tipo_componente, 
 						l.observacion as observacion

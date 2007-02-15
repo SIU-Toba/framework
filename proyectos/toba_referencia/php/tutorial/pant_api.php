@@ -203,13 +203,53 @@ toba::logger()->trace();
 
 class pant_mensajes extends pant_tutorial
 {
+	function generar_layout()
+	{
+		$api1 = toba_parser_ayuda::parsear_api('Fuentes/toba_mensajes', 'toba_mensajes', 'toba_editor');		
+		$api2 = toba_parser_ayuda::parsear_api('SalidaGrafica/toba_notificacion', 'toba_notificacion', 'toba_editor');		
+		$img = toba_recurso::imagen_proyecto('tutorial/notificacion.png', true);
+		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Mensajes', 
+													'Mensajes y Notificaciones',
+													'toba_editor');
+		$ejemplo = 	toba::vinculador()->crear_vinculo(null, '/mensajes_notificaciones', array(), array('celda_memoria'=>'ejemplo'));
+		
+		$codigo1 = '<?php
+//Suponiendo que el mensaje ingresado es: \'Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.\'
+$mensaje = toba::mensajes()->get("indice", array("primera", date("d/M/Y"));
+echo $mensaje;
+//La salida es: \'Esta es la primera instancia de un mensaje global de Toba. Fecha de hoy: 01/02/2007.\'
+?>
+';
+		$codigo2 = '<?php
+toba::notificacion()->agregar($mensaje);
+toba::notificacion()->agregar($mensaje, "info");
+?>
+';		
+		echo "<p>
+			Para centralizar el manejo de mensajes y permitir su posterior personalización
+			Toba brinda la posibilidad de definir los mensajes en el mismo editor web y
+			posteriormente instanciarlos y notificarlos usando la API.
+		</p>
+		<p>Una vez creados los mensajes en el editor es posible recuperarlos en ejecución
+		usando la clase $api1:
+		</p>
+		";
+		echo mostrar_php($codigo1);
+		echo "<p>
+			En lugar de mostrar el mensaje con un simple <em>echo</em> es posible notificarlo
+			utilizando la clase $api2: 
+		</p>";
+		echo mostrar_php($codigo2);
+		echo $img;
+		
+		echo "<h2>Más info</h2>
+		 <ul><li>$wiki
+			<li><a href='$ejemplo' target='_blank'>Ejemplo</a>
+		</ul>
+		";
+	}
 }
 
-//--------------------------------------------------------------
-
-class pant_zonas extends pant_tutorial
-{
-}
 
 
 ?>
