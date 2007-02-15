@@ -109,7 +109,7 @@ class pant_extension extends pant_tutorial
 		    		/**
 		    		 * Atención del evento procesar de este componente
 		    		 */
-		    		{$this->objeto_js).evt__procesar = function() {
+		    		{$this->objeto_js}.evt__procesar = function() {
 		    			return prompt(\"Desea Procesar?\");
 		    		}
 		    	";

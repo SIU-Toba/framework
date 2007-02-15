@@ -6,7 +6,7 @@
  */
 class toba_parser_ayuda
 {
-	protected static $tags = array('wiki', 'api', 'link', 'url', 'test');
+	protected static $tags = array('wiki', 'api', 'api_js', 'link', 'url', 'test');
 	
 	/**
 	 * Determina si una cadena es texto plano o contiene algun formato a parsear y convertir
@@ -70,6 +70,20 @@ class toba_parser_ayuda
 		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
+	
+	static function parsear_api_js($id, $nombre, $proyecto=null)
+	{
+		$anchor = '';
+		if (strpos($id, '#') !== false) {
+			$anchor = substr($id, strpos($id, '#')+1);			
+			$id = substr($id, 0, strpos($id, '#'));
+		}
+		
+		$url = toba_recurso::url_proyecto($proyecto)."/doc/api_js/$id.html#$anchor";
+		$img = toba_recurso::imagen_toba("api.gif", true);
+		$tag = "<a href=$url  target=api>$nombre</a>$img";
+		return str_replace("'", "\\'", $tag);
+	}	
 	
 	protected static function parsear_link($id, $nombre)
 	{
