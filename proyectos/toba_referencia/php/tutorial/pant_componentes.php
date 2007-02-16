@@ -175,5 +175,14 @@ class pant_masinfo extends pant_tutorial
 	}
 }
 
+class pant_video_extension extends pant_tutorial
+{
+	function generar_layout()
+	{
+		echo mostrar_video('componentes/componente-extender');
+	}	
+	
+}
+
 
 ?>
