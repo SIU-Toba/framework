@@ -24,7 +24,7 @@ class ci_X extends toba_ci
 		echo "
 			<p>
 				En el capítulo de componentes se utilizó la extensión PHP
-				poder personalizar su comportamiento. Dentro de la extensión en PHP
+				para personalizar su comportamiento. Dentro de la extensión en PHP
 				es posible modificar el comportamiento del componente en el cliente utilizando 
 				javascript. En este capítulo se va trabajar exclusivamente con la parte Javascript
 				de los componentes, para esto Toba cuenta con una jerarquía de clases
@@ -92,7 +92,7 @@ class pant_eventos extends pant_tutorial
 				del editor, la idea es que cuando el usuario presiona el botón <em>Sacar Foto</em>
 				se le pregunte en Javascript el nombre que toma la foto y luego se tome la foto
 				en el servidor. En this._parametros se guarda el valor del parámetro
-				que termina en el servidor (en este caso método evt__X__sacar_foto(\$nombre_foto))
+				que termina en el servidor (en este caso el método evt__X__sacar_foto(\$nombre_foto))
 			</p>
 		";
 		echo mostrar_php($codigo);
@@ -105,20 +105,28 @@ class pant_metodos extends pant_tutorial
 {
 	function generar_layout()
 	{
+		$codigo = '{$this->objeto_js}.iniciar_viejo = {$this->objeto_js}.iniciar;
+
+{$this->objeto_js}.iniciar = function() {
+	//Extensión
+	this.iniciar_viejo(); //Llamada al original
+	//Extensión
+}';		
 		echo "
-		
+			<p>
+				La opción a atrapar eventos predefinidos es redefinir el comportamiento
+				de métodos ya existentes. En general no es una metodología recomendada
+				pero a veces es necesaria para casos no contemplados.
+			</p>
+			<p>
+				Al no existir la herencia clásica, la redefinición del método tiene
+				que simularla manualmente, esto es guardar el método viejo y definir el
+				nuevo llamando cuando sea necesario al viejo. Vemos un ejemplo:
+			</p>
 		";
+		echo mostrar_php($codigo);
 	}	
 }
 
-
-//--------------------------------------------------------------
-class pant_formulario extends pant_tutorial
-{
-	function generar_layout()
-	{
-		
-	}	
-}
 
 ?>
