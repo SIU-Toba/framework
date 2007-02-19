@@ -49,7 +49,7 @@ class zona_item extends zona_editor
 	{
 		echo "<br>";
 		echo "<table width='100%' class='tabla-0'>";
-		echo "<tr><td  class='barra-obj-io'>Elementos referenciados</td></tr>";
+		echo "<tr><td  class='barra-obj-io'>Componentes referenciados</td></tr>";
 		echo "<tr><td  class='barra-obj-leve'>";
 		$sql = 	"	SELECT	o.proyecto as				objeto_proyecto,
 							o.objeto as					objeto,
@@ -76,8 +76,7 @@ class zona_item extends zona_editor
 			if(! empty($datos)){
 				echo "<table class='tabla-0'>";
 				echo "<tr>";
-				echo "<td  colspan='2' class='barra-obj-tit'>OBJETO</td>";
-				echo "<td  class='barra-obj-tit'>INVOCACION</td>";
+				echo "<td  colspan='2' class='barra-obj-tit'>COMPONENTE</td>";
 				echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
 				echo "</tr>\n";
 				foreach($datos as $rs){
@@ -89,7 +88,6 @@ class zona_item extends zona_editor
 					echo "<tr>";
 						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
-						echo "<td  class='barra-obj-link'>\$this->cargar_objeto(\"".$rs["clase"]."\", ".($contador[$rs["clase"]]).")</td>";
 						if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::vinculador()->generar_solicitud(
@@ -113,7 +111,7 @@ class zona_item extends zona_editor
 				}
 				echo "</table>\n";
 			}else{
-				echo "El ITEM no consume OBJETOS.";
+				echo "El ITEM no consume COMPONENTES.";
 			}
 		echo "</td></tr></table>";
 	}

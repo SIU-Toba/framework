@@ -8,12 +8,12 @@ class pant_concepto extends pant_tutorial
 		echo "
 			<p>
 			Los componentes son unidades o elementos que cubren distintos aspectos de una operación.
-			Construir una operación en base a componentes permite:
+			Construir una operación en base a componentes permite que:
 			 <ul>
 			 	<li>Un componente pueda reutilizarse en distintas operaciones o en distintas partes de la misma operación.
-			 	<li>Los componentes se pueden componer o encastrar entre sí.
+			 	<li>Los componentes se puedan componer o encastrar entre sí.
 			 	<li>Cada uno encapsule algún comportamiento complejo, que ya no es necesario programar.
-			 	<li>Al estar categorizados según su función, lograr en el sistema una separación en capas en forma transparente.
+			 	<li>Al estar categorizados según su función, se logre en el sistema una separación en capas de forma transparente.
 			 </ul>
 			</p>
 			<p>
@@ -42,7 +42,7 @@ class pant_tipos extends pant_tutorial
 			En su aspecto gráfico se basan en los elementos HTML aunque su comportamiento va más allá,
 			tomando responsabilidades tanto en el cliente como en el servidor:
 			<ul>
-				<li>En el servidor recibe un conjunto de datos.
+				<li>En el servidor recibe un conjunto de datos a partir del control.
 				<li>Se grafica utilizando HTML.
 				<li>Tiene un comportamiento en el browser (usando javascript).
 				<li>Se comunica con su par en el servidor a traves del POST.

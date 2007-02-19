@@ -170,8 +170,7 @@ CREATE TABLE apex_log_objeto
 	objeto								int4			NULL,
 	item								varchar(60)		NULL,
 	observacion							varchar			NULL,
-	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto"),
-	CONSTRAINT	"apex_log_objeto_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_log_objeto_pk" PRIMARY KEY ("log_objeto")
 );
 
 --##################################################################################################

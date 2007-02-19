@@ -97,6 +97,7 @@ class pant_video extends pant_tutorial
 {
 	function generar_layout()
 	{
+		echo mostrar_video('ci');		
 	}	
 }
 
