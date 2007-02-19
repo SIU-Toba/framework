@@ -19,7 +19,7 @@ class pant_definicion extends pant_tutorial
 			esta fuente es una base de datos relacional así que vamos a concentrarnos en ellas. Existen dos formas 
 			principales en que puede <em>transaccionar</em> una operación:
 			 <ul>
-			 	<li>inmediatamente producidos los eventos, prácticamente en cada pedido de página.
+			 	<li>inmediatamente producidos los eventos, prácticamente en cada pedido de página, o
 			 	<li>luego de una confirmación explícita del usuario.
 			 </ul>
 		";
@@ -39,7 +39,7 @@ class pant_inmediata extends pant_tutorial
 			Si los requisitos funcionales lo permiten, transaccionar inmediatamente cuando se produce el evento
 			es la forma más fácil y directa de programar una operación. Simplemente en cada 
 			método que escucha un evento se ejecuta un comando SQL, y en las configuraciones se cargan
-			los componentes directamente desde una consulta SQL:
+			los componentes directamente usando consultas SQL:
 			</p>
 			<div style='float:right;padding: 10px;border: 1px solid gray;background-color:white;'>
 				<img src='$img'>
@@ -206,9 +206,7 @@ class pant_def_tablas extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo "
-
-		";
+		echo mostrar_video('persistencia/persistencia-tablas');
 	}
 }
 
@@ -260,7 +258,7 @@ class pant_def_relaciones extends pant_tutorial
 {
 	function generar_layout()
 	{
-		
+		echo mostrar_video('persistencia/persistencia-relacion');
 	}
 }
 

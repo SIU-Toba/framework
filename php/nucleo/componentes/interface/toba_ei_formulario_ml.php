@@ -303,6 +303,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function get_datos($analizar_diferencias = false)
 	{
+		if (!isset($this->datos)) {
+			return array();	
+		}
 		//Envia el ordenamiento como una columna aparte
 		$orden = 1;
 		foreach (array_keys($this->datos) as $id) {
