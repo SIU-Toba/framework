@@ -43,7 +43,7 @@ class pant_definicion extends pant_tutorial
 {
 	function generar_layout()
 	{
-
+		echo mostrar_video('abms');
 	}
 }
 
