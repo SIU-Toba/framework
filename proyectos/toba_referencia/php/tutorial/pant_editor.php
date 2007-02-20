@@ -24,7 +24,7 @@ class pant_items extends pant_tutorial
 {
 	function generar_layout()
 	{
-		
+		echo "PENDIENTE";
 	}
 }
 
@@ -34,9 +34,17 @@ class pant_prev extends pant_tutorial
 {
 	function generar_layout()
 	{
-		
+		echo "PENDIENTE";
 	}
 }
 
+
+class pant_instancia extends pant_tutorial 
+{
+	function generar_layout()
+	{
+		echo "PENDIENTE";
+	}
+}
 
 ?>

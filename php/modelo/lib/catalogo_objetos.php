@@ -73,7 +73,7 @@ class catalogo_objetos
 					AND tabla ILIKE '%{$opciones['tabla']}%'";
 			$filtro_tabla = " AND (o.objeto, o.proyecto) IN ($subselect)";
 		}
-
+		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		$sql_base = componente_toba::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['info']['sql'];
@@ -95,13 +95,7 @@ class catalogo_objetos
 		foreach ($datos as $dato) {
 			$agregar = true;
 			if (isset($opciones['extensiones_rotas']) && $opciones['extensiones_rotas'] == 1) {
-				$archivo = $dato['subclase_archivo'];
-				$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/";
-				$path_toba = toba_dir()."/php/".$archivo;
-				if (file_exists($path_proy) || file_exists($path_toba)) {
-					//Si se encuentra el archivo la extension no esta rota
-					$agregar = false;
-				}
+				$agregar = $this->tiene_extension_rota($dato);
 			}
 			if ($agregar) {
 				$clave = array('componente' =>$dato['objeto'], 'proyecto' => $this->proyecto);			
@@ -122,6 +116,28 @@ class catalogo_objetos
 		return $this->objetos;
 	}
 	
+	
+	protected function tiene_extension_rota($dato)
+	{
+		$archivo = $dato['subclase_archivo'];
+		$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+		$path_toba = toba_dir()."/php/".$archivo;
+		if (!file_exists($path_proy) && !file_exists($path_toba)) {
+			$this->explicaciones[$dato['objeto']][] = "Extensión Rota, no se encuentra el archivo <em>$archivo</em>";
+			return true;	
+		}
+		//-- Tiene un AP?
+		if ($dato['ap_archivo'] != '') {
+			$archivo = $dato['ap_archivo'];
+			$path_proy = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/".$archivo;
+			$path_toba = toba_dir()."/php/".$archivo;
+			if (!file_exists($path_proy) && !file_exists($path_toba)) {
+				$this->explicaciones[$dato['objeto']][] = "Extensión del AP Rota, no se encuentra el archivo <em>$archivo</em>";
+				return true;	
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * Consulta antes los objetos que contienen una determinada tabla

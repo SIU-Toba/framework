@@ -18,6 +18,14 @@ class info_datos_tabla extends info_componente
 	
 	function get_utilerias()
 	{
+		//--- Mejora para el caso de que la query sea una unica
+		if (isset($this->datos['info']['ap_clase'])) {
+			$this->datos['info_estructura']['ap_clase'] = $this->datos['info']['ap_clase'];
+		}
+		if (isset($this->datos['info']['ap_archivo'])) {
+			$this->datos['info_estructura']['ap_sub_clase_archivo'] = $this->datos['info']['ap_archivo'];
+		}		
+		
 		$iconos = array();
 		if (isset($this->datos['info_estructura']['ap_sub_clase_archivo'])) {
 			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_sub_clase_archivo']) ) {

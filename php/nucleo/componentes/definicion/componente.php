@@ -53,13 +53,19 @@ class componente_toba implements toba_componente_definicion
 									c.instanciador_proyecto			as clase_instanciador_proyecto,
 									c.instanciador_item 			as clase_instanciador_item,
 									oi.objeto 						as objeto_existe_ayuda,
+									COALESCE(dt.ap_clase, dr.ap_clase)		as ap_clase,
+									COALESCE(dt.ap_archivo, dr.ap_archivo)	as ap_archivo,
 									(SELECT COUNT(*) 
 										FROM apex_objeto_dependencias 
 										WHERE objeto_consumidor = o.objeto
 												AND proyecto = o.proyecto) as cant_dependencias
 						FROM	apex_objeto o
 									LEFT OUTER JOIN apex_objeto_info oi 
-										ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto),
+										ON (o.objeto = oi.objeto AND o.proyecto = oi.objeto_proyecto)
+									LEFT OUTER JOIN apex_objeto_db_registros dt
+										ON (o.objeto = dt.objeto AND o.proyecto = dt.objeto_proyecto)
+									LEFT OUTER JOIN apex_objeto_datos_rel dr
+										ON (o.objeto = dr.objeto AND o.proyecto = dr.proyecto),
 								apex_clase c
 						WHERE	o.clase_proyecto = c.proyecto
 						AND			o.clase = c.clase

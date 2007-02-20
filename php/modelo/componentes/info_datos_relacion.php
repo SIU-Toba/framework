@@ -30,6 +30,13 @@ class info_datos_relacion extends info_componente
 										false, false, null, true, "central"),
 			'plegado' => true										
 		);
+		//--- Mejora para el caso de que la query sea una unica
+		if (isset($this->datos['info']['ap_clase'])) {
+			$this->datos['info_estructura']['ap_clase'] = $this->datos['info']['ap_clase'];
+		}
+		if (isset($this->datos['info']['ap_archivo'])) {
+			$this->datos['info_estructura']['ap_archivo'] = $this->datos['info']['ap_archivo'];
+		}		
 		if (isset($this->datos['info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
 			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_archivo']) ) {
