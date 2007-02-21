@@ -316,13 +316,16 @@ class toba_instancia
 		$this->get_db()->ejecutar($sql);
 	}
 
-	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal)
+	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0) AND ((now()-momento) < '$ventana_temporal min')";
+		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0)";
+		if (isset($ventana_temporal)) {
+			$sql .= " AND ((now()-momento) < '$ventana_temporal min')";
+		}
 		$rs = $this->get_db()->consultar($sql);
 		return $rs[0]['total'];
 	}
-
+	
 	function bloquear_ip($ip)
 	{
 		try {

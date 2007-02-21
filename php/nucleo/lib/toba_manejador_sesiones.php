@@ -584,9 +584,6 @@ class toba_manejador_sesiones
 			if (isset($cant_max_intentos)) {
 				//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
 				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
-				if (! isset($ventana_temporal)) {
-					$ventana_temporal = $this->ventana_validacion;
-				}
 				$intentos = toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
 				$supero_tope_intentos_en_ventana = $intentos > $cant_max_intentos;
 				if ( $supero_tope_intentos_en_ventana ) {
