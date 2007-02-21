@@ -70,7 +70,7 @@ class pant_creacion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('componentes/componente-crear');
+		echo mostrar_video('componente-crear');
 	}	
 	
 }
@@ -179,7 +179,7 @@ class pant_video_extension extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('componentes/componente-extender');
+		echo mostrar_video('componente-extender');
 	}	
 	
 }

@@ -83,9 +83,8 @@ class tp_tutorial extends tp_referencia
 
 function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
 {
-	$url = toba_recurso::url_proyecto()."/videos/$video/";
 	$url_base = toba_recurso::url_proyecto().'/videos/';	
-	$url_controller = ($controlador_propio) ? $url.'controller.swf'  : $url_base.'controller.swf';
+	$url_controller = ($controlador_propio) ? $url_base.$video.'-cont.swf'  : $url_base.'controller.swf';
 	return '
       <script type="text/javascript" src="'.$url_base.'swfobject.js"></script>
   	  <script type="text/javascript" src="'.$url_base.'cam_embed.js"></script>		
@@ -97,7 +96,7 @@ function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
       <script type="text/javascript">
 		  // <![CDATA[          
          var fo = new SWFObject( "'.$url_controller.'", "'.$url_controller.'", "'.$ancho.'", "'.$alto.'", "7", "#FFFFFF", false, "best" );
-         fo.addVariable( "csConfigFile", "'.$url.'config.xml"  ); 
+         fo.addVariable( "csConfigFile", "'.$url_base.$video.'.xml"  ); 
          fo.addVariable( "csColor"     , "FFFFFF"           );
          fo.addVariable( "csPreloader" , "'.$url_base.'preload.swf" );
          if( args.movie )

@@ -14,7 +14,7 @@ class pant_acceso extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('editor/editor-acceso', 1016, 535, true);		
+		echo mostrar_video('editor-acceso', 1016, 535, true);		
 	}
 }
 
@@ -34,7 +34,7 @@ class pant_prev extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo "PENDIENTE";
+		echo mostrar_video('editor-previsualizacion');
 	}
 }
 

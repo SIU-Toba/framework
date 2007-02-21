@@ -34,8 +34,8 @@ For other distribution methods, or to understand how the Flash Player security s
       <endAction>Stop</endAction>
       <!-- delete this line to disable warning -->
       <endActionParam></endActionParam>
-      <controlsWidth type="Number">984</controlsWidth>
-      <controlsHeight type="Number">434</controlsHeight>
+      <controlsWidth type="Number">964</controlsWidth>
+      <controlsHeight type="Number">344</controlsHeight>
       <hasCaptions type="Boolean">1</hasCaptions>
       <captionsVisible type="Boolean">1</captionsVisible>
       <caption>         
@@ -57,8 +57,8 @@ For other distribution methods, or to understand how the Flash Player security s
          </panel>
       </caption>
       <video1>
-         <width type="Number">984</width>
-         <height type="Number">524</height>
+         <width type="Number">964</width>
+         <height type="Number">344</height>
       </video1>
       <pip>
          <width type="Number">0</width>
@@ -141,8 +141,8 @@ For other distribution methods, or to understand how the Flash Player security s
       <array>
          <fileset>
             <video1>
-               <duration type="Number">219.29</duration>
-               <uri>videos/ci/video.swf</uri>
+               <duration type="Number">65.86</duration>
+               <uri>videos/editor-previsualizacion.swf</uri>
                <frameRate type="Number">7</frameRate>
                <keyframeRate type="Number">0</keyframeRate>
                <blendingMode>Normal</blendingMode>
@@ -152,7 +152,7 @@ For other distribution methods, or to understand how the Flash Player security s
                <duration type="Number">0.00</duration>
                <frameRate type="Number">10</frameRate>
                <keyframeRate type="Number">30</keyframeRate>
-               <uri>ci-componentes_PIP.flv</uri>   
+               <uri>editor-previsualizacion_PIP.flv</uri>   
             </pip>
             <hasPipVideo type="Boolean">0</hasPipVideo>
             <hotspotInfo>
@@ -164,92 +164,40 @@ For other distribution methods, or to understand how the Flash Player security s
             <captionInfo>
                   <array>
       <captionObject>
-         <Time>2.400000</Time>
-         <Caption><![CDATA[Comenzamos creando el ITEM]]></Caption>
+         <Time>7.400000</Time>
+         <Caption><![CDATA[Desde el editor, el ícono de la flecha lanza la <BR>previsualización.]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>7.800000</Time>
-         <Caption><![CDATA[La operación se encontrará en la <BR>carpeta OPERACIONES SIMPLES]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>20.000000</Time>
-         <Caption><![CDATA[En el ítem ponemos NOMBRE y <BR>cambiamos al MODELO DE PAGINA del proyecto]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>26.600000</Time>
-         <Caption><![CDATA[Incluimos la operación en el <BR>menú]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>32.800000</Time>
+         <Time>12.800000</Time>
          <Caption><![CDATA[]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>38.000000</Time>
-         <Caption><![CDATA[Creamos el CI vinculado al ITEM]]></Caption>
+         <Time>18.066667</Time>
+         <Caption><![CDATA[Este icono a la derecha permite ver cuales son los elementos <BR>que se pueden editar en forma contextual]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>45.800000</Time>
-         <Caption><![CDATA[Indicamos una subclase para el CI (luego vemos como <BR>programarla)]]></Caption>
+         <Time>21.866667</Time>
+         <Caption><![CDATA[Podemos mostrar u ocultar estas zonas resaltadas usando la <BR>tecla CONTROL]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>57.200000</Time>
-         <Caption><![CDATA[Cambiamos aspectos visuales del <BR>CI]]></Caption>
+         <Time>25.866667</Time>
+         <Caption><![CDATA[En este caso este icono nos lleva a ver el árbol de <BR>componentes de la operación]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>70.200000</Time>
-         <Caption><![CDATA[Creamos dos pantallas: una de <BR>selección y otra de edición]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>90.400000</Time>
-         <Caption><![CDATA[Incluimos un botón GUARDAR <BR>generando el modelo de eventos <BR>sugerido]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>99.200000</Time>
-         <Caption><![CDATA[Borramos el botón CANCELAR]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>103.000000</Time>
+         <Time>38.400000</Time>
          <Caption><![CDATA[]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>107.400000</Time>
-         <Caption><![CDATA[A la primer pantalla le <BR>vinculamos un nuevo CUADRO]]></Caption>
+         <Time>42.400000</Time>
+         <Caption><![CDATA[El formulario por ejemplo permite la edición de cada uno de <BR>sus campos (efs)]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>120.466667</Time>
-         <Caption><![CDATA[Determinamos que la columna <BR>EMAIL es la clave]]></Caption>
+         <Time>50.466667</Time>
+         <Caption><![CDATA[Modificamos la etiqueta de una campo, presionamos GUARDAR]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>129.200000</Time>
-         <Caption><![CDATA[Cambiamos el mensaje que se <BR>muestra cuando no hay datos]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>140.800000</Time>
-         <Caption><![CDATA[Agregamos las dos columnas con <BR>las que trabajamos]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>157.000000</Time>
-         <Caption><![CDATA[Agregamos el modelo de eventos <BR>SELECCION para poder seleccionar filas]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>166.000000</Time>
-         <Caption><![CDATA[A la segunda pantalla del CI le <BR>vinculamos un FORMULARIO]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>181.000000</Time>
-         <Caption><![CDATA[Creamos dos EFs correspondientes <BR>a las dos columnas]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>197.600000</Time>
-         <Caption><![CDATA[Generamos el modelo de eventos <BR>ABM para tener los botones <BR>Alta,Baja,etc.]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>203.200000</Time>
-         <Caption><![CDATA[]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>205.333333</Time>
-         <Caption><![CDATA[Finalmente instanciamos la <BR>operación.]]></Caption>
+         <Time>59.400000</Time>
+         <Caption><![CDATA[Refrescamos la solapa de previsualización y tenemos el <BR>formulario modificado.]]></Caption>
       </captionObject>
    </array>
 

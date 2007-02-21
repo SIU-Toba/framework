@@ -34,8 +34,8 @@ For other distribution methods, or to understand how the Flash Player security s
       <endAction>Stop</endAction>
       <!-- delete this line to disable warning -->
       <endActionParam></endActionParam>
-      <controlsWidth type="Number">976</controlsWidth>
-      <controlsHeight type="Number">404</controlsHeight>
+      <controlsWidth type="Number">768</controlsWidth>
+      <controlsHeight type="Number">420</controlsHeight>
       <hasCaptions type="Boolean">1</hasCaptions>
       <captionsVisible type="Boolean">1</captionsVisible>
       <caption>         
@@ -57,8 +57,8 @@ For other distribution methods, or to understand how the Flash Player security s
          </panel>
       </caption>
       <video1>
-         <width type="Number">976</width>
-         <height type="Number">404</height>
+         <width type="Number">768</width>
+         <height type="Number">420</height>
       </video1>
       <pip>
          <width type="Number">0</width>
@@ -141,8 +141,8 @@ For other distribution methods, or to understand how the Flash Player security s
       <array>
          <fileset>
             <video1>
-               <duration type="Number">86.57</duration>
-               <uri>videos/persistencia/persistencia-relacion/video.swf</uri>
+               <duration type="Number">57.71</duration>
+               <uri>videos/componente-extender.swf</uri>
                <frameRate type="Number">7</frameRate>
                <keyframeRate type="Number">0</keyframeRate>
                <blendingMode>Normal</blendingMode>
@@ -152,7 +152,7 @@ For other distribution methods, or to understand how the Flash Player security s
                <duration type="Number">0.00</duration>
                <frameRate type="Number">10</frameRate>
                <keyframeRate type="Number">30</keyframeRate>
-               <uri>video_PIP.flv</uri>   
+               <uri>componente-extender_PIP.flv</uri>   
             </pip>
             <hasPipVideo type="Boolean">0</hasPipVideo>
             <hotspotInfo>
@@ -164,44 +164,44 @@ For other distribution methods, or to understand how the Flash Player security s
             <captionInfo>
                   <array>
       <captionObject>
-         <Time>3.200000</Time>
-         <Caption><![CDATA[Vamos a crear un datos_relacion sin asociar]]></Caption>
+         <Time>2.600000</Time>
+         <Caption><![CDATA[Partimos del editor posicionado <BR>en el componente a extender]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>10.333333</Time>
+         <Time>7.200000</Time>
+         <Caption><![CDATA[Tenemos que definir el archivo <BR>que contiene la subclase]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>10.400000</Time>
+         <Caption><![CDATA[En este caso crearemos un nuevo <BR>archivo y luego lo seleccionamos]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>26.400000</Time>
+         <Caption><![CDATA[El nombre de la subclase se basa <BR>en el del archivo]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>30.933333</Time>
+         <Caption><![CDATA[Guardamos el componente]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>33.800000</Time>
          <Caption><![CDATA[]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>17.066667</Time>
-         <Caption><![CDATA[Agregamos uno a uno los datos_tabla que relaciona]]></Caption>
+         <Time>37.333333</Time>
+         <Caption><![CDATA[Clickear en el ícono PHP]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>47.200000</Time>
-         <Caption><![CDATA[]]></Caption>
+         <Time>41.266667</Time>
+         <Caption><![CDATA[Seleccionamos los métodos a <BR>incluir automáticamente]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>49.866667</Time>
-         <Caption><![CDATA[Ahora definimos cómo las claves de las tablas se relacionan]]></Caption>
+         <Time>47.533333</Time>
+         <Caption><![CDATA[Podemos ver la extensión vacía]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>55.400000</Time>
-         <Caption><![CDATA[&apos;persona&apos;  es padre de &apos;juegos&apos;]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>58.000000</Time>
-         <Caption><![CDATA[y la columna &apos;id&apos; de persona matchea con la columna <BR>&apos;persona&apos; de juegos]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>66.133333</Time>
-         <Caption><![CDATA[]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>69.200000</Time>
-         <Caption><![CDATA[Lo mismo sucede entre &apos;persona&apos; y &apos;deportes&apos;]]></Caption>
-      </captionObject>
-      <captionObject>
-         <Time>74.133333</Time>
-         <Caption><![CDATA[]]></Caption>
+         <Time>53.533333</Time>
+         <Caption><![CDATA[Finalmente podemos abrir la <BR>extensión en nuestro editor PHP]]></Caption>
       </captionObject>
    </array>
 

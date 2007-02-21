@@ -34,17 +34,17 @@ For other distribution methods, or to understand how the Flash Player security s
       <endAction>Stop</endAction>
       <!-- delete this line to disable warning -->
       <endActionParam></endActionParam>
-      <controlsWidth type="Number">976</controlsWidth>
-      <controlsHeight type="Number">404</controlsHeight>
+      <controlsWidth type="Number">992</controlsWidth>
+      <controlsHeight type="Number">432</controlsHeight>
       <hasCaptions type="Boolean">1</hasCaptions>
       <captionsVisible type="Boolean">1</captionsVisible>
       <caption>         
          <font>
             <type type="String">Microsoft Sans Serif</type>
-            <size type="Number">23</size>
+            <size type="Number">18</size>
             <weight type="Boolean">0</weight>
             <color type="Number">0xFFFFFF</color>
-            <cpl type="Number">60</cpl>
+            <cpl type="Number">80</cpl>
          </font>
          <panel>
             <background>
@@ -57,8 +57,8 @@ For other distribution methods, or to understand how the Flash Player security s
          </panel>
       </caption>
       <video1>
-         <width type="Number">976</width>
-         <height type="Number">404</height>
+         <width type="Number">992</width>
+         <height type="Number">432</height>
       </video1>
       <pip>
          <width type="Number">0</width>
@@ -141,8 +141,8 @@ For other distribution methods, or to understand how the Flash Player security s
       <array>
          <fileset>
             <video1>
-               <duration type="Number">37.14</duration>
-               <uri>videos/persistencia/persistencia-tablas/video.swf</uri>
+               <duration type="Number">84.43</duration>
+               <uri>videos/items-crear.swf</uri>
                <frameRate type="Number">7</frameRate>
                <keyframeRate type="Number">0</keyframeRate>
                <blendingMode>Normal</blendingMode>
@@ -152,11 +152,16 @@ For other distribution methods, or to understand how the Flash Player security s
                <duration type="Number">0.00</duration>
                <frameRate type="Number">10</frameRate>
                <keyframeRate type="Number">30</keyframeRate>
-               <uri>video_PIP.flv</uri>   
+               <uri>items-crear_PIP.flv</uri>   
             </pip>
             <hasPipVideo type="Boolean">0</hasPipVideo>
             <hotspotInfo>
                
+               <array>
+               <hotspot>
+               </hotspot>
+               </array>
+
             </hotspotInfo>
             <quizInfo>
                
@@ -164,24 +169,56 @@ For other distribution methods, or to understand how the Flash Player security s
             <captionInfo>
                   <array>
       <captionObject>
-         <Time>2.800000</Time>
-         <Caption><![CDATA[Vamos a crear un componente datos_tabla sin <BR>asociar]]></Caption>
+         <Time>2.200000</Time>
+         <Caption><![CDATA[Navegar hacia la vista de ITEMS]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>10.400000</Time>
-         <Caption><![CDATA[Ingresamos el nombre de la tabla   con que se va a <BR>trabajar]]></Caption>
+         <Time>7.200000</Time>
+         <Caption><![CDATA[Elegir la carpeta PADRE de la nueva carpeta <BR>(en este caso la raiz del proyecto)]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>23.200000</Time>
+         <Time>14.666667</Time>
+         <Caption><![CDATA[Expandir las utilerías y seleccionar el ícono de crear CARPETA]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>23.400000</Time>
+         <Caption><![CDATA[Ingresar el nombre de la carpeta e indicar que la carpeta pertenece al MENU]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>34.800000</Time>
+         <Caption><![CDATA[Grabar las modificaciones presionando GUARDAR]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>41.000000</Time>
          <Caption><![CDATA[]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>25.000000</Time>
-         <Caption><![CDATA[En lugar de definir columna a columna las <BR>construimos automáticamente a partir de la base]]></Caption>
+         <Time>43.866667</Time>
+         <Caption><![CDATA[Elegir la carpeta PADRE del ítem<BR>(en este caso la carpeta recién creada)]]></Caption>
       </captionObject>
       <captionObject>
-         <Time>33.200000</Time>
-         <Caption><![CDATA[]]></Caption>
+         <Time>48.866667</Time>
+         <Caption><![CDATA[Expandir las utilerías y seleccionar el ícono de creación de ITEM]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>53.400000</Time>
+         <Caption><![CDATA[Ingresar el nombre del ítem e indicar que pertenece al MENU]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>61.466667</Time>
+         <Caption><![CDATA[Grabar las modificaciones presionando GUARDAR]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>65.200000</Time>
+         <Caption><![CDATA[Previsualizar el proyecto]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>70.200000</Time>
+         <Caption><![CDATA[La CARPETA y el ITEM se pueden ver en el menú de la aplicación]]></Caption>
+      </captionObject>
+      <captionObject>
+         <Time>75.200000</Time>
+         <Caption><![CDATA[La misma estructura se puede ver en el árbol de ITEMS]]></Caption>
       </captionObject>
    </array>
 

@@ -206,7 +206,7 @@ class pant_def_tablas extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('persistencia/persistencia-tablas');
+		echo mostrar_video('persistencia-tablas');
 	}
 }
 
@@ -258,7 +258,7 @@ class pant_def_relaciones extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('persistencia/persistencia-relacion');
+		echo mostrar_video('persistencia-relacion');
 	}
 }
 

@@ -58,7 +58,7 @@ class pant_creacion extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo mostrar_video('items/items-crear');
+		echo mostrar_video('items-crear');
 	}
 }
 

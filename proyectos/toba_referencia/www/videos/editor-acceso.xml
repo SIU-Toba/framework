@@ -142,7 +142,7 @@ For other distribution methods, or to understand how the Flash Player security s
          <fileset>
             <video1>
                <duration type="Number">43.43</duration>
-               <uri>videos/editor/editor-acceso/video.swf</uri>
+               <uri>videos/editor-acceso.swf</uri>
                <frameRate type="Number">7</frameRate>
                <keyframeRate type="Number">0</keyframeRate>
                <blendingMode>Normal</blendingMode>
