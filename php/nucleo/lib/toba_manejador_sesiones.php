@@ -258,9 +258,6 @@ class toba_manejador_sesiones
 	{
 		if( $this->existe_sesion_activa() ) {			//--> Hay una sesion para el proyecto actual
 			$this->cargar_contexto();
-			if ( $this->modo_previsualizacion() ) {
-				$this->activar_editor();
-			}
 			try {
 				$this->control_finalizacion_sesion();
 				$this->registrar_activacion_sesion();
@@ -279,6 +276,9 @@ class toba_manejador_sesiones
 				$this->login_anonimo();
 			}
 		}
+		if ( $this->modo_previsualizacion() ) {
+			$this->activar_editor();
+		}		
 	}
 
 	/**
