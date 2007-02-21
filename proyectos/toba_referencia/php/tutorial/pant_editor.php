@@ -24,7 +24,7 @@ class pant_items extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo "PENDIENTE";
+		echo mostrar_video('editor-partes');
 	}
 }
 
