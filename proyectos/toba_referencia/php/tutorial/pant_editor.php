@@ -43,7 +43,7 @@ class pant_instancia extends pant_tutorial
 {
 	function generar_layout()
 	{
-		echo "PENDIENTE";
+		echo mostrar_video('editor-instancia');
 	}
 }
 
