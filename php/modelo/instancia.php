@@ -672,9 +672,11 @@ class instancia extends elemento_modelo
 
 	function agregar_usuario( $usuario, $nombre, $clave )
 	{
+		$algoritmo = 'sha256';
+		$clave = enciptar_con_sal($clave, $algoritmo);
 		toba_logger::instancia()->debug("Agregando el usuario '$usuario' a la instancia {$this->identificador}");
 		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
-				VALUES ('$usuario', '$nombre', 'md5', '". md5($clave) ."')";
+				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
 		return $this->get_db()->ejecutar( $sql );
 	}
 	

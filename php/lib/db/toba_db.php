@@ -86,6 +86,15 @@ class toba_db
 	//------------------------------------------------------------------------
 	
 	/**
+	 * Convierte un string a una representación segura para el motor. Evita
+	 * la inyección de código malicioso dentro de la sentencia SQL
+	 */
+	function quote($texto)
+	{
+		return $this->conexion->quote($texto);
+	}
+	
+	/**
 	*	Ejecuta un comando sql o un conjunto de ellos
 	*	@param mixed $sql Comando o arreglo de comandos
 	*	@throws toba_error_db en caso de que algun comando falle	

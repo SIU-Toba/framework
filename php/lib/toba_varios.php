@@ -402,4 +402,14 @@
 				throw new toba_error("El operador $operador no está soportado");
 		}
 	}
+	
+	function enciptar_con_sal($clave, $metodo, $sal=null)
+	{
+	    if ($sal === null) {
+	        $sal = substr(md5(uniqid(rand(), true)), 0, 10);
+	    } else {
+	        $sal = substr($sal, 0, 10);
+	    }
+	    return $sal . hash($metodo, $sal . $clave);		
+	}
 ?>

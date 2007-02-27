@@ -18,11 +18,21 @@ class toba_usuario_basico extends toba_usuario
 	{
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if( empty($datos_usuario) ) {
-			return false; 		// No existe el usuario
+			toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');
+			return false;
 		} else {
-			if( $datos_usuario['autentificacion'] == 'md5' ) $clave = md5($clave);
+			//--- Autentificación
+			$algoritmo = $datos_usuario['autentificacion'];
+			if ($algoritmo != 'plano')  { 
+				if ($algoritmo == 'md5') {
+					$clave = hash($algoritmo, $clave);
+				} else {
+					$clave = enciptar_con_sal($clave, $algoritmo, $datos_usuario['clave']);
+				}
+			}
 			if( !($datos_usuario['clave'] === $clave) ) {
-				return false;	// Clave INCORRECTA!
+				toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorecta", 'toba');
+				return false;
 			}
 		}
 		return true;
