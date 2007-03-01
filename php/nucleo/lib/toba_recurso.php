@@ -15,10 +15,9 @@ class toba_recurso {
 	 */	
 	static function url_proyecto($proyecto = null)
 	{
-		$es_actual = (!isset($proyecto) || toba::proyecto()->get_id() == $proyecto);
-		if ($es_actual && isset($_SERVER['TOBA_PROYECTO_ALIAS'])) {
-			return '/'.$_SERVER['TOBA_PROYECTO_ALIAS'];
-		} 
+		if (! isset($proyecto)) {
+			$proyecto = toba::proyecto()->get_id();	
+		}
 		return toba::instancia()->get_url_proyecto($proyecto);
 	}
 	

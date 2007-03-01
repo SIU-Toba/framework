@@ -13,37 +13,6 @@ class pantalla_visor extends toba_ei_pantalla
 			margin-top: 0px;
 			margin-bottom: 0px;
 		}
-		.admin-logger-opciones {
-			border:1px solid black; 
-			text-align: left;
-			list-style-type: none;
-			padding: 4px;
-			margin: 0; 
-			background-color:white;
-		}		
-		.admin-logger-proyecto {
-			font-size: 20px;
-			font-weight: bold;
-			float: right;
-		}
-		.admin-logger-traza {
-			font-weight: bold;
-	 		TEXT-DECORATION: underline;
-	 		color: blue;
-	 		cursor: pointer;
-		}
-		.admin-logger-selec {
-			font-size:14px;
-			display: block;
-		}
-		.admin-logger-normal {
-			padding-left: 10px;
-		}
-		.admin-logger-seccion {
-			padding-top: 5px;
-			padding-bottom: 5px;
-			font-weight: bold;
-		}
 		pre {
 			margin: 0;
 			padding:0;
@@ -73,9 +42,9 @@ class pantalla_visor extends toba_ei_pantalla
 		//--- Opciones
 		$selec = ($seleccion == 'ultima') ? "Última solicitud" : "Solicitud {$seleccion}";
 		echo "<div>";
-		echo "<span class='admin-logger-proyecto' title='{$this->analizador->get_archivo_nombre()}'>";
+		echo "<span class='logger-proyecto' title='{$this->analizador->get_archivo_nombre()}'>";
 		echo ucfirst($this->controlador->get_proyecto());
-		echo "<span class='admin-logger-selec'>$selec</span>";
+		echo "<span class='logger-selec'>$selec</span>";
 		
 		//--- Botones anterior/siguiente
 		if ($seleccion != 1) {
@@ -104,7 +73,7 @@ class pantalla_visor extends toba_ei_pantalla
 		//---- Niveles
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'>";
 		echo "<strong>Niveles</strong>";
-		echo "<ul class='admin-logger-opciones'>";
+		echo "<ul class='logger-opciones'>";
 		foreach ($niveles as $nivel) {
 			$img = toba_recurso::imagen_toba('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
 			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
@@ -117,7 +86,7 @@ class pantalla_visor extends toba_ei_pantalla
  		echo toba_recurso::imagen_toba('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
 		echo "<strong>Proyectos</strong>";
-		echo "<ul id='logger_proyectos' class='admin-logger-opciones'>";
+		echo "<ul id='logger_proyectos' class='logger-opciones'>";
 		echo "<li>".toba_form::multi_select("opciones_proyectos", array(), array('referencia','toba'), 2)."</li>";
 		echo "</ul>";		
 		echo "</div>";*/
@@ -157,11 +126,11 @@ class pantalla_visor extends toba_ei_pantalla
 			if (substr($linea['mensaje'], 0,10) == "[SECCION] ") {
 				$linea['mensaje'] = substr($linea['mensaje'], 10);
 				$img ='';
-				$clase = "admin-logger-seccion";
+				$clase = "logger-seccion";
 			//Es normal
 			} else {
 				$img = toba_recurso::imagen_toba('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
-				$clase = "admin-logger-normal";	
+				$clase = "logger-normal";	
 			}
 			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
 			$detalle .= "$img ";
@@ -184,7 +153,7 @@ class pantalla_visor extends toba_ei_pantalla
 		if ($pos_traza !== false) {
 			$txt_anterior = htmlspecialchars(substr($txt, 0, $pos_traza));
 			$txt_traza = trim(substr($txt, $pos_traza+strlen($texto_traza)));
-			$txt = "$txt_anterior <span class='admin-logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
+			$txt = "$txt_anterior <span class='logger-traza' onclick='toggle_nodo(this.nextSibling)'>$texto_traza</span>$txt_traza";
 		} elseif ($salto !== false) {
 			//Los saltos (\n) dentro del mensaje se considera que viene un dump de algo			
 			$txt = substr($txt,0,$salto)."<pre>".substr($txt, $salto)."</pre>";

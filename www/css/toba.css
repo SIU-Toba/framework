@@ -19,17 +19,17 @@ body * .div-editor {
 	position: relative;
 }
 
-#editor_toggle {
+#editor_previsualizacion {
 	position: fixed;
 	_position: absolute;
 	right: 0px;
 	bottom: 0px;
+	background-color: white;
+	border: 1px solid gray;
+	padding: 6px;
 }
-#editor_toggle button {
-	height: 55px;
-	font-weight: bold;
+#editor_previsualizacion img {
 	cursor: pointer;	
-	z-index:1000;
 }
 #vinculo_logger {
 	white-space: nowrap;

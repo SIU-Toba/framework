@@ -269,9 +269,10 @@ class toba_editor
 	*/
 	static function generar_zona_vinculos_item( $item )
 	{
+		toba::solicitud()->set_cronometrar(true);
 		echo toba_js::abrir();
 		echo "
-			function cambiar_vinculos_editor() {
+			function editor_cambiar_vinculos() {
 				var nodos = getElementsByClass('div-editor');
 				var mostrar =false;
 				for (var i=0; i< nodos.length; i++) {
@@ -289,18 +290,32 @@ class toba_editor
 			{
 			   	var id = (window.event) ? event.keyCode : e.keyCode;
 				if (id == 17) {
-					cambiar_vinculos_editor();
+					editor_cambiar_vinculos();
 				}
 			}
 			document.onkeyup = capturar
 		";
 		echo toba_js::cerrar();
-		$ayuda = 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página';
-		$html_ayuda = toba_recurso::ayuda(null, $ayuda);
-		echo "<div id='editor_toggle'>".
-				"<button type='button' onclick='cambiar_vinculos_editor()' $html_ayuda id='editor_boton'>".
-				toba_recurso::imagen_toba('editor-boton.png', true)."<br>Ctrl</button></div>";
-		self::javascript_invocacion_editor();
+		self::javascript_invocacion_editor();				
+		$html_ayuda_editor = toba_recurso::ayuda(null, 'Presionando la tecla CTRL se pueden ver los enlaces hacia los editores de los distintos componentes de esta página');
+		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
+		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
+		$solicitud = toba::solicitud()->get_id();
+		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro',
+															array('solicitud' => $solicitud));
+		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003');
+		echo "<div id='editor_previsualizacion'\n>".
+				"<a href='$link_logger' target='logger'>
+				<img $html_ayuda_logger border=0 src='".
+				toba_recurso::imagen_toba('logger_22.png', false)."' /></a>\n".		
+				"<a href='$link_cronometro' target='cronometro'>
+				<img $html_ayuda_cronometro border=0 src='".
+				toba_recurso::imagen_toba('reloj.png', false)."' /></a>\n";
+		echo	"<img onclick='editor_cambiar_vinculos()' $html_ayuda_editor src='".
+				toba_recurso::imagen_toba('editor-boton.png', false)."' />\n";
+		
+		echo "</div>";
+		
 		echo "<div class='div-editor'>";
 		foreach(self::get_vinculos_item($item) as $vinculo) {
 			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";

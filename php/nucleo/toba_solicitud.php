@@ -41,7 +41,6 @@ abstract class toba_solicitud
 		//---------- LOG de SOlICITUDES --------------------
 		//Se debe cronometrar la pagina?
 		if(toba::memoria()->usuario_solicita_cronometrar()){
-			$this->registrar_db = true;
 			$this->cronometrar = true;
 		}		
 		//-- Identifico si la solicitd se deber registrar
@@ -56,6 +55,11 @@ abstract class toba_solicitud
 		}*/
 
 		toba::cronometro()->marcar('SOLICITUD: Creacion',apex_nivel_nucleo);
+	}
+	
+	function set_cronometrar($cronometrar)
+	{
+		$this->cronometrar = $cronometrar;	
 	}
 	
 	/**
@@ -112,13 +116,13 @@ abstract class toba_solicitud
 	function registrar()	
 	{
 		if (count($this->observaciones) > 0) $this->registrar_db = true;
-		if( $this->registrar_db ) {
+		if( $this->registrar_db || $this->cronometrar) {
 			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Guardo solicitud
 			toba::instancia()->registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 													$this->info['basica']['item'], $this->get_tipo());
 			// Guardo cronometro
-			if($this->cronometrar){	
+			if ($this->cronometrar){	
 				toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
 			}
 			// Guardo observaciones
