@@ -164,7 +164,7 @@ class toba_instancia
 		}
 		return $rs[0];
 	}
-
+	
 	function get_lista_usuarios()
 	{
 		$sql = "SELECT 	u.usuario as usuario, 

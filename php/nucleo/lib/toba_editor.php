@@ -301,8 +301,7 @@ class toba_editor
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
 		$solicitud = toba::solicitud()->get_id();
-		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro',
-															array('solicitud' => $solicitud));
+		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro');
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003');
 		echo "<div id='editor_previsualizacion'\n>".
 				"<a href='$link_logger' target='logger'>

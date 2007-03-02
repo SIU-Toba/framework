@@ -23,7 +23,6 @@ abstract class toba_solicitud
 
 	function __construct($item, $usuario)	
 	{
-		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		$this->item = $item;
 		$this->usuario = $usuario;
 
@@ -54,7 +53,6 @@ abstract class toba_solicitud
 			$this->observar($this->info['basica']['item_solic_observacion'],$tipo);
 		}*/
 
-		toba::cronometro()->marcar('SOLICITUD: Creacion',apex_nivel_nucleo);
 	}
 	
 	function set_cronometrar($cronometrar)
@@ -72,7 +70,6 @@ abstract class toba_solicitud
 	 */
 	function cargar_objeto($clase,$posicion,$parametros=null)
 	{
-		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		//-[1]- El indice	es	valido?
 		if(!isset($this->indice_objetos[$clase][$posicion])){	
 			$this->observar(array("toba","error"),"SOLICITUD [get_id_objeto]: No EXISTE un OBJETO	asociado	al	indice [$clase][$posicion].",false,true,true);
@@ -85,7 +82,6 @@ abstract class toba_solicitud
 		$clave['componente'] = $this->info['objetos'][$posicion]['objeto'];
 		$this->objetos[$indice] = toba_constructor::get_runtime( $clave, $clase );
 
-		toba::cronometro()->marcar('SOLICITUD: Crear OBJETO	['. $this->info['objetos'][$posicion]['objeto']	.']',apex_nivel_nucleo);
 		$this->objetos_indice_actual++;
 		return $indice;
 	}	
@@ -117,7 +113,6 @@ abstract class toba_solicitud
 	{
 		if (count($this->observaciones) > 0) $this->registrar_db = true;
 		if( $this->registrar_db || $this->cronometrar) {
-			toba::cronometro()->marcar('SOLICITUD: Fin	del registro','nucleo');
 			// Guardo solicitud
 			toba::instancia()->registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 													$this->info['basica']['item'], $this->get_tipo());

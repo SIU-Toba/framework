@@ -92,6 +92,7 @@ class toba_nucleo
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
+		toba::cronometro()->marcar('Fin Acceso Web');
 		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}

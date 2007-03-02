@@ -63,6 +63,7 @@ class toba_cronometro
 	 */
 	function registrar($proyecto, $solicitud)
 	{
+		$this->marcar("Fin del cronómetro");
 		//dump_arbol($this->marcas);
 		$temp = $this->marcas[0]['t'];
 		for($f=0;$f<count($this->marcas);$f++)

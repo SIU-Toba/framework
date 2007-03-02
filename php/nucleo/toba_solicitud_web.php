@@ -30,9 +30,7 @@ class toba_solicitud_web extends toba_solicitud
 	function __construct($info)
 	{
 		$this->info = $info;
-		toba::cronometro()->marcar('basura',apex_nivel_nucleo);
 		parent::__construct(toba::memoria()->get_item_solicitado(), toba::usuario()->get_id());
-		toba::cronometro()->marcar('SOLICITUD WEB: Inicializacion (ZONA, VINCULADOR)',"nucleo");
 	}
 
 	/**
@@ -179,7 +177,6 @@ class toba_solicitud_web extends toba_solicitud
 	protected function servicio_pre__generar_html()
 	{
 		//--- Tipo de PAGINA
-		toba::cronometro()->marcar('SOLICITUD BROWSER: Pagina TIPO (cabecera) ',apex_nivel_nucleo);
 		if (isset($this->info['basica']['tipo_pagina_archivo'])) {
 			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
@@ -233,7 +230,6 @@ class toba_solicitud_web extends toba_solicitud
 		}
 		//--- Muestra la cola de mensajes
 		toba::notificacion()->mostrar();		
-		toba::cronometro()->marcar('SOLICITUD: Pagina TIPO (pie) ',apex_nivel_nucleo);
        	$this->tipo_pagina->pie();
 	}
 	

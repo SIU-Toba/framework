@@ -10,17 +10,26 @@ class ci_cronometro extends toba_ci
 	
 	function ini()
 	{
-
 		$solicitud = toba::memoria()->get_parametro("solicitud");
 		$proyecto = toba::memoria()->get_parametro("solicitud_proy");
-		if ($solicitud) {
-			$this->s__solicitud = $solicitud;	
-		}
+		
 		if ($proyecto) {
 			$this->s__proyecto = $proyecto;
 		} else {
-			$this->s__proyecto = toba_editor::get_proyecto_cargado();			
-		}
+			$this->s__proyecto = toba_editor::get_proyecto_cargado();
+		}		
+		if ($solicitud) {
+			$this->s__solicitud = $solicitud;	
+		} else {
+			//Consulta la ultima solicitud
+	        $sql = "SELECT max(solicitud) as ultima FROM apex_solicitud_cronometro
+	        		WHERE proyecto='{$this->s__proyecto}'";
+			$rs = toba::instancia()->get_db()->consultar_fila($sql);	
+			if (! empty($rs)) {
+				$this->s__solicitud = $rs['ultima'];
+			}
+		}	
+
 	}
 	
 	function get_solicitud()
