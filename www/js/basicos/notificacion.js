@@ -76,10 +76,18 @@ notificacion = new function() {
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
+		this.mostrar_ventana_modal(titulo, mensaje, 'Aceptar');
+	};
+	
+	notificacion.mostrar_ventana_modal = function(titulo, mensaje, boton, ancho) {
+		var contenedor = document.getElementById('overlay_contenido');	
+		if (isset(ancho)) {
+			contenedor.style.width = ancho;	
+		}	
+		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='"+ boton +"' onclick='overlay()'/></div>";
 		contenedor.innerHTML = '<div class="overlay-titulo">'+titulo+'</div>' + mensaje;
 		overlay();
-	};
+	}
 	
 	/**
 	 *	Muestra los mensajes usando un alert javascript
@@ -107,6 +115,7 @@ notificacion = new function() {
 		var encabezado = (hay_error) ? 'Se han encontrado los siguientes problemas:\n\n' : 'Atención:\n\n';
 		alert(encabezado + mensaje);
 	};
+	
 	notificacion.tipo_ventana = notificacion.ventana_modal;
 
 

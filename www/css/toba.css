@@ -69,6 +69,7 @@ body {
     height:100%;
 	background-color: #e9e8e8;
 }
+
 body > .div-esperar { position: fixed; }
 
 .ayuda {

@@ -76,7 +76,7 @@ class toba_editor
 			return self::$memoria['instancia'];
 		}
 	}
-
+	
 	static function get_base_activa()
 	{
 		if (self::activado()) {
@@ -157,6 +157,24 @@ class toba_editor
 			throw new toba_error("No esta definido el parametro 'grupo de acceso' del editor.");	
 		}
 	}
+	
+	/**
+	 * Retorna la URL base del proyecto editado, basandose en la URL del PA (puede no ser la real..)
+	 * @return unknown
+	 */
+	static function get_url_previsualizacion()
+	{
+		$pa = '';
+		if (isset(self::$memoria['previsualizacion']['punto_acceso'])) {
+			$pa = self::$memoria['previsualizacion']['punto_acceso'];
+		}
+		if (strpos($pa, '.php') !== false) {
+			return dirname($pa);
+		} else {
+			return $pa;	
+		}
+	}
+	
 
 	/**
 	*	Recuperar las propiedades y setearlas en la sesion

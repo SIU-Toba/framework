@@ -104,6 +104,9 @@ class toba_js
 							);
 		echo toba_js::abrir();
 		echo "var toba_alias='".toba_recurso::url_toba()."';\n";
+		if (toba_editor::activado()) {
+			echo 'var toba_proyecto_alias = "'.toba_editor::get_url_previsualizacion()."\";\n";	
+		}
 		echo "var toba_prefijo_vinculo=\"".toba::vinculador()->crear_autovinculo()."\";\n";
 		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
 		echo "var toba_hilo_separador='".apex_qs_separador."'\n";

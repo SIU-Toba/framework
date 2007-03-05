@@ -4,6 +4,37 @@
 #editor_previsualizacion {
 	display:none;
 }
+#editor_imagen_preview {
+	vertical-align: middle;
+	margin-left: 2px;	
+	cursor: pointer;
+	_cursor: hand;	
+}
+#editor_imagen_preview  img {
+	vertical-align: middle;
+}
+#editor_imagen_listado {
+	height: 300px; 
+	overflow:scroll;
+}
+#editor_imagen_listado img {
+	vertical-align: middle;
+}
+#editor_imagen_listado table {
+	width: 100%;
+}
+#editor_imagen_listado td {
+	text-align: center;
+	padding-top: 10px;
+	vertical-align: bottom;
+	cursor: pointer;
+	_cursor: hand;	
+}
+#editor_imagen_listado div {
+	font-size: 11px;
+	font-family: Tahoma, Arial, sans-serif;	
+	margin: 5px;
+}
 .ei-barra-sup-desc-barra {
 	background-color: transparent;
 }

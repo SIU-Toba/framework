@@ -863,12 +863,17 @@ class toba_ei_formulario extends toba_ei
 			$this->generar_etiqueta_ef($ef);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
 			echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
-			echo $this->elemento_formulario[$ef]->get_input();
+			$this->generar_input_ef($ef);
 			echo "</div>";
 			echo "</div>\n";
 		} else {		
 			echo $this->elemento_formulario[$ef]->get_input();
 		}
+	}
+	
+	function generar_input_ef($ef)
+	{
+		echo $this->elemento_formulario[$ef]->get_input();
 	}
 
 	
