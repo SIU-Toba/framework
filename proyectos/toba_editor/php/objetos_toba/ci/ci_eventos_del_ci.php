@@ -1,5 +1,6 @@
 <?php
 require_once("objetos_toba/ci_eventos.php");
+require_once("admin_util.php");
 
 /**
  * Wrapper del ci_eventos destinado a manejar las particularidades de un evento en un ci
@@ -52,6 +53,7 @@ class ci_eventos_del_ci extends ci_eventos
 			}
 		}
 	}
+	
 }
 
 ?>

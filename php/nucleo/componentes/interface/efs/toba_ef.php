@@ -410,6 +410,14 @@ abstract class toba_ef
 	}
 
 	/**
+	 * Obtiene la fila actual en el multiplexado en el ef (usado en el formulario_ml)
+	 */	
+	function get_fila_actual()
+	{
+		return $this->agregado_form;
+	}
+
+	/**
 	 * Cambia la etiqueta actual del ef
 	 * @param string $etiqueta
 	 */

@@ -38,19 +38,22 @@ class form_prop_basicas extends toba_ei_formulario
 			{$this->objeto_js}.evt__imagen__procesar = function(inicial) {
 				if (inicial) {
 					this.ef('imagen').input().onkeyup = this.ef('imagen').input().onblur;
-				}
-				var prefijo = '';
-				if (this.ef('imagen_recurso_origen').get_estado() == 'apex') {
-					prefijo = toba_alias + '/';
 				} else {
-					prefijo = toba_proyecto_alias + '/';
+					var prefijo = '';
+					if (this.ef('imagen_recurso_origen').get_estado() == 'apex') {
+						prefijo = toba_alias + '/';
+					} else {
+						if (toba_proyecto_alias != '') {
+							prefijo = toba_proyecto_alias + '/';
+						}
+					}
+					var imagen_src = prefijo + 'img/' + this.ef('imagen').get_estado();
+					$('editor_imagen_src').src= imagen_src;
 				}
-				var imagen_src = prefijo + 'img/' + this.ef('imagen').get_estado();
-				$('editor_imagen_src').src= imagen_src;
 			}
 			
 			
-			{$this->objeto_js}.elegir_imagen = function(respuesta) {
+			{$this->objeto_js}.elegir_imagen = function() {
 				var callback =
 				{
 				  success: this.respuesta_listado ,
@@ -81,14 +84,26 @@ class form_prop_basicas extends toba_ei_formulario
 	function generar_input_ef($ef)
 	{
 		if ($ef == 'imagen') {
+			echo "<div class='editor-imagen-preview'>";
 			$this->generar_input_ef('imagen_recurso_origen');	
-		}		
+		}
 		parent::generar_input_ef($ef);
 		if ($ef == 'imagen') {
-			$predeterminada = toba_recurso::imagen_toba('image-missing.png', false);
-			echo " <button id='editor_imagen_preview'
-						title='Elegir la imagen desde un listado' onclick='{$this->objeto_js}.elegir_imagen()'>
-					<img id='editor_imagen_src' src='$predeterminada' onError='this.src=\"$predeterminada\"'/></button>";
+			$predeterminada = toba_recurso::imagen_toba('image-missing-16.png', false);
+			$origen = $this->elemento_formulario['imagen_recurso_origen']->get_estado();
+			$img = $this->elemento_formulario[$ef]->get_estado();
+			if ($origen == 'apex') {
+				$actual = toba_recurso::imagen_toba($img);
+			} else {
+				$actual = toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado());
+				if ($actual != '') {
+					$actual .= '/';
+				}
+				$actual .= "img/$img";
+			}
+			echo "<img title='Elegir la imagen desde un listado' onclick='{$this->objeto_js}.elegir_imagen()'
+						id='editor_imagen_src' src='$actual' onError='this.src=\"$predeterminada\"'/></span>";
+			echo "</div>";
 		} 
 	}
 	

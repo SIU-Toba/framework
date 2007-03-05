@@ -237,6 +237,17 @@ class ci_creador_objeto extends toba_ci
 													$this->objeto_construido['objeto']);
 	}
 	
+	//------------------------------------------------------------------------
+	//-------------------------- SERVICIOS --------------------------
+	//------------------------------------------------------------------------
+
+	/**
+	 * Servicio de mostrar listado de imagenes para elegir
+	 */
+	static function servicio__ejecutar()
+	{
+		admin_util::generar_html_imagenes();	
+	}		
 }
 
 ?>

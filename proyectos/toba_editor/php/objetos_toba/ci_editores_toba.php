@@ -196,5 +196,18 @@ abstract class ci_editores_toba extends toba_ci
 		return call_user_func(array($this->info_actual,'get_eventos_internos'),	$this->get_entidad());
 	}
 	
+	
+	//------------------------------------------------------------------------
+	//-------------------------- SERVICIOS --------------------------
+	//------------------------------------------------------------------------
+
+	/**
+	 * Servicio de mostrar listado de imagenes para elegir
+	 */
+	static function servicio__ejecutar()
+	{
+		admin_util::generar_html_imagenes();	
+	}	
+	
 }
 ?>

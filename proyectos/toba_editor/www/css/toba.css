@@ -4,14 +4,16 @@
 #editor_previsualizacion {
 	display:none;
 }
-#editor_imagen_preview {
+.editor-imagen-preview {
 	vertical-align: middle;
-	margin-left: 2px;	
+	white-space: nowrap;
+}
+.editor-imagen-preview img {
 	cursor: pointer;
 	_cursor: hand;	
-}
-#editor_imagen_preview  img {
 	vertical-align: middle;
+	border: 1px solid gray;
+	padding: 2px;
 }
 #editor_imagen_listado {
 	height: 300px; 

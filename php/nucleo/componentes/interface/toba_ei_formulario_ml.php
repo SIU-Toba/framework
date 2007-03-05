@@ -743,7 +743,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->elemento_formulario[$ef]->ir_a_fila($fila);
 				$id_form = $this->elemento_formulario[$ef]->get_id_form();
 				echo "<td  class='$estilo_fila' id='cont_$id_form'>\n";
-				echo $this->elemento_formulario[$ef]->get_input();
+				$this->generar_input_ef($ef);
 				echo "</td>\n";
 			}
  			//---> Creo los EVENTOS de la FILA <---

@@ -61,5 +61,45 @@ class admin_util
 		$path_real = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
 		return file_exists($path_real) && is_file($path_real);
 	}
+	
+	static function generar_html_imagenes()
+	{
+		$src = toba::memoria()->get_parametro('imagen');
+		$origen = toba::memoria()->get_parametro('imagen_recurso_origen');
+		
+		if ($origen == 'apex') {
+			$dir = toba::instalacion()->get_path().'/www/img';	
+			$url = toba_recurso::url_toba();
+		} else {
+			$cargado = toba_editor::get_proyecto_cargado();
+			$dir = toba::instancia()->get_path_proyecto($cargado)."/www/img";
+			$url = toba_recurso::url_proyecto($cargado);
+		}
+		echo "<div id='editor_imagen_listado'>";
+		echo "<table>";
+		$archivos = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', false);
+		$columnas = 3;
+		$cant = 1;
+		$total = count($archivos);
+		foreach ($archivos as $archivo) {
+			if ($cant % $columnas == 1) {
+				echo "<tr>";
+			}
+			$relativo = substr($archivo, strlen($dir)+1);
+			echo "<td title='Seleccionar imagen' onclick='seleccionar_imagen(\"$relativo\")'>
+					<img  src='".$url."/img/".$relativo."' />
+					<div>$relativo</div>
+				</td>\n";
+			
+			if ($cant % $columnas == 0) {
+				echo "</tr>\n";
+			}			
+			$cant++;
+		}
+		if ($cant % $columnas != 0) {
+			echo "</tr>\n";
+		}
+		echo "</table></div>";
+	}
 }
 ?>
