@@ -408,8 +408,8 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 				$input_extra = '';
 			} else {
 				//---Caso solo-lectura	
-				$img = $ok ? 'checked.gif' : 'unchecked.gif';
-				$html .= toba_recurso::imagen_toba($img,true,16,16);
+				$img = $ok ? 'efcheck_on.gif' : 'efcheck_off.gif';
+				$html .= toba_recurso::imagen_toba('nucleo/'.$img,true,16,16);
 				if ($ok) {
 					$html .= "<input name='{$this->id_form}[]' id='$id' type='hidden' value='$clave'>";
 				}

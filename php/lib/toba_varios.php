@@ -403,7 +403,7 @@
 		}
 	}
 	
-	function enciptar_con_sal($clave, $metodo, $sal=null)
+	function encriptar_con_sal($clave, $metodo, $sal=null)
 	{
 	    if ($sal === null) {
 	        $sal = substr(md5(uniqid(rand(), true)), 0, 10);

@@ -26,11 +26,11 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?echo toba_recurso::imagen_toba("expandir.gif",false);?>';
+		imagen.src = '<?echo toba_recurso::imagen_proyecto("expandir.gif",false);?>';
 		frame_admin.cols = '8,*';
 		expandido = false;
 	} else {
-		imagen.src = '<?echo toba_recurso::imagen_toba("contraer.gif",false);?>';
+		imagen.src = '<?echo toba_recurso::imagen_proyecto("contraer.gif",false);?>';
 		frame_admin.cols = ancho_frame;
 		expandido = true;
 	}
@@ -61,7 +61,7 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_toba("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
+		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
 		 <? echo toba_recurso::imagen_toba("logo_barra_apex.gif",true)?>
 		 </td>
 
@@ -69,7 +69,7 @@ function abrir_toba_instancia(){
 <?
 		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
-        echo toba_form::image('cambiar',toba_recurso::imagen_toba('cambiar_proyecto.gif',false), $js_cambio);
+        echo toba_form::image('cambiar',toba_recurso::imagen_toba('refrescar.png',false), $js_cambio);
         echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$actual = toba_editor::get_proyecto_cargado();
@@ -146,7 +146,7 @@ function abrir_toba_instancia(){
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		<td class='listado-tabi'>
-        <a title='LOG de modificación de componentes' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("actividad_local.gif",true) ?></a>
+        <a title='LOG de modificación de componentes' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<? echo  apex_frame_lista ?>"><? echo toba_recurso::imagen_proyecto("actividad_local.gif",true) ?></a>
         </td>
 
 		<td class='listado-tabi'>

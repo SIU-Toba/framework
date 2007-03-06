@@ -66,7 +66,7 @@ class toba_parser_ayuda
 		}
 		
 		$url = toba_recurso::url_proyecto($proyecto)."/doc/api/$id.html#$anchor";
-		$img = toba_recurso::imagen_toba("api.gif", true);
+		$img = toba_recurso::imagen_proyecto("api.gif", true);
 		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}
@@ -80,7 +80,7 @@ class toba_parser_ayuda
 		}
 		
 		$url = toba_recurso::url_proyecto($proyecto)."/doc/api_js/$id.html#$anchor";
-		$img = toba_recurso::imagen_toba("api.gif", true);
+		$img = toba_recurso::imagen_proyecto("api.gif", true);
 		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}	

@@ -269,14 +269,24 @@ class info_item implements toba_nodo_arbol
 	function get_iconos()
 	{
 		$iconos = array();
+		$img_item = null;
+		if (isset($this->datos['basica']['item_imagen']) && $this->datos['basica']['item_imagen'] != ''
+					&& $this->datos['basica']['item_imagen_recurso_origen'] != '') {
+			if ($this->datos['basica']['item_imagen_recurso_origen'] == 'apex') {
+				$img_item = toba_recurso::imagen_toba($this->datos['basica']['item_imagen']);	
+			} else {
+				$img_item = toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado()).'/img/'.
+								$this->datos['basica']['item_imagen'];
+			}
+		}
 		if ($this->es_carpeta()) {
 			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/carpeta.gif", false),
+				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("items/carpeta.gif", false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
 		} else {
 			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/item.gif", false),
+				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("items/item.gif", false),
 				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
 				);
 				

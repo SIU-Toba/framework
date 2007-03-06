@@ -119,7 +119,7 @@ notificacion = new function() {
 	notificacion.tipo_ventana = notificacion.ventana_modal;
 
 
-function overlay() {
+function overlay(limpiar) {
 	el = document.getElementById("overlay");
 	var visible = (el.style.visibility == "visible");
 	if (ie) {
@@ -136,6 +136,9 @@ function overlay() {
 			boton.focus();
 			window.firstFocus = function() {};
 		}
+	} 
+	if (isset(limpiar) && limpiar) {
+		$('overlay_contenido').innerHTML = '';
 	}
 }
 

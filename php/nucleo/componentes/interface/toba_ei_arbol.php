@@ -345,7 +345,7 @@ class toba_ei_arbol extends toba_ei
 				}
 			}
 			if ($cant_plegados > 0) {
-				$img = toba_recurso::imagen_toba("expandir_izq.gif",true);
+				$img = toba_recurso::imagen_toba("nucleo/expandir_izq.gif",true);
 				$salida .= "<a href='#' style='padding-right:2px' onclick='toggle_nodo(this.nextSibling);return false'>$img</a>";
 				$salida .= "<span style='display:none'>$plegados</span>";
 			}

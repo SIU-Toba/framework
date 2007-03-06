@@ -329,7 +329,7 @@ class toba_editor
 				<img $html_ayuda_cronometro border=0 src='".
 				toba_recurso::imagen_toba('reloj.png', false)."' /></a>\n";
 		echo	"<img onclick='editor_cambiar_vinculos()' $html_ayuda_editor src='".
-				toba_recurso::imagen_toba('editor-boton.png', false)."' />\n";
+				toba_recurso::imagen_toba('edicion.png', false)."' />\n";
 		
 		echo "</div>";
 		

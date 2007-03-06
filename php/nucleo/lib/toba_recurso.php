@@ -44,7 +44,7 @@ class toba_recurso {
 
 	/**
 	 * Alias de imagen_Toba o imagen_proyecto dependiendo del origen
-	 * @param string $origen Si es 'apex' usa imagen_toba sino del proyecto
+	 * @param string $origen Si es 'apex' usa imagen_toba sino del proyecto actual
 	 */
 	static function imagen_de_origen($nombre, $origen)
 	{

@@ -37,6 +37,8 @@ class componente_item implements toba_componente_definicion
 						i.parametro_a as						item_parametro_a,	
 						i.parametro_b as						item_parametro_b,	
 						i.parametro_c as						item_parametro_c,
+						i.imagen_recurso_origen as				item_imagen_recurso_origen,
+						i.imagen as								item_imagen,
 						pt.clase_nombre	as						tipo_pagina_clase,
 						pt.clase_archivo as						tipo_pagina_archivo,
 						pt.include_arriba	as					item_include_arriba,	

@@ -28,7 +28,7 @@ class apdb_usuario_basicas extends toba_ap_tabla_db
 	protected function encriptar_clave($id, $metodo)
 	{
 		if ($metodo != 'md5') {
-			$this->datos[$id]['clave'] = enciptar_con_sal($this->datos[$id]['clave'], $metodo);
+			$this->datos[$id]['clave'] = encriptar_con_sal($this->datos[$id]['clave'], $metodo);
 		} else {
 			$this->datos[$id]['clave'] = hash($metodo, $id);			
 		}

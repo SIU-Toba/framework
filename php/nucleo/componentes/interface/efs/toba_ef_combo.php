@@ -286,8 +286,8 @@ class toba_ef_radio extends toba_ef_seleccion
 				$tab_index = '';
 			} else {
 				//--- Caso solo lectura
-				$img = ($es_actual) ? 'radio_checked.gif' : 'radio_unchecked.gif';
-				$html .= toba_recurso::imagen_toba($img,true,16,16);
+				$img = ($es_actual) ? 'efradio_on.gif' : 'efradio_off.gif';
+				$html .= toba_recurso::imagen_toba('nucleo/'.$img,true,16,16);
 			}
 			$html .= "$valor</label></td>\n";			
     		$i++;

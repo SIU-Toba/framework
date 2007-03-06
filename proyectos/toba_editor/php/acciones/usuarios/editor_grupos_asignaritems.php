@@ -67,10 +67,10 @@
 				<img src='<? echo toba_recurso::imagen_toba("items/carpeta.gif") ?>' border='0'>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='1px'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_toba("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='1px'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  width='450px' colspan='<? echo ($maximo-$nivel)?>'>&nbsp;&nbsp;<?=$item->get_nombre()?></td>
 	          <td  class='cat-arbol-carpeta-info'  width='1px'>

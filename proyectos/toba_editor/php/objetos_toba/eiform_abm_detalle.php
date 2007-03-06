@@ -142,7 +142,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 			}
 			
 			function seleccionar_imagen(path) {
-				overlay();
+				overlay(true);
 				var fila = {$this->objeto_js}.fila_con_imagen;
 				{$this->objeto_js}.ef('imagen').ir_a_fila(fila).set_estado(path);
 				{$this->objeto_js}.evt__imagen__procesar(false, fila);

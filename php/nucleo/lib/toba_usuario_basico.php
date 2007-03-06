@@ -31,7 +31,7 @@ class toba_usuario_basico extends toba_usuario
 				if ($algoritmo == 'md5') {
 					$clave = hash($algoritmo, $clave);
 				} else {
-					$clave = enciptar_con_sal($clave, $algoritmo, $datos_usuario['clave']);
+					$clave = encriptar_con_sal($clave, $algoritmo, $datos_usuario['clave']);
 				}
 			}
 			if( !($datos_usuario['clave'] === $clave) ) {

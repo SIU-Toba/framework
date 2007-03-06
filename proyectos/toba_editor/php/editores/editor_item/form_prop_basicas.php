@@ -74,7 +74,7 @@ class form_prop_basicas extends toba_ei_formulario
 			}
 			
 			function seleccionar_imagen(path) {
-				overlay();			
+				overlay(true);			
 				{$this->objeto_js}.ef('imagen').set_estado(path);
 				{$this->objeto_js}.evt__imagen__procesar(false);
 			}
