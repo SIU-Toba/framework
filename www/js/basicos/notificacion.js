@@ -82,12 +82,20 @@ notificacion = new function() {
 	
 	notificacion.mostrar_ventana_modal = function(titulo, mensaje, ancho, accion_cerrar) {
 		var contenedor = document.getElementById('overlay_contenido');	
+		if (! isset(accion_cerrar)) {
+			accion_cerrar = 'overlay()';	
+		}		
+		contenedor.onkeypress = function (e) {
+			if (!e) { e = window.event; }
+			var keycode = isset(e.wich) ? e.which : e.keyCode;
+			if (keycode == 27) {
+				eval(accion_cerrar);
+			}
+		}
 		if (isset(ancho)) {
 			contenedor.style.width = ancho;	
 		}
-		if (! isset(accion_cerrar)) {
-			accion_cerrar = 'overlay()';	
-		}
+
 		var img = '<img class="overlay-cerrar" title="Cerrar ventana" src="' + toba.imagen('cerrar') 
 					+ '" onclick="'	+ accion_cerrar + '" />';
 		contenedor.innerHTML = '<div class="overlay-titulo">' + img + titulo+'</div>' + mensaje;

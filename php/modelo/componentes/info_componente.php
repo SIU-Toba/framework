@@ -277,10 +277,12 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 				$ayuda = "<div class='editor-lista-vinculos'>";
 				foreach ($pantallas as $pantalla) {
 					$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
+					$origen = ($pantalla['imagen'] != '') ? $pantalla['imagen_recurso_origen'] : 'apex';
 					$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
+					$tag_img = ($origen == 'apex') ? toba_recurso::imagen_toba($img, true) : toba_recurso::imagen_proyecto($img, true);
 					$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
 								" title='".$pantalla['etiqueta']."'>".
-								toba_recurso::imagen_toba($img, true).
+								$tag_img.
 								'</a> ';
 				}
 				$ayuda .= "</div>";
@@ -342,7 +344,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		return array(
-			'imagen' => toba_recurso::imagen_toba($icono, false),
+			'imagen' => toba_recurso::imagen_proyecto($icono, false),
 			'ayuda' => 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 					   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
 			'vinculo' => "javascript: $js;",

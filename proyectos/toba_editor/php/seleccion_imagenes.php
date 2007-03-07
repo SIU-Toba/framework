@@ -74,8 +74,7 @@ class seleccion_imagenes
 			$objeto_js.respuesta_listado = function(resp) {
 				notificacion.mostrar_ventana_modal('Seleccione la imagen',
 								 resp.responseText, '400px', 'overlay(true)');
-				$('editor_imagen_filtro').focus();								 
-				
+				$('editor_imagen_filtro').focus();
 			}
 			
 			function filtrar_imagenes(actual)
@@ -103,6 +102,7 @@ class seleccion_imagenes
 	
 	static function generar_html_listado()
 	{
+		toba::memoria()->desactivar_reciclado();
 		$src = toba::memoria()->get_parametro('imagen');
 		$origen = toba::memoria()->get_parametro('imagen_recurso_origen');
 		
@@ -114,12 +114,20 @@ class seleccion_imagenes
 			$dir = toba::instancia()->get_path_proyecto($cargado)."/www/img";
 			$url = toba_recurso::url_proyecto($cargado);
 		}
-		echo "<div style='text-align: center'>";
-		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' />";
-		echo "</div>";
+		echo "<div id='editor_imagen_opciones'>";
+		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
+		echo "<label><input type='checkbox' /> Recursivo</label>";
+		echo "</div><hr>";
 		echo "<div id='editor_imagen_listado'>";
 		echo "<table>";
-		$archivos = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', false);
+		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', true);
+		$archivos = array();
+		foreach ($temp as $archivo) {
+			if (strpos($archivo, '/tabs/') === false) {
+				$archivos[] = $archivo;	
+			}
+		}
+		sort($archivos);
 		$columnas = 3;
 		$cant = 1;
 		$total = count($archivos);
@@ -128,9 +136,10 @@ class seleccion_imagenes
 				echo "<tr>";
 			}
 			$relativo = substr($archivo, strlen($dir)+1);
+			$archivo = basename($relativo);
 			echo "<td title='Seleccionar imagen' imagen='$relativo' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
 					<img  src='".$url."/img/".$relativo."' />
-					<div>$relativo</div>
+					<div>$archivo</div>
 				</td>\n";
 			
 			if ($cant % $columnas == 0) {

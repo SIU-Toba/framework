@@ -92,7 +92,7 @@ class toba_clase_datos
 
 	private function generar_php()
 	{
-		$php = "<?\n\n";
+		$php = "<?php\n\n";
 		$php .= "class $this->nombre\n{\n";
 		foreach ( $this->metodos as $metodo => $datos ) {
 			$php .= "\tstatic function $metodo()\n\t{\n";

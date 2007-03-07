@@ -424,7 +424,7 @@ class info_item implements toba_nodo_arbol
 		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "1000058", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		return array(
-			'imagen' => toba_recurso::imagen_toba($icono, false),
+			'imagen' => toba_recurso::imagen_proyecto($icono, false),
 			'ayuda' => 'Abrir el archivo PHP del ítem en el editor del escritorio.' .
 					   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
 			'vinculo' => "javascript: $js;",

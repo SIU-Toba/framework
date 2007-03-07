@@ -384,7 +384,8 @@ class nucleo extends elemento_modelo
 				SELECT
 					pant.identificador,
 					pant.etiqueta,
-					pant.imagen
+					pant.imagen,
+					pant.imagen_recurso_origen
 				FROM
 					apex_objeto_ci_pantalla pant
 				WHERE

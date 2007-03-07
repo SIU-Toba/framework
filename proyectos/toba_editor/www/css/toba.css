@@ -15,6 +15,10 @@
 	border: 1px solid gray;
 	padding: 2px;
 }
+#editor_imagen_opciones {
+	text-align: left;
+	vertical-align: middle;
+}
 #editor_imagen_listado {
 	height: 300px; 
 	overflow:scroll;
