@@ -115,7 +115,7 @@ class zona_objeto extends zona_editor
 			foreach($datos as $rs){
 				echo "<tr>";
 				//echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs["proyecto"]."&nbsp;</td>";
-				echo "<td  class='barra-obj-link' width='1%' >".toba_recurso::imagen_toba("items/item.gif",true)."</td>";
+				echo "<td  class='barra-obj-link' width='1%' >".toba_recurso::imagen_proyecto("item.gif",true)."</td>";
 				echo "<td  class='barra-obj-link' >[".$rs["item"]."] {$rs['nombre']}</td>";
 
 				echo "<td  class='barra-obj-link' width='5'>";

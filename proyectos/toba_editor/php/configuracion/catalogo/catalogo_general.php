@@ -23,7 +23,7 @@ class catalogo_general extends toba_nodo_basico
 		) );
 		//----------------------------------------------------------------------
 		$hijos[1] = new toba_nodo_basico('Tipo de Pagina', $this);
-		$hijos[1]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("tipo_pagina.gif", false),
+		$hijos[1]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("tipo_pagina.gif", false),
 										'ayuda' => null ) );
 		$hijos[1]->agregar_utileria(  array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
@@ -33,7 +33,7 @@ class catalogo_general extends toba_nodo_basico
 				) );
 		//----------------------------------------------------------------------
 		$hijos[2] = new toba_nodo_basico('Zona', $this);
-		$hijos[2]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("zona.gif", false),
+		$hijos[2]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("zona.gif", false),
 							'ayuda' => null ) );
 		$hijos[2]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),

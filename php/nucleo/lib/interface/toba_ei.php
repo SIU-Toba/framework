@@ -208,11 +208,11 @@
 					if(nodo.style.display == 'none'){
 						//Abrir
 						nodo.style.display = '';
-						img.src = '".toba_recurso::imagen_toba('arbol/contraer.gif', false)."';
+						img.src = '".toba_recurso::imagen_toba('nucleo/contraer.gif', false)."';
 					}else{
 						//Cerrar
 						nodo.style.display = 'none';
-						img.src = '".toba_recurso::imagen_toba('arbol/expandir.gif', false)."';
+						img.src = '".toba_recurso::imagen_toba('nucleo/expandir.gif', false)."';
 					}
 				}</script>";
 		}
@@ -240,9 +240,9 @@
 		$id++;
 		$display = ($colapsado)? "style='display:none'" : '';//Mostrar el arbol colapsado de entrada?
 		if($colapsado){
-			$imagen = toba_recurso::imagen_toba('arbol/expandir.gif', false);
+			$imagen = toba_recurso::imagen_toba('nucleo/expandir.gif', false);
 		}else{
-			$imagen = toba_recurso::imagen_toba('arbol/contraer.gif', false); 
+			$imagen = toba_recurso::imagen_toba('nucleo/contraer.gif', false); 
 		}
 		echo "<table width='100%' class='tabla-0'>\n";
 		foreach( $nivel as $valor => $contenido )

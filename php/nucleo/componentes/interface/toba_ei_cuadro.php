@@ -1367,7 +1367,7 @@ class toba_ei_cuadro extends toba_ei
 				$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
 				$evento_js = toba_js::evento('ordenar', $this->eventos['ordenar'], $parametros);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
-			    $src = toba_recurso::imagen_toba("sentido_". $sen[0] . $sel . ".gif");
+			    $src = toba_recurso::imagen_toba("nucleo/sentido_". $sen[0] . $sel . ".gif");
 				echo toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
 			}
 			echo "</span>";			

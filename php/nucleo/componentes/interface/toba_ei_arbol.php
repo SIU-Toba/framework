@@ -240,9 +240,9 @@ class toba_ei_arbol extends toba_ei
 		$salida .= $this->mostrar_utilerias($nodo);
 		if ($this->mostrar_propiedades_nodos && ! $nodo->es_hoja()) {
 			if ($es_visible) {
-				$img_exp_contr = toba_recurso::imagen_toba('arbol/contraer.gif', false); 
+				$img_exp_contr = toba_recurso::imagen_toba('nucleo/contraer.gif', false); 
 			} else {
-				$img_exp_contr = toba_recurso::imagen_toba('arbol/expandir.gif', false);
+				$img_exp_contr = toba_recurso::imagen_toba('nucleo/expandir.gif', false);
 			}
 			$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
 						 class='ei-arbol-exp-contr'> ";

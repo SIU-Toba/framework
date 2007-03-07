@@ -25,11 +25,10 @@ class pant_definicion extends pant_tutorial
 
 	function generar_layout()
 	{
-		$icono = toba_recurso::imagen_toba('items/item.gif', true);				
 		echo "
 			<p>
 			Si se piensa la aplicación como un <em>Catálogo de operaciones</em>, cada una de estas operaciones
-			se la puede pensar como un $icono <strong>ítem</strong> de este catálogo. Para una mejor organización de estos ítems se los incluye en <em>carpetas</em>, conformando
+			se la puede pensar como un <strong>ítem</strong> de este catálogo. Para una mejor organización de estos ítems se los incluye en <em>carpetas</em>, conformando
 			un árbol. Por ejemplo se puede definir el siguiente árbol de ítems en el editor:
 			</p>
 		";

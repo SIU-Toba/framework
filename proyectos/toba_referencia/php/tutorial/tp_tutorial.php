@@ -45,7 +45,7 @@ class tp_tutorial extends tp_referencia
 				font-size: 1.5em; 
 			}
 			.lista-separada {
-				list-style-image: url('<?php echo toba_recurso::imagen_toba('archivos/carpeta.gif'); ?>');
+				list-style-image: url('<?php echo toba_recurso::imagen_toba('nucleo/carpeta.gif'); ?>');
 			}
 			.lista-separada li {
 				margin-top: 10px;

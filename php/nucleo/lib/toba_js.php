@@ -98,8 +98,8 @@ class toba_js
 							'minimizar' => toba_recurso::imagen_toba('sentido_asc_sel.gif', false),
 							'expandir'  => toba_recurso::imagen_toba('nucleo/expandir_vert.gif', false),
 							'contraer'  => toba_recurso::imagen_toba('nucleo/contraer_vert.gif', false),
-							'expandir_nodo' => toba_recurso::imagen_toba('arbol/expandir.gif', false),
-							'contraer_nodo' => toba_recurso::imagen_toba('arbol/contraer.gif', false),
+							'expandir_nodo' => toba_recurso::imagen_toba('nucleo/expandir.gif', false),
+							'contraer_nodo' => toba_recurso::imagen_toba('nucleo/contraer.gif', false),
 							'esperar' => toba_recurso::imagen_toba('wait.gif', false),
 							'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
 							);

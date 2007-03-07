@@ -242,16 +242,6 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 				'imagen' => toba_recurso::imagen_toba($this->datos['info']['clase_icono'], false),
 				'ayuda' => "Objeto [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
 			);	
-		if(isset($this->datos['info']['instanciador_item'])) {
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/simular.gif", false),
-				'ayuda' => "Simula la ejecución de este ".$this->datos_clase['clase'],
-				'vinculo' => toba::vinculador()->generar_solicitud($this->datos['info']['clase_instanciador_proyecto'],
-																		$this->datos['info']['clase_instanciador_item'],
-																		$this->acceso_zona(),
-																		false, false, null, true, "central")
-			);	
-		}
 		return $iconos;
 	}
 	

@@ -186,7 +186,7 @@ toba::logger()->trace();
 			</p>
 		";
 		echo mostrar_php($codigo);
-		$img1 = toba_recurso::imagen_toba('admin/logger.gif', true);
+		$img1 = toba_recurso::imagen_toba('logger.gif', true);
 		$img2 = toba_recurso::imagen_proyecto('tutorial/logger.png', true);
 		echo "
 			<p>

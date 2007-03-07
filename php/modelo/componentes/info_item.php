@@ -27,7 +27,7 @@ class info_item implements toba_nodo_arbol
 			$this->cargar_dependencias();
 		}
 		if($this->es_de_menu()) {
-			$this->info_extra .= toba_recurso::imagen_toba("items/menu.gif",true)." - Está incluído en el MENU";
+			$this->info_extra .= toba_recurso::imagen_proyecto("menu.gif",true)." - Está incluído en el MENU";
 		}
 	}
 
@@ -281,23 +281,23 @@ class info_item implements toba_nodo_arbol
 		}
 		if ($this->es_carpeta()) {
 			$iconos[] = array(
-				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("items/carpeta.gif", false),
+				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("nucleo/carpeta.gif", false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
 		} else {
 			$iconos[] = array(
-				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("items/item.gif", false),
+				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_proyecto("item.gif", false),
 				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
 				);
 				
 			if ($this->es_de_consola()) {
 				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_toba("solic_consola.gif",false),
+								'imagen' => toba_recurso::imagen_proyecto("solic_consola.gif",false),
 								'ayuda' => 'Solicitud de Consola'
 							);
 			} elseif($this->get_tipo_solicitud()=="wddx") {
 				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_toba("solic_wddx.gif",false),
+								'imagen' => toba_recurso::imagen_proyecto("solic_wddx.gif",false),
 								'ayuda' => 'Solicitud WDDX'
 							);
 			}
@@ -343,7 +343,7 @@ class info_item implements toba_nodo_arbol
 			// Ordenamiento, Nueva carpeta, nuevo item
 /*			
 			$utilerias[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/carpeta_ordenar.gif", false),
+				'imagen' => toba_recurso::imagen_toba("ordenar.gif", false),
 				'ayuda'=> "Ordena alfabéticamente los items incluídos en esta CARPETA",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_ordenar", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()) )
@@ -388,7 +388,7 @@ class info_item implements toba_nodo_arbol
 				$this->get_tipo_solicitud() != 'consola' &&
 				$this->get_tipo_solicitud() !="wddx") {
 			$utilerias[] = array(
-							'imagen' => toba_recurso::imagen_toba("items/instanciar.gif",false),
+							'imagen' => toba_recurso::imagen_toba("instanciar.gif",false),
 							'ayuda' => 'Ejecutar el ITEM',
 							'vinculo' => $this->vinculo_ejecutar()
 						);			

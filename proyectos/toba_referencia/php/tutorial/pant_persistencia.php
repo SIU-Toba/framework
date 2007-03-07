@@ -269,7 +269,7 @@ class pant_carga extends pant_tutorial
 	function generar_layout()
 	{
 		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-carga.png');
-		$logger = toba_recurso::imagen_toba('admin/logger.gif', true);
+		$logger = toba_recurso::imagen_toba('logger.gif', true);
 		echo "
 			<img style='float:right;padding: 10px;' src='$img'>
 			<p>
@@ -512,7 +512,7 @@ class pant_sincronizacion extends pant_tutorial
 	function generar_layout()
 	{
 		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-sincronizacion.png');
-		$logger = toba_recurso::imagen_toba('admin/logger.gif', true);		
+		$logger = toba_recurso::imagen_toba('logger.gif', true);		
 		echo "
 			<img style='float:right;padding: 10px;' src='$img'>
 			<p>

@@ -52,7 +52,7 @@ class toba_parser_ayuda
 			$id = substr($id, 0, strpos($id, '#'));
 		}
 		$url = toba_recurso::url_proyecto($proyecto)."/doc/wiki/trac/toba/wiki/$id.html#$anchor";
-		$img = toba_recurso::imagen_toba("wiki.gif", true);
+		$img = toba_recurso::imagen_proyecto("wiki.gif", true);
 		$tag = "<a href=$url target=wiki>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}

@@ -83,7 +83,7 @@ function abrir_toba_instancia(){
 		echo "</td>";		
 
 		echo "<td class='listado-barra-superior-tabi'>";
-		$img = toba_recurso::imagen_toba('items/instanciar.gif', true);
+		$img = toba_recurso::imagen_toba('instanciar.gif', true);
 		echo "<a title='Previsualiza el proyecto' href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
 		echo "</td>";		
 ?>
@@ -92,7 +92,7 @@ function abrir_toba_instancia(){
 <?
 	$parametros = array();
 	$html_extra = array('id' => 'vinculo_logger',
-						'imagen' => 'admin/logger.gif',
+						'imagen' => 'logger.gif',
 						'imagen_recurso_origen' => 'apex',
 						'tipo' => 'popup',
 						'inicializacion' => '615,450,1,1',
@@ -131,7 +131,7 @@ function abrir_toba_instancia(){
 
 		<td><? echo gif_nulo(3,1) ?></td>
 
-		 <td class='listado-tabi'><? echo toba_recurso::imagen_toba("items/item.gif",true) ?></td>
+		 <td class='listado-tabi'><? echo toba_recurso::imagen_proyecto("item.gif",true) ?></td>
 		 <td class='listado-tabn' <? echo $js_cambiar_color_1 ?> >
 		<a title="Listado de Operaciones disponibles en el Proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<? echo  apex_frame_lista ?>">ITEMS</a>
 		</td>
@@ -156,7 +156,7 @@ function abrir_toba_instancia(){
 		<td><? echo gif_nulo(3,1) ?></td>
 
 		<td class='listado-tabi'>
-		<a title="Configuración de la previsualización del proyecto" href="<? echo toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3287', array('menu'=>true, 'celda'=>'central') ) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_toba("items/config_previsualizacion.gif",true) ?></a>
+		<a title="Configuración de la previsualización del proyecto" href="<? echo toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3287', array('menu'=>true, 'celda'=>'central') ) ?>" class="list-obj" target="<? echo  apex_frame_centro ?>"><? echo toba_recurso::imagen_proyecto("config_previsualizacion.gif",true) ?></a>
 		</td>
 
 		<td class='listado-tabi'>
