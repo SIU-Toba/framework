@@ -913,6 +913,11 @@ a.ci-tabs-boton-desact:hover {
 	border-bottom: 1px solid gray;	
 	font-weight: bold;
 }
+.overlay-cerrar {
+	float:right;
+	cursor: pointer;
+	_cursor: hand;
+}
 .overlay-botonera {
 	padding-top: 10px;
 	margin-top: 10px;

@@ -2,6 +2,7 @@
 require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('modelo/consultas/dao_permisos.php');
 require_once('admin_util.php');
+require_once('seleccion_imagenes.php');
 //----------------------------------------------------------------
 
 class ci_principal extends toba_ci
@@ -247,7 +248,7 @@ class ci_principal extends toba_ci
 	 */
 	function servicio__ejecutar()
 	{
-		admin_util::generar_html_imagenes();
+		seleccion_imagenes::generar_html_listado();
 	}
 }
 

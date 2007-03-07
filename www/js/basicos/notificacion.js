@@ -76,16 +76,21 @@ notificacion = new function() {
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		this.mostrar_ventana_modal(titulo, mensaje, 'Aceptar');
+		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
+		this.mostrar_ventana_modal(titulo, mensaje);
 	};
 	
-	notificacion.mostrar_ventana_modal = function(titulo, mensaje, boton, ancho) {
+	notificacion.mostrar_ventana_modal = function(titulo, mensaje, ancho, accion_cerrar) {
 		var contenedor = document.getElementById('overlay_contenido');	
 		if (isset(ancho)) {
 			contenedor.style.width = ancho;	
-		}	
-		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='"+ boton +"' onclick='overlay()'/></div>";
-		contenedor.innerHTML = '<div class="overlay-titulo">'+titulo+'</div>' + mensaje;
+		}
+		if (! isset(accion_cerrar)) {
+			accion_cerrar = 'overlay()';	
+		}
+		var img = '<img class="overlay-cerrar" title="Cerrar ventana" src="' + toba.imagen('cerrar') 
+					+ '" onclick="'	+ accion_cerrar + '" />';
+		contenedor.innerHTML = '<div class="overlay-titulo">' + img + titulo+'</div>' + mensaje;
 		overlay();
 	}
 	

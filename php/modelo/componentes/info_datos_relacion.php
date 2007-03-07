@@ -43,7 +43,7 @@ class info_datos_relacion extends info_componente
 				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
-																			'php_ap.gif' );
+																			'nucleo/php_ap.gif' );
 				$iconos[] = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
@@ -52,7 +52,7 @@ class info_datos_relacion extends info_componente
 				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
-																			'php_ap_inexistente.gif',
+																			'nucleo/php_ap_inexistente.gif',
 																			false );
 			}
 		}		

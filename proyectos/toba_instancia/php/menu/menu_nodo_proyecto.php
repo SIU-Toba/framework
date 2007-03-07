@@ -14,7 +14,7 @@ class menu_nodo_proyecto extends toba_nodo_basico
 		$this->target = $target;
 		$this->datos = consultas_instancia::get_datos_proyecto($this->proyecto);
 		//----------- OPCIONES --------------------
-		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("Proyecto.gif", false),
+		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("nucleo/proyecto.gif", false),
 									'ayuda' => null ) );
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = $this->celda;

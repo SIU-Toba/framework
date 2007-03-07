@@ -264,7 +264,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 				$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 			} else {
-				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'php_inexistente.gif', false);
+				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'nucleo/php_inexistente.gif', false);
 			}
 		}
 		// Instanciador
@@ -362,7 +362,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 		);
 	}
 
-	static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'php.gif', $plegado = true)
+	static function get_utileria_editor_ver_php($id_componente, $subcomponente=null, $icono = 'nucleo/php.gif', $plegado = true)
 	{
 		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);//validar' => false,

@@ -14,7 +14,7 @@ class toba_menu_css extends toba_menu
 	
 	function __construct()
 	{
-		$this->imagen_nodo = toba_recurso::imagen_toba('menu_nodo_css.gif', false);
+		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
 	}
 	
 	

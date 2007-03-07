@@ -1,6 +1,7 @@
 <?php
 require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('admin_util.php');
+require_once('seleccion_imagenes.php');
 
 abstract class ci_editores_toba extends toba_ci
 {
@@ -206,7 +207,7 @@ abstract class ci_editores_toba extends toba_ci
 	 */
 	static function servicio__ejecutar()
 	{
-		admin_util::generar_html_imagenes();	
+		seleccion_imagenes::generar_html_listado();
 	}	
 	
 }

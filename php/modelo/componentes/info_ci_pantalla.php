@@ -113,7 +113,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			$this->datos['identificador'],
-																			'php_inexistente.gif',
+																			'nucleo/php_inexistente.gif',
 																			false );
 			}
 		}

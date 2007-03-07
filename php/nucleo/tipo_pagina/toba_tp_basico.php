@@ -69,7 +69,7 @@ class toba_tp_basico extends toba_tipo_pagina
 		?>
 		<style type="text/css">
 			#overlay {
-				background-image:url(<?=toba_recurso::imagen_toba('overlay.gif', false);?>);     			
+				background-image:url(<?=toba_recurso::imagen_toba('nucleo/overlay.gif', false);?>);     			
 			}
 		</style>			
 		<?php

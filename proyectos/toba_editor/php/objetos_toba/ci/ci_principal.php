@@ -294,7 +294,7 @@ class ci_editor extends ci_editores_toba
 																			$this->s__pantalla_php_db[$id_actual]);
 				$obj->set_js_abrir($abrir['js']);
 			} else {
-				$obj->evento('ver_php')->set_imagen('php_inexistente.gif');
+				$obj->evento('ver_php')->set_imagen('nucleo/php_inexistente.gif');
 				$obj->eliminar_evento('abrir_php');
 			}
 		}

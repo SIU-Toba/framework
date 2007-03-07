@@ -327,7 +327,7 @@ class info_item implements toba_nodo_arbol
 			}
 			if ( $this->posee_accion_predefinida() && ! $this->existe_php_accion() ) {
 				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("php_inexistente.gif", false),
+					'imagen' => toba_recurso::imagen_toba("nucleo/php_inexistente.gif", false),
 					'ayuda'=> "Existe un PHP plano asociado al item, pero el archivo no existe en el path especificado."
 				);				
 			}
@@ -434,7 +434,7 @@ class info_item implements toba_nodo_arbol
 		);
 	}
 	
-	static function get_utileria_editor_ver_php($id_componente, $icono = 'php.gif')
+	static function get_utileria_editor_ver_php($id_componente, $icono = 'nucleo/php.gif')
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);

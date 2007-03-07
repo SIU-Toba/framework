@@ -46,7 +46,7 @@ class zona_objeto extends zona_editor
 			if ( !admin_util::existe_archivo_subclase($this->editable_info['subclase_archivo']) ) {
 				// Ir al editor
 				$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
-																			'componente' =>$componente[1] ), null, 'php_inexistente.gif');
+																			'componente' =>$componente[1] ), null, 'nucleo/php_inexistente.gif');
 				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			} else {
 				// Ir al editor

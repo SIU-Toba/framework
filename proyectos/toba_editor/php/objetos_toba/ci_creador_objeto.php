@@ -2,6 +2,7 @@
 require_once('modelo/consultas/dao_editores.php');
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
+require_once('seleccion_imagenes.php');
 //----------------------------------------------------------------
 class ci_creador_objeto extends toba_ci
 {
@@ -246,7 +247,7 @@ class ci_creador_objeto extends toba_ci
 	 */
 	static function servicio__ejecutar()
 	{
-		admin_util::generar_html_imagenes();	
+		seleccion_imagenes::generar_html_listado();
 	}		
 }
 

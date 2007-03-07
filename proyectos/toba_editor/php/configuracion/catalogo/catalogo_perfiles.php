@@ -12,7 +12,7 @@ class catalogo_perfiles extends toba_nodo_basico
 			$hijos[] = new catalogo_perfiles_grupo( $this, $grupo['usuario_grupo_acc'], $grupo['nombre'] );
 		}
 		$this->set_hijos( $hijos );
-		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("preferencias.gif", false),
+		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("nucleo/preferencias.gif", false),
 							'ayuda' => 'Administrar GRUPOS de ACCESO' ) );
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = 'central';

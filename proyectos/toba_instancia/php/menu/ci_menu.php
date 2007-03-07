@@ -23,7 +23,7 @@ class ci_menu extends toba_ci
 		$opciones['celda_memoria'] = $celda;
 		// nodo USUARIOS
 		$nodo_usuarios = new toba_nodo_basico('Usuarios ['. consultas_instancia::get_cantidad_usuarios() .']');
-		$nodo_usuarios->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("preferencias.gif", false),
+		$nodo_usuarios->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("nucleo/preferencias.gif", false),
 											'ayuda' => 'Administrar USUARIOS' ) );
 		$nodo_usuarios->agregar_utileria( array(
 							'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),

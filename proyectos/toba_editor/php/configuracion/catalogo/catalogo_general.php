@@ -13,7 +13,7 @@ class catalogo_general extends toba_nodo_basico
 		$opciones['celda_memoria'] = 'central';
 		//----------------------------------------------------------------------
 		$hijos[0] = new toba_nodo_basico('Propiedades', $this);
-		$hijos[0]->agregar_icono(  array( 'imagen' => 	toba_recurso::imagen_toba("proyecto.gif", false),
+		$hijos[0]->agregar_icono(  array( 'imagen' => 	toba_recurso::imagen_toba("nucleo/proyecto.gif", false),
 							'ayuda' => null ));
 		$hijos[0]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
