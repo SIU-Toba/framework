@@ -75,7 +75,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<strong>Niveles</strong>";
 		echo "<ul class='logger-opciones'>";
 		foreach ($niveles as $nivel) {
-			$img = toba_recurso::imagen_toba('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
+			$img = toba_recurso::imagen_proyecto('logger/'.strtolower($nivel).'.gif', true, null, null, "Filtrar el nivel: $nivel");
 			$cant = ($cant_por_nivel[$nivel] != 0) ? "[{$cant_por_nivel[$nivel]}]" : "";
 			echo "<li id='nivel_$nivel'><a href='#' onclick='mostrar_nivel(\"$nivel\")'>$img</a> ";
 			echo "<span id='nivel_cant_$nivel'>$cant</span></li>\n";	
@@ -83,7 +83,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "</ul>";
 		echo "</div>";
 /*****	MOCKUP de la eleccion de un proyecto especifico		
- 		echo toba_recurso::imagen_toba('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
+ 		echo toba_recurso::imagen_proyecto('logger/ver_texto.gif', true, 16, 16, "Ver el texto original del log");* 
 		echo "<div style='clear:both;float:right;margin-left:10px;text-align:center;'><br>";		
 		echo "<strong>Proyectos</strong>";
 		echo "<ul id='logger_proyectos' class='logger-opciones'>";
@@ -129,7 +129,7 @@ class pantalla_visor extends toba_ei_pantalla
 				$clase = "logger-seccion";
 			//Es normal
 			} else {
-				$img = toba_recurso::imagen_toba('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
+				$img = toba_recurso::imagen_proyecto('logger/'.strtolower($linea['nivel']).'.gif', true, null, null);
 				$clase = "logger-normal";	
 			}
 			$detalle .= "<li class='$clase' nivel='{$linea['nivel']}' proyecto='{$linea['proyecto']}'>";
@@ -232,7 +232,7 @@ class pantalla_visor extends toba_ei_pantalla
 					var li_nivel = document.getElementById('nivel_' + niveles[i]);
 					var src_actual = li_nivel.childNodes[0].childNodes[0].src;
 					var diff = (mostrar_todos || niveles_actuales[niveles[i]]) ? '' : '_des';
-					var src_nuevo = toba_alias + '/img/logger/' + nivel_min + diff + '.gif';
+					var src_nuevo = toba_proyecto_alias + 'img/logger/' + nivel_min + diff + '.gif';
 					if (src_actual != src_nuevo) {
 						li_nivel.childNodes[0].childNodes[0].src = src_nuevo;
 					}

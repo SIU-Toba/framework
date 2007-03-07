@@ -350,7 +350,7 @@ class info_item implements toba_nodo_arbol
 			);
 */
 			$utilerias[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/carpeta_nuevo.gif", false),
+				'imagen' => toba_recurso::imagen_toba("nucleo/carpeta_nueva.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_propiedades", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),

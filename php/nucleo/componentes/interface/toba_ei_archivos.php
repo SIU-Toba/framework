@@ -171,7 +171,7 @@ class toba_ei_archivos extends toba_ei
 		$this->generar_html_barra_sup("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
 		echo "<div style=''>\n";
 		
-		$img_crear_carpeta = toba_recurso::imagen_toba('nucleo/carpeta_nueva.gif', true);
+		$img_crear_carpeta = toba_recurso::imagen_toba('nucleo/carpeta_nueva_24.gif', true);
 		$img_crear_archivo = toba_recurso::imagen_toba('nucleo/archivo_nuevo.gif', true);
 
 		echo $this->get_html_barra_editor();
