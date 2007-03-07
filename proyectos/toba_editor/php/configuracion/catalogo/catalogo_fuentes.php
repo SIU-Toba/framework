@@ -17,7 +17,7 @@ class catalogo_fuentes extends toba_nodo_basico
 		$opciones['celda_memoria'] = 'central';
 
 		$this->agregar_utileria( array(
-			'imagen' => toba_recurso::imagen_toba("nucleo/ml/agregar.gif", false),
+			'imagen' => toba_recurso::imagen_toba("nucleo/agregar.gif", false),
 			'ayuda' => 'Crear FUENTE de DATOS',
 			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/datos/fuente', null, $opciones ),
 			'target' => apex_frame_centro

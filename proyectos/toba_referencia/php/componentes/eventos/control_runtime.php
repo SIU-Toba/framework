@@ -33,7 +33,7 @@ class control_runtime extends toba_ci
 	{
 		if ( $this->modificar ) {
 			if ( $fila === 1 ) {
-				$evento->set_imagen('nucleo/ml/agregar.gif');
+				$evento->set_imagen('nucleo/agregar.gif');
 				$evento->set_etiqueta($this->datos[$fila]['desc']);
 			} else {
 				$evento->anular();
@@ -50,7 +50,7 @@ class control_runtime extends toba_ci
 	{
 		if ( $this->modificar ) {
 			if ( $fila === 1 ) {
-				$evento->set_imagen('nucleo/ml/agregar.gif');
+				$evento->set_imagen('nucleo/agregar.gif');
 			}
 			$evento->set_etiqueta($this->datos[$fila]['desc']);
 		}
