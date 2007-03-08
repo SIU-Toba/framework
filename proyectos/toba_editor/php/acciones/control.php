@@ -21,7 +21,9 @@
 ?>
 <script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
-var ancho_frame = frame_admin.cols;
+if (frame_admin) {
+	var ancho_frame = frame_admin.cols;
+}
 var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
@@ -69,7 +71,9 @@ function abrir_toba_instancia(){
 <?
 		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
-        echo toba_form::image('cambiar',toba_recurso::imagen_toba('refrescar.png',false), $js_cambio);
+		echo "<a href='#' $js_cambio>";
+		echo toba_recurso::imagen_toba('refrescar.png',true);
+		echo "</a>";
         echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$actual = toba_editor::get_proyecto_cargado();
@@ -83,7 +87,7 @@ function abrir_toba_instancia(){
 		echo "</td>";		
 
 		echo "<td class='listado-barra-superior-tabi'>";
-		$img = toba_recurso::imagen_toba('instanciar.gif', true);
+		$img = toba_recurso::imagen_toba('instanciar.png', true);
 		echo "<a title='Previsualiza el proyecto' href='javascript: top.frame_control.editor.previsualizar()'>$img</a>";
 		echo "</td>";		
 ?>
@@ -108,7 +112,7 @@ function abrir_toba_instancia(){
          
          <td class='listado-tabi'>
         <a title='Página inicial del editor' href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<? echo  apex_frame_centro ?>">
-		 <? echo toba_recurso::imagen_toba("home.gif",true) ?></a></td>
+		 <? echo toba_recurso::imagen_toba("home.png",true) ?></a></td>
 
 		<td class='listado-tabi'>
 		<a title="Administracion de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>

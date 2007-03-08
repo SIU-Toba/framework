@@ -13,6 +13,7 @@ class toba_js
 	private static $cargados = array();
 	private static $comprimido_cargado = false;
 	protected $nivel_identado = 0;
+	private static $basicos_cargados = false;
 	private static $consumos_compr = array('componentes/', 'efs/', 'basicos/');
 	private static $consumos_basicos = array(
 						'basicos/basico', 'basicos/toba', 'utilidades/datadumper', 
@@ -92,36 +93,48 @@ class toba_js
 	 */
 	static function cargar_consumos_basicos()
 	{
-		$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
-							'info' => toba_recurso::imagen_toba('info_chico.gif', false), 
-							'maximizar' => toba_recurso::imagen_toba('sentido_des_sel.gif', false), 
-							'minimizar' => toba_recurso::imagen_toba('sentido_asc_sel.gif', false),
-							'expandir'  => toba_recurso::imagen_toba('nucleo/expandir_vert.gif', false),
-							'contraer'  => toba_recurso::imagen_toba('nucleo/contraer_vert.gif', false),
-							'expandir_nodo' => toba_recurso::imagen_toba('nucleo/expandir.gif', false),
-							'contraer_nodo' => toba_recurso::imagen_toba('nucleo/contraer.gif', false),
-							'esperar' => toba_recurso::imagen_toba('wait.gif', false),
-							'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
-							);
-		echo toba_js::abrir();
-		echo "var toba_alias='".toba_recurso::url_toba()."';\n";
-		if (toba_editor::activado()) {
-			echo 'var toba_proyecto_alias = "'.toba_editor::get_url_previsualizacion()."\";\n";	
+		if (! self::$basicos_cargados) {
+			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
+								'info' => toba_recurso::imagen_toba('info_chico.gif', false), 
+								'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false), 
+								'minimizar' => toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false),
+								'expandir'  => toba_recurso::imagen_toba('nucleo/expandir_vert.gif', false),
+								'contraer'  => toba_recurso::imagen_toba('nucleo/contraer_vert.gif', false),
+								'expandir_nodo' => toba_recurso::imagen_toba('nucleo/expandir.gif', false),
+								'contraer_nodo' => toba_recurso::imagen_toba('nucleo/contraer.gif', false),
+								'esperar' => toba_recurso::imagen_toba('wait.gif', false),
+								'cerrar' => toba_recurso::imagen_toba('nucleo/cerrar_ventana.gif', false),
+								);
+			echo toba_js::abrir();
+			echo "var toba_alias='".toba_recurso::url_toba()."';\n";
+			echo "var toba_proyecto_alias='".toba_recurso::url_proyecto()."';\n";
+			if (toba_editor::activado()) {
+				echo 'var toba_proyecto_editado_alias = "'.toba_editor::get_url_previsualizacion()."\";\n";	
+			}
+			
+			echo "var toba_prefijo_vinculo=\"".toba::vinculador()->crear_autovinculo()."\";\n";
+			echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
+			echo "var toba_hilo_separador='".apex_qs_separador."'\n";
+			echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
+			echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
+			echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
+			echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
+			echo "var toba_hilo_item=".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
+			echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
+			echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";		
+			echo toba_js::cerrar();		
+			//Incluyo el javascript STANDART	
+			
+			self::cargar_consumos_globales(self::$consumos_basicos);
+			
+			
+			///---Arreglo PNGs IE
+			$archivo = toba_recurso::js("utilidades/pngfix.js");
+			echo "<!--[if lt IE 7]>
+				<script defer type='text/javascript' src='$archivo'></script>
+				<![endif]-->\n";
+			self::$basicos_cargados = true;
 		}
-		echo "var toba_prefijo_vinculo=\"".toba::vinculador()->crear_autovinculo()."\";\n";
-		echo "var toba_hilo_qs='".apex_hilo_qs_item."'\n";
-		echo "var toba_hilo_separador='".apex_qs_separador."'\n";
-		echo "var toba_hilo_qs_servicio='".apex_hilo_qs_servicio."'\n";
-		echo "var toba_hilo_qs_menu='".apex_hilo_qs_menu."'\n";
-		echo "var apex_hilo_qs_celda_memoria='".apex_hilo_qs_celda_memoria."'\n";
-		echo "var toba_hilo_qs_objetos_destino='".apex_hilo_qs_objetos_destino."'\n";
-		echo "var toba_hilo_item=".toba_js::arreglo(toba::memoria()->get_item_solicitado(), false)."\n";
-		echo "var lista_imagenes=".toba_js::arreglo($imagenes, true).";";
-		echo "var apex_solicitud_tipo='".toba::solicitud()->get_tipo()."'\n";		
-		echo toba_js::cerrar();		
-		
-		//Incluyo el javascript STANDART	
-		self::cargar_consumos_globales(self::$consumos_basicos);
 	}
 	
 	/**

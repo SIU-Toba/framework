@@ -121,7 +121,7 @@ class toba_recurso {
 		if ($estilo != '') {
 			$estilo ="style=\"$estilo\"";
 		}
-		$img = "<img border=0 src=$src $x $y $a $m  alt=\"\" $estilo $js/>";
+		$img = "<img class=img src=$src $x $y $a $m  alt=\"\" $estilo $js/>";
 		return $img;
 	}
 

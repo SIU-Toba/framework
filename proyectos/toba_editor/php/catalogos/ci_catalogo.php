@@ -64,7 +64,7 @@ abstract class ci_catalogo extends toba_ci
 				$esta_la_inicial = true;
 			}
 			if ($foto['predeterminada'] == 1) {
-				$fotos[$id]['defecto'] = "home.gif";
+				$fotos[$id]['defecto'] = "home.png";
 				//Carga la por defecto
 				if (!isset($this->s__opciones) && !isset($this->s__apertura)) { 
 					$this->s__apertura = $foto['foto_nodos_visibles'];

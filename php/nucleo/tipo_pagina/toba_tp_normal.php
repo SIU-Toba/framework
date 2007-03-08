@@ -84,7 +84,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 			//-- Si hay al menos dos proyectos
 			echo '<div class="enc-cambio-proy">';
 			echo '<a href="#" title="Ir a la inicio" onclick="vinculador.ir_a_proyecto(\''.$actual.'\');">'.
-					toba_recurso::imagen_toba("home.gif",true).'</a>';
+					toba_recurso::imagen_toba("home.png",true).'</a>';
 			$datos = rs_convertir_asociativo($proyectos, array(0), 1);
 			echo toba_form::select(apex_sesion_qs_cambio_proyecto, $actual, 
 								$datos, 'ef-combo', 'onchange="vinculador.ir_a_proyecto(this.value)"');

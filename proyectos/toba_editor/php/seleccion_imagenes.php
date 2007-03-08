@@ -46,8 +46,8 @@ class seleccion_imagenes
 					if (this.ef('imagen_recurso_origen')$ir_a_fila.get_estado() == 'apex') {
 						prefijo = toba_alias + '/';
 					} else {
-						if (toba_proyecto_alias != '') {
-							prefijo = toba_proyecto_alias + '/';
+						if (toba_proyecto_editado_alias != '') {
+							prefijo = toba_proyecto_editado_alias + '/';
 						}
 					}
 					var imagen_src = prefijo + 'img/' + imagen.get_estado();

@@ -388,7 +388,7 @@ class info_item implements toba_nodo_arbol
 				$this->get_tipo_solicitud() != 'consola' &&
 				$this->get_tipo_solicitud() !="wddx") {
 			$utilerias[] = array(
-							'imagen' => toba_recurso::imagen_toba("instanciar.gif",false),
+							'imagen' => toba_recurso::imagen_toba("instanciar.png",false),
 							'ayuda' => 'Ejecutar el ITEM',
 							'vinculo' => $this->vinculo_ejecutar()
 						);			

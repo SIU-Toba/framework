@@ -232,7 +232,7 @@ class pantalla_visor extends toba_ei_pantalla
 					var li_nivel = document.getElementById('nivel_' + niveles[i]);
 					var src_actual = li_nivel.childNodes[0].childNodes[0].src;
 					var diff = (mostrar_todos || niveles_actuales[niveles[i]]) ? '' : '_des';
-					var src_nuevo = toba_proyecto_alias + 'img/logger/' + nivel_min + diff + '.gif';
+					var src_nuevo = toba_proyecto_alias + '/img/logger/' + nivel_min + diff + '.gif';
 					if (src_actual != src_nuevo) {
 						li_nivel.childNodes[0].childNodes[0].src = src_nuevo;
 					}

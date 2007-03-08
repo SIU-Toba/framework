@@ -28,9 +28,6 @@ body * .div-editor {
 	border: 1px solid gray;
 	padding: 6px;
 }
-#editor_previsualizacion img {
-	cursor: pointer;	
-}
 #vinculo_logger {
 	white-space: nowrap;
 	text-decoration: none;
@@ -45,8 +42,9 @@ form {
 	padding: 0;
 	margin: 0;
 }
-img {
+img, .img {
 	margin: 0;
+	border: none;
 }
 .div-esperar {
 	border: 1px solid black; 
@@ -100,7 +98,7 @@ legend {
 	margin: 5px;
 	margin-right: 20px;
 }
-.enc-cambio-proy img {
+.enc-cambio-proy .img {
 	vertical-align:middle;
 	margin-right: 5px;
 }

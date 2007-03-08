@@ -322,14 +322,12 @@ class toba_editor
 		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro');
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003');
 		echo "<div id='editor_previsualizacion'\n>".
-				"<a href='$link_logger' target='logger'>
-				<img $html_ayuda_logger border=0 src='".
-				toba_recurso::imagen_toba('logger_22.png', false)."' /></a>\n".		
-				"<a href='$link_cronometro' target='cronometro'>
-				<img $html_ayuda_cronometro border=0 src='".
-				toba_recurso::imagen_toba('reloj.png', false)."' /></a>\n";
-		echo	"<img onclick='editor_cambiar_vinculos()' $html_ayuda_editor src='".
-				toba_recurso::imagen_toba('edicion.png', false)."' />\n";
+				"<a href='$link_logger' target='logger' $html_ayuda_logger >".
+				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n".	
+				"<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+				toba_recurso::imagen_toba('reloj.png', true)."</a>\n";
+		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
+				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
 		
 		echo "</div>";
 		
