@@ -207,6 +207,7 @@ def.setNumber = function(_v, _d){
 		// if the number of decimal places is greater than the mask, then round off
 		if( v_despues_decimal.length > dm.length ) {
 			v_despues_decimal = String(Math.round(Number(v_despues_decimal.substring(0, dm.length + 1))/10));
+			v_despues_decimal = v_despues_decimal.pad(dm.length, '0', 'PAD_LEFT');
 		} else { // otherwise, pad the string w/the required zeros
 			while( v_despues_decimal.length < md ) {
 				v_despues_decimal += "0";
