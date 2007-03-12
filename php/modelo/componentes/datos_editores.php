@@ -1,5 +1,4 @@
 <?php
-
 class datos_editores
 {
 	static function get_pantallas_objeto_ci()
@@ -178,7 +177,7 @@ class datos_editores
     'identificador' => '3',
     'etiqueta' => 'Eventos',
     'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'apex',
+    'imagen_recurso_origen' => 'proyecto',
   ),
 );
 	}
@@ -279,7 +278,7 @@ class datos_editores
     'identificador' => '3',
     'etiqueta' => 'Eventos',
     'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'apex',
+    'imagen_recurso_origen' => 'proyecto',
   ),
 );
 	}

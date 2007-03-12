@@ -22,7 +22,7 @@ class seleccion_imagenes
 		} else {
 			$actual = $predeterminada;	
 		}
-			echo "<img title='Elegir la imagen desde un listado' onclick='$objeto_js.elegir_imagen($fila)'
+			echo "<img nohack='1' title='Elegir la imagen desde un listado' onclick='$objeto_js.elegir_imagen($fila)'
 					 id='editor_imagen_src$fila' src='$actual' onError='this.src=\"$predeterminada\"'/>";		
 	}
 	
@@ -56,7 +56,7 @@ class seleccion_imagenes
 			}
 			
 			
-			$objeto_js.elegir_imagen = function(fila) {
+			$objeto_js.elegir_imagen = function(fila, recursivo) {
 				var callback =
 				{
 				  success: this.respuesta_listado ,
@@ -64,8 +64,13 @@ class seleccion_imagenes
 				  scope: this
 				}
 				this.fila_con_imagen = fila;
+				if (! isset(recursivo)) {
+					recursivo = 0;
+				}
 				var parametros = {'imagen': this.ef('imagen')$ir_a_fila.get_estado(),
-								  'imagen_recurso_origen': this.ef('imagen_recurso_origen')$ir_a_fila.get_estado()  };
+								  'imagen_recurso_origen': this.ef('imagen_recurso_origen')$ir_a_fila.get_estado(),
+								  'recursivo' : recursivo
+								};
 				var vinculo = vinculador.crear_autovinculo('ejecutar', parametros);
 				conexion.asyncRequest('GET', vinculo, callback, null);
 				return true;
@@ -97,6 +102,11 @@ class seleccion_imagenes
 				$objeto_js.ef('imagen')$ir_a_fila.set_estado(path);
 				$objeto_js.evt__imagen__procesar(false, fila);
 			}
+			
+			function recargar(recursivo) {
+				overlay(true);
+				$objeto_js.elegir_imagen($objeto_js.fila_con_imagen, recursivo)
+			}
 		";
 	}
 	
@@ -104,6 +114,7 @@ class seleccion_imagenes
 	{
 		toba::memoria()->desactivar_reciclado();
 		$src = toba::memoria()->get_parametro('imagen');
+		$recursivo = toba::memoria()->get_parametro('recursivo');
 		$origen = toba::memoria()->get_parametro('imagen_recurso_origen');
 		
 		if ($origen == 'apex') {
@@ -116,11 +127,12 @@ class seleccion_imagenes
 		}
 		echo "<div id='editor_imagen_opciones'>";
 		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
-		echo "<label><input type='checkbox' /> Recursivo</label>";
+		$checkeado = $recursivo ? 'checked' : '';
+		echo "<label><input type='checkbox'  onclick='recargar(this.checked ? 1 : 0)' $checkeado /> Recursivo</label>";
 		echo "</div><hr>";
 		echo "<div id='editor_imagen_listado'>";
 		echo "<table>";
-		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', true);
+		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', $recursivo);
 		$archivos = array();
 		foreach ($temp as $archivo) {
 			if (strpos($archivo, '/tabs/') === false) {
@@ -138,7 +150,7 @@ class seleccion_imagenes
 			$relativo = substr($archivo, strlen($dir)+1);
 			$archivo = basename($relativo);
 			echo "<td title='Seleccionar imagen' imagen='$relativo' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
-					<img  src='".$url."/img/".$relativo."' />
+					<img nohack='1' src='".$url."/img/".$relativo."' />
 					<div>$archivo</div>
 				</td>\n";
 			

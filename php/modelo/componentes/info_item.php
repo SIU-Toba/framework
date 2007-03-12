@@ -315,7 +315,7 @@ class info_item implements toba_nodo_arbol
 			}
 			if($this->puede_redireccionar()){
 				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("refrescar.gif", false),
+					'imagen' => toba_recurso::imagen_toba("refrescar.png", false),
 					'ayuda'=> "ITEM puede redireccionar."
 				);				
 			}
@@ -357,7 +357,7 @@ class info_item implements toba_nodo_arbol
 				'plegado' => true								
 			);
 			$utilerias[] = array(
-				'imagen' => toba_recurso::imagen_toba("items/item_nuevo.gif", false),
+				'imagen' => toba_recurso::imagen_proyecto("item_nuevo.gif", false),
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),

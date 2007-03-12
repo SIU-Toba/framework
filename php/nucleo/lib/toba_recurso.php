@@ -121,7 +121,11 @@ class toba_recurso {
 		if ($estilo != '') {
 			$estilo ="style=\"$estilo\"";
 		}
-		$img = "<img class=img src=$src $x $y $a $m  alt=\"\" $estilo $js/>";
+		if (toba_editor::modo_prueba()) {
+			$img = "<img onerror='alert(\"No se encuentra la imagen: \" + this.src)' src=$src $x $y $a $m  $estilo $js/>";
+		} else {
+			$img = "<img src=$src $x $y $a $m  $estilo $js/>";
+		}
 		return $img;
 	}
 

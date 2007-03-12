@@ -348,7 +348,11 @@ class toba_editor
 		$salida = "<span class='ei-base' style='height: 55px' >";
 		foreach(self::get_vinculos_componente($componente, $editor, $clase) as $vinculo) {
 			$salida .= "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
+			if ($vinculo['imagen_recurso_origen'] == 'apex') {
+				$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
+			} else {
+				$salida .= toba_recurso::imagen_proyecto($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
+			}
 			$salida .= "</a>\n";
 		}
 		$salida .= "</span>";

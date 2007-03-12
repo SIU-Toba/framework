@@ -42,7 +42,7 @@ form {
 	padding: 0;
 	margin: 0;
 }
-img, .img {
+img {
 	margin: 0;
 	border: none;
 }
@@ -98,7 +98,7 @@ legend {
 	margin: 5px;
 	margin-right: 20px;
 }
-.enc-cambio-proy .img {
+.enc-cambio-proy img {
 	vertical-align:middle;
 	margin-right: 5px;
 }
@@ -179,7 +179,7 @@ legend {
 	text-align: right;
 	height:25px;
 }
-.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc {
+.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar {
 	font-size: 11px;
 	color: #231f20;
 	height: 24px;
@@ -192,7 +192,7 @@ legend {
 .ei-boton-defecto {
 	
 }
-.ei-boton-baja, .ei-boton-filtrar {
+.ei-boton-baja {
 	font-weight: bold;
 	font-size: 11px;
 	color: #000000;

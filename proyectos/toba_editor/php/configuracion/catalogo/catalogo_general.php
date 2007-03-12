@@ -6,7 +6,7 @@ class catalogo_general extends toba_nodo_basico
 	function __construct()
 	{
 		parent::__construct('Configuracion General',null);
-		$this->iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('configurar.gif', false),
+		$this->iconos[] = array( 'imagen' => 	toba_recurso::imagen_toba('configurar.png', false),
 								'ayuda' => 'Administrar usuarios de la instancia' );
 		//Construyo los HIJOS
 		$opciones['menu'] = true;

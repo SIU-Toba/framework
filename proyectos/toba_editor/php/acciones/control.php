@@ -115,7 +115,7 @@ function abrir_toba_instancia(){
 		 <? echo toba_recurso::imagen_toba("home.png",true) ?></a></td>
 
 		<td class='listado-tabi'>
-		<a title="Administracion de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
+		<a title="Administración de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><? echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>
@@ -168,7 +168,7 @@ function abrir_toba_instancia(){
 		</td>
 
 		<td  class='listado-tabi'>
-		<a title="Configuración general del proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.gif",true) ?></a>
+		<a title="Configuración general del proyecto" href="<? echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<? echo apex_frame_lista ?>"><? echo toba_recurso::imagen_toba("configurar.png",true) ?></a>
 		</td>
 
 		<td><? echo gif_nulo(3,1) ?></td>

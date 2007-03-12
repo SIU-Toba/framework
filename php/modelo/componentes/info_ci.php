@@ -111,7 +111,7 @@ class info_ci extends info_ei
 	static function get_modelos_evento()
 	{
 		$modelo[0]['id'] = 'proceso';
-		$modelo[0]['nombre'] = 'Proceso';
+		$modelo[0]['nombre'] = 'Guardar - Cancelar';
 		return $modelo;
 	}
 

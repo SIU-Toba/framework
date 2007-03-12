@@ -40,7 +40,7 @@ class ci_menu extends toba_ci
 		$nodo_proyectos->set_hijos( $proyectos );
 		// nodo ADMINISTRACION
 		$nodo_admin = new toba_nodo_basico('Administracion General');
-		$nodo_admin->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("configurar.gif", false),
+		$nodo_admin->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("configurar.png", false),
 											'ayuda' => 'Administrar la instancia' ) );
 		$nodo_admin->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),

@@ -127,11 +127,14 @@ class toba_js
 			
 			self::cargar_consumos_globales(self::$consumos_basicos);
 			
-			
 			///---Arreglo PNGs IE
-			$archivo = toba_recurso::js("utilidades/pngfix.js");
+			$url = toba_recurso::js("utilidades/pngbehavior.htc");			
 			echo "<!--[if lt IE 7]>
-				<script defer type='text/javascript' src='$archivo'></script>
+				<style type='text/css'>
+					img {
+						behavior: url('$url');
+					}
+				</style>
 				<![endif]-->\n";
 			self::$basicos_cargados = true;
 		}
