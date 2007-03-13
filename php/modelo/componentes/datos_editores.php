@@ -1,4 +1,5 @@
 <?php
+
 class datos_editores
 {
 	static function get_pantallas_objeto_ci()
@@ -29,8 +30,8 @@ class datos_editores
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}
@@ -176,8 +177,8 @@ class datos_editores
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}
@@ -196,8 +197,8 @@ class datos_editores
   array (
     'identificador' => 'p_eventos',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}
@@ -223,8 +224,8 @@ class datos_editores
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}
@@ -250,8 +251,8 @@ class datos_editores
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}
@@ -277,8 +278,8 @@ class datos_editores
   array (
     'identificador' => '3',
     'etiqueta' => 'Eventos',
-    'imagen' => 'reflexion/evento.gif',
-    'imagen_recurso_origen' => 'proyecto',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
   ),
 );
 	}

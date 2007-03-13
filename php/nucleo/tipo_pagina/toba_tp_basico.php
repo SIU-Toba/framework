@@ -59,9 +59,8 @@ class toba_tp_basico extends toba_tipo_pagina
 
 	protected function plantillas_css()
 	{
-		$estilo = toba::proyecto()->get_parametro('estilo');
-		echo toba_recurso::link_css($estilo, "screen");
-		echo toba_recurso::link_css($estilo."_impr", "print");		
+		echo toba_recurso::link_css('toba', 'screen');
+		echo toba_recurso::link_css('toba_impr', 'print');
 	}
 	
 	protected function estilos_css()

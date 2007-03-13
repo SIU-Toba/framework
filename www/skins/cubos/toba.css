@@ -1,0 +1,280 @@
+/**************
+	Menu CSS
+***************/
+ul.horizontal a, ul.horizontal a:visited {
+	background: #E9E8E8;
+	border:1px solid #8C8D90;
+}
+ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
+	background:#0A246A;
+	color: white;
+}
+/**************
+	Básicos
+***************/
+
+body {
+	background-color: #e9e8e8;
+}
+.encabezado {
+	background-color:#D4D0C8;
+	border-bottom: #4f4c4d 1px solid;	
+}
+.ei-base {
+	border-right: #404040 1px solid;
+	border-top: #ffffff 1px solid;	
+	border-left: #ffffff 1px solid;	
+	border-bottom: #404040 1px solid;
+	background-color: #d4d0c8;	
+}
+.ei-barra-sup {
+	border: 1px solid #a7a5a6;
+	color: #ffffff;
+	background-color: #808080;	
+}
+.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar {
+	color: #231f20;
+	background-color: #ffffff;
+}
+.ei-boton-baja {
+	font-weight: bold;
+	color: #000000;
+	background-color: #f9c6c6;	
+}
+.ei-boton-fila {
+	color: #231f20;
+	background-color: #d4d0c8; 
+}
+
+/*************************
+		FORMULARIOS
+**************************/
+.ei-form-fila-oculta, .ei-form-fila-filtrada {
+	background-color: #E7E4E0;
+}
+.ei-ml-columna {
+	color: #231f20;
+	border-bottom: 1px solid gray;	
+}
+.ei-ml-fila-selec {
+	background-color: #a4a098
+}
+.ei-ml-fila-total {
+	color: #000000;
+}
+.ef-input, .ef-upload {
+	background-color: #fffdf9
+}
+.ef-barra-divisora {
+	border-bottom: gray 1px solid;
+}
+.ef-numero {
+	color: #231f20;
+	background-color: #fffdf9;
+}
+
+
+/*************************
+		CUADRO
+**************************/
+.col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4, 
+.col-tex-p1, .col-tex-p2, .col-tex-p3,
+.col-cen-s1, .col-cen-s2 {
+	border: 1px solid #4f4c4d;	
+}
+.ei-cuadro-fila-sel {
+	background-color: #e2e2e2;
+}
+.ei-cuadro-col-tit, .ei-ml-col-tit {
+	color: #000000;
+}
+.ei-cuadro-cc-tabla-sum {
+	border: 1px #4f4c4d solid;
+}
+
+/*************************
+		CI
+**************************/
+.ci-barra-sup {
+	background-color: #514a84;
+}
+.ci-botonera {
+	border: 0px solid #231f20;
+	color: #e9e8e8;
+	background-color: #808080;
+}
+.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+	color: #222222;
+	background-color: #ffffff;
+}
+.ci-tabs-v-cont {
+	border-right: 2px solid #808080;
+	border-top: 1px solid #ffffff;	
+	border-bottom:  2px #808080 solid;	
+}
+.ci-tabs-v-solapa {
+	border-right: 1px solid #ffffff;
+
+}
+.ci-tabs-v-solapa-sel {
+	border-top: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+	border-bottom: 1px solid #808080;	
+}
+.ci-tabs-v-boton-sel {
+	color: #000000;
+}
+.ci-tabs-h-lista a {
+	color:#765;
+}
+.ci-tabs-h-lista a:hover {
+	color:#333;
+}
+.ci-tabs-h-solapa-sel a {
+	color:#333;
+}
+.ci-tabs-h-cont, .ci-wiz-cont {
+	border-right: #808080 2px solid;
+	border-left: #ffffff 2px solid;	
+	border-bottom: #808080 2px solid;	
+}
+.ci-wiz-toc-pant-actual {
+	color: #222222;
+}
+a.ci-tabs-boton-desact {
+	color: #DDD;
+}
+a.ci-tabs-boton-desact:hover {
+	color: #DDD;
+}
+/*************************
+		Arbol
+**************************/
+.ei-arbol-cuerpo {
+	background-color: #EEEEEE;
+}
+.ei-arbol-nodo {
+	border-top: #bbbbbb 1px dotted;
+}
+.ei-arbol-nombre {
+	 COLOR: #222222;
+}
+
+/*************************
+	Varios
+**************************/
+.barra-separador {
+	border: 1px solid #4f4c4d;
+	color: #231f20;
+	background-color: #d3d2d2;
+}
+.zona-items {
+	background-color:#EEEEEE;
+}
+#overlay_contenido {
+     background-color: #fff;
+     border:1px solid #000;     
+}
+.overlay-titulo {
+	border-bottom: 1px solid gray;	
+}
+.overlay-botonera {
+	border-top: 1px solid gray;
+}
+/*************************
+	Calendario
+**************************/
+.year, .month {
+	background-color: #e4e4e4;
+}
+.monthname {
+	background-color: #DADADA;
+	color: #5D5D5D;
+	border-style: outset;
+	border-width:1px
+}
+
+.dayname td {
+	background-color: #514a84;
+	color: #ffffff;
+	border-style: outset;
+	border-width:1px
+}
+.datepicker {
+	background-color: #e4e4e4;
+}
+.monthpicker, .yearpicker, .pickerbutton {
+	background-color: #eeeeee;
+}
+.pickerbutton {
+	border: 1px solid #000000;
+}
+.monthday, .weeknumber, .weeknoselec {
+	color: #384955;
+}
+.monthday {	
+	background-color: #E4E4E4; 
+}
+.weeknumber {
+	background-color: #f0f1ff; 
+}
+.weeknoselec {
+	background-color: #f0f1ff; 
+}
+.monthdayevents, .weeknumberevents, .weeknoselecevents {
+	color: #384955;
+}
+.weeknoselecevents { 
+	background-color: #f0f1ff; 
+}
+.monthdayevents { 
+	background-color: #E4E4E4;
+}
+.weeknumberevents {
+	background-color: #f0f1ff;
+}
+.today, .todayevents {
+	border: 1px solid #514a84;
+	color:#384955;
+}
+.selectedday, .selecteddayevents {
+	border: 1px solid #514a84;
+	background-color:#d9dbff;
+}
+.sunday, .sundayevents {
+	color: #667171;
+}
+.sunday a, .saturday a {
+	color: #667171;
+}
+.saturday, .saturdayevents {
+	color: #667171;
+}
+.event, .eventevents {
+	color: red;
+	background-color: #ffff99;
+}
+.event a {
+	background-color: #ffff99;
+	color: red;
+}
+.selectedevent, .selectedeventevents {
+	color: red;
+	background-color: #ffff99;
+}
+.selectedevent a {
+	background-color: #ffff99;
+	color: red;
+}
+.todayevent, .todayeventevents {
+	color: red;
+	background-color: #ffff99;
+}
+.todayevent a {
+	background-color: #ffff99;
+	color: red;
+}
+.eventcontent {
+	border-style: outset;
+	border-width: 1px;
+}

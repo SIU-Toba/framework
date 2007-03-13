@@ -38,6 +38,19 @@ class migracion_1_1_0 extends migracion_toba
 			$cant += $this->elemento->get_db()->ejecutar($sql);
 			return $cant;
 		}
+		
+		
+		function proyecto__skins()
+		{
+			$sql = "
+				UPDATE apex_proyecto
+					SET estilo = 'cubos'
+					WHERE 
+						proyecto='{$this->elemento->get_id()}' AND
+						estilo = 'toba'
+			";
+			return $this->elemento->get_db()->ejecutar($sql);
+		}
 }	
 
 

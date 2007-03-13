@@ -1,0 +1,62 @@
+body {
+	background-color: #EEEFF2;
+}
+.encabezado {
+ color:black;
+}
+ul.horizontal a, ul.horizontal a:visited {
+	background: #fafbfe;
+	border:1px solid #8d8e90;
+	margin-right:2px;
+}
+.nivel-0, a.nivel-0:visited {
+	background-color: #EEEFF2 !important;
+	border :none !important;
+}
+ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
+	background:#7176b0;
+	color: white;
+}
+a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited {
+	background-color: #EEEFF2 !important;
+	border:1px solid #8d8e90 !important;
+	color: black !important;
+}
+
+.item-barra {
+ color:white;
+ background-color: #5A5E9D;
+ border: 1px solid #5c5f9e;
+ width: 100%;
+ height:30px;
+}
+.zona-barra-id {
+	color:white;
+}
+.ei-barra-sup-tit {
+	font-family: Tahoma;
+}
+.ci-tabs-h-lista ul {
+	margin:0;
+	padding:0;
+	\margin-left: -1px;
+}
+
+.ci-tabs-h-cont {
+	border-left: 1px solid #868789;
+	border-right: 1px solid #868789;
+	border-bottom: 1px solid #868789;
+}
+.ci-tabs-h-lista a {
+	color:#000;
+	font-weight:normal;	
+	font-family: Tahoma;
+	font-size: 11px;
+}
+.ci-tabs-h-lista a:hover {
+	color:#000;
+
+}
+.ci-tabs-h-solapa-sel a {
+	color:#000;
+}

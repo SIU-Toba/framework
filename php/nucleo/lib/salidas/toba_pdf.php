@@ -74,9 +74,7 @@ class toba_pdf
 	private function generar_html_encabezado()
 	{
 		echo "<html><head>";
-		$estilo = toba::proyecto()->get_parametro('estilo');
-		echo toba_recurso::link_css($estilo."_impr", 'print');
-		echo toba_recurso::link_css($estilo."_impr");
+		echo toba_recurso::link_css('toba_impr', 'screen');
 		echo "</head><body>\n";
 		/*
 		echo "<div class='barra-print' width='100%'>";

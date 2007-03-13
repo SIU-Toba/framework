@@ -58,6 +58,7 @@ class toba_menu_css extends toba_menu
 	function get_padres($nodo)
 	{
 		$inden = str_repeat("\t",$this->prof );
+		$clase_base = ($this->prof == 1) ? 'nivel-0' : '';
 		
 		if (!$this->items[$nodo]['carpeta']) {
 			$vinculo = toba::vinculador()->crear_vinculo($this->items[$nodo]['proyecto'],
@@ -65,7 +66,7 @@ class toba_menu_css extends toba_menu
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li><a tabindex='-1' href='$vinculo' " .
+			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='-1' href='$vinculo' " .
 							"title='".$this->items[$nodo]['nombre']."'>" . 
 							$this->get_imagen($nodo).
 							$this->items[$nodo]['nombre']."</a>";
@@ -73,8 +74,8 @@ class toba_menu_css extends toba_menu
 			$this->hay_algun_item = true;
 		} else {
 			//Es carpeta
-			$class = ($this->prof > 1) ? " class='carpeta'" : "";
-			$this->arbol .= $inden . "<li><a $class>".$this->get_imagen($nodo). $this->items[$nodo]['nombre'] . "</a>\n";
+			$clase_base .= ($this->prof > 1) ? " carpeta" : "";
+			$this->arbol .= $inden . "<li><a class='$clase_base'>".$this->get_imagen($nodo). $this->items[$nodo]['nombre'] . "</a>\n";
 			$this->arbol .= $inden . "\t<ul>\n";
 			$rs = $this->get_hijos ($nodo);
 			for ($i=0;$i<count($rs);$i++) {

@@ -34,8 +34,7 @@ class toba_impr_html implements toba_impresion
 	{
 		echo "<html><head>";
 		$estilo = toba::proyecto()->get_parametro('estilo');
-		echo toba_recurso::link_css($estilo."_impr", 'print');
-		echo toba_recurso::link_css($estilo."_impr");
+		echo toba_recurso::link_css("toba_impr", 'screen');
 		echo "<style type='text/css' media='print'>
 			.barra-impresion {
 				display: none;				

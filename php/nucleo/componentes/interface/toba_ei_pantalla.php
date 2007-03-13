@@ -339,7 +339,9 @@ class toba_ei_pantalla extends toba_ei
 				$this->generar_tabs_horizontales();
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente
-				echo "<tr><td class='ci-tabs-h-cont'>";
+				$estilo = '';
+				//$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/borde_izq.gif').'") repeat-y; background-position: top left;';
+				echo "<tr><td style='$estilo' class='ci-tabs-h-cont'>";
 				$this->generar_html_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
@@ -441,7 +443,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function generar_tabs_horizontales()
 	{
-		$estilo = 'background: url("'.toba_recurso::imagen_toba('nucleo/tabs/bg.gif').'") repeat-x bottom;';
+		$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
 		echo "<div style='$estilo' class='ci-tabs-h-lista'><ul>\n";
 		foreach( $this->lista_tabs as $id => $tab ) {
 			$editor = '';

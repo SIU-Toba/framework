@@ -11,7 +11,7 @@ class catalogo_fuentes extends toba_nodo_basico
 	{
 		parent::__construct('Fuente de Datos');		
 
-		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("solic_consola.gif", false),
+		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("solic_consola.gif", false),
 							'ayuda' => 'Administrar fuentes de datos' ) );
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = 'central';

@@ -43,7 +43,7 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		if (isset($this->menu)) {
 			$estilo = $this->menu->plantilla_css();
 			if ($estilo != '') {
-				echo toba_recurso::link_css($estilo, "screen");
+				echo toba_recurso::link_css($estilo, 'screen', false);
 			}
 		}
 		parent::plantillas_css();

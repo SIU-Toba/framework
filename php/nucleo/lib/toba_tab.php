@@ -53,15 +53,15 @@ class toba_tab extends toba_boton
 		}
 		if( $tipo == 'H' ) {	//********************* TABs HORIZONTALES **********************
 			if( $seleccionado ) {// -- Tab ACTUAL --
-  				$estilo_li = 'background:url("'.toba_recurso::imagen_toba('nucleo/tabs/left_on.gif').'") no-repeat left top;';
-  				$estilo_a = 'background:url("'.toba_recurso::imagen_toba('nucleo/tabs/right_on.gif').'") no-repeat right top;';
+  				$estilo_li = 'background:url("'.toba_recurso::imagen_skin('tabs/left_on.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.toba_recurso::imagen_skin('tabs/right_on.gif').'") no-repeat right top;';
 				$html = "<li class='ci-tabs-h-solapa-sel' style='$estilo_li'>$editor";
 				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso>$contenido</a>";
 				$html .= "</li>";
 			} else {
 				$oculto = $this->oculto ? '; display: none' : '';
-  				$estilo_li = 'background:url("'.toba_recurso::imagen_toba('nucleo/tabs/left.gif').'") no-repeat left top;';
-  				$estilo_a = 'background:url("'.toba_recurso::imagen_toba('nucleo/tabs/right.gif').'") no-repeat right top;';
+  				$estilo_li = 'background:url("'.toba_recurso::imagen_skin('tabs/left.gif').'") no-repeat left top;';
+  				$estilo_a = 'background:url("'.toba_recurso::imagen_skin('tabs/right.gif').'") no-repeat right top;';
 				$html = "<li  class='ci-tabs-h-solapa' style='$estilo_li $oculto'>$editor";
 				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso $js>$contenido</a>";
 				$html .= "</li>";

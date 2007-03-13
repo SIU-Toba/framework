@@ -6,8 +6,9 @@ require_once("nucleo/lib/toba_parser_ayuda.php");
  * Brinda servicios generales de salida HTML
  * @package SalidaGrafica
  */
-class toba_recurso {
-
+class toba_recurso 
+{
+	
 	/**
 	 * Retorna la URL base del proyecto
 	 * @param string $proyecto Opcional, sino se toma el actual si hay sesión
@@ -38,7 +39,16 @@ class toba_recurso {
 		}
 		return '/'.$alias;		
 	}
-	
+
+	/**
+	 * Retorna la URL base del skin actual del proyecto
+	 * @return string
+	 */			
+	static function url_skin()
+	{
+		$skin = toba::proyecto()->get_parametro('estilo');
+		return self::url_toba().'/skins/'.$skin;
+	}
 
 	//------------   ACCESO A IMAGENES   --------------
 
@@ -48,10 +58,15 @@ class toba_recurso {
 	 */
 	static function imagen_de_origen($nombre, $origen)
 	{
-		if ($origen == 'apex')
+		if ($origen == 'apex') {
 			return self::imagen_toba($nombre);
-		else
+		} elseif ($origen == 'proyecto') {
 			return self::imagen_proyecto($nombre);
+		} elseif ($origen == 'skin') {
+			return self::imagen_skin($nombre);
+		} else {
+			throw new toba_error("No existe el origen de recurso $origen");	
+		}
 	}
 	
 	/**
@@ -73,6 +88,26 @@ class toba_recurso {
 			return $src;
 		}
 	}
+	
+	/**
+	 * Retorna una imagen perteneciente al skin actual del proyecto
+	 *
+	 * @param string $imagen Path relativo a www/skins/SKIN de la imagen a generar
+	 * @param boolean $html Generar el TAG 'img' (por def. false)
+	 * @param string $ancho Ancho de la imagen (no oblig.)
+	 * @param string $alto Alto de la imagen (no oblig.)
+	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
+	 * @param string $mapa (no oblig.)
+	 */
+	static function imagen_skin($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
+	{
+		$src = toba_recurso::url_skin() . '/'. $imagen;
+		if ($html){
+			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
+		}else{
+			return $src;
+		}
+	}	
 	
 	/**
 	 * Retorna una imagen comun a todo el framework (ubicada en $toba_dir/www/img)
@@ -173,29 +208,32 @@ class toba_recurso {
 		return toba_recurso::url_toba() . "/js/" . $javascript;
 	}
 	
-	/**
-	*	Crea el tag <link>
-	*	@param string $estilo Nombre de la plantilla (sin incluir extension)
-	*	@param string $rol 	  Tipo de medio en el html (tipicamente screen o print)
-	*/
-	static function link_css($estilo=null,  $rol='screen')
+	static function link_css($archivo='toba', $rol='screen', $buscar_en_proyecto=true) 
 	{
-		$estilo = isset($estilo) ? $estilo : toba::proyecto()->get_parametro('estilo');
 		$link = '';
 		
-		//Busca primero en el nucleo
- 		if (file_exists(toba_dir()."/www/css/$estilo.css")) {
-			$url = toba_recurso::url_toba()."/css/$estilo.css";
-			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
+		//--- Incluye primero el del nucleo
+		$url = toba_recurso::url_toba()."/css/$archivo.css";
+		$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
+		
+		//--- Incluye el del skin si es el estandar
+		if ($archivo == 'toba') {
+			$url = toba_recurso::url_skin()."/toba.css";
+			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";
 		}
-		//Busca tambien en el proyecto
-		$proyecto = toba_proyecto::get_id();
-		$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$estilo.css";
-		if (file_exists($path)) {
-			$url = toba_recurso::url_proyecto($proyecto) . "/css/$estilo.css";
-			$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
+		
+		//--- Incluye el del proyecto, si existe
+		if ($buscar_en_proyecto) {
+			$proyecto = toba_proyecto::get_id();
+			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/$archivo.css";
+			if (file_exists($path)) {
+				$url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
+				$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
+			}
 		}
-		return $link;
+		return $link;		
 	}
+	
+	
 }
 ?>
