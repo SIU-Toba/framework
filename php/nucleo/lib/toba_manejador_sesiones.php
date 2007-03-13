@@ -200,7 +200,7 @@ class toba_manejador_sesiones
 	*/
 	function get_grupo_acceso()
 	{
-		if( (toba_editor::modo_prueba() && (toba_proyecto::get_id() != toba_editor::get_id()) ) ) {
+		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
 			return toba_editor::get_grupo_acceso_previsualizacion();
 		} else {
 			return $this->usuario()->get_grupo_acceso();
@@ -617,10 +617,10 @@ class toba_manejador_sesiones
 
 	function & segmento_editor()
 	{
-		if (!isset($_SESSION['toba']['editor'])) {
-			$_SESSION['toba']['editor'] = array();
+		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['editor'])) {
+			$_SESSION['toba']['instancias'][$this->instancia]['editor'] = array();
 		}
-		return $_SESSION['toba']['editor'];
+		return $_SESSION['toba']['instancias'][$this->instancia]['editor'];
 	}
 
 	function & segmento_info_proyecto()
@@ -657,7 +657,7 @@ class toba_manejador_sesiones
 
 	function borrar_segmento_editor()
 	{
-		unset($_SESSION['toba']['editor']);
+		unset($_SESSION['toba']['instancias'][$this->instancia]['editor']);
 		toba::logger()->debug('BORRAR segmento memoria EDITOR','toba');
 	}
 

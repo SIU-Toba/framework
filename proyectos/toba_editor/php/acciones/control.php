@@ -40,6 +40,10 @@ function mostrar_ocultar_frame() {
 
 function abrir_toba_instancia(){
 	var url = '<? echo toba::vinculador()->generar_solicitud('toba_instancia','3329',null,false,false,null,true) ?>';
+	if ( url == '') {
+		alert('No posee permisos para acceder al proyecto "toba_instancia"!');	
+		return;
+	}
 	var opciones = {'width': 1000, 'scrollbars' : true, 'height': 650, 'resizable': true};
 	abrir_popup('toba_instancia', url, opciones, null, false);
 }

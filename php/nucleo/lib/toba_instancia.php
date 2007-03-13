@@ -55,10 +55,10 @@ class toba_instancia
 	static function get_id()
 	{
 		if ( ! isset(self::$id)) {
-			if (isset($_SERVER['TOBA_INSTANCIA'])) {
-				self::$id = $_SERVER['TOBA_INSTANCIA'];
-			} elseif (defined('apex_pa_instancia')) {
+			if (defined('apex_pa_instancia')) {
 				self::$id = apex_pa_instancia;
+			} elseif (isset($_SERVER['TOBA_INSTANCIA'])) {
+				self::$id = $_SERVER['TOBA_INSTANCIA'];
 			} else {
 				throw new toba_error("INFO_INSTANCIA: La INSTANCIA ACTUAL no se encuentra definida (no exite la variable de entorno TOBA_INSTANCIA ni la constante 'apex_pa_instancia')");
 			}

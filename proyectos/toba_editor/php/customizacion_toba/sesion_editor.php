@@ -5,7 +5,7 @@ class sesion_editor extends toba_sesion
 {
 	function conf__inicial($datos)
 	{
-		if(!isset($datos)) throw new toba_error('ERROR: El editor no se cargo correctamente');
+		if(!isset($datos)) throw new toba_error('ERROR: El editor no se cargo correctamente.');
 		toba_editor::iniciar($datos['instancia'], $datos['proyecto']);
 	}
 

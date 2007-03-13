@@ -70,11 +70,28 @@ class ci_login extends toba_ci
 		if (isset($this->s__datos['clave'])) {
 			unset($this->s__datos['clave']);
 		}
+		if(!isset($this->s__datos['instancia'])) {
+			$this->s__datos['instancia'] = toba::instancia()->get_id();
+		}
 		return $this->s__datos;	
 	}
 
 	//--- COMBOS ----------------------------------------------------------------
 
+	function get_lista_usuarios()
+	{
+		$instancia = catalogo_modelo::instanciacion()->get_instancia(toba::instancia()->get_id(), new mock_gui);
+		$usuarios = $instancia->get_lista_usuarios('toba_editor');
+		$datos = array();
+		$a = 0;
+		foreach( $usuarios as $x => $desc) {
+			$datos[$a]['id'] = $desc['usuario'];
+			$datos[$a]['nombre'] = $desc['usuario'] . ' - ' . $desc['nombre'];
+			$a++;
+		}
+		return $datos;
+	}
+	
 	function get_lista_instancias()
 	{
 		$instancias = instancia::get_lista();
@@ -97,20 +114,6 @@ class ci_login extends toba_ci
 		foreach( $proyectos as $x) {
 			$datos[$a]['id'] = $x;
 			$datos[$a]['desc'] = $x;
-			$a++;
-		}
-		return $datos;
-	}
-
-	function get_lista_usuarios($instancia_id, $proyecto_id)
-	{
-		$instancia = catalogo_modelo::instanciacion()->get_instancia($instancia_id, new mock_gui);
-		$usuarios = $instancia->get_lista_usuarios($proyecto_id);
-		$datos = array();
-		$a = 0;
-		foreach( $usuarios as $x => $desc) {
-			$datos[$a]['id'] = $desc['usuario'];
-			$datos[$a]['nombre'] = $desc['usuario'] . ' - ' . $desc['nombre'];
 			$a++;
 		}
 		return $datos;

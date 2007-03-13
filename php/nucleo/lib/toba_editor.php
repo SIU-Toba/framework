@@ -203,7 +203,10 @@ class toba_editor
 		}
 		self::$memoria['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
 		self::$memoria['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];
-		self::set_parametros_previsualizacion_db($datos);
+		if (self::get_id_instancia_activa() == toba::instancia()->get_id() ) {
+			//Si estoy editando un proyecto en otra instancia, no tengo certeza de como guardar estos datos.
+			self::set_parametros_previsualizacion_db($datos);
+		}
 	}
 
 	static function get_parametros_previsualizacion_db()
