@@ -19,13 +19,19 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 	
 	protected function asociar_dependencias($posibles)
 	{
-		$eis = explode(',', $this->datos['objetos']);
-		$eis = array_map('trim', $eis);
+		$eis = $this->get_lista_dependencias_asociadas();
 		foreach ($posibles as $posible) {
 			if (in_array($posible->rol_en_consumidor(), $eis)) {
 				$this->dependencias[] = $posible;
 			}
 		}
+	}
+	
+	protected function get_lista_dependencias_asociadas()
+	{
+		$eis = explode(',', $this->datos['objetos']);
+		$eis = array_map('trim', $eis);
+		return $eis;		
 	}
 	
 	function tiene_dependencia($dep)
@@ -148,7 +154,17 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 
 	function get_molde_subclase()
 	{
-		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+		$molde = new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
+		$molde->agregar( new toba_molde_metodo_php('generar_layout') );
+		$php = array();
+		$existe_previo = 0;
+		foreach($this->get_lista_dependencias_asociadas() as $dep) {
+			if($existe_previo) $php[] =  '<hr>';
+			$php[] = '$this->dependencias[\''.$dep.'\']->generar_html();';
+			$existe_previo = 1;
+		}
+		$molde->ultimo_elemento()->set_contenido($php);
+		return $molde;
 	}
 	
 	function get_subclase_nombre()

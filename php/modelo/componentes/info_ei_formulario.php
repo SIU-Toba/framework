@@ -10,6 +10,14 @@ class info_ei_formulario extends info_ei
 	function get_molde_subclase($multilinea=false)
 	{
 		$molde = $this->get_molde_vacio();
+		// Redefinicion del LAYOUT
+		$molde->agregar( new toba_molde_metodo_php('generar_layout') );
+		$php = array();
+		foreach ($this->datos['info_formulario_ef'] as $ef => $info) {
+			$php[] = '$this->generar_html_ef(\''.$info['identificador'].'\');';
+		}
+		$molde->ultimo_elemento()->set_contenido($php);		
+		// Javascript
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );	
 		$molde->agregar( new toba_molde_separador_js('Validacion general') );		
 		$molde->agregar( new toba_molde_metodo_js('evt__validar_datos') );		

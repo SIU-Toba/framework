@@ -26,9 +26,9 @@ abstract class info_ei extends info_componente
 			$id = $evt_db['identificador'];
 			$parametros = array();
 			if( $evt_db['sobre_fila'] ){
-				$parametros[] = 'seleccion';
+				$parametros[] = '$seleccion';
 			}else{
-				if($evt_db['maneja_datos'])	$parametros[] = 'datos';
+				if($evt_db['maneja_datos'])	$parametros[] = '$datos';
 			}
 			$eventos[$id]['parametros'] = $parametros;
 			$eventos[$id]['comentarios'] = array();
@@ -91,7 +91,7 @@ abstract class info_ei extends info_componente
 	{
 		$bloque_molde[] = new toba_molde_separador_php('Config. EVENTOS sobre fila');
 		foreach ($this->eventos_sobre_fila() as $evento => $info) {
-			$bloque_molde[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('evento', 'fila'));
+			$bloque_molde[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('$evento', '$fila'));
 		}
 		return $bloque_molde;
 	}

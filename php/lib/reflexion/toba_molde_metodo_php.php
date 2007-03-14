@@ -8,7 +8,7 @@ class toba_molde_metodo_php extends toba_molde_metodo
 		// Parametros
 		$parametros = '';
 		foreach($this->parametros as $id => $param){
-			$this->parametros[$id] = '$' . $param;
+			$this->parametros[$id] = $param;
 		}
 		$parametros = implode(', ',$this->parametros);
 		// Cabecera

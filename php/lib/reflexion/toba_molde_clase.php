@@ -18,6 +18,7 @@ class toba_molde_clase
 	protected $analisis_ventanas_utilizadas = array();
 	protected $analisis_ventanas_no_utilizadas = array();
 	protected $analisis_metodos_usuario = array();
+	protected $ultimo_elemento;
 
 	function __construct($nombre, $nombre_ancestro)
 	{
@@ -31,11 +32,13 @@ class toba_molde_clase
 	{
 		if ($elemento instanceof toba_molde_metodo_js || $elemento instanceof toba_molde_separador_js ) {
 			$this->elementos_js[$this->orden] = $elemento;
+			$this->ultimo_elemento = $this->elementos_js[$this->orden];
 			if ($elemento instanceof toba_molde_metodo_js) {
 				$this->indices_js[$elemento->get_nombre()] = $this->elementos_js[$this->orden];
 			}
 		} elseif ($elemento instanceof toba_molde_metodo_php || $elemento instanceof toba_molde_separador_php ) {
 			$this->elementos_php[$this->orden] = $elemento;
+			$this->ultimo_elemento = $this->elementos_php[$this->orden];
 			if ($elemento instanceof toba_molde_metodo_php) {
 				$this->indices_php[$elemento->get_nombre()] = $this->elementos_php[$this->orden];
 			}
@@ -43,6 +46,11 @@ class toba_molde_clase
 			throw new toba_error('molde_clase: El elemento no corresponde a un tipo valido. Nombre: ' . $elemento->get_nombre() );	
 		}
 		$this->orden++;
+	}
+
+	function ultimo_elemento()
+	{
+		return $this->ultimo_elemento;
 	}
 
 	function agregar_bloque($elementos)
