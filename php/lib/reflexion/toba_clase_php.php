@@ -58,11 +58,7 @@ class toba_clase_php
 	
 	function analizar()
 	{
-		if(!toba_editor::acceso_recursivo()){
-			//La subclase puede incluir archivos del proyecto
-			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
-			agregar_dir_include_path($path_proyecto);
-		}
+		toba_editor::iniciar_contexto_proyecto_cargado();
 		require_once($this->meta_clase->get_clase_archivo());
 		$this->archivo->incluir();		
 		try {

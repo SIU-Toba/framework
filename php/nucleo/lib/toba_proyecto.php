@@ -98,8 +98,9 @@ class toba_proyecto
 		return toba::instancia()->get_db();
 	}
 		
-	protected function cargar_info_basica()
+	function cargar_info_basica($proyecto=null)
 	{
+		$proyecto = isset($proyecto) ? $proyecto : self::get_id();
 		$sql = "SELECT	proyecto as				nombre,
 						p.descripcion as		descripcion,
 						descripcion_corta				,
@@ -147,7 +148,7 @@ class toba_proyecto
 						version_link
 				FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
 						ON (p.menu = m.menu)
-				WHERE	proyecto = '".toba_proyecto::get_id()."';";
+				WHERE	proyecto = '$proyecto';";
 		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
 			throw new toba_error("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	

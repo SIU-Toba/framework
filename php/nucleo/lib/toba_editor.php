@@ -134,6 +134,29 @@ class toba_editor
 	}
 
 	//---------------------------------------------------------------------------
+	//-- 
+	//---------------------------------------------------------------------------
+
+	/**
+	*	Inicializa el contexto del proyecto en edicion.
+	*		(Utilizado en el analisis de codigo y la simulacion)
+	*/
+	function iniciar_contexto_proyecto_cargado()
+	{
+		if(!self::acceso_recursivo()){
+			//La subclase puede incluir archivos del proyecto
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
+			agregar_dir_include_path($path_proyecto);
+			$info = toba::proyecto()->cargar_info_basica(self::get_proyecto_cargado());
+			if($info['contexto_ejecucion_subclase_archivo']&&$info['contexto_ejecucion_subclase_archivo']) {
+				require_once($info['contexto_ejecucion_subclase_archivo']);
+				$contexto = new $info['contexto_ejecucion_subclase']();
+				$contexto->conf__inicial();
+			}
+		}
+	}
+
+	//---------------------------------------------------------------------------
 	//-- Manejo de la configuracion de PREVISUALIZACION
 	//-- ( La previsualizacion es la ejecucion de un proyecto desde el ADMIN)
 	//---------------------------------------------------------------------------

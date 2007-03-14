@@ -12,18 +12,8 @@ class ci_simulacion extends toba_ci
 		}else{
 			throw new toba_error('Este item se utiliza desde la zona de objetos');
 		}
-		$this->habilitar_includes_proyecto($componente['proyecto']);		
+		toba_editor::iniciar_contexto_proyecto_cargado();
 		$this->agregar_dependencia( 'componente', $componente['proyecto'], $componente['componente']);
-	}
-
-	function habilitar_includes_proyecto($proyecto)
-	{
-		if (isset($_SESSION['toba']['instancia'][$proyecto]['path'])) {
-			$dir = $_SESSION['toba']['instancia'][$proyecto]['path'];
-		} else {
-			$dir = toba_dir() . "/proyectos/" . $proyecto;
-		}
-		agregar_dir_include_path($dir . '/php');
 	}
 
 	function conf()
