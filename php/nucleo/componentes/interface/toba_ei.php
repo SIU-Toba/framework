@@ -405,9 +405,18 @@ abstract class toba_ei extends toba_componente
 	 */
 	function generar_html_barra_sup($titulo=null, $control_titulo_vacio=false, $estilo="")
 	{
-		if (!$control_titulo_vacio || trim($this->info["titulo"])!="" || trim($titulo) != ''){
+		$botonera_sup = isset($this->posicion_botonera) && ($this->posicion_botonera == "arriba" ||
+				 $this->posicion_botonera == "ambos");
+		$tiene_titulo = trim($this->info["titulo"])!="" || trim($titulo) != '';
+		if ($botonera_sup || !$control_titulo_vacio || $tiene_titulo) {
 			if (!isset($titulo)) {
 				$titulo = $this->info["titulo"];	
+			}
+			if ($botonera_sup && !$tiene_titulo) {
+				$estilo .= ' ei-barra-sup-sin-tit';
+			}
+			if (!$botonera_sup && $tiene_titulo) {
+				$estilo .= ' ei-barra-sup-sin-botonera';
 			}
 			echo "<div class='ei-barra-sup $estilo'>";
 			//---Barra de mensajeria		
@@ -432,8 +441,13 @@ abstract class toba_ei extends toba_componente
 				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
 			}
 			//---Titulo
+		//--> Botonera
+			if ($botonera_sup) {
+				$this->generar_botones();
+			}			
 			echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
 			echo "</div>";
+		
 		}
 		
 		//--- Descripcion con barra

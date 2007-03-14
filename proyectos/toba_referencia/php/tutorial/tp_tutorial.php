@@ -21,26 +21,6 @@ class tp_tutorial extends tp_referencia
 				background-color: white;
 				font-size: 12px;
 			}
-			.screenshot {
-				display:block;
-				margin: 10px 0px 10px 50px;
-			}
-			.screenshot img {
-				border: 1px outset gray;			
-			}
-			.tutorial-agenda {
-				margin-left: auto;
-				margin-right: auto;
-				width: 500px;
-			}
-			.tutorial-agenda ol {
-			}
-			.tutorial-agenda li {
-				padding-top: 10px;
-			}
-			.tutorial-agenda a {
-				font-size: 16px;
-			}
 			.ci-wiz-titulo, h2 {
 				font-size: 1.5em; 
 			}

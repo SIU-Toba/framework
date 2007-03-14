@@ -16,9 +16,9 @@ class toba_usuario_basico extends toba_usuario
 	*/
 	static function autenticar($id_usuario, $clave, $datos_iniciales=null)
 	{
-		if (self::autenticar_ldap($id_usuario, $clave, $datos_iniciales)) {
+		/*if (self::autenticar_ldap($id_usuario, $clave, $datos_iniciales)) {
 			return true;	
-		}
+		}*/
 		
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if ( empty($datos_usuario) ) {

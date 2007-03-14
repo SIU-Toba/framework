@@ -19,6 +19,7 @@ class toba_tp_basico extends toba_tipo_pagina
 	{
 		$this->cabecera_html();
 		$this->comienzo_cuerpo();
+		echo "<div class='barra-superior'>\n";
 		$this->barra_superior();
 		//--- No se cierra el div de encabezado para dar lugar a la zona...
 	}
@@ -69,6 +70,9 @@ class toba_tp_basico extends toba_tipo_pagina
 		<style type="text/css">
 			#overlay {
 				background-image:url(<?=toba_recurso::imagen_toba('nucleo/overlay.gif', false);?>);     			
+			}
+			.barra-superior {
+				background-image: url(<?=toba_recurso::imagen_skin('barra-sup.gif');?>) repeat-x top;';			
 			}
 		</style>			
 		<?php

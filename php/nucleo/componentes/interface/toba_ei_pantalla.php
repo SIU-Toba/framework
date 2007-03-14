@@ -301,10 +301,7 @@ class toba_ei_pantalla extends toba_ei
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 
-		//--> Botonera
-		if ($this->posicion_botonera == "arriba" || $this->posicion_botonera == "ambos") {
-			$this->generar_botones('ci-botonera');
-		}
+
 		//--> Cuerpo del CI
 		$alto = isset($this->info_ci["alto"]) ? "style='_height:".$this->info_ci["alto"].";min-height:" . $this->info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
@@ -335,13 +332,12 @@ class toba_ei_pantalla extends toba_ei
 			case "tab_h":									//*** TABs horizontales
 				echo "<table class='tabla-0' width='100%'>\n";
 				//Tabs
-				echo "<tr><td>";
+				$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
+				echo "<tr><td style='$estilo' class='ci-tabs-h-lista'>";
 				$this->generar_tabs_horizontales();
 				echo "</td></tr>\n";
 				//Interface de la etapa correspondiente
-				$estilo = '';
-				//$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/borde_izq.gif').'") repeat-y; background-position: top left;';
-				echo "<tr><td style='$estilo' class='ci-tabs-h-cont'>";
+				echo "<tr><td class='ci-tabs-h-cont'>";
 				$this->generar_html_contenido();
 				echo "</td></tr>\n";
 				echo "</table>\n";
@@ -443,8 +439,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function generar_tabs_horizontales()
 	{
-		$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
-		echo "<div style='$estilo' class='ci-tabs-h-lista'><ul>\n";
+		echo "<ul>\n";
 		foreach( $this->lista_tabs as $id => $tab ) {
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
@@ -452,7 +447,7 @@ class toba_ei_pantalla extends toba_ei
 			}			
 			echo $tab->get_html('H', $this->submit, $this->objeto_js, ($this->id_en_controlador == $id), $editor );
 		}
-		echo "</ul></div>";
+		echo "</ul>";
 	}
 
 	/**

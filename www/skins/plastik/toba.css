@@ -1,5 +1,5 @@
 body {
-	background-color: #EEEFF2;
+	background-color: #E3E3E3;
 }
 .encabezado {
  color:black;
@@ -10,7 +10,7 @@ ul.horizontal a, ul.horizontal a:visited {
 	margin-right:2px;
 }
 .nivel-0, a.nivel-0:visited {
-	background-color: #EEEFF2 !important;
+	background-color: #E3E3E3 !important;
 	border :none !important;
 }
 ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
@@ -18,23 +18,43 @@ ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horiz
 	color: white;
 }
 a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited {
-	background-color: #EEEFF2 !important;
+	background-color: #E3E3E3 !important;
 	border:1px solid #8d8e90 !important;
 	color: black !important;
 }
-
-.item-barra {
+.ei-boton {
+ margin-right: 3px;
+ float:right;
+}
+.barra-superior {
  color:white;
  background-color: #5A5E9D;
- border: 1px solid #5c5f9e;
- width: 100%;
- height:30px;
+ border-top: 1px solid black;
+ border-bottom: 1px solid #5c5f9e;
 }
 .zona-barra-id {
 	color:white;
 }
+.zona-items {
+	background-color:#EEEFF2;
+}
+.ci-tabs-h-lista {
+	background-color: #E3E3E3;
+}
+.ci-tabs-h-cont {
+	background-color: #EEEFF2;
+}
+.ei-barra-sup {
+	width:100%;
+ 	background-color: #5A5E9D;
+ 	min-height: 25px;
+}
+.ci-botonera {
+	background-color: #5A5E9D;	
+}
 .ei-barra-sup-tit {
-	font-family: Tahoma;
+	font-size: 14px;
+	color:white;
 }
 .ci-tabs-h-lista ul {
 	margin:0;
@@ -60,3 +80,5 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ci-tabs-h-solapa-sel a {
 	color:#000;
 }
+
+

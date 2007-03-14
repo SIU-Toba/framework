@@ -45,7 +45,9 @@ body {
 	color: #231f20;
 	background-color: #d4d0c8; 
 }
-
+.ei-barra-sup-sin-tit {
+	background-color: #808080 !important;
+}
 /*************************
 		FORMULARIOS
 **************************/

@@ -24,10 +24,6 @@ body * .div-editor {
 	BORDER-COLLAPSE: collapse;
 	empty-cells: hide;
 }
-td {
-	padding: 0;
-	margin: 0;			
-}
 .encabezado {
 	width: 100%;
 	padding-bottom:5px;
@@ -152,9 +148,14 @@ legend {
 }
 .ei-cuerpo {}
 .ei-barra-sup {
-	padding: 3px;
 	text-align: left;
 	padding: 4px;
+	min-height: 24px;	
+	_height:24px;
+}
+.ei-barra-sup-sin-botonera {
+	min-height: 0;
+	_height:0;
 }
 .ei-barra-sup-desc {
 	float: right;
@@ -175,7 +176,10 @@ legend {
 .ei-botonera {
 	clear: both;
 	text-align: right;
-	height:25px;
+}
+/* La botonera dentro de la barra superior flota para que se vea al mismo nivel */
+.ei-barra-sup .ei-botonera {
+	float: right;
 }
 .ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar, .ei-boton-baja {
 	font-size: 11px;
@@ -530,6 +534,7 @@ legend {
 }
 .ci-wiz-toc {
 	height: 100%;
+	padding: 1px;
 	vertical-align: top;
 }
 .ci-wiz-toc-lista {
@@ -596,6 +601,7 @@ legend {
 	float:left;
 	width:100%;
 	line-height:normal;
+	padding: 0;
 }
 .ci-tabs-h-lista ul {
 	margin:0;
@@ -635,8 +641,8 @@ hides rule from IE5-Mac \*/
 	padding: 6px 2px 6px 6px;
 	margin: 0px;
 	vertical-align: top;
-	text-align: left;
 }
+
 
 a.ci-tabs-boton-desact {
 }
