@@ -31,6 +31,7 @@ body {
 	border: 1px solid #a7a5a6;
 	color: #ffffff;
 	background-color: #808080;	
+	width: 100%;
 }
 .ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar {
 	color: #231f20;

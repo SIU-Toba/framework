@@ -418,7 +418,7 @@ abstract class toba_ei extends toba_componente
 			if (!$botonera_sup && $tiene_titulo) {
 				$estilo .= ' ei-barra-sup-sin-botonera';
 			}
-			echo "<div class='ei-barra-sup $estilo'>";
+			ei_barra_inicio("ei-barra-sup $estilo");
 			//---Barra de mensajeria		
 			if (isset($this->objeto_js)) {
 				echo "<a  class='ei-barra-mensajeria' id='barra_{$this->objeto_js}' style='display:none' href='#' onclick='notificacion.mostrar({$this->objeto_js})'>";
@@ -440,14 +440,13 @@ abstract class toba_ei extends toba_componente
 				$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
 				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
 			}
-			//---Titulo
-		//--> Botonera
+			//--> Botonera
 			if ($botonera_sup) {
 				$this->generar_botones();
 			}			
+			//---Titulo			
 			echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
-			echo "</div>";
-		
+			echo ei_barra_fin();
 		}
 		
 		//--- Descripcion con barra

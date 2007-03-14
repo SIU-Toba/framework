@@ -24,13 +24,14 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 .ei-boton {
  margin-right: 3px;
- float:right;
 }
 .barra-superior {
- color:white;
- background-color: #5A5E9D;
- border-top: 1px solid black;
- border-bottom: 1px solid #5c5f9e;
+	color:white;
+	border-top: 1px solid black;
+	border-bottom: 1px solid #5C5F9E;
+}
+.barra-superior-tit {
+	min-height: 30px;
 }
 .zona-barra-id {
 	color:white;
@@ -45,21 +46,30 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	background-color: #EEEFF2;
 }
 .ei-barra-sup {
-	width:100%;
+	width:95%;
  	background-color: #5A5E9D;
- 	min-height: 25px;
+}
+.ei-barra-sup .barra-redondeada-cont {
+
+}
+
+.ci-barra-sup {
+	width: 100%;
 }
 .ci-botonera {
 	background-color: #5A5E9D;	
 }
 .ei-barra-sup-tit {
-	font-size: 14px;
 	color:white;
+	font-size: 11px;
+}
+.ci-barra-sup .ei-barra-sup-tit {
+	font-size:12px;
 }
 .ci-tabs-h-lista ul {
 	margin:0;
 	padding:0;
-	\margin-left: -1px;
+	margin-left: -1px;
 }
 
 .ci-tabs-h-cont {

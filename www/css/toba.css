@@ -149,7 +149,6 @@ legend {
 .ei-cuerpo {}
 .ei-barra-sup {
 	text-align: left;
-	padding: 4px;
 	min-height: 24px;	
 	_height:24px;
 }
@@ -1075,3 +1074,35 @@ a.ci-tabs-boton-desact:hover {
 	text-align: center;
 }
 
+
+/*************************
+		Bordes redondeados
+**************************/
+
+.barra-redondeada {
+	border-spacing: 0; 
+}
+.tl, .tr, .bl, .br {
+	padding:0pt;
+	width:4px;	
+}
+.tl {
+	text-align:left;
+	vertical-align:top;
+}
+.tr {
+	text-align:right;
+	vertical-align:top;
+}
+.bl {
+	text-align:left;
+	vertical-align:bottom;
+}
+.br {
+	text-align:right;
+	vertical-align:bottom;
+}
+.c {
+	height:4px;
+	width:4px;
+}

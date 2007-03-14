@@ -822,7 +822,7 @@ class toba_ei_formulario extends toba_ei
 			}
 		}		
 		if ($hay_colapsado) {
-			$img = toba_recurso::imagen_toba('nucleo/expandir_vert.gif', false);
+			$img = toba_recurso::imagen_skin('expandir_vert.gif', false);
 			$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_expansion();\" title='Mostrar / Ocultar'";
 			echo "<div class='ei-form-fila ei-form-expansion'>";
 			echo "<img id='{$this->objeto_js}_cambiar_expansion' src='$img' $colapsado>";

@@ -279,4 +279,30 @@
 		echo "</table>\n";	
 	}
 
+	function ei_barra_inicio($clases)
+	{
+		echo "<table cellpadding='5' align='center' class='barra-redondeada $clases'>";
+			echo '<tr>
+		    <td class="tl" align="left" valign="top">
+		    	<img src="'.toba_recurso::imagen_skin('corner_tl.gif').'" class="c" alt="">
+		    </td>
+		    <td class="barra-redondeada-cont" rowspan="2">';
+	}
+	
+	function ei_barra_fin()
+	{
+		echo '
+		    </td>
+		    <td class="tr" align="right" valign="top"><img src="'.toba_recurso::imagen_skin('corner_tr.gif').'" class="c" alt="">
+		    </td>
+		  </tr>
+		  <tr>
+		    <td class="bl" align="left" valign="bottom"><img src="'.toba_recurso::imagen_skin('corner_bl.gif').'" class="c" alt=""></td>
+		    <td class="br" align="right" valign="bottom"><img src="'.toba_recurso::imagen_skin('corner_br.gif').'" class="c" alt=""></td>
+		  </tr>
+		';
+		echo "</table>";
+	}
+
+	
 ?>
