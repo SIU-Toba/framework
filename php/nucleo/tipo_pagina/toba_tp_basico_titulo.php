@@ -14,6 +14,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 
 	protected function barra_superior()
 	{
+		$this->info_version();		
 		echo "<div class='barra-superior barra-superior-tit'>\n";		
 		$info = toba::solicitud()->get_datos_item();
 		echo "<div class='item-barra'>";
@@ -23,8 +24,8 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
 			echo "</div>";
 		}		
+		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
-		$this->info_version();
 		echo "</div>\n\n";
 	}
 	

@@ -349,7 +349,6 @@ class toba_editor
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003');
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>".
-				"Estilo: $estilo ".
 				"<a href='$link_logger' target='logger' $html_ayuda_logger >".
 				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n".	
 				"<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
