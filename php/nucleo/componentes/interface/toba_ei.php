@@ -432,7 +432,6 @@ abstract class toba_ei extends toba_componente
 				echo '</span>';
 			}
 	
-			
 			//---Barra de colapsado
 			$colapsado = "";
 			if ($this->info['colapsable'] && isset($this->objeto_js)) {

@@ -301,7 +301,6 @@ class toba_ei_pantalla extends toba_ei
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 
-
 		//--> Cuerpo del CI
 		$alto = isset($this->info_ci["alto"]) ? "style='_height:".$this->info_ci["alto"].";min-height:" . $this->info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
@@ -365,7 +364,9 @@ class toba_ei_pantalla extends toba_ei
 				echo "</table>\n";
 				break;				
 			default:										//*** Sin mecanismo de navegacion
+				echo "<div class='ci-simple-cont'>";
 				$this->generar_html_contenido();
+				echo "</div>";
 		}
 	}
 

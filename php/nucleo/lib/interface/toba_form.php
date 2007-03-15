@@ -17,7 +17,7 @@ class toba_form
         $r = "<INPUT type='text' name='$nombre' id='$nombre' $max_length size='$size' ";
         if (isset($actual)) $r .= "value='$actual' ";
         if ($read_only) $r .= " readonly ";
-        $r .= "class='$clase' $extra>\n";
+        $r .= "class='$clase' $extra />\n";
         return $r;
     }
 
@@ -76,7 +76,7 @@ class toba_form
     {
         $s = "";
         if($valor==$actual) $s = "CHECKED";
-        return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra>\n";
+        return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra />\n";
     }
 
     static function radio($nombre, $actual, $datos, $clase=null, $extra="", $tab_index = "")
@@ -100,14 +100,14 @@ class toba_form
     static function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {
-        return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra>\n";
+        return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra />\n";
     }
 
     static function submit($nombre,$valor,$clase="ei-boton",$extra="", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
-	        return "<INPUT type='submit' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+	        return "<INPUT type='submit' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra />\n";
 		else
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'submit', '', $clase);
     }
@@ -116,14 +116,14 @@ class toba_form
     // Boton de SUBMIT
     {
 		$acceso = toba_recurso::ayuda($tecla);
-        return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $acceso $extra>\n";
+        return "<INPUT type='image' name='$nombre' id='$nombre' src='$src' $acceso $extra />\n";
     }
 
     static function button($nombre,$valor,$extra="",$clase="ei-boton", $tecla = null)
     // Boton de SUBMIT
     {
 		if ($tecla === null)
-	        return "<INPUT type='button' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra>\n";
+	        return "<INPUT type='button' name='$nombre' id='$nombre' value='$valor' class='$clase' $extra />\n";
 		else
 			return toba_form::button_html($nombre, $valor, $extra, 0, $tecla, '', 'button', '', $clase);
     }
@@ -145,14 +145,14 @@ class toba_form
     {
     	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
     	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
-        return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra>\n";
+        return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra />\n";
     }
 
     static function archivo($nombre,$valor=null,$clase="ef-upload",$extra="")
     // Boton de SUBMIT
     {
         if(isset($valor)) $valor = "value='$valor'";
-        return "<INPUT type='file' name='$nombre' id='$nombre' $valor $extra class='$clase'>\n";
+        return "<INPUT type='file' name='$nombre' id='$nombre' $valor $extra class='$clase' />\n";
     }
 
     static function abrir($nombre,$action,$extra="",$method="post",$upload=true)

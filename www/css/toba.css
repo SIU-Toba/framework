@@ -148,6 +148,7 @@ legend {
 }
 .ei-cuerpo {}
 .ei-barra-sup {
+	width: 100%;
 	text-align: left;
 	min-height: 24px;	
 	_height:24px;
@@ -508,6 +509,8 @@ legend {
 .ci-base {
 }
 .ci-barra-sup {
+}
+.ci-simple-cont {
 }
 .ci-botonera {
 	padding: 3px;
@@ -1080,29 +1083,9 @@ a.ci-tabs-boton-desact:hover {
 **************************/
 
 .barra-redondeada {
-	border-spacing: 0; 
 }
-.tl, .tr, .bl, .br {
-	padding:0pt;
-	width:4px;	
-}
-.tl {
-	text-align:left;
-	vertical-align:top;
-}
-.tr {
-	text-align:right;
-	vertical-align:top;
-}
-.bl {
-	text-align:left;
-	vertical-align:bottom;
-}
-.br {
-	text-align:right;
-	vertical-align:bottom;
-}
-.c {
-	height:4px;
-	width:4px;
-}
+.c {width: 4; height: 4}
+.tl {padding: 0; width: 4; text-align: left; vertical-align: top !important;}
+.tr {padding: 0; width: 4; text-align: right; vertical-align: top}
+.bl {padding: 0; width: 4; text-align: left; vertical-align: bottom}
+.br {padding: 0; width: 4; text-align: right; vertical-align: bottom}

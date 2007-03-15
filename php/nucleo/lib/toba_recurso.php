@@ -46,8 +46,8 @@ class toba_recurso
 	 */			
 	static function url_skin()
 	{
-		$skin = toba::proyecto()->get_parametro('estilo');
-		//$skin = 'plastik';
+		//$skin = toba::proyecto()->get_parametro('estilo');
+		$skin = 'plastik';
 		return self::url_toba().'/skins/'.$skin;
 	}
 
