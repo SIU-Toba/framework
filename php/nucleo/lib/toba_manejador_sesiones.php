@@ -535,7 +535,7 @@ class toba_manejador_sesiones
 	private function modo_previsualizacion()
 	{
 		$segmento =& $this->segmento_editor();
-		return ( isset($segmento) && $segmento['proyecto'] == $this->proyecto );
+		return ( isset($segmento) && isset($segmento['proyecto']) && ($segmento['proyecto'] == $this->proyecto) );
 	}
 
 	/**

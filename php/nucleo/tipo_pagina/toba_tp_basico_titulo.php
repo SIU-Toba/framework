@@ -24,7 +24,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			echo "</div>";
 		}		
 		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
-		//$this->info_version();
+		$this->info_version();
 		echo "</div>\n\n";
 	}
 	
@@ -39,7 +39,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	protected function info_version()
 	{
 		$version = toba::proyecto()->get_parametro('version');
-		if( $version ) {
+		if( $version && ! toba_editor::acceso_recursivo() ) {
 			$info = '';
 			$version_fecha = toba::proyecto()->get_parametro('version_fecha');
 			if($version_fecha) {

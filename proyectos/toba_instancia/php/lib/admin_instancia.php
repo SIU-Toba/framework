@@ -18,7 +18,7 @@ class admin_instancia
 
 	function validar_estructura_instancia()
 	{
-			
+		
 	}
 
 	function get_lista_proyectos()
@@ -36,9 +36,9 @@ class admin_instancia
 		return toba_dba::get_db($this->base);
 	}
 	
-	static function ref()
+	static function ref($recargar=false)
 	{
-		if (!isset(self::$instanciacion)) {
+		if (!isset(self::$instanciacion) || $recargar ) {
 			self::$instanciacion = new admin_instancia();	
 		}
 		return self::$instanciacion;	

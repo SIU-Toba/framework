@@ -1,18 +1,38 @@
 <?php 
+require_once('modelo/catalogo_modelo.php');
 require_once("contrib/lib/toba_nodo_basico.php");
 require_once("menu/menu_nodo_proyecto.php");
 
 class ci_menu extends toba_ci
 {
-	function conf()
+	function evt__form__modificacion($datos)
 	{
-		$this->pantalla()->set_descripcion('Administración de la instancia <strong>'.toba::sesion()->get_id_instancia().'</strong>');	
+		toba::sesion()->set_id_instancia($datos['instancia']);
+		admin_instancia::ref(true);
 	}
 
+	function conf__form($componente)
+	{
+		$componente->set_datos(array('instancia'=>toba::sesion()->get_id_instancia()));
+	}
+	
 	function conf__arbol($componente)
 	{
 		$componente->set_datos( $this->construir_arbol() );
 		$componente->set_nivel_apertura(2);
+	}
+	
+	function get_lista_instancias()
+	{
+		$instancias = instancia::get_lista();
+		$datos = array();
+		$a = 0;
+		foreach( $instancias as $x) {
+			$datos[$a]['id'] = $x;
+			$datos[$a]['desc'] = $x;
+			$a++;
+		}
+		return $datos;
 	}
 	
 	function construir_arbol()
@@ -62,6 +82,16 @@ class ci_menu extends toba_ci
 		$nodo_admin->set_hijos(array($nodo_usuarios, $nodo_admin_bips));
 		//---------------------------
 		return array( $nodo_admin, $nodo_proyectos );
+	}
+
+	function extender_objeto_js()
+	{
+		echo "
+		{$this->objeto_js}.evt__cerrar = function()
+		{
+			salir();
+		}
+		";
 	}
 }
 ?>
