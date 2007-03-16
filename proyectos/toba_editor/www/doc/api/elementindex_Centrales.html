@@ -467,11 +467,13 @@
 							<dt><b>array_renombrar_llaves</b></dt>
 				<dd>in file toba_varios.php, function <a href="Centrales/_lib---toba_varios.php.html#functionarray_renombrar_llaves">array_renombrar_llaves()</a></dd>
 							<dt><b>autenticar</b></dt>
-				<dd>in file toba_usuario.php, method <a href="Centrales/toba_usuario.html#methodautenticar">toba_usuario::autenticar()</a></dd>
+				<dd>in file toba_usuario_basico.php, method <a href="Centrales/toba_usuario_basico.html#methodautenticar">toba_usuario_basico::autenticar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Realiza la autentificacion.</dd>
 							<dt><b>autenticar</b></dt>
 				<dd>in file toba_interface_usuario.php, method <a href="Centrales/toba_interface_usuario.html#methodautenticar">toba_interface_usuario::autenticar()</a></dd>
 							<dt><b>autenticar</b></dt>
-				<dd>in file toba_usuario_basico.php, method <a href="Centrales/toba_usuario_basico.html#methodautenticar">toba_usuario_basico::autenticar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Realiza la autentificacion.</dd>
+				<dd>in file toba_usuario.php, method <a href="Centrales/toba_usuario.html#methodautenticar">toba_usuario::autenticar()</a></dd>
+							<dt><b>autenticar_ldap</b></dt>
+				<dd>in file toba_usuario_basico.php, method <a href="Centrales/toba_usuario_basico.html#methodautenticar_ldap">toba_usuario_basico::autenticar_ldap()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Realiza la autentificacion utilizando un servidor LDAP</dd>
 							<dt><b>autorizar_acceso_item</b></dt>
 				<dd>in file toba_nucleo.php, method <a href="Centrales/toba_nucleo.html#methodautorizar_acceso_item">toba_nucleo::autorizar_acceso_item()</a></dd>
 							<dt><b>ayuda</b></dt>
@@ -677,17 +679,19 @@
 							<dt><b>eliminar_entrada</b></dt>
 				<dd>in file toba_ini.php, method <a href="Centrales/toba_ini.html#methodeliminar_entrada">toba_ini::eliminar_entrada()</a></dd>
 							<dt><b>eliminar_instancia</b></dt>
+				<dd>in file toba_instancia.php, method <a href="Centrales/toba_instancia.html#methodeliminar_instancia">toba_instancia::eliminar_instancia()</a></dd>
+							<dt><b>eliminar_instancia</b></dt>
 				<dd>in file toba_proyecto.php, method <a href="Centrales/toba_proyecto.html#methodeliminar_instancia">toba_proyecto::eliminar_instancia()</a></dd>
 							<dt><b>eliminar_instancia</b></dt>
 				<dd>in file toba_instalacion.php, method <a href="Centrales/toba_instalacion.html#methodeliminar_instancia">toba_instalacion::eliminar_instancia()</a></dd>
-							<dt><b>eliminar_instancia</b></dt>
-				<dd>in file toba_instancia.php, method <a href="Centrales/toba_instancia.html#methodeliminar_instancia">toba_instancia::eliminar_instancia()</a></dd>
 							<dt><b>eliminar_metodo_datos</b></dt>
 				<dd>in file toba_clase_datos.php, method <a href="Centrales/toba_clase_datos.html#methodeliminar_metodo_datos">toba_clase_datos::eliminar_metodo_datos()</a></dd>
 							<dt><b>empaquetar_propiedades</b></dt>
 				<dd>in file toba_parseo.php, function <a href="Centrales/_lib---toba_parseo.php.html#functionempaquetar_propiedades">empaquetar_propiedades()</a></dd>
 							<dt><b>encriptador</b></dt>
 				<dd>in file toba.php, method <a href="Centrales/toba.html#methodencriptador">toba::encriptador()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna una referencia al encriptador</dd>
+							<dt><b>encriptar_con_sal</b></dt>
+				<dd>in file toba_varios.php, function <a href="Centrales/_lib---toba_varios.php.html#functionencriptar_con_sal">encriptar_con_sal()</a></dd>
 							<dt><b>Encrypt</b></dt>
 				<dd>in file toba_encriptador.php, method <a href="Centrales/toba_encriptador.html#methodEncrypt">toba_encriptador::Encrypt()</a></dd>
 							<dt><b>error</b></dt>
@@ -1405,11 +1409,13 @@
 							<dt><b>servicio__vista_toba_impr_html</b></dt>
 				<dd>in file toba_solicitud_web.php, method <a href="Centrales/toba_solicitud_web.html#methodservicio__vista_toba_impr_html">toba_solicitud_web::servicio__vista_toba_impr_html()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Genera una salida html pensada para impresión</dd>
 							<dt><b>sesion</b></dt>
-				<dd>in file toba.php, method <a href="Centrales/toba.html#methodsesion">toba::sesion()</a></dd>
-							<dt><b>sesion</b></dt>
 				<dd>in file toba_manejador_sesiones.php, method <a href="Centrales/toba_manejador_sesiones.html#methodsesion">toba_manejador_sesiones::sesion()</a></dd>
+							<dt><b>sesion</b></dt>
+				<dd>in file toba.php, method <a href="Centrales/toba.html#methodsesion">toba::sesion()</a></dd>
 							<dt><b>set_contenido</b></dt>
 				<dd>in file toba_molde_metodo.php, method <a href="Centrales/toba_molde_metodo.html#methodset_contenido">toba_molde_metodo::set_contenido()</a></dd>
+							<dt><b>set_cronometrar</b></dt>
+				<dd>in file toba_solicitud.php, method <a href="Centrales/toba_solicitud.html#methodset_cronometrar">toba_solicitud::set_cronometrar()</a></dd>
 							<dt><b>set_dato</b></dt>
 				<dd>in file toba_memoria.php, method <a href="Centrales/toba_memoria.html#methodset_dato">toba_memoria::set_dato()</a></dd>
 							<dt><b>set_datos_entrada</b></dt>
@@ -1628,7 +1634,7 @@
 							<dt><b>toba_manejador_tabs</b></dt>
 				<dd>in file toba_varios.php, class <a href="Centrales/toba_manejador_tabs.html">toba_manejador_tabs</a></dd>
 							<dt><b>toba_memoria</b></dt>
-				<dd>in file toba_memoria.php, class <a href="Centrales/toba_memoria.html">toba_memoria</a><br>&nbsp;&nbsp;&nbsp;&nbsp;El hilo contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:</dd>
+				<dd>in file toba_memoria.php, class <a href="Centrales/toba_memoria.html">toba_memoria</a><br>&nbsp;&nbsp;&nbsp;&nbsp;La memoria contiene la información historica de la aplicación, enmascarando a $_GET y $_SESSION:</dd>
 							<dt><b>toba_molde_clase</b></dt>
 				<dd>in file toba_molde_clase.php, class <a href="Centrales/toba_molde_clase.html">toba_molde_clase</a></dd>
 							<dt><b>toba_molde_elemento</b></dt>
@@ -1708,12 +1714,16 @@
 	<div>
 		<h2>u</h2>
 		<dl>
+							<dt><b>$ultimo_elemento</b></dt>
+				<dd>in file toba_molde_clase.php, variable <a href="Centrales/toba_molde_clase.html#var$ultimo_elemento">toba_molde_clase::$ultimo_elemento</a></dd>
+							<dt><b>ultimo_elemento</b></dt>
+				<dd>in file toba_molde_clase.php, method <a href="Centrales/toba_molde_clase.html#methodultimo_elemento">toba_molde_clase::ultimo_elemento()</a></dd>
 							<dt><b>url_a_variable</b></dt>
 				<dd>in file toba_vinculador.php, method <a href="Centrales/toba_vinculador.html#methodurl_a_variable">toba_vinculador::url_a_variable()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Desemmpaqueta una variable compleja (ej. array) que formaba parte de una URL</dd>
 							<dt><b>usuario</b></dt>
-				<dd>in file toba_manejador_sesiones.php, method <a href="Centrales/toba_manejador_sesiones.html#methodusuario">toba_manejador_sesiones::usuario()</a></dd>
-							<dt><b>usuario</b></dt>
 				<dd>in file toba.php, method <a href="Centrales/toba.html#methodusuario">toba::usuario()</a></dd>
+							<dt><b>usuario</b></dt>
+				<dd>in file toba_manejador_sesiones.php, method <a href="Centrales/toba_manejador_sesiones.html#methodusuario">toba_manejador_sesiones::usuario()</a></dd>
 							<dt><b>usuario_solicita_cronometrar</b></dt>
 				<dd>in file toba_memoria.php, method <a href="Centrales/toba_memoria.html#methodusuario_solicita_cronometrar">toba_memoria::usuario_solicita_cronometrar()</a></dd>
 					</dl>

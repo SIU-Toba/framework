@@ -185,7 +185,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																							<tr>
+																																																																																																																																																																																																																<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -304,6 +304,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#log_debug" title="details" class="method-name">log_debug</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#quote" title="details" class="method-name">quote</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Convierte un string a una representación segura para el motor. Evita</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -428,7 +435,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 
@@ -462,7 +469,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -496,7 +503,7 @@ $puerto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
 </div>
 <br />
 
@@ -562,7 +569,7 @@ $puerto = null]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -621,7 +628,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		    		
 	
-	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 166]</span>
 </div>
 <br />
 
@@ -705,7 +712,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -749,7 +756,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -787,7 +794,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 196]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 205]</span>
 </div>
 <br />
 
@@ -832,7 +839,7 @@ $sentencias&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -876,7 +883,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
 </div>
 <br />
 
@@ -910,7 +917,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -980,7 +987,7 @@ $descripcion&nbsp;
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
 </div>
 <br />
 
@@ -1049,13 +1056,51 @@ $sql&nbsp;
 		
 		<br />
 </div>
-<a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
+<a name="methodquote" id="quote"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
+	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void quote(
+
+$texto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Convierte un string a una representación segura para el motor. Evita <p>la inyección de código malicioso dentro de la sentencia SQL</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 241]</span>
 </div>
 <br />
 
@@ -1082,12 +1127,12 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
 </div>
 <br />
 
@@ -1113,7 +1158,7 @@ $sql&nbsp;
 		<br />
 </div>
 <a name="methodset_modo_debug" id="set_modo_debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
