@@ -72,7 +72,12 @@ class ci_proyecto extends toba_ci
 
 	function conf__nucleo($ei)
 	{
-		return $this->dependencia('datos')->get();
+		$datos = $this->dependencia('datos')->get();
+		if (isset($datos['item_set_sesion'])) {
+			$datos['carpeta_set_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_set_sesion'], 
+																				$datos['proyecto']);
+		}
+		return $datos;
 	}
 
 	//---- version -------------------------------------------------------

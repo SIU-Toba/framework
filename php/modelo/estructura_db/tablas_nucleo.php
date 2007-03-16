@@ -1,4 +1,4 @@
-<?
+<?php
 
 class tablas_nucleo
 {
@@ -129,13 +129,14 @@ class tablas_nucleo
     34 => 'registrar_cronometro',
     35 => 'item_inicio_sesion',
     36 => 'item_pre_sesion',
-    37 => 'log_archivo',
-    38 => 'log_archivo_nivel',
-    39 => 'fuente_datos',
-    40 => 'version',
-    41 => 'version_fecha',
-    42 => 'version_detalle',
-    43 => 'version_link',
+    37 => 'item_set_sesion',
+    38 => 'log_archivo',
+    39 => 'log_archivo_nivel',
+    40 => 'fuente_datos',
+    41 => 'version',
+    42 => 'version_fecha',
+    43 => 'version_detalle',
+    44 => 'version_link',
   ),
 );
 	}

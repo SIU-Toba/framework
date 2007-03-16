@@ -1,4 +1,4 @@
-<?
+<?php
 
 class tablas_instancia
 {

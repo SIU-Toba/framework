@@ -1,4 +1,4 @@
-<?
+<?php
 
 class catalogo_general
 {

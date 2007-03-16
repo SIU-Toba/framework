@@ -40,7 +40,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	protected function info_version()
 	{
 		$version = toba::proyecto()->get_parametro('version');
-		if( $version && ! toba_editor::acceso_recursivo() ) {
+		if( $version && ! (toba::proyecto()->get_id() == 'toba_editor') ) {
 			$info = '';
 			$version_fecha = toba::proyecto()->get_parametro('version_fecha');
 			if($version_fecha) {

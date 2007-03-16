@@ -5,15 +5,27 @@ class sesion extends toba_sesion
 {
 	private $id_intancia;
 
-	function conf__inicial($datos)
+	function conf__inicial($datos=null)
 	{
-		if(!isset($datos)) throw new toba_error('Error: No fue especificada la INSTANCIA a editar.');
+		if(!isset($datos)) {
+			$datos = toba::memoria()->get_parametro('instancia');
+			if( !isset($datos) ) {
+				throw new toba_error('Error: No fue especificada la INSTANCIA a editar.');				
+			}
+		}
 		$this->id_instancia = $datos;
 	}
 
 	function conf__activacion()
 	{
 		contexto_info::set_db( admin_instancia::ref()->db() );
+	}
+	
+	//-------------------------------------------------------------
+	
+	function get_ini_previsualizacion()
+	{
+			
 	}
 
 	//-- API para el proyecto -------------------------------------

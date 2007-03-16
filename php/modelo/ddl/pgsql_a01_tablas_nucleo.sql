@@ -91,6 +91,7 @@ CREATE TABLE			apex_proyecto
 	registrar_cronometro				varchar(1)		NULL,
 	item_inicio_sesion      			varchar(60)		NULL,--NOT
 	item_pre_sesion		          		varchar(60)		NULL,--NOT
+	item_set_sesion						varchar(60)		NULL,
 	log_archivo							smallint		NULL,
 	log_archivo_nivel					smallint		NULL,
 	fuente_datos						varchar(20)		NULL,--NOT
