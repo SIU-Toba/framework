@@ -1,6 +1,5 @@
 <?php 
 require_once('modelo/catalogo_modelo.php');
-require_once('modelo/lib/gui.php');
 
 class ci_ini_sesion extends toba_ci
 {
@@ -8,7 +7,7 @@ class ci_ini_sesion extends toba_ci
 	{
 		if ( isset($datos)) {
 			try {
-				toba::manejador_sesiones()->iniciar_sesion_proyecto($datos);
+				toba::manejador_sesiones()->iniciar_sesion_proyecto($datos['instancia']);
 			} catch ( toba_error_login $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
@@ -28,20 +27,6 @@ class ci_ini_sesion extends toba_ci
 		$datos = array();
 		$a = 0;
 		foreach( $instancias as $x) {
-			$datos[$a]['id'] = $x;
-			$datos[$a]['desc'] = $x;
-			$a++;
-		}
-		return $datos;
-	}
-	
-	function get_lista_proyectos($instancia_id)
-	{
-		$instancia = catalogo_modelo::instanciacion()->get_instancia($instancia_id, new mock_gui);
-		$proyectos = $instancia->get_lista_proyectos_vinculados();
-		$datos = array();
-		$a = 0;
-		foreach( $proyectos as $x) {
 			$datos[$a]['id'] = $x;
 			$datos[$a]['desc'] = $x;
 			$a++;

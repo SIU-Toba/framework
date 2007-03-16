@@ -21,13 +21,6 @@ class sesion extends toba_sesion
 		contexto_info::set_db( admin_instancia::ref()->db() );
 	}
 	
-	//-------------------------------------------------------------
-	
-	function get_ini_previsualizacion()
-	{
-			
-	}
-
 	//-- API para el proyecto -------------------------------------
 	
 	function set_id_instancia($instancia)

@@ -41,9 +41,9 @@ class toba_manejador_sesiones
 	//------------------------------------------------------------------
 
 	/**
-	 * Representa la accion de loguearse a una instancia.
+	 * Logueo a una instancia.
 	 *	El parametro 3 es pasado como parametro al metodo conf__incial() de toba_sesion.
-	 * 	Puede disparar una excepcion de tipo 'toba_error_autentificacion'
+	 * 	Este metodo puede disparar una excepcion de tipo 'toba_error_autentificacion'
 	 */
 	function login($id_usuario, $clave=null, $datos_iniciales=null)
 	{
@@ -52,8 +52,7 @@ class toba_manejador_sesiones
 			throw new toba_reset_nucleo();
 		}
 		if ( $this->existe_usuario_activo() ) {
-			toba::notificacion()->agregar('No es posible logearse sobre una instancia que ya posee un usuario logueado. Se utiliza la secion anterior.');
-			$this->procesar_acceso_proyecto();
+			$this->procesar_acceso_proyecto($datos_iniciales);
 		}
 		$this->autenticar($id_usuario, $clave, $datos_iniciales);
 		$this->procesar_acceso_instancia($id_usuario, $datos_iniciales);
@@ -64,7 +63,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Representa el acceso de un usuario aninimo a la instancia.
+	 * Acceso de un usuario aninimo a la instancia.
 	 */
 	function login_anonimo()
 	{
@@ -85,7 +84,7 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	 * Representa la salida de la sesion creada desde un proyecto
+	 * Salida de la sesion creada desde un proyecto
 	 */
 	function logout($observaciones=null)
 	{
@@ -96,7 +95,18 @@ class toba_manejador_sesiones
 		// Se recarga el nucleo, esta vez sobre una sesion INACTIVA.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('FINALIZAR SESION... recargando el nucleo.');
-		}	
+		}
+	}
+	
+	/**
+	*	Entrada a un proyecto desde el item de inicializacion de sesion
+	*/
+	function iniciar_sesion_proyecto($datos_iniciales)
+	{
+		$this->procesar_acceso_proyecto($datos_iniciales);			
+		if (toba::nucleo()->solicitud_en_proceso()) {
+			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
+		}
 	}
 
 	//------------------------------------------------------------------
@@ -263,14 +273,21 @@ class toba_manejador_sesiones
 				$this->registrar_activacion_sesion();
 			} catch ( toba_error $e ) {
 				$this->logout($e->getMessage());
-/*				// Si el proyecto no requiere autentificacion disparo una sesion anonima
-				if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
+				// Si el proyecto no requiere autentificacion disparo una sesion anonima
+				/*if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
 					$this->login_anonimo();
 				}*/
 			}
 		} elseif( $this->existe_usuario_activo() ) {	//--> Hay un usuario en la instancia, pero no logueado al proyecto actual
-			$this->procesar_acceso_proyecto();
-		} else {										//--> Entrada INICIAL
+			if ( $this->sesion_requiere_inicializacion() ) {
+				//Apunto al nucleo al item de inicializacion de sesion
+				$item[0] = toba::proyecto()->get_id();
+				$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
+				toba::memoria()->set_item_solicitado($item);
+			} else {
+				$this->procesar_acceso_proyecto();
+			}
+		} else {										//--> ** Entrada INICIAL **
 			// Si el proyecto no requiere autentificacion disparo una sesion anonima
 			if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
 				$this->login_anonimo();
@@ -314,13 +331,20 @@ class toba_manejador_sesiones
 	}
 
 	/**
-	*	Se accede a un proyecto, despues de haber creado una sesion en otro de la misma instancia
+	*	Se accede a un proyecto directamente
 	*/
-	private function procesar_acceso_proyecto()
+	private function procesar_acceso_proyecto($datos_iniciales=null)
 	{
+		if ( $this->existe_sesion_activa() ) {
+			toba::notificacion()->agregar('No es posible cargar un proyecto que ya se encuentra abierto');
+		}
+		if ( ! $this->existe_usuario_activo() ) {
+			//Por si el acceso desde el item de inicializacion de sesion esta mal
+			throw new toba_error('ERROR: El acceso directo a un proyecto solo puede solicitarse si existe un usuario logueado.');
+		}
 		try {
 			$this->cargar_usuario( $this->get_id_usuario_instancia() );
-			$this->abrir_sesion();
+			$this->abrir_sesion($datos_iniciales);
 			$this->guardar_contexto();
 		} catch ( toba_error $e ) {
 			unset($this->usuario);
@@ -524,6 +548,13 @@ class toba_manejador_sesiones
 			return new toba_sesion();
 		}
 	}
+
+	private function sesion_requiere_inicializacion()
+	{
+		return ( 	toba::proyecto()->get_parametro('sesion_subclase') &&
+					toba::proyecto()->get_parametro('sesion_subclase_archivo') &&
+					toba::proyecto()->get_parametro('item_set_sesion') );
+	}	
 
 	//------------------------------------------------------------------
 	//---  Relacion con el EDITOR --------------------------------------
