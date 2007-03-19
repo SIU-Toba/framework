@@ -19,7 +19,7 @@ class toba_cronometro
 		$this->indice = 0;
 		global $cronometro;
 		$cronometro = $this;
-		$this->marcar("Creacion cronometro.");
+		$this->marcar("Inicio medición");
 	}
 	
 	static function instancia()
@@ -32,7 +32,7 @@ class toba_cronometro
 
 	function marcar($nombre,$nivel="item"){
 		$microtime = explode(' ', microtime());
-		$this->marcas[$this->indice]["t"] = $microtime[1] . substr($microtime[0], 1);
+		$this->marcas[$this->indice]["t"] =  $microtime[1] . substr($microtime[0], 1);
 		$this->marcas[$this->indice]["n"] = $nombre;
 		$this->marcas[$this->indice]["niv"] = $nivel;
 		$this->indice++;
@@ -63,20 +63,11 @@ class toba_cronometro
 	 */
 	function registrar($proyecto, $solicitud)
 	{
-		$this->marcar("Fin del cronómetro");
+		$this->marcar("Fin medición");
 		//dump_arbol($this->marcas);
-		$temp = $this->marcas[0]['t'];
 		for($f=0;$f<count($this->marcas);$f++)
 		{
-			//echo "$f-1 TEMP: $temp<br>";
-			$momento = $this->marcas[$f]['t'];
-			//echo "$f-2 MOME: $momento<br>";
-			$tiempo = number_format(($momento - $temp),3,'.','');
-			//echo "$f-3 TIEM: $tiempo<br>";
-			if($this->marcas[$f]['n']!="INICIO"){
-				toba::instancia()->registrar_marca_cronometro($proyecto, $solicitud, $f, $this->marcas[$f]['niv'], $this->marcas[$f]['n'], $tiempo);
-			}
-			$temp = $momento;
+			toba::instancia()->registrar_marca_cronometro($proyecto, $solicitud, $f, $this->marcas[$f]['niv'], $this->marcas[$f]['n'], $this->marcas[$f]['t']);
 		}
 	}
 }

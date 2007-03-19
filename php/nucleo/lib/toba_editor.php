@@ -313,7 +313,9 @@ class toba_editor
 	*/
 	static function generar_zona_vinculos_item( $item )
 	{
-		toba::solicitud()->set_cronometrar(true);
+		if (! self::acceso_recursivo()) {
+			toba::solicitud()->set_cronometrar(true);
+		}
 		echo toba_js::abrir();
 		echo "
 			function editor_cambiar_vinculos() {
@@ -350,9 +352,9 @@ class toba_editor
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>".
 				"<a href='$link_logger' target='logger' $html_ayuda_logger >".
-				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n";
-				/*"<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
-				toba_recurso::imagen_toba('reloj.png', true)."</a>\n";*/
+				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n".
+				"<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+				toba_recurso::imagen_toba('reloj.png', true)."</a>\n";
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
 		echo "</div>";
@@ -402,12 +404,6 @@ class toba_editor
 		return $html;
 	}
 
-	/*
-		ATENCION __falta: 
-			- Logger
-			- Editor de CSS
-			- Cronometro
-	*/
 	static function get_vinculos_item( $item )
 	{
 		//Celda de memoria central

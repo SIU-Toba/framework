@@ -19,7 +19,6 @@ class toba_usuario_basico extends toba_usuario
 		/*if (self::autenticar_ldap($id_usuario, $clave, $datos_iniciales)) {
 			return true;	
 		}*/
-		
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if ( empty($datos_usuario) ) {
 			toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');

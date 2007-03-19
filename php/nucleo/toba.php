@@ -188,6 +188,7 @@ class toba
 	
 	/**
 	* @ignore
+	* @return toba_manejador_sesiones
 	*/
 	static function manejador_sesiones()
 	{

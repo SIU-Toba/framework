@@ -34,10 +34,10 @@ class toba_nucleo
 	
 	private function __construct()
 	{
+		toba::cronometro();		
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
 			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
 		}
-		toba::cronometro();
 	}
 	
 	static function instancia()
@@ -92,7 +92,6 @@ class toba_nucleo
 			toba::logger()->crit($e, 'toba');
 			echo $e->getMessage() . "\n\n";
 		}
-		toba::cronometro()->marcar('Fin Acceso Web');
 		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 	}
@@ -206,6 +205,7 @@ class toba_nucleo
 	{
 		toba::manejador_sesiones()->finalizar();
 		toba::contexto_ejecucion()->conf__final();
+		$this->solicitud->guardar_cronometro();
 	}
 }
 ?>

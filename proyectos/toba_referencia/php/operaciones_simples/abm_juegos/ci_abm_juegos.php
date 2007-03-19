@@ -15,9 +15,9 @@ class ci_abm_juegos extends toba_ci
 
 	//-- CUADRO --
 	
-	function conf__cuadro()
+	function conf__cuadro($cuadro)
 	{
-		return consultas::get_juegos();
+		$cuadro->set_datos(consultas::get_juegos());
 	}
 
 	function evt__cuadro__seleccion($seleccion)

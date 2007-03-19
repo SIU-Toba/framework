@@ -46,10 +46,12 @@ class toba_solicitud_web extends toba_solicitud
 				$this->pre_proceso_servicio();
 			}
 			$this->cargar_objetos();
+			toba::cronometro()->marcar('Procesando Eventos');
 			$this->procesar_eventos();
 			if ($redirecciona) {
 				$this->pre_proceso_servicio();
 			}
+			toba::cronometro()->marcar('Procesando Servicio');
 			$this->procesar_servicios();
 		} catch(toba_error $e) {
 			toba::logger()->error($e, 'toba');

@@ -23,6 +23,7 @@ abstract class toba_solicitud
 
 	function __construct($item, $usuario)	
 	{
+		toba::cronometro()->marcar('Inicio Solicitud');		
 		$this->item = $item;
 		$this->usuario = $usuario;
 
@@ -101,7 +102,15 @@ abstract class toba_solicitud
 		//--- Finalizo objetos BASICOS -------
 		toba::memoria()->destruir();
 		//dump_session();
+		// Guardo cronometro
 	}	
+	
+	function guardar_cronometro()
+	{
+		if ($this->cronometrar){	
+			toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
+		}			
+	}
 
 	abstract function procesar();
 
@@ -111,15 +120,12 @@ abstract class toba_solicitud
 
 	function registrar()	
 	{
+		toba::cronometro()->marcar('Finalizando Solicitud');		
 		if (count($this->observaciones) > 0) $this->registrar_db = true;
 		if( $this->registrar_db || $this->cronometrar) {
 			// Guardo solicitud
 			toba::instancia()->registrar_solicitud(	$this->id, $this->info['basica']['item_proyecto'], 
 													$this->info['basica']['item'], $this->get_tipo());
-			// Guardo cronometro
-			if ($this->cronometrar){	
-				toba::cronometro()->registrar($this->info['basica']['item_proyecto'], $this->id);
-			}
 			// Guardo observaciones
 			if(count($this->observaciones)>0) {
 				for($i=0;$i<count($this->observaciones);$i++) {
