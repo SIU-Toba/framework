@@ -17,6 +17,7 @@ require_once('nucleo/lib/toba_instalacion.php');				//Informacion sobre la insta
 require_once('nucleo/lib/toba_instancia.php');					//Informacion sobre la instancia
 require_once('nucleo/lib/toba_proyecto.php');	   				//Informacion sobre el proyecto
 require_once('nucleo/lib/toba_manejador_sesiones.php');			//Informacion sobre el proyecto
+require_once('nucleo/lib/toba_puntos_control.php');	   				//Informacion sobre los puntos de control
 require_once('nucleo/componentes/toba_constructor.php');		//Constructor de componentes
 require_once('nucleo/componentes/toba_cargador.php');			//Cargador de componentes
 require_once('nucleo/componentes/toba_catalogo.php');			//Catalogo de componentes
