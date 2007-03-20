@@ -472,6 +472,7 @@ class proyecto extends elemento_modelo
 		try {
 			$this->compilar_componentes();
 			$this->crear_compilar_archivo_referencia();
+			$this->compilar_metadatos_generales();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".
 												$e->getMessage());
@@ -528,6 +529,39 @@ class proyecto extends elemento_modelo
 		$archivo = toba_manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
 		$path = $this->get_dir_componentes_compilados() .'/'. $archivo . '.php';
 		$clase->guardar( $path );
+	}
+
+	/*
+	*	Compila los metadatos que no son componentes
+	*/
+	function compilar_metadatos_generales()
+	{
+		/*
+			Simples
+			
+				cargar_info_basica
+			
+			Conjuntos
+			
+				componente (una clase para todos?):
+					get_definicion_dependencia($objeto, $identificador, $proyecto=null)
+					[x id mensaje]
+						get_mensaje_objeto($objeto, $indice)
+				fuente:
+					get_info_fuente_datos($id_fuente, $proyecto=null)
+				grupo_acceso (una clase por grupo):
+					get_items_menu($solo_primer_nivel=false ????????, $proyecto=null, $grupo_acceso=null)
+					get_vinculos_posibles($grupo_acceso=null)
+					puede_grupo_acceder_item($grupo_acceso, $item)
+					get_lista_permisos($grupo)
+					[x zona]
+						function get_items_zona($zona, $grupo)
+				permisos:	
+					get_descripcion_permiso
+				mensaje:
+					get_mensaje_proyecto($indice)
+					[ID==toba] get_mensaje_toba($indice)		
+		*/
 	}
 
 	//-----------------------------------------------------------

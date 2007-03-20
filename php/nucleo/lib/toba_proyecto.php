@@ -1,4 +1,5 @@
 <?php
+require_once('toba_proyecto_db.php');
 require_once('toba_instancia.php');
 
 /**
@@ -33,7 +34,12 @@ class toba_proyecto
 		}
 		return self::$id_proyecto;
 	}
-	
+
+	static function get_db()
+	{
+		return toba::instancia()->get_db();
+	}
+		
 	/**
 	 * @return toba_proyecto
 	 */
@@ -100,64 +106,11 @@ class toba_proyecto
 	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
 	 * @return toba_db
 	 */
-	static function get_db()
-	{
-		return toba::instancia()->get_db();
-	}
 		
 	function cargar_info_basica($proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : $this->id;
-		$sql = "SELECT	proyecto as				nombre,
-						p.descripcion as		descripcion,
-						descripcion_corta				,
-						estilo							,
-						con_frames						,
-						frames_clase					,
-						frames_archivo					,
-						salida_impr_html_c				,
-						salida_impr_html_a				,
-						m.menu as				menu,
-						m.archivo as			menu_archivo,
-						path_includes					,
-						path_browser					,
-						administrador					,
-						listar_multiproyecto			,
-						orden							,
-						palabra_vinculo_std				,
-						version_toba					,
-						requiere_validacion				,
-						usuario_anonimo					,
-						usuario_anonimo_desc			,
-						usuario_anonimo_grupos_acc		,
-						validacion_intentos				,
-						validacion_intentos_min			,
-						validacion_debug				,
-						sesion_tiempo_no_interac_min	,
-						sesion_tiempo_maximo_min		,
-						sesion_subclase					,
-						sesion_subclase_archivo			,
-						contexto_ejecucion_subclase		,
-						contexto_ejecucion_subclase_archivo	,
-						usuario_subclase				,
-						usuario_subclase_archivo		,
-						encriptar_qs					,
-						registrar_solicitud				,
-						registrar_cronometro			,
-						item_inicio_sesion      		,
-						item_pre_sesion   		       	,
-						item_set_sesion					,
-						log_archivo						,
-						log_archivo_nivel				,
-						fuente_datos					,
-						version							,
-						version_fecha					,
-						version_detalle					,
-						version_link
-				FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
-						ON (p.menu = m.menu)
-				WHERE	proyecto = '$proyecto';";
-		$rs = self::get_db()->consultar($sql);
+		$rs = toba_proyecto_db::cargar_info_basica($proyecto);
 		if (empty($rs)) {
 			throw new toba_error("El proyecto '".$this->id."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
@@ -236,25 +189,8 @@ class toba_proyecto
 
 	static function get_definicion_dependencia($objeto, $identificador, $proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id() ;
-		$sql = "SELECT 
-					'$identificador' 	as identificador,
-					o.proyecto 			as proyecto,
-					o.objeto 			as objeto,
-					o.fuente_datos		as fuente,
-					o.clase				as clase,
-					o.subclase			as subclase,
-					o.subclase_archivo	as subclase_archivo,
-					c.archivo			as clase_archivo
-				FROM
-					apex_objeto o,
-					apex_clase c
-				WHERE
-					o.objeto = '$objeto' AND
-					o.proyecto = '$proyecto' AND
-					o.clase = c.clase AND
-					o.clase_proyecto = c.proyecto";
-		$res = self::get_db()->consultar($sql);
+		$proyecto = isset($proyecto) ? $proyecto : self::get_id() ;
+		$res = toba_proyecto_db::get_definicion_dependencia($objeto, $identificador, $proyecto);
 		return $res[0];
 	}
 
