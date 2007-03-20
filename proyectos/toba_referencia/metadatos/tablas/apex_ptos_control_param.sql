@@ -1,0 +1,13 @@
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'alumno', 'carrera');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'alumno', 'legajo');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'alumno', 'nro_inscripcion');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'comision', 'carrera');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'comision', 'comision');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'comision', 'legajo');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'comision', 'materia');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'comision', 'nro_inscripcion');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'materia', 'carrera');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'materia', 'legajo');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'materia', 'materia');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'materia', 'nro_inscripcion');
+INSERT INTO apex_ptos_control_param (proyecto, pto_control, parametro) VALUES ('toba_referencia', 'persona', 'nro_inscripcion');

@@ -345,6 +345,88 @@ class dao_editores
 	}
 
 	//---------------------------------------------------
+	//------------ PUNTOS DE CONTROL --------------------
+	//---------------------------------------------------
+
+  static function get_puntos_de_control($filtro, $id_contenedor = null, $id_objeto = null, $campos = null)
+  {
+    $sql = "SELECT pto_control,
+                     descripcion
+                FROM apex_ptos_control 
+               WHERE proyecto = '". contexto_info::get_proyecto() ."'
+
+     ";
+    
+    // Elimina los puntos de control que ya se utilizaron en 
+    // pantallas anteriores del mismo item. 
+    if ($filtro == 'P' || $filtro == 'C') 
+    {
+      if (isset($id_objeto))
+        $sql .= "    AND pto_control NOT IN (
+                   
+                    SELECT pce.pto_control
+                     FROM apex_ptos_control_x_evento pce,
+                          apex_objeto_dependencias ode,
+                          apex_objeto_dependencias ode2,
+                          apex_objeto_eventos oe
+                          
+                     WHERE ode.proyecto          =  '". contexto_info::get_proyecto() ."'
+                       AND ode.objeto_proveedor  =  '". $id_objeto ."'
+                       
+                       AND ode.proyecto          =  ode2.proyecto
+                       AND ode.objeto_consumidor =  ode2.objeto_consumidor
+   
+                       AND ode2.proyecto         =  oe.proyecto
+                       AND ode2.objeto_proveedor =  oe.objeto
+                       AND ode2.objeto_proveedor <> '". $id_objeto ."'
+   
+                       AND oe.proyecto           =  pce.proyecto
+                       AND oe.evento_id          =  pce.evento_id
+                 ) 
+        ";    
+
+      if (isset($id_contenedor))
+        $sql .= "    AND pto_control NOT IN (
+
+                    SELECT pce.pto_control
+                     FROM apex_ptos_control_x_evento pce,
+                          apex_objeto_dependencias ode,
+                          apex_objeto_eventos oe
+                          
+                     WHERE ode.proyecto          =  '". contexto_info::get_proyecto() ."'
+                       AND ode.objeto_consumidor =  '". $id_contenedor ."'
+                       
+                       AND ode.proyecto          =  oe.proyecto
+                       AND ode.objeto_proveedor  =  oe.objeto
+   
+                       AND oe.proyecto           =  pce.proyecto
+                       AND oe.evento_id          =  pce.evento_id
+                 ) 
+        ";    
+    }
+
+    // Solo muestra los puntos de control cuyos parametros tengan el mismo 
+    // nombre que los definidos en el cuadro en edición
+    if ($filtro == 'C')
+    {
+       $sql .= "  AND pto_control IN (
+
+                     SELECT DISTINCT pcp.pto_control
+                       FROM apex_ptos_control_param pcp
+                      WHERE pcp.proyecto = '". contexto_info::get_proyecto() ."'
+                        AND pcp.parametro IN ('" 
+                        . implode("','",$campos) 
+                      . "')
+                 ) 
+     ";    
+    }
+
+    $sql .= "  ORDER BY descripcion   ";
+
+		return contexto_info::get_db()->consultar($sql);  
+  }
+
+	//---------------------------------------------------
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------
 

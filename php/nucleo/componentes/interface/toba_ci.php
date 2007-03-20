@@ -376,7 +376,12 @@ class toba_ci extends toba_ei
 		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if (method_exists($this, $metodo)) {
 			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
-			return call_user_func_array(array($this, $metodo), $parametros);
+
+      $componente = $this->dep($id);
+      if ($componente->tiene_puntos_control($evento))
+  			toba::puntos_control()->ejecutar_puntos_control($componente, $evento, $parametros);
+
+      return call_user_func_array(array($this, $metodo), $parametros);
 		} else {
 			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
 			return apex_ei_evt_sin_rpta;
@@ -388,6 +393,19 @@ class toba_ci extends toba_ei
 	//--  Eventos Predefinidos------------------------
 	//------------------------------------------------
 	
+  /**
+   *  Este evento se invoca por cada control que falla.  
+   *  Como el resultado de la ejecucion del control se toma
+   *  despues de invocar a este metodo, se puede alterar
+   *  desde aqui el comportarmiento del control y su resultado.
+	 * @param string $punto_control Punto de control en ejecucion.
+	 * @param toba_control $control Referencia al control que falló.
+   */
+  function evt__falla_punto_control($punto_control, &$control)
+  {
+  
+  }
+
 	/**
 	 * Evento predefinido de cancelar, limpia este objeto, y en caso de exisitr, cancela al cn asociado
 	 */
@@ -716,10 +734,17 @@ class toba_ci extends toba_ei
 	 */
 	protected function set_pantalla($id)
 	{
-		if (isset($this->pantalla_servicio)) {
+    $ok = false;
+    foreach($this->info_ci_me_pantalla as $info_pantalla) 
+			$ok |= ($info_pantalla['identificador'] == $id);
+
+		if (! $ok) 
+			throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+
+		if (isset($this->pantalla_servicio)) 
 			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
-		}
-		$this->pantalla_id_servicio	= $id;
+
+    $this->pantalla_id_servicio	= $id;
 	}
 
 	/**

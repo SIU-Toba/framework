@@ -21,6 +21,11 @@ class tablas_proyecto
   13 => 'apex_item_msg',
   14 => 'apex_objeto_msg',
   15 => 'apex_permiso',
+  16 => 'apex_ptos_control',
+  17 => 'apex_ptos_control_param',
+  18 => 'apex_ptos_control_ctrl',
+  19 => 'apex_ptos_control_x_evento'
+
 );
 	}
 
@@ -346,6 +351,88 @@ class tablas_proyecto
     0 => 'proyecto',
     1 => 'conversion_aplicada',
     2 => 'fecha',
+  ),
+);
+	}
+
+	static function apex_ptos_control()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pto_control',
+    2 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_ptos_control_param()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pto_control',
+    2 => 'parametro',
+  ),
+);
+	}
+
+	static function apex_ptos_control_ctrl()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pto_control',
+    2 => 'clase',
+    3 => 'archivo',
+    4 => 'actua_como',
+  ),
+);
+	}
+
+	static function apex_ptos_control_x_evento()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pto_control',
+    2 => 'evento_id',
   ),
 );
 	}

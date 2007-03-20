@@ -143,7 +143,6 @@ class ci_eventos extends toba_ci
 		}
 	}
 
-
 	function evt__eventos_lista__seleccion($id)
 	{
 		if(isset($this->id_intermedio_evento[$id])){
@@ -156,18 +155,27 @@ class ci_eventos extends toba_ci
 	//-----------------------------------------
 	//---- EI: Info detalla de un EVENTO ------
 	//-----------------------------------------
-
 	function evt__eventos__modificacion($datos)
 	{
-		$this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
+    $this->get_tabla()->modificar_fila($this->seleccion_evento_anterior, $datos);
+
+    // -- Aplico los cambios a la tabla de puntos de control
+    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior);
+    $this->controlador->dep('datos')->tabla('puntos_control')->eliminar_filas(true);
+    foreach ($datos['ptos_de_control'] as $key => $value)
+      $this->controlador->dep('datos')->tabla('puntos_control')->nueva_fila(array('pto_control' => $value));
 	}
 	
-	function conf__eventos()
+	function conf__eventos($componente)
 	{
-		$this->seleccion_evento_anterior = $this->seleccion_evento;
-		return $this->get_tabla()->get_fila($this->seleccion_evento_anterior);
-	}
+    $this->seleccion_evento_anterior = $this->seleccion_evento;
 
+  	$componente->set_datos($this->get_tabla()->get_fila($this->seleccion_evento_anterior));
+   
+    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior); 
+    $componente->ef('ptos_de_control')->set_estado($this->controlador->dep('datos')->tabla('puntos_control')->get_valores_columna('pto_control'));
+  }
+  
 	function evt__eventos__cancelar()
 	{
 		$this->limpiar_seleccion();
@@ -179,7 +187,40 @@ class ci_eventos extends toba_ci
 		$this->limpiar_seleccion();
 	}
 
-	//-----------------------------------------
+	//--------- PUNTOS DE CONTROL ------------
+
+  function get_puntos_de_control($filtro)
+  {
+    $tabla_base = $this->controlador->get_entidad()->tabla('base');
+    $id_objeto = $tabla_base->get_fila_columna($tabla_base->get_cursor(), 'objeto');
+
+    // Si no puedo recuperar el contenedor es porque el objeto aun
+    // no existe en la base, entonces el pido el contenedor al creador.
+    $creador_obj = $this->controlador()->controlador();
+    $id_contenedor = null;
+    if (get_class($creador_obj) == 'ci_creador_objeto') 
+      $id_contenedor = $creador_obj->get_destino_objeto();
+
+    $columnas = array(); 
+    if ($filtro == 'C') 
+    {
+      if ($this->controlador->get_entidad()->existe_tabla('columnas')) 
+      {
+        $tabla = $this->controlador->get_entidad()->tabla('columnas');
+        $columnas = $tabla->get_valores_columna('clave');
+      }
+
+      if ($this->controlador->get_entidad()->existe_tabla('efs')) 
+      {
+        $tabla = $this->controlador->get_entidad()->tabla('efs');
+        $columnas = $tabla->get_valores_columna('identificador');
+      }
+    }
+    
+    $puntos_control = dao_editores::get_puntos_de_control($filtro, $id_contenedor, $id_objeto, $columnas );
+    
+    return $puntos_control;
+  }
 	
 }
 ?>

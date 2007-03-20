@@ -79,6 +79,11 @@ class catalogo_general
   71 => 'apex_objeto_db_registros_ext_col',
   72 => 'apex_objeto_datos_rel',
   73 => 'apex_objeto_datos_rel_asoc',
+  74 => 'apex_ptos_control',
+  75 => 'apex_ptos_control_param',
+  76 => 'apex_ptos_control_ctrl',
+  77 => 'apex_ptos_control_x_evento'
+
 );
 	}
 

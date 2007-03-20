@@ -8,9 +8,9 @@ require_once("admin_util.php");
 class ci_eventos_del_ci extends ci_eventos 
 {
 
-	function conf__eventos()
+	function conf__eventos($componente)
 	{
-		$datos = parent::conf__eventos();
+		$datos = parent::conf__eventos($componente);
 		//Se determina el identificador del evento que entiende actualmente las pantallas
 		$id_ev = $this->get_tabla()->get_fila_columna($this->seleccion_evento_anterior, 'identificador');
 		$pantallas = $this->controlador->get_pantallas_evento($id_ev);

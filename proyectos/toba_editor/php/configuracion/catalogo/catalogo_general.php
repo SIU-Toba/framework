@@ -72,6 +72,16 @@ class catalogo_general extends toba_nodo_basico
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
+      $hijos[6] = new toba_nodo_basico('Puntos de control', $this);
+  		$hijos[6]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/punto_control.png", false),
+							'ayuda' => null ) );
+	  	$hijos[6]->agregar_utileria( array(
+        'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
+        'ayuda'   => 'Editar PUNTOS DE CONTROL globales',
+        'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '10000019', $opciones ),
+			  'target'  => apex_frame_centro
+		) );
+		//----------------------------------------------------------------------
 		$this->set_hijos($hijos);
 	}
 }

@@ -381,7 +381,17 @@ class toba_memoria
 			return null;
 		}
 	}
-	
+
+  function &get_ref_dato($indice)
+ 	{
+		if($this->existe_dato($indice))	{
+			//Se avisa que se accedio a un dato global al sistema de reciclado
+			$this->acceso_a_dato_global($indice);
+			return $this->celda_memoria_actual['global'][$indice];
+		}else{
+			return null;
+		}
+	} 
 	/**
 	 * Elimina un dato de la memoria
 	 */

@@ -956,4 +956,86 @@ CREATE TABLE apex_conversion
 	CONSTRAINT	"apex_conversion_pk" PRIMARY	KEY ("proyecto","conversion_aplicada"),
 	CONSTRAINT	"apex_conversion_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+
 --#################################################################################################
+CREATE TABLE apex_ptos_control 
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  proyecto VARCHAR(15) NOT NULL,
+  pto_control          VARCHAR(20) NOT NULL,
+  descripcion          VARCHAR(255) NULL,
+
+  CONSTRAINT "apex_ptos_control__pk" PRIMARY KEY("proyecto", "pto_control")
+);
+
+--#################################################################################################
+CREATE TABLE apex_ptos_control_param
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  proyecto VARCHAR(15) NOT NULL,
+  pto_control              VARCHAR(20) NOT NULL,
+  parametro                VARCHAR(60) NULL,
+
+  CONSTRAINT "apex_ptos_ctrl_param__pk" PRIMARY KEY("proyecto", "pto_control", "parametro"),
+  CONSTRAINT "apex_ptos_ctrl_param_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "public"."apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--#################################################################################################
+CREATE TABLE apex_ptos_control_ctrl
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  proyecto VARCHAR(15)  NOT NULL,
+  pto_control             VARCHAR(20)  NOT NULL,
+  clase                   VARCHAR(60)  NOT NULL,
+  archivo                 VARCHAR(255) NULL,
+  actua_como              CHAR(1)      DEFAULT 'M' NOT NULL CHECK (actua_como IN ('E','A','M')),
+  
+  CONSTRAINT "apex_ptos_ctrl_ctrl__pk" PRIMARY KEY("proyecto", "pto_control", "clase"),
+  CONSTRAINT "apex_ptos_ctrl_ctrl_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "public"."apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--#################################################################################################
+CREATE TABLE apex_ptos_control_x_evento
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  proyecto VARCHAR(15) NOT NULL,
+  pto_control              VARCHAR(20) NOT NULL,
+  evento_id                INTEGER     NOT NULL,
+
+  CONSTRAINT "apex_ptos_ctrl_x_evt__pk" PRIMARY KEY("proyecto", "pto_control", "evento_id"),
+  CONSTRAINT "apex_proyecto_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "public"."apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "public"."apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE, 
+  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_evento" FOREIGN KEY ("proyecto", "evento_id") REFERENCES "public"."apex_objeto_eventos"("proyecto", "evento_id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);

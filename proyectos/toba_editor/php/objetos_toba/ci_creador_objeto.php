@@ -237,6 +237,14 @@ class ci_creador_objeto extends toba_ci
 		admin_util::redireccionar_a_editor_objeto($this->objeto_construido['proyecto'], 
 													$this->objeto_construido['objeto']);
 	}
+
+  /**
+   * Retorna el objeto destino en el cual se creará el objeto en edicion.
+   */
+  function get_destino_objeto()
+  {
+    return $this->destino['objeto'];
+  }
 	
 	//------------------------------------------------------------------------
 	//-------------------------- SERVICIOS --------------------------

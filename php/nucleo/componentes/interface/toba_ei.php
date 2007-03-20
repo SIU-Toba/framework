@@ -347,6 +347,25 @@ abstract class toba_ei extends toba_componente
 	}
 
 	//--------------------------------------------------------------------
+	//--  PUNTOS DE CONTROL ----------------------------------------------
+	//--------------------------------------------------------------------
+  function tiene_puntos_control($evento)
+  {
+    return (count($this->get_puntos_control($evento)) > 0);
+  }
+
+  function get_puntos_control($evento)
+  {
+    $ret = array();
+    for ($i=0; $i < count($this->puntos_control); $i++)
+      if ($this->puntos_control[$i]['evento'] == $evento || $evento == '')
+        $ret[] = $this->puntos_control[$i]['pto_control'];
+
+    return $ret;
+  }
+
+
+	//--------------------------------------------------------------------
 	//--  INTERFACE GRAFICA   --------------------------------------------
 	//--------------------------------------------------------------------
 
