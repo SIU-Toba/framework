@@ -39,6 +39,9 @@ class toba_editor
 	static function referenciar_memoria()
 	{
 		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
+		if (toba::memoria()->get_parametro('skin') != '') {
+			toba::proyecto()->set_parametro('estilo', toba::memoria()->get_parametro('skin'));
+		}
 	}
 
 	static function finalizar()
@@ -350,11 +353,21 @@ class toba_editor
 		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
-		echo "<div id='editor_previsualizacion'>".
-				"<a href='$link_logger' target='logger' $html_ayuda_logger >".
-				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n".
-				"<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
+		echo "<div id='editor_previsualizacion'>";
+				//Skin
+		$skins = rs_convertir_asociativo(toba::instancia()->get_lista_skins(), array('estilo'), 'descripcion');
+		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
+		echo toba_form::select('cambiar_skin', toba::proyecto()->get_parametro('estilo'), $skins, 'ef-combo', $js);
+		
+				//Logger
+		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".
+				toba_recurso::imagen_toba('logger_22.png', true)."</a>\n";
+				
+				//Cronometro
+		echo "<a href='$link_cronometro' target='cronometro' $html_ayuda_cronometro >\n".
 				toba_recurso::imagen_toba('reloj.png', true)."</a>\n";
+				
+				//Edicion				
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
 		echo "</div>";

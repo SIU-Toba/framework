@@ -13,6 +13,7 @@ class toba_proyecto
 	static private $instancia;
 	static private $id_proyecto;
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
+	private $id;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -36,25 +37,31 @@ class toba_proyecto
 	/**
 	 * @return toba_proyecto
 	 */
-	static function instancia()
+	static function instancia($id_proyecto=null, $recargar=false)
 	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_proyecto();	
+		if (! isset($id_proyecto)) {
+			$id_proyecto = self::get_id();
+			toba::logger()->debug("Proyecto solicitado: $id_proyecto");
 		}
-		return self::$instancia;
+		if (!isset(self::$instancia[$id_proyecto]) || $recargar) {
+			toba::logger()->debug("Creando instancia: $id_proyecto");
+			self::$instancia[$id_proyecto] = new toba_proyecto($id_proyecto, $recargar);	
+		}
+		return self::$instancia[$id_proyecto];
 	}
 
 	static function eliminar_instancia()
 	{
-		self::$instancia = null;
+		self::$instancia[self::get_id()] = null;
 	}
 	
-	private function __construct()
+	private function __construct($proyecto, $recargar=false)
 	{
-		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto();
-		if (!$this->memoria) {
+		$this->id = $proyecto;
+		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
+		if (!$this->memoria || $recargar) {
 			$this->memoria = self::cargar_info_basica();
-			toba::logger()->debug('Inicalizacion de TOBA_PROYECTO: ' . self::get_id(),'toba');
+			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
 	}
 
@@ -100,7 +107,7 @@ class toba_proyecto
 		
 	function cargar_info_basica($proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : self::get_id();
+		$proyecto = isset($proyecto) ? $proyecto : $this->id;
 		$sql = "SELECT	proyecto as				nombre,
 						p.descripcion as		descripcion,
 						descripcion_corta				,
@@ -152,7 +159,7 @@ class toba_proyecto
 				WHERE	proyecto = '$proyecto';";
 		$rs = self::get_db()->consultar($sql);
 		if (empty($rs)) {
-			throw new toba_error("El proyecto '".toba_proyecto::get_id()."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
+			throw new toba_error("El proyecto '".$this->id."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
 		return $rs[0];
 	}
@@ -167,7 +174,7 @@ class toba_proyecto
 	 */
 	function get_path()
 	{
-		return toba::instancia()->get_path_proyecto(self::get_id());
+		return toba::instancia()->get_path_proyecto($this->id);
 	}
 
 	/**
@@ -227,7 +234,7 @@ class toba_proyecto
 	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
-	function get_definicion_dependencia($objeto, $identificador, $proyecto=null)
+	static function get_definicion_dependencia($objeto, $identificador, $proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id() ;
 		$sql = "SELECT 
@@ -253,7 +260,7 @@ class toba_proyecto
 
 	//------------------------  FUENTES  -------------------------
 
-	function get_info_fuente_datos($id_fuente, $proyecto=null)
+	static function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
 		if (! isset($proyecto)) {
 			$proyecto = toba_proyecto::get_id();
@@ -282,7 +289,7 @@ class toba_proyecto
 	 * @param string $grupo_acceso Por defecto el del usuario actual
 	 * @return array RecordSet contienendo información de los items
 	 */
-	function get_items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
+	static function get_items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
 	{
 		$rest = "";
 		if ($solo_primer_nivel) {

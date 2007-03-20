@@ -4,6 +4,8 @@ body {
 .encabezado {
  color:black;
 }
+.enc-version {
+}
 ul.horizontal a, ul.horizontal a:visited {
 	background: #fafbfe;
 	border:1px solid #8d8e90;
@@ -39,6 +41,13 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .zona-items {
 	background-color:#EEEFF2;
 }
+.zona-items a {
+	color:#cccccc;
+}
+.zona-items a:hover, .zona-items a:focus, .zona-items a.rollover, .zona-items a.rollover:visited {
+	color: white;
+}
+
 .ci-tabs-h-lista {
 	background-color: #E3E3E3;
 }

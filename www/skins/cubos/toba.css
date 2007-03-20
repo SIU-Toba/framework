@@ -20,6 +20,11 @@ body {
 	background-color:#D4D0C8;
 	border-bottom: #4f4c4d 1px solid;	
 }
+.enc-version {
+	background-color: white;	
+	border: 1px solid gray;	
+	color:black;
+}
 .ei-base {
 	border-right: #404040 1px solid;
 	border-top: #ffffff 1px solid;	

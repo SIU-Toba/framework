@@ -404,6 +404,7 @@ function salir(){
 
 
 
+
 //Se agrega una forma de distinguir si esta cargada la pagina y se lanza el firstFocus
 addEvent(window, "onload", "pagina_cargada=true;firstFocus();");
 

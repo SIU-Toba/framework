@@ -175,6 +175,16 @@ class toba_instancia
 				ORDER BY 1;";
 		return $this->get_db()->consultar($sql);	
 	}
+	
+	function get_lista_skins()
+	{
+		$sql = "SELECT
+					estilo, descripcion
+				FROM apex_estilo
+				ORDER BY descripcion
+		";
+		return $this->get_db()->consultar($sql);
+	}
 
 	/**
 	*	Devuelve el grupo de acceso de un usuario para un proyecto

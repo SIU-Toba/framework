@@ -22,7 +22,13 @@ class ci_proyecto extends toba_ci
 
 	function evt__modificacion()
 	{
+		$nuevas = $this->dep('datos')->get();
 		$this->dependencia('datos')->sincronizar();
+		
+		//---Actualiza los parámetros del proyecto en la sesión activa
+		if (toba::manejador_sesiones()->existe_sesion_activa($nuevas['proyecto'])) {
+			toba::manejador_sesiones()->recargar_info_proyecto($nuevas['proyecto']);
+		}
 	}
 
 	//-------------------------------------------------------------------

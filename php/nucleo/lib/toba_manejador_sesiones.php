@@ -483,6 +483,12 @@ class toba_manejador_sesiones
 		$this->borrar_segmento_proyecto($proyecto);
 	}
 
+	
+	function recargar_info_proyecto($proyecto)
+	{
+		toba_proyecto::instancia($proyecto, true);
+	}
+	
 	//------------------------------------------------------------------
 	
 	private function guardar_contexto()
@@ -654,12 +660,15 @@ class toba_manejador_sesiones
 		return $_SESSION['toba']['instancias'][$this->instancia]['editor'];
 	}
 
-	function & segmento_info_proyecto()
+	function & segmento_info_proyecto($proyecto = null)
 	{
-		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info'] = array();
+		if (! isset($proyecto)) {
+			$proyecto = $this->proyecto;	
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info'];
+		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'])) {
+			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'] = array();
+		}
+		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'];
 	}
 
 	function & segmento_memoria_proyecto()
