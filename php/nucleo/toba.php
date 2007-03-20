@@ -195,5 +195,13 @@ class toba
 		return toba_manejador_sesiones::instancia();
 	}		
 	
+/**
+	 * Retorna el objeto que contiene información de los puntos de control
+	 * @return toba_puntos_control
+	 */
+  static function puntos_control()
+  {
+  	return toba_puntos_control::instancia();
+  }
 }
 ?>
