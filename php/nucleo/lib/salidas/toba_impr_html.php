@@ -23,11 +23,14 @@ class toba_impr_html implements toba_impresion
 	 */
 	function generar_salida()
 	{
+    ob_start();
+    header('Content-Type: text/html', true);
 		$this->generar_html_encabezado();
 		foreach( $this->objetos as $objeto ) {
 			$objeto->vista_impresion( $this );	
 		}
 		$this->generar_html_pie();
+    ob_flush();
 	}
 
 	protected function generar_html_encabezado()
