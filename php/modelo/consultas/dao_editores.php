@@ -667,6 +667,18 @@ class dao_editores
 		return contexto_info::get_db()->consultar($sql);	
 	}
 
+	/**
+	*	Lista de Skins
+	*/
+	function get_lista_skins()
+	{
+		$sql = "SELECT
+					estilo, descripcion
+				FROM apex_estilo
+				ORDER BY descripcion";
+		return contexto_info::get_db()->consultar($sql);
+	}
+	
 	//-------------------------------------------------
 	//---------------- LOGS ---------------------------
 	//-------------------------------------------------

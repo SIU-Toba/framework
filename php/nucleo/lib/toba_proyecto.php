@@ -440,7 +440,7 @@ class toba_proyecto
 
 	//------------------------  ZONA  -------------------------
 
-	static function get_items_zona($zona, $usuario)
+	static function get_items_zona($zona, $grupo)
 	{
 		$sql = "SELECT	i.proyecto as 					item_proyecto,
 						i.item as						item,
@@ -450,29 +450,15 @@ class toba_proyecto
 						i.nombre as						nombre,
 						i.descripcion as				descripcion
 				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui,
-						apex_usuario_proyecto up
+						apex_usuario_grupo_acc_item ui
 				WHERE	i.zona = '$zona'
 				AND		i.zona_proyecto = '".toba_proyecto::get_id()."'
 				AND 	ui.item = i.item
 				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = up.usuario_grupo_acc
-                AND     ui.proyecto = up.proyecto
-                AND     up.usuario = '$usuario'
+				AND		ui.usuario_grupo_acc = '$grupo'
 				AND		i.zona_listar = 1
 				ORDER BY 3;";
 		return self::get_db()->consultar($sql);	
-	}
-
-	//------------------------  Descripcion ITEM consola  -------------------------
-
-	static function get_menu_consola($proyecto, $item)
-	{
-		$sql = "SELECT descripcion_breve, descripcion_larga
-				FROM apex_item_info
-				WHERE item_proyecto = '$proyecto'
-				AND item = '$item';";
-		return self::get_db()->consultar($sql);
 	}
 }
 ?>

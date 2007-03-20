@@ -105,7 +105,7 @@ class toba_instancia
 		if(empty($rs)){
 			throw new toba_error("No es posible recuperar el ID de la sesion.");
 		}
-		return $rs[0]['id'];	
+		return $rs[0]['id'];
 	}
 	
 	function abrir_sesion($sesion, $usuario, $proyecto)
@@ -176,16 +176,6 @@ class toba_instancia
 		return $this->get_db()->consultar($sql);	
 	}
 	
-	function get_lista_skins()
-	{
-		$sql = "SELECT
-					estilo, descripcion
-				FROM apex_estilo
-				ORDER BY descripcion
-		";
-		return $this->get_db()->consultar($sql);
-	}
-
 	/**
 	*	Devuelve el grupo de acceso de un usuario para un proyecto
 	*/

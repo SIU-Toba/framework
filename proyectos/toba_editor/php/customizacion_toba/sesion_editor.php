@@ -1,6 +1,4 @@
 <?php
-require_once('modelo/info/contexto_info.php');
-
 class sesion_editor extends toba_sesion
 {
 	function conf__inicial($datos)
@@ -12,8 +10,6 @@ class sesion_editor extends toba_sesion
 	function conf__activacion()
 	{
 		toba_editor::referenciar_memoria();
-		contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
-		contexto_info::set_db( toba_editor::get_base_activa() );
 	}
 
 	function conf__final()

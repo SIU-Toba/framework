@@ -26,23 +26,6 @@ class toba_solicitud_consola extends toba_solicitud
 	}
 
 	/**
-	 * Muestra un dialogo de ayuda de la operación en base a la descripción
-	 */
-	function ayuda()
-	{
-		$rs = toba::proyecto()->get_menu_consola($this->info['basica']['item_proyecto'],$this->info['basica']['item']);	
-		if ($rs) {
-			echo "\n**************** {$this->info['basica']['item_proyecto']} - {$this->info['basica']['item']}  *************\n";
-			echo "\n --- Descripcion\n\n";
-			echo $rs[0]["descripcion_breve"] ."\n";
-			echo "\n --- Parametros\n\n";
-			echo $rs[0]["descripcion_larga"] ."\n\n";
-		} else {
-			echo "No hay ayuda disponible\n";
-		}
-	}
-
-	/**
 	 * Registra los parametros de la llamada en un array asociativo
 	 */
 	function registrar_parametros()
@@ -69,11 +52,6 @@ class toba_solicitud_consola extends toba_solicitud
 			$this->debug = true;
 		} else {
 			$this->debug = false;
-		}
-		//Ayuda??
-		if (isset($this->parametros["--help"])) {
-			$this->ayuda();
-			exit();
 		}
 	}
 	

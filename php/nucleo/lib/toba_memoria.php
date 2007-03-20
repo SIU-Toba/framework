@@ -382,7 +382,7 @@ class toba_memoria
 		}
 	}
 
-  function &get_ref_dato($indice)
+  function &get_dato_ref($indice)
  	{
 		if($this->existe_dato($indice))	{
 			//Se avisa que se accedio a un dato global al sistema de reciclado

@@ -42,6 +42,11 @@ class toba_editor
 		if (toba::memoria()->get_parametro('skin') != '') {
 			toba::proyecto()->set_parametro('estilo', toba::memoria()->get_parametro('skin'));
 		}
+		//Acceso a la informacion del modelo
+		require_once('modelo/consultas/dao_editores.php');
+		require_once('modelo/info/contexto_info.php');
+		contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
+		contexto_info::set_db( toba_editor::get_base_activa() );
 	}
 
 	static function finalizar()
@@ -354,8 +359,8 @@ class toba_editor
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
-				//Skin
-		$skins = rs_convertir_asociativo(toba::instancia()->get_lista_skins(), array('estilo'), 'descripcion');
+		//Skin
+		$skins = rs_convertir_asociativo(dao_editores::get_lista_skins(), array('estilo'), 'descripcion');
 		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		echo toba_form::select('cambiar_skin', toba::proyecto()->get_parametro('estilo'), $skins, 'ef-combo', $js);
 		
