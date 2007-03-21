@@ -80,7 +80,8 @@ class toba_vinculador
 	{
 		$item = $vinculo->get_item();
 		$proyecto = $vinculo->get_proyecto();
-		if ( ! toba::proyecto()->puede_grupo_acceder_item($proyecto, $item) ) {
+		if ( ! toba::proyecto()->puede_grupo_acceder_item($proyecto, $item) 
+				&& (toba::proyecto()->get_id() == $proyecto) ) { //El control es solo dentro del proyecto actual
 			return null;
 		}
 		$id = count( $this->vinculos );

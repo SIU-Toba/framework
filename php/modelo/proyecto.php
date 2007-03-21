@@ -98,6 +98,11 @@ class proyecto extends elemento_modelo
 		return $this->dir . '/metadatos_compilados/componentes';
 	}
 
+	function get_dir_generales_compilados()
+	{
+		return $this->dir . '/metadatos_compilados/generales';
+	}
+	
 	function get_instancia()
 	{
 		return $this->instancia;
@@ -484,13 +489,15 @@ class proyecto extends elemento_modelo
 	*/
 	function compilar_componentes()
 	{
+		$this->manejador_interface->titulo("Compilando componentes");
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
-			$this->manejador_interface->titulo( $tipo );
+			$this->manejador_interface->mensaje( $tipo . ' ', false );
 			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
 			toba_manejador_archivos::crear_arbol_directorios( $path );
 			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente );
 			}
+			$this->manejador_interface->mensaje("OK");
 		}
 	}
 	
@@ -500,8 +507,9 @@ class proyecto extends elemento_modelo
 	function compilar_componente( $tipo, $id )
 	{
 		//Armo la clase compilada
+		$this->manejador_interface->mensaje_directo('.');
+		toba_logger::instancia()->debug("COMPONENTE --  " . $id['componente']);
 		$nombre = toba_manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
-		$this->manejador_interface->mensaje("Compilando: " . $id['componente']);
 		$clase = new toba_clase_datos( $nombre );		
 		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
@@ -531,40 +539,66 @@ class proyecto extends elemento_modelo
 		$clase->guardar( $path );
 	}
 
+	//----------------------------------------
+
 	/*
 	*	Compila los metadatos que no son componentes
 	*/
 	function compilar_metadatos_generales()
 	{
+		$this->manejador_interface->titulo("Compilando datos generales");
+		require_once('nucleo/lib/toba_proyecto_db.php');
+		toba_proyecto_db::set_db( $this->db );
+		$path = $this->get_dir_generales_compilados();
+		toba_manejador_archivos::crear_arbol_directorios( $path );
+		$this->compilar_metadatos_generales_basicos();
+		//$this->compilar_metadatos_generales_componentes();
+		//$this->compilar_metadatos_generales_grupos_acceso();
+		//$this->compilar_metadatos_generales_mensajes();
+		//
 		/*
-			CLASE base
-			
-				basica:
-					cargar_info_basica
-				N fuentes:
-					get_info_fuente_datos($id_fuente, $proyecto=null)
-				N permisos:	
-					get_descripcion_permiso
-			
 			Clases extra
 			
-				componente:
+				* componente:
 					get_definicion_dependencia($objeto, $identificador, $proyecto=null)
 					[x id mensaje]
 						get_mensaje_objeto($objeto, $indice)
-				grupo_acceso:
+				* grupo_acceso:
 					get_items_menu($proyecto=null, $grupo_acceso=null)
 					get_items_accesibles($grupo_acceso=null)
 					get_lista_permisos($grupo)
 					[x zona]
 						function get_items_zona($zona, $grupo)
-				mensajes:
+				* mensajes:
 					get_mensaje_proyecto($indice)
-				mensajes_toba:
+				* mensajes_toba:
 					[ID==toba] get_mensaje_toba($indice)		
 		*/
 	}
 
+	function compilar_metadatos_generales_basicos()
+	{
+		$this->manejador_interface->mensaje('Info basica', false);
+		$nombre_clase = 'datos_basicos';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		//Datos basicos
+		$datos_basicos = toba_proyecto_db::cargar_info_basica( $this->get_id() );
+		$clase->agregar_metodo_datos('cargar_info_basica', $datos_basicos);
+		$this->manejador_interface->mensaje_directo('.');
+		//Creo el archivo
+		$clase->guardar( $archivo );
+		$this->manejador_interface->mensaje("OK");
+	
+
+		/*	CLASE base
+				N fuentes:
+					get_info_fuente_datos($id_fuente, $proyecto=null)
+				N permisos:	
+					get_descripcion_permiso*/
+		
+	}
+	
 	//-----------------------------------------------------------
 	//	Primitivas basicas
 	//-----------------------------------------------------------
@@ -689,6 +723,7 @@ class proyecto extends elemento_modelo
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones --------------------------
 	//------------------------------------------------------------------------
+
 	function migrar_rango_versiones($desde, $hasta, $recursivo)
 	{
 		$this->get_db()->abrir_transaccion();

@@ -6,9 +6,16 @@ require_once('toba_instancia.php');
  */
 class toba_proyecto_db
 {
+	private static $db;
+	
+	static function set_db($db)
+	{
+		self::$db = $db;
+	}
+	
 	static function get_db()
 	{
-		return toba::instancia()->get_db();
+		return self::$db;
 	}
 
 	static function cargar_info_basica($proyecto)
@@ -62,7 +69,8 @@ class toba_proyecto_db
 				FROM 	apex_proyecto p LEFT OUTER JOIN apex_menu m
 						ON (p.menu = m.menu)
 				WHERE	proyecto = '$proyecto';";
-		return self::get_db()->consultar($sql);
+		$rs = self::get_db()->consultar($sql);
+		if(isset($rs[0])) return $rs[0];
 	}
 
 	static function get_info_fuente_datos($proyecto, $id_fuente)

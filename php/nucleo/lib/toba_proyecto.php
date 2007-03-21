@@ -59,6 +59,7 @@ class toba_proyecto
 	
 	private function __construct($proyecto, $recargar=false)
 	{
+		toba_proyecto_db::set_db( toba::instancia()->get_db() );//Las consultas salen de la instancia actual
 		$this->id = $proyecto;
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
 		if (!$this->memoria || $recargar) {
@@ -107,10 +108,10 @@ class toba_proyecto
 	{
 		$proyecto = isset($proyecto) ? $proyecto : $this->id;
 		$rs = toba_proyecto_db::cargar_info_basica($proyecto);
-		if (empty($rs)) {
+		if (!$rs) {
 			throw new toba_error("El proyecto '".$this->id."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
-		return $rs[0];
+		return $rs;
 	}
 
 	function es_multiproyecto()
@@ -251,7 +252,7 @@ class toba_proyecto
 		return $this->get_parametro('usuario_anonimo_grupos_acc');
 	}
 
-	//------------------------  Derechos  -------------------------
+	//------------------------  Permisos  -------------------------
 	
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
