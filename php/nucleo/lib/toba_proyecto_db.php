@@ -65,6 +65,32 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);
 	}
 
+	static function get_info_fuente_datos($proyecto, $id_fuente)
+	{
+		$sql = "SELECT 	*,
+						link_instancia 		as link_base_archivo,
+						fuente_datos_motor 	as motor,
+						host 				as profile
+				FROM 	apex_fuente_datos
+				WHERE	fuente_datos = '$id_fuente'
+				AND 	proyecto = '$proyecto'";
+		return self::get_db()->consultar($sql);
+	}
+
+	static function get_descripcion_permiso($proyecto, $permiso)
+	{
+		$sql = "	SELECT
+						per.descripcion,
+						per.mensaje_particular
+					FROM
+						apex_permiso per
+					WHERE
+						per.proyecto = '$proyecto'
+					AND	per.nombre = '$permiso'
+		";
+		return self::get_db()->consultar($sql);
+	}
+
 	static function get_definicion_dependencia($objeto, $identificador, $proyecto)
 	{
 		$sql = "SELECT 
@@ -85,20 +111,10 @@ class toba_proyecto_db
 					o.clase = c.clase AND
 					o.clase_proyecto = c.proyecto";
 		return self::get_db()->consultar($sql);
-	}
+	}	
 
-	static function get_info_fuente_datos($id_fuente, $proyecto)
-	{
-		$sql = "SELECT 	*,
-						link_instancia 		as link_base_archivo,
-						fuente_datos_motor 	as motor,
-						host 				as profile
-				FROM 	apex_fuente_datos
-				WHERE	fuente_datos = '$id_fuente'
-				AND 	proyecto = '$proyecto'";
-		return self::get_db()->consultar($sql);
-	}
-	
+	//---------------------  Grupos de Acceso  -------------------------
+		
 	static function get_items_menu($proyecto, $grupo_acceso)
 	{
 		$sql = "SELECT 	i.padre as 		padre,
@@ -119,7 +135,7 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);
 	}	
 
-	function get_vinculos_posibles($grupo_acceso, $proyecto)
+	function get_items_accesibles($proyecto, $grupo_acceso)
 	{
 		$sql = "SELECT	i.proyecto as proyecto,
 						i.item as item
@@ -128,24 +144,36 @@ class toba_proyecto_db
 				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
 				AND		ui.item = i.item
 				AND		ui.proyecto = i.proyecto
+				AND		ui.proyecto = '$proyecto'
 				AND		ui.usuario_grupo_acc = '$grupo_acceso';";
-		return $this->get_db()->consultar($sql);
-	}
-
-	static function puede_grupo_acceder_item($grupo_acceso, $item, $proyecto)
-	{
-		$sql = "	SELECT	1 as ok
-					FROM	apex_usuario_grupo_acc_item ui,
-							apex_usuario_proyecto up
-					WHERE	ui.usuario_grupo_acc = up.usuario_grupo_acc
-					AND	ui.proyecto	= up.proyecto
-					AND	up.usuario_grupo_acc = '$grupo_acceso'
-					AND	ui.proyecto = '{$item[0]}'
-					AND	ui.item =	'{$item[1]}';";
 		return self::get_db()->consultar($sql);
 	}
 
-	static function get_lista_permisos($grupo, $proyecto)
+	/**
+	*	Devuelve la lista de items de la zona a los que puede acceder el grupo actual
+	*/
+	static function get_items_zona($proyecto, $zona, $grupo_acceso)
+	{
+		$sql = "SELECT	i.proyecto as 					item_proyecto,
+						i.item as						item,
+						i.zona_orden as					orden,
+						i.imagen as						imagen,
+						i.imagen_recurso_origen as		imagen_origen,
+						i.nombre as						nombre,
+						i.descripcion as				descripcion
+				FROM	apex_item i,
+						apex_usuario_grupo_acc_item ui
+				WHERE	i.zona = '$zona'
+				AND		i.zona_proyecto = '$proyecto'
+				AND 	ui.item = i.item
+				AND		ui.proyecto = i.proyecto
+				AND		ui.usuario_grupo_acc = '$grupo_acceso'
+				AND		i.zona_listar = 1
+				ORDER BY 3;";
+		return self::get_db()->consultar($sql);	
+	}
+
+	static function get_lista_permisos($proyecto, $grupo)
 	{
 		$sql = " 
 			SELECT 
@@ -161,21 +189,9 @@ class toba_proyecto_db
 		";
 		return self::get_db()->consultar($sql);
 	}
-	
-	static function get_descripcion_permiso($permiso, $proyecto)
-	{
-		$sql = "	SELECT
-						per.descripcion,
-						per.mensaje_particular
-					FROM
-						apex_permiso per
-					WHERE
-						per.proyecto = '$proyecto'
-					AND	per.nombre = '$permiso'
-		";
-		return self::get_db()->consultar($sql);
-	}
 
+	//------------------------  MENSAJES  -------------------------
+	
 	static function get_mensaje_toba($indice)
 	{
 		$sql = "SELECT
@@ -186,7 +202,7 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);	
 	}
 	
-	static function get_mensaje_proyecto($indice, $proyecto)
+	static function get_mensaje_proyecto($proyecto, $indice)
 	{
 		$sql = "SELECT
 					COALESCE(mensaje_customizable, mensaje_a) as m
@@ -196,7 +212,7 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);	
 	}
 
-	static function get_mensaje_objeto($objeto, $indice, $proyecto)
+	static function get_mensaje_objeto($proyecto, $objeto, $indice)
 	{
 		$sql = "SELECT
 					COALESCE(mensaje_customizable, mensaje_a) as m
@@ -204,27 +220,6 @@ class toba_proyecto_db
 				WHERE indice = '$indice'
 				AND objeto_proyecto = '$proyecto'
 				AND objeto = '$objeto';";
-		return self::get_db()->consultar($sql);	
-	}
-
-	static function get_items_zona($zona, $grupo, $proyecto)
-	{
-		$sql = "SELECT	i.proyecto as 					item_proyecto,
-						i.item as						item,
-						i.zona_orden as					orden,
-						i.imagen as						imagen,
-						i.imagen_recurso_origen as		imagen_origen,
-						i.nombre as						nombre,
-						i.descripcion as				descripcion
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui
-				WHERE	i.zona = '$zona'
-				AND		i.zona_proyecto = '$proyecto'
-				AND 	ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = '$grupo'
-				AND		i.zona_listar = 1
-				ORDER BY 3;";
 		return self::get_db()->consultar($sql);	
 	}
 }

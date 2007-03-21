@@ -537,29 +537,30 @@ class proyecto extends elemento_modelo
 	function compilar_metadatos_generales()
 	{
 		/*
-			Simples
+			CLASE base
 			
-				cargar_info_basica
+				basica:
+					cargar_info_basica
+				N fuentes:
+					get_info_fuente_datos($id_fuente, $proyecto=null)
+				N permisos:	
+					get_descripcion_permiso
 			
-			Conjuntos
+			Clases extra
 			
-				componente (una clase para todos?):
+				componente:
 					get_definicion_dependencia($objeto, $identificador, $proyecto=null)
 					[x id mensaje]
 						get_mensaje_objeto($objeto, $indice)
-				fuente:
-					get_info_fuente_datos($id_fuente, $proyecto=null)
-				grupo_acceso (una clase por grupo):
-					get_items_menu($solo_primer_nivel=false ????????, $proyecto=null, $grupo_acceso=null)
-					get_vinculos_posibles($grupo_acceso=null)
-					puede_grupo_acceder_item($grupo_acceso, $item)
+				grupo_acceso:
+					get_items_menu($proyecto=null, $grupo_acceso=null)
+					get_items_accesibles($grupo_acceso=null)
 					get_lista_permisos($grupo)
 					[x zona]
 						function get_items_zona($zona, $grupo)
-				permisos:	
-					get_descripcion_permiso
-				mensaje:
+				mensajes:
 					get_mensaje_proyecto($indice)
+				mensajes_toba:
 					[ID==toba] get_mensaje_toba($indice)		
 		*/
 	}

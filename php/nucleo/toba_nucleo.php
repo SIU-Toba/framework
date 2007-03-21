@@ -189,8 +189,7 @@ class toba_nucleo
 	
 	protected function autorizar_acceso_item($item)
 	{
-		$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
-		if (! toba::proyecto()->puede_grupo_acceder_item($grupo_acceso, $item) ) {
+		if (! toba::proyecto()->puede_grupo_acceder_item($item[0], $item[1]) ) {
 			throw new toba_error_autorizacion('El usuario no posee permisos para acceder al item solicitado.');
 		}
 	}

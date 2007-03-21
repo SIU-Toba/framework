@@ -15,6 +15,7 @@ class toba_proyecto
 	static private $id_proyecto;
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	private $id;
+	private $indice_items_accesibles = array();
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -35,11 +36,6 @@ class toba_proyecto
 		return self::$id_proyecto;
 	}
 
-	static function get_db()
-	{
-		return toba::instancia()->get_db();
-	}
-		
 	/**
 	 * @return toba_proyecto
 	 */
@@ -198,24 +194,15 @@ class toba_proyecto
 
 	static function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
-		if (! isset($proyecto)) {
-			$proyecto = toba_proyecto::get_id();
-		}
-		$sql = "SELECT 	*,
-						link_instancia 		as link_base_archivo,
-						fuente_datos_motor 	as motor,
-						host 				as profile
-				FROM 	apex_fuente_datos
-				WHERE	fuente_datos = '$id_fuente'
-				AND 	proyecto = '$proyecto'";
-		$rs = self::get_db()->consultar($sql);
+		if (! isset($proyecto)) $proyecto = self::get_id();
+		$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
 		if (empty($rs)) {
 			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
 		}
 		return $rs[0];
 	}
 	
-	//------------------------  ITEMS  -------------------------
+	//------------------------  Grupos de acceso & ITEMS  -------------------------
 
 	/**
 	 * Retorna la lista de items a los que puede acceder el usuario
@@ -225,76 +212,37 @@ class toba_proyecto
 	 * @param string $grupo_acceso Por defecto el del usuario actual
 	 * @return array RecordSet contienendo información de los items
 	 */
-	static function get_items_menu($solo_primer_nivel=false, $proyecto=null, $grupo_acceso=null)
+	static function get_items_menu($proyecto=null, $grupo_acceso=null)
 	{
-		$rest = "";
-		if ($solo_primer_nivel) {
-			$rest = " AND i.padre = '__raiz__' ";
-		}
-		if (!isset($proyecto)) {
-			$proyecto = self::get_id();
-		}
-		if (!isset($grupo_acceso)) {
-			$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
-		}
-		$sql = "SELECT 	i.padre as 		padre,
-						i.carpeta as 	carpeta, 
-						i.proyecto as	proyecto,
-						i.item as 		item,
-						i.nombre as 	nombre,
-						i.imagen,
-						i.imagen_recurso_origen
-				FROM 	apex_item i LEFT OUTER JOIN	apex_usuario_grupo_acc_item u ON
-							(	i.item = u.item AND i.proyecto = u.proyecto	)
-				WHERE
-					(i.menu = 1)
-				AND	(u.usuario_grupo_acc = '$grupo_acceso' OR i.publico = 1)
-				AND (i.item <> '__raiz__')
-				$rest
-				AND		(i.proyecto = '$proyecto')
-				ORDER BY i.padre,i.orden;";
-		return self::get_db()->consultar($sql);
+		if (!isset($proyecto)) $proyecto = self::get_id();
+		if (!isset($grupo_acceso)) $grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
+		return toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
 	}	
 
 	/**
-	*	Devuelve la lista de items a los que un grupo puede acceder
-	*/
-	function get_vinculos_posibles($grupo_acceso=null)
+	 * Valida que un grupo de acceso tenga acceso a un item
+	 */
+	function puede_grupo_acceder_item($proyecto, $item)
 	{
-		if (!isset($grupo_acceso)) {
-			$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
+		$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
+		//Recupero los items y los formateo en un indice consultable
+		if(!isset($this->indice_items_accesibles[$grupo_acceso])) {
+			$this->indice_items_accesibles[$grupo_acceso] = array();
+			foreach( toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso) as $accesible ) {
+				$this->indice_items_accesibles[$grupo_acceso][$accesible['proyecto'].'-'.$accesible['item']] = 1;
+			}
 		}
-		$sql = "SELECT	i.proyecto as proyecto,
-						i.item as item
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui
-				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
-				AND		ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = '$grupo_acceso';";
-		return $this->get_db()->consultar($sql);
+		return isset($this->indice_items_accesibles[$grupo_acceso][$proyecto.'-'.$item]);
 	}
 
 	/**
-	 * Valida que un grupo de acceso tenga acceso a un item
-	 * @return toba_error Si el grupo no tiene permisos suficientes
-	 */
-	static function puede_grupo_acceder_item($grupo_acceso, $item)
+	*	Devuelve la lista de items de la zona a los que puede acceder el grupo actual
+	*/
+	static function get_items_zona($zona, $grupo_acceso)
 	{
-		$sql = "	SELECT	1 as ok
-					FROM	apex_usuario_grupo_acc_item ui,
-							apex_usuario_proyecto up
-					WHERE	ui.usuario_grupo_acc = up.usuario_grupo_acc
-					AND	ui.proyecto	= up.proyecto
-					AND	up.usuario_grupo_acc = '$grupo_acceso'
-					AND	ui.proyecto = '{$item[0]}'
-					AND	ui.item =	'{$item[1]}';";
-		$datos = self::get_db()->consultar($sql);
-		return ( ! empty($datos) );
+		return toba_proyecto_db::get_items_zona(self::get_id(), $zona, $grupo_acceso);	
 	}
 
-	//------------------------  Permisos  -------------------------
-	
 	function get_grupo_acceso_usuario_anonimo()
 	{
 		//$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
@@ -302,25 +250,15 @@ class toba_proyecto
 		//return $grupos;
 		return $this->get_parametro('usuario_anonimo_grupos_acc');
 	}
+
+	//------------------------  Derechos  -------------------------
 	
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
 	 */
 	static function get_lista_permisos($grupo)
 	{
-		$sql = " 
-			SELECT 
-				per.nombre as nombre
-			FROM
-				apex_permiso_grupo_acc per_grupo,
-				apex_permiso per
-			WHERE
-				per_grupo.proyecto = '".self::get_id()."'
-			AND	per_grupo.usuario_grupo_acc = '$grupo'
-			AND	per_grupo.permiso = per.permiso
-			AND	per_grupo.proyecto = per.proyecto
-		";
-		return self::get_db()->consultar($sql);
+		return toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
 	}
 	
 	/**
@@ -328,73 +266,24 @@ class toba_proyecto
 	 */
 	static function get_descripcion_permiso($permiso)
 	{
-		$sql = " 
-			SELECT
-				per.descripcion,
-				per.mensaje_particular
-			FROM
-				apex_permiso per
-			WHERE
-				per.proyecto = '".toba_proyecto::get_id()."'
-			AND	per.nombre = '$permiso'
-		";
-		return self::get_db()->consultar($sql);
+		return toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
 	}
 
 	//------------------------  MENSAJES  -------------------------
 
 	static function get_mensaje_toba($indice)
 	{
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_msg 
-				WHERE indice = '$indice'
-				AND proyecto = 'toba';";
-		return self::get_db()->consultar($sql);	
+		return toba_proyecto_db::get_mensaje_toba($indice);	
 	}
 	
 	static function get_mensaje_proyecto($indice)
 	{
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_msg 
-				WHERE indice = '$indice'
-				AND proyecto = '".toba_proyecto::get_id()."';";
-		return self::get_db()->consultar($sql);	
+		return toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
 	}
 
 	static function get_mensaje_objeto($objeto, $indice)
 	{
-		$sql = "SELECT
-					COALESCE(mensaje_customizable, mensaje_a) as m
-				FROM apex_objeto_msg 
-				WHERE indice = '$indice'
-				AND objeto_proyecto = '".toba_proyecto::get_id()."'
-				AND objeto = '$objeto';";
-		return self::get_db()->consultar($sql);	
-	}
-
-	//------------------------  ZONA  -------------------------
-
-	static function get_items_zona($zona, $grupo)
-	{
-		$sql = "SELECT	i.proyecto as 					item_proyecto,
-						i.item as						item,
-						i.zona_orden as					orden,
-						i.imagen as						imagen,
-						i.imagen_recurso_origen as		imagen_origen,
-						i.nombre as						nombre,
-						i.descripcion as				descripcion
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui
-				WHERE	i.zona = '$zona'
-				AND		i.zona_proyecto = '".toba_proyecto::get_id()."'
-				AND 	ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = '$grupo'
-				AND		i.zona_listar = 1
-				ORDER BY 3;";
-		return self::get_db()->consultar($sql);	
+		return toba_proyecto_db::get_mensaje_objeto(self::get_id(),$objeto, $indice);	
 	}
 }
 ?>

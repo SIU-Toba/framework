@@ -44,7 +44,7 @@ class toba_menu_css extends toba_menu
 						<![endif]-->
 			';
 		
-		$this->items = $this->items_de_menu(false);
+		$this->items = $this->items_de_menu();
 		$this->arbol .= "\n<ul id='menu-h'  class='horizontal'>\n";		
 		for ($i=0;$i<count($this->items);$i++) {
 			//--- Se recorre el primer nivel

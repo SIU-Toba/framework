@@ -26,7 +26,6 @@ class toba_vinculador
 	
 	private function __construct()
 	{
-		$this->cargar_vinculos_posibles();			
 		$this->prefijo = toba::memoria()->prefijo_vinculo();
 	}
 
@@ -81,7 +80,7 @@ class toba_vinculador
 	{
 		$item = $vinculo->get_item();
 		$proyecto = $vinculo->get_proyecto();
-		if ( ! $this->posee_acceso_item($proyecto, $item) ) {
+		if ( ! toba::proyecto()->puede_grupo_acceder_item($proyecto, $item) ) {
 			return null;
 		}
 		$id = count( $this->vinculos );
@@ -128,7 +127,7 @@ class toba_vinculador
 		}
 		//Controlo que el usuario posea permisos para acceder al ITEM
 		if ( !$autovinculo ) {
-			if ( ! $this->posee_acceso_item($item_proyecto, $item) ) {
+			if ( ! toba::proyecto()->puede_grupo_acceder_item($item_proyecto, $item) ) {
 				toba::logger()->info("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
 				return null;	
 			}
@@ -258,29 +257,6 @@ class toba_vinculador
 		return $salida;
 	}
 
-	//-------------------------------------------------------------------------------------
-	//------------------------------ CONTROL de ACCESO  -----------------------------------
-	//-------------------------------------------------------------------------------------
-
-	/**
-	 * @ignore 
-	 */	
-	protected function cargar_vinculos_posibles()
-	{
-		$rs = toba::proyecto()->get_vinculos_posibles();
-		foreach($rs as $vinculo) {
-			$this->vinculos_posibles[$vinculo['proyecto'].'-'.$vinculo['item']] = 1;
-		}
-	}
-
-	/**
-	 * @ignore 
-	 */
-	protected function posee_acceso_item($proyecto, $item)
-	{
-		return isset($this->vinculos_posibles[$proyecto.'-'.$item]);
-	}
-	
 	//-------------------------------------------------------------------------------------
 	//------------------------------ SALIDA  ----------------------------------------------
 	//-------------------------------------------------------------------------------------

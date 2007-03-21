@@ -29,7 +29,7 @@ class toba_menu_yui extends toba_menu
 	function preparar_arbol()
 	{
 
-		$this->items = $this->items_de_menu(false);
+		$this->items = $this->items_de_menu();
 		$this->arbol .= "\n<div id='menu_principal' class='yuimenubar'>\n";
 		$this->arbol .= "\t<div class='bd'>\n";
 		$this->arbol .= "\t\t<ul>\n";		

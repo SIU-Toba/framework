@@ -21,9 +21,9 @@ abstract class toba_menu
 	 */
 	abstract function mostrar();
 	
-	protected function items_de_menu($solo_primer_nivel=false)
+	protected function items_de_menu()
 	{
-		return toba::proyecto()->get_items_menu($solo_primer_nivel);
+		return toba::proyecto()->get_items_menu();
 	}
 	
 }
