@@ -5,36 +5,76 @@ class tablas_proyecto
 	static function get_lista()
 	{
 		return array (
-  0 => 'apex_proyecto',
-  1 => 'apex_fuente_datos',
-  2 => 'apex_elemento_formulario',
-  3 => 'apex_solicitud_obs_tipo',
-  4 => 'apex_pagina_tipo',
-  5 => 'apex_usuario_perfil_datos',
-  6 => 'apex_item_zona',
-  7 => 'apex_clase',
-  8 => 'apex_conversion',
-  9 => 'apex_nota',
-  10 => 'apex_item_nota',
-  11 => 'apex_objeto_nota',
-  12 => 'apex_msg',
-  13 => 'apex_item_msg',
-  14 => 'apex_objeto_msg',
-  15 => 'apex_permiso',
-  16 => 'apex_ptos_control',
-  17 => 'apex_ptos_control_param',
-  18 => 'apex_ptos_control_ctrl',
-  19 => 'apex_ptos_control_x_evento'
-
+  0 => 'apex_permiso',
+  1 => 'apex_proyecto',
+  2 => 'apex_estilo',
+  3 => 'apex_fuente_datos',
+  4 => 'apex_elemento_formulario',
+  5 => 'apex_solicitud_obs_tipo',
+  6 => 'apex_pagina_tipo',
+  7 => 'apex_usuario_perfil_datos',
+  8 => 'apex_item_zona',
+  9 => 'apex_clase',
+  10 => 'apex_conversion',
+  11 => 'apex_ptos_control',
+  12 => 'apex_ptos_control_param',
+  13 => 'apex_ptos_control_ctrl',
+  14 => 'apex_ptos_control_x_evento',
+  15 => 'apex_nota',
+  16 => 'apex_item_nota',
+  17 => 'apex_objeto_nota',
+  18 => 'apex_msg',
+  19 => 'apex_item_msg',
+  20 => 'apex_objeto_msg',
 );
 	}
 
 	static function get_lista_permisos()
 	{
 		return array (
-  0 => 'apex_usuario_grupo_acc',
-  1 => 'apex_usuario_grupo_acc_item',
-  2 => 'apex_permiso_grupo_acc',
+  0 => 'apex_permiso_grupo_acc',
+  1 => 'apex_usuario_grupo_acc',
+  2 => 'apex_usuario_grupo_acc_item',
+);
+	}
+
+	static function apex_permiso()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'permiso',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'permiso',
+    1 => 'proyecto',
+    2 => 'nombre',
+    3 => 'descripcion',
+    4 => 'mensaje_particular',
+  ),
+);
+	}
+
+	static function apex_permiso_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_permisos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'permiso, usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'permiso',
+  ),
 );
 	}
 
@@ -95,6 +135,25 @@ class tablas_proyecto
     42 => 'version_fecha',
     43 => 'version_detalle',
     44 => 'version_link',
+  ),
+);
+	}
+
+	static function apex_estilo()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'proyecto, estilo',
+  'zona' => 'general',
+  'desc' => 'Skins',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'estilo',
+    1 => 'descripcion',
+    2 => 'proyecto',
   ),
 );
 	}
@@ -598,46 +657,6 @@ class tablas_proyecto
     8 => 'mensaje_c',
     9 => 'mensaje_customizable',
     10 => 'parametro_clase',
-  ),
-);
-	}
-
-	static function apex_permiso()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_permisos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'permiso',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'permiso',
-    1 => 'proyecto',
-    2 => 'nombre',
-    3 => 'descripcion',
-    4 => 'mensaje_particular',
-  ),
-);
-	}
-
-	static function apex_permiso_grupo_acc()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_permisos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'permisos',
-  'dump_order_by' => 'permiso, usuario_grupo_acc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'permiso',
   ),
 );
 	}

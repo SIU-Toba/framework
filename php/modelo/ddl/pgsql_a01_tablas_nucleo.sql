@@ -4,25 +4,6 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
-CREATE TABLE			apex_estilo
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: nucleo
---: dump_order_by: estilo
---: zona: general
---: desc: Estilos	CSS
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	estilo					varchar(15)		NOT NULL,
-	descripcion				varchar(255)	NOT NULL,
-	estilo_paleta_p			varchar(15)		NULL,
-	estilo_paleta_s			varchar(15)		NULL,
-	estilo_paleta_n			varchar(15)		NULL,
-	estilo_paleta_e			varchar(15)		NULL,
-	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo")
-);
-
 --#################################################################################################
 
 CREATE TABLE	apex_menu
@@ -100,12 +81,32 @@ CREATE TABLE			apex_proyecto
 	version_detalle						varchar(255)	NULL,
 	version_link						varchar(60)		NULL,
 	CONSTRAINT	"apex_proyecto_pk" PRIMARY	KEY ("proyecto"),
-	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","tem_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_proyecto_item_is" FOREIGN	KEY ("proyecto","item_inicio_sesion") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_item_ps" FOREIGN	KEY ("proyecto","item_pre_sesion")	REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	--CONSTRAINT	"apex_proyecto_fk_fuente" FOREIGN KEY ("proyecto", "fuente_datos") REFERENCES	"apex_fuente_datos" ("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
+	--CONSTRAINT	"apex_proyecto_fk_estilo" FOREIGN KEY ("estilo") REFERENCES	"apex_estilo" ("estilo") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_proyecto_fk_menu" FOREIGN KEY ("menu") REFERENCES	"apex_menu" ("menu") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
 );
+
+--#################################################################################################
+
+CREATE TABLE			apex_estilo
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: proyecto, estilo
+--: zona: general
+--: desc: Skins
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	estilo					varchar(15)		NOT NULL,
+	descripcion				varchar(255)	NOT NULL,
+	proyecto				varchar(15)		NOT NULL,
+	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo"),
+	CONSTRAINT	"apex_estilo_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE	
+);
+
 --#################################################################################################
 
 CREATE TABLE apex_log_sistema_tipo 

@@ -557,7 +557,7 @@ class dao_editores
 				ORDER BY 3";
 		return contexto_info::get_db()->consultar($sql);
 	}
-	
+
 	/**
 	* BUFFERs
 	*/
@@ -675,6 +675,9 @@ class dao_editores
 		$sql = "SELECT
 					estilo, descripcion
 				FROM apex_estilo
+				WHERE
+						proyecto = '".contexto_info::get_proyecto()."' 
+					OR	proyecto = 'toba'
 				ORDER BY descripcion";
 		return contexto_info::get_db()->consultar($sql);
 	}

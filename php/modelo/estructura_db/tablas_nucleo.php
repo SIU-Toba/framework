@@ -5,23 +5,22 @@ class tablas_nucleo
 	static function get_lista()
 	{
 		return array (
-  0 => 'apex_estilo',
-  1 => 'apex_menu',
-  2 => 'apex_log_sistema_tipo',
-  3 => 'apex_fuente_datos_motor',
-  4 => 'apex_grafico',
-  5 => 'apex_recurso_origen',
-  6 => 'apex_nivel_acceso',
-  7 => 'apex_solicitud_tipo',
-  8 => 'apex_columna_estilo',
-  9 => 'apex_columna_formato',
-  10 => 'apex_usuario_tipodoc',
-  11 => 'apex_clase_tipo',
-  12 => 'apex_nota_tipo',
-  13 => 'apex_msg_tipo',
-  14 => 'apex_objeto_mt_me_tipo_nav',
-  15 => 'apex_admin_persistencia',
-  16 => 'apex_tipo_datos',
+  0 => 'apex_menu',
+  1 => 'apex_log_sistema_tipo',
+  2 => 'apex_fuente_datos_motor',
+  3 => 'apex_grafico',
+  4 => 'apex_recurso_origen',
+  5 => 'apex_nivel_acceso',
+  6 => 'apex_solicitud_tipo',
+  7 => 'apex_columna_estilo',
+  8 => 'apex_columna_formato',
+  9 => 'apex_usuario_tipodoc',
+  10 => 'apex_clase_tipo',
+  11 => 'apex_nota_tipo',
+  12 => 'apex_msg_tipo',
+  13 => 'apex_objeto_mt_me_tipo_nav',
+  14 => 'apex_admin_persistencia',
+  15 => 'apex_tipo_datos',
 );
 	}
 
@@ -29,34 +28,13 @@ class tablas_nucleo
 	{
 		return array (
   0 => 'apex_proyecto',
-  1 => 'apex_fuente_datos',
-  2 => 'apex_elemento_formulario',
-  3 => 'apex_solicitud_obs_tipo',
-  4 => 'apex_pagina_tipo',
-  5 => 'apex_clase',
-  6 => 'apex_msg',
-);
-	}
-
-	static function apex_estilo()
-	{
-		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'estilo',
-  'zona' => 'general',
-  'desc' => 'Estilos	CSS',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'estilo',
-    1 => 'descripcion',
-    2 => 'estilo_paleta_p',
-    3 => 'estilo_paleta_s',
-    4 => 'estilo_paleta_n',
-    5 => 'estilo_paleta_e',
-  ),
+  1 => 'apex_estilo',
+  2 => 'apex_fuente_datos',
+  3 => 'apex_elemento_formulario',
+  4 => 'apex_solicitud_obs_tipo',
+  5 => 'apex_pagina_tipo',
+  6 => 'apex_clase',
+  7 => 'apex_msg',
 );
 	}
 
@@ -137,6 +115,25 @@ class tablas_nucleo
     42 => 'version_fecha',
     43 => 'version_detalle',
     44 => 'version_link',
+  ),
+);
+	}
+
+	static function apex_estilo()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'proyecto, estilo',
+  'zona' => 'general',
+  'desc' => 'Skins',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'estilo',
+    1 => 'descripcion',
+    2 => 'proyecto',
   ),
 );
 	}
