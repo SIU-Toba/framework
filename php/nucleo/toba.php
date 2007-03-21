@@ -163,9 +163,9 @@ class toba
 	 * Retorna el objeto que contiene información del proyecto toba actual
 	 * @return toba_proyecto
 	 */
-	static function proyecto()
+	static function proyecto($id_proyecto=null)
 	{
-		return toba_proyecto::instancia();
+		return toba_proyecto::instancia($id_proyecto);
 	}
 	
 	/**

@@ -62,6 +62,54 @@ class admin_util
 		return file_exists($path_real) && is_file($path_real);
 	}
 	
+	/**
+	 * Rutea el pedido de uan imagen como si se estubiera ejecutando el proyecto
+	 */
+	static function url_imagen_de_origen($img, $origen)
+	{
+		switch ($origen) {
+			case 'apex':
+				return toba_recurso::imagen_toba($img);
+				break;
+				
+			case 'skin':	
+				$estilo = toba::proyecto(toba_editor::get_proyecto_cargado())->get_parametro('estilo');
+				$proyecto = toba::proyecto(toba_editor::get_proyecto_cargado())->get_parametro('estilo_proyecto');
+				return toba_recurso::url_skin($estilo, $proyecto).'/'.$img;
+				break;
+				
+			case 'proyecto':
+				return toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado())."/img/".$img;
+				break;
+				
+			default: throw new toba_error("No esta contemplado el origen $origen");
+		}
+	}
+	
+	/**
+	 * Rutea el pedido del path de una  imagen como si se estubiera ejecutando el proyecto
+	 */
+	static function dir_imagen_de_origen($img, $origen)
+	{
+		switch ($origen) {
+			case 'apex':
+				return toba::instalacion()->get_path().'/www/img';	
+				break;
+				
+			case 'skin':	
+				$estilo = toba::proyecto(toba_editor::get_proyecto_cargado())->get_parametro('estilo');
+				$proyecto = toba::proyecto(toba_editor::get_proyecto_cargado())->get_parametro('estilo_proyecto');
+				return toba::instancia()->get_path_proyecto($proyecto)."/www/skins/$estilo";
+				break;
+				
+			case 'proyecto':
+				$cargado = toba_editor::get_proyecto_cargado();
+				return toba::instancia()->get_path_proyecto($cargado)."/www/img";				
+				break;
+				
+			default: throw new toba_error("No esta contemplado el origen $origen");
+		}
+	}	
 
 }
 ?>

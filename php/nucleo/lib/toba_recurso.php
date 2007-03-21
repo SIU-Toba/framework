@@ -44,10 +44,20 @@ class toba_recurso
 	 * Retorna la URL base del skin actual del proyecto
 	 * @return string
 	 */			
-	static function url_skin()
+	static function url_skin($skin=null, $proyecto=null)
 	{
-		$skin = toba::proyecto()->get_parametro('estilo');
-		return self::url_toba().'/skins/'.$skin;
+		if (! isset($skin)) {
+			$skin = toba::proyecto()->get_parametro('estilo');
+		}
+		if (! isset($proyecto)) {
+			$proyecto = toba::proyecto()->get_parametro('estilo_proyecto');
+		}
+		if ($proyecto == 'toba') {
+			$url = self::url_toba();
+		} else {
+			$url = self::url_proyecto($proyecto);
+		}
+		return $url.'/skins/'.$skin;
 	}
 
 	//------------   ACCESO A IMAGENES   --------------

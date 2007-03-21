@@ -85,7 +85,9 @@ class toba_instancia
 	function get_path_proyecto($proyecto)
 	{
 		//incluyo el archivo de informacion basica de la INSTANCIA
-		if (isset($this->memoria[$proyecto]['path'])) {
+		if ($proyecto == 'toba') {
+			return toba::instalacion()->get_path();	
+		} elseif (isset($this->memoria[$proyecto]['path'])) {
 			return $this->memoria[$proyecto]['path'];
 		} else {
 			return toba_dir() . "/proyectos/" . $proyecto;

@@ -51,14 +51,23 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ci-tabs-h-lista {
 	background-color: #E3E3E3;
 }
-.ci-tabs-h-cont {
+.ci-tabs-h-cont, .ci-wiz-cont {
 	background-color: #EEEFF2;
+}
+.ci-wiz-cont {
+	border: 1px solid gray;	
 }
 .ei-barra-sup {
  	background-color: #5A5E9D;
 }
 .ei-barra-sup .barra-redondeada-cont {
 
+}
+.ei-cuadro-fila-sel, .ei-ml-fila-selec {
+	padding-top:2px;
+	padding-bottom:2px;
+	background-color: #5A5E9D;
+	color:white;
 }
 
 .ci-barra-sup {
@@ -101,6 +110,18 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 .ci-tabs-h-solapa-sel a {
 	color:#000;
+}
+
+
+#overlay_contenido {
+     background-color: #fafbfe;
+     border:1px solid #868789;     
+}
+.overlay-titulo {
+	border-bottom: 1px solid #868789;	
+}
+.overlay-botonera {
+	border-top: 1px solid #868789;
 }
 
 

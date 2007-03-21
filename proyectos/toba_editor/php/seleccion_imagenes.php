@@ -10,15 +10,7 @@ class seleccion_imagenes
 	{
 		$predeterminada = toba_recurso::imagen_toba('image-missing-16.png', false);
 		if ($img != '') {
-			if ($origen == 'apex') {
-				$actual = toba_recurso::imagen_toba($img);
-			} else {
-				$actual = toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado());
-				if ($actual != '') {
-					$actual .= '/';
-				}
-				$actual .= "img/$img";
-			}
+			$actual = admin_util::url_imagen_de_origen($img, $origen);
 		} else {
 			$actual = $predeterminada;	
 		}
@@ -43,14 +35,19 @@ class seleccion_imagenes
 					imagen.input().onkeyup = imagen.input().onblur;
 				} else {
 					var prefijo = '';
-					if (this.ef('imagen_recurso_origen')$ir_a_fila.get_estado() == 'apex') {
-						prefijo = toba_alias + '/';
+					var origen = this.ef('imagen_recurso_origen')$ir_a_fila.get_estado();
+					if (origen == 'apex') {
+						prefijo = toba_alias + '/img';
+					} else if (origen == 'skin') {
+						prefijo = '".admin_util::url_imagen_de_origen('','skin')."';
 					} else {
 						if (toba_proyecto_editado_alias != '') {
-							prefijo = toba_proyecto_editado_alias + '/';
+							prefijo = toba_proyecto_editado_alias + '/img';
+						} else {
+							prefijo = '/img';
 						}
 					}
-					var imagen_src = prefijo + 'img/' + imagen.get_estado();
+					var imagen_src = prefijo + '/' + imagen.get_estado();
 					$('editor_imagen_src'$mas_fila).src= imagen_src;
 				}
 			}
@@ -117,14 +114,9 @@ class seleccion_imagenes
 		$recursivo = toba::memoria()->get_parametro('recursivo');
 		$origen = toba::memoria()->get_parametro('imagen_recurso_origen');
 		
-		if ($origen == 'apex') {
-			$dir = toba::instalacion()->get_path().'/www/img';	
-			$url = toba_recurso::url_toba();
-		} else {
-			$cargado = toba_editor::get_proyecto_cargado();
-			$dir = toba::instancia()->get_path_proyecto($cargado)."/www/img";
-			$url = toba_recurso::url_proyecto($cargado);
-		}
+		$url = admin_util::url_imagen_de_origen('', $origen);
+		$dir = admin_util::dir_imagen_de_origen('', $origen);
+
 		echo "<div id='editor_imagen_opciones'>";
 		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
 		$checkeado = $recursivo ? 'checked' : '';
@@ -150,7 +142,7 @@ class seleccion_imagenes
 			$relativo = substr($archivo, strlen($dir)+1);
 			$archivo = basename($relativo);
 			echo "<td title='Seleccionar imagen' imagen='$relativo' onclick='seleccionar_imagen(this.getAttribute(\"imagen\"))'>
-					<img nohack='1' src='".$url."/img/".$relativo."' />
+					<img nohack='1' src='".$url."/".$relativo."' />
 					<div>$archivo</div>
 				</td>\n";
 			

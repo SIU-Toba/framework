@@ -43,7 +43,6 @@ class toba_proyecto
 	{
 		if (! isset($id_proyecto)) {
 			$id_proyecto = self::get_id();
-			toba::logger()->debug("Proyecto solicitado: $id_proyecto");
 		}
 		if (!isset(self::$instancia[$id_proyecto]) || $recargar) {
 			toba::logger()->debug("Creando instancia: $id_proyecto");

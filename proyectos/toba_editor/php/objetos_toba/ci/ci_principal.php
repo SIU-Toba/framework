@@ -12,6 +12,7 @@ class ci_editor extends ci_editores_toba
 	protected $info_actual = 'info_ci';
 	protected $s__pantalla_php_db;			// La base posee registro de la existencia de una extension??
 	protected $s__pantalla_php_archivo;		// El archivo de la extension existe en el sistema de archivos??
+	protected $pant_sel_temp;
 	
 	function ini()
 	{
@@ -32,6 +33,9 @@ class ci_editor extends ci_editores_toba
 
 	function conf()
 	{
+		if (isset($this->pant_sel_temp)) {
+		 	$this->get_entidad()->tabla("pantallas")->set_cursor($this->pant_sel_temp);			
+		}
 		parent::conf();
 		//Mecanismo para saber si la extension PHP de un AP ya exite en la DB y posee archivo
 		if ( !isset($this->s__pantalla_php_db) ) {
@@ -220,7 +224,7 @@ class ci_editor extends ci_editores_toba
 	
 	function evt__pantallas_lista__seleccion($id)
 	{
-		 $this->get_entidad()->tabla("pantallas")->set_cursor($id);
+		$this->pant_sel_temp = $id;
 	}
 	
 	/**
