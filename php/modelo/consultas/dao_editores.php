@@ -682,6 +682,27 @@ class dao_editores
 		return contexto_info::get_db()->consultar($sql);
 	}
 	
+	function get_mensajes($proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = contexto_info::get_proyecto();
+		$sql = "SELECT proyecto, msg, indice, msg_tipo as tipo, descripcion_corta
+				FROM 	apex_msg
+				WHERE proyecto = '$proyecto';";
+		return contexto_info::get_db()->consultar($sql);
+	}
+	
+	function get_mensajes_objeto($objeto, $proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = contexto_info::get_proyecto();
+		$sql = "SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
+				FROM 	apex_objeto_msg
+				WHERE 
+						objeto_proyecto = '$proyecto'
+					AND	objeto = '$objeto'
+		";
+		return contexto_info::get_db()->consultar($sql);
+	}
+
 	//-------------------------------------------------
 	//---------------- LOGS ---------------------------
 	//-------------------------------------------------

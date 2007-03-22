@@ -183,11 +183,14 @@ class toba_proyecto
 	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
-	static function get_definicion_dependencia($objeto, $identificador, $proyecto=null)
+	static function get_definicion_dependencia($objeto, $proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : self::get_id() ;
-		$res = toba_proyecto_db::get_definicion_dependencia($objeto, $identificador, $proyecto);
-		return $res[0];
+		//Busco la definicion del componente
+		require_once('nucleo/componentes/definicion/componente.php');
+		$sql = componente_toba::get_vista_extendida($proyecto, $objeto);
+		$rs = toba_proyecto_db::get_db()->consultar_fila($sql['info']['sql']);
+		return $rs;
 	}
 
 	//------------------------  FUENTES  -------------------------
@@ -199,7 +202,7 @@ class toba_proyecto
 		if (empty($rs)) {
 			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
 		}
-		return $rs[0];
+		return $rs;
 	}
 	
 	//------------------------  Grupos de acceso & ITEMS  -------------------------
@@ -216,7 +219,8 @@ class toba_proyecto
 	{
 		if (!isset($proyecto)) $proyecto = self::get_id();
 		if (!isset($grupo_acceso)) $grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
-		return toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
+		$rs = toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
+		return $rs;
 	}	
 
 	/**
@@ -228,7 +232,8 @@ class toba_proyecto
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles[$grupo_acceso])) {
 			$this->indice_items_accesibles[$grupo_acceso] = array();
-			foreach( toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso) as $accesible ) {
+			$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso);
+			foreach( $rs as $accesible ) {
 				$this->indice_items_accesibles[$grupo_acceso][$accesible['proyecto'].'-'.$accesible['item']] = 1;
 			}
 		}
@@ -240,7 +245,8 @@ class toba_proyecto
 	*/
 	static function get_items_zona($zona, $grupo_acceso)
 	{
-		return toba_proyecto_db::get_items_zona(self::get_id(), $zona, $grupo_acceso);	
+		$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupo_acceso, $zona);	
+		return $rs;
 	}
 
 	function get_grupo_acceso_usuario_anonimo()
@@ -258,7 +264,8 @@ class toba_proyecto
 	 */
 	static function get_lista_permisos($grupo)
 	{
-		return toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
+		$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
+		return $rs;
 	}
 	
 	/**
@@ -266,24 +273,28 @@ class toba_proyecto
 	 */
 	static function get_descripcion_permiso($permiso)
 	{
-		return toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
+		$rs = toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
+		return $rs;
 	}
 
 	//------------------------  MENSAJES  -------------------------
 
 	static function get_mensaje_toba($indice)
 	{
-		return toba_proyecto_db::get_mensaje_toba($indice);	
+		$rs = toba_proyecto_db::get_mensaje_toba($indice);	
+		return $rs;
 	}
 	
 	static function get_mensaje_proyecto($indice)
 	{
-		return toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
+		$rs = toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
+		return $rs;
 	}
 
 	static function get_mensaje_objeto($objeto, $indice)
 	{
-		return toba_proyecto_db::get_mensaje_objeto(self::get_id(),$objeto, $indice);	
+		$rs = toba_proyecto_db::get_mensaje_objeto(self::get_id(), $objeto, $indice);	
+		return $rs;
 	}
 }
 ?>

@@ -477,7 +477,8 @@ abstract class toba_componente
 	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
 		$sig = count($this->info_dependencias);
-		$this->info_dependencias[$sig] = toba::proyecto()->get_definicion_dependencia($objeto, $identificador, $proyecto);
+		$this->info_dependencias[$sig] = toba::proyecto()->get_definicion_dependencia($objeto, $proyecto);
+		$this->info_dependencias[$sig]['identificador'] = $identificador;
 		$this->indice_dependencias[$identificador] = $sig;
 		$this->lista_dependencias[] = $identificador;	
 	}

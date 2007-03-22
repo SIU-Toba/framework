@@ -19,13 +19,7 @@ class ci_mensajes_componentes extends ci_abm_basico
 	
 	function get_datos_listado()
 	{
-		$sql = "SELECT objeto_proyecto, objeto_msg, indice, msg_tipo as tipo, descripcion_corta
-				FROM 	apex_objeto_msg
-				WHERE 
-						objeto_proyecto = '" . toba_editor::get_proyecto_cargado() . "'
-					AND	objeto = {$this->get_id_objeto()}
-		";
-		return toba::db()->consultar($sql);
+		return dao_editores::get_mensajes_objeto($this->get_id_objeto());
 	}
 	
 	function evt__formulario__alta($datos)

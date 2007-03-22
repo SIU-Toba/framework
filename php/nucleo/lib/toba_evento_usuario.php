@@ -2,7 +2,7 @@
 require_once('nucleo/lib/toba_boton.php');
 
 /**
- * Representa la forma de graficar un evento
+ * Representa un evento asociado a un EI
  * @package Componentes
  * @subpackage Eis
  */

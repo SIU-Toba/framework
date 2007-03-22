@@ -31,10 +31,10 @@ class toba_mensajes
 		if(!is_array($datos)){
 			throw new toba_error_def("El mensaje $indice no EXISTE.");
 		}else{
-			if(trim($datos[0]['m'])==""){
+			if(trim($datos['m'])==""){
 				throw new toba_error_def("El mensaje $indice, existe pero está vacío.");
 			}else{
-				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+				$mensaje = self::parsear_parametros($datos['m'], $parametros);
 			}
 		}
 		return $mensaje;		
@@ -50,10 +50,10 @@ class toba_mensajes
 		if(!is_array($datos)){
 			$mensaje = null;
 		}else{
-			if(trim($datos[0]['m'])==""){
+			if(trim($datos['m'])==""){
 				$mensaje = null;	
 			}else{
-				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+				$mensaje = self::parsear_parametros($datos['m'], $parametros);
 			}
 		}
 		return $mensaje;
@@ -70,10 +70,10 @@ class toba_mensajes
 			//Retorna null para que siga la busqueda al GLOBAL
 			$mensaje = null;
 		}else{
-			if(trim($datos[0]['m'])==""){
+			if(trim($datos['m'])==""){
 				$mensaje = null;	
 			}else{
-				$mensaje = self::parsear_parametros($datos[0]['m'], $parametros);
+				$mensaje = self::parsear_parametros($datos['m'], $parametros);
 			}
 		}
 		return $mensaje;		

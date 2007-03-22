@@ -2,6 +2,7 @@
 require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
 require_once('modelo/consultas/dao_permisos.php');
+require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 require_once('nucleo/componentes/toba_catalogo.php');
 require_once('nucleo/componentes/toba_cargador.php');
@@ -139,7 +140,7 @@ class proyecto extends elemento_modelo
 		try {
 			$this->exportar_tablas();
 			$this->exportar_componentes();
-			$this->exportar_permisos();
+			$this->exportar_grupos_acceso();
 			$this->sincronizar_archivos();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
@@ -263,12 +264,12 @@ class proyecto extends elemento_modelo
 
 	//-- PERMISOS -------------------------------------------------------------
 
-	private function exportar_permisos()
+	private function exportar_grupos_acceso()
 	{
 		$this->manejador_interface->mensaje("Exportando permisos", false);
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
-		foreach( $this->get_lista_permisos() as $permiso ) {
+		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERMISO  $permiso");
 			$contenido = '';		
 			$where = "usuario_grupo_acc = '$permiso'";
@@ -281,16 +282,6 @@ class proyecto extends elemento_modelo
 			}			
 		}
 		$this->manejador_interface->mensaje("OK");
-	}
-
-	function get_lista_permisos()
-	{
-		$permisos = dao_permisos::get_grupos_acceso();
-		$datos = array();
-		foreach($permisos as $permiso) {
-			$datos[] = $permiso['usuario_grupo_acc'];	
-		}
-		return $datos;
 	}
 
 	//-----------------------------------------------------------
@@ -476,7 +467,6 @@ class proyecto extends elemento_modelo
 	{
 		try {
 			$this->compilar_componentes();
-			$this->crear_compilar_archivo_referencia();
 			$this->compilar_metadatos_generales();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".
@@ -499,6 +489,7 @@ class proyecto extends elemento_modelo
 			}
 			$this->manejador_interface->mensaje("OK");
 		}
+		$this->crear_compilar_archivo_referencia();
 	}
 	
 	/*
@@ -552,51 +543,114 @@ class proyecto extends elemento_modelo
 		$path = $this->get_dir_generales_compilados();
 		toba_manejador_archivos::crear_arbol_directorios( $path );
 		$this->compilar_metadatos_generales_basicos();
-		//$this->compilar_metadatos_generales_componentes();
-		//$this->compilar_metadatos_generales_grupos_acceso();
-		//$this->compilar_metadatos_generales_mensajes();
-		//
-		/*
-			Clases extra
-			
-				* componente:
-					get_definicion_dependencia($objeto, $identificador, $proyecto=null)
-					[x id mensaje]
-						get_mensaje_objeto($objeto, $indice)
-				* grupo_acceso:
-					get_items_menu($proyecto=null, $grupo_acceso=null)
-					get_items_accesibles($grupo_acceso=null)
-					get_lista_permisos($grupo)
-					[x zona]
-						function get_items_zona($zona, $grupo)
-				* mensajes:
-					get_mensaje_proyecto($indice)
-				* mensajes_toba:
-					[ID==toba] get_mensaje_toba($indice)		
-		*/
+		$this->compilar_metadatos_generales_grupos_acceso();
+		$this->compilar_metadatos_generales_mensajes();
 	}
 
-	function compilar_metadatos_generales_basicos()
+	/**
+	*	Compilacion de DATOS BASICOS
+	*/	
+	private function compilar_metadatos_generales_basicos()
 	{
+		//-- Datos basicos --
 		$this->manejador_interface->mensaje('Info basica', false);
 		$nombre_clase = 'datos_basicos';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
-		//Datos basicos
-		$datos_basicos = toba_proyecto_db::cargar_info_basica( $this->get_id() );
-		$clase->agregar_metodo_datos('cargar_info_basica', $datos_basicos);
+		$datos = toba_proyecto_db::cargar_info_basica( $this->get_id() );
+		$clase->agregar_metodo_datos('info_basica', $datos);
+		$this->manejador_interface->mensaje_directo('.');
+		//-- Fuentes --
+		foreach( $this->get_indice_fuentes() as $fuente ) {		
+			$datos = toba_proyecto_db::get_info_fuente_datos( $this->get_id(), $fuente );
+			$clase->agregar_metodo_datos('info_fuente__'.$fuente, $datos );
+		}
+		$this->manejador_interface->mensaje_directo('.');
+		//-- Permisos --
+		foreach( $this->get_indice_permisos() as $permiso ) {		
+			$datos = toba_proyecto_db::get_descripcion_permiso( $this->get_id(), $permiso );
+			$clase->agregar_metodo_datos('info_permiso__'.$permiso, $datos );
+		}
 		$this->manejador_interface->mensaje_directo('.');
 		//Creo el archivo
 		$clase->guardar( $archivo );
 		$this->manejador_interface->mensaje("OK");
-	
+	}
 
-		/*	CLASE base
-				N fuentes:
-					get_info_fuente_datos($id_fuente, $proyecto=null)
-				N permisos:	
-					get_descripcion_permiso*/
-		
+	/**
+	*	Compilacion de GRUPOS de ACCESO
+	*/	
+	private function compilar_metadatos_generales_grupos_acceso()
+	{
+		$this->manejador_interface->mensaje('Grupos de acceso', false);
+		foreach( $this->get_indice_grupos_acceso() as $grupo_acceso ) {
+			$nombre_clase = 'grupo_acceso__' . $grupo_acceso;
+			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+			$clase = new toba_clase_datos( $nombre_clase );
+			//Menu
+			$datos = toba_proyecto_db::get_items_menu( $this->get_id(), $grupo_acceso );
+			$clase->agregar_metodo_datos('get_items_menu', $datos );
+			//Control acceso
+			$datos = toba_proyecto_db::get_items_accesibles( $this->get_id(), $grupo_acceso );
+			$clase->agregar_metodo_datos('get_items_accesibles', $datos );
+			//Permisos
+			$datos = toba_proyecto_db::get_lista_permisos( $this->get_id(), $grupo_acceso );
+			$clase->agregar_metodo_datos('get_lista_permisos', $datos );
+			//Acceso items zonas
+			foreach( $this->get_indice_zonas() as $zona ) {
+				$datos = toba_proyecto_db::get_items_zona( $this->get_id(), $grupo_acceso, $zona );
+				$clase->agregar_metodo_datos('get_items_zona__'.$zona, $datos );
+			}
+			//Guardo el archivo
+			$clase->guardar( $archivo );
+			$this->manejador_interface->mensaje_directo('.');
+		}		
+		$this->manejador_interface->mensaje("OK");
+	}
+	
+	/**
+	*	Compilacion de MENSAJES
+	*/	
+	function compilar_metadatos_generales_mensajes()
+	{
+		$this->manejador_interface->mensaje('Mensajes', false);
+		//---- Mensajes TOBA ------
+		$nombre_clase = 'mensajes_toba';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		foreach( $this->get_indice_mensajes('toba') as $mensaje ) {
+			$datos = toba_proyecto_db::get_mensaje_toba( $mensaje );
+			$clase->agregar_metodo_datos('get__'.$mensaje, $datos );
+		}		
+		$clase->guardar( $archivo );
+		$this->manejador_interface->mensaje_directo('.');
+		//---- Mensajes PROYECTO ------
+		$nombre_clase = 'mensajes_proyecto';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		foreach( $this->get_indice_mensajes() as $mensaje ) {
+			$datos = toba_proyecto_db::get_mensaje_proyecto( $this->get_id(), $mensaje );
+			$clase->agregar_metodo_datos('get__'.$mensaje, $datos );
+		}		
+		$clase->guardar( $archivo );
+		$this->manejador_interface->mensaje_directo('.');
+		//---- Mensajes OBJETOS ------
+		$nombre_clase = 'mensajes_proyecto_objeto';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+		$clase = new toba_clase_datos( $nombre_clase );
+		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
+			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
+				$objeto = $id_componente['componente'];
+				foreach( $this->get_indice_mensajes_objeto($objeto) as $mensaje ) {
+					$datos = toba_proyecto_db::get_mensaje_objeto( $this->get_id(), $objeto, $mensaje );
+					$clase->agregar_metodo_datos('get__'.$objeto.'__'.$mensaje, $datos );
+				}		
+			}
+		}
+		$clase->guardar( $archivo );
+		$this->manejador_interface->mensaje_directo('.');	
+		//---------------------------
+		$this->manejador_interface->mensaje("OK");
 	}
 	
 	//-----------------------------------------------------------
@@ -629,6 +683,66 @@ class proyecto extends elemento_modelo
 					GROUP BY 1
 					ORDER BY 2 DESC";
 		return $this->instancia->get_db()->consultar( $sql );
+	}
+
+	function get_indice_grupos_acceso()
+	{
+		$rs = dao_permisos::get_grupos_acceso();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['usuario_grupo_acc'];	
+		}
+		return $datos;
+	}
+
+	function get_indice_fuentes()
+	{
+		$rs = dao_editores::get_fuentes_datos();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['fuente_datos'];	
+		}
+		return $datos;
+	}
+
+	function get_indice_permisos()
+	{
+		$rs = dao_permisos::get_lista_permisos();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['nombre'];	
+		}
+		return $datos;
+	}
+
+	function get_indice_zonas()
+	{
+		$rs = dao_editores::get_zonas();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['zona'];	
+		}
+		return $datos;
+	}					
+
+	function get_indice_mensajes($proyecto=null)
+	{
+		$rs = dao_editores::get_mensajes($proyecto);
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['indice'];	
+		}
+		return $datos;
+	}
+
+	function get_indice_mensajes_objeto($objeto)
+	{
+		$rs = dao_editores::get_mensajes_objeto($objeto);
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['indice'];	
+		}
+		return $datos;
 	}
 		
 	//-----------------------------------------------------------
@@ -669,10 +783,6 @@ class proyecto extends elemento_modelo
 			return;
 		}
 		//--- Averiguo la fuente destino
-		/**
-		require_once('modelo/consultas/dao_editores.php');
-		dao_editores::get_fuentes_datos
-		*/
 		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
 				FROM apex_fuente_datos
 				WHERE ( proyecto = '{$this->identificador}' )
