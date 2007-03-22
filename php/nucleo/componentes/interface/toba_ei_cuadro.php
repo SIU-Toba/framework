@@ -1211,8 +1211,10 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_inicio();
 		}
 		$this->html_cuadro_cabecera_columnas();
+		$par = false;
         foreach($filas as $f)
         {
+        	$estilo_celda = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$resaltado = "";
 			$clave_fila = $this->get_clave_fila($f);
 			if (is_array($this->clave_seleccionada)) 
@@ -1221,8 +1223,8 @@ class toba_ei_cuadro extends toba_ei
 				$clave_seleccionada = $this->clave_seleccionada;	
 			
 			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
-			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "";
-            echo "<tr>\n";
+			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
+            echo "<tr class='ei-cuadro-fila-tr' >\n";
  			//---> Creo las CELDAS de una FILA <----
             for ($a=0;$a< $this->cantidad_columnas;$a++)
             {
@@ -1242,7 +1244,7 @@ class toba_ei_cuadro extends toba_ei
 	                }
 	            }
                 //*** 2) Genero el HTML
-                echo "<td class='".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
+                echo "<td class='$estilo_celda ".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
                 echo $valor;
                 echo "</td>\n";
                 //Termino la CELDA
@@ -1250,7 +1252,7 @@ class toba_ei_cuadro extends toba_ei
  			//---> Creo los EVENTOS de la FILA <---
 			if ( $this->tipo_salida != 'pdf' ) {
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
-					echo "<td class='ei-cuadro-col-tit' width='1%'>\n";
+					echo "<td class='ei-cuadro-fila-evt $estilo_celda' width='1%'>\n";
 					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
 						//1: Posiciono al evento en la fila
 						$evento->set_parametros($clave_fila);
@@ -1282,6 +1284,7 @@ class toba_ei_cuadro extends toba_ei
 			}
 			//--------------------------------------
             echo "</tr>\n";
+            $par = !$par;
         }
 		if(isset($totales)){
 			$this->html_cuadro_totales_columnas($totales);
@@ -1410,7 +1413,7 @@ class toba_ei_cuadro extends toba_ei
 			}		
 			echo "</tr>\n";
 		}
-		echo "<tr>\n";
+		echo "<tr class='ei-cuadro-totales'>\n";
 		for ($a=0;$a<$this->cantidad_columnas;$a++){
 			$clave = $this->info_cuadro_columna[$a]["clave"];
 			//Defino el valor de la columna
@@ -1431,7 +1434,7 @@ class toba_ei_cuadro extends toba_ei
 		}
         //-- Eventos sobre fila
 		if($this->cantidad_columnas_extra > 0){
-			echo "<td colspan='$this->cantidad_columnas_extra'></td>\n";
+			echo "<td colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
 		}		
 		echo "</tr>\n";
 	}

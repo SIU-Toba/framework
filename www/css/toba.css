@@ -324,7 +324,6 @@ legend {
 }
 .col-num-p1 {
 	color: #231f20;
-	background-color: #ffffff;
 }
 .col-num-p2 {
 	color: #aa0000;
@@ -344,12 +343,10 @@ legend {
 }
 .col-tex-p1 {
 	color: #000011;
-	background-color: #ffffff;
 }
 .col-tex-p2 {
 	font-weight: bold;
 	color: #aa0000;
-	background-color: #ffffff;
 }
 .col-tex-p3 {
 	color: #231f20;
@@ -362,7 +359,6 @@ legend {
 }
 .col-cen-s2 {
 	color: #231f20;
-	background-color: #ffffff;
 	text-align: center;
 }
 
@@ -373,6 +369,10 @@ legend {
 }
 .ei-cuadro-cabecera, .ei-cuadro-pie {
 	 empty-cells: hide
+}
+.ei-cuadro-fila {
+}
+.ei-cuadro-celda-evt {
 }
 .ei-cuadro-fila-sel {
 }

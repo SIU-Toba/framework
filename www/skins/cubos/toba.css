@@ -88,7 +88,11 @@ body {
 .col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4, 
 .col-tex-p1, .col-tex-p2, .col-tex-p3,
 .col-cen-s1, .col-cen-s2 {
-	border: 1px solid #4f4c4d;	
+
+}
+.ei-cuadro-fila {
+	background-color: white;
+	border: 1px solid #4f4c4d;		
 }
 .ei-cuadro-fila-sel {
 	background-color: #e2e2e2;

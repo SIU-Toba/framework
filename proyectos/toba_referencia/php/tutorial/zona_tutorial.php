@@ -26,7 +26,7 @@ class zona_tutorial extends toba_zona
 			} else {
 				$vinculo = toba::vinculador()->crear_vinculo($item['item_proyecto'], $item['item'], 
 														array(), array('zona' =>true, 'validar'=>false));
-			}												
+			}	
 			if (isset($vinculo)) {
 	 			$salida .= "<a href='$vinculo'>";
 				$salida .= $item['nombre'];

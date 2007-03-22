@@ -17,8 +17,8 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	
 		echo "<div class='barra-superior barra-superior-tit'>\n";		
 		$info = toba::solicitud()->get_datos_item();
+		$this->info_version();				
 		echo "<div class='item-barra'>";
-		$this->info_version();		
 		if (trim($info['item_descripcion']) != '') {
 			$ayuda = toba_recurso::ayuda(null, trim($info['item_descripcion']), 'item-barra-ayuda', 0);
 			echo "<div $ayuda>";
