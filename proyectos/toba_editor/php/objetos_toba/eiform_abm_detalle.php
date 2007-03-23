@@ -13,7 +13,9 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 
 	function generar_input_ef($ef)
 	{
-		echo "<div class='editor-imagen-preview'>";
+		if ($ef == 'imagen') {
+			echo "<div class='editor-imagen-preview'>";
+		}
 		parent::generar_input_ef($ef);
 		if ($ef == 'imagen') {
 			$fila = $this->elemento_formulario[$ef]->get_fila_actual();
@@ -21,7 +23,9 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 			$img = $this->elemento_formulario[$ef]->get_estado();
 			seleccion_imagenes::generar_input_ef($origen, $img, $this->objeto_js, $fila);			
 		} 
-		echo "</div>";
+		if ($ef == 'imagen') {
+			echo "</div>";
+		}
 	}	
 
 	function extender_objeto_js()
@@ -74,7 +78,13 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 				}
 			}
 		";
-		
+		echo "
+			{$this->objeto_js}.evt__estilo__procesar = function(inicial, fila_actual) {
+				var estado = this.ef('estilo').ir_a_fila(fila_actual).get_estado();	
+				var input = this.ef('prueba_estilo').ir_a_fila(fila_actual).input();
+				input.className = editor_col_css[estado] + ' columna-preview';
+			}
+		";		
 
 		//------------------------------------------------------------------------
 		//-------------------------- PREVIEW DE IMAGENES --------------------------

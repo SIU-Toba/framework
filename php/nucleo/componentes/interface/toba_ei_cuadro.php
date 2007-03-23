@@ -242,7 +242,7 @@ class toba_ei_cuadro extends toba_ei
 						if (isset($this->orden_columna) && isset($this->orden_sentido)) {
 							$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
 							$exitoso = $this->reportar_evento( $evento, $parametros );
-							if ($exitoso !== apex_ei_evt_sin_rpta && $exitoso !== false) {
+							if ($exitoso !== apex_ei_evt_sin_rpta && $exitoso === false) {
 								$this->ordenado = true;
 							} else {
 								$this->ordenado = false;	
@@ -1214,17 +1214,17 @@ class toba_ei_cuadro extends toba_ei
 		$par = false;
         foreach($filas as $f)
         {
-        	$estilo_celda = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
-			$resaltado = "";
+        	$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$clave_fila = $this->get_clave_fila($f);
-			if (is_array($this->clave_seleccionada)) 
+			if (is_array($this->clave_seleccionada)) {
 				$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
-			else
+			} else {
 				$clave_seleccionada = $this->clave_seleccionada;	
+			}
 			
 			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
-            echo "<tr class='ei-cuadro-fila-tr' >\n";
+            echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
             for ($a=0;$a< $this->cantidad_columnas;$a++)
             {
@@ -1244,7 +1244,7 @@ class toba_ei_cuadro extends toba_ei
 	                }
 	            }
                 //*** 2) Genero el HTML
-                echo "<td class='$estilo_celda ".$this->info_cuadro_columna[$a]["estilo"]. $resaltado .' '.$estilo_seleccion."'>\n";
+                echo "<td class='$estilo_seleccion ".$this->info_cuadro_columna[$a]["estilo"]."'>\n";
                 echo $valor;
                 echo "</td>\n";
                 //Termino la CELDA
@@ -1252,7 +1252,7 @@ class toba_ei_cuadro extends toba_ei
  			//---> Creo los EVENTOS de la FILA <---
 			if ( $this->tipo_salida != 'pdf' ) {
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
-					echo "<td class='ei-cuadro-fila-evt $estilo_celda' width='1%'>\n";
+					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
 					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
 						//1: Posiciono al evento en la fila
 						$evento->set_parametros($clave_fila);

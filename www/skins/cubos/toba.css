@@ -85,11 +85,7 @@ body {
 /*************************
 		CUADRO
 **************************/
-.col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4, 
-.col-tex-p1, .col-tex-p2, .col-tex-p3,
-.col-cen-s1, .col-cen-s2 {
 
-}
 .ei-cuadro-fila {
 	background-color: white;
 	border: 1px solid #4f4c4d;		
@@ -103,7 +99,13 @@ body {
 .ei-cuadro-cc-tabla-sum {
 	border: 1px #4f4c4d solid;
 }
-
+.col-num-p2,.col-num-p4,.col-tex-p2,.col-tex-p4, .col-cen-s2, .col-cen-s4 {
+	color: #aa0000;
+	font-weight: bold;
+}
+.col-num-p3, .col-num-p4, .col-tex-p3, .col-text-p4, .col-cen-s3, .col-cen-s4 {
+	background-color: #d3d2d2;
+}
 /*************************
 		CI
 **************************/

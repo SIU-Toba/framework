@@ -33,6 +33,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-bottom: 1px solid #5C5F9E;
 }
 .barra-superior-tit {
+	_height: 30px;
 	min-height: 30px;
 }
 .zona-barra-id {
@@ -63,6 +64,9 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-barra-sup .barra-redondeada-cont {
 
 }
+/*************************
+		CUADRO
+**************************/
 .ei-cuadro-fila { 
 	border-left: 1px solid #eeeeee;
 	border-right: 1px solid #eeeeee;
@@ -79,7 +83,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	background-color: #e2e2e2;
 	padding-top: 2px;
 	padding-bottom:2px;
-	padding-left: 4px;
+	padding-left: 6px;
 	border: 1px solid #949495;
 	font-weight: normal;
 	font-family: Tahoma;
@@ -89,9 +93,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	padding-top:2px;
 	padding-bottom:2px;
 	background-color: #7579BA !important;
-	border-top: 1px solid #8a8645;
-	border-bottom: 1px solid #8a8645;
-	color:white;
+	border-top: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
+	border-left: 1px solid #7579BA;
+	border-right: 1px solid #eeeeee;
+	color:white !important;
 }
 .ei-cuadro-celda-impar {
 	background-color:white;
@@ -99,6 +105,32 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-par {
 	background-color: f6f6ff;
 }
+
+.col-num-p2,.col-num-p4,.col-tex-p2,.col-tex-p4, .col-cen-s2, .col-cen-s4 {
+	color: #aa0000;
+	font-weight: bold;
+}
+.ei-cuadro-celda-impar .col-num-p3, 
+.ei-cuadro-celda-impar .col-num-p4, 
+.ei-cuadro-celda-impar .col-tex-p3, 
+.ei-cuadro-celda-impar .col-text-p4, 
+.ei-cuadro-celda-impar .col-cen-s3, 
+.ei-cuadro-celda-impar .col-cen-s4 {
+	background-color: #f5f5f5;
+}
+.ei-cuadro-celda-par .col-num-p3, 
+.ei-cuadro-celda-par .col-num-p4, 
+.ei-cuadro-celda-par .col-tex-p3, 
+.ei-cuadro-celda-par .col-text-p4, 
+.ei-cuadro-celda-par .col-cen-s3, 
+.ei-cuadro-celda-par .col-cen-s4 {
+	background-color: #ececf5;
+}
+
+
+/*************************
+		CI
+**************************/
 .ci-barra-sup {
 }
 .ci-simple-cont {

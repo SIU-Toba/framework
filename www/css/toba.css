@@ -308,60 +308,6 @@ legend {
 		EI - CUADRO
 **************************/
 
-/*************************
-	 Formateo de Columnas
-**************************/
-
-.col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4, 
-.col-tex-p1, .col-tex-p2, .col-tex-p3,
-.col-cen-s1, .col-cen-s2 {
-	padding: 2px;
-	margin: 0px;
-}
-
-.col-num-p1, .col-num-p2, .col-num-p3 {
-	text-align: right;
-}
-.col-num-p1 {
-	color: #231f20;
-}
-.col-num-p2 {
-	color: #aa0000;
-	background-color: #e9e8e8;
-}
-.col-num-p3 {
-	color: #231f20;
-	background-color: #e9e8e8;
-}
-.col-num-p4 {
-	color: #231f20;
-	background-color: #4f4c4d;
-}
-
-.col-tex-p1, .col-tex-p2, .col-tex-p3 {
-	text-align: left;
-}
-.col-tex-p1 {
-	color: #000011;
-}
-.col-tex-p2 {
-	font-weight: bold;
-	color: #aa0000;
-}
-.col-tex-p3 {
-	color: #231f20;
-	background-color: #d3d2d2;
-}
-
-.col-cen-s1 {
-	color: #231f20;
-	text-align: center;
-}
-.col-cen-s2 {
-	color: #231f20;
-	text-align: center;
-}
-
 .ei-cuadro-base {
 }
 .ei-cuadro-cuerpo {
@@ -371,6 +317,8 @@ legend {
 	 empty-cells: hide
 }
 .ei-cuadro-fila {
+	padding: 2px;
+	margin: 0px;
 }
 .ei-cuadro-celda-evt {
 }
@@ -501,6 +449,20 @@ legend {
 	padding: 2px;
 }
 
+
+/*************************
+	 Formateo de Columnas
+**************************/
+
+.col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4 {
+	text-align: right;
+}
+.col-tex-p1, .col-tex-p2, .col-tex-p3, .col-tex-p4 {
+	text-align: left;
+}
+.col-cen-s1, .col-cen-s2, .col-cen-s3, .col-cen-s4  {
+	text-align: center;
+}
 /*************************
 		CI
 **************************/

@@ -46,6 +46,7 @@
 }
 .editor-lista-vinculos {
 	white-space: nowrap;
+	text-align:right;
 }
 .cronometro-total {
 	font-weight: bold;
@@ -85,7 +86,11 @@
 	padding-bottom: 5px;
 	font-weight: bold;
 }
-
+.columna-preview {
+	border: 1px solid gray;
+	padding-left: 4px;
+	padding-right:4px;
+}
 
 
 /*** Parte Vieja **/

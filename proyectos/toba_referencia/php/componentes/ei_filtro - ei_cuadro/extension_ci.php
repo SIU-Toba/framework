@@ -54,6 +54,7 @@ class extension_ci extends toba_ci
         $columna = $param['columna']; 
         $sentido = $param['sentido']; 
         toba::notificacion()->agregar("Evento escuchado en php: Se quiere ordenar la columna $columna en orden $sentido", 'info'); 
+        return true;
     } 	
 	
 	function evt__mi_evento()

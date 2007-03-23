@@ -126,6 +126,13 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__columnas_lista()
 	{
+		//--- Se insertan los css de cada estilo para hacer la visualización
+		$estilos = rs_convertir_asociativo(dao_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
+		echo toba_js::abrir();
+		echo "var editor_col_css=".toba_js::arreglo($estilos, true);
+		echo toba_js::cerrar();
+		
+		
 		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() )
 		{
 			//Ordeno los registros segun la 'posicion'

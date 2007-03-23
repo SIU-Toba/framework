@@ -681,6 +681,12 @@ class dao_editores
 				ORDER BY descripcion";
 		return contexto_info::get_db()->consultar($sql);
 	}
+
+	function get_lista_estilos_columnas()
+	{
+		$sql = "SELECT columna_estilo, css FROM apex_columna_estilo";
+		return contexto_info::get_db()->consultar($sql);
+	}
 	
 	function get_mensajes($proyecto=null)
 	{
