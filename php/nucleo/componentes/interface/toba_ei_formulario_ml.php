@@ -618,18 +618,21 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		//------ TITULOS -----	
 		echo "<tr>\n";
-		if ($this->info_formulario['filas_numerar']) {
-			echo "<th class='ei-ml-columna'>&nbsp;</th>\n";
-		}
+		$primera = true;
 		foreach ($this->lista_ef_post	as	$ef){
-			echo "<th class='ei-ml-columna'>\n";
+			$extra = '';
+			if ($primera && $this->info_formulario['filas_numerar']) {
+				$extra = 'colspan="2"';
+			}
+			echo "<th $extra class='ei-ml-columna'>\n";
 			$this->generar_etiqueta_ef($ef);
 			echo "</th>\n";
+			$primera = false;
 		}
         //-- Eventos sobre fila
 		if($this->cant_eventos_sobre_fila() > 0){
 			foreach ($this->get_eventos_sobre_fila() as $evento) {
-				echo "<th class='ei-ml-columna'>&nbsp;\n";
+				echo "<th class='ei-ml-columna ei-ml-columna-extra'>&nbsp;\n";
 				if (toba_editor::modo_prueba()) {
 					echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
 				}
@@ -791,7 +794,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$agregar = $this->info_formulario['filas_agregar'];
 		$ordenar = $this->info_formulario['filas_ordenar'];
 		if ($agregar || $ordenar) {
-			echo "<div style='text-align: left'>";
+			echo "<div class='ei-ml-botonera'>";
 			if ($agregar) {
 				echo toba_form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_toba('nucleo/agregar.gif', true), 
 										"onclick='{$this->objeto_js}.crear_fila();'", $this->rango_tabs[0]++, '+', 'Crea una nueva fila');

@@ -21,6 +21,9 @@ class tp_tutorial extends tp_referencia
 				background-color: white;
 				font-size: 12px;
 			}
+			.ci-wiz-enc {
+				border: 0;
+			}
 			.ci-wiz-titulo, h2 {
 				font-size: 1.5em; 
 			}

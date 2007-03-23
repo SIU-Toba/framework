@@ -185,6 +185,7 @@ padding-left:4px;
 	font-size: 11px;
 	height: 24px;
 }
+
 .ei-boton-izq {
 	float: left;
 }
@@ -200,7 +201,11 @@ padding-left:4px;
 		Form. Común
 **************************/
 
-.ei-form-base, ei-form-cuerpo {}
+.ei-form-base {
+}
+.ei-form-cuerpo {
+	padding-top:2px;
+}
 .ei-form-fila {
 	padding: 0px 10px 5px 8px;
 	margin: 0;
@@ -233,6 +238,16 @@ padding-left:4px;
 	margin: 0;		
 	BORDER-COLLAPSE: collapse;
 	empty-cells: hide;
+}
+.ei-ml-botonera {
+	text-align:left;
+	padding-top:4px;
+	padding-left:5px;
+	min-height:30px;
+}
+.ei-ml-botonera button {
+	padding:0;
+	margin:1px;
 }
 .ei-ml-columna {
 	padding: 2px 2px 4px 2px;
@@ -356,6 +371,7 @@ padding-left:4px;
 .ei-cuadro-cc-fondo {
 	padding: 0px;
 }
+
 
 /*-- NIVEL 0 --*/
 .ei-cuadro-cc-tit-nivel-0{
@@ -547,21 +563,11 @@ padding-left:4px;
 	white-space: nowrap;
 	text-align: left;
 }
-.ci-tabs-v-boton {
-	padding: 3px 2px 12px 2px;
-	line-height: 15px;
-	white-space: nowrap;
-	text-decoration: none;
-}
-.ci-tabs-v-boton:hover {
-	text-decoration: underline
-}
 .ci-tabs-v-boton-sel {
 	border: medium none;	
 	padding: 2px;
 	font-weight: bold;
 	font-size: 11px;
-	color: #000000;
 	white-space: nowrap;
 }
 /*** Tabs horizontales ***/

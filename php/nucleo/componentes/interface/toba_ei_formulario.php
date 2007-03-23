@@ -788,10 +788,10 @@ class toba_ei_formulario extends toba_ei
         echo "<tr><td style='padding:0'>";
         echo $this->get_html_barra_editor();
         echo "</td></tr>\n";
-		echo "<tr><td>";
+		echo "<tr><td style='padding:0'>";
 		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
 		echo "</td></tr>\n";
-		echo "<tr><td>";
+		echo "<tr><td style='padding:0'>";
 		$this->generar_formulario();	
 		echo "</td></tr>\n";
 		echo "</table>\n";

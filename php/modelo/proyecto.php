@@ -409,6 +409,7 @@ class proyecto extends elemento_modelo
 		$catalogos = array();
 		$catalogos['tablas_componente'][] = 'get_lista';
 		$catalogos['tablas_proyecto'][] = 'get_lista';
+		$catalogos['tablas_proyecto'][] = 'get_lista_permisos';
 		$catalogos['tablas_instancia'][] = 'get_lista_proyecto';
 		$catalogos['tablas_instancia'][] = 'get_lista_proyecto_log';
 		$catalogos['tablas_instancia'][] = 'get_lista_proyecto_usuario';

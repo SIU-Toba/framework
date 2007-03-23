@@ -134,9 +134,11 @@ body {
 	border-top: 1px solid #ffffff;	
 	border-bottom:  2px #808080 solid;	
 }
-.ci-tabs-v-solapa {
+.ci-tabs-v-margen-sup {
+	height: 20px;
+}
+.ci-tabs-v-solapa, .ci-tabs-v-margen-sup {
 	border-right: 1px solid #ffffff;
-
 }
 .ci-tabs-v-solapa-sel {
 	border-top: 1px solid #ffffff;

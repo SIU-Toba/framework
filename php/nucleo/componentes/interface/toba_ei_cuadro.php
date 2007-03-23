@@ -969,7 +969,7 @@ class toba_ei_cuadro extends toba_ei
             echo "</td></tr>\n";
         }
 		//-- INICIO zona COLAPSABLE
-		echo"<tr><td style='padding:0'>\n";
+		echo"<tr><td style='padding:0;'>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
         echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera

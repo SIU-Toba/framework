@@ -390,7 +390,7 @@ class toba_ei_pantalla extends toba_ei
 			} else {
 				echo "<div class='ci-pant-desc'>$imagen&nbsp;$descripcion</div>\n";
 			}
-			echo "<hr>\n";
+			echo "<hr class='ci-pant-sep'>\n";
 		}
 		$this->generar_layout();
 	}
@@ -456,7 +456,7 @@ class toba_ei_pantalla extends toba_ei
 	 */	
 	protected function generar_tabs_verticales()
 	{
-		echo "<div  class='ci-tabs-v-solapa' style='height:20px'> </div>";
+		echo "<div  class='ci-tabs-v-margen-sup'> </div>";
 		foreach( $this->lista_tabs as $id => $tab ) {
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
