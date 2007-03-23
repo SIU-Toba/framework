@@ -28,9 +28,7 @@ class proyecto extends elemento_modelo
 	const dump_prefijo_componentes = 'dump_';
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
-	const compilar_prefijo_componentes = 'php_';	
 	const template_proyecto = '/php/modelo/template_proyecto';
-	private $compilacion_tabla_tipos;
 
 	function __construct( instancia $instancia, $identificador )
 	{
@@ -96,7 +94,7 @@ class proyecto extends elemento_modelo
 	
 	function get_dir_componentes_compilados()
 	{
-		return $this->dir . '/metadatos_compilados/componentes';
+		return $this->dir . '/metadatos_compilados';
 	}
 
 	function get_dir_generales_compilados()
@@ -481,56 +479,39 @@ class proyecto extends elemento_modelo
 	{
 		$this->manejador_interface->titulo("Compilando componentes");
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
+			$c = 0;
 			$this->manejador_interface->mensaje( $tipo . ' ', false );
-			$path = $this->get_dir_componentes_compilados() . '/' . $tipo;
-			toba_manejador_archivos::crear_arbol_directorios( $path );
-			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
-				$this->compilar_componente( $tipo, $id_componente );
+			if ( $tipo == 'item' ) {
+				$directorio = $this->get_dir_componentes_compilados() . '/items';
+			} else {
+				$directorio = $this->get_dir_componentes_compilados() . '/componentes';
 			}
-			$this->manejador_interface->mensaje("OK");
+			toba_manejador_archivos::crear_arbol_directorios( $directorio );
+			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
+				$this->compilar_componente( $tipo, $id_componente, $directorio );
+				$c++;
+			}
+			$this->manejador_interface->mensaje("($c) OK");
 		}
-		$this->crear_compilar_archivo_referencia();
 	}
 	
 	/*
 	*	Compila un componente
 	*/
-	function compilar_componente( $tipo, $id )
+	function compilar_componente( $tipo, $id, $directorio )
 	{
 		//Armo la clase compilada
 		$this->manejador_interface->mensaje_directo('.');
 		toba_logger::instancia()->debug("COMPONENTE --  " . $id['componente']);
-		$nombre = toba_manejador_archivos::nombre_valido( self::compilar_prefijo_componentes . $id['componente'] );
+		$prefijo = ($tipo == 'item') ? 'item__' : 'componente__';
+		$nombre = toba_manejador_archivos::nombre_valido( $prefijo . $id['componente'] );
 		$clase = new toba_clase_datos( $nombre );		
 		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
 		$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 		//Creo el archivo
-		$directorio = $this->get_dir_componentes_compilados() . '/' . $tipo;
 		$path = $directorio .'/'. $nombre . '.php';
 		$clase->guardar( $path );
-		//Creo la tabla de referencia
-		/*	ATENCION! excluyo los items porque pueden pisarse los IDs con los objetos	*/
-		if ( $tipo != 'item' ) {
-			$this->compilacion_tabla_tipos[$id['componente']] = $tipo;
-		}
 	}
-
-	/*
-	*	Creo la tabla de referencias
-	*/
-	function crear_compilar_archivo_referencia()
-	{
-		//Armo la clase compilada
-		$this->manejador_interface->mensaje("Creando tabla de tipos.");
-		$clase = new toba_clase_datos( self::compilar_archivo_referencia );		
-		$clase->agregar_metodo_datos('get_datos',$this->compilacion_tabla_tipos);
-		//Creo el archivo
-		$archivo = toba_manejador_archivos::nombre_valido( self::compilar_archivo_referencia );
-		$path = $this->get_dir_componentes_compilados() .'/'. $archivo . '.php';
-		$clase->guardar( $path );
-	}
-
-	//----------------------------------------
 
 	/*
 	*	Compila los metadatos que no son componentes

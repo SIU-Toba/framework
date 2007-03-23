@@ -28,8 +28,8 @@ class toba_constructor
 			$tipo = toba_catalogo::get_tipo( $id );	
 		}
 		// Cargo los metadatos
-		if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
-			$datos = self::get_metadatos_compilados( $id, $tipo );
+		if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
+			$datos = self::get_metadatos_compilados( $id, ($tipo=='item') );
 		} else {
 			$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
 		}
@@ -74,8 +74,8 @@ class toba_constructor
 		$hash = $id['componente']."-".$id['proyecto']."-".$tipo;
 		if (! isset(self::$cache_infos[$hash]) || $refrescar_cache) {
 			if (! isset($datos)) {
-				if ( defined('apex_pa_componentes_compilados') && apex_pa_componentes_compilados ) {
-					$datos = self::get_metadatos_compilados( $id, $tipo );
+				if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
+					$datos = self::get_metadatos_compilados( $id, ($tipo=='item') );
 				} else {
 					$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
 				}
@@ -104,35 +104,23 @@ class toba_constructor
 		}
 	}
 	
-	/*
-	*	Este proceso necesita optimizacion
+	/**
+	*	Retorna la definicion compilada de un componente
 	*/
-	static private function get_metadatos_compilados( $id, $tipo )
+	static function get_metadatos_compilados( $id, $item=false )
 	{
-		$directorio_componentes = toba::instancia()->get_path_proyecto() . '/metadatos_compilados/componentes';		
-		$prefijo = 'php_';
-		if ( $tipo == 'item' ) {
-			$nombre = $prefijo . toba_manejador_archivos::nombre_valido( $id['componente'] );
+		$directorio_componentes = toba::proyecto()->get_path() . '/metadatos_compilados';		
+		if ( $item ) {
+			$nombre = 'item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
+			$archivo = $directorio_componentes . '/items/' . $nombre . '.php';
+			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		} else {
-			$nombre = $prefijo . $id['componente'];
+			$nombre = 'componente__' . $id['componente'];
+			$archivo = $directorio_componentes . '/componentes/' . $nombre . '.php';
+			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		}
-		$archivo = $directorio_componentes . '/' . $tipo  . '/' . $nombre . '.php';
-		// Si el proceso esta bien, esto deberia andar...
 		require_once( $archivo );
 		return call_user_func( array( $nombre, 'get_metadatos' ) );
-/*
-		if ( file_exists( $archivo )) {
-			require_once( $archivo );
-			return call_user_func( array( $nombre, 'get_metadatos' ) );
-		} else {
-			if( defined(apex_pa_componentes_compilados__error_buscar_db) 
-					&& apex_pa_componentes_compilados__error_buscar_db ){
-				return toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
-			} else {
-				throw new toba_error("No existe el componente compilado solicitado . CLASE: $tipo, ID: '{$id['componente']}'");
-			}
-		}
-*/
 	}
 	
 	static function set_refresco_forzado($refrescar)

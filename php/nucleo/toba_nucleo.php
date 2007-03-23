@@ -207,5 +207,16 @@ class toba_nucleo
 		toba::contexto_ejecucion()->conf__final();
 		$this->solicitud->guardar_cronometro();
 	}
+
+	/**
+	*	La compilacion se activa solo sobre el proyecto primario
+	*	@ignore
+	*/
+	function utilizar_metadatos_compilados($proyecto)
+	{
+		$flag_compilacion = (defined('apex_pa_metadatos_compilados') && apex_pa_metadatos_compilados);
+		$proyecto_compilado = ($proyecto == apex_pa_proyecto);
+		return ($flag_compilacion && $proyecto_compilado);
+	}
 }
 ?>

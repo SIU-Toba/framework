@@ -16,7 +16,9 @@ class toba_proyecto
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	private $id;
 	private $indice_items_accesibles = array();
+	private $dir_compilacion;
 	const prefijo_punto_acceso = 'apex_pa_';
+
 
 	static function get_id()
 	{
@@ -65,6 +67,7 @@ class toba_proyecto
 			$this->memoria = self::cargar_info_basica();
 			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
+		$this->dir_compilacion = self::get_path() . '/metadatos_compilados/generales';
 	}
 
 	/**
@@ -105,8 +108,12 @@ class toba_proyecto
 		
 	function cargar_info_basica($proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : $this->id;
-		$rs = toba_proyecto_db::cargar_info_basica($proyecto);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('datos_basicos','info_basica');
+		} else {
+			$proyecto = isset($proyecto) ? $proyecto : $this->id;
+			$rs = toba_proyecto_db::cargar_info_basica($proyecto);
+		}
 		if (!$rs) {
 			throw new toba_error("El proyecto '".$this->id."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
@@ -123,7 +130,7 @@ class toba_proyecto
 	 */
 	function get_path()
 	{
-		return toba::instancia()->get_path_proyecto($this->id);
+		return toba::instancia()->get_path_proyecto(self::get_id());
 	}
 
 	/**
@@ -183,22 +190,31 @@ class toba_proyecto
 	
 	//--------------  Carga dinamica de COMPONENTES --------------
 
-	static function get_definicion_dependencia($objeto, $proyecto=null)
+	function get_definicion_dependencia($id_componente, $proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : self::get_id() ;
-		//Busco la definicion del componente
-		require_once('nucleo/componentes/definicion/componente.php');
-		$sql = componente_toba::get_vista_extendida($proyecto, $objeto);
-		$rs = toba_proyecto_db::get_db()->consultar_fila($sql['info']['sql']);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$temp = toba_constructor::get_metadatos_compilados(array('proyecto'=>$proyecto, 'componente'=>$id_componente));
+			$rs = $temp['info'];
+		} else {
+			//Busco la definicion del componente
+			require_once('nucleo/componentes/definicion/componente.php');
+			$sql = componente_toba::get_vista_extendida($proyecto, $id_componente);
+			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['info']['sql']);
+		}
 		return $rs;
 	}
 
 	//------------------------  FUENTES  -------------------------
 
-	static function get_info_fuente_datos($id_fuente, $proyecto=null)
+	function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
-		if (! isset($proyecto)) $proyecto = self::get_id();
-		$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('datos_basicos','info_fuente__'.$id_fuente);
+		} else {
+			if (! isset($proyecto)) $proyecto = self::get_id();
+			$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
+		}
 		if (empty($rs)) {
 			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	
 		}
@@ -215,11 +231,15 @@ class toba_proyecto
 	 * @param string $grupo_acceso Por defecto el del usuario actual
 	 * @return array RecordSet contienendo información de los items
 	 */
-	static function get_items_menu($proyecto=null, $grupo_acceso=null)
+	function get_items_menu($proyecto=null, $grupo_acceso=null)
 	{
-		if (!isset($proyecto)) $proyecto = self::get_id();
 		if (!isset($grupo_acceso)) $grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
-		$rs = toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_menu');
+		} else {
+			if (!isset($proyecto)) $proyecto = self::get_id();
+			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
+		}
 		return $rs;
 	}	
 
@@ -232,7 +252,11 @@ class toba_proyecto
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles[$grupo_acceso])) {
 			$this->indice_items_accesibles[$grupo_acceso] = array();
-			$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso);
+			if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+				$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_accesibles');
+			} else {
+				$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso);
+			}
 			foreach( $rs as $accesible ) {
 				$this->indice_items_accesibles[$grupo_acceso][$accesible['proyecto'].'-'.$accesible['item']] = 1;
 			}
@@ -243,9 +267,13 @@ class toba_proyecto
 	/**
 	*	Devuelve la lista de items de la zona a los que puede acceder el grupo actual
 	*/
-	static function get_items_zona($zona, $grupo_acceso)
+	function get_items_zona($zona, $grupo_acceso)
 	{
-		$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupo_acceso, $zona);	
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_zona__'.$zona);
+		} else {
+			$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupo_acceso, $zona);	
+		}
 		return $rs;
 	}
 
@@ -262,39 +290,97 @@ class toba_proyecto
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
 	 */
-	static function get_lista_permisos($grupo)
+	function get_lista_permisos($grupo)
 	{
-		$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_lista_permisos');
+		} else {
+			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
+		}
 		return $rs;
 	}
 	
 	/**
 	 * Retorna la descripción asociada a un permiso global particular del proy. actual
 	 */
-	static function get_descripcion_permiso($permiso)
+	function get_descripcion_permiso($permiso)
 	{
-		$rs = toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$rs = $this->recuperar_datos_compilados('datos_basicos', 'info_permiso__'.$permiso);
+		} else {
+			$rs = toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
+		}
 		return $rs;
 	}
 
 	//------------------------  MENSAJES  -------------------------
 
-	static function get_mensaje_toba($indice)
+	function get_mensaje_toba($indice)
 	{
-		$rs = toba_proyecto_db::get_mensaje_toba($indice);	
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$clase = 'mensajes_toba';
+			$metodo = 'get__'.$objeto;
+			if ( $this->existe_dato_compilado($clase, $metodo) ) {
+				$rs = $this->recuperar_datos_compilados($clase, $metodo);
+			} else {
+				$rs = array();	
+			}
+		} else {
+			$rs = toba_proyecto_db::get_mensaje_toba($indice);	
+		}
 		return $rs;
 	}
 	
-	static function get_mensaje_proyecto($indice)
+	function get_mensaje_proyecto($indice)
 	{
-		$rs = toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$clase = 'mensajes_proyecto';
+			$metodo = 'get__'.$indice;
+			if ( $this->existe_dato_compilado($clase, $metodo) ) {
+				$rs = $this->recuperar_datos_compilados($clase, $metodo);
+			} else {
+				$rs = array();	
+			}
+		} else {
+			$rs = toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
+		}
 		return $rs;
 	}
 
-	static function get_mensaje_objeto($objeto, $indice)
+	function get_mensaje_objeto($objeto, $indice)
 	{
-		$rs = toba_proyecto_db::get_mensaje_objeto(self::get_id(), $objeto, $indice);	
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+			$clase = 'mensajes_proyecto_objeto';
+			$metodo = 'get__'.$objeto.'__'.$indice;
+			if ( $this->existe_dato_compilado($clase, $metodo) ) {
+				$rs = $this->recuperar_datos_compilados($clase, $metodo);
+			} else {
+				$rs = array();	
+			}
+		} else {
+			$rs = toba_proyecto_db::get_mensaje_objeto(self::get_id(), $objeto, $indice);	
+		}
 		return $rs;
+	}
+
+	//-- Soporte a la compilacion ----------------------
+	
+	function existe_dato_compilado($clase, $metodo)
+	{
+		$this->incluir_clase($clase);
+		return in_array($metodo, get_class_methods($clase));
+	}
+	
+	function recuperar_datos_compilados($clase, $metodo)
+	{
+		toba::logger()->debug("buscar COMPILADO: {$clase}::{$metodo}()",'toba');
+		$this->incluir_clase($clase);
+		return call_user_func(array($clase, $metodo));
+	}
+
+	function incluir_clase($clase)
+	{
+		require_once($this->dir_compilacion .'/'.$clase.'.php');
 	}
 }
 ?>
