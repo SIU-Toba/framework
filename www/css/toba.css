@@ -146,14 +146,15 @@ legend {
 }
 .ei-cuerpo {}
 .ei-barra-sup {
-	width: 100%;
 	text-align: left;
 	min-height: 24px;	
 	_height:24px;
+	padding-top:4px;
 }
 .ei-barra-sup-sin-botonera {
-	min-height: 0;
-	_height:0;
+	min-height: 18px;
+	_height:18px;
+	padding:0;
 }
 .ei-barra-sup-desc {
 	float: right;
@@ -169,11 +170,12 @@ legend {
 }
 .ei-barra-colapsar {}
 .ei-barra-mensajeria {
-	float: right;
+padding-left:4px;
 }
 .ei-botonera {
 	clear: both;
 	text-align: right;
+	padding-right:5px;
 }
 /* La botonera dentro de la barra superior flota para que se vea al mismo nivel */
 .ei-barra-sup .ei-botonera {
@@ -309,9 +311,13 @@ legend {
 **************************/
 
 .ei-cuadro-base {
+
 }
 .ei-cuadro-cuerpo {
 	width: 100%;
+}
+.ei-cuadro-scroll {
+	overflow: auto;
 }
 .ei-cuadro-cabecera, .ei-cuadro-pie {
 	 empty-cells: hide

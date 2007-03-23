@@ -2,6 +2,72 @@
 
 class datos_editores
 {
+	static function get_pantallas_objeto_ei_arbol()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/arbol.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_objeto_cn()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/negocio.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'pant_dependencias',
+    'etiqueta' => 'Dependencias',
+    'imagen' => 'objetos/asociar_objeto.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_objeto_ei_calendario()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/calendario.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
+	static function get_pantallas_objeto_ei_esquema()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => 'basicas',
+    'etiqueta' => 'Propiedades Básicas',
+    'imagen' => 'objetos/esquema.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => 'p_eventos',
+    'etiqueta' => 'Eventos',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);
+	}
+
 	static function get_pantallas_objeto_ci()
 	{
 		return array (
@@ -36,21 +102,28 @@ class datos_editores
 );
 	}
 
-	static function get_pantallas_objeto_cn()
+	static function get_pantallas_objeto_datos_tabla()
 	{
 		return array (
   0 => 
   array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/negocio.gif',
+    'identificador' => '1',
+    'etiqueta' => 'Propiedades basicas',
+    'imagen' => 'objetos/datos_tabla.gif',
     'imagen_recurso_origen' => 'apex',
   ),
   1 => 
   array (
-    'identificador' => 'pant_dependencias',
-    'etiqueta' => 'Dependencias',
-    'imagen' => 'objetos/asociar_objeto.gif',
+    'identificador' => '2',
+    'etiqueta' => 'Columnas',
+    'imagen' => 'objetos/columna.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  2 => 
+  array (
+    'identificador' => '3',
+    'etiqueta' => 'Carga externa',
+    'imagen' => 'objetos/carga_externa.png',
     'imagen_recurso_origen' => 'apex',
   ),
 );
@@ -83,46 +156,6 @@ class datos_editores
 );
 	}
 
-	static function get_pantallas_objeto_datos_tabla()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => '1',
-    'etiqueta' => 'Propiedades basicas',
-    'imagen' => 'objetos/datos_tabla.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  1 => 
-  array (
-    'identificador' => '2',
-    'etiqueta' => 'Columnas',
-    'imagen' => 'objetos/columna.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  2 => 
-  array (
-    'identificador' => '3',
-    'etiqueta' => 'Carga externa',
-    'imagen' => 'objetos/carga_externa.png',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_objeto_ei_arbol()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/arbol.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
 	static function get_pantallas_objeto_ei_archivos()
 	{
 		return array (
@@ -131,19 +164,6 @@ class datos_editores
     'identificador' => '0',
     'etiqueta' => 'Propiedades Básicas',
     'imagen' => 'objetos/archivos.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_objeto_ei_calendario()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/calendario.gif',
     'imagen_recurso_origen' => 'apex',
   ),
 );
@@ -176,26 +196,6 @@ class datos_editores
   3 => 
   array (
     'identificador' => '3',
-    'etiqueta' => 'Eventos',
-    'imagen' => 'evento.png',
-    'imagen_recurso_origen' => 'apex',
-  ),
-);
-	}
-
-	static function get_pantallas_objeto_ei_esquema()
-	{
-		return array (
-  0 => 
-  array (
-    'identificador' => 'basicas',
-    'etiqueta' => 'Propiedades Básicas',
-    'imagen' => 'objetos/esquema.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  1 => 
-  array (
-    'identificador' => 'p_eventos',
     'etiqueta' => 'Eventos',
     'imagen' => 'evento.png',
     'imagen_recurso_origen' => 'apex',

@@ -43,7 +43,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	background-color:#EEEFF2;
 }
 .zona-items a {
-	color:#cccccc;
+	color:#eee;
 }
 .zona-items a:hover, .zona-items a:focus, .zona-items a.rollover, .zona-items a.rollover:visited {
 	color: white;
@@ -52,35 +52,60 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ci-tabs-h-lista {
 	background-color: #E3E3E3;
 }
-.ci-tabs-h-cont, .ci-wiz-cont, .ci-tabs-v-cont {
+.ei-base {
 	background-color: #EEEFF2;
+	border: 1px solid #868789;
+	padding:0;
+}
+.ei-base .ei-base {
+	background-color: transparent;
+	border: 0;
+	margin: 0;
+}
+.ci-tabs-h-cont, .ci-wiz-cont, .ci-tabs-v-cont {
+
 }
 .ci-wiz-cont  {
-	border: 1px solid 868789;	
+	
+}
+.ei-cuadro-cuerpo {
+	padding:0;
+	margin:0;
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;	
+}
+.ei-cuadro-scroll {
+	padding:2px;
 }
 .ei-barra-sup {
- 	background-color: #5A5E9D;
+	border: 1px solid #5C5F9E;
 }
-.ei-barra-sup .barra-redondeada-cont {
+.ei-barra-sup-sin-botonera {
+	min-height: 0;
+	_height:0;
+	padding:0;
+}
 
+.ei-barra-sup-tit {
+ padding-left: 5px;
+ color: white;
 }
 /*************************
 		CUADRO
 **************************/
-.ei-cuadro-fila { 
+.ei-cuadro-fila,  .ei-cuadro-total { 
 	border-left: 1px solid #eeeeee;
 	border-right: 1px solid #eeeeee;
+}
+.ei-cuadro-totales {
+	border-top: 1px solid #868789;
+	padding:4px;
 }
 .ei-cuadro-cc-fondo {
 	border:1px solid #868789;
 	padding-left:1px;
 }
-.ei-cuadro-totales{
-	background-color:#e2e2e2;
-	border-top:1px solid #868789;
-}
 .ei-cuadro-col-tit {
-	background-color: #e2e2e2;
 	padding-top: 2px;
 	padding-bottom:2px;
 	padding-left: 6px;
@@ -113,7 +138,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-impar .col-num-p3, 
 .ei-cuadro-celda-impar .col-num-p4, 
 .ei-cuadro-celda-impar .col-tex-p3, 
-.ei-cuadro-celda-impar .col-text-p4, 
+.ei-cuadro-celda-impar .col-tex-p4, 
 .ei-cuadro-celda-impar .col-cen-s3, 
 .ei-cuadro-celda-impar .col-cen-s4 {
 	background-color: #f5f5f5;
@@ -121,7 +146,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-par .col-num-p3, 
 .ei-cuadro-celda-par .col-num-p4, 
 .ei-cuadro-celda-par .col-tex-p3, 
-.ei-cuadro-celda-par .col-text-p4, 
+.ei-cuadro-celda-par .col-tex-p4, 
 .ei-cuadro-celda-par .col-cen-s3, 
 .ei-cuadro-celda-par .col-cen-s4 {
 	background-color: #ececf5;
@@ -133,20 +158,17 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 **************************/
 .ci-barra-sup {
 }
+.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+	color: #222222;
+	background-color: #ffffff;
+}
 .ci-simple-cont {
-	border: 1px solid gray;
-	background-color: #EEEFF2;
+/*	border: 1px solid gray;
+	background-color: #EEEFF2;*/
 	padding: 2px;
 }
 .ci-botonera {
 	background-color: #5A5E9D;	
-}
-.ei-barra-sup-tit {
-	color:white;
-	font-size: 11px;
-}
-.ci-barra-sup .ei-barra-sup-tit {
-	font-size:12px;
 }
 .ci-tabs-h-lista ul {
 	margin:0;

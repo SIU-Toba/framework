@@ -952,7 +952,7 @@ class toba_ei_cuadro extends toba_ei
         if($this->info_cuadro["scroll"]){
 			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
 			$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
-			echo "<div style='overflow: auto; height: $alto; width: $ancho; border: 1px inset; padding: 0px;'>\n";
+			echo "<div class='ei-cuadro-scroll' style='height: $alto; width: $ancho; '>\n";
 		}else{
 			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
 		}
@@ -964,17 +964,17 @@ class toba_ei_cuadro extends toba_ei
         echo $this->get_html_barra_editor();
         echo "</td></tr>\n";
         if($mostrar_cabecera){
-            echo "<tr><td>";
+            echo "<tr><td style='padding:0'>";
             $this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
             echo "</td></tr>\n";
         }
 		//-- INICIO zona COLAPSABLE
-		echo"<tr><td>\n";
+		echo"<tr><td style='padding:0'>\n";
 		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
         echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
-		echo"<tr><td class='ei-cuadro-cabecera'>";
-		$this->html_cabecera();		
+		echo "<tr><td class='ei-cuadro-cabecera'>";
+		$this->html_cabecera();
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
@@ -1234,6 +1234,7 @@ class toba_ei_cuadro extends toba_ei
 					if(isset($this->datos[$f][$this->info_cuadro_columna[$a]["clave"]])){
 						$valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
 					}else{
+						$valor = '&nbsp;';
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
@@ -1427,7 +1428,7 @@ class toba_ei_cuadro extends toba_ei
 					$metodo = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
 					$valor = $metodo($valor);
 				}
-				echo "<td class='$estilo'><strong>$valor</strong></td>\n";
+				echo "<td class='ei-cuadro-total $estilo'><strong>$valor</strong></td>\n";
 			}else{
 				echo "<td $clase_linea>&nbsp;</td>\n";
 			}
