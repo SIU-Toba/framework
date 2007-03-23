@@ -59,7 +59,7 @@ class comando_nucleo extends comando_toba
 	}
 	
 	/**
-	 * Valida el javascript utilizando jslint
+	 * Valida el javascript utilizando jslint (-a patron inclusion, -b patron de exclusion)
 	 */
 	function opcion__validar_js()
 	{

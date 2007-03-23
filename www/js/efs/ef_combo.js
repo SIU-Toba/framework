@@ -192,12 +192,12 @@ ef_radio.prototype.constructor = ef_radio;
 		}
 		//--- Tiene que reconstruir la tabla
 		for (id in valores) {
-    		if (i % this._cant_columnas == 0) {
+    		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
     		}			
 			nuevo += this._crear_label(this._id_form, id, valores[id], i);
 			i++;
-    		if (i % this._cant_columnas == 0) {
+    		if (i % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
     		}
 		}

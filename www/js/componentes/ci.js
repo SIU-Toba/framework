@@ -231,7 +231,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	 */
 	ci.prototype.evt__salida_tab = function(pantalla_destino) {
 		return true;
-	}
+	};
 	
 	/**
 	 * Cuando el componente tiene navegacion wizard, navega hacia la pantalla anterior

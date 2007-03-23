@@ -91,16 +91,15 @@ notificacion = new function() {
 			if (keycode == 27) {
 				eval(accion_cerrar);
 			}
-		}
+		};
 		if (isset(ancho)) {
 			contenedor.style.width = ancho;	
 		}
 
-		var img = '<img class="overlay-cerrar" title="Cerrar ventana" src="' + toba.imagen('cerrar') 
-					+ '" onclick="'	+ accion_cerrar + '" />';
+		var img = '<img class="overlay-cerrar" title="Cerrar ventana" src="' + toba.imagen('cerrar') + '" onclick="'	+ accion_cerrar + '" />';
 		contenedor.innerHTML = '<div class="overlay-titulo">' + img + titulo+'</div>' + mensaje;
 		overlay();
-	}
+	};
 	
 	/**
 	 *	Muestra los mensajes usando un alert javascript

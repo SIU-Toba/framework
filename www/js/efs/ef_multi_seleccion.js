@@ -204,7 +204,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		var nuevo = "<table>";
 		var i = 0;
 		for (clave in valores) {
-    		if (i % this._cant_columnas == 0) {
+    		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
     		}			
 			var id = this._id_form + i;
@@ -212,7 +212,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 			nuevo += "<input name='" + this._id_form + "[]' type='checkbox' value='" + clave + "' id='" + id +"' class='ef-checkbox'/>";
 			nuevo += valores[clave] + "</label></td>\n"; 
 			i++;
-    		if (i % this._cant_columnas == 0) {
+    		if (i % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
     		}			
 		}
