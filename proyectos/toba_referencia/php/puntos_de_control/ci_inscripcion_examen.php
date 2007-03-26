@@ -37,30 +37,8 @@
 	  //-----------------------------------------------------------------------------------
   	function conf()
 	  {
+		ei_arbol(toba::puntos_control()->dump_estado());
   	}
-
-	  //---- Configuracion de Pantallas ---------------------------------------------------
-    function conf__pant_sel_persona($pantalla)
-  	{
-      user_error(print_r(toba::puntos_control()->dump_estado(), true), E_USER_NOTICE);
-      ei_arbol(toba::puntos_control()->dump_estado(), "hola");
-	  }
-
-  	function conf__pant_sel_carrera($pantalla)
-	  {
-      user_error(print_r(toba::puntos_control()->dump_estado(), true), E_USER_NOTICE);
-      ei_arbol(toba::puntos_control()->dump_estado());
-  	}
-
-	  function conf__pant_sel_materia($pantalla)
-  	{
-      ei_arbol(/*toba::puntos_control()->dump_estado()*/);
-	  }
-
-	  function conf__pant_sel_comision($pantalla)
-  	{
-      ei_arbol(/*toba::puntos_control()->dump_estado()*/);
-	  }
 
   	//-----------------------------------------------------------------------------------
     //---- DEPENDENCIAS -----------------------------------------------------------------

@@ -205,6 +205,21 @@ class toba_proyecto
 		return $rs;
 	}
 
+	//--------------------  Puntos de Control  ------------------------
+
+	function get_info_punto_control($punto_control, $proyecto=null)	
+	{
+		if (! isset($proyecto)) $proyecto = self::get_id();
+		$info = array();
+		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+
+		} else {
+			$info['parametros'] = toba_proyecto_db::punto_control_parametros($proyecto, $punto_control);
+			$info['controles'] = toba_proyecto_db::punto_control_controles($proyecto, $punto_control);
+		}
+		return $info;	
+	}
+
 	//------------------------  FUENTES  -------------------------
 
 	function get_info_fuente_datos($id_fuente, $proyecto=null)

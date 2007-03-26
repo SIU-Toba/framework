@@ -526,6 +526,7 @@ class proyecto extends elemento_modelo
 		toba_manejador_archivos::crear_arbol_directorios( $path );
 		$this->compilar_metadatos_generales_basicos();
 		$this->compilar_metadatos_generales_grupos_acceso();
+		$this->compilar_metadatos_generales_puntos_control();
 		$this->compilar_metadatos_generales_mensajes();
 	}
 
@@ -584,6 +585,28 @@ class proyecto extends elemento_modelo
 				$clase->agregar_metodo_datos('get_items_zona__'.$zona, $datos );
 			}
 			//Guardo el archivo
+			$clase->guardar( $archivo );
+			$this->manejador_interface->mensaje_directo('.');
+		}		
+		$this->manejador_interface->mensaje("OK");
+	}
+
+	/**
+	*	Compilacion de PUNTOS de CONTROL
+	*/	
+	private function compilar_metadatos_generales_puntos_control()
+	{
+		$this->manejador_interface->mensaje('Puntos de control', false);
+		foreach( dao_editores::get_puntos_control() as $punto_control ) {
+			$nombre_clase = 'punto_control__' . $punto_control['pto_control'];
+			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+			$clase = new toba_clase_datos( $nombre_clase );
+			//Cabecera
+			$datos['cabecera'] = $punto_control;
+			$datos['parametros'] = toba_proyecto_db::punto_control_parametros( $this->get_id(), $punto_control['pto_control'] );
+			$datos['controles'] = toba_proyecto_db::punto_control_controles( $this->get_id(), $punto_control['pto_control'] );
+			//Guardo el archivo
+			$clase->agregar_metodo_datos('get_info', $datos );
 			$clase->guardar( $archivo );
 			$this->manejador_interface->mensaje_directo('.');
 		}		

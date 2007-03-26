@@ -4,12 +4,7 @@
 
 	  function conf__cuadro($componente)
 	  {
-      $sql = "SELECT proyecto, pto_control, descripcion
-				FROM apex_ptos_control
-				WHERE proyecto = '" . toba_editor::get_proyecto_cargado() . "'
-      ";
-    
-		  return toba::db()->consultar($sql);
+		  return dao_editores::get_puntos_control();
 	  }
 
     function evt__agregar()

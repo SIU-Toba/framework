@@ -100,6 +100,30 @@ class toba_proyecto_db
 		return self::get_db()->consultar_fila($sql);
 	}
 
+	//---------------------  Puntos de control  -------------------------
+
+    static function punto_control_parametros($proyecto, $pto_control)
+    {
+      return self::get_db()->consultar(
+          "SELECT parametro
+             FROM apex_ptos_control_param 
+            WHERE proyecto    = '$proyecto'
+              AND pto_control = '$pto_control'
+        "); 
+    }
+
+    static function punto_control_controles($proyecto, $pto_control)
+    {
+      return self::get_db()->consultar(
+          "SELECT archivo,
+                  clase,
+                  actua_como
+             FROM apex_ptos_control_ctrl 
+            WHERE proyecto    = '$proyecto'
+              AND pto_control = '$pto_control'
+        ");
+    }
+
 	//---------------------  Grupos de Acceso  -------------------------
 		
 	static function get_items_menu($proyecto, $grupo_acceso)

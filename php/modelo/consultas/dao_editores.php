@@ -709,6 +709,16 @@ class dao_editores
 		return contexto_info::get_db()->consultar($sql);
 	}
 
+	function get_puntos_control($proyecto = null)
+	{
+		if (!isset($proyecto)) $proyecto = contexto_info::get_proyecto();
+	      $sql = "SELECT proyecto, pto_control, descripcion
+					FROM apex_ptos_control
+					WHERE proyecto = '$proyecto'
+	      ";
+		return contexto_info::get_db()->consultar($sql);
+	}
+
 	//-------------------------------------------------
 	//---------------- LOGS ---------------------------
 	//-------------------------------------------------

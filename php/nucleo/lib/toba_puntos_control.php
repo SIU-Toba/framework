@@ -73,15 +73,6 @@
       }
       return self::$instancia;
     }
-
-    /**
-     * @ignore. Retorna un vinculo a la base de datos que forma parte de la instancia
-     * @return toba_db
-     */
-    static private function get_db()
-    {
-      return toba::instancia()->get_db();
-    }
     
     // ------------------------------------------------------------------------------------
     // ------------------------------- METODOS PRIVADOS -----------------------------------
@@ -115,34 +106,6 @@
     }
 
     /**
-     * @ignore. Retorna los parametros de un punto de control.
-     */
-    private function def_parametros_punto($pto_control)
-    {
-      return self::get_db()->consultar(
-          "SELECT parametro
-             FROM apex_ptos_control_param 
-            WHERE proyecto    = '". toba::proyecto()->get_id() ."'
-              AND pto_control = '". $pto_control ."'
-        "); 
-    }
-
-    /**
-     * @ignore. Retorna los controles de un punto de control.
-     */
-    private function def_controles_punto($pto_control)
-    {
-      return self::get_db()->consultar(
-          "SELECT archivo,
-                  clase,
-                  actua_como
-             FROM apex_ptos_control_ctrl 
-            WHERE proyecto    = '". toba::proyecto()->get_id() ."'
-              AND pto_control = '". $pto_control ."'
-        ");
-    }
-
-    /**
      * @ignore. Crea un punto de control.
      */
     private function crear_punto_control($punto_control, &$valores_item)
@@ -160,19 +123,16 @@
         $data[$punto_control] = array( 'parametros' => array(), 'controles' => array());
 
         // Agrego las definiciones de parametros
-        $parametros = $this->def_parametros_punto($punto_control);
+		$info = toba::proyecto()->get_info_punto_control($punto_control);
 
         // Recupero el parametro del punto de control
-        for ($i=0; $i < count($parametros); $i++)
-          $data[$punto_control]['parametros'][$parametros[$i]['parametro']] = null;
+        for ($i=0; $i < count($info['parametros']); $i++)
+          $data[$punto_control]['parametros'][$info['parametros'][$i]['parametro']] = null;
 
-        // Agrego las definiciones de controles
-        $controles = $this->def_controles_punto($punto_control);
-
-        for ($i=0; $i < count($controles); $i++) 
-          $data[$punto_control]['controles'][$controles[$i]['clase']] = array(
-            'archivo' => $controles[$i]['archivo'],
-            'actua_como' => $controles[$i]['actua_como'],
+        for ($i=0; $i < count($info['controles']); $i++) 
+          $data[$punto_control]['controles'][$info['controles'][$i]['clase']] = array(
+            'archivo' => $info['controles'][$i]['archivo'],
+            'actua_como' => $info['controles'][$i]['actua_como'],
             'resultado' => null
           );
       }
@@ -309,7 +269,8 @@
      */
     public function dump_estado()
     {
-      return $this->get_bloque();
+    	$data = $this->get_bloque();
+      	if(isset($data)) return $data;
     }  
 
     /**
