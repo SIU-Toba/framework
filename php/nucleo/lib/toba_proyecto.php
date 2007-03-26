@@ -212,7 +212,7 @@ class toba_proyecto
 		if (! isset($proyecto)) $proyecto = self::get_id();
 		$info = array();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-
+			$info = $this->recuperar_datos_compilados('puntos_control__'.$punto_control, 'get_info');
 		} else {
 			$info['parametros'] = toba_proyecto_db::punto_control_parametros($proyecto, $punto_control);
 			$info['controles'] = toba_proyecto_db::punto_control_controles($proyecto, $punto_control);
