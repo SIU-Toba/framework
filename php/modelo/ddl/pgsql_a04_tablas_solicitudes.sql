@@ -28,10 +28,10 @@ CREATE TABLE apex_solicitud
    	item_id						int4        	NULL, 
 	momento						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	tiempo_respuesta			float			NULL,
-	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("proyecto", "solicitud"),
-	CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_log_sol_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_log_sol_fk_tipo" FOREIGN KEY ("solicitud_tipo") REFERENCES "apex_solicitud_tipo" ("solicitud_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("proyecto", "solicitud")
+	--CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_log_sol_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_log_sol_fk_tipo" FOREIGN KEY ("solicitud_tipo") REFERENCES "apex_solicitud_tipo" ("solicitud_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -55,8 +55,8 @@ CREATE TABLE apex_sesion_browser
 	php_id						varchar(100)	NOT NULL,
 	ip							varchar(20)		NULL,
 	punto_acceso				varchar(80) 	NULL,
-	CONSTRAINT	"apex_ses_brw_pk" PRIMARY KEY ("sesion_browser", "proyecto"), 
-	CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_ses_brw_pk" PRIMARY KEY ("sesion_browser", "proyecto") 
+	--CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -144,7 +144,7 @@ CREATE TABLE apex_solicitud_observacion
 	solicitud_obs_tipo				varchar(20)			NULL,
 	observacion						varchar				NULL,
 	CONSTRAINT	"apex_sol_obs_pk" PRIMARY KEY ("solicitud_observacion"),
-	CONSTRAINT	"apex_sol_obs_fk_sol_ot" FOREIGN KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_sol_obs_fk_sol_ot" FOREIGN KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_sol_obs_fk_sol" FOREIGN KEY ("proyecto", "solicitud") REFERENCES "apex_solicitud" ("proyecto", "solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -171,8 +171,8 @@ CREATE TABLE apex_log_sistema
 	usuario						varchar(60) 		NULL,
 	log_sistema_tipo			varchar(20) 		NOT NULL,
 	observaciones				text				NULL,
-	CONSTRAINT	"apex_log_sis_pk" PRIMARY KEY ("log_sistema"),
-	CONSTRAINT	"apex_log_sis_fk_tipo" FOREIGN KEY ("log_sistema_tipo") REFERENCES "apex_log_sistema_tipo" ("log_sistema_tipo") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_log_sis_pk" PRIMARY KEY ("log_sistema")
+	--CONSTRAINT	"apex_log_sis_fk_tipo" FOREIGN KEY ("log_sistema_tipo") REFERENCES "apex_log_sistema_tipo" ("log_sistema_tipo") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################-------------------
 
