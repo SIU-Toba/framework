@@ -6,9 +6,9 @@ class componente_ei_esquema extends componente_ei
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[3]['tabla'] = 'apex_objeto_esquema';
-		$estructura[3]['registros'] = '1';
-		$estructura[3]['obligatorio'] = false;
+		$estructura[4]['tabla'] = 'apex_objeto_esquema';
+		$estructura[4]['registros'] = '1';
+		$estructura[4]['obligatorio'] = false;
 		return $estructura;		
 	}
 

@@ -16,8 +16,8 @@ class tablas_nucleo
   8 => 'apex_columna_formato',
   9 => 'apex_usuario_tipodoc',
   10 => 'apex_clase_tipo',
-  11 => 'apex_nota_tipo',
-  12 => 'apex_msg_tipo',
+  11 => 'apex_msg_tipo',
+  12 => 'apex_nota_tipo',
   13 => 'apex_objeto_mt_me_tipo_nav',
   14 => 'apex_admin_persistencia',
   15 => 'apex_tipo_datos',
@@ -398,7 +398,7 @@ class tablas_nucleo
 	static function apex_usuario_tipodoc()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'usuario_tipodoc',
@@ -416,7 +416,7 @@ class tablas_nucleo
 	static function apex_clase_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'clase_tipo',
@@ -438,7 +438,7 @@ class tablas_nucleo
 	static function apex_clase()
 	{
 		return array (
-  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'clase',
@@ -476,25 +476,6 @@ class tablas_nucleo
     26 => 'parametro_b',
     27 => 'parametro_c',
     28 => 'exclusivo_toba',
-  ),
-);
-	}
-
-	static function apex_nota_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a04_tablas_notas.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'nota_tipo',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'nota_tipo',
-    1 => 'descripcion',
-    2 => 'icono',
   ),
 );
 	}
@@ -539,6 +520,25 @@ class tablas_nucleo
     6 => 'mensaje_b',
     7 => 'mensaje_c',
     8 => 'mensaje_customizable',
+  ),
+);
+	}
+
+	static function apex_nota_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_notas.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'nota_tipo',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'nota_tipo',
+    1 => 'descripcion',
+    2 => 'icono',
   ),
 );
 	}

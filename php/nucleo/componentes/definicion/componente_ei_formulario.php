@@ -6,12 +6,12 @@ class componente_ei_formulario extends componente_ei
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[3]['tabla'] = 'apex_objeto_ut_formulario';
-		$estructura[3]['registros'] = '1';
-		$estructura[3]['obligatorio'] = false;
-		$estructura[4]['tabla'] = 'apex_objeto_ei_formulario_ef';
-		$estructura[4]['registros'] = 'n';
+		$estructura[4]['tabla'] = 'apex_objeto_ut_formulario';
+		$estructura[4]['registros'] = '1';
 		$estructura[4]['obligatorio'] = false;
+		$estructura[5]['tabla'] = 'apex_objeto_ei_formulario_ef';
+		$estructura[5]['registros'] = 'n';
+		$estructura[5]['obligatorio'] = false;
 		return $estructura;		
 	}
 

@@ -6,15 +6,15 @@ class componente_ei_cuadro extends componente_ei
  	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[3]['tabla'] = 'apex_objeto_cuadro';
-		$estructura[3]['registros'] = '1';
-		$estructura[3]['obligatorio'] = true;		
-		$estructura[4]['tabla'] = 'apex_objeto_cuadro_cc';
-		$estructura[4]['registros'] = 'n';
-		$estructura[4]['obligatorio'] = false;		
-		$estructura[5]['tabla'] = 'apex_objeto_ei_cuadro_columna';
+		$estructura[4]['tabla'] = 'apex_objeto_cuadro';
+		$estructura[4]['registros'] = '1';
+		$estructura[4]['obligatorio'] = true;		
+		$estructura[5]['tabla'] = 'apex_objeto_cuadro_cc';
 		$estructura[5]['registros'] = 'n';
 		$estructura[5]['obligatorio'] = false;		
+		$estructura[6]['tabla'] = 'apex_objeto_ei_cuadro_columna';
+		$estructura[6]['registros'] = 'n';
+		$estructura[6]['obligatorio'] = false;		
 		return $estructura;		
 	}
 

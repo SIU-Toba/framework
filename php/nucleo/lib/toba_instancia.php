@@ -127,7 +127,7 @@ class toba_instancia
 		$this->get_db()->ejecutar($sql);
 	}
 
-	//------------------------- USUARIOS -------------------------------------
+	//---------------------- LOGIN USUARIOS -------------------------------------
 	
 	/**
 	 * Retorna la información cruda de un usuario, tal como está en la base de datos
@@ -167,17 +167,6 @@ class toba_instancia
 		return $rs[0];
 	}
 	
-	function get_lista_usuarios()
-	{
-		$sql = "SELECT 	u.usuario as usuario, 
-						u.nombre as nombre
-				FROM 	apex_usuario u, apex_usuario_proyecto p
-				WHERE 	u.usuario = p.usuario
-				AND		p.proyecto = '".toba_proyecto::get_id()."'
-				ORDER BY 1;";
-		return $this->get_db()->consultar($sql);	
-	}
-	
 	/**
 	*	Devuelve el grupo de acceso de un usuario para un proyecto
 	*/
@@ -200,6 +189,20 @@ class toba_instancia
 		}
 	}
 	
+	/**
+	*	Utilizada en el login automatico
+	*/
+	function get_lista_usuarios()
+	{
+		$sql = "SELECT 	u.usuario as usuario, 
+						u.nombre as nombre
+				FROM 	apex_usuario u, apex_usuario_proyecto p
+				WHERE 	u.usuario = p.usuario
+				AND		p.proyecto = '".toba_proyecto::get_id()."'
+				ORDER BY 1;";
+		return $this->get_db()->consultar($sql);	
+	}
+
 	//------------------------- LOG aplicacion -------------------------------------
 
 	function get_id_solicitud()
@@ -251,7 +254,7 @@ class toba_instancia
 		$this->get_db()->ejecutar($sql);
 	}
 
-	//-------------------- PROYECTOS  ----------------------------
+	//------------------ Relacion entre PROYECTOS --------------------------
 	
 	/**
 	 * Retorna las urls de los proyectos actualmente incluídos en la instancia

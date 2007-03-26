@@ -9,6 +9,9 @@ class componente_ei extends componente_toba
 		$estructura[2]['tabla'] = 'apex_objeto_eventos';
 		$estructura[2]['registros'] = 'n';
 		$estructura[2]['obligatorio'] = false;
+		$estructura[3]['tabla'] = 'apex_ptos_control_x_evento';
+		$estructura[3]['registros'] = 'n';
+		$estructura[3]['obligatorio'] = false;
 		return $estructura;		
 	}
 
@@ -52,7 +55,7 @@ class componente_ei extends componente_toba
                                        FROM apex_ptos_control_x_evento pe,
                                             apex_objeto_eventos oe
                                       WHERE pe.proyecto = oe.proyecto
-                                        AND pe.evento_id                = oe.evento_id
+                                        AND pe.evento_id = oe.evento_id
                                         AND pe.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
 			$sql["puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
