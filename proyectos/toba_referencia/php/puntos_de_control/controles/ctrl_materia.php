@@ -3,9 +3,9 @@
   {
     function ejecutar(&$parametros)
     {
-      toba::logger()->info('SOY ' . get_class($this) . ' !!!' . print_r($parametros,true));    
-      return true;
-    }  
+       $this->set_resultado(false);
+        $this->set_mensaje('Ocurrió un error con ' . get_class($this));
+     }  
   }
 
 ?>
