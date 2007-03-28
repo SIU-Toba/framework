@@ -52,6 +52,7 @@ class catalogo_general extends toba_nodo_basico
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
+/*
 		$hijos[4] = new toba_nodo_basico('Elementos de Formulario', $this);
 		$hijos[4]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/abms_ef.gif", false),
 							'ayuda' => null ) );
@@ -60,7 +61,7 @@ class catalogo_general extends toba_nodo_basico
 				'ayuda' => 'Editar elementos de formulario',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), 1000020, $opciones ),
 				'target' => apex_frame_centro
-		) );
+		) );*/
 		//----------------------------------------------------------------------
 		$hijos[5] = new toba_nodo_basico('Derechos', $this);
 		$hijos[5]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/permisos.gif", false),
