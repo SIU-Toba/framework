@@ -3,11 +3,11 @@ require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
 echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
-echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.";
+echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 
-echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
-echo toba_recurso::imagen_proyecto('logo.gif', true);
-echo "</div>";
+echo toba_form::abrir('toba', toba::vinculador()->crear_autovinculo());
+echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
+echo toba_form::cerrar();
 
 
 //ei_arbol($_SESSION, 'SESION', null, true);
@@ -26,12 +26,19 @@ echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versi
 echo $version->__toString()."</a>";
 echo "</div>";
 
-	if (! isset($_POST['migracion'])) {
-		echo toba_form::abrir('toba', toba::vinculador()->crear_autovinculo());
-		echo "<div style='position:fixed;left:0;bottom:0;'>";
-		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
+	if (! isset($_POST['migracion']) && ! isset($_GET['phpinfo'])) {
+		echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
+		echo toba_recurso::imagen_proyecto('logo.gif', true);
+		echo "</div>";		
+		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
+		$vinc = toba::vinculador()->crear_autovinculo(array('phpinfo' =>1));
+		echo "<a style='text-decoration:none' href='$vinc' title='Ver información acerca de la instalación PHP de este servidor'>";
+		echo toba_recurso::imagen_proyecto('php-med-trans.png', true);
+		echo "<br>".phpversion();
+		echo "</a>";
 		echo "</div>";
-		echo toba_form::cerrar();
+	} elseif (isset($_GET['phpinfo'])) {
+		phpinfo();
 	} else {
 		echo "<hr style='clear:both'><h1 style='text-align:center'>Chequeo de compatibilidad de extensiones</h1>";		
 		//------------------ ID de PANTALLAS e EIS  -----------------

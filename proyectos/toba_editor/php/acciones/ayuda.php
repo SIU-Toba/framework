@@ -69,7 +69,6 @@ echo "
 /**
  * OFFLINE
  */
-
 echo "
 <h2>Offline<div>Contenido correspondiente a esta versión</div></h2>
 		<ul>
