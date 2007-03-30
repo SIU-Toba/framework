@@ -1,0 +1,49 @@
+<?php 
+php_referencia::instancia()->agregar(__FILE__);
+
+class form_ocultar_mostrar extends toba_ei_formulario
+{
+	
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.evt__categoria__procesar = function(es_inicial) 
+			{
+				switch (this.ef('categoria').get_estado()) {
+					case 'A':
+						this.mostrar_bloque_A(true);
+						this.mostrar_bloque_B(false);
+						break;
+					case 'B':
+						this.mostrar_bloque_A(false);
+						this.mostrar_bloque_B(true);
+						break;
+					case 'Todas':
+						this.mostrar_bloque_A(true);
+						this.mostrar_bloque_B(true);
+						break;						
+					default:
+						this.mostrar_bloque_A(false);
+						this.mostrar_bloque_B(false);
+						break;					
+				}
+			}
+			
+			{$this->objeto_js}.mostrar_bloque_A = function(visible)
+			{
+				this.ef('sepa').mostrar(visible);
+				this.ef('a1').mostrar(visible);
+				this.ef('a2').mostrar(visible);
+			}
+			
+			{$this->objeto_js}.mostrar_bloque_B = function(visible)
+			{
+				this.ef('sepb').mostrar(visible);
+				this.ef('b1').mostrar(visible);
+				this.ef('b2').mostrar(visible);			
+			}			
+		";
+	}
+}
+
+?>
