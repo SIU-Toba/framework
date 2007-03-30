@@ -20,6 +20,7 @@ var apex_ef_total = 's';
 function ef(id_form, etiqueta, obligatorio, colapsable) {
 
 	this._id = null;
+	this._oculto = false;
 	this._id_form = id_form;
 	this._id_form_orig = this._id_form;
 	this._etiqueta = etiqueta;
@@ -27,6 +28,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 		this._obligatorio_orig = obligatorio[0];
 		this._obligatorio = this._obligatorio_orig;
 		this._obligatorio_relajado = obligatorio[1];
+		this._obligatorio_oculto_relaj = obligatorio[2];
 	}
 	this._error = null;
 	this._colapsable = colapsable;
@@ -147,6 +149,9 @@ ef.prototype.constructor = ef;
 			if (this._obligatorio_relajado) {
 				this._obligatorio = this._controlador.cascadas_maestros_preparados(this._id);	
 			}
+			if (this._obligatorio_oculto_relaj) {
+				this._obligatorio = !this._oculto;	
+			}
 		}
 		return true;
 	};	
@@ -252,6 +257,7 @@ ef.prototype.constructor = ef;
 			resetear = false;
 		}
 		this.nodo().style.display = 'none';	
+		this._oculto = true;
 		if (resetear) {
 			this.resetear_estado();
 		}
@@ -268,6 +274,7 @@ ef.prototype.constructor = ef;
 		}
 		if (mostrar) {
 			this.nodo().style.display = '';	
+			this._oculto = false;
 		} else {
 			this.ocultar(resetear);	
 		}

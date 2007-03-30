@@ -42,6 +42,17 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 				}
 			";
 		}
+		//Si cambia el obligatorio muestra el relajado por oculto
+		echo "
+			{$this->objeto_js}.evt__obligatorio__procesar = function(inicial, fila_actual) {
+				if (this.ef('obligatorio').ir_a_fila(fila_actual).chequeado()) {
+					this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).mostrar();
+				} else {
+					this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).ocultar();
+				}
+			}
+		";		
+		
 		//Si se selecciona uno implicito, deseleccionar el resto.
 		//Tambien seteo el manejo de datos (un implicito sin datos no tiene sentido)
 		echo "

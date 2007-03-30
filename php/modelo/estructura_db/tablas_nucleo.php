@@ -15,12 +15,12 @@ class tablas_nucleo
   7 => 'apex_columna_estilo',
   8 => 'apex_columna_formato',
   9 => 'apex_usuario_tipodoc',
-  10 => 'apex_clase_tipo',
-  11 => 'apex_msg_tipo',
-  12 => 'apex_nota_tipo',
-  13 => 'apex_objeto_mt_me_tipo_nav',
-  14 => 'apex_admin_persistencia',
-  15 => 'apex_tipo_datos',
+  10 => 'apex_msg_tipo',
+  11 => 'apex_objeto_mt_me_tipo_nav',
+  12 => 'apex_admin_persistencia',
+  13 => 'apex_tipo_datos',
+  14 => 'apex_nota_tipo',
+  15 => 'apex_clase_tipo',
 );
 	}
 
@@ -33,8 +33,8 @@ class tablas_nucleo
   3 => 'apex_elemento_formulario',
   4 => 'apex_solicitud_obs_tipo',
   5 => 'apex_pagina_tipo',
-  6 => 'apex_clase',
-  7 => 'apex_msg',
+  6 => 'apex_msg',
+  7 => 'apex_clase',
 );
 	}
 
@@ -413,6 +413,129 @@ class tablas_nucleo
 );
 	}
 
+	static function apex_msg_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'msg_tipo',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'msg_tipo',
+    1 => 'descripcion',
+    2 => 'icono',
+  ),
+);
+	}
+
+	static function apex_msg()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'msg',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'msg',
+    1 => 'indice',
+    2 => 'proyecto',
+    3 => 'msg_tipo',
+    4 => 'descripcion_corta',
+    5 => 'mensaje_a',
+    6 => 'mensaje_b',
+    7 => 'mensaje_c',
+    8 => 'mensaje_customizable',
+  ),
+);
+	}
+
+	static function apex_objeto_mt_me_tipo_nav()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'tipo_navegacion',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo_navegacion',
+    1 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_admin_persistencia()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'ap',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'ap',
+    1 => 'clase',
+    2 => 'archivo',
+    3 => 'descripcion',
+    4 => 'categoria',
+  ),
+);
+	}
+
+	static function apex_tipo_datos()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'tipo',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo',
+    1 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_nota_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_notas.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'nota_tipo',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'nota_tipo',
+    1 => 'descripcion',
+    2 => 'icono',
+  ),
+);
+	}
+
 	static function apex_clase_tipo()
 	{
 		return array (
@@ -476,129 +599,6 @@ class tablas_nucleo
     26 => 'parametro_b',
     27 => 'parametro_c',
     28 => 'exclusivo_toba',
-  ),
-);
-	}
-
-	static function apex_msg_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'msg_tipo',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'msg_tipo',
-    1 => 'descripcion',
-    2 => 'icono',
-  ),
-);
-	}
-
-	static function apex_msg()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo_multiproyecto',
-  'dump_order_by' => 'msg',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'msg',
-    1 => 'indice',
-    2 => 'proyecto',
-    3 => 'msg_tipo',
-    4 => 'descripcion_corta',
-    5 => 'mensaje_a',
-    6 => 'mensaje_b',
-    7 => 'mensaje_c',
-    8 => 'mensaje_customizable',
-  ),
-);
-	}
-
-	static function apex_nota_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_notas.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'nota_tipo',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'nota_tipo',
-    1 => 'descripcion',
-    2 => 'icono',
-  ),
-);
-	}
-
-	static function apex_objeto_mt_me_tipo_nav()
-	{
-		return array (
-  'archivo' => 'pgsql_a10_componente_ci.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'tipo_navegacion',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tipo_navegacion',
-    1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_admin_persistencia()
-	{
-		return array (
-  'archivo' => 'pgsql_a40_componente_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'ap',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'ap',
-    1 => 'clase',
-    2 => 'archivo',
-    3 => 'descripcion',
-    4 => 'categoria',
-  ),
-);
-	}
-
-	static function apex_tipo_datos()
-	{
-		return array (
-  'archivo' => 'pgsql_a40_componente_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'tipo',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tipo',
-    1 => 'descripcion',
   ),
 );
 	}

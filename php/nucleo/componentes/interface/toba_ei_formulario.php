@@ -124,7 +124,8 @@ class toba_ei_formulario extends toba_ei
 															$this->info_formulario_ef[$a]["etiqueta"],
 															addslashes($this->info_formulario_ef[$a]["descripcion"]),
 															$dato,
-															$this->info_formulario_ef[$a]["obligatorio"],
+															array($this->info_formulario_ef[$a]["obligatorio"], 
+																$this->info_formulario_ef[$a]["oculto_relaja_obligatorio"]),
 															$parametros);
 			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
 			if (isset($this->info_formulario_ef[$a]['etiqueta_estilo'])) {
@@ -857,18 +858,17 @@ class toba_ei_formulario extends toba_ei
 			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
-		
+		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
 		if ($this->elemento_formulario[$ef]->tiene_etiqueta()) {
-			echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";
 			$this->generar_etiqueta_ef($ef);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
 			echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
 			$this->generar_input_ef($ef);
 			echo "</div>";
-			echo "</div>\n";
 		} else {		
 			echo $this->elemento_formulario[$ef]->get_input();
 		}
+		echo "</div>\n";		
 	}
 	
 	function generar_input_ef($ef)

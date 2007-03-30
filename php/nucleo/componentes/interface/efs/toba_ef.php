@@ -37,6 +37,7 @@ abstract class toba_ef
 	protected $estado;	    		// Estado ACTUAL del ELEMETO (Si el DATO es compuesto, es un array)
 	protected $estado_defecto;
 	protected $obligatorio;			// Flag que indica SI se el ELEMENTO representa un valor obligatorio
+	protected $obligatorio_oculto_relaj;
 	protected $solo_lectura;      	// Flag que indica si el objeto se debe deshabilitar cuando se muestra
 	protected $javascript="";			// Javascript del elemento de formulario
 	protected $input_extra = "";		// Parametros adicionales
@@ -64,7 +65,7 @@ abstract class toba_ef
 		$this->etiqueta = $etiqueta;
 		$this->descripcion = $descripcion;
      	$this->dato = $dato;
-     	$this->obligatorio = $obligatorio;
+     	list($this->obligatorio, $this->obligatorio_oculto_relaj)  = $obligatorio;
 		
 		//---- Declaracion de dependencias
 		if (isset($parametros['carga_maestros'])) {
@@ -388,6 +389,9 @@ abstract class toba_ef
     		} else {
     			$obligatorio = $this->padre->ef_tiene_maestros_seteados($this->id);
     		}
+    		if ($this->obligatorio_oculto_relaj) {
+    			$obligatorio = false;	
+    		}
     	}
         if ($obligatorio && !$this->tiene_estado()) {
 			return "El campo es obligatorio";
@@ -530,10 +534,11 @@ abstract class toba_ef
 	protected function parametros_js()
 	{
 		$obligatorio = ( $this->obligatorio ) ? "true" : "false";
+		$oculto_relaj = ($this->obligatorio_oculto_relaj) ? "true" : "false";
 		$relajado = ( $this->cascada_relajada ) ? "true" : "false"; 
 		$colapsable = ( $this->expandido ) ? "false" : "true";
 		$etiqueta = str_replace("/", "\\/", $this->etiqueta);
-		return "'{$this->id_form_orig}', '$etiqueta', [$obligatorio, $relajado], $colapsable";
+		return "'{$this->id_form_orig}', '$etiqueta', [$obligatorio, $relajado, $oculto_relaj], $colapsable";
 	}
 
 	/**
