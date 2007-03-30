@@ -15,6 +15,9 @@ define("apex_cuadro_cc_anidado","a");
  */
 class toba_ei_cuadro extends toba_ei
 {
+	protected $info_cuadro = array();
+	protected $info_cuadro_columna = array();
+	protected $info_cuadro_cortes;
 	protected $prefijo = 'cuadro';	
  	protected $columnas;
     protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
@@ -27,6 +30,10 @@ class toba_ei_cuadro extends toba_ei
 	protected $acumulador;							// Acumulador de totales generales
 	protected $acumulador_sum_usuario;				// Acumulador general de las sumarizaciones del usuario
 	protected $sum_usuario;
+	protected $submit_orden_sentido;
+	protected $submit_orden_columna;
+	protected $submit_paginado;
+	protected $submit_seleccion;
 	//Orden
     protected $orden_columna;                     	// Columna utilizada para realizar el orden
     protected $orden_sentido;                     	// Sentido del orden ('asc' / 'desc')

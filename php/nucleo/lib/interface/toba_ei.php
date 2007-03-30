@@ -227,6 +227,8 @@
 			echo "</td></tr>\n";
 			echo "</table>\n";
 			echo "</div><br>";
+		}elseif(is_object($arbol)){
+			echo ei_mensaje("CLASE&nbsp;<b>" . get_class($arbol) ."</b>",null,$identificador);
 		}else{
 			echo ei_mensaje($arbol,null,$identificador);
 		}

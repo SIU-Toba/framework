@@ -21,9 +21,10 @@ define('apex_ei_evt_no_maneja_datos', -1);
  */
 abstract class toba_ei extends toba_componente
 {
- 	protected $submit;	
- 	protected $objeto_js;
+ 	protected $submit;
 	protected $info_eventos;
+ 	protected $info_puntos_control;
+ 	protected $objeto_js;
 	protected $colapsado = false;						// El elemento sólo mantiene su título
 	protected $evento_implicito=null;					// Evento disparado cuando no hay una orden explicita
 	protected $eventos = array();						// Eventos INTERNOS del componente
@@ -35,6 +36,8 @@ abstract class toba_ei extends toba_componente
 	protected $utilizar_impresion_html = false;			// Indica que hay agregar funcionalidad para imprimir
 	protected $prefijo = 'ei';
 	protected $modo_descripcion_tooltip = true;
+	protected $nombre_formulario;
+	protected $posicion_botonera;
 	
 	function __construct($definicion)
 	{
@@ -357,9 +360,9 @@ abstract class toba_ei extends toba_componente
   function get_puntos_control($evento)
   {
     $ret = array();
-    for ($i=0; $i < count($this->puntos_control); $i++)
-      if ($this->puntos_control[$i]['evento'] == $evento || $evento == '')
-        $ret[] = $this->puntos_control[$i]['pto_control'];
+    for ($i=0; $i < count($this->info_puntos_control); $i++)
+      if ($this->info_puntos_control[$i]['evento'] == $evento || $evento == '')
+        $ret[] = $this->info_puntos_control[$i]['pto_control'];
 
     return $ret;
   }

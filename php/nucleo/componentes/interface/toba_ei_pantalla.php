@@ -18,6 +18,9 @@ require_once('nucleo/lib/toba_tab.php');
 class toba_ei_pantalla extends toba_ei
 {
 	// Navegacion
+	protected $info_ci = array();
+	protected $info_ci_me_pantalla = array();
+	protected $info_pantalla = array();
 	protected $lista_tabs = array();
 	protected $dependencias;
 	protected $nombre_formulario;					// Nombre del <form> del MT

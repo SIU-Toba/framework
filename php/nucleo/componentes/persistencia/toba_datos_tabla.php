@@ -16,6 +16,10 @@ require_once("toba_tipo_datos.php");
  */
 class toba_datos_tabla extends toba_componente 
 {
+	protected $info_estructura;
+	protected $info_columnas;
+	protected $info_externas;
+	protected $info_externas_col;
 	protected $persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
 	protected $clave;							// Columnas que constituyen la clave de la tabla
@@ -35,6 +39,8 @@ class toba_datos_tabla extends toba_componente
 	protected $cursor;							// Puntero a una fila específica
 	protected $cursor_original;					// Backup del cursor que se usa para deshacer un seteo
 	protected $cargada = false;
+	protected $from;
+	protected $where;
 	// Relaciones con el exterior
 	protected $relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
 	protected $relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla

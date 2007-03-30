@@ -50,7 +50,7 @@ class componente_ei extends componente_toba
 		$sql["info_eventos"]['registros']='n';
 		$sql["info_eventos"]['obligatorio']=false;
 
-    $sql["puntos_control"]['sql'] = "SELECT pe.pto_control, 
+    $sql["info_puntos_control"]['sql'] = "SELECT pe.pto_control, 
                                             oe.identificador as evento
                                        FROM apex_ptos_control_x_evento pe,
                                             apex_objeto_eventos oe
@@ -58,11 +58,11 @@ class componente_ei extends componente_toba
                                         AND pe.evento_id = oe.evento_id
                                         AND pe.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
-			$sql["puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
+			$sql["info_puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
 		}
-    $sql["puntos_control"]['sql'] .= " ORDER BY pto_control;";
-    $sql["puntos_control"]['registros']='n';
-    $sql["puntos_control"]['obligatorio']=false;
+    $sql["info_puntos_control"]['sql'] .= " ORDER BY pto_control;";
+    $sql["info_puntos_control"]['registros']='n';
+    $sql["info_puntos_control"]['obligatorio']=false;
                                                       
 		return $sql;
 	}

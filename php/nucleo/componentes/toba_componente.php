@@ -9,6 +9,7 @@ define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
 abstract class toba_componente
 {
 	protected $solicitud;
+	protected $log;
 	protected $id;
 	protected $info;
 	protected $info_dependencias;						//Definicion de las dependencias
@@ -20,16 +21,17 @@ abstract class toba_componente
 	protected $memoria_existencia_previa = false;
 	protected $observaciones;
 	protected $canal;										// Canal por el que recibe datos 
-	protected $canal_recibido;							// Datos recibidos por el canal
+	protected $canal_recibidos;							// Datos recibidos por el canal
 	protected $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
-	protected $id_ses_g;									//ID global para la sesion
+	protected $id_ses_g;								//ID global para la sesion
+	protected $id_ses_grec;								//ID global para la sesion
 	protected $id_en_controlador;						//Id relativo al controlador padre
 	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
 	protected $exportacion_archivo;
 	protected $exportacion_path;
 	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
 	protected $parametros;								// Parametros de inicializacion provistos por el controlador	
-	
+
 	/**
 	 * Contiene el componente controlador o padre del componente actual
 	 * @var toba_ci
@@ -360,7 +362,6 @@ abstract class toba_componente
 				}
 			}
 			if(isset($temp)) {
-				//ei_arbol($temp,"Persistencia PROPIEDADES " . $this->id[1]);
 				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
 				toba::memoria()->set_dato_operacion($this->id_ses_grec, $temp);
 			} else {

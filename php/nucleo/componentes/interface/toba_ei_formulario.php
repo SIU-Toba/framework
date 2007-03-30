@@ -28,7 +28,12 @@ class toba_ei_formulario extends toba_ei
 	protected $objeto_js;	
 	protected $ancho_etiqueta = '150px';
 	protected $efs_invalidos = array();
-
+	protected $info_formulario = array();
+	protected $info_formulario_ef = array();
+	protected $js_eliminar;
+	protected $js_agregar;
+	protected $lista_efs_servicio;
+	
 	protected $eventos_ext = null;			// Eventos seteados desde afuera
 	protected $observadores;
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario';

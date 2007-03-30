@@ -13,6 +13,7 @@ require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topol
  */
 class toba_datos_relacion extends toba_componente 
 {
+	protected $info_estructura;
 	protected $relaciones = array();		
 	protected $tablas_raiz;
 	protected $persistidor;

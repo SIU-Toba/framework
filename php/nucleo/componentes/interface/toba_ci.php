@@ -16,7 +16,9 @@ require_once('nucleo/lib/toba_parser_ayuda.php');
 class toba_ci extends toba_ei
 {
 	// General
- 	protected $prefijo = 'ci';	
+	protected $info_ci = array();
+	protected $info_ci_me_pantalla = array();
+ 	protected $prefijo = 'ci';
 	protected $cn=null;								// Controlador de negocio asociado
 	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
 	protected $dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
