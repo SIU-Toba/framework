@@ -495,7 +495,8 @@ abstract class toba_ei extends toba_componente
 		$salida = '';
 		if( toba_editor::modo_prueba() ){ 
 			$salida .= "<div class='div-editor'>";
-			$salida .= toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item'], $this->info['clase']);
+			$salida .= toba_editor::generar_zona_vinculos_componente($this->id, $this->info['clase_editor_item'], $this->info['clase'],
+										$this->info['subclase'] != '');
 			$salida .= '<strong>&nbsp;[' .$this->info['objeto'] . ']&nbsp;</strong>' . $this->info["nombre"];
 			$salida .= "</div>";
 		}		

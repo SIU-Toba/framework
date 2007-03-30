@@ -15,7 +15,7 @@ ul.horizontal {
 	position:absolute;
 	left:20px;
 	cursor:default;
-	z-index:2000;
+	z-index:5;
 	top:5px;
 	}
 

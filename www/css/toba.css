@@ -6,17 +6,14 @@
 	background-color: yellow; 
 	padding: 1px;
 	display: none;
-	z-index: 10000;
+	z-index: 10;
 	font-size: 9px;
+}
+.div-editor a {
+	padding:1px !important;
 }
 .editor-mostrar {
 	display: inline;
-}
-body .div-editor { 
-	position: absolute;
-}
-body * .div-editor {
-	position: relative;
 }
 .tabla-0 {
 	padding: 0;

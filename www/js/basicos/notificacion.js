@@ -61,7 +61,7 @@ notificacion = new function() {
 			return;	
 		}
 		var mensaje = '';
-		var titulo = '';		
+		var titulo = 'Información';		
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad = '';
 			if (this._mensajes[i][1] == 'error') {

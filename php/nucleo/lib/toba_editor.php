@@ -319,7 +319,7 @@ class toba_editor
 	/*
 	*	Zona de vinculos de los items
 	*/
-	static function generar_zona_vinculos_item( $item )
+	static function generar_zona_vinculos_item( $item, $accion )
 	{
 		if (! self::acceso_recursivo()) {
 			toba::solicitud()->set_cronometrar(true);
@@ -376,11 +376,18 @@ class toba_editor
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
 		echo "</div>";
-		
-		echo "<div class='div-editor'>";
-		foreach(self::get_vinculos_item($item) as $vinculo) {
-			echo "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
-			echo toba_recurso::imagen_toba($vinculo['imagen'],true);//,null,null,$vinculo['tip']);
+		echo "<div class='div-editor' style='position:absolute; top: 40px;'>";
+		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
+			if (! isset($vinculo['js'])) {
+				echo "<a href='#' title='{$vinculo['tip']}' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
+			} else {
+				echo "<a href='#' title='{$vinculo['tip']}' onclick=\"{$vinculo['js']}\">";
+			}
+			if (isset($vinculo['imagen_origen']) && $vinculo['imagen_origen'] == 'proyecto') {
+				echo self::imagen_editor($vinculo['imagen'],true);
+			} else {
+				echo toba_recurso::imagen_toba($vinculo['imagen'],true);
+			}
 			echo "</a>\n";
 		}
 		echo "</div>";
@@ -389,15 +396,18 @@ class toba_editor
 	/*
 	*	Acceso a la edicion del componente
 	*/
-	static function generar_zona_vinculos_componente( $componente, $editor, $clase )
+	static function generar_zona_vinculos_componente( $componente, $editor, $clase, $con_subclase )
 	{
 		$salida = "<span class='ei-base' style='height: 55px' >";
+		if ($con_subclase) {
+			$salida .= self::get_utileria_editor_abrir_php(array('componente'=>$componente[1], 'proyecto' => $componente[0]));
+		}
 		foreach(self::get_vinculos_componente($componente, $editor, $clase) as $vinculo) {
 			$salida .= "<a href='#' onclick=\"toba_invocar_editor('{$vinculo['frame']}','{$vinculo['url']}')\">";
 			if ($vinculo['imagen_recurso_origen'] == 'apex') {
 				$salida .= toba_recurso::imagen_toba($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
 			} else {
-				$salida .= toba_recurso::imagen_proyecto($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
+				$salida .= self::imagen_editor($vinculo['imagen'],true,null,null,$vinculo['etiqueta']);
 			}
 			$salida .= "</a>\n";
 		}
@@ -416,36 +426,58 @@ class toba_editor
 		if(!isset($opciones['validar'])) $opciones['validar'] = false;
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
-		$html = "<a href='#' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
-		$html .= toba_recurso::imagen_toba($imagen,true);//,null,null,$vinculo['tip']);
+		$html = "<a href='#' title='Editar' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
+		$html .= toba_recurso::imagen_toba($imagen,true);
 		$html .= '</a>';
 		return $html;
 	}
 
-	static function get_vinculos_item( $item )
+	static function get_vinculos_item( $item, $accion )
 	{
 		//Celda de memoria central
 		//punto de acceso del admin
 
 		$proyecto = self::get_proyecto_cargado();
 		$vinculos = array();
+		
+		//Accion
+		if ($accion != '') {
+			$parametros[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $item;
+			$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
+			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "1000058", $parametros, $opciones);
+			$js = "toba.comunicar_vinculo('$vinculo')";
+			$vinculo = array();			
+			$vinculo['js'] = $js;
+			$vinculo['frame'] = '';
+			$vinculo['imagen'] = 'reflexion/abrir.gif';
+			$vinculo['imagen_origen'] = 'proyecto';
+			$vinculo['tip'] = 'Abrir el PHP del ítem en el escritorio';
+			$vinculos[] = $vinculo;
+		}
+		
 		//Etitor Item
+		$opciones = array();
 		$opciones['celda_memoria'] = 'central';
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=> $proyecto . apex_qs_separador . $item);
-		$vinculos[0]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
-		$vinculos[0]['frame'] = 'frame_centro';
-		$vinculos[0]['imagen'] = 'objetos/editar.gif';
-		$vinculos[0]['tip'] = 'Ir al editor del item.';
+		$vinculo = array();
+		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
+		$vinculo['frame'] = 'frame_centro';
+		$vinculo['imagen'] = 'objetos/editar.gif';
+		$vinculo['tip'] = 'Ir al editor del item.';
+		$vinculos[] = $vinculo;
 
 		//Catalogo Unificado
 		$parametros = array("proyecto"=>$proyecto,"item"=>$item);
+		$opciones = array();
 		$opciones['celda_memoria'] = 'lateral';
-		$vinculos[1]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
-		$vinculos[1]['frame'] = 'frame_lista';
-		$vinculos[1]['imagen'] = 'objetos/arbol.gif';
-		$vinculos[1]['tip'] = 'Ver composicion del ITEM.';
+		$vinculo = array();		
+		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
+		$vinculo['frame'] = 'frame_lista';
+		$vinculo['imagen'] = 'objetos/arbol.gif';
+		$vinculo['tip'] = 'Ver composicion del ITEM.';
+		$vinculos[] = $vinculo;
 
 /*		//Consola JS
 		//-- Link a la consola JS
@@ -483,7 +515,7 @@ class toba_editor
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
-		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
+		$salida .= "<a href='#' title='Editar propiedades del evento' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		
@@ -498,11 +530,33 @@ class toba_editor
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
 		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor' style='position:absolute'>";		
-		$salida .= "<a href='#' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
+		$salida .= "<a href='#' title='Editar propiedades de la pantalla' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
 		$salida .= "</a>\n";
 		$salida .= "</span>";		
 		return $salida;		
 	}
+	
+	static function get_utileria_editor_abrir_php($id_componente, $icono='reflexion/abrir.gif')
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
+		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "/admin/objetos/php", $parametros, $opciones);
+		$js = "toba.comunicar_vinculo('$vinculo')";
+		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
+		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";
+	}	
+	
+	static function imagen_editor($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
+	{
+		$src = toba_recurso::url_proyecto(self::get_id()) . "/img/" . $imagen;
+		if ($html){
+			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
+		}else{
+			return $src;
+		}
+	}
+	
+	
 }
 ?>

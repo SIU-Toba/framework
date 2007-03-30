@@ -93,7 +93,8 @@ class toba_tp_basico extends toba_tipo_pagina
 		echo "<body>\n";
 		if ( toba_editor::modo_prueba() ) {
 			$item = toba::solicitud()->get_datos_item('item');
-			toba_editor::generar_zona_vinculos_item($item);
+			$accion = toba::solicitud()->get_datos_item('item_act_accion_script');
+			toba_editor::generar_zona_vinculos_item($item, $accion);
 		}		
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
 		$img = toba_recurso::imagen_toba('wait.gif');
