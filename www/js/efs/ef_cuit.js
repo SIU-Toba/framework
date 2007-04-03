@@ -46,6 +46,17 @@ ef_cuit.prototype.constructor = ef_cuit;
 		return estado;
 	};	
 	
+	ef.prototype.get_tab_index = function () {
+		return this.input(1).tabIndex;
+	};	
+	
+	ef.prototype.set_tab_index = function(tab_index) {
+		this.input(1).tabIndex = tab_index;
+		this.input(2).tabIndex = tab_index;
+		this.input(3).tabIndex = tab_index;
+	};
+	
+	
 	ef_cuit.prototype.set_estado = function(nuevo,posicion) {
 		this.input(posicion).value = nuevo;
 		if (this.input(posicion).onblur) {

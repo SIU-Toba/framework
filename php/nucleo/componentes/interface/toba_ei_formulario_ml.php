@@ -26,6 +26,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
 	protected $id_fila_actual;					//¿Que fila se esta procesando actualmente?
 	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
+	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
 	
 	function __construct($id)
 	{
@@ -584,31 +585,23 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if (isset($this->colapsado) && $this->colapsado) {
 			$estilo .= "display:none;";
 		}
-		echo "<div class='ei-cuerpo ei-ml' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
-		//Botonera de agregar y ordenar
-		$this->generar_botonera_manejo_filas();
-
-		//Defino la cantidad de columnas
-		$colspan = count($this->lista_ef_post);
-		if ($this->info_formulario['filas_numerar']) {
-			$colspan++;
-		}			
 		//Campo de comunicacion con JS
 		echo toba_form::hidden("{$this->objeto_js}_listafilas",'');
-		echo toba_form::hidden("{$this->objeto_js}__parametros", '');
-		
-		echo "<table class='ei-ml-grilla' style='width: $ancho' >\n";
-		echo "<thead>\n";
-		$this->generar_formulario_encabezado();
-		echo "</thead>\n";
-		echo "<tfoot>\n";
-		$this->generar_formulario_pie($colspan);
-		echo "</tfoot>\n";	
-		echo "<tbody>";		
-		$this->generar_formulario_cuerpo();
-		echo "</tbody>\n";		
-		echo "\n</table>";
+		echo toba_form::hidden("{$this->objeto_js}__parametros", '');		
+		echo "<div class='ei-cuerpo ei-ml' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
+		$this->generar_layout($ancho);
 		echo "\n</div>";
+	}
+	
+	protected function generar_layout($ancho)
+	{
+		//Botonera de agregar y ordenar
+		$this->generar_botonera_manejo_filas();
+		echo "<table class='ei-ml-grilla' style='width: $ancho' >\n";
+		$this->generar_formulario_encabezado();
+		$this->generar_formulario_pie();
+		$this->generar_formulario_cuerpo();
+		echo "\n</table>";		
 	}
 	
 	/**
@@ -616,6 +609,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_formulario_encabezado()
 	{
+		echo "<thead>\n";		
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		$primera = true;
@@ -625,7 +619,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$extra = 'colspan="2"';
 			}
 			echo "<th $extra class='ei-ml-columna'>\n";
-			$this->generar_etiqueta_ef($ef);
+			$this->generar_etiqueta_columna($ef);
 			echo "</th>\n";
 			$primera = false;
 		}
@@ -640,9 +634,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 		}		
 		echo "</tr>\n";
+		echo "</thead>\n";		
 	}
 	
-	protected function generar_etiqueta_ef($ef)
+	protected function generar_etiqueta_columna($ef)
 	{
 		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
 		if ($estilo == '') {
@@ -667,8 +662,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	/**
 	 * @ignore 
 	 */
-	protected function generar_formulario_pie($colspan)
+	protected function generar_formulario_pie()
 	{
+		echo "<tfoot>\n";		
+		//Defino la cantidad de columnas
+		$colspan = count($this->lista_ef_post);
+		if ($this->info_formulario['filas_numerar']) {
+			$colspan++;
+		}
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
 		if(count($this->lista_ef_totales)>0){
@@ -693,6 +694,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "<tr><td colspan='$colspan'>\n";
 		$this->generar_botones();
 		echo "</td></tr>\n";
+		echo "</tfoot>\n";			
 	}
 	
 	/**
@@ -700,6 +702,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_formulario_cuerpo()
 	{
+		echo "<tbody>";			
 		if ($this->registro_nuevo !== false) {
 			$template = (is_array($this->registro_nuevo)) ? $this->registro_nuevo : array();
 			$this->agregar_registro($template);
@@ -720,74 +723,84 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			//Si la fila es el template ocultarla
 			if ($fila !== "__fila__") {
 				$this->filas_enviadas[] = $fila;
-				$estilo = "";
+				$estilo_fila = "";
 			} else {
-				$estilo = "style='display:none;'";
+				$estilo_fila = "style='display:none;'";
 			}
 			//Determinar el estilo de la fila
 			if (isset($this->clave_seleccionada) && $fila == $this->clave_seleccionada) {
-				$estilo_fila = "ei-ml-fila-selec";				
+				$this->estilo_celda_actual = "ei-ml-fila-selec";				
 			} else {
-				$estilo_fila = "ei-ml-fila";
+				$this->estilo_celda_actual = "ei-ml-fila";
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
-			
 			//--- Se cargan las opciones de los efs de esta fila
-			$this->cargar_opciones_efs();			
-			
-			//Aca va el codigo que modifica el estado de cada EF segun los datos...
-			echo "\n<!-- FILA $fila -->\n\n";
-			echo "<tr $estilo id='{$this->objeto_js}_fila$fila' onClick='{$this->objeto_js}.seleccionar($fila)'>";
+			$this->cargar_opciones_efs();
+			echo "\n<!-- FILA $fila -->\n\n";			
+			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
+			//--Numeración de las filas
 			if ($this->info_formulario['filas_numerar']) {
-				echo "<td class='$estilo_fila'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
+				echo "<td class='{$this->estilo_celda_actual}'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
-			}
-			foreach ($this->lista_ef_post as $ef){
-				$this->elemento_formulario[$ef]->ir_a_fila($fila);
-				$id_form = $this->elemento_formulario[$ef]->get_id_form();
-				echo "<td  class='$estilo_fila' id='cont_$id_form'>\n";
-				echo "<div id='nodo_$id_form'>\n";
-				$this->generar_input_ef($ef);
-				echo "</div>";
-				echo "</td>\n";
-			}
- 			//---> Creo los EVENTOS de la FILA <---
- 			
-			foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
-				echo "<td class='$estilo_fila'>\n";
-				if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
-					//1: Posiciono al evento en la fila
-					$evento->set_parametros($fila);
-					if($evento->posee_accion_vincular()){
-						$evento->vinculo()->set_parametros($fila);	
-					}
-					//2: Ventana de modificacion del evento por fila
-					//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-					$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
-					if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
-						$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
-					} else {
-						//- b - ¿Existe una callback de modificacion una subclase?
-						$callback_modificacion_eventos = 'conf_evt__' . $id;
-						if (method_exists($this, $callback_modificacion_eventos)) {
-							$this->$callback_modificacion_eventos($evento, $fila);
-						}
-					}
-					//3: Genero el boton
-					if( ! $evento->esta_anulado() ) {
-						echo $evento->get_html($this->submit, $this->objeto_js, $this->id);
-					} else {
-						$evento->restituir();	//Lo activo para la proxima fila
-					}
-				}
-            	echo "</td>\n";
-			}
-			//----------------------------			
+			}			
+			//--Layout de las filas
+			$this->generar_layout_fila($fila);
+			//--Creo los EVENTOS de la FILA
+			$this->generar_eventos_fila($fila);			
 			echo "</tr>\n";
 			$a++;
 		}
+		echo "</tbody>\n";		
 	}
 
+	protected function generar_layout_fila($clave_fila)
+	{
+		foreach ($this->lista_ef_post as $ef){
+			//--- Multiplexacion de filas
+			$this->elemento_formulario[$ef]->ir_a_fila($clave_fila);
+			$id_form = $this->elemento_formulario[$ef]->get_id_form();					
+			echo "<td class='{$this->estilo_celda_actual}' id='cont_$id_form'>\n";		
+			echo "<div id='nodo_$id_form'>\n";			
+			$this->generar_input_ef($ef);
+			echo "</div>";		
+			echo "</td>\n";		
+		}
+	}
+	
+
+	protected function generar_eventos_fila($fila)
+	{
+		foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
+			echo "<td class='{$this->estilo_celda_actual}'>\n";
+			if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
+				//1: Posiciono al evento en la fila
+				$evento->set_parametros($fila);
+				if($evento->posee_accion_vincular()){
+					$evento->vinculo()->set_parametros($fila);	
+				}
+				//2: Ventana de modificacion del evento por fila
+				//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
+				$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
+				if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
+					$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
+				} else {
+					//- b - ¿Existe una callback de modificacion una subclase?
+					$callback_modificacion_eventos = 'conf_evt__' . $id;
+					if (method_exists($this, $callback_modificacion_eventos)) {
+						$this->$callback_modificacion_eventos($evento, $fila);
+					}
+				}
+				//3: Genero el boton
+				if( ! $evento->esta_anulado() ) {
+					echo $evento->get_html($this->submit, $this->objeto_js, $this->id);
+				} else {
+					$evento->restituir();	//Lo activo para la proxima fila
+				}
+			}
+        	echo "</td>\n";
+		}		
+	}
+	
 	/**
 	 * Genera el HTML de la botonera de agregar/quitar/ordenar filas
 	 */

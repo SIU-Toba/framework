@@ -124,6 +124,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-par, .ei-ml-fila {
 	background-color: f6f6ff;
 }
+.ei-ml-fila {
+	border-top: 1px solid gray;
+	padding-top:2px;
+	padding-bottom:2px;	
+}
 
 .col-num-p2,.col-num-p4,.col-tex-p2,.col-tex-p4, .col-cen-s2, .col-cen-s4 {
 	color: #aa0000;

@@ -2,13 +2,6 @@
 require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
-echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
-echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
-
-echo toba_form::abrir('toba', toba::vinculador()->crear_autovinculo());
-echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
-echo toba_form::cerrar();
-
 
 //ei_arbol($_SESSION, 'SESION', null, true);
 
@@ -17,16 +10,22 @@ echo toba_form::cerrar();
 $url_trac = get_url_desarrollos();
 $url_login = $url_trac.'/trac/toba/login';
 
-$version = instalacion::get_version_actual();
-$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
-echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
-//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
-$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
-echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
-echo $version->__toString()."</a>";
-echo "</div>";
-
 	if (! isset($_POST['migracion']) && ! isset($_GET['phpinfo'])) {
+		echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
+		echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
+		
+		echo toba_form::abrir('toba', toba::vinculador()->crear_autovinculo());
+		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
+		echo toba_form::cerrar();
+		
+		$version = instalacion::get_version_actual();
+		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
+		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
+		//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
+		$ayuda = toba_recurso::ayuda(null, "Ver log de cambios introducidos en esta versión");
+		echo "<a target='wiki' style='text-decoration:none' href='$cambios' $ayuda>Versión ";
+		echo $version->__toString()."</a>";
+		echo "</div>";		
 		echo "<div style='margin-top: 30%;margin-bottom: 30%;'>";
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "</div>";		

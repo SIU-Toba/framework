@@ -876,7 +876,7 @@ class toba_ei_formulario extends toba_ei
 		echo "</div>\n";		
 	}
 	
-	function generar_input_ef($ef)
+	protected function generar_input_ef($ef)
 	{
 		echo $this->elemento_formulario[$ef]->get_input();
 	}
