@@ -129,7 +129,7 @@ class instancia extends elemento_modelo
 	}
 
 	/**
-	*	Recuperacion de los parametros de la DB donde reside la instancia
+	 *	Recuperacion de los parametros de la DB donde reside la instancia
 	*/
 	function get_parametros_db()
 	{
@@ -422,6 +422,7 @@ class instancia extends elemento_modelo
 			$this->cargar_informacion_instancia();
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
+			$this->set_version(instalacion::get_version_actual());
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();

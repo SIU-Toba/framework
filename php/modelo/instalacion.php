@@ -281,7 +281,7 @@ class instalacion extends elemento_modelo
 		$editor->agregar_sustitucion( '|__proyecto_dir__|', toba_manejador_archivos::path_a_unix($dir) );
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
 		$salida = $editor->procesar( $template );
-		$salida = "\n\t#Creado automáticamente por Toba - ".date('D/M/Y H:m:s').$salida;
+		$salida = "\n\t#Creado automáticamente por Toba - ".date('d/m/y H:m:s').$salida;
 		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
 
