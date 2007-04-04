@@ -1,4 +1,4 @@
-<?
+<?php
 
 class odt_cuadro_columnas extends toba_datos_tabla
 {

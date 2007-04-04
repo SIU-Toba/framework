@@ -1,4 +1,4 @@
-<?
+<?php
   class ci_puntos_control extends toba_ci
   {
 

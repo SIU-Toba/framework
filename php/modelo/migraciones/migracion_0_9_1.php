@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('migracion_toba.php');
 
 class migracion_0_9_1 extends migracion_toba

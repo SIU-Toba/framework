@@ -1,4 +1,4 @@
-<?
+<?php
 class toba_asercion
 {
 	static function no_es_nulo($variable, $texto="ATENCION, el elemento es NULO")

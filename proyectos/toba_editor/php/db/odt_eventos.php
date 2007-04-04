@@ -1,4 +1,4 @@
-<?
+<?php
 
 class odt_eventos extends toba_datos_tabla
 {

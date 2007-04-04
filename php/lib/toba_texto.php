@@ -1,4 +1,4 @@
-<?
+<?php
 
 	/*
 	*	Devuelve un array de lineas

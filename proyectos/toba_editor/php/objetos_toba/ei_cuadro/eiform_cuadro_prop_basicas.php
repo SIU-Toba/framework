@@ -1,4 +1,4 @@
-<?
+<?php
 
 class eiform_cuadro_prop_basicas extends toba_ei_formulario
 {

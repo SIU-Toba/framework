@@ -1,4 +1,4 @@
-<?
+<?php
   class ctrl_materia extends toba_control
   {
     function ejecutar(&$parametros)

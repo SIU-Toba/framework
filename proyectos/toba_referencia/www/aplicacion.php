@@ -1,4 +1,4 @@
-<?
+<?php
 # apex_proyecto: Proyecto PRIMARIO
 define("apex_pa_proyecto",'toba_referencia');
 #---- NIVEL de ACCESO minimo permitido

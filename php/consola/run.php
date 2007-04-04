@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 	Este script abre una consola del SIU-TOBA 
 */

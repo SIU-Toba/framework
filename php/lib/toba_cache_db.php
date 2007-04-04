@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 	Levanta el contenido de las tablas a la memoria y crea indices
 	para porder solicitar subconjuntos de datos

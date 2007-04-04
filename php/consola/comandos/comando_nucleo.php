@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('comando_toba.php');
 /**
 *	Publica los servicios de la clase NUCLEO a la consola toba

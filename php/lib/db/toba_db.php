@@ -1,4 +1,4 @@
-<?
+<?php
 define('toba_db_fetch_asoc', PDO::FETCH_ASSOC);
 define('toba_db_fetch_num', PDO::FETCH_NUM);
 

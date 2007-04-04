@@ -23,7 +23,7 @@ echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"activecalendar.css\"></l
 <body>
 <center>
 <h2>Calendario</h2>
-<?
+<?php
 $cal->enableDatePicker(2000,2010);
 $cal->enableDayLinks();
 $cal->enableWeekLinks();

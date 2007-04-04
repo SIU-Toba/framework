@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 *	Compara dos instancias
 *		Como es imposible actualmente instanciar dos INSTANCIAS toba, este

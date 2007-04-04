@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("componente.php");
 
 class componente_ei extends componente_toba

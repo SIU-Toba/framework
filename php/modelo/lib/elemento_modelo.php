@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('gui.php');
 
 class elemento_modelo

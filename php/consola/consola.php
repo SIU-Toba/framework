@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("lib/toba_asercion.php"); 		      	   	//Aserciones
 require_once("lib/toba_varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("lib/toba_sql.php");					//Libreria de manipulacion del SQL

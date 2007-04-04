@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 	Faltan controles javascript
 		- La tabla padre e hija no puede ser la misma

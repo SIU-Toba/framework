@@ -1,4 +1,4 @@
-<?
+<?php
   class ctrl_requisitos extends toba_control
   {
     function ejecutar(&$parametros)

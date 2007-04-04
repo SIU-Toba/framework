@@ -1,4 +1,4 @@
-<?
+<?php
 
 class toba_ini
 {

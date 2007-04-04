@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("nucleo/componentes/toba_componente.php");
 require_once('nucleo/lib/salidas/toba_impresion.php');
 require_once('nucleo/lib/toba_evento_usuario.php');

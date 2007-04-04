@@ -1,4 +1,4 @@
-<?
+<?php
 
 class odt_pantallas extends toba_datos_tabla
 {

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("nucleo/componentes/persistencia/toba_ap_relacion_db.php");
 
 class ap_relacion_objeto extends toba_ap_relacion_db

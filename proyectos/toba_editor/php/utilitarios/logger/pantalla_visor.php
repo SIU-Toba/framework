@@ -170,13 +170,13 @@ class pantalla_visor extends toba_ei_pantalla
 		$parametros = array();
 //		$vinculo = toba::vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
-			var ultima_mod ='<?=$this->controlador->timestamp_archivo();?>';
-			var niveles = <?=toba_js::arreglo($niveles)?>;
+			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo();?>';
+			var niveles = <?php echo toba_js::arreglo($niveles)?>;
 			var niveles_actuales = {length: 0};
 			var refresco_automatico = true;
 			var consultando = false;
 
-			<?=$this->objeto_js?>.evt__refrescar = function() {
+			<?php echo $this->objeto_js?>.evt__refrescar = function() {
 				var callback =
 				{
 				  success: this.respuesta_refresco ,
@@ -189,7 +189,7 @@ class pantalla_visor extends toba_ei_pantalla
 				return false;
 			}
 			
-			<?=$this->objeto_js?>.respuesta_refresco = function(resp)
+			<?php echo $this->objeto_js?>.respuesta_refresco = function(resp)
 			{
 				try {
 					var partes = toba.analizar_respuesta_servicio(resp);
@@ -275,7 +275,7 @@ class pantalla_visor extends toba_ei_pantalla
 				if (refresco_automatico && !consultando) {
 					consultando = true;
 					toba.set_aguardar(false);
-					<?=$this->objeto_js?>.evt__refrescar();
+					<?php echo $this->objeto_js?>.evt__refrescar();
 				}
 				timer_refresco();
 			}

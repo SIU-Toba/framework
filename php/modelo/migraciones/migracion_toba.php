@@ -1,4 +1,4 @@
-<?
+<?php
 
 class migracion_toba
 {	

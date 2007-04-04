@@ -1,4 +1,4 @@
-<?
+<?php
 	include_once("nucleo/lib/interface/toba_form.php");
 	require_once('modelo/lib/catalogo_items.php');
 
@@ -45,12 +45,12 @@
 	<table width="450" class='cat-item' align='center'>
         	<tr> 
           <td colspan="<? echo (5 + $maximo)?>"  class="cat-item-categ1">
-			<?
+			<?php
 				echo toba_form::submit($boton_post,$boton_post_nombre);
 			?>
 		  </td>
         </tr>	
-	<?
+	<?php
 	foreach ($arbol->items() as $item)
 	{ 
 		echo "<tr>";
@@ -67,12 +67,12 @@
 				<img src='<? echo toba_recurso::imagen_toba("items/carpeta.gif") ?>' border='0'>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='1px'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?php echo $item->get_id()?>',true);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_on.gif",true,null,null,"ACTIVAR hijos") ?></a>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info' width='1px'>
-				<a href="#" class='cat-item' onclick="cascada('<?=$item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
+				<a href="#" class='cat-item' onclick="cascada('<?php echo $item->get_id()?>',false);return false;"><? echo toba_recurso::imagen_proyecto("check_cascada_off.gif",true,null,null,"DESACTIVAR hijos") ?></a>
 			  </td>
-	          <td  class='cat-arbol-carpeta-info'  width='450px' colspan='<? echo ($maximo-$nivel)?>'>&nbsp;&nbsp;<?=$item->get_nombre()?></td>
+	          <td  class='cat-arbol-carpeta-info'  width='450px' colspan='<? echo ($maximo-$nivel)?>'>&nbsp;&nbsp;<?php echo $item->get_nombre()?></td>
 	          <td  class='cat-arbol-carpeta-info'  width='1px'>
 				<? if($item->es_de_menu()){?>
 							<img src='<? echo toba_recurso::imagen_proyecto("menu.gif") ?>' border='0'>
@@ -84,11 +84,11 @@
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='ei-arbol-nodo' width='100%'  colspan='<? echo ($maximo-$nivel)+3?>'>
-			<? 
+			<?php
 				$extra = " camino='".separador_camino.implode(separador_camino, $item->get_camino()).separador_camino."' ";
 				echo toba_form::checkbox($prefijo_items.$item->get_id(),$grupo,$item->grupo_tiene_permiso($grupo), 'ef-checkbox', $extra); ?>
 
-			          	<?=$item->get_nombre()?>
+			          	<?php echo $item->get_nombre()?>
 
 			          </td>
 			          <td  class='ei-arbol-nodo'  width='1px'>
@@ -97,14 +97,14 @@
 			<? }else{ echo gif_nulo(); } ?>
 					  </td>
 			          <td  class='ei-arbol-nodo' width='1px' ><? echo toba_recurso::imagen_proyecto("item.gif",true,null,null,'ID: ' . $item->get_id()) ?></td>
-			<?					  
+			<?php
 		}
 		echo "</tr>";
 	}
 	?>			
 		<tr> 
           <td colspan="<? echo (5 + $maximo)?>" align="center" class="cat-item-categ1">
-	<?
+	<?php
 		echo toba_form::submit($boton_post,$boton_post_nombre);
 		?>
 		  </td>
@@ -113,7 +113,7 @@
 	</div>
 	<br>
 	<br>
-	<? 
+	<?php
 	echo toba_form::cerrar();
 ?>
 <script languaje='javascript'>

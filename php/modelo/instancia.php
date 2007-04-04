@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('modelo/lib/elemento_modelo.php');
 require_once('modelo/instalacion.php');
 require_once('modelo/estructura_db/tablas_instancia.php');

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("nucleo/componentes/persistencia/toba_ap_tabla_db.php");
 
 class apdb_usuario_basicas extends toba_ap_tabla_db

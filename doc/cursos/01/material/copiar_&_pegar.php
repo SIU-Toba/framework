@@ -1,4 +1,4 @@
-<?
+<?php
 //##### 1 #
 
     $instancia["curso"][apex_db_motor] = "postgres7";

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class fuente extends toba_fuente_datos
 {

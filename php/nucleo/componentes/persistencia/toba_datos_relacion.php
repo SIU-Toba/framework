@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("nucleo/componentes/toba_componente.php");
 require_once("toba_relacion_entre_tablas.php");
 require_once("nucleo/componentes/interface/toba_ei_esquema.php");

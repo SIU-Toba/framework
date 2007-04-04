@@ -1,4 +1,4 @@
-<?
+<?php
 # PROYECTO
 define("apex_pa_proyecto","toba_instancia");
 

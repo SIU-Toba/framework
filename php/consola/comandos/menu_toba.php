@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('consola/menu.php');
 
 class menu_toba extends menu

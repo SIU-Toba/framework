@@ -1,4 +1,4 @@
-<?
+<?php
 
 class eiform_ap extends toba_ei_formulario
 {

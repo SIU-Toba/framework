@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("componente.php");
 
 class componente_datos_tabla extends componente_toba

@@ -1,4 +1,4 @@
-<?
+<?php
 class objeto_vacio
 {
 	private $nombre;

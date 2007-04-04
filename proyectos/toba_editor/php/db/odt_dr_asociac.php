@@ -1,4 +1,4 @@
-<?
+<?php
 
 class odt_dr_asociac extends toba_datos_tabla
 {

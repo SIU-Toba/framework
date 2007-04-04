@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("componente_ei_formulario.php");
 
 /**

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("componente_ei.php");
 
 class componente_ei_cuadro extends componente_ei

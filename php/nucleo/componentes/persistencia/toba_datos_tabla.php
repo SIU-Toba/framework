@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("nucleo/componentes/toba_componente.php");
 require_once("toba_tipo_datos.php");
 

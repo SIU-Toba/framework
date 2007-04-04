@@ -49,7 +49,7 @@ function abrir_toba_instancia(){
 }
 </script>
 
-<?
+<?php
 	$js_editor = toba_recurso::js('editor.js');
 	$datos = toba_editor::get_parametros_previsualizacion_js();
 	$parametros_previsualizacion = toba_js::arreglo($datos, true);
@@ -72,7 +72,7 @@ function abrir_toba_instancia(){
 		 </td>
 
 		<td width='100%'><? echo gif_nulo(3,1) ?></td>
-<?
+<?php
 		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
 		$js_cambio = "onclick='document.cambiar_proyecto.submit()'";
 		echo "<a href='#' $js_cambio>";
@@ -97,7 +97,7 @@ function abrir_toba_instancia(){
 ?>
 		<td><? echo gif_nulo(5,1) ?></td>
 
-<?
+<?php
 	$parametros = array();
 	$html_extra = array('id' => 'vinculo_logger',
 						'imagen' => 'logger.gif',

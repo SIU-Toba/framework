@@ -1,4 +1,4 @@
-<?
+<?php
 php_referencia::instancia()->agregar(__FILE__);
 
 class datos_ejemplos

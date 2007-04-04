@@ -1,4 +1,4 @@
-<?
+<?php
   class ctrl_alumno extends toba_control
   {
     function ejecutar(&$parametros)

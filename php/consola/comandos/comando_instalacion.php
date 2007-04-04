@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('comando_toba.php');
 
 class comando_instalacion extends comando_toba

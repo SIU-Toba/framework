@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("toba_ei.php");	//Ancestro de todos los	OE
 require_once("nucleo/componentes/interface/efs/toba_ef.php");
 

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('comando_toba.php');
 require_once('modelo/lib/comparador_instancias.php');
 
