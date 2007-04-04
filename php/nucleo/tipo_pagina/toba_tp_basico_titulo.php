@@ -44,15 +44,15 @@ class toba_tp_basico_titulo extends toba_tp_basico
 			$info = '';
 			$version_fecha = toba::proyecto()->get_parametro('version_fecha');
 			if($version_fecha) {
-				$info .= "Lanzamiento: <strong>$version_fecha</strong> <br>";	
+				$info .= "Lanzamiento: <strong>$version_fecha</strong> <br />";	
 			}			
 			$version_detalle = toba::proyecto()->get_parametro('version_detalle');
 			if($version_detalle) {
-				$info .= "<hr>$version_detalle<br>";	
+				$info .= "<hr />$version_detalle<br>";	
 			}
 			$version_link = toba::proyecto()->get_parametro('version_link');
 			if($version_link) {
-				$info .= "<hr><a href=\'http://$version_link\' target=\"_bank\">Más información</a><br>";	
+				$info .= "<hr /><a href=\'http://$version_link\' target=\"_bank\">Más información</a><br>";	
 			}
 			if($info) {
 				$info = "Version: <strong>$version</strong><br>" . $info;

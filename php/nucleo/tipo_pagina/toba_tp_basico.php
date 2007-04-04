@@ -89,8 +89,8 @@ class toba_tp_basico extends toba_tipo_pagina
 	 */
 	protected function comienzo_cuerpo()
 	{
+		echo "<body>\n";		
 		toba_js::cargar_consumos_globales(array('basicos/tipclick'));
-		echo "<body>\n";
 		if ( toba_editor::modo_prueba() ) {
 			$item = toba::solicitud()->get_datos_item('item');
 			$accion = toba::solicitud()->get_datos_item('item_act_accion_script');
@@ -99,7 +99,7 @@ class toba_tp_basico extends toba_tipo_pagina
 		echo "\n<div id='overlay'><div id='overlay_contenido'></div></div>";		
 		$img = toba_recurso::imagen_toba('wait.gif');
 		echo "<div id='div_toba_esperar' class='div-esperar' style='display:none'>";
-		echo "<img src='$img' style='vertical-align: middle;'> Procesando...";
+		echo "<img src='$img' style='vertical-align: middle;' alt='' /> Procesando...";
 		echo "</div>";
 		echo "<div class='{$this->clase_encabezado}'>";
 	}

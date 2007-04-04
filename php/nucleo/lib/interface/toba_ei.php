@@ -24,8 +24,8 @@
 	}
 
 	function ei_separador($titulo="")
-/*
-	@@acceso: publico
+	/*
+	 @@acceso: publico
 	@@desc: Imprime una barra que divide la pantalla
 	@@param: string | Titulo de la barra
 */
@@ -120,23 +120,19 @@
 	@@desc: Imprime un salto de linea
 */
 	{
-        echo "<br>\n";
+        echo "<br />\n";
     }
 
+    /**
+     * Imprime un GIF transparente. Util para forzar el posicionamiento de contenido
+     */
 	function gif_nulo($ancho=1,$alto=1,$nota="")
-/*
-	@@acceso: publico
-	@@desc: Imprime un GIF transparente. Util para forzar el posicionamiento de contenido
-	@@param: int | ancho | 1
-	@@param: int | alto | 1
-	@@param: string | Mensaje en el Mouseover | vacio
-*/
 	{
-        $alt = "";
+        $alt = "alt=''";
         if($nota!="") $alt = " alt='$nota' ";
         $ancho = convertir_a_medida_tabla($ancho);
         $alto = convertir_a_medida_tabla($alto, 'height');
-		return "<img src='". toba_recurso::imagen_toba("nulo.gif"). "' $ancho $alto $alt>";
+		return "<img src='". toba_recurso::imagen_toba("nulo.gif"). "' $ancho $alto $alt />";
 	}
 
 	function ei_linea($ancho="100%")

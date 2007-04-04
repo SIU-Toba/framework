@@ -212,9 +212,9 @@ class toba_logger
 			if ($clase !== __CLASS__) {
 				if (isset($paso['type']))
 					$clase .= $paso['type'];				
-				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br>";
+				$html .= "\t<li><strong>$clase{$paso['function']}</strong><br />";
 				if (isset($paso['file'])) {
-					$html .= "Archivo: {$paso['file']}, línea {$paso['line']}<br>";
+					$html .= "Archivo: {$paso['file']}, línea {$paso['line']}<br />";
 				}
 				if ($con_parametros && ! empty($paso['args'])) {
 					$html .= "Parámetros: <ol>";

@@ -66,7 +66,7 @@ class toba_menu_css extends toba_menu
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
-			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='-1' href='$vinculo' " .
+			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='$vinculo' " .
 							"title='".$this->items[$nodo]['nombre']."'>" . 
 							$this->get_imagen($nodo).
 							$this->items[$nodo]['nombre']."</a>";
@@ -94,10 +94,10 @@ class toba_menu_css extends toba_menu
 		if (isset($this->items[$nodo]['imagen'])) {
 			$url_img = toba_recurso::imagen_de_origen($this->items[$nodo]['imagen'],
 											$this->items[$nodo]['imagen_recurso_origen']);
-			$img = "<img src='$url_img' border=0 /> ";
+			$img = "<img src='$url_img' border=0 alt='' /> ";
 		} else {
 			$url_img = toba_recurso::imagen_toba('nulo.gif');
-			$img = "<img src='$url_img' width=1 height=16 border=0 />";
+			$img = "<img src='$url_img' width=1 height=16 border=0 alt='' />";
 		}		
 		return $img;
 	}

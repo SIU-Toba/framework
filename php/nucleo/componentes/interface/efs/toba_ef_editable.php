@@ -352,7 +352,7 @@ class toba_ef_editable_clave extends toba_ef_editable
 		$estado = isset($this->estado)? $this->estado : "";
 		$html = toba_form::password($this->id_form,$estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
 		if ($this->confirmar_clave) {
-			$html .= "<br>".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
+			$html .= "<br />".toba_form::password($this->id_form ."_test", $estado, $this->maximo, $this->tamano, 'ef-input', $this->input_extra.$tab);
 		}
 		return $html;
 	}

@@ -245,7 +245,7 @@ class toba_ei_arbol extends toba_ei
 				$img_exp_contr = toba_recurso::imagen_toba('nucleo/expandir.gif', false);
 			}
 			$salida .= "<img src='$img_exp_contr' onclick='{$this->objeto_js}.cambiar_expansion(this);' 
-						 class='ei-arbol-exp-contr'> ";
+						 class='ei-arbol-exp-contr' alt='' /> ";
 		} else {
 			$salida .= gif_nulo(14,1);
 		}
@@ -258,9 +258,9 @@ class toba_ei_arbol extends toba_ei
 		$extra = $nodo->get_info_extra();
 
 		if($largo || $id || $extra) {
-			$title= "<b>Nombre</b>: $largo<br><b>Id</b>:  $id";
+			$title= "<b>Nombre</b>: $largo<br /><b>Id</b>:  $id";
 			if ($extra != '') {
-				$title .= "<hr>$extra";
+				$title .= "<hr />$extra";
 			}
 			$ayuda = toba_recurso::ayuda(null,  $title, 'ei-arbol-nombre');
 			$nombre= "<span $ayuda>$corto</span>";

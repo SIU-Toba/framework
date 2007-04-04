@@ -68,7 +68,7 @@
 	
 	function formato_salto_linea_html($valor)
 	{
-		return  str_replace ("\n","<br>",$valor);
+		return  str_replace ("\n","<br />",$valor);
 	}
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo){

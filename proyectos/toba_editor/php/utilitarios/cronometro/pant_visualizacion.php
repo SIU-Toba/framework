@@ -55,7 +55,7 @@ class pant_visualizacion extends toba_ei_pantalla
 		echo "<span class='cronometro-total'>";
 		echo toba_recurso::imagen_toba("reloj.png",true)." ".$this->formato_numero($tiempo_total)." segundos";		
 		echo "</span>";
-		echo "</div><hr style='clear:both'>";	
+		echo "</div><hr style='clear:both' />";	
    		echo "<table width='$ancho' align='center'>";
 		echo"<tr>
 			    <td>

@@ -60,7 +60,7 @@ class pantalla_visor extends toba_ei_pantalla
 		$check = toba_form::checkbox("refresco_automatico", 0, 1, "ef-checkbox", " onclick=\"set_refresco_automatico(this.checked);\"");
 		$edit = toba_form::text("refresco_lapso", 2000, false, 6, 6);
 		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
-		echo "</div><hr style='clear:both'>";		
+		echo "</div><hr style='clear:both' />";		
 		
 		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
 		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);

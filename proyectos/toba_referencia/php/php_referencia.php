@@ -42,7 +42,7 @@ class php_referencia
 			$oculto = ($this->expandido) ? "" : "style='display:none'";
 			foreach ($this->archivos as $i => $archivo) {
 				echo "<div id='archivo_$i' class='php-referencia' $oculto>";
-				echo "<strong>$archivo</strong>:<br><br>";
+				echo "<strong>$archivo</strong>:<br /><br />";
 				highlight_file($archivo);
 				echo "</div>";
 			}

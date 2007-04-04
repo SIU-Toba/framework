@@ -106,7 +106,7 @@ class catalogo_objetos
 					$info = toba_constructor::get_info($clave, $dato['clase'], true, null, true); 
 				}
 				if (isset($this->explicaciones[$dato['objeto']] )) {
-					$explicacion = implode("<hr>", $this->explicaciones[$dato['objeto']]);
+					$explicacion = implode("<hr />", $this->explicaciones[$dato['objeto']]);
 					$info->set_info_extra($explicacion);
 				}
 				$this->objetos[] = $info;

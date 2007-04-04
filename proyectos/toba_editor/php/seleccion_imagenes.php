@@ -121,7 +121,7 @@ class seleccion_imagenes
 		echo "Filtro: <input id='editor_imagen_filtro' onkeyup='filtrar_imagenes(this.value)' type='text' /> ";	
 		$checkeado = $recursivo ? 'checked' : '';
 		echo "<label><input type='checkbox'  onclick='recargar(this.checked ? 1 : 0)' $checkeado /> Recursivo</label>";
-		echo "</div><hr>";
+		echo "</div><hr />";
 		echo "<div id='editor_imagen_listado'>";
 		echo "<table>";
 		$temp = toba_manejador_archivos::get_archivos_directorio($dir, '/(.)png|(.)gif|(.)jpg|(.)jpeg/', $recursivo);

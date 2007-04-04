@@ -167,9 +167,9 @@ class toba_recurso
 			$estilo ="style=\"$estilo\"";
 		}
 		if (toba_editor::modo_prueba()) {
-			$img = "<img onerror='alert(\"No se encuentra la imagen: \" + this.src)' src=$src $x $y $a $m  $estilo $js/>";
+			$img = "<img alt='' onerror='alert(\"No se encuentra la imagen: \" + this.src)' src=$src $x $y $a $m  $estilo $js/>";
 		} else {
-			$img = "<img src=$src $x $y $a $m  $estilo $js/>";
+			$img = "<img alt=\"\" src=$src $x $y $a $m  $estilo $js/>";
 		}
 		return $img;
 	}
@@ -196,7 +196,7 @@ class toba_recurso
 			$ayuda = toba_parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 			$ayuda = str_replace(array("\""), "`", $ayuda);
-			$a .= " onmouseover=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.show('$ayuda',this,event, $delay_ayuda);\" onmouseout=\"if (typeof window.tipclick != 'undefined' && window.tipclick !== null) return window.tipclick.hide();\" ";
+			$a .= " onmouseover=\"if (typeof window.tipclick != 'undefined' &amp;&amp; window.tipclick !== null) return window.tipclick.show('$ayuda',this,event, $delay_ayuda);\" onmouseout=\"if (typeof window.tipclick != 'undefined' &amp;&amp; window.tipclick !== null) return window.tipclick.hide();\" ";
 			$clases_css .= ' ayuda';
 		} else {
 			$a .= " title='$ayuda_extra'";

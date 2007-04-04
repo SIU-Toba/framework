@@ -54,9 +54,9 @@ class toba_tp_normal extends toba_tp_basico_titulo
 		if ( toba::proyecto()->get_parametro('requiere_validacion') ) {
 			//--- Salir
 			$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
-			echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'"><img src='.
-					toba_recurso::imagen_toba('finalizar_sesion.gif').
-					' border="0"></a>';
+			echo '<a href="#" class="enc-salir" title="Cerrar la sesión" onclick="javascript:'.$js.'">';
+			echo toba_recurso::imagen_toba('finalizar_sesion.gif', true);
+			echo '</a>';
 			
 			//--- Usuario
 			$this->info_usuario();

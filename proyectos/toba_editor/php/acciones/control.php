@@ -67,7 +67,7 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;'></a>
+		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<? echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>
 		 <? echo toba_recurso::imagen_proyecto("logo_barra_apex.gif",true)?>
 		 </td>
 

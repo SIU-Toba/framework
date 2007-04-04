@@ -7,7 +7,7 @@
 
 	function dump_sql($sql)
 	{
-		echo "<pre>$sql</pre><br>";
+		echo "<pre>$sql</pre><br />";
 	}
 
 	function dump_POST()

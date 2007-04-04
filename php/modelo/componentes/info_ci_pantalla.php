@@ -159,7 +159,7 @@ class info_ci_pantalla implements toba_nodo_arbol, meta_clase
 		$php = array();
 		$existe_previo = 0;
 		foreach($this->get_lista_dependencias_asociadas() as $dep) {
-			if($existe_previo) $php[] =  '<hr>';
+			if($existe_previo) $php[] =  '<hr />';
 			$php[] = '$this->dependencias[\''.$dep.'\']->generar_html();';
 			$existe_previo = 1;
 		}

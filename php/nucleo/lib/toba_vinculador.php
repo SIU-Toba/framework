@@ -113,6 +113,7 @@ class toba_vinculador
 								$menu=null,$celda_memoria=null, $servicio=null,
 								$objetos_destino=null, $prefijo=null)
  	{
+ 		$separador = '&amp;';
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		$autovinculo = false;
@@ -143,13 +144,13 @@ class toba_vinculador
 			$solicitud_actual = toba::solicitud();
 			if ($solicitud_actual->hay_zona() && toba::zona()->cargada()) {
 				$editable = $this->variable_a_url(toba::zona()->get_editable());
-				$parametros_formateados .= "&". apex_hilo_qs_zona 
+				$parametros_formateados .= $separador. apex_hilo_qs_zona 
 						."=".$editable;
 			}
 		}
 		//Cual es el tipo de salida?
 		if (isset($servicio) && $servicio != apex_hilo_qs_servicio_defecto) {
-			$parametros_formateados .= '&'.apex_hilo_qs_servicio ."=". $servicio;
+			$parametros_formateados .= $separador.apex_hilo_qs_servicio ."=". $servicio;
 		}
 		if (isset($objetos_destino) && is_array($objetos_destino)) {
 			$objetos = array();
@@ -157,22 +158,22 @@ class toba_vinculador
 				$objetos[] = $obj[0] . apex_qs_separador . $obj[1];
 			}
 			$qs_objetos = implode(',', $objetos);
-			$parametros_formateados .= '&'.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
+			$parametros_formateados .= $separador.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
 		}
 		//Cual es la celda de memoria del proximo request?
 		if(!isset($celda_memoria)){
 			//Por defecto propago la celda actual del HILO
 			$celda_memoria = toba::memoria()->get_celda_memoria_actual_id();
 		}		
-		$parametros_formateados .= "&". apex_hilo_qs_celda_memoria ."=". $celda_memoria;
+		$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=". $celda_memoria;
 		//La proxima pagina va a CRONOMETRARSE?
 		if($cronometrar){
-			$parametros_formateados .= "&". apex_hilo_qs_cronometro ."=1";
+			$parametros_formateados .= $separador. apex_hilo_qs_cronometro ."=1";
 		}
 		//Formateo paremetros directos
 		if(isset($parametros) && is_array($parametros)){
 			foreach($parametros as $clave => $valor){
-				$parametros_formateados .= "&$clave=$valor";
+				$parametros_formateados .= $separador."$clave=$valor";
 			}
 		}
 		//Obtengo el prefijo del vinculo
@@ -184,15 +185,15 @@ class toba_vinculador
 			}
 		}
 		//Genero la URL que invoca la solicitud
-		$vinculo = $prefijo . "&" . apex_hilo_qs_item . "=" . $item_a_llamar;
+		$vinculo = $prefijo . $separador . apex_hilo_qs_item . "=" . $item_a_llamar;
 		if(trim($parametros_formateados)!=""){
 
 			$encriptar_qs = toba::proyecto()->get_parametro('encriptar_qs');
 			if($encriptar_qs){
 				//Le concateno un string unico al texto que quiero encriptar asi evito que conozca 
 				//la clave alguien que ve los parametros encriptados y sin encriptar
-				$parametros_formateados .= $parametros_formateados . "&jmb76=". uniqid("");
-				$vinculo = $vinculo . "&". apex_hilo_qs_parametros ."=". toba::encriptador()->cifrar($parametros_formateados);
+				$parametros_formateados .= $parametros_formateados . $separador."jmb76=". uniqid("");
+				$vinculo = $vinculo . $separador . apex_hilo_qs_parametros ."=". toba::encriptador()->cifrar($parametros_formateados);
 			}else{
 				$vinculo = $vinculo . $parametros_formateados;
 			}
@@ -200,7 +201,7 @@ class toba_vinculador
 		//El vinculo esta solicitado por el menu?
 		//Esto se maneja directamente $_GET por performance (NO encriptar todo el menu)
 		if($menu){
-			$vinculo .= "&". apex_hilo_qs_menu ."=1";
+			$vinculo .= $separador . apex_hilo_qs_menu ."=1";
 		}
 		//Genero HTML o devuelvo el VINCULO
 		if(is_array($param_html)){
