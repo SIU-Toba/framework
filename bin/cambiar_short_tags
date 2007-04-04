@@ -2,3 +2,5 @@
 find . -type f -name "*.php" | xargs perl -pi -e 's/<\?=/<\?php echo /g';
 #Reemplaza <? 
 find . -type f -name "*.php" | xargs perl -pi -e 's/<\?[\s]*$/<\?php\n/g';
+#Reemplaza <? echo
+find . -type f -name "*.php" | xargs perl -pi -e 's/<\? echo/<\?php echo/g';
