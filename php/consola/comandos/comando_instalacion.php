@@ -94,8 +94,8 @@ class comando_instalacion extends comando_toba
 	}
 
 	/**
-	*	Elimina una BASE en la instalacion. [-d 'id_base']
-	*/
+	 *	Elimina una BASE en la instalacion. [-d 'id_base']
+	 */
 	function opcion__eliminar_db()
 	{
 		$i = $this->get_instalacion();
@@ -226,6 +226,23 @@ class comando_instalacion extends comando_toba
 		//$this->consola->dialogo_simple("");		
 		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}	
+	
+	/**
+	 * Cambia los permisos de la instalación para permitir que el usuario 
+	 * Apache cree directorios y pueda leer de las carpetas navegables
+	 */
+	function opcion__cambiar_permisos()
+	{
+		$toba_dir = toba_dir();
+		echo exec("chgrp www-data $toba_dir/www -R");
+		echo exec("chgrp www-data $toba_dir/instalacion -R");
+		echo exec("chmod g+w $toba_dir/www -R");
+		echo exec("chmod g+w $toba_dir/instalacion -R");
+		foreach (instalacion::get_lista_proyectos() as $proyecto) {
+			echo exec("chgrp www-data $proyecto/www -R");
+			echo exec("chmod g+w $proyecto/www -R");
+		}
+	}
 	
 	/**
 	 * Ejecuta una instalacion inicial básica del framework 

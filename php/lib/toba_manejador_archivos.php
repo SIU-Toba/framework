@@ -83,19 +83,19 @@ class toba_manejador_archivos
 	{
 		return str_replace( self::$caracteres_invalidos, self::$caracteres_reemplazo, $candidato );
 	}
-	
+
 	/**
-	*	Buscador de archivos
-	*/
+	 *	Buscador de archivos
+	 */
 	static function get_archivos_directorio( $directorio, $patron = null, $recursivo_subdir = false )
 	{
 		$archivos_ok = array();
 		if( ! is_dir( $directorio ) ) {
 			throw new toba_error("BUSCAR ARCHIVOS: El directorio '$directorio' es INVALIDO");
-		} 
+		}
 		if ( ! $recursivo_subdir ) {
-			if ( $dir = opendir( $directorio ) ) {	
-			   while (false	!==	($archivo = readdir($dir)))	{
+			if ( $dir = opendir( $directorio ) ) {
+				while (false	!==	($archivo = readdir($dir)))	{
 			   		if(  $archivo != ".svn" &&  $archivo != "." && $archivo != ".." ) {
 						$archivos_ok[] = $directorio . '/' . $archivo;
 			   		}
@@ -221,6 +221,34 @@ class toba_manejador_archivos
 		closedir( $dir );
 		rmdir( $directorio );
 	}	
+	
+	function chmod_recursivo($path, $filemode) 
+	{
+		if (!is_dir($path))
+			return chmod($path, $filemode);
+
+		$dh = opendir($path);
+		while ($file = readdir($dh)) {
+			if($file != '.' && $file != '..') {
+				$fullpath = $path.'/'.$file;
+				if(!is_dir($fullpath)) {
+					if (!chmod($fullpath, $filemode))
+						return FALSE;
+				} else {
+					if (!chmod_recursivo($fullpath, $filemode))
+						return FALSE;
+				}
+			}
+		}
+
+		closedir($dh);
+
+		if(chmod($path, $filemode))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
 	
 	function comprimir_archivo($src, $level = 5, $dst = false){
 	    if( $dst == false){

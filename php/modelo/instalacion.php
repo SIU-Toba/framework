@@ -321,6 +321,15 @@ class instalacion extends elemento_modelo
 		}		
 	}
 	
+	/**
+	 * Retorna los nombres de los directorios contenidos en la carpeta proyectos
+	 */
+	static function get_lista_proyectos()
+	{
+		$dir = toba_dir() .'/proyectos';
+		return toba_manejador_archivos::get_subdirectorios($dir);
+	}
+	
 	//-- Archivo de CONFIGURACION de la INSTALACION  --------------------------------------
 
 	/**

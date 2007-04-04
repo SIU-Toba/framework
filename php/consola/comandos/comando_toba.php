@@ -204,7 +204,12 @@ class comando_toba extends comando
 		if ( count( $ga ) == 1 ) {
 			return $ga[0]['id'];
 		} else {
-			// FALTA Seleccion del grupo de ACCESO
+			//TODO: Seleccion del grupo de ACCESO, por ahora prefiere el grupo ADMIN
+			foreach ($ga as $grupo) {
+				if ($grupo['id'] == 'admin') {
+					return 'admin';
+				}
+			}
 			return $ga[0]['id'];
 		}
 	}

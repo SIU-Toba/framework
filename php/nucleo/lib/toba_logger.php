@@ -453,7 +453,7 @@ class toba_logger
 	
 	protected function guardar_archivo_log($texto, $archivo)
 	{
-		$permisos = 0700;
+		$permisos = 0770;
 		//--- Asegura que el path esta creado
 		$path = $this->directorio_logs();
 		$path_completo = $path ."/".$archivo;
@@ -476,7 +476,7 @@ class toba_logger
 		
 		if ($es_nuevo) {
 			//Cambiar permisos
-			chmod($path_completo, $permisos);			
+			toba_manejador_archivos::chmod_recursivo($path, $permisos);
 		}
 	}
 	
