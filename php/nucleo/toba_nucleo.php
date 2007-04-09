@@ -138,7 +138,7 @@ class toba_nucleo
 	function cargar_solicitud()
 	{
 		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
-			$item = $this->get_id_item('item_inicio_sesion');
+			$item = $this->get_id_item('item_inicio_sesion', false, true);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'item');
 			if (!$solicitud->es_item_publico()) {
 				$this->autorizar_acceso_item($item);
@@ -172,10 +172,12 @@ class toba_nucleo
 	/**
 	 * Averigua el ITEM ACTUAL. Si no existe y puede busca el ITEM PREDEFINIDO pasado como parametro
 	 */
-	protected function get_id_item($predefinido=null,$forzar_predefinido=false)
+	protected function get_id_item($predefinido=null,$forzar_predefinido=false, $evitar_pre_sesion=false)
 	{
 		$item = toba::memoria()->get_item_solicitado();
-		if (!$item) {
+		if (!$item || ($evitar_pre_sesion && 
+						$item[0] == toba::proyecto()->get_id() &&
+						$item[1] == toba::proyecto()->get_parametro('item_pre_sesion'))) {
 			if(isset($predefinido)){
 				$item[0] = toba::proyecto()->get_id();
 				$item[1] = toba::proyecto()->get_parametro($predefinido);		
