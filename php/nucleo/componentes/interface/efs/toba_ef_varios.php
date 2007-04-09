@@ -64,9 +64,9 @@ class toba_ef_checkbox extends toba_ef
 				$html_devuelto = "";
 				
             if ($this->seleccionado()) {
-                $html_devuelto .= toba_recurso::imagen_toba('checked.gif',true,16,16);
+                $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_on.gif',true,16,16);
             } else {
-                $html_devuelto .= toba_recurso::imagen_toba('unchecked.gif',true,16,16);            
+                $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);            
             }
             return $html_devuelto;   
          }else

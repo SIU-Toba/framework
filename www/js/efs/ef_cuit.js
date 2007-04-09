@@ -76,7 +76,9 @@ ef_cuit.prototype.constructor = ef_cuit;
 			this.input(i).readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
 		}
 	};		
-
+	
+	
+//--------------------------------------------	
 function es_cuit(nro) {
 	var suma;
 	var resto;

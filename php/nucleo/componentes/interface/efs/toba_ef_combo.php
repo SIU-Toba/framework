@@ -262,9 +262,13 @@ class toba_ef_radio extends toba_ef_seleccion
 	function get_input()
 	{
 		$estado = $this->get_estado_para_input();
+		$html = '';
+		if ($this->solo_lectura) {
+			$html .= toba_form::hidden($this->id_form, $estado);			
+		}
 		$callback = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		//--- Se guarda el callback en el <div> asi puede ser recuperada en caso de que se borren las opciones
-		$html = "<div id='opciones_{$this->id_form}' $callback>\n";
+		$html .= "<div id='opciones_{$this->id_form}' $callback>\n";
 		$html .= "<table>\n";
     	if (!is_array($this->opciones)) {
     		$datos = array();	
