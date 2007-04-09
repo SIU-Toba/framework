@@ -122,7 +122,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			}
 			//- 2 - Hay que llamar a una ventana de control especifica para este evento?
 			if(existe_funcion(this, "evt__" + this._evento.id)){
-				if(! ( this["evt__" + this._evento.id]() ) ){
+				if(! ( this["evt__" + this._evento.id](this._evento.parametros) ) ){
 					this.reset_evento();
 					return false;
 				}

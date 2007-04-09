@@ -96,7 +96,7 @@ ei.prototype.constructor = ei;
 	 */
 	ei.prototype.puede_submit = function() {
 		if(this._evento && existe_funcion(this, "evt__" + this._evento.id)){
-			if(! ( this["evt__" + this._evento.id]() ) ){
+			if(! ( this["evt__" + this._evento.id](this._evento.parametros) ) ){
 				this.reset_evento();
 				return false;
 			}
