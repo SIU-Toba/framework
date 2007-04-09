@@ -87,6 +87,7 @@ vinculador = new function() {
 			url = this.concatenar_parametros_url( 	this._vinculos[identificador].url,
 													this._vinculos[identificador].parametros );
 		}
+		url = url.reemplazar('&amp;', '&');
 		if (this._vinculos[identificador].popup == '1' ) {
 			abrir_popup(identificador,url,this._vinculos[identificador].popup_parametros);
 		} else {
