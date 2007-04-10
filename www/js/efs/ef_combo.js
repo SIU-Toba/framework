@@ -137,6 +137,9 @@ ef_radio.prototype.constructor = ef_radio;
 			if (elem[i].checked) {
 				return elem[i].value;
 			}
+			if (elem[i].type == 'hidden') {
+				return elem[i].value;
+			}			
 		}
 		return apex_ef_no_seteado;
 	};

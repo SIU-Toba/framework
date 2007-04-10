@@ -147,6 +147,9 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		valores = [];
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
+			if (elem[i].type == 'hidden') {
+				valores.push(elem[i].value);
+			}
 			if (elem[i].checked) {
 				valores.push(elem[i].value);
 			}
