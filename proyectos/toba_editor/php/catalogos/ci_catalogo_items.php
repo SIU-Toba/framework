@@ -136,7 +136,7 @@ class pant_catalogo_items extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		foreach($this->_dependencias as $dep) {
+		foreach($this->get_dependencias() as $dep) {
 			$dep->generar_html();
 		}
 	}	

@@ -10,13 +10,13 @@ class eiform_relacion extends toba_ei_formulario
 	{
 		echo "<table class='tabla-0'  width='{$this->info_formulario['ancho']}'>";
 		echo "<tr><td class='abm-fila'>\n";
-		$this->_elemento_formulario['identificador']->obtener_interface_ei();    
+		$this->ef('identificador')->obtener_interface_ei();    
 		echo "</td></tr>\n";
 		echo "<tr><td class='abm-fila'>\n";
-		$this->_elemento_formulario['orden']->obtener_interface_ei();    
+		$this->ef('orden')->obtener_interface_ei();    
 		echo "</td></tr>\n";
 		echo "<tr><td class='abm-fila'>\n";
-		$this->_elemento_formulario['cascada']->obtener_interface_ei();    
+		$this->ef('cascada')->obtener_interface_ei();    
 		echo "</td></tr>\n";
 		echo "<tr><td class='abm-fila'>\n";
 			echo "<table class='tabla-0'  width='100%'>";
@@ -24,10 +24,10 @@ class eiform_relacion extends toba_ei_formulario
 				echo "<fieldset style='padding: 10px'><legend>Tabla MADRE</legend>";
 				echo "<table class='tabla-0'  width='100%'>";
 				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
-				$this->_elemento_formulario['padre']->obtener_interface_ei(true);    
+				$this->ef('padre')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
-				$this->_elemento_formulario['padre_columnas']->obtener_interface_ei(true);    
+				$this->ef('padre_columnas')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				echo "</fieldset>";
@@ -35,10 +35,10 @@ class eiform_relacion extends toba_ei_formulario
 				echo "<fieldset style='padding: 10px'><legend>Tabla HIJA</legend>";
 				echo "<table class='tabla-0'  width='100%'>";
 				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
-				$this->_elemento_formulario['hija']->obtener_interface_ei(true);    
+				$this->ef('hija')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "<tr><td class='abm-fila' style='text-align: left;'>\n";
-				$this->_elemento_formulario['hija_columnas']->obtener_interface_ei(true);    
+				$this->ef('hija_columnas')->obtener_interface_ei(true);    
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				echo "</fieldset>";

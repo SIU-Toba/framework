@@ -532,7 +532,25 @@ abstract class toba_componente
 	{
 		return isset($this->_indice_dependencias[$id]);	
 	}
+
+	/**
+	 * Retorna un array con las dependencias cargadas del componente
+	 * @return array
+	 */
+	function get_dependencias()
+	{
+		return $this->_dependencias;		
+	}
 	
+	/**
+	 * Retorna la cantidad de dependencias cargadas
+	 * @return integer
+	 */
+	function get_cantidad_dependencias()
+	{
+		return count($this->_dependencias);		
+	}
+
 	/**
 	 * Devuelve las dependencias cuya clase de componente coincide con la expresion regular pasada como parametro
 	 * @return array

@@ -304,6 +304,15 @@ class toba_ei_formulario extends toba_ei
 	}
 	
 	/**
+	 * Retorna la cantidad de efs
+	 * @return integer
+	 */
+	function get_cantidad_efs()
+	{
+		return count($this->_lista_ef_post);
+	}
+	
+	/**
 	 * Retorna la lista de identificadores que no estan desactivados
 	 * @return array
 	 */
