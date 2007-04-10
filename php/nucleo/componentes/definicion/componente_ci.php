@@ -26,7 +26,7 @@ class componente_ci extends componente_ei
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//-- Info BASICA --------------
-		$sql["info_ci"]['sql'] = "		SELECT		ev_procesar_etiq		as	ev_procesar_etiq,
+		$sql["_info_ci"]['sql'] = "		SELECT		ev_procesar_etiq		as	ev_procesar_etiq,
 													ev_cancelar_etiq		as	ev_cancelar_etiq,
 													objetos					as	objetos,
 													ancho					as	ancho,			
@@ -37,13 +37,13 @@ class componente_ci extends componente_ei
 											FROM	apex_objeto_mt_me
 											WHERE	objeto_mt_me_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_ci']['sql'] .= "	AND		objeto_mt_me='$componente' ";	
+			$sql['_info_ci']['sql'] .= "	AND		objeto_mt_me='$componente' ";	
 		}
-		$sql['info_ci']['sql'] .= ";";
-		$sql['info_ci']['registros']='1';
-		$sql['info_ci']['obligatorio']=true;
+		$sql['_info_ci']['sql'] .= ";";
+		$sql['_info_ci']['registros']='1';
+		$sql['_info_ci']['obligatorio']=true;
 		//-- PANTALLAS --------------
-		$sql["info_ci_me_pantalla"]['sql'] = "SELECT	
+		$sql["_info_ci_me_pantalla"]['sql'] = "SELECT	
 													pantalla			as pantalla,	
 													identificador			as identificador,
 													etiqueta			  	as etiqueta,
@@ -59,13 +59,13 @@ class componente_ci extends componente_ei
 									 	FROM	apex_objeto_ci_pantalla
 										WHERE	objeto_ci_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_ci_me_pantalla']['sql'] .= "	AND		objeto_ci='$componente' ";	
+			$sql['_info_ci_me_pantalla']['sql'] .= "	AND		objeto_ci='$componente' ";	
 		}
-		$sql['info_ci_me_pantalla']['sql'] .= "ORDER	BY	orden;";
-		$sql['info_ci_me_pantalla']['registros']='n';
-		$sql['info_ci_me_pantalla']['obligatorio']=true;
+		$sql['_info_ci_me_pantalla']['sql'] .= "ORDER	BY	orden;";
+		$sql['_info_ci_me_pantalla']['registros']='n';
+		$sql['_info_ci_me_pantalla']['obligatorio']=true;
 		//-- DEPENDENCIAS ------------
-		$sql['info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
+		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
 		return $sql;
 	}
 	

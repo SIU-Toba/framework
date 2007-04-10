@@ -16,31 +16,31 @@ require_once('nucleo/lib/toba_parser_ayuda.php');
 class toba_ci extends toba_ei
 {
 	// General
-	protected $info_ci = array();
-	protected $info_ci_me_pantalla = array();
- 	protected $prefijo = 'ci';
-	protected $cn=null;								// Controlador de negocio asociado
-	protected $dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
-	protected $dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
-	protected $dependencias_inicializadas = array();// Lista de dependencias inicializadas
-	protected $dependencias_configuradas = array();
-	protected $eventos;								// Lista de eventos que expone el CI
-	protected $evento_actual;						// Evento propio recuperado de la interaccion
-	protected $evento_actual_param;					// Parametros del evento actual
-	protected $posicion_botonera;					// Posicion de la botonera en la interface
+	protected $_info_ci = array();
+	protected $_info_ci_me_pantalla = array();
+ 	protected $_prefijo = 'ci';
+	protected $_cn=null;								// Controlador de negocio asociado
+	protected $_dependencias_ci = array();			// Lista de dependencias CI utilizadas en el REQUEST
+	protected $_dependencias_gi = array();			// Dependencias utilizadas para la generacion de la interface
+	protected $_dependencias_inicializadas = array();// Lista de dependencias inicializadas
+	protected $_dependencias_configuradas = array();
+	protected $_eventos;								// Lista de eventos que expone el CI
+	protected $_evento_actual;						// Evento propio recuperado de la interaccion
+	protected $_evento_actual_param;					// Parametros del evento actual
+	protected $_posicion_botonera;					// Posicion de la botonera en la interface
 	// Pantalla
-	protected $pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
-	private   $pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio
-	protected $pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
-	protected $en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
-	protected $ini_operacion = true;				// Indica si la operación recién se inicia
-	protected $wizard_sentido_navegacion;			// Indica si el wizard avanza o no
+	protected $_pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
+	private   $_pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio
+	protected $_pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
+	protected $_en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
+	protected $_ini_operacion = true;				// Indica si la operación recién se inicia
+	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
 	
 	function __construct($id)
 	{
-		$this->set_propiedades_sesion(array('ini_operacion'));		
+		$this->set_propiedades_sesion(array('_ini_operacion'));		
 		parent::__construct($id);
-		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
+		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
 
 	/**
@@ -56,13 +56,13 @@ class toba_ci extends toba_ei
 	function destruir()
 	{
 		$this->fin();
-		if( isset($this->pantalla_servicio) ){
+		if( isset($this->_pantalla_servicio) ){
 			//Guardo INFO sobre la interface generada
-			$this->memoria['pantalla_dep'] = $this->pantalla_servicio->get_lista_dependencias();
-			$this->memoria['pantalla_servicio'] = $this->pantalla_id_servicio;
-			$this->memoria['tabs'] = array_keys($this->pantalla_servicio->get_lista_tabs());
-			$this->eventos_usuario_utilizados = $this->pantalla_servicio->get_lista_eventos_usuario();
-			$this->eventos = $this->pantalla_servicio->get_lista_eventos_internos();
+			$this->_memoria['pantalla_dep'] = $this->_pantalla_servicio->get_lista_dependencias();
+			$this->_memoria['pantalla_servicio'] = $this->_pantalla_id_servicio;
+			$this->_memoria['tabs'] = array_keys($this->_pantalla_servicio->get_lista_tabs());
+			$this->_eventos_usuario_utilizados = $this->_pantalla_servicio->get_lista_eventos_usuario();
+			$this->_eventos = $this->_pantalla_servicio->get_lista_eventos_internos();
 		}
 		parent::destruir();
 	}
@@ -79,12 +79,12 @@ class toba_ci extends toba_ei
 	function inicializar($parametro=null)
 	{
 		if(isset($parametro)){
-			$this->nombre_formulario = $parametro["nombre_formulario"];
+			$this->_nombre_formulario = $parametro["nombre_formulario"];
 		}
-		if ($this->ini_operacion) {
-			$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');
+		if ($this->_ini_operacion) {
+			$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');
 			$this->ini__operacion();
-			$this->ini_operacion = false;
+			$this->_ini_operacion = false;
 		}
 		$this->ini();
 		$this->definir_pantalla_eventos();		
@@ -119,16 +119,16 @@ class toba_ci extends toba_ei
 	 */
 	function disparar_limpieza_memoria()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
 		foreach($this->get_dependencias_ci() as $dep){
-			if( !isset($this->dependencias[$dep]) ){
+			if( !isset($this->_dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->dependencias[$dep]->disparar_limpieza_memoria();
+			$this->_dependencias[$dep]->disparar_limpieza_memoria();
 		}
-		$this->evt__limpieza_memoria(array('ini_operacion'));
-		unset($this->pantalla_id_eventos);		
-		$this->log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');	
+		$this->evt__limpieza_memoria(array('_ini_operacion'));
+		unset($this->_pantalla_id_eventos);		
+		$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');	
 		$this->ini__operacion();
 	}
 	
@@ -154,7 +154,7 @@ class toba_ci extends toba_ei
 	 */
 	function asignar_controlador_negocio( $controlador )
 	{
-		$this->cn = $controlador;
+		$this->_cn = $controlador;
 	}
 
 	//--  ENTRADA de DATOS ----
@@ -167,15 +167,15 @@ class toba_ci extends toba_ei
 	 */
 	function disparar_obtencion_datos_cn( $parametros=null )
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]", 'toba');
 		$this->evt__get_datos_cn( $parametros );
 		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
-			if( !isset($this->dependencias[$dep]) ){
+			if( !isset($this->_dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'", 'toba');
-			$this->dependencias[$dep]->disparar_obtencion_datos_cn( $parametros );
+			$this->_log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'", 'toba');
+			$this->_dependencias[$dep]->disparar_obtencion_datos_cn( $parametros );
 		}
 	}
 
@@ -189,7 +189,7 @@ class toba_ci extends toba_ei
 	function evt__get_datos_cn( $modo=null )
 	{
 		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
-		$this->log->warning($this->get_txt() . "[ evt__get_datos_cn ] No fue redefinido!");
+		$this->_log->warning($this->get_txt() . "[ evt__get_datos_cn ] No fue redefinido!");
 	}
 
 	//--  SALIDA de DATOS ----
@@ -201,15 +201,15 @@ class toba_ci extends toba_ei
 	 */	
 	function disparar_entrega_datos_cn()
 	{
-		$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]", 'toba');
 		$this->evt__entregar_datos_cn();
 		$deps = $this->get_dependencias_ci();
 		foreach( $deps as $dep ){
-			if( !isset($this->dependencias[$dep]) ){
+			if( !isset($this->_dependencias[$dep]) ){
 				$this->inicializar_dependencias(array($dep));
 			}
-			$this->log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'", 'toba');
-			$this->dependencias[$dep]->disparar_entrega_datos_cn();
+			$this->_log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'", 'toba');
+			$this->_dependencias[$dep]->disparar_entrega_datos_cn();
 		}
 	}
 
@@ -221,7 +221,7 @@ class toba_ci extends toba_ei
 	function evt__entregar_datos_cn()
 	{
 		//Esta funcion hay que redefinirla en un hijo para ENTREGAR datos
-		$this->log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
+		$this->_log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
 	}
 
 	protected function get_dependencias_ci()
@@ -245,24 +245,24 @@ class toba_ci extends toba_ei
 	 */
 	function disparar_eventos()
 	{
-		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');
+		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');
 
 		//--- Si no hubo servicio anterior, no se atienden eventos
-		if (isset($this->pantalla_id_eventos)) {
+		if (isset($this->_pantalla_id_eventos)) {
 			$this->controlar_eventos_propios();
 			//Los eventos que no manejan dato tienen que controlarse antes
-			if( isset($this->memoria['eventos'][$this->evento_actual]) && 
-					$this->memoria['eventos'][$this->evento_actual] == apex_ei_evt_no_maneja_datos ) {
+			if( isset($this->_memoria['eventos'][$this->_evento_actual]) && 
+					$this->_memoria['eventos'][$this->_evento_actual] == apex_ei_evt_no_maneja_datos ) {
 				$this->disparar_evento_propio();
 			} else {
 				//Disparo los eventos de las dependencias
 				foreach( $this->get_dependencias_eventos() as $dep) {
-					$this->dependencias[$dep]->disparar_eventos();
+					$this->_dependencias[$dep]->disparar_eventos();
 				}
 				$this->disparar_evento_propio();
 			}
 		} else {
- 			$this->log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
+ 			$this->_log->debug( $this->get_txt() . "No hay señales de un servicio anterior, no se atrapan eventos", 'toba');
 		}
 		$this->post_eventos();		
 		$this->controlar_cambio_pantalla();
@@ -280,23 +280,23 @@ class toba_ci extends toba_ei
 	 */
 	protected function controlar_cambio_pantalla()
 	{
-		$cambio_pantalla_explicito = (isset($this->pantalla_id_servicio) && 
-										isset($this->pantalla_id_eventos) &&
-				 						$this->pantalla_id_servicio !== $this->pantalla_id_eventos);
+		$cambio_pantalla_explicito = (isset($this->_pantalla_id_servicio) && 
+										isset($this->_pantalla_id_eventos) &&
+				 						$this->_pantalla_id_servicio !== $this->_pantalla_id_eventos);
 		
 		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
 		if ($cambio_pantalla_explicito) { 
 			try {
 				// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
-				$evento_salida = apex_ei_evento . apex_ei_separador . $this->pantalla_id_eventos . apex_ei_separador . "salida";
+				$evento_salida = apex_ei_evento . apex_ei_separador . $this->_pantalla_id_eventos . apex_ei_separador . "salida";
 				$this->invocar_callback($evento_salida);				
 	
 				// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
-				$evento_entrada = apex_ei_evento . apex_ei_separador . $this->pantalla_id_servicio . apex_ei_separador . "entrada";
+				$evento_entrada = apex_ei_evento . apex_ei_separador . $this->_pantalla_id_servicio . apex_ei_separador . "entrada";
 				$this->invocar_callback($evento_entrada);
 			} catch (toba_error $e) {
 				//--- Si se lanza una excepción se recupera el id de la pantalla original
-				$this->pantalla_id_servicio = $this->pantalla_id_eventos;
+				$this->_pantalla_id_servicio = $this->_pantalla_id_eventos;
 				throw $e;	
 			}
 		}
@@ -308,13 +308,13 @@ class toba_ci extends toba_ei
 	 */
 	protected function controlar_eventos_propios()
 	{
-		$this->evento_actual = "";
-		if (isset($_POST[$this->submit]) && $_POST[$this->submit] != '') {
-			$evento = $_POST[$this->submit];
+		$this->_evento_actual = "";
+		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit] != '') {
+			$evento = $_POST[$this->_submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
-			if (isset( $this->memoria['eventos'][$evento] )) {
-				$this->evento_actual = $evento;
-				$this->evento_actual_param = $_POST[$this->submit."__param"];
+			if (isset( $this->_memoria['eventos'][$evento] )) {
+				$this->_evento_actual = $evento;
+				$this->_evento_actual_param = $_POST[$this->_submit."__param"];
 			} else {
 				throw new toba_error('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
 			}
@@ -327,34 +327,34 @@ class toba_ci extends toba_ei
 	 */
 	protected function disparar_evento_propio()
 	{
-		if($this->evento_actual != "")	{
-			$metodo = apex_ei_evento . apex_ei_separador . $this->evento_actual;
+		if($this->_evento_actual != "")	{
+			$metodo = apex_ei_evento . apex_ei_separador . $this->_evento_actual;
 			if(method_exists($this, $metodo)){
 				//Ejecuto el metodo que implementa al evento
-				$this->log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->evento_actual}' -> [ $metodo ]", 'toba');
-				$this->$metodo($this->evento_actual_param);
+				$this->_log->debug( $this->get_txt() . "[ disparar_evento_propio ] '{$this->_evento_actual}' -> [ $metodo ]", 'toba');
+				$this->$metodo($this->_evento_actual_param);
 			
 				//Comunico el evento al contenedor
-				$this->reportar_evento( $this->evento_actual );
+				$this->reportar_evento( $this->_evento_actual );
 			}else{
-				$this->log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->evento_actual}' no fue atrapado", 'toba');
+				$this->_log->info($this->get_txt() . "[ disparar_evento_propio ]  El METODO [ $metodo ] no existe - '{$this->_evento_actual}' no fue atrapado", 'toba');
 			}
 		}
 		
 		//--- El cambio de tab es un evento
 		//--- Si se lanzo se determina cual es el candidato (aun falta la aprobacion)
-		if (isset($_POST[$this->submit])) {
-			$submit = $_POST[$this->submit];
+		if (isset($_POST[$this->_submit])) {
+			$submit = $_POST[$this->_submit];
 			//Se pidio explicitamente un id de pantalla o navegar atras-adelante?
 			$tab = (strpos($submit, 'cambiar_tab_') !== false) ? str_replace('cambiar_tab_', '', $submit) : false;
 			if ($tab == '_siguiente' || $tab == '_anterior') {
-				$this->wizard_sentido_navegacion = ($tab == '_anterior') ? 0 : 1;
-				$this->pantalla_id_servicio = $this->ir_a_limitrofe();
+				$this->_wizard_sentido_navegacion = ($tab == '_anterior') ? 0 : 1;
+				$this->_pantalla_id_servicio = $this->ir_a_limitrofe();
 			} else {
 				//--- Se pidio un cambio explicito
 				if ($tab !== false) {
-					if(isset($this->memoria['tabs']) && in_array($tab, $this->memoria['tabs'])){
-						$this->pantalla_id_servicio = $tab;
+					if(isset($this->_memoria['tabs']) && in_array($tab, $this->_memoria['tabs'])){
+						$this->_pantalla_id_servicio = $tab;
 					}else{
 						toba::logger()->crit("No se pudo determinar los tabs anteriores, no se encuentra en la memoria sincronizada");
 					}
@@ -377,7 +377,7 @@ class toba_ci extends toba_ei
 		array_splice($parametros, 0 , 2);
 		$metodo = apex_ei_evento . apex_ei_separador . $id . apex_ei_separador . $evento;
 		if (method_exists($this, $metodo)) {
-			$this->log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
+			$this->_log->debug( $this->get_txt() . "[ registrar_evento ] '$evento' -> [ $metodo ]\n" . var_export($parametros, true), 'toba');
 
       $componente = $this->dep($id);
       if ($componente->tiene_puntos_control($evento))
@@ -385,7 +385,7 @@ class toba_ci extends toba_ei
 
       return call_user_func_array(array($this, $metodo), $parametros);
 		} else {
-			$this->log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
+			$this->_log->info($this->get_txt() . "[ registrar_evento ]  El METODO [ $metodo ] no existe - '$evento' no fue atrapado", 'toba');
 			return apex_ei_evt_sin_rpta;
 		}
 	}	
@@ -413,10 +413,10 @@ class toba_ci extends toba_ei
 	 */
 	function evt__cancelar()
 	{
-		$this->log->debug($this->get_txt() . "[ evt__cancelar ]", 'toba');
+		$this->_log->debug($this->get_txt() . "[ evt__cancelar ]", 'toba');
 		$this->disparar_limpieza_memoria();
-		if(isset($this->cn)){
-			$this->cn->cancelar();			
+		if(isset($this->_cn)){
+			$this->_cn->cancelar();			
 		}
 	}
 
@@ -425,10 +425,10 @@ class toba_ci extends toba_ei
 	 */
 	function evt__procesar()
 	{
-		$this->log->debug($this->get_txt() . "[ evt__procesar ]", 'toba');
-		if(isset($this->cn)){
+		$this->_log->debug($this->get_txt() . "[ evt__procesar ]", 'toba');
+		if(isset($this->_cn)){
 			$this->disparar_entrega_datos_cn();
-			$this->cn->procesar();
+			$this->_cn->procesar();
 		}
 		$this->disparar_limpieza_memoria();
 	}
@@ -446,12 +446,12 @@ class toba_ci extends toba_ei
 	protected function inicializar_dependencias( $dependencias )
 	{
 		toba_asercion::es_array($dependencias,"No hay dependencias definidas");
-		$this->log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true), 'toba');
+		$this->_log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true), 'toba');
 		//Parametros a generales
-		$parametro["nombre_formulario"] = $this->nombre_formulario;
+		$parametro["nombre_formulario"] = $this->_nombre_formulario;
 		foreach($dependencias as $dep)
 		{
-			if (isset($this->dependencias[$dep])) {
+			if (isset($this->_dependencias[$dep])) {
 				//La dependencia ya se encuentra cargada
 				continue;
 			}
@@ -469,16 +469,16 @@ class toba_ci extends toba_ei
 	 */
 	protected function inicializar_dependencia($dep, $parametro)
 	{
-		if( in_array( $dep, $this->dependencias_inicializadas ) )  return;
-		if ($this->dependencias[$dep] instanceof toba_ci ){
-			$this->dependencias_ci[$dep] = $this->dependencias[$dep]->get_clave_memoria_global();
-			if(isset($this->cn)){
-				$this->dependencias[$dep]->asignar_controlador_negocio( $this->cn );
+		if( in_array( $dep, $this->_dependencias_inicializadas ) )  return;
+		if ($this->_dependencias[$dep] instanceof toba_ci ){
+			$this->_dependencias_ci[$dep] = $this->_dependencias[$dep]->get_clave_memoria_global();
+			if(isset($this->_cn)){
+				$this->_dependencias[$dep]->asignar_controlador_negocio( $this->_cn );
 			}
 		}
-		$this->dependencias[$dep]->set_controlador($this, $dep); //Se hace antes para que puede acceder a su padre
-		$this->dependencias[$dep]->inicializar($parametro);
-		$this->dependencias_inicializadas[] = $dep;
+		$this->_dependencias[$dep]->set_controlador($this, $dep); //Se hace antes para que puede acceder a su padre
+		$this->_dependencias[$dep]->inicializar($parametro);
+		$this->_dependencias_inicializadas[] = $dep;
 	}
 
 	/**
@@ -491,16 +491,16 @@ class toba_ci extends toba_ei
 	function dependencia($id, $carga_en_demanda = true)
 	{
 		$dependencia = parent::dependencia( $id, $carga_en_demanda );
-		if (! in_array( $id, $this->dependencias_inicializadas ) ) {
+		if (! in_array( $id, $this->_dependencias_inicializadas ) ) {
  			if (  $dependencia instanceof toba_ei ) {
 				$parametro['id'] = $id;
-				$parametro['nombre_formulario'] = $this->nombre_formulario;
+				$parametro['nombre_formulario'] = $this->_nombre_formulario;
 				$this->inicializar_dependencia( $id, $parametro );
 			}
 		}
 		//--- A los eis se les debe configurar cuando estan en servicio
-		if (	$this->en_servicio
-				&& $this->dependencias[$id] instanceof toba_ei 
+		if (	$this->_en_servicio
+				&& $this->_dependencias[$id] instanceof toba_ei 
 				&& ! $this->dependencia_esta_configurada($id) ) {
 			$this->configurar_dep($id);
 		}
@@ -515,8 +515,8 @@ class toba_ci extends toba_ei
 	protected function get_dependencias_eventos()
 	{
 		//Memoria sobre dependencias que fueron a la interface
-		if( isset($this->memoria['pantalla_dep']) ){
-			$dependencias = $this->memoria['pantalla_dep'];
+		if( isset($this->_memoria['pantalla_dep']) ){
+			$dependencias = $this->_memoria['pantalla_dep'];
 			//Necesito cargar los daos dinamicos?
 			//Esto es posible si los EF chequean que su valor se encuentre entre los posibles
 			$this->inicializar_dependencias( $dependencias );
@@ -528,9 +528,9 @@ class toba_ci extends toba_ei
 			$form_ml = array();
 			$otros = array();
 			foreach ($dependencias as $dep) {
-				if ($this->dependencias[$dep] instanceof toba_ei_cuadro) {
+				if ($this->_dependencias[$dep] instanceof toba_ei_cuadro) {
 					$cuadros[] = $dep;
-				} elseif ($this->dependencias[$dep] instanceof toba_ei_formulario_ml) {
+				} elseif ($this->_dependencias[$dep] instanceof toba_ei_formulario_ml) {
 					$form_ml[] = $dep;
 				} else {
 					$otros[] = $dep;	
@@ -553,10 +553,10 @@ class toba_ci extends toba_ei
 	protected function definir_pantalla_eventos()
 	{
 		//--- La pantalla anterior de servicio ahora se convierte en la potencial pantalla de eventos
-		if (isset($this->memoria['pantalla_servicio'])) {
-			$this->pantalla_id_eventos = $this->memoria['pantalla_servicio'];
-			unset($this->memoria['pantalla_servicio']);
-			$this->log->debug( $this->get_txt() . "Pantalla de eventos: '{$this->pantalla_id_eventos}'", 'toba');			
+		if (isset($this->_memoria['pantalla_servicio'])) {
+			$this->_pantalla_id_eventos = $this->_memoria['pantalla_servicio'];
+			unset($this->_memoria['pantalla_servicio']);
+			$this->_log->debug( $this->get_txt() . "Pantalla de eventos: '{$this->_pantalla_id_eventos}'", 'toba');			
 		}
 	}
 
@@ -569,7 +569,7 @@ class toba_ci extends toba_ei
 	 */
 	function get_pantalla_inicial()
 	{
-		return $this->info_ci_me_pantalla[0]["identificador"];
+		return $this->_info_ci_me_pantalla[0]["identificador"];
 	}
 	
 	
@@ -578,12 +578,12 @@ class toba_ci extends toba_ei
 	 */
 	protected function ir_a_limitrofe()
 	{
-		if (!isset($this->pantalla_id_eventos)) {
+		if (!isset($this->_pantalla_id_eventos)) {
 			toba::logger()->crit("No se pudo determinar la pantalla anterior, no se encuentra en la memoria sincronizada");
 			return $this->get_pantalla_inicial();
 		}
-		$limitrofes = array_elem_limitrofes($this->memoria['tabs'], $this->pantalla_id_eventos);
-		return $limitrofes[$this->wizard_sentido_navegacion];
+		$limitrofes = array_elem_limitrofes($this->_memoria['tabs'], $this->_pantalla_id_eventos);
+		return $limitrofes[$this->_wizard_sentido_navegacion];
 	}
 	
 	/**
@@ -592,7 +592,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function wizard_avanza()
 	{
-		return isset($this->wizard_sentido_navegacion) && ($this->wizard_sentido_navegacion == 1);
+		return isset($this->_wizard_sentido_navegacion) && ($this->_wizard_sentido_navegacion == 1);
 	}
 
 	//------------------------------------------------
@@ -605,13 +605,13 @@ class toba_ci extends toba_ei
 	 */
 	function pre_configurar()
 	{
-		$this->en_servicio = true;
+		$this->_en_servicio = true;
 		//--- Es posible que nadie haya decidido aun la pantalla ,se decide aca
-		if (! isset($this->pantalla_id_servicio)) {
-			if (isset( $this->pantalla_id_eventos )) {
-				$this->pantalla_id_servicio =  $this->pantalla_id_eventos;
+		if (! isset($this->_pantalla_id_servicio)) {
+			if (isset( $this->_pantalla_id_eventos )) {
+				$this->_pantalla_id_servicio =  $this->_pantalla_id_eventos;
 			} else {
-				$this->pantalla_id_servicio = $this->get_pantalla_inicial();
+				$this->_pantalla_id_servicio = $this->get_pantalla_inicial();
 			}
 		}		
 		
@@ -619,7 +619,7 @@ class toba_ci extends toba_ei
 		$this->conf();
 		
 		//--- Configuracion pers. pantalla actual
-		$this->invocar_callback('conf__'.$this->pantalla_id_servicio, $this->pantalla());
+		$this->invocar_callback('conf__'.$this->_pantalla_id_servicio, $this->pantalla());
 		$this->pantalla()->post_configurar();		
 	}
 	
@@ -632,19 +632,19 @@ class toba_ci extends toba_ei
 		if ($this->dependencia_esta_configurada($dep)) {
 			throw new toba_error("La dependencia '$dep' ya ha sido configurada anteriormente");
 		}
-		$this->dependencias_configuradas[] = $dep;		
+		$this->_dependencias_configuradas[] = $dep;		
 		//--- Config. por defecto
-		$this->dependencias[$dep]->pre_configurar();
+		$this->_dependencias[$dep]->pre_configurar();
 		//--- Config. personalizada
-		//ei_arbol($this->dependencias, $dep);return;
-		$rpta = $this->invocar_callback('conf__'.$dep, $this->dependencias[$dep]);
+		//ei_arbol($this->_dependencias, $dep);return;
+		$rpta = $this->invocar_callback('conf__'.$dep, $this->_dependencias[$dep]);
 		//--- Por comodidad y compat.hacia atras, si se responde con algo se asume que es para cargarle datos
 		if (isset($rpta) && $rpta !== apex_callback_sin_rpta) {
-			$this->dependencias[$dep]->set_datos($rpta);
+			$this->_dependencias[$dep]->set_datos($rpta);
 		}		
 		
 		//--- Config. por defecto
-		$this->dependencias[$dep]->post_configurar();
+		$this->_dependencias[$dep]->post_configurar();
 	}
 	
 	/**
@@ -653,7 +653,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function dependencia_esta_configurada($id)
 	{
-		return in_array($id, $this->dependencias_configuradas);
+		return in_array($id, $this->_dependencias_configuradas);
 	}
 	
 	/**
@@ -674,7 +674,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function get_info_pantalla($id)
 	{
-		foreach($this->info_ci_me_pantalla as $info_pantalla) {
+		foreach($this->_info_ci_me_pantalla as $info_pantalla) {
 			if ($info_pantalla['identificador'] == $id) {
 				return $info_pantalla;	
 			}
@@ -689,22 +689,22 @@ class toba_ci extends toba_ei
 	 */
 	function pantalla()
 	{
-		if (! isset($this->pantalla_servicio)) {
+		if (! isset($this->_pantalla_servicio)) {
 
-			$this->log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->pantalla_id_servicio}'", 'toba');
+			$this->_log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->_pantalla_id_servicio}'", 'toba');
 			require_once('toba_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			
 			if(!isset($id_pantalla)) {
 				//Se esta consumiendo la pantalla antes de la configuracion,
 				//y sin un set_pantalla de por medio: utilizo la misma pantalla de los eventos.
-				$id_pantalla = $this->pantalla_id_eventos;
+				$id_pantalla = $this->_pantalla_id_eventos;
 			}	
 			$info_pantalla = $this->get_info_pantalla($id_pantalla);
-			$info = array('info' => $this->info,
-						 'info_ci' => $this->info_ci, 
-						 'info_eventos' => $this->info_eventos,
-						 'info_ci_me_pantalla' => $this->info_ci_me_pantalla);
-			$info['info_pantalla'] = $info_pantalla;
+			$info = array('_info' => $this->_info,
+						 '_info_ci' => $this->_info_ci, 
+						 '_info_eventos' => $this->_info_eventos,
+						 '_info_ci_me_pantalla' => $this->_info_ci_me_pantalla);
+			$info['_info_pantalla'] = $info_pantalla;
 			
 			if (isset($info_pantalla['subclase_archivo'])) {
 				require_once($info_pantalla['subclase_archivo']);
@@ -713,11 +713,11 @@ class toba_ci extends toba_ei
 			if (isset($info_pantalla['subclase'])) {
 				$clase = $info_pantalla['subclase'];
 			}
-			$this->pantalla_servicio = new $clase($info, $this->submit, $this->objeto_js);	
-			$this->pantalla_servicio->set_controlador($this, $id_pantalla);
-			$this->pantalla_servicio->pre_configurar();
+			$this->_pantalla_servicio = new $clase($info, $this->_submit, $this->objeto_js);	
+			$this->_pantalla_servicio->set_controlador($this, $id_pantalla);
+			$this->_pantalla_servicio->pre_configurar();
 		}
-		return $this->pantalla_servicio;
+		return $this->_pantalla_servicio;
 	}
 
 	/**
@@ -737,16 +737,16 @@ class toba_ci extends toba_ei
 	protected function set_pantalla($id)
 	{
     $ok = false;
-    foreach($this->info_ci_me_pantalla as $info_pantalla) 
+    foreach($this->_info_ci_me_pantalla as $info_pantalla) 
 			$ok |= ($info_pantalla['identificador'] == $id);
 
 		if (! $ok) 
 			throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
 
-		if (isset($this->pantalla_servicio)) 
+		if (isset($this->_pantalla_servicio)) 
 			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
 
-    $this->pantalla_id_servicio	= $id;
+    $this->_pantalla_id_servicio	= $id;
 	}
 
 	/**
@@ -755,7 +755,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function get_id_pantalla()
 	{
-		return $this->pantalla_id_servicio;	
+		return $this->_pantalla_id_servicio;	
 	}
 
 	/**

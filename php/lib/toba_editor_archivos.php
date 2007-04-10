@@ -23,10 +23,11 @@ class toba_editor_texto
 
 class toba_editor_archivos extends toba_editor_texto
 {
-	function procesar_archivo( $archivo )
+	function procesar_archivo( $archivo, $archivo_resultado=null )
 	{
+		$archivo_resultado = isset($archivo_resultado) ? $archivo_resultado : $archivo;
 		$texto = $this->procesar(file_get_contents( $archivo ));
-		file_put_contents( $archivo, $texto );
+		file_put_contents( $archivo_resultado, $texto );
 	}
 	
 	function procesar_archivos( $archivos )

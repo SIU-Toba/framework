@@ -14,7 +14,7 @@ class info_ei_cuadro extends info_ei
 		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );
 		// Cortes de control
 		$molde->agregar( new toba_molde_separador_php('Configuracion de Pantallas','Pantallas') );
-		$datos_cortes = rs_ordenar_por_columna($this->datos['info_cuadro_cortes'],'orden');
+		$datos_cortes = rs_ordenar_por_columna($this->datos['_info_cuadro_cortes'],'orden');
 		foreach($datos_cortes as $corte) {
 			$molde->agregar( new toba_molde_metodo_php('sumarizar_cc__' . $corte['identificador'] . '__IDENTIFICADOR', array('$filas') ) );
 			$molde->ultimo_elemento()->set_contenido('return 0;');
@@ -41,7 +41,7 @@ class info_ei_cuadro extends info_ei
 	}
 
 	function ordenable() {
-		return $this->datos['info_cuadro']['ordenar'];
+		return $this->datos['_info_cuadro']['ordenar'];
 	}
 
 	function get_comentario_carga()

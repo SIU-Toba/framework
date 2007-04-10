@@ -15,41 +15,43 @@ define("apex_cuadro_cc_anidado","a");
  */
 class toba_ei_cuadro extends toba_ei
 {
-	protected $info_cuadro = array();
-	protected $info_cuadro_columna = array();
-	protected $info_cuadro_cortes;
-	protected $prefijo = 'cuadro';	
- 	protected $columnas;
-    protected $cantidad_columnas;                 	// Cantidad de columnas a mostrar
-    protected $cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
-    protected $cantidad_columnas_total;            	// Cantidad total de columnas
-    protected $datos;                             	// Los datos que constituyen el contenido del cuadro
-    protected $columnas_clave;                    	
-	protected $clave_seleccionada;
-	protected $estructura_datos;					// Estructura de datos esperados por el cuadro
-	protected $acumulador;							// Acumulador de totales generales
-	protected $acumulador_sum_usuario;				// Acumulador general de las sumarizaciones del usuario
-	protected $sum_usuario;
-	protected $submit_orden_sentido;
-	protected $submit_orden_columna;
-	protected $submit_paginado;
-	protected $submit_seleccion;
+	protected $_info_cuadro = array();
+	protected $_info_cuadro_columna = array();
+	protected $_info_cuadro_cortes;
+	protected $_prefijo = 'cuadro';	
+ 	protected $_columnas;
+    protected $_cantidad_columnas;                 	// Cantidad de columnas a mostrar
+    protected $_cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
+    protected $_cantidad_columnas_total;            	// Cantidad total de columnas
+    protected $_datos;                             	// Los datos que constituyen el contenido del cuadro
+    protected $_columnas_clave;                    	
+	protected $_clave_seleccionada;
+	protected $_estructura_datos;					// Estructura de datos esperados por el cuadro
+	protected $_acumulador;							// Acumulador de totales generales
+	protected $_acumulador_sum_usuario;				// Acumulador general de las sumarizaciones del usuario
+	protected $_sum_usuario;
+	protected $_submit_orden_sentido;
+	protected $_submit_orden_columna;
+	protected $_submit_paginado;
+	protected $_submit_seleccion;
 	//Orden
-    protected $orden_columna;                     	// Columna utilizada para realizar el orden
-    protected $orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
-    protected $ordenado = false;
+    protected $_orden_columna;                     	// Columna utilizada para realizar el orden
+    protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
+    protected $_ordenado = false;
 	//Paginacion
-	protected $pagina_actual;
-	protected $tamanio_pagina;
-	protected $cantidad_paginas;
+	protected $_pagina_actual;
+	protected $_tamanio_pagina;
+	protected $_cantidad_paginas;
 	//Cortes control
-	protected $cortes_indice;
-	protected $cortes_def;
-	protected $cortes_control;
-	protected $cortes_modo;
+	protected $_cortes_indice;
+	protected $_cortes_def;
+	protected $_cortes_control;
+	protected $_cortes_modo;
 	//Salida
-	protected $tipo_salida;
- 
+	protected $_tipo_salida;
+	
+	protected $_total_registros; 
+    
     function __construct($id)
     {
     	$propiedades = array();
@@ -60,8 +62,8 @@ class toba_ei_cuadro extends toba_ei
 		$this->inicializar_manejo_clave();	
 		if($this->existe_paginado())
 			$this->inicializar_paginado();
-		if (isset($this->memoria['ordenado'])) {
-			$this->ordenado = $this->memoria['ordenado'];
+		if (isset($this->_memoria['ordenado'])) {
+			$this->_ordenado = $this->_memoria['ordenado'];
 		}
 		$this->inspeccionar_sumarizaciones_usuario();
 	}
@@ -73,10 +75,10 @@ class toba_ei_cuadro extends toba_ei
 	function inicializar($parametros)
 	{
 		parent::inicializar($parametros);
-		$this->submit_orden_columna = $this->submit."__orden_columna";
-		$this->submit_orden_sentido = $this->submit."__orden_sentido";
-		$this->submit_seleccion = $this->submit."__seleccion";
-		$this->submit_paginado = $this->submit."__pagina_actual";
+		$this->_submit_orden_columna = $this->_submit."__orden_columna";
+		$this->_submit_orden_sentido = $this->_submit."__orden_sentido";
+		$this->_submit_seleccion = $this->_submit."__seleccion";
+		$this->_submit_paginado = $this->_submit."__pagina_actual";
 	}
 	
 	/**
@@ -87,42 +89,42 @@ class toba_ei_cuadro extends toba_ei
 		$estructura_datos = array();
 		//Armo una estructura que describa las caracteristicas de los cortes
 		if($this->existen_cortes_control()){
-			for($a=0;$a<count($this->info_cuadro_cortes);$a++){
-				$id_corte = $this->info_cuadro_cortes[$a]['identificador'];						// CAMBIAR !
+			for($a=0;$a<count($this->_info_cuadro_cortes);$a++){
+				$id_corte = $this->_info_cuadro_cortes[$a]['identificador'];						// CAMBIAR !
 				//Genero el Indice
-				$this->cortes_indice[$id_corte] =& $this->info_cuadro_cortes[$a];
+				$this->_cortes_indice[$id_corte] =& $this->_info_cuadro_cortes[$a];
 				//Genero la tabla de definiciones	
-				$col_id = explode(',',$this->info_cuadro_cortes[$a]['columnas_id']);
+				$col_id = explode(',',$this->_info_cuadro_cortes[$a]['columnas_id']);
 				$col_id = array_map('trim',$col_id);
-				$this->cortes_def[$id_corte]['clave'] = $col_id;
-				$col_desc = explode(',',$this->info_cuadro_cortes[$a]['columnas_descripcion']);
+				$this->_cortes_def[$id_corte]['clave'] = $col_id;
+				$col_desc = explode(',',$this->_info_cuadro_cortes[$a]['columnas_descripcion']);
 				$col_desc = array_map('trim',$col_desc);
-				$this->cortes_def[$id_corte]['descripcion'] = $col_desc;
+				$this->_cortes_def[$id_corte]['descripcion'] = $col_desc;
 				$estructura_datos = array_merge($estructura_datos, $col_desc, $col_id);
 			}
-			$this->cortes_modo = $this->info_cuadro['cc_modo'];
+			$this->_cortes_modo = $this->_info_cuadro['cc_modo'];
 		}
 		//Procesamiento de columnas
-		for($a=0;$a<count($this->info_cuadro_columna);$a++){
+		for($a=0;$a<count($this->_info_cuadro_columna);$a++){
 			// Indice de columnas
-			$clave = $this->info_cuadro_columna[$a]['clave'];
-			$this->columnas[ $clave ] =& $this->info_cuadro_columna[$a];
+			$clave = $this->_info_cuadro_columna[$a]['clave'];
+			$this->_columnas[ $clave ] =& $this->_info_cuadro_columna[$a];
 			//Sumarizacion general
-			if ($this->info_cuadro_columna[$a]['total'] == 1) {
-				$this->acumulador[$clave]=0;
+			if ($this->_info_cuadro_columna[$a]['total'] == 1) {
+				$this->_acumulador[$clave]=0;
 			}
 			//Estructura de datos
 			//$estructura_datos[] = $clave;
 			// Sumarizacion de columnas por corte
-			if(trim($this->info_cuadro_columna[$a]['total_cc'])!=''){
-				$cortes = explode(',',$this->info_cuadro_columna[$a]['total_cc']);
+			if(trim($this->_info_cuadro_columna[$a]['total_cc'])!=''){
+				$cortes = explode(',',$this->_info_cuadro_columna[$a]['total_cc']);
 				$cortes = array_map('trim',$cortes);
 				foreach($cortes as $corte){
-					$this->cortes_def[$corte]['total'][] = $clave;	
+					$this->_cortes_def[$corte]['total'][] = $clave;	
 				}
 			}
 		}
-		$this->estructura_datos = array_unique($estructura_datos);
+		$this->_estructura_datos = array_unique($estructura_datos);
 	}
 
 	/**
@@ -130,7 +132,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function limpiar_columnas()
 	{
-		$this->info_cuadro_columna = array();
+		$this->_info_cuadro_columna = array();
 	}
 
 	/**
@@ -147,7 +149,7 @@ class toba_ei_cuadro extends toba_ei
 			if (!isset($valor['estilo_titulo']))
 				$columnas[$clave]['total_cc'] = '';
 		}
-		$this->info_cuadro_columna = array_merge($this->info_cuadro_columna, $columnas);
+		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, $columnas);
 	}	
 	
 	/**
@@ -158,8 +160,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function inspeccionar_sumarizaciones_usuario()
 	{
 		//Si soy una subclase
-		if($this->info['subclase']){
-			$this->sum_usuario = array();
+		if($this->_info['subclase']){
+			$this->_sum_usuario = array();
 			$clase = new ReflectionClass(get_class($this));
 			foreach ($clase->getMethods() as $metodo){
 				$id = null;
@@ -170,25 +172,25 @@ class toba_ei_cuadro extends toba_ei
 					}
 					$id = $temp[2];
 					$corte = $temp[1];
-					if(!isset($this->cortes_def[$corte])){	//El corte esta definido?
+					if(!isset($this->_cortes_def[$corte])){	//El corte esta definido?
 						throw new toba_error_def("La funcion de sumarizacion no esta direccionada a un CORTE existente");	
 					}
 					//Agrego la sumarizacion al corte
-					$this->cortes_def[$corte]['sum_usuario'][]=$id;
+					$this->_cortes_def[$corte]['sum_usuario'][]=$id;
 				}elseif(substr($metodo->getName(), 0, 11) == 'sumarizar__'){ 	//** Sumarizacion GENERAL
 					$temp = explode('__', $metodo->getName());
 					$id = $temp[1];
 					$corte = 'toba_total';
-					$this->acumulador_sum_usuario[$id] = 0;
+					$this->_acumulador_sum_usuario[$id] = 0;
 				}
 				if($id){
-					if(isset($this->sum_usuario[$id])){
+					if(isset($this->_sum_usuario[$id])){
 						throw new toba_error_def("Las funciones de sumarizacion deben tener IDs unicos. El id '$id' ya existe");	
 					}
 					// Agrego la sumarizacion en la pila de sumarizaciones.
-					$this->sum_usuario[$id]['metodo'] = $metodo->getName();
-					$this->sum_usuario[$id]['corte'] = $corte;
-					$this->sum_usuario[$id]['descripcion'] = $this->get_desc_sumarizacion($metodo->getDocComment());
+					$this->_sum_usuario[$id]['metodo'] = $metodo->getName();
+					$this->_sum_usuario[$id]['corte'] = $corte;
+					$this->_sum_usuario[$id]['descripcion'] = $this->get_desc_sumarizacion($metodo->getDocComment());
 				}
 			}
 		}		
@@ -205,8 +207,8 @@ class toba_ei_cuadro extends toba_ei
 	
 	function destruir()
 	{
-		if (isset($this->ordenado)) {
-			$this->memoria['ordenado'] = $this->ordenado;	
+		if (isset($this->_ordenado)) {
+			$this->_memoria['ordenado'] = $this->_ordenado;	
 		}
 		$this->finalizar_seleccion();
 		$this->finalizar_ordenamiento();
@@ -224,11 +226,11 @@ class toba_ei_cuadro extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		if($this->info_cuadro["ordenar"]) { 
-			$this->eventos['ordenar'] = array('maneja_datos' => true);
+		if($this->_info_cuadro["ordenar"]) { 
+			$this->_eventos['ordenar'] = array('maneja_datos' => true);
 		}
-		if ($this->info_cuadro["paginar"]) {
-			$this->eventos['cambiar_pagina'] = array('maneja_datos' => true);
+		if ($this->_info_cuadro["paginar"]) {
+			$this->_eventos['cambiar_pagina'] = array('maneja_datos' => true);
 		}
 	}
 
@@ -237,33 +239,33 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	function disparar_eventos()
 	{
-		if (isset($this->memoria['eventos']['ordenar'])) {
+		if (isset($this->_memoria['eventos']['ordenar'])) {
 			$this->refrescar_ordenamiento();
 		}
-		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
-			$evento = $_POST[$this->submit];		
+		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];		
 			//El evento estaba entre los ofrecidos?
-			if(isset($this->memoria['eventos'][$evento]) ) {
+			if(isset($this->_memoria['eventos'][$evento]) ) {
 				switch ($evento) {
 					case 'ordenar':
-						if (isset($this->orden_columna) && isset($this->orden_sentido)) {
-							$parametros = array('sentido'=> $this->orden_sentido, 'columna'=>$this->orden_columna);
+						if (isset($this->_orden_columna) && isset($this->_orden_sentido)) {
+							$parametros = array('sentido'=> $this->_orden_sentido, 'columna'=>$this->_orden_columna);
 							$exitoso = $this->reportar_evento( $evento, $parametros );
 							if ($exitoso !== apex_ei_evt_sin_rpta && $exitoso === false) {
-								$this->ordenado = true;
+								$this->_ordenado = true;
 							} else {
-								$this->ordenado = false;	
+								$this->_ordenado = false;	
 							}
 						}
 						break;
 					case 'cambiar_pagina':
 						$this->cargar_cambio_pagina();
-						$parametros = $this->pagina_actual;
+						$parametros = $this->_pagina_actual;
 						$this->reportar_evento( $evento, $parametros );
 						break;
 					default:
 						$this->cargar_seleccion();
-						$parametros = $this->clave_seleccionada;
+						$parametros = $this->_clave_seleccionada;
 						$this->reportar_evento( $evento, $parametros );						
 				}
 			}
@@ -276,13 +278,13 @@ class toba_ei_cuadro extends toba_ei
 	 */
     function set_datos($datos)
     {
-		$this->datos = $datos;
-		if (!is_array($this->datos)) {
+		$this->_datos = $datos;
+		if (!is_array($this->_datos)) {
 			throw new toba_error_def( $this->get_txt() . 
 					" El parametro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}
-		if (count($this->datos) > 0 ) {
+		if (count($this->_datos) > 0 ) {
 			$this->validar_estructura_datos();
 			// - 2 - Ordenamiento
 			if($this->hay_ordenamiento()){
@@ -311,12 +313,12 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function validar_estructura_datos()
 	{
-		$muestra = current($this->datos);
+		$muestra = current($this->_datos);
 		if (!is_array($muestra)) {
-			$error = array_values($this->estructura_datos);
+			$error = array_values($this->_estructura_datos);
 		} else {
 			$error = array();
-			foreach($this->estructura_datos as $columna){
+			foreach($this->_estructura_datos as $columna){
 				if(!isset($muestra[$columna])){
 					$error[] = $columna;
 				}
@@ -335,7 +337,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function datos_cargados()
 	{
-		return (count($this->datos) > 0);
+		return (count($this->_datos) > 0);
 	}
 
 	/**
@@ -344,11 +346,11 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function calcular_totales_generales()
 	{
-		foreach(array_keys($this->datos) as $dato) {
+		foreach(array_keys($this->_datos) as $dato) {
 			//Incremento el acumulador general
-			if(isset($this->acumulador)){
-				foreach(array_keys($this->acumulador) as $columna){
-					$this->acumulador[$columna] += $this->datos[$dato][$columna];
+			if(isset($this->_acumulador)){
+				foreach(array_keys($this->_acumulador) as $columna){
+					$this->_acumulador[$columna] += $this->_datos[$dato][$columna];
 				}	
 			}
 		}
@@ -363,21 +365,21 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function inicializar_manejo_clave()
 	{
-        if($this->info_cuadro["clave_datos_tabla"]){										//Clave del DT
-			$this->columnas_clave = array( apex_datos_clave_fila );
-        }elseif(trim($this->info_cuadro["columnas_clave"])!=''){
-            $this->columnas_clave = explode(",",$this->info_cuadro["columnas_clave"]);		//Clave usuario
-            $this->columnas_clave = array_map("trim",$this->columnas_clave);
+        if($this->_info_cuadro["clave_datos_tabla"]){										//Clave del DT
+			$this->_columnas_clave = array( apex_datos_clave_fila );
+        }elseif(trim($this->_info_cuadro["columnas_clave"])!=''){
+            $this->_columnas_clave = explode(",",$this->_info_cuadro["columnas_clave"]);		//Clave usuario
+            $this->_columnas_clave = array_map("trim",$this->_columnas_clave);
         }else{
-			$this->columnas_clave = null;
+			$this->_columnas_clave = null;
         }		
 		//Agrego las columnas de la clave en la definicion de la estructura de datos
-		if(is_array($this->columnas_clave)){
-			$estructura_datos = array_merge( $this->columnas_clave, $this->estructura_datos);
-			$this->estructura_datos = array_unique($estructura_datos);
+		if(is_array($this->_columnas_clave)){
+			$estructura_datos = array_merge( $this->_columnas_clave, $this->_estructura_datos);
+			$this->_estructura_datos = array_unique($estructura_datos);
 		}
 		//Inicializo la seleccion
-		$this->clave_seleccionada = null;
+		$this->_clave_seleccionada = null;
 	}
 
 	/**
@@ -385,10 +387,10 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function finalizar_seleccion()
 	{
-		if (isset($this->clave_seleccionada)) {
-			$this->memoria['clave_seleccionada'] = $this->clave_seleccionada;
+		if (isset($this->_clave_seleccionada)) {
+			$this->_memoria['clave_seleccionada'] = $this->_clave_seleccionada;
 		} else {
-			unset($this->memoria['clave_seleccionada']);
+			unset($this->_memoria['clave_seleccionada']);
 		}
 	}
 
@@ -397,18 +399,18 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	protected function cargar_seleccion()
 	{	
-		$this->clave_seleccionada = null;
+		$this->_clave_seleccionada = null;
 		//La seleccion se inicializa con el del pedido anterior
-		if (isset($this->memoria['clave_seleccionada']))
-			$this->clave_seleccionada = $this->memoria['clave_seleccionada'];
+		if (isset($this->_memoria['clave_seleccionada']))
+			$this->_clave_seleccionada = $this->_memoria['clave_seleccionada'];
 		//La seleccion se actualiza cuando el cliente lo pide explicitamente
-		if(isset($_POST[$this->submit_seleccion])) {
-			$clave = $_POST[$this->submit_seleccion];
+		if(isset($_POST[$this->_submit_seleccion])) {
+			$clave = $_POST[$this->_submit_seleccion];
 			if ($clave != '') {
 				$clave = explode(apex_qs_separador, $clave);				
 				//Devuelvo un array asociativo con el nombre de las claves
 				for($a=0;$a<count($clave);$a++) {
-					$this->clave_seleccionada[$this->columnas_clave[$a]] = $clave[$a];		
+					$this->_clave_seleccionada[$this->_columnas_clave[$a]] = $clave[$a];		
 				}
 			}
 		}	
@@ -419,7 +421,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function deseleccionar()
 	{
-		$this->clave_seleccionada = null;
+		$this->_clave_seleccionada = null;
 	}
 
 	/**
@@ -429,7 +431,7 @@ class toba_ei_cuadro extends toba_ei
 	*/
 	function seleccionar($clave)
 	{
-		$this->clave_seleccionada = $clave;
+		$this->_clave_seleccionada = $clave;
 	}
 
 	/**
@@ -438,7 +440,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function hay_seleccion()
 	{
-		return isset($this->clave_seleccionada);
+		return isset($this->_clave_seleccionada);
 	}
 
 	/**
@@ -449,9 +451,9 @@ class toba_ei_cuadro extends toba_ei
     function get_clave_fila($fila)
     {
         $id_fila = "";
-        if (isset($this->columnas_clave)) {
-	        foreach($this->columnas_clave as $clave){
-	            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
+        if (isset($this->_columnas_clave)) {
+	        foreach($this->_columnas_clave as $clave){
+	            $id_fila .= $this->_datos[$fila][$clave] . apex_qs_separador;
 	        }
         }
         $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
@@ -465,9 +467,9 @@ class toba_ei_cuadro extends toba_ei
      */
 	function get_clave_fila_array($fila)
 	{
-        if (isset($this->columnas_clave)) {
-	        foreach($this->columnas_clave as $clave){
-	            $array[$clave] = $this->datos[$fila][$clave];
+        if (isset($this->_columnas_clave)) {
+	        foreach($this->_columnas_clave as $clave){
+	            $array[$clave] = $this->_datos[$fila][$clave];
 	        }
 	        return $array;
         }
@@ -488,7 +490,7 @@ class toba_ei_cuadro extends toba_ei
     */
 	function get_clave_seleccionada()
 	{
-		return $this->clave_seleccionada;
+		return $this->_clave_seleccionada;
 	}
 
 //################################################################################
@@ -501,7 +503,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function existe_paginado()
 	{
-		return $this->info_cuadro["paginar"];
+		return $this->_info_cuadro["paginar"];
 	}
 	
 	/**
@@ -509,13 +511,13 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function inicializar_paginado()
 	{
-		if(isset($this->memoria["pagina_actual"])){
-			$this->pagina_actual = $this->memoria["pagina_actual"];
+		if(isset($this->_memoria["pagina_actual"])){
+			$this->_pagina_actual = $this->_memoria["pagina_actual"];
 		}else{
-			$this->pagina_actual = 1;
+			$this->_pagina_actual = 1;
 		}
-		if (! isset($this->tamanio_pagina))  {
-        	$this->tamanio_pagina = isset($this->info_cuadro["tamano_pagina"]) ? $this->info_cuadro["tamano_pagina"] : 80;
+		if (! isset($this->_tamanio_pagina))  {
+        	$this->_tamanio_pagina = isset($this->_info_cuadro["tamano_pagina"]) ? $this->_info_cuadro["tamano_pagina"] : 80;
 		}
 	}
 	
@@ -524,10 +526,10 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	protected function finalizar_paginado()
 	{
-		if (isset($this->pagina_actual)) {
-			$this->memoria['pagina_actual']= $this->pagina_actual;
+		if (isset($this->_pagina_actual)) {
+			$this->_memoria['pagina_actual']= $this->_pagina_actual;
 		} else {
-			unset($this->memoria['pagina_actual']);
+			unset($this->_memoria['pagina_actual']);
 		}		
 	}
 
@@ -538,27 +540,27 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function generar_paginado()
 	{
-		if($this->info_cuadro["tipo_paginado"] == 'C') {
-			if (!isset($this->total_registros) || ! is_numeric($this->total_registros)) {
+		if($this->_info_cuadro["tipo_paginado"] == 'C') {
+			if (!isset($this->_total_registros) || ! is_numeric($this->_total_registros)) {
 				throw new toba_error("El cuadro necesita recibir la cantidad total de registros con el metodo set_total_registros para poder paginar");
 			}
-			$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);
-			if ($this->pagina_actual > $this->cantidad_paginas)  {
-				$this->pagina_actual = 1;
+			$this->_cantidad_paginas = ceil($this->_total_registros/$this->_tamanio_pagina);
+			if ($this->_pagina_actual > $this->_cantidad_paginas)  {
+				$this->_pagina_actual = 1;
 			}
-		} elseif($this->info_cuadro["tipo_paginado"] == 'P') {
+		} elseif($this->_info_cuadro["tipo_paginado"] == 'P') {
 			// 1) Calculo la cantidad total de registros
-			$this->total_registros = count($this->datos);
-			if($this->total_registros > 0) {
+			$this->_total_registros = count($this->_datos);
+			if($this->_total_registros > 0) {
 				// 2) Calculo la cantidad de paginas
-				$this->cantidad_paginas = ceil($this->total_registros/$this->tamanio_pagina);            
-				if ($this->pagina_actual > $this->cantidad_paginas) 
-					$this->pagina_actual = 1;
-				$offset = ($this->pagina_actual - 1) * $this->tamanio_pagina;
-				$this->datos = array_slice($this->datos, $offset, $this->tamanio_pagina);
+				$this->_cantidad_paginas = ceil($this->_total_registros/$this->_tamanio_pagina);            
+				if ($this->_pagina_actual > $this->_cantidad_paginas) 
+					$this->_pagina_actual = 1;
+				$offset = ($this->_pagina_actual - 1) * $this->_tamanio_pagina;
+				$this->_datos = array_slice($this->_datos, $offset, $this->_tamanio_pagina);
 			}
 		}else{
-			$this->cantidad_paginas = 1;
+			$this->_cantidad_paginas = 1;
 		}
 	}
 
@@ -570,7 +572,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function set_total_registros($cant)
 	{
-		$this->total_registros = $cant;
+		$this->_total_registros = $cant;
 	}
 
 	/**
@@ -579,7 +581,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function get_tamanio_pagina()
 	{
-		return $this->tamanio_pagina;
+		return $this->_tamanio_pagina;
 	}
 	
 	/**
@@ -588,7 +590,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function set_tamanio_pagina($tam)
 	{
-		$this->tamanio_pagina = $tam;	
+		$this->_tamanio_pagina = $tam;	
 	}
 	
 	/**
@@ -597,7 +599,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function get_pagina_actual()
 	{
-		return $this->pagina_actual;
+		return $this->_pagina_actual;
 	}
 	
 	/**
@@ -606,7 +608,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function set_pagina_actual($pag)
 	{
-		$this->pagina_actual = $pag;	
+		$this->_pagina_actual = $pag;	
 	}
 	
 	/**
@@ -614,8 +616,8 @@ class toba_ei_cuadro extends toba_ei
 	 */	
 	protected function cargar_cambio_pagina()
 	{	
-		if(isset($_POST[$this->submit_paginado]) && trim($_POST[$this->submit_paginado]) != '') 
-			$this->pagina_actual = $_POST[$this->submit_paginado];
+		if(isset($_POST[$this->_submit_paginado]) && trim($_POST[$this->_submit_paginado]) != '') 
+			$this->_pagina_actual = $_POST[$this->_submit_paginado];
 	}
 
 //################################################################################
@@ -624,7 +626,7 @@ class toba_ei_cuadro extends toba_ei
 
 	function existen_cortes_control()
 	{
-		return (count($this->info_cuadro_cortes)>0);
+		return (count($this->_info_cuadro_cortes)>0);
 	}
 	
 	/**
@@ -640,19 +642,19 @@ class toba_ei_cuadro extends toba_ei
 			del elemento para ver si se justifica.
 	*/
 	{
-		$this->cortes_niveles = count($this->info_cuadro_cortes);
-		$this->cortes_control = array();
-		foreach(array_keys($this->datos) as $dato)
+		$this->_cortes_niveles = count($this->_info_cuadro_cortes);
+		$this->_cortes_control = array();
+		foreach(array_keys($this->_datos) as $dato)
 		{
 			//Punto de partida desde donde construir el arbol
-			$ref =& $this->cortes_control;
+			$ref =& $this->_cortes_control;
 			$profundidad = 0;
-			foreach(array_keys($this->cortes_def) as $corte)
+			foreach(array_keys($this->_cortes_def) as $corte)
 			{
 				$clave_array=array();
 				//-- Recupero la clave de la fila en el nivel
-				foreach($this->cortes_def[$corte]['clave'] as $id_corte){
-					$clave_array[$id_corte] = $this->datos[$dato][$id_corte];
+				foreach($this->_cortes_def[$corte]['clave'] as $id_corte){
+					$clave_array[$id_corte] = $this->_datos[$dato][$id_corte];
 				}
 				$clave = implode('_|_',$clave_array);
 				//---------- Inicializacion el NODO ----------
@@ -663,12 +665,12 @@ class toba_ei_cuadro extends toba_ei
 					//Agrego la clave
 					$ref[$clave]['clave']=$clave_array;
 					//Agrego la descripcion
-					foreach($this->cortes_def[$corte]['descripcion'] as $desc_corte){
-						$ref[$clave]['descripcion'][$desc_corte] = $this->datos[$dato][$desc_corte];
+					foreach($this->_cortes_def[$corte]['descripcion'] as $desc_corte){
+						$ref[$clave]['descripcion'][$desc_corte] = $this->_datos[$dato][$desc_corte];
 					}
 					//Inicializo el ACUMULADOR de columnas
-					if(isset($this->cortes_def[$corte]['total'])){
-						foreach($this->cortes_def[$corte]['total'] as $columna){
+					if(isset($this->_cortes_def[$corte]['total'])){
+						foreach($this->_cortes_def[$corte]['total'] as $columna){
 							$ref[$clave]['acumulador'][$columna] = 0;
 						}
 					}
@@ -679,7 +681,7 @@ class toba_ei_cuadro extends toba_ei
 				$ref[$clave]['filas'][]=$dato;
 				if(isset($ref[$clave]['acumulador'])){
 					foreach(array_keys($ref[$clave]['acumulador']) as $columna){
-						$ref[$clave]['acumulador'][$columna] += $this->datos[$dato][$columna];
+						$ref[$clave]['acumulador'][$columna] += $this->_datos[$dato][$columna];
 					}
 				}
 				//Cambio el punto de partida				
@@ -687,9 +689,9 @@ class toba_ei_cuadro extends toba_ei
 				$profundidad++;
 			}
 			//Incremento el acumulador general
-			if(isset($this->acumulador)){
-				foreach(array_keys($this->acumulador) as $columna){
-					$this->acumulador[$columna] += $this->datos[$dato][$columna];
+			if(isset($this->_acumulador)){
+				foreach(array_keys($this->_acumulador) as $columna){
+					$this->_acumulador[$columna] += $this->_datos[$dato][$columna];
 				}	
 			}
 		}
@@ -704,15 +706,15 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function finalizar_ordenamiento()
 	{
-		if (isset($this->orden_columna)) {
-			$this->memoria['orden_columna']= $this->orden_columna;
+		if (isset($this->_orden_columna)) {
+			$this->_memoria['orden_columna']= $this->_orden_columna;
 		} else {
-			unset($this->memoria['orden_columna']);
+			unset($this->_memoria['orden_columna']);
 		}
-		if (isset($this->orden_sentido)) {
-			$this->memoria['orden_sentido']= $this->orden_sentido;
+		if (isset($this->_orden_sentido)) {
+			$this->_memoria['orden_sentido']= $this->_orden_sentido;
 		} else {
-			unset($this->memoria['orden_sentido']);
+			unset($this->_memoria['orden_sentido']);
 		}		
 	}
 
@@ -723,27 +725,27 @@ class toba_ei_cuadro extends toba_ei
 	protected function refrescar_ordenamiento()
 	{
 		//¿Viene seteado de la memoria?
-        if(isset($this->memoria['orden_columna']))
-			$this->orden_columna = $this->memoria['orden_columna'];
-		if(isset($this->memoria['orden_sentido']))
-			$this->orden_sentido = $this->memoria['orden_sentido'];
+        if(isset($this->_memoria['orden_columna']))
+			$this->_orden_columna = $this->_memoria['orden_columna'];
+		if(isset($this->_memoria['orden_sentido']))
+			$this->_orden_sentido = $this->_memoria['orden_sentido'];
 
 		//¿Lo cargo el usuario?
-		if (isset($_POST[$this->submit_orden_columna]) && $_POST[$this->submit_orden_columna] != '') {
-			$nueva_col = $_POST[$this->submit_orden_columna];
+		if (isset($_POST[$this->_submit_orden_columna]) && $_POST[$this->_submit_orden_columna] != '') {
+			$nueva_col = $_POST[$this->_submit_orden_columna];
 		}
-		if (isset($_POST[$this->submit_orden_sentido]) && $_POST[$this->submit_orden_sentido] != '') {
-			$nuevo_sent = $_POST[$this->submit_orden_sentido];
+		if (isset($_POST[$this->_submit_orden_sentido]) && $_POST[$this->_submit_orden_sentido] != '') {
+			$nuevo_sent = $_POST[$this->_submit_orden_sentido];
 		}
 		if (isset($nueva_col) && isset($nuevo_sent)) {
 			//Si se vuelve a pedir el mismo ordenamiento, se anula			
-			if (isset($this->orden_columna) && $nueva_col == $this->orden_columna &&
-				isset($this->orden_sentido) && $nuevo_sent == $this->orden_sentido) {
-				unset($this->orden_columna);
-				unset($this->orden_sentido);
+			if (isset($this->_orden_columna) && $nueva_col == $this->_orden_columna &&
+				isset($this->_orden_sentido) && $nuevo_sent == $this->_orden_sentido) {
+				unset($this->_orden_columna);
+				unset($this->_orden_sentido);
 			} else {
-				$this->orden_columna = $nueva_col;
-				$this->orden_sentido = $nuevo_sent;
+				$this->_orden_columna = $nueva_col;
+				$this->_orden_sentido = $nuevo_sent;
 			}
 		}
 	}
@@ -754,7 +756,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function hay_ordenamiento()
 	{
-        return (isset($this->orden_sentido) && isset($this->orden_columna));
+        return (isset($this->_orden_sentido) && isset($this->_orden_columna));
 	}
 
 	/**
@@ -763,16 +765,16 @@ class toba_ei_cuadro extends toba_ei
 	 */
     protected function ordenar()
 	{
-		if (! $this->ordenado) {
+		if (! $this->_ordenado) {
 			$ordenamiento = array();
-	        foreach ($this->datos as $fila) { 
-	            $ordenamiento[] = $fila[$this->orden_columna]; 
+	        foreach ($this->_datos as $fila) { 
+	            $ordenamiento[] = $fila[$this->_orden_columna]; 
 	        }
 	        //Ordeno segun el sentido
-	        if($this->orden_sentido == "asc"){
-	            array_multisort($ordenamiento, SORT_ASC , $this->datos);
-	        } elseif ($this->orden_sentido == "des"){
-	            array_multisort($ordenamiento, SORT_DESC , $this->datos);
+	        if($this->_orden_sentido == "asc"){
+	            array_multisort($ordenamiento, SORT_ASC , $this->_datos);
+	        } elseif ($this->_orden_sentido == "des"){
+	            array_multisort($ordenamiento, SORT_DESC , $this->_datos);
 	        }
 		}
     }
@@ -786,7 +788,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function set_titulo_columna($id_columna, $titulo)
 	{
-		$this->columnas[$id_columna]["titulo"] = $titulo;
+		$this->_columnas[$id_columna]["titulo"] = $titulo;
 	}    
 
 	/**
@@ -794,12 +796,12 @@ class toba_ei_cuadro extends toba_ei
 	 */
     function get_datos()
     {
-        return $this->datos;    
+        return $this->_datos;    
     }	
 
     function get_estructura_datos()
 	{
-		return $this->estructura_datos;		
+		return $this->_estructura_datos;		
 	}
 	
 	/**
@@ -807,7 +809,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function get_columnas()
 	{
-		return $this->columnas;	
+		return $this->_columnas;	
 	}
 	
 //################################################################################
@@ -819,7 +821,7 @@ class toba_ei_cuadro extends toba_ei
 		if(($tipo!="html")&&($tipo!="pdf")){
 			throw new toba_error_def("El tipo de salida '$tipo' es invalida");	
 		}
-		$this->tipo_salida = $tipo;
+		$this->_tipo_salida = $tipo;
 		if( $this->datos_cargados() ){
 			$this->inicializar_generacion();
 			$this->generar_inicio();
@@ -827,19 +829,19 @@ class toba_ei_cuadro extends toba_ei
 			if($this->existen_cortes_control()){
 				$this->generar_cortes_control();
 			}else{
-				$filas = array_keys($this->datos);
-				$this->generar_cuadro($filas, $this->acumulador);
+				$filas = array_keys($this->_datos);
+				$this->generar_cuadro($filas, $this->_acumulador);
 			}
 			$this->generar_fin();
 			if( false && $this->existen_cortes_control() ){
-				ei_arbol($this->sum_usuario,"\$this->sum_usuario");
-				ei_arbol($this->cortes_def,"\$this->cortes_def");
-				ei_arbol($this->cortes_control,"\$this->cortes_control");
+				ei_arbol($this->_sum_usuario,"\$this->sum_usuario");
+				ei_arbol($this->_cortes_def,"\$this->cortes_def");
+				ei_arbol($this->_cortes_control,"\$this->_cortes_control");
 			}
 		}else{
-            if ($this->info_cuadro["eof_invisible"]!=1){
-                if(trim($this->info_cuadro["eof_customizado"])!=""){
-					$texto = $this->info_cuadro["eof_customizado"];
+            if ($this->_info_cuadro["eof_invisible"]!=1){
+                if(trim($this->_info_cuadro["eof_customizado"])!=""){
+					$texto = $this->_info_cuadro["eof_customizado"];
                 }else{
 					$texto = "No se cargaron datos!";
                 }
@@ -853,30 +855,30 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function inicializar_generacion()
 	{
-		$this->cantidad_columnas = count($this->info_cuadro_columna);
-		if ( $this->tipo_salida != 'pdf' ) {
-			$this->cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
+		$this->_cantidad_columnas = count($this->_info_cuadro_columna);
+		if ( $this->_tipo_salida != 'pdf' ) {
+			$this->_cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
 		}
-		$this->cantidad_columnas_total = $this->cantidad_columnas + $this->cantidad_columnas_extra;
+		$this->_cantidad_columnas_total = $this->_cantidad_columnas + $this->_cantidad_columnas_extra;
 	}
 
 	private function generar_inicio(){
-		$metodo = $this->tipo_salida . '_inicio';
+		$metodo = $this->_tipo_salida . '_inicio';
 		$this->$metodo();
 	}
 
 	private function generar_cuadro(&$filas, &$totales=null){
-		$metodo = $this->tipo_salida . '_cuadro';
+		$metodo = $this->_tipo_salida . '_cuadro';
 		$this->$metodo($filas, $totales);
 	}
 
 	private function generar_fin(){
-		$metodo = $this->tipo_salida . '_fin';
+		$metodo = $this->_tipo_salida . '_fin';
 		$this->$metodo();
 	}
 
 	private function generar_mensaje_cuadro_vacio($texto){
-		$metodo = $this->tipo_salida . '_mensaje_cuadro_vacio';
+		$metodo = $this->_tipo_salida . '_mensaje_cuadro_vacio';
 		$this->$metodo($texto);
 	}
 
@@ -887,8 +889,8 @@ class toba_ei_cuadro extends toba_ei
 	private function generar_cortes_control()
 	{
 		$this->generar_cc_inicio_nivel();
-		foreach(array_keys($this->cortes_control) as $corte){
-			$this->crear_corte( $this->cortes_control[$corte] );
+		foreach(array_keys($this->_cortes_control) as $corte){
+			$this->crear_corte( $this->_cortes_control[$corte] );
 		}
 		$this->generar_cc_fin_nivel();
 	}
@@ -896,9 +898,9 @@ class toba_ei_cuadro extends toba_ei
 	private function crear_corte(&$nodo)
 	{
 		//Disparo las funciones de sumarizacion creadas por el usuario para este corte
-		if(isset($this->cortes_def[$nodo['corte']]['sum_usuario'])){
-			foreach($this->cortes_def[$nodo['corte']]['sum_usuario'] as $sum){
-				$metodo = $this->sum_usuario[$sum]['metodo'];
+		if(isset($this->_cortes_def[$nodo['corte']]['sum_usuario'])){
+			foreach($this->_cortes_def[$nodo['corte']]['sum_usuario'] as $sum){
+				$metodo = $this->_sum_usuario[$sum]['metodo'];
 				$nodo['sum_usuario'][$sum] = $this->$metodo($nodo['filas']);
 			}
 		}
@@ -919,22 +921,22 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	private function generar_cabecera_corte_control(&$nodo){
-		$metodo = $this->tipo_salida . '_cabecera_corte_control';
+		$metodo = $this->_tipo_salida . '_cabecera_corte_control';
 		$this->$metodo($nodo);
 	}
 	
 	private function generar_pie_corte_control(&$nodo){
-		$metodo = $this->tipo_salida . '_pie_corte_control';
+		$metodo = $this->_tipo_salida . '_pie_corte_control';
 		$this->$metodo($nodo);
 	}
 
 	private function generar_cc_inicio_nivel(){
-		$metodo = $this->tipo_salida . '_cc_inicio_nivel';
+		$metodo = $this->_tipo_salida . '_cc_inicio_nivel';
 		$this->$metodo();
 	}
 
 	private function generar_cc_fin_nivel(){
-		$metodo = $this->tipo_salida . '_cc_fin_nivel';
+		$metodo = $this->_tipo_salida . '_cc_fin_nivel';
 		$this->$metodo();
 	}
 
@@ -950,18 +952,18 @@ class toba_ei_cuadro extends toba_ei
 	private function html_inicio()
 	{
 		//Campos de comunicación con JS
-		echo toba_form::hidden($this->submit, '');
-		echo toba_form::hidden($this->submit_seleccion, '');
-		echo toba_form::hidden($this->submit_orden_columna, '');
-		echo toba_form::hidden($this->submit_orden_sentido, '');
-		echo toba_form::hidden($this->submit_paginado, '');
+		echo toba_form::hidden($this->_submit, '');
+		echo toba_form::hidden($this->_submit_seleccion, '');
+		echo toba_form::hidden($this->_submit_orden_columna, '');
+		echo toba_form::hidden($this->_submit_orden_sentido, '');
+		echo toba_form::hidden($this->_submit_paginado, '');
 		//-- Scroll       
-        if($this->info_cuadro["scroll"]){
-			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
-			$alto = isset($this->info_cuadro["alto"]) ? $this->info_cuadro["alto"] : "auto";
+        if($this->_info_cuadro["scroll"]){
+			$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
+			$alto = isset($this->_info_cuadro["alto"]) ? $this->_info_cuadro["alto"] : "auto";
 			echo "<div class='ei-cuadro-scroll' style='height: $alto; width: $ancho; '>\n";
 		}else{
-			$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
+			$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
 		}
 		//-- Tabla BASE
 		$mostrar_cabecera = true;
@@ -977,7 +979,7 @@ class toba_ei_cuadro extends toba_ei
         }
 		//-- INICIO zona COLAPSABLE
 		echo"<tr><td style='padding:0;'>\n";
-		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		
         echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
 		echo "<tr><td class='ei-cuadro-cabecera'>";
@@ -986,15 +988,15 @@ class toba_ei_cuadro extends toba_ei
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
-		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
 			$this->html_cuadro_inicio();
 		}
 	}
 
 	private function html_fin()
 	{
-		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
-			$this->html_cuadro_totales_columnas($this->acumulador);
+		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_totales_columnas($this->_acumulador);
 			$this->html_cuadro_fin();					
 		}
 		echo "</td></tr>\n";
@@ -1004,7 +1006,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->html_pie();		
 		echo "</td></tr>\n";
 		//Paginacion
-		if ($this->info_cuadro["paginar"]) {
+		if ($this->_info_cuadro["paginar"]) {
 			echo"<tr><td>";
            	$this->html_barra_paginacion();
 			echo "</td></tr>\n";
@@ -1019,7 +1021,7 @@ class toba_ei_cuadro extends toba_ei
 		//-- FIN zona COLAPSABLE
 		echo"</td></tr>\n";
 		echo "</table>\n";
-		if($this->info_cuadro["scroll"]){
+		if($this->_info_cuadro["scroll"]){
 			echo "</div>\n";
 		}
 	}
@@ -1029,8 +1031,8 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function html_cabecera()
 	{
-        if(trim($this->info_cuadro["subtitulo"])<>""){
-            echo $this->info_cuadro["subtitulo"];
+        if(trim($this->_info_cuadro["subtitulo"])<>""){
+            echo $this->_info_cuadro["subtitulo"];
         }
 	}
 
@@ -1056,14 +1058,14 @@ class toba_ei_cuadro extends toba_ei
 
 	private function html_cc_inicio_nivel()
 	{
-		if($this->cortes_modo == apex_cuadro_cc_anidado){
+		if($this->_cortes_modo == apex_cuadro_cc_anidado){
 			echo "<ul>\n";
 		}
 	}
 
 	private function html_cc_fin_nivel()
 	{
-		if($this->cortes_modo == apex_cuadro_cc_anidado){
+		if($this->_cortes_modo == apex_cuadro_cc_anidado){
 			echo "</ul>\n";
 		}
 	}
@@ -1086,8 +1088,8 @@ class toba_ei_cuadro extends toba_ei
 		}		
 		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 		$class = "ei-cuadro-cc-tit-nivel-$nivel_css";
-		if($this->cortes_modo == apex_cuadro_cc_tabular){
-			echo "<tr><td  colspan='$this->cantidad_columnas_total' class='$class'>\n";
+		if($this->_cortes_modo == apex_cuadro_cc_tabular){
+			echo "<tr><td  colspan='$this->_cantidad_columnas_total' class='$class'>\n";
 			$this->$metodo($nodo);
 			echo "</td></tr>\n";
 		}else{
@@ -1102,7 +1104,7 @@ class toba_ei_cuadro extends toba_ei
 	*/
 	protected function html_cabecera_cc_contenido(&$nodo)
 	{
-		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		if (trim($descripcion) != '') {
 			echo $descripcion . ': <strong>' . $valor . '</strong>';			
@@ -1121,26 +1123,26 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function html_pie_corte_control(&$nodo)
 	{
-		if($this->cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
+		if($this->_cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
 			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 			$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
 			$css_pie_cab = 'ei-cuadro-cc-pie-cab-nivel-'.$nivel_css;
 			//-----  Cabecera del PIE --------
-			if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
+			if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
 				$metodo_redeclarado = 'html_pie_cc_cabecera__' . $nodo['corte'];
 				if(method_exists($this, $metodo_redeclarado)){
 					$descripcion = $this->$metodo_redeclarado($nodo);
 				}else{
 				 	$descripcion = $this->html_cabecera_pie_cc_contenido($nodo);
 				}
-				echo "<tr><td class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<tr><td class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
 				echo "<div class='$css_pie_cab'>$descripcion<div>";
 				echo "</td></tr>\n";
 			}
 			//----- Totales de columna -------
 			if (isset($nodo['acumulador'])) {
 				$titulos = false;
-				if($this->cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+				if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
 					$titulos = true;	
 				}
 				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
@@ -1153,23 +1155,23 @@ class toba_ei_cuadro extends toba_ei
 				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 				$css = 'ei-cuadro-cc-sum-nivel-'.$nivel_css;
 				foreach($nodo['sum_usuario'] as $id => $valor){
-					$desc = $this->sum_usuario[$id]['descripcion'];
+					$desc = $this->_sum_usuario[$id]['descripcion'];
 					$datos[$desc] = $valor;
 				}
-				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
 				$this->html_cuadro_sumarizacion($datos,null,300,$css);
 				echo "</td></tr>\n";
 			}
 			//----- Contar Filas
-			if($this->cortes_indice[$nodo['corte']]['pie_contar_filas']){
-				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+			if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
+				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
 				echo "<em>" . $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']) . "<em>";
 				echo "</td></tr>\n";
 			}
 			//----- Contenido del usuario al final del PIE
 			$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
 			if(method_exists($this, $metodo)){
-				echo "<tr><td  class='$css_pie' colspan='$this->cantidad_columnas_total'>\n";
+				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
 				$this->$metodo($nodo);
 				echo "</td></tr>\n";
 			}
@@ -1198,7 +1200,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function html_cabecera_pie_cc_contenido(&$nodo)
 	{
-		$descripcion = $this->cortes_indice[$nodo['corte']]['descripcion'];
+		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		if (trim($descripcion) != '') {
 			return 'Resumen ' . $descripcion . ': <strong>' . $valor . '</strong>';			
@@ -1214,7 +1216,7 @@ class toba_ei_cuadro extends toba_ei
 	private function html_cuadro(&$filas, &$totales=null)
 	{
 		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
-		if(!($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular )){
+		if(!($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular )){
 			$this->html_cuadro_inicio();
 		}
 		$this->html_cuadro_cabecera_columnas();
@@ -1223,42 +1225,42 @@ class toba_ei_cuadro extends toba_ei
         {
         	$estilo_fila = $par ? 'ei-cuadro-celda-par' : 'ei-cuadro-celda-impar';
 			$clave_fila = $this->get_clave_fila($f);
-			if (is_array($this->clave_seleccionada)) {
-				$clave_seleccionada = implode(apex_qs_separador, $this->clave_seleccionada);	
+			if (is_array($this->_clave_seleccionada)) {
+				$clave_seleccionada = implode(apex_qs_separador, $this->_clave_seleccionada);	
 			} else {
-				$clave_seleccionada = $this->clave_seleccionada;	
+				$clave_seleccionada = $this->_clave_seleccionada;	
 			}
 			
 			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
             echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
-            for ($a=0;$a< $this->cantidad_columnas;$a++)
+            for ($a=0;$a< $this->_cantidad_columnas;$a++)
             {
                 //*** 1) Recupero el VALOR
 				$valor = "";
-                if(isset($this->info_cuadro_columna[$a]["clave"])){
-					if(isset($this->datos[$f][$this->info_cuadro_columna[$a]["clave"]])){
-						$valor = $this->datos[$f][$this->info_cuadro_columna[$a]["clave"]];
+                if(isset($this->_info_cuadro_columna[$a]["clave"])){
+					if(isset($this->_datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
+						$valor = $this->_datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
 					}else{
 						$valor = '&nbsp;';
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
-	                if(isset($this->info_cuadro_columna[$a]["formateo"])){
-	                    $funcion = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
+	                if(isset($this->_info_cuadro_columna[$a]["formateo"])){
+	                    $funcion = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
 	                    //Formateo el valor
 	                    $valor = $funcion($valor);
 	                }
 	            }
                 //*** 2) Genero el HTML
-                echo "<td class='$estilo_seleccion ".$this->info_cuadro_columna[$a]["estilo"]."'>\n";
+                echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."'>\n";
                 echo $valor;
                 echo "</td>\n";
                 //Termino la CELDA
             }
  			//---> Creo los EVENTOS de la FILA <---
-			if ( $this->tipo_salida != 'pdf' ) {
+			if ( $this->_tipo_salida != 'pdf' ) {
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
 					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
@@ -1270,7 +1272,7 @@ class toba_ei_cuadro extends toba_ei
 						}
 						//2: Ventana de modificacion del evento por fila
 						//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-						$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
+						$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id;
 						if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
 							$this->controlador->$callback_modificacion_eventos_contenedor($evento, $f);
 						} else {
@@ -1282,7 +1284,7 @@ class toba_ei_cuadro extends toba_ei
 						}
 						//3: Genero el boton
 						if( ! $evento->esta_anulado() ) {
-							echo $evento->get_html($this->submit, $this->objeto_js, $this->id);
+							echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
 						} else {
 							$evento->restituir();	//Lo activo para la proxima fila
 						}
@@ -1298,7 +1300,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_totales_columnas($totales);
 		}
 		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
-		if(!($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular )){
+		if(!($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular )){
 			$this->html_cuadro_fin();
 		}
 	}
@@ -1317,37 +1319,37 @@ class toba_ei_cuadro extends toba_ei
 	{
 		//¿Alguna columna tiene título?
 		$alguna_tiene_titulo = false;
-        for ($a=0;$a<$this->cantidad_columnas;$a++) {		
-        	if (trim($this->info_cuadro_columna[$a]["titulo"]) != '') {
+        for ($a=0;$a<$this->_cantidad_columnas;$a++) {		
+        	if (trim($this->_info_cuadro_columna[$a]["titulo"]) != '') {
         		$alguna_tiene_titulo = true;
         		break;
         	}
         }
         if ($alguna_tiene_titulo) {
 	        echo "<tr>\n";
-	        for ($a=0;$a<$this->cantidad_columnas;$a++)
+	        for ($a=0;$a<$this->_cantidad_columnas;$a++)
 	        {
-	            if(isset($this->info_cuadro_columna[$a]["ancho"])){
-	                $ancho = " width='". $this->info_cuadro_columna[$a]["ancho"] . "'";
+	            if(isset($this->_info_cuadro_columna[$a]["ancho"])){
+	                $ancho = " width='". $this->_info_cuadro_columna[$a]["ancho"] . "'";
 	            }else{
 	                $ancho = "";
 	            }
-	            $estilo_columna = $this->info_cuadro_columna[$a]["estilo_titulo"];
+	            $estilo_columna = $this->_info_cuadro_columna[$a]["estilo_titulo"];
 	            if(!$estilo_columna){
 	            	$estilo_columna = 'ei-cuadro-col-tit';
 	            }
 	            echo "<td class='$estilo_columna' $ancho>\n";
-	            $this->html_cuadro_cabecera_columna(    $this->info_cuadro_columna[$a]["titulo"],
-	                                        $this->info_cuadro_columna[$a]["clave"],
+	            $this->html_cuadro_cabecera_columna(    $this->_info_cuadro_columna[$a]["titulo"],
+	                                        $this->_info_cuadro_columna[$a]["clave"],
 	                                        $a );
 	            echo "</td>\n";
 	        }
 	        //-- Eventos sobre fila
-			if($this->cantidad_columnas_extra > 0){
+			if($this->_cantidad_columnas_extra > 0){
 				foreach ($this->get_eventos_sobre_fila() as $evento) {
 					echo "<td class='ei-cuadro-col-tit'>&nbsp;";
 					if (toba_editor::modo_prueba()) {
-						echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
+						echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
 					}
 					echo "</td>\n";
 				}
@@ -1363,20 +1365,20 @@ class toba_ei_cuadro extends toba_ei
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     {
         //--- ¿Es ordenable?
-		if (isset($this->eventos['ordenar']) && $this->info_cuadro_columna[$indice]["no_ordenar"]!=1) {
+		if (isset($this->_eventos['ordenar']) && $this->_info_cuadro_columna[$indice]["no_ordenar"]!=1) {
 			$sentido = array();
 			$sentido[] = array('asc', 'Ordenar ascendente');
 			$sentido[] = array('des', 'Ordenar descendente');
 			echo "<span class='ei-cuadro-orden'>";			
 			foreach($sentido as $sen){
 			    $sel="";
-			    if ($this->hay_ordenamiento() && ($columna==$this->orden_columna)&&($sen[0]==$this->orden_sentido)) {
+			    if ($this->hay_ordenamiento() && ($columna==$this->_orden_columna)&&($sen[0]==$this->_orden_sentido)) {
 					$sel = "_sel";//orden ACTIVO
 			    }
 
 				//Comunicación del evento
 				$parametros = array('orden_sentido'=>$sen[0], 'orden_columna'=>$columna);
-				$evento_js = toba_js::evento('ordenar', $this->eventos['ordenar'], $parametros);
+				$evento_js = toba_js::evento('ordenar', $this->_eventos['ordenar'], $parametros);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 			    $src = toba_recurso::imagen_toba("nucleo/sentido_". $sen[0] . $sel . ".gif");
 				echo toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
@@ -1384,14 +1386,14 @@ class toba_ei_cuadro extends toba_ei
 			echo "</span>";			
 		}    	
 		//--- Nombre de la columna
-		if (trim($columna) != '' || trim($this->info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
+		if (trim($columna) != '' || trim($this->_info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
             echo $titulo;
         }	
 		//---Editor de la columna
 		$editor = '';
-		if ( toba_editor::modo_prueba() && $this->tipo_salida != 'pdf' ){
+		if ( toba_editor::modo_prueba() && $this->_tipo_salida != 'pdf' ){
 			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
-			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
+			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_id),
 									'columna' => $columna );
 			$editor = toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);
 		}	
@@ -1406,33 +1408,33 @@ class toba_ei_cuadro extends toba_ei
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
 		if($agregar_titulos){
 			echo "<tr>\n";
-			for ($a=0;$a<$this->cantidad_columnas;$a++){
-				$clave = $this->info_cuadro_columna[$a]["clave"];
+			for ($a=0;$a<$this->_cantidad_columnas;$a++){
+				$clave = $this->_info_cuadro_columna[$a]["clave"];
 			    if(isset($totales[$clave])){
-					$valor = $this->info_cuadro_columna[$a]["titulo"];
-					echo "<td class='".$this->info_cuadro_columna[$a]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
+					$valor = $this->_info_cuadro_columna[$a]["titulo"];
+					echo "<td class='".$this->_info_cuadro_columna[$a]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
 				}else{
 					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
 			}
 	        //-- Eventos sobre fila
-			if($this->cantidad_columnas_extra > 0){
-				echo "<td colspan='$this->cantidad_columnas_extra'></td>\n";
+			if($this->_cantidad_columnas_extra > 0){
+				echo "<td colspan='$this->_cantidad_columnas_extra'></td>\n";
 			}		
 			echo "</tr>\n";
 		}
 		echo "<tr class='ei-cuadro-totales'>\n";
-		for ($a=0;$a<$this->cantidad_columnas;$a++){
-			$clave = $this->info_cuadro_columna[$a]["clave"];
+		for ($a=0;$a<$this->_cantidad_columnas;$a++){
+			$clave = $this->_info_cuadro_columna[$a]["clave"];
 			//Defino el valor de la columna
 		    if(isset($totales[$clave])){
 				$valor = $totales[$clave];
 				if(!isset($estilo)){
-					$estilo = $this->info_cuadro_columna[$a]["estilo"];
+					$estilo = $this->_info_cuadro_columna[$a]["estilo"];
 				}
 				//La columna lleva un formateo?
-				if(isset($this->info_cuadro_columna[$a]["formateo"])){
-					$metodo = "formato_" . $this->info_cuadro_columna[$a]["formateo"];
+				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
+					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
 					$valor = $metodo($valor);
 				}
 				echo "<td class='ei-cuadro-total $estilo'><strong>$valor</strong></td>\n";
@@ -1441,8 +1443,8 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
         //-- Eventos sobre fila
-		if($this->cantidad_columnas_extra > 0){
-			echo "<td colspan='$this->cantidad_columnas_extra'>&nbsp;</td>\n";
+		if($this->_cantidad_columnas_extra > 0){
+			echo "<td colspan='$this->_cantidad_columnas_extra'>&nbsp;</td>\n";
 		}		
 		echo "</tr>\n";
 	}
@@ -1473,41 +1475,41 @@ class toba_ei_cuadro extends toba_ei
 
 	private function html_barra_paginacion()
 	{
-		if( isset($this->total_registros) && !($this->tamanio_pagina >= $this->total_registros) ) {
+		if( isset($this->_total_registros) && !($this->_tamanio_pagina >= $this->_total_registros) ) {
 			//Calculo los posibles saltos
 			//Primero y Anterior
-			if($this->pagina_actual == 1) {
+			if($this->_pagina_actual == 1) {
 				$anterior = toba_recurso::imagen_toba("nucleo/paginacion/anterior_deshabilitado.gif",true);
 				$primero = toba_recurso::imagen_toba("nucleo/paginacion/primero_deshabilitado.gif",true);       
 			} else {
-				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual - 1);
+				$evento_js = toba_js::evento('cambiar_pagina', $this->_eventos["cambiar_pagina"], $this->_pagina_actual - 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = toba_recurso::imagen_toba("nucleo/paginacion/anterior.gif");
 				$anterior = toba_recurso::imagen($img, null, null, 'Página Anterior', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			
-				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], 1);
+				$evento_js = toba_js::evento('cambiar_pagina', $this->_eventos["cambiar_pagina"], 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = toba_recurso::imagen_toba("nucleo/paginacion/primero.gif");
 				$primero = toba_recurso::imagen($img, null, null, 'Página Inicial', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			//Ultimo y Siguiente
-			if( $this->pagina_actual == $this->cantidad_paginas ) {
+			if( $this->_pagina_actual == $this->_cantidad_paginas ) {
 				$siguiente = toba_recurso::imagen_toba("nucleo/paginacion/siguiente_deshabilitado.gif",true);
 				$ultimo = toba_recurso::imagen_toba("nucleo/paginacion/ultimo_deshabilitado.gif",true);     
 			} else {
-				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->pagina_actual + 1);
+				$evento_js = toba_js::evento('cambiar_pagina', $this->_eventos["cambiar_pagina"], $this->_pagina_actual + 1);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = toba_recurso::imagen_toba("nucleo/paginacion/siguiente.gif");
 				$siguiente = toba_recurso::imagen($img, null, null, 'Página Siguiente', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 				
-				$evento_js = toba_js::evento('cambiar_pagina', $this->eventos["cambiar_pagina"], $this->cantidad_paginas);
+				$evento_js = toba_js::evento('cambiar_pagina', $this->_eventos["cambiar_pagina"], $this->_cantidad_paginas);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 				$img = toba_recurso::imagen_toba("nucleo/paginacion/ultimo.gif");
 				$ultimo = toba_recurso::imagen($img, null, null, 'Página Final', '', "onclick=\"$js\"", 'cursor: pointer;cursor:hand;');
 			}
 			echo "<div class='ei-cuadro-pag'>";
-			echo "$primero $anterior Página <strong>{$this->pagina_actual}</strong> de ";
-			echo "<strong>{$this->cantidad_paginas}</strong> $siguiente $ultimo";
+			echo "$primero $anterior Página <strong>{$this->_pagina_actual}</strong> de ";
+			echo "<strong>{$this->_cantidad_paginas}</strong> $siguiente $ultimo";
 			echo "</div>";
 		}
 	}
@@ -1522,7 +1524,7 @@ class toba_ei_cuadro extends toba_ei
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new ei_cuadro('{$this->objeto_js}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_cuadro('{$this->objeto_js}', '{$this->_submit}');\n";
 	}
 
 	/**
@@ -1550,7 +1552,7 @@ class toba_ei_cuadro extends toba_ei
 
 	private function pdf_inicio()
 	{
-		$ancho = isset($this->info_cuadro["ancho"]) ? $this->info_cuadro["ancho"] : "";
+		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
         echo "<TABLE width='$ancho' class='tabla-0'>";
 		// Cabecera
 		echo"<tr><td class='ei-cuadro-cabecera'>";
@@ -1559,15 +1561,15 @@ class toba_ei_cuadro extends toba_ei
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
-		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
+		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
 			$this->html_cuadro_inicio();
 		}
 	}
 
 	private function pdf_fin()
 	{
-		if($this->existen_cortes_control() && $this->cortes_modo == apex_cuadro_cc_tabular ){
-			$this->html_cuadro_totales_columnas($this->acumulador);
+		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+			$this->html_cuadro_totales_columnas($this->_acumulador);
 			$this->html_cuadro_fin();					
 		}
 		echo "</td></tr>\n";

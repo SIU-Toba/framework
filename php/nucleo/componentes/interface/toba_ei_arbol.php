@@ -14,15 +14,15 @@ require_once("toba_ei.php");
 */
 class toba_ei_arbol extends toba_ei
 {
-	protected $prefijo = 'arbol';	
-	protected $nodos_inicial;
-	protected $item_propiedades = array();
-	protected $nivel_apertura = 1;
-	protected $datos_apertura;
-	protected $todos_abiertos = false;
-	protected $mostrar_utilerias = true;
-	protected $mostrar_propiedades_nodos = true;
-	protected $frame_destino = null;
+	protected $_prefijo = 'arbol';	
+	protected $_nodos_inicial;
+	protected $_item_propiedades = array();
+	protected $_nivel_apertura = 1;
+	protected $_datos_apertura;
+	protected $_todos_abiertos = false;
+	protected $_mostrar_utilerias = true;
+	protected $_mostrar_propiedades_nodos = true;
+	protected $_frame_destino = null;
 	
 	function __construct($datos)
 	{
@@ -52,9 +52,9 @@ class toba_ei_arbol extends toba_ei
 	protected function cargar_eventos()
 	{
 		parent::cargar_lista_eventos();		
-		$this->eventos['cambio_apertura'] = array();
-		$this->eventos['ver_propiedades'] = array();
-		$this->eventos['cargar_nodo'] = array();		
+		$this->_eventos['cambio_apertura'] = array();
+		$this->_eventos['ver_propiedades'] = array();
+		$this->_eventos['cargar_nodo'] = array();		
 	}	
 
 	/**
@@ -63,7 +63,7 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function set_apertura_nodos($datos_apertura)
 	{
-		$this->datos_apertura = $datos_apertura;
+		$this->_datos_apertura = $datos_apertura;
 	}
 	
 	/**
@@ -71,7 +71,7 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function set_nivel_apertura($nivel)
 	{
-		$this->nivel_apertura = $nivel;
+		$this->_nivel_apertura = $nivel;
 	}
 	
 	/**
@@ -79,17 +79,17 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function set_todos_abiertos()
 	{
-		$this->todos_abiertos = true;	
+		$this->_todos_abiertos = true;	
 	}
 	
 	function set_mostrar_utilerias($mostrar)
 	{
-		$this->mostrar_utilerias = $mostrar;	
+		$this->_mostrar_utilerias = $mostrar;	
 	}
 	
 	function set_mostrar_propiedades_nodos($mostrar)
 	{
-		$this->mostrar_propiedades_nodos = $mostrar;	
+		$this->_mostrar_propiedades_nodos = $mostrar;	
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function set_frame_destino($frame)
 	{
-		$this->frame_destino = $frame;
+		$this->_frame_destino = $frame;
 	}
 	
 	/**
@@ -107,7 +107,7 @@ class toba_ei_arbol extends toba_ei
 	 */
     function set_datos($nodos)
     {
-		$this->nodos_inicial = $nodos;
+		$this->_nodos_inicial = $nodos;
 	}
 	
 	/**
@@ -119,7 +119,7 @@ class toba_ei_arbol extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		$this->eventos['ver_propiedades'] = array('maneja_datos' => true);
+		$this->_eventos['ver_propiedades'] = array('maneja_datos' => true);
 	}	
 	
 	/**
@@ -128,8 +128,8 @@ class toba_ei_arbol extends toba_ei
 	function disparar_eventos()
 	{
 		//Se guarda el layout del arbol actual				
-		if (isset($_POST[$this->submit."__apertura_datos"])) {
-			$datos_apertura = $_POST[$this->submit."__apertura_datos"];
+		if (isset($_POST[$this->_submit."__apertura_datos"])) {
+			$datos_apertura = $_POST[$this->_submit."__apertura_datos"];
 			$pares = explode("||", $datos_apertura);
 			$nodos = array();
 			foreach ($pares as $par) {
@@ -139,17 +139,17 @@ class toba_ei_arbol extends toba_ei
 					$nodos[$id] = $visible;
 				}
 			}				
-			$this->datos_apertura = $nodos;
+			$this->_datos_apertura = $nodos;
 			//Se reporta el cambio de layout al padre				
-			$this->reportar_evento("cambio_apertura", $this->datos_apertura);
+			$this->reportar_evento("cambio_apertura", $this->_datos_apertura);
 		}
-		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
-			$evento = $_POST[$this->submit];	
+		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];	
 			//El evento estaba entre los ofrecidos?
-			if(isset($this->memoria['eventos'][$evento]) ) {
+			if(isset($this->_memoria['eventos'][$evento]) ) {
 				$parametros = null;
-				if ($evento == 'ver_propiedades' && isset($_POST[$this->submit."__seleccion"])) {
-					$this->reportar_evento( $evento, $_POST[$this->submit."__seleccion"] );
+				if ($evento == 'ver_propiedades' && isset($_POST[$this->_submit."__seleccion"])) {
+					$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
 				}
 			}
 		}
@@ -158,18 +158,18 @@ class toba_ei_arbol extends toba_ei
 	function generar_html()
 	{
 		$salida = "";
-		$salida .= toba_form::hidden($this->submit, '');
-		$salida .= toba_form::hidden($this->submit."__apertura_datos", '');
-		$salida .= toba_form::hidden($this->submit."__seleccion", '');
+		$salida .= toba_form::hidden($this->_submit, '');
+		$salida .= toba_form::hidden($this->_submit."__apertura_datos", '');
+		$salida .= toba_form::hidden($this->_submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
 		$salida .= "<div class='ei-base ei-arbol-base'>";
 		$salida .= $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-arbol-barra-sup");		
-		if (isset($this->nodos_inicial)) {
+		if (isset($this->_nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
 			$barra = "";
-			if (count($this->nodos_inicial) > 0) {
-				$nodo = $this->nodos_inicial[0];
+			if (count($this->_nodos_inicial) > 0) {
+				$nodo = $this->_nodos_inicial[0];
 				while ($nodo->get_padre() != null) {
 					$nodo = $nodo->get_padre();	
 					$nodo_barra = "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"";
@@ -183,7 +183,7 @@ class toba_ei_arbol extends toba_ei
 				$salida .= $barra;
 			}
 			$salida .= "<div class='ei-cuerpo ei-arbol-cuerpo'>\n";
-			foreach ($this->nodos_inicial as $nodo_inicial) {
+			foreach ($this->_nodos_inicial as $nodo_inicial) {
 				$salida .= "\n<ul $id class='ei-arbol-raiz'>";
 				$salida .= $this->recorrer_recursivo($nodo_inicial, true);
 				$salida .= "</ul>";
@@ -238,7 +238,7 @@ class toba_ei_arbol extends toba_ei
 	{
 		$salida = '';
 		$salida .= $this->mostrar_utilerias($nodo);
-		if ($this->mostrar_propiedades_nodos && ! $nodo->es_hoja()) {
+		if ($this->_mostrar_propiedades_nodos && ! $nodo->es_hoja()) {
 			if ($es_visible) {
 				$img_exp_contr = toba_recurso::imagen_toba('nucleo/contraer.gif', false); 
 			} else {
@@ -267,7 +267,7 @@ class toba_ei_arbol extends toba_ei
 		} else {
 			$nombre = $corto;	
 		}
-		if ($this->mostrar_propiedades_nodos && $nodo->tiene_propiedades()) {
+		if ($this->_mostrar_propiedades_nodos && $nodo->tiene_propiedades()) {
 			$salida .= "<a href='#' onclick='{$this->objeto_js}.ver_propiedades(\"".$nodo->get_id()."\");' ".
 						"class='ei-arbol-ver-prop'>$nombre</a>";			
 		} else {
@@ -283,14 +283,14 @@ class toba_ei_arbol extends toba_ei
 	protected function nodo_es_visible($nodo, $nivel)
 	{
 		$cargado_parcial = !$nodo->es_hoja() && $nodo->tiene_hijos_cargados();
-		if ($this->todos_abiertos) {
+		if ($this->_todos_abiertos) {
 			return $cargado_parcial;
 		}
-		if (isset($this->datos_apertura[$nodo->get_id()])) {
-			return $this->datos_apertura[$nodo->get_id()] && $cargado_parcial;
+		if (isset($this->_datos_apertura[$nodo->get_id()])) {
+			return $this->_datos_apertura[$nodo->get_id()] && $cargado_parcial;
 		}
 		//Si no esta se determina por el nivel de apertura estandar
-		return ($nivel < $this->nivel_apertura) && $cargado_parcial;
+		return ($nivel < $this->_nivel_apertura) && $cargado_parcial;
 	}
 	
 	/**
@@ -302,7 +302,7 @@ class toba_ei_arbol extends toba_ei
 		foreach ($nodo->get_iconos() as $icono) {
 			$img = toba_recurso::imagen($icono['imagen'], null, null, $icono['ayuda']);
 			if (isset($icono['vinculo'])) {
-				$salida .= "<a target='{$this->frame_destino}' href='".$icono['vinculo']."'>$img</a>\n";
+				$salida .= "<a target='{$this->_frame_destino}' href='".$icono['vinculo']."'>$img</a>\n";
 			} else {
 				$salida .= $img."\n";
 			}
@@ -315,7 +315,7 @@ class toba_ei_arbol extends toba_ei
 	 */	
 	protected function mostrar_utilerias($nodo)
 	{
-		if (! $this->mostrar_utilerias) {
+		if (! $this->_mostrar_utilerias) {
 			return '';	
 		}
 		$salida = "";
@@ -331,7 +331,7 @@ class toba_ei_arbol extends toba_ei
 					if (isset($utileria['target'])) {
 						$target = "target='".$utileria['target']."'";
 					} else {
-						$target = "target='{$this->frame_destino}'";
+						$target = "target='{$this->_frame_destino}'";
 					}
 					$html = "<a href=\"".$utileria['vinculo']."\" $target>$img</a>\n";
 				} else {
@@ -378,10 +378,10 @@ class toba_ei_arbol extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$opciones['servicio'] = 'ejecutar';
-		$opciones['objetos_destino'] = array($this->id);
+		$opciones['objetos_destino'] = array($this->_id);
 		$autovinculo = toba::vinculador()->crear_autovinculo("", $opciones );
 		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
-												 '{$this->submit}', '$autovinculo');\n";
+												 '{$this->_submit}', '$autovinculo');\n";
 	}
 
 	/**

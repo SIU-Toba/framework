@@ -18,9 +18,9 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		}
 		parent::generar_input_ef($ef);
 		if ($ef == 'imagen') {
-			$fila = $this->elemento_formulario[$ef]->get_fila_actual();
-			$origen = $this->elemento_formulario['imagen_recurso_origen']->get_estado();
-			$img = $this->elemento_formulario[$ef]->get_estado();
+			$fila = $this->_elemento_formulario[$ef]->get_fila_actual();
+			$origen = $this->_elemento_formulario['imagen_recurso_origen']->get_estado();
+			$img = $this->_elemento_formulario[$ef]->get_estado();
 			seleccion_imagenes::generar_input_ef($origen, $img, $this->objeto_js, $fila);			
 		} 
 		if ($ef == 'imagen') {

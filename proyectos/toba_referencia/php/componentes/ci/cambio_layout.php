@@ -13,8 +13,8 @@ class pantalla_dos_columnas extends toba_ei_pantalla
 	    	</style>";
         echo "<table>";
         $i = 0;
-        foreach($this->dependencias as $dep) {
-            $ultimo = ($i == count($this->dependencias));
+        foreach($this->_dependencias as $dep) {
+            $ultimo = ($i == count($this->_dependencias));
             if ($i % 2 == 0) {
                 echo "<tr>";    
             }

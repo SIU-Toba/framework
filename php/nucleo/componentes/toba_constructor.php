@@ -37,9 +37,9 @@ class toba_constructor
 		if ($tipo != 'item') {		//**** Creacion de OBJETOS
 			$clase = toba_catalogo::get_nombre_clase_runtime( $tipo );
 			//Posee una subclase asociada?
-			if ( $datos['info']['subclase'] && $con_subclase ) {
-				require_once($datos['info']['subclase_archivo']);
-				$clase = $datos['info']['subclase'];
+			if ( $datos['_info']['subclase'] && $con_subclase ) {
+				require_once($datos['_info']['subclase_archivo']);
+				$clase = $datos['_info']['subclase'];
 			}
 			//Instancio el objeto
 			$objeto = new $clase( $datos );

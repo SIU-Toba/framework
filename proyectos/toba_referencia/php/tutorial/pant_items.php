@@ -4,6 +4,11 @@ require_once("tutorial/pant_tutorial.php");
 
 class ci_items extends toba_ci
 {
+	function conf__definicion()
+	{
+		$this->pantalla()->agregar_dep('arbol');
+	}
+	
 	function conf__arbol(toba_ei_arbol $arbol)
 	{
 		if (class_exists('contexto_info')) {
@@ -61,7 +66,6 @@ class pant_creacion extends pant_tutorial
 	}
 }
 
-
 //----------------------------------------------------------
 
 
@@ -113,7 +117,5 @@ class pant_masinfo extends pant_tutorial
 		";
 	}
 }
-
-
 
 ?>

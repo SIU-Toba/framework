@@ -24,7 +24,7 @@ class componente_cn extends componente_toba
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
-		$sql['info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
+		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
 		return $sql;
 	}
 	

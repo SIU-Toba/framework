@@ -18,28 +18,33 @@ require_once('nucleo/lib/toba_tab.php');
 class toba_ei_pantalla extends toba_ei
 {
 	// Navegacion
-	protected $info_ci = array();
-	protected $info_ci_me_pantalla = array();
-	protected $info_pantalla = array();
-	protected $lista_tabs = array();
-	protected $dependencias;
-	protected $nombre_formulario;					// Nombre del <form> del MT
-	protected $submit;								// Boton de SUBMIT
-	protected $id_en_controlador;
+	protected $_info_ci = array();
+	protected $_info_ci_me_pantalla = array();
+	protected $_info_pantalla = array();
+	protected $_lista_tabs = array();
+	protected $_dependencias;
+	protected $_nombre_formulario;					// Nombre del <form> del MT
+	protected $_submit;								// Boton de SUBMIT
+	protected $_id_en_controlador;
 
 	function __construct($info_pantalla, $submit, $objeto_js)
 	{
 		parent::__construct($info_pantalla);
-		$this->nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
-		$this->submit = $submit;
+		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
+		$this->_submit = $submit;
 		$this->objeto_js = $objeto_js;
-		$this->posicion_botonera = ($this->info_ci['posicion_botonera'] != '') ? $this->info_ci['posicion_botonera'] : 'abajo';
+		$this->_posicion_botonera = ($this->_info_ci['posicion_botonera'] != '') ? $this->_info_ci['posicion_botonera'] : 'abajo';
 	}
-	
+
+	/**
+	 * @see dependencia
+	 * @return toba_componente
+	 */
+
 	function set_controlador($controlador, $id_en_padre=null)
 	{
 		$this->controlador = $controlador;
-		$this->id_en_controlador = $id_en_padre;
+		$this->_id_en_controlador = $id_en_padre;
 	}	
 
 	/**
@@ -60,20 +65,20 @@ class toba_ei_pantalla extends toba_ei
 	function post_configurar()
 	{
 		parent::post_configurar();
-		$this->dependencias = array();
-		foreach ($this->lista_dependencias as $id) {
-			$this->dependencias[$id] = $this->controlador->dependencia($id);	
+		$this->_dependencias = array();
+		foreach ($this->_lista_dependencias as $id) {
+			$this->_dependencias[$id] = $this->controlador->dependencia($id);	
 		}
 	}
 	
 	function get_etiqueta()
 	{
-		return $this->info_pantalla["etiqueta"];
+		return $this->_info_pantalla["etiqueta"];
 	}
 	
 	function set_etiqueta($nueva)
 	{
-		$this->info_pantalla["etiqueta"] = $nueva;
+		$this->_info_pantalla["etiqueta"] = $nueva;
 	}
 	
 	/**
@@ -82,7 +87,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function get_descripcion()
 	{
-		return trim($this->info_pantalla["descripcion"]);
+		return trim($this->_info_pantalla["descripcion"]);
 	}
 
 	/**
@@ -91,7 +96,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function set_descripcion($descr)
 	{
-		$this->info_pantalla["descripcion"] = $descr;
+		$this->_info_pantalla["descripcion"] = $descr;
 	}
 
 	//------------------------------------------------------
@@ -108,7 +113,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		//--- Chequeo para evitar el bug #389				
 		if ($this->controlador->existe_dependencia($id_obj)) {
-			$this->lista_dependencias[] = $id_obj;
+			$this->_lista_dependencias[] = $id_obj;
 		} else {
 			toba::logger()->error($this->get_txt(). 
 					" Se quiere agregar la dependencia '$id_obj', pero esta no está definida en el CI");
@@ -121,8 +126,8 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function eliminar_dep($id)
 	{
-		if (in_array($id, $this->lista_dependencias)) {
-			array_borrar_valor($this->lista_dependencias, $id);
+		if (in_array($id, $this->_lista_dependencias)) {
+			array_borrar_valor($this->_lista_dependencias, $id);
 		} else {
 			throw new toba_error($this->get_txt(). 
 					" Se quiere eliminar la dependencia '$id', pero esta no está en la pantalla actual");
@@ -135,7 +140,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function get_lista_dependencias()
 	{
-		return $this->lista_dependencias;
+		return $this->_lista_dependencias;
 	}
 	
 	/**
@@ -144,7 +149,7 @@ class toba_ei_pantalla extends toba_ei
 	protected function cargar_lista_dep()
 	{
 		//Busco la definicion standard para la etapa
-		$objetos = trim($this->info_pantalla["objetos"] );
+		$objetos = trim($this->_info_pantalla["objetos"] );
 		if ( $objetos != "" ) {
 			$objetos = array_map("trim", explode(",", $objetos ) );
 			foreach ($objetos as $id_obj) {
@@ -165,8 +170,8 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function tab($id)
 	{
-		if(isset($this->lista_tabs[$id])){
-			return $this->lista_tabs[$id];	
+		if(isset($this->_lista_tabs[$id])){
+			return $this->_lista_tabs[$id];	
 		} else {
 			throw new toba_error($this->get_txt(). " El tab '$id' no existe.");
 		}
@@ -182,12 +187,12 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function eliminar_tab($id)
 	{
-		/*if($id == $this->id_en_controlador ) {
+		/*if($id == $this->_id_en_controlador ) {
 			throw new toba_error_def($this->get_txt(). 
 					'No es posible eliminar el tab correspondiente a la pantalla que se esta mostrando');
 		}*/
-		if (isset($this->lista_tabs[$id])) {
-			unset($this->lista_tabs[$id]);
+		if (isset($this->_lista_tabs[$id])) {
+			unset($this->_lista_tabs[$id]);
 		} else {
 			throw new toba_error_def($this->get_txt(). 
 					" Se quiere eliminar el tab '$id', pero esta no está en la pantalla actual");
@@ -200,7 +205,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function get_lista_tabs()
 	{
-		return $this->lista_tabs;	
+		return $this->_lista_tabs;	
 	}
 
 	/**
@@ -209,16 +214,16 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function cargar_lista_tabs()
 	{
-		$this->lista_tabs = array();
-		for($a = 0; $a<count($this->info_ci_me_pantalla);$a++)
+		$this->_lista_tabs = array();
+		for($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)
 		{
-			$id = $this->info_ci_me_pantalla[$a]["identificador"];
+			$id = $this->_info_ci_me_pantalla[$a]["identificador"];
 			$datos['identificador'] = $id;
-			$datos['etiqueta'] = $this->info_ci_me_pantalla[$a]["etiqueta"];
-			$datos['ayuda'] = $this->info_ci_me_pantalla[$a]["tip"];
-			$datos['imagen'] = $this->info_ci_me_pantalla[$a]["imagen"];
-			$datos['imagen_recurso_origen'] = $this->info_ci_me_pantalla[$a]["imagen_recurso_origen"];
-			$this->lista_tabs[$id] = new toba_tab($datos);
+			$datos['etiqueta'] = $this->_info_ci_me_pantalla[$a]["etiqueta"];
+			$datos['ayuda'] = $this->_info_ci_me_pantalla[$a]["tip"];
+			$datos['imagen'] = $this->_info_ci_me_pantalla[$a]["imagen"];
+			$datos['imagen_recurso_origen'] = $this->_info_ci_me_pantalla[$a]["imagen_recurso_origen"];
+			$this->_lista_tabs[$id] = new toba_tab($datos);
 		}
 	}	
 	
@@ -236,37 +241,37 @@ class toba_ei_pantalla extends toba_ei
 	{
 		//--- Filtra los eventos definidos por el usuario segun la asignacion a pantallas
 		parent::cargar_lista_eventos();
-		$ev_etapa = explode(',', $this->info_pantalla['eventos']);
-		foreach (array_keys($this->eventos_usuario_utilizados) as $id) {
+		$ev_etapa = explode(',', $this->_info_pantalla['eventos']);
+		foreach (array_keys($this->_eventos_usuario_utilizados) as $id) {
 			if (! in_array($id, $ev_etapa)) {
-				unset($this->eventos_usuario_utilizados[$id]);
+				unset($this->_eventos_usuario_utilizados[$id]);
 			}
 		}
 		
 		//-- Agrega los eventos internos relacionados con la navegacion tabs
-		switch($this->info_ci['tipo_navegacion']) {
+		switch($this->_info_ci['tipo_navegacion']) {
 			case "tab_h":
 			case "tab_v":
-				foreach ($this->lista_tabs as $id => $tab) {
+				foreach ($this->_lista_tabs as $id => $tab) {
 					$this->registrar_evento_cambio_tab($id);
 				}
 				break;
 			case "wizard":
-				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->lista_tabs),
-																	$this->info_pantalla['identificador']);
+				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->_lista_tabs),
+																	$this->_info_pantalla['identificador']);
 				if ($anterior !== false) {
 					$e = new toba_evento_usuario();
 					$e->set_id('cambiar_tab__anterior');
 					$e->set_etiqueta('< &Anterior');
-					$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
-					$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
+					$this->_eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
+					$this->_eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
 				}
 				if ($siguiente !== false) {
 					$e = new toba_evento_usuario();
 					$e->set_id('cambiar_tab__siguiente');
 					$e->set_etiqueta('&Siguiente >');
-					$this->eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
-					$this->eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
+					$this->_eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
+					$this->_eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
 				}
 				break;
 		}		
@@ -279,7 +284,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function registrar_evento_cambio_tab($id)
 	{
-		$this->eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);		
+		$this->_eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);		
 	}
 	
 	//---------------------------------------------------------------
@@ -291,36 +296,36 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	function generar_html()
 	{
-		echo "\n<!-- ################################## Inicio CI ( ".$this->id[1]." ) ######################## -->\n\n";		
+		echo "\n<!-- ################################## Inicio CI ( ".$this->_id[1]." ) ######################## -->\n\n";		
 		//-->Listener de eventos
-		if ( (count($this->eventos) > 0) || (count($this->eventos_usuario_utilizados) > 0) ) {
-			echo toba_form::hidden($this->submit, '');
-			echo toba_form::hidden($this->submit."__param", '');
+		if ( (count($this->_eventos) > 0) || (count($this->_eventos_usuario_utilizados) > 0) ) {
+			echo toba_form::hidden($this->_submit, '');
+			echo toba_form::hidden($this->_submit."__param", '');
 		}
-		$ancho = isset($this->info_ci["ancho"]) ? "style='width:{$this->info_ci["ancho"]};'" : '';
+		$ancho = isset($this->_info_ci["ancho"]) ? "style='width:{$this->_info_ci["ancho"]};'" : '';
 		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td style='padding:0;'>\n";
 		echo $this->controlador->get_html_barra_editor();
 		$this->generar_html_barra_sup(null,true,"ci-barra-sup");
-		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
 
 		//--> Cuerpo del CI
-		$alto = isset($this->info_ci["alto"]) ? "style='_height:".$this->info_ci["alto"].";min-height:" . $this->info_ci["alto"] . "'" : "";
+		$alto = isset($this->_info_ci["alto"]) ? "style='_height:".$this->_info_ci["alto"].";min-height:" . $this->_info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
 		$this->generar_html_cuerpo();
 		echo "</div>\n";
 		
 		//--> Botonera
-		if($this->posicion_botonera == "abajo" || $this->posicion_botonera == "ambos") {
+		if($this->_posicion_botonera == "abajo" || $this->_posicion_botonera == "ambos") {
 			$this->generar_botones('ci-botonera');
 		}
-		if ( $this->utilizar_impresion_html ) {
+		if ( $this->_utilizar_impresion_html ) {
 			$this->generar_utilidades_impresion_html();
 		}		
 		
 		echo "\n</div>";
 		echo "</td></tr></table>";
-		echo "\n<!-- ###################################  Fin CI  ( ".$this->id[1]." ) ######################## -->\n\n";
+		echo "\n<!-- ###################################  Fin CI  ( ".$this->_id[1]." ) ######################## -->\n\n";
 	}
 
 	/**
@@ -329,7 +334,7 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function generar_html_cuerpo()
 	{
-		switch($this->info_ci['tipo_navegacion'])
+		switch($this->_info_ci['tipo_navegacion'])
 		{
 			case "tab_h":									//*** TABs horizontales
 				echo "<table class='tabla-0' width='100%'>\n";
@@ -357,7 +362,7 @@ class toba_ei_pantalla extends toba_ei
 			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
 				echo "<table class='tabla-0'>\n";
 				echo "<tr><td class='ci-wiz-toc'>";
-				if ($this->info_ci['con_toc']) {
+				if ($this->_info_ci['con_toc']) {
 					$this->generar_toc_wizard();
 				}
 				echo "</td>";
@@ -381,7 +386,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		//--- Descripcion de la PANTALLA
 		$descripcion = $this->get_descripcion();
-		$es_wizard = $this->info_ci['tipo_navegacion'] == 'wizard';
+		$es_wizard = $this->_info_ci['tipo_navegacion'] == 'wizard';
 		if ($descripcion !="" || $es_wizard) {
 			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
 			$descripcion = toba_parser_ayuda::parsear($descripcion);
@@ -405,7 +410,7 @@ class toba_ei_pantalla extends toba_ei
 	protected function generar_layout()
 	{
 		$existe_previo = 0;
-		foreach($this->dependencias as $dep) {
+		foreach($this->_dependencias as $dep) {
 			if($existe_previo){ //Separador
 				echo "<hr />\n";
 			}
@@ -422,12 +427,12 @@ class toba_ei_pantalla extends toba_ei
 	{
 		echo "<ol class='ci-wiz-toc-lista'>";
 		$pasada = true;
-		foreach ($this->lista_tabs as $id => $pantalla) {
+		foreach ($this->_lista_tabs as $id => $pantalla) {
 			if ($pasada)
 				$clase = 'ci-wiz-toc-pant-pasada';
 			else
 				$clase = 'ci-wiz-toc-pant-futuro';			
-			if ($id == $this->id_en_controlador) {
+			if ($id == $this->_id_en_controlador) {
 				$clase = 'ci-wiz-toc-pant-actual';
 				$pasada = false;
 			}
@@ -444,12 +449,12 @@ class toba_ei_pantalla extends toba_ei
 	protected function generar_tabs_horizontales()
 	{
 		echo "<ul>\n";
-		foreach( $this->lista_tabs as $id => $tab ) {
+		foreach( $this->_lista_tabs as $id => $tab ) {
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
-				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+				$editor = toba_editor::get_vinculo_pantalla($this->_id, $this->_info['clase_editor_item'], $id)."\n";
 			}			
-			echo $tab->get_html('H', $this->submit, $this->objeto_js, ($this->id_en_controlador == $id), $editor );
+			echo $tab->get_html('H', $this->_submit, $this->objeto_js, ($this->_id_en_controlador == $id), $editor );
 		}
 		echo "</ul>";
 	}
@@ -460,12 +465,12 @@ class toba_ei_pantalla extends toba_ei
 	protected function generar_tabs_verticales()
 	{
 		echo "<div  class='ci-tabs-v-margen-sup'> </div>";
-		foreach( $this->lista_tabs as $id => $tab ) {
+		foreach( $this->_lista_tabs as $id => $tab ) {
 			$editor = '';
 			if (toba_editor::modo_prueba()) {
-				$editor = toba_editor::get_vinculo_pantalla($this->id, $this->info['clase_editor_item'], $id)."\n";
+				$editor = toba_editor::get_vinculo_pantalla($this->_id, $this->_info['clase_editor_item'], $id)."\n";
 			}
-			echo $tab->get_html('V', $this->submit, $this->objeto_js, ($this->id_en_controlador == $id), $editor);
+			echo $tab->get_html('V', $this->_submit, $this->objeto_js, ($this->_id_en_controlador == $id), $editor);
 		}
 		echo "<div class='ci-tabs-v-solapa' style='height:99%;'></div>";
 	}
@@ -475,7 +480,7 @@ class toba_ei_pantalla extends toba_ei
 	 */	
 	protected function generar_utilidades_impresion_html()
 	{
-		$id_frame = "{$this->submit}_print";
+		$id_frame = "{$this->_submit}_print";
 		echo "<iframe style='position:absolute;width: 0px; height: 0px; border-style: none;' "
 			."name='$id_frame' id='$id_frame' src='about:blank'></iframe>";
 		echo toba_js::abrir();
@@ -520,7 +525,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$consumo_js = parent::get_consumo_javascript();
 		$consumo_js[] = 'componentes/ci';
-		foreach($this->dependencias as $dep) {
+		foreach($this->_dependencias as $dep) {
 			$temp = $dep->get_consumo_javascript();
 			if (isset($temp)) {
 				$consumo_js = array_merge($consumo_js, $temp);
@@ -536,12 +541,12 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();	
 		//Crea le objeto CI
-		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->nombre_formulario}', '{$this->submit}', '{$this->id_en_controlador}');\n";
+		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();
 		toba_js::instancia()->identar(1);		
-		foreach($this->dependencias as $id => $dep)	{
+		foreach($this->_dependencias as $id => $dep)	{
 			$objetos[$id] = $dep->generar_js();
 		}
 		$identado = toba_js::instancia()->identar(-1);		
@@ -576,7 +581,7 @@ class toba_ei_pantalla extends toba_ei
 	function vista_impresion( toba_impresion $salida )
 	{
 		$salida->titulo( $this->get_titulo() );
-		foreach($this->dependencias as $dep) {
+		foreach($this->_dependencias as $dep) {
 			$dep->vista_impresion( $salida );
 		}
 	}

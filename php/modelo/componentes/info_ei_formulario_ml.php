@@ -30,11 +30,11 @@ class info_ei_formulario_ml extends info_ei_formulario
 	
 	function agregar_online()
 	{
-		return ($this->datos['info_formulario']['filas_agregar_online'] == true);
+		return ($this->datos['_info_formulario']['filas_agregar_online'] == true);
 	}
 	
 	function tipo_analisis() {
-		return $this->datos['info_formulario']['analisis_cambios'];
+		return $this->datos['_info_formulario']['analisis_cambios'];
 	}
 
 	function get_comentario_carga()

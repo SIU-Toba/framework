@@ -13,48 +13,48 @@ require_once("nucleo/componentes/interface/efs/toba_ef.php");
  */
 class toba_ei_formulario extends toba_ei
 {
-	protected $prefijo = 'form';	
-	protected $elemento_formulario;			// interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
-	protected $nombre_formulario;			// interno | string | Nombre del	FORMULARIO en el cliente
-	protected $lista_ef = array();			// interno | array |	Lista	completa	de	a los	EF
-	protected $lista_ef_post = array();		// interno | array |	Lista	de	elementos que se reciben por POST
-	protected $lista_toba_ef_ocultos = array();
-	protected $nombre_ef_cli = array(); 	// interno | array | ID html de los elementos
-	protected $parametros_carga_efs;		// Parámetros que se utilizan para cargar opciones a los efs
-	protected $modelo_eventos;
-	protected $flag_out = false;			// indica si el formulario genero output
-	protected $evento_mod_estricto;			// Solo dispara la modificacion si se apreto el boton procesar
-	protected $rango_tabs;					// Rango de números disponibles para asignar al taborder
-	protected $objeto_js;	
-	protected $ancho_etiqueta = '150px';
-	protected $efs_invalidos = array();
-	protected $info_formulario = array();
-	protected $info_formulario_ef = array();
-	protected $js_eliminar;
-	protected $js_agregar;
-	protected $lista_efs_servicio;
+	protected $_prefijo = 'form';	
+	protected $_elemento_formulario;			// interno | array |	Rererencias	a los	ELEMENTOS de FORMULARIO
+	protected $_nombre_formulario;			// interno | string | Nombre del	FORMULARIO en el cliente
+	protected $_lista_ef = array();			// interno | array |	Lista	completa	de	a los	EF
+	protected $_lista_ef_post = array();		// interno | array |	Lista	de	elementos que se reciben por POST
+	protected $_lista_toba_ef_ocultos = array();
+	protected $_nombre_ef_cli = array(); 	// interno | array | ID html de los elementos
+	protected $_parametros_carga_efs;		// Parámetros que se utilizan para cargar opciones a los efs
+	protected $_modelo_eventos;
+	protected $_flag_out = false;			// indica si el formulario genero output
+	protected $_evento_mod_estricto;			// Solo dispara la modificacion si se apreto el boton procesar
+	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
+	protected $_objeto_js;	
+	protected $_ancho_etiqueta = '150px';
+	protected $_efs_invalidos = array();
+	protected $_info_formulario = array();
+	protected $_info_formulario_ef = array();
+	protected $_js_eliminar;
+	protected $_js_agregar;
+	protected $_lista_efs_servicio;
 	
-	protected $eventos_ext = null;			// Eventos seteados desde afuera
-	protected $observadores;
-	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario';
+	protected $_eventos_ext = null;			// Eventos seteados desde afuera
+	protected $_observadores;
+	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario';
 		
 	//---Cascadas
-	protected $cascadas_maestros = array();		//Arreglo de maestros indexados por esclavo
-	protected $cascadas_esclavos = array();		//Arreglo de esclavos indexados por maestro
+	protected $_cascadas_maestros = array();		//Arreglo de maestros indexados por esclavo
+	protected $_cascadas_esclavos = array();		//Arreglo de esclavos indexados por maestro
 
 	function __construct($id)
 	{
 		parent::__construct($id);
 		//Nombre de los botones de javascript
-		$this->js_eliminar = "eliminar_ei_{$this->submit}";
-		$this->js_agregar = "agregar_ei_{$this->submit}";
-		$this->evento_mod_estricto = true;
+		$this->_js_eliminar = "eliminar_ei_{$this->_submit}";
+		$this->_js_agregar = "agregar_ei_{$this->_submit}";
+		$this->_evento_mod_estricto = true;
 	}
 
 	function destruir()
 	{
 		//Memorizo la lista de efs enviados
-		$this->memoria['lista_efs'] = $this->lista_ef_post;
+		$this->_memoria['lista_efs'] = $this->_lista_ef_post;
 		parent::destruir();
 	}
 	
@@ -65,15 +65,15 @@ class toba_ei_formulario extends toba_ei
 	function inicializar($parametros)
 	{
 		parent::inicializar($parametros);
-		$this->nombre_formulario =	$parametros["nombre_formulario"];
-		if (isset($this->info_formulario['ancho_etiqueta']) && $this->info_formulario['ancho_etiqueta'] != '') {
-			$this->ancho_etiqueta = $this->info_formulario['ancho_etiqueta'];
+		$this->_nombre_formulario =	$parametros["nombre_formulario"];
+		if (isset($this->_info_formulario['ancho_etiqueta']) && $this->_info_formulario['ancho_etiqueta'] != '') {
+			$this->_ancho_etiqueta = $this->_info_formulario['ancho_etiqueta'];
 		}	
 		//Creo el array de objetos EF (Elementos de Formulario) que conforman	el	ABM
 		$this->crear_elementos_formulario();
 		//Cargo IDs en el CLIENTE
-		foreach ($this->lista_ef_post as $ef) {
-			$this->nombre_ef_cli[$ef] = $this->elemento_formulario[$ef]->get_id_form();
+		foreach ($this->_lista_ef_post as $ef) {
+			$this->_nombre_ef_cli[$ef] = $this->_elemento_formulario[$ef]->get_id_form();
 		}
 		//Inicializacion de especifica de cada tipo de formulario
 		$this->inicializar_especifico();
@@ -85,56 +85,56 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function crear_elementos_formulario()
 	{
-		$this->lista_ef = array();
-		for($a=0;$a<count($this->info_formulario_ef);$a++)
+		$this->_lista_ef = array();
+		for($a=0;$a<count($this->_info_formulario_ef);$a++)
 		{
 			//-[1]- Armo las listas	que determinan	el	plan de accion	del ABM
-			$id_ef = $this->info_formulario_ef[$a]["identificador"];
-			$this->lista_ef[]	= $id_ef;
-			switch ($this->info_formulario_ef[$a]["elemento_formulario"]) {
+			$id_ef = $this->_info_formulario_ef[$a]["identificador"];
+			$this->_lista_ef[]	= $id_ef;
+			switch ($this->_info_formulario_ef[$a]["elemento_formulario"]) {
 				case	"ef_oculto":
 				case	"ef_oculto_secuencia":
 				case	"ef_oculto_proyecto":
 				case	"ef_oculto_usuario":
-					$this->lista_toba_ef_ocultos[] = $id_ef;
+					$this->_lista_toba_ef_ocultos[] = $id_ef;
 					break;
 				default:
-					$this->lista_ef_post[] = $id_ef;
+					$this->_lista_ef_post[] = $id_ef;
 			}
-			//$parametros	= parsear_propiedades($this->info_formulario_ef[$a]["inicializacion"], '_');
-			$parametros = $this->info_formulario_ef[$a];
+			//$parametros	= parsear_propiedades($this->_info_formulario_ef[$a]["inicializacion"], '_');
+			$parametros = $this->_info_formulario_ef[$a];
 			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])) {
-				$parametros['carga_fuente']=$this->info['fuente'];
+				$parametros['carga_fuente']=$this->_info['fuente'];
 			}
 
 			//Preparo el identificador	del dato	que maneja el EF.
 			//Esta parametro puede ser	un	ARRAY	o un string: exiten EF complejos	que manejan	mas de una
 			//Columna de la tabla a	la	que esta	asociada	el	ABM
-			if(ereg(",",$this->info_formulario_ef[$a]["columnas"])){
-				 $dato =	explode(",",$this->info_formulario_ef[$a]["columnas"]);
+			if(ereg(",",$this->_info_formulario_ef[$a]["columnas"])){
+				 $dato =	explode(",",$this->_info_formulario_ef[$a]["columnas"]);
 				for($d=0;$d<count($dato);$d++){//Elimino espacios en las	claves
 					$dato[$d]=trim($dato[$d]);
 				}
 			}else{
-				 $dato =	$this->info_formulario_ef[$a]["columnas"];
+				 $dato =	$this->_info_formulario_ef[$a]["columnas"];
 			}
 			//Nombre	del formulario.
-			$id_ef = $this->info_formulario_ef[$a]["identificador"];
-			$this->parametros_carga_efs[$id_ef] = $parametros;
-			$clase_ef = 'toba_'.$this->info_formulario_ef[$a]["elemento_formulario"];
-			$this->elemento_formulario[$id_ef] = new $clase_ef(
+			$id_ef = $this->_info_formulario_ef[$a]["identificador"];
+			$this->_parametros_carga_efs[$id_ef] = $parametros;
+			$clase_ef = 'toba_'.$this->_info_formulario_ef[$a]["elemento_formulario"];
+			$this->_elemento_formulario[$id_ef] = new $clase_ef(
 															$this, 
-															$this->nombre_formulario,
-															$this->info_formulario_ef[$a]["identificador"],
-															$this->info_formulario_ef[$a]["etiqueta"],
-															addslashes($this->info_formulario_ef[$a]["descripcion"]),
+															$this->_nombre_formulario,
+															$this->_info_formulario_ef[$a]["identificador"],
+															$this->_info_formulario_ef[$a]["etiqueta"],
+															addslashes($this->_info_formulario_ef[$a]["descripcion"]),
 															$dato,
-															array($this->info_formulario_ef[$a]["obligatorio"], 
-																$this->info_formulario_ef[$a]["oculto_relaja_obligatorio"]),
+															array($this->_info_formulario_ef[$a]["obligatorio"], 
+																$this->_info_formulario_ef[$a]["oculto_relaja_obligatorio"]),
 															$parametros);
-			$this->elemento_formulario[$id_ef]->set_expandido(! $this->info_formulario_ef[$a]['colapsado']);
-			if (isset($this->info_formulario_ef[$a]['etiqueta_estilo'])) {
-				$this->elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->info_formulario_ef[$a]['etiqueta_estilo'] );
+			$this->_elemento_formulario[$id_ef]->set_expandido(! $this->_info_formulario_ef[$a]['colapsado']);
+			if (isset($this->_info_formulario_ef[$a]['etiqueta_estilo'])) {
+				$this->_elemento_formulario[$id_ef]->set_estilo_etiqueta( $this->_info_formulario_ef[$a]['etiqueta_estilo'] );
 			}
 		}
 		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
@@ -155,7 +155,7 @@ class toba_ei_formulario extends toba_ei
 	*/
 	protected function set_ancho_etiqueta($ancho)
 	{
-		$this->ancho_etiqueta = $ancho;
+		$this->_ancho_etiqueta = $ancho;
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -169,12 +169,12 @@ class toba_ei_formulario extends toba_ei
 	function pre_eventos()
 	{
 		//-- Resguarda la lista de efs para servicio
-		$this->lista_efs_servicio = $this->lista_ef_post;
-		$this->lista_ef_post = $this->memoria['lista_efs'];	
-		if (isset($this->memoria['efs'])) {
-			foreach (array_keys($this->memoria['efs']) as $id_ef) {
-				if (isset($this->memoria['efs'][$id_ef]['obligatorio'])) {
-					$this->elemento_formulario[$id_ef]->set_obligatorio($this->memoria['efs'][$id_ef]['obligatorio']);
+		$this->_lista_efs_servicio = $this->_lista_ef_post;
+		$this->_lista_ef_post = $this->_memoria['lista_efs'];	
+		if (isset($this->_memoria['efs'])) {
+			foreach (array_keys($this->_memoria['efs']) as $id_ef) {
+				if (isset($this->_memoria['efs'][$id_ef]['obligatorio'])) {
+					$this->_elemento_formulario[$id_ef]->set_obligatorio($this->_memoria['efs'][$id_ef]['obligatorio']);
 				}
 			}
 		}
@@ -186,19 +186,19 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function post_eventos()
 	{
-		if (isset($this->memoria['efs'])) {
+		if (isset($this->_memoria['efs'])) {
 			//--- Restaura lo obligatorio
-			foreach ($this->info_formulario_ef as $def_ef) {
+			foreach ($this->_info_formulario_ef as $def_ef) {
 				$id_ef = $def_ef['identificador'];
-				if (isset($this->memoria['efs'][$id_ef])) {
-					$this->elemento_formulario[$id_ef]->set_obligatorio($def_ef['obligatorio']);
+				if (isset($this->_memoria['efs'][$id_ef])) {
+					$this->_elemento_formulario[$id_ef]->set_obligatorio($def_ef['obligatorio']);
 				}
 			}
-			unset($this->memoria['efs']);
+			unset($this->_memoria['efs']);
 		}
 		$this->limpiar_interface();	
 		//-- Restaura la lista de efs para servicio		
-		$this->lista_ef_post = $this->lista_efs_servicio;
+		$this->_lista_ef_post = $this->_lista_efs_servicio;
 	}	
 	
 	/**
@@ -206,20 +206,20 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function disparar_eventos()
 	{
-		$this->log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
+		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
 		$this->pre_eventos();
-		foreach ($this->lista_ef as $ef){
-			$this->elemento_formulario[$ef]->cargar_estado_post();
+		foreach ($this->_lista_ef as $ef){
+			$this->_elemento_formulario[$ef]->cargar_estado_post();
 		}		
 		$datos = $this->get_datos();
 		$validado = false;
 		//Veo si se devolvio algun evento!
-		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
-			$evento = $_POST[$this->submit];
+		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];
 			//La opcion seleccionada estaba entre las ofrecidas?
-			if (isset($this->memoria['eventos'][$evento])) {
+			if (isset($this->_memoria['eventos'][$evento])) {
 				//Me fijo si el evento requiere validacion
-				$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
+				$maneja_datos = ($this->_memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
 				if($maneja_datos) {
 					if (! $validado) {
 						$this->validar_estado();
@@ -243,11 +243,11 @@ class toba_ei_formulario extends toba_ei
 	function validar_estado()
 	{
 		//Valida el	estado de los ELEMENTOS	de	FORMULARIO
-		foreach ($this->lista_ef_post as $ef) {
-			$validacion = $this->elemento_formulario[$ef]->validar_estado();
+		foreach ($this->_lista_ef_post as $ef) {
+			$validacion = $this->_elemento_formulario[$ef]->validar_estado();
 			if ($validacion !== true) {
-				$this->efs_invalidos[$ef] = str_replace("'", '"', $validacion);
-				$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
+				$this->_efs_invalidos[$ef] = str_replace("'", '"', $validacion);
+				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 				throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 			}
 		}
@@ -263,19 +263,19 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function registrar_cascadas()
 	{
-		$this->cascadas_maestros = array();
-		$this->cascadas_esclavos = array();
-		foreach ($this->lista_ef_post as $esclavo) {
-			$this->cascadas_maestros[$esclavo] = $this->elemento_formulario[$esclavo]->get_maestros();
-			foreach ($this->cascadas_maestros[$esclavo] as $maestro) {
-				if (! isset($this->elemento_formulario[$maestro])) {
+		$this->_cascadas_maestros = array();
+		$this->_cascadas_esclavos = array();
+		foreach ($this->_lista_ef_post as $esclavo) {
+			$this->_cascadas_maestros[$esclavo] = $this->_elemento_formulario[$esclavo]->get_maestros();
+			foreach ($this->_cascadas_maestros[$esclavo] as $maestro) {
+				if (! isset($this->_elemento_formulario[$maestro])) {
 					throw new toba_error_def("Cascadas: El ef '$maestro' no esta definido");
 				}
-				$this->cascadas_esclavos[$maestro][] = $esclavo;
+				$this->_cascadas_esclavos[$maestro][] = $esclavo;
 
-				$id_form_dep = $this->elemento_formulario[$esclavo]->get_id_form();
+				$id_form_dep = $this->_elemento_formulario[$esclavo]->get_id_form();
 				$js = "{$this->objeto_js}.cascadas_cambio_maestro('$maestro')";
-				$this->elemento_formulario[$maestro]->set_cuando_cambia_valor($js);
+				$this->_elemento_formulario[$maestro]->set_cuando_cambia_valor($js);
 			}
 		}
 	}
@@ -289,8 +289,8 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function limpiar_interface()
 	{
-		foreach ($this->lista_ef as $ef) {
-			$this->elemento_formulario[$ef]->resetear_estado();
+		foreach ($this->_lista_ef as $ef) {
+			$this->_elemento_formulario[$ef]->resetear_estado();
 		}
 	}
 
@@ -300,7 +300,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function get_nombres_ef()
 	{
-		return $this->lista_ef_post;
+		return $this->_lista_ef_post;
 	}
 	
 	/**
@@ -310,8 +310,8 @@ class toba_ei_formulario extends toba_ei
 	protected function get_efs_activos()
 	{
 		$lista = array();
-		foreach ($this->lista_ef as $id_ef) {
-			if (in_array($id_ef, $this->lista_ef_post) || in_array($id_ef, $this->lista_toba_ef_ocultos)) {
+		foreach ($this->_lista_ef as $id_ef) {
+			if (in_array($id_ef, $this->_lista_ef_post) || in_array($id_ef, $this->_lista_toba_ef_ocultos)) {
 				$lista[] = $id_ef;
 			}	
 		}
@@ -324,7 +324,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function ef($id) 
 	{
-		return $this->elemento_formulario[$id];
+		return $this->_elemento_formulario[$id];
 	}
 
 	
@@ -337,14 +337,14 @@ class toba_ei_formulario extends toba_ei
 	function set_solo_lectura($efs=null, $readonly=true)
 	{
 		if(!isset($efs)){
-			$efs = $this->lista_ef_post;
+			$efs = $this->_lista_ef_post;
 		}
 		if (! is_array($efs)) {
 			$efs = array($efs);	
 		}
 		foreach ($efs as $ef) {
-			if(isset($this->elemento_formulario[$ef])){
-				$this->elemento_formulario[$ef]->set_solo_lectura($readonly);
+			if(isset($this->_elemento_formulario[$ef])){
+				$this->_elemento_formulario[$ef]->set_solo_lectura($readonly);
 			}else{
 				throw new toba_error("El ef '$ef' no existe");
 			}
@@ -360,15 +360,15 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function set_efs_obligatorios($efs=null, $obligatorios=true) {
 		if (!isset($efs)) {
-			$efs = $this->lista_ef_post;
+			$efs = $this->_lista_ef_post;
 		}
 		if (! is_array($efs)) {
 			$efs = array($efs);	
 		}
 		foreach ($efs as $ef) {
-			if (isset($this->elemento_formulario[$ef])) {
-				$this->elemento_formulario[$ef]->set_obligatorio($obligatorios);
-				$this->memoria['efs'][$ef]['obligatorio'] = $obligatorios;
+			if (isset($this->_elemento_formulario[$ef])) {
+				$this->_elemento_formulario[$ef]->set_obligatorio($obligatorios);
+				$this->_memoria['efs'][$ef]['obligatorio'] = $obligatorios;
 			} else {
 				throw new toba_error("El ef '$ef' no existe");
 			}
@@ -383,15 +383,15 @@ class toba_ei_formulario extends toba_ei
 	function desactivar_efs($efs=null)
 	{
 		if(!isset($efs)){
-			$efs = $this->lista_ef_post;
+			$efs = $this->_lista_ef_post;
 		}
 		if (! is_array($efs)) {
 			$efs = array($efs);
 		}
 		foreach ($efs as $ef) {
-			$pos = array_search($ef, $this->lista_ef_post);
+			$pos = array_search($ef, $this->_lista_ef_post);
 			if ($pos !== false) {
-				array_splice($this->lista_ef_post, $pos, 1);
+				array_splice($this->_lista_ef_post, $pos, 1);
 			} else {
 				throw new toba_error("No se puede desactivar el ef '$ef' ya que no se encuentra en la lista de efs activos");
 			}
@@ -404,8 +404,8 @@ class toba_ei_formulario extends toba_ei
 	 */	
 	function get_tab_index()
 	{
-		if (isset($this->rango_tabs)) {
-			return $this->rango_tabs[0]++;
+		if (isset($this->_rango_tabs)) {
+			return $this->_rango_tabs[0]++;
 		}	
 	}
 	
@@ -421,13 +421,13 @@ class toba_ei_formulario extends toba_ei
 	{
 		$registro = array();
 		foreach ($this->get_efs_activos() as $ef) {
-			$dato	= $this->elemento_formulario[$ef]->get_dato();
-			$estado = $this->elemento_formulario[$ef]->get_estado();
+			$dato	= $this->_elemento_formulario[$ef]->get_dato();
+			$estado = $this->_elemento_formulario[$ef]->get_estado();
 			if (is_array($dato)){	//El EF maneja	DATO COMPUESTO
-				if ($this->elemento_formulario[$ef]->es_estado_unico()) {
+				if ($this->_elemento_formulario[$ef]->es_estado_unico()) {
 					if ((count($dato))!=(count($estado))) {//Error	de	consistencia interna	del EF
 						throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
-											$this->elemento_formulario[$ef]->get_etiqueta().
+											$this->_elemento_formulario[$ef]->get_etiqueta().
 											"\nRecibido: ".var_export($estado, true));
 					}
 					for($x=0;$x<count($dato);$x++){
@@ -441,7 +441,7 @@ class toba_ei_formulario extends toba_ei
 						if (count($dato) != count($sub_estado)) {
 							//Error	de	consistencia interna	del EF
 							throw new toba_error_def("Error de consistencia	interna en el EF etiquetado: ".
-												$this->elemento_formulario[$ef]->get_etiqueta().
+												$this->_elemento_formulario[$ef]->get_etiqueta().
 												"\nRecibido: ".var_export($sub_estado, true));
 						}
 						for ($x=0;$x<count($dato);$x++) {
@@ -479,11 +479,11 @@ class toba_ei_formulario extends toba_ei
 		if (isset($datos)){
 			//ei_arbol($datos,"DATOS para llenar el EI_FORM");
 			//Seteo los	EF	con el valor recuperado
-			foreach ($this->lista_ef as $ef) {	//Tengo que	recorrer	todos	los EF...
+			foreach ($this->_lista_ef as $ef) {	//Tengo que	recorrer	todos	los EF...
 				$temp = null;
-				$dato = $this->elemento_formulario[$ef]->get_dato();
+				$dato = $this->_elemento_formulario[$ef]->get_dato();
 				if(is_array($dato)){	//El EF maneja	DATO COMPUESTO
-					if ($this->elemento_formulario[$ef]->es_estado_unico()) {
+					if ($this->_elemento_formulario[$ef]->es_estado_unico()) {
 						$temp = null;
 						for($x=0;$x<count($dato);$x++) {
 							if(isset($datos[$dato[$x]])) {
@@ -507,10 +507,10 @@ class toba_ei_formulario extends toba_ei
 					}
 				}
 				if(isset($temp)){
-					$this->elemento_formulario[$ef]->set_estado($temp);
+					$this->_elemento_formulario[$ef]->set_estado($temp);
 				}
 			}
-			if ($this->grupo_eventos_activo == 'no_cargado') {
+			if ($this->_grupo_eventos_activo == 'no_cargado') {
 				$this->set_grupo_eventos_activo('cargado');
 			}
 		}
@@ -523,7 +523,7 @@ class toba_ei_formulario extends toba_ei
 	function set_datos_defecto($datos)
 	{
 		$this->set_datos($datos);
-		if ($this->grupo_eventos_activo == 'cargado') {
+		if ($this->_grupo_eventos_activo == 'cargado') {
 			$this->set_grupo_eventos_activo('no_cargado');
 		}
 	}
@@ -538,8 +538,8 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function ef_tiene_maestros_seteados($id_ef)
 	{
-		foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
-			if (! $this->elemento_formulario[$maestro]->tiene_estado()) {
+		foreach ($this->_cascadas_maestros[$id_ef] as $maestro) {
+			if (! $this->_elemento_formulario[$maestro]->tiene_estado()) {
 				return false;
 			}
 		}
@@ -552,17 +552,17 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function cargar_opciones_efs()
 	{
-		foreach ($this->lista_ef_post as $id_ef) {
+		foreach ($this->_lista_ef_post as $id_ef) {
 			if ($this->ef_requiere_carga($id_ef)) {
 				$param = array();
 				//-- Tiene maestros el ef? Todos tienen estado?
 				$cargar = true;
 				$tiene_maestros = false;
-				if (isset($this->cascadas_maestros[$id_ef]) && !empty($this->cascadas_maestros[$id_ef])) {
+				if (isset($this->_cascadas_maestros[$id_ef]) && !empty($this->_cascadas_maestros[$id_ef])) {
 					$tiene_maestros = true;
-					foreach ($this->cascadas_maestros[$id_ef] as $maestro) {
-						if ($this->elemento_formulario[$maestro]->tiene_estado()) {
-							$estado = $this->elemento_formulario[$maestro]->get_estado();
+					foreach ($this->_cascadas_maestros[$id_ef] as $maestro) {
+						if ($this->_elemento_formulario[$maestro]->tiene_estado()) {
+							$estado = $this->_elemento_formulario[$maestro]->get_estado();
 							$param[$maestro] = $estado;
 						} else {
 							$cargar = false;
@@ -573,19 +573,19 @@ class toba_ei_formulario extends toba_ei
 				//--- En este caso se evita una re-carga porque se asume que no hay condiciones que puedan variar las opciones
 				$cargado = false;
 				if (! $tiene_maestros && $cargar) {
-					if ($this->elemento_formulario[$id_ef]->tiene_opciones_cargadas()) {
+					if ($this->_elemento_formulario[$id_ef]->tiene_opciones_cargadas()) {
 						$cargado = true;
 					}
 				}
 				if (! $cargado) {
 					$datos = null;
 					if ($cargar) {
-						if ($this->elemento_formulario[$id_ef]->carga_depende_de_estado()) {
-							$param[$id_ef] = $this->elemento_formulario[$id_ef]->get_estado();
+						if ($this->_elemento_formulario[$id_ef]->carga_depende_de_estado()) {
+							$param[$id_ef] = $this->_elemento_formulario[$id_ef]->get_estado();
 						}
 						$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
 					}
-					$this->elemento_formulario[$id_ef]->set_opciones($datos, $cargar);
+					$this->_elemento_formulario[$id_ef]->set_opciones($datos, $cargar);
 				}
 			}
 		}
@@ -597,9 +597,9 @@ class toba_ei_formulario extends toba_ei
 	protected function ef_requiere_carga($id_ef)
 	{
 		return 
-			isset($this->parametros_carga_efs[$id_ef]['carga_metodo'])
-			|| isset($this->parametros_carga_efs[$id_ef]['carga_lista'])
-			|| isset($this->parametros_carga_efs[$id_ef]['carga_sql']);
+			isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
+			|| isset($this->_parametros_carga_efs[$id_ef]['carga_lista'])
+			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql']);
 	}
 	
 	/**
@@ -607,15 +607,15 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function ejecutar_metodo_carga_ef($id_ef, $maestros = array())
 	{
-		$parametros = $this->parametros_carga_efs[$id_ef];
-		$seleccionable = $this->elemento_formulario[$id_ef]->es_seleccionable();
+		$parametros = $this->_parametros_carga_efs[$id_ef];
+		$seleccionable = $this->_elemento_formulario[$id_ef]->es_seleccionable();
 		
 		$es_posicional = true;
 		if ($seleccionable) {
 			//--- Se determinan cuales son los campos claves y el campo de valor
-			$campos_clave = $this->elemento_formulario[$id_ef]->get_campos_clave();
-			$campo_valor = $this->elemento_formulario[$id_ef]->get_campo_valor();
-			$es_posicional = $this->elemento_formulario[$id_ef]->son_campos_posicionales();
+			$campos_clave = $this->_elemento_formulario[$id_ef]->get_campos_clave();
+			$campo_valor = $this->_elemento_formulario[$id_ef]->get_campo_valor();
+			$es_posicional = $this->_elemento_formulario[$id_ef]->son_campos_posicionales();
 	
 			$valores = array();
 			if (isset($parametros['carga_no_seteado']) && ! isset($valores[apex_ef_no_seteado])) {
@@ -731,7 +731,7 @@ class toba_ei_formulario extends toba_ei
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
 		$maestros = array();
-		$ids_maestros = $this->cascadas_maestros[$id_ef];
+		$ids_maestros = $this->_cascadas_maestros[$id_ef];
 		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
 			if (trim($par) != '') {
 				$param = explode("-;-", trim($par));
@@ -746,7 +746,7 @@ class toba_ei_formulario extends toba_ei
 				}
 				array_borrar_valor($ids_maestros, $id_ef_maestro);
 				
-				$campos = $this->elemento_formulario[$id_ef_maestro]->get_dato();
+				$campos = $this->_elemento_formulario[$id_ef_maestro]->get_dato();
 				$valores = explode(apex_qs_separador, $param[1]);
 				if (!is_array($campos)) {
 					$maestros[$id_ef_maestro] = $param[1];
@@ -782,13 +782,13 @@ class toba_ei_formulario extends toba_ei
 	function generar_html()
 	{
 		//Genero la interface
-		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->id[1] ." )	***********	-->\n\n";
+		echo "\n\n<!-- ***************** Inicio EI FORMULARIO (	".	$this->_id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
-		echo toba_form::hidden($this->submit, '');
-		echo toba_form::hidden($this->submit.'_implicito', '');
+		echo toba_form::hidden($this->_submit, '');
+		echo toba_form::hidden($this->_submit.'_implicito', '');
 		$ancho = '';
-		if (isset($this->info_formulario["ancho"])) {
-			$ancho = convertir_a_medida_tabla($this->info_formulario["ancho"]);
+		if (isset($this->_info_formulario["ancho"])) {
+			$ancho = convertir_a_medida_tabla($this->_info_formulario["ancho"]);
 		}
 		echo "<table class='ei-base ei-form-base' $ancho id='{$this->objeto_js}_cont'>";
         echo "<tr><td style='padding:0'>";
@@ -801,7 +801,7 @@ class toba_ei_formulario extends toba_ei
 		$this->generar_formulario();	
 		echo "</td></tr>\n";
 		echo "</table>\n";
-		$this->flag_out = true;
+		$this->_flag_out = true;
 	}
 
 	/**
@@ -812,17 +812,17 @@ class toba_ei_formulario extends toba_ei
 		//--- La carga de efs se realiza aqui para que sea contextual al servicio
 		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();
-		$this->rango_tabs = toba_manejador_tabs::instancia()->reservar(250);		
+		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(250);		
 				
-		$ancho = ($this->info_formulario['ancho'] != '') ? "width: {$this->info_formulario['ancho']};" : '';
-		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "display:none;" : "";
+		$ancho = ($this->_info_formulario['ancho'] != '') ? "width: {$this->_info_formulario['ancho']};" : '';
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "display:none;" : "";
 	
 		echo "<div class='ei-cuerpo ei-form-cuerpo' style='$ancho $colapsado' id='cuerpo_{$this->objeto_js}'>";
 		$this->generar_layout();
 		
 		$hay_colapsado = false;
-		foreach ($this->lista_ef_post as $ef){
-			if (! $this->elemento_formulario[$ef]->esta_expandido()) {
+		foreach ($this->_lista_ef_post as $ef){
+			if (! $this->_elemento_formulario[$ef]->esta_expandido()) {
 				$hay_colapsado = true;
 				break;
 			}
@@ -845,7 +845,7 @@ class toba_ei_formulario extends toba_ei
 	 */	
 	protected function generar_layout()
 	{
-		foreach ($this->lista_ef_post as $ef) {
+		foreach ($this->_lista_ef_post as $ef) {
 			$this->generar_html_ef($ef);
 		}		
 	}
@@ -858,27 +858,27 @@ class toba_ei_formulario extends toba_ei
 	{
 		$clase = 'ei-form-fila';
 		$estilo_nodo = "";
-		$id_ef = $this->elemento_formulario[$ef]->get_id_form();
-		if (! $this->elemento_formulario[$ef]->esta_expandido()) {
+		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();
+		if (! $this->_elemento_formulario[$ef]->esta_expandido()) {
 			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
 		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
-		if ($this->elemento_formulario[$ef]->tiene_etiqueta()) {
+		if ($this->_elemento_formulario[$ef]->tiene_etiqueta()) {
 			$this->generar_etiqueta_ef($ef);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
-			echo "<div id='cont_$id_ef' style='margin-left:{$this->ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
+			echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
 			$this->generar_input_ef($ef);
 			echo "</div>";
 		} else {		
-			echo $this->elemento_formulario[$ef]->get_input();
+			echo $this->_elemento_formulario[$ef]->get_input();
 		}
 		echo "</div>\n";		
 	}
 	
 	protected function generar_input_ef($ef)
 	{
-		echo $this->elemento_formulario[$ef]->get_input();
+		echo $this->_elemento_formulario[$ef]->get_input();
 	}
 
 	
@@ -888,25 +888,25 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function generar_etiqueta_ef($ef)
 	{
-		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
+		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
 		$marca ='';		
 		if ($estilo == '') {
-	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
+	        if ($this->_elemento_formulario[$ef]->es_obligatorio()) {
 	    	        $estilo = 'ei-form-etiq-oblig';
 					$marca = '(*)';
         	} else {
 	            $estilo = 'ei-form-etiq';
     	    }
 		}
-		$desc = $this->elemento_formulario[$ef]->get_descripcion();
+		$desc = $this->_elemento_formulario[$ef]->get_descripcion();
 		if ($desc !=""){
 			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
 		}
-		$id_ef = $this->elemento_formulario[$ef]->get_id_form();					
+		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();					
 		$editor = $this->generar_vinculo_editor($ef);
-		$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
+		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
-		echo "<label style='_width:{$this->ancho_etiqueta};' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		echo "<label style='_width:{$this->_ancho_etiqueta};' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
 	}
 	
 	/**
@@ -915,9 +915,9 @@ class toba_ei_formulario extends toba_ei
 	protected function generar_vinculo_editor($id_ef)
 	{
 		if (toba_editor::modo_prueba()) {
-			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->id),
+			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_id),
 									'ef' => $id_ef );
-			return toba_editor::get_vinculo_subcomponente($this->item_editor, $param_editor);			
+			return toba_editor::get_vinculo_subcomponente($this->_item_editor, $param_editor);			
 		}
 		return null;
 	}
@@ -932,14 +932,14 @@ class toba_ei_formulario extends toba_ei
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$esclavos = toba_js::arreglo($this->cascadas_esclavos, true, false);
-		$maestros = toba_js::arreglo($this->cascadas_maestros, true, false);
-		$id = toba_js::arreglo($this->id, false);
-		$invalidos = toba_js::arreglo($this->efs_invalidos, true);
-		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->submit}', $maestros, $esclavos, $invalidos);\n";
-		foreach ($this->lista_ef_post as $ef) {
-			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+		$rango_tabs = "new Array({$this->_rango_tabs[0]}, {$this->_rango_tabs[1]})";
+		$esclavos = toba_js::arreglo($this->_cascadas_esclavos, true, false);
+		$maestros = toba_js::arreglo($this->_cascadas_maestros, true, false);
+		$id = toba_js::arreglo($this->_id, false);
+		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
+		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $maestros, $esclavos, $invalidos);\n";
+		foreach ($this->_lista_ef_post as $ef) {
+			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 	}
 
@@ -961,8 +961,8 @@ class toba_ei_formulario extends toba_ei
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = 'componentes/ei_formulario';
 		//Busco las	dependencias
-		foreach ($this->lista_ef_post	as	$ef){
-			$temp	= $this->elemento_formulario[$ef]->get_consumo_javascript();
+		foreach ($this->_lista_ef_post	as	$ef){
+			$temp	= $this->_elemento_formulario[$ef]->get_consumo_javascript();
 			if(isset($temp)) $consumo = array_merge($consumo, $temp);
 		}
 		$consumo = array_unique($consumo);//Elimino los	duplicados
@@ -977,10 +977,10 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->cargar_opciones_efs();		
 		$salida->subtitulo( $this->get_titulo() );
-		echo "<table class='tabla-0' width='{$this->info_formulario['ancho']}'>";
-		foreach ( $this->lista_ef_post as $ef){
+		echo "<table class='tabla-0' width='{$this->_info_formulario['ancho']}'>";
+		foreach ( $this->_lista_ef_post as $ef){
 			echo "<tr><td class='ei-form-etiq'>\n";
-			echo $this->elemento_formulario[$ef]->get_etiqueta();
+			echo $this->_elemento_formulario[$ef]->get_etiqueta();
 			$temp = $this->get_valor_imprimible_ef( $ef );
 			echo "</td><td class='". $temp['css'] ."'>\n";
 			echo $temp['valor'];
@@ -997,7 +997,7 @@ class toba_ei_formulario extends toba_ei
 	protected function get_valor_imprimible_ef( $id_ef ) 
 	{
 		require_once('nucleo/lib/interface/toba_formateo.php');
-		$ef = $this->elemento_formulario[$id_ef];
+		$ef = $this->_elemento_formulario[$id_ef];
 		$valor = $ef->get_descripcion_estado();
 		if ( $ef instanceof toba_ef_editable_moneda ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_moneda($valor) );

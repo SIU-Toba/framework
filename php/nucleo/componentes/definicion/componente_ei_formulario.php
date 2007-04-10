@@ -19,28 +19,28 @@ class componente_ei_formulario extends componente_ei
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//Formulario
-		$sql["info_formulario"]['sql'] = "SELECT	auto_reset as	auto_reset,						
+		$sql["_info_formulario"]['sql'] = "SELECT	auto_reset as	auto_reset,						
 										ancho 						as ancho,
 										ancho_etiqueta				as ancho_etiqueta
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_formulario']['sql'] .= "	AND		objeto_ut_formulario='$componente' ";	
+			$sql['_info_formulario']['sql'] .= "	AND		objeto_ut_formulario='$componente' ";	
 		}
-		$sql['info_formulario']['sql'] .= ";";
-		$sql['info_formulario']['registros']='1';
-		$sql['info_formulario']['obligatorio']=true;
+		$sql['_info_formulario']['sql'] .= ";";
+		$sql['_info_formulario']['registros']='1';
+		$sql['_info_formulario']['obligatorio']=true;
 		//EF
-		$sql["info_formulario_ef"]['sql'] = "SELECT	*
+		$sql["_info_formulario_ef"]['sql'] = "SELECT	*
 								FROM	apex_objeto_ei_formulario_ef
 								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
+			$sql['_info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
 		}
-		$sql['info_formulario_ef']['sql'] .= " AND	(desactivado=0	OR	desactivado	IS	NULL)
+		$sql['_info_formulario_ef']['sql'] .= " AND	(desactivado=0	OR	desactivado	IS	NULL)
 								ORDER	BY	orden;";
-		$sql['info_formulario_ef']['registros']='n';
-		$sql['info_formulario_ef']['obligatorio']=true;
+		$sql['_info_formulario_ef']['registros']='n';
+		$sql['_info_formulario_ef']['obligatorio']=true;
 		return $sql;
 	}
 

@@ -5,8 +5,8 @@ class pant_tutorial extends toba_ei_pantalla
 	function generar_html_contenido()
 	{
 		$i = 0;
-		foreach ($this->lista_tabs as $id => $pantalla) {
-			if ($id == $this->id_en_controlador) {
+		foreach ($this->_lista_tabs as $id => $pantalla) {
+			if ($id == $this->_id_en_controlador) {
 				break;
 			}
 			$i++;
@@ -24,8 +24,8 @@ class pant_agenda extends toba_ei_pantalla
 	function generar_layout()
 	{
 		echo "<div class='tutorial-agenda'><ol>";
-		foreach ($this->lista_tabs as $id => $pantalla) {
-			if ($id != $this->id_en_controlador) {
+		foreach ($this->_lista_tabs as $id => $pantalla) {
+			if ($id != $this->_id_en_controlador) {
 				$this->registrar_evento_cambio_tab($id);
 				echo "<li>";
 				echo "<a href='#' onclick='{$this->objeto_js}.ir_a_pantalla(\"$id\")'>";

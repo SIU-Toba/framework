@@ -13,24 +13,24 @@ require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topol
  */
 class toba_datos_relacion extends toba_componente 
 {
-	protected $info_estructura;
-	protected $relaciones = array();		
-	protected $tablas_raiz;
-	protected $persistidor;
-	protected $cargado = false;
-	protected $relaciones_mapeos=array();			//Mapeo entre filas de las tablas
+	protected $_info_estructura;
+	protected $_relaciones = array();		
+	protected $_tablas_raiz;
+	protected $_persistidor;
+	protected $_cargado = false;
+	protected $_relaciones_mapeos=array();			//Mapeo entre filas de las tablas
 	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
 
 	function __construct($id)
 	{
-		$propiedades[] = "relaciones_mapeos";
-		$propiedades[] = "cargado";
+		$propiedades[] = "_relaciones_mapeos";
+		$propiedades[] = "_cargado";
 		$this->set_propiedades_sesion($propiedades);			
 		parent::__construct($id);	
 		$this->crear_tablas();
 		$this->crear_relaciones();
-		if ($this->info_estructura['debug']) {
-			$this->dump_esquema("INICIO: ".$this->info['nombre']);	
+		if ($this->_info_estructura['debug']) {
+			$this->dump_esquema("INICIO: ".$this->_info['nombre']);	
 		}
 	}
 	
@@ -38,12 +38,12 @@ class toba_datos_relacion extends toba_componente
 	{
 		//Esta clase es la encargada de guardarle los valores en sesion a cada relación
 		//Se asume que las relaciones siempre se cargan en el mismo orden
-		$this->relaciones_mapeos = array();
-		foreach ($this->relaciones as $relacion) {
-			$this->relaciones_mapeos[] = $relacion->get_mapeo_filas();
+		$this->_relaciones_mapeos = array();
+		foreach ($this->_relaciones as $relacion) {
+			$this->_relaciones_mapeos[] = $relacion->get_mapeo_filas();
 		}
-		if ($this->info_estructura['debug']) {
-			$this->dump_esquema("FIN: ".$this->info['nombre']);	
+		if ($this->_info_estructura['debug']) {
+			$this->dump_esquema("FIN: ".$this->_info['nombre']);	
 		}		
 		parent::destruir();
 	}
@@ -53,15 +53,15 @@ class toba_datos_relacion extends toba_componente
 	 */
 	private function crear_tablas()
 	{
-		foreach( $this->lista_dependencias as $dep){
+		foreach( $this->_lista_dependencias as $dep){
 			$this->cargar_dependencia($dep);
 			//La cantidad minima y maxima se pasan a traves de dos parametros genericos del objeto
-			$posicion = $this->indice_dependencias[$dep];
-			$cant_min = $this->info_dependencias[$posicion]['parametros_a'];
-			$cant_max = $this->info_dependencias[$posicion]['parametros_b'];
-			$this->dependencias[$dep]->set_tope_min_filas($cant_min);
-			$this->dependencias[$dep]->set_tope_max_filas($cant_max);
-			$this->dependencias[$dep]->set_controlador($this, $dep);
+			$posicion = $this->_indice_dependencias[$dep];
+			$cant_min = $this->_info_dependencias[$posicion]['parametros_a'];
+			$cant_max = $this->_info_dependencias[$posicion]['parametros_b'];
+			$this->_dependencias[$dep]->set_tope_min_filas($cant_min);
+			$this->_dependencias[$dep]->set_tope_max_filas($cant_max);
+			$this->_dependencias[$dep]->set_controlador($this, $dep);
 		}
 	}
 
@@ -71,33 +71,33 @@ class toba_datos_relacion extends toba_componente
 	 */
 	private function crear_relaciones()
 	{
-		if(count($this->info_relaciones)>0){
-			for($a=0;$a<count($this->info_relaciones);$a++)
+		if(count($this->_info_relaciones)>0){
+			for($a=0;$a<count($this->_info_relaciones);$a++)
 			{
-				$id_padre = $this->info_relaciones[$a]['padre_id'];
-				$id_hijo = $this->info_relaciones[$a]['hijo_id'];
+				$id_padre = $this->_info_relaciones[$a]['padre_id'];
+				$id_hijo = $this->_info_relaciones[$a]['hijo_id'];
 				$id_relacion = $id_padre.'-'.$id_hijo;
-				$this->relaciones[$id_relacion] = new toba_relacion_entre_tablas(	$this->dependencias[ $id_padre ],
-																	explode(",",$this->info_relaciones[$a]['padre_clave']),
+				$this->_relaciones[$id_relacion] = new toba_relacion_entre_tablas(	$this->_dependencias[ $id_padre ],
+																	explode(",",$this->_info_relaciones[$a]['padre_clave']),
 																	$id_padre,
-																	$this->dependencias[ $id_hijo ],
-																	explode(",",$this->info_relaciones[$a]['hijo_clave']),
+																	$this->_dependencias[ $id_hijo ],
+																	explode(",",$this->_info_relaciones[$a]['hijo_clave']),
 																	$id_hijo
 																);
-				$padres[] = $this->info_relaciones[$a]['padre_id'];
-				$hijos[] = $this->info_relaciones[$a]['hijo_id'];
+				$padres[] = $this->_info_relaciones[$a]['padre_id'];
+				$hijos[] = $this->_info_relaciones[$a]['hijo_id'];
 				
 				//Se recuperan los mapeos anteriores, si es que hay
-				if (isset($this->relaciones_mapeos[$a])) {
-					$this->relaciones[$id_relacion]->set_mapeo_filas($this->relaciones_mapeos[$a]);
+				if (isset($this->_relaciones_mapeos[$a])) {
+					$this->_relaciones[$id_relacion]->set_mapeo_filas($this->_relaciones_mapeos[$a]);
 				}
 			}
 			//Padres sin hijos
-			$this->tablas_raiz = array_diff( array_unique($padres), array_unique($hijos) );
+			$this->_tablas_raiz = array_diff( array_unique($padres), array_unique($hijos) );
 		}else{
 			//No hay relaciones
-			$this->relaciones = array();
-			$this->tablas_raiz = array_keys($this->dependencias);
+			$this->_relaciones = array();
+			$this->_tablas_raiz = array_keys($this->_dependencias);
 		}
 	}
 
@@ -110,11 +110,11 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function dump_contenido()
 	{
-		foreach($this->dependencias as $id => $dependencia){
+		foreach($this->_dependencias as $id => $dependencia){
 			$info[$id]['cambios'] = $dependencia->get_cambios();
 			$info[$id]['datos'] = $dependencia->get_conjunto_datos_interno();
 		}
-		ei_arbol( $info, 'DATOS_RELACION: ' . $this->info['nombre'], null, true);
+		ei_arbol( $info, 'DATOS_RELACION: ' . $this->_info['nombre'], null, true);
 	}
 	
 	/**
@@ -129,7 +129,7 @@ class toba_datos_relacion extends toba_componente
 		} else {
 			self::$debug_pasadas = 1;	
 		}
-		$grafo = self::grafo_relaciones($this->info_dependencias, $this->info_relaciones);
+		$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
 		$diagrama = "digraph G {
 						rankdir=LR;
 						node [fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
@@ -142,7 +142,7 @@ class toba_datos_relacion extends toba_componente
 			
 			//Se determina la tabla
 			$id_tabla = $datos['identificador'];
-			$tabla = $this->dependencias[$id_tabla];
+			$tabla = $this->_dependencias[$id_tabla];
 
 			//Se incluye el javascript para poder dumpear los datos de la tabla
 			$var_tabla = $id_tabla.self::$debug_pasadas;
@@ -180,7 +180,7 @@ class toba_datos_relacion extends toba_componente
 			//Busco los toba_relacion_entre_tablas correspondientes
 			$hijo_id = $datos_vecino['identificador'];
 			$padre_id = $datos['identificador'];
-			$relacion = $this->relaciones[$padre_id."-".$hijo_id];
+			$relacion = $this->_relaciones[$padre_id."-".$hijo_id];
 			$mapeo = $relacion->get_mapeo_filas();
 			
 			//Incluyo el mapeo en JS para poder dumpearlo
@@ -219,7 +219,7 @@ class toba_datos_relacion extends toba_componente
 	function orden_sincronizacion()
 	{
 		$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
-		$grafo = self::grafo_relaciones($this->info_dependencias, $this->info_relaciones);
+		$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
 		$parciales = $sorter->sort($grafo);
 		$ordenes = array();
 		for ($i =0; $i<count($parciales) ; $i++) {
@@ -229,7 +229,7 @@ class toba_datos_relacion extends toba_componente
 		}
 		$tablas = array();
 		foreach ($ordenes as $orden) {
-			$tablas[$orden['identificador']] = $this->dependencias[$orden['identificador']];
+			$tablas[$orden['identificador']] = $this->_dependencias[$orden['identificador']];
 		}
 		return $tablas;
 	}
@@ -280,7 +280,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function get_lista_tablas()
 	{
-		return array_keys($this->dependencias);	
+		return array_keys($this->_dependencias);	
 	}
 
 	/**
@@ -291,7 +291,7 @@ class toba_datos_relacion extends toba_componente
 	function tabla($tabla)
 	{
 		if($this->existe_tabla($tabla)){
-			return $this->dependencias[$tabla];
+			return $this->_dependencias[$tabla];
 		}else{
 			throw new toba_error("El datos_tabla '$tabla' solicitado no existe.");
 		}
@@ -313,10 +313,10 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function resetear()
 	{
-		foreach($this->dependencias as $dependencia){
+		foreach($this->_dependencias as $dependencia){
 			$dependencia->resetear();
 		}
-		$this->cargado = false;
+		$this->_cargado = false;
 	}
 	
 	/**
@@ -324,7 +324,7 @@ class toba_datos_relacion extends toba_componente
 	 */	
 	function resetear_cursores()
 	{
-		foreach($this->dependencias as $dependencia){
+		foreach($this->_dependencias as $dependencia){
 			$dependencia->resetear_cursor();
 		}
 	}
@@ -340,7 +340,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function disparar_validacion_tablas()
 	{
-		foreach($this->dependencias as $dependencia){
+		foreach($this->_dependencias as $dependencia){
 			$dependencia->validar();
 		}
 	}
@@ -351,7 +351,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function get_conjunto_datos_interno()
 	{
-		foreach($this->dependencias as $id => $dependencia){
+		foreach($this->_dependencias as $id => $dependencia){
 			$datos[$id] = $dependencia->get_conjunto_datos_interno();
 		}
 		return $datos;		
@@ -367,23 +367,23 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function get_persistidor()
 	{
-		if (!isset($this->persistidor)) {		
+		if (!isset($this->_persistidor)) {		
 			//Se incluye el archivo
 			$archivo = "toba_ap_relacion_db.php";
-			$particular = ($this->info_estructura['ap'] == 3);
-			if ($particular	&& isset($this->info_estructura['ap_archivo'])) {
-				$archivo = $this->info_estructura['ap_archivo'];
+			$particular = ($this->_info_estructura['ap'] == 3);
+			if ($particular	&& isset($this->_info_estructura['ap_archivo'])) {
+				$archivo = $this->_info_estructura['ap_archivo'];
 			}
 			require_once($archivo);
 
 			//Se crea la clase		
 			$clase = "toba_ap_relacion_db";
-			if ($particular && isset($this->info_estructura['ap_clase'])) {
-				$clase = $this->info_estructura['ap_clase'];
+			if ($particular && isset($this->_info_estructura['ap_clase'])) {
+				$clase = $this->_info_estructura['ap_clase'];
 			}
-			$this->persistidor = new $clase( $this );
+			$this->_persistidor = new $clase( $this );
 		}
-		return $this->persistidor;
+		return $this->_persistidor;
 	}
 	
 	/**
@@ -413,7 +413,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function esta_cargado()
 	{
-		return $this->cargado;	
+		return $this->_cargado;	
 	}
 	
 	/**
@@ -422,7 +422,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function set_cargado($cargado)
 	{
-		$this->cargado = $cargado;
+		$this->_cargado = $cargado;
 	}
 
 	/**
@@ -432,7 +432,7 @@ class toba_datos_relacion extends toba_componente
 	*/
 	function forzar_insercion()
 	{
-		foreach($this->dependencias as $id => $dependencia){
+		foreach($this->_dependencias as $id => $dependencia){
 			$dependencia->forzar_insercion();
 		}
 	}
@@ -446,7 +446,7 @@ class toba_datos_relacion extends toba_componente
 		$this->evt__validar();
 		$this->get_persistidor()->sincronizar();
 		//Se notifica el fin de la sincronización a las tablas
-		foreach ($this->dependencias as $dependencia) {
+		foreach ($this->_dependencias as $dependencia) {
 			$dependencia->notificar_fin_sincronizacion();
 		}
 	}
@@ -477,7 +477,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function get_tablas_raiz()
 	{
-		return $this->tablas_raiz;
+		return $this->_tablas_raiz;
 	}
 	
 	/**
@@ -486,7 +486,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function get_fuente()
 	{
-		return $this->info["fuente"];
+		return $this->_info["fuente"];
 	}
 	
 }

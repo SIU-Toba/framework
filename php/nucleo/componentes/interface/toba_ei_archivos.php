@@ -11,27 +11,27 @@ require_once("lib/toba_manejador_archivos.php");
  */
 class toba_ei_archivos extends toba_ei
 {
-	protected $dir_actual;
-	protected $path_absoluto;
-	protected $filtro;
-	protected $extensiones = array('php');
-	protected $ocultos = array('.svn');
+	protected $_dir_actual;
+	protected $_path_absoluto;
+	protected $_filtro;
+	protected $_extensiones = array('php');
+	protected $_ocultos = array('.svn');
 
     function __construct($id)
     {
         parent::__construct($id);
-		if (isset($this->memoria['dir_actual'])) {
-			$this->dir_actual = $this->memoria['dir_actual'];
+		if (isset($this->_memoria['dir_actual'])) {
+			$this->_dir_actual = $this->_memoria['dir_actual'];
 		}
-		if (isset($this->memoria['path_absoluto'])) {
-			$this->path_absoluto = $this->memoria['path_absoluto'];
+		if (isset($this->_memoria['path_absoluto'])) {
+			$this->_path_absoluto = $this->_memoria['path_absoluto'];
 		}		
 	}
 	
 	function destruir()
 	{
-		$this->memoria['dir_actual'] = $this->dir_actual;
-		$this->memoria['path_absoluto'] = $this->path_absoluto;
+		$this->_memoria['dir_actual'] = $this->_dir_actual;
+		$this->_memoria['path_absoluto'] = $this->_path_absoluto;
 		parent::destruir();
 	}
 
@@ -41,10 +41,10 @@ class toba_ei_archivos extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		$this->eventos['ir_a_carpeta'] = array();
-		$this->eventos['seleccionar_archivo'] = array();		
-		$this->eventos['crear_carpeta'] = array();		
-		$this->eventos['crear_archivo'] = array();
+		$this->_eventos['ir_a_carpeta'] = array();
+		$this->_eventos['seleccionar_archivo'] = array();		
+		$this->_eventos['crear_carpeta'] = array();		
+		$this->_eventos['crear_archivo'] = array();
 	}
 	
 	/**
@@ -52,30 +52,30 @@ class toba_ei_archivos extends toba_ei
 	 */	
 	function disparar_eventos()
 	{
-		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
-			$evento = $_POST[$this->submit];	
+		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];	
 			//El evento estaba entre los ofrecidos?
-			if (isset($this->memoria['eventos'][$evento]) ) {
-				$parametros = $_POST[$this->submit."__seleccion"];
+			if (isset($this->_memoria['eventos'][$evento]) ) {
+				$parametros = $_POST[$this->_submit."__seleccion"];
 				switch($evento){
 					case 'ir_a_carpeta':
-						$seleccion = $this->dir_actual."/$parametros";						
+						$seleccion = $this->_dir_actual."/$parametros";						
 						//--- Chequeo de seguridad
-						if (isset($this->path_absoluto)) {
-							if (strpos(realpath($seleccion), realpath($this->path_absoluto)) !== 0) {
+						if (isset($this->_path_absoluto)) {
+							if (strpos(realpath($seleccion), realpath($this->_path_absoluto)) !== 0) {
 							   throw new toba_error("El path es invalido");
 							}				
 						}
-						$this->dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
+						$this->_dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
 						break;
 					case 'crear_carpeta': 
 						$parametros = str_replace('.', '', $parametros);
-						$seleccion = $this->dir_actual."/$parametros";
+						$seleccion = $this->_dir_actual."/$parametros";
 						toba_manejador_archivos::crear_arbol_directorios($seleccion);
 						break;
 					case 'crear_archivo': 
 						$parametros = str_replace('/', '', $parametros);
-						$seleccion = $this->dir_actual."/$parametros";	
+						$seleccion = $this->_dir_actual."/$parametros";	
 						toba_manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
 					default:
@@ -91,10 +91,10 @@ class toba_ei_archivos extends toba_ei
 	 */
 	function get_path_relativo()
 	{
-		if (! isset($this->path_absoluto))
-			return $this->dir_actual;
-		$pos = strlen($this->path_absoluto);
-		$relativo = substr($this->dir_actual, $pos);
+		if (! isset($this->_path_absoluto))
+			return $this->_dir_actual;
+		$pos = strlen($this->_path_absoluto);
+		$relativo = substr($this->_dir_actual, $pos);
 		return $relativo;
 	}	
 	
@@ -104,9 +104,9 @@ class toba_ei_archivos extends toba_ei
 	 */
 	function set_path_absoluto($dir)
 	{
-		$this->path_absoluto = $dir;
-		if (!isset($this->dir_actual))
-			$this->dir_actual = $dir;
+		$this->_path_absoluto = $dir;
+		if (!isset($this->_dir_actual))
+			$this->_dir_actual = $dir;
 	}
 	
 	/**
@@ -115,10 +115,10 @@ class toba_ei_archivos extends toba_ei
 	 */
 	function set_path($path)
 	{
-		$this->dir_actual = $this->path_absoluto.$path;
-		if( ! is_dir($this->dir_actual) ) {
+		$this->_dir_actual = $this->_path_absoluto.$path;
+		if( ! is_dir($this->_dir_actual) ) {
 			toba::logger()->notice("El directorio especificado ('$path') no existe.");
-			$this->dir_actual = $this->path_absoluto;
+			$this->_dir_actual = $this->_path_absoluto;
 		}
 	}
 
@@ -128,28 +128,28 @@ class toba_ei_archivos extends toba_ei
 	 */
 	function set_extensiones_validas($extensiones)
 	{
-		$this->extensiones = $extensiones;	
+		$this->_extensiones = $extensiones;	
 	}
 	
 	function generar_html()
 	{
-		echo toba_form::hidden($this->submit, '');
-		echo toba_form::hidden($this->submit."__seleccion", '');		
+		echo toba_form::hidden($this->_submit, '');
+		echo toba_form::hidden($this->_submit."__seleccion", '');		
 	
-		$dir = opendir($this->dir_actual);
+		$dir = opendir($this->_dir_actual);
 		$archivos = array();
 		$carpetas = array();
 		$hay_padre = false;
 
 		//Es el directorio relativo inicial?
 		$es_el_relativo = false;
-		if (isset($this->path_absoluto)) {
-			$es_el_relativo = (realpath($this->path_absoluto) == realpath($this->dir_actual));
+		if (isset($this->_path_absoluto)) {
+			$es_el_relativo = (realpath($this->_path_absoluto) == realpath($this->_dir_actual));
 		}
 		//Filtra Archivos y directorios
 		while(($archivo = readdir($dir)) !== false)  
 		{  
-			$ruta = $this->dir_actual."/".$archivo;
+			$ruta = $this->_dir_actual."/".$archivo;
 			$info = pathinfo($ruta);
 			if (!isset($info['extension']))
 				$info['extension'] = '';
@@ -158,17 +158,17 @@ class toba_ei_archivos extends toba_ei
 			if ($es_padre && !$es_el_relativo)
 				$hay_padre = true;
 			$es_actual = ($archivo == '.');
-			if (!$es_padre && !$es_actual && is_dir($ruta) && !in_array($archivo, $this->ocultos)) {
+			if (!$es_padre && !$es_actual && is_dir($ruta) && !in_array($archivo, $this->_ocultos)) {
 				$carpetas[] = $archivo;
-			} elseif (in_array($info['extension'], $this->extensiones)) {
+			} elseif (in_array($info['extension'], $this->_extensiones)) {
 				$archivos[] = $archivo;
 			}
 		}
 		closedir($dir);
 		sort($archivos);
 		sort($carpetas);
-		$path = pathinfo($this->dir_actual);
-		$this->generar_html_barra_sup("<span title='{$this->dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
+		$path = pathinfo($this->_dir_actual);
+		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
 		echo "<div style=''>\n";
 		
 		$img_crear_carpeta = toba_recurso::imagen_toba('nucleo/carpeta_nueva_24.gif', true);
@@ -216,7 +216,7 @@ class toba_ei_archivos extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$path = addslashes($this->get_path_relativo());
-		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->submit}', '$path');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_archivos('{$this->objeto_js}', '{$this->_submit}', '$path');\n";
 	}
 
 	/**

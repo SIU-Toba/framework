@@ -8,29 +8,29 @@ define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
  */
 abstract class toba_componente
 {
-	protected $solicitud;
-	protected $log;
-	protected $id;
-	protected $info;
-	protected $info_dependencias;						//Definicion de las dependencias
-	protected $indice_dependencias;					//Indice que mapea las definiciones de las dependencias con su
-	protected $dependencias_indice_actual = 0;	
-	protected $lista_dependencias = array();					//Lista de dependencias disponibles
-	protected $dependencias = array();							//Array de sub-OBJETOS
-	protected $memoria;
-	protected $memoria_existencia_previa = false;
-	protected $observaciones;
-	protected $canal;										// Canal por el que recibe datos 
-	protected $canal_recibidos;							// Datos recibidos por el canal
-	protected $estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
-	protected $id_ses_g;								//ID global para la sesion
-	protected $id_ses_grec;								//ID global para la sesion
-	protected $id_en_controlador;						//Id relativo al controlador padre
-	protected $definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
-	protected $exportacion_archivo;
-	protected $exportacion_path;
-	protected $propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
-	protected $parametros;								// Parametros de inicializacion provistos por el controlador	
+	protected $_solicitud;
+	protected $_log;
+	protected $_id;
+	protected $_info;
+	protected $_info_dependencias;						//Definicion de las dependencias
+	protected $_indice_dependencias;					//Indice que mapea las definiciones de las dependencias con su
+	protected $_dependencias_indice_actual = 0;	
+	protected $_lista_dependencias = array();					//Lista de dependencias disponibles
+	protected $_dependencias = array();							//Array de sub-OBJETOS
+	protected $_memoria;
+	protected $_memoria_existencia_previa = false;
+	protected $_observaciones;
+	protected $_canal;										// Canal por el que recibe datos 
+	protected $_canal_recibidos;							// Datos recibidos por el canal
+	protected $_estado_proceso;							// interno | string | "OK","ERROR","INFRACCION"
+	protected $_id_ses_g;								//ID global para la sesion
+	protected $_id_ses_grec;								//ID global para la sesion
+	protected $_id_en_controlador;						//Id relativo al controlador padre
+	protected $_definicion_partes;						//indica el nombre de los arrays de metadatos que posee el objeto
+	protected $_exportacion_archivo;
+	protected $_exportacion_path;
+	protected $_propiedades_sesion = array();			//Arreglo de propiedades que se persisten en sesion
+	protected $_parametros;								// Parametros de inicializacion provistos por el controlador	
 
 	/**
 	 * Contiene el componente controlador o padre del componente actual
@@ -43,26 +43,26 @@ abstract class toba_componente
 		//--- Compatibilidad con el metodo anterior de mantener cosas en sesion
 		$this->definir_propiedades_sesion();
 		// Compatibilidad hacia atras en el ID
-		$this->id[0] = $definicion['info']['proyecto'];
-		$this->id[1] = $definicion['info']['objeto'];
+		$this->_id[0] = $definicion['_info']['proyecto'];
+		$this->_id[1] = $definicion['_info']['objeto'];
 		//Cargo las variables internas que forman la definicion
 		foreach (array_keys($definicion) as $parte) {
-			$this->definicion_partes[] = $parte;
+			$this->_definicion_partes[] = $parte;
 			$this->$parte = $definicion[$parte];
 		}
-		$this->solicitud = toba::solicitud();
-		$this->log = toba::logger();
+		$this->_solicitud = toba::solicitud();
+		$this->_log = toba::logger();
 		//Recibi datos por el CANAL?
-		$this->canal = apex_hilo_qs_canal_obj . $this->id[1];
-		$this->canal_recibidos = toba::memoria()->get_parametro($this->canal);
-		$this->id_ses_g = "obj_" . $this->id[1];
-		$this->id_ses_grec = "obj_" . $this->id[1] . "_rec";
+		$this->_canal = apex_hilo_qs_canal_obj . $this->_id[1];
+		$this->_canal_recibidos = toba::memoria()->get_parametro($this->_canal);
+		$this->_id_ses_g = "obj_" . $this->_id[1];
+		$this->_id_ses_grec = "obj_" . $this->_id[1] . "_rec";
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
-		$this->log->debug("CONSTRUCCION: {$this->info['clase']}({$this->id[1]}): {$this->get_nombre()}", 'toba');
+		$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
 	}
 
 	/**
@@ -71,7 +71,7 @@ abstract class toba_componente
 	 */
 	function inicializar($parametros=array())
 	{
-		$this->parametros = $parametros;
+		$this->_parametros = $parametros;
 	}
 
 	/**
@@ -83,8 +83,8 @@ abstract class toba_componente
 		$this->memorizar();						//GUARDO Memoria sincronizada
 		$this->guardar_estado_sesion();		//GUARDO Memoria dessincronizada
 		//Llamo a los destructores de los OBJETOS anidados
-		foreach(array_keys($this->dependencias) as $dependencia){
-			$this->dependencias[$dependencia]->destruir();
+		foreach(array_keys($this->_dependencias) as $dependencia){
+			$this->_dependencias[$dependencia]->destruir();
 		}
 	}
 
@@ -93,7 +93,7 @@ abstract class toba_componente
 	 */	
 	function get_clave_memoria_global()
 	{
-		return $this->id_ses_grec;
+		return $this->_id_ses_grec;
 	}
 
 	/**
@@ -109,7 +109,7 @@ abstract class toba_componente
 	 */
 	function get_txt()
 	{
-		return "componente(".$this->id[1]."): ";	
+		return "componente(".$this->_id[1]."): ";	
 	}
 
 	/**
@@ -118,7 +118,7 @@ abstract class toba_componente
 	 */
 	function get_nombre()
 	{
-		return $this->info['nombre'];
+		return $this->_info['nombre'];
 	}
 
 	/**
@@ -127,7 +127,7 @@ abstract class toba_componente
 	 */
 	function get_titulo()
 	{
-		return $this->info['titulo'];
+		return $this->_info['titulo'];
 	}
 
 	/**
@@ -136,7 +136,7 @@ abstract class toba_componente
 	 */
 	function get_id()
 	{
-		return $this->id;	
+		return $this->_id;	
 	}
 	
 	/**
@@ -159,10 +159,10 @@ abstract class toba_componente
 		$parametros	= func_get_args();
 		array_splice($parametros, 0 , 1);
 		if(method_exists($this, $metodo)){
-			$this->log->debug( $this->get_txt() . "[ invocar_callback ] '$metodo'", 'toba');
+			$this->_log->debug( $this->get_txt() . "[ invocar_callback ] '$metodo'", 'toba');
 			return call_user_func_array(array($this, $metodo), $parametros);
 		}else{
-			$this->log->debug($this->get_txt() . "[ invocar_callback ] '$metodo' no fue atrapado", 'toba');
+			$this->_log->debug($this->get_txt() . "[ invocar_callback ] '$metodo' no fue atrapado", 'toba');
 			return apex_callback_sin_rpta;
 		}
 	}
@@ -182,7 +182,7 @@ abstract class toba_componente
 	function get_mensaje($indice, $parametros=null)
 	{
 		//Busco el mensaje del OBJETO
-		if ($mensaje = toba::mensajes()->get_componente($this->id[1], $indice, $parametros)) {
+		if ($mensaje = toba::mensajes()->get_componente($this->_id[1], $indice, $parametros)) {
 			return $mensaje;	
 		} else {
 			//El objeto no tiene un mensaje con el indice solicitado,
@@ -224,30 +224,30 @@ abstract class toba_componente
 	//-----------------    MEMORIA   --------------------------------
 	//---------------------------------------------------------------
 //La memoria es una array que se hace perdurable a travez del HILO
-//Las clases que lo usen solo tienen generar las claves que necesiten dentro de este (ej: $this->memoria["una_cosa"])
+//Las clases que lo usen solo tienen generar las claves que necesiten dentro de este (ej: $this->_memoria["una_cosa"])
 //y despues llamar a los metodos "memorizar" para guardarla en el HILO y "cargar_memoria" para recuperarlo
 //Preg: Por que no se usa el indice 0 en la clave del OBJETO?
 //Res: proque no se pueden cargar objetos de dos proyectos en la misma solicitud
 
 	/**
-	 * Persiste el array '$this->memoria' para utilizarlo en la proxima invocacion del objeto
+	 * Persiste el array '$this->_memoria' para utilizarlo en la proxima invocacion del objeto
 	 * @ignore 
 	 */
 	function memorizar()
 	{
-		if(isset($this->memoria)){
-			toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],$this->memoria);
+		if(isset($this->_memoria)){
+			toba::memoria()->set_dato_sincronizado("obj_".$this->_id[1],$this->_memoria);
 		}
 	}
 	
 	/**
-	 * Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->memoria)
+	 * Recupera la memoria que dejo una instancia anterior del objeto. (Setea $this->_memoria)
 	 * @ignore
 	 */
 	function cargar_memoria()
 	{
-		if($this->memoria = toba::memoria()->get_dato_sincronizado("obj_".$this->id[1])){
-			$this->memoria_existencia_previa = true;
+		if($this->_memoria = toba::memoria()->get_dato_sincronizado("obj_".$this->_id[1])){
+			$this->_memoria_existencia_previa = true;
 		}
 	}
 
@@ -258,8 +258,8 @@ abstract class toba_componente
 	 */
 	function controlar_memoria()
 	{
-		if ((!isset($this->memoria)) || (is_null($this->memoria))){
-			throw new toba_error("Error cargando la MEMORIA del OBJETO. abms[". ($this->id[1]) ."]");
+		if ((!isset($this->_memoria)) || (is_null($this->_memoria))){
+			throw new toba_error("Error cargando la MEMORIA del OBJETO. abms[". ($this->_id[1]) ."]");
 		}
 	}
 
@@ -268,8 +268,8 @@ abstract class toba_componente
 	 */
 	function borrar_memoria()
 	{
-		unset($this->memoria);
-		toba::memoria()->set_dato_sincronizado("obj_".$this->id[1],null);
+		unset($this->_memoria);
+		toba::memoria()->set_dato_sincronizado("obj_".$this->_id[1],null);
 	}
 
 	
@@ -309,7 +309,7 @@ abstract class toba_componente
 	 */
 	protected function set_propiedades_sesion($props)
 	{
-		$this->propiedades_sesion = array_merge($this->propiedades_sesion, $props);
+		$this->_propiedades_sesion = array_merge($this->_propiedades_sesion, $props);
 	}
 
 	/**
@@ -318,9 +318,9 @@ abstract class toba_componente
 	 */
 	protected function recuperar_estado_sesion()
 	{
-		if(toba::memoria()->existe_dato($this->id_ses_grec)) {
+		if(toba::memoria()->existe_dato($this->_id_ses_grec)) {
 			//Recupero las propiedades de la sesion
-			$temp = toba::memoria()->get_dato($this->id_ses_grec);
+			$temp = toba::memoria()->get_dato($this->_id_ses_grec);
 			if(isset($temp["toba__indice_objetos_serializados"])) {			//El objeto persistio otros objetos
 				$objetos = $temp["toba__indice_objetos_serializados"];
 				unset($temp["toba__indice_objetos_serializados"]);
@@ -347,26 +347,26 @@ abstract class toba_componente
 	function guardar_estado_sesion()
 	{
 		//Busco las propiedades que se desea persistir entre las sesiones
-		if(count($this->propiedades_sesion)>0){
-			for($a=0;$a<count($this->propiedades_sesion);$a++){
+		if(count($this->_propiedades_sesion)>0){
+			for($a=0;$a<count($this->_propiedades_sesion);$a++){
 				//Existe la propiedad
-				$nombre_prop = $this->propiedades_sesion[$a];
+				$nombre_prop = $this->_propiedades_sesion[$a];
 				if(isset($this->$nombre_prop)) {
 					if(is_object($this->$nombre_prop)){
-						$temp[$this->propiedades_sesion[$a]] = serialize($this->$nombre_prop);
+						$temp[$this->_propiedades_sesion[$a]] = serialize($this->$nombre_prop);
 						//Dejo la marca de que serialize un OBJETO.
-						$temp["toba__indice_objetos_serializados"][] = $this->propiedades_sesion[$a];
+						$temp["toba__indice_objetos_serializados"][] = $this->_propiedades_sesion[$a];
 					} else {
-						$temp[$this->propiedades_sesion[$a]] = $this->$nombre_prop;
+						$temp[$this->_propiedades_sesion[$a]] = $this->$nombre_prop;
 					}
 				}
 			}
 			if(isset($temp)) {
-				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->info['nombre'];
-				toba::memoria()->set_dato_operacion($this->id_ses_grec, $temp);
+				$temp['toba__descripcion_objeto'] = '['. get_class($this). '] ' . $this->_info['nombre'];
+				toba::memoria()->set_dato_operacion($this->_id_ses_grec, $temp);
 			} else {
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
-				toba::memoria()->eliminar_dato($this->id_ses_grec);
+				toba::memoria()->eliminar_dato($this->_id_ses_grec);
 			}
 		}
 	}
@@ -378,13 +378,13 @@ abstract class toba_componente
 	function eliminar_estado_sesion($no_eliminar=null)
 	{
 		if(!isset($no_eliminar))$no_eliminar=array();
-		for($a=0;$a<count($this->propiedades_sesion);$a++){
-			if(!in_array($this->propiedades_sesion[$a], $no_eliminar)){
-				$nombre_prop = $this->propiedades_sesion[$a];
+		for($a=0;$a<count($this->_propiedades_sesion);$a++){
+			if(!in_array($this->_propiedades_sesion[$a], $no_eliminar)){
+				$nombre_prop = $this->_propiedades_sesion[$a];
 				unset($this->$nombre_prop);
 			}
 		}
-		toba::memoria()->eliminar_dato($this->id_ses_grec);
+		toba::memoria()->eliminar_dato($this->_id_ses_grec);
 	}
 	
 	/**
@@ -393,15 +393,15 @@ abstract class toba_componente
 	 */
 	function get_estado_sesion()
 	{
-		if(count($this->propiedades_sesion)>0){
+		if(count($this->_propiedades_sesion)>0){
 			$propiedades = get_object_vars($this);
-			for($a=0;$a<count($this->propiedades_sesion);$a++){
+			for($a=0;$a<count($this->_propiedades_sesion);$a++){
 				//Existe la propiedad
-				if(in_array($this->propiedades_sesion[$a],$propiedades)){
+				if(in_array($this->_propiedades_sesion[$a],$propiedades)){
 					//Si la propiedad no es NULL
-					$nombre_prop = $this->propiedades_sesion[$a];
+					$nombre_prop = $this->_propiedades_sesion[$a];
 					if (isset( $this->$nombre_prop) ) {
-						$temp[$this->propiedades_sesion[$a]] = $this->$nombre_prop;
+						$temp[$this->_propiedades_sesion[$a]] = $this->$nombre_prop;
 					}
 				}
 			}
@@ -423,10 +423,10 @@ abstract class toba_componente
 	function set_controlador($controlador, $id_en_padre=null)
 	{
 		$this->controlador = $controlador;
-		$this->id_en_controlador = $id_en_padre;
-		if (isset($this->objeto_js)) {
-			$this->objeto_js .= '_'.$id_en_padre;
-			$this->submit .= '_'.$id_en_padre;
+		$this->_id_en_controlador = $id_en_padre;
+		if (isset($this->_objeto_js)) {
+			$this->_objeto_js .= '_'.$id_en_padre;
+			$this->_submit .= '_'.$id_en_padre;
 		}
 	}	
 	
@@ -436,14 +436,25 @@ abstract class toba_componente
 	 */
 	protected function cargar_info_dependencias()
 	{
-		if (isset($this->info_dependencias)) {
-			for($a=0;$a<count($this->info_dependencias);$a++){
-				$this->indice_dependencias[$this->info_dependencias[$a]["identificador"]] = $a;//Columna de informacion donde esta la definicion
-				$this->lista_dependencias[] = $this->info_dependencias[$a]["identificador"];
+		if (isset($this->_info_dependencias)) {
+			for($a=0;$a<count($this->_info_dependencias);$a++){
+				$this->_indice_dependencias[$this->_info_dependencias[$a]["identificador"]] = $a;//Columna de informacion donde esta la definicion
+				$this->_lista_dependencias[] = $this->_info_dependencias[$a]["identificador"];
 			}
 		}
 	}
 	
+	/**
+	 * Devuelve la informacion correspondiente a una dependencia
+	 * @ignore 
+	 */
+	protected function get_info_dependencia($id)
+	{
+		if ($this->existe_dependencia($id)) {
+			return $this->_info_dependencias[$this->_indice_dependencias[$id]];
+		}
+	}
+
 	/**
 	 * Accede a una dependencia del objeto, opcionalmente si la dependencia no esta cargada, la carga
 	 *
@@ -456,7 +467,7 @@ abstract class toba_componente
 		if (! $this->dependencia_cargada($id) && $carga_en_demanda) {
 			$this->cargar_dependencia($id);
 		}
-		return $this->dependencias[$id];
+		return $this->_dependencias[$id];
 	}	
 	
 	/**
@@ -477,11 +488,11 @@ abstract class toba_componente
 	 */
 	function agregar_dependencia( $identificador, $proyecto, $objeto )
 	{
-		$sig = count($this->info_dependencias);
-		$this->info_dependencias[$sig] = toba::proyecto()->get_definicion_dependencia($objeto, $proyecto);
-		$this->info_dependencias[$sig]['identificador'] = $identificador;
-		$this->indice_dependencias[$identificador] = $sig;
-		$this->lista_dependencias[] = $identificador;	
+		$sig = count($this->_info_dependencias);
+		$this->_info_dependencias[$sig] = toba::proyecto()->get_definicion_dependencia($objeto, $proyecto);
+		$this->_info_dependencias[$sig]['identificador'] = $identificador;
+		$this->_indice_dependencias[$identificador] = $sig;
+		$this->_lista_dependencias[] = $identificador;	
 	}
 
 	/**
@@ -494,15 +505,14 @@ abstract class toba_componente
 	 */
 	function cargar_dependencia($identificador)
  	{
-		//El indice es valido?
-		if(!isset($this->indice_dependencias[$identificador])){
+		if(!isset($this->_indice_dependencias[$identificador])){
 			throw new toba_error("OBJETO [cargar_dependencia]: No EXISTE una dependencia asociada al indice [$identificador].");
 		}
-		$posicion = $this->indice_dependencias[$identificador];
-		$clase = $this->info_dependencias[$posicion]['clase'];
-		$clave['proyecto'] = $this->info_dependencias[$posicion]['proyecto'];
-		$clave['componente'] = $this->info_dependencias[$posicion]['objeto'];
-		$this->dependencias[$identificador] = toba_constructor::get_runtime( $clave, $clase );
+		$posicion = $this->_indice_dependencias[$identificador];
+		$clase = $this->_info_dependencias[$posicion]['clase'];
+		$clave['proyecto'] = $this->_info_dependencias[$posicion]['proyecto'];
+		$clave['componente'] = $this->_info_dependencias[$posicion]['objeto'];
+		$this->_dependencias[$identificador] = toba_constructor::get_runtime( $clave, $clase );
 	}
 
 	/**
@@ -511,7 +521,7 @@ abstract class toba_componente
 	 */
 	function dependencia_cargada($id)
 	{
-		return isset($this->dependencias[$id]);
+		return isset($this->_dependencias[$id]);
 	}
 	
 	/**
@@ -520,7 +530,7 @@ abstract class toba_componente
 	 */
 	function existe_dependencia($id)
 	{
-		return isset($this->indice_dependencias[$id]);	
+		return isset($this->_indice_dependencias[$id]);	
 	}
 	
 	/**
@@ -530,9 +540,9 @@ abstract class toba_componente
 	function get_dependencias_clase($ereg_busqueda)
 	{
 		$ok = array();
-		for($a=0;$a<count($this->info_dependencias);$a++){
-			if( preg_match("/".$ereg_busqueda."/", $this->info_dependencias[$a]['clase']) ){
-				$ok[] = $this->info_dependencias[$a]["identificador"];
+		for($a=0;$a<count($this->_info_dependencias);$a++){
+			if( preg_match("/".$ereg_busqueda."/", $this->_info_dependencias[$a]['clase']) ){
+				$ok[] = $this->_info_dependencias[$a]["identificador"];
 			}
 		}
 		return $ok;

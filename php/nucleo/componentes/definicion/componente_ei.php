@@ -18,7 +18,7 @@ class componente_ei extends componente_toba
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
-		$sql["info_eventos"]['sql'] = "SELECT	identificador			as identificador,
+		$sql["_info_eventos"]['sql'] = "SELECT	identificador			as identificador,
 												etiqueta				as etiqueta,
 												maneja_datos			as maneja_datos,
 												sobre_fila				as sobre_fila,
@@ -44,13 +44,13 @@ class componente_ei extends componente_toba
 									FROM	apex_objeto_eventos
 									WHERE	proyecto='$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["info_eventos"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql["_info_eventos"]['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["info_eventos"]['sql'] .= " ORDER BY orden;";
-		$sql["info_eventos"]['registros']='n';
-		$sql["info_eventos"]['obligatorio']=false;
+		$sql["_info_eventos"]['sql'] .= " ORDER BY orden;";
+		$sql["_info_eventos"]['registros']='n';
+		$sql["_info_eventos"]['obligatorio']=false;
 
-    $sql["info_puntos_control"]['sql'] = "SELECT pe.pto_control, 
+    $sql["_info_puntos_control"]['sql'] = "SELECT pe.pto_control, 
                                             oe.identificador as evento
                                        FROM apex_ptos_control_x_evento pe,
                                             apex_objeto_eventos oe
@@ -58,11 +58,11 @@ class componente_ei extends componente_toba
                                         AND pe.evento_id = oe.evento_id
                                         AND pe.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
-			$sql["info_puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
+			$sql["_info_puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
 		}
-    $sql["info_puntos_control"]['sql'] .= " ORDER BY pto_control;";
-    $sql["info_puntos_control"]['registros']='n';
-    $sql["info_puntos_control"]['obligatorio']=false;
+    $sql["_info_puntos_control"]['sql'] .= " ORDER BY pto_control;";
+    $sql["_info_puntos_control"]['registros']='n';
+    $sql["_info_puntos_control"]['obligatorio']=false;
                                                       
 		return $sql;
 	}

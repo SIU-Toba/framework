@@ -10,7 +10,7 @@ class cuadro_origen extends toba_ei_cuadro
 	{
 		$evento->vinculo()->agregar_parametro( 'nota', 'En PHP se agrego la columna _descripcion_ al paso de parametros ' .
 											'(El ID del cuadro se incorpora por defecto). VALOR: ' . 
-												$this->datos[$fila]['descripcion'] );
+												$this->_datos[$fila]['descripcion'] );
 	}
 
 	/*

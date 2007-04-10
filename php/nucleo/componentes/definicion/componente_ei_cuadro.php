@@ -22,7 +22,7 @@ class componente_ei_cuadro extends componente_ei
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- Cuadro ----------------
-		$sql['info_cuadro']['sql'] = "SELECT	titulo as titulo,		
+		$sql['_info_cuadro']['sql'] = "SELECT	titulo as titulo,		
 										c.subtitulo						as	subtitulo,		
 										c.sql							as	sql,			
 										c.columnas_clave				as	columnas_clave,
@@ -54,13 +54,13 @@ class componente_ei_cuadro extends componente_ei
 							 FROM		apex_objeto_cuadro c
 							 WHERE	objeto_cuadro_proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
-			$sql['info_cuadro']['sql'] .= "	AND		objeto_cuadro='$componente' ";	
+			$sql['_info_cuadro']['sql'] .= "	AND		objeto_cuadro='$componente' ";	
 		}
-		$sql['info_cuadro']['sql'] .= ";";
-		$sql['info_cuadro']['registros']='1';
-		$sql['info_cuadro']['obligatorio']=true;
+		$sql['_info_cuadro']['sql'] .= ";";
+		$sql['_info_cuadro']['registros']='1';
+		$sql['_info_cuadro']['obligatorio']=true;
 		//------------ Columnas ----------------
-		$sql['info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,		
+		$sql['_info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,		
 												c.titulo						as titulo,
 												c.estilo_titulo					as estilo_titulo,		
 												e.css							as estilo,	 
@@ -80,15 +80,15 @@ class componente_ei_cuadro extends componente_ei
 												ON	f.columna_formato	= c.formateo
 									 WHERE	objeto_cuadro_proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql['info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro='$componente' ";
+			$sql['_info_cuadro_columna']['sql'] .= "	AND		objeto_cuadro='$componente' ";
 		}
-		$sql['info_cuadro_columna']['sql'] .= "	AND		c.estilo = e.columna_estilo	
+		$sql['_info_cuadro_columna']['sql'] .= "	AND		c.estilo = e.columna_estilo	
 					 AND		( c.desabilitado != '1' OR c.desabilitado IS NULL )
 					 ORDER BY orden;";
-		$sql['info_cuadro_columna']['registros']='n';
-		$sql['info_cuadro_columna']['obligatorio']=true;
+		$sql['_info_cuadro_columna']['registros']='n';
+		$sql['_info_cuadro_columna']['obligatorio']=true;
 		//------------ Cortes de Control ----------------
-		$sql['info_cuadro_cortes']['sql'] = "SELECT	orden,		
+		$sql['_info_cuadro_cortes']['sql'] = "SELECT	orden,		
 											columnas_id,	    		
 											columnas_descripcion,	
 											identificador		,	
@@ -100,11 +100,11 @@ class componente_ei_cuadro extends componente_ei
 									 FROM		apex_objeto_cuadro_cc	
 									 WHERE		objeto_cuadro_proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql['info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro='$componente' ";
+			$sql['_info_cuadro_cortes']['sql'] .= "	AND		objeto_cuadro='$componente' ";
 		}
-		$sql['info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
-		$sql['info_cuadro_cortes']['registros']='n';
-		$sql['info_cuadro_cortes']['obligatorio']=false;
+		$sql['_info_cuadro_cortes']['sql'] .= " ORDER BY orden;";
+		$sql['_info_cuadro_cortes']['registros']='n';
+		$sql['_info_cuadro_cortes']['obligatorio']=false;
 		return $sql;
 	}
 

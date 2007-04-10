@@ -11,17 +11,17 @@ require_once("lib/toba_manejador_archivos.php");
  */
 class toba_ei_esquema extends toba_ei
 {
-	protected $prefijo = 'esq';	
-	protected $alto;
-	protected $ancho;
-	protected $contenido;				// Instrucciones GraphViz
-	protected $archivo_generado;		// Archivo generado por las instrucciones
+	protected $_prefijo = 'esq';	
+	protected $_alto;
+	protected $_ancho;
+	protected $_contenido;				// Instrucciones GraphViz
+	protected $_archivo_generado;		// Archivo generado por las instrucciones
 	
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->alto = isset($this->info_esquema['alto']) ?  $this->info_esquema['alto'] : null;
-		$this->ancho = isset($this->info_esquema['ancho']) ?  $this->info_esquema['ancho'] : null;
+		$this->_alto = isset($this->_info_esquema['alto']) ?  $this->_info_esquema['alto'] : null;
+		$this->_ancho = isset($this->_info_esquema['ancho']) ?  $this->_info_esquema['ancho'] : null;
 	}
 
 	/**
@@ -31,7 +31,7 @@ class toba_ei_esquema extends toba_ei
 	function set_datos($datos)
 	{
 		if (isset($datos)) {
-			$this->contenido = $datos;	
+			$this->_contenido = $datos;	
 		}
 	}
 	
@@ -44,16 +44,16 @@ class toba_ei_esquema extends toba_ei
 		echo "<tr><td>";
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
 		echo "</td></tr>\n";
-		$colapsado = (isset($this->colapsado) && $this->colapsado) ? "style='display:none'" : "";		
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		
 		echo "<tr><td><div $colapsado id='cuerpo_{$this->objeto_js}'>";
 		//Campo de sincronizacion con JS
-		echo toba_form::hidden($this->submit, '');
-		if (isset($this->contenido)) {
+		echo toba_form::hidden($this->_submit, '');
+		if (isset($this->_contenido)) {
 			//Se arma el archivo .dot
-			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->contenido", 'toba');
-			$this->generar_esquema($this->contenido, $this->info_esquema['formato'], 
-									$this->info_esquema['dirigido'], $this->ancho,
-									$this->alto);
+			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->_contenido", 'toba');
+			$this->generar_esquema($this->_contenido, $this->_info_esquema['formato'], 
+									$this->_info_esquema['dirigido'], $this->_ancho,
+									$this->_alto);
 		}
 		$this->generar_botones();
 		echo "</div></td></tr>\n";
@@ -69,8 +69,8 @@ class toba_ei_esquema extends toba_ei
 							'formato' => $formato,
 							'es_dirigido' => $es_dirigido);
 		//Vinculo a un item que hace el passthru y borra el archivo
-		$destino = array($this->id);
-		$this->memoria['parametros'] = $parametros;
+		$destino = array($this->_id);
+		$this->_memoria['parametros'] = $parametros;
 		$url = toba::vinculador()->crear_autovinculo(array(), array('servicio' => 'mostrar_esquema', 
 																		'objetos_destino' => $destino));
 		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
@@ -145,12 +145,12 @@ class toba_ei_esquema extends toba_ei
 	function servicio__mostrar_esquema($parametros = null)
 	{
 		if (!isset($parametros)) {
-			if (!isset($this->memoria['parametros'])) {
+			if (!isset($this->_memoria['parametros'])) {
 				throw new toba_error("No se pueden obtener los parámetros");
 			}
-			$contenido = $this->memoria['parametros']['contenido'];
-			$formato = $this->memoria['parametros']['formato'];
-			$es_dirigido = $this->memoria['parametros']['es_dirigido'];
+			$contenido = $this->_memoria['parametros']['contenido'];
+			$formato = $this->_memoria['parametros']['formato'];
+			$es_dirigido = $this->_memoria['parametros']['es_dirigido'];
 		} else {
 			$contenido = $parametros['contenido'];
 			$formato = $parametros['formato'];

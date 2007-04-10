@@ -1,6 +1,5 @@
 <?php
 
-
 class odt_permisos_grupos extends toba_datos_tabla
 {
 	function set_grupos($grupos)
@@ -41,5 +40,4 @@ class odt_permisos_grupos extends toba_datos_tabla
 		}
 	}
 }
-
 ?>

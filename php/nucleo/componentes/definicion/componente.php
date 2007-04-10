@@ -16,7 +16,7 @@ class componente_toba implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['info']['sql'] = "	SELECT	o.proyecto          		as proyecto,                 
+		$sql['_info']['sql'] = "	SELECT	o.proyecto          		as proyecto,                 
 									o.objeto                    	as objeto,                   
 									o.anterior                  	as anterior,                 
 									o.reflexivo                 	as reflexivo,                
@@ -71,10 +71,10 @@ class componente_toba implements toba_componente_definicion
 						AND			o.clase = c.clase
 						AND		o.proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['info']['sql'] .= "	AND		o.objeto='$componente';";	
+			$sql['_info']['sql'] .= "	AND		o.objeto='$componente';";	
 		}
-		$sql['info']['registros']='1';	
-		$sql['info']['obligatorio']=true;
+		$sql['_info']['registros']='1';	
+		$sql['_info']['obligatorio']=true;
 		return $sql;
 	}
 		

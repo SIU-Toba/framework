@@ -9,7 +9,7 @@ class info_datos_relacion extends info_componente
 	function get_metaclase_subcomponente($subcomponente)
 	{
 		require_once('info_ap_relacion_db.php');
-		return new info_ap_relacion_db($this->datos['info_estructura']);
+		return new info_ap_relacion_db($this->datos['_info_estructura']);
 	}	
 	
 	//---------------------------------------------------------------------	
@@ -31,15 +31,15 @@ class info_datos_relacion extends info_componente
 			'plegado' => true										
 		);
 		//--- Mejora para el caso de que la query sea una unica
-		if (isset($this->datos['info']['ap_clase'])) {
-			$this->datos['info_estructura']['ap_clase'] = $this->datos['info']['ap_clase'];
+		if (isset($this->datos['_info']['ap_clase'])) {
+			$this->datos['_info_estructura']['ap_clase'] = $this->datos['_info']['ap_clase'];
 		}
-		if (isset($this->datos['info']['ap_archivo'])) {
-			$this->datos['info_estructura']['ap_archivo'] = $this->datos['info']['ap_archivo'];
+		if (isset($this->datos['_info']['ap_archivo'])) {
+			$this->datos['_info_estructura']['ap_archivo'] = $this->datos['_info']['ap_archivo'];
 		}		
-		if (isset($this->datos['info_estructura']['ap_clase'])) {
+		if (isset($this->datos['_info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
-			if ( admin_util::existe_archivo_subclase($this->datos['info_estructura']['ap_archivo']) ) {
+			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo']) ) {
 				$iconos[] = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
@@ -66,8 +66,8 @@ class info_datos_relacion extends info_componente
 	protected function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
 	{
 		parent::clonar_subclase($dr, $dir_subclases, $proyecto_dest);
-		if (isset($this->datos['info_estructura']['ap_archivo'])) {
-			$archivo = $this->datos['info_estructura']['ap_archivo'];
+		if (isset($this->datos['_info_estructura']['ap_archivo'])) {
+			$archivo = $this->datos['_info_estructura']['ap_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
 			$path_origen = toba::instancia()->get_path_proyecto(contexto_info::get_proyecto())."/php/";
 			if (isset($proyecto_dest)) {

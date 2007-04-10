@@ -10,7 +10,7 @@ abstract class info_ei extends info_componente
 
 	protected function hay_evento($nombre)
 	{
-		foreach ($this->datos['info_eventos'] as $evento) {
+		foreach ($this->datos['_info_eventos'] as $evento) {
 			if ($evento['identificador'] == $nombre) {
 				return true;
 			}
@@ -21,7 +21,7 @@ abstract class info_ei extends info_componente
 	function eventos_predefinidos()
 	{
 		$eventos = parent::eventos_predefinidos();
-		foreach ($this->datos['info_eventos'] as $evt_db) {
+		foreach ($this->datos['_info_eventos'] as $evt_db) {
 			//ei_arbol($evt_db);
 			$id = $evt_db['identificador'];
 			$parametros = array();

@@ -17,8 +17,8 @@ class extension_formulario extends toba_ei_formulario
 		} else {
 			echo "<table>";
 			$i = 0;
-			foreach ($this->lista_ef_post as $ef) {
-				$ultimo = ($i == count($this->lista_ef_post));
+			foreach ($this->_lista_ef_post as $ef) {
+				$ultimo = ($i == count($this->_lista_ef_post));
 				if ($i % 2 == 0) {
 					echo "<tr>";	
 				}

@@ -14,12 +14,12 @@ require_once("nucleo/componentes/toba_componente.php");
  */
 class toba_cn extends toba_componente
 {
-	protected $transaccion_abierta;			//Indica si la transaccion se encuentra en proceso
+	protected $_transaccion_abierta;			//Indica si la transaccion se encuentra en proceso
 
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->transaccion_abierta = false;
+		$this->_transaccion_abierta = false;
 		$this->ini();
 	}
 
@@ -36,7 +36,7 @@ class toba_cn extends toba_componente
 	 */
 	function evt__limpieza_memoria($no_borrar=null)
 	{
-		$this->log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ evt__limpieza_memoria ]", 'toba');
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->ini();
 	}
@@ -51,7 +51,7 @@ class toba_cn extends toba_componente
 	 */
 	function cancelar()
 	{
-		$this->log->debug( $this->get_txt() . "[ cancelar ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ cancelar ]", 'toba');
 		$this->evt__limpieza_memoria();
 	}
 
@@ -67,7 +67,7 @@ class toba_cn extends toba_componente
 	function procesar($parametros=null)
 	{
 		$resultado = null;
-		$this->log->debug( $this->get_txt() . "[ procesar ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ procesar ]", 'toba');
 		try {
 			//ignore_user_abort();				//------> ?????
 			$this->iniciar_transaccion();
@@ -79,7 +79,7 @@ class toba_cn extends toba_componente
 		}
 		catch(toba_error $e){
 			$this->abortar_transaccion();
-			$this->log->debug($e, 'toba');	
+			$this->_log->debug($e, 'toba');	
 			throw new toba_error( $e->getMessage() );
 		}
 	}
@@ -109,8 +109,8 @@ class toba_cn extends toba_componente
 	 */
 	function iniciar_transaccion()
 	{
-		$this->transaccion_abierta = true;
-		return toba::db($this->info['fuente'])->abrir_transaccion();
+		$this->_transaccion_abierta = true;
+		return toba::db($this->_info['fuente'])->abrir_transaccion();
 	}
 	
 	/**
@@ -118,8 +118,8 @@ class toba_cn extends toba_componente
 	 */	
 	function finalizar_transaccion()
 	{
-		$this->transaccion_abierta = false;
-		return toba::db($this->info['fuente'])->cerrar_transaccion();
+		$this->_transaccion_abierta = false;
+		return toba::db($this->_info['fuente'])->cerrar_transaccion();
 	}
 
 	/**
@@ -127,8 +127,8 @@ class toba_cn extends toba_componente
 	 */		
 	function abortar_transaccion()
 	{
-		$this->transaccion_abierta = false;
-		return toba::db($this->info['fuente'])->abortar_transaccion($sql);
+		$this->_transaccion_abierta = false;
+		return toba::db($this->_info['fuente'])->abortar_transaccion($sql);
 	}
 
 	/**
@@ -136,12 +136,12 @@ class toba_cn extends toba_componente
 	 */			
 	function ejecutar_sql($sentencias_sql)
 	{
-		if($this->transaccion_abierta){
+		if($this->_transaccion_abierta){
 			if(!is_array($sentencias_sql)){
 				$sentencias_sql = array($sentencias_sql);
 			}
 			foreach($sentencias_sql as $sql){
-				toba::db($this->info['fuente'])->ejecutar($sql);
+				toba::db($this->_info['fuente'])->ejecutar($sql);
 			}
 		}else{
 			throw new toba_error('La transaccion no se encuentra abierta');

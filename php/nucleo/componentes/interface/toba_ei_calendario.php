@@ -15,11 +15,11 @@ require_once('3ros/activecalendar/activecalendar.php');
 class toba_ei_calendario extends toba_ei
 {
 	protected $prefijo = 'cal';	
-	var $calendario;
-	var $semana_seleccionada;
-	var $dia_seleccionado;
-	var $mes_actual;
-	var $ver_contenidos;
+	protected $_calendario;
+	protected $_semana_seleccionada;
+	protected $_dia_seleccionado;
+	protected $_mes_actual;
+	protected $_ver_contenidos;
 
     function __construct($id)
     {
@@ -28,31 +28,31 @@ class toba_ei_calendario extends toba_ei
 		$mes = date("m");
 		$anio = date("Y");
 		$semana = date("W");
-		$this->semana_seleccionada = array("semana" => $semana, "anio" => $anio);
-		$this->dia_seleccionado = array("dia" => $dia, "mes" =>$mes, "anio" => $anio);
-		$this->mes_actual = array("mes" => $mes, "anio" => $anio);
-		$this->calendario = new calendario();
+		$this->_semana_seleccionada = array("semana" => $semana, "anio" => $anio);
+		$this->_dia_seleccionado = array("dia" => $dia, "mes" =>$mes, "anio" => $anio);
+		$this->_mes_actual = array("mes" => $mes, "anio" => $anio);
+		$this->_calendario = new calendario();
 	}
 	
 	function destruir()
 	{
 		//Seleccionar Semana
-		if (isset($this->semana_seleccionada)) {
-			$this->memoria['semana_seleccionada'] = $this->semana_seleccionada;
+		if (isset($this->_semana_seleccionada)) {
+			$this->_memoria['semana_seleccionada'] = $this->_semana_seleccionada;
 		} else {
-			unset($this->memoria['semana_seleccionada']);
+			unset($this->_memoria['semana_seleccionada']);
 		}
 		//Seleccionar Día		
-		if (isset($this->dia_seleccionado)) {
-			$this->memoria['dia_seleccionado'] = $this->dia_seleccionado;
+		if (isset($this->_dia_seleccionado)) {
+			$this->_memoria['dia_seleccionado'] = $this->_dia_seleccionado;
 		} else {
-			unset($this->memoria['dia_seleccionado']);
+			unset($this->_memoria['dia_seleccionado']);
 		}
 		//Cambiar Mes 
-		if (isset($this->mes_actual)) {
-			$this->memoria['mes_actual'] = $this->mes_actual;
+		if (isset($this->_mes_actual)) {
+			$this->_memoria['mes_actual'] = $this->_mes_actual;
 		} else {
-			unset($this->memoria['mes_actual']);
+			unset($this->_memoria['mes_actual']);
 		}
 		parent::destruir();
 	}
@@ -66,7 +66,7 @@ class toba_ei_calendario extends toba_ei
 		if (isset($datos)) {
 			foreach ($datos as $dato) {
 				if (isset($dato["dia"])) {
-					$this->calendario->setEventContent($dato["dia"], $dato["contenido"]);
+					$this->_calendario->setEventContent($dato["dia"], $dato["contenido"]);
 				}
 			}
     	}
@@ -78,9 +78,9 @@ class toba_ei_calendario extends toba_ei
 	 */
 	function set_ver_contenidos($ver)
 	{
-		$this->ver_contenidos = $ver;
+		$this->_ver_contenidos = $ver;
 		if ($ver) {
-			$this->calendario->viewEventContents();
+			$this->_calendario->viewEventContents();
 		}
 	}
 	
@@ -89,19 +89,19 @@ class toba_ei_calendario extends toba_ei
 	 */	
 	protected function cargar_seleccion_dia()
 	{
-		$this->dia_seleccionado = null;
-		if (isset($this->memoria['dia_seleccionado']))
-			$this->dia_seleccionado = $this->memoria['dia_seleccionado'];
-		if(isset($_POST[$this->submit."__seleccionar_dia"])) {
-			$dia = $_POST[$this->submit."__seleccionar_dia"];
+		$this->_dia_seleccionado = null;
+		if (isset($this->_memoria['dia_seleccionado']))
+			$this->_dia_seleccionado = $this->_memoria['dia_seleccionado'];
+		if(isset($_POST[$this->_submit."__seleccionar_dia"])) {
+			$dia = $_POST[$this->_submit."__seleccionar_dia"];
 			if ($dia != '') {
 				$dia = explode(apex_qs_separador, $dia);
-				$this->dia_seleccionado["dia"] = $dia[0];
-				$this->dia_seleccionado["mes"] = $dia[1];				
-				$this->dia_seleccionado["anio"] = $dia[2];	
-				$this->calendario->setSelectedDay($dia[0]);
-				$this->calendario->setSelectedMonth($dia[1]);
-				$this->calendario->setSelectedYear($dia[2]);
+				$this->_dia_seleccionado["dia"] = $dia[0];
+				$this->_dia_seleccionado["mes"] = $dia[1];				
+				$this->_dia_seleccionado["anio"] = $dia[2];	
+				$this->_calendario->setSelectedDay($dia[0]);
+				$this->_calendario->setSelectedMonth($dia[1]);
+				$this->_calendario->setSelectedYear($dia[2]);
 			}
 		}
 	}
@@ -111,17 +111,17 @@ class toba_ei_calendario extends toba_ei
 	 */	
 	protected function cargar_seleccion_semana()
 	{
-		$this->semana_seleccionada = null;
-		if (isset($this->memoria['semana_seleccionada']))
-			$this->semana_seleccionada = $this->memoria['semana_seleccionada'];
-		if(isset($_POST[$this->submit."__seleccionar_semana"])) {
-			$semana = $_POST[$this->submit."__seleccionar_semana"];
+		$this->_semana_seleccionada = null;
+		if (isset($this->_memoria['semana_seleccionada']))
+			$this->_semana_seleccionada = $this->_memoria['semana_seleccionada'];
+		if(isset($_POST[$this->_submit."__seleccionar_semana"])) {
+			$semana = $_POST[$this->_submit."__seleccionar_semana"];
 			if ($semana != '') {
 				$semana = explode(apex_qs_separador, $semana);
-				$this->semana_seleccionada["semana"] = $semana[0];		
-				$this->semana_seleccionada["anio"] = $semana[1];
-				$this->calendario->setSelectedWeek($semana[0]);
-				$this->calendario->setSelectedYear($semana[1]);	
+				$this->_semana_seleccionada["semana"] = $semana[0];		
+				$this->_semana_seleccionada["anio"] = $semana[1];
+				$this->_calendario->setSelectedWeek($semana[0]);
+				$this->_calendario->setSelectedYear($semana[1]);	
 			}
 		}
 	}
@@ -131,14 +131,14 @@ class toba_ei_calendario extends toba_ei
 	 */	
 	protected function cargar_cambio_mes()
 	{
-		if (isset($this->memoria['mes_actual']))
-			$this->mes_actual = $this->memoria['mes_actual'];
-		if(isset($_POST[$this->submit."__cambiar_mes"])) {
-			$mes = $_POST[$this->submit."__cambiar_mes"];
+		if (isset($this->_memoria['mes_actual']))
+			$this->_mes_actual = $this->_memoria['mes_actual'];
+		if(isset($_POST[$this->_submit."__cambiar_mes"])) {
+			$mes = $_POST[$this->_submit."__cambiar_mes"];
 			if ($mes != '') {
 				$mes = explode(apex_qs_separador, $mes);
-				$this->mes_actual["mes"] = $mes[0];		
-				$this->mes_actual["anio"] = $mes[1];		
+				$this->_mes_actual["mes"] = $mes[0];		
+				$this->_mes_actual["anio"] = $mes[1];		
 			}
 		}
 	}
@@ -149,9 +149,9 @@ class toba_ei_calendario extends toba_ei
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		$this->eventos['seleccionar_dia'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar el día');
-		$this->eventos['seleccionar_semana'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar la semana');
-		$this->eventos['cambiar_mes'] = array('maneja_datos'=>true, 'ayuda'=> 'Cambiar de mes');
+		$this->_eventos['seleccionar_dia'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar el día');
+		$this->_eventos['seleccionar_semana'] = array('maneja_datos'=>true, 'ayuda'=> 'Seleccionar la semana');
+		$this->_eventos['cambiar_mes'] = array('maneja_datos'=>true, 'ayuda'=> 'Cambiar de mes');
 	}
 
 	/**
@@ -162,16 +162,16 @@ class toba_ei_calendario extends toba_ei
 		$this->cargar_seleccion_dia();
 		$this->cargar_seleccion_semana();
 		$this->cargar_cambio_mes();
-		if(isset($_POST[$this->submit]) && $_POST[$this->submit]!="") {
-			$evento = $_POST[$this->submit];	
+		if(isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];	
 			//El evento estaba entre los ofrecidos?
-			if (isset($this->memoria['eventos'][$evento]) ) {
+			if (isset($this->_memoria['eventos'][$evento]) ) {
 				if ($evento == 'seleccionar_dia')
-					$parametros = $this->dia_seleccionado;
+					$parametros = $this->_dia_seleccionado;
 				elseif ($evento == 'seleccionar_semana')
-					$parametros = $this->semana_seleccionada;
+					$parametros = $this->_semana_seleccionada;
 				elseif ($evento == 'cambiar_mes')
-					$parametros = $this->mes_actual;
+					$parametros = $this->_mes_actual;
 
 				$this->reportar_evento( $evento, $parametros );
 			}
@@ -181,17 +181,17 @@ class toba_ei_calendario extends toba_ei
 	function generar_html()
 	{
 		//Campos de comunicación con JS
-		echo toba_form::hidden($this->submit, '');
-		echo toba_form::hidden($this->submit."__seleccionar_semana", '');
-		echo toba_form::hidden($this->submit."__seleccionar_dia", '');
-		echo toba_form::hidden($this->submit."__cambiar_mes", '');
+		echo toba_form::hidden($this->_submit, '');
+		echo toba_form::hidden($this->_submit."__seleccionar_semana", '');
+		echo toba_form::hidden($this->_submit."__seleccionar_dia", '');
+		echo toba_form::hidden($this->_submit."__cambiar_mes", '');
 
-		$this->calendario->updateCalendar($this->mes_actual["mes"], $this->mes_actual["anio"]);
-		$this->calendario->enableDatePicker(2000,2010);
-		$this->calendario->enableDayLinks();
-		$this->calendario->enableWeekLinks();
+		$this->_calendario->updateCalendar($this->_mes_actual["mes"], $this->_mes_actual["anio"]);
+		$this->_calendario->enableDatePicker(2000,2010);
+		$this->_calendario->enableDayLinks();
+		$this->_calendario->enableWeekLinks();
 
-		echo $this->calendario->showMonth($this->objeto_js, $this->eventos, $this->get_html_barra_editor() );
+		echo $this->_calendario->showMonth($this->objeto_js, $this->_eventos, $this->get_html_barra_editor() );
 	}
 
 	/**
@@ -199,7 +199,7 @@ class toba_ei_calendario extends toba_ei
 	 */	
 	function getActYear()
 	{
-		return $this->calendario->actyear;
+		return $this->_calendario->actyear;
 	}
 	
 	/**
@@ -207,7 +207,7 @@ class toba_ei_calendario extends toba_ei
 	 */	
 	function getActMonth()
 	{
-		return $this->calendario->actmonth;
+		return $this->_calendario->actmonth;
 	}
 	
 	/**
@@ -216,7 +216,7 @@ class toba_ei_calendario extends toba_ei
 	 */
 	function get_contenido($dia)
 	{
-		$datos = $this->calendario->getEventContent($dia);
+		$datos = $this->_calendario->getEventContent($dia);
 		return $datos;
 	}
 
@@ -230,7 +230,7 @@ class toba_ei_calendario extends toba_ei
 	protected function crear_objeto_js()
 	{
 		$identado = toba_js::instancia()->identado();
-		echo $identado."window.{$this->objeto_js} = new ei_calendario('{$this->objeto_js}', '{$this->submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_calendario('{$this->objeto_js}', '{$this->_submit}');\n";
 	}
 
 	//-------------------------------------------------------------------------------

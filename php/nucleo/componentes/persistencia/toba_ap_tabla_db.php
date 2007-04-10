@@ -20,27 +20,27 @@ if (!defined("apex_db_registros_separador")) {
  
 class toba_ap_tabla_db implements toba_ap_tabla
 {
-	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
-	protected $columnas;						// DATOS_TABLA: Estructura del objeto
-	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
-	protected $cambios;							// DATOS_TABLA: Estado de los cambios
-	protected $tabla;							// DATOS_TABLA: Tabla
-	protected $alias;							// DATOS_TABLA: Alias
-	protected $clave;							// DATOS_TABLA: Clave
-	protected $fuente;							// DATOS_TABLA: Fuente de datos
-	protected $secuencias;
-	protected $columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
-	protected $sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
+	protected $_objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
+	protected $_columnas;						// DATOS_TABLA: Estructura del objeto
+	protected $_datos;							// DATOS_TABLA: DATOS que conforman las filas
+	protected $_cambios;							// DATOS_TABLA: Estado de los cambios
+	protected $_tabla;							// DATOS_TABLA: Tabla
+	protected $_alias;							// DATOS_TABLA: Alias
+	protected $_clave;							// DATOS_TABLA: Clave
+	protected $_fuente;							// DATOS_TABLA: Fuente de datos
+	protected $_secuencias;
+	protected $_columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
+	protected $_sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
 	//-------------------------------
-	protected $baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
-	protected $baja_logica_columna;				// Columna de la baja logica
-	protected $baja_logica_valor;				// Valor de la baja logica
-	protected $flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
-	protected $proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
+	protected $_baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
+	protected $_baja_logica_columna;				// Columna de la baja logica
+	protected $_baja_logica_valor;				// Valor de la baja logica
+	protected $_flag_modificacion_clave = false;	// Es posible modificar la clave en el UPDATE? Por defecto
+	protected $_proceso_carga_externa = null;	// Declaracion del proceso utilizado para cargar columnas externas
 	//-------------------------------
-	protected $control_sincro_db;				// Se activa el control de sincronizacion con la DB?
-	protected $utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
-	protected $msg_error_sincro = "Error interno. Los datos no fueron guardados.";
+	protected $_control_sincro_db;				// Se activa el control de sincronizacion con la DB?
+	protected $_utilizar_transaccion=true;		// La sincronizacion con la DB se ejecuta dentro de una transaccion
+	protected $_msg_error_sincro = "Error interno. Los datos no fueron guardados.";
 	//-------------------------------
 
 	
@@ -49,16 +49,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function __construct($datos_tabla)
 	{
-		$this->objeto_tabla = $datos_tabla;
-		$this->tabla = $this->objeto_tabla->get_tabla();
-		$this->alias = $this->objeto_tabla->get_alias();
-		$this->clave = $this->objeto_tabla->get_clave();
-		$this->columnas = $this->objeto_tabla->get_columnas();
-		$this->fuente = $this->objeto_tabla->get_fuente();
+		$this->_objeto_tabla = $datos_tabla;
+		$this->_tabla = $this->_objeto_tabla->get_tabla();
+		$this->_alias = $this->_objeto_tabla->get_alias();
+		$this->_clave = $this->_objeto_tabla->get_clave();
+		$this->_columnas = $this->_objeto_tabla->get_columnas();
+		$this->_fuente = $this->_objeto_tabla->get_fuente();
 		//Determino las secuencias de la tabla
-		foreach($this->columnas as $columna){
+		foreach($this->_columnas as $columna){
 			if( $columna['secuencia']!=""){
-				$this->secuencias[$columna['columna']] = $columna['secuencia'];
+				$this->_secuencias[$columna['columna']] = $columna['secuencia'];
 			}
 		}
 		$this->inicializar();
@@ -75,8 +75,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function get_estado_datos_tabla()
 	{
-		$this->cambios = $this->objeto_tabla->get_cambios();
-		$this->datos = $this->objeto_tabla->get_conjunto_datos_interno();
+		$this->_cambios = $this->_objeto_tabla->get_cambios();
+		$this->_datos = $this->_objeto_tabla->get_conjunto_datos_interno();
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function log($txt)
 	{
-		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
+		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->_tabla - OBJETO: ". get_class($this->_objeto_tabla). " -- " ."\n".$txt, 'toba');
 	}
 
 	/**
@@ -105,7 +105,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function activar_transaccion()		
 	{
-		$this->utilizar_transaccion = true;
+		$this->_utilizar_transaccion = true;
 	}
 
 	/**
@@ -114,7 +114,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */	
 	function desactivar_transaccion()		
 	{
-		$this->utilizar_transaccion = false;
+		$this->_utilizar_transaccion = false;
 	}
 
 	/**
@@ -130,12 +130,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function activar_proceso_carga_externa_sql($sql, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
-		$proximo = count($this->proceso_carga_externa);
-		$this->proceso_carga_externa[$proximo]["tipo"] = "sql";
-		$this->proceso_carga_externa[$proximo]["sql"] = $sql;
-		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
-		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
-		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$proximo = count($this->_proceso_carga_externa);
+		$this->_proceso_carga_externa[$proximo]["tipo"] = "sql";
+		$this->_proceso_carga_externa[$proximo]["sql"] = $sql;
+		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
 
 	/**
@@ -153,14 +153,14 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function activar_proceso_carga_externa_dao($metodo, $clase=null, $include=null, $col_parametros, $col_resultado, $sincro_continua=true)
 	{
-		$proximo = count($this->proceso_carga_externa);
-		$this->proceso_carga_externa[$proximo]["tipo"] = "dao";
-		$this->proceso_carga_externa[$proximo]["metodo"] = $metodo;
-		$this->proceso_carga_externa[$proximo]["clase"] = $clase;
-		$this->proceso_carga_externa[$proximo]["include"] = $include;
-		$this->proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
-		$this->proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
-		$this->proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
+		$proximo = count($this->_proceso_carga_externa);
+		$this->_proceso_carga_externa[$proximo]["tipo"] = "dao";
+		$this->_proceso_carga_externa[$proximo]["metodo"] = $metodo;
+		$this->_proceso_carga_externa[$proximo]["clase"] = $clase;
+		$this->_proceso_carga_externa[$proximo]["include"] = $include;
+		$this->_proceso_carga_externa[$proximo]["col_parametro"] = $col_parametros;
+		$this->_proceso_carga_externa[$proximo]["col_resultado"] = $col_resultado;
+		$this->_proceso_carga_externa[$proximo]["sincro_continua"] = $sincro_continua;
 	}
 
 	/**
@@ -172,9 +172,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function activar_baja_logica($columna, $valor)
 	{
-		$this->baja_logica = true;
-		$this->baja_logica_columna = $columna;
-		$this->baja_logica_valor = $valor;	
+		$this->_baja_logica = true;
+		$this->_baja_logica_columna = $columna;
+		$this->_baja_logica_valor = $valor;	
 	}
 
 	/**
@@ -182,7 +182,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function activar_modificacion_clave()
 	{
-		$this->flag_modificacion_clave = true;
+		$this->_flag_modificacion_clave = true;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -199,7 +199,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function cargar_por_clave($clave, $anexar_datos=false, $usar_cursores=false)
 	{
-		toba_asercion::es_array($clave, "AP [$this->tabla] ERROR: La clave debe ser un array");
+		toba_asercion::es_array($clave, "AP [$this->_tabla] ERROR: La clave debe ser un array");
 		$where = $this->generar_clausula_where($clave);
 		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos, $usar_cursores);
 	}
@@ -231,8 +231,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function cargar_con_where_from_especifico($where=null, $from=null, $anexar_datos=false, $usar_cursores=false)
 	{
-		toba_asercion::es_array_o_null($where,"AP [{$this->tabla}] El WHERE debe ser un array");
-		toba_asercion::es_array_o_null($from,"AP [{$this->tabla}] El FROM debe ser un array");
+		toba_asercion::es_array_o_null($where,"AP [{$this->_tabla}] El WHERE debe ser un array");
+		toba_asercion::es_array_o_null($from,"AP [{$this->_tabla}] El FROM debe ser un array");
 		$sql = $this->generar_sql_select($where, $from);
 		return $this->cargar_con_sql($sql, $anexar_datos, $usar_cursores);
 	}
@@ -247,7 +247,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
-			$db = toba::db($this->fuente);			
+			$db = toba::db($this->_fuente);			
 			$datos = $db->consultar($sql);
 		}catch(toba_error $e){
 			toba::logger()->error( get_class($this). ' - '.
@@ -268,7 +268,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
-			if($this->objeto_tabla->posee_columnas_externas()){
+			if($this->_objeto_tabla->posee_columnas_externas()){
 				for($a=0;$a<count($datos);$a++){
 					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
 					foreach($campos_externos as $id => $valor){
@@ -286,9 +286,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 			// Lleno la TABLA
 			if( $anexar_datos ) {
-				$this->objeto_tabla->anexar_datos($datos, $usar_cursores);
+				$this->_objeto_tabla->anexar_datos($datos, $usar_cursores);
 			} else {
-				$this->objeto_tabla->cargar_con_datos($datos);
+				$this->_objeto_tabla->cargar_con_datos($datos);
 			}
 			//ei_arbol($datos);
 			return true;
@@ -313,22 +313,22 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->log("Inicio SINCRONIZAR");
 		try{
-			if($this->utilizar_transaccion) abrir_transaccion($this->fuente);
+			if($this->_utilizar_transaccion) abrir_transaccion($this->_fuente);
 			$this->evt__pre_sincronizacion();		
 			$modificaciones = 0;
 			$modificaciones += $this->sincronizar_eliminados();
 			$modificaciones += $this->sincronizar_insertados();
 			$modificaciones += $this->sincronizar_actualizados();
 			//Regenero la estructura que mantiene los cambios realizados
-			$this->objeto_tabla->notificar_fin_sincronizacion();
+			$this->_objeto_tabla->notificar_fin_sincronizacion();
 			$this->evt__post_sincronizacion();
-			if($this->utilizar_transaccion) cerrar_transaccion($this->fuente);
+			if($this->_utilizar_transaccion) cerrar_transaccion($this->_fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
 			return $modificaciones;
 		} catch(toba_error $e) {
-			if($this->utilizar_transaccion) { 
-				toba::logger()->info("Abortando transacción en {$this->fuente}", 'toba');				
-				abortar_transaccion($this->fuente);
+			if($this->_utilizar_transaccion) { 
+				toba::logger()->info("Abortando transacción en {$this->_fuente}", 'toba');				
+				abortar_transaccion($this->_fuente);
 			}
 			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
 			throw new toba_error($e->getMessage());
@@ -344,8 +344,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->cambios) as $registro){
-			if ($this->cambios[$registro]['estado'] == 'd') {
+		foreach(array_keys($this->_cambios) as $registro){
+			if ($this->_cambios[$registro]['estado'] == 'd') {
 				$this->evt__pre_delete($registro);
 				$this->eliminar_registro_db($registro);
 				$this->evt__post_delete($registro);
@@ -364,8 +364,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->cambios) as $registro){
-			if ($this->cambios[$registro]['estado'] == "i") {
+		foreach(array_keys($this->_cambios) as $registro){
+			if ($this->_cambios[$registro]['estado'] == "i") {
 				$this->evt__pre_insert($registro);
 				$this->insertar_registro_db($registro);
 				$this->evt__post_insert($registro);
@@ -386,8 +386,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->get_estado_datos_tabla();
 		$modificaciones = 0;
-		foreach(array_keys($this->cambios) as $registro){
-			if ($this->cambios[$registro]['estado'] == 'u') {
+		foreach(array_keys($this->_cambios) as $registro){
+			if ($this->_cambios[$registro]['estado'] == 'u') {
 				$this->evt__pre_update($registro);
 				$this->modificar_registro_db($registro);
 				$this->evt__post_update($registro);
@@ -412,11 +412,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->log("registro: $id_registro - " . $sql); 
 		$this->ejecutar_sql( $sql );
 		//Actualizo las secuencias
-		if(count($this->secuencias)>0){
-			foreach($this->secuencias as $columna => $secuencia){
-				$valor = recuperar_secuencia($secuencia, $this->fuente);
+		if(count($this->_secuencias)>0){
+			foreach($this->_secuencias as $columna => $secuencia){
+				$valor = recuperar_secuencia($secuencia, $this->_fuente);
 				//El valor es necesario en el evt__post_insert!!
-				$this->datos[$id_registro][$columna] = $valor;
+				$this->_datos[$id_registro][$columna] = $valor;
 				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
@@ -456,7 +456,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function registrar_recuperacion_valor_db($id_registro, $columna, $valor)
 	{
-		$this->columnas_predeterminadas_db[$id_registro][$columna] = $valor;
+		$this->_columnas_predeterminadas_db[$id_registro][$columna] = $valor;
 	}
 	
 	/**
@@ -465,10 +465,10 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function actualizar_columnas_predeterminadas_db()
 	{
-		if(isset($this->columnas_predeterminadas_db)){
-			foreach( $this->columnas_predeterminadas_db as $id_registro => $columnas ){
+		if(isset($this->_columnas_predeterminadas_db)){
+			foreach( $this->_columnas_predeterminadas_db as $id_registro => $columnas ){
 				foreach( $columnas as $columna => $valor ){
-					$this->objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
+					$this->_objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
 				}
 			}
 		}
@@ -539,7 +539,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function ejecutar_sql( $sql )
 	{
-		toba::db($this->fuente)->ejecutar($sql);
+		toba::db($this->_fuente)->ejecutar($sql);
 	}
 
 	
@@ -554,13 +554,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function generar_clausula_where_lineal($clave,$alias=true)
 	{
 		if ($alias) {
-			$tabla_alias = isset($this->alias) ? $this->alias . "." : "";
+			$tabla_alias = isset($this->_alias) ? $this->_alias . "." : "";
 		} else {
 			$tabla_alias = "";	
 		}
 		$clausula = array();
 		foreach($clave as $columna => $valor) {
-			if( toba_tipo_datos::numero( $this->columnas[$columna]['tipo'] ) ) {
+			if( toba_tipo_datos::numero( $this->_columnas[$columna]['tipo'] ) ) {
 				$clausula[] = "( $tabla_alias" . "$columna = $valor )";
 			} else {
 				$clausula[] = "( $tabla_alias" . "$columna = '$valor' )";
@@ -582,7 +582,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$clausula = $this->generar_clausula_where_lineal($clave, true);
 		//Si la tabla tiene relaciones con padres
 		//Se hace un subselect con los campos relacionados
-		$padres = $this->objeto_tabla->get_relaciones_con_padres();
+		$padres = $this->_objeto_tabla->get_relaciones_con_padres();
 		foreach ($padres as $rel_padre) {
 			$clausula[] = $this->generar_clausula_subselect($rel_padre->tabla_padre()->get_persistidor(), 
 												$rel_padre->get_mapeo_campos());
@@ -600,7 +600,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		//Campos a comparar con el subselect
 		$where_subselect = '(';
 		foreach ($mapeo_campos as $campo) {
-			$where_subselect .= $this->alias . '.' . $campo . ', ';
+			$where_subselect .= $this->_alias . '.' . $campo . ', ';
 		}
 		$where_subselect = substr($where_subselect, 0, -2);	//Elimina la ultima coma
 				
@@ -621,15 +621,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		//Si no se explicitan las columnas, se asume que son todas
 		if (!isset($columnas)) {
 			$columnas = array();
-			foreach ($this->columnas as $col) {
+			foreach ($this->_columnas as $col) {
 				if(!$col['externa']) {
-					$columnas[] = $this->alias  . "." . $col['columna'];
+					$columnas[] = $this->_alias  . "." . $col['columna'];
 				}
 			}
 		}
 		//Si no se explicitan los from se asume que es la tabla local
 		if (!isset($from)) {
-			$from = array($this->tabla . ' as '. $this->alias);
+			$from = array($this->_tabla . ' as '. $this->_alias);
 		}
 
 		$sql =	"SELECT\n\t" . implode(", \n\t", $columnas); 
@@ -642,7 +642,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$sql = substr($sql, 0, -4); 	//Se saca el ultimo AND
 		}
 		//Se guardan los datos de la carga
-		$this->sql_carga = array('from' => $from, 'where' => $where);
+		$this->_sql_carga = array('from' => $from, 'where' => $where);
 		return $sql;
 	}	
 	
@@ -654,8 +654,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function get_sql_de_carga($campos)
 	{
-		if (isset($this->sql_carga)) {
-			return $this->generar_sql_select($this->sql_carga['where'], $this->sql_carga['from'], $campos);
+		if (isset($this->_sql_carga)) {
+			return $this->generar_sql_select($this->_sql_carga['where'], $this->_sql_carga['from'], $campos);
 		} else {
 			throw new toba_error("AP-TABLA Db: La tabla no ha sido cargada en este pedido de página");
 		}
@@ -668,8 +668,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function generar_sql_insert($id_registro)
 	{
 		$a=0;
-		$registro = $this->datos[$id_registro];
-		foreach($this->columnas as $columna)
+		$registro = $this->_datos[$id_registro];
+		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
 			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
@@ -688,7 +688,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				$a++;
 			}
 		}
-		$sql = "INSERT INTO " . $this->tabla .
+		$sql = "INSERT INTO " . $this->_tabla .
 				" ( " . implode(", ", $columnas_sql) . " ) ".
 				"\n VALUES (" . implode(", ", $valores_sql) . ");";
 		return $sql;
@@ -701,15 +701,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	function generar_sql_update($id_registro)
 	// Modificacion de claves
 	{
-		$registro = $this->datos[$id_registro];
+		$registro = $this->_datos[$id_registro];
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
-		foreach($this->columnas as $columna){
+		foreach($this->_columnas as $columna){
 			$col = $columna['columna'];
 			//columna modificable: no es secuencia, no es extena, no es PK 
 			//	(excepto que se se declare explicitamente la alteracion de PKs)
 			$es_modificable = ($columna['secuencia']=="") && ($columna['externa'] != 1) 
-							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->flag_modificacion_clave ) );
+							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->_flag_modificacion_clave ) );
 			if( $es_modificable ){
 				if( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$set[] = "$col = NULL";
@@ -727,7 +727,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			return null;	
 		}
 		//Armo el SQL
-		$sql = "UPDATE " . $this->tabla . " SET ".
+		$sql = "UPDATE " . $this->_tabla . " SET ".
 				implode(", ",$set) .
 				" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
 		return $sql;		
@@ -739,13 +739,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function generar_sql_delete($id_registro)
 	{
-		$registro = $this->datos[$id_registro];
-		if($this->baja_logica){
-			$sql = "UPDATE " . $this->tabla .
-					" SET " . $this->baja_logica_columna . " = '". $this->baja_logica_valor ."' " .
+		$registro = $this->_datos[$id_registro];
+		if($this->_baja_logica){
+			$sql = "UPDATE " . $this->_tabla .
+					" SET " . $this->_baja_logica_columna . " = '". $this->_baja_logica_valor ."' " .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro)) .";";
 		}else{
-			$sql = "DELETE FROM " . $this->tabla .
+			$sql = "DELETE FROM " . $this->_tabla .
 					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
 		}
 		return $sql;
@@ -758,8 +758,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */	
 	function generar_sql_where_registro($id_registro)
 	{
-		foreach($this->clave as $clave){
-			$id[$clave] = $this->cambios[$id_registro]['clave'][$clave];
+		foreach($this->_clave as $clave){
+			$id[$clave] = $this->_cambios[$id_registro]['clave'][$clave];
 		}
 		return $this->generar_clausula_where_lineal($id,false);
 	}
@@ -772,7 +772,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->get_estado_datos_tabla();
 		$sql = array();
-		foreach(array_keys($this->cambios) as $registro){
+		foreach(array_keys($this->_cambios) as $registro){
 			$sql[] = $this->generar_sql_insert($registro);
 		}
 		return $sql;
@@ -797,15 +797,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		//Itero planes de carga externa
 		$valores_recuperados = array();
-		if(isset($this->proceso_carga_externa)){
-			foreach(array_keys($this->proceso_carga_externa) as $carga)
+		if(isset($this->_proceso_carga_externa)){
+			foreach(array_keys($this->_proceso_carga_externa) as $carga)
 			{
-				$parametros = $this->proceso_carga_externa[$carga];
+				$parametros = $this->_proceso_carga_externa[$carga];
 				//Si la columna no solicito sincro continua, paso a la siguiente.
 				if(isset($evento)&& !($parametros["sincro_continua"])) continue;
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
 				foreach( $parametros['col_parametro'] as $col_llave ){
-					if(isset($evento) && isset($this->secuencias[$col_llave])){
+					if(isset($evento) && isset($this->_secuencias[$col_llave])){
 						throw new toba_error('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
 //					if(!isset($fila[$col_llave])){
@@ -824,7 +824,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						$sql = str_replace(apex_db_registros_separador.$col_llave.apex_db_registros_separador, $valor_llave, $sql);
 					}
 					// - 3 - Ejecuto SQL
-					$datos = toba::db($this->fuente)->consultar($sql);
+					$datos = toba::db($this->_fuente)->consultar($sql);
 					if(!$datos){
 						toba::logger()->error('AP_TABLA_DB: no se recuperaron datos ' . $sql, 'toba');
 						throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');

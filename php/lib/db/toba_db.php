@@ -207,7 +207,7 @@ class toba_db
 		$sentencia_actual = 1;
 		$this->abrir_transaccion();
 		try {
-			$this->ejecutar($sql);
+			$this->ejecutar($sentencias_sql);
 		} catch (exception_toba $e) {
 			$this->abortar_transaccion();
 			throw $e;

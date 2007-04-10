@@ -22,7 +22,7 @@ class componente_datos_relacion extends componente_toba
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- Info base de la estructura ----------------
-		$sql["info_estructura"]['sql'] = "SELECT	proyecto 	,	
+		$sql["_info_estructura"]['sql'] = "SELECT	proyecto 	,	
 													objeto      ,	
 													debug		,	
 													ap			,	
@@ -31,13 +31,13 @@ class componente_datos_relacion extends componente_toba
 										 FROM		apex_objeto_datos_rel
 										 WHERE		proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
-			$sql["info_estructura"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql["_info_estructura"]['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["info_estructura"]['sql'] .= ";";
-		$sql["info_estructura"]['registros']='1';
-		$sql["info_estructura"]['obligatorio']=true;
+		$sql["_info_estructura"]['sql'] .= ";";
+		$sql["_info_estructura"]['registros']='1';
+		$sql["_info_estructura"]['obligatorio']=true;
 		//------------ relaciones ----------------
-		$sql["info_relaciones"]['sql'] = "SELECT	proyecto 		,
+		$sql["_info_relaciones"]['sql'] = "SELECT	proyecto 		,
 												objeto 		    ,
 												asoc_id			,
 											--	identificador   ,
@@ -54,12 +54,12 @@ class componente_datos_relacion extends componente_toba
 									 FROM		apex_objeto_datos_rel_asoc 
 									 WHERE		proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["info_relaciones"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql["_info_relaciones"]['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["info_relaciones"]['sql'] .= ";";
-		$sql["info_relaciones"]['registros']='n';
-		$sql["info_relaciones"]['obligatorio']=false;
-		$sql['info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);		
+		$sql["_info_relaciones"]['sql'] .= ";";
+		$sql["_info_relaciones"]['registros']='n';
+		$sql["_info_relaciones"]['obligatorio']=false;
+		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);		
 		return $sql;
 	}
 	

@@ -15,30 +15,31 @@ require_once("toba_ei_formulario.php");
  */
 class toba_ei_formulario_ml extends toba_ei_formulario
 {
-	protected $datos;
-	protected $lista_ef_totales = array();
-	protected $clave_seleccionada;				//Id de la fila seleccionada
-	protected $siguiente_id_fila;				//Autoincremental que se usa para crear filas en la interface y asegurar que sean unicas
-	protected $filas_recibidas;					//Lista de filas recibidas desde el ci
-	protected $analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
-	protected $eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
-	protected $ordenes = array();				//Ordenes de las claves de los datos recibidos
-	protected $registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
-	protected $id_fila_actual;					//¿Que fila se esta procesando actualmente?
-	protected $item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
+	protected $_datos;
+	protected $_lista_ef_totales = array();
+	protected $_clave_seleccionada;				//Id de la fila seleccionada
+	protected $_siguiente_id_fila;				//Autoincremental que se usa para crear filas en la interface y asegurar que sean unicas
+	protected $_filas_enviadas;
+	protected $_filas_recibidas;					//Lista de filas recibidas desde el ci
+	protected $_analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
+	protected $_eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
+	protected $_ordenes = array();				//Ordenes de las claves de los datos recibidos
+	protected $_registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
+	protected $_id_fila_actual;					//¿Que fila se esta procesando actualmente?
+	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
 	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
 	
 	function __construct($id)
 	{
 		parent::__construct($id);
-		$this->siguiente_id_fila = isset($this->memoria['siguiente_id_fila']) ? $this->memoria['siguiente_id_fila'] : 156;
-		$this->filas_recibidas = isset($this->memoria['filas_recibidas']) ? $this->memoria['filas_recibidas'] : array();
+		$this->_siguiente_id_fila = isset($this->_memoria['siguiente_id_fila']) ? $this->_memoria['siguiente_id_fila'] : 156;
+		$this->_filas_recibidas = isset($this->_memoria['filas_recibidas']) ? $this->_memoria['filas_recibidas'] : array();
 	}
 
 	function destruir()
 	{
-		$this->memoria['siguiente_id_fila'] = $this->siguiente_id_fila;
-		$this->memoria['filas_recibidas'] = $this->filas_recibidas;
+		$this->_memoria['siguiente_id_fila'] = $this->_siguiente_id_fila;
+		$this->_memoria['filas_recibidas'] = $this->_filas_recibidas;
 		parent::destruir();
 	}	
 		
@@ -48,14 +49,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected function inicializar_especifico()
 	{
 		//Se incluyen los totales
-		for($a=0;$a<count($this->info_formulario_ef);$a++)
+		for($a=0;$a<count($this->_info_formulario_ef);$a++)
 		{
-			if($this->info_formulario_ef[$a]["total"]){
-				$this->lista_ef_totales[] = $this->info_formulario_ef[$a]["identificador"];
+			if($this->_info_formulario_ef[$a]["total"]){
+				$this->_lista_ef_totales[] = $this->_info_formulario_ef[$a]["identificador"];
 			}
 		}
 		//Se determina el metodo de analisis de cambios
-		$this->set_metodo_analisis($this->info_formulario['analisis_cambios']);
+		$this->set_metodo_analisis($this->_info_formulario['analisis_cambios']);
 	}
 
 	/**
@@ -71,16 +72,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		switch ($metodo) {
 			case 'LINEA':
-				$this->analizar_diferencias = true;
-				$this->eventos_granulares = false;				
+				$this->_analizar_diferencias = true;
+				$this->_eventos_granulares = false;				
 				break;
 			case 'EVENTOS':
-				$this->analizar_diferencias = true;
-				$this->eventos_granulares = true;
+				$this->_analizar_diferencias = true;
+				$this->_eventos_granulares = true;
 				break;
 			default:
-				$this->analizar_diferencias = false;
-				$this->eventos_granulares = false;
+				$this->_analizar_diferencias = false;
+				$this->_eventos_granulares = false;
 		}	
 	}
 	
@@ -89,7 +90,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function deseleccionar()
 	{
-		unset($this->clave_seleccionada);
+		unset($this->_clave_seleccionada);
 	}
 
 	/**
@@ -99,7 +100,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	*/	
 	function seleccionar($clave)
 	{
-		$this->clave_seleccionada = $clave;
+		$this->_clave_seleccionada = $clave;
 	}
 	
 
@@ -108,7 +109,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function desactivar_agregado_filas()
 	{
-		$this->info_formulario['filas_agregar'] = false;
+		$this->_info_formulario['filas_agregar'] = false;
 	}
 	
 
@@ -122,19 +123,19 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function disparar_eventos()
 	{
 		//Veo si se devolvio algun evento!
-		if (isset($_POST[$this->submit]) && $_POST[$this->submit]!=""){
+		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!=""){
 			//La opcion seleccionada estaba entre las ofrecidas?		
-			if (isset($this->memoria['eventos'][$_POST[$this->submit]]) ) {
+			if (isset($this->_memoria['eventos'][$_POST[$this->_submit]]) ) {
 				//--- Caso particular: Manejo de 2 eventos (uno implicito)
 				$implicito = null;
-				if (isset($_POST[$this->submit.'_implicito']) && 
-							$_POST[$this->submit].'_implicito' !=""){
-					$evt = $_POST[$this->submit.'_implicito'];
-					if (isset($this->memoria['eventos'][$evt])) {	
+				if (isset($_POST[$this->_submit.'_implicito']) && 
+							$_POST[$this->_submit].'_implicito' !=""){
+					$evt = $_POST[$this->_submit.'_implicito'];
+					if (isset($this->_memoria['eventos'][$evt])) {	
 						$implicito = $evt;
 					}
 				}
-				$this->disparar_eventos_especifico($_POST[$this->submit], $implicito);
+				$this->disparar_eventos_especifico($_POST[$this->_submit], $implicito);
 			}
 		}
 		$this->limpiar_interface();
@@ -145,7 +146,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function disparar_eventos_especifico($evento, $implicito=null)
 	{
-		$maneja_datos = ($this->memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
+		$maneja_datos = ($this->_memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
 		$parametros = isset($_POST[$this->objeto_js."__parametros"]) ? $_POST[$this->objeto_js."__parametros"] : '';
 		
 		//--- Si el evento maneja datos, se validan y cargan
@@ -155,26 +156,26 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		//--- Caso particular, manejo de un evento implicito que se dispara junto a uno principal
 		if ($implicito) {
-			$this->reportar_evento( $implicito, $this->get_datos($this->analizar_diferencias) );
+			$this->reportar_evento( $implicito, $this->get_datos($this->_analizar_diferencias) );
 		}		
 		//--- ¿Se lanzan los eventos granulares (registro_alta, baja y modificacion) ?
-		if ($this->eventos_granulares && $maneja_datos) {
+		if ($this->_eventos_granulares && $maneja_datos) {
 			$this->disparar_eventos_granulares();
 		}
 		
 		//--- Se reporta el pedido de nuevo registro, si no se atrapa se asume SI		
-		if (! $this->info_formulario['filas_agregar_online'] && $evento == 'pedido_registro_nuevo') {
+		if (! $this->_info_formulario['filas_agregar_online'] && $evento == 'pedido_registro_nuevo') {
 			if ($this->reportar_evento("pedido_registro_nuevo", null) === apex_ei_evt_sin_rpta) {
 				$this->set_registro_nuevo();
 			}
 		//--- Si Tiene parametros, es uno a nivel de fila			
 		} else if ($parametros != '') {
 			//Reporto el evento a nivel de fila
-			$this->clave_seleccionada = $this->get_clave_fila($parametros);
-			$this->reportar_evento( $evento, $this->clave_seleccionada);
+			$this->_clave_seleccionada = $this->get_clave_fila($parametros);
+			$this->reportar_evento( $evento, $this->_clave_seleccionada);
 		//-- Si no tiene es un evento comun			
 		} else {
-			$this->reportar_evento( $evento, $this->get_datos($this->analizar_diferencias));
+			$this->reportar_evento( $evento, $this->get_datos($this->_analizar_diferencias));
 		}
 	}
 		
@@ -208,16 +209,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function carga_inicial()
 	{
-		$this->datos = array();
-		if ($this->info_formulario["filas"] > 0 ) {
-			for ($i = 0; $i < $this->info_formulario["filas"]; $i++) {
+		$this->_datos = array();
+		if ($this->_info_formulario["filas"] > 0 ) {
+			for ($i = 0; $i < $this->_info_formulario["filas"]; $i++) {
 				$this->agregar_registro();
 			}
 		}
 	}
 		
 	/**
-	 * Carga en $this->datos los valores recibidos del POST
+	 * Carga en $this->_datos los valores recibidos del POST
 	 * @ignore 
 	 */
 	protected function cargar_post()
@@ -225,7 +226,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if (! isset($_POST[$this->objeto_js.'_listafilas']))
 			return false;
 
-		$this->datos = array();			
+		$this->_datos = array();			
 		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
 		$filas_post = array();
 		if ($lista_filas != '') {
@@ -233,10 +234,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			//Por cada fila
 			foreach ($filas_post as $fila) {
 				//1) Cargo los EFs
-				foreach ($this->lista_ef as $ef){
-					$this->elemento_formulario[$ef]->ir_a_fila($fila);
-					$this->elemento_formulario[$ef]->resetear_estado();
-					$this->elemento_formulario[$ef]->cargar_estado_post();
+				foreach ($this->_lista_ef as $ef){
+					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
+					$this->_elemento_formulario[$ef]->resetear_estado();
+					$this->_elemento_formulario[$ef]->cargar_estado_post();
 					//La validación del estado no se hace aquí porque interrumpiría la carga
 				}
 				//2) Seteo el registro
@@ -256,14 +257,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function validar_estado()
 	{
-		foreach ($this->datos as $id_fila => $datos_registro) {
+		foreach ($this->_datos as $id_fila => $datos_registro) {
 			$this->cargar_registro_a_ef($id_fila, $datos_registro);
-			foreach ($this->lista_ef_post as $ef){
-				$this->elemento_formulario[$ef]->ir_a_fila($id_fila);
-				$validacion = $this->elemento_formulario[$ef]->validar_estado();
+			foreach ($this->_lista_ef_post as $ef){
+				$this->_elemento_formulario[$ef]->ir_a_fila($id_fila);
+				$validacion = $this->_elemento_formulario[$ef]->validar_estado();
 				if ($validacion !== true) {
-					$this->efs_invalidos[$id_fila][$ef] = $validacion;
-					$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta();
+					$this->_efs_invalidos[$id_fila][$ef] = $validacion;
+					$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 					throw new toba_error_validacion($etiqueta.': '.$validacion, $this->ef($ef));
 				}
 			}
@@ -275,11 +276,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */	
 	function limpiar_interface()
 	{
-		foreach ($this->lista_ef as $ef){
-			$this->elemento_formulario[$ef]->resetear_estado();
+		foreach ($this->_lista_ef as $ef){
+			$this->_elemento_formulario[$ef]->resetear_estado();
 		}
-		unset($this->datos);
-		unset($this->ordenes);
+		unset($this->_datos);
+		unset($this->_ordenes);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -292,7 +293,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function get_cantidad_lineas()
 	{
-		return count($this->datos);
+		return count($this->_datos);
 	}
 
 	/**
@@ -304,25 +305,25 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function get_datos($analizar_diferencias = false)
 	{
-		if (!isset($this->datos)) {
+		if (!isset($this->_datos)) {
 			return array();	
 		}
 		//Envia el ordenamiento como una columna aparte
 		$orden = 1;
-		foreach (array_keys($this->datos) as $id) {
-			if (isset($this->info_formulario['columna_orden']) && $this->info_formulario['columna_orden'] != '') {
-				$this->datos[$id][$this->info_formulario['columna_orden']] = $orden;
+		foreach (array_keys($this->_datos) as $id) {
+			if (isset($this->_info_formulario['columna_orden']) && $this->_info_formulario['columna_orden'] != '') {
+				$this->_datos[$id][$this->_info_formulario['columna_orden']] = $orden;
 			}
-			$this->datos[$id][apex_datos_clave_fila] = $id;
+			$this->_datos[$id][apex_datos_clave_fila] = $id;
 			$orden++;
 		}
 		if ($analizar_diferencias) {
 			//Analizo la procedencia del registro: es alta o modificación
-			$datos = $this->datos;
+			$datos = $this->_datos;
 			foreach (array_keys($datos) as $id_fila) {
 				//Si la fila que viene desde el POST estaba entra las recibidas del CI en el request anterior
 				//es una fila modificada, sino para el CI es una nueva 
-				if (in_array($id_fila, $this->filas_recibidas)) {
+				if (in_array($id_fila, $this->_filas_recibidas)) {
 					$datos[$id_fila][apex_ei_analisis_fila] = 'M';
 				} else {
 					$datos[$id_fila][apex_ei_analisis_fila] = 'A';
@@ -330,14 +331,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 			
 			//Se buscan los registros borrados
-			foreach ($this->filas_recibidas as $recibida) {
+			foreach ($this->_filas_recibidas as $recibida) {
 				//Si la recibida en el request anterior no vino junto a los datos se borro
 				if (! in_array($recibida, array_keys($datos))) {
 					$datos[$recibida] = array(apex_ei_analisis_fila => 'B');
 				}
 			}
 		} else {	//Hay que sacar la información extra
-			$datos = array_values($this->datos);
+			$datos = array_values($this->_datos);
 		}
 		return $datos;
 	}
@@ -349,13 +350,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	*/
 	protected function get_clave_fila($fila)
 	{
-		if ($this->analizar_diferencias) {
-			if (isset($this->datos[$fila]))
+		if ($this->_analizar_diferencias) {
+			if (isset($this->_datos[$fila]))
 				return $fila;
 		} else {
-			if (isset($this->datos)) {
+			if (isset($this->_datos)) {
 				$i = 0;
-				foreach (array_keys($this->datos) as $id_fila) {
+				foreach (array_keys($this->_datos) as $id_fila) {
 					if ($fila == $id_fila)
 						return $i;
 					$i++;
@@ -372,7 +373,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function pre_configurar()
 	{
 		parent::pre_configurar();
-		$this->filas_recibidas = array();
+		$this->_filas_recibidas = array();
 	}
 	
 	/**
@@ -390,38 +391,38 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}		
 		
-		$this->filas_recibidas = array();
-		$this->datos = array();
+		$this->_filas_recibidas = array();
+		$this->_datos = array();
 		foreach ($datos as $id => $fila) {
 			//--- Se determina la clave real de la fila
 			if (isset($fila[apex_datos_clave_fila])) {
 				$id = $fila[apex_datos_clave_fila];
 			}
 			//--- Se actualiza la secuencia autoincremental
-			if (is_numeric($id) && $id >= $this->siguiente_id_fila) {
-				$this->siguiente_id_fila = $id + 1;
+			if (is_numeric($id) && $id >= $this->_siguiente_id_fila) {
+				$this->_siguiente_id_fila = $id + 1;
 			}
-			$this->datos[$id] = $fila;
+			$this->_datos[$id] = $fila;
 			
 			//Para dar un analisis preciso de la accion del ML, es necesario discriminar cuales
 			//filas son a dar de alta y cuales son a modificar
 			if (! isset($fila[apex_ei_analisis_fila]) || $fila[apex_ei_analisis_fila] != 'A') {
-				$this->filas_recibidas[] = $id;
+				$this->_filas_recibidas[] = $id;
 			}
 		}
 
 		//---Ordenar por la columna que se establece
 		//El ML no ordena el arreglo, porque esto cambiaria las claves asociativas
-		//por eso mantiene la variable $this->ordenes
-		if ($this->info_formulario['columna_orden']) {
+		//por eso mantiene la variable $this->_ordenes
+		if ($this->_info_formulario['columna_orden']) {
 			$ordenes = array();
-			foreach ($this->datos as $id => $dato) {
-				$ordenes[$id] = $dato[$this->info_formulario['columna_orden']];
+			foreach ($this->_datos as $id => $dato) {
+				$ordenes[$id] = $dato[$this->_info_formulario['columna_orden']];
 			}
 			asort($ordenes);
-			$this->ordenes = array_keys($ordenes);
+			$this->_ordenes = array_keys($ordenes);
 		} else {
-			$this->ordenes = array_keys($this->datos);
+			$this->_ordenes = array_keys($this->_datos);
 		}
 	}
 
@@ -438,9 +439,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	*/
 	function agregar_registro($valores=array())
 	{	
-		$this->datos[$this->siguiente_id_fila] = $valores;
-		$this->ordenes[] = $this->siguiente_id_fila;
-		$this->siguiente_id_fila++;
+		$this->_datos[$this->_siguiente_id_fila] = $valores;
+		$this->_ordenes[] = $this->_siguiente_id_fila;
+		$this->_siguiente_id_fila++;
 	}
 	
 	/**
@@ -453,7 +454,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function set_registro_nuevo($template=array())
 	{
-		$this->registro_nuevo = $template;
+		$this->_registro_nuevo = $template;
 	}	
 
 	/**
@@ -466,7 +467,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function set_proximo_id($id)
 	{
-		$this->siguiente_id_fila = $id;	
+		$this->_siguiente_id_fila = $id;	
 	}
 
 
@@ -476,8 +477,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	function datos_cargados()
 	{
-		if(isset($this->datos)){
-			return count($this->datos) > 0;
+		if(isset($this->_datos)){
+			return count($this->_datos) > 0;
 		}else{
 			return false;
 		}
@@ -493,22 +494,22 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function cargar_ef_a_registro($id_registro)
 	{
-		$this->id_fila_actual = $id_registro;
-		foreach ($this->lista_ef as $ef)
+		$this->_id_fila_actual = $id_registro;
+		foreach ($this->_lista_ef as $ef)
 		{
 			//Aplano el estado del EF en un array
-			$dato	= $this->elemento_formulario[$ef]->get_dato();
-			$estado = $this->elemento_formulario[$ef]->get_estado();
+			$dato	= $this->_elemento_formulario[$ef]->get_dato();
+			$estado = $this->_elemento_formulario[$ef]->get_estado();
 			if (is_array($dato)) {	//El EF maneja	DATO COMPUESTO
 				if((count($dato))!=(count($estado))){//Error	de	consistencia interna	del EF
 					echo ei_mensaje("Error de consistencia	interna en el EF etiquetado: ".
-										$this->elemento_formulario[$ef]->get_etiqueta(),"error");
+										$this->_elemento_formulario[$ef]->get_etiqueta(),"error");
 				}
 				for($x=0;$x<count($dato);$x++){
-					$this->datos[$id_registro][$dato[$x]]	= $estado[$dato[$x]];
+					$this->_datos[$id_registro][$dato[$x]]	= $estado[$dato[$x]];
 				}
 			}else{					//El EF maneja	un	DATO SIMPLE
-				$this->datos[$id_registro][$dato] = $estado;
+				$this->_datos[$id_registro][$dato] = $estado;
 			}
 		}
 	}
@@ -519,13 +520,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function cargar_registro_a_ef($id_fila, $datos_registro)
 	{
-		$this->id_fila_actual = $id_fila;
+		$this->_id_fila_actual = $id_fila;
 		$datos = $datos_registro;
-		foreach ($this->lista_ef as $ef) {
+		foreach ($this->_lista_ef as $ef) {
 			//Seteo el ID-formulario del EF para que referencie al registro actual
-			$this->elemento_formulario[$ef]->ir_a_fila($id_fila);
-			$this->elemento_formulario[$ef]->resetear_estado();
-			$dato = $this->elemento_formulario[$ef]->get_dato();
+			$this->_elemento_formulario[$ef]->ir_a_fila($id_fila);
+			$this->_elemento_formulario[$ef]->resetear_estado();
+			$dato = $this->_elemento_formulario[$ef]->get_dato();
 			if(is_array($dato)){	//El EF maneja	 *** DATO COMPUESTO
 				$temp = array();
 				for($x=0;$x<count($dato);$x++){
@@ -551,7 +552,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 			}
 			if ($temp !== null) {
-				$this->elemento_formulario[$ef]->set_estado($temp);
+				$this->_elemento_formulario[$ef]->set_estado($temp);
 			}
 		}
 	}
@@ -565,24 +566,24 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_formulario()
 	{
-		$this->rango_tabs = toba_manejador_tabs::instancia()->reservar(1000);		
+		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(1000);		
 		//--- Si no se cargaron datos, se cargan ahora
-		if (!isset($this->datos)) {		
+		if (!isset($this->_datos)) {		
 			$this->carga_inicial();
 		}
 		
 		//Ancho y Scroll
 		$estilo = '';
-		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
-		if($this->info_formulario["scroll"]){
-			$alto_maximo = isset($this->info_formulario["alto"]) ? $this->info_formulario["alto"] : "auto";
+		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
+		if($this->_info_formulario["scroll"]){
+			$alto_maximo = isset($this->_info_formulario["alto"]) ? $this->_info_formulario["alto"] : "auto";
 			if ($ancho != 'auto' || $alto_maximo != 'auto') {
 				$estilo .= "overflow: auto; width: $ancho; height: $alto_maximo; border: 1px inset; margin: 0px; padding: 0px;";
 			} 
 		}else{
 			$alto_maximo = "auto";
 		}		
-		if (isset($this->colapsado) && $this->colapsado) {
+		if (isset($this->_colapsado) && $this->_colapsado) {
 			$estilo .= "display:none;";
 		}
 		//Campo de comunicacion con JS
@@ -613,9 +614,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		$primera = true;
-		foreach ($this->lista_ef_post	as	$ef){
+		foreach ($this->_lista_ef_post	as	$ef){
 			$extra = '';
-			if ($primera && $this->info_formulario['filas_numerar']) {
+			if ($primera && $this->_info_formulario['filas_numerar']) {
 				$extra = 'colspan="2"';
 			}
 			echo "<th $extra class='ei-ml-columna'>\n";
@@ -628,7 +629,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach ($this->get_eventos_sobre_fila() as $evento) {
 				echo "<th class='ei-ml-columna ei-ml-columna-extra'>&nbsp;\n";
 				if (toba_editor::modo_prueba()) {
-					echo toba_editor::get_vinculo_evento($this->id, $this->info['clase_editor_item'], $evento->get_id())."\n";
+					echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
 				}
 	            echo "</th>\n";
 			}
@@ -639,9 +640,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	
 	protected function generar_etiqueta_columna($ef)
 	{
-		$estilo = $this->elemento_formulario[$ef]->get_estilo_etiqueta();
+		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
 		if ($estilo == '') {
-	        if ($this->elemento_formulario[$ef]->es_obligatorio()) {
+	        if ($this->_elemento_formulario[$ef]->es_obligatorio()) {
 	    	        $estilo = 'ei-ml-etiq-oblig';
 					$marca = '(*)';
         	} else {
@@ -649,13 +650,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$marca ='';
     	    }
 		}
-		$desc = $this->elemento_formulario[$ef]->get_descripcion();
+		$desc = $this->_elemento_formulario[$ef]->get_descripcion();
 		if ($desc !=""){
 			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
 		}
-		$id_ef = $this->elemento_formulario[$ef]->get_id_form();			
+		$id_ef = $this->_elemento_formulario[$ef]->get_id_form();			
 		$editor = $this->generar_vinculo_editor($ef);
-		$etiqueta = $this->elemento_formulario[$ef]->get_etiqueta().$marca;
+		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta().$marca;
 		echo "<span class='$estilo'>$etiqueta $editor $desc</span>\n";
 	}	
 	
@@ -666,20 +667,20 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		echo "<tfoot>\n";		
 		//Defino la cantidad de columnas
-		$colspan = count($this->lista_ef_post);
-		if ($this->info_formulario['filas_numerar']) {
+		$colspan = count($this->_lista_ef_post);
+		if ($this->_info_formulario['filas_numerar']) {
 			$colspan++;
 		}
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
-		if(count($this->lista_ef_totales)>0){
+		if(count($this->_lista_ef_totales)>0){
 			echo "\n<tr  class='ei-ml-fila-total'>\n";
-			if ($this->info_formulario['filas_numerar']) {
+			if ($this->_info_formulario['filas_numerar']) {
 				echo "<td>&nbsp;</td>\n";
 			}
-			foreach ($this->lista_ef_post as $ef){
-				$this->elemento_formulario[$ef]->ir_a_fila("s");
-				$id_form_total = $this->elemento_formulario[$ef]->get_id_form();
+			foreach ($this->_lista_ef_post as $ef){
+				$this->_elemento_formulario[$ef]->ir_a_fila("s");
+				$id_form_total = $this->_elemento_formulario[$ef]->get_id_form();
 				echo "<td id='$id_form_total'>&nbsp;\n";
 				echo "</td>\n";
 			}
@@ -703,32 +704,32 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected function generar_formulario_cuerpo()
 	{
 		echo "<tbody>";			
-		if ($this->registro_nuevo !== false) {
-			$template = (is_array($this->registro_nuevo)) ? $this->registro_nuevo : array();
+		if ($this->_registro_nuevo !== false) {
+			$template = (is_array($this->_registro_nuevo)) ? $this->_registro_nuevo : array();
 			$this->agregar_registro($template);
 		}
 		//------ FILAS ------
-		$this->filas_enviadas = array();
-		if (!isset($this->ordenes)) {
-			$this->ordenes = array();
+		$this->_filas_enviadas = array();
+		if (!isset($this->_ordenes)) {
+			$this->_ordenes = array();
 		}
 		//Se recorre una fila más para insertar una nueva fila 'modelo' para agregar en js
-		if ( $this->info_formulario['filas_agregar'] && $this->info_formulario['filas_agregar_online']) {
-			$this->datos["__fila__"] = array();
-			$this->ordenes[] = "__fila__";
+		if ( $this->_info_formulario['filas_agregar'] && $this->_info_formulario['filas_agregar_online']) {
+			$this->_datos["__fila__"] = array();
+			$this->_ordenes[] = "__fila__";
 		}
 		$a = 0;
-		foreach ($this->ordenes as $fila) {
-			$dato = $this->datos[$fila];
+		foreach ($this->_ordenes as $fila) {
+			$dato = $this->_datos[$fila];
 			//Si la fila es el template ocultarla
 			if ($fila !== "__fila__") {
-				$this->filas_enviadas[] = $fila;
+				$this->_filas_enviadas[] = $fila;
 				$estilo_fila = "";
 			} else {
 				$estilo_fila = "style='display:none;'";
 			}
 			//Determinar el estilo de la fila
-			if (isset($this->clave_seleccionada) && $fila == $this->clave_seleccionada) {
+			if (isset($this->_clave_seleccionada) && $fila == $this->_clave_seleccionada) {
 				$this->estilo_celda_actual = "ei-ml-fila-selec";				
 			} else {
 				$this->estilo_celda_actual = "ei-ml-fila";
@@ -739,7 +740,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			echo "\n<!-- FILA $fila -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
 			//--Numeración de las filas
-			if ($this->info_formulario['filas_numerar']) {
+			if ($this->_info_formulario['filas_numerar']) {
 				echo "<td class='{$this->estilo_celda_actual}'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}			
@@ -755,10 +756,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 
 	protected function generar_layout_fila($clave_fila)
 	{
-		foreach ($this->lista_ef_post as $ef){
+		foreach ($this->_lista_ef_post as $ef){
 			//--- Multiplexacion de filas
-			$this->elemento_formulario[$ef]->ir_a_fila($clave_fila);
-			$id_form = $this->elemento_formulario[$ef]->get_id_form();					
+			$this->_elemento_formulario[$ef]->ir_a_fila($clave_fila);
+			$id_form = $this->_elemento_formulario[$ef]->get_id_form();					
 			echo "<td class='{$this->estilo_celda_actual}' id='cont_$id_form'>\n";		
 			echo "<div id='nodo_$id_form'>\n";			
 			$this->generar_input_ef($ef);
@@ -780,7 +781,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				//2: Ventana de modificacion del evento por fila
 				//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
-				$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->parametros['id'] . '__' . $id;
+				$callback_modificacion_eventos_contenedor = 'conf_evt__' . $this->_parametros['id'] . '__' . $id;
 				if (method_exists($this->controlador, $callback_modificacion_eventos_contenedor)) {
 					$this->controlador->$callback_modificacion_eventos_contenedor($evento, $fila);
 				} else {
@@ -792,7 +793,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				//3: Genero el boton
 				if( ! $evento->esta_anulado() ) {
-					echo $evento->get_html($this->submit, $this->objeto_js, $this->id);
+					echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
 				} else {
 					$evento->restituir();	//Lo activo para la proxima fila
 				}
@@ -806,25 +807,25 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_botonera_manejo_filas()
 	{
-		$agregar = $this->info_formulario['filas_agregar'];
-		$ordenar = $this->info_formulario['filas_ordenar'];
+		$agregar = $this->_info_formulario['filas_agregar'];
+		$ordenar = $this->_info_formulario['filas_ordenar'];
 		if ($agregar || $ordenar) {
 			echo "<div class='ei-ml-botonera'>";
 			if ($agregar) {
 				echo toba_form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_toba('nucleo/agregar.gif', true), 
-										"onclick='{$this->objeto_js}.crear_fila();'", $this->rango_tabs[0]++, '+', 'Crea una nueva fila');
+										"onclick='{$this->objeto_js}.crear_fila();'", $this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
 				echo toba_form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_toba('nucleo/borrar.gif', true), 
-										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
+										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->_rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
 				$html = toba_recurso::imagen_toba('nucleo/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
 				echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
-										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->rango_tabs[0]++, 'z', 'Deshace la última eliminación');
+										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');
 				echo "&nbsp;";
 			}
 			if ($ordenar) {
 				echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true), 
-										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
+										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->_rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
 				echo toba_form::button_html("{$this->objeto_js}_bajar", toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true),
-                                        "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $this->rango_tabs[0]++, '>', 'Baja una posición la fila seleccionada');
+                                        "onclick='{$this->objeto_js}.bajar_seleccionada();' disabled", $this->_rango_tabs[0]++, '>', 'Baja una posición la fila seleccionada');
 			}
 			echo "</div>\n";
 		}
@@ -840,8 +841,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected function cargar_lista_eventos()
 	{
 		parent::cargar_lista_eventos();
-		if (! $this->info_formulario['filas_agregar_online']) {
-			$this->eventos['pedido_registro_nuevo'] = array('maneja_datos' => true);
+		if (! $this->_info_formulario['filas_agregar_online']) {
+			$this->_eventos['pedido_registro_nuevo'] = array('maneja_datos' => true);
 		}
 	}
 
@@ -856,23 +857,23 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$identado = toba_js::instancia()->identado();
 		//Creación de los objetos javascript de los objetos
-		$rango_tabs = "new Array({$this->rango_tabs[0]}, {$this->rango_tabs[1]})";
-		$filas = toba_js::arreglo($this->filas_enviadas);
-		$en_linea = toba_js::bool($this->info_formulario['filas_agregar_online']);
-		$seleccionada = (isset($this->clave_seleccionada)) ? $this->clave_seleccionada : "null";
-		$esclavos = toba_js::arreglo($this->cascadas_esclavos, true, false);
-		$maestros = toba_js::arreglo($this->cascadas_maestros, true, false);		
-		$id = toba_js::arreglo($this->id, false);
-		$invalidos = toba_js::arreglo($this->efs_invalidos, true);
+		$rango_tabs = "new Array({$this->_rango_tabs[0]}, {$this->_rango_tabs[1]})";
+		$filas = toba_js::arreglo($this->_filas_enviadas);
+		$en_linea = toba_js::bool($this->_info_formulario['filas_agregar_online']);
+		$seleccionada = (isset($this->_clave_seleccionada)) ? $this->_clave_seleccionada : "null";
+		$esclavos = toba_js::arreglo($this->_cascadas_esclavos, true, false);
+		$maestros = toba_js::arreglo($this->_cascadas_maestros, true, false);		
+		$id = toba_js::arreglo($this->_id, false);
+		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario_ml";
-		echo "($id, '{$this->objeto_js}', $rango_tabs, '{$this->submit}', $filas, {$this->siguiente_id_fila}, $seleccionada, $en_linea, $maestros, $esclavos, $invalidos);\n";
-		foreach ($this->lista_ef_post as $ef) {
-			echo $identado."{$this->objeto_js}.agregar_ef({$this->elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+		echo "($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $filas, {$this->_siguiente_id_fila}, $seleccionada, $en_linea, $maestros, $esclavos, $invalidos);\n";
+		foreach ($this->_lista_ef_post as $ef) {
+			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
 		}
 		//Agregado de callbacks para calculo de totales
-		if(count($this->lista_ef_totales)>0) {
-			foreach ($this->lista_ef_post as $ef) {
-				if(in_array($ef, $this->lista_ef_totales)) {
+		if(count($this->_lista_ef_totales)>0) {
+			foreach ($this->_lista_ef_post as $ef) {
+				if(in_array($ef, $this->_lista_ef_totales)) {
 					echo $identado."{$this->objeto_js}.agregar_total('$ef');\n";
 				}
 			}
@@ -881,7 +882,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	
 	function get_objeto_js_ef($id)
 	{
-		return "{$this->objeto_js}.ef('$id').ir_a_fila('{$this->id_fila_actual}')";
+		return "{$this->objeto_js}.ef('$id').ir_a_fila('{$this->_id_fila_actual}')";
 	}
 	
 	/**
@@ -901,32 +902,32 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	function vista_impresion_html( $salida )
 	{
 		$salida->subtitulo( $this->get_titulo() );
-		$ancho = isset($this->info_formulario["ancho"]) ? $this->info_formulario["ancho"] : "auto";
+		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
 		echo "<table class='tabla-0' style='width: $ancho'>\n";
 		//-- Encabezado
 		echo "<tr>\n";
-		if ($this->info_formulario['filas_numerar']) {
+		if ($this->_info_formulario['filas_numerar']) {
 			echo "<th class='ei-ml-col-tit'>&nbsp;</th>\n";
 		}
-		foreach ($this->lista_ef_post	as	$ef){
+		foreach ($this->_lista_ef_post	as	$ef){
 			echo "<th class='ei-cuadro-col-tit'>\n";
-			echo $this->elemento_formulario[$ef]->get_etiqueta();
+			echo $this->_elemento_formulario[$ef]->get_etiqueta();
 			echo "</th>\n";
 		}
 		echo "</tr>\n";
 		//-- Cuerpo
 		$a = 0;
-		if( isset( $this->ordenes ) ) {
-			foreach ($this->ordenes as $fila) {
-				$dato = $this->datos[$fila];
+		if( isset( $this->_ordenes ) ) {
+			foreach ($this->_ordenes as $fila) {
+				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
 				$this->cargar_opciones_efs();
 				echo "<tr class='col-tex-p1'>";
-				if ($this->info_formulario['filas_numerar']) {
+				if ($this->_info_formulario['filas_numerar']) {
 					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
 				}
-				foreach ($this->lista_ef_post as $ef){
-					$this->elemento_formulario[$ef]->ir_a_fila($fila);
+				foreach ($this->_lista_ef_post as $ef){
+					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 					$temp = $this->get_valor_imprimible_ef( $ef );
 					echo "</td><td class='". $temp['css'] ."'>\n";
 					echo $temp['valor'];

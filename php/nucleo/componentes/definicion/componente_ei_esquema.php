@@ -16,7 +16,7 @@ class componente_ei_esquema extends componente_ei
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 
-		$sql['info_esquema']['sql'] = "SELECT
+		$sql['_info_esquema']['sql'] = "SELECT
 												dirigido,
 												formato,					
 												modelo_ejecucion_cache,	
@@ -25,11 +25,11 @@ class componente_ei_esquema extends componente_ei
 									FROM	apex_objeto_esquema
 									WHERE	objeto_esquema_proyecto='$proyecto' ";
 		if ( isset($componente) ) {
-			$sql['info_esquema']['sql'] .= "	AND     objeto_esquema='$componente' ";	
+			$sql['_info_esquema']['sql'] .= "	AND     objeto_esquema='$componente' ";	
 		}
-		$sql['info_esquema']['sql'] .= ";";
-		$sql['info_esquema']['registros']='1';
-		$sql['info_esquema']['obligatorio']=true;
+		$sql['_info_esquema']['sql'] .= ";";
+		$sql['_info_esquema']['registros']='1';
+		$sql['_info_esquema']['obligatorio']=true;
 		return $sql;
 	}
 	

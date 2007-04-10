@@ -21,8 +21,8 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	{
 		$this->carga_profundidad = $carga_profundidad;
 		$this->datos = $datos;
-		$this->id = $this->datos['info']['objeto'];
-		$this->proyecto = $this->datos['info']['proyecto'];
+		$this->id = $this->datos['_info']['objeto'];
+		$this->proyecto = $this->datos['_info']['proyecto'];
 		if ($this->carga_profundidad) {
 			$this->cargar_dependencias();
 		}
@@ -31,13 +31,13 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	function cargar_dependencias()
 	{
 		//Si hay objetos asociados...
-		if(	isset($this->datos['info_dependencias']) && 
-			count($this->datos['info_dependencias']) > 0 )	{
-			for ( $a=0; $a<count($this->datos['info_dependencias']); $a++) {
-				$clave['proyecto'] = $this->datos['info_dependencias'][$a]['proyecto'];
-				$clave['componente'] = $this->datos['info_dependencias'][$a]['objeto'];
+		if(	isset($this->datos['_info_dependencias']) && 
+			count($this->datos['_info_dependencias']) > 0 )	{
+			for ( $a=0; $a<count($this->datos['_info_dependencias']); $a++) {
+				$clave['proyecto'] = $this->datos['_info_dependencias'][$a]['proyecto'];
+				$clave['componente'] = $this->datos['_info_dependencias'][$a]['objeto'];
 				$this->subelementos[$a]= toba_constructor::get_info( $clave, null, true, null, true );
-				$this->subelementos[$a]->set_consumidor($this, $this->datos['info_dependencias'][$a] );
+				$this->subelementos[$a]->set_consumidor($this, $this->datos['_info_dependencias'][$a] );
 			}
 		}
 	}
@@ -71,16 +71,16 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 
 	function vinculo_editor($parametros = array())
 	{
-		$editor_item = $this->datos['info']['clase_editor_item'];
-		$editor_proyecto = $this->datos['info']['clase_editor_proyecto'];
+		$editor_item = $this->datos['_info']['clase_editor_item'];
+		$editor_proyecto = $this->datos['_info']['clase_editor_proyecto'];
 		return toba::vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
 															false, false, null, true, 'central');
 	}
 
 	function get_archivo_subclase()
 	{
-		if (isset($this->datos['info']['subclase_archivo'])) {
-			return $this->datos['info']['subclase_archivo'];
+		if (isset($this->datos['_info']['subclase_archivo'])) {
+			return $this->datos['_info']['subclase_archivo'];
 		}
 		return null;		
 	}
@@ -96,7 +96,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
 	{
 		//Se busca el id del datos_relacion de la clase
-		$id_dr = dao_editores::get_dr_de_clase($this->datos['info']['clase']);
+		$id_dr = dao_editores::get_dr_de_clase($this->datos['_info']['clase']);
 		
 		//Se construye el objeto datos_relacion
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
@@ -162,8 +162,8 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	
 	protected function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
 	{
-		if (isset($this->datos['info']['subclase_archivo'])) {
-			$archivo = $this->datos['info']['subclase_archivo'];
+		if (isset($this->datos['_info']['subclase_archivo'])) {
+			$archivo = $this->datos['_info']['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
 			$path_origen = toba::instancia()->get_path_proyecto(contexto_info::get_proyecto())."/php/";
 			if (isset($proyecto_dest)) {
@@ -201,7 +201,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	
 	function es_hoja()
 	{
-		return $this->datos['info']['cant_dependencias'] == 0;
+		return $this->datos['_info']['cant_dependencias'] == 0;
 	}
 	
 	function tiene_propiedades()
@@ -211,7 +211,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	
 	function get_nombre_corto()
 	{
-		$nombre_objeto = $this->datos['info']['nombre'];
+		$nombre_objeto = $this->datos['_info']['nombre'];
 		if ($this->tiene_consumidor())
 			$nombre = $this->rol_en_consumidor();
 		else
@@ -221,7 +221,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	
 	function get_nombre_largo()
 	{
-		$nombre_objeto = $this->datos['info']['nombre'];
+		$nombre_objeto = $this->datos['_info']['nombre'];
 		if ($this->tiene_consumidor())
 			$nombre = "$nombre_objeto<br>Rol: ".$this->rol_en_consumidor();
 		else
@@ -231,15 +231,15 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	
 	function get_nombre()
 	{
-		return $this->datos['info']['nombre'];	
+		return $this->datos['_info']['nombre'];	
 	}
 	
 	function get_iconos()
 	{
-		$clase_corto = substr($this->datos['info']['clase'], 7);		
+		$clase_corto = substr($this->datos['_info']['clase'], 7);		
 		$iconos = array();
 		$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba($this->datos['info']['clase_icono'], false),
+				'imagen' => toba_recurso::imagen_toba($this->datos['_info']['clase_icono'], false),
 				'ayuda' => "Objeto [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
 			);	
 		return $iconos;
@@ -248,9 +248,9 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 	function get_utilerias()
 	{
 		$iconos = array();
-		if (isset($this->datos['info']['subclase_archivo'])) {
+		if (isset($this->datos['_info']['subclase_archivo'])) {
 			// Administracion de la Subclase PHP}
-			if (admin_util::existe_archivo_subclase($this->datos['info']['subclase_archivo'])) {
+			if (admin_util::existe_archivo_subclase($this->datos['_info']['subclase_archivo'])) {
 				$iconos[] = $this->get_utileria_editor_abrir_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ));
 			} else {
@@ -267,11 +267,11 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 			);
 		}
 		//Editor
-		if (isset($this->datos['info']['clase_editor_proyecto'])) {
+		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
 			$ayuda = null;
-			if (in_array($this->datos['info']['clase'], dao_editores::get_clases_validas())) {
+			if (in_array($this->datos['_info']['clase'], dao_editores::get_clases_validas())) {
 				require_once("datos_editores.php");
-				$metodo = "get_pantallas_".$this->datos['info']['clase'];
+				$metodo = "get_pantallas_".$this->datos['_info']['clase'];
 				$pantallas = call_user_func(array("datos_editores", $metodo));
 				//-- Se incluye un vinculo a cada pantalla encontrada
 				$ayuda = "<div class='editor-lista-vinculos'>";
@@ -372,22 +372,22 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 
 	function get_clase_nombre()
 	{
-		return str_replace('objeto_', 'toba_', $this->datos['info']['clase']);
+		return str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);
 	}
 
 	function get_clase_archivo()
 	{
-		return $this->datos['info']['clase_archivo'];	
+		return $this->datos['_info']['clase_archivo'];	
 	}
 	
 	function get_subclase_nombre()
 	{
-		return $this->datos['info']['subclase'];
+		return $this->datos['_info']['subclase'];
 	}
 
 	function get_subclase_archivo()
 	{
-		return $this->datos['info']['subclase_archivo'];	
+		return $this->datos['_info']['subclase_archivo'];	
 	}
 
 	function get_molde_vacio()

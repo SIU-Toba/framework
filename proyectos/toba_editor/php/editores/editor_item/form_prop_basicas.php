@@ -43,8 +43,8 @@ class form_prop_basicas extends toba_ei_formulario
 		}
 		parent::generar_input_ef($ef);
 		if ($ef == 'imagen') {
-			$origen = $this->elemento_formulario['imagen_recurso_origen']->get_estado();
-			$img = $this->elemento_formulario[$ef]->get_estado();
+			$origen = $this->_elemento_formulario['imagen_recurso_origen']->get_estado();
+			$img = $this->_elemento_formulario[$ef]->get_estado();
 			seleccion_imagenes::generar_input_ef($origen, $img, $this->objeto_js);
 			echo "</div>";
 		} 

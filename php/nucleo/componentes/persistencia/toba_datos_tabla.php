@@ -16,54 +16,54 @@ require_once("toba_tipo_datos.php");
  */
 class toba_datos_tabla extends toba_componente 
 {
-	protected $info_estructura;
-	protected $info_columnas;
-	protected $info_externas;
-	protected $info_externas_col;
-	protected $persistidor;						// Mantiene el persistidor del OBJETO
+	protected $_info_estructura;
+	protected $_info_columnas;
+	protected $_info_externas;
+	protected $_info_externas_col;
+	protected $_persistidor;						// Mantiene el persistidor del OBJETO
 	// Definicion asociada a la TABLA
-	protected $clave;							// Columnas que constituyen la clave de la tabla
-	protected $columnas;
-	protected $posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
+	protected $_clave;							// Columnas que constituyen la clave de la tabla
+	protected $_columnas;
+	protected $_posee_columnas_ext = false;		// Indica si la tabla posee columnas externas (cargadas a travez de un mecanismo especial)
 	//Constraints
-	protected $no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
+	protected $_no_duplicado;					// Combinaciones de columnas que no pueden duplicarse
 	// Definicion general
-	protected $tope_max_filas;					// Cantidad de maxima de datos permitida.
-	protected $tope_min_filas;					// Cantidad de minima de datos permitida.
-	protected $es_unico_registro=true;			//La tabla tiene com maximo un registro?
+	protected $_tope_max_filas;					// Cantidad de maxima de datos permitida.
+	protected $_tope_min_filas;					// Cantidad de minima de datos permitida.
+	protected $_es_unico_registro=true;			//La tabla tiene com maximo un registro?
 	// ESTADO
-	protected $cambios = array();				// Cambios realizados sobre los datos
-	protected $datos = array();					// Datos cargados en el db_filas
-	protected $datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
-	protected $proxima_fila = 0;				// Posicion del proximo registro en el array de datos
-	protected $cursor;							// Puntero a una fila específica
-	protected $cursor_original;					// Backup del cursor que se usa para deshacer un seteo
-	protected $cargada = false;
-	protected $from;
-	protected $where;
+	protected $_cambios = array();				// Cambios realizados sobre los datos
+	protected $_datos = array();					// Datos cargados en el db_filas
+	protected $_datos_originales = array();		// Datos tal cual salieron de la DB (Control de SINCRO)
+	protected $_proxima_fila = 0;				// Posicion del proximo registro en el array de datos
+	protected $_cursor;							// Puntero a una fila específica
+	protected $_cursor_original;					// Backup del cursor que se usa para deshacer un seteo
+	protected $_cargada = false;
+	protected $_from;
+	protected $_where;
 	// Relaciones con el exterior
-	protected $relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
-	protected $relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
+	protected $_relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
+	protected $_relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
 
 	
 	function __construct($id)
 	{
 		$propiedades = array();
-		$propiedades[] = "cambios";
-		$propiedades[] = "datos";
-		$propiedades[] = "proxima_fila";
-		$propiedades[] = "cursor";
-		$propiedades[] = "cargada";		
+		$propiedades[] = "_cambios";
+		$propiedades[] = "_datos";
+		$propiedades[] = "_proxima_fila";
+		$propiedades[] = "_cursor";
+		$propiedades[] = "_cargada";		
 		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
-		for($a=0; $a<count($this->info_columnas);$a++){
+		for($a=0; $a<count($this->_info_columnas);$a++){
 			//Armo una propiedad "columnas" para acceder a la definicion mas facil
-			$this->columnas[ $this->info_columnas[$a]['columna'] ] =& $this->info_columnas[$a];
-			if($this->info_columnas[$a]['pk']==1){
-				$this->clave[] = $this->info_columnas[$a]['columna'];
+			$this->_columnas[ $this->_info_columnas[$a]['columna'] ] =& $this->_info_columnas[$a];
+			if($this->_info_columnas[$a]['pk']==1){
+				$this->_clave[] = $this->_info_columnas[$a]['columna'];
 			}
-			if($this->info_columnas[$a]['externa']==1){
-				$this->posee_columnas_ext = true;
+			if($this->_info_columnas[$a]['externa']==1){
+				$this->_posee_columnas_ext = true;
 			}
 		}
 		$this->activar_cargas_externas();
@@ -75,12 +75,12 @@ class toba_datos_tabla extends toba_componente
 	protected function activar_cargas_externas()
 	{
 		//--- Se recorren las cargas externas, el lugar ideal seria hacer esto en el ap, pero aca es mas simple y eficiente
-		if ($this->posee_columnas_ext) {
-			foreach($this->info_externas as $externa) {
+		if ($this->_posee_columnas_ext) {
+			foreach($this->_info_externas as $externa) {
 				$parametros = array();
 				$resultados = array();
 				//-- Se identifican las columnas de esta carga
-				foreach($this->info_externas_col as $ext_col) {
+				foreach($this->_info_externas_col as $ext_col) {
 					if ($ext_col['externa_id'] == $externa['externa_id']) {
 						if ($ext_col['es_resultado'] == 1) {
 							$resultados[] = $ext_col['columna'];
@@ -108,8 +108,8 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function reservar_id_fila()
 	{
-		$actual = $this->proxima_fila;
-		$this->proxima_fila++;
+		$actual = $this->_proxima_fila;
+		$this->_proxima_fila++;
 		return $actual;
 	}
 
@@ -118,7 +118,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_proximo_id()
 	{
-		return $this->proxima_fila;	
+		return $this->_proxima_fila;	
 	}
 		
 	//-------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function agregar_relacion_con_padre($relacion, $id_padre)
 	{
-		$this->relaciones_con_padres[$id_padre] = $relacion;
+		$this->_relaciones_con_padres[$id_padre] = $relacion;
 	}
 	
 	/**
@@ -142,7 +142,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_relaciones_con_padres()
 	{
-		return $this->relaciones_con_padres;
+		return $this->_relaciones_con_padres;
 	}
 
 	/**
@@ -152,7 +152,7 @@ class toba_datos_tabla extends toba_componente
 	 */	
 	function get_relacion_con_padre($id_tabla_padre)
 	{
-		return $this->relaciones_con_padres[$id_tabla_padre];	
+		return $this->_relaciones_con_padres[$id_tabla_padre];	
 	}
 	
 	/**
@@ -162,7 +162,7 @@ class toba_datos_tabla extends toba_componente
 	 */	
 	function agregar_relacion_con_hijo($relacion, $id_hijo)
 	{
-		$this->relaciones_con_hijos[$id_hijo] = $relacion;
+		$this->_relaciones_con_hijos[$id_hijo] = $relacion;
 	}
 
 	/*
@@ -172,7 +172,7 @@ class toba_datos_tabla extends toba_componente
 	private function notificar_contenedor($evento, $param1=null, $param2=null)
 	{
 		if(isset($this->controlador)){
-			//$this->contenedor->registrar_evento($this->id, $evento, $param1, $param2);
+			//$this->_contenedor->registrar_evento($this->_id, $evento, $param1, $param2);
 		}
 	}
 
@@ -182,8 +182,8 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function notificar_padres_carga($reg_hijos=null)
 	{
-		if(isset($this->relaciones_con_padres)){
-			foreach ($this->relaciones_con_padres as $relacion) {
+		if(isset($this->_relaciones_con_padres)){
+			foreach ($this->_relaciones_con_padres as $relacion) {
 				$relacion->evt__carga_hijo($reg_hijos);
 			}
 		}
@@ -195,8 +195,8 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function notificar_hijos_sincronizacion()
 	{
-		if(isset($this->relaciones_con_hijos)){
-			foreach ($this->relaciones_con_hijos as $relacion) {
+		if(isset($this->_relaciones_con_hijos)){
+			foreach ($this->_relaciones_con_hijos as $relacion) {
 				$relacion->evt__sincronizacion_padre();
 			}
 		}
@@ -233,7 +233,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_clave()
 	{
-		return $this->clave;
+		return $this->_clave;
 	}
 	
 	/**
@@ -243,7 +243,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_clave_valor($id_fila)
 	{
-		foreach( $this->clave as $columna ){
+		foreach( $this->_clave as $columna ){
 			$temp[$columna] = $this->get_fila_columna($id_fila, $columna);
 		}	
 		return $temp;
@@ -255,7 +255,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_tope_max_filas()
 	{
-		return $this->tope_max_filas;	
+		return $this->_tope_max_filas;	
 	}
 
 
@@ -265,7 +265,7 @@ class toba_datos_tabla extends toba_componente
 	 */	
 	function get_tope_min_filas()
 	{
-		return $this->tope_min_filas;	
+		return $this->_tope_min_filas;	
 	}
 
 	/**
@@ -275,10 +275,10 @@ class toba_datos_tabla extends toba_componente
 	function get_cantidad_filas_a_sincronizar()
 	{
 		$cantidad = 0;
-		foreach(array_keys($this->cambios) as $fila){
-			if( ($this->cambios[$fila]['estado'] == "d") ||
-				($this->cambios[$fila]['estado'] == "i") ||
-				($this->cambios[$fila]['estado'] == "u") ){
+		foreach(array_keys($this->_cambios) as $fila){
+			if( ($this->_cambios[$fila]['estado'] == "d") ||
+				($this->_cambios[$fila]['estado'] == "i") ||
+				($this->_cambios[$fila]['estado'] == "u") ){
 				$cantidad++;
 			}
 		}
@@ -293,8 +293,8 @@ class toba_datos_tabla extends toba_componente
 	function get_id_filas_a_sincronizar( $cambios=array("d","i","u") )
 	{
 		$ids = array();
-		foreach(array_keys($this->cambios) as $fila){
-			if( in_array($this->cambios[$fila]['estado'], $cambios) ){
+		foreach(array_keys($this->_cambios) as $fila){
+			if( in_array($this->_cambios[$fila]['estado'], $cambios) ){
 				$ids[] = $fila;
 			}
 		}
@@ -314,7 +314,7 @@ class toba_datos_tabla extends toba_componente
 		if ($cantidad == '')
 			$cantidad = 0;		
 		if(is_numeric($cantidad) && $cantidad >= 0){
-			$this->tope_max_filas = $cantidad;	
+			$this->_tope_max_filas = $cantidad;	
 		}else{
 			throw new toba_error("El valor especificado en el TOPE MAXIMO de registros es incorrecto");
 		}
@@ -329,7 +329,7 @@ class toba_datos_tabla extends toba_componente
 		if ($cantidad == '')
 			$cantidad = 0;
 		if(is_numeric($cantidad) && $cantidad >= 0){
-			$this->tope_min_filas = $cantidad;
+			$this->_tope_min_filas = $cantidad;
 		}else{
 			throw new toba_error("El valor especificado en el TOPE MINIMO de registros es incorrecto");
 		}
@@ -340,12 +340,12 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function set_no_duplicado( $columnas )
 	{
-		$this->no_duplicado[] = $columnas;
+		$this->_no_duplicado[] = $columnas;
 	}
 
 	function set_es_unico_registro($unico)
 	{
-		$this->es_unico_registro = $unico;	
+		$this->_es_unico_registro = $unico;	
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -362,9 +362,9 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
-			$this->cursor_original = isset($this->cursor) ? $this->cursor : null;
-			$this->cursor = $id;	
-			$this->log("Nuevo cursor '{$this->cursor}' en reemplazo del anterior '{$this->cursor_original}'");
+			$this->_cursor_original = isset($this->_cursor) ? $this->_cursor : null;
+			$this->_cursor = $id;	
+			$this->log("Nuevo cursor '{$this->_cursor}' en reemplazo del anterior '{$this->_cursor_original}'");
 		}else{
 			throw new toba_error($this->get_txt() . "La fila '$id' no es valida");
 		}
@@ -375,8 +375,8 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function restaurar_cursor()
 	{
-		$this->cursor = $this->cursor_original;
-		$this->log("Se restaura el cursor '{$this->cursor_original}'");		
+		$this->_cursor = $this->_cursor_original;
+		$this->log("Se restaura el cursor '{$this->_cursor_original}'");		
 	}
 
 	
@@ -395,8 +395,8 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_cursor()
 	{
-		if(isset($this->cursor)){
-			return $this->cursor;
+		if(isset($this->_cursor)){
+			return $this->_cursor;
 		}	
 	}
 
@@ -405,7 +405,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function hay_cursor()
 	{
-		return isset($this->cursor);
+		return isset($this->_cursor);
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -427,9 +427,9 @@ class toba_datos_tabla extends toba_componente
 		foreach( $this->get_id_fila_condicion($condiciones, $usar_cursores) as $id_fila )
 		{
 			if($usar_id_fila){
-				$datos[$id_fila] = $this->datos[$id_fila];
+				$datos[$id_fila] = $this->_datos[$id_fila];
 			}else{
-				$datos[$a] = $this->datos[$id_fila];
+				$datos[$a] = $this->_datos[$id_fila];
 				//esta columna indica cual fue la clave del registro
 				$datos[$a][apex_datos_clave_fila] = $id_fila;
 			}
@@ -447,15 +447,15 @@ class toba_datos_tabla extends toba_componente
 	function get_id_filas($usar_cursores=true)
 	{
 		$coincidencias = array();
-		foreach(array_keys($this->cambios) as $id_fila){
-			if($this->cambios[$id_fila]['estado']!="d"){
+		foreach(array_keys($this->_cambios) as $id_fila){
+			if($this->_cambios[$id_fila]['estado']!="d"){
 				$coincidencias[] = $id_fila;
 			}
 		}
 		if ($usar_cursores) {
 			//Si algún padre tiene un cursor posicionado, 
 			//se restringe a solo las filas que son hijas de esos cursores
-			foreach ($this->relaciones_con_padres as $id => $rel_padre) {
+			foreach ($this->_relaciones_con_padres as $id => $rel_padre) {
 				//echo "$id: ".$rel_padre->hay_cursor_en_padre()."<br>";
 				if ($rel_padre->hay_cursor_en_padre()) {
 					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
@@ -488,10 +488,10 @@ class toba_datos_tabla extends toba_componente
 	function get_id_fila_padre($tabla_padre, $id_fila)
 	{
 		$id_fila = $this->normalizar_id($id_fila);
-		if(!isset($this->relaciones_con_padres[$tabla_padre])) {
+		if(!isset($this->_relaciones_con_padres[$tabla_padre])) {
 			throw new toba_error("La tabla padre '$tabla_padre' no existe");	
 		}
-		return $this->relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
+		return $this->_relaciones_con_padres[$tabla_padre]->get_id_padre($id_fila);
 	}
 	
 	
@@ -524,10 +524,10 @@ class toba_datos_tabla extends toba_componente
 						$operador = '==';						
 						$valor = $condiciones[$campo];
 					}					
-					if( !isset($this->columnas[$columna]) ){
+					if( !isset($this->_columnas[$columna]) ){
 						throw new toba_error("El campo '$columna' no existe. No es posible filtrar por dicho campo");
 					}
-					if (! comparar($this->datos[$id_fila][$columna], $operador, $valor)) {
+					if (! comparar($this->_datos[$id_fila][$columna], $operador, $valor)) {
 						//Se filtra la fila porque no cumple las condiciones
 						unset($coincidencias[$pos]);
 						break;
@@ -546,8 +546,8 @@ class toba_datos_tabla extends toba_componente
 	function get_fila($id)
 	{
 		$id = $this->normalizar_id($id);
-		if(isset($this->datos[$id])){
-			$temp = $this->datos[$id];
+		if(isset($this->_datos[$id])){
+			$temp = $this->_datos[$id];
 			$temp[apex_datos_clave_fila] = $id;	//incorporo el ID del dbr
 			return $temp;
 		}else{
@@ -565,8 +565,8 @@ class toba_datos_tabla extends toba_componente
 	function get_fila_columna($id, $columna)
 	{
 		$id = $this->normalizar_id($id);
-		if(isset($this->datos[$id][$columna])){
-			return  $this->datos[$id][$columna];
+		if(isset($this->_datos[$id][$columna])){
+			return  $this->_datos[$id][$columna];
 		}else{
 			return null;
 		}
@@ -582,7 +582,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		$temp = array();
 		foreach($this->get_id_filas() as $fila){
-			$temp[] = $this->datos[$fila][$columna];
+			$temp[] = $this->_datos[$fila][$columna];
 		}
 		return $temp;
 	}
@@ -621,10 +621,10 @@ class toba_datos_tabla extends toba_componente
 	function existe_fila($id)
 	{
 		$id = $this->normalizar_id($id);
-		if(! isset($this->datos[$id]) ){
+		if(! isset($this->_datos[$id]) ){
 			return false;			
 		}
-		if($this->cambios[$id]['estado']=="d"){
+		if($this->_cambios[$id]['estado']=="d"){
 			return false;
 		}
 		return true;
@@ -663,7 +663,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function nueva_fila($fila=array(), $ids_padres=null, $id_nuevo=null)
 	{
-		if( $this->tope_max_filas != 0){
+		if( $this->_tope_max_filas != 0){
 			$this->control_tope_maximo_filas($this->get_cantidad_filas() + 1);
 		}
 		$this->notificar_contenedor("ins", $fila);
@@ -671,7 +671,7 @@ class toba_datos_tabla extends toba_componente
 		if(isset($fila[apex_datos_clave_fila])) unset($fila[apex_datos_clave_fila]);
 		$this->validar_fila($fila);
 		//SI existen columnas externas, completo la fila con las mismas
-		if($this->posee_columnas_ext){
+		if($this->_posee_columnas_ext){
 			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
 			foreach($campos_externos as $id => $valor) {
 				$fila[$id] = $valor;
@@ -679,13 +679,13 @@ class toba_datos_tabla extends toba_componente
 		}
 		
 		//---Se le asigna un id a la fila
-		if (!isset($id_nuevo) || $id_nuevo < $this->proxima_fila) {
-			$id_nuevo = $this->proxima_fila;
+		if (!isset($id_nuevo) || $id_nuevo < $this->_proxima_fila) {
+			$id_nuevo = $this->_proxima_fila;
 		}
-		$this->proxima_fila = $id_nuevo + 1;
+		$this->_proxima_fila = $id_nuevo + 1;
 				
 		//Se notifica a las relaciones del alta
-		foreach ($this->relaciones_con_padres as $padre => $relacion) {
+		foreach ($this->_relaciones_con_padres as $padre => $relacion) {
 			$id_padre = null;
 			if (isset($ids_padres[$padre])) {
 				$id_padre = $ids_padres[$padre];
@@ -694,7 +694,7 @@ class toba_datos_tabla extends toba_componente
 		}
 		
 		//Se agrega la fila
-		$this->datos[$id_nuevo] = $fila;
+		$this->_datos[$id_nuevo] = $fila;
 		$this->registrar_cambio($id_nuevo,"i");
 		
 		return $id_nuevo;
@@ -723,26 +723,26 @@ class toba_datos_tabla extends toba_componente
 		//Actualizo los valores
 		$alguno_modificado = false;
 		foreach(array_keys($fila) as $clave){
-			if (isset($this->datos[$id][$clave])) {
+			if (isset($this->_datos[$id][$clave])) {
 				//--- Comparacion por igualdad estricta con un cast a string
-				$modificar = ((string) $this->datos[$id][$clave] !== (string) $fila[$clave]);
+				$modificar = ((string) $this->_datos[$id][$clave] !== (string) $fila[$clave]);
 			} else {
 				//--- Si antes era null, se modifica si ahora no es null!
 				$modificar = isset($fila[$clave]);
 			}
 			if ($modificar) {
 				$alguno_modificado = true;
-				$this->datos[$id][$clave] = $fila[$clave];
+				$this->_datos[$id][$clave] = $fila[$clave];
 			}
 		}
 		//--- Esto evita propagar cambios que en realidad no sucedieron
 		if ($alguno_modificado) {
-			if($this->cambios[$id]['estado']!="i"){
+			if($this->_cambios[$id]['estado']!="i"){
 				$this->registrar_cambio($id,"u");
 			}
 			//Se actualizan los cambios en la relación
-			foreach ($this->relaciones_con_padres as $rel_padre) {
-				$rel_padre->evt__modificacion_fila_hijo($id, $this->datos[$id], $fila);
+			foreach ($this->_relaciones_con_padres as $rel_padre) {
+				$rel_padre->evt__modificacion_fila_hijo($id, $this->_datos[$id], $fila);
 			}
 			
 			/*
@@ -751,10 +751,10 @@ class toba_datos_tabla extends toba_componente
 				proceso con la actualizacion de campos externos
 			*/
 			//Si la tabla posee campos externos, le pido la nueva fila al persistidor
-			if($this->posee_columnas_ext){
-				$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->datos[$id],"upd");
+			if($this->_posee_columnas_ext){
+				$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->_datos[$id],"upd");
 				foreach($campos_externos as $clave => $valor){
-					$this->datos[$id][$clave] = $valor;
+					$this->_datos[$id][$clave] = $valor;
 				}
 			}
 		}
@@ -777,11 +777,11 @@ class toba_datos_tabla extends toba_componente
 			throw new toba_error($mensaje);
 		}
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
-			if (!isset($this->relaciones_con_padres[$tabla_padre])) {
+			if (!isset($this->_relaciones_con_padres[$tabla_padre])) {
 				$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe una relación padre $tabla_padre.";
 				throw new toba_error($mensaje);
 			}
-			$this->relaciones_con_padres[$tabla_padre]->cambiar_padre($id_fila, $id_padre);
+			$this->_relaciones_con_padres[$tabla_padre]->cambiar_padre($id_fila, $id_padre);
 		}
 	}
 	
@@ -804,15 +804,15 @@ class toba_datos_tabla extends toba_componente
 		}
  		$this->notificar_contenedor("pre_eliminar", $id);
 		//Se notifica la eliminación a las relaciones
-		foreach ($this->relaciones_con_hijos as $rel) {
+		foreach ($this->_relaciones_con_hijos as $rel) {
 			$rel->evt__eliminacion_fila_padre($id);
 		}
-		foreach ( $this->relaciones_con_padres as $rel) {
+		foreach ( $this->_relaciones_con_padres as $rel) {
 			$rel->evt__eliminacion_fila_hijo($id);			
 		}
-		if($this->cambios[$id]['estado']=="i"){
-			unset($this->cambios[$id]);
-			unset($this->datos[$id]);
+		if($this->_cambios[$id]['estado']=="i"){
+			unset($this->_cambios[$id]);
+			unset($this->_datos[$id]);
 		}else{
 			$this->registrar_cambio($id,"d");
 		}
@@ -842,7 +842,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		$id = $this->normalizar_id($id);
 		if( $this->existe_fila($id) ){
-			if( isset($this->columnas[$columna]) ){
+			if( isset($this->_columnas[$columna]) ){
 				$this->modificar_fila($id, array($columna => $valor));
 			}else{
 				throw new toba_error("La columna '$columna' no es valida");
@@ -861,7 +861,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function set_columna_valor($columna, $valor, $con_cursores=false)
 	{
-		if(! isset($this->columnas[$columna]) ) { 
+		if(! isset($this->_columnas[$columna]) ) { 
 			throw new toba_error("La columna '$columna' no es valida");
 		}
 		foreach($this->get_id_filas($con_cursores) as $fila) {
@@ -994,7 +994,7 @@ class toba_datos_tabla extends toba_componente
 	{
 		foreach($fila as $campo => $valor){
 			//SI el registro no esta en la lista de manipulables o en las secuencias...
-			if( !(isset($this->columnas[$campo]))  ){
+			if( !(isset($this->_columnas[$campo]))  ){
 				$mensaje = $this->get_txt() . get_class($this)." El registro tiene una estructura incorrecta: El campo '$campo' ". 
 						" no forma parte de la DEFINICION.";
 				toba::logger()->warning($mensaje);
@@ -1009,15 +1009,15 @@ class toba_datos_tabla extends toba_componente
 	private function control_valores_unicos_fila($fila, $id=null)
 	//Controla que un registro no duplique los valores existentes
 	{
-		if(isset($this->no_duplicado))	
+		if(isset($this->_no_duplicado))	
 		{	//La iteracion de afuera es por cada constraint, 
 			//si hay muchos es ineficiente, pero en teoria hay pocos (en general 1)
-			foreach($this->no_duplicado as $columnas){
-				foreach(array_keys($this->cambios) as $id_fila)	{
+			foreach($this->_no_duplicado as $columnas){
+				foreach(array_keys($this->_cambios) as $id_fila)	{
 					//a) La operacion es una modificacion y estoy comparando con el registro contra su original
 					if( isset($id) && ($id_fila == $id)) continue; //Sigo con el proximo
 					//b) Comparo contra otro registro, que no este eliminado
-					if($this->cambios[$id_fila]['estado']!="d"){
+					if($this->_cambios[$id_fila]['estado']!="d"){
 						$combinacion_existente = true;
 						foreach($columnas as $columna)
 						{
@@ -1025,7 +1025,7 @@ class toba_datos_tabla extends toba_componente
 								//Si las columnas del constraint no estan completas, fuera
 								return;
 							}else{
-								if($fila[$columna] != $this->datos[$id_fila][$columna]){
+								if($fila[$columna] != $this->_datos[$id_fila][$columna]){
 									$combinacion_existente = false;
 								}
 							}
@@ -1052,7 +1052,7 @@ class toba_datos_tabla extends toba_componente
 		if(isset($ids)){
 			foreach($ids as $id){
 				//$this->control_nulos($fila);
-				$this->evt__validar_fila( $this->datos[$id] );
+				$this->evt__validar_fila( $this->_datos[$id] );
 			}
 		}
 		$this->control_tope_minimo_filas();
@@ -1077,8 +1077,8 @@ class toba_datos_tabla extends toba_componente
 	{
 		$mensaje_usuario = "El elemento posee valores incompletos";
 		$mensaje_programador = $this->get_txt() . " Es necesario especificar un valor para el campo: ";
-		if(isset($this->campos_no_nulo)){
-			foreach($this->campos_no_nulo as $campo){
+		if(isset($this->_campos_no_nulo)){
+			foreach($this->_campos_no_nulo as $campo){
 				if(isset($fila[$campo])){
 					if((trim($fila[$campo])=="")||(trim($fila[$campo])=='NULL')){
 						toba::logger()->error($mensaje_programador . $campo);
@@ -1099,10 +1099,10 @@ class toba_datos_tabla extends toba_componente
 	{
 		$control_tope_minimo=true;
 		if($control_tope_minimo){
-			if( $this->tope_min_filas != 0){
-				if( ( $this->get_cantidad_filas() < $this->tope_min_filas) ){
+			if( $this->_tope_min_filas != 0){
+				if( ( $this->get_cantidad_filas() < $this->_tope_min_filas) ){
 					$this->log("No se cumplio con el tope minimo de registros necesarios" );
-					throw new toba_error("La tabla <em>{$this->id_en_controlador}</em> requiere ingresar al menos {$this->tope_min_filas} registro/s (se encontraron
+					throw new toba_error("La tabla <em>{$this->_id_en_controlador}</em> requiere ingresar al menos {$this->_tope_min_filas} registro/s (se encontraron
 					sólo {$this->get_cantidad_filas()}).");
 				}
 			}
@@ -1114,9 +1114,9 @@ class toba_datos_tabla extends toba_componente
 	 */	
 	protected function control_tope_maximo_filas($cantidad)
 	{
-		if ($cantidad > $this->tope_max_filas) {
-			throw new toba_error("No está permitido ingresar más de {$this->tope_max_filas} registros
-									en la tabla <em>{$this->id_en_controlador}</em> (se encontraron $cantidad).");
+		if ($cantidad > $this->_tope_max_filas) {
+			throw new toba_error("No está permitido ingresar más de {$this->_tope_max_filas} registros
+									en la tabla <em>{$this->_id_en_controlador}</em> (se encontraron $cantidad).");
 		}
 	}
 	
@@ -1131,24 +1131,24 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_persistidor()
 	{
-		if(!isset($this->persistidor)){
-			if($this->info_estructura['ap']=='0'){
-				$include = $this->info_estructura['ap_sub_clase_archivo'];
-				$clase = $this->info_estructura['ap_sub_clase'];
+		if(!isset($this->_persistidor)){
+			if($this->_info_estructura['ap']=='0'){
+				$include = $this->_info_estructura['ap_sub_clase_archivo'];
+				$clase = $this->_info_estructura['ap_sub_clase'];
 				if( (trim($clase) == "") || (trim($include) == "") ){
 					throw new toba_error( $this->get_txt() . "Error en la definicion");
 				}
 			}else{
-				$include = $this->info_estructura['ap_clase_archivo'];
-				$clase = 'toba_'.$this->info_estructura['ap_clase'];
+				$include = $this->_info_estructura['ap_clase_archivo'];
+				$clase = 'toba_'.$this->_info_estructura['ap_clase'];
 			}
 			require_once( $include );
-			$this->persistidor = new $clase( $this );
-			if($this->info_estructura['ap_modificar_claves']){
-				$this->persistidor->activar_modificacion_clave();
+			$this->_persistidor = new $clase( $this );
+			if($this->_info_estructura['ap_modificar_claves']){
+				$this->_persistidor->activar_modificacion_clave();
 			}
 		}
-		return $this->persistidor;
+		return $this->_persistidor;
 	}
 
 	/**
@@ -1166,7 +1166,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function esta_cargada()
 	{
-		return $this->cargada;
+		return $this->_cargada;
 	}
 
 	/**
@@ -1177,24 +1177,24 @@ class toba_datos_tabla extends toba_componente
 	function cargar_con_datos($datos)
 	{
 		$this->log("Carga de datos");
-		$this->datos = null;
+		$this->_datos = null;
 		//Controlo que no se haya excedido el tope de registros
-		if( $this->tope_max_filas != 0) {
+		if( $this->_tope_max_filas != 0) {
 			$this->control_tope_maximo_filas(count($datos));
 		}
-		$this->datos = $datos;		
+		$this->_datos = $datos;		
 		if(false){	// Hay que pensar este esquema...
-			$this->datos_originales = $this->datos;
+			$this->_datos_originales = $this->_datos;
 		}
 		//Genero la estructura de control de cambios
 		$this->generar_estructura_cambios();
 		//Actualizo la posicion en que hay que incorporar al proximo registro
-		$this->proxima_fila = count($this->datos);
+		$this->_proxima_fila = count($this->_datos);
 		//Marco la tabla como cargada
-		$this->cargada = true;
+		$this->_cargada = true;
 		//Si es una unica fila se pone como cursor de la tabla
-		if (count($datos) == 1 && $this->es_unico_registro) {
-			$this->cursor = 0;
+		if (count($datos) == 1 && $this->_es_unico_registro) {
+			$this->_cursor = 0;
 		}
 		//Disparo la actulizacion de los mapeos con las tablas padres
 		$this->notificar_padres_carga();
@@ -1211,26 +1211,26 @@ class toba_datos_tabla extends toba_componente
 	{
 		$this->log("Anexado de datos [" . count($datos) . "]");
 		//Controlo que no se haya excedido el tope de registros
-		if ($this->tope_max_filas != 0) {
+		if ($this->_tope_max_filas != 0) {
 			$this->control_tope_maximo_filas(count($this->get_id_filas(false)) + count($datos));
 		}
 		//Agrego las filas
 		$hijos = array();
 		foreach( $datos as $fila ) {
-			$this->datos[$this->proxima_fila] = $fila;
-			$this->cambios[$this->proxima_fila]['estado']="db";
-			$this->cambios[$this->proxima_fila]['clave']= $this->get_clave_valor($this->proxima_fila);			
+			$this->_datos[$this->_proxima_fila] = $fila;
+			$this->_cambios[$this->_proxima_fila]['estado']="db";
+			$this->_cambios[$this->_proxima_fila]['clave']= $this->get_clave_valor($this->_proxima_fila);			
 			if ($usar_cursores) {
 				//Se notifica a las relaciones a los padres.
-				foreach ($this->relaciones_con_padres as $padre => $relacion) {
-					$relacion->asociar_fila_con_padre($this->proxima_fila, null);
+				foreach ($this->_relaciones_con_padres as $padre => $relacion) {
+					$relacion->asociar_fila_con_padre($this->_proxima_fila, null);
 	            }
 			}
-			$hijos[] = $this->proxima_fila;
-			$this->proxima_fila++;            
+			$hijos[] = $this->_proxima_fila;
+			$this->_proxima_fila++;            
 		}
 		//Marco la tabla como cargada
-		$this->cargada = true;
+		$this->_cargada = true;
 		if (! $usar_cursores) {
 			//Disparo la actulizacion de los mapeos con las tablas padres
 			$this->notificar_padres_carga($hijos);
@@ -1276,13 +1276,13 @@ class toba_datos_tabla extends toba_componente
 	function resetear()
 	{
 		$this->log("RESET!!");
-		$this->datos = array();
-		$this->datos_originales = array();
-		$this->cambios = array();
-		$this->proxima_fila = 0;
-		$this->where = null;
-		$this->from = null;
-		foreach ($this->relaciones_con_hijos as $rel_hijo) {
+		$this->_datos = array();
+		$this->_datos_originales = array();
+		$this->_cambios = array();
+		$this->_proxima_fila = 0;
+		$this->_where = null;
+		$this->_from = null;
+		foreach ($this->_relaciones_con_hijos as $rel_hijo) {
 			$rel_hijo->resetear();	
 		}
 		$this->resetear_cursor();
@@ -1310,7 +1310,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_conjunto_datos_interno()
 	{
-		return $this->datos;
+		return $this->_datos;
 	}
 
 	/**
@@ -1319,7 +1319,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_cambios()
 	{
-		return $this->cambios;	
+		return $this->_cambios;	
 	}
 
 	/**
@@ -1327,7 +1327,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_columnas()
 	{
-		return $this->columnas;
+		return $this->_columnas;
 	}
 	
 	/**
@@ -1336,7 +1336,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_fuente()
 	{
-		return $this->info["fuente"];
+		return $this->_info["fuente"];
 	}
 
 	/**
@@ -1344,7 +1344,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_tabla()
 	{
-		return $this->info_estructura['tabla'];
+		return $this->_info_estructura['tabla'];
 	}
 
 	/**
@@ -1354,10 +1354,10 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function get_alias()
 	{
-		if (isset($this->info_estructura['alias'])) {
-			return $this->info_estructura['alias'];	
-		} elseif (isset($this->id_en_controlador)) {
-			return $this->id_en_controlador;
+		if (isset($this->_info_estructura['alias'])) {
+			return $this->_info_estructura['alias'];	
+		} elseif (isset($this->_id_en_controlador)) {
+			return $this->_id_en_controlador;
 		} else {
 			return $this->get_tabla();
 		}
@@ -1371,7 +1371,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function posee_columnas_externas()
 	{
-		return $this->posee_columnas_ext;
+		return $this->_posee_columnas_ext;
 	}
 
 	//-------------------------------------------------------------------------------
@@ -1384,10 +1384,10 @@ class toba_datos_tabla extends toba_componente
 	protected function generar_estructura_cambios()
 	{
 		//Genero la estructura de control
-		$this->cambios = array();
-		foreach(array_keys($this->datos) as $dato){
-			$this->cambios[$dato]['estado']="db";
-			$this->cambios[$dato]['clave']= $this->get_clave_valor($dato);
+		$this->_cambios = array();
+		foreach(array_keys($this->_datos) as $dato){
+			$this->_cambios[$dato]['estado']="db";
+			$this->_cambios[$dato]['clave']= $this->get_clave_valor($dato);
 		}
 	}
 	
@@ -1397,9 +1397,9 @@ class toba_datos_tabla extends toba_componente
 	protected function regenerar_estructura_cambios()
 	{
 		//BORRO los datos eliminados
-		foreach(array_keys($this->cambios) as $cambio){
-			if($this->cambios[$cambio]['estado']=='d'){
-				unset($this->datos[$cambio]);
+		foreach(array_keys($this->_cambios) as $cambio){
+			if($this->_cambios[$cambio]['estado']=='d'){
+				unset($this->_datos[$cambio]);
 			}
 		}
 		$this->generar_estructura_cambios();
@@ -1410,7 +1410,7 @@ class toba_datos_tabla extends toba_componente
 	*/
 	function forzar_insercion()
 	{
-		foreach(array_keys($this->cambios) as $fila) {
+		foreach(array_keys($this->_cambios) as $fila) {
 			$this->registrar_cambio($fila, "i");
 		}
 	}
@@ -1422,7 +1422,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	protected function registrar_cambio($fila, $estado)
 	{
-		$this->cambios[$fila]['estado'] = $estado;
+		$this->_cambios[$fila]['estado'] = $estado;
 	}
 }
 

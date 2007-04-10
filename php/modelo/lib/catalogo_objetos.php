@@ -76,7 +76,7 @@ class catalogo_objetos
 		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
 		$sql_base = componente_toba::get_vista_extendida($this->proyecto);
-		$sql = $sql_base['info']['sql'];
+		$sql = $sql_base['_info']['sql'];
 		$sql .= "
 				AND		o.clase IN ('" . implode("', '", $clases) . "')
 				AND 	o.proyecto = '$this->proyecto'
@@ -101,7 +101,7 @@ class catalogo_objetos
 				$clave = array('componente' =>$dato['objeto'], 'proyecto' => $this->proyecto);			
 				if (! $en_profundidad) {
 					$info = toba_constructor::get_info($clave, $dato['clase'], false, 
-										array('info' =>$dato));
+										array('_info' =>$dato));
 				} else {
 					$info = toba_constructor::get_info($clave, $dato['clase'], true, null, true); 
 				}
