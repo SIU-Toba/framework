@@ -14,6 +14,7 @@ class ci_principal extends toba_ci
 	{
 		return $this->s__datos_form;	
 	}
+	
 }
 
 ?>

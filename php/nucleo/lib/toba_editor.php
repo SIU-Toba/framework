@@ -361,7 +361,7 @@ class toba_editor
 		echo "<div id='editor_previsualizacion'>";
 		//Skin
 		$skins = rs_convertir_asociativo(dao_editores::get_lista_skins(), array('estilo'), 'descripcion');
-		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&amp;skin=' + this.value\"";
+		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		echo toba_form::select('cambiar_skin', toba::proyecto()->get_parametro('estilo'), $skins, 'ef-combo', $js);
 		
 				//Logger
