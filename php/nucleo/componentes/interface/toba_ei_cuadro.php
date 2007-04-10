@@ -278,13 +278,13 @@ class toba_ei_cuadro extends toba_ei
 	 */
     function set_datos($datos)
     {
-		$this->_datos = $datos;
-		if (!is_array($this->_datos)) {
+		$this->datos = $datos;
+		if (!is_array($this->datos)) {
 			throw new toba_error_def( $this->get_txt() . 
 					" El parametro para cargar el cuadro posee un formato incorrecto:" .
 						"Se esperaba un arreglo de dos dimensiones con formato recordset.");
 		}
-		if (count($this->_datos) > 0 ) {
+		if (count($this->datos) > 0 ) {
 			$this->validar_estructura_datos();
 			// - 2 - Ordenamiento
 			if($this->hay_ordenamiento()){
@@ -313,7 +313,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function validar_estructura_datos()
 	{
-		$muestra = current($this->_datos);
+		$muestra = current($this->datos);
 		if (!is_array($muestra)) {
 			$error = array_values($this->_estructura_datos);
 		} else {
@@ -337,7 +337,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function datos_cargados()
 	{
-		return (count($this->_datos) > 0);
+		return (count($this->datos) > 0);
 	}
 
 	/**
@@ -346,11 +346,11 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function calcular_totales_generales()
 	{
-		foreach(array_keys($this->_datos) as $dato) {
+		foreach(array_keys($this->datos) as $dato) {
 			//Incremento el acumulador general
 			if(isset($this->_acumulador)){
 				foreach(array_keys($this->_acumulador) as $columna){
-					$this->_acumulador[$columna] += $this->_datos[$dato][$columna];
+					$this->_acumulador[$columna] += $this->datos[$dato][$columna];
 				}	
 			}
 		}
@@ -453,7 +453,7 @@ class toba_ei_cuadro extends toba_ei
         $id_fila = "";
         if (isset($this->_columnas_clave)) {
 	        foreach($this->_columnas_clave as $clave){
-	            $id_fila .= $this->_datos[$fila][$clave] . apex_qs_separador;
+	            $id_fila .= $this->datos[$fila][$clave] . apex_qs_separador;
 	        }
         }
         $id_fila = substr($id_fila,0,(strlen($id_fila)-(strlen(apex_qs_separador))));   
@@ -469,7 +469,7 @@ class toba_ei_cuadro extends toba_ei
 	{
         if (isset($this->_columnas_clave)) {
 	        foreach($this->_columnas_clave as $clave){
-	            $array[$clave] = $this->_datos[$fila][$clave];
+	            $array[$clave] = $this->datos[$fila][$clave];
 	        }
 	        return $array;
         }
@@ -550,14 +550,14 @@ class toba_ei_cuadro extends toba_ei
 			}
 		} elseif($this->_info_cuadro["tipo_paginado"] == 'P') {
 			// 1) Calculo la cantidad total de registros
-			$this->_total_registros = count($this->_datos);
+			$this->_total_registros = count($this->datos);
 			if($this->_total_registros > 0) {
 				// 2) Calculo la cantidad de paginas
 				$this->_cantidad_paginas = ceil($this->_total_registros/$this->_tamanio_pagina);            
 				if ($this->_pagina_actual > $this->_cantidad_paginas) 
 					$this->_pagina_actual = 1;
 				$offset = ($this->_pagina_actual - 1) * $this->_tamanio_pagina;
-				$this->_datos = array_slice($this->_datos, $offset, $this->_tamanio_pagina);
+				$this->datos = array_slice($this->datos, $offset, $this->_tamanio_pagina);
 			}
 		}else{
 			$this->_cantidad_paginas = 1;
@@ -644,7 +644,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->_cortes_niveles = count($this->_info_cuadro_cortes);
 		$this->_cortes_control = array();
-		foreach(array_keys($this->_datos) as $dato)
+		foreach(array_keys($this->datos) as $dato)
 		{
 			//Punto de partida desde donde construir el arbol
 			$ref =& $this->_cortes_control;
@@ -654,7 +654,7 @@ class toba_ei_cuadro extends toba_ei
 				$clave_array=array();
 				//-- Recupero la clave de la fila en el nivel
 				foreach($this->_cortes_def[$corte]['clave'] as $id_corte){
-					$clave_array[$id_corte] = $this->_datos[$dato][$id_corte];
+					$clave_array[$id_corte] = $this->datos[$dato][$id_corte];
 				}
 				$clave = implode('_|_',$clave_array);
 				//---------- Inicializacion el NODO ----------
@@ -666,7 +666,7 @@ class toba_ei_cuadro extends toba_ei
 					$ref[$clave]['clave']=$clave_array;
 					//Agrego la descripcion
 					foreach($this->_cortes_def[$corte]['descripcion'] as $desc_corte){
-						$ref[$clave]['descripcion'][$desc_corte] = $this->_datos[$dato][$desc_corte];
+						$ref[$clave]['descripcion'][$desc_corte] = $this->datos[$dato][$desc_corte];
 					}
 					//Inicializo el ACUMULADOR de columnas
 					if(isset($this->_cortes_def[$corte]['total'])){
@@ -681,7 +681,7 @@ class toba_ei_cuadro extends toba_ei
 				$ref[$clave]['filas'][]=$dato;
 				if(isset($ref[$clave]['acumulador'])){
 					foreach(array_keys($ref[$clave]['acumulador']) as $columna){
-						$ref[$clave]['acumulador'][$columna] += $this->_datos[$dato][$columna];
+						$ref[$clave]['acumulador'][$columna] += $this->datos[$dato][$columna];
 					}
 				}
 				//Cambio el punto de partida				
@@ -691,7 +691,7 @@ class toba_ei_cuadro extends toba_ei
 			//Incremento el acumulador general
 			if(isset($this->_acumulador)){
 				foreach(array_keys($this->_acumulador) as $columna){
-					$this->_acumulador[$columna] += $this->_datos[$dato][$columna];
+					$this->_acumulador[$columna] += $this->datos[$dato][$columna];
 				}	
 			}
 		}
@@ -767,14 +767,14 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! $this->_ordenado) {
 			$ordenamiento = array();
-	        foreach ($this->_datos as $fila) { 
+	        foreach ($this->datos as $fila) { 
 	            $ordenamiento[] = $fila[$this->_orden_columna]; 
 	        }
 	        //Ordeno segun el sentido
 	        if($this->_orden_sentido == "asc"){
-	            array_multisort($ordenamiento, SORT_ASC , $this->_datos);
+	            array_multisort($ordenamiento, SORT_ASC , $this->datos);
 	        } elseif ($this->_orden_sentido == "des"){
-	            array_multisort($ordenamiento, SORT_DESC , $this->_datos);
+	            array_multisort($ordenamiento, SORT_DESC , $this->datos);
 	        }
 		}
     }
@@ -796,7 +796,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
     function get_datos()
     {
-        return $this->_datos;    
+        return $this->datos;    
     }	
 
     function get_estructura_datos()
@@ -829,7 +829,7 @@ class toba_ei_cuadro extends toba_ei
 			if($this->existen_cortes_control()){
 				$this->generar_cortes_control();
 			}else{
-				$filas = array_keys($this->_datos);
+				$filas = array_keys($this->datos);
 				$this->generar_cuadro($filas, $this->_acumulador);
 			}
 			$this->generar_fin();
@@ -1240,8 +1240,8 @@ class toba_ei_cuadro extends toba_ei
                 //*** 1) Recupero el VALOR
 				$valor = "";
                 if(isset($this->_info_cuadro_columna[$a]["clave"])){
-					if(isset($this->_datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
-						$valor = $this->_datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
+					if(isset($this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
+						$valor = $this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
 					}else{
 						$valor = '&nbsp;';
 						//ATENCION!! hay una columna que no esta disponible!

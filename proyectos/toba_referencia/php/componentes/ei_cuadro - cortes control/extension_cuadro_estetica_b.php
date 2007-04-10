@@ -14,7 +14,7 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 		//Hago unos calculos
 		$habitantes = 0;
 		foreach($nodo['filas'] as $fila){
-			$habitantes += $this->_datos[$fila]['hab_total'];
+			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
 		$resultado = number_format($promedio,2,',','.') ;

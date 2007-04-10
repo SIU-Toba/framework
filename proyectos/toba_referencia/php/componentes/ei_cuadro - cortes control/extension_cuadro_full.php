@@ -15,7 +15,7 @@ class extension_cuadro_full extends toba_ei_cuadro
 	{
 		$habitantes = 0;
 		foreach($filas as $fila){
-			$habitantes += $this->_datos[$fila]['hab_total'];
+			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$resultado = $habitantes / count($filas);
 		return number_format($resultado,2,',','.');
@@ -37,8 +37,8 @@ class extension_cuadro_full extends toba_ei_cuadro
 		$habitantes = 0;
 		$superficie = 0;
 		foreach($filas as $fila){
-			$habitantes += $this->_datos[$fila]['hab_total'];
-			$superficie += $this->_datos[$fila]['superficie'];
+			$habitantes += $this->datos[$fila]['hab_total'];
+			$superficie += $this->datos[$fila]['superficie'];
 		}
 		$resultado = $habitantes / $superficie;
 		return number_format($resultado,2,',','.');
@@ -71,7 +71,7 @@ class extension_cuadro_full extends toba_ei_cuadro
 		//Hago unos calculos
 		$habitantes = 0;
 		foreach($nodo['filas'] as $fila){
-			$habitantes += $this->_datos[$fila]['hab_total'];
+			$habitantes += $this->datos[$fila]['hab_total'];
 		}
 		$promedio = $habitantes / count($nodo['filas']);
 		$resultado = number_format($promedio,2,',','.') ;

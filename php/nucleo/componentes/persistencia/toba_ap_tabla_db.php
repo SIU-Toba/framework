@@ -49,12 +49,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function __construct($datos_tabla)
 	{
-		$this->_objeto_tabla = $datos_tabla;
-		$this->_tabla = $this->_objeto_tabla->get_tabla();
-		$this->_alias = $this->_objeto_tabla->get_alias();
-		$this->_clave = $this->_objeto_tabla->get_clave();
-		$this->_columnas = $this->_objeto_tabla->get_columnas();
-		$this->_fuente = $this->_objeto_tabla->get_fuente();
+		$this->objeto_tabla = $datos_tabla;
+		$this->_tabla = $this->objeto_tabla->get_tabla();
+		$this->_alias = $this->objeto_tabla->get_alias();
+		$this->_clave = $this->objeto_tabla->get_clave();
+		$this->_columnas = $this->objeto_tabla->get_columnas();
+		$this->_fuente = $this->objeto_tabla->get_fuente();
 		//Determino las secuencias de la tabla
 		foreach($this->_columnas as $columna){
 			if( $columna['secuencia']!=""){
@@ -75,8 +75,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function get_estado_datos_tabla()
 	{
-		$this->_cambios = $this->_objeto_tabla->get_cambios();
-		$this->_datos = $this->_objeto_tabla->get_conjunto_datos_interno();
+		$this->_cambios = $this->objeto_tabla->get_cambios();
+		$this->datos = $this->objeto_tabla->get_conjunto_datos_interno();
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function log($txt)
 	{
-		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->_tabla - OBJETO: ". get_class($this->_objeto_tabla). " -- " ."\n".$txt, 'toba');
+		toba::logger()->debug("AP: " . get_class($this). "- TABLA: $this->_tabla - OBJETO: ". get_class($this->objeto_tabla). " -- " ."\n".$txt, 'toba');
 	}
 
 	/**
@@ -268,7 +268,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		if(count($datos)>0){
 			//Si existen campos externos, los recupero.
-			if($this->_objeto_tabla->posee_columnas_externas()){
+			if($this->objeto_tabla->posee_columnas_externas()){
 				for($a=0;$a<count($datos);$a++){
 					$campos_externos = $this->completar_campos_externos_fila($datos[$a]);
 					foreach($campos_externos as $id => $valor){
@@ -286,9 +286,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 			// Lleno la TABLA
 			if( $anexar_datos ) {
-				$this->_objeto_tabla->anexar_datos($datos, $usar_cursores);
+				$this->objeto_tabla->anexar_datos($datos, $usar_cursores);
 			} else {
-				$this->_objeto_tabla->cargar_con_datos($datos);
+				$this->objeto_tabla->cargar_con_datos($datos);
 			}
 			//ei_arbol($datos);
 			return true;
@@ -320,7 +320,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$modificaciones += $this->sincronizar_insertados();
 			$modificaciones += $this->sincronizar_actualizados();
 			//Regenero la estructura que mantiene los cambios realizados
-			$this->_objeto_tabla->notificar_fin_sincronizacion();
+			$this->objeto_tabla->notificar_fin_sincronizacion();
 			$this->evt__post_sincronizacion();
 			if($this->_utilizar_transaccion) cerrar_transaccion($this->_fuente);
 			$this->log("Fin SINCRONIZAR: $modificaciones."); 
@@ -416,7 +416,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			foreach($this->_secuencias as $columna => $secuencia){
 				$valor = recuperar_secuencia($secuencia, $this->_fuente);
 				//El valor es necesario en el evt__post_insert!!
-				$this->_datos[$id_registro][$columna] = $valor;
+				$this->datos[$id_registro][$columna] = $valor;
 				$this->registrar_recuperacion_valor_db( $id_registro, $columna, $valor );
 			}
 		}
@@ -468,7 +468,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if(isset($this->_columnas_predeterminadas_db)){
 			foreach( $this->_columnas_predeterminadas_db as $id_registro => $columnas ){
 				foreach( $columnas as $columna => $valor ){
-					$this->_objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
+					$this->objeto_tabla->set_fila_columna_valor($id_registro, $columna, $valor);
 				}
 			}
 		}
@@ -582,7 +582,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$clausula = $this->generar_clausula_where_lineal($clave, true);
 		//Si la tabla tiene relaciones con padres
 		//Se hace un subselect con los campos relacionados
-		$padres = $this->_objeto_tabla->get_relaciones_con_padres();
+		$padres = $this->objeto_tabla->get_relaciones_con_padres();
 		foreach ($padres as $rel_padre) {
 			$clausula[] = $this->generar_clausula_subselect($rel_padre->tabla_padre()->get_persistidor(), 
 												$rel_padre->get_mapeo_campos());
@@ -668,7 +668,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected function generar_sql_insert($id_registro)
 	{
 		$a=0;
-		$registro = $this->_datos[$id_registro];
+		$registro = $this->datos[$id_registro];
 		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
@@ -701,7 +701,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	function generar_sql_update($id_registro)
 	// Modificacion de claves
 	{
-		$registro = $this->_datos[$id_registro];
+		$registro = $this->datos[$id_registro];
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
 		foreach($this->_columnas as $columna){
@@ -739,7 +739,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function generar_sql_delete($id_registro)
 	{
-		$registro = $this->_datos[$id_registro];
+		$registro = $this->datos[$id_registro];
 		if($this->_baja_logica){
 			$sql = "UPDATE " . $this->_tabla .
 					" SET " . $this->_baja_logica_columna . " = '". $this->_baja_logica_valor ."' " .

@@ -17,7 +17,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function __construct($objeto_relacion)
 	{
-		$this->_objeto_relacion = $objeto_relacion;
+		$this->objeto_relacion = $objeto_relacion;
 		$this->activar_transaccion();
 	}
 
@@ -71,9 +71,9 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	function cargar_por_clave($clave)
 	{
 		toba_asercion::es_array($clave,"AP toba_datos_relacion -  ERROR: La clave debe ser un array");
-		$this->_objeto_relacion->resetear();		
-		$tablas_raiz = $this->_objeto_relacion->get_tablas_raiz();
-		$tablas = $this->_objeto_relacion->orden_carga();		
+		$this->objeto_relacion->resetear();		
+		$tablas_raiz = $this->objeto_relacion->get_tablas_raiz();
+		$tablas = $this->objeto_relacion->orden_carga();		
 		$ok = false;
 		foreach ($tablas as $id_tabla => $tabla) {
 			if (in_array($id_tabla, $tablas_raiz)) {
@@ -85,7 +85,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			}
 			$ok = $ok || $res;
 		}
-		$this->_objeto_relacion->set_cargado($ok);
+		$this->objeto_relacion->set_cargado($ok);
 		return $ok;
 	}
 	
@@ -96,8 +96,8 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function cargar_con_wheres($wheres)
 	{
-		$this->_objeto_relacion->resetear();
-		$tablas = $this->_objeto_relacion->orden_carga();		
+		$this->objeto_relacion->resetear();
+		$tablas = $this->objeto_relacion->orden_carga();		
 		$ok = false;
 		foreach ($tablas as $id_tabla => $tabla) {
 			if (isset($wheres[$id_tabla])) {
@@ -107,7 +107,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 			}
 			$ok = $ok || $res;
 		}
-		$this->_objeto_relacion->set_cargado($ok);
+		$this->objeto_relacion->set_cargado($ok);
 		return $ok;
 	}
 
@@ -117,7 +117,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function esta_cargado()
 	{
-		return $this->_objeto_relacion->esta_cargado();
+		return $this->objeto_relacion->esta_cargado();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function sincronizar()
 	{
-		$fuente = $this->_objeto_relacion->get_fuente();
+		$fuente = $this->objeto_relacion->get_fuente();
 		try{
 			if($this->_utilizar_transaccion) {
 				abrir_transaccion($fuente);
@@ -155,7 +155,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	protected function proceso_sincronizacion()
 	{
-		$tablas = $this->_objeto_relacion->orden_sincronizacion();
+		$tablas = $this->objeto_relacion->orden_sincronizacion();
 
 		//-- [1] Se sincroniza las operaciones de eliminación, en orden inverso
 		foreach (array_reverse($tablas) as $tabla) {
@@ -199,7 +199,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	function eliminar_todo()
 	{
-		$fuente = $this->_objeto_relacion->get_fuente();		
+		$fuente = $this->objeto_relacion->get_fuente();		
 		try {
 			if ($this->_utilizar_transaccion) {
 				abrir_transaccion($fuente);
@@ -228,7 +228,7 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 */
 	protected function eliminar_plan()
 	{
-		$tablas = $this->_objeto_relacion->orden_sincronizacion();		
+		$tablas = $this->objeto_relacion->orden_sincronizacion();		
 		//-- Se elimina las tablas, en orden inverso
 		foreach (array_reverse($tablas) as $tabla) {
 			$tabla->eliminar_todo();
