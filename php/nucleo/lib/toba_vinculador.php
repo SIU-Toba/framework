@@ -113,7 +113,7 @@ class toba_vinculador
 								$menu=null,$celda_memoria=null, $servicio=null,
 								$objetos_destino=null, $prefijo=null)
  	{
- 		$separador = '&amp;';
+ 		$separador = '&';
 		//-[1]- Determino ITEM
 		//Por defecto se propaga el item actual, o un item del mismo proyecto
 		$autovinculo = false;

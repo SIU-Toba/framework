@@ -286,7 +286,6 @@ class toba_solicitud_web extends toba_solicitud
 		echo "<--toba-->";
 		//Se actualiza el prefijo de los vinculos
 		$autovinculo = toba::vinculador()->crear_autovinculo();
-		$autovinculo = str_replace('&amp;', '&', $autovinculo);
 		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
 		echo "document.formulario_toba.action='$autovinculo'\n";
