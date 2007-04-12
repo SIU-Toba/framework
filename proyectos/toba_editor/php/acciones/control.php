@@ -28,11 +28,11 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?echo toba_recurso::imagen_proyecto("expandir.gif",false);?>';
+		imagen.src = '<?php echo toba_recurso::imagen_proyecto("expandir.gif",false);?>';
 		frame_admin.cols = '8,*';
 		expandido = false;
 	} else {
-		imagen.src = '<?echo toba_recurso::imagen_proyecto("contraer.gif",false);?>';
+		imagen.src = '<?php echo toba_recurso::imagen_proyecto("contraer.gif",false);?>';
 		frame_admin.cols = ancho_frame;
 		expandido = true;
 	}

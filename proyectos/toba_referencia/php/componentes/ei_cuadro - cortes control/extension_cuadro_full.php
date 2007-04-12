@@ -1,4 +1,4 @@
-<?
+<?php
 php_referencia::instancia()->agregar(__FILE__);
 
 class extension_cuadro_full extends toba_ei_cuadro

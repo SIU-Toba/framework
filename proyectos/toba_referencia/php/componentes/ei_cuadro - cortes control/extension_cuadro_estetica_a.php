@@ -1,4 +1,4 @@
-<?
+<?php
 php_referencia::instancia()->agregar(__FILE__);
 
 class extendion_cuadro_estetica_a extends toba_ei_cuadro

@@ -51,8 +51,8 @@ class toba_ei_esquema extends toba_ei
 		if (isset($this->_contenido)) {
 			//Se arma el archivo .dot
 			toba::logger()->debug($this->get_txt() . " [ Diagrama ]:\n$this->_contenido", 'toba');
-			$this->generar_esquema($this->_contenido, $this->_info_esquema['formato'], 
-									$this->_info_esquema['dirigido'], $this->_ancho,
+			$this->generar_esquema($this->_contenido, $this->_info_esquema['formato'],
+			$this->_info_esquema['dirigido'], $this->_ancho,
 									$this->_alto);
 		}
 		$this->generar_botones();
@@ -114,7 +114,9 @@ class toba_ei_esquema extends toba_ei
 		$grafico = toba_manejador_archivos::path_a_unix( $dir_temp . "/" . mt_rand() . '.dot' );
 		$salida = toba_manejador_archivos::path_a_unix( $dir_temp . "/" . $nombre_archivo );
 		
-		file_put_contents($grafico, $contenido);
+		if (!file_put_contents($grafico, $contenido)) {
+			toba::logger()->error("No se tiene permiso de escritura sobre el archivo $grafico");
+		}
 		
 		$comando  = ($es_dirigido) ? "dot" : "neato";
 		$llamada = $comando . " -T". $formato . " -o$salida $grafico";

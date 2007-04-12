@@ -319,7 +319,16 @@ class proyecto extends elemento_modelo
 		$this->cargar_componentes();
 		$this->cargar_permisos();
 	}
-
+	
+	/**
+	 * Ejecuta un script de instalación propio del proyecto
+	 * Redefinir para crear el propio entorno
+	 */
+	function instalar()
+	{
+				
+	}
+	
 	private function cargar_tablas()
 	{
 		$this->manejador_interface->mensaje('Cargando datos globales', false);

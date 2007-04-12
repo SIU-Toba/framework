@@ -64,7 +64,7 @@ class comando_instalacion extends comando_toba
 	}
 
 	/**
-	*	Agrega una BASE en la instalacion [-d 'id_base']. Opcionalmente toma los datos de otra base  [-o base_origen]
+	 *	Agrega una BASE en la instalacion [-d 'id_base']. Opcionalmente toma los datos de otra base  [-o base_origen]
 	*/
 	function opcion__agregar_db()
 	{
@@ -208,7 +208,7 @@ class comando_instalacion extends comando_toba
 		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : $instalacion->get_version_actual();
 		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
 		//$verbose = (isset($param['-V']));
-		
+
 		if ($recursivo) {
 			$texto_recursivo = ", sus instancias y proyectos";
 		}
@@ -236,8 +236,10 @@ class comando_instalacion extends comando_toba
 		$toba_dir = toba_dir();
 		echo exec("chgrp www-data $toba_dir/www -R");
 		echo exec("chgrp www-data $toba_dir/instalacion -R");
+		echo exec("chgrp www-data $toba_dir/temp -R");
 		echo exec("chmod g+w $toba_dir/www -R");
 		echo exec("chmod g+w $toba_dir/instalacion -R");
+		echo exec("chmod g+w $toba_dir/temp");
 		foreach (instalacion::get_lista_proyectos() as $proyecto) {
 			echo exec("chgrp www-data $proyecto/www -R");
 			echo exec("chmod g+w $proyecto/www -R");
@@ -360,7 +362,7 @@ class comando_instalacion extends comando_toba
 			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
 		}
 		
-		//--- Vincula un usuario a todos los proyectos
+		//--- Vincula un usuario a todos los proyectos y se instala el proyecto
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', 'toba');
 		foreach( $instancia->get_proyectos() as $proyecto ) {
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
@@ -377,6 +379,11 @@ class comando_instalacion extends comando_toba
 		
 		//--- Crea los nuevos alias
 		$instancia->crear_alias_proyectos();
+		
+		//--- Ejecuta instalaciones particulares de cada proyecto
+		foreach( $instancia->get_proyectos() as $proyecto ) {
+			$proyecto->instalar();
+		}		
 
 		//--- Mensajes finales
 		$toba_conf = instalacion::dir_base()."/toba.conf";

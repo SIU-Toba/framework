@@ -454,7 +454,7 @@ class toba_editor
 			$vinculo['tip'] = 'Abrir el PHP del ítem en el escritorio';
 			$vinculos[] = $vinculo;
 		}
-		
+
 		//Etitor Item
 		$opciones = array();
 		$opciones['celda_memoria'] = 'central';
@@ -472,6 +472,7 @@ class toba_editor
 		$parametros = array("proyecto"=>$proyecto,"item"=>$item);
 		$opciones = array();
 		$opciones['celda_memoria'] = 'lateral';
+		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$vinculo = array();		
 		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';

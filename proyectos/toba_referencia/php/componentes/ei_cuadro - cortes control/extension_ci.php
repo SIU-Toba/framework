@@ -1,4 +1,4 @@
-<?
+<?php
 php_referencia::instancia()->agregar(__FILE__);
 
 class ci_cuadro_cc extends toba_ci
