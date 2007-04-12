@@ -19,7 +19,6 @@ class toba_proyecto
 	private $dir_compilacion;
 	const prefijo_punto_acceso = 'apex_pa_';
 
-
 	static function get_id()
 	{
 		if (! isset(self::$id_proyecto)) {
@@ -67,7 +66,7 @@ class toba_proyecto
 			$this->memoria = self::cargar_info_basica();
 			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
-		$this->dir_compilacion = self::get_path() . '/metadatos_compilados/generales';
+		$this->dir_compilacion = self::get_path() . '/metadatos_compilados/gene';
 	}
 
 	/**
@@ -108,8 +107,8 @@ class toba_proyecto
 		
 	function cargar_info_basica($proyecto=null)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('datos_basicos','info_basica');
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_basica');
 		} else {
 			$proyecto = isset($proyecto) ? $proyecto : $this->id;
 			$rs = toba_proyecto_db::cargar_info_basica($proyecto);
@@ -193,9 +192,9 @@ class toba_proyecto
 	function get_definicion_dependencia($id_componente, $proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : self::get_id() ;
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$temp = toba_constructor::get_metadatos_compilados(array('proyecto'=>$proyecto, 'componente'=>$id_componente));
-			$rs = $temp['info'];
+			$rs = $temp['_info'];
 		} else {
 			//Busco la definicion del componente
 			require_once('nucleo/componentes/definicion/componente.php');
@@ -211,8 +210,8 @@ class toba_proyecto
 	{
 		if (! isset($proyecto)) $proyecto = self::get_id();
 		$info = array();
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$info = $this->recuperar_datos_compilados('puntos_control__'.$punto_control, 'get_info');
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$info = $this->recuperar_datos_compilados('toba_mc_gene__pcontrol_'.$punto_control, 'get_info');
 		} else {
 			$info['parametros'] = toba_proyecto_db::punto_control_parametros($proyecto, $punto_control);
 			$info['controles'] = toba_proyecto_db::punto_control_controles($proyecto, $punto_control);
@@ -224,8 +223,8 @@ class toba_proyecto
 
 	function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('datos_basicos','info_fuente__'.$id_fuente);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_fuente__'.$id_fuente);
 		} else {
 			if (! isset($proyecto)) $proyecto = self::get_id();
 			$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
@@ -249,8 +248,8 @@ class toba_proyecto
 	function get_items_menu($proyecto=null, $grupo_acceso=null)
 	{
 		if (!isset($grupo_acceso)) $grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_menu');
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_menu');
 		} else {
 			if (!isset($proyecto)) $proyecto = self::get_id();
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
@@ -267,8 +266,8 @@ class toba_proyecto
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles[$grupo_acceso])) {
 			$this->indice_items_accesibles[$grupo_acceso] = array();
-			if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-				$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_accesibles');
+			if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+				$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_accesibles');
 			} else {
 				$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso);
 			}
@@ -284,8 +283,8 @@ class toba_proyecto
 	*/
 	function get_items_zona($zona, $grupo_acceso)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_items_zona__'.$zona);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_zona__'.$zona);
 		} else {
 			$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupo_acceso, $zona);	
 		}
@@ -307,8 +306,8 @@ class toba_proyecto
 	 */
 	function get_lista_permisos($grupo)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('grupo_acceso__'.$grupo_acceso, 'get_lista_permisos');
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_lista_permisos');
 		} else {
 			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
 		}
@@ -320,8 +319,8 @@ class toba_proyecto
 	 */
 	function get_descripcion_permiso($permiso)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$rs = $this->recuperar_datos_compilados('datos_basicos', 'info_permiso__'.$permiso);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos', 'info_permiso__'.$permiso);
 		} else {
 			$rs = toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
 		}
@@ -332,8 +331,8 @@ class toba_proyecto
 
 	function get_mensaje_toba($indice)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$clase = 'mensajes_toba';
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$clase = 'toba_mc_gene__msj_toba';
 			$metodo = 'get__'.$objeto;
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
@@ -348,8 +347,8 @@ class toba_proyecto
 	
 	function get_mensaje_proyecto($indice)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$clase = 'mensajes_proyecto';
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$clase = 'toba_mc_gene__msj_proyecto';
 			$metodo = 'get__'.$indice;
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
@@ -364,8 +363,8 @@ class toba_proyecto
 
 	function get_mensaje_objeto($objeto, $indice)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( self::get_id() ) ) {
-			$clase = 'mensajes_proyecto_objeto';
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+			$clase = 'toba_mc_gene__msj_proyecto_objeto';
 			$metodo = 'get__'.$objeto.'__'.$indice;
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
@@ -395,7 +394,7 @@ class toba_proyecto
 
 	function incluir_clase($clase)
 	{
-		require_once($this->dir_compilacion .'/'.$clase.'.php');
+		require_once( $this->dir_compilacion .'/'.$clase.'.php' );
 	}
 }
 ?>

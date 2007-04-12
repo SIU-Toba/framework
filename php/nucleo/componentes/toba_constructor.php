@@ -111,16 +111,16 @@ class toba_constructor
 	{
 		$directorio_componentes = toba::proyecto()->get_path() . '/metadatos_compilados';		
 		if ( $item ) {
-			$nombre = 'item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
-			$archivo = $directorio_componentes . '/items/' . $nombre . '.php';
+			$clase = 'toba_mc_item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
+			$archivo = $directorio_componentes . '/item/' . $clase . '.php';
 			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		} else {
-			$nombre = 'componente__' . $id['componente'];
-			$archivo = $directorio_componentes . '/componentes/' . $nombre . '.php';
+			$clase = 'toba_mc_comp__' . $id['componente'];
+			$archivo = $directorio_componentes . '/comp/' . $clase . '.php';
 			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		}
 		require_once( $archivo );
-		return call_user_func( array( $nombre, 'get_metadatos' ) );
+		return call_user_func( array( $clase, 'get_metadatos' ) );
 	}
 	
 	static function set_refresco_forzado($refrescar)

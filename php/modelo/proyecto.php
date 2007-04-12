@@ -100,7 +100,7 @@ class proyecto extends elemento_modelo
 
 	function get_dir_generales_compilados()
 	{
-		return $this->dir . '/metadatos_compilados/generales';
+		return $this->dir . '/metadatos_compilados/gene';
 	}
 
 	/**
@@ -486,9 +486,9 @@ class proyecto extends elemento_modelo
 	function compilar()
 	{
 		try {
-			//$this->compilar_componentes();
-			//$this->compilar_metadatos_generales();
-			$this->compilar_resumen();
+			$this->compilar_componentes();
+			$this->compilar_metadatos_generales();
+			$this->compilar_operaciones();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".$e->getMessage());
 		}
@@ -502,11 +502,11 @@ class proyecto extends elemento_modelo
 		$this->manejador_interface->titulo("Compilando componentes");
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
 			$c = 0;
-			$this->manejador_interface->mensaje( $tipo . ' ', false );
+			$this->manejador_interface->mensaje( $tipo, false );
 			if ( $tipo == 'item' ) {
-				$directorio = $this->get_dir_componentes_compilados() . '/items';
+				$directorio = $this->get_dir_componentes_compilados() . '/item';
 			} else {
-				$directorio = $this->get_dir_componentes_compilados() . '/componentes';
+				$directorio = $this->get_dir_componentes_compilados() . '/comp';
 			}
 			toba_manejador_archivos::crear_arbol_directorios( $directorio );
 			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
@@ -525,7 +525,7 @@ class proyecto extends elemento_modelo
 		//Armo la clase compilada
 		$this->manejador_interface->mensaje_directo('.');
 		toba_logger::instancia()->debug("COMPONENTE --  " . $id['componente']);
-		$prefijo = ($tipo == 'item') ? 'item__' : 'componente__';
+		$prefijo = ($tipo == 'item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 		$nombre = toba_manejador_archivos::nombre_valido( $prefijo . $id['componente'] );
 		$clase = new toba_clase_datos( $nombre );		
 		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );
@@ -558,7 +558,7 @@ class proyecto extends elemento_modelo
 	{
 		//-- Datos basicos --
 		$this->manejador_interface->mensaje('Info basica', false);
-		$nombre_clase = 'datos_basicos';
+		$nombre_clase = 'toba_mc_gene__basicos';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		$datos = toba_proyecto_db::cargar_info_basica( $this->get_id() );
@@ -588,7 +588,7 @@ class proyecto extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje('Grupos de acceso', false);
 		foreach( $this->get_indice_grupos_acceso() as $grupo_acceso ) {
-			$nombre_clase = 'grupo_acceso__' . $grupo_acceso;
+			$nombre_clase = 'toba_mc_gene__grupo_' . $grupo_acceso;
 			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 			$clase = new toba_clase_datos( $nombre_clase );
 			//Menu
@@ -619,8 +619,8 @@ class proyecto extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje('Puntos de control', false);
 		foreach( dao_editores::get_puntos_control() as $punto_control ) {
-			$nombre_clase = 'punto_control__' . $punto_control['pto_control'];
-			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+			$nombre_clase = 'toba_mc_gene__pcontrol_' . $punto_control['pto_control'];
+			$archivo = $this->get_dir_generales_compilados() . '/'. $nombre_clase .'.php';
 			$clase = new toba_clase_datos( $nombre_clase );
 			//Cabecera
 			$datos['cabecera'] = $punto_control;
@@ -641,7 +641,7 @@ class proyecto extends elemento_modelo
 	{
 		$this->manejador_interface->mensaje('Mensajes', false);
 		//---- Mensajes TOBA ------
-		$nombre_clase = 'mensajes_toba';
+		$nombre_clase = 'toba_mc_gene__msj_toba';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		foreach( $this->get_indice_mensajes('toba') as $mensaje ) {
@@ -651,7 +651,7 @@ class proyecto extends elemento_modelo
 		$clase->guardar( $archivo );
 		$this->manejador_interface->mensaje_directo('.');
 		//---- Mensajes PROYECTO ------
-		$nombre_clase = 'mensajes_proyecto';
+		$nombre_clase = 'toba_mc_gene__msj_proyecto';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		foreach( $this->get_indice_mensajes() as $mensaje ) {
@@ -661,7 +661,7 @@ class proyecto extends elemento_modelo
 		$clase->guardar( $archivo );
 		$this->manejador_interface->mensaje_directo('.');
 		//---- Mensajes OBJETOS ------
-		$nombre_clase = 'mensajes_proyecto_objeto';
+		$nombre_clase = 'toba_mc_gene__msj_proyecto_objeto';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
@@ -680,18 +680,18 @@ class proyecto extends elemento_modelo
 	}
 	
 
-	private function compilar_resumen()
+	private function compilar_operaciones()
 	{
-		$this->manejador_interface->mensaje('Contexto ITEMs ', false);
+		$this->manejador_interface->mensaje('Operaciones resumidas', false);
 		foreach( dao_editores::get_lista_items() as $item) {
 			$php = "<?php\n";
-			$directorio = $this->get_dir_componentes_compilados();
+			$directorio = $this->get_dir_componentes_compilados() . '/oper';
 			toba_manejador_archivos::crear_arbol_directorios( $directorio );
-			$nombre_archivo = toba_manejador_archivos::nombre_valido( 'i__' . $item['id'] );
+			$nombre_archivo = toba_manejador_archivos::nombre_valido( 'toba_mc_oper__' . $item['id'] );
 			$arbol = $this->get_arbol_componentes_item($item['proyecto'], $item['id']);
 			foreach( $arbol as $componente) {
 				$tipo = toba_catalogo::convertir_tipo($componente['tipo']);
-				$prefijo_clase = ( $tipo == 'item') ? 'item__' : 'componente__';
+				$prefijo_clase = ( $tipo == 'item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 				$nombre_clase = toba_manejador_archivos::nombre_valido($prefijo_clase . $componente['componente']);
 				$clase = new toba_clase_datos( $nombre_clase );		
 				$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( 	$componente, 
@@ -700,7 +700,7 @@ class proyecto extends elemento_modelo
 				$clase->agregar_metodo_datos('get_metadatos',$metadatos);
 				$php .= $clase->get_contenido();
 			}
-			$php .= "?>\n";
+			$php .= "\n?>";
 			file_put_contents($directorio .'/'. $nombre_archivo . '.php', $php);
 			$this->manejador_interface->mensaje_directo('.');	
 		}
