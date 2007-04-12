@@ -77,7 +77,7 @@ class zona_objeto extends zona_editor
 
 	function generar_html_barra_inferior()	
 	{
-		$img_min = toba_recurso::imagen_toba('sentido_des_sel.gif', false);
+		$img_min = toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false);
 		
 		//La representacion del Componente fantasma no deberia tener barra inferior.
 		if(($this->editable_id[1]=="0") && ($this->editable_id[0]=="toba")) return;

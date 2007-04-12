@@ -302,7 +302,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		return $this->_lista_ef_post;
 	}
-	
+
 	/**
 	 * Retorna la cantidad de efs
 	 * @return integer
@@ -589,10 +589,16 @@ class toba_ei_formulario extends toba_ei
 				if (! $cargado) {
 					$datos = null;
 					if ($cargar) {
-						if ($this->_elemento_formulario[$id_ef]->carga_depende_de_estado()) {
-							$param[$id_ef] = $this->_elemento_formulario[$id_ef]->get_estado();
+						if ($this->_elemento_formulario[$id_ef]->carga_depende_de_estado()) {	
+							//--- Caso del popup
+							$estado = $this->_elemento_formulario[$id_ef]->get_estado();
+							if (isset($estado)) {
+								$datos = $this->ejecutar_metodo_carga_descripcion_ef($id_ef, $estado);
+							}
+						} else {
+							//--- Caso general
+							$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
 						}
-						$datos = $this->ejecutar_metodo_carga_ef($id_ef, $param);
 					}
 					$this->_elemento_formulario[$id_ef]->set_opciones($datos, $cargar);
 				}
@@ -608,7 +614,8 @@ class toba_ei_formulario extends toba_ei
 		return 
 			isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_lista'])
-			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql']);
+			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql'])
+			|| isset($this->_parametros_carga_efs[$id_ef]['popup_carga_desc_metodo']);
 	}
 	
 	/**
@@ -656,6 +663,19 @@ class toba_ei_formulario extends toba_ei
 			}
 		}
 	}
+
+	/**
+	 * @ignore 
+	 */
+	protected function ejecutar_metodo_carga_descripcion_ef($id_ef, $maestros = array())
+	{
+		$parametros = $this->_parametros_carga_efs[$id_ef];
+		$parametros['carga_metodo'] = $parametros['popup_carga_desc_metodo'];		
+		$parametros['carga_clase'] = $parametros['popup_carga_desc_clase'];
+		$parametros['carga_include'] = $parametros['popup_carga_desc_include'];
+		return $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
+	}
+	
 
 	/**
 	 * @ignore 

@@ -87,6 +87,18 @@ ef_popup.prototype.constructor = ef_popup;
 		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
 	};	
 	
+	
+	/**
+	 * Cambia las opciones disponibles de selección 
+	 */
+	ef.prototype.set_opciones = function(opciones) {
+		if (typeof opciones == 'object') {
+			this.set_estado(opciones[0], opciones[1]);	
+		} else {
+			this.set_estado(opciones);
+		}
+	};
+		
 	/**
 	 * Cambia el estado actual del elemento
 	 * @param clave Nuevo valor o clave 

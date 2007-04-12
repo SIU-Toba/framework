@@ -97,7 +97,7 @@ class ci_efs extends toba_ci
 			Como en el mismo request es posible dar una efs de alta y seleccionarla,
 			tengo que guardar el ID intermedio que el ML asigna en las efss NUEVAS,
 			porque ese es el que se pasa como parametro en la seleccion
-		*/
+			*/
 		$orden = 1;
 		foreach(array_keys($registros) as $id)
 		{
@@ -256,7 +256,8 @@ class ci_efs extends toba_ci
 		
 		//-- Si es un popup no eliminar la carpeta (es cosmetico)
 		if (! in_array('popup_item', $efs_a_desactivar)) {
-			array_borrar_valor($efs_a_desactivar, 'popup_carpeta');	
+			array_borrar_valor($efs_a_desactivar, 'popup_carpeta');
+			array_borrar_valor($efs_a_desactivar, 'popup_carga_desc_estatico');
 			//-- Si esta seteado el item, buscar la carpeta asociada
 			if (isset($fila['popup_item']) && isset($fila['popup_proyecto'])) {
 				$fila['popup_carpeta'] = dao_editores::get_carpeta_de_item(	$fila['popup_item'], 

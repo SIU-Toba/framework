@@ -23,17 +23,20 @@ class toba_ef_popup extends toba_ef_editable
 		array_borrar_valor($parametros, 'carga_lista');
 		array_borrar_valor($parametros, 'carga_col_clave');
 		array_borrar_valor($parametros, 'carga_col_desc');
-		return $parametros;    	
+		return $parametros;
     }
-    	
-	static function get_lista_parametros()
-	{
-		$parametros[] = 'edit_tamano';
-		$parametros[] = 'edit_maximo';
-		$parametros[] = 'popup_item';
+     
+    static function get_lista_parametros()
+    {
+    	$parametros[] = 'edit_tamano';
+    	$parametros[] = 'edit_maximo';
+    	$parametros[] = 'popup_item';
 		$parametros[] = 'popup_proyecto';
 		$parametros[] = 'popup_ventana';
 		$parametros[] = 'popup_editable';
+		$parametros[] = 'popup_carga_desc_metodo';
+		$parametros[] = 'popup_carga_desc_clase';
+		$parametros[] = 'popup_carga_desc_include';
 		return $parametros;
 	}
 	
@@ -70,7 +73,7 @@ class toba_ef_popup extends toba_ef_editable
 	{
 		//--- No se actualiza $this->opciones_cargadas porque los popups requieren
 		//--- que siempre se refresquen sus opciones porque se basan en su estado
-		
+		//--- En cambio se cambia su descripcion
 		if (! $maestros_cargados) {
 			$this->solo_lectura = 1;
 		}

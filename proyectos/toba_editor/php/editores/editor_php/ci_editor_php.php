@@ -138,7 +138,7 @@ class ci_editor_php extends toba_ci
 	
 	function evt__subclase__previsualizar($opciones)
 	{
-		$codigo = "<?" . salto_linea() . $this->clase_php->get_codigo($opciones['metodos']) . "?>" . salto_linea() ;
+		$codigo = "<?php" . salto_linea() . $this->clase_php->get_codigo($opciones['metodos']) . "?>" . salto_linea() ;
 		require_once("3ros/PHP_Highlight.php");
 		$h = new PHP_Highlight(false);
 		$h->loadString($codigo);
