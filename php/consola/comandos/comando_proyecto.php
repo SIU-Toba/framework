@@ -111,9 +111,9 @@ class comando_proyecto extends comando_toba
 			// Exporto la instancia con la nueva configuracion (por fuera del request)
 			$i->exportar_local();
 		} else {
-			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");	
+			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");
 		}
-		
+
 		//--- Generación del alias
 		$this->consola->separador();
 		$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
@@ -216,6 +216,15 @@ class comando_proyecto extends comando_toba
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
 	}	
+	
+	/**
+	 * Ejecuta el proceso de instalación propio del proyecto
+	 */
+	function opcion__instalar()
+	{
+		$proyecto = $this->get_proyecto();
+		$proyecto->instalar();		
+	}
 	
 	/**
 	 * Actualiza o crea el item de login asociado al proyecto

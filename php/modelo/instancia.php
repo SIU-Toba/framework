@@ -103,6 +103,11 @@ class instancia extends elemento_modelo
 		}
 		return $proyectos;
 	}
+
+	function get_instalacion()
+	{
+		return $this->instalacion;		
+	}
 	
 	//-----------------------------------------------------------
 	//	Relacion con la base de datos donde reside la instancia
@@ -119,6 +124,7 @@ class instancia extends elemento_modelo
 		return $this->db;
 	}
 
+	
 	/**
 	*	Eliminaciond e la conexion con la instancia
 	*/

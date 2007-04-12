@@ -21,7 +21,7 @@ require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del e
 */
 class proyecto extends elemento_modelo
 {
-	private $instancia;				
+	private $instancia;
 	private $identificador;
 	private $dir;
 	private $sincro_archivos;
@@ -42,7 +42,7 @@ class proyecto extends elemento_modelo
 		$this->db = $this->instancia->get_db();
 		contexto_info::set_db($this->get_db());
 		contexto_info::set_proyecto($this->identificador);
-		toba_logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');				
+		toba_logger::instancia()->debug('PROYECTO "'.$this->identificador.'"');
 	}
 
 	function get_sincronizador()
@@ -102,10 +102,20 @@ class proyecto extends elemento_modelo
 	{
 		return $this->dir . '/metadatos_compilados/generales';
 	}
-	
+
+	/**
+	 * @return instancia
+	 */	
 	function get_instancia()
 	{
 		return $this->instancia;
+	}
+	
+	/**
+	 * @return instalacion
+	 */
+	function get_instalacion()
+	{	return $this->instancia->get_instalacion();
 	}
 	
 	function get_db()
@@ -323,6 +333,7 @@ class proyecto extends elemento_modelo
 	/**
 	 * Ejecuta un script de instalación propio del proyecto
 	 * Redefinir para crear el propio entorno
+	 * @ventana
 	 */
 	function instalar()
 	{

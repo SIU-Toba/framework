@@ -44,7 +44,13 @@ class catalogo_modelo
 	function get_proyecto( $id_instancia, $id_proyecto, $manejador_interface )
 	{
 		$instancia = $this->get_instancia( $id_instancia, $manejador_interface );
-		$proyecto = new proyecto( $instancia, $id_proyecto );
+		$archivo_proy = $instancia->get_path_proyecto($id_proyecto)."/php/toba_modelo/$id_proyecto.php";
+		if (file_exists($archivo_proy)) {
+			require_once($archivo_proy);
+			$proyecto = new $id_proyecto( $instancia, $id_proyecto );
+		} else {
+			$proyecto = new proyecto( $instancia, $id_proyecto );
+		}
 		$proyecto->set_manejador_interface( $manejador_interface );
 		return $proyecto;
 	}
