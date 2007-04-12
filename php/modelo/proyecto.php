@@ -6,6 +6,7 @@ require_once('modelo/consultas/dao_editores.php');
 require_once('modelo/info/contexto_info.php');
 require_once('nucleo/componentes/toba_catalogo.php');
 require_once('nucleo/componentes/toba_cargador.php');
+require_once('nucleo/componentes/toba_constructor.php');
 require_once('lib/toba_manejador_archivos.php');
 require_once('lib/toba_sincronizador_archivos.php');
 require_once('lib/toba_editor_archivos.php');
@@ -465,11 +466,11 @@ class proyecto extends elemento_modelo
 	function compilar()
 	{
 		try {
-			$this->compilar_componentes();
-			$this->compilar_metadatos_generales();
+			//$this->compilar_componentes();
+			//$this->compilar_metadatos_generales();
+			$this->compilar_resumen();
 		} catch ( toba_error $e ) {
-			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".
-												$e->getMessage());
+			$this->manejador_interface->error( "PROYECTO {$this->identificador}: Ha ocurrido un error durante la compilacion:\n".$e->getMessage());
 		}
 	}
 
@@ -658,6 +659,34 @@ class proyecto extends elemento_modelo
 		$this->manejador_interface->mensaje("OK");
 	}
 	
+
+	private function compilar_resumen()
+	{
+		$this->manejador_interface->mensaje('Contexto ITEMs ', false);
+		foreach( dao_editores::get_lista_items() as $item) {
+			$php = "<?php\n";
+			$directorio = $this->get_dir_componentes_compilados();
+			toba_manejador_archivos::crear_arbol_directorios( $directorio );
+			$nombre_archivo = toba_manejador_archivos::nombre_valido( 'i__' . $item['id'] );
+			$arbol = $this->get_arbol_componentes_item($item['proyecto'], $item['id']);
+			foreach( $arbol as $componente) {
+				$tipo = toba_catalogo::convertir_tipo($componente['tipo']);
+				$prefijo_clase = ( $tipo == 'item') ? 'item__' : 'componente__';
+				$nombre_clase = toba_manejador_archivos::nombre_valido($prefijo_clase . $componente['componente']);
+				$clase = new toba_clase_datos( $nombre_clase );		
+				$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( 	$componente, 
+																					$tipo,
+																					$this->db );
+				$clase->agregar_metodo_datos('get_metadatos',$metadatos);
+				$php .= $clase->get_contenido();
+			}
+			$php .= "?>\n";
+			file_put_contents($directorio .'/'. $nombre_archivo . '.php', $php);
+			$this->manejador_interface->mensaje_directo('.');	
+		}
+		$this->manejador_interface->mensaje("OK");
+	}
+
 	//-----------------------------------------------------------
 	//	Primitivas basicas
 	//-----------------------------------------------------------
@@ -748,6 +777,45 @@ class proyecto extends elemento_modelo
 			$datos[] = $dato['indice'];	
 		}
 		return $datos;
+	}
+
+	/**
+	*	Devuelve la lista de dependencias de un ITEM
+	*/
+	private function get_arbol_componentes_item($proyecto, $item)
+	{
+		$resultado[0] = array( 'tipo' => 'item', 'componente'=> $item, 'proyecto' => $proyecto);
+		$sql = "SELECT proyecto, objeto FROM apex_item_objeto WHERE item = '$item' AND proyecto = '$proyecto'";
+		$datos = $this->db->consultar($sql);
+		foreach($datos as $componente) {
+			$resultado = array_merge($resultado, self::get_arbol_componentes($componente['proyecto'], $componente['objeto']));
+		}
+		return $resultado;
+	}
+	
+	/*
+	*	Devuelve la lista de dependencias de un ITEM
+	*/
+	private function get_arbol_componentes($proyecto, $componente)
+	{
+		static $id = 1;
+		$sql = "SELECT 	o.proyecto as 			proyecto, 
+						o.objeto as 			objeto,
+						o.clase as 				clase,
+						d.objeto_proveedor as 	dep
+				FROM 	apex_objeto o LEFT OUTER JOIN apex_objeto_dependencias d
+						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto
+				WHERE 	o.objeto = '$componente' 
+				AND 	o.proyecto = '$proyecto'";
+		$datos = $this->db->consultar($sql);
+		$resultado[$id] = array( 'tipo' => $datos[0]['clase'], 'componente'=> $datos[0]['objeto'], 'proyecto' => $datos[0]['proyecto']);
+		foreach($datos as $componente) {
+			if(isset($componente['dep'])) {
+				$id++;
+				$resultado = array_merge($resultado, self::get_arbol_componentes($componente['proyecto'], $componente['dep']));
+			}
+		}
+		return $resultado;
 	}
 		
 	//-----------------------------------------------------------

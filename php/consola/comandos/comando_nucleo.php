@@ -76,5 +76,13 @@ class comando_nucleo extends comando_toba
 		//Tomo la referencia a la instancia
 		$this->get_nucleo()->validar_js($patron_incl, $patron_excl);
 	}		
+
+	/**
+	 * Reune las definiciones de los componentes en un solo archivo
+	 */
+	function opcion__compilar()
+	{
+		$this->get_nucleo()->compilar();		
+	}
 }
 ?>

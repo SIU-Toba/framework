@@ -92,16 +92,23 @@ class toba_clase_datos
 
 	private function generar_php()
 	{
-		$php = "<?php\n\n";
-		$php .= "class $this->nombre\n{\n";
+		$php = "<?php\n";
+		$php .= $this->get_contenido();
+		$php .= "}\n?>";
+		return $php;	
+	}
+
+	function get_contenido()
+	{
+
+		$php = "\nclass $this->nombre\n{\n";
 		foreach ( $this->metodos as $metodo => $datos ) {
 			$php .= "\tstatic function $metodo()\n\t{\n";
 			$php .= "\t\treturn " . var_export( $datos, true) . ";\n";
 			$php .= "\t}\n";
 			$php .= "\n";
 		}
-		$php .= "}\n?>";
-		return $php;	
+		return $php;
 	}
 }
 ?>

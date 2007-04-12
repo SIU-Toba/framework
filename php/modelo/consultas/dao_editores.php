@@ -238,8 +238,9 @@ class dao_editores
 	/**
 	*	Retorna la lista de todos los items del proyecto actual (no carpetas)
 	*/
-	static function get_lista_items()
+	static function get_lista_items($proyecto=null)
 	{
+		$proyecto = isset($proyecto) ? $proyecto : contexto_info::get_proyecto();
 		$sql = "
 			SELECT 
 				proyecto, 
@@ -248,12 +249,11 @@ class dao_editores
 			FROM apex_item 
 			WHERE 
 				(carpeta <> '1' OR carpeta IS NULL) AND
-				proyecto = '". contexto_info::get_proyecto() ."'
+				proyecto = '$proyecto'
 			ORDER BY nombre;
 		";
 		return contexto_info::get_db()->consultar($sql);
 	}
-	
 	
 	/**
 	*	Retorna la lista de items en un formato adecuado para un combo
@@ -475,7 +475,7 @@ class dao_editores
 		$datos = contexto_info::get_db()->consultar($sql);
 		return $datos[0]['clase'];
 	}
-	
+
 	//---------------------------------------------------
 	//-- DATOS RELACION----------------------------------
 	//---------------------------------------------------

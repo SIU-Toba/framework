@@ -495,5 +495,67 @@ class nucleo extends elemento_modelo
 			$this->manejador_interface->mensaje('OK');
 		}
 	}
+
+	//------------------------------------------------------------------------
+	//-- Compilacion del nucleo ----------------------------------------------
+	//------------------------------------------------------------------------
+
+	function compilar()
+	{
+		//$this->resumir_nucleo();
+		$this->resumir_definicion_componentes();
+	}
+	
+	/**
+	* Resume las definicines de los componentes en un solo archivo
+	*	(Esto evita un monton de requires dinamicos cuando se cargan componentes)
+	*/
+	function resumir_definicion_componentes()
+	{
+		$resumen = '';
+		$directorio =  toba_dir() . '/php/nucleo/componentes/definicion';
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.php|' );
+		$buscar = array(	'|<\?php|',
+							'|\?>|',
+							'|require_once.*;|',
+							'|/\*\*.*?\*/|s',
+							'|\s*//.*|',
+							'|^\s*$|m'
+						);
+		foreach($archivos as $archivo) {
+			$php = file_get_contents($archivo);
+			$php = preg_replace($buscar,'',$php);
+			$resumen .= $php;
+		}
+		$resumen = "<?php\n" . $resumen . "\n?>";
+		$destino = toba_dir() . '/php/nucleo/componentes/toba_definicion.php';
+		file_put_contents($destino, $resumen);
+	}
+
+	function resumir_nucleo()
+	{
+		$destino = toba_dir() . '/php/nucleo/engine_toba.php';
+		if(file_exists($destino)) unlink($destino);
+		$this->manejador_interface->titulo('Compilando el nucleo');
+		$resumen = '';
+		$directorio =  toba_dir() . '/php/nucleo';
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|toba_.*?\.php|', true );
+		$buscar = array(	'|<\?php|',
+							'|\?>|',
+							'|require_once.*;|',
+							'|/\*\*.*?\*/|s',
+							'|/\*.*?\*/|s',
+							'|\s*//.*|',
+							'|^\s*$|m'
+						);
+		foreach($archivos as $archivo) {
+			$php = file_get_contents($archivo);
+			$php = preg_replace($buscar,'',$php);
+			$resumen .= $php;
+			$this->manejador_interface->mensaje($archivo);
+		}
+		$resumen = "<?php\n" . $resumen . "\n?>";
+		file_put_contents($destino, $resumen);
+	}
 }
 ?>
