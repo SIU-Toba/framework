@@ -1,7 +1,7 @@
 <?php
 require_once('migracion_toba.php');
 
-class migracion_1_1_0 extends migracion_toba
+class migracion_1_0_3 extends migracion_toba
 {
 
 		function proyecto__estilo_filtro()
