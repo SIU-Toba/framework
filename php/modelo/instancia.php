@@ -97,8 +97,8 @@ class instancia extends elemento_modelo
 		$proyectos = array();
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			if ($proyecto != 'toba') {
-				$proyectos[$proyecto] = new proyecto( $this, $proyecto );
-				$proyectos[$proyecto]->set_manejador_interface( $this->manejador_interface );
+				$proyectos[$proyecto] = catalogo_modelo::instanciacion()->get_proyecto( $this->get_id(), 
+				$proyecto, $this->manejador_interface);
 			}
 		}
 		return $proyectos;
@@ -106,9 +106,9 @@ class instancia extends elemento_modelo
 
 	function get_instalacion()
 	{
-		return $this->instalacion;		
+		return $this->instalacion;
 	}
-	
+
 	//-----------------------------------------------------------
 	//	Relacion con la base de datos donde reside la instancia
 	//-----------------------------------------------------------
@@ -257,9 +257,7 @@ class instancia extends elemento_modelo
 	*/
 	function exportar()
 	{
-		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			$proyecto = new proyecto( $this, $proyecto );
-			$proyecto->set_manejador_interface( $this->manejador_interface );			
+		foreach( $this->get_proyectos() as $proyecto ) {
 			$proyecto->exportar();
 		}	
 		$this->exportar_local();
@@ -480,11 +478,9 @@ class instancia extends elemento_modelo
 	*/
 	private function cargar_proyectos()
 	{
-		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
+		foreach( $this->get_proyectos() as $id => $proyecto ) {
 			$this->manejador_interface->enter();
-			$this->manejador_interface->subtitulo( "PROYECTO: $proyecto" );
-			$proyecto = new proyecto( $this, $proyecto );
-			$proyecto->set_manejador_interface( $this->manejador_interface );			
+			$this->manejador_interface->subtitulo("PROYECTO: $id");
 			$proyecto->cargar();
 		}	
 	}
