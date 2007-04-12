@@ -94,7 +94,7 @@ class toba_clase_datos
 	{
 		$php = "<?php\n";
 		$php .= $this->get_contenido();
-		$php .= "}\n?>";
+		$php .= "\n?>";
 		return $php;	
 	}
 
@@ -108,6 +108,7 @@ class toba_clase_datos
 			$php .= "\t}\n";
 			$php .= "\n";
 		}
+		$php .= "}\n";
 		return $php;
 	}
 }

@@ -1,6 +1,4 @@
 <?php
-require_once('lib/toba_manejador_archivos.php');
-
 /**
  * Construye los objetos php relacionados con componentes especificos
  * @package Componentes
@@ -109,17 +107,11 @@ class toba_constructor
 	*/
 	static function get_metadatos_compilados( $id, $item=false )
 	{
-		$directorio_componentes = toba::proyecto()->get_path() . '/metadatos_compilados';		
 		if ( $item ) {
 			$clase = 'toba_mc_item__' . toba_manejador_archivos::nombre_valido( $id['componente'] );
-			$archivo = $directorio_componentes . '/item/' . $clase . '.php';
-			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		} else {
 			$clase = 'toba_mc_comp__' . $id['componente'];
-			$archivo = $directorio_componentes . '/comp/' . $clase . '.php';
-			toba::logger()->debug("buscar COMPILADO: {$id['componente']} => $archivo",'toba');
 		}
-		require_once( $archivo );
 		return call_user_func( array( $clase, 'get_metadatos' ) );
 	}
 	

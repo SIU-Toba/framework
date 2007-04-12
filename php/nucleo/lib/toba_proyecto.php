@@ -16,7 +16,6 @@ class toba_proyecto
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	private $id;
 	private $indice_items_accesibles = array();
-	private $dir_compilacion;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -66,7 +65,6 @@ class toba_proyecto
 			$this->memoria = self::cargar_info_basica();
 			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
-		$this->dir_compilacion = self::get_path() . '/metadatos_compilados/gene';
 	}
 
 	/**
@@ -199,7 +197,7 @@ class toba_proyecto
 			//Busco la definicion del componente
 			require_once('nucleo/componentes/definicion/componente.php');
 			$sql = componente_toba::get_vista_extendida($proyecto, $id_componente);
-			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['info']['sql']);
+			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['_info']['sql']);
 		}
 		return $rs;
 	}
@@ -381,20 +379,13 @@ class toba_proyecto
 	
 	function existe_dato_compilado($clase, $metodo)
 	{
-		$this->incluir_clase($clase);
 		return in_array($metodo, get_class_methods($clase));
 	}
 	
 	function recuperar_datos_compilados($clase, $metodo)
 	{
-		toba::logger()->debug("buscar COMPILADO: {$clase}::{$metodo}()",'toba');
 		$this->incluir_clase($clase);
 		return call_user_func(array($clase, $metodo));
-	}
-
-	function incluir_clase($clase)
-	{
-		require_once( $this->dir_compilacion .'/'.$clase.'.php' );
 	}
 }
 ?>
