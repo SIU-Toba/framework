@@ -1089,7 +1089,7 @@ class proyecto extends elemento_modelo
 	static function get_sql_metadatos_basicos( $id_proyecto )
 	{
 		// Creo el proyecto
-		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto, item_inicio_sesion, menu) VALUES ('$id_proyecto','toba','".strtoupper($id_proyecto)."','".ucwords($id_proyecto)."',1, '/inicio','css');";
+		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto, item_inicio_sesion, menu) VALUES ('$id_proyecto','cubos','".strtoupper($id_proyecto)."','".ucwords($id_proyecto)."',1, '/inicio','css');";
 		//Le agrego los items basicos
 		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','__raiz__','$id_proyecto','__raiz__','1','0',NULL,'toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');";
 		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron,actividad_accion,menu,orden) VALUES ('$id_proyecto','/inicio','$id_proyecto','__raiz__','0','0','web','toba','normal','Inicio','','toba','0','toba','especifico','item_inicial.php',1,'0');";

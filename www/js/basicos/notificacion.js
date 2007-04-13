@@ -143,11 +143,8 @@ function overlay(limpiar) {
 	}
 	el.style.visibility = (visible) ? "hidden" : "visible";
 	if (! visible) {
-		var boton = document.getElementById('boton_overlay');
-		if (boton) {
-			boton.focus();
-			window.firstFocus = function() {};
-		}
+		scroll(0,0);
+		window.firstFocus = function() {};
 	} 
 	if (isset(limpiar) && limpiar) {
 		$('overlay_contenido').innerHTML = '';

@@ -6,7 +6,7 @@
  */
 class toba_parser_ayuda
 {
-	protected static $tags = array('wiki', 'api', 'api_js', 'link', 'url', 'test');
+	protected static $tags = array('wiki', 'wiki_toba', 'api', 'api_js', 'link', 'url', 'test');
 	
 	/**
 	 * Determina si una cadena es texto plano o contiene algun formato a parsear y convertir
@@ -44,6 +44,11 @@ class toba_parser_ayuda
 		return  '/([^\[]*)\[('.$tags.'):([^\ ]+)[\ ]([^\[]+)\]([^\[]*)/';
 	}
 	
+	static function parsear_wiki_toba($id, $nombre, $proyecto=null)
+	{
+		return self::parsear_wiki($id, $nombre, 'toba_editor');
+	}	
+	
 	static function parsear_wiki($id, $nombre, $proyecto=null)
 	{
 		$anchor = '';
@@ -52,7 +57,7 @@ class toba_parser_ayuda
 			$id = substr($id, 0, strpos($id, '#'));
 		}
 		$url = toba_recurso::url_proyecto($proyecto)."/doc/wiki/trac/toba/wiki/$id.html#$anchor";
-		$img = toba_recurso::imagen_proyecto("wiki.gif", true);
+		$img = toba_recurso::imagen_toba("wiki.gif", true);
 		$tag = "<a href=$url target=wiki>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}

@@ -124,7 +124,7 @@ class toba_nucleo
 		}
 		$this->finalizar_contexto_ejecucion();
 		toba::logger()->debug('Estado Proceso: '.$estado_proceso, 'toba');
-		toba::logger()->debug('Tiempo utilizado: ' . cronometro::instancia()->tiempo_acumulado() . ' seg.');
+		toba::logger()->debug('Tiempo utilizado: ' . toba::cronometro()->tiempo_acumulado() . ' seg.');
 		toba::logger()->guardar();
 		exit($estado_proceso);
 	}

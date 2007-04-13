@@ -16,8 +16,8 @@ class extension_ml extends toba_ei_formulario_ml
 		$this->set_ancho_etiqueta('65px');
 		$columnas = 2;
 		$i = 0;
-		foreach ($this->lista_ef_post as $ef) {
-			$ultimo = ($i == count($this->lista_ef_post));			
+		foreach ($this->get_nombres_ef() as $ef) {
+			$ultimo = ($i == $this->get_cantidad_efs());			
 			if ($i % $columnas == 0) {
 				echo "<td colspan='$columnas' class='{$this->estilo_celda_actual}'>";
 			}			

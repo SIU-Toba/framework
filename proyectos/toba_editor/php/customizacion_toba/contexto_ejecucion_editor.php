@@ -16,6 +16,7 @@ class contexto_ejecucion_editor implements toba_interface_contexto_ejecucion
 		// Emular el contexto en el consumo por consola.
 		if (php_sapi_name() === 'cli') {
 			toba_editor::iniciar(toba::instancia()->get_id(), toba_editor::get_id());
+			toba_editor::referenciar_memoria();
 		}		
 	}
 
