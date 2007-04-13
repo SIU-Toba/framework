@@ -88,25 +88,11 @@ class instancia extends elemento_modelo
 	//	Manejo de subcomponentes
 	//-----------------------------------------------------------
 
-	/**
-	* Devuelve un array con los objetos PROYECTO cargados
-	* @return proyecto
-	*/
-	function get_proyectos()
+	function get_proyecto($id)
 	{
-		$proyectos = array();
-		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
-			if ($proyecto != 'toba') {
-				$proyectos[$proyecto] = catalogo_modelo::instanciacion()->get_proyecto( $this->get_id(), 
-				$proyecto, $this->manejador_interface);
-			}
-		}
-		return $proyectos;
-	}
-
-	function get_instalacion()
-	{
-		return $this->instalacion;
+		return catalogo_modelo::instanciacion()->get_proyecto( $this->get_id(), 
+										$id, $this->manejador_interface);
+				
 	}
 
 	//-----------------------------------------------------------
@@ -257,8 +243,11 @@ class instancia extends elemento_modelo
 	*/
 	function exportar()
 	{
-		foreach( $this->get_proyectos() as $proyecto ) {
-			$proyecto->exportar();
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			if ($id_proyecto != 'toba') {
+				$proyecto = $this->get_proyecto($id_proyecto);
+				$proyecto->exportar();
+			}
 		}	
 		$this->exportar_local();
 	}	
@@ -478,10 +467,13 @@ class instancia extends elemento_modelo
 	*/
 	private function cargar_proyectos()
 	{
-		foreach( $this->get_proyectos() as $id => $proyecto ) {
-			$this->manejador_interface->enter();
-			$this->manejador_interface->subtitulo("PROYECTO: $id");
-			$proyecto->cargar();
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			if ($id_proyecto != 'toba') {
+				$this->manejador_interface->enter();
+				$this->manejador_interface->subtitulo("PROYECTO: $id_proyecto");
+				$proyecto = $this->get_proyecto($id_proyecto);
+				$proyecto->cargar();										
+			}
 		}	
 	}
 	
@@ -765,9 +757,12 @@ class instancia extends elemento_modelo
 
 	function crear_alias_proyectos()
 	{
-		foreach( $this->get_proyectos() as $proyecto ) {
-			instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $this->get_id());
-		}
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			if ($id_proyecto != 'toba') {
+				$proyecto = $this->get_proyecto($id_proyecto);										
+				instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $this->get_id());	
+			}
+		}			
 	}
 	
 	//------------------------------------------------------------------------
@@ -786,10 +781,14 @@ class instancia extends elemento_modelo
 			
 			//-- Se migran los proyectos incluidos
 			if ($recursivo) {
-				foreach ($this->get_proyectos() as $proyecto) {
-					//-- Se evitan los proyectos propios, ya que ya estan migrados pero recien se va a notar cuando se regenere
-					if (! in_array($proyecto->get_id(), $this->proyectos_ya_migrados)) {
-						$proyecto->migrar_version($version);
+				foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+					if ($id_proyecto != 'toba') {
+						$proyecto = $this->get_proyecto($id_proyecto);						
+						
+						//-- Se evitan los proyectos propios, ya que ya estan migrados pero recien se va a notar cuando se regenere
+						if (! in_array($proyecto->get_id(), $this->proyectos_ya_migrados)) {
+							$proyecto->migrar_version($version);
+						}
 					}
 				}
 			}
