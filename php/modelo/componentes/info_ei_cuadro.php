@@ -1,6 +1,4 @@
 <?php
-require_once('info_ei.php');
-
 class info_ei_cuadro extends info_ei
 {
 	//---------------------------------------------------------------------	

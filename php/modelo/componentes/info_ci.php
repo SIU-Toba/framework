@@ -1,6 +1,4 @@
 <?php
-require_once('info_ei.php');
-require_once('info_ci_pantalla.php');
 
 class info_ci extends info_ei
 {

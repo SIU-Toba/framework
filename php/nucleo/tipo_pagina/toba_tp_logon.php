@@ -21,5 +21,5 @@ class toba_tp_logon extends toba_tp_basico
 			<div>2002-2006</div>";
 		echo "</div>";
 	}
-
 }
+?>

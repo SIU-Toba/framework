@@ -1,6 +1,4 @@
 <?php
-require_once('info_ei_formulario.php');
-
 class info_ei_formulario_ml extends info_ei_formulario
 {
 	//---------------------------------------------------------------------	

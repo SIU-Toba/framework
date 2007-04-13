@@ -209,7 +209,7 @@ class toba_nucleo
 			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_ei.php');
 			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_formateo.php');
 		} else {
-			//No ahun!	
+			require_once('nucleo/toba_motor.php');	
 		}
 	}
 
@@ -389,6 +389,9 @@ class toba_nucleo
 			'toba_tipo_pagina'						=> 'nucleo/tipo_pagina/toba_tipo_pagina.php',
 			'toba_tp_basico'						=> 'nucleo/tipo_pagina/toba_tp_basico.php',
 			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_basico_titulo.php',
+			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_logon.php',
+			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_popup.php',
+			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_normal.php',
 			'toba_solicitud'						=> 'nucleo/toba_solicitud.php',
 			'toba_solicitud_web'					=> 'nucleo/toba_solicitud_web.php',
 			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',

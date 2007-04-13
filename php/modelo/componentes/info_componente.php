@@ -1,10 +1,4 @@
 <?php
-require_once("nucleo/componentes/interface/interfaces.php");
-require_once("interfaces.php");
-require_once("lib/toba_manejador_archivos.php");
-require_once('modelo/consultas/dao_editores.php');
-require_once('modelo/info/contexto_info.php');
-require_once('lib/reflexion/toba_molde_clase.php');
 
 abstract class info_componente implements toba_nodo_arbol, meta_clase
 {
@@ -393,6 +387,7 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 
 	function get_molde_vacio()
 	{
+		require_once('lib/reflexion/toba_molde_clase.php');
 		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
 	}
 

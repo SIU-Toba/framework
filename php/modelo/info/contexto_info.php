@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del editor
 /**
 *	Brinda un contexto a las consultas informativas sobre el modelo
 */

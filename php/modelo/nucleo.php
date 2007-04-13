@@ -27,6 +27,9 @@ class nucleo extends elemento_modelo
 	protected $catalogo;
 	// Sincro SVN	
 	private $sincro_archivos;
+	// Compilacion del nucleo
+	private $comp_archivos_nucleo;
+	private $comp_archivos_modelo;
 	
 	//------------------------------------------------
 	// Informacion
@@ -502,8 +505,9 @@ class nucleo extends elemento_modelo
 
 	function compilar()
 	{
-		//$this->resumir_nucleo();
+		$this->manejador_interface->titulo('Compilacion del nucleo');
 		$this->resumir_definicion_componentes();
+		$this->resumir_nucleo();
 	}
 	
 	/**
@@ -512,13 +516,13 @@ class nucleo extends elemento_modelo
 	*/
 	function resumir_definicion_componentes()
 	{
+		$this->manejador_interface->mensaje_directo('Definicion de componentes');			
 		$resumen = '';
 		$directorio =  toba_dir() . '/php/nucleo/componentes/definicion';
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.php|' );
 		sort($archivos);		
 		$buscar = array(	'|<\?php|',
 							'|\?>|',
-							'|require_once.*;|',
 							'|/\*\*.*?\*/|s',
 							'|\s*//.*|',
 							'|^\s*$|m'
@@ -527,36 +531,167 @@ class nucleo extends elemento_modelo
 			$php = file_get_contents($archivo);
 			$php = preg_replace($buscar,'',$php);
 			$resumen .= $php;
+			$this->manejador_interface->mensaje_directo('.');			
 		}
 		$resumen = "<?php\n" . $resumen . "\n?>";
 		$destino = toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php';
 		file_put_contents($destino, $resumen);
+		$this->manejador_interface->mensaje('OK');			
 	}
 
 	function resumir_nucleo()
 	{
-		$destino = toba_dir() . '/php/nucleo/engine_toba.php';
-		if(file_exists($destino)) unlink($destino);
-		$this->manejador_interface->titulo('Compilando el nucleo');
+		$destino = toba_dir() . '/php/nucleo/toba_motor.php';
+		$this->manejador_interface->mensaje_directo('Clases del nucleo');			
+		$this->cargar_lista_archivos();
 		$resumen = '';
-		$directorio =  toba_dir() . '/php/nucleo';
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|toba_.*?\.php|', true );
+		$archivos = array_merge($this->comp_archivos_nucleo, $this->comp_archivos_modelo);
 		$buscar = array(	'|<\?php|',
 							'|\?>|',
-							'|require_once.*;|',
-							'|/\*\*.*?\*/|s',
-							'|/\*.*?\*/|s',
-							'|\s*//.*|',
+						//	'|/\*\*.*?\*/|s',
+						//	'|/\*.*?\*/|s',
+						//	'|\s*//.*|',
 							'|^\s*$|m'
 						);
 		foreach($archivos as $archivo) {
-			$php = file_get_contents($archivo);
-			$php = preg_replace($buscar,'',$php);
+			$php = file_get_contents(toba_dir(). '/php/' . $archivo);
+			//$php = preg_replace($buscar,'',$php);
 			$resumen .= $php;
-			$this->manejador_interface->mensaje($archivo);
+			$this->manejador_interface->mensaje_directo('.');			
 		}
-		$resumen = "<?php\n" . $resumen . "\n?>";
+		/*$resumen = "<?php\n" . $resumen . "\n?>";*/
 		file_put_contents($destino, $resumen);
+		$this->manejador_interface->mensaje('OK');			
+	}
+	
+	function cargar_lista_archivos()
+	{
+		$this->comp_archivos_nucleo = array(
+			'lib/toba_parseo.php',
+			'lib/toba_sql.php',
+			'lib/toba_varios.php',
+			'lib/toba_asercion.php',
+			'lib/toba_cache_db.php',
+			'lib/db/toba_db.php',
+			'lib/toba_encriptador.php',
+			'lib/toba_manejador_archivos.php',
+			'nucleo/lib/interface/toba_form.php',
+			'nucleo/lib/salidas/toba_impr_html.php',
+			'nucleo/lib/salidas/toba_impresion.php',
+			'nucleo/lib/salidas/toba_pdf.php',
+			'nucleo/lib/interface/toba_ei.php',
+			'nucleo/lib/interface/toba_formateo.php',
+			'nucleo/lib/toba_admin_fuentes.php',
+			'nucleo/lib/toba_contexto_ejecucion.php',
+			'nucleo/lib/toba_cronometro.php',
+			'nucleo/lib/toba_db.php',
+			'nucleo/lib/toba_dba.php',
+			'nucleo/lib/toba_debug.php',
+			'nucleo/lib/toba_editor.php',
+			'nucleo/lib/toba_error.php',
+			'nucleo/lib/toba_fuente_datos.php',
+			'nucleo/lib/toba_http.php',
+			'nucleo/lib/toba_instalacion.php',
+			'nucleo/lib/toba_instancia.php',
+			'nucleo/lib/toba_interface_contexto_ejecucion.php',
+			'nucleo/lib/toba_interface_usuario.php',
+			'nucleo/lib/toba_js.php',
+			'nucleo/lib/toba_logger.php',
+			'nucleo/lib/toba_manejador_sesiones.php',
+			'nucleo/lib/toba_memoria.php',
+			'nucleo/lib/toba_mensajes.php',
+			'nucleo/lib/toba_notificacion.php',
+			'nucleo/lib/toba_parser_ayuda.php',
+			'nucleo/lib/toba_permisos.php',
+			'nucleo/lib/toba_proyecto.php',
+			'nucleo/lib/toba_proyecto_db.php',
+			'nucleo/lib/toba_puntos_control.php',
+			'nucleo/lib/toba_recurso.php',
+			'nucleo/lib/toba_sesion.php',
+			'nucleo/lib/toba_usuario.php',
+			'nucleo/lib/toba_usuario_anonimo.php',
+			'nucleo/lib/toba_usuario_basico.php',
+			'nucleo/lib/toba_usuario_no_autenticado.php',
+			'nucleo/lib/toba_vinculador.php',
+			'nucleo/lib/toba_vinculo.php',
+			'nucleo/lib/toba_zona.php',
+			'nucleo/menu/toba_menu.php',
+			'nucleo/tipo_pagina/toba_tipo_pagina.php',
+			'nucleo/tipo_pagina/toba_tp_basico.php',
+			'nucleo/tipo_pagina/toba_tp_basico_titulo.php',
+			'nucleo/tipo_pagina/toba_tp_logon.php', 
+			'nucleo/tipo_pagina/toba_tp_popup.php', 
+			'nucleo/tipo_pagina/toba_tp_normal.php',
+			'nucleo/toba_solicitud.php',
+			'nucleo/toba_solicitud_web.php',
+			'nucleo/toba_solicitud_accion.php',
+			'nucleo/toba_solicitud_consola.php',
+			'nucleo/componentes/toba_definicion_componentes.php',
+			'nucleo/componentes/toba_cargador.php',
+			'nucleo/componentes/toba_catalogo.php',
+			'nucleo/componentes/toba_constructor.php',
+			'nucleo/componentes/toba_componente.php',
+			'nucleo/componentes/interface/botones/toba_boton.php',
+			'nucleo/componentes/interface/botones/toba_evento_usuario.php',
+			'nucleo/componentes/interface/botones/toba_tab.php',
+			'nucleo/componentes/interface/efs/toba_ef.php',
+			'nucleo/componentes/interface/efs/toba_ef_combo.php',
+			'nucleo/componentes/interface/efs/toba_ef_cuit.php',
+			'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
+			'nucleo/componentes/interface/efs/toba_ef_oculto.php',
+			'nucleo/componentes/interface/efs/toba_ef_popup.php',
+			'nucleo/componentes/interface/efs/toba_ef_sin_estado.php',
+			'nucleo/componentes/interface/efs/toba_ef_upload.php',
+			'nucleo/componentes/interface/efs/toba_ef_varios.php',
+			'nucleo/componentes/interface/interfaces.php',
+			'nucleo/componentes/interface/toba_ei.php',
+			'nucleo/componentes/interface/toba_ci.php',
+			'nucleo/componentes/interface/toba_ei_arbol.php',
+			'nucleo/componentes/interface/toba_ei_archivos.php',
+			'nucleo/componentes/interface/toba_ei_calendario.php',
+			'nucleo/componentes/interface/toba_ei_cuadro.php',
+			'nucleo/componentes/interface/toba_ei_esquema.php',
+			'nucleo/componentes/interface/toba_ei_filtro.php',
+			'nucleo/componentes/interface/toba_ei_formulario.php',
+			'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+			'nucleo/componentes/interface/toba_ei_pantalla.php',
+			'nucleo/componentes/persistencia/toba_ap.php',
+			'nucleo/componentes/persistencia/toba_ap_relacion_db.php',
+			'nucleo/componentes/persistencia/toba_ap_tabla_db.php',
+			'nucleo/componentes/persistencia/toba_ap_tabla_db_mt.php',
+			'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php',
+			'nucleo/componentes/persistencia/toba_datos_busqueda.php',
+			'nucleo/componentes/persistencia/toba_datos_relacion.php',
+			'nucleo/componentes/persistencia/toba_datos_tabla.php',
+			'nucleo/componentes/persistencia/toba_relacion_entre_tablas.php',
+			'nucleo/componentes/persistencia/toba_tipo_datos.php',
+			'nucleo/componentes/negocio/toba_cn.php'
+		);
+		$this->comp_archivos_modelo = array(
+			'modelo/componentes/datos_editores.php',
+			'modelo/componentes/interfaces.php',
+			'modelo/componentes/info_componente.php',
+			'modelo/componentes/info_ap_relacion_db.php',
+			'modelo/componentes/info_ap_tabla_db.php',
+			'modelo/componentes/info_cn.php',
+			'modelo/componentes/info_datos_relacion.php',
+			'modelo/componentes/info_datos_tabla.php',
+			'modelo/componentes/info_ei.php',
+			'modelo/componentes/info_ci.php',
+			'modelo/componentes/info_ci_pantalla.php',
+			'modelo/componentes/info_ei_arbol.php',
+			'modelo/componentes/info_ei_archivos.php',
+			'modelo/componentes/info_ei_calendario.php',
+			'modelo/componentes/info_ei_cuadro.php',
+			'modelo/componentes/info_ei_esquema.php',
+			'modelo/componentes/info_ei_formulario.php',
+			'modelo/componentes/info_ei_formulario_ml.php',
+			'modelo/componentes/info_ei_filtro.php',
+			'modelo/componentes/info_item.php',
+			'modelo/consultas/dao_editores.php',
+			'modelo/info/contexto_info.php'		
+		);
 	}
 }
 ?>

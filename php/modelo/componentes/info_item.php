@@ -1,7 +1,4 @@
 <?php
-require_once("nucleo/componentes/interface/interfaces.php");
-require_once('modelo/consultas/dao_editores.php');
-require_once('modelo/info/contexto_info.php');
 
 class info_item implements toba_nodo_arbol 
 {

@@ -1,5 +1,4 @@
 <?php
-require_once('info_componente.php');
 
 class info_cn extends info_componente
 {
