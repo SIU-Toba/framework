@@ -1,10 +1,5 @@
 <?php
-require_once("toba_ap.php");
-require_once("toba_tipo_datos.php");
-
-if (!defined("apex_db_registros_separador")) {
-	define("apex_db_registros_separador","%"); //Por si ya esta definida en db_registros
-}
+define("apex_db_registros_separador","%");
 
 /**
  * Administrador de persistencia a una tabla de DB desde un {@link toba_datos_tabla datos_tabla}

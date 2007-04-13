@@ -1,6 +1,4 @@
 <?php
-require_once("toba_tp_basico.php");
-
 /**
 * 
 * Incluye una barra con nombre y ayuda contextual del item, 

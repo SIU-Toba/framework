@@ -515,6 +515,7 @@ class nucleo extends elemento_modelo
 		$resumen = '';
 		$directorio =  toba_dir() . '/php/nucleo/componentes/definicion';
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.php|' );
+		sort($archivos);		
 		$buscar = array(	'|<\?php|',
 							'|\?>|',
 							'|require_once.*;|',
@@ -528,7 +529,7 @@ class nucleo extends elemento_modelo
 			$resumen .= $php;
 		}
 		$resumen = "<?php\n" . $resumen . "\n?>";
-		$destino = toba_dir() . '/php/nucleo/componentes/toba_definicion.php';
+		$destino = toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php';
 		file_put_contents($destino, $resumen);
 	}
 

@@ -1,7 +1,4 @@
 <?php
-require_once("toba_ei.php");
-require_once("lib/toba_manejador_archivos.php");
-
 /**
  * Permite navegar el sistema de archivos del servidor bajo una carpeta dada
  * @package Componentes

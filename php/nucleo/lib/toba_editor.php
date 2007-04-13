@@ -1,6 +1,4 @@
 <?php
-require_once('modelo/componentes/datos_editores.php');
-
 /**
  * A travez de esta clase el nucleo se relaciona con el proyecto toba_editor
  * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
@@ -43,8 +41,6 @@ class toba_editor
 			toba::proyecto()->set_parametro('estilo', toba::memoria()->get_parametro('skin'));
 		}
 		//Acceso a la informacion del modelo
-		require_once('modelo/consultas/dao_editores.php');
-		require_once('modelo/info/contexto_info.php');
 		contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
 		contexto_info::set_db( toba_editor::get_base_activa() );
 	}

@@ -1,7 +1,4 @@
 <?php
-require_once("toba_ei.php");	//Ancestro de todos los	OE
-require_once("nucleo/componentes/interface/efs/toba_ef.php");
-
 /**
  * Un formulario simple presenta una grilla de campos editables. 
  * A cada uno de estos campos se los denomina Elementos de Formulario (efs).
@@ -1025,7 +1022,6 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function get_valor_imprimible_ef( $id_ef ) 
 	{
-		require_once('nucleo/lib/interface/toba_formateo.php');
 		$ef = $this->_elemento_formulario[$id_ef];
 		$valor = $ef->get_descripcion_estado();
 		if ( $ef instanceof toba_ef_editable_moneda ) {

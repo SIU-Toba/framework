@@ -15,6 +15,7 @@ require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
 require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del editor
+require_once('lib/toba_cache_db.php');
 
 /**
 *	Administrador de metadatos de PROYECTOS

@@ -1,6 +1,4 @@
 <?php
-require_once("toba_tp_basico_titulo.php");
-
 /**
  * Formato de página pensado para un popup. 
  * Se incluye un javascript para poder comunicarse con la ventana padre y además se almacena

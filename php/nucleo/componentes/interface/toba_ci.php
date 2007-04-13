@@ -1,9 +1,4 @@
 <?php
-require_once('toba_ei_pantalla.php');
-require_once("nucleo/componentes/interface/toba_ei_formulario.php");
-require_once("nucleo/componentes/interface/toba_ei_cuadro.php");
-require_once('nucleo/lib/toba_parser_ayuda.php');
-
 /**
  * Controlador de Interface: Componente responsable de manejar las pantallas y sus distintos elementos
  * 
@@ -692,7 +687,6 @@ class toba_ci extends toba_ei
 		if (! isset($this->_pantalla_servicio)) {
 
 			$this->_log->debug( $this->get_txt() . "Pantalla de servicio: '{$this->_pantalla_id_servicio}'", 'toba');
-			require_once('toba_ei_pantalla.php');
 			$id_pantalla = $this->get_id_pantalla();			
 			if(!isset($id_pantalla)) {
 				//Se esta consumiendo la pantalla antes de la configuracion,

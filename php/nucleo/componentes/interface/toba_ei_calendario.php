@@ -3,7 +3,6 @@
  * @package Componentes
  * @subpackage Eis
  */
-require_once("toba_ei.php");
 require_once('3ros/activecalendar/activecalendar.php');
 
 /**

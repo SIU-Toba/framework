@@ -1,6 +1,4 @@
 <?php
-require_once('toba_impresion.php');
-
 /**
  * Genera un HTML básico pensado para impresión con un browser
  * Toma un conjunto de componentes e les invoca el método <pre>vista_impresion</pre>

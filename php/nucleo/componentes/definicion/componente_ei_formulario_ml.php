@@ -1,5 +1,4 @@
 <?php
-require_once("componente_ei_formulario.php");	//Ancestro de todos los	OE
 
 class componente_ei_formulario_ml extends componente_ei_formulario
 {

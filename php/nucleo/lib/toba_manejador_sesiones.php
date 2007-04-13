@@ -1,7 +1,6 @@
 <?php
 define("apex_sesion_qs_finalizar","fs");    	//SOLICITUD de finalizacion de sesion
 define("apex_sesion_qs_cambio_proyecto","cps"); //SOLICITUD de cambio e proyecto: cerrar sesion y abrir nueva
-require_once('nucleo/lib/toba_usuario_anonimo.php');
 
 /**
 *	Maneja los segmentos de memoria y el proceso de creacion de sesiones
@@ -229,13 +228,11 @@ class toba_manejador_sesiones
 				toba::logger()->crit("MANEJADOR de SESIONES. Error de consistencia interna, 
 										la sesion y el usuario estan marcados como activos, 
 										pero la propiedad 'usuario' no se encuentra seteada");
-				require_once('nucleo/lib/toba_usuario_no_autenticado.php');
 				return new toba_usuario_no_autenticado();
 			} else {
 				return $this->usuario;
 			}
 		} else {
-			require_once('nucleo/lib/toba_usuario_no_autenticado.php');
 			return new toba_usuario_no_autenticado();
 		}
 	}
@@ -512,16 +509,12 @@ class toba_manejador_sesiones
 		$archivo = toba::proyecto()->get_parametro('sesion_subclase_archivo');
 		if( $subclase && $archivo ) {
 			require_once($archivo);
-		} else {
-			require_once('nucleo/lib/toba_sesion.php');
 		}
 		//USUARIO
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
 		if( $subclase && $archivo ) {
 			require_once($archivo);
-		} else {
-			require_once('nucleo/lib/toba_usuario_basico.php');
 		}
 		$this->usuario = unserialize($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
 		$this->sesion = unserialize($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
@@ -537,7 +530,6 @@ class toba_manejador_sesiones
 			require_once($archivo);
 			return new $subclase($id_usuario);
 		} else {
-			require_once('nucleo/lib/toba_usuario_basico.php');
 			return new toba_usuario_basico($id_usuario);
 		}
 	}
@@ -550,7 +542,6 @@ class toba_manejador_sesiones
 			require_once($archivo);
 			return new $subclase();
 		} else {
-			require_once('nucleo/lib/toba_sesion.php');
 			return new toba_sesion();
 		}
 	}
@@ -611,7 +602,6 @@ class toba_manejador_sesiones
 			require_once($archivo);
 			$estado = call_user_func_array( array($subclase,'autenticar'), array($id_usuario, $clave, $datos_iniciales));
 		} else {
-			require_once('nucleo/lib/toba_usuario_basico.php');
 			$estado = toba_usuario_basico::autenticar($id_usuario, $clave);
 		}
 		if(!$estado) {

@@ -1,5 +1,4 @@
 <?php
-require_once('interfaces.php');
 
 class componente_item implements toba_componente_definicion
 {

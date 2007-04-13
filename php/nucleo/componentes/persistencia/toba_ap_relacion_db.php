@@ -1,6 +1,4 @@
 <?php
-require_once("toba_ap.php");
-
 /**
  * 	Administrador de persistencia de un relación a una DB relacion. Puede cargar y sincronizar un grupo de tablas
  * 	@package Componentes

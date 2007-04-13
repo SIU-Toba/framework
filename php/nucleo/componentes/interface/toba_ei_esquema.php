@@ -1,7 +1,4 @@
 <?php
-require_once("toba_ei.php");						//Ancestro de todos los OE
-require_once("lib/toba_manejador_archivos.php");
-
 /**
  * Genera un esquema utilizando GraphViz
  * @package Componentes

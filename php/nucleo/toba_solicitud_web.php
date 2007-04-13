@@ -1,16 +1,4 @@
 <?php
-require_once("lib/toba_parseo.php");				       		//Funciones de parseo
-require_once("nucleo/lib/toba_recurso.php");					//Encapsulamiento de la llamada a toba_recursos
-require_once("nucleo/lib/toba_js.php");							//Encapsulamiento de la utilidades javascript
-require_once("nucleo/lib/toba_debug.php");						//DUMP de arrays, arboles y estructuras centrales
-require_once("nucleo/lib/toba_memoria.php");					//Canal de comunicacion inter-ejecutable
-require_once("nucleo/lib/interface/toba_formateo.php"); 		//Funciones de formateo de columnas
-require_once("nucleo/lib/interface/toba_form.php");				//inputs HTML
-require_once("nucleo/lib/interface/toba_ei.php"); 				//elementos basicos de interface
-require_once("nucleo/tipo_pagina/toba_tipo_pagina.php");		//Clase base de Tipo de pagina generico
-require_once("nucleo/menu/toba_menu.php");						//Clase base de Menu 
-require_once("nucleo/lib/toba_zona.php");
-
 /**
  * Solicitud pensada para contener el ciclo request-response http
  * La etapa de request se la denomina de 'eventos' 
@@ -238,7 +226,6 @@ class toba_solicitud_web extends toba_solicitud
 	
 	protected function servicio__vista_pdf( $objetos )
 	{
-		require_once('nucleo/lib/salidas/toba_pdf.php');
 		$salida = new toba_pdf();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
@@ -256,7 +243,6 @@ class toba_solicitud_web extends toba_solicitud
 			require_once($archivo);
 			$salida = new $clase();	
 		} else {
-			require_once('nucleo/lib/salidas/toba_impr_html.php');
 			$salida = new toba_impr_html();
 		}
 		$salida->asignar_objetos( $objetos );

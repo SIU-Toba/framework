@@ -1,6 +1,4 @@
 <?php
-require_once('lib/toba_manejador_archivos.php');
-
 define('TOBA_LOG_CRIT',     2);     /** Critical conditions */
 define('TOBA_LOG_ERROR',    3);     /** Error conditions */
 define('TOBA_LOG_WARNING',  4);     /** Warning conditions */

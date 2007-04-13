@@ -1,6 +1,4 @@
 <?php
-require_once('toba_usuario.php');
-
 /**
  * Usuario ANONIMO
  * @package Centrales

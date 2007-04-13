@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/botones/toba_boton.php');
-
 /**
  * Representa un evento asociado a un EI
  * @package Componentes

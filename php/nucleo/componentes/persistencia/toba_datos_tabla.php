@@ -1,7 +1,4 @@
 <?php
-require_once("nucleo/componentes/toba_componente.php");
-require_once("toba_tipo_datos.php");
-
 /**
  * Representa una estructura tabular tipo tabla o RecordSet en memoria
  *
@@ -220,7 +217,6 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function nueva_busqueda()
 	{
-		require_once('toba_datos_busqueda.php');
 		return new toba_datos_busqueda($this->controlador, $this);		
 	}
 

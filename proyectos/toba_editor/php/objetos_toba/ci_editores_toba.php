@@ -176,8 +176,8 @@ abstract class ci_editores_toba extends toba_ci
 	function get_abreviacion_clase_actual()
 	{
 		$tipo = toba_catalogo::convertir_tipo( $this->get_clase_actual() );
-		$clase = toba_catalogo::get_nombre_clase_definicion($tipo);
-		return call_user_func(array($clase, "get_tipo_abreviado"));
+		$clase_definicion = 'componente_' . $tipo;
+		return call_user_func(array($clase_definicion, "get_tipo_abreviado"));
 	}
 		
 	/*

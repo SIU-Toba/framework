@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/lib/interface/toba_formateo.php');
-
 /**
  * Elemento editable equivalente a un <input type='text'>
  * Puede manejar una mascara.

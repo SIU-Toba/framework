@@ -1,6 +1,4 @@
 <?php
-require_once("nucleo/componentes/toba_componente.php");
-
 /**
  * Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
  * 

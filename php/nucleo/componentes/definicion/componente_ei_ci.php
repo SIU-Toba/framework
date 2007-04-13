@@ -1,5 +1,4 @@
 <?php
-require_once("componente_ei.php");
 /**
  * Controla un flujo de pantallas
  * @package Componentes

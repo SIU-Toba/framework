@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/definicion/componente_item.php');
 
 class catalogo_items
 {

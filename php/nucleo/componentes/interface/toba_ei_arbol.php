@@ -1,6 +1,4 @@
 <?php
-require_once("toba_ei.php");
-
 /**
 * Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
 * Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX

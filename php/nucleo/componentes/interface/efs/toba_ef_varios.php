@@ -1,6 +1,4 @@
 <?php
-require_once("toba_ef_oculto.php");
-
 /**
  * Muestra un checkbox con el tag <input type='checkbox'>
  * @package Componentes

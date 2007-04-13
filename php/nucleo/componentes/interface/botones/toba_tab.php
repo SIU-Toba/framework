@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/botones/toba_boton.php');
-
 /**
  * Representa a un tab o solapa, ya sea vertical u horizontal
  * @package Componentes

@@ -1,28 +1,4 @@
 <?php
-require_once('lib/toba_asercion.php');    			   	   		//Aserciones
-require_once('lib/toba_db.php');			    				//Manejo de bases (utiliza abodb340)
-require_once('lib/toba_encriptador.php');						//Encriptador
-require_once('lib/toba_varios.php');							//Funciones genericas (Manejo de paths, etc.)
-require_once('lib/toba_sql.php');								//Libreria de manipulacion del SQL
-require_once('lib/toba_manejador_archivos.php');
-require_once('nucleo/lib/toba_error.php');						//Excepciones del TOBA
-require_once('nucleo/lib/toba_logger.php');						//toba_logger
-require_once('nucleo/lib/toba_mensajes.php');					//Modulo de mensajes parametrizables
-require_once('nucleo/lib/toba_memoria.php');					//Administrador de memoria
-require_once('nucleo/lib/toba_notificacion.php');				//Cola de mensajes utilizada durante la EJECUCION
-require_once('nucleo/lib/toba_permisos.php');					//Administrador de permisos particulares
-require_once('nucleo/lib/toba_recurso.php');					//Obtencion de imágenes de la aplicación
-require_once('nucleo/lib/toba_editor.php');			 	 		//Interaccion con el EDITOR
-require_once('nucleo/lib/toba_cronometro.php');          		//Cronometrar ejecucion
-require_once('nucleo/lib/toba_instalacion.php');				//Informacion sobre la instalacion
-require_once('nucleo/lib/toba_instancia.php');					//Informacion sobre la instancia
-require_once('nucleo/lib/toba_proyecto.php');	   				//Informacion sobre el proyecto
-require_once('nucleo/lib/toba_manejador_sesiones.php');			//Informacion sobre el proyecto
-require_once('nucleo/lib/toba_puntos_control.php');	   				//Informacion sobre los puntos de control
-require_once('nucleo/componentes/toba_constructor.php');		//Constructor de componentes
-require_once('nucleo/componentes/toba_cargador.php');			//Cargador de componentes
-require_once('nucleo/componentes/toba_catalogo.php');			//Catalogo de componentes
-
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales
@@ -31,12 +7,17 @@ class toba_nucleo
 {
 	static private $instancia;
 	static private $dir_compilacion;
+	static private $indice_archivos;
 	private $solicitud;
 	private $medio_acceso;
 	private $solicitud_en_proceso = false;
+	private $nucleo_compilado = false;
 	
 	private function __construct()
 	{
+		$this->cargar_indice_archivos();
+		$this->cargar_includes_basicos();
+		spl_autoload_register(array('toba_nucleo', 'cargador_clases'));
 		toba::cronometro();		
 		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
 			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
@@ -65,9 +46,6 @@ class toba_nucleo
 	function acceso_web()
 	{
 		try {
-			require_once('nucleo/toba_solicitud.php');
-			require_once('nucleo/lib/toba_http.php');				//Genera Encabezados de HTTP
-			require_once('nucleo/lib/toba_sesion.php');				//Control de sesiones HTTP
 			$this->iniciar_contexto_ejecucion();
 		    toba_http::headers_standart();
 			try {
@@ -104,9 +82,6 @@ class toba_nucleo
 	 */	
 	function acceso_consola($instancia, $proyecto, $item, $usuario)
 	{
-		require_once('nucleo/lib/toba_sesion.php');			//Control de sesiones HTTP		
-		require_once('nucleo/toba_solicitud.php');		
-		require_once('nucleo/toba_solicitud_consola.php');
 		$estado_proceso = null;
 		try {
 			define('apex_pa_instancia', $instancia);
@@ -203,7 +178,6 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
-		spl_autoload_register(array('toba_nucleo', 'cargador_clases'));
 		agregar_dir_include_path( toba::proyecto()->get_path_php() );
 		toba::contexto_ejecucion()->conf__inicial();
 		toba::manejador_sesiones()->iniciar();
@@ -214,6 +188,29 @@ class toba_nucleo
 		toba::manejador_sesiones()->finalizar();
 		toba::contexto_ejecucion()->conf__final();
 		$this->solicitud->guardar_cronometro();
+	}
+
+	//--------------------------------------------------------------------------
+	//	Carga de archivos
+	//--------------------------------------------------------------------------
+	
+	/**
+	*	Carga de includes basicos
+	*/
+	protected function cargar_includes_basicos()
+	{
+		//Las funciones globales no puden acceder a la carga normal
+		if (!$this->nucleo_compilado) {
+			require_once('lib/toba_varios.php');
+			require_once( toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php');
+			require_once( toba_dir() . '/php/lib/toba_parseo.php');
+			require_once( toba_dir() . '/php/lib/toba_sql.php');
+			require_once( toba_dir() . '/php/nucleo/lib/toba_db.php');
+			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_ei.php');
+			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_formateo.php');
+		} else {
+			//No ahun!	
+		}
 	}
 
 	/**
@@ -254,11 +251,149 @@ class toba_nucleo
 
 	static function cargador_clases($clase)
 	{
-		if (strpos($clase,'toba_mc_')!==false) {	//Busqueda de un METADATO compilado!!
+		//Busqueda de un METADATO compilado!!
+		if (strpos($clase,'toba_mc_')!==false) {
 			$subdir = substr($clase,8,4);
 			$archivo = self::get_directorio_compilacion() . '/' . $subdir . '/' . $clase . '.php';
 			require_once($archivo);
+			return;
 		}
+		//Carga de las clases del nucleo
+		if(isset(self::$indice_archivos[$clase])) {
+			require_once( toba_dir() .'/php/'. self::$indice_archivos[$clase]);
+		}	
+	}
+
+	protected function cargar_indice_archivos()
+	{
+		self::$indice_archivos = array(
+			'toba_asercion'							=> 'lib/toba_asercion.php',
+			'toba_cache_db'							=> 'lib/toba_cache_db.php',
+			'toba_db'								=> 'lib/toba_db.php',
+			'toba_encriptador'						=> 'lib/toba_encriptador.php',
+			'toba_manejador_archivos'				=> 'lib/toba_manejador_archivos.php',
+			'datos_editores'						=> 'modelo/componentes/datos_editores.php',
+			'info_ap_relacion_db'					=> 'modelo/componentes/info_ap_relacion_db.php',
+			'info_ap_tabla_db'						=> 'modelo/componentes/info_ap_tabla_db.php',
+			'info_ci'								=> 'modelo/componentes/info_ci.php',
+			'info_ci_pantalla'						=> 'modelo/componentes/info_ci_pantalla.php',
+			'info_cn'								=> 'modelo/componentes/info_cn.php',
+			'info_componente'						=> 'modelo/componentes/info_componente.php',
+			'info_datos_relacion'					=> 'modelo/componentes/info_datos_relacion.php',
+			'info_datos_tabla'						=> 'modelo/componentes/info_datos_tabla.php',
+			'info_ei'								=> 'modelo/componentes/info_ei.php',
+			'info_ei_arbol'							=> 'modelo/componentes/info_ei_arbol.php',
+			'info_ei_archivos'						=> 'modelo/componentes/info_ei_archivos.php',
+			'info_ei_calendario'					=> 'modelo/componentes/info_ei_calendario.php',
+			'info_ei_cuadro'						=> 'modelo/componentes/info_ei_cuadro.php',
+			'info_ei_esquema'						=> 'modelo/componentes/info_ei_esquema.php',
+			'info_ei_filtro'						=> 'modelo/componentes/info_ei_filtro.php',
+			'info_ei_formulario'					=> 'modelo/componentes/info_ei_formulario.php',
+			'info_ei_formulario_ml'					=> 'modelo/componentes/info_ei_formulario_ml.php',
+			'info_item'								=> 'modelo/componentes/info_item.php',
+			'meta_clase'							=> 'modelo/componentes/interfaces.php',
+			'dao_editores'							=> 'modelo/consultas/dao_editores.php',
+			'contexto_info'							=> 'modelo/info/contexto_info.php',
+			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
+			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
+			'toba_tab'								=> 'nucleo/componentes/interface/botones/toba_tab.php',
+			'toba_ef'								=> 'nucleo/componentes/interface/efs/toba_ef.php',
+			'toba_ef_combo'							=> 'nucleo/componentes/interface/efs/toba_ef_combo.php',
+			'toba_ef_radio'							=> 'nucleo/componentes/interface/efs/toba_ef_combo.php',
+			'toba_ef_cuit'							=> 'nucleo/componentes/interface/efs/toba_ef_cuit.php',
+			'toba_ef_editable'						=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_numero'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_moneda'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_numero_porcentaje'	=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_clave'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_fecha'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_textarea'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_multi_seleccion_lista'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
+			'toba_ef_multi_seleccion_check'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
+			'toba_ef_multi_seleccion_doble'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
+			'toba_ef_oculto'						=> 'nucleo/componentes/interface/efs/toba_ef_oculto.php',
+			'toba_ef_oculto_usuario'				=> 'nucleo/componentes/interface/efs/toba_ef_oculto.php',
+			'toba_ef_popup'							=> 'nucleo/componentes/interface/efs/toba_ef_popup.php',
+			'toba_ef_fieldset'						=> 'nucleo/componentes/interface/efs/toba_ef_sin_estado.php',
+			'toba_ef_barra_divisora'				=> 'nucleo/componentes/interface/efs/toba_ef_sin_estado.php',
+			'toba_ef_upload'						=> 'nucleo/componentes/interface/efs/toba_ef_upload.php',
+			'toba_ef_checkbox'						=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
+			'toba_ef_fijo'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
+			'toba_ef_html'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
+			'toba_nodo_arbol'						=> 'nucleo/componentes/interface/interfaces.php',
+			'toba_ci'								=> 'nucleo/componentes/interface/toba_ci.php',
+			'toba_ei'								=> 'nucleo/componentes/interface/toba_ei.php',
+			'toba_ei_arbol'							=> 'nucleo/componentes/interface/toba_ei_arbol.php',
+			'toba_ei_archivos'						=> 'nucleo/componentes/interface/toba_ei_archivos.php',
+			'toba_ei_calendario'					=> 'nucleo/componentes/interface/toba_ei_calendario.php',
+			'toba_ei_cuadro'						=> 'nucleo/componentes/interface/toba_ei_cuadro.php',
+			'toba_ei_esquema'						=> 'nucleo/componentes/interface/toba_ei_esquema.php',
+			'toba_ei_filtro'						=> 'nucleo/componentes/interface/toba_ei_filtro.php',
+			'toba_ei_formulario'					=> 'nucleo/componentes/interface/toba_ei_formulario.php',
+			'toba_ei_formulario_ml'					=> 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
+			'toba_ei_pantalla'						=> 'nucleo/componentes/interface/toba_ei_pantalla.php',
+			'toba_ap_tabla'							=> 'nucleo/componentes/persistencia/toba_ap.php',
+			'toba_ap_relacion'						=> 'nucleo/componentes/persistencia/toba_ap.php',
+			'toba_ap_relacion_db'					=> 'nucleo/componentes/persistencia/toba_ap_relacion_db.php',
+			'toba_ap_tabla_db'						=> 'nucleo/componentes/persistencia/toba_ap_tabla_db.php',
+			'toba_ap_tabla_db_mt'					=> 'nucleo/componentes/persistencia/toba_ap_tabla_db_mt.php',
+			'toba_ap_tabla_db_s'					=> 'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php',
+			'toba_datos_busqueda'					=> 'nucleo/componentes/persistencia/toba_datos_busqueda.php',
+			'toba_datos_relacion'					=> 'nucleo/componentes/persistencia/toba_datos_relacion.php',
+			'toba_datos_tabla'						=> 'nucleo/componentes/persistencia/toba_datos_tabla.php',
+			'toba_relacion_entre_tablas'			=> 'nucleo/componentes/persistencia/toba_relacion_entre_tablas.php',
+			'toba_tipo_datos'						=> 'nucleo/componentes/persistencia/toba_tipo_datos.php',
+			'toba_cn'								=> 'nucleo/componentes/negocio/toba_cn.php',
+			'toba_cargador'							=> 'nucleo/componentes/toba_cargador.php',
+			'toba_catalogo'							=> 'nucleo/componentes/toba_catalogo.php',
+			'toba_componente'						=> 'nucleo/componentes/toba_componente.php',
+			'toba_constructor'						=> 'nucleo/componentes/toba_constructor.php',
+			'toba_form'								=> 'nucleo/lib/interface/toba_form.php',
+			'toba_impr_html'						=> 'nucleo/lib/salidas/toba_impr_html.php',
+			'toba_impresion'						=> 'nucleo/lib/salidas/toba_impresion.php',
+			'toba_pdf'								=> 'nucleo/lib/salidas/toba_pdf.php',
+			'toba_admin_fuentes'					=> 'nucleo/lib/toba_admin_fuentes.php',
+			'toba_contexto_ejecucion'				=> 'nucleo/lib/toba_contexto_ejecucion.php',
+			'toba_cronometro'						=> 'nucleo/lib/toba_cronometro.php',
+			'toba_dba'								=> 'nucleo/lib/toba_dba.php',
+			'toba_debug'							=> 'nucleo/lib/toba_debug.php',
+			'toba_editor'							=> 'nucleo/lib/toba_editor.php',
+			'toba_error'							=> 'nucleo/lib/toba_error.php',
+			'toba_fuente_datos'						=> 'nucleo/lib/toba_fuente_datos.php',
+			'toba_http'								=> 'nucleo/lib/toba_http.php',
+			'toba_instalacion'						=> 'nucleo/lib/toba_instalacion.php',
+			'toba_instancia'						=> 'nucleo/lib/toba_instancia.php',
+			'toba_interface_contexto_ejecucion'		=> 'nucleo/lib/toba_interface_contexto_ejecucion.php',
+			'toba_interface_usuario'				=> 'nucleo/lib/toba_interface_usuario.php',
+			'toba_js'								=> 'nucleo/lib/toba_js.php',
+			'toba_logger'							=> 'nucleo/lib/toba_logger.php',
+			'toba_manejador_sesiones'				=> 'nucleo/lib/toba_manejador_sesiones.php',
+			'toba_memoria'							=> 'nucleo/lib/toba_memoria.php',
+			'toba_mensajes'							=> 'nucleo/lib/toba_mensajes.php',
+			'toba_notificacion'						=> 'nucleo/lib/toba_notificacion.php',
+			'toba_parser_ayuda'						=> 'nucleo/lib/toba_parser_ayuda.php',
+			'toba_permisos'							=> 'nucleo/lib/toba_permisos.php',
+			'toba_proyecto'							=> 'nucleo/lib/toba_proyecto.php',
+			'toba_proyecto_db'						=> 'nucleo/lib/toba_proyecto_db.php',
+			'toba_puntos_control'					=> 'nucleo/lib/toba_puntos_control.php',
+			'toba_recurso'							=> 'nucleo/lib/toba_recurso.php',
+			'toba_sesion'							=> 'nucleo/lib/toba_sesion.php',
+			'toba_usuario'							=> 'nucleo/lib/toba_usuario.php',
+			'toba_usuario_anonimo'					=> 'nucleo/lib/toba_usuario_anonimo.php',
+			'toba_usuario_basico'					=> 'nucleo/lib/toba_usuario_basico.php',
+			'toba_usuario_no_autenticado'			=> 'nucleo/lib/toba_usuario_no_autenticado.php',
+			'toba_vinculador'						=> 'nucleo/lib/toba_vinculador.php',
+			'toba_vinculo'							=> 'nucleo/lib/toba_vinculo.php',
+			'toba_zona'								=> 'nucleo/lib/toba_zona.php',
+			'toba_menu'								=> 'nucleo/menu/toba_menu.php',
+			'toba_tipo_pagina'						=> 'nucleo/tipo_pagina/toba_tipo_pagina.php',
+			'toba_tp_basico'						=> 'nucleo/tipo_pagina/toba_tp_basico.php',
+			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_basico_titulo.php',
+			'toba_solicitud'						=> 'nucleo/toba_solicitud.php',
+			'toba_solicitud_web'					=> 'nucleo/toba_solicitud_web.php',
+			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',
+			'toba_solicitud_consola'				=> 'nucleo/toba_solicitud_consola.php'
+		);
 	}
 }
 ?>

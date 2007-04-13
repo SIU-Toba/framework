@@ -1,6 +1,4 @@
 <?php
-require_once("toba_ei_formulario.php");
-
 /**
  * Un filtro presenta una grilla de campos similar al formulario, pero con el objetivo de reducir el conjunto de datos mostrados por otro objeto. 
  * @package Componentes

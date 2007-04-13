@@ -1,6 +1,4 @@
 <?php
-require_once('toba_interface_usuario.php');
-
 /**
  * Encapsula al usuario actualmente logueado a la instancia
  * @package Centrales

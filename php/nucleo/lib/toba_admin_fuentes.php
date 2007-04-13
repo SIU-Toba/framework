@@ -1,7 +1,4 @@
 <?php
-require_once('nucleo/lib/toba_fuente_datos.php');	
-require_once('nucleo/lib/toba_dba.php');
-
 /**
  * Colección de Fuentes de Datos (toba_fuente_datos)
  * @package Fuentes

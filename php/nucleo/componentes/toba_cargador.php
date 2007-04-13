@@ -1,7 +1,4 @@
 <?php
-require_once('lib/toba_cache_db.php');
-require_once('modelo/estructura_db/tablas_componente.php');
-
 /**
  * Puerta de acceso a los metadatos de los componentes del proyecto actual
  * @package Componentes
@@ -59,7 +56,7 @@ class toba_cargador
 			//Estoy entrando por el nucleo
 			$db = toba::instancia()->get_db();	
 		}
-		$clase_def = toba_catalogo::get_nombre_clase_definicion( $tipo );
+		$clase_def = 'componente_'. $tipo;
 		$estructura = call_user_func(array($clase_def,'get_estructura'));
 		if ( isset($this->cache_metadatos_simples) ) {				// Con CACHE!
 			//Saco el componente del CACHE
@@ -115,7 +112,7 @@ class toba_cargador
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE de EXTENDIDOS no implementado!
 			throw new toba_error('No implementado');
 		} else {													// Sin CACHE!
-			$clase_def = toba_catalogo::get_nombre_clase_definicion( $tipo );
+			$clase_def = 'componente_'. $tipo;
 			$estructura = call_user_func_array( array(	$clase_def,
 														'get_vista_extendida'),
 														array( $proyecto, $id ) );

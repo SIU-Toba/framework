@@ -2,17 +2,6 @@
 
 define("apex_ef_no_seteado","nopar");// Valor que debe ser considerado como NO ACTIVADO, si se cambia cambiar en las clases JS
 define("apex_ef_cascada","%");	//Mascara para reemplazar el valor de una dependencia en un SQL
-
-require_once("toba_ef_combo.php");
-require_once("toba_ef_editable.php");
-require_once("toba_ef_multi_seleccion.php");
-require_once("toba_ef_oculto.php");
-require_once("toba_ef_popup.php");
-require_once("toba_ef_sin_estado.php");
-require_once("toba_ef_upload.php");
-require_once("toba_ef_varios.php");
-require_once("toba_ef_cuit.php");
-
 /**
  * Clase base de los elementos de formulario. 
  * 

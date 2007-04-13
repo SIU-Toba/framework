@@ -1,5 +1,4 @@
 <?php
-require_once('toba_instancia.php');
 /**
  * Recuperacion de informacion del proyecto de la base de datos
  * @package Centrales

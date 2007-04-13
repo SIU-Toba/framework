@@ -1,7 +1,4 @@
 <?php
-require_once("toba_tp_basico_titulo.php");
-require_once("nucleo/lib/interface/toba_form.php");
-
 /**
  * Este tipo de página incluye una cabecera con:
  *  - Menú

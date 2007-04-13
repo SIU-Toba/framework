@@ -1,7 +1,4 @@
 <?php
-require_once("nucleo/lib/toba_memoria.php");
-require_once("nucleo/lib/toba_vinculador.php");
-
 /**
  * Una solicitud es la representación de una operación o item accedida por un usuario en runtime
  * Contiene e instancia a los componentes de la operación

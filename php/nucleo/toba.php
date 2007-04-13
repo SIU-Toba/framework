@@ -30,7 +30,6 @@ class toba
 				require_once($archivo);
 				self::$contexto_ejecucion = new $subclase();
 			} else {
-				require_once('nucleo/lib/toba_contexto_ejecucion.php');
 				self::$contexto_ejecucion = new toba_contexto_ejecucion();
 			}
 		}

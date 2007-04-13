@@ -1,6 +1,4 @@
 <?php
-  require_once('toba_instancia.php');
-
   /**
    * Control
    *  - Mas info... 

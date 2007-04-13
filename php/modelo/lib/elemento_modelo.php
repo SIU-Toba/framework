@@ -1,4 +1,5 @@
 <?php
+require_once('nucleo/componentes/toba_definicion_componentes.php');
 require_once('gui.php');
 
 class elemento_modelo

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Consultas transversales sobre componentes
  * 
@@ -36,25 +35,17 @@ class toba_catalogo
 		return self::get_lista_tipo_componentes();
 	}
 	
-	static function get_nombre_clase_definicion( $tipo )
-	{
-		require_once('nucleo/componentes/definicion/componente_' .$tipo. '.php');
-		return 'componente_'. $tipo;
-	}
-
 	static function get_nombre_clase_runtime( $tipo )
 	{
-		$clase_definicion = self::get_nombre_clase_definicion( $tipo );
+		$clase_definicion = 'componente_'. $tipo;
 		$path = call_user_func( array( $clase_definicion, 'get_path_clase_runtime') );
-		require_once( $path .'/toba_'. $tipo. '.php');
 		return 'toba_'. $tipo;
 	}
 
 	static function get_nombre_clase_info( $tipo )
 	{
-		$clase_definicion = self::get_nombre_clase_definicion( $tipo );
+		$clase_definicion = 'componente_'. $tipo;
 		$nombre = call_user_func( array( $clase_definicion, 'get_nombre_clase_info') );
-		require_once('modelo/componentes/' .$nombre. '.php');
 		return $nombre;
 	}
 

@@ -3,7 +3,6 @@
  * @package Componentes
  * @subpackage Eis
  */
-require_once("componente.php");
 
 /**
  * Calendario para visualizar contenidos diarios y seleccionar días o semanas.

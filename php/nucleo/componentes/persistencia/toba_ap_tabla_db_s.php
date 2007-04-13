@@ -1,6 +1,4 @@
 <?php
-require_once("toba_ap_tabla_db.php");
-
 /**
  * Clase que se mantiene por compatibildad hacia atrás
  * @package Componentes

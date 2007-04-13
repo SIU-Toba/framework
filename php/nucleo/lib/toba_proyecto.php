@@ -1,7 +1,4 @@
 <?php
-require_once('toba_proyecto_db.php');
-require_once('toba_instancia.php');
-
 /**
  * Brinda servicios de información sobre el proyecto actualmente cargado en el framework:
  *  - Información del archivo de configuración proyecto.ini, cacheandolo en la memoria
@@ -195,7 +192,6 @@ class toba_proyecto
 			$rs = $temp['_info'];
 		} else {
 			//Busco la definicion del componente
-			require_once('nucleo/componentes/definicion/componente.php');
 			$sql = componente_toba::get_vista_extendida($proyecto, $id_componente);
 			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['_info']['sql']);
 		}
