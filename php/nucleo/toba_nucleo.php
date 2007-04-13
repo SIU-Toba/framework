@@ -226,7 +226,7 @@ class toba_nucleo
 			// Datos BASICOS
 			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__basicos.php' );
 			$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
-			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo_acceso.'.php' );
+			if($grupo_acceso) require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo_acceso.'.php' );
 		}
 	}
 

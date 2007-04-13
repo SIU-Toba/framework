@@ -380,7 +380,6 @@ class toba_proyecto
 	
 	function recuperar_datos_compilados($clase, $metodo)
 	{
-		$this->incluir_clase($clase);
 		return call_user_func(array($clase, $metodo));
 	}
 }
