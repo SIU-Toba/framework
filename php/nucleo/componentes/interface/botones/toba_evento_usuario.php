@@ -1,5 +1,5 @@
 <?php
-require_once('nucleo/lib/toba_boton.php');
+require_once('nucleo/componentes/interface/botones/toba_boton.php');
 
 /**
  * Representa un evento asociado a un EI

@@ -38,7 +38,8 @@ class info_item implements toba_nodo_arbol
 			for ($a=0; $a<count($this->datos['objetos']); $a++) {
 				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
 				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
-				$this->subelementos[$a] = toba_constructor::get_info( $clave );
+				$tipo = toba_catalogo::convertir_tipo( $this->datos['objetos'][$a]['clase'] );
+				$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo );
 			}
 		}
 	}

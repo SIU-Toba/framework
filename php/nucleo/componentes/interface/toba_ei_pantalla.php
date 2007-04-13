@@ -1,6 +1,6 @@
 <?php
 require_once('toba_ei.php');
-require_once('nucleo/lib/toba_tab.php');
+require_once('nucleo/componentes/interface/botones/toba_tab.php');
 
 /**
  * Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
