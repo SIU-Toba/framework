@@ -27,7 +27,7 @@ class toba_datos_tabla extends toba_componente
 	// Definicion general
 	protected $_tope_max_filas;					// Cantidad de maxima de datos permitida.
 	protected $_tope_min_filas;					// Cantidad de minima de datos permitida.
-	protected $_es_unico_registro=true;			//La tabla tiene com maximo un registro?
+	protected $_es_unico_registro=true;		//La tabla tiene com maximo un registro?
 	// ESTADO
 	protected $_cambios = array();				// Cambios realizados sobre los datos
 	protected $_datos = array();					// Datos cargados en el db_filas
@@ -311,6 +311,9 @@ class toba_datos_tabla extends toba_componente
 			$cantidad = 0;		
 		if(is_numeric($cantidad) && $cantidad >= 0){
 			$this->_tope_max_filas = $cantidad;	
+			if ($cantidad != 1) {
+				$this->set_es_unico_registro(false);	
+			}
 		}else{
 			throw new toba_error("El valor especificado en el TOPE MAXIMO de registros es incorrecto");
 		}
@@ -381,7 +384,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function resetear_cursor()
 	{
-		unset($this->cursor);
+		unset($this->_cursor);
 		$this->log("Se resetea el cursor");				
 	}
 	

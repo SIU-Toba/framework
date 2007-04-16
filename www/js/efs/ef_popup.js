@@ -75,7 +75,10 @@ ef_popup.prototype.constructor = ef_popup;
 	 */
 	ef_popup.prototype.abrir_vinculo = function() {
 		window.popup_elementos[this._id_form] = this;		
-		var param = {'ef_popup': this._id_form, 'ef_popup_valor': this.get_estado()};
+		var param = this._controlador.get_valores_maestros(this._id);
+		param[this._id] = this.get_estado();
+		param['ef_popup'] = this._id_form;
+		
 		vinculador.agregar_parametros(this._vinculo, param);
 		//Se deja que el form. lo invoque asi se puede redefinir
 		this._controlador.invocar_vinculo(this._id, this._vinculo);

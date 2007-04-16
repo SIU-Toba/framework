@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Este tipo de página incluye una cabecera con:
  *  - Menú

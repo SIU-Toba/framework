@@ -7,7 +7,10 @@ class ci_principal extends toba_ci
 
 	function conf__cuadro()
 	{
-		return consultas::get_personas();
+		$deporte = toba::memoria()->get_parametro('deportes');
+		if (isset($deporte)) {
+			return consultas::get_personas_con_deporte($deporte);
+		}
 	}
 
 }

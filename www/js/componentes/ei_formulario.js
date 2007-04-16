@@ -207,6 +207,23 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	};
 	
 	/**
+	 * Esquema de Cascadas:<br>
+	 * Retorna el estado actual de los maestros directos de un esclavo
+	 */
+	ei_formulario.prototype.get_valores_maestros = function (id_esclavo)
+	{
+		var maestros = new Object();
+		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
+			var id_maestro = this._maestros[id_esclavo][i];
+			var ef = this.ef(id_maestro);			
+			if (ef && ef.tiene_estado()) {
+				maestros[id_maestro] = this.ef(id_maestro).get_estado();
+			}
+		}
+		return maestros;
+	}
+	
+	/**
 	 * @private
 	 */
 	ei_formulario.prototype.cascadas_en_espera = function(id_ef)

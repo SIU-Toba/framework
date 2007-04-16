@@ -26,7 +26,8 @@ class consultas
 		$sql = "SELECT id, nombre, descripcion FROM ref_deportes $where;";
 		return consultar_fuente($sql);
 	}
-
+	
+	
 	/**
 		Retorna la lista de personas
 	*/
@@ -41,6 +42,22 @@ class consultas
 		$sql = "SELECT id, nombre, fecha_nac FROM ref_persona $where ORDER BY nombre";
 		return consultar_fuente($sql);
 	}
+	
+	static function get_personas_con_deporte($deporte)
+	{
+		$deporte = toba::db()->quote($deporte);
+		$sql = "SELECT p.id, p.nombre, p.fecha_nac
+				FROM 
+					ref_persona p,
+					ref_persona_deportes d
+				WHERE 
+					p.id = d.persona AND
+					d.deporte = $deporte
+				ORDER BY p.nombre
+					
+		";
+		return consultar_fuente($sql);
+	}	
 	
 	static function get_persona_datos($persona)
 	{

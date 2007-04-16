@@ -19,16 +19,29 @@ class ci_principal extends toba_ci
 
 	//--------- CASCADAS
 
-	function get_persona_de_combo($maestro, $id=null)
+	function get_persona_con_deporte($deporte)
 	{
-		return array($maestro, "Persona $maestro");
+		$sql = "SELECT p.id, p.nombre 
+				FROM 
+					ref_persona p,
+					ref_persona_deportes d
+				WHERE 
+					p.id = d.persona AND
+					d.deporte = '$deporte'
+				ORDER BY p.nombre
+					
+		";
+		$fila = toba::db()->consultar_fila($sql, toba_db_fetch_num);
+		return $fila;
+		if ($fila) {
+			return $fila;	
+		} else {
+			return '';	
+		}
 	}
 
 	function get_persona_nombre($id)
 	{
-		if ($id == 'A' || $id == 'B' || $id == 'C') {
-			return "Persona $id";
-		}
 		return consultas::get_persona_nombre(array('id' => $id));
 	}
 
@@ -39,11 +52,7 @@ class ci_principal extends toba_ci
 	
 	function conf__form_cascada()
 	{
-		if (isset($this->s__datos_form_cascada)) {
-			return $this->s__datos_form_cascada;
-		} else {
-			return array('maestro' => 'A', 'popup' => 1);
-		}
+		return $this->s__datos_form_cascada;
 	}
 
 	
