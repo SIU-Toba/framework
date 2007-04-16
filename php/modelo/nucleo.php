@@ -1,7 +1,6 @@
 <?php
 require_once('lib/elemento_modelo.php');
 require_once('modelo/estructura_db/tablas_nucleo.php');
-require_once('lib/toba_manejador_archivos.php');
 require_once('lib/toba_sincronizador_archivos.php');
 require_once('lib/reflexion/toba_clase_datos.php');
 
@@ -359,7 +358,6 @@ class nucleo extends elemento_modelo
 
 	function parsear_editores(instancia $instancia)
 	{
-		require_once("modelo/consultas/dao_editores.php");
 		//--- Se busca el CI asociado a cada clase
 		$sql = "SELECT 
 					c.clase,

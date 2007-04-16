@@ -7,7 +7,6 @@ class info_datos_tabla extends info_componente
 	*/
 	function get_metaclase_subcomponente($subcomponente)
 	{
-		require_once('info_ap_tabla_db.php');
 		return new info_ap_tabla_db($this->datos['_info_estructura']);
 	}
 

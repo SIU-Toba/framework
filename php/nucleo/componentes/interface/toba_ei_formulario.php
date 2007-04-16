@@ -727,8 +727,10 @@ class toba_ei_formulario extends toba_ei
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
 		if (isset($parametros['carga_include'])) {
+			if(!class_exists($parametros['carga_clase'])) {
+				require_once($parametros['carga_include']);
+			}
 			$instanciable = (isset($parametros['instanciable']) && $parametros['instanciable']=='1');
-			require_once($parametros['carga_include']);
 			if ($instanciable) {
 				$obj = new $parametros['carga_clase']();
 				$metodo = array($obj, $parametros['carga_metodo']);

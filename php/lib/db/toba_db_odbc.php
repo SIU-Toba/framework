@@ -1,6 +1,4 @@
 <?php
-require_once("toba_db.php");
-
 /**
  * Driver de conexión via ODBC
  * @package Fuentes

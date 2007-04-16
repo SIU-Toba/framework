@@ -45,7 +45,6 @@ class toba_constructor
 			return 	$objeto;
 		} else {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
-			require_once("nucleo/$clase.php");
 			return new $clase($datos);
 		}
 	}

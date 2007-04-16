@@ -167,7 +167,7 @@ class toba_solicitud_web extends toba_solicitud
 	protected function servicio_pre__generar_html()
 	{
 		//--- Tipo de PAGINA
-		if (isset($this->info['basica']['tipo_pagina_archivo'])) {
+		if ($this->info['basica']['tipo_pagina_archivo']) {
 			require_once($this->info['basica']['tipo_pagina_archivo']);
 		}
 		$this->tipo_pagina = new $this->info['basica']['tipo_pagina_clase']();

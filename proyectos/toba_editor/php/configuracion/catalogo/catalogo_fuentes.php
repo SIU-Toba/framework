@@ -1,6 +1,5 @@
 <?php
 require_once("contrib/lib/toba_nodo_basico.php");
-require_once("modelo/consultas/dao_editores.php");
 require_once("catalogo_fuentes_fuente.php");
 
 class catalogo_fuentes extends toba_nodo_basico

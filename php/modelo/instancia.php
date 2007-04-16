@@ -4,7 +4,6 @@ require_once('modelo/instalacion.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/catalogo_general.php');
 require_once('modelo/estructura_db/secuencias.php');
-require_once('lib/toba_manejador_archivos.php');
 require_once('lib/toba_sincronizador_archivos.php');
 require_once('lib/reflexion/toba_clase_datos.php');
 /**

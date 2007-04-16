@@ -1,8 +1,9 @@
 <?php
-require_once("lib/toba_asercion.php"); 		      	   	//Aserciones
+require_once("nucleo/toba_nucleo.php");	      	   	//toba_dir()
+require_once("lib/toba_asercion.php"); 	      	   	//Aserciones
 require_once("lib/toba_varios.php");				//Funciones genericas (Manejo de paths, etc.)
 require_once("lib/toba_sql.php");					//Libreria de manipulacion del SQL
-require_once("lib/toba_parseo.php");       			   	//Parseo
+require_once("lib/toba_parseo.php");   			   	//Parseo
 require_once("lib/toba_texto.php");       	   		//Manipulacion de texto
 require_once("modelo/lib/gui.php");
 require_once("nucleo/lib/toba_cronometro.php");     //Cronometrar ejecucion
@@ -21,11 +22,16 @@ class consola implements gui
 	const display_ancho = 79;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
+	static protected $indice_archivos;
 	protected 	$ubicacion_comandos;
 	protected	$menu;
 	
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
+		self::cargar_includes_basicos();
+		self::$indice_archivos = toba_nucleo::get_indice_archivos();
+		unset(self::$indice_archivos['toba']);	//Para que el logger se de cuenta de que esta en la consola
+		spl_autoload_register(array('consola', 'cargador_clases'));
 		ini_set("error_reporting", E_ALL);
 		if( ! is_dir( $ubicacion_comandos ) ) {
 			throw new toba_error("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
@@ -313,6 +319,22 @@ class consola implements gui
 	function get_formulario( $titulo )
 	{
 		return new formulario_consola( $this, $titulo );
+	}
+
+	//--------------------------------------------------------------
+	// Carga de clases
+	//--------------------------------------------------------------
+	
+	static function cargador_clases($clase)
+	{
+		if(isset(self::$indice_archivos[$clase])) {
+			require_once( toba_dir() .'/php/'. self::$indice_archivos[$clase]);
+		}	
+	}
+	
+	function cargar_includes_basicos()
+	{
+		require_once( toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php');		
 	}
 }
 ?>

@@ -7,7 +7,6 @@ class info_datos_relacion extends info_componente
 	*/
 	function get_metaclase_subcomponente($subcomponente)
 	{
-		require_once('info_ap_relacion_db.php');
 		return new info_ap_relacion_db($this->datos['_info_estructura']);
 	}	
 	

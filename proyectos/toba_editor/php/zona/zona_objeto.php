@@ -1,8 +1,5 @@
 <?php
 require_once("zona_editor.php");
-require_once('modelo/consultas/dao_editores.php');
-require_once('modelo/componentes/info_componente.php');
-require_once('admin_util.php');
 
 class zona_objeto extends zona_editor
 {

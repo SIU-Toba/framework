@@ -1,5 +1,4 @@
 <?php
-require_once('modelo/consultas/dao_editores.php');
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
 require_once('seleccion_imagenes.php');

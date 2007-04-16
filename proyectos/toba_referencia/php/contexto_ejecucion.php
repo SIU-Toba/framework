@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/lib/toba_interface_contexto_ejecucion.php');
 
 class contexto_ejecucion implements toba_interface_contexto_ejecucion
 {

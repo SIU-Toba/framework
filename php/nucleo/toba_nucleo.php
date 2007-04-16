@@ -15,7 +15,7 @@ class toba_nucleo
 	
 	private function __construct()
 	{
-		$this->cargar_indice_archivos();
+		self::$indice_archivos = self::get_indice_archivos();
 		$this->cargar_includes_basicos();
 		spl_autoload_register(array('toba_nucleo', 'cargador_clases'));
 		toba::cronometro();		
@@ -193,6 +193,12 @@ class toba_nucleo
 	//--------------------------------------------------------------------------
 	//	Carga de archivos
 	//--------------------------------------------------------------------------
+
+	static function toba_dir()
+	{
+		$dir = dirname(__FILE__);
+		return substr($dir,0, -11);
+	}
 	
 	/**
 	*	Carga de includes basicos
@@ -201,15 +207,15 @@ class toba_nucleo
 	{
 		//Las funciones globales no puden acceder a la carga normal
 		if (!$this->nucleo_compilado) {
-			require_once('lib/toba_varios.php');
-			require_once( toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php');
-			require_once( toba_dir() . '/php/lib/toba_parseo.php');
-			require_once( toba_dir() . '/php/lib/toba_sql.php');
-			require_once( toba_dir() . '/php/nucleo/lib/toba_db.php');
-			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_ei.php');
-			require_once( toba_dir() . '/php/nucleo/lib/interface/toba_formateo.php');
+			require_once( self::toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php');
+			require_once( self::toba_dir() . '/php/lib/toba_varios.php');
+			require_once( self::toba_dir() . '/php/lib/toba_parseo.php');
+			require_once( self::toba_dir() . '/php/lib/toba_sql.php');
+			require_once( self::toba_dir() . '/php/nucleo/lib/toba_db.php');
+			require_once( self::toba_dir() . '/php/nucleo/lib/interface/toba_ei.php');
+			require_once( self::toba_dir() . '/php/nucleo/lib/interface/toba_formateo.php');
 		} else {
-			require_once('nucleo/toba_motor.php');	
+			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');	
 		}
 	}
 
@@ -260,16 +266,23 @@ class toba_nucleo
 		}
 		//Carga de las clases del nucleo
 		if(isset(self::$indice_archivos[$clase])) {
-			require_once( toba_dir() .'/php/'. self::$indice_archivos[$clase]);
+			require_once( self::toba_dir() .'/php/'. self::$indice_archivos[$clase]);
 		}	
 	}
 
-	protected function cargar_indice_archivos()
+	/**
+	*	@ignore
+	*/
+	static function get_indice_archivos()
 	{
-		self::$indice_archivos = array(
+		return array(
 			'toba_asercion'							=> 'lib/toba_asercion.php',
 			'toba_cache_db'							=> 'lib/toba_cache_db.php',
-			'toba_db'								=> 'lib/toba_db.php',
+			'toba_db'								=> 'lib/db/toba_db.php',
+			'toba_db_postgres7'						=> 'lib/db/toba_db_postgres7.php',
+			'toba_db_mysql'							=> 'lib/db/toba_db_mysql.php',
+			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
+			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
 			'toba_encriptador'						=> 'lib/toba_encriptador.php',
 			'toba_manejador_archivos'				=> 'lib/toba_manejador_archivos.php',
 			'datos_editores'						=> 'modelo/componentes/datos_editores.php',
@@ -394,12 +407,15 @@ class toba_nucleo
 			'toba_vinculo'							=> 'nucleo/lib/toba_vinculo.php',
 			'toba_zona'								=> 'nucleo/lib/toba_zona.php',
 			'toba_menu'								=> 'nucleo/menu/toba_menu.php',
+			'toba_menu_css'							=> 'nucleo/menu/toba_menu_css.php',
+			'toba_menu_yui'							=> 'nucleo/menu/toba_menu_yui.php',
 			'toba_tipo_pagina'						=> 'nucleo/tipo_pagina/toba_tipo_pagina.php',
 			'toba_tp_basico'						=> 'nucleo/tipo_pagina/toba_tp_basico.php',
 			'toba_tp_basico_titulo'					=> 'nucleo/tipo_pagina/toba_tp_basico_titulo.php',
 			'toba_tp_logon'							=> 'nucleo/tipo_pagina/toba_tp_logon.php',
 			'toba_tp_popup'							=> 'nucleo/tipo_pagina/toba_tp_popup.php',
 			'toba_tp_normal'						=> 'nucleo/tipo_pagina/toba_tp_normal.php',
+			'toba'									=> 'nucleo/toba.php',
 			'toba_solicitud'						=> 'nucleo/toba_solicitud.php',
 			'toba_solicitud_web'					=> 'nucleo/toba_solicitud_web.php',
 			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',

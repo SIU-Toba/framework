@@ -1,6 +1,4 @@
 <?php
-require_once('lib/toba_manejador_archivos.php');
-//require_once("modelo/migraciones/migracion_toba.php");
 
 class version_toba
 {

@@ -1,7 +1,6 @@
 <?php
 require_once('migracion_toba.php');
 require_once('lib/toba_parseo.php');
-require_once('lib/toba_manejador_archivos.php');
 require_once('lib/toba_editor_archivos.php');
 
 class migracion_1_0_0 extends migracion_toba

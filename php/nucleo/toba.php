@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/toba_nucleo.php');
-
 /**
  * Clase estática que contiene shortcuts a las clases centrales del nucleo
  * @package Centrales

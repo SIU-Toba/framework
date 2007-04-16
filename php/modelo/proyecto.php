@@ -2,20 +2,12 @@
 require_once('lib/elemento_modelo.php');
 require_once('modelo/instancia.php');
 require_once('modelo/consultas/dao_permisos.php');
-require_once('modelo/consultas/dao_editores.php');
-require_once('modelo/info/contexto_info.php');
-require_once('nucleo/componentes/toba_catalogo.php');
-require_once('nucleo/componentes/toba_cargador.php');
-require_once('nucleo/componentes/toba_constructor.php');
-require_once('lib/toba_manejador_archivos.php');
 require_once('lib/toba_sincronizador_archivos.php');
 require_once('lib/toba_editor_archivos.php');
 require_once('lib/reflexion/toba_clase_datos.php');
 require_once('modelo/estructura_db/tablas_proyecto.php');
 require_once('modelo/estructura_db/tablas_instancia.php');
 require_once('modelo/estructura_db/tablas_componente.php');
-require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del editor
-require_once('lib/toba_cache_db.php');
 
 /**
 *	Administrador de metadatos de PROYECTOS

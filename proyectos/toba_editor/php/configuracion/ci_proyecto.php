@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/consultas/dao_editores.php');
 
 class ci_proyecto extends toba_ci
 {

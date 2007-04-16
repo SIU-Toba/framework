@@ -1,6 +1,4 @@
 <?php
-require_once("toba_db.php");
-
 /**
  * Driver de conexión con mysql.
  * @package Fuentes

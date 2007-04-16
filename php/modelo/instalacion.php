@@ -1,6 +1,5 @@
 <?php
 require_once('modelo/lib/elemento_modelo.php');
-require_once('lib/toba_manejador_archivos.php');
 require_once('modelo/lib/version_toba.php');
 require_once('lib/toba_ini.php');
 

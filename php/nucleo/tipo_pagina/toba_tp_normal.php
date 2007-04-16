@@ -17,7 +17,6 @@ class toba_tp_normal extends toba_tp_basico_titulo
 	function __construct()
 	{
 		$archivo_menu = toba::proyecto()->get_parametro('menu_archivo');
-		require_once($archivo_menu);
 		$clase = basename($archivo_menu, ".php");
 		$this->menu = new $clase();
 	}

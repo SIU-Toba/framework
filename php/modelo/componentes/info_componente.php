@@ -265,7 +265,6 @@ abstract class info_componente implements toba_nodo_arbol, meta_clase
 		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
 			$ayuda = null;
 			if (in_array($this->datos['_info']['clase'], dao_editores::get_clases_validas())) {
-				require_once("datos_editores.php");
 				$metodo = "get_pantallas_".$this->datos['_info']['clase'];
 				$pantallas = call_user_func(array("datos_editores", $metodo));
 				//-- Se incluye un vinculo a cada pantalla encontrada

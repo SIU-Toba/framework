@@ -1,10 +1,9 @@
 <?php
-require_once("nucleo/tipo_pagina/toba_tp_normal.php");
-require_once("modelo/componentes/info_item.php");
+//require_once("modelo/componentes/info_item.php");
 
 class tp_referencia extends toba_tp_normal
 {
-    protected $titulo;
+/*    protected $titulo;
     
     function titulo_item()
     {
@@ -30,7 +29,7 @@ class tp_referencia extends toba_tp_normal
 	{
 		php_referencia::instancia()->mostrar();
 		parent::pie();	
-	}    
+	}    */
 }
 
 ?>

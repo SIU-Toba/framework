@@ -1,6 +1,4 @@
 <?php
-require_once('nucleo/lib/toba_editor.php'); //Se necesita para saber el ID del editor
-require_once('nucleo/componentes/toba_definicion_componentes.php');
 require_once('gui.php');
 
 class elemento_modelo

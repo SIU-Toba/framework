@@ -1,6 +1,5 @@
 <?php
-require_once('modelo/consultas/dao_editores.php'); 
-//--------------------------------------------------------------------
+
 class ci_actividad_local extends toba_ci
 {
 	function conf__cuadro()
