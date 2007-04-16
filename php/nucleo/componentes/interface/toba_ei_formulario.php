@@ -753,7 +753,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function servicio__cascadas_efs()
 	{
-		require_once('3ros/JSON.php');				
+		require_once(toba_dir() . '/php/3ros/JSON.php');				
 		if (! isset($_GET['cascadas-ef']) || ! isset($_GET['cascadas-maestros'])) {
 			throw new toba_error("Cascadas: Invocación incorrecta");	
 		}

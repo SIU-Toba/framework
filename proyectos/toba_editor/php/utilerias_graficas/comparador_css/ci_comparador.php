@@ -1,6 +1,6 @@
 <?php
 require_once('modelo/consultas/dao_instancia.php');
-require_once('3ros/cssparser.php');
+require_once(toba_dir() . '/php/3ros/cssparser.php');
 //----------------------------------------------------------------
 class ci_comparador extends toba_ci
 {

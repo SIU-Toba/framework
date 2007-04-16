@@ -1,5 +1,5 @@
 <?php
-require_once('3ros/simpletest/reporter.php');
+require_once(toba_dir() . '/php/3ros/simpletest/reporter.php');
 
 class reporter_toba extends HtmlReporter 
 {

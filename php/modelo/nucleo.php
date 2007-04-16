@@ -438,8 +438,8 @@ class nucleo extends elemento_modelo
 	{
 		$archivos = $this->get_archivos_js_propios();
 		$total = 0;
-		require_once('3ros/jscomp/JavaScriptCompressor.class.php');
-		require_once('3ros/jscomp/BaseConvert.class.php');
+		require_once(toba_dir() . '/php/3ros/jscomp/JavaScriptCompressor.class.php');
+		require_once(toba_dir() . '/php/3ros/jscomp/BaseConvert.class.php');
 		$comp = new JavaScriptCompressor(false);
 		$salida = array();
 		$this->manejador_interface->mensaje('Comprimiendo '.count($archivos).' archivo/s', false);				

@@ -1,7 +1,7 @@
 <?php
 $path_origen = '';
 
-require_once("3ros/ezpdf/class.ezpdf.php");
+require_once(toba_dir()."/php/3ros/ezpdf/class.ezpdf.php");
  
 require_once($path_origen . 'impr_documento.php');
 require_once($path_origen . 'impr_hoja.php');

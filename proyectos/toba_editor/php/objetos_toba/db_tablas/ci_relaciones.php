@@ -1,5 +1,5 @@
 <?php
-require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
+require_once(toba_dir()."/php/3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 class ci_relaciones extends toba_ci
 {

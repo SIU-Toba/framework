@@ -31,7 +31,7 @@ class comando_test extends comando_toba
 	function opcion__automaticos()
 	{
 		require_once('acciones/pruebas/testing_automatico/lista_casos.php');
-		require_once('3ros/simpletest/reporter.php');
+		require_once( toba_dir() . '/php/3ros/simpletest/reporter.php');
 		
 		$param = $this->get_parametros();		
 		$proyecto = isset($param["-p"]) ? $param["-p"] : "toba";

@@ -1,5 +1,5 @@
 <?php
-//require_once('3ros/dompdf-0.4.4/dompdf_config.inc.php');
+//require_once(toba_dir() . '/php/3ros/dompdf-0.4.4/dompdf_config.inc.php');
 
 /**
  * Genera un pdf a través de una api básica

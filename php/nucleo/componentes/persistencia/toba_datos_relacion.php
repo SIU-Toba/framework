@@ -1,5 +1,5 @@
 <?php
-require_once("3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
+require_once(toba_dir()."/php/3ros/Graph/Graph.php");	//Necesario para el calculo de orden topologico de las tablas
 
 /**
  * Mantiene un conjunto relacionado de {@link toba_datos_tabla datos_tabla}, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)

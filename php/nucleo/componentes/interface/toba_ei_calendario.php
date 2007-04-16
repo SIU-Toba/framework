@@ -3,7 +3,7 @@
  * @package Componentes
  * @subpackage Eis
  */
-require_once('3ros/activecalendar/activecalendar.php');
+require_once(toba_dir() . '/php/3ros/activecalendar/activecalendar.php');
 
 /**
  * Calendario para visualizar contenidos diarios y seleccionar días o semanas.

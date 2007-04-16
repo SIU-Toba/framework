@@ -1,7 +1,7 @@
 <?php
 require_once('lista_casos.php');
 include_once("nucleo/consola/emular_web.php");
-require_once('3ros/simpletest/reporter.php');
+require_once(toba_dir() . '/php/3ros/simpletest/reporter.php');
 
 $this->registrar_parametros();
 
