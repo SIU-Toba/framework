@@ -51,25 +51,20 @@
 		}		
 		$css = $tipo;
 		if($tipo=='info'){
-			$titulo = "Información";
+			$titulo = "";
 		}elseif($tipo=='error'){
-			$titulo = "ERROR";
+			$titulo = toba_recurso::imagen_toba('error.gif', true)." ERROR";
 		}else{
 			$titulo = $tipo;
 			$css = "INFO";
 		}
-		$html = "<table width='$ancho' cellpadding='25' align='center'>
-		        <tr><td>
-				<table width='100%' class='mensaje-$css'>
-		        <tr><td class='mensaje-titulo-$css'>$titulo";
-		$html.=	"</td></tr>";
+		$html = "<div width='$ancho' class='mensaje mensaje-$css'>
+		        <div class='mensaje-titulo-$css'>$titulo</div>";
 		if($subtitulo!=""){
-			$html.=	"<tr><td class='mensaje-subtitulo-$css'>$subtitulo</td></tr>";
+			$html.=	"<div class='mensaje-subtitulo-$css'>$subtitulo</div>";
 		}
-		$html.=	"<tr><td class='mensaje-cuerpo-$css'>$mensaje</td></tr>
-				</table>
-				</td></tr>
-				</table>\n";
+		$html.=	"<div class='mensaje-cuerpo-$css'>$mensaje</div>
+				</div>\n";
 		return $html;
 	}
 

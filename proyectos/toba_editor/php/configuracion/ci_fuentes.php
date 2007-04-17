@@ -1,4 +1,5 @@
 <?php 
+require_once('modelo/instalacion.php');
 
 class ci_fuentes extends toba_ci
 {
@@ -60,11 +61,43 @@ class ci_fuentes extends toba_ci
 	{
 		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		$this->dependencia('datos')->set($datos);
+		
+		//--- Actualiza bases.ini
+		if (isset($datos['motor'])) {
+			$instancia = toba_editor::get_id_instancia_activa();
+			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
+			$instalacion = new instalacion();
+			$bases = $instalacion->get_lista_bases();
+			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base'));
+			if (in_array($id_base, $bases)) {
+				//---Actualiza la entrada actual
+				instalacion::actualizar_db($id_base, $datos);
+			} else {
+				//---Crea una nueva entrada	
+				instalacion::agregar_db($id_base, $datos);
+			}
+		}
 	}
 
 	function conf__form()
 	{
-		return $this->dependencia('datos')->get();
+		$datos = $this->dependencia('datos')->get();
+		if (isset($datos['fuente_datos'])) {
+			$instancia = toba_editor::get_id_instancia_activa();
+			$id_base = "$instancia {$datos['proyecto']} {$datos['fuente_datos']}";
+			$datos['entrada'] = "<strong>[$id_base]</strong>";
+			
+			//--- Rellena con la info de bases.ini si existe
+			$instalacion = new instalacion();
+			$bases = $instalacion->get_lista_bases();
+			if (in_array($id_base, $bases)) {
+				$datos = array_merge($datos, $instalacion->get_parametros_base($id_base));
+			}
+		} else {
+			$this->dep('form')->desactivar_efs(array('separador', 'entrada', 'motor', 'profile',
+													'usuario', 'clave', 'base'));
+		}
+		return $datos;
 	}
 }
 ?>

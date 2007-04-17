@@ -621,6 +621,20 @@ class dao_editores
 				ORDER BY 2";
 		return contexto_info::get_db()->consultar($sql);	
 	}
+	
+	/**
+	 * Lista de motores de base de datos disponibles para definir una fuente
+	 */
+	function get_lista_motores()
+	{
+		$sql = "SELECT 
+					fuente_datos_motor, 
+					nombre
+				FROM apex_fuente_datos_motor
+				ORDER BY nombre
+				";	
+		return contexto_info::get_db()->consultar($sql);	
+	}
 
 	/**
 	* Propiedadesd de una FUENTEs de DATOS

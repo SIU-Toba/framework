@@ -738,7 +738,23 @@ a.ci-tabs-boton-desact:hover {
 /*************************
 	Varios
 **************************/
-
+.mensaje {
+	border: 1px solid gray;
+}
+.mensaje-cuerpo-info, .mensaje-cuerpo-error {
+	text-align:left;
+	font-weight: bold;
+	padding: 10px;
+}
+.mensaje-titulo-error {
+	font-color: red;
+	font-weight: bold;
+	border-bottom: 1px solid gray;
+	padding: 5px;	
+}
+.mensaje-titulo-error img {
+	vertical-align:middle;
+}
 .barra-separador {
 	padding: 5px;
 	font-weight: bold;

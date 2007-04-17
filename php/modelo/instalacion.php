@@ -404,7 +404,7 @@ class instalacion extends elemento_modelo
 		toba_logger::instancia()->debug("Creado archivo ".self::archivo_info_bases());		
 	}
 	
-	static function agregar_db( $id_base, $parametros )
+	static private function validar_parametros_db($parametros)
 	{
 		if ( ! is_array( $parametros ) ) {
 			throw new toba_error("INSTALACION: Los parametros definidos son incorrectos");	
@@ -413,7 +413,6 @@ class instalacion extends elemento_modelo
 			if ( !isset( $parametros['motor']  )
 				|| !isset( $parametros['profile'] ) 
 				|| !isset( $parametros['usuario'] )
-				|| !isset( $parametros['clave'] )
 				|| !isset( $parametros['base'] ) ) {
 				throw new toba_error("INSTALACION: Los parametros definidos son incorrectos");	
 			}
@@ -422,7 +421,12 @@ class instalacion extends elemento_modelo
 			if( ! in_array( $parametros['motor'], $motores ) ) {
 				throw new toba_error("INSTALACION: El motor tiene que pertenecer a la siguente lista: " . implode(', ',$motores) );	
 			}
-		}
+		}		
+	}
+	
+	static function agregar_db( $id_base, $parametros )
+	{
+		self::validar_parametros_db($parametros);
 		$ini = new toba_ini( self::archivo_info_bases() );
 		$ini->agregar_titulo( self::info_bases_titulo );
 		$ini->agregar_entrada( $id_base, $parametros );
@@ -430,6 +434,17 @@ class instalacion extends elemento_modelo
 		toba_logger::instancia()->debug("Agregada definicion base '$id_base'");		
 	}
 	
+	static function actualizar_db($id_base, $parametros)
+	{
+		self::validar_parametros_db($parametros);
+		$ini = new toba_ini( self::archivo_info_bases() );	
+		if ($ini->existe_entrada($id_base)) {
+			$ini->set_datos_entrada($id_base, $parametros);
+		}
+		$ini->guardar();
+		toba_logger::instancia()->debug("Actualizada definicion base '$id_base'");				
+	}
+		
 	static function eliminar_db( $id_base )
 	{
 		$ini = new toba_ini( self::archivo_info_bases() );

@@ -43,6 +43,20 @@
 		return array_renombrar_llaves($arreglo, $cambios, false);
 	}
 	
+	/**
+	 * Recorre un arreglo dejando solo aquellas entradas pasadas por parametro
+	 */
+	function array_dejar_llaves($arreglo, $llaves)
+	{
+		$nuevo = array();
+		foreach ($arreglo as $clave => $valor) {
+			if (in_array($clave, $llaves)) {
+				$nuevo[$clave] = $valor;	
+			}
+		}
+		return $nuevo;
+	}
+	
 	function array_renombrar_llaves($arreglo, $cambios, $recursivo = true)
 	//Toma un conjunto de $cambios ("original" => "reemplazo") y los aplica a $arreglo
 	{

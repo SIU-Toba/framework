@@ -10,6 +10,8 @@ class ci_principal extends toba_ci
 		$deporte = toba::memoria()->get_parametro('deportes');
 		if (isset($deporte)) {
 			return consultas::get_personas_con_deporte($deporte);
+		} else {
+			return consultas::get_personas();
 		}
 	}
 

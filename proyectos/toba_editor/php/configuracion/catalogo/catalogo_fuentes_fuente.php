@@ -9,7 +9,7 @@ class catalogo_fuentes_fuente extends toba_nodo_basico
 	{
 		$this->id = $id;
 		$this->datos = dao_editores::get_info_fuente_datos($this->id);
-		parent::__construct($this->datos['descripcion_corta'], $padre);
+		parent::__construct($this->datos['fuente_datos'], $padre);
 		$this->nombre_largo = $this->datos['descripcion'];
 		
 		$this->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/datos_relacion.gif", false),

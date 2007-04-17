@@ -41,7 +41,7 @@ class toba_dba
 		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
 			return self::$bases_definidas[ $id_base ];
 		} else {
-			throw new toba_error("DBA: La BASE '$id_base' no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
+			throw new toba_error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
 		}
 	}
 	
@@ -63,6 +63,12 @@ class toba_dba
 	{
 		return self::get_instancia()->get_conexion( $nombre );
 	}
+	
+	static function get_db_de_fuente($instancia, $proyecto, $fuente )
+	{
+		$nombre = $instancia.' '.$proyecto.' '.$fuente;
+		return self::get_instancia()->get_conexion( $nombre );
+	}	
 	
 	/**
 	*	¿Hay una conexión abierta a la base?

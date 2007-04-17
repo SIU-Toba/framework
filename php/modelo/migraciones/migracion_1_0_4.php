@@ -4,6 +4,10 @@ require_once('migracion_toba.php');
 class migracion_1_0_4 extends migracion_toba
 {
 
+		/**
+		 * Se separa la carga de la cascada del ef_popup (carga de opciones)
+		 * de la carga de la descripción de la clave
+		 */
 		function proyecto__parametros_ef_popup()
 		{
 			$cant = 0;
@@ -26,8 +30,6 @@ class migracion_1_0_4 extends migracion_toba
 			$cant += $this->elemento->get_db()->ejecutar($sql);
 			return $cant;
 		}
-		
-		
 
 }	
 

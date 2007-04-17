@@ -25,7 +25,9 @@ class toba_fuente_datos
 	{
 		if (!isset($this->db)) {
 			$this->pre_conectar();
-			$this->db = toba_dba::get_db($this->definicion['instancia_id']);
+			$this->db = toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
+														$this->definicion['proyecto'],
+														$this->definicion['fuente_datos']);
 			$this->post_conectar();
 		}
 		return $this->db;

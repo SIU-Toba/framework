@@ -6,7 +6,7 @@ class zona_fuente extends zona_editor
 	function cargar_info($editable=null)
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
-		$sql = 	"	SELECT	*
+		$sql = 	"	SELECT	descripcion
 					FROM	apex_fuente_datos
 					WHERE	proyecto='{$this->editable_id[0]}'
 					AND		fuente_datos='{$this->editable_id[1]}';";
