@@ -1,8 +1,5 @@
 <?php
 require_once('utilitarios/testing_unitario/reporter_toba.php');
-require_once('modelo/lib/testing_unitario/lista_casos.php');
-require_once("lib/reflexion/toba_archivo_php.php");
-require_once("lib/toba_manejador_archivos.php");
 
 class casos_web extends toba_ci
 {
@@ -19,7 +16,7 @@ class casos_web extends toba_ci
 	{
 		$cuadro->colapsar();
 		$lista = array();
-	    foreach (lista_casos::get_casos() as $caso) {
+	    foreach (toba_test_lista_casos::get_casos() as $caso) {
 			if (in_array($caso['id'], $this->selecciones['casos'])) {
 				$lista[] = $caso;
 			}
@@ -29,7 +26,7 @@ class casos_web extends toba_ci
 	
 	function evt__lista_archivos__abrir($caso_sel)
 	{
-	    foreach (lista_casos::get_casos() as $caso) {
+	    foreach (toba_test_lista_casos::get_casos() as $caso) {
 			if ($caso['id'] == $caso_sel['id']) {
 				$archivo = new toba_archivo_php($caso['archivo']);
 				$archivo->abrir();
@@ -65,10 +62,10 @@ class pantalla_testing extends toba_ei_pantalla
 		echo "<div style='background-color: white; border: 1px solid black; text-align: left; padding: 15px'>";
 		try {
 			//Se construye un suite por categoria que tenga test seleccionados
-			foreach (lista_casos::get_categorias() as $categoria) {
+			foreach (toba_test_lista_casos::get_categorias() as $categoria) {
 				$test = new GroupTest($categoria['nombre']);
 				$hay_uno = false;
-			    foreach (lista_casos::get_casos() as $caso) {
+			    foreach (toba_test_lista_casos::get_casos() as $caso) {
 				    if ($caso['categoria'] == $categoria['id'] && in_array($caso['id'], $selecciones['casos'])) {
 						$hay_uno = true;
 						require_once($caso['archivo']);

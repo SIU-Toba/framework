@@ -1,7 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
-require_once('modelo/consultas/dao_permisos.php');
-//--------------------------------------------------------------------
+
 class ci_navegacion extends toba_ci
 {
 	protected $seleccion;
@@ -26,7 +24,7 @@ class ci_navegacion extends toba_ci
 	function conf__listado()
 	{
 		$filtro = (isset($this->filtro)) ? $this->filtro : array();
-		return dao_permisos::get_lista_permisos($filtro);
+		return toba_info_permisos::get_lista_permisos($filtro);
 	}
 
 	function evt__listado__seleccion($id)

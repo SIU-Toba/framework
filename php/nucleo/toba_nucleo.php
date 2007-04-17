@@ -205,15 +205,11 @@ class toba_nucleo
 	*/
 	protected function cargar_includes_basicos()
 	{
-		//Las funciones globales no puden acceder a la carga normal
+		//Las funciones globales no puden cargarse con el autoload.
 		if (!$this->nucleo_compilado) {
-			require_once( self::toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php');
-			require_once( self::toba_dir() . '/php/lib/toba_varios.php');
-			require_once( self::toba_dir() . '/php/lib/toba_parseo.php');
-			require_once( self::toba_dir() . '/php/lib/toba_sql.php');
-			require_once( self::toba_dir() . '/php/nucleo/lib/toba_db.php');
-			require_once( self::toba_dir() . '/php/nucleo/lib/interface/toba_ei.php');
-			require_once( self::toba_dir() . '/php/nucleo/lib/interface/toba_formateo.php');
+			foreach(self::get_includes_basicos() as $archivo ) {
+				require_once( self::toba_dir() . $archivo);
+			}
 		} else {
 			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');	
 		}
@@ -273,40 +269,30 @@ class toba_nucleo
 	/**
 	*	@ignore
 	*/
+	static function get_includes_basicos()
+	{
+		return array( 
+			'/php/nucleo/componentes/toba_definicion_componentes.php',
+			'/php/lib/toba_varios.php',
+			'/php/lib/toba_parseo.php',
+			'/php/lib/toba_texto.php',
+			'/php/lib/toba_sql.php',
+			'/php/nucleo/lib/toba_db.php',
+			'/php/nucleo/lib/interface/toba_ei.php',
+			'/php/nucleo/lib/interface/toba_formateo.php');
+	}
+
+	/**
+	*	@ignore
+	*/
 	static function get_indice_archivos()
 	{
 		return array(
-			'toba_asercion'							=> 'lib/toba_asercion.php',
-			'toba_cache_db'							=> 'lib/toba_cache_db.php',
-			'toba_db'								=> 'lib/db/toba_db.php',
-			'toba_db_postgres7'						=> 'lib/db/toba_db_postgres7.php',
-			'toba_db_mysql'							=> 'lib/db/toba_db_mysql.php',
-			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
-			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
-			'toba_encriptador'						=> 'lib/toba_encriptador.php',
-			'toba_manejador_archivos'				=> 'lib/toba_manejador_archivos.php',
-			'datos_editores'						=> 'modelo/componentes/datos_editores.php',
-			'info_ap_relacion_db'					=> 'modelo/componentes/info_ap_relacion_db.php',
-			'info_ap_tabla_db'						=> 'modelo/componentes/info_ap_tabla_db.php',
-			'info_ci'								=> 'modelo/componentes/info_ci.php',
-			'info_ci_pantalla'						=> 'modelo/componentes/info_ci_pantalla.php',
-			'info_cn'								=> 'modelo/componentes/info_cn.php',
-			'info_componente'						=> 'modelo/componentes/info_componente.php',
-			'info_datos_relacion'					=> 'modelo/componentes/info_datos_relacion.php',
-			'info_datos_tabla'						=> 'modelo/componentes/info_datos_tabla.php',
-			'info_ei'								=> 'modelo/componentes/info_ei.php',
-			'info_ei_arbol'							=> 'modelo/componentes/info_ei_arbol.php',
-			'info_ei_archivos'						=> 'modelo/componentes/info_ei_archivos.php',
-			'info_ei_calendario'					=> 'modelo/componentes/info_ei_calendario.php',
-			'info_ei_cuadro'						=> 'modelo/componentes/info_ei_cuadro.php',
-			'info_ei_esquema'						=> 'modelo/componentes/info_ei_esquema.php',
-			'info_ei_filtro'						=> 'modelo/componentes/info_ei_filtro.php',
-			'info_ei_formulario'					=> 'modelo/componentes/info_ei_formulario.php',
-			'info_ei_formulario_ml'					=> 'modelo/componentes/info_ei_formulario_ml.php',
-			'info_item'								=> 'modelo/componentes/info_item.php',
-			'meta_clase'							=> 'modelo/componentes/interfaces.php',
-			'dao_editores'							=> 'modelo/consultas/dao_editores.php',
-			'contexto_info'							=> 'modelo/info/contexto_info.php',
+			'toba'									=> 'nucleo/toba.php',
+			'toba_solicitud'						=> 'nucleo/toba_solicitud.php',
+			'toba_solicitud_web'					=> 'nucleo/toba_solicitud_web.php',
+			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',
+			'toba_solicitud_consola'				=> 'nucleo/toba_solicitud_consola.php',
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
 			'toba_tab'								=> 'nucleo/componentes/interface/botones/toba_tab.php',
@@ -415,11 +401,66 @@ class toba_nucleo
 			'toba_tp_logon'							=> 'nucleo/tipo_pagina/toba_tp_logon.php',
 			'toba_tp_popup'							=> 'nucleo/tipo_pagina/toba_tp_popup.php',
 			'toba_tp_normal'						=> 'nucleo/tipo_pagina/toba_tp_normal.php',
-			'toba'									=> 'nucleo/toba.php',
-			'toba_solicitud'						=> 'nucleo/toba_solicitud.php',
-			'toba_solicitud_web'					=> 'nucleo/toba_solicitud_web.php',
-			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',
-			'toba_solicitud_consola'				=> 'nucleo/toba_solicitud_consola.php'
+			'toba_asercion'							=> 'lib/toba_asercion.php',
+			'toba_cache_db'							=> 'lib/toba_cache_db.php',
+			'toba_encriptador'						=> 'lib/toba_encriptador.php',
+			'toba_ini'								=> 'lib/toba_ini.php',
+			'toba_manejador_archivos'				=> 'lib/toba_manejador_archivos.php',
+			'toba_sincronizador_archivos'			=> 'lib/toba_sincronizador_archivos.php',
+			'toba_db'								=> 'lib/db/toba_db.php',
+			'toba_db_postgres7'						=> 'lib/db/toba_db_postgres7.php',
+			'toba_db_mysql'							=> 'lib/db/toba_db_mysql.php',
+			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
+			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
+			'toba_clase_datos'						=> 'lib/reflexion/toba_clase_datos.php',
+			'toba_molde_clase'						=> 'lib/reflexion/toba_molde_clase.php',
+			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
+			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',
+			'toba_info_instancia'					=> 'modelo/info/toba_info_instancia.php',
+			'toba_contexto_info'					=> 'modelo/info/toba_contexto_info.php',
+			'toba_catalogo_items'					=> 'modelo/info/toba_catalogo_items.php',
+			'toba_catalogo_objetos'					=> 'modelo/info/toba_catalogo_objetos.php',
+			'toba_datos_editores'					=> 'modelo/info/componentes/toba_datos_editores.php',
+			'toba_info_ap_relacion_db'				=> 'modelo/info/componentes/toba_info_ap_relacion_db.php',
+			'toba_info_ap_tabla_db'					=> 'modelo/info/componentes/toba_info_ap_tabla_db.php',
+			'toba_info_ci'							=> 'modelo/info/componentes/toba_info_ci.php',
+			'toba_info_ci_pantalla'					=> 'modelo/info/componentes/toba_info_ci_pantalla.php',
+			'toba_info_cn'							=> 'modelo/info/componentes/toba_info_cn.php',
+			'toba_info_componente'					=> 'modelo/info/componentes/toba_info_componente.php',
+			'toba_info_datos_relacion'				=> 'modelo/info/componentes/toba_info_datos_relacion.php',
+			'toba_info_datos_tabla'					=> 'modelo/info/componentes/toba_info_datos_tabla.php',
+			'toba_info_ei'							=> 'modelo/info/componentes/toba_info_ei.php',
+			'toba_info_ei_arbol'					=> 'modelo/info/componentes/toba_info_ei_arbol.php',
+			'toba_info_ei_archivos'					=> 'modelo/info/componentes/toba_info_ei_archivos.php',
+			'toba_info_ei_calendario'				=> 'modelo/info/componentes/toba_info_ei_calendario.php',
+			'toba_info_ei_cuadro'					=> 'modelo/info/componentes/toba_info_ei_cuadro.php',
+			'toba_info_ei_esquema'					=> 'modelo/info/componentes/toba_info_ei_esquema.php',
+			'toba_info_ei_filtro'					=> 'modelo/info/componentes/toba_info_ei_filtro.php',
+			'toba_info_ei_formulario'				=> 'modelo/info/componentes/toba_info_ei_formulario.php',
+			'toba_info_ei_formulario_ml'			=> 'modelo/info/componentes/toba_info_ei_formulario_ml.php',
+			'toba_info_item'						=> 'modelo/info/componentes/toba_info_item.php',
+			'toba_meta_clase'						=> 'modelo/info/componentes/toba_interface_meta_clase.php',
+			'toba_modelo_catalogo'					=> 'modelo/toba_modelo_catalogo.php',
+			'toba_modelo_instalacion'				=> 'modelo/toba_modelo_instalacion.php',
+			'toba_modelo_instancia'					=> 'modelo/toba_modelo_instancia.php',
+			'toba_modelo_nucleo'					=> 'modelo/toba_modelo_nucleo.php',
+			'toba_modelo_proyecto'					=> 'modelo/toba_modelo_proyecto.php',
+			'toba_db_catalogo_general'				=> 'modelo/estructura_db/toba_db_catalogo_general.php',
+			'toba_db_secuencias'					=> 'modelo/estructura_db/toba_db_secuencias.php',
+			'toba_db_tablas_componente'				=> 'modelo/estructura_db/toba_db_tablas_componente.php',
+			'toba_db_tablas_instancia'				=> 'modelo/estructura_db/toba_db_tablas_instancia.php',
+			'toba_db_tablas_nucleo'					=> 'modelo/estructura_db/toba_db_tablas_nucleo.php',
+			'toba_db_tablas_proyecto'				=> 'modelo/estructura_db/toba_db_tablas_proyecto.php',
+			'toba_modelo_elemento'					=> 'modelo/lib/toba_modelo_elemento.php',
+			'toba_error_modelo'						=> 'modelo/lib/toba_modelo_error.php',
+			'toba_error_modelo_preexiste'			=> 'modelo/lib/toba_modelo_error.php',
+			'toba_version'							=> 'modelo/lib/toba_version.php',
+			'toba_proceso_gui'						=> 'modelo/lib/toba_proceso_gui.php',
+			'toba_mock_proceso_gui'					=> 'modelo/lib/toba_proceso_gui.php',
+			'toba_analizador_logger_fs'				=> 'modelo/lib/toba_analizador_logger.php',
+			'toba_test'								=> 'modelo/lib/testing_unitario/toba_test.php',
+			'toba_test_lista_casos'					=> 'modelo/lib/testing_unitario/toba_test_lista_casos.php',
+			'toba_migracion'						=> 'modelo/migraciones/toba_migracion.php'
 		);
 	}
 }

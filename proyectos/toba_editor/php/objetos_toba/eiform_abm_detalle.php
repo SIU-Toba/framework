@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario_ml.php'); 
 require_once('seleccion_imagenes.php');
 
 class eiform_abm_detalle extends toba_ei_formulario_ml

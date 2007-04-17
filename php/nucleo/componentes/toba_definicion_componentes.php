@@ -121,7 +121,7 @@ class componente_toba implements toba_componente_definicion
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_componente';
+		return 'toba_info_componente';
 	}
 }
 
@@ -145,7 +145,7 @@ class componente_cn extends componente_toba
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_cn';
+		return 'toba_info_cn';
 	}
 
 	static function get_path_clase_runtime()
@@ -221,7 +221,7 @@ class componente_datos_relacion extends componente_toba
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_datos_relacion';
+		return 'toba_info_datos_relacion';
 	}
 
 	static function get_path_clase_runtime()
@@ -338,7 +338,7 @@ class componente_datos_tabla extends componente_toba
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_datos_tabla';
+		return 'toba_info_datos_tabla';
 	}
 
 	static function get_path_clase_runtime()
@@ -420,7 +420,7 @@ class componente_ei extends componente_toba
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei';
+		return 'toba_info_ei';
 	}
 
 	static function get_path_clase_runtime()
@@ -438,7 +438,7 @@ class componente_ei_arbol extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_arbol';
+		return 'toba_info_ei_arbol';
 	}
 }
 
@@ -451,7 +451,7 @@ class componente_ei_archivos extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_archivos';
+		return 'toba_info_ei_archivos';
 	}
 }
 
@@ -464,7 +464,7 @@ class componente_ei_calendario extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_calendario';
+		return 'toba_info_ei_calendario';
 	}
 }
 
@@ -531,7 +531,7 @@ class componente_ci extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ci';
+		return 'toba_info_ci';
 	}
 
 	static function get_tipo_abreviado()
@@ -646,7 +646,7 @@ class componente_ei_cuadro extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_cuadro';
+		return 'toba_info_ei_cuadro';
 	}
 
 	static function get_tipo_abreviado()
@@ -694,7 +694,7 @@ class componente_ei_esquema extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_esquema';
+		return 'toba_info_ei_esquema';
 	}
 }
 
@@ -741,7 +741,7 @@ class componente_ei_formulario extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_formulario';
+		return 'toba_info_ei_formulario';
 	}
 
 	static function get_tipo_abreviado()
@@ -798,7 +798,7 @@ class componente_ei_formulario_ml extends componente_ei_formulario
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_formulario_ml';
+		return 'toba_info_ei_formulario_ml';
 	}
 
 	static function get_tipo_abreviado()
@@ -922,7 +922,7 @@ class componente_item implements toba_componente_definicion
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_item';
+		return 'toba_info_item';
 	}	
 }
 

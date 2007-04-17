@@ -11,7 +11,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1558', '274', 'clase', 'C', '0', NULL, '60', NULL, '0', '1');
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1558', '275', 'nombre_objeto', 'C', '0', NULL, '60', NULL, '0', '1');
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1558', '276', 'descripcion', 'C', '0', NULL, '60', NULL, '0', '1');
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES ('toba_editor', '1558', '2', 'dao', '1', 'get_info_dependencia', 'dao_editores', 'modelo/consultas/dao_editores.php', NULL);
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES ('toba_editor', '1558', '2', 'dao', '1', 'get_info_dependencia', 'toba_info_editores', 'modelo/info/toba_info_editores.php', NULL);
 INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('toba_editor', '1558', '2', '269', '0');
 INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('toba_editor', '1558', '2', '271', '0');
 INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('toba_editor', '1558', '2', '274', '1');

@@ -65,7 +65,7 @@ class toba_cargador
 				$id = $componente['componente'];
 				$datos = $this->cache_metadatos_simples->get_datos_tabla( $tabla , $id );
 				if ( count( $datos ) > 1 ) { //SI los registros de la tabla son mas de 1, ordeno.
-					$definicion = tablas_componente::$tabla();
+					$definicion = toba_db_tablas_componente::$tabla();
 					$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 					$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 				}
@@ -76,7 +76,7 @@ class toba_cargador
 				$tabla = $seccion['tabla'];
 				$id = $componente['componente'];
 				$proyecto = $componente['proyecto'];
-				$definicion = tablas_componente::$tabla();
+				$definicion = toba_db_tablas_componente::$tabla();
 				//Genero el SQL
 				$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 						" FROM $tabla " .
@@ -153,8 +153,8 @@ class toba_cargador
 			//Acceso por el nucleo
 			$this->cache_metadatos_simples = new toba_cache_db( toba::instancia()->get_db() );
 		}
-		foreach ( tablas_componente::get_lista() as $tabla ) {
-			$definicion = tablas_componente::$tabla();
+		foreach ( toba_db_tablas_componente::get_lista() as $tabla ) {
+			$definicion = toba_db_tablas_componente::$tabla();
 			//Genero el SQL
 			$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 					" FROM $tabla " .

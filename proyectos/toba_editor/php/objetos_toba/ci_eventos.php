@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
 /*
 	El controlador tiene que implementar 2 metodos:
 	
@@ -217,7 +216,7 @@ class ci_eventos extends toba_ci
       }
     }
     
-    $puntos_control = dao_editores::get_puntos_de_control($filtro, $id_contenedor, $id_objeto, $columnas );
+    $puntos_control = toba_info_editores::get_puntos_de_control($filtro, $id_contenedor, $id_objeto, $columnas );
     
     return $puntos_control;
   }

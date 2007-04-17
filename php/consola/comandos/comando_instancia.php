@@ -117,7 +117,7 @@ class comando_instancia extends comando_toba
 	{
 		$id_instancia = $this->get_id_instancia_actual();
 		$instalacion = $this->get_instalacion();
-		if ( instancia::existe_carpeta_instancia($id_instancia) ) {
+		if ( toba_modelo_instancia::existe_carpeta_instancia($id_instancia) ) {
 			throw new toba_error("Ya existe una INSTANCIA con el nombre '$id_instancia'");
 		}
 		if ( ! $instalacion->hay_bases() ) {
@@ -129,7 +129,7 @@ class comando_instancia extends comando_toba
 		$proyectos = $this->seleccionar_proyectos();
 		$this->consola->enter();
 		$base = $this->seleccionar_base();
-		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia();
@@ -149,7 +149,7 @@ class comando_instancia extends comando_toba
 			$this->consola->error( $e->getMessage() );
 		}
 		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
-		$instancia->set_version( instalacion::get_version_actual());
+		$instancia->set_version( toba_modelo_instalacion::get_version_actual());
 		$this->opcion__crear_usuario();
 
 		//---- D: Exporto la informacion LOCAL
@@ -212,7 +212,7 @@ class comando_instancia extends comando_toba
 		//--- Parametros
 		$param = $this->get_parametros();
 		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $instancia->get_version_actual();
-		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : instalacion::get_version_actual();
+		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : toba_modelo_instalacion::get_version_actual();
 		$recursivo = (!isset($param['-R']) || $param['-R'] == 1);
 		
 		if ($recursivo) {

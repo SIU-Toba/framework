@@ -109,7 +109,7 @@ class componente_datos_tabla extends componente_toba
 	
 	static function get_nombre_clase_info()
 	{
-		return 'info_datos_tabla';
+		return 'toba_info_datos_tabla';
 	}
 	
 	static function get_path_clase_runtime()

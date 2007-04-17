@@ -183,12 +183,12 @@ class ci_relaciones extends toba_ci
 
 	function get_columnas_padre()
 	{
-		return dao_editores::get_lista_dt_columnas( $this->rel_activa_padre );
+		return toba_info_editores::get_lista_dt_columnas( $this->rel_activa_padre );
 	}
 	
 	function get_columnas_hija()
 	{
-		return dao_editores::get_lista_dt_columnas( $this->rel_activa_hijo );
+		return toba_info_editores::get_lista_dt_columnas( $this->rel_activa_hijo );
 	}
 
 	function evt__relaciones_columnas__modificacion($datos)

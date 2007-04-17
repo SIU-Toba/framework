@@ -23,12 +23,12 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__info()
 	{
-		if ( instalacion::existe_info_basica() ) {
+		if ( toba_modelo_instalacion::existe_info_basica() ) {
 			$this->consola->enter();
 			//VERSION
-			$this->consola->lista(array(instalacion::get_version_actual()->__toString()), "VERSION");
+			$this->consola->lista(array(toba_modelo_instalacion::get_version_actual()->__toString()), "VERSION");
 			// INSTANCIAS
-			$instancias = instancia::get_lista();
+			$instancias = toba_modelo_instancia::get_lista();
 			if ( $instancias ) {
 				$this->consola->lista( $instancias, 'INSTANCIAS' );
 			} else {
@@ -46,7 +46,7 @@ class comando_instalacion extends comando_toba
 				$this->consola->mensaje( 'ATENCION: No esta definido el ID del GRUPO de DESARROLLO.');
 			}
 			// PROYECTOS
-			$proyectos = proyecto::get_lista();
+			$proyectos = toba_modelo_proyecto::get_lista();
 			if ( $proyectos ) {
 				$lista_proyectos = array();
 				foreach ($proyectos as $dir => $id) {
@@ -178,11 +178,11 @@ class comando_instalacion extends comando_toba
 	*/
 	function opcion__crear()
 	{
-		if( ! instalacion::existe_info_basica() ) {
-			$this->consola->titulo( "Configurando INSTALACION en: " . instalacion::dir_base() );
+		if( ! toba_modelo_instalacion::existe_info_basica() ) {
+			$this->consola->titulo( "Configurando INSTALACION en: " . toba_modelo_instalacion::dir_base() );
 			$id_grupo_desarrollo = self::definir_id_grupo_desarrollo();
 			$alias = self::definir_alias_nucleo();
-			instalacion::crear( $id_grupo_desarrollo, $alias );
+			toba_modelo_instalacion::crear( $id_grupo_desarrollo, $alias );
 			$this->consola->enter();
 			$this->consola->mensaje("La instalacion ha sido inicializada");
 			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba instalacion agregar_db -d [nombre_base]'");
@@ -240,7 +240,7 @@ class comando_instalacion extends comando_toba
 		echo exec("chmod g+w $toba_dir/www -R");
 		echo exec("chmod g+w $toba_dir/instalacion -R");
 		echo exec("chmod g+w $toba_dir/temp");
-		foreach (instalacion::get_lista_proyectos() as $proyecto) {
+		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
 			echo exec("chgrp www-data $proyecto/www -R");
 			echo exec("chmod g+w $proyecto/www -R");
 		}
@@ -251,8 +251,8 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__autoinstalar()
 	{
-		$nombre_toba = 'toba_'.instalacion::get_version_actual()->get_string_partes();		
-		$this->consola->titulo("Instalación Toba ".instalacion::get_version_actual()->__toString());
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();		
+		$this->consola->titulo("Instalación Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
 		if (get_magic_quotes_gpc()) {
@@ -281,17 +281,17 @@ class comando_instalacion extends comando_toba
 */
 	
 		//--- Borra la instalacion anterior??
-		if ( ! instalacion::existe_info_basica() ) {
+		if ( ! toba_modelo_instalacion::existe_info_basica() ) {
 			$forzar_instalacion = true;
 		} else {
 			$forzar_instalacion = ! $this->consola->dialogo_simple("Ya existe una instalación anterior desea conservarla ?");
 			if ($forzar_instalacion) {
-				instalacion::borrar_directorio();
+				toba_modelo_instalacion::borrar_directorio();
 			}
 		}
 		//--- Crea la INSTALACION		
 		if ($forzar_instalacion) {
-			instalacion::crear( 0, $nombre_toba );			
+			toba_modelo_instalacion::crear( 0, $nombre_toba );			
 		}
 		
 		//--- Crea la definicion de bases
@@ -333,7 +333,7 @@ class comando_instalacion extends comando_toba
 
 		//--- Si ingreso un proyecto y existe, lo borra
 		if ($id_proyecto != '') {
-			$existe_proyecto = proyecto::existe($id_proyecto);
+			$existe_proyecto = toba_modelo_proyecto::existe($id_proyecto);
 			if ($existe_proyecto && $forzar_instalacion) {
 				toba_manejador_archivos::eliminar_directorio(  toba_dir() . "/proyectos/" . $id_proyecto );
 				$existe_proyecto = false;
@@ -342,23 +342,23 @@ class comando_instalacion extends comando_toba
 		
 		//--- Crea la instancia
 		$id_instancia = $this->get_entorno_id_instancia(true);
-		$proyectos = proyecto::get_lista();
+		$proyectos = toba_modelo_proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
 			//--- Elimina el proyecto toba_testing 
 			unset($proyectos['toba_testing']);
 		}
-		instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
 		
 		//-- Carga la instancia
 		$instancia = $this->get_instancia();
 		if (!$instancia->existe_modelo() || $forzar_instalacion) {
 			$instancia->cargar( true );
 		}
-		$instancia->set_version( instalacion::get_version_actual());
+		$instancia->set_version( toba_modelo_instalacion::get_version_actual());
 		
 		//--- Crea el proyecto
 		if ($id_proyecto != '' && !$existe_proyecto ) {
-			proyecto::crear( $instancia, $id_proyecto, array() );
+			toba_modelo_proyecto::crear( $instancia, $id_proyecto, array() );
 			$nuevo_proyecto = $this->get_proyecto($id_proyecto);			
 		}
 		
@@ -386,7 +386,7 @@ class comando_instalacion extends comando_toba
 		}		
 
 		//--- Mensajes finales
-		$toba_conf = instalacion::dir_base()."/toba.conf";
+		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
 		$this->consola->separador();
 		$this->consola->mensaje("La instalación del framework ha finalizado, para su correcta ejecución se necesita notificar a Apache y a la consola de su presencia");
 		$this->consola->mensaje("");

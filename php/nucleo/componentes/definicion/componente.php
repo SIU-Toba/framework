@@ -113,7 +113,7 @@ class componente_toba implements toba_componente_definicion
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_componente';
+		return 'toba_info_componente';
 	}
 }
 ?>

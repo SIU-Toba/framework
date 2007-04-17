@@ -1,6 +1,5 @@
 <?php
 require_once('catalogos/ci_catalogo.php'); 
-require_once("modelo/lib/catalogo_items.php");
 
 class ci_catalogo_items extends ci_catalogo
 {
@@ -18,7 +17,7 @@ class ci_catalogo_items extends ci_catalogo
 			$this->s__opciones['inicial'] = $item_selecc;
 		}
 		
-		$this->catalogador = new catalogo_items(toba_editor::get_proyecto_cargado());		
+		$this->catalogador = new toba_catalogo_items(toba_editor::get_proyecto_cargado());		
 	}
 
 	

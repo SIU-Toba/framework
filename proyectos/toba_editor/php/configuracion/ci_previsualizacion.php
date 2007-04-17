@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/consultas/dao_permisos.php');
 
 class ci_previsualizacion extends toba_ci
 {
@@ -14,7 +13,7 @@ class ci_previsualizacion extends toba_ci
 	
 	function get_grupos_acceso()
 	{
-		return dao_permisos::get_grupos_acceso();
+		return toba_info_permisos::get_grupos_acceso();
 	}
 
 	//-------------------------------------------------------------------

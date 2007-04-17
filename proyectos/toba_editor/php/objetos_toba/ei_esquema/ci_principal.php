@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
-require_once('modelo/componentes/info_ei.php');
 
 class ci_principal extends ci_editores_toba
 {

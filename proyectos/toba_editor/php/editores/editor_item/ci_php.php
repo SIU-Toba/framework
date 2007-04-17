@@ -1,5 +1,4 @@
 <?php 
-require_once('lib/reflexion/toba_archivo_php.php');
 
 class ci_php extends toba_ci
 {

@@ -29,7 +29,7 @@ class componente_cn extends componente_toba
 	
 	static function get_nombre_clase_info()
 	{
-		return 'info_cn';
+		return 'toba_info_cn';
 	}
 	
 	static function get_path_clase_runtime()

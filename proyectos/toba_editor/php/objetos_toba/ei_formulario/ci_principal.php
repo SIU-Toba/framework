@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php'); 
-require_once('modelo/componentes/info_ei_formulario.php');
 
 class ci_principal extends ci_editores_toba
 {
@@ -53,7 +52,7 @@ class ci_principal extends ci_editores_toba
 	
 	function get_eventos_estandar($modelo)
 	{
-		return info_ei_formulario::get_lista_eventos_estandar($modelo);
+		return toba_info_ei_formulario::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()

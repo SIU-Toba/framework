@@ -2,7 +2,6 @@
 ini_set('max_execution_time', 0);
 
 require_once('consola/comando.php');
-require_once('modelo/catalogo_modelo.php');
 
 /**
 	@todo: - Seleccion adecuada de Usuarios y Grupo de acceso
@@ -14,7 +13,7 @@ class comando_toba extends comando
 {
 	private $interprete; 
 
-	function __construct( gui $manejador_interface, $interprete = null )
+	function __construct( toba_proceso_gui $manejador_interface, $interprete = null )
 	{
 		parent::__construct( $manejador_interface );
 		$this->interprete = $interprete;
@@ -29,7 +28,7 @@ class comando_toba extends comando
 	*/
 	protected function get_instalacion()
 	{
-		return catalogo_modelo::instanciacion()->get_instalacion( $this->consola );
+		return toba_modelo_catalogo::instanciacion()->get_instalacion( $this->consola );
 	}
 	
 	/**
@@ -37,7 +36,7 @@ class comando_toba extends comando
 	*/
 	protected function get_instancia()
 	{
-		return catalogo_modelo::instanciacion()->get_instancia(	$this->get_id_instancia_actual(),
+		return toba_modelo_catalogo::instanciacion()->get_instancia(	$this->get_id_instancia_actual(),
 																$this->consola );
 	}
 
@@ -49,9 +48,9 @@ class comando_toba extends comando
 		if (!isset($id_proy)) {
 			$id_proy = $this->get_id_proyecto_actual();
 		}
-		return catalogo_modelo::instanciacion()->get_proyecto( 	$this->get_id_instancia_actual(),
-																$id_proy,
-																$this->consola );
+		return toba_modelo_catalogo::instanciacion()->get_proyecto( 	$this->get_id_instancia_actual(),
+																		$id_proy,
+																		$this->consola );
 	}
 
 	/**
@@ -59,7 +58,7 @@ class comando_toba extends comando
 	*/
 	protected function get_nucleo()
 	{
-		return catalogo_modelo::instanciacion()->get_nucleo( $this->consola );
+		return toba_modelo_catalogo::instanciacion()->get_nucleo( $this->consola );
 	}
 
 	/**
@@ -67,7 +66,7 @@ class comando_toba extends comando
 	*/
 	protected function get_conversor()
 	{
-		return catalogo_modelo::instanciacion()->get_conversor( $this->get_id_instancia_actual(), $this->consola );
+		return toba_modelo_catalogo::instanciacion()->get_conversor( $this->get_id_instancia_actual(), $this->consola );
 	}
 
 	//-----------------------------------------------------------
@@ -241,7 +240,7 @@ class comando_toba extends comando
 	protected function seleccionar_proyectos( $seleccion_multiple = true, $obligatorio = false )
 	{
 		$titulo = "Seleccionar PROYECTOS";
-		$proyectos = proyecto::get_lista();
+		$proyectos = toba_modelo_proyecto::get_lista();
 		if( count( $proyectos ) > 0 ) {
 			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, true, 'Nombre real del proyecto', 
 														$obligatorio, array_keys($proyectos), 'todos');

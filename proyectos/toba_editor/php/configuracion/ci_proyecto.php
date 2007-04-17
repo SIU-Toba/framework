@@ -45,7 +45,7 @@ class ci_proyecto extends toba_ci
 	{
 		$datos = $this->dependencia('datos')->get();
 		if (isset($datos['item_inicio_sesion'])) {
-			$datos['carpeta_inicio_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_inicio_sesion'], 
+			$datos['carpeta_inicio_sesion'] = toba_info_editores::get_carpeta_de_item(	$datos['item_inicio_sesion'], 
 																					$datos['proyecto']);
 		}
 		return $datos;
@@ -62,7 +62,7 @@ class ci_proyecto extends toba_ci
 	{
 		$datos = $this->dependencia('datos')->get();
 		if (isset($datos['item_pre_sesion'])) {
-			$datos['carpeta_pre_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_pre_sesion'], 
+			$datos['carpeta_pre_sesion'] = toba_info_editores::get_carpeta_de_item(	$datos['item_pre_sesion'], 
 																				$datos['proyecto']);
 		}
 		return $datos;
@@ -79,7 +79,7 @@ class ci_proyecto extends toba_ci
 	{
 		$datos = $this->dependencia('datos')->get();
 		if (isset($datos['item_set_sesion'])) {
-			$datos['carpeta_set_sesion'] = dao_editores::get_carpeta_de_item(	$datos['item_set_sesion'], 
+			$datos['carpeta_set_sesion'] = toba_info_editores::get_carpeta_de_item(	$datos['item_set_sesion'], 
 																				$datos['proyecto']);
 		}
 		return $datos;

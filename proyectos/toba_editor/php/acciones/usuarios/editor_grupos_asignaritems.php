@@ -1,12 +1,10 @@
 <?php
-	include_once("nucleo/lib/interface/toba_form.php");
-	require_once('modelo/lib/catalogo_items.php');
 
 	$editable = toba::zona()->get_editable();
 	define('separador_camino', '_%_');
 
 	$grupo = $editable[1];
-	$arbol = new catalogo_items(toba_editor::get_proyecto_cargado());
+	$arbol = new toba_catalogo_items(toba_editor::get_proyecto_cargado());
 	$arbol->cargar_todo();
 	$arbol->sacar_publicos();
 

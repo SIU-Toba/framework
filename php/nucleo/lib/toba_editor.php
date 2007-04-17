@@ -41,8 +41,8 @@ class toba_editor
 			toba::proyecto()->set_parametro('estilo', toba::memoria()->get_parametro('skin'));
 		}
 		//Acceso a la informacion del modelo
-		contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
-		contexto_info::set_db( toba_editor::get_base_activa() );
+		toba_contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
+		toba_contexto_info::set_db( toba_editor::get_base_activa() );
 	}
 
 	static function finalizar()
@@ -356,7 +356,7 @@ class toba_editor
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
 		//Skin
-		$skins = rs_convertir_asociativo(dao_editores::get_lista_skins(), array('estilo'), 'descripcion');
+		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo'), 'descripcion');
 		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
 		echo toba_form::select('cambiar_skin', toba::proyecto()->get_parametro('estilo'), $skins, 'ef-combo', $js);
 		
@@ -494,7 +494,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 
-		$vinculos = call_user_func(array('datos_editores', 'get_pantallas_'.$clase));		
+		$vinculos = call_user_func(array('toba_datos_editores', 'get_pantallas_'.$clase));		
 		foreach(array_keys($vinculos) as $id) {
 			$parametros = array(apex_hilo_qs_zona => implode(apex_qs_separador,$componente),
 								'etapa' => $vinculos[$id]['identificador']);

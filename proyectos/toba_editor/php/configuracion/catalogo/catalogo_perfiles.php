@@ -1,6 +1,5 @@
 <?php
 require_once("contrib/lib/toba_nodo_basico.php");
-require_once("modelo/consultas/dao_permisos.php");
 require_once("catalogo_perfiles_grupo.php");
 
 class catalogo_perfiles extends toba_nodo_basico
@@ -8,7 +7,7 @@ class catalogo_perfiles extends toba_nodo_basico
 	function __construct()
 	{
 		parent::__construct('Grupos de Acceso');
-		foreach( dao_permisos::get_grupos_acceso() as $grupo ) {
+		foreach( toba_info_permisos::get_grupos_acceso() as $grupo ) {
 			$hijos[] = new catalogo_perfiles_grupo( $this, $grupo['usuario_grupo_acc'], $grupo['nombre'] );
 		}
 		$this->set_hijos( $hijos );

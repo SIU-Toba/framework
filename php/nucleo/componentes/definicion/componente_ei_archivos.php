@@ -17,7 +17,7 @@ class componente_ei_archivos extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_archivos';
+		return 'toba_info_ei_archivos';
 	}
 }
 ?>

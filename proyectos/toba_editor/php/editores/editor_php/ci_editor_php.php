@@ -1,8 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php');
-require_once('lib/reflexion/toba_archivo_php.php');
-require_once('lib/reflexion/toba_clase_php.php');
-
 /**
 *	Este CI tiene dos objetivos: crear, mostrar y analizar subclases del framework
 *		y abrirlos en editor externo (como evento o mediante el servicio ejecutar)

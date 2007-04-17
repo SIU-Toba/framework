@@ -68,7 +68,7 @@ class componente_ei extends componente_toba
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei';
+		return 'toba_info_ei';
 	}
 	
 	static function get_path_clase_runtime()

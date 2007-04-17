@@ -1,6 +1,4 @@
 <?php 
-require_once('modelo/catalogo_modelo.php');
-require_once('modelo/lib/gui.php');
 
 class pantalla_login extends toba_ei_pantalla  
 {
@@ -74,7 +72,7 @@ class ci_login extends toba_ci
 
 	function get_lista_instancias()
 	{
-		$instancias = instancia::get_lista();
+		$instancias = toba_modelo_instancia::get_lista();
 		$datos = array();
 		$a = 0;
 		foreach( $instancias as $x) {
@@ -87,7 +85,7 @@ class ci_login extends toba_ci
 	
 	function get_lista_usuarios()
 	{
-		$instancia = catalogo_modelo::instanciacion()->get_instancia(toba::instancia()->get_id(), new mock_gui);
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba::instancia()->get_id(), new toba_mock_proceso_gui);
 		$usuarios = $instancia->get_lista_usuarios();
 		$datos = array();
 		$a = 0;

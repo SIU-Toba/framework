@@ -42,16 +42,16 @@ class zona_objeto extends zona_editor
 			// Apertura del archivo
 			if ( !admin_util::existe_archivo_subclase($this->editable_info['subclase_archivo']) ) {
 				// Ir al editor
-				$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+				$ver = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
 																			'componente' =>$componente[1] ), null, 'nucleo/php_inexistente.gif');
 				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			} else {
 				// Ir al editor
-				$ver = info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+				$ver = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
 																			'componente' =>$componente[1] ) );			
 				echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 				// Abrir el archivo
-				$abrir = info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
+				$abrir = toba_info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
 																				'componente' =>$componente[1] )  );	
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
@@ -180,7 +180,7 @@ class zona_objeto extends zona_editor
 					echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 					echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
 					echo "<td  class='barra-obj-link'>".$rs["objeto_identificador"]."</td>";
-					if (!in_array($rs['clase'], dao_editores::get_clases_validas())) { 
+					if (!in_array($rs['clase'], toba_info_editores::get_clases_validas())) { 
 						echo "<td  class='barra-obj-id' width='5'>";
 						echo "<a href='" . toba::vinculador()->generar_solicitud(
 													toba_editor::get_id(),"/admin/objetos/propiedades",

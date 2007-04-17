@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/catalogo_modelo.php');
 require_once("contrib/lib/toba_nodo_basico.php");
 require_once("menu/menu_nodo_proyecto.php");
 
@@ -8,7 +7,7 @@ class ci_menu extends toba_ci
 	function evt__form__modificacion($datos)
 	{
 		toba::sesion()->set_id_instancia($datos['instancia']);
-		admin_instancia::ref(true);
+		admin_toba_modelo_instancia::ref(true);
 	}
 
 	function conf__form($componente)
@@ -24,7 +23,7 @@ class ci_menu extends toba_ci
 	
 	function get_lista_instancias()
 	{
-		$instancias = instancia::get_lista();
+		$instancias = toba_modelo_instancia::get_lista();
 		$datos = array();
 		$a = 0;
 		foreach( $instancias as $x) {
@@ -42,7 +41,7 @@ class ci_menu extends toba_ci
 		$opciones['menu'] = true;
 		$opciones['celda_memoria'] = $celda;
 		// nodo USUARIOS
-		$nodo_usuarios = new toba_nodo_basico('Usuarios ['. consultas_instancia::get_cantidad_usuarios() .']');
+		$nodo_usuarios = new toba_nodo_basico('Usuarios ['. consultas_toba_modelo_instancia::get_cantidad_usuarios() .']');
 		$nodo_usuarios->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("nucleo/preferencias.gif", false),
 											'ayuda' => 'Administrar USUARIOS' ) );
 		$nodo_usuarios->agregar_utileria( array(
@@ -54,7 +53,7 @@ class ci_menu extends toba_ci
 		$nodo_proyectos	= new toba_nodo_basico('<b>PROYECTOS</b>');
 		$nodo_proyectos->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("seleccionar.gif", false),
 												'ayuda' => null ) );
-		foreach( admin_instancia::ref()->get_lista_proyectos() as $proyecto ) {
+		foreach( admin_toba_modelo_instancia::ref()->get_lista_proyectos() as $proyecto ) {
 			$proyectos[] = new menu_nodo_proyecto( $proyecto, $nodo_proyectos, $celda, $target );
 		}
 		$nodo_proyectos->set_hijos( $proyectos );
@@ -69,7 +68,7 @@ class ci_menu extends toba_ci
 			'target' => $target
 		));
 
-		$nodo_admin_bips = new toba_nodo_basico('Bloqueo de IPs ['. consultas_instancia::get_cantidad_ips_rechazadas() .']',$nodo_admin);
+		$nodo_admin_bips = new toba_nodo_basico('Bloqueo de IPs ['. consultas_toba_modelo_instancia::get_cantidad_ips_rechazadas() .']',$nodo_admin);
 		$nodo_admin_bips->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("error.gif", false),
 												'ayuda' => 'Administrar usuarios de la instancia' ) );
 		$nodo_admin_bips->agregar_utileria( array(

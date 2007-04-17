@@ -64,7 +64,7 @@ class componente_datos_relacion extends componente_toba
 	
 	static function get_nombre_clase_info()
 	{
-		return 'info_datos_relacion';
+		return 'toba_info_datos_relacion';
 	}
 	
 	static function get_path_clase_runtime()

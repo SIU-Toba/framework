@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
-require_once('modelo/componentes/info_ci.php');
 require_once('admin_util.php');
 
 class ci_editor extends ci_editores_toba
@@ -287,13 +286,13 @@ class ci_editor extends ci_editores_toba
 			$obj->eliminar_evento('abrir_php');
 		} else {
 			// Link al editor
-			$parametros = info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
+			$parametros = toba_info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 			$obj->evento('ver_php')->vinculo()->set_parametros($parametros);
 			if (isset($this->s__pantalla_php_archivo[$id_actual])) {
 				// Apertura de archivos
-				$abrir = info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
+				$abrir = toba_info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			$this->s__pantalla_php_db[$id_actual]);
 				$obj->set_js_abrir($abrir['js']);

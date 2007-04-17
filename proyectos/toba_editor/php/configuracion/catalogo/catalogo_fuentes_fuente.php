@@ -8,7 +8,7 @@ class catalogo_fuentes_fuente extends toba_nodo_basico
 	function __construct($id, $padre)
 	{
 		$this->id = $id;
-		$this->datos = dao_editores::get_info_fuente_datos($this->id);
+		$this->datos = toba_info_editores::get_info_fuente_datos($this->id);
 		parent::__construct($this->datos['fuente_datos'], $padre);
 		$this->nombre_largo = $this->datos['descripcion'];
 		

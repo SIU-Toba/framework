@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('admin_util.php');
 require_once('seleccion_imagenes.php');
 
@@ -99,7 +98,7 @@ abstract class ci_editores_toba extends toba_ci
 		
 	function conf__base($form)
 	{
-		if (! in_array($this->get_clase_actual(), dao_editores::get_clases_con_fuente_datos())) {
+		if (! in_array($this->get_clase_actual(), toba_info_editores::get_clases_con_fuente_datos())) {
 			//Oculta la fuente
 			$form->desactivar_efs(array('fuente_datos'));
 		}

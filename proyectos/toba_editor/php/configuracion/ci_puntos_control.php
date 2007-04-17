@@ -4,7 +4,7 @@
 
 	  function conf__cuadro($componente)
 	  {
-		  return dao_editores::get_puntos_control();
+		  return toba_info_editores::get_puntos_control();
 	  }
 
     function evt__agregar()

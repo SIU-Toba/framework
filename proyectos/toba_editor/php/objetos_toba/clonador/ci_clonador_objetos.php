@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ci.php'); 
 require_once('objetos_toba/asignador_objetos.php');
 require_once('admin_util.php');
 //----------------------------------------------------------------
@@ -36,7 +35,7 @@ class ci_clonador_objetos extends toba_ci
 							'clase' => 'item'
 						)
 					);
-		$destinos = array_merge($destinos, dao_editores::get_clases_contenedoras());
+		$destinos = array_merge($destinos, toba_info_editores::get_clases_contenedoras());
 		//Agregar el item
 		return $destinos;
 	}
@@ -46,11 +45,11 @@ class ci_clonador_objetos extends toba_ci
 		if (isset($clase)) {
 			switch ($clase) {
 				case 'item':
-					return dao_editores::get_lista_items();
+					return toba_info_editores::get_lista_items();
 					break;
 				default:
 					$tipo = "componente,".$clase;
-					return dao_editores::get_lista_objetos_toba($tipo);
+					return toba_info_editores::get_lista_objetos_toba($tipo);
 			}
 		}
 	}

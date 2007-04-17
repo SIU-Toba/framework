@@ -1,5 +1,4 @@
 <?php
-require_once('modelo/consultas/dao_instancia.php');
 require_once(toba_dir() . '/php/3ros/cssparser.php');
 //----------------------------------------------------------------
 class ci_comparador extends toba_ci
@@ -23,7 +22,7 @@ class ci_comparador extends toba_ci
 				$archivo = $candidato;
 			} else {
 				//Si el archivo no esta en toba, esta en algun proyecto	
-				$proyectos = dao_instancia::get_proyectos_con_estilo($estilo);
+				$proyectos = toba_info_instancia::get_proyectos_con_estilo($estilo);
 				foreach ($proyectos as $proyecto) {
 					$pro = $proyecto['proyecto'];
 					$candidato = toba::instancia()->get_path_proyecto($pro)."/www/css/$estilo.css";

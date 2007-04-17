@@ -1,5 +1,5 @@
 <?php
-require_once('modelo/info/contexto_info.php');
+require_once('modelo/info/toba_contexto_info.php');
 
 class sesion extends toba_sesion
 {
@@ -18,7 +18,7 @@ class sesion extends toba_sesion
 
 	function conf__activacion()
 	{
-		contexto_info::set_db( admin_instancia::ref()->db() );
+		toba_contexto_info::set_db( admin_instancia::ref()->db() );
 	}
 	
 	//-- API para el proyecto -------------------------------------

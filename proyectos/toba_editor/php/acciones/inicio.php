@@ -1,5 +1,4 @@
 <?php
-require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
 
@@ -18,7 +17,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
 		echo toba_form::cerrar();
 		
-		$version = instalacion::get_version_actual();
+		$version = toba_modelo_instalacion::get_version_actual();
 		$cambios = "$url_trac/trac/toba/wiki/Versiones/".$version->__toString();
 		echo "<div style='position: fixed; _position:absolute;right: 0; bottom:0; padding: 4px;background-color:white;border: 1px solid gray'>";
 		//echo "<span style='font-size:10px;font-weight:bold;'>toba</span> ";
@@ -54,7 +53,7 @@ $url_login = $url_trac.'/trac/toba/login';
 				AND pant.objeto_ci = dep.objeto_consumidor		-- Mismo CI padre
 				AND dep.proyecto = '".toba_editor::get_proyecto_cargado()."'
 		";
-		$rs = contexto_info::get_db()->consultar($sql);
+		$rs = toba_contexto_info::get_db()->consultar($sql);
 		if (! empty($rs)) {
 			echo "<h2>Pantallas y eis que comparten el mismo id</h2><ul>";
 			foreach ($rs as $conflicto) {

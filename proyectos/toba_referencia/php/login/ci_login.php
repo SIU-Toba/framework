@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/catalogo_modelo.php');
 
 class ci_login extends toba_ci
 {

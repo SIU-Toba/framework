@@ -109,7 +109,7 @@ class componente_ei_cuadro extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_cuadro';
+		return 'toba_info_ei_cuadro';
 	}
 	
 	static function get_tipo_abreviado()

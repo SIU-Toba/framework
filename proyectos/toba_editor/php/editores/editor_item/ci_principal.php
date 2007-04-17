@@ -1,6 +1,5 @@
 <?php
 require_once('nucleo/componentes/interface/toba_ci.php'); 
-require_once('modelo/consultas/dao_permisos.php');
 require_once('admin_util.php');
 require_once('seleccion_imagenes.php');
 //----------------------------------------------------------------
@@ -164,7 +163,7 @@ class ci_principal extends toba_ci
 		$asignados = $this->get_entidad()->tabla('permisos')->get_filas();
 		if (!$asignados)
 			$asignados = array();
-		$grupos = dao_permisos::get_grupos_acceso(toba_editor::get_proyecto_cargado());
+		$grupos = toba_info_permisos::get_grupos_acceso(toba_editor::get_proyecto_cargado());
 		$datos = array();
 		foreach ($grupos as $grupo) {
 			//El grupo esta asignado al item?

@@ -1,6 +1,4 @@
 <?php
-require_once('modelo/lib/analizador_logger.php');
-//--------------------------------------------------------------------
 
 class ci_analizador extends toba_ci
 {
@@ -77,7 +75,7 @@ class ci_analizador extends toba_ci
 	{
 		if (isset($this->opciones)) {
 			$this->archivo = $this->get_logger()->directorio_logs()."/sistema.log";		
-			$this->analizador = new analizador_logger_fs($this->archivo);
+			$this->analizador = new toba_analizador_logger_fs($this->archivo);
 		}
 	}
 	

@@ -39,7 +39,7 @@ class componente_ei_esquema extends componente_ei
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_esquema';
+		return 'toba_info_ei_esquema';
 	}
 }
 ?>

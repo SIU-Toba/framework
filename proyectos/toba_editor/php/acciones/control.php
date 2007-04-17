@@ -1,7 +1,6 @@
 <?php
 
-	require_once('modelo/catalogo_modelo.php');
-	
+
 	$js_cambiar_color_1 = " onmouseover=\"this.className='listado-tabn-m';\" ".
                         "  onmouseout=\"this.className='listado-tabn';\"";
 	$js_cambiar_color_2 = " onmouseover=\"this.className='listado-barra-superior-tabn-m';\" ".
@@ -81,7 +80,7 @@ function abrir_toba_instancia(){
         echo "</td>";
 		echo "<td class='listado-barra-superior-tabi2'>";
 		$actual = toba_editor::get_proyecto_cargado();
-		$instancia = catalogo_modelo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa(), new mock_gui);
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba_editor::get_id_instancia_activa(), new toba_mock_proceso_gui);
 		$proyectos = array();
 		foreach ($instancia->get_lista_proyectos_vinculados() as $proy) {
 			$proyectos[$proy] = $proy;

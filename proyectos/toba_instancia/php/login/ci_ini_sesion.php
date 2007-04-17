@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/catalogo_modelo.php');
 
 class ci_ini_sesion extends toba_ci
 {
@@ -23,7 +22,7 @@ class ci_ini_sesion extends toba_ci
 
 	function get_lista_instancias()
 	{
-		$instancias = instancia::get_lista();
+		$instancias = toba_modelo_instancia::get_lista();
 		$datos = array();
 		$a = 0;
 		foreach( $instancias as $x) {

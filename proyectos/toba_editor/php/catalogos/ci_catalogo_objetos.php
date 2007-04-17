@@ -1,8 +1,5 @@
 <?php
-
-require_once('catalogos/ci_catalogo.php'); 
-require_once('modelo/lib/catalogo_objetos.php');
-require_once('modelo/componentes/info_componente.php');
+require_once('catalogos/ci_catalogo.php');
 
 class ci_catalogo_objetos extends ci_catalogo
 {
@@ -16,7 +13,7 @@ class ci_catalogo_objetos extends ci_catalogo
 	{
 		parent::__construct($id);
 		$this->album_fotos = new album_fotos('cat_objeto');
-		$this->catalogo = new catalogo_objetos(toba_editor::get_proyecto_cargado());
+		$this->catalogo = new toba_catalogo_objetos(toba_editor::get_proyecto_cargado());
 	}
 	
 	function agregar_foto_inicial()

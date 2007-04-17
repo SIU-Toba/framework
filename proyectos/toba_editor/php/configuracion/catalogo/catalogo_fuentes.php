@@ -23,7 +23,7 @@ class catalogo_fuentes extends toba_nodo_basico
 		) );
 		
 		//HIJOS
-		foreach( dao_editores::get_fuentes_datos() as $fuente ) {
+		foreach( toba_info_editores::get_fuentes_datos() as $fuente ) {
 			$hijos[] = new catalogo_fuentes_fuente( $fuente['fuente_datos'], $this );
 		}
 		$this->set_hijos($hijos);

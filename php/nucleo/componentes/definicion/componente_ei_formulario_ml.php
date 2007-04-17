@@ -42,7 +42,7 @@ class componente_ei_formulario_ml extends componente_ei_formulario
 
 	static function get_nombre_clase_info()
 	{
-		return 'info_ei_formulario_ml';
+		return 'toba_info_ei_formulario_ml';
 	}
 	
 	static function get_tipo_abreviado()

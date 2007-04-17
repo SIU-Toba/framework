@@ -1,6 +1,5 @@
 <?php
 require_once('comando_toba.php');
-require_once('modelo/lib/comparador_instancias.php');
 
 class comando_test extends comando_toba
 {
@@ -40,9 +39,9 @@ class comando_test extends comando_toba
 		
 		//Selecciono una categoria
 		if (isset($param["-c"])) {
-			$seleccionados = lista_casos::get_casos($param["-c"]);
+			$seleccionados = toba_test_lista_casos::get_casos($param["-c"]);
 		} else {
-			$seleccionados = lista_casos::get_casos();
+			$seleccionados = toba_test_lista_casos::get_casos();
 		}
 					
 		if(isset($param["-t"])) {

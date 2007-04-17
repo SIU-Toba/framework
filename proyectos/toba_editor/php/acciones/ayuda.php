@@ -23,7 +23,6 @@
 		}
 	}
 	
-require_once('modelo/instalacion.php');
 require_once('admin_util.php');
 
 $url_trac = get_url_desarrollos();

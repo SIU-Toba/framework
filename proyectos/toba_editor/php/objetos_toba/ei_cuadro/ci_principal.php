@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
-require_once('modelo/componentes/info_ei_cuadro.php');
 
 class ci_principal extends ci_editores_toba
 {
@@ -127,7 +126,7 @@ class ci_principal extends ci_editores_toba
 	function conf__columnas_lista()
 	{
 		//--- Se insertan los css de cada estilo para hacer la visualización
-		$estilos = rs_convertir_asociativo(dao_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
+		$estilos = rs_convertir_asociativo(toba_info_editores::get_lista_estilos_columnas(), array('columna_estilo'), 'css');
 		echo toba_js::abrir();
 		echo "var editor_col_css=".toba_js::arreglo($estilos, true);
 		echo toba_js::cerrar();
@@ -262,7 +261,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_estandar($modelo)
 	{
-		return info_ei_cuadro::get_lista_eventos_estandar($modelo);
+		return toba_info_ei_cuadro::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()

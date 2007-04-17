@@ -19,7 +19,7 @@ class ci_mensajes_componentes extends ci_abm_basico
 	
 	function get_datos_listado()
 	{
-		return dao_editores::get_mensajes_objeto($this->get_id_objeto());
+		return toba_info_editores::get_mensajes_objeto($this->get_id_objeto());
 	}
 	
 	function evt__formulario__alta($datos)

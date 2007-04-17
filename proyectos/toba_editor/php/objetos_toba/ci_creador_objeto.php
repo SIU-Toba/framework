@@ -12,7 +12,7 @@ class ci_creador_objeto extends toba_ci
 	
 	function ini()
 	{
-		if (! dao_editores::hay_fuente_definida(toba_editor::get_proyecto_cargado())) {
+		if (! toba_info_editores::hay_fuente_definida(toba_editor::get_proyecto_cargado())) {
 			throw new toba_error("El proyecto actual no tiene definida una fuente de datos propia. Chequear en las propiedades del proyecto.");
 		}		
 		
@@ -116,7 +116,7 @@ class ci_creador_objeto extends toba_ci
 	
 	function conf__tipos()
 	{
-		return dao_editores::get_clases_editores($this->destino['tipo']);
+		return toba_info_editores::get_clases_editores($this->destino['tipo']);
 	}
 	
 	function evt__tipos__seleccionar($clase)
@@ -169,7 +169,7 @@ class ci_creador_objeto extends toba_ci
 	function cargar_editor()
 	{
 		if (!isset($this->datos_editor)) {
-			$this->datos_editor = dao_editores::get_ci_editor_clase($this->clase_actual['proyecto'], $this->clase_actual['clase']);
+			$this->datos_editor = toba_info_editores::get_ci_editor_clase($this->clase_actual['proyecto'], $this->clase_actual['clase']);
 		}
 		$this->agregar_dependencia('editor', $this->datos_editor['proyecto'], $this->datos_editor['objeto']);
 	}

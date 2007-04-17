@@ -5,7 +5,7 @@ class comando
 	protected $manejador_interface;
 	protected $argumentos;
 
-	function __construct( gui $manejador_interface )
+	function __construct( toba_proceso_gui $manejador_interface )
 	{
 		$this->consola = $manejador_interface;
 	}

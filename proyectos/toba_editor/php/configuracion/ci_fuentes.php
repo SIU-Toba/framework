@@ -1,5 +1,4 @@
 <?php 
-require_once('modelo/instalacion.php');
 
 class ci_fuentes extends toba_ci
 {
@@ -71,10 +70,10 @@ class ci_fuentes extends toba_ci
 			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base'));
 			if (in_array($id_base, $bases)) {
 				//---Actualiza la entrada actual
-				instalacion::actualizar_db($id_base, $datos);
+				toba_modelo_instalacion::actualizar_db($id_base, $datos);
 			} else {
 				//---Crea una nueva entrada	
-				instalacion::agregar_db($id_base, $datos);
+				toba_modelo_instalacion::agregar_db($id_base, $datos);
 			}
 		}
 	}
