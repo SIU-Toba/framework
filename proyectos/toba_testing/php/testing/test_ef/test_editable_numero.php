@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/efs/ef_editable.php');
 
 class test_editable_numero extends test_toba
 /*

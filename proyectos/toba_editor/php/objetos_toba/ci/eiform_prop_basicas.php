@@ -1,6 +1,5 @@
 <?php
-require_once('nucleo/componentes/interface/toba_ei_formulario.php'); 
-//----------------------------------------------------------------
+
 class eiform_prop_basicas extends toba_ei_formulario
 {
 

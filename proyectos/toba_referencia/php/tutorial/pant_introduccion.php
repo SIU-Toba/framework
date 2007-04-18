@@ -1,6 +1,5 @@
 <?php 
 require_once("tutorial/pant_tutorial.php");
-require_once('nucleo/lib/toba_parser_ayuda.php');
 
 class pant_definicion extends pant_tutorial
 {

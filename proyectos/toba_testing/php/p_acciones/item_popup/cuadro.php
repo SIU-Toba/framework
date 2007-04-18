@@ -1,5 +1,4 @@
 <?php
-require_once("nucleo/browser/clases/toba_ei_cuadro.php");
 
 class cuadro extends toba_ei_cuadro
 {

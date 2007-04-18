@@ -1,5 +1,5 @@
 <?php
-require_once("contrib/lib/toba_nodo_basico.php");
+require_once(toba_dir() . '/php/contrib/lib/toba_nodo_basico.php');
 
 class catalogo_fuentes_fuente extends toba_nodo_basico
 {

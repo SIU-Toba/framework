@@ -1,15 +1,15 @@
 <?php
-//require_once("modelo/componentes/info_item.php");
+
 
 class tp_referencia extends toba_tp_normal
 {
-/*    protected $titulo;
+    protected $titulo;
     
     function titulo_item()
     {
         if (! isset($this->titulo)) {
             $info['basica'] = toba::solicitud()->get_datos_item();
-            $item = new info_item($info);
+            $item = new toba_info_item($info);
             $item->cargar_rama();
             
             //Se recorre la rama
@@ -29,7 +29,7 @@ class tp_referencia extends toba_tp_normal
 	{
 		php_referencia::instancia()->mostrar();
 		parent::pie();	
-	}    */
+	}    
 }
 
 ?>

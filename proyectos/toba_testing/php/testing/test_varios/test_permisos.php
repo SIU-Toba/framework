@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/lib/permisos.php');
 
 class test_permisos extends test_toba
 {

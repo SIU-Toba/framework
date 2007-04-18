@@ -168,7 +168,7 @@ class comando_toba extends comando
 	/**
 	*	Interface de seleccion de N usuarios
 	*/
-	protected function seleccionar_usuarios( instancia $instancia )
+	protected function seleccionar_usuarios( toba_modelo_instancia $instancia )
 	{
 		// Decido que usuarios voy a vincular
 		/*
@@ -197,7 +197,7 @@ class comando_toba extends comando
 	/**
 	*	Interface de seleccion de 1 grupo de acceso
 	*/
-	protected function seleccionar_grupo_acceso( proyecto $proyecto )
+	protected function seleccionar_grupo_acceso( toba_modelo_proyecto $proyecto )
 	{
 		$ga = $proyecto->get_lista_grupos_acceso();
 		if ( count( $ga ) == 1 ) {

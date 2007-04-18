@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/lib/toba_parser_ayuda.php');
 
 class test_toba_parser_ayuda extends test_toba
 {

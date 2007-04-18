@@ -171,7 +171,8 @@ class comando_instancia extends comando_toba
 		$instancia = $this->get_instancia();		
 		$datos = $this->definir_usuario( "Crear USUARIO" );
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
-		foreach( $instancia->get_proyectos() as $proyecto ) {
+		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
 		}		

@@ -1,7 +1,6 @@
 <?php
-require_once("nucleo/negocio/toba_cn_t.php"); 
 
-class cn extends toba_cn_t 
+class cn extends toba_cn 
 { 
 	function evt__procesar_especifico()
 	{

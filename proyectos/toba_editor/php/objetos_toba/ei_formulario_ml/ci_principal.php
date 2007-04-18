@@ -4,7 +4,7 @@ require_once('objetos_toba/ci_editores_toba.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'objeto_ei_formulario_ml';	
-	protected $info_actual = 'info_ei_formulario_ml';
+	protected $info_actual = 'toba_info_ei_formulario_ml';
 	
 	function ini()
 	{

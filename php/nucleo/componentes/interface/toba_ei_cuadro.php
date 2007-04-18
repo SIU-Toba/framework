@@ -20,7 +20,7 @@ class toba_ei_cuadro extends toba_ei
     protected $_cantidad_columnas;                 	// Cantidad de columnas a mostrar
     protected $_cantidad_columnas_extra = 0;        	// Cantidad de columnas utilizadas para eventos
     protected $_cantidad_columnas_total;            	// Cantidad total de columnas
-    protected $_datos;                             	// Los datos que constituyen el contenido del cuadro
+    protected $datos;                             	// Los datos que constituyen el contenido del cuadro
     protected $_columnas_clave;                    	
 	protected $_clave_seleccionada;
 	protected $_estructura_datos;					// Estructura de datos esperados por el cuadro
@@ -334,7 +334,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function datos_cargados()
 	{
-		return (count($this->datos) > 0);
+		return isset($this->datos) && is_array($this->datos) && (count($this->datos) > 0);
 	}
 
 	/**

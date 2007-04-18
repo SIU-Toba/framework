@@ -955,7 +955,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function get_sql_actualizar_version($version, $id_proyecto)
 	{
 		$nueva = $version->__toString();
-		$sql = "UPDATE apex_proyecto SET toba_version='$nueva' WHERE proyecto='$id_proyecto'";
+		$sql = "UPDATE apex_proyecto SET version='$nueva' WHERE proyecto='$id_proyecto'";
 		return $sql;
 	}	
 	
@@ -1010,7 +1010,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	/**
 	*	Crea un proyecto NUEVO
 	*/
-	static function crear( instancia $instancia, $nombre, $usuarios_a_vincular )
+	static function crear( toba_modelo_instancia $instancia, $nombre, $usuarios_a_vincular )
 	{
 		//- 1 - Controles
 		$dir_template = toba_dir() . self::template_proyecto;

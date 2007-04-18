@@ -1,5 +1,4 @@
 <?php
-require_once('modelo/info/toba_contexto_info.php');
 
 class sesion extends toba_sesion
 {

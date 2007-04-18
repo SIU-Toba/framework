@@ -1,5 +1,4 @@
 <?php
-require_once('nucleo/componentes/interface/efs/ef_varios.php');
 
 class test_fijos extends test_toba
 /*

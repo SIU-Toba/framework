@@ -8,7 +8,7 @@ class ci_editor extends ci_editores_toba
 	protected $s__pantalla_evt_asoc;
 	protected $cambio_objeto = false;		//Se esta editando un nuevo objeto?
 	protected $clase_actual = 'objeto_ci';
-	protected $info_actual = 'info_ci';
+	protected $info_actual = 'toba_info_ci';
 	protected $s__pantalla_php_db;			// La base posee registro de la existencia de una extension??
 	protected $s__pantalla_php_archivo;		// El archivo de la extension existe en el sistema de archivos??
 	protected $pant_sel_temp;

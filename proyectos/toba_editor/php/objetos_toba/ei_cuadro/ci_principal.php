@@ -10,7 +10,7 @@ class ci_principal extends ci_editores_toba
 	protected $s__cortes_control;
 	protected $s__importacion_cols;
 	protected $clase_actual = 'objeto_ei_cuadro';
-	protected $info_actual = 'info_ei_cuadro';
+	protected $info_actual = 'toba_info_ei_cuadro';
 	
 	function ini()
 	{

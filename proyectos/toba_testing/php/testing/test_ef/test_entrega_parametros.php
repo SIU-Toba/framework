@@ -10,7 +10,6 @@ class test_entrega_parametros extends test_toba
 
 	function test_entregar_parametros()
 	{
-		require_once("nucleo/browser/interface/ef.php");
 		$metodo_recuperacion = "get_parametros";
 		
 		$sql = "SELECT elemento_formulario, descripcion FROM apex_elemento_formulario;";

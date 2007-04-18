@@ -711,7 +711,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 		}
 		
-		$archivo = self::dir_instancia( $nombre ) . '/' . instancia::toba_instancia ;
+		$archivo = self::dir_instancia( $nombre ) . '/' . toba_modelo_instancia::toba_instancia ;
 		$ini->guardar( $archivo );
 		toba_logger::instancia()->debug("Creado archivo $archivo");
 	}

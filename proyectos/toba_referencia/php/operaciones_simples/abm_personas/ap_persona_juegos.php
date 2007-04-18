@@ -1,6 +1,5 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
-require_once('nucleo/componentes/persistencia/toba_ap_tabla_db.php');
 
 class ap_persona_juegos extends toba_ap_tabla_db
 {

@@ -1,5 +1,4 @@
 <?php
-require_once("nucleo/browser/clases/toba_ci.php");
 
 class ci extends toba_ci
 { 

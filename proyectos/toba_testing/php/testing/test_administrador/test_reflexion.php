@@ -1,6 +1,4 @@
 <?php
-require_once('lib/reflexion/toba_archivo_php.php');
-require_once('lib/reflexion/toba_clase_php.php');
 
 class test_reflexion extends test_toba
 {
