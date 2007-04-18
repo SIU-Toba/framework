@@ -739,7 +739,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
 			//--Numeración de las filas
 			if ($this->_info_formulario['filas_numerar']) {
-				echo "<td class='{$this->estilo_celda_actual}'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
+				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-numero'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}			
 			//--Layout de las filas

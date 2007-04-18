@@ -99,7 +99,6 @@ class toba_proyecto
 	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
 	 * @return toba_db
 	 */
-		
 	function cargar_info_basica($proyecto=null)
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {

@@ -364,7 +364,8 @@ class comando_instalacion extends comando_toba
 		
 		//--- Vincula un usuario a todos los proyectos y se instala el proyecto
 		$instancia->agregar_usuario( 'toba', 'Usuario Toba', 'toba');
-		foreach( $instancia->get_proyectos() as $proyecto ) {
+		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( 'toba', $grupo_acceso );
 		}
@@ -381,8 +382,8 @@ class comando_instalacion extends comando_toba
 		$instancia->crear_alias_proyectos();
 		
 		//--- Ejecuta instalaciones particulares de cada proyecto
-		foreach( $instancia->get_proyectos() as $proyecto ) {
-			$proyecto->instalar();
+		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$instancia->get_proyecto($id_proyecto)->instalar();
 		}		
 
 		//--- Mensajes finales

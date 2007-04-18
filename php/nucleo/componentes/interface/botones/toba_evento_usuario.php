@@ -168,7 +168,8 @@ class toba_evento_usuario extends toba_boton
 			$js = "onclick=\"{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
 		} elseif ( $this->datos['accion'] == 'P' ) {
 			//--- En una respuesta a un ef_popup
-			$js = "onclick=\"respuesta_ef_popup('$this->parametros');\"";
+			$param = addslashes(str_replace('"',"'",$this->parametros));
+			$js = "onclick=\"respuesta_ef_popup('$param');\"";
 		} else {
 			// Manejo estandar de eventos
 			$js = "onclick=\"{$objeto_js}.set_evento(".$this->get_evt_javascript().");\"";

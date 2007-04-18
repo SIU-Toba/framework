@@ -28,6 +28,19 @@ class toba_dba
 	{
 		$bases_definidas = array();
 		self::$bases_definidas = parse_ini_file( toba_dir() . self::path_archivo_bases, true );
+		$pendientes = array();
+		foreach (self::$bases_definidas as $id_base => $parametros) {
+			if (empty($parametros)) {
+				//Meterlos en una cola de bases que toman su definicion de la siguiente
+				$pendientes[] = $id_base;
+			} else {
+				//Llenar la cola de pendientes con la def. actual
+				foreach ($pendientes as $id_base_pendiente) {
+					self::$bases_definidas[$id_base_pendiente] = $parametros;	
+				}
+				$pendientes = array();
+			}
+		}
 	}
 
 	/**
@@ -45,9 +58,9 @@ class toba_dba
 		}
 	}
 	
-	function get_bases_definidas()
+	static function get_bases_definidas()
 	{
-		return self::$bases_definidas;	
+		return self::$bases_definidas;
 	}
 	
 	//------------------------------------------------------------------------

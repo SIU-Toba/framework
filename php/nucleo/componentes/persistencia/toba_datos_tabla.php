@@ -415,7 +415,7 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna el conjunto de filas que respeta las condiciones dadas
 	 * Por defecto la búsqueda es afectada por la presencia de cursores en las tablas padres.
 	 * @param array $condiciones Se utiliza este arreglo campo=>valor y se retornan los registros que cumplen (con condicion de igualdad) con estas restricciones
-	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla (sino se usa una clave posicional)
+	 * @param boolean $usar_id_fila Hace que las claves del array resultante sean las claves internas del datos_tabla. Sino se usa una clave posicional y la clave viaja en la columna apex_datos_clave_fila
 	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Formato tipo RecordSet
 	 */

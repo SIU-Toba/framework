@@ -90,7 +90,6 @@ class toba_ini
 			if ( is_array( $datos ) ) {
 				$ini .= "\n";
 				$ini .= "[$nombre]\n";
-				$ini .= "\n";
 				foreach ( $datos as $directiva => $valor ) {
 					$ini .= "$directiva = $valor\n";
 				}
