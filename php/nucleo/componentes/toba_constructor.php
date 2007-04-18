@@ -56,9 +56,11 @@ class toba_constructor
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas toba_recursos
 	 * @param boolean $en_profundidad Los componentes cargan los info de sus dependencias
 	 * @param array $datos Datos pre-procesados que necesita el objeto-info, si no se especifica se buscan
+	 * @param boolean $refrescar_cache Indica que el objeto debe recargarse si ya se habia cargado anteriormente en el request
+	 * @param boolean $resumumidos Indica si que se realiza solo la carga basica de datos del componente
 	 * @return info_componente
 	 */	
-	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null, $refrescar_cache=false) 
+	static function get_info($id, $tipo=null, $en_profundidad=true, $datos=null, $refrescar_cache=false, $resumidos=false) 
 	{
 		$refrescar_cache = ($refrescar_cache || self::$refresco_forzado);
 		// Controla la integridad de la clave
@@ -74,11 +76,11 @@ class toba_constructor
 				if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
 					$datos = self::get_metadatos_compilados( $id, ($tipo=='item') );
 				} else {
-					$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
+					$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, null, $resumidos );
 				}
 			}
 			$clase = toba_catalogo::get_nombre_clase_info( $tipo );
-			$obj = new $clase( $datos, $en_profundidad );
+			$obj = new $clase( $datos, $en_profundidad, $resumidos );
 			self::$cache_infos[$hash] = $obj;
 		}
 		return self::$cache_infos[$hash];

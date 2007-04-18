@@ -13,13 +13,15 @@ class toba_info_item implements toba_nodo_arbol
 	protected $padre=null;				//Objeto item padre
 	protected $info_extra = '';
 	protected $carga_profundidad;
+	protected $datos_resumidos;
 	
-	function __construct( $datos, $carga_profundidad=true)
+	function __construct( $datos, $carga_profundidad=true, $datos_resumidos=false)
 	{
 		$this->datos = $datos;	
 		$this->id = $this->datos['basica']['item'];
 		$this->proyecto = $this->datos['basica']['item_proyecto'];
 		$this->carga_profundidad = $carga_profundidad;
+		$this->datos_resumidos = $datos_resumidos;
 		if ($this->carga_profundidad) {
 			$this->cargar_dependencias();
 		}
@@ -36,7 +38,7 @@ class toba_info_item implements toba_nodo_arbol
 				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
 				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
 				$tipo = toba_catalogo::convertir_tipo( $this->datos['objetos'][$a]['clase'] );
-				$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo );
+				$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, false, $this->datos_resumidos );
 			}
 		}
 	}

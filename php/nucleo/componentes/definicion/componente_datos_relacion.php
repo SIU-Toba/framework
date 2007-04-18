@@ -61,6 +61,14 @@ class componente_datos_relacion extends componente_toba
 		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);		
 		return $sql;
 	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_relaciones']);
+		return $estructura;
+	}
+
 	
 	static function get_nombre_clase_info()
 	{

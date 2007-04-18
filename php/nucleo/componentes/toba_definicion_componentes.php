@@ -114,6 +114,11 @@ class componente_toba implements toba_componente_definicion
 		return $sql;
 	}
 
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		return self::get_vista_extendida($proyecto, $componente);
+	}
+
 	static function get_path_clase_runtime()
 	{
 		return 'nucleo/componentes/runtime';
@@ -217,6 +222,13 @@ class componente_datos_relacion extends componente_toba
 		$sql["_info_relaciones"]['obligatorio']=false;
 		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);		
 		return $sql;
+	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_relaciones']);
+		return $estructura;
 	}
 
 	static function get_nombre_clase_info()
@@ -334,6 +346,15 @@ class componente_datos_tabla extends componente_toba
 		$sql["_info_externas_col"]['obligatorio']=false;
 
 		return $sql;
+	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_columnas']);
+		unset($estructura['_info_externas']);
+		unset($estructura['_info_externas_col']);
+		return $estructura;
 	}
 
 	static function get_nombre_clase_info()
@@ -527,6 +548,15 @@ class componente_ci extends componente_ei
 		$sql['_info_ci_me_pantalla']['obligatorio']=true;
 		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
 		return $sql;
+	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_ci']);
+		unset($estructura['_info_eventos']);
+		unset($estructura['_info_puntos_control']);
+		return $estructura;
 	}
 
 	static function get_nombre_clase_info()
@@ -913,6 +943,11 @@ class componente_item implements toba_componente_definicion
 		$sql['objetos']['registros']='n';
 		$sql['objetos']['obligatorio']=false;
 		return $sql;
+	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente=null)
+	{
+		return self::get_vista_extendida($proyecto, $componente);
 	}
 
 	static function get_path_clase_runtime()

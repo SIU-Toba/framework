@@ -106,6 +106,15 @@ class componente_datos_tabla extends componente_toba
 				
 		return $sql;
 	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_columnas']);
+		unset($estructura['_info_externas']);
+		unset($estructura['_info_externas_col']);
+		return $estructura;
+	}
 	
 	static function get_nombre_clase_info()
 	{

@@ -93,7 +93,7 @@ class toba_cargador
 	*	Retorna los metadatos extendidos de un componente
 	*	Este metodo es utilizado por el constructor de runtimes e infos
 	*/
-	function get_metadatos_extendidos( $componente, $tipo=null, $db=null)
+	function get_metadatos_extendidos( $componente, $tipo=null, $db=null, $resumidos=false)
 	{
 		if ( !isset( $tipo ) ) {
 			$tipo = toba_catalogo::get_tipo( $componente );	
@@ -113,8 +113,9 @@ class toba_cargador
 			throw new toba_error('No implementado');
 		} else {													// Sin CACHE!
 			$clase_def = 'componente_'. $tipo;
+			$metodo_def = $resumidos ? 'get_vista_extendida_resumida' : 'get_vista_extendida';
 			$estructura = call_user_func_array( array(	$clase_def,
-														'get_vista_extendida'),
+														$metodo_def ),
 														array( $proyecto, $id ) );
 			foreach ( $estructura as $seccion => $contenido ) {
 				$temp = $db->consultar( $contenido['sql'] );

@@ -74,7 +74,7 @@ class toba_catalogo_items
 				$id['proyecto'] = $fila['item_proyecto'];
 				$datos = array('basica' => $fila);
 				if ($en_profundidad) {
-					$info = toba_constructor::get_info($id, 'item', true, null, true);
+					$info = toba_constructor::get_info($id, 'item', true, null, true, true);
 				} else {
 					$info = toba_constructor::get_info($id, 'item', false, $datos);
 				}

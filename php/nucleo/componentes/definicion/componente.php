@@ -106,6 +106,11 @@ class componente_toba implements toba_componente_definicion
 		return $sql;
 	}
 
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		return self::get_vista_extendida($proyecto, $componente);
+	}
+
 	static function get_path_clase_runtime()
 	{
 		return 'nucleo/componentes/runtime';

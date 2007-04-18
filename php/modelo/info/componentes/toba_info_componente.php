@@ -10,11 +10,13 @@ abstract class toba_info_componente implements toba_nodo_arbol, toba_meta_clase
 	protected $id;
 	protected $carga_profundidad;
 	protected $info_extra = "";
+	protected $datos_resumidos;
 	
-	function __construct( $datos, $carga_profundidad=true)
+	function __construct( $datos, $carga_profundidad=true, $datos_resumidos=false)
 	{
 		$this->carga_profundidad = $carga_profundidad;
 		$this->datos = $datos;
+		$this->datos_resumidos = $datos_resumidos;
 		$this->id = $this->datos['_info']['objeto'];
 		$this->proyecto = $this->datos['_info']['proyecto'];
 		if ($this->carga_profundidad) {
@@ -31,7 +33,7 @@ abstract class toba_info_componente implements toba_nodo_arbol, toba_meta_clase
 				$clave['proyecto'] = $this->datos['_info_dependencias'][$a]['proyecto'];
 				$clave['componente'] = $this->datos['_info_dependencias'][$a]['objeto'];
 				$tipo = toba_catalogo::convertir_tipo( $this->datos['_info_dependencias'][$a]['clase'] );
-				$this->subelementos[$a]= toba_constructor::get_info( $clave, $tipo, true, null, true );
+				$this->subelementos[$a]= toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, false, $this->datos_resumidos );
 				$this->subelementos[$a]->set_consumidor($this, $this->datos['_info_dependencias'][$a] );
 			}
 		}
