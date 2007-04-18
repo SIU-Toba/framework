@@ -1132,16 +1132,16 @@ class toba_datos_tabla extends toba_componente
 	{
 		if(!isset($this->_persistidor)){
 			if($this->_info_estructura['ap']=='0'){
-				$include = $this->_info_estructura['ap_sub_clase_archivo'];
 				$clase = $this->_info_estructura['ap_sub_clase'];
-				if( (trim($clase) == "") || (trim($include) == "") ){
+				if( (trim($clase) == '' ) ){
 					throw new toba_error( $this->get_txt() . "Error en la definicion");
 				}
 			}else{
-				$include = $this->_info_estructura['ap_clase_archivo'];
 				$clase = 'toba_'.$this->_info_estructura['ap_clase'];
+				if( ! class_exists($clase) ) {
+					require_once($this->_info_estructura['ap_clase_archivo']);
+				}
 			}
-			require_once( $include );
 			$this->_persistidor = new $clase( $this );
 			if($this->_info_estructura['ap_modificar_claves']){
 				$this->_persistidor->activar_modificacion_clave();

@@ -366,17 +366,14 @@ class toba_datos_relacion extends toba_componente
 	{
 		if (!isset($this->_persistidor)) {		
 			//Se incluye el archivo
-			$archivo = "toba_ap_relacion_db.php";
 			$particular = ($this->_info_estructura['ap'] == 3);
-			if ($particular	&& isset($this->_info_estructura['ap_archivo'])) {
-				$archivo = $this->_info_estructura['ap_archivo'];
-			}
-			require_once($archivo);
-
-			//Se crea la clase		
-			$clase = "toba_ap_relacion_db";
-			if ($particular && isset($this->_info_estructura['ap_clase'])) {
+			if ($particular	&& isset($this->_info_estructura['ap_archivo']) && isset($this->_info_estructura['ap_clase']) ) {
 				$clase = $this->_info_estructura['ap_clase'];
+				if( ! class_exists($clase) ) {
+					require_once($this->_info_estructura['ap_archivo']);
+				}
+			} else {
+				$clase = "toba_ap_relacion_db";
 			}
 			$this->_persistidor = new $clase( $this );
 		}

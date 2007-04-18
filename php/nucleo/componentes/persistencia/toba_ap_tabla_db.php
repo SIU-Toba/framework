@@ -835,7 +835,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					//ei_arbol($param_dao,"Parametros para el DAO");
 					// - 2 - Recupero datos
 					if (isset($parametros['clase']) && isset($parametros['include'])) {
-						include_once($parametros['include']);
+						if(!class_exists($parametros['clase'])) {
+							require_once($parametros['include']);
+						}
 						$datos = call_user_func_array(array($parametros['clase'],$parametros['metodo']), $param_dao);
 					} else {
 						if( method_exists($this, $parametros['metodo'])) {

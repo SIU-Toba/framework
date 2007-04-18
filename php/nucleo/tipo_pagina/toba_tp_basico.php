@@ -65,22 +65,22 @@ class toba_tp_basico extends toba_tipo_pagina
 	
 	protected function estilos_css()
 	{
-		?>
-		<style type="text/css">
+		echo "
+		<style type='text/css'>
 			#overlay {
-				background-image:url(<?php echo toba_recurso::imagen_toba('nucleo/overlay.gif');?>);     			
+				background-image:url(". toba_recurso::imagen_toba('nucleo/overlay.gif'). ");     			
 			}
 			.barra-superior {
-				background: url(<?php echo toba_recurso::imagen_skin('barra-sup.gif');?>) repeat-x top;';
+				background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;';
 			}
 			.ei-cuadro-col-tit, .ei-ml-columna {
-				background: url(<?php echo toba_recurso::imagen_skin('cuadro-col-titulo.gif');?>) repeat-x top;';
+				background: url(". toba_recurso::imagen_skin('cuadro-col-titulo.gif') .") repeat-x top;';
 			}
 			.ei-barra-sup, .ci-botonera {
-				background: url(<?php echo toba_recurso::imagen_skin('barra-sup.gif');?>) repeat-x top;';
+				background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;';
 			}
 		</style>			
-		<?php
+		";
 	}
 
 	/**

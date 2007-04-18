@@ -154,267 +154,267 @@ class toba_mc_gene__grupo_admin
   0 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/acceso',
+    'item' => '10000019',
   ),
   1 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/apex/elementos/ef',
+    'item' => '1000003',
   ),
   2 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/apex/elementos/error',
+    'item' => '1000020',
   ),
   3 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/apex/elementos/observaciones_solicitud',
+    'item' => '1000021',
   ),
   4 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/apex/elementos/pagina_tipo',
+    'item' => '1000043',
   ),
   5 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/apex/elementos/zona',
+    'item' => '1000045',
   ),
   6 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/datos/fuente',
+    'item' => '1000058',
   ),
   7 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/items/carpeta_propiedades',
+    'item' => '1240',
   ),
   8 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/items/catalogo_unificado',
+    'item' => '1241',
   ),
   9 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/items/editor_items',
+    'item' => '1242',
   ),
   10 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/menu_principal',
+    'item' => '2045',
   ),
   11 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/clonador',
+    'item' => '2447',
   ),
   12 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/editores/editor_estilos',
+    'item' => '2865',
   ),
   13 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/mensajes',
+    'item' => '3276',
   ),
   14 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/php',
+    'item' => '3278',
   ),
   15 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/crear',
+    'item' => '3280',
   ),
   16 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ci',
+    'item' => '3287',
   ),
   17 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/db_registros',
+    'item' => '3288',
   ),
   18 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/db_tablas',
+    'item' => '3316',
   ),
   19 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ei_archivos',
+    'item' => '3357',
   ),
   20 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ei_cuadro',
+    'item' => '3359',
   ),
   21 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ei_filtro',
+    'item' => '/admin/acceso',
   ),
   22 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ei_formulario',
+    'item' => '/admin/apex/elementos/ef',
   ),
   23 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/editores/ei_formulario_ml',
+    'item' => '/admin/apex/elementos/error',
   ),
   24 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba/selector_archivo',
+    'item' => '/admin/apex/elementos/observaciones_solicitud',
   ),
   25 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/proyectos/organizador',
+    'item' => '/admin/apex/elementos/pagina_tipo',
   ),
   26 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/proyectos/propiedades',
+    'item' => '/admin/apex/elementos/zona',
   ),
   27 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/admin/usuarios/grupo',
+    'item' => '/admin/datos/fuente',
   ),
   28 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/basicos/cronometro',
+    'item' => '/admin/items/carpeta_propiedades',
   ),
   29 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/inicio',
+    'item' => '/admin/items/catalogo_unificado',
   ),
   30 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/pruebas/testing_automatico_consola',
+    'item' => '/admin/items/editor_items',
   ),
   31 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '/pruebas/testing_automatico_web',
+    'item' => '/admin/menu_principal',
   ),
   32 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1240',
+    'item' => '/admin/objetos/clonador',
   ),
   33 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1241',
+    'item' => '/admin/objetos/editores/editor_estilos',
   ),
   34 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1242',
+    'item' => '/admin/objetos/mensajes',
   ),
   35 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '2045',
+    'item' => '/admin/objetos/php',
   ),
   36 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '2447',
+    'item' => '/admin/objetos_toba/crear',
   ),
   37 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '2865',
+    'item' => '/admin/objetos_toba/editores/ci',
   ),
   38 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3276',
+    'item' => '/admin/objetos_toba/editores/db_registros',
   ),
   39 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3278',
+    'item' => '/admin/objetos_toba/editores/db_tablas',
   ),
   40 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3280',
+    'item' => '/admin/objetos_toba/editores/ei_archivos',
   ),
   41 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3287',
+    'item' => '/admin/objetos_toba/editores/ei_cuadro',
   ),
   42 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3288',
+    'item' => '/admin/objetos_toba/editores/ei_filtro',
   ),
   43 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3316',
+    'item' => '/admin/objetos_toba/editores/ei_formulario',
   ),
   44 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3357',
+    'item' => '/admin/objetos_toba/editores/ei_formulario_ml',
   ),
   45 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '3359',
+    'item' => '/admin/objetos_toba/selector_archivo',
   ),
   46 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000003',
+    'item' => '/admin/proyectos/organizador',
   ),
   47 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000020',
+    'item' => '/admin/proyectos/propiedades',
   ),
   48 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000021',
+    'item' => '/admin/usuarios/grupo',
   ),
   49 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000043',
+    'item' => '/basicos/cronometro',
   ),
   50 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000045',
+    'item' => '/inicio',
   ),
   51 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '1000058',
+    'item' => '/pruebas/testing_automatico_consola',
   ),
   52 => 
   array (
     'proyecto' => 'toba_editor',
-    'item' => '10000019',
+    'item' => '/pruebas/testing_automatico_web',
   ),
 );
 	}
@@ -428,43 +428,43 @@ class toba_mc_gene__grupo_admin
   ),
   1 => 
   array (
-    'nombre' => 'prueba2',
+    'nombre' => 'prueba10',
   ),
   2 => 
   array (
-    'nombre' => 'prueba3',
+    'nombre' => 'prueba11',
   ),
   3 => 
   array (
-    'nombre' => 'prueba4',
+    'nombre' => 'prueba2',
   ),
   4 => 
   array (
-    'nombre' => 'prueba54',
+    'nombre' => 'prueba3',
   ),
   5 => 
   array (
-    'nombre' => 'prueba6',
+    'nombre' => 'prueba4',
   ),
   6 => 
   array (
-    'nombre' => 'prueba7',
+    'nombre' => 'prueba54',
   ),
   7 => 
   array (
-    'nombre' => 'prueba84',
+    'nombre' => 'prueba6',
   ),
   8 => 
   array (
-    'nombre' => 'prueba9',
+    'nombre' => 'prueba7',
   ),
   9 => 
   array (
-    'nombre' => 'prueba10',
+    'nombre' => 'prueba84',
   ),
   10 => 
   array (
-    'nombre' => 'prueba11',
+    'nombre' => 'prueba9',
   ),
 );
 	}

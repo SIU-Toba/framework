@@ -1,6 +1,7 @@
 <?php
 # PROYECTO
 define("apex_pa_proyecto","__proyecto__");
+define('apex_pa_metadatos_compilados',0);
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

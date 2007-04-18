@@ -28,7 +28,7 @@ class toba_mc_item___admin_proyectos_organizador
     'item_imagen_recurso_origen' => NULL,
     'item_imagen' => NULL,
     'tipo_pagina_clase' => 'toba_tp_basico',
-    'tipo_pagina_archivo' => 'nucleo/tipo_pagina/toba_tp_basico.php',
+    'tipo_pagina_archivo' => '',
     'item_include_arriba' => NULL,
     'item_include_abajo' => NULL,
     'item_zona_proyecto' => NULL,

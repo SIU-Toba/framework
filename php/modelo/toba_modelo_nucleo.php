@@ -549,11 +549,11 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 						);
 		foreach($archivos as $archivo) {
 			$php = file_get_contents(toba_dir(). '/php/' . $archivo);
-			//$php = preg_replace($buscar,'',$php);
+			$php = preg_replace($buscar,'',$php);
 			$resumen .= $php;
 			$this->manejador_interface->mensaje_directo('.');			
 		}
-		/*$resumen = "<?php\n" . $resumen . "\n?>";*/
+		$resumen = "<?php\n" . $resumen . "\n?>";
 		file_put_contents($destino, $resumen);
 		$this->manejador_interface->mensaje('OK');			
 	}

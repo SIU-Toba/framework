@@ -409,15 +409,15 @@ class toba_mc_gene__grupo_usuario_admin
 		return array (
   0 => 
   array (
-    'nombre' => 'prueba2',
+    'nombre' => 'prueba10',
   ),
   1 => 
   array (
-    'nombre' => 'prueba54',
+    'nombre' => 'prueba2',
   ),
   2 => 
   array (
-    'nombre' => 'prueba10',
+    'nombre' => 'prueba54',
   ),
 );
 	}

@@ -11,7 +11,6 @@ class toba_nucleo
 	private $solicitud;
 	private $medio_acceso;
 	private $solicitud_en_proceso = false;
-	private $nucleo_compilado = false;
 	
 	private function __construct()
 	{
@@ -199,22 +198,31 @@ class toba_nucleo
 		$dir = dirname(__FILE__);
 		return substr($dir,0, -11);
 	}
-	
+
 	/**
 	*	Carga de includes basicos
 	*/
 	protected function cargar_includes_basicos()
 	{
 		//Las funciones globales no puden cargarse con el autoload.
-		if (!$this->nucleo_compilado) {
+		if ($this->utilizar_archivos_compilados()) {
+			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');	
+		} else {
 			foreach(self::get_includes_basicos() as $archivo ) {
 				require_once( self::toba_dir() . $archivo);
 			}
-		} else {
-			require_once( self::toba_dir() . '/php/nucleo/toba_motor.php');	
 		}
 	}
 
+	/**
+	*	Indica si hay que usar el nucleo resumido a un archivo o el esquema de includes usual
+	*	@ignore
+	*/
+	function utilizar_archivos_compilados()
+	{
+		return (defined('apex_pa_archivos_compilados') && apex_pa_archivos_compilados);
+	}
+		
 	/**
 	*	En el modo compilado, carga los metadatos necesarios para la solicitud actual
 	*	@ignore

@@ -291,6 +291,48 @@ class toba_mc_comp__1530
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
+      'col_id' => 545,
+      'columna' => 'popup_carga_desc_metodo',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => 100,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+    ),
+    17 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 1530,
+      'col_id' => 546,
+      'columna' => 'popup_carga_desc_clase',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => 100,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+    ),
+    18 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 1530,
+      'col_id' => 547,
+      'columna' => 'popup_carga_desc_include',
+      'tipo' => 'C',
+      'pk' => 0,
+      'secuencia' => NULL,
+      'largo' => 255,
+      'no_nulo' => NULL,
+      'no_nulo_db' => 0,
+      'externa' => 0,
+    ),
+    19 => 
+    array (
+      'objeto_proyecto' => 'toba_editor',
+      'objeto' => 1530,
       'col_id' => 1000008,
       'columna' => 'estado_defecto',
       'tipo' => 'C',
@@ -301,7 +343,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    17 => 
+    20 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -315,7 +357,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    18 => 
+    21 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -329,7 +371,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    19 => 
+    22 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -343,7 +385,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    20 => 
+    23 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -357,7 +399,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    21 => 
+    24 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -371,7 +413,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    22 => 
+    25 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -385,7 +427,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    23 => 
+    26 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -399,7 +441,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    24 => 
+    27 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -413,7 +455,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    25 => 
+    28 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -427,7 +469,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    26 => 
+    29 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -441,7 +483,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    27 => 
+    30 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -455,7 +497,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    28 => 
+    31 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -469,7 +511,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    29 => 
+    32 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -483,7 +525,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    30 => 
+    33 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -497,7 +539,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    31 => 
+    34 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -511,7 +553,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    32 => 
+    35 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -525,7 +567,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    33 => 
+    36 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -539,7 +581,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    34 => 
+    37 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -553,7 +595,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    35 => 
+    38 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -567,7 +609,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    36 => 
+    39 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -581,7 +623,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    37 => 
+    40 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -595,7 +637,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    38 => 
+    41 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -609,7 +651,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    39 => 
+    42 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -623,7 +665,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    40 => 
+    43 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -637,7 +679,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    41 => 
+    44 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -651,7 +693,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    42 => 
+    45 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -665,7 +707,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    43 => 
+    46 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -679,7 +721,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    44 => 
+    47 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -693,7 +735,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    45 => 
+    48 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -707,7 +749,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    46 => 
+    49 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -721,7 +763,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    47 => 
+    50 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -735,7 +777,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    48 => 
+    51 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -749,7 +791,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    49 => 
+    52 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -763,7 +805,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    50 => 
+    53 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -777,7 +819,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    51 => 
+    54 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -791,7 +833,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    52 => 
+    55 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -805,7 +847,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    53 => 
+    56 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -819,7 +861,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    54 => 
+    57 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -833,7 +875,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    55 => 
+    58 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -847,7 +889,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    56 => 
+    59 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -861,7 +903,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    57 => 
+    60 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -875,7 +917,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    58 => 
+    61 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -889,7 +931,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    59 => 
+    62 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -903,7 +945,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    60 => 
+    63 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -917,7 +959,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    61 => 
+    64 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -931,7 +973,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    62 => 
+    65 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,
@@ -945,7 +987,7 @@ class toba_mc_comp__1530
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    63 => 
+    66 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1530,

@@ -109,20 +109,6 @@ class toba_mc_comp__1833
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1833,
-      'col_id' => 464,
-      'columna' => 'descripcion_corta',
-      'tipo' => 'C',
-      'pk' => 0,
-      'secuencia' => NULL,
-      'largo' => 40,
-      'no_nulo' => NULL,
-      'no_nulo_db' => 0,
-      'externa' => 0,
-    ),
-    4 => 
-    array (
-      'objeto_proyecto' => 'toba_editor',
-      'objeto' => 1833,
       'col_id' => 465,
       'columna' => 'instancia_id',
       'tipo' => 'C',
@@ -133,7 +119,7 @@ class toba_mc_comp__1833
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    5 => 
+    4 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1833,
@@ -147,7 +133,7 @@ class toba_mc_comp__1833
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    6 => 
+    5 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1833,
@@ -161,7 +147,7 @@ class toba_mc_comp__1833
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    7 => 
+    6 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1833,
@@ -175,7 +161,7 @@ class toba_mc_comp__1833
       'no_nulo_db' => 0,
       'externa' => 0,
     ),
-    8 => 
+    7 => 
     array (
       'objeto_proyecto' => 'toba_editor',
       'objeto' => 1833,
