@@ -53,7 +53,7 @@ class ci_cascadas extends toba_ci
 			);
 	}
 	
-	function get_popup($clave, $oculto)
+	function get_popup($clave, $oculto=null)
 	{
 		return "Descripción: $clave ($oculto)";	
 	}

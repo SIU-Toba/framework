@@ -81,7 +81,8 @@ class toba_ef_upload extends toba_ef
 	function cargar_estado_post()
 	{
 		$this->archivo_cargado = toba::memoria()->get_dato_sincronizado($this->id_form."_cargado");
-		if(isset($_FILES[$this->id_form])) {
+		$this->archivo_subido = false;
+		if (isset($_FILES[$this->id_form])) {
 			if (isset($_POST[$this->id_form."_check"])) {
 				$this->archivo_subido = true;
 				$this->estado = $_FILES[$this->id_form]; 
@@ -112,6 +113,7 @@ class toba_ef_upload extends toba_ef
 			return $padre;	
 		}		
 		if ($this->archivo_subido) {
+			var_dump($this->estado);
 			$id = $this->estado['error'];
 			switch($id){
 				case UPLOAD_ERR_OK:

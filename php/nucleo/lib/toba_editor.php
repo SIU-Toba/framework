@@ -355,6 +355,7 @@ class toba_editor
 		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
+		echo "<span id='editor_previsualizacion_cont'>";
 		//Skin
 		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo'), 'descripcion');
 		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
@@ -371,7 +372,14 @@ class toba_editor
 				//Edicion				
 		echo	"<a href='javascript: editor_cambiar_vinculos()' $html_ayuda_editor >".
 				toba_recurso::imagen_toba('edicion.png', true)."</a>\n";
+				
+		echo "</span>";				
+		echo "<img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
+				src='".toba_recurso::imagen_toba('nucleo/expandir_der.gif', false)."' 
+				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/>";
 		echo "</div>";
+		
+		
 		echo "<div class='div-editor' style='position:absolute; top: 40px;'>";
 		foreach(self::get_vinculos_item($item, $accion) as $vinculo) {
 			if (! isset($vinculo['js'])) {

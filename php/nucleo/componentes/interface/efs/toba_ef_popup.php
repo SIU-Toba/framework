@@ -66,7 +66,7 @@ class toba_ef_popup extends toba_ef_editable
 	
 	function carga_depende_de_estado()
 	{
-		return true;	
+		return !$this->editable;	
 	}
 	
 	function set_opciones($descripcion, $maestros_cargados=true)

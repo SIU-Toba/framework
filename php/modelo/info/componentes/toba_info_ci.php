@@ -147,7 +147,7 @@ class toba_info_ci extends toba_info_ei
 		//-- Inicializacion -----------------------
 		$molde->agregar( new toba_molde_separador_php('Inicializacion',null,'grande') );
 		$molde->agregar( new toba_molde_metodo_php('ini') );
-		$molde->agregar( new toba_molde_metodo_php('ini_operacion') );
+		$molde->agregar( new toba_molde_metodo_php('ini__operacion') );
 		$molde->agregar( new toba_molde_separador_php('Config.','Configuracion','grande') );
 		$molde->agregar( new toba_molde_metodo_php('conf') );
 		//-- Configuracion de pantallas -----------

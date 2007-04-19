@@ -106,7 +106,7 @@ class ci_principal extends toba_ci
 	function evt__form_ml__modificacion($datos)
 	{
 		foreach ($datos as $id => $dato) {
-			if (isset($dato['upload'])) {
+			if (isset($datos[$id]['upload'])) {
 				$datos[$id]['upload'] = $dato['upload']['name'];
 			}
 		}

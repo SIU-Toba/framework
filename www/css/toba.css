@@ -34,6 +34,9 @@
 	border: 1px solid gray;
 	padding: 6px;
 }
+#editor_previsualizacion img {
+	vertical-align: middle;
+}
 #vinculo_logger {
 	white-space: nowrap;
 	text-decoration: none;

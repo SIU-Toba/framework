@@ -16,6 +16,22 @@ class ml_instancias_server extends toba_ei_formulario_ml
 			
 		";		
 	}
+	
+	function validar_estado()
+	{
+		$status =	true;
+		//Valida	el	estado de los ELEMENTOS	de	FORMULARIO
+		echo "<a href='#' onclick='toggle_nodo(this.nextSibling)'>Mensajes:</a><ul  style='display:none'>";
+/*		foreach ($this->get_efs_activos() as $ef) {
+			$valido = $this->ef($ef)->validar_estado();
+			if ($valido !== true)  {
+				echo "<li>$ef: ".$valido."</li>";
+			} else {
+				throw new toba_error("El ef $ef no debería haber validado.");				
+			}
+		}*/
+		echo "</ul>";
+	}	
 
 
 }

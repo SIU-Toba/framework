@@ -23,7 +23,7 @@ class form_validaciones_server extends toba_ei_formulario
 		$status =	true;
 		//Valida	el	estado de los ELEMENTOS	de	FORMULARIO
 		echo "<a href='#' onclick='toggle_nodo(this.nextSibling)'>Mensajes:</a><ul  style='display:none'>";
-		foreach ($this->lista_ef as $ef) {
+		foreach ($this->get_efs_activos() as $ef) {
 			$valido = $this->ef($ef)->validar_estado();
 			if ($valido !== true)  {
 				echo "<li>$ef: ".$valido."</li>";

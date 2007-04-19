@@ -26,20 +26,19 @@ class ci_activacion extends toba_ci
 
 	function conf__form_oblig()
 	{
+		$this->dependencia('form_oblig')->set_efs_obligatorios('obligatorio', false);
+		$this->dependencia('form_oblig')->set_efs_obligatorios('no_obligatorio', true);
+		
 		if (isset($this->datos_1)) {
 			return $this->datos_1;
-		} else {
-			$this->dependencia('form_oblig')->set_efs_obligatorios('obligatorio', false);
-			$this->dependencia('form_oblig')->set_efs_obligatorios('no_obligatorio', true);
 		}
 	}
 	
 	function conf__form_activacion()
 	{
+		$this->dependencia('form_activacion')->desactivar_efs(array('editable', 'combo'));		
 		if (isset($this->datos_2)) {
 			return $this->datos_2;
-		} else {
-			$this->dependencia('form_activacion')->desactivar_efs(array('editable', 'combo'));
 		}
 	}
 	
