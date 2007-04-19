@@ -44,6 +44,7 @@ class toba_ef_upload extends toba_ef
 		} else {
 			$nombre_archivo = $estado;
 		}
+		$nombre_archivo = htmlentities($nombre_archivo, ENT_QUOTES);
 		//-- Si hay un archivo lo deja marcado en sesion para la etapa siguiente
 		if (isset($nombre_archivo)) {
 			toba::memoria()->set_dato_sincronizado($this->id_form."_cargado", true);
@@ -113,7 +114,6 @@ class toba_ef_upload extends toba_ef
 			return $padre;	
 		}		
 		if ($this->archivo_subido) {
-			var_dump($this->estado);
 			$id = $this->estado['error'];
 			switch($id){
 				case UPLOAD_ERR_OK:
@@ -124,6 +124,7 @@ class toba_ef_upload extends toba_ef
 					return "Se supero el limite expresado en el FORM";
 				case UPLOAD_ERR_NO_FILE:
 					//Este caso lo maneja el obligatorio
+					$this->archivo_subido = false;
 					break;
 				case UPLOAD_ERR_CANT_WRITE:
 					return "No tiene permisos sobre la carpeta de upload";

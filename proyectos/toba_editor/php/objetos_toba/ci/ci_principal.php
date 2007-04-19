@@ -400,7 +400,7 @@ class ci_editor extends ci_editores_toba
 	
 	function get_eventos_estandar($modelo)
 	{
-		return info_ci::get_lista_eventos_estandar($modelo);
+		return toba_info_ci::get_lista_eventos_estandar($modelo);
 	}
 
 	function eliminar_evento($id)

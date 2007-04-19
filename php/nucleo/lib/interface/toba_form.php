@@ -11,6 +11,7 @@ class toba_form
     static function text($nombre,$actual,$read_only,$len,$size,$clase="ef-input",$extra="")
     // EditBox
     {
+    	$actual = htmlentities($actual, ENT_QUOTES);
     	$max_length = ($len != '') ? "maxlength='$len'" : '';
         $r = "<INPUT type='text' name='$nombre' id='$nombre' $max_length size='$size' ";
         if (isset($actual)) $r .= "value='$actual' ";
@@ -30,6 +31,8 @@ class toba_form
 		if (!isset($categorias)) {
 	        foreach ($datos as $id => $desc){
 				$s = ("$id" == "$actual") ? "selected" : "";
+				$id = htmlentities($id, ENT_QUOTES);
+				$desc = htmlentities($desc, ENT_QUOTES);
 				$combo .= "<option value='$id' $s>$desc</option>\n";
 	        }
 		} else {
@@ -38,6 +41,8 @@ class toba_form
 				foreach ($valores as $id) {
 		            $s = ($id == $actual) ? "selected" : "";
 		            $desc = $datos[$id];
+					$id = htmlentities($id, ENT_QUOTES);
+					$desc = htmlentities($desc, ENT_QUOTES);
 		            $combo .= "<option value='$id' $s>$desc</option>\n";
 				}
 				$combo .= "</optgroup>\n";
@@ -55,6 +60,8 @@ class toba_form
         $combo = "<select name='".$nombre."[]' id='$nombre' class='$clase' size='$tamanio' multiple $extra>\n";
         foreach ($datos as $id => $desc){
             $s = (in_array($id, $actuales)) ? "selected" : "";
+            $id = htmlentities($id, ENT_QUOTES);
+            $desc = htmlentities($desc, ENT_QUOTES);
             $combo .= "<option value='$id' $s>$desc</option>\n";
         }
         $combo .= "</select>\n";
@@ -66,6 +73,7 @@ class toba_form
 //wrap=virtual
     {
         if(trim($wrap)!="") $wrap = "wrap='$wrap'";
+        $valor = htmlentities($valor, ENT_QUOTES);
         return "<textarea class='$clase' name='$nombre' id='$nombre' rows='$filas' cols='$columnas' $wrap $extra>$valor</textarea>\n";
     }
 
@@ -74,6 +82,7 @@ class toba_form
     {
         $s = "";
         if($valor==$actual) $s = "CHECKED";
+        $valor = htmlentities($valor, ENT_QUOTES);
         return "<input name='$nombre' id='$nombre' type='checkbox' value='$valor' $s class='$clase' $extra />\n";
     }
 
@@ -88,6 +97,8 @@ class toba_form
     	foreach ($datos as $clave => $valor) {
     		$id = $nombre . $i;
     		$sel = ($actual == $clave) ? "checked" : "";
+    		$clave = htmlentities($clave, ENT_QUOTES);
+    		$valor = htmlentities($valor, ENT_QUOTES);
     		$html .= "<label class='ef-radio' for='$id'><input type='radio' id='$id' name='$nombre' value='$clave' $sel $html_clase $extra $tab_index />$valor</label>\n";
     		$tab_index = '';
     		$i++;
@@ -98,6 +109,7 @@ class toba_form
     static function hidden($nombre,$valor, $extra="")
     //Campo HIDDEN
     {
+    	$valor = htmlentities($valor, ENT_QUOTES);
         return "<input name='$nombre' id='$nombre' type='hidden' value='$valor' $extra />\n";
     }
 
@@ -141,6 +153,7 @@ class toba_form
 
     static function password($nombre,$valor="", $maximo='', $tamanio='', $clase="ef-input", $extra = '')
     {
+    	$valor = htmlentities($valor, ENT_QUOTES);
     	$max_length = ($maximo != '') ? "maxlength='$maximo'" : '';    	
     	$tamanio = ($tamanio != '') ? "size='$tamanio'" : '';  
         return "<INPUT type='password' name='$nombre' $tamanio $max_length id='$nombre' value='$valor' class='$clase' $extra />\n";

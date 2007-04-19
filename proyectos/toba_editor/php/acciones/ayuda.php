@@ -1,13 +1,17 @@
 <?php
 
-	function cuadro_ayuda($titulo, $iconos)
+	function cuadro_ayuda($titulo, $iconos, $origen_proyecto=false)
 	{
 		foreach ($iconos as $icono) {
 			echo "<li>";
 			if (count($icono['url']) == 1) {
 				foreach ($icono['url'] as $ayuda => $url) {
 					echo "<a href='$url' target='{$icono['frame']}'>";
-					echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
+					if ($origen_proyecto) {
+						echo toba_recurso::imagen_proyecto($icono['img'], true, null, null, $ayuda);
+					} else {
+						echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
+					}
 					echo "</a>";
 				}
 			} else {
@@ -17,7 +21,11 @@
 					$ayuda .= "</a></li>";
 				}
 				$ayuda .= "</ul>";
-				echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
+					if ($origen_proyecto) {
+						echo toba_recurso::imagen_proyecto($icono['img'], true, null, null, $ayuda);
+					} else {
+						echo toba_recurso::imagen_toba($icono['img'], true, null, null, $ayuda);
+					}
 			}
 			echo "</li>\n";
 		}
@@ -153,7 +161,7 @@ echo "
 	$online = array();
 	$online[] = array('url' => array("Especificación 4.01 (esp)" => "http://html.conclase.net/w3c/html401-es/cover.html#minitoc"
 								),
-					'img' => 'admin/botones/html80.png', 'frame' => 'html');
+					'img' => 'botones/html80.png', 'frame' => 'html');
 	
 	$online[] = array('url' => array("Manual Introductorio (esp)" => 'http://www.sidar.org/recur/desdi/mcss/manual/indice.php',
 										"Especificación 2.0 (esp)" => 'http://www.sidar.org/recur/desdi/traduc/es/css/cover.html',
@@ -162,26 +170,26 @@ echo "
 										"Posicionamiento (eng)" => 'http://www.brainjar.com/css/positioning/default.asp',
 										"Soporte CSS en Email (eng)" => 'http://www.campaignmonitor.com/blog/archives/2006/03/a_guide_to_css_1.html',
 								),
-					'img' => 'admin/botones/css80.png', 'frame' => 'html');
+					'img' => 'botones/css80.png', 'frame' => 'html');
 					
 	$online[] = array('url' => array('Manual (esp)' => 'http://www.php.net/manual/es/',
 								),
-					'img' => 'admin/botones/php80.png', 'frame' => 'php');
+					'img' => 'botones/php80.png', 'frame' => 'php');
 					
 	$online[] = array('url' => array('Manual 8.1 (eng)' => 'http://www.postgresql.org/docs/8.1/interactive/index.html',
 									),
-					'img' => 'admin/botones/postgres80x15.gif', 'frame' => 'postgres');
+					'img' => 'botones/postgres80x15.gif', 'frame' => 'postgres');
 					
 	$online[] = array('url' => array("Manual 2.2 (esp)" => 'http://httpd.apache.org/docs/2.2/es/',
 								),
-					'img' => 'admin/botones/apache80.png', 'frame' => 'apache');
+					'img' => 'botones/apache80.png', 'frame' => 'apache');
 					
 	$online[] = array('url' => array("Libro (eng)" => 'http://svnbook.red-bean.com/nightly/en/index.html',
 								),
-					'img' => 'admin/botones/svn80.png', 'frame' => 'svn');
+					'img' => 'botones/svn80.png', 'frame' => 'svn');
 					
 					
-	cuadro_ayuda("Otros", $online);
+	cuadro_ayuda("Otros", $online, true);
 	
 	echo "</ul></td></tr></table>";
 ?>

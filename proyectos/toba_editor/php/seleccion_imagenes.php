@@ -44,7 +44,7 @@ class seleccion_imagenes
 						if (toba_proyecto_editado_alias != '') {
 							prefijo = toba_proyecto_editado_alias + '/img';
 						} else {
-							prefijo = '/img';
+							prefijo = 'img';
 						}
 					}
 					var imagen_src = prefijo + '/' + imagen.get_estado();

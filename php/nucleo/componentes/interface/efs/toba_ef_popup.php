@@ -94,15 +94,14 @@ class toba_ef_popup extends toba_ef_editable
 			$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		}
 		$r .= "<span class='ef-popup'>";
-		$descripcion = htmlentities($this->descripcion_estado,ENT_QUOTES);		
 		if ($this->editable) {
 			$r .= toba_form::hidden($this->id_form."_desc", $this->estado);
 			$disabled = ($this->solo_lectura) ? "disabled" : "";
-			$r .= toba_form::text($this->id_form, $descripcion, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
+			$r .= toba_form::text($this->id_form, $this->descripcion_estado, false, "", $this->tamano, "ef-input", $extra.' '.$disabled.' '.$js);
 			$extra = '';
 		} else {
 			$r .= toba_form::hidden($this->id_form, $this->estado, $js);
-			$r .= toba_form::text($this->id_form."_desc", $descripcion, false, "", $this->tamano, "ef-input", "disabled ");
+			$r .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
 		}	
 		$display = ($this->solo_lectura) ? "visibility:hidden" : "";
 		$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";

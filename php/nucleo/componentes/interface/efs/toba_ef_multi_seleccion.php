@@ -402,6 +402,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 			$id = $this->id_form.$i;			
 			$html .= "\t<td><label class='ef-multi-check' for='$id'>";
 			$ok = in_array($clave, $estado);
+			$clave = htmlentities($clave, ENT_QUOTES);
 			if (! $this->solo_lectura) {
 				$checkeado =  $ok ? "checked" : "";
 				$html .= "<input name='{$this->id_form}[]' id='$id' type='checkbox' value='$clave' $checkeado class='ef-checkbox' $input_extra>";
@@ -414,6 +415,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 					$html .= "<input name='{$this->id_form}[]' id='$id' type='hidden' value='$clave'>";
 				}
 			}
+			$descripcion = htmlentities($descripcion, ENT_QUOTES);
 			$html .= "$descripcion</label></td>\n";		
 			$i++;
 			if ($i % $this->cantidad_columnas == 0) {

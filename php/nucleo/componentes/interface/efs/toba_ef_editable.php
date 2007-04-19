@@ -108,9 +108,8 @@ class toba_ef_editable extends toba_ef
     
 	function get_input()
 	{
-		$estado = htmlentities($this->estado,ENT_QUOTES);
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
-		$input = toba_form::text($this->id_form, $estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra.$tab);
+		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
 			$input .= ' '. $this->unidad;
 		}
@@ -417,7 +416,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
-		$html .= toba_form::text($this->id_form,$this->estado,$this->solo_lectura,$this->tamano,
+		$html .= toba_form::text($this->id_form,$this->estado, $this->solo_lectura,$this->tamano,
 								$this->tamano, $this->estilo, $this->input_extra.$tab);
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
@@ -531,10 +530,9 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		if (!isset($this->estado)) {
 			$this->estado = '';	
 		}
-		$estado = htmlentities($this->estado, ENT_QUOTES);		
 		$html = "";
 		if($this->solo_lectura){
-			$html .= toba_form::textarea( $this->id_form, $estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
+			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
 		}else{
 			if($this->resaltar){
 				$javascript = " onclick='javascript: document.getElementById('{$this->id_form}').select()'";
@@ -545,7 +543,7 @@ class toba_ef_editable_textarea extends toba_ef_editable
 				$this->javascript .= "onkeydown=\"$obj.validar()\" onkeyup=\"$obj.validar()\"";
 			}
 			$tab = ' tabindex="'.$this->padre->get_tab_index().'"';	
-			$html .= toba_form::textarea( $this->id_form, $estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra.$tab);
+			$html .= toba_form::textarea( $this->id_form, $this->estado,$this->lineas,$this->tamano,$this->clase,$this->wrap,$this->javascript.' '.$this->input_extra.$tab);
 		}
 		return $html;
 	}
