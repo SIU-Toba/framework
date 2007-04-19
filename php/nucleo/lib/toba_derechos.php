@@ -4,7 +4,7 @@
  * Permite hacer validaciones de permisos globales particulares sobre el usuario actual
  * @package Centrales
  */
-class toba_permisos
+class toba_derechos
 {
 	static private $instancia;
 	protected $permisos;
@@ -12,7 +12,7 @@ class toba_permisos
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_permisos();	
+			self::$instancia = new toba_derechos();	
 		}
 		return self::$instancia;	
 	}	

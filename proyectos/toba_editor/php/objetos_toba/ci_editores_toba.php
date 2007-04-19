@@ -1,5 +1,4 @@
 <?php
-require_once('admin_util.php');
 require_once('seleccion_imagenes.php');
 
 abstract class ci_editores_toba extends toba_ci

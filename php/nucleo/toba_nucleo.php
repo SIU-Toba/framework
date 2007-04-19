@@ -387,7 +387,7 @@ class toba_nucleo
 			'toba_mensajes'							=> 'nucleo/lib/toba_mensajes.php',
 			'toba_notificacion'						=> 'nucleo/lib/toba_notificacion.php',
 			'toba_parser_ayuda'						=> 'nucleo/lib/toba_parser_ayuda.php',
-			'toba_permisos'							=> 'nucleo/lib/toba_permisos.php',
+			'toba_derechos'							=> 'nucleo/lib/toba_derechos.php',
 			'toba_proyecto'							=> 'nucleo/lib/toba_proyecto.php',
 			'toba_proyecto_db'						=> 'nucleo/lib/toba_proyecto_db.php',
 			'toba_puntos_control'					=> 'nucleo/lib/toba_puntos_control.php',

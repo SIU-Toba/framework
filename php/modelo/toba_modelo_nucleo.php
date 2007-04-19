@@ -596,7 +596,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			'nucleo/lib/toba_mensajes.php',
 			'nucleo/lib/toba_notificacion.php',
 			'nucleo/lib/toba_parser_ayuda.php',
-			'nucleo/lib/toba_permisos.php',
+			'nucleo/lib/toba_derechos.php',
 			'nucleo/lib/toba_proyecto.php',
 			'nucleo/lib/toba_proyecto_db.php',
 			'nucleo/lib/toba_puntos_control.php',

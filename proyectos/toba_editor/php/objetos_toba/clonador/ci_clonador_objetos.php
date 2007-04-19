@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/asignador_objetos.php');
-require_once('admin_util.php');
 //----------------------------------------------------------------
 class ci_clonador_objetos extends toba_ci
 {

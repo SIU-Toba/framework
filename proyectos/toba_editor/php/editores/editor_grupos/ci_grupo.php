@@ -27,13 +27,15 @@ class ci_grupo extends toba_ci
 	{
 		$this->dependencia('datos')->sincronizar();
 		$clave = $this->dependencia('datos')->get_clave_valor(0);
-		toba::zona()->set_editable($clave);
+		toba::zona()->cargar(array($clave['proyecto'], $clave['usuario_grupo_acc']));
+		admin_util::refrescar_barra_lateral();
 	}
 
 	function evt__eliminar()
 	{
 		$this->dependencia('datos')->eliminar_todo();
 		toba::solicitud()->zona()->resetear();
+		admin_util::refrescar_barra_lateral();
 	}
 
 	//-------------------------------------------------------------------

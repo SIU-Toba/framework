@@ -1,5 +1,4 @@
 <?php
-require_once('admin_util.php');
 require_once('seleccion_imagenes.php');
 
 class ci_principal extends toba_ci

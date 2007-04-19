@@ -1,6 +1,4 @@
 <?php
-require_once('admin_util.php');
-
 
 //ei_arbol($_SESSION, 'SESION', null, true);
 

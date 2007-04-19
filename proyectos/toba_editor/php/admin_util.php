@@ -25,6 +25,16 @@ class admin_util
 		echo toba_js::cerrar();		
 	}
 	
+	/**
+	*	Refresca el frame izquierdo del editor
+	*/
+	static function refrescar_barra_lateral()
+	{
+		echo toba_js::abrir();
+		echo 'parent.'.apex_frame_lista.'.location.reload()';
+		echo toba_js::cerrar();		
+	}
+	
 	static function redirecionar_a_editor_item($proyecto, $item)
 	{
 		$clave = array( 'proyecto' => $proyecto, 'componente' => $item );		

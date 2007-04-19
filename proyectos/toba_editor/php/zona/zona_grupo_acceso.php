@@ -13,7 +13,7 @@ class zona_grupo_acceso extends zona_editor
 		//echo $sql;
 		$rs = toba::db()->consultar($sql);
 		if(!$rs){
-			echo ei_mensaje("ZONA - GRUPO ACCESO: El editable solicitado no existe","info");
+			toba::notificacion()->agregar('ZONA - GRUPO ACCESO: El editable solicitado no existe','info');
 			return false;
 		}else{
 			$this->editable_info = $rs[0];

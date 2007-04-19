@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/asignador_objetos.php');
-require_once('admin_util.php');
 require_once('seleccion_imagenes.php');
 //----------------------------------------------------------------
 class ci_creador_objeto extends toba_ci

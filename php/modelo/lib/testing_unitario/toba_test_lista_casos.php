@@ -44,7 +44,7 @@ class toba_test_lista_casos
 			}
 			closedir($handle); 
 		}
-		usort($categorias, array("lista_casos", "comparar"));			
+		usort($categorias, array("toba_test_lista_casos", "comparar"));			
 		return $categorias;
 	}
 	
@@ -76,7 +76,7 @@ class toba_test_lista_casos
 			closedir($handle); 
 		}
 		
-		usort($casos, array("lista_casos", "comparar"));			
+		usort($casos, array("toba_test_lista_casos", "comparar"));			
 
 		if ($categoria == 'todas' || $categoria == apex_ef_no_seteado)
 			return $casos;

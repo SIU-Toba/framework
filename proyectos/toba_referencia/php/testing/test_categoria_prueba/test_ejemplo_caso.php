@@ -1,6 +1,6 @@
 <?php
 
-class test_ejemplo_caso extends test_toba
+class test_ejemplo_caso extends toba_test
 {
 	function get_descripcion()
 	{

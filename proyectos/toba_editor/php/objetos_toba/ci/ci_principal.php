@@ -1,6 +1,5 @@
 <?php
 require_once('objetos_toba/ci_editores_toba.php');
-require_once('admin_util.php');
 
 class ci_editor extends ci_editores_toba
 {

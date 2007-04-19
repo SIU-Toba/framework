@@ -77,11 +77,11 @@ class toba
 	
 	/**
 	 * Retorna la referencia al administrador de permisos globales
-	 *	@return toba_permisos
+	 *	@return toba_derechos
 	 */
 	static function permisos()
 	{
-		return toba_permisos::instancia();
+		return toba_derechos::instancia();
 	}
 
 	/**
