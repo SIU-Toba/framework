@@ -297,12 +297,13 @@ class toba_proyecto
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
 	 */
-	function get_lista_permisos($grupo)
+	function get_lista_permisos($grupo_acceso=null)
 	{
+		$grupo_acceso = isset($grupo_acceso) ? $grupo_acceso : toba::manejador_sesiones()->get_grupo_acceso();	
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_lista_permisos');
 		} else {
-			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo);
+			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo_acceso);
 		}
 		return $rs;
 	}

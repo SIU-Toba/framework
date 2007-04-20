@@ -11,7 +11,7 @@ class test_permisos extends test_toba
 	function test_accion_inexistente()
 	{
 		try {
-			toba::permisos()->validar("inexistente");
+			toba::derechos()->validar("inexistente");
 			$this->fail();
 		} catch (toba_error_def $e) {
 			$this->pass();	
