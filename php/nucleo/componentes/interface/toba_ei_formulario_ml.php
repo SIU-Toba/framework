@@ -529,7 +529,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$temp = array();
 				for($x=0;$x<count($dato);$x++){
 					if(isset($datos[$dato[$x]])){
-						$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+						$temp[$dato[$x]]= $datos[$dato[$x]];
 					}else{
 						$temp[$dato[$x]] = null;
 					}
@@ -537,12 +537,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			} else {					//El EF maneja	un	*** DATO SIMPLE
 				if (isset($datos[$dato])) {
 					if (!is_array($datos[$dato])) {
-						$temp = stripslashes($datos[$dato]);
+						$temp = $datos[$dato];
 					} elseif (is_array($datos[$dato])) {
 						//--- Caso para multi-seleccion
 						$temp = array();
 						foreach ($datos[$dato] as $string) {
-							$temp[] = stripslashes($string);
+							$temp[] = $string;
 						}
 					}
 				} else {

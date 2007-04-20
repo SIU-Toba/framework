@@ -493,7 +493,7 @@ class toba_ei_formulario extends toba_ei
 						$temp = null;
 						for($x=0;$x<count($dato);$x++) {
 							if(isset($datos[$dato[$x]])) {
-								$temp[$dato[$x]]=stripslashes($datos[$dato[$x]]);
+								$temp[$dato[$x]] = $datos[$dato[$x]];
 							}
 						}
 					} else {
@@ -503,11 +503,11 @@ class toba_ei_formulario extends toba_ei
 				} else {					//El EF maneja	un	DATO SIMPLE
 					if (isset($datos[$dato])){
 						if (!is_array($datos[$dato]))
-							$temp = stripslashes($datos[$dato]);
+							$temp = $datos[$dato];
 						elseif (is_array($datos[$dato])) { //ATENCION: Este es el caso para el multi-seleccion, hay que mejorarlo
 							$temp = array();
 							foreach ($datos[$dato] as $string) {
-								$temp[] = stripslashes($string);
+								$temp[] = $string;
 							}
 						}
 					}
@@ -699,8 +699,6 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional)
 	{
-		//--- Si la SQL contenia comillas fueron quoteadas cuando se guardaron en la base
-		$parametros['carga_sql'] = stripslashes($parametros['carga_sql']);
         //Armo la sentencia que limita al proyecto
         $sql_where = "";
         if (isset($parametros['columna_proyecto'])) {
@@ -711,7 +709,7 @@ class toba_ei_formulario extends toba_ei
         }
 		if ($sql_where != '') {
 	        $where[] = "(" . $sql_where .")";
-        	$parametros['carga_sql'] =  stripslashes(sql_agregar_clausulas_where($parametros['carga_sql'],$where));
+        	$parametros['carga_sql'] =  sql_agregar_clausulas_where($parametros['carga_sql'],$where);
 		}
 		foreach ($maestros as $id_maestro => $valor_maestro) {
 			$parametros['carga_sql'] = ereg_replace(apex_ef_cascada.$id_maestro.apex_ef_cascada, $valor_maestro,

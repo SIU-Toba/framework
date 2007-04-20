@@ -275,7 +275,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			for($a=0;$a<count($datos);$a++){
 				foreach(array_keys($datos[$a]) as $columna){
 					if(isset($datos[$a][$columna])){
-						$datos[$a][$columna] = stripslashes($datos[$a][$columna]);
+						$datos[$a][$columna] = $datos[$a][$columna];
 					}
 				}	
 			}
