@@ -98,7 +98,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 * @return instalacion
 	 */
 	function get_instalacion()
-	{	return $this->instancia->get_instalacion();
+	{	
+		return $this->instancia->get_instalacion();
 	}
 	
 	function get_db()

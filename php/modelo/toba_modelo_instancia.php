@@ -48,6 +48,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		return $this->sincro_archivos;
 	}
+	
+	/**
+	 * @returns toba_modelo_instalacion
+	 */
+	function get_instalacion()
+	{
+		return $this->instalacion;
+	}
 
 	function cargar_info_ini()
 	{

@@ -23,11 +23,22 @@ class toba_referencia extends toba_modelo_proyecto
 		//--- Instala el modelo de datos del proyecto
 		$db = $this->get_instalacion()->conectar_base($id_base);
 		try {
-			$db->ejecutar_archivo($this->get_dir().'/sql/referencia.sql');
+			$rs = $db->consultar("SELECT 1 FROM ref_persona_juegos");
+			$existe = true;
+		} catch (toba_error $e) {
+			$existe = false;
+		}
+		$reemplazar = false;
+		if ($existe) {
+			$reemplazar = $this->manejador_interface->dialogo_simple("\nYa existe el modelo de datos ".
+							"del proyecto REFERENCIA desea reemplazarlo", 's');
+		}
+		if ($reemplazar) {
+			$db->ejecutar_archivo($this->get_dir().'/sql/borrado.sql');
+		}
+		if (! $existe || $reemplazar) {
+			$db->ejecutar_archivo($this->get_dir().'/sql/creacion.sql');
 			$this->manejador_interface->mensaje("OK");
-		} catch(toba_error $e) {
-			$this->manejador_interface->mensaje("ERROR al ejecutar los scripts SQL del proyecto, 
-					posiblemente ya se encontraba instalado");
 		}
 	}
 }
