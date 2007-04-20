@@ -290,10 +290,11 @@ class toba_info_editores
 		}
 		$catalogador = new toba_catalogo_items($proyecto);
 		$catalogador->cargar_todo(array('solo_carpetas' => 1));
+		$esp = html_entity_decode('&nbsp;');
 		foreach($catalogador->items() as $carpeta) {
 			$nivel = $carpeta->get_nivel_prof() - 1;
 			if($nivel >= 0) {
-				$inden = "&nbsp;" . str_repeat("|" . str_repeat("&nbsp;",8), $nivel) . "|__&nbsp;";
+				$inden = $esp . str_repeat("|" . str_repeat($esp,8), $nivel) . "|__$esp";
 			} else {
 				$inden = "";
 			}

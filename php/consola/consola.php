@@ -321,7 +321,7 @@ class consola implements toba_proceso_gui
 	{
 		if(isset(self::$indice_archivos[$clase])) {
 			require_once( toba_nucleo::toba_dir() .'/php/'. self::$indice_archivos[$clase]);
-		}	
+		}
 	}
 	
 	function cargar_includes_basicos()

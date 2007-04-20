@@ -271,7 +271,7 @@ class toba_nucleo
 		//Carga de las clases del nucleo
 		if(isset(self::$indice_archivos[$clase])) {
 			require_once( self::toba_dir() .'/php/'. self::$indice_archivos[$clase]);
-		}	
+		}
 	}
 
 	/**
@@ -466,6 +466,7 @@ class toba_nucleo
 			'toba_encriptador'						=> 'lib/toba_encriptador.php',
 			'toba_ini'								=> 'lib/toba_ini.php',
 			'toba_editor_archivos'					=> 'lib/toba_editor_archivos.php',
+			'toba_editor_texto'						=> 'lib/toba_editor_archivos.php',
 			'toba_manejador_archivos'				=> 'lib/toba_manejador_archivos.php',
 			'toba_sincronizador_archivos'			=> 'lib/toba_sincronizador_archivos.php',
  			'toba_archivo_php'						=> 'lib/reflexion/toba_archivo_php.php',
