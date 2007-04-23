@@ -52,9 +52,11 @@ class toba_memoria
 	private $servicio = apex_hilo_qs_servicio_defecto;
 	private $objetos_destino = null;
 	//Memoria
-	private $memoria_celdas;			// Bindeo a el espacio donde se encuentran las celdas de memoria
+	private $memoria_celdas;			// Bindeo a el espacio de la memoria del proyecto
 	private $celda_memoria_actual_id;	// ID de la celda actual.
 	private $celda_memoria_actual;		// Referencia al espacio de direcciones de la CELDA actual
+	private $memoria_global;			// Espacio de memoria global de la aplicacion.
+	private $memoria_instancia;			// Memoria global de la instancia.
 	
 	static function instancia()
 	{
@@ -108,12 +110,20 @@ class toba_memoria
 		} else {
 			$this->celda_memoria_actual_id = 'central';
 		}
-		// Apunto las referencias
+		// Apunto las referencias a session
 		$this->memoria_celdas =& toba::manejador_sesiones()->segmento_memoria_proyecto();
+		// Celda ACTUAL
 		if(!isset($this->memoria_celdas[$this->celda_memoria_actual_id])){
 			$this->memoria_celdas[$this->celda_memoria_actual_id] = array();
 		}
 		$this->celda_memoria_actual =& $this->memoria_celdas[$this->celda_memoria_actual_id]; 
+		// Memoria GLOBAL
+		if(!isset($this->memoria_celdas['__toba__global_proyecto'])){
+			$this->memoria_celdas['__toba__global_proyecto'] = array();
+		}
+		$this->memoria_global =& $this->memoria_celdas['__toba__global_proyecto'];
+		// Memoria de la INSTANCIA
+		$this->memoria_instancia =& toba::manejador_sesiones()->segmento_datos_instancia();
 		//-----------------------------------------------------------------------------
 
 		if (isset($this->parametros[apex_hilo_qs_servicio])) {
@@ -166,17 +176,6 @@ class toba_memoria
 		$this->item_solicitado = $item;
 	}
 	
-	/**
-	 * Muestra el estado actual del hilo
-	 */
-	function info()
-	{
-		$dump["item_solicitado"]=$this->item_solicitado;
-		$dump["hilo_referencia"]=$this->hilo_referencia;
-		$dump["parametros"]=$this->parametros;
-		ei_arbol($dump,'hilo');
-	}
-
 	/**
 	 * Genera la primera porcion de todas las URLs
 	 */
@@ -282,7 +281,6 @@ class toba_memoria
 			return false;
 		}
 	}
-
 	
 	//----------------------------------------------------------------
 	//------------ MEMORIA -------------------------------------------
@@ -309,12 +307,15 @@ class toba_memoria
 	function limpiar_memoria()
 	{
 		$this->limpiar_memoria_sincronizada();
-		$this->limpiar_datos();
+		$this->limpiar_datos_operacion();
 	}
 
 	function dump()
 	{
-		ei_arbol($this->celda_memoria_actual);
+		ei_arbol( array(	'global proyecto' => $this->memoria_global,
+							'celda_actual' => $this->celda_memoria_actual, 
+							'instancia' => $this->memoria_instancia ),
+					'Estado INTERNO de toba::memoria()');
 	}
 
 	/**
@@ -325,55 +326,134 @@ class toba_memoria
 		return $this->acceso_menu;
 	}
 
-	/**
-		Desactiva el reciclado
-	*/
-	function desactivar_reciclado()
-	{
-		$this->reciclar_memoria = false;
-	}
-
 	//------------------------------------------------------------------------
-	//------------------ Manejo de DATOS en la sesion ------------------------
+	//--------- Manejo de DATOS de la INSTANCIA (no utiliza celdas) ----------
 	//------------------------------------------------------------------------
 
 	/**
-	 * @see set_dato_aplicacion
+	 * Almacena un dato en la instancia. 
+	 * Este mecanismo aporta un canal para la comunicacion entre proyectos que se ejecutan simultaneamente.
 	 */
-	function set_dato($indice, $datos)
+	function set_dato_instancia($indice, $datos)
 	{
-		$this->set_dato_aplicacion($indice, $datos);	
+		$this->memoria_instancia[$indice]=$datos;		
 	}
 	
 	/**
-	 * Almacena un dato en la sesión y perdura durante toda la operación en curso. Se elimina cuando se cambia de operación
+	 * Recupera un dato almacenado con set_dato_instancia
+	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
+	 */
+	function get_dato_instancia($indice)
+	{
+		if($this->existe_dato_instancia($indice))	{
+			return $this->memoria_instancia[$indice];
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * Elimina un dato de la memoria de la instancia
+	 */
+	function eliminar_dato_instancia($indice)
+	{
+		if(isset($this->memoria_instancia[$indice])){
+			unset($this->memoria_instancia[$indice]);
+		}
+	}
+	
+	/**
+	 * Determina si un dato esta disponible en la memoria de la instancia
+	 */	
+	function existe_dato_instancia($indice)
+	{
+		return isset($this->memoria_instancia[$indice]);
+	}
+	
+	/**
+	 * Limpia la memoria de la instancia
+	 */
+	function limpiar_datos_instancia()
+	{
+		$this->memoria_instancia = array();
+	}
+
+	//------------------------------------------------------------------------
+	//--------- Manejo de DATOS del PROYECTO (no utiliza celdas) -------------
+	//------------------------------------------------------------------------
+	/**
+	 * Almacena un dato en la sesion del proyecto y perdura durante toda la sesión
+	 * Similar al manejo normal del $_SESSION en una aplicacion ad-hoc
+	 */
+	function set_dato($indice, $datos)
+	{
+		$this->memoria_global[$indice]=$datos;		
+	}
+	
+	/**
+	 * Recupera un dato almacenado con set_dato
+	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
+	 */
+	function get_dato($indice)
+	{
+		if($this->existe_dato($indice))	{
+			return $this->memoria_global[$indice];
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * Elimina un dato de la memoria
+	 */
+	function eliminar_dato($indice)
+	{
+		if(isset($this->memoria_global[$indice])){
+			unset($this->memoria_global[$indice]);
+		}
+	}
+	
+	/**
+	 * Determina si un dato esta disponible en la memoria
+	 */	
+	function existe_dato($indice)
+	{
+		return isset($this->memoria_global[$indice]);
+	}
+	
+	/**
+	 * Limpia la memoria global del proyecto
+	 */
+	function limpiar_datos()
+	{
+		$this->memoria_global = array();
+	}
+
+	//------------------------------------------------------------------------
+	//-------- Manejo de DATOS de una OPERACION en la sesion (x celda) -------
+	//------------------------------------------------------------------------
+	/*
+	*	Esta memoria es utilizada por los componentes toba para guardar la informacion
+	*	propia de una operacion. La misma se recicla cuando el usuario cambia de operacion
+	*/
+
+	/**
+	 * Almacena un dato de la operacion actual en la sesión.
+	 * Se elimina cuando se cambia de operación
 	 */
 	function set_dato_operacion($indice, $datos)
 	{
 		$this->celda_memoria_actual['global'][$indice]=$datos;
 		$this->agregar_dato_global_reciclable($indice, apex_hilo_reciclado_item);
 	}
-	
+
 	/**
-	 * Almacena un dato en la sesion y perdura durante toda la sesión de la aplicacion
-	 * Similar al manejo normal del $_SESSION en una aplicacion ad-hoc
-	 */
-	function set_dato_aplicacion($indice, $datos, $borrar_si_no_se_usa = false)
-	{
-		$this->celda_memoria_actual['global'][$indice]=$datos;		
-		if ($borrar_si_no_se_usa) {
-			//Defino el tipo de reciclado (por defecto se utiliza el de cambio de item)
-			$this->agregar_dato_global_reciclable($indice, apex_hilo_reciclado_acceso);			
-		}
-	}
-	
-	/**
-	 * Recupera un dato almacenado ya sea con set_dato_aplicacion o con set_dato_operacion
+	 * Recupera un dato almacenado durante la operacion
 	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
 	 */
-	function get_dato($indice)
+	function get_dato_operacion($indice)
 	{
-		if($this->existe_dato($indice))	{
+		if($this->existe_dato_operacion($indice))	{
 			//Se avisa que se accedio a un dato global al sistema de reciclado
 			$this->acceso_a_dato_global($indice);
 			return $this->celda_memoria_actual['global'][$indice];
@@ -382,20 +462,10 @@ class toba_memoria
 		}
 	}
 
-  function &get_dato_ref($indice)
- 	{
-		if($this->existe_dato($indice))	{
-			//Se avisa que se accedio a un dato global al sistema de reciclado
-			$this->acceso_a_dato_global($indice);
-			return $this->celda_memoria_actual['global'][$indice];
-		}else{
-			return null;
-		}
-	} 
 	/**
-	 * Elimina un dato de la memoria
+	 * Elimina un dato de la memoria de la operacion
 	 */
-	function eliminar_dato($indice)
+	function eliminar_dato_operacion($indice)
 	{
 		if(isset($this->celda_memoria_actual['global'][$indice])){
 			unset($this->celda_memoria_actual['global'][$indice]);
@@ -404,26 +474,24 @@ class toba_memoria
 	}
 	
 	/**
-	 * Determina si un dato esta disponible en la memoria
+	 * Determina si un dato esta disponible en la memoria de la operacion
 	 */	
-	function existe_dato($indice)
+	function existe_dato_operacion($indice)
 	{
 		return isset($this->celda_memoria_actual['global'][$indice]);
 	}
 	
 	/**
-	 * Limpia la memoria de la celda actual
+	 * Limpia la memoria de la operacion
 	 */
-	function limpiar_datos()
+	function limpiar_datos_operacion()
 	{
-		unset($this->celda_memoria_actual['global']);
+		$this->celda_memoria_actual['global'] = array();
 	}
 
-
-	//------------------------------------------------------------------
-	//-------------------- Memoria SINCRONIZADA ------------------------
-	//------------------------------------------------------------------
-		
+	//------------------------------------------------------------------------
+	//-------------------- Memoria SINCRONIZADA (x celda) --------------------
+	//------------------------------------------------------------------------
 	/**
 	 * Guarda un dato en la memoria sincronizada.
 	 * La memoria sincronizada guarda datos macheados contra el request que los produjo.
@@ -478,9 +546,17 @@ class toba_memoria
 	}
 
 	//----------------------------------------------------------------	
-	//-------------  RECICLAJE de memoria GLOBAL ---------------------	
+	//-------------  RECICLAJE de CELDAS -----------------------------
 	//----------------------------------------------------------------	
 	
+	/**
+		Desactiva el reciclado
+	*/
+	function desactivar_reciclado()
+	{
+		$this->reciclar_memoria = false;
+	}
+
 	/**
 		Inicializa el esquema de reciclado global
 	*/
@@ -565,7 +641,7 @@ class toba_memoria
 				toba::logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
-						$this->eliminar_dato($reciclable);
+						$this->eliminar_dato_operacion($reciclable);
 					}
 				}
 			}
@@ -584,7 +660,7 @@ class toba_memoria
 				//Si hay un elemento reciclable que no se activo, lo destruyo
 				if(!in_array($reciclable,$this->celda_memoria_actual['reciclables_activos'])){
 					toba::logger()->debug("HILO: Se limpio de la memoria el elemento '$reciclable' porque no fue accedido", 'toba');
-					$this->eliminar_dato($reciclable);
+					$this->eliminar_dato_operacion($reciclable);
 				}
 			}
 		}
@@ -605,7 +681,7 @@ class toba_memoria
 	{
 		if(isset($this->celda_memoria_actual['reciclables'])){
 			foreach($this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){
-				$this->eliminar_dato($reciclable);
+				$this->eliminar_dato_operacion($reciclable);
 			}
 		}
 		//Esto no deberia ser necesario.
@@ -662,17 +738,17 @@ class toba_memoria
 	La eliminacion de estos archivos esta en el evento cerrar de la sesion
 */
 	function registrar_archivo_temporal($archivo){
-		if(	!isset($this->memoria_celdas['__toba__archivos__temporales']) 
-			|| !in_array($archivo, $this->memoria_celdas['__toba__archivos__temporales'])){
-			$this->memoria_celdas['__toba__archivos__temporales'][] = $archivo;
+		if(	!isset($this->memoria_celdas['__toba__archivos_temporales']) 
+			|| !in_array($archivo, $this->memoria_celdas['__toba__archivos_temporales'])){
+			$this->memoria_celdas['__toba__archivos_temporales'][] = $archivo;
 		}
 	}
 
 	function eliminar_archivos_temporales()
 	{
 		//Existieron archivos temporales asociados a la sesion, los elimino...
-		if (isset($this->memoria_celdas['__toba__archivos__temporales'])) {
-			foreach($this->memoria_celdas['__toba__archivos__temporales'] as $archivo) {
+		if (isset($this->memoria_celdas['__toba__archivos_temporales'])) {
+			foreach($this->memoria_celdas['__toba__archivos_temporales'] as $archivo) {
 				//SI puedo ubicar los archivos los elimino
 				if(is_file($archivo)){
 					unlink($archivo);

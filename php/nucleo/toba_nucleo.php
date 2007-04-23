@@ -18,9 +18,6 @@ class toba_nucleo
 		$this->cargar_includes_basicos();
 		spl_autoload_register(array('toba_nucleo', 'cargador_clases'));
 		toba::cronometro();		
-		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
-			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
-		}
 	}
 	
 	static function instancia()
@@ -177,6 +174,7 @@ class toba_nucleo
 
 	protected function iniciar_contexto_ejecucion()
 	{
+		$this->controlar_requisitos_basicos();
 		agregar_dir_include_path( toba::proyecto()->get_path_php() );
 		toba::contexto_ejecucion()->conf__inicial();
 		toba::manejador_sesiones()->iniciar();
@@ -187,6 +185,13 @@ class toba_nucleo
 		toba::manejador_sesiones()->finalizar();
 		toba::contexto_ejecucion()->conf__final();
 		$this->solicitud->guardar_cronometro();
+	}
+	
+	function controlar_requisitos_basicos()
+	{
+		if (php_sapi_name() !== 'cli' && get_magic_quotes_gpc()) {
+			throw new toba_error("Necesita desactivar las 'magic_quotes' en el servidor (ver http://www.php.net/manual/es/security.magicquotes.disabling.php)");
+		}
 	}
 
 	//--------------------------------------------------------------------------

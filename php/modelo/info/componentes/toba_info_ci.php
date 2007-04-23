@@ -167,7 +167,7 @@ class toba_info_ci extends toba_info_ei
 		if (count($this->subelementos)>0) {
 			$molde->agregar( new toba_molde_separador_php('DEPENDENCIAS',null,'grande') );
 			foreach ($this->subelementos as $id => $elemento) {
-				$es_ei = ($elemento instanceof info_ei) && !($elemento instanceof info_ci);
+				$es_ei = ($elemento instanceof toba_info_ei) && !($elemento instanceof toba_info_ci);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
 					$molde->agregar( new toba_molde_separador_php($rol) );

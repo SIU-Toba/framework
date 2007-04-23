@@ -642,6 +642,14 @@ class toba_manejador_sesiones
 		return $_SESSION['toba']['instancias'][$this->instancia]['info'];
 	}
 
+	function & segmento_datos_instancia()
+	{
+		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['datos_globales'])) {
+			$_SESSION['toba']['instancias'][$this->instancia]['datos_globales'] = array();
+		}
+		return $_SESSION['toba']['instancias'][$this->instancia]['datos_globales'];
+	}
+	
 	function & segmento_editor()
 	{
 		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['editor'])) {
@@ -667,6 +675,14 @@ class toba_manejador_sesiones
 			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'] = array();
 		}
 		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'];
+	}
+
+	function & segmento_memoria_puntos_control()
+	{
+		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'])) {
+			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'] = array();
+		}
+		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'];
 	}
 
 	//----  Borrado de los espacios de memoria  ---------------------------------------------

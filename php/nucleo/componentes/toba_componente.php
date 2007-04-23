@@ -318,9 +318,9 @@ abstract class toba_componente
 	 */
 	protected function recuperar_estado_sesion()
 	{
-		if(toba::memoria()->existe_dato($this->_id_ses_grec)) {
+		if(toba::memoria()->existe_dato_operacion($this->_id_ses_grec)) {
 			//Recupero las propiedades de la sesion
-			$temp = toba::memoria()->get_dato($this->_id_ses_grec);
+			$temp = toba::memoria()->get_dato_operacion($this->_id_ses_grec);
 			if(isset($temp["toba__indice_objetos_serializados"])) {			//El objeto persistio otros objetos
 				$objetos = $temp["toba__indice_objetos_serializados"];
 				unset($temp["toba__indice_objetos_serializados"]);
@@ -366,7 +366,7 @@ abstract class toba_componente
 				toba::memoria()->set_dato_operacion($this->_id_ses_grec, $temp);
 			} else {
 				//Si existia y las propiedades pasaron a null, hay que borrarlo
-				toba::memoria()->eliminar_dato($this->_id_ses_grec);
+				toba::memoria()->eliminar_dato_operacion($this->_id_ses_grec);
 			}
 		}
 	}
@@ -384,7 +384,7 @@ abstract class toba_componente
 				unset($this->$nombre_prop);
 			}
 		}
-		toba::memoria()->eliminar_dato($this->_id_ses_grec);
+		toba::memoria()->eliminar_dato_operacion($this->_id_ses_grec);
 	}
 	
 	/**

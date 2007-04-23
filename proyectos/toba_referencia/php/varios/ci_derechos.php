@@ -1,4 +1,6 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
+
 class ci_derechos extends toba_ci
 {
 	function ini()

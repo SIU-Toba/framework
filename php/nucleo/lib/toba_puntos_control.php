@@ -81,10 +81,7 @@
      */
     private function &get_bloque()
     {
-      if (! toba::memoria()->existe_dato('puntos_control'))
-        toba::memoria()->set_dato_operacion('puntos_control', array());
-
-      return toba::memoria()->get_dato_ref('puntos_control');
+		return toba::manejador_sesiones()->segmento_memoria_puntos_control();
     }
 
     /**
