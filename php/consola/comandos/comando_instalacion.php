@@ -229,19 +229,21 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Cambia los permisos de la instalación para permitir que el usuario 
-	 * Apache cree directorios y pueda leer de las carpetas navegables
+	 * Apache cree directorios y pueda leer de las carpetas navegables [-g grupo de usuario, se asume www-data]
 	 */
 	function opcion__cambiar_permisos()
 	{
+		$param = $this->get_parametros();
+		$grupo = isset($param['-g']) ? $param['-g'] : 'www-data';
 		$toba_dir = toba_dir();
-		echo exec("chgrp www-data $toba_dir/www -R");
-		echo exec("chgrp www-data $toba_dir/instalacion -R");
-		echo exec("chgrp www-data $toba_dir/temp -R");
+		echo exec("chgrp $grupo $toba_dir/www -R");
+		echo exec("chgrp $grupo $toba_dir/instalacion -R");
+		echo exec("chgrp $grupo $toba_dir/temp -R");
 		echo exec("chmod g+w $toba_dir/www -R");
 		echo exec("chmod g+w $toba_dir/instalacion -R");
 		echo exec("chmod g+w $toba_dir/temp");
 		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
-			echo exec("chgrp www-data $proyecto/www -R");
+			echo exec("chgrp $grupo $proyecto/www -R");
 			echo exec("chmod g+w $proyecto/www -R");
 		}
 	}

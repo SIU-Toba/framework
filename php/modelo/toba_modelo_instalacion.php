@@ -31,6 +31,19 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			} else {
 				//  BASE
 				$this->ini_bases = parse_ini_file( $archivo_ini_bases, true );
+				$pendientes = array();
+				foreach ($this->ini_bases as $id_base => $parametros) {
+					if (empty($parametros)) {
+						//Meterlos en una cola de bases que toman su definicion de la siguiente
+						$pendientes[] = $id_base;
+					} else {
+						//Llenar la cola de pendientes con alias hacia la def. actual
+						foreach ($pendientes as $id_base_pendiente) {
+							self::$this->ini_bases[$id_base_pendiente] = $parametros;
+						}
+						$pendientes = array();
+					}
+				}				
 			}
 			//--- Levanto la CONFIGURACION de bases
 			$archivo_ini_instalacion = $this->dir . '/' . self::info_basica;

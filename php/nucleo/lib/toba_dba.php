@@ -14,6 +14,7 @@ class toba_dba
 	private static $dba;						// Implementacion del singleton.
 	private static $info_bases;					// Parametros de las conexiones ABIERTAS
 	private static $bases_definidas = null;		// Bases declaradas en BASES.INI
+	private static $alias_de_base = array();
 	private $bases_conectadas = array();		// Conexiones abiertas
 
 	private function __construct()
@@ -34,9 +35,10 @@ class toba_dba
 				//Meterlos en una cola de bases que toman su definicion de la siguiente
 				$pendientes[] = $id_base;
 			} else {
-				//Llenar la cola de pendientes con la def. actual
+				//Llenar la cola de pendientes con alias hacia la def. actual
 				foreach ($pendientes as $id_base_pendiente) {
-					self::$bases_definidas[$id_base_pendiente] = $parametros;	
+					self::$bases_definidas[$id_base_pendiente] = $parametros;
+					self::$alias_de_base[$id_base_pendiente] = $id_base;
 				}
 				$pendientes = array();
 			}
@@ -114,11 +116,21 @@ class toba_dba
 	// Servicios internos
 	//------------------------------------------------------------------------
 
+	private function get_alias_base($nombre)
+	{
+		if (isset(self::$alias_de_base[$nombre])) {
+			return self::$alias_de_base[$nombre];
+		} else {
+			return $nombre;	
+		}
+	}
+	
 	/**
 	*	Administracion interna de CONEXIONES.
 	*/
 	private function get_conexion( $nombre )
 	{
+		$nombre = $this->get_alias_base($nombre);
 		if( ! isset( $this->bases_conectadas[$nombre] ) ) {
 			$this->bases_conectadas[$nombre] = self::conectar_db($nombre);
 		}
@@ -154,6 +166,7 @@ class toba_dba
 	*/
 	private function desconectar_db($nombre)
 	{
+		$nombre = $this->get_alias_base($nombre);
 		if ( isset( self::$info_bases[$nombre] ) ) {
 			unset( self::$info_bases[$nombre] );
 		}
@@ -165,6 +178,7 @@ class toba_dba
 
 	private function existe_conexion_privado( $nombre )
 	{
+		$nombre = $this->get_alias_base($nombre);
 		return isset($this->bases_conectadas[$nombre]);
 	}
 
