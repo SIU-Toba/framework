@@ -115,6 +115,16 @@ class ci_efs extends toba_ci
 					$this->get_tabla()->eliminar_fila($id);
 					break;	
 				case "M":
+					//---Si se cambia un identificador que estaba ligado con us columna se cambia tambien el valor de la columna
+					$anterior_id = $this->get_tabla()->get_fila_columna($id, 'identificador');
+					$anterior_col = $this->get_tabla()->get_fila_columna($id, 'columnas');
+					echo "Anterior: $anterior_id, Actual: {$registros[$id]['identificador']}<br>";
+					if ($anterior_id != $registros[$id]['identificador']) {
+						echo "Anterior: $anterior_id, Anterior Col: $anterior_col<br>";
+						if ($anterior_id == $anterior_col) {
+							$registros[$id]['columnas'] = $registros[$id]['identificador'];
+						}
+					}
 					$this->get_tabla()->modificar_fila($id, $registros[$id]);
 					break;	
 			}
