@@ -121,7 +121,7 @@ class toba_info_editores
 				WHERE 
 					$sql_todas
 					(proyecto = '". toba_contexto_info::get_proyecto() ."' OR proyecto='toba')
-				ORDER BY 2";
+				ORDER BY descripcion_corta";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 
@@ -162,7 +162,7 @@ class toba_info_editores
 						--El proyecto es Toba o el actual
 					(c.proyecto = '". toba_contexto_info::get_proyecto() ."' OR c.proyecto = 'toba') AND
 					c.editor_item IS NOT NULL
-				ORDER BY ct.orden DESC";
+				ORDER BY ct.orden DESC, c.descripcion_corta";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	

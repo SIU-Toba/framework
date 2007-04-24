@@ -921,6 +921,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * Cambia el contenido de la fila donde se encuentra el cursor interno
+	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automáticamente en la carga, sino se debe explicitar con el método set_cursor
 	 * En caso que no existan filas, se crea una nueva y se posiciona el cursor en ella
 	 * Si la fila es null, se borra la fila actual
 	 *
@@ -944,6 +945,7 @@ class toba_datos_tabla extends toba_componente
 	
 	/**
 	 * Retorna el contenido de la fila donde se encuentra posicionado el cursor interno
+	 * Si la tabla se definio admitiendo a lo sumo un registro, este cursor se posiciona automáticamente en la carga, sino se debe explicitar con el método set_cursor
 	 * En caso de que no haya registros retorna NULL
 	 */
 	function get()
