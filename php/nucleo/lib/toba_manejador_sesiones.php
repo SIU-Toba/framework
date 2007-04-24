@@ -712,6 +712,7 @@ class toba_manejador_sesiones
 		if(!isset($proyecto)) $proyecto = $this->proyecto;
 		unset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]);
 		toba_proyecto::eliminar_instancia();
+		toba_memoria::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria PROYECTO: ' . $proyecto ,'toba');
 	}
 }

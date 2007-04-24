@@ -66,6 +66,11 @@ class toba_memoria
 		return self::$instancia;		
 	}
 	
+	static function eliminar_instancia()
+	{
+		self::$instancia = null;
+	}
+	
 	private function __construct()
 	{
 		//dump_session();
