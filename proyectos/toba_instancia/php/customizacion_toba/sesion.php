@@ -4,6 +4,8 @@ class sesion extends toba_sesion
 {
 	private $id_intancia;
 
+	//-- Ventanas toba -------------------------------------
+
 	function conf__inicial($datos=null)
 	{
 		if(!isset($datos)) {
@@ -18,6 +20,14 @@ class sesion extends toba_sesion
 	function conf__activacion()
 	{
 		toba_contexto_info::set_db( admin_instancia::ref()->db() );
+	}
+
+	function ini__automatica() 
+	{
+		if ( toba::memoria()->existe_dato_instancia('instancia') ) {
+			return toba::memoria()->get_dato_instancia('instancia');
+		}
+		throw new toba_error_ini_sesion('El ID de la instancia a editar no esta registrado en la memoria global de la instancia');
 	}
 	
 	//-- API para el proyecto -------------------------------------

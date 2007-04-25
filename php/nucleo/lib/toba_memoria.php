@@ -73,6 +73,7 @@ class toba_memoria
 	
 	private function __construct()
 	{
+		toba::logger()->debug("TOBA MEMORIA: Inicializacion.", 'toba');
 		//dump_session();
 		$this->id = uniqid('');
 		$this->url_actual = $_SERVER["PHP_SELF"];
@@ -177,7 +178,7 @@ class toba_memoria
 
 	function set_item_solicitado( $item ) 
 	{
-		toba::logger()->debug('Se cambia el ítem solicitado a '.var_export($item, true), "toba");
+		toba::logger()->debug('TOBA MEMORIA: Se cambia el ítem solicitado a =>'.var_export($item, true), "toba");
 		$this->item_solicitado = $item;
 	}
 	
@@ -302,7 +303,7 @@ class toba_memoria
 				utilizarse dentro de una operacion: los elementos de la memoria GLOBAL marcados 
 				como 'reciclables' y la memoria sincronizada (la alienada al request anterior).
 			*/
-			toba::logger()->debug('HILO: REINICIO MEMORIA (Se limpio la memoria sincroniza y global reciclable: acceso menu)', 'toba');
+			toba::logger()->debug('TOBA MEMORIA: Flag acceso desde el menu. Se reinicia la memoria de la operacion', 'toba');
 			$this->limpiar_memoria_sincronizada();
 			$this->limpiar_datos_reciclable();
 		}
@@ -643,7 +644,7 @@ class toba_memoria
 			
 			$es_distinto_item = ($this->celda_memoria_actual['item_anterior'] != $this->celda_memoria_actual['item']);
 			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
-				toba::logger()->debug("HILO: Se limpio de la memoria con reciclaje por cambio de ITEM", 'toba');
+				toba::logger()->debug("TOBA MEMORIA: Reciclaje por cambio de ITEM", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_operacion($reciclable);

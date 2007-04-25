@@ -276,12 +276,32 @@ class toba_manejador_sesiones
 				}*/
 			}
 		} elseif( $this->existe_usuario_activo() ) {	//--> Hay un usuario en la instancia, pero no logueado al proyecto actual
-			if ( $this->sesion_requiere_inicializacion() ) {
-				//Apunto al nucleo al item de inicializacion de sesion
-				$item[0] = toba::proyecto()->get_id();
-				$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
-				toba::memoria()->set_item_solicitado($item);
+			//Inicializacion de la sesion del proyecto
+			if ( $this->sesion_esta_extendida() ) {
+				// Tiene metodo de inicializacion?
+				$metodo_inicializacion = 'ini__automatica';
+				if( method_exists($this->get_sesion_proyecto(), $metodo_inicializacion) ) {
+					try {
+						$datos_iniciales = $this->get_sesion_proyecto()->$metodo_inicializacion();
+						$this->procesar_acceso_proyecto($datos_iniciales);
+						toba::logger()->debug("MANEJADOR de SESIONES: Incializacion automatica de la sesion del proyecto. DATOS: " . var_export($datos_iniciales,true),'toba');
+						return;
+					} catch ( toba_error_ini_sesion $e ) {
+						//La inicializacion automatica fallo, no pasa nada malo. Se prueba con item de inicializacion
+						toba::logger()->debug("MANEJADOR de SESIONES: Fallo la inicializacion automatica de la sesion del proyecto. " . $e->getMessage() ,'toba');
+					}
+				} 
+				// Tiene item de inicializacion
+				if ( $this->sesion_posse_item_inicializacion() ) {
+					//Apunto al nucleo al item de inicializacion de sesion
+					$item[0] = toba::proyecto()->get_id();
+					$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
+					toba::memoria()->set_item_solicitado($item);
+				} else {
+					$this->procesar_acceso_proyecto();
+				}
 			} else {
+				//La sesion no esta extendida
 				$this->procesar_acceso_proyecto();
 			}
 		} else {										//--> ** Entrada INICIAL **
@@ -546,11 +566,20 @@ class toba_manejador_sesiones
 		}
 	}
 
-	private function sesion_requiere_inicializacion()
+	private function sesion_esta_extendida()
 	{
 		return ( 	toba::proyecto()->get_parametro('sesion_subclase') &&
-					toba::proyecto()->get_parametro('sesion_subclase_archivo') &&
-					toba::proyecto()->get_parametro('item_set_sesion') );
+					toba::proyecto()->get_parametro('sesion_subclase_archivo') );
+	}	
+
+	private function sesion_posse_item_inicializacion()
+	{
+		return ( 	toba::proyecto()->get_parametro('item_set_sesion') );
+	}	
+
+	private function sesion_posse_metodo_inicializacion()
+	{
+		return ( 	toba::proyecto()->get_parametro('item_set_sesion') );
 	}	
 
 	//------------------------------------------------------------------

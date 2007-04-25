@@ -378,6 +378,7 @@ class toba_nucleo
 			'toba_error_autenticacion'				=> 'nucleo/lib/toba_error.php',
 			'toba_error_autorizacion'				=> 'nucleo/lib/toba_error.php',
 			'toba_error_validacion' 				=> 'nucleo/lib/toba_error.php',
+			'toba_error_ini_sesion'					=> 'nucleo/lib/toba_error.php',
 			'toba_reset_nucleo'		 				=> 'nucleo/lib/toba_error.php',
 			'toba_fuente_datos'						=> 'nucleo/lib/toba_fuente_datos.php',
 			'toba_http'								=> 'nucleo/lib/toba_http.php',
