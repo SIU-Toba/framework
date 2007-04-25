@@ -954,8 +954,8 @@ class toba_ei_cuadro extends toba_ei
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
 		echo toba_form::hidden($this->_submit_paginado, '');
-		//-- Scroll       
-        if($this->_info_cuadro["scroll"]){
+		//-- Scroll
+		if($this->_info_cuadro["scroll"]){
 			$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
 			$alto = isset($this->_info_cuadro["alto"]) ? $this->_info_cuadro["alto"] : "auto";
 			echo "<div class='ei-cuadro-scroll' style='height: $alto; width: $ancho; '>\n";
@@ -965,19 +965,16 @@ class toba_ei_cuadro extends toba_ei
 		//-- Tabla BASE
 		$mostrar_cabecera = true;
 		$ancho = convertir_a_medida_tabla($ancho);
-        echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
-        echo "<tr><td>";
-        echo $this->get_html_barra_editor();
-        echo "</td></tr>\n";
-        if($mostrar_cabecera){
-            echo "<tr><td style='padding:0'>";
-            $this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
-            echo "</td></tr>\n";
-        }
-		//-- INICIO zona COLAPSABLE
+		echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
 		echo"<tr><td style='padding:0;'>\n";
-		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		
-        echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
+		echo $this->get_html_barra_editor();
+		if($mostrar_cabecera){
+			$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
+		}
+		//-- INICIO zona COLAPSABLE
+
+		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
+		echo "<TABLE class='ei-cuadro-cuerpo' $colapsado id='cuerpo_{$this->objeto_js}'>";
 		// Cabecera
 		echo "<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();
@@ -989,7 +986,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_inicio();
 		}
 	}
-
+	
 	private function html_fin()
 	{
 		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){

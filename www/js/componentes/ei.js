@@ -96,7 +96,8 @@ ei.prototype.constructor = ei;
 	 */
 	ei.prototype.puede_submit = function() {
 		if(this._evento && existe_funcion(this, "evt__" + this._evento.id)){
-			if(! ( this["evt__" + this._evento.id](this._evento.parametros) ) ){
+			var res = this["evt__" + this._evento.id](this._evento.parametros);
+			if(typeof res != 'undefined' && !res ){		
 				this.reset_evento();
 				return false;
 			}
@@ -171,6 +172,37 @@ ei.prototype.constructor = ei;
 	 */
 	ei.prototype.boton_colapsar = function() {
 		return document.getElementById('colapsar_boton_' + this._instancia);
+	};
+
+	/**
+	 * Oculta el componente completo
+	 * @see #mostrar
+	 */
+	ei.prototype.ocultar = function() {
+		return this.raiz().style.display = 'none';
+	};
+
+	/**
+	 * Muestra un componente previamente ocultado
+	 * @param {boolean} mostar Pasando true o false permite mostrar u ocultar
+	 * @see #ocultar
+	 */	
+	ei.prototype.mostrar = function(mostrar) {
+		if (typeof mostrar == 'undefined') {
+			mostrar = true;
+		}	
+		if (mostrar) {
+			this.raiz().style.display = '';	
+		} else {
+			this.ocultar();	
+		}		
+	};	
+
+	/**
+	 * Oculta el componente completo
+	 */
+	ei.prototype.ocultar = function() {
+		return this.raiz().style.display = 'none';
 	};
 
 	/**

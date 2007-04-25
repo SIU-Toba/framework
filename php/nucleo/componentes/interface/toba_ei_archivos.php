@@ -120,7 +120,7 @@ class toba_ei_archivos extends toba_ei
 	}
 
 	/**
-	 * Cambia el conjunto de extensiones permitidas en la visualización
+	 * Cambia el conjunto de extensiones permitidas en la visualizaciÃ³n
 	 * @param array $extensiones
 	 */
 	function set_extensiones_validas($extensiones)
@@ -165,13 +165,15 @@ class toba_ei_archivos extends toba_ei
 		sort($archivos);
 		sort($carpetas);
 		$path = pathinfo($this->_dir_actual);
-		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");
-		echo "<div style=''>\n";
+		echo "<div class='ei-base ei-archivos-base'>\n";		
+		echo $this->get_html_barra_editor();				
+		$this->generar_html_barra_sup("<span title='{$this->_dir_actual}'>{$path['basename']}</span>", false,"ei-arch-barra-sup");		
+		echo "<div  id='cuerpo_{$this->objeto_js}'>\n";		
+
 		
 		$img_crear_carpeta = toba_recurso::imagen_toba('nucleo/carpeta_nueva_24.gif', true);
 		$img_crear_archivo = toba_recurso::imagen_toba('nucleo/archivo_nuevo.gif', true);
 
-		echo $this->get_html_barra_editor();
 		
 		echo "<span style='float: right'>
 				<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>
@@ -199,6 +201,7 @@ class toba_ei_archivos extends toba_ei
 					 title='Seleccionar el archivo'>$archivo</a>\n</div>";
 		}
 		echo "</div>";
+		echo "</div>\n";		
 		echo "</div>\n";
 	}
 

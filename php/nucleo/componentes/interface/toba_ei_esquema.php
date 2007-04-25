@@ -34,15 +34,12 @@ class toba_ei_esquema extends toba_ei
 	
 	function generar_html()
 	{
-		echo "<table class='objeto-base' id='{$this->objeto_js}_cont'>";
-		echo "<tr><td>";
+        echo "\n<table class='ei-base ei-esquema-base'>\n";		
+		echo"<tr><td style='padding:0;'>\n";		
 		echo $this->get_html_barra_editor();
-		echo "</td></tr>\n";
-		echo "<tr><td>";
 		$this->generar_html_barra_sup(null, true,"ei-esquema-barra-sup");
-		echo "</td></tr>\n";
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";		
-		echo "<tr><td><div $colapsado id='cuerpo_{$this->objeto_js}'>";
+		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>";
 		//Campo de sincronizacion con JS
 		echo toba_form::hidden($this->_submit, '');
 		if (isset($this->_contenido)) {

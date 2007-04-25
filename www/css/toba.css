@@ -176,10 +176,15 @@ padding-left:4px;
 	clear: both;
 	text-align: right;
 	padding-right:5px;
+	padding-left:5px;
 }
 /* La botonera dentro de la barra superior flota para que se vea al mismo nivel */
 .ei-barra-sup .ei-botonera {
 	float: right;
+}
+/* Excepto que no tenga titulo */
+.ei-barra-sup-sin-tit .ei-botonera {
+	float:none;
 }
 .ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar, .ei-boton-baja {
 	font-size: 11px;

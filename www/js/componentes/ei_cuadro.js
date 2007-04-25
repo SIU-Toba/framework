@@ -42,7 +42,8 @@ function ei_cuadro(instancia, input_submit) {
 		if(this._evento) { //Si hay un evento seteado...
 			//- 1 - Hay que llamar a una ventana de control especifica para este evento?
 			if(existe_funcion(this, "evt__" + this._evento.id)){
-				if(! ( this["evt__" + this._evento.id](this._evento.parametros) )) {
+				var res = this["evt__" + this._evento.id](this._evento.parametros);
+				if(typeof res != 'undefined' && !res ){
 					this.reset_evento();
 					return false;
 				}

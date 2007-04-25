@@ -14,8 +14,8 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	this._input_submit = input_submit;					//Campo que se setea en el submit del form 
 	this._id_en_controlador = id_en_controlador;		//ID del tab actual
 	this._deps = {};									//Listado asociativo de dependencias
-	this._en_submit = false;							//¿Esta en proceso de submit el CI?
-	this._silencioso = false;							//¿Silenciar confirmaciones y alertas? Util para testing
+	this._en_submit = false;							//?Esta en proceso de submit el CI?
+	this._silencioso = false;							//?Silenciar confirmaciones y alertas? Util para testing
 	this._evento_implicito = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
 	this._parametros = "";								//Parametros opcionales que se pasan al server
 	this.reset_evento();
@@ -48,14 +48,6 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 		for (var dep in this._deps) {
 			this._deps[dep].iniciar();
 		}
-	};
-	
-	/**
-	 * Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)
-	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 
-	 */
-	ci.prototype.nodo = function() {
-		return document.getElementById(this._instancia + '_cont');	
 	};
 	
 	//---Eventos	
@@ -129,7 +121,8 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 			} 
 			//- 2 - Hay que llamar a una ventana de control especifica para este evento?
 			if(existe_funcion(this, "evt__" + this._evento.id)){
-				if(! ( this["evt__" + this._evento.id](this._evento.parametros) ) ){
+				var res = this["evt__" + this._evento.id](this._evento.parametros);
+				if(typeof res != 'undefined' && !res ){
 					this.reset_evento();
 					return false;
 				}

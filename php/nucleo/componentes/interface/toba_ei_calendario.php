@@ -179,7 +179,7 @@ class toba_ei_calendario extends toba_ei
 	
 	function generar_html()
 	{
-		//Campos de comunicación con JS
+		//Campos de comunicaciÃ³n con J
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit."__seleccionar_semana", '');
 		echo toba_form::hidden($this->_submit."__seleccionar_dia", '');
@@ -189,9 +189,14 @@ class toba_ei_calendario extends toba_ei
 		$this->_calendario->enableDatePicker(2000,2010);
 		$this->_calendario->enableDayLinks();
 		$this->_calendario->enableWeekLinks();
-
+		echo "<div class='ei-base ei-calendario-base'>\n";
+		echo $this->get_html_barra_editor();
+		$this->generar_html_barra_sup(null, true,"ei-calendario-barra-sup");
+		echo "<div id='cuerpo_{$this->objeto_js}'>\n";
 		echo $this->_calendario->showMonth($this->objeto_js, $this->_eventos, $this->get_html_barra_editor() );
+		echo "</div></div>\n";
 	}
+
 
 	/**
 	 * @ignore 

@@ -88,14 +88,6 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		return datos;
 	};
 
-	/**
-	 * Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)
-	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 
-	 */
-	ei_formulario.prototype.nodo = function() {
-		return document.getElementById(this._instancia + '_cont');	
-	};
-
 	//---Submit 
 	ei_formulario.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) {
@@ -121,8 +113,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 				return false;
 			}
 			//- 2 - Hay que llamar a una ventana de control especifica para este evento?
-			if(existe_funcion(this, "evt__" + this._evento.id)){
-				if(! ( this["evt__" + this._evento.id](this._evento.parametros) ) ){
+			if (existe_funcion(this, "evt__" + this._evento.id)){
+				var res = this["evt__" + this._evento.id](this._evento.parametros);
+				if (typeof res != 'undefined' && !res ){			
 					this.reset_evento();
 					return false;
 				}

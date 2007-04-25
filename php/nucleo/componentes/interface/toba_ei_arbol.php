@@ -1,6 +1,6 @@
 <?php
 /**
-* Muestra un árbol donde el usuario puede colapsar/descolapsar niveles
+* Muestra un Arbol donde el usuario puede colapsar/descolapsar niveles
 * Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX
 * Cada nodo debe implementar la interfaz toba_nodo_arbol
 * 
@@ -155,14 +155,14 @@ class toba_ei_arbol extends toba_ei
 	
 	function generar_html()
 	{
-		$salida = "";
-		$salida .= toba_form::hidden($this->_submit, '');
-		$salida .= toba_form::hidden($this->_submit."__apertura_datos", '');
-		$salida .= toba_form::hidden($this->_submit."__seleccion", '');
+		echo toba_form::hidden($this->_submit, '');
+		echo toba_form::hidden($this->_submit."__apertura_datos", '');
+		echo toba_form::hidden($this->_submit."__seleccion", '');
 		$id = "id='{$this->objeto_js}_nodo_raiz'";
-		$salida .= "<div class='ei-base ei-arbol-base'>";
-		$salida .= $this->get_html_barra_editor();
+		echo "<div class='ei-base ei-arbol-base'>";
+		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-arbol-barra-sup");		
+		echo "<div id='cuerpo_{$this->objeto_js}'>";		
 		if (isset($this->_nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
 			$barra = "";
@@ -178,19 +178,19 @@ class toba_ei_arbol extends toba_ei
 				if ($barra != '') {
 					$barra = "<div class='ei-arbol-barra-path'>$barra</div>";	
 				}
-				$salida .= $barra;
+				echo $barra;
 			}
-			$salida .= "<div class='ei-cuerpo ei-arbol-cuerpo'>\n";
+			echo "<div class='ei-cuerpo ei-arbol-cuerpo'>\n";
 			foreach ($this->_nodos_inicial as $nodo_inicial) {
-				$salida .= "\n<ul $id class='ei-arbol-raiz'>";
-				$salida .= $this->recorrer_recursivo($nodo_inicial, true);
-				$salida .= "</ul>";
-				$id = null;	//El id lo tiene sólo el primer nodo
+				echo "\n<ul $id class='ei-arbol-raiz'>";
+				echo $this->recorrer_recursivo($nodo_inicial, true);
+				echo "</ul>";
+				$id = null;	//El id lo tiene s?lo el primer nodo
 			}
-			$salida .= "</div>";			
+			echo "</div>";			
 		}
-		$salida .= "</div>";
-		echo $salida;
+		echo "</div>";		
+		echo "</div>";
 	}
 	
 	/**

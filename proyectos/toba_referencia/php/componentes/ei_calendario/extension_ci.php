@@ -13,7 +13,7 @@ class extension_ci extends toba_ci
 		if (!isset($this->s__dia) && !isset($this->s__semana)) {
 			$this->pantalla()->eliminar_evento('procesar');
 			$this->pantalla()->eliminar_dep('formulario');	
-		}	
+		}
 	}
 	
 	// La idea es que en la carga del calendario recupere los contenidos de la base de datos.
@@ -41,7 +41,7 @@ class extension_ci extends toba_ci
 		$this->s__semana = "{$seleccion['semana']}-{$seleccion['anio']}";
 		unset($this->s__dia);
 	}
-	
+
 	function conf__formulario(toba_ei_formulario $form)
 	{
 		if (isset($this->s__dia)) {
@@ -79,7 +79,7 @@ class extension_ci extends toba_ci
 		unset($this->s__dia);
 		unset($this->s__semana);
 	}
-
+	
 }
   
 ?>
