@@ -33,6 +33,11 @@ class zona_objeto extends zona_editor
 			return true;
 		}	
 	}
+	
+	function get_tipo_componente()
+	{
+		return $this->editable_info['clase'];
+	}
 
 	function generar_html_barra_vinculos()
 	{	

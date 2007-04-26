@@ -83,7 +83,23 @@ class toba_info_editores
 		//Por defecto devulevo todo
 		return self::get_clases_validas();
 	}
-	
+
+	static function get_contenedores_validos($componente)
+	{
+		switch($componente) {
+			case 'objeto_ci':
+				return array('item','objeto_ci');
+			case 'objeto_cn':
+				return array('item','objeto_ci');
+			case 'objeto_datos_relacion':
+				return array('objeto_ci', 'objeto_cn');
+			case 'objeto_datos_tabla':
+				return array('objeto_datos_relacion', 'objeto_ci', 'objeto_cn');
+			default:
+				return array('objeto_ci');
+		}
+	}
+
 	static function get_clases_contenedoras()
 	{
 		return array(	

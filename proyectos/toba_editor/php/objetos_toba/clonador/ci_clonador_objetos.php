@@ -28,14 +28,14 @@ class ci_clonador_objetos extends toba_ci
 	
 	static function get_tipos_destino()
 	{
-		$destinos = array(
-						array(
-							'proyecto' => toba_editor::get_proyecto_cargado(),
-							'clase' => 'item'
-						)
-					);
-		$destinos = array_merge($destinos, toba_info_editores::get_clases_contenedoras());
-		//Agregar el item
+		$clase = toba::zona()->get_tipo_componente();
+		$datos = toba_info_editores::get_contenedores_validos($clase);
+		$destinos = array();
+		$a=0;
+		foreach( $datos as $dato ) {
+			$destinos[$a]['clase'] = $dato;
+			$a++;
+		}
 		return $destinos;
 	}
 
