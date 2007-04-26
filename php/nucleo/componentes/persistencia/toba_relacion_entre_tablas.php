@@ -22,6 +22,7 @@ class toba_relacion_entre_tablas
 	protected $mapeo_campos = array();
 	protected $mapeo_filas = array();
 	protected $borrado_en_cascada = true;
+	protected $es_relacion_de_inclusion = true;
 
 	function __construct($tabla_padre, $tabla_padre_clave, $tabla_padre_id, 
 							$tabla_hijo, $tabla_hijo_clave, $tabla_hijo_id)
@@ -53,6 +54,11 @@ class toba_relacion_entre_tablas
 		$this->mapeo_filas = $mapeo;	
 	}
 	
+	function set_relacion_inclusion($inclusion)
+	{
+		$this->es_relacion_de_inclusion = $inclusion;
+	}
+	
 	function get_mapeo_filas()
 	{
 		return $this->mapeo_filas;
@@ -76,6 +82,34 @@ class toba_relacion_entre_tablas
 	function tabla_padre()
 	{
 		return $this->tabla_padre;	
+	}
+	
+	//-------------------------------------------------------------------------------
+	//-- CARGA
+	//-------------------------------------------------------------------------------	
+	
+	/**
+	 * Retorna una clausula where restringiendo los campos relacionados según un select de una tabla padre
+	 * @ignore 
+	 */
+	function generar_clausula_subselect($alias_hija)
+	{
+		if ($this->es_relacion_de_inclusion) {
+			$persistidor_padre = $this->tabla_padre()->get_persistidor();
+			$mapeo_campos = $this->get_mapeo_campos();
+			
+			//Campos a comparar con el subselect
+			$where_subselect = '(';
+			foreach ($mapeo_campos as $campo) {
+				$where_subselect .= $alias_hija . '.' . $campo . ', ';
+			}
+			$where_subselect = substr($where_subselect, 0, -2);	//Elimina la ultima coma
+					
+			$subselect = $this->tabla_padre()->get_persistidor()->get_sql_de_carga(array_keys($mapeo_campos));
+			$subselect = str_replace("\n", "\n\t\t", $subselect);
+			$where_subselect .= ") IN (\n\t\t$subselect )";
+			return $where_subselect;
+		}
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -173,9 +207,10 @@ class toba_relacion_entre_tablas
 		//¿Se cambio algun campo importante?
 		foreach ($this->mapeo_campos as $c_padre => $c_hijo) {
 			if (isset($nueva[$c_hijo]) && $nueva[$c_hijo] != $anterior[$c_hijo]) {
+				//Tiene un padre distinto
 				$actualizar = true;
 				break;
-			}	
+			}
 		}
 		//¿El cambio implica modificar el mapeo (buscar un nuevo padre)?
 		if ($actualizar) {
@@ -200,6 +235,23 @@ class toba_relacion_entre_tablas
 			return $this->mapeo_filas[$id_padre];
 		} else { 
 			return array();
+		}
+	}
+
+	/**
+	 * Filtra un conjunto de filas hijas de acuerdo al estado de sus padres
+	 */
+	function filtrar_filas_hijas($filas)
+	{
+		if ($this->hay_cursor_en_padre()) {
+			return array_intersect($filas, $this->get_id_filas_hijas());
+		} else {
+			if ($this->es_relacion_de_inclusion) {
+				return array();
+			} else {
+				//--- Si no tiene un padre estricto, no se filtra nada
+				return $filas;	
+			}
 		}
 	}
 	
@@ -229,7 +281,8 @@ class toba_relacion_entre_tablas
 	function get_id_padre($id_fila_hijo)
 	{
 		foreach (array_keys($this->mapeo_filas) as $padre) {
-			if (array_search($id_fila_hijo, $this->mapeo_filas[$padre]) !== false) {
+			$pos = array_search($id_fila_hijo, $this->mapeo_filas[$padre]);
+			if ($pos !== false && $pos !== '') {
 				return $padre;
 			}
 		}
@@ -261,7 +314,7 @@ class toba_relacion_entre_tablas
 	 * @param mixed $id_fila_hijo Id. interno de la fila hijo
 	 * @return array [0] => id. interno del padre , [1] => posición del hijo dentro del mapeo
 	 */
-	protected function buscar_padre_de($id_fila_hijo)
+	function buscar_padre_de($id_fila_hijo)
 	{
 		foreach (array_keys($this->mapeo_filas) as $padre) {
 			$pos = array_search($id_fila_hijo, $this->mapeo_filas[$padre]);
@@ -329,12 +382,35 @@ class toba_relacion_entre_tablas
 		}
 	}
 
+
+	/**
+	 * Reemplaza o crea el mapeo de una fila hija por un nuevo padre
+	 * @param mixed $id_fila_hijo Id. interno de la fila que cambia su padre
+	 * @param mixed $id_nuevo_padre Id. interno de la nueva fila padre, si es NULL solo borra la asociacion
+	 * @return boolean True si cambio de padre, false si no hubo cambio porque no se necesitaba
+	 */
+	function set_padre($id_fila, $id_padre) 
+	{
+		$actual = $this->buscar_padre_de($id_fila);
+		if ($actual !== false && $actual != $id_padre) {
+			//--Si tiene padre lo cambia
+			$this->cambiar_padre($id_fila, $id_padre);
+			return true;
+		} elseif ($id_padre !== null) {
+			//--Si no tenia y ahora si, lo crea
+			$this->asociar_fila_con_padre($id_fila, $id_padre);
+			return true;
+		} 
+		return false;
+	}
+	
+	
 	/**
 	 * Reemplaza el mapeo de una fila hija por un nuevo padre
 	 * @param mixed $id_fila_hijo Id. interno de la fila que cambia su padre
-	 * @param mixed $id_nuevo_padre Id. interno de la nueva fila padre
+	 * @param mixed $id_nuevo_padre Id. interno de la nueva fila padre, si es NULL solo borra la asociacion
 	 */
-	function cambiar_padre($id_fila_hijo, $id_nuevo_padre)
+	protected function cambiar_padre($id_fila_hijo, $id_nuevo_padre)
 	{
 		$pos = $this->buscar_padre_de($id_fila_hijo);
 		if ($pos === false) {
@@ -343,7 +419,9 @@ class toba_relacion_entre_tablas
 		//Se borra la asociación actual con el padre
 		unset($this->mapeo_filas[$pos[0]][$pos[1]]);
 		//Se asocia con el nuevo padre
-		$this->mapeo_filas[$id_nuevo_padre][] = $id_fila_hijo;
+		if (isset($id_nuevo_padre)) {
+			$this->mapeo_filas[$id_nuevo_padre][] = $id_fila_hijo;
+		}
 	}
 	
 	
@@ -359,12 +437,15 @@ class toba_relacion_entre_tablas
 	{
 		//Si no se paso el padre, hay que encontrarlo...
 		if (!isset($id_padre)) {
-			if (! $this->tabla_padre->hay_cursor()) {
+			if (! $this->tabla_padre->hay_cursor() && $this->es_relacion_de_inclusion) {
 				throw new toba_error($this->get_txt_error_base("Se intenta crear o actualizar una fila y su fila padre aún no existe"));
 			}
 			$id_padre = $this->tabla_padre->get_cursor();
 		} 
-		$this->mapeo_filas[$id_padre][] = $id_hijo;
+		//--Si se encontro el padre se asocia
+		if (isset($id_padre)) {
+			$this->mapeo_filas[$id_padre][] = $id_hijo;
+		}
 	}
 	
 	function resetear()

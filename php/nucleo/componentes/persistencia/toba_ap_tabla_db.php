@@ -577,34 +577,15 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$clausula = $this->generar_clausula_where_lineal($clave, true);
 		//Si la tabla tiene relaciones con padres
 		//Se hace un subselect con los campos relacionados
-		$padres = $this->objeto_tabla->get_relaciones_con_padres();
-		foreach ($padres as $rel_padre) {
-			$clausula[] = $this->generar_clausula_subselect($rel_padre->tabla_padre()->get_persistidor(), 
-												$rel_padre->get_mapeo_campos());
-
+		foreach ( $this->objeto_tabla->get_relaciones_con_padres() as $rel_padre) {
+			$nuevo = $rel_padre->generar_clausula_subselect($this->_alias);
+			if (isset($nuevo)) {
+				$clausula[] = $nuevo;
+			}
 		}
 		return $clausula;
 	}
 
-	/**
-	 * Retorna una clausula where restringiendo los campos relacionados según un select de una tabla padre
-	 * @ignore 
-	 */
-	protected function generar_clausula_subselect($persistidor_padre, $mapeo_campos)
-	{
-		//Campos a comparar con el subselect
-		$where_subselect = '(';
-		foreach ($mapeo_campos as $campo) {
-			$where_subselect .= $this->_alias . '.' . $campo . ', ';
-		}
-		$where_subselect = substr($where_subselect, 0, -2);	//Elimina la ultima coma
-				
-		$subselect = $persistidor_padre->get_sql_de_carga(array_keys($mapeo_campos));
-		$subselect = str_replace("\n", "\n\t\t", $subselect);
-		$where_subselect .= ") IN (\n\t\t$subselect )";
-		return $where_subselect;
-	}
-	
 	/**
 	 * @param array $where Clasulas que seran concatenadas con un AND
 	 * @param array $from Tablas extra que participan (la actual se incluye automaticamente)

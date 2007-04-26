@@ -455,12 +455,7 @@ class toba_datos_tabla extends toba_componente
 			//Si algún padre tiene un cursor posicionado, 
 			//se restringe a solo las filas que son hijas de esos cursores
 			foreach ($this->_relaciones_con_padres as $id => $rel_padre) {
-				//echo "$id: ".$rel_padre->hay_cursor_en_padre()."<br>";
-				if ($rel_padre->hay_cursor_en_padre()) {
-					$coincidencias = array_intersect($coincidencias, $rel_padre->get_id_filas_hijas());
-				} else {
-					$coincidencias = array();	
-				}
+				$coincidencias = $rel_padre->filtrar_filas_hijas($coincidencias);
 			}
 		}
 		return $coincidencias;		
@@ -689,7 +684,7 @@ class toba_datos_tabla extends toba_componente
 			if (isset($ids_padres[$padre])) {
 				$id_padre = $ids_padres[$padre];
 			}
-			$relacion->asociar_fila_con_padre($id_nuevo, $id_padre);
+			$relacion->asociar_fila_con_padre($id_nuevo, $id_padre);							
 		}
 		
 		//Se agrega la fila
@@ -704,12 +699,14 @@ class toba_datos_tabla extends toba_componente
 	 * Solo se modifican los valores de las columnas enviadas y que realmente cambien el valor de la fila.
 	 * @param mixed $id Id. interno de la fila a modificar
 	 * @param array $fila Contenido de la fila, en formato columna=>valor, puede ser incompleto
+	 * @param array $nuevos_padres Arreglo (id_tabla_padre => $id_fila_padre, ....), solo se cambian los padres que se pasan por parámetros
+	 * 				El resto de los padres sigue con la asociación anterior
 	 * @return mixed Id. interno de la fila modificada
 	 */
-	function modificar_fila($id, $fila)
+	function modificar_fila($id, $fila, $nuevos_padres=null)
 	{
 		$id = $this->normalizar_id($id);
-		if(!$this->existe_fila($id)){
+		if (!$this->existe_fila($id)){
 			$mensaje = $this->get_txt() . " MODIFICAR. No existe un registro con el INDICE indicado ($id)";
 			toba::logger()->error($mensaje);
 			throw new toba_error($mensaje);
@@ -721,6 +718,7 @@ class toba_datos_tabla extends toba_componente
 		
 		//Actualizo los valores
 		$alguno_modificado = false;
+		$fila_anterior = $this->_datos[$id];
 		foreach(array_keys($fila) as $clave){
 			if (isset($this->_datos[$id][$clave])) {
 				//--- Comparacion por igualdad estricta con un cast a string
@@ -741,7 +739,7 @@ class toba_datos_tabla extends toba_componente
 			}
 			//Se actualizan los cambios en la relación
 			foreach ($this->_relaciones_con_padres as $rel_padre) {
-				$rel_padre->evt__modificacion_fila_hijo($id, $this->_datos[$id], $fila);
+				$rel_padre->evt__modificacion_fila_hijo($id, $fila_anterior, $fila);
 			}
 			
 			/*
@@ -758,6 +756,9 @@ class toba_datos_tabla extends toba_componente
 			}
 		}
 		$this->notificar_contenedor("post_modificar", $fila, $id);
+		if (isset($nuevos_padres)) {
+			$this->cambiar_padre_fila($id, $nuevos_padres);
+		}
 		return $id;
 	}
 
@@ -775,12 +776,21 @@ class toba_datos_tabla extends toba_componente
 			toba::logger()->error($mensaje);
 			throw new toba_error($mensaje);
 		}
+		$cambio_padre = false;
 		foreach ($nuevos_padres as $tabla_padre => $id_padre) {
 			if (!isset($this->_relaciones_con_padres[$tabla_padre])) {
 				$mensaje = $this->get_txt() . " CAMBIAR PADRE. No existe una relación padre $tabla_padre.";
 				throw new toba_error($mensaje);
 			}
-			$this->_relaciones_con_padres[$tabla_padre]->cambiar_padre($id_fila, $id_padre);
+			if ($this->_relaciones_con_padres[$tabla_padre]->set_padre($id_fila, $id_padre)) {
+				$cambio_padre = true;	
+			}
+		}
+		//-- Si algun padre efectivamente cambio, tengo que marcar al registro como actualizado
+		if ($cambio_padre) {
+			if($this->_cambios[$id_fila]['estado']!="i"){
+				$this->registrar_cambio($id_fila,"u");
+			}
 		}
 	}
 	
