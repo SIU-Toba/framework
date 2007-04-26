@@ -206,7 +206,8 @@ class toba_relacion_entre_tablas
 		$actualizar = false;
 		//¿Se cambio algun campo importante?
 		foreach ($this->mapeo_campos as $c_padre => $c_hijo) {
-			if (isset($nueva[$c_hijo]) && $nueva[$c_hijo] != $anterior[$c_hijo]) {
+			if (isset($nueva[$c_hijo]) && isset($anterior[$c_hijo]) && 
+					$nueva[$c_hijo] != $anterior[$c_hijo]) {
 				//Tiene un padre distinto
 				$actualizar = true;
 				break;
