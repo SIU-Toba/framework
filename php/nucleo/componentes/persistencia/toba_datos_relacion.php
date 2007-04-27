@@ -129,7 +129,8 @@ class toba_datos_relacion extends toba_componente
 		$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
 		$diagrama = "digraph G {
 						rankdir=LR;
-						node [fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
+						fontsize=8;
+						node [fontsize=6, fillcolor=white,shape=box, style=rounded,style=filled, color=gray];
 						";
 		if (isset($titulo)) {
 			$diagrama .= "label=\"$titulo\";\n";
@@ -158,7 +159,7 @@ class toba_datos_relacion extends toba_componente
 		$diagrama .= "}";
 		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
 		$indice = uniqid();
-		toba::memoria()->set_dato_sincronizado($indice, $parametros, 'debug');
+		toba::memoria()->set_dato_instancia($indice, $parametros);
 		$url = toba::vinculador()->crear_vinculo(toba_editor::get_id(), '1000045', array('esquema' => $indice), 
 						array('validar' => false, 'celda_memoria' => 'debug'));
 		toba_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
@@ -200,7 +201,7 @@ class toba_datos_relacion extends toba_componente
 			
 			//Incluyo la relación
 			$diagrama .=  $padre_id . " -> " . $hijo_id . 
-						" [label=\"$cant_padres - $cant_hijos\"".
+						" [fontsize=6,color=gray, label=\"$cant_padres - $cant_hijos\"".
 						//Esta truchada es para arreglar otra ceguera del IE
 						",URL=\"javascript: padre=(window.parent.var_dump)? window.parent : window;padre.var_dump(padre.$var_mapeo)\"];\n";
 		}

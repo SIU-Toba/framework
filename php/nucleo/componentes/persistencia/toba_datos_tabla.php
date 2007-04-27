@@ -1145,15 +1145,17 @@ class toba_datos_tabla extends toba_componente
 		if(!isset($this->_persistidor)){
 			if($this->_info_estructura['ap']=='0'){
 				$clase = $this->_info_estructura['ap_sub_clase'];
+				$include = $this->_info_estructura['ap_sub_clase_archivo'];
 				if( (trim($clase) == '' ) ){
 					throw new toba_error( $this->get_txt() . "Error en la definicion");
 				}
 			}else{
 				$clase = 'toba_'.$this->_info_estructura['ap_clase'];
-				if( ! class_exists($clase) ) {
-					require_once($this->_info_estructura['ap_clase_archivo']);
-				}
+				$include = $this->_info_estructura['ap_clase_archivo'];
 			}
+			if( ! class_exists($clase) ) {
+				require_once($include);
+			}			
 			$this->_persistidor = new $clase( $this );
 			if($this->_info_estructura['ap_modificar_claves']){
 				$this->_persistidor->activar_modificacion_clave();
@@ -1161,6 +1163,8 @@ class toba_datos_tabla extends toba_componente
 		}
 		return $this->_persistidor;
 	}
+	
+
 
 	/**
 	 * Carga la tabla restringiendo POR valores especificos de campos

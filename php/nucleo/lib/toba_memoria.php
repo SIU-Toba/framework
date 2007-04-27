@@ -349,10 +349,14 @@ class toba_memoria
 	 * Recupera un dato almacenado con set_dato_instancia
 	 * @return mixed Si el dato existe en la memoria lo retorna sino retorna null
 	 */
-	function get_dato_instancia($indice)
+	function get_dato_instancia($indice, $eliminar_dato=false)
 	{
 		if($this->existe_dato_instancia($indice))	{
-			return $this->memoria_instancia[$indice];
+			$dato = $this->memoria_instancia[$indice];
+			if ($eliminar_dato) {
+				$this->eliminar_dato_instancia($indice);
+			}
+			return $dato;
 		}else{
 			return null;
 		}
@@ -520,13 +524,18 @@ class toba_memoria
 	 * Recupera un dato de la memoria sincronizada, macheandolo con el id actual del hilo
 	 * @return mixed El dato solicitado o NULL si no existe
 	 */
-	function get_dato_sincronizado($indice)
+	function get_dato_sincronizado($indice, $celda=null)
 	{
-		if(isset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice])){
+		if (isset($celda)) {
+			//--- Es una celda particular
+			if (isset($this->memoria_celdas[$celda]['hilo'][$this->hilo_referencia][$indice])) {
+				return $this->memoria_celdas[$celda]['hilo'][$this->hilo_referencia][$indice];
+			}
+		} elseif (isset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice])) {
+			//--- Celda actual
 			return $this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice];
-		}else{
-			return null;
-		}	
+		}
+		return null;
 	}
 
 	function eliminar_dato_sincronizado($indice)
