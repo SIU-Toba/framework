@@ -737,10 +737,6 @@ class toba_datos_tabla extends toba_componente
 			if($this->_cambios[$id]['estado']!="i"){
 				$this->registrar_cambio($id,"u");
 			}
-			//Se actualizan los cambios en la relación
-			foreach ($this->_relaciones_con_padres as $rel_padre) {
-				$rel_padre->evt__modificacion_fila_hijo($id, $fila_anterior, $fila);
-			}
 			
 			/*
 				Como los campos externos pueden necesitar una campo que no entrego la

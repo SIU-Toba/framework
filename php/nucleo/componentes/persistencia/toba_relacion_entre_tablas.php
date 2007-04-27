@@ -196,30 +196,6 @@ class toba_relacion_entre_tablas
 		}
 	}	
 	
-	/**
-	 * El hijo notifica la modificación de una fila
-	 * Se analiza si se modifica alguna columna que una a la relación.
-	 * Si este es el caso se actualiza el mapeo de filas
-	 */
-	function evt__modificacion_fila_hijo($id_hijo, $anterior, $nueva)
-	{
-		$actualizar = false;
-		//¿Se cambio algun campo importante?
-		foreach ($this->mapeo_campos as $c_padre => $c_hijo) {
-			if (isset($nueva[$c_hijo]) && isset($anterior[$c_hijo]) && 
-					$nueva[$c_hijo] != $anterior[$c_hijo]) {
-				//Tiene un padre distinto
-				$actualizar = true;
-				break;
-			}
-		}
-		//¿El cambio implica modificar el mapeo (buscar un nuevo padre)?
-		if ($actualizar) {
-			$nuevo_padre = $this->buscar_id_padre_fila($nueva);
-			$this->cambiar_padre($id_hijo, $nuevo_padre);
-		}
-	}
-	
 	//--------------- ----------------------------------------------------------------
 	//-- CONSULTAS EN MEMORIA
 	//-------------------------------------------------------------------------------
