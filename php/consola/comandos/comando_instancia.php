@@ -57,15 +57,15 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Exporta los METADATOS propios de la instancia de la DB (exclusivamente la informacion local).
-	*/
+	 *	Exporta los METADATOS propios de la instancia de la DB (exclusivamente la informacion local).
+	 */
 	function opcion__exportar_local()
 	{
 		$this->get_instancia()->exportar_local();
 	}
 
 	/**
-	*	Elimina la instancia y la vuelve a cargar.
+	 *	Elimina la instancia y la vuelve a cargar.
 	*/
 	function opcion__regenerar()
 	{
@@ -79,7 +79,7 @@ class comando_instancia extends comando_toba
 		$this->get_instancia()->cargar();
 	}
 
-	/**
+/**
 	*	Carga una instancia en la DB referenciada, partiendo de los METADATOS existentes en el sistema de archivos.
 	*/
 	function opcion__cargar()
@@ -176,6 +176,31 @@ class comando_instancia extends comando_toba
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
 		}		
+	}
+	
+	/**
+	 * Permite cambiar los grupos de acceso de un usuario [-u usuario]
+	 * 
+	 */
+	function opcion__editar_acceso()
+	{
+		$instancia = $this->get_instancia();
+		$param = $this->get_parametros();
+		if ( isset($param['-u']) &&  (trim($param['-u']) != '') ) {
+			$usuario = $param['-u'];
+		} else {
+			throw new toba_error("Es necesario indicar el usuario con '-u'");
+		}
+		$this->consola->enter();
+		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$proyecto = $instancia->get_proyecto($id_proyecto);
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
+			$grupos = $proyecto->get_lista_grupos_acceso();
+			$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
+			$this->consola->dialogo_lista_opciones($grupos, $id_proyecto, false, 'Descripción');
+			//$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
+		}		
+		
 	}
 	
 	/**
