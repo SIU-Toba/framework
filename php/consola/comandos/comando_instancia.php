@@ -49,7 +49,7 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
-	*	Exporta la instancia completa de la DB referenciada (METADATOS propios y METADATOS de proyectos contenidos).
+	*	Exporta la instancia completa de la DB referenciada (METADATOS propios y de proyectos contenidos).
 	*/
 	function opcion__exportar()
 	{
@@ -80,7 +80,7 @@ class comando_instancia extends comando_toba
 	}
 
 /**
-	*	Carga una instancia en la DB referenciada, partiendo de los METADATOS existentes en el sistema de archivos.
+	*	Carga una instancia en la DB referenciada, partiendo de los METADATOS en el sistema de archivos.
 	*/
 	function opcion__cargar()
 	{
@@ -191,16 +191,18 @@ class comando_instancia extends comando_toba
 		} else {
 			throw new toba_error("Es necesario indicar el usuario con '-u'");
 		}
-		$this->consola->enter();
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			$this->consola->enter();			
 			$proyecto = $instancia->get_proyecto($id_proyecto);
-			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
 			$grupos = $proyecto->get_lista_grupos_acceso();
 			$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
-			$this->consola->dialogo_lista_opciones($grupos, $id_proyecto, false, 'Descripción');
-			//$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
-		}		
-		
+			$grupos['ninguno'] = 'No vincular al proyecto';
+			$grupo_acceso = $this->consola->dialogo_lista_opciones($grupos, $id_proyecto, false, 'Descripción');
+			$proyecto->desvincular_usuario($usuario);
+			if ($grupo_acceso != 'ninguno') {
+				$proyecto->vincular_usuario( $usuario, $grupo_acceso );
+			}
+		}
 	}
 	
 	/**
