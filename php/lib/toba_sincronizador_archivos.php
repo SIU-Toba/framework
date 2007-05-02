@@ -93,9 +93,13 @@ class toba_sincronizador_archivos
 		foreach ( $this->archivos_agregados as $archivo ) {
 			/*
 				Falta agregar las carpetas SVN padre
-				en el caso de que se exporte un componente que nunca se exporto,
-				se crea la carpeta del componente
+				Por ahora contempla solo un nivel
 			*/
+			//--Agrega el directorio padre
+			$directorio = dirname($archivo);
+			system("svn add $directorio -N -q");
+			
+			
 			$cmd = "svn add $archivo";
 			toba_logger::instancia()->info("Sincronizacion SVN. Comando: $cmd");			
 			system($cmd);
