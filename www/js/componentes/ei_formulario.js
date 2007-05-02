@@ -205,7 +205,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 */
 	ei_formulario.prototype.get_valores_maestros = function (id_esclavo)
 	{
-		var maestros = new Object();
+		var maestros = {};
 		for (var i=0; i< this._maestros[id_esclavo].length; i++) {
 			var id_maestro = this._maestros[id_esclavo][i];
 			var ef = this.ef(id_maestro);			
@@ -214,7 +214,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			}
 		}
 		return maestros;
-	}
+	};
 	
 	/**
 	 * @private

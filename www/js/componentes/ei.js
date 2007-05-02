@@ -179,7 +179,7 @@ ei.prototype.constructor = ei;
 	 * @see #mostrar
 	 */
 	ei.prototype.ocultar = function() {
-		return this.raiz().style.display = 'none';
+		this.raiz().style.display = 'none';
 	};
 
 	/**
@@ -197,13 +197,6 @@ ei.prototype.constructor = ei;
 			this.ocultar();	
 		}		
 	};	
-
-	/**
-	 * Oculta el componente completo
-	 */
-	ei.prototype.ocultar = function() {
-		return this.raiz().style.display = 'none';
-	};
 
 	/**
 	 * Desactiva un boton asociado al componente, 
