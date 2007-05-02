@@ -1,5 +1,5 @@
 <?php
-require_once('toba_archivo_php.php');
+require_once('lib/reflexion/toba_archivo_php.php');
 /**
 *	Representa a la EDICION de una CLASE del ambiente. 
 *	Tiene capacidades de generacion y analisis MOLDES aportados por la METACLASE del compone
