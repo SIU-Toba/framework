@@ -424,8 +424,8 @@ abstract class toba_componente
 	{
 		$this->controlador = $controlador;
 		$this->_id_en_controlador = $id_en_padre;
-		if (isset($this->_objeto_js)) {
-			$this->_objeto_js .= '_'.$id_en_padre;
+		if (isset($this->objeto_js)) {
+			$this->objeto_js .= '_'.$id_en_padre;
 			$this->_submit .= '_'.$id_en_padre;
 		}
 	}	
