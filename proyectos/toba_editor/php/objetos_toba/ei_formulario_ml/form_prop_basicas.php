@@ -19,6 +19,13 @@ class form_prop_basicas extends toba_ei_formulario
 				else
 					this.ef('filas_agregar_online').ocultar();				
 			}
+
+			{$this->objeto_js}.evt__scroll__procesar = function() {
+				if (this.ef('scroll').chequeado())
+					this.ef('alto').mostrar();
+				else
+					this.ef('alto').ocultar();				
+			}
 		";
 	}
 }
