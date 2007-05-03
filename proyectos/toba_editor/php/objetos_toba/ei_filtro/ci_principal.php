@@ -54,7 +54,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_estandar($modelo)
 	{
-		return info_ei_filtro::get_lista_eventos_estandar($modelo);
+		return toba_info_ei_filtro::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()

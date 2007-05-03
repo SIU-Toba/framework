@@ -68,7 +68,8 @@ class toba_notificacion
 		toba_js::cargar_consumos_globales(array("basicos/notificacion"));
 		echo toba_js::abrir();
 		foreach($this->mensajes as $mensaje){
-			$texto = str_replace("'", '"', $mensaje[0]);
+			$texto = toba_parser_ayuda::parsear($mensaje[0]);
+			$texto = str_replace("'", '"', $texto);
 			$texto = toba_js::string($texto);
 			echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
 		}

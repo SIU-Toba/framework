@@ -16,6 +16,29 @@ class ci_principal extends ci_editores_toba
 			$this->dependencia('efs')->seleccionar_ef($ef);
 		}
 	}
+
+	function evt__procesar()
+	{
+		//---Se valida si tiene agregar/quitar en php que tenga un evento implicito
+		$agrega_filas = $es_js = $this->get_entidad()->tabla('prop_basicas')->get_columna('filas_agregar');
+		$es_js = $this->get_entidad()->tabla('prop_basicas')->get_columna('filas_agregar_online');
+		$hay_implicito = $this->get_dbr_eventos()->hay_evento_implicito_maneja_datos();
+		if ($agrega_filas && ! $es_js && !$hay_implicito) {
+			toba::notificacion()->agregar('Se ha seleccionada <strong>Agregar/Quitar líneas en el server</strong>
+				pero no se ha definido ningún evento implícito que maneje datos.<br><br>
+				Para que este comportamiento funcione debe generar el 
+				[wiki:Referencia/Eventos#Modelos modelo de eventos] <em>Básico</em> en la solapa
+				de Eventos', 'info');
+		} elseif (! $this->get_dbr_eventos()->hay_evento_maneja_datos()) {
+			toba::notificacion()->agregar('El formulario no posee evento que <strong>maneje datos</strong>,
+				esto implica que los datos no viajaran del cliente al servidor.<br><br>
+				Para que este comportamiento funcione debe generar algún 
+				[wiki:Referencia/Eventos#Modelos modelo de eventos] en la solapa
+				de Eventos', 'info');
+			
+		}
+		parent::evt__procesar();
+	}
 	
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
@@ -61,7 +84,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_estandar($modelo)
 	{
-		return info_ei_formulario_ml::get_lista_eventos_estandar($modelo);
+		return toba_info_ei_formulario_ml::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()

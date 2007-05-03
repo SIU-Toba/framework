@@ -16,6 +16,18 @@ class ci_principal extends ci_editores_toba
 			$this->dependencia('efs')->seleccionar_ef($ef);
 		}
 	}
+
+	function evt__procesar()
+	{
+		if (! $this->get_dbr_eventos()->hay_evento_maneja_datos()) {
+			toba::notificacion()->agregar('El formulario no posee evento que <strong>maneje datos</strong>,
+				esto implica que los datos no viajaran del cliente al servidor.<br><br>
+				Para que este comportamiento funcione debe generar algún 
+				[wiki:Referencia/Eventos#Modelos modelo de eventos] en la solapa
+				de Eventos', 'info');
+		}
+		parent::evt__procesar();		
+	}
 	
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
