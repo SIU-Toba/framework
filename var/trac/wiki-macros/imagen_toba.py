@@ -12,6 +12,6 @@ def execute(hdf, txt, env):
     else:
         url = "/toba_trunk/img/%s" % (url)
 
-    salida = "<img style='vertical-align:middle' border=0 src='%s' />" % (url)
+    salida = "<img onerror='alert(\"No se encuentra la imagen: \" + this.src)' style='vertical-align:middle' border=0 src='%s' />" % (url)
     return salida
     
