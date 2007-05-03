@@ -65,6 +65,14 @@ class ci_navegacion extends toba_ci
 	
 	//---- cuadro -------------------------------------------------------
 
+	function conf_evt__cuadro__eliminar(toba_evento_usuario $evt)
+	{
+		$usuario = $evt->get_parametros();
+		if ($usuario == toba::usuario()->get_id()) {
+			$evt->anular();	
+		}
+	}
+	
 	function conf__cuadro($componente)
 	{
 		if (isset($this->s__filtro)) {

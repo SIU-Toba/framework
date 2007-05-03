@@ -61,6 +61,14 @@ class ci_asociacion_usuario extends toba_ci
 		return $componente->set_datos( consultas_instancia::get_usuarios_vinculados_proyecto($this->s__proyecto, $this->s__filtro) );
 	}
 	
+	function conf_evt__cuadro__eliminar(toba_evento_usuario $evt)
+	{
+		list($proyecto, $usuario) = explode(apex_qs_separador, $evt->get_parametros());
+		if ($proyecto == toba::proyecto()->get_id() && $usuario == toba::usuario()->get_id()) {
+			$evt->anular();	
+		}
+	}	
+	
 	function evt__cuadro__seleccion($id)
 	{
 		$this->pantalla()->agregar_dep('form');

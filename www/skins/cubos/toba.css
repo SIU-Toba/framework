@@ -95,6 +95,7 @@ body {
 }
 .ei-cuadro-fila-sel {
 	background-color: #e2e2e2;
+	border: 1px solid #4f4c4d;
 }
 .ei-cuadro-col-tit, .ei-ml-col-tit {
 	color: #000000;
