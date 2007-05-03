@@ -425,7 +425,6 @@ class toba_ci extends toba_ei
 			$this->disparar_entrega_datos_cn();
 			$this->_cn->procesar();
 		}
-		$this->disparar_limpieza_memoria();
 	}
 
 	
