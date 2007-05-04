@@ -1,6 +1,7 @@
 <?php
 /**
 *	Manipulacion de archivos
+* @package Varios
 */
 class toba_manejador_archivos
 {

@@ -277,8 +277,11 @@
 			return "DESCONOCIDA";	
 		}
 	}
-	//-----------------------------------------------------------------
-	//Clase que otorga rangos para asignación de tabs
+
+	/**
+	 * Clase que otorga rangos para asignación de tabs
+	 * @package Varios
+	 */
 	class toba_manejador_tabs 
 	{
 		static private $instancia;
@@ -306,6 +309,7 @@
 	/**
 	*	El objeto_de_mentira intenta superar su ejecución sin causar ningun error ni warning
 	*	Util para simulaciones
+	* @ignore 
 	*/
 	class toba_objeto_de_mentira
 	{

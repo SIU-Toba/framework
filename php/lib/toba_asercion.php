@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Conjunto de aserciones básicas, en caso de fallo lanzan una excepción toba_error
+ * @see toba_error
+ * @package Debug
+ */
 class toba_asercion
 {
 	static function no_es_nulo($variable, $texto="ATENCION, el elemento es NULO")

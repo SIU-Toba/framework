@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_dba</title>
+	<title>Docs For Class toba_asercion</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -38,8 +38,8 @@
   <img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
   <tr>
     <td colspan="3" class="header-menu">
-  		  [ <a href="../classtrees_Fuentes.html" class="menu">árbol de herencia: Fuentes</a> ]
-		  [ <a href="../elementindex_Fuentes.html" class="menu">índice: Fuentes</a> ]
+  		  [ <a href="../classtrees_Debug.html" class="menu">árbol de herencia: Debug</a> ]
+		  [ <a href="../elementindex_Debug.html" class="menu">índice: Debug</a> ]
 		  [ <a href="../elementindex.html" class="menu">índice general</a> ]
     </td>
   </tr>
@@ -49,47 +49,18 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr valign="top">
     <td width="195" class="menu">
-		<div class="package-title">Fuentes</div>
+		<div class="package-title">Debug</div>
 
       <br />
                           <div class="package">
-		    			<a href="../Fuentes/toba_admin_fuentes.html">					admin_fuentes
+		    			<a href="../Debug/toba_asercion.html">					asercion
 					</a>    		
 	 <br />
-	    			<a href="../Fuentes/toba_db.html">					db
+	    			<a href="../Debug/toba_cronometro.html">					cronometro
 					</a>    		
 	 <br />
-	    			<a href="../Fuentes/toba_dba.html">					dba
+	    			<a href="../Debug/toba_logger.html">					logger
 					</a>    		
-	 <br />
-	    			<a href="../Fuentes/toba_fuente_datos.html">					fuente_datos
-					</a>    		
-	 <br />
-	    			<a href="../Fuentes/toba_mensajes.html">					mensajes
-					</a>    		
-	 <br />
-	  </div>
-  <div class="package">
-			Drivers<br />
-		    	    		<span style="padding-left: 1em;">
-    			<a href="../Fuentes/Drivers/toba_db_informix.html">					db_informix
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Fuentes/Drivers/toba_db_mysql.html">					db_mysql
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Fuentes/Drivers/toba_db_odbc.html">					db_odbc
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
-    			<a href="../Fuentes/Drivers/toba_db_postgres7.html">					db_postgres7
-					</a>    	    		</span>
-    		
 	 <br />
 	  </div>
                         
@@ -105,7 +76,7 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba_dba</h1>
+<h1>toba_asercion</h1>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -113,16 +84,15 @@
 					<span class="disabled">Resúmen de la Clase</span> |
 		
 									<a href="#sec-method-summary">Métodos</a>
-			|			
+						
 				
 				
-					<a href="#sec-consts">Constantes</a>
 			</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Administra la utilizacion de bases de datos durante la ejecucion </div>
+        		<div class="description">Conjunto de aserciones básicas, en caso de fallo lanzan una excepción toba_error </div>
 
 
 
@@ -131,12 +101,15 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/lib/toba_dba.php [<span class="field">line 11</span>]
+			Ubicada en /lib/toba_asercion.php [<span class="field">line 8</span>]
 		</p>	
-		<table border="0" cellspacing="0" cellpadding="0">
-			
-	</table>
-<br>
+		<br>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>See</strong>&nbsp;&nbsp;</td><td><a href="../Centrales/Errores/toba_error.html">toba_error</a></td>
+  </tr>
+</table>
+<br />
 	
 		</td>
 		</tr></table>
@@ -157,44 +130,39 @@
 															<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#cargar_bases_definidas" title="details" class="method-name">cargar_bases_definidas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Levanta la lista de bases definidas</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#desconectar" title="details" class="method-name">desconectar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Desconecta una DB</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#existe_conexion" title="details" class="method-name">existe_conexion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">¿Hay una conexión abierta a la base?</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_bases_definidas" title="details" class="method-name">get_bases_definidas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">db</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_db" title="details" class="method-name">get_db</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna una referencia a una CONEXION con una base</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#get_db_de_fuente" title="details" class="method-name">get_db_de_fuente</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"><a href="#arrays_igual_largo" title="details" class="method-name">arrays_igual_largo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#get_parametros_base" title="details" class="method-name">get_parametros_base</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Busca la definicion de una base en 'bases.ini'</td></tr>
+						<td class="method-definition"><a href="#error" title="details" class="method-name">error</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
-						<td class="method-definition"><a href="#refrescar" title="details" class="method-name">refrescar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Fuerza la recarga de los parametros de una conexion y reconecta a la base</td></tr>
-																																																																																									</table>
+						<td class="method-definition"><a href="#es_array" title="details" class="method-name">es_array</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#es_array_dimension" title="details" class="method-name">es_array_dimension</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#es_array_o_null" title="details" class="method-name">es_array_o_null</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#es_objeto" title="details" class="method-name">es_objeto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#no_es_nulo" title="details" class="method-name">no_es_nulo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																</table>
 			</div>
 			<br />
 		</div>
@@ -202,22 +170,6 @@
 
 
 
-	<a name="sec-const-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</span></div>
-		<div class="info-box-body">
-			<div class="const-summary">
-			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
-							<div class="var-title">
-					<tr>
-					<td class="var-title"><a href="#constpath_archivo_bases" title="details" class="const-name-summary">path_archivo_bases</a>&nbsp;&nbsp;</td>
-					<td class="const-summary-description"></td></tr>
-				</div>
-								</table>
-			</div>
-			<br />
-		</div>
-	</div>
 
 
 
@@ -226,54 +178,44 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodcargar_bases_definidas" id="cargar_bases_definidas"><!-- --></a>
+<a name="methodarrays_igual_largo" id="arrays_igual_largo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method cargar_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+		<span class="method-title">static method arrays_igual_largo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void cargar_bases_definidas(
+		<code>static void arrays_igual_largo(
+
+$array_1, 
+$array_2, [
+$texto = &quot;ATENCION, los arrays no tienen el mismo tamaño&quot;]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Levanta la lista de bases definidas </div>
-
-	<br />
 	
-
-		
-		<br />
-</div>
-<a name="methoddesconectar" id="desconectar"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void desconectar(
-
-$nombre&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Desconecta una DB </div>
-
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
+				<span class="var-name">$array_1:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$array_2:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -284,31 +226,30 @@ $nombre&nbsp;
 		
 		<br />
 </div>
-<a name="methodexiste_conexion" id="existe_conexion"><!-- --></a>
-<div class="evenrow">
+<a name="methoderror" id="error"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+		<span class="method-title">static method error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void existe_conexion(
+		<code>static void error(
 
-$nombre&nbsp;
+$texto&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">¿Hay una conexión abierta a la base? </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
+				<span class="var-name">$texto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -319,55 +260,39 @@ $nombre&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_bases_definidas" id="get_bases_definidas"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_bases_definidas(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodget_db" id="get_db"><!-- --></a>
+<a name="methodes_array" id="es_array"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+		<span class="method-title">static method es_array</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static db get_db(
-string
-$nombre&nbsp;
+		<code>static void es_array(
+
+$array, [
+$texto = &quot;ATENCION, el elemento no es un ARRAY&quot;]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna una referencia a una CONEXION con una base </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
+				<span class="var-name">$array:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Por defecto toma la constante fuente_datos_defecto o la misma base de toba</span>			</td></tr>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -376,21 +301,109 @@ $nombre&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_db_de_fuente" id="get_db_de_fuente"><!-- --></a>
+<a name="methodes_array_dimension" id="es_array_dimension"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_db_de_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
+		<span class="method-title">static method es_array_dimension</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_db_de_fuente(
+		<code>static void es_array_dimension(
 
-$instancia, 
-$proyecto, 
-$fuente&nbsp;
+$array, 
+$dimension, [
+$texto = &quot;ERROR: &quot;]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$array:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dimension:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodes_array_o_null" id="es_array_o_null"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method es_array_o_null</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void es_array_o_null(
+
+$array, [
+$texto = &quot;ATENCION, el elemento no es un ARRAY y no es NULO&quot;]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$array:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$texto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodes_objeto" id="es_objeto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method es_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void es_objeto(
+
+$instancia, [
+$texto = &quot;ATENCION, el elemento no es un OBJETO&quot;]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -407,13 +420,7 @@ $fuente&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$proyecto:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$fuente:&nbsp;</span></td>
+				<span class="var-name">$texto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -424,66 +431,37 @@ $fuente&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_parametros_base" id="get_parametros_base"><!-- --></a>
+<a name="methodno_es_nulo" id="no_es_nulo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_parametros_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+		<span class="method-title">static method no_es_nulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 10]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_parametros_base(
+		<code>static void no_es_nulo(
 
-$id_base&nbsp;
+$variable, [
+$texto = &quot;ATENCION, el elemento es NULO&quot;]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Busca la definicion de una base en 'bases.ini' </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$id_base:&nbsp;</span></td>
+				<span class="var-name">$variable:&nbsp;</span></td>
 				<td>
 							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodrefrescar" id="refrescar"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void refrescar(
-
-$nombre&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Fuerza la recarga de los parametros de una conexion y reconecta a la base </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$nombre:&nbsp;</span></td>
+				<span class="var-name">$texto:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -499,27 +477,6 @@ $nombre&nbsp;
 	</div>
 
 
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</div>
-		<div class="info-box-body">
-			<a name="constpath_archivo_bases" id="path_archivo_bases"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-name">path_archivo_bases</span>
-			 = <span class="var-default"> '/instalacion/bases.ini'</span>
-			<span class="smalllinenumber">[line 13]</span>
-		</span>
-	</div>
-
-		
-
-	<br />
-</div>
-		</div>
-	</div>
 
 <br />
 <div class="credit">

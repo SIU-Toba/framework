@@ -1,8 +1,9 @@
 <?php
 require_once('lib/reflexion/toba_archivo_php.php');
 /**
-*	Representa a la EDICION de una CLASE del ambiente. 
-*	Tiene capacidades de generacion y analisis MOLDES aportados por la METACLASE del compone
+*  Representa a la EDICION de una CLASE del ambiente. 
+*  Tiene capacidades de generacion y analisis MOLDES aportados por la METACLASE del compone
+*  @package Varios
 */
 class toba_clase_php
 {		

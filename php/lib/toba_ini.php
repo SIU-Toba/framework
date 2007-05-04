@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package Varios
+ */
 class toba_ini
 {
 	private $path = null;

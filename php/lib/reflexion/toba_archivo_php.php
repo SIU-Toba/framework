@@ -1,6 +1,10 @@
 <?php
 require_once('lib/toba_manejador_archivos.php');
 
+/**
+ *  Permite editar un archivo PHP del sistema
+ *  @package Varios
+ */
 class toba_archivo_php
 {
 	protected $nombre;

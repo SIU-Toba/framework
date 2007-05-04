@@ -126,20 +126,6 @@
 	 <br />
 	  </div>
   <div class="package">
-		    			<a href="../Componentes/toba_cargador.html">					cargador
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_catalogo.html">					catalogo
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_componente.html">					componente
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_constructor.html">					constructor
-					</a>    		
-	 <br />
-	  </div>
-  <div class="package">
 			Persistencia<br />
 		    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_relacion_db.html">					ap_relacion_db
@@ -180,6 +166,20 @@
     			<a href="../Componentes/Persistencia/toba_tipo_datos.html">					tipo_datos
 					</a>    	    		</span>
     		
+	 <br />
+	  </div>
+  <div class="package">
+		    			<a href="../Componentes/toba_cargador.html">					cargador
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_catalogo.html">					catalogo
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_componente.html">					componente
+					</a>    		
+	 <br />
+	    			<a href="../Componentes/toba_constructor.html">					constructor
+					</a>    		
 	 <br />
 	  </div>
   <div class="package">
@@ -334,11 +334,6 @@
 	 <br />
 	  </div>
   <div class="package">
-		    			<a href="../Componentes/toba_componente_definicion.html">					componente_definicion
-					</a>    		
-	 <br />
-	  </div>
-  <div class="package">
 			Persistencia<br />
 		    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_relacion.html">					ap_relacion
@@ -349,6 +344,11 @@
     			<a href="../Componentes/Persistencia/toba_ap_tabla.html">					ap_tabla
 					</a>    	    		</span>
     		
+	 <br />
+	  </div>
+  <div class="package">
+		    			<a href="../Componentes/toba_componente_definicion.html">					componente_definicion
+					</a>    		
 	 <br />
 	  </div>
             
@@ -459,7 +459,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																		<tr>
+																																																																																																																																																																																																																																																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -529,6 +529,20 @@
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#existe_dependencia" title="details" class="method-name">existe_dependencia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna verdadero si un componente es dependencia del actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_cantidad_dependencias" title="details" class="method-name">get_cantidad_dependencias</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna la cantidad de dependencias cargadas</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_dependencias" title="details" class="method-name">get_dependencias</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna un array con las dependencias cargadas del componente</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -646,7 +660,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
 </div>
 <br />
 
@@ -725,7 +739,7 @@ $definicion&nbsp;
 	
 		
 	
-	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
+	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 489]</span>
 </div>
 <br />
 
@@ -784,7 +798,7 @@ $tipo&nbsp;
 	
 		
 	
-	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 267]</span>
+	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
 </div>
 <br />
 
@@ -810,7 +824,7 @@ $tipo&nbsp;
 	
 		
 	
-	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
+	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 146]</span>
 </div>
 <br />
 
@@ -836,7 +850,7 @@ $tipo&nbsp;
 	
 		    		
 	
-	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 465]</span>
+	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
 </div>
 <br />
 
@@ -888,7 +902,7 @@ $carga_en_demanda = true]&nbsp;
 	
 		
 	
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 453]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 465]</span>
 </div>
 <br />
 
@@ -947,7 +961,7 @@ $cargar_en_demanda&nbsp;
 	
 		
 	
-	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 522]</span>
 </div>
 <br />
 
@@ -985,7 +999,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 78]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
@@ -1040,7 +1054,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 377]</span>
+	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 378]</span>
 </div>
 <br />
 
@@ -1078,7 +1092,7 @@ $no_eliminar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 531]</span>
 </div>
 <br />
 
@@ -1110,13 +1124,65 @@ $id&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_cantidad_dependencias" id="get_cantidad_dependencias"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_cantidad_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 549]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>integer get_cantidad_dependencias(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna la cantidad de dependencias cargadas </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_dependencias" id="get_dependencias"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>array get_dependencias(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna un array con las dependencias cargadas del componente </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_dependencias_clase" id="get_dependencias_clase"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 558]</span>
 </div>
 <br />
 
@@ -1154,7 +1220,7 @@ $ereg_busqueda&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 393]</span>
+	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 394]</span>
 </div>
 <br />
 
@@ -1188,7 +1254,7 @@ $ereg_busqueda&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
 </div>
 <br />
 
@@ -1214,7 +1280,7 @@ $ereg_busqueda&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 180]</span>
+	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -1272,7 +1338,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
+	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -1298,7 +1364,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
 </div>
 <br />
 
@@ -1324,7 +1390,7 @@ $parametros = null]&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 216]</span>
+	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -1389,7 +1455,7 @@ $nivel = null]&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 203]</span>
 </div>
 <br />
 
@@ -1448,7 +1514,7 @@ $nivel = null]&nbsp;
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
@@ -1500,7 +1566,7 @@ $metodo&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
+	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -1546,7 +1612,7 @@ $txt&nbsp;
 	
 		    		
 	
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 281]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 283]</span>
 </div>
 <br />
 
@@ -1579,7 +1645,7 @@ $txt&nbsp;
 	
 		
 	
-	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 422]</span>
+	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 423]</span>
 </div>
 <br />
 
@@ -1631,7 +1697,7 @@ $id_en_padre = null]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 308]</span>
+	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 310]</span>
 </div>
 <br />
 
@@ -1683,7 +1749,7 @@ $props&nbsp;
 			<span class="var-title">
 				<span class="var-type"><a href="../Componentes/Eis/toba_ci.html">toba_ci</a></span>&nbsp;&nbsp;
 				<span class="var-name">$controlador</span>
-								<span class="smalllinenumber">[line 37]</span>
+								<span class="smalllinenumber">[line 39]</span>
 			</span>
 		</div>
 	
@@ -1711,7 +1777,7 @@ $props&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.3.1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
 	      </div>
       </td></tr></table>
     </td>

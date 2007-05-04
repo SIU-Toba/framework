@@ -1,6 +1,9 @@
 <?php
 require_once('toba_molde_elemento.php');
 
+/**
+ * @ignore
+ */
 abstract class toba_molde_metodo extends toba_molde_elemento
 {
 	protected $descripcion;

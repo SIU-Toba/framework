@@ -1,10 +1,11 @@
 <?php
-/*
+/**
 *	Sincroniza el arbol de archivos manejado con la generacion
 *	automatica de archivos basados en la base.
 *		( Cuando algo se elimina en la base, un archivo se deja de
 *			generar, esta clase se encarga de que una baja en la base
 *			este sincronizada con una baja en el sistema de archivos (fs o svn)
+* @package Varios
 */
 class toba_sincronizador_archivos
 {

@@ -1,9 +1,9 @@
 <?php
-/*
-	Levanta el contenido de las tablas a la memoria y crea indices
-	para porder solicitar subconjuntos de datos
-*/
-
+/**
+ * @ignore 
+ * 	Levanta el contenido de las tablas a la memoria y crea indices
+ * 	para porder solicitar subconjuntos de datos
+ */
 class toba_cache_db
 {
 	private $db;

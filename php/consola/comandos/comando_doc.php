@@ -151,6 +151,13 @@ class comando_doc extends comando_toba
 		$indice = str_replace('#BASE#', '../', $indice);
 		file_put_contents($dest.'/index.html', $indice);
 		
+		
+		//---Borra las ayudas a nivel global de los archivos
+		$archivos = toba_manejador_archivos::get_archivos_directorio($dest, "/.*---.*\\.html/", true);
+		foreach ($archivos as $arch) {
+			unlink($arch);
+		}
+				
 		$this->convertir_codificacion_dir($dest, "ISO-8859-1", "UTF-8");		
 	}
 

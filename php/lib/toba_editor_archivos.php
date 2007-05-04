@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package Varios
+ */
 class toba_editor_texto
 {
 	protected $sustituciones;
@@ -21,6 +24,9 @@ class toba_editor_texto
 	}
 }
 
+/**
+ * @package Varios
+ */
 class toba_editor_archivos extends toba_editor_texto
 {
 	function procesar_archivo( $archivo, $archivo_resultado=null )

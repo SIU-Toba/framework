@@ -1,8 +1,6 @@
 <?php
   /**
-   * Control
-   *  - Mas info... 
-   * 
+   * Clase base de los Controles
    * @package Centrales
    */
   abstract class toba_control 
@@ -48,7 +46,6 @@
 
   /**
    * Brinda servicios de información sobre el estado de los puntos de control
-   *  - Mas info...
    * 
    * @package Centrales
    */

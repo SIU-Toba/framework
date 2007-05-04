@@ -1,6 +1,9 @@
 <?php
 require_once('toba_molde_elemento.php');
 
+/**
+ * @ignore
+ */
 class toba_molde_separador extends toba_molde_elemento
 {
 	protected $descripcion;

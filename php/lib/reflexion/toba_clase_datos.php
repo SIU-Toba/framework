@@ -1,9 +1,8 @@
 <?php
-/*
-	Esta clase representa a una clase estatica cuyos
-	metodos proveen informacion fija.
-*/
-
+/**
+ * Esta clase representa a una clase estatica cuyos metodos proveen informacion fija.
+ * @ignore
+ */
 class toba_clase_datos
 {
 	private $nombre;

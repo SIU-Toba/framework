@@ -1,6 +1,7 @@
 <?php
 /**
 *	Basado en la encriptacion de ADOdb
+* @package Varios
 */
 class toba_encriptador
 {

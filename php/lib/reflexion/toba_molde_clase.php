@@ -4,6 +4,9 @@ require_once('toba_molde_metodo_js.php');
 require_once('toba_molde_separador_php.php');
 require_once('toba_molde_separador_js.php');
 
+/**
+ * @ignore
+ */
 class toba_molde_clase
 {
 	protected $nombre;

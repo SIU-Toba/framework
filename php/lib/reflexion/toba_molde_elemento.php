@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @ignore
+ */
 abstract class toba_molde_elemento
 {
 	protected $nombre;
