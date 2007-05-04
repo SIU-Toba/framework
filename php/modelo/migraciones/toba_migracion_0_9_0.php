@@ -1,6 +1,6 @@
 <?php
 
-class migracion_0_9_0 extends toba_migracion
+class toba_migracion_0_9_0 extends toba_migracion
 {
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-class migracion_1_0_3 extends toba_migracion
+class toba_migracion_1_0_3 extends toba_migracion
 {
 
 		function proyecto__estilo_filtro()

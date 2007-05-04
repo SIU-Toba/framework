@@ -1,6 +1,6 @@
 <?php
 
-class migracion_1_0_0 extends toba_migracion
+class toba_migracion_1_0_0 extends toba_migracion
 {
 	//--------------------------------------------------------------
 	//-------------------------- INSTANCIA --------------------------
