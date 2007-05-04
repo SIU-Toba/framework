@@ -295,7 +295,7 @@ ei_formulario
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
-		<div class="info-box-body"><a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
+		<div class="info-box-body"><a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
 		</div>
 	</div>
 
@@ -412,13 +412,14 @@ ei_formulario
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result"><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></span>
+											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#nodo">nodo</A>()
+						<a class="method-name" href="#get_valores_maestros">get_valores_maestros</A>(id_esclavo)
 					</td>
 
-					<td class="method-definition"> Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)</td></tr>
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Retorna el estado actual de los maestros directos de un esclavo</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -967,13 +968,13 @@ ei_formulario
 		   
 		</div>
 		
-   		<A id="nodo" NAME="nodo"><!-- --></A>	
+   		<A id="get_valores_maestros" NAME="get_valores_maestros"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">nodo</span>
+				<span class="method-title">get_valores_maestros</span>
 			</div>
 			<br />
 			<div class="function">
@@ -981,7 +982,7 @@ ei_formulario
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> nodo ()</code>
+							   <code>Object get_valores_maestros (id_esclavo)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -990,7 +991,8 @@ ei_formulario
 			</div>
 			
 				<p class="description">
-	  				<UL>Retorna el nodo DOM donde se muestra el componente (incluye la raiz y el cuerpo)</UL>
+	  				<UL>Esquema de Cascadas:<br>
+ Retorna el estado actual de los maestros directos de un esclavo</UL>
 				</p>
 						
 			
