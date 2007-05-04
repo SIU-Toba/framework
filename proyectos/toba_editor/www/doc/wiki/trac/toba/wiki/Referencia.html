@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,11 +156,11 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li class="active"><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li class="active"><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Tutorial.html">Tutorial</a></li><li><a href="Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#CreacióndeunaOperación">Creación de una Operación</a></li><li>
 <a href="#Utilidadestransversales">Utilidades transversales</a></li><li>
 <a href="#Administracióndeproyectos">Administración de proyectos</a></li><li>
-<a href="#ProyectosEjemplo">Proyectos Ejemplo</a></li></ol></li></ol></div>
+<a href="#Varios">Varios</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Referencia
 </p>
 <h1 id="ConceptosBásicos">Conceptos Básicos</h1>
@@ -170,11 +176,11 @@ Durante la ejecución, el usuario ingresa una URL en el navegador, allí se liga
 <h2 id="CreacióndeunaOperación">Creación de una Operación</h2>
 <blockquote>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/objetos/objeto.gif' /> <strong><a class="wiki" href="Referencia/Objetos.html">Componentes</a></strong> y sus <img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Referencia/Eventos.html">Eventos</a>. <br />
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/items/item.gif' /> <a class="wiki" href="Referencia/Item.html">Ítem</a> u operación.<br />
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/zona.gif' /> <a class="wiki" href="Referencia/Zona.html">Zonas</a>: agrupación de operaciones relacionadas.<br />
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/fuente.gif' /> <a class="wiki" href="Referencia/FuenteDatos.html">Fuentes de Datos</a>.<br />
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/mensaje.gif' /> <a class="wiki" href="Referencia/Mensajes.html">Mensajes y notificaciones</a>.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_trunk/img/objetos/objeto.gif' /> <strong><a class="wiki" href="Referencia/Objetos.html">Componentes</a></strong> y sus <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_editor_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="Referencia/Eventos.html">Eventos</a>. <br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_editor_trunk/img/item.gif' /> <a class="wiki" href="Referencia/Item.html">Ítem</a> u operación.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_editor_trunk/img/zona.gif' /> <a class="wiki" href="Referencia/Zona.html">Zonas</a>: agrupación de operaciones relacionadas.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_trunk/img/fuente.gif' /> <a class="wiki" href="Referencia/FuenteDatos.html">Fuentes de Datos</a>.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_trunk/img/mensaje.gif' /> <a class="wiki" href="Referencia/Mensajes.html">Mensajes y notificaciones</a>.<br />
 </p>
 </blockquote>
 <p>
@@ -183,8 +189,9 @@ También hay una explicación del <a class="wiki" href="Referencia/MarcoTransacc
 <h2 id="Utilidadestransversales">Utilidades transversales</h2>
 <blockquote>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/tipo_pagina.gif' /> <a class="wiki" href="Referencia/TipoPagina.html">Tipos de página</a>: incluye recursos, encabezados y pies personalizados.<br />
-<img style='vertical-align:middle' border=0 src='../../../toba_trunk/img/css.gif' /> <a class="wiki" href="Referencia/Plantillas.html">Personalización de estilos</a>.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_editor_trunk/img/tipo_pagina.gif' /> <a class="wiki" href="Referencia/TipoPagina.html">Tipos de página</a>: incluye recursos, encabezados y pies personalizados.<br />
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../toba_editor_trunk/img/css.gif' /> <a class="wiki" href="Referencia/Plantillas.html">Personalización de estilos</a>.<br />
+<a class="wiki" href="Referencia/Skin.html">Creación de Skins</a>.<br />
 <a class="wiki" href="Referencia/Menu.html">Menú de la aplicación</a>.<br />
 <a class="wiki" href="Referencia/Ayuda.html">Ayuda contextual</a>.
 </p>
@@ -194,8 +201,11 @@ También hay una explicación del <a class="wiki" href="Referencia/MarcoTransacc
 </li><li><a class="wiki" href="Referencia/Consola/Comandos.html">Lista de comandos de consola útiles</a>.
 </li><li><a class="wiki" href="Versiones.html">Esquema de versiones</a>: Migración y esquema de releases de toba.
 </li><li><a class="wiki" href="Referencia/Deployment.html">Casos de uso de deployment</a>. 
-</li></ul><h2 id="ProyectosEjemplo">Proyectos Ejemplo</h2>
+</li></ul><h2 id="Varios">Varios</h2>
 <ul><li><a class="wiki" href="Proyectos/Referencia.html">Referencia</a>: Proyecto que acompaña la documentación.
+</li><li><a class="wiki" href="Referencia/ExtensionNucleo/Efs.html">Extensión de párametros y creación de efs</a>
+</li><li><a class="wiki" href="Referencia/CompresionJS.html">Compresión Javascript</a>
+</li><li><a class="wiki" href="Referencia/GeneracionDocumentacion.html">Generación de documentación</a>
 </li></ul></div>
    </div>
    

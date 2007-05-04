@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li class="active"><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li class="active"><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Beneficios">Beneficios</a></li><li>
 <a href="#ComportamientoGeneral">Comportamiento General</a><ol><li><a href="#Duranteladefinición">Durante la definición</a></li><li>
 <a href="#Durantelaejecución">Durante la ejecución</a></li></ol></li></ol></li></ol></div>
@@ -164,7 +170,7 @@ Los componentes de persistencia brindan tres servicios a la aplicación:
 </li><li>Mantener en memoria los <i>cambios</i> realizados por el usuario a estos datos 
 </li><li>Finalmente sincronizarlos con el medio de persistencia cuando sea solicitado.
 </li></ul><p>
-Estos servicios ayudan al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">controlador de interface</a> a garantizar del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a> de una operación.
+Estos servicios ayudan al <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">controlador de interface</a> a garantizar del <a class="wiki" href="../MarcoTransaccional.html">Marco Transaccional</a> de una operación.
 </p>
 <h2 id="Beneficios">Beneficios</h2>
 <p>
@@ -184,9 +190,9 @@ La solución que brindan estos componentes son:
 </p>
 <h2 id="ComportamientoGeneral">Comportamiento General</h2>
 <h3 id="Duranteladefinición">Durante la definición</h3>
-<ul><li>Se modelan datos tabulares, generalmente tablas de una base relacional. El componente utilizado es el <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>.
-</li><li>Se modelan las relaciones entre estas tabla (utilizando el componente <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>).
-</li><li>Se asigna la relación al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">CI</a> encargado de la transacción.
+<ul><li>Se modelan datos tabulares, generalmente tablas de una base relacional. El componente utilizado es el <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>.
+</li><li>Se modelan las relaciones entre estas tabla (utilizando el componente <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>).
+</li><li>Se asigna la relación al <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> <a class="wiki" href="ci.html">CI</a> encargado de la transacción.
 </li></ul><p>
 <a href="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/Persistencia/intro_persistencia41f0.png?format=raw" /></a>
 </p>
@@ -216,7 +222,7 @@ Siempre desde el CI encargado de la transacción:
     }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div></li></ul><ul><li>Cuando el CI quiere finalizar la transacción (por ejemplo el usuario decide <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/guardar.gif' /> guardar), se pide <strong>sincronizar</strong> el datos_relacion. En este caso se elige volver a la pantalla de selección luego de la sincronización.
+</pre></div></li></ul><ul><li>Cuando el CI quiere finalizar la transacción (por ejemplo el usuario decide <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/guardar.gif' /> guardar), se pide <strong>sincronizar</strong> el datos_relacion. En este caso se elige volver a la pantalla de selección luego de la sincronización.
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">function </span><span class="code-lang">evt__procesar</span><span class="code-keyword">()
     {
@@ -229,10 +235,10 @@ Siempre desde el CI encargado de la transacción:
 </pre></div></li></ul><p>
 Estos son los pasos para escenarios sencillos, para más información sobre los servicios que brindan estos componentes se encuentra en:
 </p>
-<ul><li><img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>
-</li><li><img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>
+<ul><li><img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">datos_relacion</a>
+</li><li><img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> <a class="wiki" href="datos_tabla.html">datos_tabla</a>
 </li></ul><p>
-Ver el funcionamiento de las clases de persistencia con un <a class="wiki" href="../../Tutorial/Persistencia.html">ejemplo</a>.
+Ver el funcionamiento de las clases de persistencia con un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||2658' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de operación</a></strong>
 </p>
 </div>
    </div>

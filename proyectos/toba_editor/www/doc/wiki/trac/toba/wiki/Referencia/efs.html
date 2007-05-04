@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
 <a href="#TiposdeElementos">Tipos de Elementos</a><ol><li><a href="#Elusuarioselecciona">El usuario <strong>selecciona</strong></a></li><li>
 <a href="#Elusuarioedita">El usuario <strong>edita</strong></a></li><li>
@@ -202,6 +208,7 @@ Los efs actualmente se pueden clasificar según la actividad que el usuario real
 </td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/porcentaje.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/porcentaje41f0.png?format=raw" /></a></td><td>  porcentaje		            	    </td><td> Un número representando un porcentaje. 
 </td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/fecha.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/fecha41f0.png?format=raw" /></a> 	</td><td>fecha			                	    </td><td> Una fecha, con un calendario de ayuda. 
 </td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/textarea.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/textarea41f0.png?format=raw" /></a>	</td><td>textarea		                		</td><td> Múltiples líneas libremente, sin formato. 
+</td></tr><tr><td> <a href="../../attachment/wiki/Referencia/efs/cuit.html" style="padding:0; border:none"><img src="../../attachment/wiki/Referencia/efs/cuit41f0.png?format=raw" /></a>		</td><td>cuit		                		</td><td> Un número de CUIT/CUIL. 
 </td></tr><tr><td>			            	</td><td>html			                		</td><td> Edición de texto con formato. 
 </td></tr></table>
 <h3 id="Elusuarioobservauncontenido">El usuario <strong>observa</strong> un contenido</h3>
@@ -286,7 +293,7 @@ No hay límite en la cantidad de maestros/esclavos en un formulario, solo existe
 El resto de los efs no participan del esquema de cascadas.
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/efs/dependencias' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cascadas</a>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/efs/dependencias' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cascadas</a>
 </p>
 <h2 id="Máscaras">Máscaras</h2>
 <p>
@@ -294,13 +301,13 @@ Algunos efs editables permiten incluir máscaras personalizadas. La máscara for
 Para ver las máscaras soportadas ver el <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/trunk/www/js/testing/test_mascaras.html">caso de test asociado</a>
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000070' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Máscaras</a>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_editor_trunk/img/referencia.png' /> <a href='../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000070' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Máscaras</a>
 </p>
 </div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/checkbox.html">checkbox.png</a> (168 bytes) - added by seba on 10/18/06 18:04:23.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/radio.html">radio.png</a> (480 bytes) - added by seba on 10/18/06 18:04:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo.html">combo.png</a> (403 bytes) - added by seba on 10/18/06 18:06:37.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/popup.html">popup.png</a> (0.8 kB) - added by seba on 10/18/06 18:15:16.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_select.html">multi_select.png</a> (0.5 kB) - added by seba on 10/18/06 18:16:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_doble.html">multi_doble.png</a> (1.0 kB) - added by seba on 10/18/06 18:18:13.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html">multi_checkbox.png</a> (376 bytes) - added by seba on 10/18/06 18:19:12.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/editable.html">editable.png</a> (372 bytes) - added by seba on 10/18/06 18:20:15.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fecha.html">fecha.png</a> (426 bytes) - added by seba on 10/18/06 18:36:02.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/numero.html">numero.png</a> (324 bytes) - added by seba on 10/18/06 18:36:21.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/moneda.html">moneda.png</a> (333 bytes) - added by seba on 10/18/06 18:36:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/porcentaje.html">porcentaje.png</a> (279 bytes) - added by seba on 10/18/06 18:37:07.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/textarea.html">textarea.png</a> (1.5 kB) - added by seba on 10/18/06 18:37:52.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/upload.html">upload.png</a> (0.6 kB) - added by seba on 10/18/06 18:42:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fijo.html">fijo.png</a> (0.9 kB) - added by seba on 10/20/06 10:31:00.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/checkbox.html">checkbox.png</a> (168 bytes) - added by seba on 10/18/06 18:04:23.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/radio.html">radio.png</a> (480 bytes) - added by seba on 10/18/06 18:04:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/combo.html">combo.png</a> (403 bytes) - added by seba on 10/18/06 18:06:37.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/popup.html">popup.png</a> (0.8 kB) - added by seba on 10/18/06 18:15:16.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_select.html">multi_select.png</a> (0.5 kB) - added by seba on 10/18/06 18:16:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_doble.html">multi_doble.png</a> (1.0 kB) - added by seba on 10/18/06 18:18:13.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/multi_checkbox.html">multi_checkbox.png</a> (376 bytes) - added by seba on 10/18/06 18:19:12.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/editable.html">editable.png</a> (372 bytes) - added by seba on 10/18/06 18:20:15.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fecha.html">fecha.png</a> (426 bytes) - added by seba on 10/18/06 18:36:02.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/numero.html">numero.png</a> (324 bytes) - added by seba on 10/18/06 18:36:21.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/moneda.html">moneda.png</a> (333 bytes) - added by seba on 10/18/06 18:36:42.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/porcentaje.html">porcentaje.png</a> (279 bytes) - added by seba on 10/18/06 18:37:07.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/textarea.html">textarea.png</a> (1.5 kB) - added by seba on 10/18/06 18:37:52.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/upload.html">upload.png</a> (0.6 kB) - added by seba on 10/18/06 18:42:59.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/fijo.html">fijo.png</a> (0.9 kB) - added by seba on 10/20/06 10:31:00.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Referencia/efs/cuit.html">cuit.png</a> (403 bytes) - added by seba on 12/18/06 11:23:18.</li>
     </ul>
   
   

@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,19 +156,19 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
 <a href="#Primitivas">Primitivas</a><ol><li><a href="#Carga">Carga</a></li><li>
 <a href="#Trabajoconunúnicoregistro">Trabajo con un único registro</a></li><li>
 <a href="#Trabajoconvariosregistros">Trabajo con varios registros</a></li><li>
 <a href="#Sincronización">Sincronización</a></li><li>
-<a href="#Eliminación">Eliminación</a></li></ol><li><a href="#Cargadecamposcosméticos">Carga de campos 'cosméticos'</a></li><li>
+<a href="#Eliminación">Eliminación</a></li></ol><li><a href="#ColumnasExternas">Columnas Externas</a></li><li>
 <a href="#Másinfo">Más info</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / datos_tabla
 </p>
 <h1 id="datos_tabla">datos_tabla</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> datos_tablas mantiene una estructura tabular (o también llamada <a class="wiki" href="../../RecordSet.html">RecordSet</a>) y brinda una interface para trabajar con ella.
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_tabla.gif' /> datos_tablas mantiene una estructura tabular (o también llamada <a class="wiki" href="../../RecordSet.html">RecordSet</a>) y brinda una interface para trabajar con ella.
 Sus principales características son:
 </p>
 <ul><li>Utiliza un <a class="wiki" href="AP.html">administrador de persistencia</a> para cargar los datos desde un medio de persistencia.
@@ -184,7 +190,7 @@ La mejor forma de entender las primitivas es revisando el <strong><a href='../..
 </p>
 <h3 id="Carga">Carga</h3>
 <p>
-Generalmente la carga y sincronización son dos procesos que la tabla no maneja en forma aislada sino que es sólo un participante más de la <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">relación</a> a la que pertenece. En caso de que la operación maneje una tabla aislada (como pueden ser los ABMs de tablas simples) la carga generalmente se hace restringiendo por valores específicos de campos:
+Generalmente la carga y sincronización son dos procesos que la tabla no maneja en forma aislada sino que es sólo un participante más de la <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/datos_relacion.gif' /> <a class="wiki" href="datos_relacion.html">relación</a> a la que pertenece. En caso de que la operación maneje una tabla aislada (como pueden ser los ABMs de tablas simples) la carga generalmente se hace restringiendo por valores específicos de campos:
 </p>
 <pre class="wiki">$tabla-&gt;cargar(array('id' =&gt; 8)); 
 </pre>
@@ -252,69 +258,32 @@ Nota: Recordar que este estos son los pasos para la carga y sincronización de u
 <p>
 Más información se encuentra en el <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Persistencia/toba_datos_tabla.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> API</a>.
 </p>
-<h2 id="Cargadecamposcosméticos">Carga de campos 'cosméticos'</h2>
+<h2 id="ColumnasExternas">Columnas Externas</h2>
 <p>
 Dentro de la transacción es probable que los contenidos de la tabla quieran ser presentados de una forma amigable al usuario. Así por ejemplo las claves foráneas tienen que mostrar su descripción y no su valor, para esto hay dos opciones:
 </p>
-<ul><li>Agrego el campo 'descripcion' a la tabla y lo marco como externo. De esta forma su valor estará disponible pero no participará de la sincronización.
-</li><li>En el ci relleno los datos haciendo la consulta manualmente cada vez que se pide esta información.
+<ul><li>Agrego la columna 'descripcion' a la tabla y marcarla como externa. De esta forma su valor estará disponible pero no participará de la sincronización.
+</li><li>En el ci, relleno los datos haciendo la consulta manualmente cada vez que se pide esta información.
 </li></ul><p>
-El caso recomendado es el primero en donde se agrega el campo en la definición datos_tabla y se lo marca como externo. Además se tiene que brindar una forma de cargar este campo, ya sea a través de un SQL o a través de la invocación de un método PHP.
+El caso recomendado es el primero en donde se agrega la columna en la definición datos_tabla y se lo marca como externa. Además se tiene que brindar una forma de cargarla, ya sea a través de un SQL o a través de la invocación de un método PHP. Para esto último existe una solapa en el editor del datos_tabla.
 </p>
 <p>
 Por ejemplo en el proyecto Referencia, ítem <tt>Operaciones Simples -&gt; ABM de Personas</tt>, en la pantalla de deportes se quieren listar las descripciones del mismo. Entonces se agregan los campos que describen el deporte y el día de semana:
 </p>
 <p>
-<a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion41f0.png?format=raw" alt="Definición de campos externos" title="Definición de campos externos" /></a>
+<a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion41f0.png?format=raw" /></a>
 </p>
 <p>
-Luego es necesario definir una subclase para el administrador de persistencia de esa tabla:
+<a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga41f0.png?format=raw" /></a>
 </p>
-<p>
-<a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_subclase.html" style="padding:0; border:none"><img src="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_subclase41f0.png?format=raw" alt="Creando una subclase para el persistidor de la tabla" title="Creando una subclase para el persistidor de la tabla" /></a>
-</p>
-<p>
-Finalmente en esta subclase se especifica cómo se cargan estos campos:
-</p>
-<div class="code"><pre><span class="code-lang">&lt;?
-</span><span class="code-keyword">require_once(</span><span class="code-string">'nucleo/componentes/persistencia/toba_ap_tabla_db.php'</span><span class="code-keyword">);
-
-class </span><span class="code-lang">ap_persona_deportes </span><span class="code-keyword">extends </span><span class="code-lang">toba_ap_tabla_db
-</span><span class="code-keyword">{
-    function </span><span class="code-lang">inicializar</span><span class="code-keyword">()
-    {
-        </span><span class="code-comment">/*
-            Carga la columna externa 'desc_deporte' base a un SQL
-            utilizando como parametro la columna 'deporte'
-        */
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">activar_proceso_carga_externa_sql</span><span class="code-keyword">(
-                            </span><span class="code-string">"SELECT nombre FROM ref_deportes WHERE id = '%deporte%';"</span><span class="code-keyword">,
-                            array(</span><span class="code-string">'deporte'</span><span class="code-keyword">),
-                            array(array(</span><span class="code-string">'origen'</span><span class="code-keyword">=&gt;</span><span class="code-string">'nombre'</span><span class="code-keyword">,
-                                        </span><span class="code-string">'destino'</span><span class="code-keyword">=&gt;</span><span class="code-string">'desc_deporte'</span><span class="code-keyword">)),
-                            </span><span class="code-lang">true </span><span class="code-keyword">);
-        </span><span class="code-comment">/*
-            Carga la columna externa 'desc_dia_semana' en base a un METODO
-            utilizando como parametro la columna 'dia_semana'
-        */
-        </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">activar_proceso_carga_externa_dao</span><span class="code-keyword">(</span><span class="code-string">"get_dia_semana"</span><span class="code-keyword">,
-                            </span><span class="code-string">"consultas"</span><span class="code-keyword">,
-                            </span><span class="code-string">"operaciones_simples/consultas.php"</span><span class="code-keyword">,
-                            array(</span><span class="code-string">'dia_semana'</span><span class="code-keyword">),
-                            array(</span><span class="code-string">'desc_dia_semana'</span><span class="code-keyword">),
-                            </span><span class="code-lang">true </span><span class="code-keyword">);
-    }
-}
-</span><span class="code-lang">?&gt;
-</span></span>
-</pre></div><h2 id="Másinfo">Más info</h2>
+<h2 id="Másinfo">Más info</h2>
 <ul><li>Ejemplo en el <a class="wiki" href="../../Proyectos/Referencia.html">proyecto Referencia</a>, ítems bajo la rama "Operaciones Simples"
 </li><li><a class="wiki" href="Persistencia.html">Introducción a los objetos de persistencia</a>.
 </li></ul></div>
    </div>
    
     <h3 id="tkt-changes-hdr">Attachments</h3>
-    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html">externos_definicion.png</a> (1.3 kB) -<q>Definición de campos externos</q>, added by seba on 06/01/06 10:47:05.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_subclase.html">externos_subclase.png</a> (4.6 kB) -<q>Creando una subclase para el persistidor de la tabla</q>, added by seba on 06/01/06 10:47:44.</li>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_definicion.html">externos_definicion.png</a> (3.8 kB) - added by seba on 12/21/06 11:44:02.</li><li class="tkt-chg-change"><a href="../../../attachment/wiki/Referencia/Objetos/datos_tabla/externos_carga.html">externos_carga.png</a> (5.7 kB) - added by seba on 12/21/06 11:46:52.</li>
     </ul>
   
   

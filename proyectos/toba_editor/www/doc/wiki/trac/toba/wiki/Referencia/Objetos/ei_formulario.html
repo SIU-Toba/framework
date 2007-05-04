@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Eventos">Eventos</a></li><li>
 <a href="#Carga">Carga</a></li><li>
 <a href="#Cascadas">Cascadas</a></li><li>
@@ -164,7 +170,7 @@ pre { padding:0; margin: 0}
 </p>
 <h1 id="FormularioSimple">Formulario Simple</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> formulario simple presenta una grilla de campos editables. A cada uno de estos campos se los denomina <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="../efs.html">Elementos de Formulario (efs)</a>.
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> formulario simple presenta una grilla de campos editables. A cada uno de estos campos se los denomina <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="../efs.html">Elementos de Formulario (efs)</a>.
 </p>
 <p>
 <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_formulario</a> <br />
@@ -172,12 +178,12 @@ Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/im
 </p>
 <h2 id="Eventos">Eventos</h2>
 <p>
-El formulario cuenta con dos <a class="wiki" href="../Eventos.html">modelos de eventos</a>  predeterminados:
+El formulario cuenta con dos <a class="wiki" href="../Eventos.html#Modelos">modelos de eventos</a>  predeterminados:
 </p>
 <ul><li>Modelo <strong>Básico</strong>: Incluye un solo evento <i>modificacion</i> marcado como implícito, es decir se dispara sin necesidad de que lo haga explícitamente el usuario. Este modelo se utiliza por ejemplo en una operación con solapas en donde el formulario edita una única entidad (ej. datos básicos de una persona), cuando se cambia de solapa se quiere guardar la información cargada por el usuario sin necesidad de incluír un botón <i>Modificar</i>, sino que el sólo hecho de cambiar de solapa dispare la modificación en el server.
 </li></ul><ul><li>Modelo <strong>ABM</strong>: Incluye los eventos clásicos de un formulario tipo ABM (alta, baja, modificacion y cancelar) todos explícitos e incluidos en la botonera. Este modelo se utiliza cuando se quiere que el usuario seleccione en forma explícita sobre el futuro del registro editado, generalmente se está editando un conjunto de registros, graficado por ejemplo en un <a class="wiki" href="ei_cuadro.html">Cuadro</a>.
 </li></ul><p>
-El formulario presenta dos <a class="wiki" href="../Eventos.html#Propiedades">grupos de eventos</a>: <strong>cargado</strong> y <strong>no_cargado</strong>. En el modelo <i>ABM</i> la baja y la modificación pertenecen al grupo <i>cargado</i> mientras que en el grupo <i>no_cargado</i> se encuentra el alta.
+El formulario presenta dos <a class="wiki" href="../Eventos.html#Agrupación">grupos de eventos</a>: <strong>cargado</strong> y <strong>no_cargado</strong>. En el modelo <i>ABM</i> la baja y la modificación pertenecen al grupo <i>cargado</i> mientras que en el grupo <i>no_cargado</i> se encuentra el alta.
 </p>
 <h2 id="Carga">Carga</h2>
 <p>
@@ -192,8 +198,8 @@ Para establecer los datos a mostrar en el formulario, es necesario <i>configurar
                     </span><span class="code-string">'descripcion' </span><span class="code-keyword">=&gt; </span><span class="code-string">'Esta descripción se especifica en la carga'</span><span class="code-keyword">,
                     </span><span class="code-string">'tipo' </span><span class="code-keyword">=&gt; </span><span class="code-lang">null
                 </span><span class="code-keyword">);
-           </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_datos</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
-           </span><span class="code-comment">//--- Para la carga, una forma alternativa al set_datos es retornar los datos (return $datos)
+       </span><span class="code-lang">$form</span><span class="code-keyword">-&gt;</span><span class="code-lang">set_datos</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">);
+       </span><span class="code-comment">//--- Para la carga, una forma alternativa al set_datos es retornar los datos (return $datos)
     </span><span class="code-keyword">}
 </span><span class="code-lang">?&gt;
 </span></span>
@@ -212,7 +218,7 @@ El formulario posee una validación propia que itera validando cada ef. Esta val
     </span><span class="code-keyword">function </span><span class="code-lang">evt__formulario__modificacion</span><span class="code-keyword">(</span><span class="code-lang">$datos</span><span class="code-keyword">)
     {
         if (</span><span class="code-lang">$datos</span><span class="code-keyword">[</span><span class="code-string">'importe'</span><span class="code-keyword">] &gt; </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tope </span><span class="code-keyword">) {
-            throw new </span><span class="code-lang">error_toba</span><span class="code-keyword">(</span><span class="code-string">'El importe no puede se mayor que '</span><span class="code-keyword">.</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tope</span><span class="code-keyword">);
+            throw new </span><span class="code-lang">toba_error</span><span class="code-keyword">(</span><span class="code-string">'El importe no puede se mayor que '</span><span class="code-keyword">.</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">tope</span><span class="code-keyword">);
         }
         </span><span class="code-comment">//--- Procesar los datos
     </span><span class="code-keyword">}
@@ -234,7 +240,7 @@ Es posible agregar una validación general a todo el formulario, <i>escuchando</
     </span><span class="code-comment">//Valida que dos campos no tengan valor simultáneamente
     </span><span class="code-keyword">echo </span><span class="code-string">"
         {$this-&gt;objeto_js}.evt__validar_datos = function() {
-            if (this.ef('descripcion').valor() != '' &amp;&amp; this.ef('otra_descripcion').valor() != '' ) {
+            if (this.ef('descripcion').get_estado() != '' &amp;&amp; this.ef('otra_descripcion').get_estado() != '' ) {
                     notificacion.agregar('Sólo puede ingresar una descripción.');
                     return false;
             }
@@ -253,7 +259,7 @@ Cuando se quiere restringir los valores posibles de un ef, se define el método 
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">echo </span><span class="code-string">"
         {$this-&gt;objeto_js}.evt__importe__validar = function() {
-            if (this.ef('importe').valor() &lt; 100) {
+            if (this.ef('importe').get_estado() &lt; 100) {
                     this.ef('importe').set_error('El importe debe ser mayor que 100');
                     return false;
             }
@@ -263,7 +269,7 @@ Cuando se quiere restringir los valores posibles de un ef, se define el método 
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Hay una razón por la que se prefiere la validación de efs por sobre la validación general del formulario (cuando es posible) y es que este tipo de extensiones automáticamente forman parte de la <a class="missing wiki" href="ValidacionEnLinea.html" rel="nofollow">validación en línea?</a> del componente, notificando al usuario inmediatamente del error sin esperar a que quiera terminar la operación.
+Hay una razón por la que se prefiere la validación de efs por sobre la validación general del formulario (cuando es posible) y es que este tipo de extensiones automáticamente forman parte de la validación en línea del componente, notificando al usuario inmediatamente del error sin esperar a que quiera terminar la operación.
 </p>
 <h3 id="Eventos1">Eventos</h3>
 <p>
@@ -280,7 +286,7 @@ Hay una tercera forma de influir en el proceso de submit de un formulario, y es 
 </span></span>
 </pre></div><h3 id="Procesamientodeefs">Procesamiento de efs</h3>
 <p>
-Es posible escuchar los <a class="wiki" href="../efs/Procesamientos.html">procesamientos de efs</a>. Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe un parámetro que indica si el disparo es_inicial o no. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo teniendo un <a class="missing wiki" href="../efs/checkbox.html" rel="nofollow">ef_checkbox?</a> con id 'elige_tipo' se puede habilitar/deshabilitar otro ef con id 'tipo':
+Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe un parámetro que indica si el disparo es_inicial o no. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo teniendo un <a class="missing wiki" href="../efs/checkbox.html" rel="nofollow">ef_checkbox?</a> con id 'elige_tipo' se puede habilitar/deshabilitar otro ef con id 'tipo':
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-comment">//Activa un campo en base a un checkbox
@@ -303,7 +309,7 @@ El método contiene originalmente este código:
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">protected function </span><span class="code-lang">generar_layout</span><span class="code-keyword">()
     {
-        foreach (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">lista_ef_post </span><span class="code-keyword">as </span><span class="code-lang">$ef</span><span class="code-keyword">) {
+        foreach (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_nombres_ef</span><span class="code-keyword">() as </span><span class="code-lang">$ef</span><span class="code-keyword">) {
             </span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">generar_html_ef</span><span class="code-keyword">(</span><span class="code-lang">$ef</span><span class="code-keyword">);
         }        
     }
@@ -319,8 +325,8 @@ Por ejemplo si se quiere lograr un layout de <strong>dos columnas</strong> se pu
     {
         echo </span><span class="code-string">"&lt;table&gt;"</span><span class="code-keyword">;
         </span><span class="code-lang">$i </span><span class="code-keyword">= </span><span class="code-lang">0</span><span class="code-keyword">;
-        foreach (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">lista_ef_post </span><span class="code-keyword">as </span><span class="code-lang">$ef</span><span class="code-keyword">) {
-            </span><span class="code-lang">$ultimo </span><span class="code-keyword">= (</span><span class="code-lang">$i </span><span class="code-keyword">== </span><span class="code-lang">count</span><span class="code-keyword">(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">lista_ef_post</span><span class="code-keyword">));
+        foreach (</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_nombres_ef</span><span class="code-keyword">() as </span><span class="code-lang">$ef</span><span class="code-keyword">) {
+            </span><span class="code-lang">$ultimo </span><span class="code-keyword">= (</span><span class="code-lang">$i </span><span class="code-keyword">== </span><span class="code-lang">count</span><span class="code-keyword">(</span><span class="code-lang">$this</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_nombres_ef</span><span class="code-keyword">()));
             if (</span><span class="code-lang">$i </span><span class="code-keyword">% </span><span class="code-lang">2 </span><span class="code-keyword">== </span><span class="code-lang">0</span><span class="code-keyword">) {
                 echo </span><span class="code-string">"&lt;tr&gt;"</span><span class="code-keyword">;    
             }
@@ -341,7 +347,7 @@ Por ejemplo si se quiere lograr un layout de <strong>dos columnas</strong> se pu
 Existe ejemplos con estas y más situaciones en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, Carpeta <i>Referencia/Componentes/Formularios/</i>.
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cambio de layout y extensión JS</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cambio de layout y extensión JS</a></strong>
 </p>
 </div>
    </div>

@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
 <a href="#Carga">Carga</a></li><li>
 <a href="#Paginado">Paginado</a></li><li>
@@ -161,7 +167,7 @@ pre { padding:0; margin: 0}
 </p>
 <h1 id="Cuadro">Cuadro</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/cuadro_array.gif' /> ei_cuadro es una grilla de registros pensados para visualización. Es común que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <i>seleccionarlo</i> a través de eventos.
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/cuadro_array.gif' /> ei_cuadro es una grilla de registros pensados para visualización. Es común que cada uno de estos registros tenga identidad propia, por lo que el cuadro permite <i>seleccionarlo</i> a través de eventos.
 </p>
 <p>
 <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_cuadro.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_cuadro</a> <br />
@@ -218,7 +224,7 @@ Por ejemplo si cargarmos el cuadro a partir de una SQL:
 ?&gt;
 </span></span>
 </pre></div><p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Paginado</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Paginado</a></strong>
 </p>
 <h2 id="Ordenamiento">Ordenamiento</h2>
 <p>
@@ -227,7 +233,7 @@ Cuando desde el editor se activa la posibilidad de ordenamiento en el cuadro, se
 <ul><li>El CI contenedor. Si así se decide se debe escuchar el evento <tt>evt__idcuadro__ordenar</tt> que recibe como parametro un arreglo conteniendo el sentido y la columna del orden. Por ejemplo: <tt>array('sentido' =&gt; 'asc', 'columna' =&gt; 'importe');</tt>. Estas opciones deberían incidir en el mecanismo de recepción de datos (típicamente el ORDER BY de una consulta SQL).
 </li><li>El mismo cuadro: En caso que el evento no se escuche, el cuadro tomará la iniciativa de ordenar por sí mismo el set de datos. Para esto debe tener el conjunto completo de datos. Si por ejemplo el cuadro está páginado y sólo se carga la página actual, el cuadro sólo podrá ordenar esa página.
 </li></ul><p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Ordenamiento</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_cuadro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Ordenamiento</a></strong>
 </p>
 <h2 id="Modelosdeevento">Modelos de evento</h2>
 <p>
@@ -238,11 +244,25 @@ Cuando se agregan eventos particulares se puede especificar que el evento es a n
 </p>
 <h3 id="Filtradodeeventosporfila">Filtrado de eventos por fila</h3>
 <p>
-La presencia o ausencia de un evento (a nivel de fila y no global) puede depender del contenido de cada fila. Para controlar el comportamiento de este tipo de eventos debe existir un método con el nombre <i><tt>filtrar_evt__nombre_evento</tt></i>. El método recibe como parámetro el número de fila en el cuadro y en caso de retornar verdadero se activa el evento sobre la fila en cuestión. 
+La presencia o ausencia de un evento (a nivel de fila y no global) puede depender del contenido de cada fila. Para controlar el comportamiento de este tipo de eventos debe existir un método con el nombre <i><tt>conf_evt__idcomp__nombreevento</tt></i>. El método recibe como parámetro el evento y es posible por ejemplo anular el evento en esta fila
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+    </span><span class="code-keyword">function </span><span class="code-lang">conf_evt__cuadro__eliminar</span><span class="code-keyword">(</span><span class="code-lang">toba_evento_usuario $evt</span><span class="code-keyword">)
+    {
+        </span><span class="code-comment">//---En caso de tener una clave multiple, hay que hacer un explode para poder dividirla
+        </span><span class="code-keyword">list(</span><span class="code-lang">$proyecto</span><span class="code-keyword">, </span><span class="code-lang">$usuario</span><span class="code-keyword">) = </span><span class="code-lang">explode</span><span class="code-keyword">(</span><span class="code-lang">apex_qs_separador</span><span class="code-keyword">, </span><span class="code-lang">$evt</span><span class="code-keyword">-&gt;</span><span class="code-lang">get_parametros</span><span class="code-keyword">());
+        if (</span><span class="code-lang">$usuario </span><span class="code-keyword">== </span><span class="code-lang">toba</span><span class="code-keyword">::</span><span class="code-lang">usuario</span><span class="code-keyword">()-&gt;</span><span class="code-lang">get_id</span><span class="code-keyword">()) {
+            </span><span class="code-lang">$evt</span><span class="code-keyword">-&gt;</span><span class="code-lang">anular</span><span class="code-keyword">();    
+        }
+    }
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><p>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||2246' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de filtrado por fila</a></strong>
 </p>
 <h2 id="CortesdeControl">Cortes de Control</h2>
 <p>
-Los <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/fila.gif' /> Cortes de Control permiten agrupar las filas a partir de campos con valores comunes. Su finalidad es parcializar los datos para poder visualizarlos en un modo más comprensible, generalmente en un reporte. 
+Los <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/fila.gif' /> Cortes de Control permiten agrupar las filas a partir de campos con valores comunes. Su finalidad es parcializar los datos para poder visualizarlos en un modo más comprensible, generalmente en un reporte. 
 </p>
 <p>
 Cada corte requiere determinar:
@@ -255,11 +275,11 @@ Para establecer una <strong>sumarización</strong> por una columna específica s
 <pre class="wiki">Falta explicar la extensión PHP de los cortes
 </pre>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1240' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cortes de Control</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1240' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cortes de Control</a></strong>
 </p>
 <h2 id="Ejemplos">Ejemplos</h2>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_filtro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cuadro con Filtro</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_filtro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Cuadro con Filtro</a></strong>
 </p>
 </div>
    </div>

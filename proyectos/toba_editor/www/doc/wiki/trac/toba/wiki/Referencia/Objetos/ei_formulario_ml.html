@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
 <a href="#Carga">Carga</a></li><li>
 <a href="#Eventos">Eventos</a><ol><li><a href="#Eventosquemanejandatos">Eventos que manejan datos</a></li><li>
@@ -164,7 +170,7 @@ pre { padding:0; margin: 0}
 </p>
 <h1 id="FormularioMultilínea">Formulario Multilínea</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> formulario multilínea (ei_formulario_ml) presenta una grilla de  <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="../efs.html">campos</a> repetidos una cantidad dada de filas. permitiendo recrear la carga de distintos registros con la misma estructura. La definición y uso de la grilla de campos es similar al <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="ei_formulario.html">formulario simple</a> con el agregado de lógica para manejar un número arbitrario de filas.
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario_ml.gif' /> formulario multilínea (ei_formulario_ml) presenta una grilla de  <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/efs.gif' /> <a class="wiki" href="../efs.html">campos</a> repetidos una cantidad dada de filas. permitiendo recrear la carga de distintos registros con la misma estructura. La definición y uso de la grilla de campos es similar al <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> <a class="wiki" href="ei_formulario.html">formulario simple</a> con el agregado de lógica para manejar un número arbitrario de filas.
 </p>
 <p>
 <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario_ml.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_formulario_ml</a> <br />
@@ -173,11 +179,11 @@ Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/im
 <h2 id="Definición">Definición</h2>
 <ul><li><i>Ancho</i>: Pixeles o porcentaje que ocupa el objeto gráficamente. Recordar incluír las <strong>medidas</strong> (px, %, etc.).
 </li><li><i>Líneas</i>: En la definición se puede incluir una cantidad inicial de filas una  opción permite modificar esta cantidad de filas agregando nuevas o eliminando existentes. Durante la ejecución la cantidad y contenido de cada filas se especifica durante la configuración del componente.
-</li><li><i>Agregar/Quitar líneas</i>: Se incluyen dos botones para agregar y quitar líneas. El agregado puede ser <i>en línea</i> utilizando javascript (más dinámico) o llendo al server como un evento más (más seguro para hacer validaciones o para incluír cascadas).
-</li></ul><ul><li><i>Ordenar líneas</i>: Se incluyen dos controles para que el usuario pueda ordenar las líneas subiendolas o bajandolas. Si se defina una columna, el orden se envía a travez de esta columna sino el orden se refleja en el orden en que se envían estas filas a los eventos. Este mismo formato se puede utilizar cuando se carga al componente en caso que se quiera enviar las líneas ordenadas al cliente.
+</li><li><i>Agregar/Quitar líneas</i>: Se incluyen dos botones para agregar y quitar líneas. El agregado puede ser <i>en línea</i> utilizando javascript (más dinámico) o navegando al server como un evento más (más seguro para hacer validaciones o para incluír cascadas).
+</li><li><i>Ordenar líneas</i>: Se incluyen dos controles para que el usuario pueda ordenar las líneas subiendolas o bajandolas. Si se defina una columna, el orden se envía a travez de esta columna sino el orden se refleja en el orden en que se envían estas filas a los eventos. Este mismo formato se puede utilizar cuando se carga al componente en caso que se quiera enviar las líneas ordenadas al cliente.
 </li><li><i>Numerar filas</i>: A la izquierda de cada fila se incluye una numeración comenzando desde uno, es sólo para uso cosmético.
 </li><li><i>Análisis de cambios</i>: Se explica más abajo.
-</li><li><i>EF - Totalizar</i>: Dentro de la definición de un ef se puede marcar la opción <i>Totalizar</i>, esto implica que ante el cambio de un valor, esta columna se totaliza automáticamente (sería un procesamiento por defecto, ver la parte de javascript de este objeto para entender lo que es un procesamiento).
+</li><li><i>EF - Totalizar</i>: Dentro de la definición de un ef se puede marcar la opción <i>Totalizar</i>, esto implica que ante el cambio de un valor, esta columna se totaliza automáticamente (sería un procesamiento por defecto).
 </li></ul><h2 id="Carga">Carga</h2>
 <p>
 El ml espera en la carga un matriz con la primer dimensión representando el orden de las filas y la segunda un arreglo asociativo del tipo <tt>'id_ef' =&gt; valor</tt> . Cuando no se carga con datos al formulario se utilizan las filas vacías definidas en el editor.
@@ -275,7 +281,7 @@ Dando de baja el registro 12302.
 Por omisión la función de agregar o quitar líneas se realiza en el cliente utilizando javascript, esto brinda mucho dinamismo a la operación sacrificando la posibilidad de incluir lógica de negocio confiable en el proceso. Cuando la decisión de crear o eliminar filas debe pasar por lógica de negocio o cosas que depeden de la base de datos, debe transferirse la responsabildad al lado servidor, es por eso que tanto agregar como quitar puede ser parametrizado para que hagan un viaje al servidor.
 </p>
 <p>
-<strong>Agregado en el Server</strong>: Como casi toda interacción con el cliente, el agregado se dispara en el servidor como un evento <strong>pedido_registro_nuevo</strong>. El evento se puede:
+<strong>Agregado en el Server</strong>: Como casi toda interacción con el cliente, el agregado se dispara en el servidor como un evento <i>pedido_registro_nuevo</i>. El evento se puede:
 </p>
 <ul><li>No escuchar: en este caso se muesra al usuario un nuevo registro vacío
 </li><li>Escuchar y agregar un registro con el método <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_formulario_ml.html#set_registro_nuevo' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> set_registro_nuevo</a>
@@ -317,7 +323,7 @@ Las validaciones se definen en forma similar al formulario simple, sólo que aho
 </span></span>
 </pre></div><h3 id="Procesamientodeefs">Procesamiento de efs</h3>
 <p>
-Es posible escuchar los <a class="wiki" href="../efs/Procesamientos.html">procesamientos de efs</a>. Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe dos parámetros: uno que indica si el disparo es_inicial o no y el otro indica el número de fila donde se inicio el disparo. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo si se cuenta con tres campos: importe, descuento y neto, este último debe cargarse en base a la resta de los primeros dos. En la implementación este cambio se hace escuchando los procesamientos del importe y del descuento:
+Los procesamientos se lanzan cuando un ef cambia su valor en el cliente. El procesamiento se escucha como un evento más y recibe dos parámetros: uno que indica si el disparo es_inicial o no y el otro indica el número de fila donde se inicio el disparo. El procesamiento inicial es aquel que se da en la carga de la pantalla, sin intervención explícita del usuario, a partir de allí los procesamientos dependen exclusivamente de los cambios introducidos por el usuario. Por ejemplo si se cuenta con tres campos: importe, descuento y neto, este último debe cargarse en base a la resta de los primeros dos. En la implementación este cambio se hace escuchando los procesamientos del importe y del descuento:
 </p>
 <div class="code"><pre><span class="code-lang">&lt;?php
     </span><span class="code-keyword">echo </span><span class="code-string">"
@@ -347,7 +353,7 @@ En el formulario multilínea existe un procesamiento opcional que puede ser agre
 Existe un ejemplo en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, item <i>/Componentes/Formularios/Multilínea</i>.
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario_ml' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de formulario ML</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_formulario_ml' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de formulario ML</a></strong>
 </p>
 </div>
    </div>

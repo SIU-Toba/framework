@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
 <head>
- <title>Versiones/1.1.0 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
+ <title>Referencia/GeneracionDocumentacion - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/GeneracionDocumentacion?format=txt" title="Plain Text" type="text/plain" /><style type="text/css">
 .wikipage h2 {border-bottom: 1px solid gray;}
 
 /* trac php syntax highlighting */
@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -101,7 +107,7 @@ pre { padding:0; margin: 0}
 			
 			  <tr>
 			    <td colspan='2' class='header-menu'>
-			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/1.1' title='El sitio online contiene contenidos mas detallados y actualizados'
+			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Referencia/GeneracionDocumentacion' title='El sitio online contiene contenidos mas detallados y actualizados'
 						class='menu'>Ver online</a> ]
 			    </td>
 			
@@ -137,7 +143,7 @@ pre { padding:0; margin: 0}
   <li><a href="../TitleIndex.html">Title Index</a></li>
   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Recent Changes</a></li>
   
-   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?action=history">Page History</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/GeneracionDocumentacion?action=history">Page History</a></li>
   
  </ul>
  <hr />
@@ -150,26 +156,67 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Migración">Migración</a></li></ol></li></ol></div>
-<a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / 1.1.0
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#DocumentaciónAPIPHP">Documentación API PHP</a><ol><li><a href="#Requisitos">Requisitos</a></li><li>
+<a href="#Ejecución">Ejecución</a></li></ol><li><a href="#DocumentaciónAPIJS">Documentación API JS</a><ol><li><a href="#Requisitos1">Requisitos</a></li><li>
+<a href="#Ejecución1">Ejecución</a></li></ol><li><a href="#DocumentaciónWIKI">Documentación WIKI</a><ol><li><a href="#Requisitos2">Requisitos</a></li><li>
+<a href="#Ejecución2">Ejecución</a></li></ol></li></ol></li></ol></div>
+<a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / GeneracionDocumentacion
 </p>
-<h1 id="Versión1.1.0">Versión 1.1.0</h1>
-<h2 id="Migración">Migración</h2>
+<h1 id="GeneracióndeDocumentación">Generación de Documentación</h1>
+<h2 id="DocumentaciónAPIPHP">Documentación API PHP</h2>
 <p>
-La carga externa de campos de un datos_tabla a partir de un método php (dao) tenía un bug en la forma de pasar sus parámetros. La forma correcta es un parámetro por clave necesaria. Por ejemplo si la descripción de un campo depende de <tt>$id_cliente</tt> e <tt>$id_institucion</tt>, la función a definir tiene que ser por ejemplo:
+La documentación API se refiere al parseo de las distintas clases php del núcleo de toba y la generación de una serie de páginas web con su referencia. 
 </p>
-<pre class="wiki">function get_descripcion($id_cliente, $id_institucion);
+<h3 id="Requisitos">Requisitos</h3>
+<ul><li>Se necesita bajar la <a class="ext-link" href="../../../../external.html?link=http://pear.php.net/package/PhpDocumentor"><span class="icon"></span>ultima versión de phpdoc</a> y descomprimila en <tt>$toba_dir/php/3eros/PhpDocumentor</tt>
+</li><li>Copiar el skin <tt>toba_hands</tt> ubicando en <tt>$toba_dir/php/3eros/_PhpDocumentor</tt> al directorio <tt>php/3ros/PhpDocumentor/phpDocumentor/Converters/HTML/Smarty/templates</tt>
+</li></ul><h3 id="Ejecución">Ejecución</h3>
+<p>
+El comando que utiliza toba para generar esta documentación es
+</p>
+<pre class="wiki">toba doc api
 </pre>
 <p>
-En los casos que la carga se realizaba a través de un método ubicada en la misma clase estos parámetros se encapsulaban en un arreglo posicional. Por eso es necesario:
+Una vez terminado se pueden analizar los warnings navegando hacia 
 </p>
-<ol><li>Buscar en el proyecto todas las ocurrencias de <tt>activar_proceso_carga_externa_dao</tt>
-</li><li>Encontrar aquellas llamadas cuyos parámetros $clase e $include no son null (2do y 3er parámetro respectivamente). Esto indica que la carga se hace a partir de un método de la misma clase.
-</li><li>Buscar el método encargado de la carga (1er parámetro del <tt>activar_proceso_carga_externa_dao</tt>)
-</li><li>Este método seguramente asume que le llega un único parámetro y es un arreglo, remplazarlo por N parámetros explícitos según la definición de la carga.
-</li><li>Reemplazar el cuerpo de la función según estos nuevos parámetros.
-</li></ol></div>
+<pre class="wiki">http://localhost/toba_editor/doc/api/errors.html
+</pre>
+<h2 id="DocumentaciónAPIJS">Documentación API JS</h2>
+<p>
+La documentación API JS se refiere al parseo de los distintos clases js propias de toba ubicadas en $toba_dir/www/js
+</p>
+<h3 id="Requisitos1">Requisitos</h3>
+<ul><li>Runtime de perl (en windows recomendado <a class="ext-link" href="../../../../external.html?link=http://www.activestate.com/Products/Download/Register.plex?id=ActivePerl"><span class="icon"></span>ActivePerl</a>
+</li><li>Si aparece el mensaje <tt>Can't locate HTML/Template.pm in @INC</tt>. En linux ejecutar:
+<pre class="wiki">perl -MCPAN -e 'install HTML::Template'
+</pre>
+</li><li>En windows:
+<pre class="wiki">ppm
+install HTML-Template
+</pre>
+</li></ul><h3 id="Ejecución1">Ejecución</h3>
+<p>
+El comando que utiliza toba para generar esta documentación es
+</p>
+<pre class="wiki">toba doc api_js
+</pre>
+<h2 id="DocumentaciónWIKI">Documentación WIKI</h2>
+<p>
+La documentación WIKI surge del wiki almacenado en el TRAC. 
+</p>
+<h3 id="Requisitos2">Requisitos</h3>
+<ul><li>Instalar <a class="ext-link" href="../../../../external.html?link=http://www.httrack.com/"><span class="icon"></span>Httrack</a>
+</li></ul><h3 id="Ejecución2">Ejecución</h3>
+<p>
+El comando que utiliza toba para generar esta documentación es
+</p>
+<pre class="wiki">toba doc wiki
+</pre>
+<p>
+Por un tema de eficiencia el comando esta cableado para trabajar sobre localhost con lo cual solo puede ser ejecutado desde paykin
+</p>
+</div>
    </div>
    
   
@@ -181,7 +228,7 @@ En los casos que la carga se realizaba a través de un método ubicada en la mis
 </div>
 
 <script type="text/javascript">searchHighlight()</script>
-<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.1.0?format=txt">Plain Text</a></li></ul></div>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/GeneracionDocumentacion?format=txt">Plain Text</a></li></ul></div>
 
 </div>
 

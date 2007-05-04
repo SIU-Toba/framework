@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Definición">Definición</a></li><li>
 <a href="#Pantallas">Pantallas</a><ol><li><a href="#Personalizandolanavegación">Personalizando la navegación</a></li><li>
 <a href="#Controlandolaentradaylasalida">Controlando la entrada y la salida</a></li><li>
@@ -161,7 +167,7 @@ pre { padding:0; margin: 0}
 </p>
 <h1 id="ControladordeInterface">Controlador de Interface</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> controlador de interface (ci) es el responsable de manejar las pantallas y sus distintos elementos contenidos, siendo el nexo existente entre la capa de persistencia/negocio y la capa interface (eis).
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/multi_etapa.gif' /> controlador de interface (ci) es el responsable de manejar las pantallas y sus distintos elementos contenidos, siendo el nexo existente entre la capa de persistencia/negocio y la capa interface (eis).
 </p>
 <ul><li>Mantiene el concepto de navegación en una operación, constituyendo distintas <strong>pantallas</strong>.
 </li><li>Contiene y controla otros componentes como cuadros, filtros, formularios o incluso otros ci. Permite <a class="wiki" href="../Eventos.html#Listeners">escuchar eventos</a> propios o de componentes contenidos y <a class="wiki" href="../Configuracion.html">configurarlos</a>, definiendo así el comportamiento de las operaciones.
@@ -182,15 +188,15 @@ El CI además de contener y controlar cosas tiene una <a href='../../../../../ex
 <p>
 En su definición en el editor se puede:
 </p>
-<ul><li>Definir distintas <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/pantalla.gif' /> pantallas y especificar extensiones de las mismas.
+<ul><li>Definir distintas <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/pantalla.gif' /> pantallas y especificar extensiones de las mismas.
 </li><li>Incluir otros <a class="wiki" href="../Objetos.html">componentes</a> como <i>dependencias</i> y asociarlos a las pantallas.
-</li><li>Definir <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/reflexion/evento.gif' /> <a class="wiki" href="../Eventos.html">eventos</a> y asociarlos a las pantallas.
+</li><li>Definir <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/reflexion/evento.html' /> <a class="wiki" href="../Eventos.html">eventos</a> y asociarlos a las pantallas.
 </li></ul><h2 id="Pantallas">Pantallas</h2>
 <p>
 Para la construcción de interfaces más flexibles, el CI tiene capacidad de manejar diferentes <i>pantallas</i> en una operación. Así, por ejemplo, reservar una entrada puede pensarse como dos pantallas: una especificando el pago y la otra seleccionando la ubicación. La navegación entre estas pantallas puede ser:
 </p>
-<ul><li>A través de solapas (tabs). <img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3289' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de control de tabs</a></strong>
-</li></ul><ul><li>En un estilo <i>wizard</i> (anterior, siguiente) <img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ci/ci_wizard' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Wizard</a></strong>
+<ul><li>A través de solapas (tabs). <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||3289' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de control de tabs</a></strong>
+</li></ul><ul><li>En un estilo <i>wizard</i> (anterior, siguiente) <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia_chico.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ci/ci_wizard' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Wizard</a></strong>
 </li></ul><ul><li>Definida exclusivamente en la extensión del componente (cuando tal cosa sucede ir a la pantalla tal)
 </li></ul><h3 id="Personalizandolanavegación">Personalizando la navegación</h3>
 <p>
@@ -252,7 +258,7 @@ Cuando se entra y sale de una pantalla se dispara un evento que es posible captu
 Una excepción lanzada en estos listeners evita el cambio de pantalla y el mensaje de la excepción es agregado a la cola de mensajes de la operación para ser mostrada al usuario.
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ci/ci_anidado' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de navegación por subclase</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ci/ci_anidado' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de navegación por subclase</a></strong>
  
 </p>
 <h3 id="CambiodeLayout">Cambio de Layout</h3>
@@ -303,7 +309,7 @@ Por ejemplo si se quiere lograr un layout de <strong>dos columnas</strong> se pu
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000072' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de cambio de layout</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||1000072' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de cambio de layout</a></strong>
 </p>
 <h2 id="Dependencias">Dependencias</h2>
 <p>

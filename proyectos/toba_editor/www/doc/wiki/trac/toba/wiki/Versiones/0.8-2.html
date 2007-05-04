@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Documentación">Documentación</a></li><li>
 <a href="#General">General</a></li><li>
 <a href="#CI">CI</a></li><li>
@@ -198,7 +204,7 @@ Se brinda un <a class="wiki" href="../Proyectos/Referencia.html">proyecto de ref
 </p>
 <h2 id="formulario_ml">formulario_ml</h2>
 <ul><li>Nueva capacidad para analizar los cambios producidos en el cliente (en <a class="changeset" title="Analisis de cambios en ml, eventos con multiples parametros: ..." href="../../../../external.html?link=https://localhost/trac/toba/changeset/383">[383]</a>).
-</li><li><strong>javascript</strong>: Los <a class="wiki" href="../Referencia/efs/Procesamientos.html">procesamientos</a> traen como segundo parámetro la fila en la que se disparó.
+</li><li><strong>javascript</strong>: Los <a class="missing wiki" href="../Referencia/efs/Procesamientos.html" rel="nofollow">procesamientos?</a> traen como segundo parámetro la fila en la que se disparó.
 </li><li><strong>javascript</strong>: La totalización automática de una columna puede convivir con los procesamientos particulares para esa misma columna.
 </li></ul><p>
  
@@ -208,7 +214,7 @@ Se brinda un <a class="wiki" href="../Proyectos/Referencia.html">proyecto de ref
 </li><li>ef_fijo mantiene su estado en sesión.
 </li><li>Los editables pueden cargarse a partir de DAOS y funcionan como esclavos en cascadas.
 </li><li>Los solo-lectura seteados en javascript vuelven en el POST
-</li><li>Versión preliminar del ef_multi_seleccion en su versión SELECT (ver planificación de ticket <a class="new ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/4" title="Multiselección (new)">#4</a>).
+</li><li>Versión preliminar del ef_multi_seleccion en su versión SELECT (ver planificación de ticket <a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/4" title="Multiselección (closed)">#4</a>).
 </li><li>El rango de un numero se puede cambiar en ejecución.
 </li><li>El ef-checkbox puede tener un estado por defecto.
 </li><li><strong>javascript</strong>: nuevo método <i>fecha()</i> del ef_fecha que retorna un objeto Date de javascript.

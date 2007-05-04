@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Formadeextensión">Forma de extensión</a></li><li>
 <a href="#Tiposdeextensión">Tipos de extensión</a></li></ol></li></ol></div>
 <a href="../../WikiStart.html">Inicio</a> / <a href="../../Referencia.html">Referencia</a> / <a href="../Objetos.html">Objetos</a> / Extension
@@ -160,7 +166,7 @@ pre { padding:0; margin: 0}
 Los componentes tienen comportamientos genéricos predefinidos, es probable que, en mayor o menor medida, la aplicación necesite adaptar este comportamiento a sus necesidades en situaciones específicas, para eso existe la posibilidad de extender cada uno de los componentes, consumiendo sus ventanas y API pública.
 </p>
 <p>
-Es posible abrir desde el editor-toba el editor de texto asociado a archivos .php conteniendo la subclase en cuestión. Sólo es necesario <a class="wiki" href="../AbrirPhp.html">como configurar el sistema</a> y hacer uso de los iconos de apertura de archivos <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/reflexion/abrir.gif' />.
+Es posible abrir desde el editor-toba el editor de texto asociado a archivos .php conteniendo la subclase en cuestión. Sólo es necesario <a class="wiki" href="../AbrirPhp.html">como configurar el sistema</a> y hacer uso de los iconos de apertura de archivos <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/reflexion/abrir.gif' />.
 </p>
 <h2 id="Formadeextensión">Forma de extensión</h2>
 <p>
@@ -173,14 +179,14 @@ La extensión se da en código a través de herencia, creando una subclase del o
 </span><span class="code-lang">?&gt;
 </span></span>
 </pre></div><p>
-Utilizando generación de código es posible generar automáticamente tanto el archivo PHP como la subclase específica. Una vez definido el componente (y sus posibles dependencias) se puede crear la subclase indicando un path del archivo PHP y un nombre de subclase, en el ícono <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/php.gif' /> de la definición del componentes se muestran las opciones de creación y análisis de la subclase.<br />
+Utilizando generación de código es posible generar automáticamente tanto el archivo PHP como la subclase específica. Una vez definido el componente (y sus posibles dependencias) se puede crear la subclase indicando un path del archivo PHP y un nombre de subclase, en el ícono <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/nucleo/php.gif' /> de la definición del componentes se muestran las opciones de creación y análisis de la subclase.<br />
 </p>
 <h2 id="Tiposdeextensión">Tipos de extensión</h2>
 <p>
 Básicamente hoy se cuenta con dos modos bastante distintos de extensión
 </p>
 <ul><li><strong>Eventos</strong>: Los <a class="wiki" href="../Eventos.html">listeners de eventos</a> es la forma de extensión menos intrusiva ya que sólo permite consumir la interface del objeto.
-</li><li><strong>Redefinición</strong>: Al heredar de una clase se pueden redefinir ciertos métodos (por ejemplo <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_pantalla.html#generar_layout' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> generar_layout</a>) modificando radicalmente el comportamiento del objeto mediante su implementación. En la documentación API los métodos recomendados para extender llevan a su lado un ícono de <img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/doc/api/media/ventana.png' /> ventana. Otros métodos protegidos son extensibles también, pero si no poseen la ventana no se asegura que en futura versiones del framework será soportado ya que se está cambiando su implementación interna.
+</li><li><strong>Redefinición</strong>: Al heredar de una clase se pueden redefinir ciertos métodos (por ejemplo <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_pantalla.html#generar_layout' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> generar_layout</a>) modificando radicalmente el comportamiento del objeto mediante su implementación. En la documentación API los métodos recomendados para extender llevan a su lado un ícono de <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/doc/api/media/ventana.png' /> ventana. Otros métodos protegidos son extensibles también, pero si no poseen la ventana no se asegura que en futura versiones del framework será soportado ya que se está cambiando su implementación interna.
 </li></ul></div>
    </div>
    

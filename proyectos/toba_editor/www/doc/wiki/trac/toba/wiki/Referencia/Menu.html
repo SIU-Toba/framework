@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,13 +156,13 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Menu
 </p>
 <h1 id="Menúdelaaplicación">Menú de la aplicación</h1>
 <p>
-Desde el editor ir a la Configuración <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.gif' /> y luego a <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/proyecto.gif' /> Propiedades Básicas. Allí se puede seleccionar el tipo de menú a utilizar. Se puede extender el menú para incluir alguna personalización, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
+Desde el editor ir a la Configuración <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.html' /> y luego a <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/proyecto.html' /> Propiedades Básicas. Allí se puede seleccionar el tipo de menú a utilizar. Se puede extender el menú para incluir alguna personalización, en el <a class="wiki" href="PuntosDeAcceso.html">Punto de acceso</a> (generalmente aplicacion.php) se necesita indicar el archivo donde se encuentra la subclase. Por ejemplo:
 </p>
 <pre class="wiki">...
 define(&#34;apex_pa_menu_archivo&#34;, &#34;extension_nucleo/menu_miproyecto.php&#34;);

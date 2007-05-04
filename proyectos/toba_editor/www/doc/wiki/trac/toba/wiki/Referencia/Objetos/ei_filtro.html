@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,7 +156,7 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="../Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../../Instalacion.html">Instalación</a></li><li><a href="../../Referencia.html">Conceptos Básicos</a></li><li><a href="../Objetos.html">Componentes</a></li><li><a href="../Eventos.html">Eventos</a></li><li><a href="../FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Persistencia.html">Persistencia</a></li><li><a href="../../Tutorial.html">Tutorial</a></li><li><a href="../../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#ModelosdeEventos">Modelos de Eventos</a></li><li>
 <a href="#Cómofiltrar">¿Cómo filtrar?</a></li><li>
 <a href="#Ejemplos">Ejemplos</a></li></ol></li></ol></div>
@@ -158,15 +164,15 @@ pre { padding:0; margin: 0}
 </p>
 <h1 id="Filtro">Filtro</h1>
 <p>
-Un <img style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> filtro presenta una grilla de campos similar al <a class="wiki" href="ei_formulario.html">formulario</a>, pero con el objetivo de reducir el conjunto de datos mostrados por otro componente.
+Un <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_trunk/img/objetos/ut_formulario.gif' /> filtro presenta una grilla de campos similar al <a class="wiki" href="ei_formulario.html">formulario</a>, pero con el objetivo de reducir el conjunto de datos mostrados por otro componente.
 </p>
 <p>
 <a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/Eis/toba_ei_filtro.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/php-small.png' /> toba_ei_filtro</a> <br />
-<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei_formulario.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei_filtro</a>
+<a href='../../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/ei_formulario.html#' title='Navega hacia la documentacion JAVASCRIPT'><img style='vertical-align:middle' src='../../../../../toba_editor_trunk/doc/api/media/javascript-small.png' /> ei_formulario</a>
 </p>
 <h2 id="ModelosdeEventos">Modelos de Eventos</h2>
 <p>
-El filtro posee un modelo básico con dos eventos: <i>filtrar</i> y <i>cancelar</i>. Al igual que el formulario, el filtro presenta dos grupos de eventos cargado y no_cargado, para más info sobre lo que es un grupo de eventos ver las propiedades de un evento.
+El filtro posee un <a class="wiki" href="../Eventos.html#Modelos">modelo de eventos</a>  predeterminado, con dos eventos: <i>filtrar</i> y <i>cancelar</i>. Al igual que el formulario, el filtro presenta dos <a class="wiki" href="../Eventos.html#Agrupación">grupos de eventos</a> <i>cargado</i> y <i>no_cargado</i>.
 </p>
 <h2 id="Cómofiltrar">¿Cómo filtrar?</h2>
 <p>
@@ -177,7 +183,7 @@ El efecto del filtro se define en el <a class="wiki" href="ci.html">CI</a> que l
 Existe un ejemplo en el proyecto de <a class="wiki" href="../../Proyectos/Referencia.html">Referencia</a>, item <i>Componentes &gt; Cuadros &gt; Integración con filtro</i>.
 </p>
 <p>
-<img style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_filtro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Filtro</a></strong>
+<img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../../toba_editor_trunk/img/referencia.png' /> <strong><a href='../../../../../external.html?link=https://localhost/toba_referencia_trunk/aplicacion.php?ai=toba_referencia||/objetos/ei_filtro' title='Navega hacia el ejemplo en el proyecto online de referencia'>Ejemplo de Filtro</a></strong>
 </p>
 </div>
    </div>

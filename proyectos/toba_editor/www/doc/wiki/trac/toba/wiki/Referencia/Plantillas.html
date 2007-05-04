@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,18 +156,25 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="Objetos.html">Componentes</a></li><li><a href="Eventos.html">Eventos</a></li><li><a href="FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Personalizacióndeunaplantilla">Personalización de una plantilla</a></li><li>
 <a href="#Inclusióndeestilosenlínea">Inclusión de estilos en línea</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Referencia.html">Referencia</a> / Plantillas
 </p>
 <h1 id="PlantillasCSS">Plantillas CSS</h1>
 <p>
-El <a class="wiki" href="TipoPagina.html">Tipo de página</a> de un <a class="wiki" href="Item.html">ítem</a> es el encargado de incluir la plantilla CSS de la página. Cada proyecto puede definir cual es la plantilla que se va a utilizar (Usando el editor ir a la Configuración <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/configurar.gif' /> y luego a <img style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/proyecto.gif' /> <i>Propiedades Básicas</i>).
+El <a class="wiki" href="TipoPagina.html">Tipo de página</a> de un <a class="wiki" href="Item.html">ítem</a> es el encargado de incluir las plantilla CSS de la página. 
+El orden de inclusión de las plantillas es el siguiente:
+</p>
+<ol><li>Se incluye la plantilla maestra ($toba_dir/www/css/toba.css).
+</li><li>Se incluye la plantilla propia del <a class="wiki" href="Skin.html">Skin</a> actual.
+</li><li>Se incluye la plantilla específica del proyecto ($proyecto_dir/www/css/toba.css).
+</li></ol><p>
+Para cambiar la estética general de un proyecto es recomendable <a class="wiki" href="Skin.html">crear un nuevo skin</a>. Si lo que se quiere es variar algunos parámetros se recomienda crear una plantilla específica del proyecto.
 </p>
 <h2 id="Personalizacióndeunaplantilla">Personalización de una plantilla</h2>
 <p>
-Una vez que el proyecto eligió la plantilla principal a utilizar, se tiene la posibilidad de personalizar los estilo CSS que incluye. En ejecución el framework va a incluir tanto la plantilla original como la personalización, privilegiando ésta última gracias al sistema de cascadas.
+En ejecución el framework va a incluir tanto la plantilla original como la personalización, privilegiando ésta última gracias al sistema de cascadas de CSS.
 </p>
 <p>
 Por ejemplo en el <a class="wiki" href="../Proyectos/Referencia.html">proyecto de referencia</a> se quiere tener el menú alineado un poco más a la izquierda que la plantilla original, entonces se crea el archivo <tt>toba_referencia/www/css/toba.css</tt> conteniendo: 
@@ -175,9 +188,6 @@ A la hora de renderizar el menú, el navegador va a preferir esta última defini
 </p>
 <p>
 Para entender un poco más de CSS se puede consultar la <a class="wiki" href="../Biblioteca.html#CSS">Bibliografía recomendada</a>.
-</p>
-<p>
-Al momento de escribir esto existe una única plantilla oficial de Toba (llamada <tt>toba</tt> :P ), luego de las refactorizaciones de la versión 1.0 creemos que es lo suficientemente estable como para poder hacer plantillas totalmente nuevas sin correr peligro de incompatibilidad futura.
 </p>
 <h2 id="Inclusióndeestilosenlínea">Inclusión de estilos en línea</h2>
 <p>

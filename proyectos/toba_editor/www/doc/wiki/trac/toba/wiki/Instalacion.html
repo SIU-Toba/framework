@@ -79,6 +79,12 @@ pre { padding:0; margin: 0}
 .wikipage h3 {
     font-size:100%;
 }
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
 /*a {
  color: #890C71;
 }*/
@@ -150,37 +156,37 @@ pre { padding:0; margin: 0}
   
    <div class="wikipage">
     <div id="searchable"><p>
-<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li class="active"><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Referencia/MarcoTransaccional.html">Marco Transaccional</a></li><li><a href="Referencia/Ejecucion.html">Seguimiento de la ejecución</a></li><li><a href="Proyectos/Referencia.html">Proyecto Ejemplo</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
+<div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li class="active"><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Tutorial.html">Tutorial</a></li><li><a href="Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#GuíaRápidaWindows">Guía Rápida Windows</a></li><li>
 <a href="#GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</a></li><li>
-<a href="#Detallesdelainstalación">Detalles de la instalación</a><ol><li><a href="#Apache">Apache</a></li><li>
-<a href="#PHP">PHP</a></li><li>
-<a href="#PostgreSQL">PostgreSQL</a></li><li>
-<a href="#ClienteSVN">Cliente SVN</a></li><li>
-<a href="#Graphvizopcional">Graphviz (opcional)</a></li><li>
-<a href="#Toba">Toba</a></li></ol></li></ol></li></ol></div>
+<a href="#NotassobrePostgreSQL">Notas sobre PostgreSQL</a></li><li>
+<a href="#Alternativa:instalaciónmanual">Alternativa: instalación manual</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Instalacion
 </p>
 <h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
-<p>
-Las guías rápidas son las recomendadas para nuevas instalaciones de desarrollo, mientras que para instalaciones de producción es recomendado hacer instalaciones manuales de cada paso adaptándolas al servidor utilizado.
-</p>
 <h2 id="GuíaRápidaWindows">Guía Rápida Windows</h2>
-<ol><li>Instalar la última versión estable de la serie <strong>2.0.x</strong> de Apache desde <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>, con las opciones por defecto.
-</li><li><sup>(opcional)</sup> Instalar la última versión estable de PostgreSQL desde <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>, con las opciones por defecto.
-</li><li><sup>(opcional)</sup> Instalar la última versión estable de Subversion desde <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91</a>
-</li><li>Bajar el zip de PHP versión 5.1.2 o superior desde <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>http://ar.php.net/downloads.php</a> 
-</li><li>Descomprimir el zip en <tt>c:\php</tt>
-</li><li>Agregar <tt>c:\php</tt> en el path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
-</li><li>Copiar el archivo <tt>c:\php\php.ini.dist</tt> hacia <tt>c:\windows\php.ini</tt> y modificar las siguientes directivas:
-<ul><li>Buscar la línea <tt>error_reporting  =  E_ALL &amp; ~E_NOTICE</tt> y reemplazar por <tt>error_reporting  =  E_ALL</tt>
-</li><li>Buscar la línea <tt>magic_quotes_gpc = On</tt>  y pasarla a <tt>magic_quotes_gpc = Off</tt>
-</li><li>Cambiar <tt>extension_dir</tt> a <tt>extension_dir = &#34;c:/php/ext&#34;</tt>
-</li><li>Agregar o descomentar estas dos líneas:
-<pre class="wiki">extension=php_pdo.dll
+<ol><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>Apache</a>.
+</li><li>Bajar el zip de <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>PHP</a> versión 5.1.2 o superior y descomprimirlo en <tt>c:\php</tt>
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>PostgreSQL</a> <sup>(opcional)</sup>.
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>Subversion</a> <sup>(opcional)</sup>.
+</li><li>Agregar al path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
+<ul><li>El path de PHP: <tt>c:\php</tt>
+</li><li>El path de SVN: <tt>c:\Archivos de Programa\Subversion\bin</tt>
+</li></ul></li><li>Copiar el archivo <tt>c:\php\php.ini.dist</tt> hacia <tt>c:\windows\php.ini</tt>. Agregar o cambiar las siguientes directivas: (en caso que no se tenga acceso al php.ini se puede crear un archivo <tt>.htaccess</tt> conteniendo renglones con <tt>php_flag clave valor</tt>)
+<pre class="wiki">#Mínimos
+magic_quotes_gpc  =  Off
+magic_quotes_runtime  =  Off
+extension_dir = &#34;c:/php/ext&#34;
+extension=php_pdo.dll
 extension=php_pdo_pgsql.dll
+
+#Recomendados
+error_reporting  =  E_ALL           #Solo para desarrollo
+memory_limit = 64M
+post_max_size = 8 M
+upload_max_filesize = 8 M
 </pre>
-</li></ul></li><li>Editar el archivo <tt>C:\Archivos de Programa\Apache Group\Apache2\conf\httpd.conf</tt>, agregar estas líneas:
+</li><li>Editar el archivo <tt>C:\Archivos de Programa\Apache Group\Apache2\conf\httpd.conf</tt>, agregar estas líneas:
 <pre class="wiki">AddType application/x-httpd-php .php
 LoadModule php5_module &#34;c:/php/php5apache2.dll&#34;
 </pre>
@@ -197,69 +203,57 @@ Para distribuciones debian o derivados:
 </li><li>Ejecutar como superusuario: 
 <pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pdo php5-pdo-pgsql
 </pre>
-</li><li><sup>(opcional)</sup> ejecutar:
-<pre class="wiki">apt-get install subversion postgresql-8.1 postgresql-client-8.1 graphviz
+</li><li>En caso de no encontrar los paquetes pdo o pdo_pgsql instalarlos manualmente:
+<pre class="wiki">pecl install pdo
+pecl install pdo_pgsql
+</pre>
+</li><li>Para instalar servidor y cliente de Postgresql ejecutar <sup>(opcional)</sup>
+<pre class="wiki">apt-get install postgresql-8.2 postgresql-client-8.2
+</pre>
+</li><li>Para instalar el cliente Subversion ejecutar <sup>(opcional)</sup> 
+<pre class="wiki">apt-get install subversion
+</pre>
+</li><li>Para instalar graphviz ejecutar <sup>(opcional)</sup> 
+<pre class="wiki">apt-get install graphviz
 </pre>
 </li><li>Editar el archivo <tt>/etc/php5/apache2/php.ini</tt> y <tt>/etc/php5/cli/php.ini</tt>:
-<ul><li>Buscar la línea <tt>error_reporting  =  E_ALL &amp; ~E_NOTICE</tt> y reemplazar por <tt>error_reporting  =  E_ALL</tt>
-</li><li>Buscar la línea <tt>magic_quotes_gpc = On</tt>  y pasarla a <tt>magic_quotes_gpc = Off</tt>
-</li></ul></li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o bajar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
+<pre class="wiki">#Mínimos
+magic_quotes_gpc  =  Off
+magic_quotes_runtime  =  Off
+extension=php_pdo.so           #En caso de que se haya instalado manualmente con PECL
+extension=php_pdo_pgsql.so     #En caso de que se haya instalado manualmente con PECL
+
+#Recomendados
+error_reporting  =  E_ALL      #Solo para desarrollo
+memory_limit = 64M
+post_max_size = 8 M
+upload_max_filesize = 8 M
+</pre>
+</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o bajar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
 </li><li>Ejecutar y seguir las instrucciones:
-<pre class="wiki">cd ~/proyectos/toba/bin
-./instalar
+<pre class="wiki">~/proyectos/toba/bin/instalar
+</pre>
+</li><li>Tener en cuenta el esquema de permisos de UNIX. Apache necesita acceso a las carpeta <tt>www</tt> de Toba y del Proyecto. Si se quieren guardar los logs (opción por defecto) también necesita acceso de escritura a la carpeta <tt>instalacion</tt>. Para facilitar esto en las nuevas versiones existe el siguiente comando que acomoda los permisos luego de la instalacion:
+<pre class="wiki">toba instalacion cambiar_permisos
 </pre>
 </li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
 </li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url según el identificador que ha dado al proyecto).
-</li></ol><hr />
-<h2 id="Detallesdelainstalación">Detalles de la instalación</h2>
-<h3 id="Apache">Apache</h3>
-<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>http://httpd.apache.org/download.cgi</a>.
-</li><li>Versión 2.0.x: Tener en cuenta las <a class="ext-link" href="../../../external.html?link=http://ar2.php.net/manual/en/faq.installation.php#faq.installation.apache2"><span class="icon"></span>precauciones</a> que recomienda PHP.
-</li></ul><h3 id="PHP">PHP</h3>
-<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.php.net/downloads.php"><span class="icon"></span>http://www.php.net/downloads.php</a>.
-</li><li>Versión: 5.1.2 o superior
-</li><li>Extensiones mínimas necesarias:
-<ul><li>php_pdo
-</li><li>php_pdo_pgsql
-</li></ul></li><li>Configuraciones recomendadas para php.ini distintas a las por defecto:
-<ul><li>Aumentar el tamaño máximo de memoria a utilizar: <tt>memory_limit = 64M</tt>
-</li><li>No poner requisitos de tiempo máximo de ejecución: <tt>max_execution_time = 0</tt>
-</li><li>Desactivar las 'magic_quotes': <tt>magic_quotes_gpc = off</tt>. Si no se tiene acceso al php.ini hay una solucion utilizando <a class="ext-link" href="../../../external.html?link=http://www.php.net/manual/en/security.magicquotes.php#55935"><span class="icon"></span>un archivo .htaccess</a>
-</li><li>Aumentar los limites de POST y de tamaños de archivos:
-<ul><li><tt>post_max_size = 8 M</tt>
-</li><li><tt>upload_max_filesize = 8 M</tt>
-</li></ul></li><li>En desarrollo, mostrar por pantalla todos los sucesos: <tt>error_reporting = E_ALL</tt>
-</li></ul></li></ul><h3 id="PostgreSQL">PostgreSQL</h3>
-<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>http://www.postgresql.org/download/</a>.
-</li><li>Versión: 7.4 o mayor.
-</li><li>Si se instala versión 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>.
-</li><li>Desde la versión 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon"></span>por defecto no permite más joins en forma implícita en los DELETES</a>, para la regeneración y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cláusula <tt>add_missing_from</tt> de la configuración de postgreSQL.
-</li></ul><h3 id="ClienteSVN">Cliente SVN</h3>
+</li><li>Finalmente ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>
+</li></ol><h2 id="NotassobrePostgreSQL">Notas sobre PostgreSQL</h2>
 <p>
-El cliente SVN es necesario cuando:
+Si se instala versión 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>.
+Desde la versión 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon"></span>por defecto no permite más joins en forma implícita en los DELETES</a>, para la regeneración y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cláusula <tt>add_missing_from</tt> de la configuración de postgreSQL.
 </p>
-<ol><li>El proyecto se encuentra versionado. Los comandos administrativos que manejan los metadatos van a utilizar el cliente SVN de línea de comandos (<tt>svn.exe</tt>) para sincronizar los metadatos con el repositorio.
-</li><li><a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">Obtener el código fuente</a> del toba (Para esto es indistinto utilizar un cliente SVN visual o uno de linea de comandos).
-</li></ol><ul><li>URL: 
-<ul><li><a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/"><span class="icon"></span>Cliente de linea de comandos</a>.
-</li><li>Cliente recomandado para windows: <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.tigris.org/download.html"><span class="icon"></span>TortoiseSVN</a>
-</li></ul></li><li>Versión: 1.2 o mayor
-</li><li>Si se instala sobre linux, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>.
-</li></ul><h3 id="Graphvizopcional">Graphviz (opcional)</h3>
+<h2 id="Alternativa:instalaciónmanual">Alternativa: instalación manual</h2>
 <p>
-Graphviz es una herramienta que permite renderizar esquemas en base a una descripcion de los mismos. La misma constituye la base sobre  la que opera el componente <a class="wiki" href="Referencia/Objetos/ei_esquema.html">ei_esquema</a>, utilizado dentro del toba para mostrar las relaciones entre tablas que constituyen al componente de persistencia <a class="wiki" href="Referencia/Objetos/datos_relacion.html">datos_relacion</a>. Si bien la utilizacion de la herramienta es opcional, la instalacion esta recomendada porque facilita mucho la utilizacion de este componentes, sobre todo el debug del procesamiento llevado a cabo por el mismo.
-</p>
-<ul><li>URL: <a class="ext-link" href="../../../external.html?link=http://www.graphviz.org/Download.php"><span class="icon"></span>http://www.graphviz.org/Download.php</a>
-</li><li>Versión: 2.5 o superior
-</li></ul><h3 id="Toba">Toba</h3>
-<p>
-Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">codigo fuente</a> del toba, se puede ejecutar la instalación automática o ejecuta la siguiente lista de pasos equivalentes:
+Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">codigo fuente</a> del toba, se puede ejecutar la instalación automática (instalar.bat) o ejecuta la siguiente lista de pasos equivalentes:
 </p>
 <ol><li>Preparar el entorno para la ejecucion de los <a class="wiki" href="Referencia/Consola.html">comandos administrativos</a>.
 </li><li>Configurar la <strong><a class="wiki" href="Referencia/Instalacion.html">instalacion</a></strong>.
 </li><li>Crear una <strong><a class="wiki" href="Referencia/Instancia.html">instancia</a></strong>.
 </li><li>Crear o cargar un <strong><a class="wiki" href="Referencia/Proyecto.html">Proyecto</a></strong>.
 </li><li><a class="wiki" href="Instalacion/ConfigurarApache.html">Configurar Apache</a> para publicar el acceso a los proyectos.
+</li><li>Controlar los <a class="wiki" href="Instalacion/Navegador.html">requisitos del navegador</a>
 </li></ol></div>
    </div>
    

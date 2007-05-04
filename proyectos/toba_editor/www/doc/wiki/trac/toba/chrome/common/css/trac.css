@@ -404,5 +404,6 @@ div.system-message p.system-message-title { font-weight: bold; }
 			
 			.menu { color:white;}
 			body { margin: 0; padding: 0; }
-			div.wiki { padding-left: 10px; }			
+			div.wiki { padding-left: 10px; }	
+			h2 {background-color: #BD0000 !important;}		
 		
