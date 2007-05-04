@@ -1,0 +1,3 @@
+#Sincroniza el directorio actual, borrando los que ya no estan y agregando los archivos nuevos
+for a in `svn status | grep "!" | awk '{print $2}'`; do svn remove $a; done
+for a in `svn status | grep "?" | awk '{print $2}'`; do svn add $a; done

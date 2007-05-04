@@ -1,0 +1,6 @@
+#Borra todos los archivos no agregados y revierte el resto
+for a in `svn st | grep ? | awk '{ print $2 }'`
+do
+    rm -R $a
+done
+svn revert * -R
