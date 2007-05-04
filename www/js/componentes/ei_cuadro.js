@@ -60,4 +60,10 @@ function ei_cuadro(instancia, input_submit) {
 		return true;
 	};
 	
+	ei_cuadro.prototype.colapsar_corte = function(corte)
+	{
+		var objeto = document.getElementById(corte);
+		toggle_nodo(objeto);
+	};
+	
 toba.confirmar_inclusion('componentes/ei_cuadro');

@@ -44,9 +44,9 @@ class toba_ei_cuadro extends toba_ei
 	protected $_cortes_def;
 	protected $_cortes_control;
 	protected $_cortes_modo;
+	protected $_cortes_anidado_colap;
 	//Salida
 	protected $_tipo_salida;
-	
 	protected $_total_registros; 
     
     function __construct($id)
@@ -100,6 +100,7 @@ class toba_ei_cuadro extends toba_ei
 				$estructura_datos = array_merge($estructura_datos, $col_desc, $col_id);
 			}
 			$this->_cortes_modo = $this->_info_cuadro['cc_modo'];
+			$this->_cortes_anidado_colap = $this->_info_cuadro['cc_modo_anidado_colap'];
 		}
 		//Procesamiento de columnas
 		for($a=0;$a<count($this->_info_cuadro_columna);$a++){
@@ -513,9 +514,7 @@ class toba_ei_cuadro extends toba_ei
 		}else{
 			$this->_pagina_actual = 1;
 		}
-		if (! isset($this->_tamanio_pagina))  {
-        	$this->_tamanio_pagina = isset($this->_info_cuadro["tamano_pagina"]) ? $this->_info_cuadro["tamano_pagina"] : 80;
-		}
+		$this->set_tamanio_pagina();
 	}
 	
 	/**
@@ -585,9 +584,13 @@ class toba_ei_cuadro extends toba_ei
 	 * Cambia el tamaño de página a usar en el paginado
 	 * @param integer $tam
 	 */
-	function set_tamanio_pagina($tam)
+	function set_tamanio_pagina($tam=null)
 	{
-		$this->_tamanio_pagina = $tam;	
+		if(isset($tamanio)){
+			$this->_tamanio_pagina = $tamanio;
+		} else {
+	        $this->_tamanio_pagina = isset($this->_info_cuadro["tamano_pagina"]) ? $this->_info_cuadro["tamano_pagina"] : 80;
+		}
 	}
 	
 	/**
@@ -894,6 +897,9 @@ class toba_ei_cuadro extends toba_ei
 	
 	private function crear_corte(&$nodo)
 	{
+		static $id_corte_control = 0;
+		$id_corte_control++;
+		$id_unico = $this->_submit . '__cc_' .$id_corte_control;
 		//Disparo las funciones de sumarizacion creadas por el usuario para este corte
 		if(isset($this->_cortes_def[$nodo['corte']]['sum_usuario'])){
 			foreach($this->_cortes_def[$nodo['corte']]['sum_usuario'] as $sum){
@@ -901,25 +907,33 @@ class toba_ei_cuadro extends toba_ei
 				$nodo['sum_usuario'][$sum] = $this->$metodo($nodo['filas']);
 			}
 		}
+		$this->generar_cabecera_corte_control($nodo, $id_unico);
 		//Genero el corte
-		$this->generar_cabecera_corte_control($nodo);
+		if ($this->_cortes_anidado_colap) {
+			echo "<table class='tabla-0' id='$id_unico' width='100%' border='1'><tr><td>\n";
+		}
+
 		//Disparo la generacion recursiva de hijos
 		if(isset($nodo['hijos'])){
 			$this->generar_cc_inicio_nivel();
 			foreach(array_keys($nodo['hijos']) as $corte){
-				$this->crear_corte( $nodo['hijos'][$corte] );
+				$this->crear_corte( $nodo['hijos'][$corte] , $id_unico);
 			}
 			$this->generar_cc_fin_nivel();
 		}else{	
 			//Disparo la construccion del ultimo nivel
 			$this->generar_cuadro( $nodo['filas']); //, $nodo['acumulador']
 		}
+		if ($this->_cortes_anidado_colap) {
+			echo "</td></tr></table>\n";
+		}
 		$this->generar_pie_corte_control($nodo);
 	}
 
-	private function generar_cabecera_corte_control(&$nodo){
+
+	private function generar_cabecera_corte_control(&$nodo, $id_unico = null){
 		$metodo = $this->_tipo_salida . '_cabecera_corte_control';
-		$this->$metodo($nodo);
+		$this->$metodo($nodo, $id_unico);
 	}
 	
 	private function generar_pie_corte_control(&$nodo){
@@ -982,14 +996,14 @@ class toba_ei_cuadro extends toba_ei
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
-		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
 		}
 	}
 	
 	private function html_fin()
 	{
-		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
 			$this->html_cuadro_fin();					
 		}
@@ -1072,7 +1086,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 		Genera la CABECERA del corte de control
 	*/
-	private function html_cabecera_corte_control(&$nodo)
+	private function html_cabecera_corte_control(&$nodo, $id_unico = null)
 	{
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
 		$metodo = 'html_cabecera_cc_contenido';
@@ -1083,9 +1097,19 @@ class toba_ei_cuadro extends toba_ei
 		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 		$class = "ei-cuadro-cc-tit-nivel-$nivel_css";
 		if($this->_cortes_modo == apex_cuadro_cc_tabular){
-			echo "<tr><td  colspan='$this->_cantidad_columnas_total' class='$class'>\n";
+			if ($this->_cortes_anidado_colap){
+				echo "<table width='100%' class='tabla-0' border='0'><tr><td width='100%' class='$class'>";			
+			} else {
+				echo "<tr><td  colspan='$this->_cantidad_columnas_total' class='$class'>\n";
+			}
 			$this->$metodo($nodo);
-			echo "</td></tr>\n";
+			if ($this->_cortes_anidado_colap){
+				$js = 	"onclick=\"{$this->objeto_js}.colapsar_corte('$id_unico');\"";						
+				$img = toba_recurso::imagen_toba('colapsado.gif', true, null, null, null, null, $js);
+				echo "</td><td class='$class impresion-ocultable'>$img</td></tr></table>";
+			}else {
+				echo "</td></tr>\n";
+			}
 		}else{
 			echo "<li class='$class'>\n";
 			$this->$metodo($nodo);
@@ -1118,6 +1142,9 @@ class toba_ei_cuadro extends toba_ei
 	protected function html_pie_corte_control(&$nodo)
 	{
 		if($this->_cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
+			if( ! $this->tabla_datos_es_general() ) {
+				echo "<table class='tabla-0'  width='100%'>";
+			}
 			$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 			$css_pie = 'ei-cuadro-cc-pie-nivel-' . $nivel_css;
 			$css_pie_cab = 'ei-cuadro-cc-pie-cab-nivel-'.$nivel_css;
@@ -1169,6 +1196,9 @@ class toba_ei_cuadro extends toba_ei
 				$this->$metodo($nodo);
 				echo "</td></tr>\n";
 			}
+			if( ! $this->tabla_datos_es_general() ) {
+				echo "</table>";
+			}
 		}else{																//MODO ANIDADO
 			echo "</li>\n";
 		}
@@ -1207,10 +1237,19 @@ class toba_ei_cuadro extends toba_ei
 	//-- Generacion del CUADRO 
 	//-------------------------------------------------------------------------------
 
-	private function html_cuadro(&$filas, &$totales=null)
+	function tabla_datos_es_general()
+	{
+		if(! $this->existen_cortes_control() ) {
+			return true;	
+		}else{
+			return ($this->_cortes_modo == apex_cuadro_cc_tabular) && ! $this->_cortes_anidado_colap;
+		}
+	}
+	
+	protected function html_cuadro(&$filas, &$totales=null)
 	{
 		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
-		if(!($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular )){
+		if( ! $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
 		}
 		$this->html_cuadro_cabecera_columnas();
@@ -1293,23 +1332,22 @@ class toba_ei_cuadro extends toba_ei
 		if(isset($totales)){
 			$this->html_cuadro_totales_columnas($totales);
 		}
-		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
-		if(!($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular )){
+		if( ! $this->tabla_datos_es_general() ){
 			$this->html_cuadro_fin();
 		}
 	}
 
-	private function html_cuadro_inicio()
+	protected function html_cuadro_inicio()
 	{
-		echo "<TABLE width='100%' class='tabla-0'>\n";
+		echo "<TABLE width='100%' class='tabla-0' border='0'>\n";
 	}
 	
-	private function html_cuadro_fin()
+	protected function html_cuadro_fin()
 	{
 		echo "</TABLE>\n";
 	}
 
-	private function html_cuadro_cabecera_columnas()
+	protected function html_cuadro_cabecera_columnas()
 	{
 		//¿Alguna columna tiene título?
 		$alguna_tiene_titulo = false;
@@ -1400,7 +1438,7 @@ class toba_ei_cuadro extends toba_ei
 	protected function html_cuadro_totales_columnas($totales,$estilo=null,$agregar_titulos=false, $estilo_linea=null)
 	{
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
-		if($agregar_titulos){
+		if($agregar_titulos || (! $this->tabla_datos_es_general()) ){
 			echo "<tr>\n";
 			for ($a=0;$a<$this->_cantidad_columnas;$a++){
 				$clave = $this->_info_cuadro_columna[$a]["clave"];
@@ -1555,14 +1593,14 @@ class toba_ei_cuadro extends toba_ei
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
-		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
 		}
 	}
 
 	private function pdf_fin()
 	{
-		if($this->existen_cortes_control() && $this->_cortes_modo == apex_cuadro_cc_tabular ){
+		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
 			$this->html_cuadro_fin();					
 		}

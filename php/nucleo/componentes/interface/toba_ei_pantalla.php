@@ -283,6 +283,38 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$this->_eventos['cambiar_tab_'.$id] = array('maneja_datos' => true);		
 	}
+
+	//--------------------------------------------------------------------
+	//	API para posicionar la botonera
+	//--------------------------------------------------------------------
+
+	/**
+	 * Posiciona la botonera en la parte inferior del ci
+	 * @return array
+	 */
+	function posicionar_botonera_abajo()
+	{
+		$this->_posicion_botonera = 'abajo';
+	}
+	
+	/**
+	 * Posiciona la botonera en la parte superior del ci
+	 * @return array
+	 */
+	function posicionar_botonera_arriba()
+	{
+		$this->_posicion_botonera = 'arriba';
+	}
+	
+	/**
+	 * Posiciona la botonera en la parte inferior y superior del ci
+	 * @return array
+	 */
+	function posicionar_botonera_ambos()
+	{
+		$this->_posicion_botonera = 'ambos';
+	}	
+	
 	
 	//---------------------------------------------------------------
 	//-------------------------- SALIDA HTML --------------------------
