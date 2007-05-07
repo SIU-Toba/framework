@@ -1413,7 +1413,7 @@ class toba_ei_cuadro extends toba_ei
         //--- ¿Es ordenable?
 		if (	isset($this->_eventos['ordenar']) 
 				&& $this->_info_cuadro_columna[$indice]["no_ordenar"] != 1
-				&& $this->tipo_salida != 'pdf' ) {
+				&& $this->_tipo_salida != 'pdf' ) {
 			$sentido = array();
 			$sentido[] = array('asc', 'Ordenar ascendente');
 			$sentido[] = array('des', 'Ordenar descendente');
