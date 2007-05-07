@@ -1300,9 +1300,11 @@ function ezText($text,$size=0,$options=array(),$test=0){
 
 function ezImage($image,$pad = 5,$width = 0,$resize = 'full',$just = 'center',$border = ''){
 	//beta ezimage function
+	$temp = false;
 	if (stristr($image,'://'))//copy to temp file
 	{
 		$fp = @fopen($image,"rb");
+		$cont = '';
 		while(!feof($fp))
    		{
       			$cont.= fread($fp,1024);

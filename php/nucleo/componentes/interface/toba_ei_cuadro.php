@@ -862,22 +862,34 @@ class toba_ei_cuadro extends toba_ei
 		$this->_cantidad_columnas_total = $this->_cantidad_columnas + $this->_cantidad_columnas_extra;
 	}
 
-	private function generar_inicio(){
+	/**
+	 * @ignore 
+	 */
+	 protected function generar_inicio(){
 		$metodo = $this->_tipo_salida . '_inicio';
 		$this->$metodo();
 	}
 
-	private function generar_cuadro(&$filas, &$totales=null){
+	/**
+	 * @ignore 
+	 */
+	protected function generar_cuadro(&$filas, &$totales=null){
 		$metodo = $this->_tipo_salida . '_cuadro';
 		$this->$metodo($filas, $totales);
 	}
 
-	private function generar_fin(){
+	/**
+	 * @ignore 
+	 */
+	protected function generar_fin(){
 		$metodo = $this->_tipo_salida . '_fin';
 		$this->$metodo();
 	}
 
-	private function generar_mensaje_cuadro_vacio($texto){
+	/**
+	 * @ignore 
+	 */
+	protected function generar_mensaje_cuadro_vacio($texto){
 		$metodo = $this->_tipo_salida . '_mensaje_cuadro_vacio';
 		$this->$metodo($texto);
 	}
@@ -1005,6 +1017,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
+			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();					
 		}
 		echo "</td></tr>\n";
@@ -1333,6 +1346,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->html_cuadro_totales_columnas($totales);
 		}
 		if( ! $this->tabla_datos_es_general() ){
+			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();
 		}
 	}
@@ -1397,7 +1411,9 @@ class toba_ei_cuadro extends toba_ei
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     {
         //--- ¿Es ordenable?
-		if (isset($this->_eventos['ordenar']) && $this->_info_cuadro_columna[$indice]["no_ordenar"]!=1) {
+		if (	isset($this->_eventos['ordenar']) 
+				&& $this->_info_cuadro_columna[$indice]["no_ordenar"] != 1
+				&& $this->tipo_salida != 'pdf' ) {
 			$sentido = array();
 			$sentido[] = array('asc', 'Ordenar ascendente');
 			$sentido[] = array('des', 'Ordenar descendente');
@@ -1431,6 +1447,27 @@ class toba_ei_cuadro extends toba_ei
 		}	
 		echo $editor;
     }
+
+    /**
+     * @ignore 
+     */
+	function html_acumulador_usuario()
+	{
+		if (isset($this->sum_usuario)) {
+			foreach($this->sum_usuario as $sum) {
+				if($sum['corte'] == 'toba_total') {
+					$metodo = $sum['metodo'];
+					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
+				}
+			}
+		}
+		if (isset($sumarizacion)) {
+			$css = 'cuadro-cc-sum-nivel-1';
+			echo "<tr><td colspan='$this->cantidad_columnas_total'>\n";
+			$this->html_cuadro_sumarizacion($sumarizacion,null,300,$css);
+			echo "</td></tr>\n";
+		}
+	}
 
     /**
      * @ignore 
@@ -1598,7 +1635,10 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
-	private function pdf_fin()
+	/**
+	 * @ignore 
+	 */
+	protected function pdf_fin()
 	{
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
@@ -1613,7 +1653,10 @@ class toba_ei_cuadro extends toba_ei
 		echo "</TABLE>\n";
 	}
 
-	private function pdf_cuadro(&$filas, &$totales){
+	/**
+	 * @ignore 
+	 */
+	protected function pdf_cuadro(&$filas, &$totales){
 		$this->html_cuadro( $filas, $totales );
 	}
 

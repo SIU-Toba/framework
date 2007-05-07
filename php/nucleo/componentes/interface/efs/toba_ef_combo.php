@@ -103,6 +103,11 @@ abstract class toba_ef_seleccion extends toba_ef
 		}
 	}
 
+	function es_estado_no_seleccionado()
+	{
+		return $this->estado == apex_ef_no_seteado;		
+	}
+
 	protected function get_estado_para_input()
 	{
 		if ($this->es_estado_nulo($this->estado)) {
