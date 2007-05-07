@@ -133,14 +133,30 @@ class comando_instancia extends comando_toba
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia();
+		// Veo que tipo de instancia hay que crear
+		$param = $this->get_parametros();
+		if ( isset($param['-t'] ) && ( trim( $param['-t'] ) != '') ) {
+			switch ($param['-t']) {
+				case 'normal':
+					$metodo_carga = 'cargar';
+					break;
+				case 'mini':
+					$metodo_carga = 'cargar_tablas_minimas';
+					break;
+				default:
+					$metodo_carga = 'cargar';
+			}
+		}else {
+			$metodo_carga = 'cargar';
+		}
 
 		try {
-			$instancia->cargar();
+			$instancia->$metodo_carga();
 		} catch ( toba_error_modelo_preexiste $e ) {
 			$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
 			$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
 			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
-				$instancia->cargar( true );
+				$instancia->$metodo_carga( true );
 			} else {
 				return;	
 			}

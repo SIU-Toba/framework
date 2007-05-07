@@ -164,7 +164,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function existe_modelo()
 	{
 		try {
-			$sql = "SELECT 1 FROM apex_proyecto;";
+			$sql = "SELECT 1 FROM apex_usuario;";
 			$db = $this->get_db();
 			@$db->consultar( $sql );
 			return true;
@@ -422,6 +422,63 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
 												$e->getMessage());
 		}
+	}
+
+	function cargar_tablas_minimas($forzar_carga = false)
+	{
+		$this->manejador_interface->titulo('Creación de la instancia');		
+		// Existe la base?
+		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
+			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
+			$this->instalacion->crear_base_datos( $this->ini_base );
+			$this->manejador_interface->mensaje("OK");
+		}
+		// Esta el modelo cargado
+		if ( $this->existe_modelo() ) {
+			if ( $forzar_carga ) {
+				$this->eliminar_tablas_minimas();
+			} else {
+				throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+			}
+		}
+		try {
+			$this->get_db()->abrir_transaccion();
+			$this->get_db()->retrazar_constraints();
+			//Creo las tablas basicas
+			$this->manejador_interface->mensaje('Creando las tablas del sistema', false);
+			$directorio = toba_modelo_nucleo::get_dir_ddl();
+			$cant = $this->get_db()->ejecutar_archivo( $directorio . "/pgsql_a02_tablas_usuario.sql" );
+			toba_logger::instancia()->debug($archivo . ". ($cant)");			
+			$cant = $this->get_db()->ejecutar_archivo( $directorio . "/pgsql_a04_tablas_solicitudes.sql" );
+			toba_logger::instancia()->debug($archivo . ". ($cant)");			
+			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->separador();
+			$this->cargar_informacion_instancia();
+			$this->get_db()->cerrar_transaccion();
+		} catch ( toba_error $e ) {
+			$this->get_db()->abortar_transaccion();
+			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
+												$e->getMessage());
+		}		
+	}
+
+	function eliminar_tablas_minimas()
+	{
+		$sql[] = 'DROP TABLE apex_usuario_proyecto';
+		$sql[] = 'DROP TABLE apex_usuario_grupo_acc';
+		$sql[] = 'DROP TABLE apex_usuario_perfil_datos';
+		$sql[] = 'DROP TABLE apex_usuario';
+		$sql[] = 'DROP TABLE apex_usuario_tipodoc';
+		$sql[] = 'DROP TABLE apex_log_ip_rechazada';
+		$sql[] = 'DROP TABLE apex_log_error_login';
+		$sql[] = 'DROP TABLE apex_log_sistema';
+		$sql[] = 'DROP TABLE apex_solicitud_observacion';
+		$sql[] = 'DROP TABLE apex_solicitud_cronometro';
+		$sql[] = 'DROP TABLE apex_solicitud_consola';
+		$sql[] = 'DROP TABLE apex_solicitud_browser';
+		$sql[] = 'DROP TABLE apex_sesion_browser';
+		$sql[] = 'DROP TABLE apex_solicitud';
+		$this->get_db()->ejecutar($sql);
 	}
 
 	/**
