@@ -124,6 +124,43 @@ CREATE TABLE apex_usuario_proyecto
 	usuario_perfil_datos			varchar(20)			NULL,
 	CONSTRAINT	"apex_usu_proy_pk"  PRIMARY KEY ("proyecto","usuario"),
 	CONSTRAINT	"apex_usu_proy_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	CASCADE ON UPDATE	CASCADE DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_fk_grupo_acc" FOREIGN KEY ("proyecto","usuario_grupo_acc") REFERENCES "apex_usuario_grupo_acc" ("proyecto","usuario_grupo_acc") ON DELETE	CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_usu_proy_fk_grupo_acc" FOREIGN KEY ("proyecto","usuario_grupo_acc") REFERENCES "apex_usuario_grupo_acc" ("proyecto","usuario_grupo_acc") ON DELETE	CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE
+	--CONSTRAINT	"apex_usu_proy_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+);
+
+CREATE TABLE apex_usuario_grupo_acc_item
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: permisos
+--: dump_order_by: usuario_grupo_acc, item
+--: zona: usuario, item
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto								varchar(15)		NOT NULL,
+	usuario_grupo_acc					varchar(20)		NOT NULL,
+	item_id								int4				NULL,	
+	item									varchar(60)		NOT NULL,
+	CONSTRAINT	"apex_usu_item_pk" PRIMARY	KEY ("proyecto","usuario_grupo_acc","item"),
+	CONSTRAINT	"apex_usu_item_fk_us_gru_acc"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+);
+  
+--#################################################################################################
+
+CREATE TABLE apex_permiso_grupo_acc
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: permisos
+--: dump_order_by: permiso, usuario_grupo_acc
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(	
+	proyecto							varchar(15)		NOT NULL,
+	usuario_grupo_acc					varchar(20)		NOT NULL,
+	permiso								int4			NOT NULL,
+	CONSTRAINT	"apex_per_grupo_acc_pk" 		PRIMARY	KEY ("usuario_grupo_acc","permiso","proyecto"),
+	CONSTRAINT	"apex_per_grupo_acc_grupo_fk"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );

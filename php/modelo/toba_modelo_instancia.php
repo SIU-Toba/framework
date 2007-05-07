@@ -426,7 +426,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	function cargar_tablas_minimas($forzar_carga = false)
 	{
-		$this->manejador_interface->titulo('Creación de la instancia');		
+		$this->manejador_interface->titulo('Creación de una instancia MINIMA');		
 		// Existe la base?
 		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
 			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
@@ -444,15 +444,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		try {
 			$this->get_db()->abrir_transaccion();
 			$this->get_db()->retrazar_constraints();
-			//Creo las tablas basicas
-			$this->manejador_interface->mensaje('Creando las tablas del sistema', false);
-			$directorio = toba_modelo_nucleo::get_dir_ddl();
-			$cant = $this->get_db()->ejecutar_archivo( $directorio . "/pgsql_a02_tablas_usuario.sql" );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");			
-			$cant = $this->get_db()->ejecutar_archivo( $directorio . "/pgsql_a04_tablas_solicitudes.sql" );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");			
-			$this->manejador_interface->mensaje("OK");
-			$this->manejador_interface->separador();
+			// Creo las tablas basicas
+			$this->crear_tablas_minimas();
+			// Cargo informacion del proyecto
+			$this->cargar_proyectos(true);
+			// Cargo la informacion de la instancia
 			$this->cargar_informacion_instancia();
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error $e ) {
@@ -460,25 +456,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
 												$e->getMessage());
 		}		
-	}
-
-	function eliminar_tablas_minimas()
-	{
-		$sql[] = 'DROP TABLE apex_usuario_proyecto';
-		$sql[] = 'DROP TABLE apex_usuario_grupo_acc';
-		$sql[] = 'DROP TABLE apex_usuario_perfil_datos';
-		$sql[] = 'DROP TABLE apex_usuario';
-		$sql[] = 'DROP TABLE apex_usuario_tipodoc';
-		$sql[] = 'DROP TABLE apex_log_ip_rechazada';
-		$sql[] = 'DROP TABLE apex_log_error_login';
-		$sql[] = 'DROP TABLE apex_log_sistema';
-		$sql[] = 'DROP TABLE apex_solicitud_observacion';
-		$sql[] = 'DROP TABLE apex_solicitud_cronometro';
-		$sql[] = 'DROP TABLE apex_solicitud_consola';
-		$sql[] = 'DROP TABLE apex_solicitud_browser';
-		$sql[] = 'DROP TABLE apex_sesion_browser';
-		$sql[] = 'DROP TABLE apex_solicitud';
-		$this->get_db()->ejecutar($sql);
 	}
 
 	/**
@@ -506,6 +483,54 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("OK");
 	}
 	
+	private function crear_tablas_minimas()
+	{
+		$this->manejador_interface->mensaje('Creando las tablas del sistema (version reducida)', false);
+		$directorio = toba_modelo_nucleo::get_dir_ddl();
+		$archivo = $directorio . "/pgsql_a00_tablas_instancia.sql";
+		$cant = $this->get_db()->ejecutar_archivo( $archivo );
+		toba_logger::instancia()->debug($archivo . ". ($cant)");			
+		$this->manejador_interface->mensaje_directo('.');
+		$archivo = $directorio . "/pgsql_a02_tablas_usuario.sql";
+		$cant = $this->get_db()->ejecutar_archivo( $archivo );
+		toba_logger::instancia()->debug($archivo . ". ($cant)");			
+		$this->manejador_interface->mensaje_directo('.');
+		$archivo = $directorio . "/pgsql_a04_tablas_solicitudes.sql" ;
+		$cant = $this->get_db()->ejecutar_archivo( $archivo );
+		toba_logger::instancia()->debug($archivo . ". ($cant)");			
+		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->mensaje("OK");		
+	}
+
+	function eliminar_tablas_minimas()
+	{
+		$sql[] = 'DROP TABLE apex_permiso_grupo_acc';
+		$sql[] = 'DROP TABLE apex_usuario_grupo_acc_item';
+		$sql[] = 'DROP TABLE apex_usuario_proyecto';
+		$sql[] = 'DROP TABLE apex_usuario_grupo_acc';
+		$sql[] = 'DROP TABLE apex_usuario_perfil_datos';
+		$sql[] = 'DROP TABLE apex_usuario';
+		$sql[] = 'DROP TABLE apex_usuario_tipodoc';
+		$sql[] = 'DROP TABLE apex_log_ip_rechazada';
+		$sql[] = 'DROP TABLE apex_log_error_login';
+		$sql[] = 'DROP TABLE apex_log_sistema';
+		$sql[] = 'DROP TABLE apex_solicitud_observacion';
+		$sql[] = 'DROP TABLE apex_solicitud_cronometro';
+		$sql[] = 'DROP TABLE apex_solicitud_consola';
+		$sql[] = 'DROP TABLE apex_solicitud_browser';
+		$sql[] = 'DROP TABLE apex_sesion_browser';
+		$sql[] = 'DROP TABLE apex_solicitud';
+		$sql[] = 'DROP TABLE apex_revision';
+		$sql[] = 'DROP TABLE apex_instancia';
+		$sql[] = 'DROP TABLE apex_proyecto';
+		$sql[] = 'DROP SEQUENCE apex_solicitud_seq';
+		$sql[] = 'DROP SEQUENCE apex_sesion_browser_seq';
+		$sql[] = 'DROP SEQUENCE apex_solicitud_observacion_seq';
+		$sql[] = 'DROP SEQUENCE apex_log_sistema_seq';
+		$sql[] = 'DROP SEQUENCE apex_log_error_login_seq';
+		$this->get_db()->ejecutar($sql);
+	}
+		
 	private function cargar_datos_nucleo()
 	{
 		$this->manejador_interface->mensaje('Cargando datos del nucleo', false);
@@ -522,14 +547,18 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/*
 	*	Importa los proyectos asociados
 	*/
-	private function cargar_proyectos()
+	private function cargar_proyectos($informacion_reducida=false)
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
 				$this->manejador_interface->enter();
 				$this->manejador_interface->subtitulo("PROYECTO: $id_proyecto");
 				$proyecto = $this->get_proyecto($id_proyecto);
-				$proyecto->cargar();										
+				if(!$informacion_reducida) {
+					$proyecto->cargar();										
+				}else{
+					$proyecto->cargar_informacion_reducida();										
+				}
 			}
 		}	
 	}
@@ -753,7 +782,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/**
 	* Agrega una instancia
 	*/
-	static function crear_instancia( $nombre, $base, $lista_proyectos )
+	static function crear_instancia( $nombre, $base, $lista_proyectos, $tipo='normal' )
 	{
 		//Creo la carpeta
 		if( ! self::existe_carpeta_instancia( $nombre ) ) {
@@ -766,6 +795,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$ini->agregar_titulo( self::toba_instancia_titulo );
 		$ini->agregar_entrada( 'base', $base );
 		$ini->agregar_entrada( 'proyectos', implode(', ', array_keys($lista_proyectos)) );
+		$ini->agregar_entrada( 'tipo', $tipo );
 		
 		//--- Se revisa la lista de proyectos para ver si algun id_proyecto != dir_proyecto
 		foreach ($lista_proyectos as $id_pro => $path_pro) {

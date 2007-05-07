@@ -111,7 +111,7 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	*	Crea una instancia NUEVA.
+	*	Crea una instancia NUEVA. (Utiliando el parametro [-t mini] se crea una instancia reducida, util para ejecutar proyectos compilados)
 	*/
 	function opcion__crear()
 	{
@@ -123,30 +123,20 @@ class comando_instancia extends comando_toba
 		if ( ! $instalacion->hay_bases() ) {
 			throw new toba_error("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
 		}
-		$this->consola->titulo("Creando la INSTANCIA: $id_instancia ");
+		$tipo = $this->get_tipo_instancia();
+		$this->consola->titulo("Creando la INSTANCIA: $id_instancia TIPO: $tipo");
 
 		//---- A: Creo la definicion de la instancia
 		$proyectos = $this->seleccionar_proyectos();
 		$this->consola->enter();
 		$base = $this->seleccionar_base();
-		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos );
+		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos, $tipo );
 
 		//---- B: Cargo la INSTANCIA en la BASE
 		$instancia = $this->get_instancia();
-		// Veo que tipo de instancia hay que crear
-		$param = $this->get_parametros();
-		if ( isset($param['-t'] ) && ( trim( $param['-t'] ) != '') ) {
-			switch ($param['-t']) {
-				case 'normal':
-					$metodo_carga = 'cargar';
-					break;
-				case 'mini':
-					$metodo_carga = 'cargar_tablas_minimas';
-					break;
-				default:
-					$metodo_carga = 'cargar';
-			}
-		}else {
+		if($tipo == 'mini') {
+			$metodo_carga = 'cargar_tablas_minimas';
+		} else {
 			$metodo_carga = 'cargar';
 		}
 
@@ -164,25 +154,27 @@ class comando_instancia extends comando_toba
 			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
 			$this->consola->error( $e->getMessage() );
 		}
+
 		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
 		$instancia->set_version( toba_modelo_instalacion::get_version_actual());
-		$this->opcion__crear_usuario();
+		$this->opcion__crear_usuario(false);
 
-		//---- D: Exporto la informacion LOCAL
-		$instancia->exportar_local();
-
-		//-- Agregar los alias
-		$this->consola->enter();		
-		$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
-		if ($crear_alias) {
-			$instancia->crear_alias_proyectos();
+		if($tipo != 'mini') {
+			//---- D: Exporto la informacion LOCAL
+			$instancia->exportar_local();
+			//-- Agregar los alias
+			$this->consola->enter();		
+			$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
+			if ($crear_alias) {
+				$instancia->crear_alias_proyectos();
+			}
 		}
 	}
 
 	/**
 	 * Crea un usuario administrador y lo asigna a los proyectos
 	 */
-	function opcion__crear_usuario()
+	function opcion__crear_usuario($asociar_previsualizacion_admin=true)
 	{
 		$instancia = $this->get_instancia();		
 		$datos = $this->definir_usuario( "Crear USUARIO" );
@@ -190,7 +182,7 @@ class comando_instancia extends comando_toba
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupo_acceso = $this->seleccionar_grupo_acceso( $proyecto );
-			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso );
+			$proyecto->vincular_usuario( $datos['usuario'], $grupo_acceso, null, $asociar_previsualizacion_admin );
 		}		
 	}
 	
@@ -273,6 +265,16 @@ class comando_instancia extends comando_toba
 		}
 
 		$instancia->migrar_rango_versiones($desde, $hasta, $recursivo);
+	}
+
+	function get_tipo_instancia()
+	{
+		$tipo = 'normal';
+		$param = $this->get_parametros();
+		if ( isset($param['-t'] ) && ( trim( $param['-t'] ) == 'mini') ) {
+			$tipo = 'mini';
+		}		
+		return $tipo;
 	}
 		
 	/**

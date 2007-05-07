@@ -371,6 +371,20 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->mensaje('OK');
 	}
 
+	/*
+	*	Carga el conjunto de metadatos minimo
+	*/
+	function cargar_informacion_reducida()
+	{
+		// Cabecera del proyecto
+		$this->manejador_interface->mensaje('Cargando datos globales', false);
+		$archivo = $this->get_dir_tablas() . '/apex_proyecto.sql';
+		$this->db->ejecutar_archivo( $archivo );
+		$this->manejador_interface->mensaje('.OK');	
+		// Grupos de acceso y permisos
+		$this->cargar_permisos();
+	}
+
 	//-----------------------------------------------------------
 	//	ELIMINAR
 	//-----------------------------------------------------------
@@ -825,9 +839,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
-	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no' )
+	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no', $previsualizacion=true )
 	{
-		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos );
+		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $previsualizacion );
 		$this->instancia->get_db()->ejecutar( $sql );
 	}
 
@@ -1089,14 +1103,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $sql;
 	}
 
-	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos )
+	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
 	{
 		$sql = array();
 		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
 					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
 				// Decide un PA por defecto para el proyecto
-		$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
-					VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+		if($set_previsualizacion) {
+			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
+						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+		}
 		return $sql;
 	}
 }

@@ -410,27 +410,6 @@ CREATE TABLE apex_log_objeto
 );
 --#################################################################################################
 
-CREATE TABLE apex_usuario_grupo_acc_item
----------------------------------------------------------------------------------------------------
---: proyecto: toba
---: dump: permisos
---: dump_order_by: usuario_grupo_acc, item
---: zona: usuario, item
---: desc:
---: version: 1.0
----------------------------------------------------------------------------------------------------
-(
-	proyecto								varchar(15)		NOT NULL,
-	usuario_grupo_acc					varchar(20)		NOT NULL,
-	item_id								int4				NULL,	
-	item									varchar(60)		NOT NULL,
-	CONSTRAINT	"apex_usu_item_pk" PRIMARY	KEY ("proyecto","usuario_grupo_acc","item"),
-	CONSTRAINT	"apex_usu_item_fk_item"	FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usu_item_fk_us_gru_acc"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
-);
-  
---#################################################################################################
-
 CREATE TABLE apex_arbol_items_fotos
 
 ---------------------------------------------------------------------------------------------------
