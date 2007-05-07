@@ -299,9 +299,10 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	 */
 	ci.prototype.get_tab = function(id) {
 		if (id == this._id_en_controlador) {
-			notificacion.agregar('No es posible modificar el estado del tab correspondiente a la pantalla actual');
+			var mensaje = 'No es posible modificar el estado del tab correspondiente a la pantalla actual';
+			notificacion.agregar(mensaje);
 			notificacion.mostrar();
-			return;
+			throw mensaje;
 		}
 		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
 	};	
