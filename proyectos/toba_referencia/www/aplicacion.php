@@ -5,7 +5,7 @@ define("apex_pa_proyecto",'toba_referencia');
 //define("apex_pa_nivel_acceso_item","0");//Nivel de ITEMs que se pueden solicitar
 //define("apex_pa_nivel_acceso_usuario","0");//Nivel de USUARIOS
 define("apex_pa_validacion_debug",0);
-define('apex_pa_metadatos_compilados',1);
+define('apex_pa_metadatos_compilados',0);
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------
