@@ -80,6 +80,7 @@ class toba_info_datos_tabla extends toba_info_componente
 	*/
 	function exportar_datos_efs($incluir_pk=false)
 	{
+		$datos = array();
 		$a=0;
 		foreach($this->datos['_info_columnas'] as $columna){
 			if( (!$columna['pk']) || $incluir_pk){
