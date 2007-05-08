@@ -28,6 +28,20 @@ class ci_principal extends ci_editores_toba
 		}
 	}
 	
+	function evt__procesar()
+	{
+		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		$tiene_clave = ($datos['clave_dbr'] == 1 || $datos['columnas_clave'] != '');
+		if (!$tiene_clave && $this->get_dbr_eventos()->hay_evento_de_fila()) {
+			toba::notificacion()->agregar('El cuadro no tiene definido cuales de sus columnas
+				forman la <strong>clave de los registros</strong>. Esto hace que los eventos asociados a las filas no
+				puedan propagar el valor que las representa.<br><br>
+				Estas columnas claves se pueden indicar en la solapa de Prop.Básicas.'
+				, 'info');
+		}
+		parent::evt__procesar();		
+	}	
+	
 	//*******************************************************************
 	//*****************  PROPIEDADES BASICAS  ***************************
 	//*******************************************************************
