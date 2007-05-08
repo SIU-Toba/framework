@@ -71,7 +71,7 @@ class toba_parser_ayuda
 		}
 		
 		$url = toba_recurso::url_proyecto($proyecto)."/doc/api/$id.html#$anchor";
-		$img = toba_recurso::imagen_proyecto("api.gif", true);
+		$img = toba_recurso::imagen_proyecto("api.gif", true, null, null, null, null, $proyecto);
 		$tag = "<a href=$url  target=api>$nombre</a>$img";
 		return str_replace("'", "\\'", $tag);
 	}

@@ -86,9 +86,9 @@ class toba_recurso
 	 * @param string $tooltip Ayuda o tooltip que se muestra (por def. ninguna)
 	 * @param string $mapa (no oblig.)
 	 */
-	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null)
+	static function imagen_proyecto($imagen,$html=false,$ancho=null, $alto=null,$tooltip=null,$mapa=null, $proyecto=null)
 	{
-		$src = toba_recurso::url_proyecto() . "/img/" . $imagen;
+		$src = toba_recurso::url_proyecto($proyecto) . "/img/" . $imagen;
 		if ($html){
 			return toba_recurso::imagen($src, $ancho, $alto, $tooltip, $mapa);
 		}else{
