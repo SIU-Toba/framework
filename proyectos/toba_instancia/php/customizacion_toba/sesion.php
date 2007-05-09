@@ -17,6 +17,14 @@ class sesion extends toba_sesion
 		$this->id_instancia = $datos;
 	}
 
+	function conf__final()
+	{
+		// Me abrieron desde el ADMIN
+		if ( toba::memoria()->existe_dato_instancia('instancia') ) {
+			echo toba_js::ejecutar('window.close();');
+		}
+	}
+
 	function conf__activacion()
 	{
 		toba_contexto_info::set_db( admin_instancia::ref()->db() );
