@@ -2,38 +2,8 @@
 -- PostgreSQL database dump
 --
 
-SET client_encoding = 'LATIN1';
-SET check_function_bodies = false;
-SET client_min_messages = warning;
+-- Started on 2007-05-09 01:17:46
 
---
--- TOC entry 1548 (class 0 OID 0)
--- Name: DUMP TIMESTAMP; Type: DUMP TIMESTAMP; Schema: -; Owner: 
---
-
--- Started on 2007-05-08 16:32:17 Hora est. de Sudamérica E.
-
-
---
--- TOC entry 1551 (class 0 OID 0)
--- Dependencies: 5
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA public IS 'Standard public schema';
-
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = true;
-
---
--- TOC entry 1168 (class 1259 OID 673500768)
--- Dependencies: 1496 1497 5
--- Name: ona_localidad; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
---
 
 CREATE TABLE ona_localidad (
     codigopostal character varying(10) NOT NULL,
@@ -46,10 +16,12 @@ CREATE TABLE ona_localidad (
 );
 
 
+ALTER TABLE public.ona_localidad OWNER TO postgres;
+
 --
--- TOC entry 1169 (class 1259 OID 673500772)
--- Dependencies: 1498 1499 5
--- Name: ona_pais; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1282 (class 1259 OID 30014)
+-- Dependencies: 1628 1629 5
+-- Name: ona_pais; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE ona_pais (
@@ -61,29 +33,31 @@ CREATE TABLE ona_pais (
 );
 
 
+ALTER TABLE public.ona_pais OWNER TO postgres;
+
 --
--- TOC entry 1170 (class 1259 OID 673500776)
--- Dependencies: 1500 1501 5
--- Name: ona_provincia; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1283 (class 1259 OID 30018)
+-- Dependencies: 5
+-- Name: ona_provincia; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE ona_provincia (
     idprovincia character varying(4) NOT NULL,
     idpais character varying(2) NOT NULL,
-    nombre character varying(40) NOT NULL,
-    esuniversidad integer DEFAULT 0 NOT NULL,
-    modiuniversidad integer DEFAULT 0 NOT NULL
+    nombre character varying(40) NOT NULL
 );
 
 
+ALTER TABLE public.ona_provincia OWNER TO postgres;
+
 --
--- TOC entry 1172 (class 1259 OID 673500782)
--- Dependencies: 1502 5
--- Name: soe_edificios; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1285 (class 1259 OID 30024)
+-- Dependencies: 5
+-- Name: soe_edificios; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_edificios (
-    edificio serial NOT NULL,
+    edificio integer NOT NULL,
     institucion integer NOT NULL,
     sede integer NOT NULL,
     nombre character varying(255),
@@ -94,23 +68,49 @@ CREATE TABLE soe_edificios (
 );
 
 
---
--- TOC entry 1553 (class 0 OID 0)
--- Dependencies: 1171
--- Name: soe_edificios_edificio_seq; Type: SEQUENCE SET; Schema: public; Owner: dba
---
-
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_edificios', 'edificio'), 599, true);
-
+ALTER TABLE public.soe_edificios OWNER TO postgres;
 
 --
--- TOC entry 1174 (class 1259 OID 673500787)
--- Dependencies: 1503 5
--- Name: soe_instituciones; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1284 (class 1259 OID 30022)
+-- Dependencies: 5 1285
+-- Name: soe_edificios_edificio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE soe_edificios_edificio_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.soe_edificios_edificio_seq OWNER TO postgres;
+
+--
+-- TOC entry 1681 (class 0 OID 0)
+-- Dependencies: 1284
+-- Name: soe_edificios_edificio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE soe_edificios_edificio_seq OWNED BY soe_edificios.edificio;
+
+
+--
+-- TOC entry 1682 (class 0 OID 0)
+-- Dependencies: 1284
+-- Name: soe_edificios_edificio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('soe_edificios_edificio_seq', 599, true);
+
+
+--
+-- TOC entry 1287 (class 1259 OID 30029)
+-- Dependencies: 5
+-- Name: soe_instituciones; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_instituciones (
-    institucion serial NOT NULL,
+    institucion integer NOT NULL,
     nombre_completo character varying(255) NOT NULL,
     nombre_abreviado character varying(50),
     sigla character varying(15),
@@ -118,19 +118,46 @@ CREATE TABLE soe_instituciones (
 );
 
 
---
--- TOC entry 1554 (class 0 OID 0)
--- Dependencies: 1173
--- Name: soe_instituciones_institucion_seq; Type: SEQUENCE SET; Schema: public; Owner: dba
---
-
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_instituciones', 'institucion'), 8889, false);
-
+ALTER TABLE public.soe_instituciones OWNER TO postgres;
 
 --
--- TOC entry 1175 (class 1259 OID 673500790)
+-- TOC entry 1286 (class 1259 OID 30027)
+-- Dependencies: 1287 5
+-- Name: soe_instituciones_institucion_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE soe_instituciones_institucion_seq
+    START WITH 8889
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.soe_instituciones_institucion_seq OWNER TO postgres;
+
+--
+-- TOC entry 1683 (class 0 OID 0)
+-- Dependencies: 1286
+-- Name: soe_instituciones_institucion_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE soe_instituciones_institucion_seq OWNED BY soe_instituciones.institucion;
+
+
+--
+-- TOC entry 1684 (class 0 OID 0)
+-- Dependencies: 1286
+-- Name: soe_instituciones_institucion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('soe_instituciones_institucion_seq', 8889, false);
+
+
+--
+-- TOC entry 1288 (class 1259 OID 30032)
 -- Dependencies: 5
--- Name: soe_jurisdicciones; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- Name: soe_jurisdicciones; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_jurisdicciones (
@@ -140,33 +167,62 @@ CREATE TABLE soe_jurisdicciones (
 );
 
 
+ALTER TABLE public.soe_jurisdicciones OWNER TO postgres;
+
 --
--- TOC entry 1177 (class 1259 OID 673500794)
--- Dependencies: 1504 5
--- Name: soe_sedes; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1290 (class 1259 OID 30036)
+-- Dependencies: 5
+-- Name: soe_sedes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_sedes (
     institucion integer NOT NULL,
-    sede serial NOT NULL,
+    sede integer NOT NULL,
     nombre character varying(255) NOT NULL,
     codigopostal character varying(10)
 );
 
 
---
--- TOC entry 1555 (class 0 OID 0)
--- Dependencies: 1176
--- Name: soe_sedes_sede_seq; Type: SEQUENCE SET; Schema: public; Owner: dba
---
-
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_sedes', 'sede'), 2229, false);
-
+ALTER TABLE public.soe_sedes OWNER TO postgres;
 
 --
--- TOC entry 1178 (class 1259 OID 673500797)
+-- TOC entry 1289 (class 1259 OID 30034)
+-- Dependencies: 1290 5
+-- Name: soe_sedes_sede_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE soe_sedes_sede_seq
+    START WITH 2229
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.soe_sedes_sede_seq OWNER TO postgres;
+
+--
+-- TOC entry 1685 (class 0 OID 0)
+-- Dependencies: 1289
+-- Name: soe_sedes_sede_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE soe_sedes_sede_seq OWNED BY soe_sedes.sede;
+
+
+--
+-- TOC entry 1686 (class 0 OID 0)
+-- Dependencies: 1289
+-- Name: soe_sedes_sede_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('soe_sedes_sede_seq', 2229, false);
+
+
+--
+-- TOC entry 1291 (class 1259 OID 30039)
 -- Dependencies: 5
--- Name: soe_sedesua; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- Name: soe_sedesua; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_sedesua (
@@ -176,56 +232,155 @@ CREATE TABLE soe_sedesua (
 );
 
 
+ALTER TABLE public.soe_sedesua OWNER TO postgres;
+
 --
--- TOC entry 1180 (class 1259 OID 673500801)
--- Dependencies: 1505 5
--- Name: soe_tiposua; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1293 (class 1259 OID 30043)
+-- Dependencies: 5
+-- Name: soe_tiposua; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_tiposua (
-    tipoua serial NOT NULL,
+    tipoua integer NOT NULL,
     descripcion character varying(50) NOT NULL,
     detalle character varying(255),
     estado character varying(1) NOT NULL
 );
 
 
---
--- TOC entry 1556 (class 0 OID 0)
--- Dependencies: 1179
--- Name: soe_tiposua_tipoua_seq; Type: SEQUENCE SET; Schema: public; Owner: dba
---
-
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_tiposua', 'tipoua'), 3, true);
-
+ALTER TABLE public.soe_tiposua OWNER TO postgres;
 
 --
--- TOC entry 1182 (class 1259 OID 673500806)
--- Dependencies: 1506 5
--- Name: soe_unidadesacad; Type: TABLE; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1292 (class 1259 OID 30041)
+-- Dependencies: 5 1293
+-- Name: soe_tiposua_tipoua_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE soe_tiposua_tipoua_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.soe_tiposua_tipoua_seq OWNER TO postgres;
+
+--
+-- TOC entry 1687 (class 0 OID 0)
+-- Dependencies: 1292
+-- Name: soe_tiposua_tipoua_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE soe_tiposua_tipoua_seq OWNED BY soe_tiposua.tipoua;
+
+
+--
+-- TOC entry 1688 (class 0 OID 0)
+-- Dependencies: 1292
+-- Name: soe_tiposua_tipoua_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('soe_tiposua_tipoua_seq', 3, true);
+
+
+--
+-- TOC entry 1295 (class 1259 OID 30048)
+-- Dependencies: 5
+-- Name: soe_unidadesacad; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE soe_unidadesacad (
-    unidadacad serial NOT NULL,
+    unidadacad integer NOT NULL,
     institucion integer,
     nombre character varying(255) NOT NULL,
     tipoua integer
 );
 
 
---
--- TOC entry 1557 (class 0 OID 0)
--- Dependencies: 1181
--- Name: soe_unidadesacad_unidadacad_seq; Type: SEQUENCE SET; Schema: public; Owner: dba
---
-
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_unidadesacad', 'unidadacad'), 927, true);
-
+ALTER TABLE public.soe_unidadesacad OWNER TO postgres;
 
 --
--- TOC entry 1538 (class 0 OID 673500768)
--- Dependencies: 1168
--- Data for Name: ona_localidad; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1294 (class 1259 OID 30046)
+-- Dependencies: 5 1295
+-- Name: soe_unidadesacad_unidadacad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE soe_unidadesacad_unidadacad_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.soe_unidadesacad_unidadacad_seq OWNER TO postgres;
+
+--
+-- TOC entry 1689 (class 0 OID 0)
+-- Dependencies: 1294
+-- Name: soe_unidadesacad_unidadacad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE soe_unidadesacad_unidadacad_seq OWNED BY soe_unidadesacad.unidadacad;
+
+
+--
+-- TOC entry 1690 (class 0 OID 0)
+-- Dependencies: 1294
+-- Name: soe_unidadesacad_unidadacad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('soe_unidadesacad_unidadacad_seq', 927, true);
+
+
+--
+-- TOC entry 1630 (class 2604 OID 30026)
+-- Dependencies: 1284 1285 1285
+-- Name: edificio; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE soe_edificios ALTER COLUMN edificio SET DEFAULT nextval('soe_edificios_edificio_seq'::regclass);
+
+
+--
+-- TOC entry 1631 (class 2604 OID 30031)
+-- Dependencies: 1286 1287 1287
+-- Name: institucion; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE soe_instituciones ALTER COLUMN institucion SET DEFAULT nextval('soe_instituciones_institucion_seq'::regclass);
+
+
+--
+-- TOC entry 1632 (class 2604 OID 30038)
+-- Dependencies: 1290 1289 1290
+-- Name: sede; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE soe_sedes ALTER COLUMN sede SET DEFAULT nextval('soe_sedes_sede_seq'::regclass);
+
+
+--
+-- TOC entry 1633 (class 2604 OID 30045)
+-- Dependencies: 1293 1292 1293
+-- Name: tipoua; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE soe_tiposua ALTER COLUMN tipoua SET DEFAULT nextval('soe_tiposua_tipoua_seq'::regclass);
+
+
+--
+-- TOC entry 1634 (class 2604 OID 30050)
+-- Dependencies: 1295 1294 1295
+-- Name: unidadacad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE soe_unidadesacad ALTER COLUMN unidadacad SET DEFAULT nextval('soe_unidadesacad_unidadacad_seq'::regclass);
+
+
+--
+-- TOC entry 1666 (class 0 OID 30010)
+-- Dependencies: 1281
+-- Data for Name: ona_localidad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO ona_localidad (codigopostal, idpais, idprovincia, nombre, ddn, esuniversidad, modiuniversidad) VALUES ('4126', 'AR', 'A', 'Candelaria', '', 0, 0);
@@ -2175,9 +2330,9 @@ INSERT INTO ona_localidad (codigopostal, idpais, idprovincia, nombre, ddn, esuni
 
 
 --
--- TOC entry 1539 (class 0 OID 673500772)
--- Dependencies: 1169
--- Data for Name: ona_pais; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1667 (class 0 OID 30014)
+-- Dependencies: 1282
+-- Data for Name: ona_pais; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO ona_pais (idpais, nombre, ddi, esuniversidad, modiuniversidad) VALUES ('AR', 'Argentina', '54', -1, -1);
@@ -2186,43 +2341,43 @@ INSERT INTO ona_pais (idpais, nombre, ddi, esuniversidad, modiuniversidad) VALUE
 
 
 --
--- TOC entry 1540 (class 0 OID 673500776)
--- Dependencies: 1170
--- Data for Name: ona_provincia; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1668 (class 0 OID 30018)
+-- Dependencies: 1283
+-- Data for Name: ona_provincia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('A', 'AR', 'Salta', 0, -1);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('B', 'AR', 'Buenos Aires', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('C', 'AR', 'Capital Federal', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('D', 'AR', 'San Luis', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('E', 'AR', 'Entre Ríos', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('F', 'AR', 'La Rioja', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('G', 'AR', 'Santiago Del Estero', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('H', 'AR', 'Chaco', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('J', 'AR', 'San Juan', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('K', 'AR', 'Catamarca', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('L', 'AR', 'La Pampa', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('M', 'AR', 'Mendoza', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('N', 'AR', 'Misiones', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('P', 'AR', 'Formosa', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('Q', 'AR', 'Neuquén', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('R', 'AR', 'Río Negro', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('S', 'AR', 'Santa Fé', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('T', 'AR', 'Tucumán', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('U', 'AR', 'Chubut', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('V', 'AR', 'Tierra Del Fuego', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('W', 'AR', 'Corrientes', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('X', 'AR', 'Córdoba', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('Y', 'AR', 'Jujuy', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('Z', 'AR', 'Santa Cruz', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('PP', 'P', 'Una Provincia de Paraguay', 0, 0);
-INSERT INTO ona_provincia (idprovincia, idpais, nombre, esuniversidad, modiuniversidad) VALUES ('PU', 'U', 'Una Provincia de Uruguay', 0, 0);
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('A', 'AR', 'Salta');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('B', 'AR', 'Buenos Aires');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('C', 'AR', 'Capital Federal');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('D', 'AR', 'San Luis');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('E', 'AR', 'Entre Ríos');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('F', 'AR', 'La Rioja');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('G', 'AR', 'Santiago Del Estero');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('H', 'AR', 'Chaco');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('J', 'AR', 'San Juan');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('K', 'AR', 'Catamarca');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('L', 'AR', 'La Pampa');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('M', 'AR', 'Mendoza');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('N', 'AR', 'Misiones');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('P', 'AR', 'Formosa');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('Q', 'AR', 'Neuquén');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('R', 'AR', 'Río Negro');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('S', 'AR', 'Santa Fé');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('T', 'AR', 'Tucumán');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('U', 'AR', 'Chubut');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('V', 'AR', 'Tierra Del Fuego');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('W', 'AR', 'Corrientes');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('X', 'AR', 'Córdoba');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('Y', 'AR', 'Jujuy');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('Z', 'AR', 'Santa Cruz');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('PP', 'P', 'Una Provincia de Paraguay');
+INSERT INTO ona_provincia (idprovincia, idpais, nombre) VALUES ('PU', 'U', 'Una Provincia de Uruguay');
 
 
 --
--- TOC entry 1541 (class 0 OID 673500782)
--- Dependencies: 1172
--- Data for Name: soe_edificios; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1669 (class 0 OID 30024)
+-- Dependencies: 1285
+-- Data for Name: soe_edificios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (1, 1, 1, 'Edificio de SedePrincipal - UBA', 'Viamonte', '444', NULL, NULL);
@@ -2307,7 +2462,6 @@ INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, p
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (80, 82, 1, 'Edificio de SedePrincipal - SIGLO XXI', 'Rondeau', '165', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (81, 83, 1, 'Edificio de SedePrincipal - BAR ILAN', 'Teniente General Juan Domingo Perón', '3460', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (82, 84, 1, 'Edificio de SedePrincipal - MAZA', 'Avda. Acceso Este Lateral Sur', '2245', NULL, 'Secre');
-INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (83, 85, 1, 'Edificio de SedePrincipal - MAIMONIDES', 'Talcahuano', '456', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (84, 23, 4, 'DELEGACION BUENOS AIRES', 'SARMIENTO', '1462', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (85, 88, 1, 'Edificio de SedePrincipal - CEMIC', 'Sánchez de Bustamante', '2560', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (86, 89, 1, 'Edificio de SedePrincipal - GASTON DACHARY', 'Salta', '1968', NULL, NULL);
@@ -2817,17 +2971,18 @@ INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, p
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (592, 84, 1, 'Edificio de Sede 00001 - Avenida de Acceso  Este', 'Avenida de Acceso  Este', '2245', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (593, 84, 2, 'Edificio de Sede 00002 - Espejo', 'Espejo', '256', NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (594, 84, 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (595, 85, 1, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (596, 85, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (597, 85, 3, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (598, 89, 1, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (599, 89, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (83, 85, 1, 'Edificio de SedePrincipal - MAIMONIDES', 'Talcahuano', '456', '12', '12333');
+INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (595, 85, 1, '24354252', '52452', '45245', '245', NULL);
+INSERT INTO soe_edificios (edificio, institucion, sede, nombre, calle, numero, piso, depto) VALUES (596, 85, 1, '5245', '2452', '52', '452', NULL);
 
 
 --
--- TOC entry 1542 (class 0 OID 673500787)
--- Dependencies: 1174
--- Data for Name: soe_instituciones; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1670 (class 0 OID 30029)
+-- Dependencies: 1287
+-- Data for Name: soe_instituciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (1, 'UNIVERSIDAD DE BUENOS AIRES', 'UBA', 'UBA', 1);
@@ -2876,7 +3031,6 @@ INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, s
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (44, 'INSTITUTO UNIVERSITARIO NACIONAL DEL ARTE', 'IUNA', 'IUNA', 1);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (45, 'INSTITUTO TECNOLOGICO DE BUENOS AIRES', 'ITBA', 'ITBA', 2);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (46, 'UNIVERSIDAD FAVALORO', 'FAVALORO', 'UFAV', 2);
-INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (47, 'INSTITUTO UNIVERSITARIO DE CS. DE LA SALUD - FUNDACION UNIVERSITARIA HECTOR A. BARCELO', 'BARCELO', 'IUCSAL', 2);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (48, 'PONTIFICIA UNIVERSIDAD CATOLICA ARGENTINA SANTA MARIA DE LOS BUENOS AIRES', 'UCA', 'UCA', 2);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (49, 'UNIVERSIDAD ABIERTA INTERAMERICANA', 'ABIERTA INTERAMERICANA', 'UAI', 2);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (50, 'UNIVERSIDAD ADVENTISTA DEL PLATA', 'ADVENTISTA', 'UAPL', 2);
@@ -2932,29 +3086,30 @@ INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, s
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (102, 'INSTITUTO UNIVERSITARIO ESCUELA ARGENTINA DE NEGOCIOS', 'ESCUELA ARGENTINA DE NEGOCIOS', 'IUEAN', 2);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (103, 'UNIVERSIDAD NACIONAL DE CHILECITO', NULL, 'UNCHI', 1);
 INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (8889, 'Institución 01', 'Institución 01', 'Institución 01', 6);
+INSERT INTO soe_instituciones (institucion, nombre_completo, nombre_abreviado, sigla, jurisdiccion) VALUES (47, 'INSTITUTO UNIVERSITARIO DE CS. DE LA SALUD - FUNDACION UNIVERSITARIA HECTOR A. BARCELO', 'BARCELO', 'IUCSAL', 5);
 
 
 --
--- TOC entry 1543 (class 0 OID 673500790)
--- Dependencies: 1175
--- Data for Name: soe_jurisdicciones; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1671 (class 0 OID 30032)
+-- Dependencies: 1288
+-- Data for Name: soe_jurisdicciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (1, 'Nacional', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (2, 'Privada', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (3, 'Provincial', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (4, 'Internacional', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (0, 'Indefinida', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (5, 'Instituto Universitario Nacional-Ley 24.521 art. 77', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (6, 'Privada con Autorización Definitiva', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (7, 'Privada con Autorización Provisoria', 'A');
-INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (8, 'Extranjera', 'A');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (2, 'Privada', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (0, 'Indefinida', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (4, 'Internacional', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (3, 'Provincial', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (7, 'Privada con Autorización Provisoria', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (1, 'Nacional', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (6, 'Privada con Autorización Definitiva', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (8, 'Extranjera', 'B');
+INSERT INTO soe_jurisdicciones (jurisdiccion, descripcion, estado) VALUES (5, 'Instituto Universitario Nacional-Ley 24.521 art. 7', 'B');
 
 
 --
--- TOC entry 1544 (class 0 OID 673500794)
--- Dependencies: 1177
--- Data for Name: soe_sedes; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1672 (class 0 OID 30036)
+-- Dependencies: 1290
+-- Data for Name: soe_sedes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO soe_sedes (institucion, sede, nombre, codigopostal) VALUES (1, 1, 'SedePrincipal - UBA', '1427');
@@ -3283,17 +3438,24 @@ INSERT INTO soe_sedes (institucion, sede, nombre, codigopostal) VALUES (8889, 22
 
 
 --
--- TOC entry 1545 (class 0 OID 673500797)
--- Dependencies: 1178
--- Data for Name: soe_sedesua; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1673 (class 0 OID 30039)
+-- Dependencies: 1291
+-- Data for Name: soe_sedesua; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (43, 1, 449);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (27, 2, 842);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (27, 2, 326);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (27, 2, 313);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (27, 2, 323);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (85, 1, 835);
+INSERT INTO soe_sedesua (institucion, sede, unidadacad) VALUES (85, 1, 759);
 
 
 --
--- TOC entry 1546 (class 0 OID 673500801)
--- Dependencies: 1180
--- Data for Name: soe_tiposua; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1674 (class 0 OID 30043)
+-- Dependencies: 1293
+-- Data for Name: soe_tiposua; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO soe_tiposua (tipoua, descripcion, detalle, estado) VALUES (2, 'Tipo A', 'Tipo A', '1');
@@ -3301,9 +3463,9 @@ INSERT INTO soe_tiposua (tipoua, descripcion, detalle, estado) VALUES (3, 'Tipo 
 
 
 --
--- TOC entry 1547 (class 0 OID 673500806)
--- Dependencies: 1182
--- Data for Name: soe_unidadesacad; Type: TABLE DATA; Schema: public; Owner: dba
+-- TOC entry 1675 (class 0 OID 30048)
+-- Dependencies: 1295
+-- Data for Name: soe_unidadesacad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO soe_unidadesacad (unidadacad, institucion, nombre, tipoua) VALUES (76, 5, 'Facultad', 2);
@@ -4236,9 +4398,9 @@ INSERT INTO soe_unidadesacad (unidadacad, institucion, nombre, tipoua) VALUES (4
 
 
 --
--- TOC entry 1508 (class 16386 OID 673504745)
--- Dependencies: 1168 1168
--- Name: ona_localidad_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1636 (class 2606 OID 33985)
+-- Dependencies: 1281 1281
+-- Name: ona_localidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY ona_localidad
@@ -4246,9 +4408,9 @@ ALTER TABLE ONLY ona_localidad
 
 
 --
--- TOC entry 1510 (class 16386 OID 673504747)
--- Dependencies: 1169 1169
--- Name: ona_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1638 (class 2606 OID 33987)
+-- Dependencies: 1282 1282
+-- Name: ona_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY ona_pais
@@ -4256,9 +4418,9 @@ ALTER TABLE ONLY ona_pais
 
 
 --
--- TOC entry 1512 (class 16386 OID 673504749)
--- Dependencies: 1170 1170
--- Name: ona_provincia_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1640 (class 2606 OID 33989)
+-- Dependencies: 1283 1283
+-- Name: ona_provincia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY ona_provincia
@@ -4266,9 +4428,9 @@ ALTER TABLE ONLY ona_provincia
 
 
 --
--- TOC entry 1514 (class 16386 OID 673504751)
--- Dependencies: 1172 1172
--- Name: soe_edificios_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1642 (class 2606 OID 33991)
+-- Dependencies: 1285 1285
+-- Name: soe_edificios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_edificios
@@ -4276,9 +4438,9 @@ ALTER TABLE ONLY soe_edificios
 
 
 --
--- TOC entry 1516 (class 16386 OID 673504753)
--- Dependencies: 1174 1174
--- Name: soe_instituciones_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1644 (class 2606 OID 33993)
+-- Dependencies: 1287 1287
+-- Name: soe_instituciones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_instituciones
@@ -4286,9 +4448,9 @@ ALTER TABLE ONLY soe_instituciones
 
 
 --
--- TOC entry 1518 (class 16386 OID 673504755)
--- Dependencies: 1175 1175
--- Name: soe_jurisdicciones_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1646 (class 2606 OID 33995)
+-- Dependencies: 1288 1288
+-- Name: soe_jurisdicciones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_jurisdicciones
@@ -4296,9 +4458,9 @@ ALTER TABLE ONLY soe_jurisdicciones
 
 
 --
--- TOC entry 1520 (class 16386 OID 673504757)
--- Dependencies: 1177 1177 1177
--- Name: soe_sedes_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1648 (class 2606 OID 33997)
+-- Dependencies: 1290 1290 1290
+-- Name: soe_sedes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_sedes
@@ -4306,9 +4468,9 @@ ALTER TABLE ONLY soe_sedes
 
 
 --
--- TOC entry 1522 (class 16386 OID 673504759)
--- Dependencies: 1178 1178 1178 1178
--- Name: soe_sedesua_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1650 (class 2606 OID 33999)
+-- Dependencies: 1291 1291 1291 1291
+-- Name: soe_sedesua_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_sedesua
@@ -4316,9 +4478,9 @@ ALTER TABLE ONLY soe_sedesua
 
 
 --
--- TOC entry 1524 (class 16386 OID 673504761)
--- Dependencies: 1180 1180
--- Name: soe_tiposua_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1652 (class 2606 OID 34001)
+-- Dependencies: 1293 1293
+-- Name: soe_tiposua_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_tiposua
@@ -4326,9 +4488,9 @@ ALTER TABLE ONLY soe_tiposua
 
 
 --
--- TOC entry 1526 (class 16386 OID 673504763)
--- Dependencies: 1182 1182
--- Name: soe_unidadesacad_pkey; Type: CONSTRAINT; Schema: public; Owner: dba; Tablespace: 
+-- TOC entry 1654 (class 2606 OID 34003)
+-- Dependencies: 1295 1295
+-- Name: soe_unidadesacad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY soe_unidadesacad
@@ -4336,9 +4498,9 @@ ALTER TABLE ONLY soe_unidadesacad
 
 
 --
--- TOC entry 1527 (class 16386 OID 673504764)
--- Dependencies: 1168 1169 1509
--- Name: ona_localidad_idpais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1655 (class 2606 OID 34004)
+-- Dependencies: 1281 1637 1282
+-- Name: ona_localidad_idpais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY ona_localidad
@@ -4346,9 +4508,9 @@ ALTER TABLE ONLY ona_localidad
 
 
 --
--- TOC entry 1528 (class 16386 OID 673504768)
--- Dependencies: 1168 1170 1511
--- Name: ona_localidad_idprovincia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1656 (class 2606 OID 34009)
+-- Dependencies: 1639 1283 1281
+-- Name: ona_localidad_idprovincia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY ona_localidad
@@ -4356,9 +4518,9 @@ ALTER TABLE ONLY ona_localidad
 
 
 --
--- TOC entry 1529 (class 16386 OID 673504772)
--- Dependencies: 1170 1169 1509
--- Name: ona_provincia_idpais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1657 (class 2606 OID 34014)
+-- Dependencies: 1282 1637 1283
+-- Name: ona_provincia_idpais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY ona_provincia
@@ -4366,9 +4528,9 @@ ALTER TABLE ONLY ona_provincia
 
 
 --
--- TOC entry 1530 (class 16386 OID 673504776)
--- Dependencies: 1172 1172 1177 1177 1519
--- Name: soe_edificios_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1658 (class 2606 OID 34019)
+-- Dependencies: 1647 1290 1290 1285 1285
+-- Name: soe_edificios_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_edificios
@@ -4376,9 +4538,9 @@ ALTER TABLE ONLY soe_edificios
 
 
 --
--- TOC entry 1531 (class 16386 OID 673504780)
--- Dependencies: 1174 1175 1517
--- Name: soe_instituciones_jurisdiccion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1659 (class 2606 OID 34024)
+-- Dependencies: 1288 1645 1287
+-- Name: soe_instituciones_jurisdiccion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_instituciones
@@ -4386,9 +4548,9 @@ ALTER TABLE ONLY soe_instituciones
 
 
 --
--- TOC entry 1532 (class 16386 OID 673504784)
--- Dependencies: 1177 1168 1507
--- Name: soe_sedes_codigopostal_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1660 (class 2606 OID 34029)
+-- Dependencies: 1281 1635 1290
+-- Name: soe_sedes_codigopostal_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_sedes
@@ -4396,9 +4558,9 @@ ALTER TABLE ONLY soe_sedes
 
 
 --
--- TOC entry 1533 (class 16386 OID 673504796)
--- Dependencies: 1177 1174 1515
--- Name: soe_sedes_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1661 (class 2606 OID 34034)
+-- Dependencies: 1287 1290 1643
+-- Name: soe_sedes_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_sedes
@@ -4406,9 +4568,9 @@ ALTER TABLE ONLY soe_sedes
 
 
 --
--- TOC entry 1534 (class 16386 OID 673504800)
--- Dependencies: 1178 1178 1177 1177 1519
--- Name: soe_sedesua_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1662 (class 2606 OID 34039)
+-- Dependencies: 1291 1291 1647 1290 1290
+-- Name: soe_sedesua_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_sedesua
@@ -4416,9 +4578,9 @@ ALTER TABLE ONLY soe_sedesua
 
 
 --
--- TOC entry 1535 (class 16386 OID 673504804)
--- Dependencies: 1178 1182 1525
--- Name: soe_sedesua_unidadacad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1663 (class 2606 OID 34044)
+-- Dependencies: 1291 1653 1295
+-- Name: soe_sedesua_unidadacad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_sedesua
@@ -4426,9 +4588,9 @@ ALTER TABLE ONLY soe_sedesua
 
 
 --
--- TOC entry 1536 (class 16386 OID 673504808)
--- Dependencies: 1182 1174 1515
--- Name: soe_unidadesacad_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1664 (class 2606 OID 34049)
+-- Dependencies: 1295 1643 1287
+-- Name: soe_unidadesacad_institucion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_unidadesacad
@@ -4436,9 +4598,9 @@ ALTER TABLE ONLY soe_unidadesacad
 
 
 --
--- TOC entry 1537 (class 16386 OID 673504812)
--- Dependencies: 1182 1180 1523
--- Name: soe_unidadesacad_tipoua_fkey; Type: FK CONSTRAINT; Schema: public; Owner: dba
+-- TOC entry 1665 (class 2606 OID 34054)
+-- Dependencies: 1295 1651 1293
+-- Name: soe_unidadesacad_tipoua_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY soe_unidadesacad
@@ -4446,15 +4608,7 @@ ALTER TABLE ONLY soe_unidadesacad
 
 
 --
--- TOC entry 1558 (class 0 OID 0)
--- Name: DUMP TIMESTAMP; Type: DUMP TIMESTAMP; Schema: -; Owner: 
---
-
--- Completed on 2007-05-08 16:32:17 Hora est. de Sudamérica E.
-
-
---
--- TOC entry 1552 (class 0 OID 0)
+-- TOC entry 1680 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -4464,6 +4618,12 @@ REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
+
+-- Completed on 2007-05-09 01:17:46
+
+--
+-- PostgreSQL database dump complete
+--
 
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_edificios', 'edificio'), (SELECT max(edificio) FROM soe_edificios), true);
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('soe_instituciones', 'institucion'), (SELECT max(institucion) FROM soe_instituciones), false);
