@@ -103,7 +103,12 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_fecha					date			";	
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_detalle					varchar(255)	";	
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	version_link					varchar(60)		";	
-		
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	usuario_anonimo_desc			varchar(60)		";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	usuario_anonimo_grupos_acc		varchar(255)	";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	contexto_ejecucion_subclase		varchar(255)	";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	contexto_ejecucion_subclase_archivo		varchar(255)	";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN	item_set_sesion		varchar(255)	";
+
 		//--- Cambios a la zona
 		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_archivo				varchar(255)	";
 		$sql[] = "ALTER TABLE apex_item_zona ADD COLUMN	consulta_clase					varchar(60)		";
@@ -446,6 +451,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 				objeto_ei_formulario,
 				objeto_ei_formulario_fila,
 				elemento_formulario,
+				identificador,
 				inicializacion
 			FROM
 				apex_objeto_ei_formulario_ef
@@ -476,7 +482,11 @@ class toba_migracion_1_0_0 extends toba_migracion
 					$nuevos['popup_item'] = $p_item;
 					$nuevos['popup_proyecto'] = $p_proyecto;
 				} else  {
-					echo "\nWarning: El parametro '$clave' de los EF no tiene correlacion en la migracion.\n";	
+					$msg = "El parametro '$clave' de los EF no tiene correlacion en la migracion.";
+					$extendido = "Se decarta el valor '$valor' del parámetro '$clave' en el ef '{$ef['identificador']}' del formulario".
+								" '{$ef['objeto_ei_formulario']}'";
+					toba_logger::instancia()->warning($extendido);
+					echo "$msg (Ver log para más detalles)\n";	
 				}
 			}
 			if (! empty($nuevos)) {
