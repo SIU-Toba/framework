@@ -19,7 +19,7 @@ class ci_navegacion extends toba_ci
 
 	function conf__edicion()
 	{
-		if (! $this->get_relacion()->esta_cargado()) {
+		if (! $this->get_relacion()->esta_cargada()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}

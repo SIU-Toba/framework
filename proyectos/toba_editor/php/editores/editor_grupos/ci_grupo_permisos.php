@@ -6,7 +6,7 @@ class ci_grupo_permisos extends toba_ci
 	function ini()
 	{
 		$editable = toba::solicitud()->zona()->get_editable();
-		if ($editable && !$this->dependencia('datos')->esta_cargado()) {
+		if ($editable && !$this->dependencia('datos')->esta_cargada()) {
 			list($proyecto, $grupo) = $editable;
 			$this->dependencia('datos')->cargar(array('usuario_grupo_acc' => $grupo,
 														'proyecto' => $proyecto));

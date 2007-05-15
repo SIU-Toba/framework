@@ -56,7 +56,7 @@ abstract class ci_editores_toba extends toba_ci
 
 	function componente_existe_en_db()	
 	{
-		return $this->get_entidad()->esta_cargado();
+		return $this->get_entidad()->esta_cargada();
 	}
 
 	function mantener_estado_sesion()
@@ -74,7 +74,7 @@ abstract class ci_editores_toba extends toba_ci
 
 	function conf()
 	{
-		if(! $this->get_entidad()->esta_cargado()){
+		if(! $this->get_entidad()->esta_cargada()){
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}

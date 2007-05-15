@@ -55,7 +55,7 @@ class ci_principal extends toba_ci
 	
 	function conf()
 	{
-		if(! $this->get_entidad()->esta_cargado()){
+		if(! $this->get_entidad()->esta_cargada()){
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
 	}	

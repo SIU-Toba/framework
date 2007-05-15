@@ -113,9 +113,9 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	 * La relacion tiene datos cargados?
 	 * @return boolean
 	 */
-	function esta_cargado()
+	function esta_cargada()
 	{
-		return $this->objeto_relacion->esta_cargado();
+		return $this->objeto_relacion->esta_cargada();
 	}
 
 	//-------------------------------------------------------------------------------
