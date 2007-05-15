@@ -406,7 +406,7 @@ class toba_datos_relacion extends toba_componente
 	 * La relacion ha sido cargada con datos?
 	 * @return boolean
 	 */
-	function esta_cargado()
+	function esta_cargada()
 	{
 		return $this->_cargado;	
 	}
