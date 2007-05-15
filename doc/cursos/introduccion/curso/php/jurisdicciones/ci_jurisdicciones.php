@@ -24,5 +24,4 @@ class ci_jurisdicciones extends toba_ci
 		$componente->set_datos($this->dep('datos')->get_filas());
 	}
 }
-
 ?>

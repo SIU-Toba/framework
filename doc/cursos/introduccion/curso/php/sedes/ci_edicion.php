@@ -21,6 +21,9 @@ class ci_edicion extends toba_ci
 	function conf__form_sedes($componente)
 	{
 		$componente->set_datos($this->datos()->tabla('sede')->get());
+		if($this->datos()->esta_cargada()) {
+			$componente->ef('institucion')->set_solo_lectura();
+		}
 	}
 
 	//---- cuadro_edificios ---------------------------------------------------------------
