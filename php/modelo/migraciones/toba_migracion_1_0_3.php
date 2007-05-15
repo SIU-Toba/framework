@@ -2,7 +2,13 @@
 
 class toba_migracion_1_0_3 extends toba_migracion
 {
-
+	function instancia__creacion_skins()
+	{
+		$sql[] = "INSERT INTO apex_estilo (estilo,descripcion) VALUES ('cubos','cubos');";
+		$this->elemento->get_db()->ejecutar($sql);
+	}	
+	
+	
 		function proyecto__estilo_filtro()
 		{
 			$cant = 0;

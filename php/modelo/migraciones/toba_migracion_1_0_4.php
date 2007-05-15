@@ -2,6 +2,14 @@
 
 class toba_migracion_1_0_4 extends toba_migracion
 {
+	
+	function instancia__cambios_estructura()
+	{
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_metodo varchar";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_clase varchar";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_carga_desc_include varchar";
+		$this->elemento->get_db()->ejecutar($sql);
+	}		
 
 		/**
 		 * Se separa la carga de la cascada del ef_popup (carga de opciones)
@@ -29,6 +37,7 @@ class toba_migracion_1_0_4 extends toba_migracion
 			$cant += $this->elemento->get_db()->ejecutar($sql);
 			return $cant;
 		}
+		
 
 }	
 

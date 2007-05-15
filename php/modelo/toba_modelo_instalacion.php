@@ -60,15 +60,16 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	//-----------------------------------------------------------
 	//	Manejo de subcomponentes
 	//-----------------------------------------------------------
-		
-	function get_instancias()
+
+	function get_instancia($id)
 	{
-		$instancias = array();
-		foreach( toba_modelo_instancia::get_lista() as $instancia ) {
-			$instancias[ $instancia ] = new instancia( $this, $instancia );	
-			$instancias[ $instancia ]->set_manejador_interface( $this->manejador_interface );	
-		}
-		return $instancias;
+		return toba_modelo_catalogo::instanciacion()->get_instancia($id, 
+													$this->manejador_interface);		
+	}
+	
+	function get_lista_instancias()
+	{
+		return toba_modelo_instancia::get_lista();
 	}
 	
 	
@@ -485,8 +486,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		
 		//-- Se migran las instancias incluidas		
 		if ($recursivo) {
-			foreach ($this->get_instancias() as $instancia) {
-				$instancia->migrar_version($version,$recursivo);
+			foreach ($this->get_lista_instancias() as $instancia) {
+				$this->get_instancia($instancia)->migrar_version($version,$recursivo);
 			}
 		}
 	}
