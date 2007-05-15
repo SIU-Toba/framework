@@ -3,18 +3,13 @@
 //--------------------------- Funcionalidad generica SQL ------------------------------
 //-------------------------------------------------------------------------------------
 
+	/**
+	 * Concatena sentencias a la clausula WHERE de un SQL (Utilizando un AND)
+	 */	
 	function sql_agregar_clausulas_where($sql,$clausulas_where=null)
-/*
- 	@@acceso: actividad
-	@@desc: Concatena sentencias a la clausula WHERE de un SQL (Utilizando un AND)
-	@@param: string | cadena SQL que hay que editar. El lugar de insersion  debe estar marcado con la constante 'apex_sql_where' (%w%)
-	@@param: array | lista de sentencias a acoplar
-	@@retorno: string | Sentencia SQL modificada
-	@@pendiente: Mira la existencia general de un WHERE y no del pedazo anterior de %w%
-*/	
 	{
 	    if(preg_match("/\s+where\s+/i",$sql)){
-	        //<MIRAR> Esto falla en SELECT con subquerys que no tienen WHERE en el cuerpo
+	        //TODO: Esto falla en SELECT con subquerys que no tienen WHERE en el cuerpo
 	        //del query central, por ahora SALE... 
 	        $prefijo = " AND ";
 	    }else{
@@ -29,16 +24,11 @@
 		return ereg_replace(apex_sql_where,$reemplazo,$sql);
 		//if(!stristr($sql,"where"))
 	}
-//-------------------------------------------------------------------------------------
-	
+
+	/**
+	 * Concatena tablas a la clausula FROM de un SQL
+	 */	
 	function sql_agregar_tablas_from($sql,$tablas_from=null)
-/*
- 	@@acceso: actividad
-	@@desc: Concatena tablas a la clausula FROM de un SQL
-	@@param: string | cadena SQL que hay que editar. El lugar de insersion  debe estar marcado con la constante 'apex_sql_from' (%f%) al final de la clausula
-	@@param: array | lista de tablas a acoplar
-	@@retorno: string | Sentencia SQL modificada
-*/	
 	{
 	    $reemplazo = "";
 	    if(is_array($tablas_from)){
@@ -48,16 +38,12 @@
 	    }
 	    return ereg_replace(apex_sql_from,$reemplazo,$sql);
 	}
-//-------------------------------------------------------------------------------------
 	
+	/**
+	 * Concatena columnas a la clausula WHERE de un SQL
+	 * @param array $columnas Matriz de columna, tipo. Donde tipo es asc o des
+	 */
 	function sql_agregar_ordenamiento($sql, $columnas)
-/*
- 	@@acceso: actividad
-	@@desc: Concatena columnas a la clausula WHERE de un SQL 
-	@@param: string | cadena SQL que hay que editar
-	@@param: array | Matriz de columna, tipo. Donde tipo es asc o des
-	@@retorno: string | Sentencia SQL modificada
-*/	
 	{
 		if (count($columnas) > 0)
 		{
@@ -86,16 +72,12 @@
 		}
 		return $sql;
 	}
-//-------------------------------------------------------------------------------------
 	
+	/**
+	 * Convierte un array asociativo en una sentencia de INSERT
+	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
+	 */
 	function sql_array_a_insert($tabla, $datos)
-/*
- 	@@acceso: actividad
-	@@desc: Convierte un array asociativo en una sentencia de INSERT
-	@@param: string | tabla sobre la que se realiza el INSERT
-	@@param: array | Array asociativo con el formato 'columna' => 'valor'
-	@@retorno: string | Sentencia SQL modificada
-*/
 	{
 		if(!is_array($datos)){
 			throw new toba_error("Los datos tienen que ser un array");	
@@ -112,13 +94,11 @@
 		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}
-//-------------------------------------------------------------------------------------
 
+	/**
+	 * Saca construcciones SQL de un STRING (necesario para concatenar el texto del usuario en el WHERE de un SQL)
+	 */
 	function filtrar_sql($sentencia)
-/*
- 	@@acceso: actividad
-	@@desc: Saca construcciones SQL de un STRING (necesario para concatenar el texto del usuario en el WHERE de un SQL)
-*/
 	{
 		//echo "entrada al FILTRO SQL: $sentencia <br>";
 		$temp = trim($sentencia);
