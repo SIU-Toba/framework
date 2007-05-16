@@ -123,6 +123,13 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	desabilitado					smallint		NULL,
 	total							smallint		NULL,		
 	total_cc						varchar(100)	NULL,			-- La columna lleva un total al final?
+	usar_vinculo					smallint			NULL,
+	vinculo_carpeta					varchar(60)			NULL,
+	vinculo_item					varchar(60)			NULL,
+	vinculo_popup					smallint			NULL,
+	vinculo_popup_param				varchar(100)		NULL,
+	vinculo_target					varchar(40)			NULL,
+	vinculo_celda					varchar(40)			NULL,
 	CONSTRAINT  "apex_obj_ei_cuadro_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_col"),
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_ei_cuadro_fk_formato" FOREIGN KEY ("formateo") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
