@@ -87,7 +87,7 @@ class toba_info_datos_tabla extends toba_info_componente
 				$datos[$a]['identificador'] = $columna['columna'];
 				$datos[$a]['columnas'] = $columna['columna'];
 				$datos[$a]['etiqueta'] = ucfirst(  str_replace("_"," ",$columna['columna']) );
-				if(isset($columna['secuencia'])){
+				if($columna['secuencia']){
 					$datos[$a]['elemento_formulario'] = 'ef_fijo';
 				}else{
 					if($columna['no_nulo_db']) $datos[$a]['obligatorio'] = 1;
@@ -103,6 +103,17 @@ class toba_info_datos_tabla extends toba_info_componente
 							break;
 						default:
 							$datos[$a]['elemento_formulario'] = 'ef_editable';
+					}
+				}
+				// Si es editable, pongo el tamaño de campos
+				if( $datos[$a]['elemento_formulario'] == 'ef_editable' ) {
+					if($columna['largo'] > 0) {
+						$datos[$a]['edit_maximo'] = $columna['largo'];
+						if($columna['largo'] < 80) {
+							$datos[$a]['edit_tamano'] = $columna['largo'];
+						}else{
+							$datos[$a]['edit_tamano'] = 80;
+						}
 					}
 				}
 				$datos[$a]['orden'] = $a;
