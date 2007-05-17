@@ -1,2 +1,26 @@
-INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES ('toba_referencia', 'referencia', 'Páginas de operaciones de referencia', 'tp_referencia', 'tp_referencia.php', NULL, NULL, NULL, NULL);
-INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES ('toba_referencia', 'tutorial', 'Páginas del tutorial', 'tp_tutorial', 'tutorial/tp_tutorial.php', NULL, NULL, NULL, NULL);
+
+------------------------------------------------------------
+-- apex_pagina_tipo
+------------------------------------------------------------
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES (
+	'toba_referencia', --proyecto
+	'referencia', --pagina_tipo
+	'Páginas de operaciones de referencia', --descripcion
+	'tp_referencia', --clase_nombre
+	'tp_referencia.php', --clase_archivo
+	NULL, --include_arriba
+	NULL, --include_abajo
+	NULL, --exclusivo_toba
+	NULL  --contexto
+);
+INSERT INTO apex_pagina_tipo (proyecto, pagina_tipo, descripcion, clase_nombre, clase_archivo, include_arriba, include_abajo, exclusivo_toba, contexto) VALUES (
+	'toba_referencia', --proyecto
+	'tutorial', --pagina_tipo
+	'Páginas del tutorial', --descripcion
+	'tp_tutorial', --clase_nombre
+	'tutorial/tp_tutorial.php', --clase_archivo
+	NULL, --include_arriba
+	NULL, --include_abajo
+	NULL, --exclusivo_toba
+	NULL  --contexto
+);

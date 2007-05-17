@@ -1,16 +1,205 @@
 ------------------------------------------------------------
 --[1000191]--  Propiedades - Mensajes - mensajes 
 ------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_editor', '1000191', NULL, NULL, 'toba', 'objeto_datos_tabla', NULL, NULL, NULL, NULL, 'Propiedades - Mensajes - mensajes', NULL, NULL, NULL, 'toba_editor', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2006-09-19 11:38:57');
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('toba_editor', '1000191', NULL, NULL, '1', NULL, NULL, 'apex_objeto_msg', NULL, '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000059', 'objeto_msg', 'E', '1', '\"apex_objeto_msg_seq\"', '-1', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000060', 'msg_tipo', 'C', '0', '', '20', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000061', 'indice', 'C', '0', '', '20', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000062', 'objeto_proyecto', 'C', '1', '', '15', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000063', 'objeto', 'C', '0', '', '60', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000064', 'descripcion_corta', 'C', '0', '', '50', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000065', 'mensaje_a', 'C', '0', '', '-5', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000066', 'mensaje_b', 'C', '0', '', '-5', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000067', 'mensaje_c', 'C', '0', '', '-5', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000068', 'mensaje_customizable', 'C', '0', '', '-5', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('toba_editor', '1000191', '1000069', 'parametro_clase', 'C', '0', '', '100', NULL, '0', '0');
+
+------------------------------------------------------------
+-- apex_objeto
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
+	'toba_editor', --proyecto
+	'1000191', --objeto
+	NULL, --anterior
+	NULL, --reflexivo
+	'toba', --clase_proyecto
+	'objeto_datos_tabla', --clase
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --objeto_categoria_proyecto
+	NULL, --objeto_categoria
+	'Propiedades - Mensajes - mensajes', --nombre
+	NULL, --titulo
+	NULL, --colapsable
+	NULL, --descripcion
+	'toba_editor', --fuente_datos_proyecto
+	'instancia', --fuente_datos
+	NULL, --solicitud_registrar
+	NULL, --solicitud_obj_obs_tipo
+	NULL, --solicitud_obj_observacion
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	NULL, --parametro_d
+	NULL, --parametro_e
+	NULL, --parametro_f
+	NULL, --usuario
+	'2006-09-19 11:38:57'  --creacion
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_objeto_db_registros
+------------------------------------------------------------
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	NULL, --max_registros
+	NULL, --min_registros
+	'1', --ap
+	NULL, --ap_clase
+	NULL, --ap_archivo
+	'apex_objeto_msg', --tabla
+	NULL, --alias
+	'0'  --modificar_claves
+);
+
+------------------------------------------------------------
+-- apex_objeto_db_registros_col
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000059', --col_id
+	'objeto_msg', --columna
+	'E', --tipo
+	'1', --pk
+	'\"apex_objeto_msg_seq\"', --secuencia
+	'-1', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000060', --col_id
+	'msg_tipo', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'20', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000061', --col_id
+	'indice', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'20', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000062', --col_id
+	'objeto_proyecto', --columna
+	'C', --tipo
+	'1', --pk
+	'', --secuencia
+	'15', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000063', --col_id
+	'objeto', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'60', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000064', --col_id
+	'descripcion_corta', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'50', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000065', --col_id
+	'mensaje_a', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'-5', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000066', --col_id
+	'mensaje_b', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'-5', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000067', --col_id
+	'mensaje_c', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'-5', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000068', --col_id
+	'mensaje_customizable', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'-5', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_editor', --objeto_proyecto
+	'1000191', --objeto
+	'1000069', --col_id
+	'parametro_clase', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'100', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+--- FIN Grupo de desarrollo 1

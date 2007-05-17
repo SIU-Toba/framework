@@ -1,5 +1,63 @@
 ------------------------------------------------------------
 --[1000058]--  Item - Código PHP 
 ------------------------------------------------------------
-INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES ('1000057', 'toba_editor', '1000058', NULL, 'toba_editor', '/items', '0', '0', 'web', 'toba', 'titulo', 'toba', '0', 'toba', 'CI', 'Item - Código PHP', NULL, NULL, '0', '4', '0', NULL, NULL, NULL, '0', NULL, 'toba_editor', 'zona_item', '3', '0', 'apex', 'nucleo/php.gif', NULL, NULL, NULL, '0', '0', NULL, NULL);
-INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (NULL, 'toba_editor', '1000058', '1000188', '0', NULL);
+
+------------------------------------------------------------
+-- apex_item
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES (
+	'1000057', --item_id
+	'toba_editor', --proyecto
+	'1000058', --item
+	NULL, --padre_id
+	'toba_editor', --padre_proyecto
+	'/items', --padre
+	'0', --carpeta
+	'0', --nivel_acceso
+	'web', --solicitud_tipo
+	'toba', --pagina_tipo_proyecto
+	'titulo', --pagina_tipo
+	'toba', --actividad_buffer_proyecto
+	'0', --actividad_buffer
+	'toba', --actividad_patron_proyecto
+	'CI', --actividad_patron
+	'Item - Código PHP', --nombre
+	NULL, --descripcion
+	NULL, --actividad_accion
+	'0', --menu
+	'4', --orden
+	'0', --solicitud_registrar
+	NULL, --solicitud_obs_tipo_proyecto
+	NULL, --solicitud_obs_tipo
+	NULL, --solicitud_observacion
+	'0', --solicitud_registrar_cron
+	NULL, --prueba_directorios
+	'toba_editor', --zona_proyecto
+	'zona_item', --zona
+	'3', --zona_orden
+	'0', --zona_listar
+	'apex', --imagen_recurso_origen
+	'nucleo/php.gif', --imagen
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	'0', --publico
+	'0', --redirecciona
+	NULL, --usuario
+	NULL  --creacion
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_item_objeto
+------------------------------------------------------------
+INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
+	NULL, --item_id
+	'toba_editor', --proyecto
+	'1000058', --item
+	'1000188', --objeto
+	'0', --orden
+	NULL  --inicializar
+);

@@ -1,7 +1,106 @@
 ------------------------------------------------------------
 --[1911]--  Inicializacion de Sesión 
 ------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_editor', '1911', NULL, NULL, 'toba', 'objeto_ci', 'ci_ini_sesion', 'login/ci_ini_sesion.php', NULL, NULL, 'Inicializacion de Sesión', NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2007-03-16 13:02:42');
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_editor', '859', '1911', '1912', 'form', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES ('toba_editor', '1911', NULL, NULL, NULL, NULL, 'abajo', NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES ('toba_editor', '1911', '1025', 'pant_inicial', '1', 'Pantalla Inicial', NULL, NULL, 'apex', NULL, 'form', NULL, NULL, NULL);
+
+------------------------------------------------------------
+-- apex_objeto
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
+	'toba_editor', --proyecto
+	'1911', --objeto
+	NULL, --anterior
+	NULL, --reflexivo
+	'toba', --clase_proyecto
+	'objeto_ci', --clase
+	'ci_ini_sesion', --subclase
+	'login/ci_ini_sesion.php', --subclase_archivo
+	NULL, --objeto_categoria_proyecto
+	NULL, --objeto_categoria
+	'Inicializacion de Sesión', --nombre
+	NULL, --titulo
+	'0', --colapsable
+	NULL, --descripcion
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
+	NULL, --solicitud_registrar
+	NULL, --solicitud_obj_obs_tipo
+	NULL, --solicitud_obj_observacion
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	NULL, --parametro_d
+	NULL, --parametro_e
+	NULL, --parametro_f
+	NULL, --usuario
+	'2007-03-16 13:02:42'  --creacion
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_dependencias
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'859', --dep_id
+	'1911', --objeto_consumidor
+	'1912', --objeto_proveedor
+	'form', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_mt_me
+------------------------------------------------------------
+INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
+	'toba_editor', --objeto_mt_me_proyecto
+	'1911', --objeto_mt_me
+	NULL, --ev_procesar_etiq
+	NULL, --ev_cancelar_etiq
+	NULL, --ancho
+	NULL, --alto
+	'abajo', --posicion_botonera
+	NULL, --tipo_navegacion
+	'0', --con_toc
+	NULL, --incremental
+	NULL, --debug_eventos
+	NULL, --activacion_procesar
+	NULL, --activacion_cancelar
+	NULL, --ev_procesar
+	NULL, --ev_cancelar
+	NULL, --objetos
+	NULL, --post_procesar
+	NULL, --metodo_despachador
+	NULL  --metodo_opciones
+);
+
+------------------------------------------------------------
+-- apex_objeto_ci_pantalla
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1911', --objeto_ci
+	'1025', --pantalla
+	'pant_inicial', --identificador
+	'1', --orden
+	'Pantalla Inicial', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form', --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+--- FIN Grupo de desarrollo 0

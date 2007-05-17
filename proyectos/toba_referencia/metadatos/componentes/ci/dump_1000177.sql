@@ -1,16 +1,180 @@
 ------------------------------------------------------------
 --[1000177]--  Uso del ef_popup 
 ------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_referencia', '1000177', NULL, NULL, 'toba', 'objeto_ci', 'ci_principal', 'componentes/efs/ef_popup/ci_principal.php', NULL, NULL, 'Uso del ef_popup', NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2006-09-01 09:56:05');
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES ('toba_referencia', '1000197', '1000177', 'refrescar', '&Refrescar', '1', NULL, NULL, NULL, 'apex', 'refrescar.png', '1', NULL, '1', NULL, '0', '0', NULL, NULL, NULL, '0', NULL, NULL, NULL, '0', NULL, NULL, NULL);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_referencia', '1000066', '1000177', '1000175', 'form', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_referencia', '862', '1000177', '1916', 'form_cascada', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES ('toba_referencia', '1000177', NULL, NULL, '600px', NULL, 'abajo', 'tab_h', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES ('toba_referencia', '1000177', '1000040', 'formulario', '1', 'Simple', 'En su comportamiento básico el [wiki_toba:Referencia/efs/popup ef_popup] necesita:<br>
+
+------------------------------------------------------------
+-- apex_objeto
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
+	'toba_referencia', --proyecto
+	'1000177', --objeto
+	NULL, --anterior
+	NULL, --reflexivo
+	'toba', --clase_proyecto
+	'objeto_ci', --clase
+	'ci_principal', --subclase
+	'componentes/efs/ef_popup/ci_principal.php', --subclase_archivo
+	NULL, --objeto_categoria_proyecto
+	NULL, --objeto_categoria
+	'Uso del ef_popup', --nombre
+	NULL, --titulo
+	'0', --colapsable
+	NULL, --descripcion
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
+	NULL, --solicitud_registrar
+	NULL, --solicitud_obj_obs_tipo
+	NULL, --solicitud_obj_observacion
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	NULL, --parametro_d
+	NULL, --parametro_e
+	NULL, --parametro_f
+	NULL, --usuario
+	'2006-09-01 09:56:05'  --creacion
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_objeto_eventos
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
+	'1000197', --evento_id
+	'1000177', --objeto
+	'refrescar', --identificador
+	'&Refrescar', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'refrescar.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_objeto_dependencias
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'1000066', --dep_id
+	'1000177', --objeto_consumidor
+	'1000175', --objeto_proveedor
+	'form', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'862', --dep_id
+	'1000177', --objeto_consumidor
+	'1916', --objeto_proveedor
+	'form_cascada', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_mt_me
+------------------------------------------------------------
+INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
+	'toba_referencia', --objeto_mt_me_proyecto
+	'1000177', --objeto_mt_me
+	NULL, --ev_procesar_etiq
+	NULL, --ev_cancelar_etiq
+	'600px', --ancho
+	NULL, --alto
+	'abajo', --posicion_botonera
+	'tab_h', --tipo_navegacion
+	'0', --con_toc
+	NULL, --incremental
+	NULL, --debug_eventos
+	NULL, --activacion_procesar
+	NULL, --activacion_cancelar
+	NULL, --ev_procesar
+	NULL, --ev_cancelar
+	NULL, --objetos
+	NULL, --post_procesar
+	NULL, --metodo_despachador
+	NULL  --metodo_opciones
+);
+
+------------------------------------------------------------
+-- apex_objeto_ci_pantalla
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1000177', --objeto_ci
+	'1000040', --pantalla
+	'formulario', --identificador
+	'1', --orden
+	'Simple', --etiqueta
+	'En su comportamiento básico el [wiki_toba:Referencia/efs/popup ef_popup] necesita:<br>
 <ul>
 <li>Apuntar a un ítem que contenga un cuadro cuyo evento de selección retorne el valor al formulario original
 <li>Un método de carga de la descripción. Esto es cuando se carga el ef con una clave (digamos 2) se necesita saber cual es la descripción asociada a esa clave y para eso se ejecuta el método.
-</ul>', NULL, 'apex', NULL, 'form', 'refrescar', NULL, NULL);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES ('toba_referencia', '1000177', '1000143', 'cascada', '2', 'En Cascada', 'Cuando el popup es esclavo de una cascada, además del método de carga de descripción se necesita definir el método que será responsable de responder a la cascada.
+</ul>', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form', --objetos
+	'refrescar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1000177', --objeto_ci
+	'1000143', --pantalla
+	'cascada', --identificador
+	'2', --orden
+	'En Cascada', --etiqueta
+	'Cuando el popup es esclavo de una cascada, además del método de carga de descripción se necesita definir el método que será responsable de responder a la cascada.
 <p>En este método por ejemplo se puede dar un valor por defecto al ef_popup o guardar algo en la toba::memoria para que el ítem de popup pueda leerlo
-</p>', NULL, 'apex', NULL, 'form_cascada', 'refrescar', NULL, NULL);
+</p>', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_cascada', --objetos
+	'refrescar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+--- FIN Grupo de desarrollo 1

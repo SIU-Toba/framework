@@ -1,10 +1,136 @@
 ------------------------------------------------------------
 --[10000024]--  PUNTOS DE CONTROL - relacion 
 ------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('toba_editor', '10000024', NULL, NULL, 'toba', 'objeto_datos_relacion', NULL, NULL, NULL, NULL, 'PUNTOS DE CONTROL - relacion', NULL, NULL, NULL, 'toba_editor', 'instancia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2006-12-18 14:25:55');
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico) VALUES ('toba_editor', '10000024', '0', NULL, '2', NULL, NULL, '0', '1');
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES ('toba_editor', '10000024', '10000002', NULL, 'toba_editor', '10000022', 'apex_ptos_control', 'proyecto,pto_control', 'toba_editor', '10000028', 'apex_ptos_ctrl_param', 'proyecto,pto_control', NULL, '1');
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES ('toba_editor', '10000024', '10000004', NULL, 'toba_editor', '10000022', 'apex_ptos_control', 'proyecto,pto_control', 'toba_editor', '10000035', 'ptos_control_ctrl', 'proyecto,pto_control', NULL, '2');
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_editor', '10000029', '10000024', '10000022', 'apex_ptos_control', '1', '1', NULL, NULL, '3');
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_editor', '10000035', '10000024', '10000028', 'apex_ptos_ctrl_param', '', '', NULL, NULL, '2');
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES ('toba_editor', '10000041', '10000024', '10000035', 'ptos_control_ctrl', NULL, NULL, NULL, NULL, '1');
+
+------------------------------------------------------------
+-- apex_objeto
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 10
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	NULL, --anterior
+	NULL, --reflexivo
+	'toba', --clase_proyecto
+	'objeto_datos_relacion', --clase
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --objeto_categoria_proyecto
+	NULL, --objeto_categoria
+	'PUNTOS DE CONTROL - relacion', --nombre
+	NULL, --titulo
+	NULL, --colapsable
+	NULL, --descripcion
+	'toba_editor', --fuente_datos_proyecto
+	'instancia', --fuente_datos
+	NULL, --solicitud_registrar
+	NULL, --solicitud_obj_obs_tipo
+	NULL, --solicitud_obj_observacion
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	NULL, --parametro_d
+	NULL, --parametro_e
+	NULL, --parametro_f
+	NULL, --usuario
+	'2006-12-18 14:25:55'  --creacion
+);
+--- FIN Grupo de desarrollo 10
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel
+------------------------------------------------------------
+INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	'0', --debug
+	NULL, --clave
+	'2', --ap
+	NULL, --ap_clase
+	NULL, --ap_archivo
+	'0', --sinc_susp_constraints
+	'1'  --sinc_orden_automatico
+);
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 10
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	'10000002', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'10000022', --padre_objeto
+	'apex_ptos_control', --padre_id
+	'proyecto,pto_control', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000028', --hijo_objeto
+	'apex_ptos_ctrl_param', --hijo_id
+	'proyecto,pto_control', --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000024', --objeto
+	'10000004', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'10000022', --padre_objeto
+	'apex_ptos_control', --padre_id
+	'proyecto,pto_control', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'10000035', --hijo_objeto
+	'ptos_control_ctrl', --hijo_id
+	'proyecto,pto_control', --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+--- FIN Grupo de desarrollo 10
+
+------------------------------------------------------------
+-- apex_objeto_dependencias
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 10
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000029', --dep_id
+	'10000024', --objeto_consumidor
+	'10000022', --objeto_proveedor
+	'apex_ptos_control', --identificador
+	'1', --parametros_a
+	'1', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'3'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000035', --dep_id
+	'10000024', --objeto_consumidor
+	'10000028', --objeto_proveedor
+	'apex_ptos_ctrl_param', --identificador
+	'', --parametros_a
+	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'2'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'10000041', --dep_id
+	'10000024', --objeto_consumidor
+	'10000035', --objeto_proveedor
+	'ptos_control_ctrl', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'1'  --orden
+);
+--- FIN Grupo de desarrollo 10

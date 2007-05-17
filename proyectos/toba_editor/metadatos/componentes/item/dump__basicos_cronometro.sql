@@ -1,5 +1,63 @@
 ------------------------------------------------------------
 --[/basicos/cronometro]--  Cronometro 
 ------------------------------------------------------------
-INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES ('222', 'toba_editor', '/basicos/cronometro', '13', 'toba_editor', '/admin/utilidades', '0', '0', 'web', 'toba', 'vacio', 'toba', '0', 'toba', 'especifico', 'Cronometro', NULL, NULL, '0', '16', '0', 'toba', 'item_datos', NULL, NULL, NULL, NULL, NULL, NULL, '0', 'proyecto', NULL, NULL, NULL, NULL, '0', '0', NULL, '2004-03-02 02:41:19');
-INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (NULL, 'toba_editor', '/basicos/cronometro', '1000239', '0', NULL);
+
+------------------------------------------------------------
+-- apex_item
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES (
+	'222', --item_id
+	'toba_editor', --proyecto
+	'/basicos/cronometro', --item
+	'13', --padre_id
+	'toba_editor', --padre_proyecto
+	'/admin/utilidades', --padre
+	'0', --carpeta
+	'0', --nivel_acceso
+	'web', --solicitud_tipo
+	'toba', --pagina_tipo_proyecto
+	'vacio', --pagina_tipo
+	'toba', --actividad_buffer_proyecto
+	'0', --actividad_buffer
+	'toba', --actividad_patron_proyecto
+	'especifico', --actividad_patron
+	'Cronometro', --nombre
+	NULL, --descripcion
+	NULL, --actividad_accion
+	'0', --menu
+	'16', --orden
+	'0', --solicitud_registrar
+	'toba', --solicitud_obs_tipo_proyecto
+	'item_datos', --solicitud_obs_tipo
+	NULL, --solicitud_observacion
+	NULL, --solicitud_registrar_cron
+	NULL, --prueba_directorios
+	NULL, --zona_proyecto
+	NULL, --zona
+	NULL, --zona_orden
+	'0', --zona_listar
+	'proyecto', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	'0', --publico
+	'0', --redirecciona
+	NULL, --usuario
+	'2004-03-02 02:41:19'  --creacion
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_item_objeto
+------------------------------------------------------------
+INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
+	NULL, --item_id
+	'toba_editor', --proyecto
+	'/basicos/cronometro', --item
+	'1000239', --objeto
+	'0', --orden
+	NULL  --inicializar
+);
