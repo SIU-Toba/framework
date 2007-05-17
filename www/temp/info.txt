@@ -1,2 +1,0 @@
-Carpera de archivos temporales 
-(Ejemplo: uploads para procesos)
