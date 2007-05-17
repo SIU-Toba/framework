@@ -135,6 +135,7 @@ CREATE TABLE apex_usuario_grupo_acc_item
 --: dump_order_by: usuario_grupo_acc, item
 --: zona: usuario, item
 --: desc:
+--: columna_grupo_desarrollo: item
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
@@ -155,6 +156,7 @@ CREATE TABLE apex_permiso_grupo_acc
 --: dump_order_by: permiso, usuario_grupo_acc
 --: zona: usuario
 --: desc:
+--: columna_grupo_desarrollo: permiso
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	

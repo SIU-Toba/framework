@@ -166,6 +166,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private function get_contenido_tabla($tabla, $where_extra=null)
 	{
 		$definicion = toba_db_tablas_proyecto::$tabla();
+		$columna_grupo_desarrollo = null;
+		if (isset($definicion['columna_grupo_desarrollo'])) {
+			$columna_grupo_desarrollo = $definicion['columna_grupo_desarrollo'];
+		}		
 		//Genero el SQL
 		if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
    			$w = stripslashes($definicion['dump_where']);
@@ -177,24 +181,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$sql = "SELECT " . implode(', ', $definicion['columnas']) .
 				" FROM $tabla " .
 				" WHERE $where " .
-				//" WHERE {$definicion['dump_clave_proyecto']} = '".$this->get_id()."}' " .
 				" ORDER BY {$definicion['dump_order_by']} ;\n";
-		//$this->manejador_interface->mensaje( $sql );
-		$contenido = "";
 		$datos = $this->db->consultar($sql);
 		$regs = count( $datos );
 		if ( $regs > 1 ) {
 			$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 			$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
-		
 		}
 		toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
-		for ( $a = 0; $a < $regs ; $a++ ) {
-			$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
-		}
-		return $contenido;
+		return $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
 	}
 
+	
 	//-- COMPONENTES -------------------------------------------------------------
 
 	/*
@@ -247,10 +245,46 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$contenido .= "--[{$id['componente']}]--  $nombre_componente \n";
 		$contenido .= "------------------------------------------------------------\n";
 		foreach ( $metadatos as $tabla => $datos) {
-			for ( $a=0; $a<count($datos); $a++ ) {
-				$this->cant_reg_exp++;				
-				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
+			$definicion = toba_db_tablas_componente::$tabla();
+			$columna_grupo_desarrollo = null;
+			if (isset($definicion['columna_grupo_desarrollo'])) {
+				$columna_grupo_desarrollo = $definicion['columna_grupo_desarrollo'];
 			}
+			$contenido .= $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
+		}
+		return $contenido;		
+	}
+	
+	private function get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo)
+	{
+		//--- Si no se especifico porque columna filtrar el grupo de desarrollo buscar en las secuencias
+		if (! isset($columna_grupo_desarrollo)) {
+			$columna_grupo_desarrollo = $this->instancia->get_campo_secuencia_de_tabla($tabla);
+		}
+		$contenido = '';
+		$grupo_actual = -1;		
+		for ( $a = 0; $a < count($datos) ; $a++ ) {
+			if (isset($columna_grupo_desarrollo)) {
+				$valor = $datos[$a][$columna_grupo_desarrollo];
+				$grupo = $this->instancia->get_grupo_desarrollo_de_valor($valor);
+				if ($grupo !== $grupo_actual) {
+					if ($grupo_actual !== -1) {
+						$contenido .= "--- FIN Grupo de desarrollo $grupo_actual\n";
+					}
+					$contenido .= "\n--- INICIO Grupo de desarrollo $grupo\n";
+					$grupo_actual = $grupo;
+				}
+			}
+			$contenido .= sql_array_a_insert_formateado( $tabla, $datos[$a] );
+		}
+		if ($grupo_actual !== -1) {
+			$contenido .= "--- FIN Grupo de desarrollo $grupo_actual\n";
+		}
+		if ($contenido != '') {
+			$extra = "\n------------------------------------------------------------\n";
+			$extra .= "-- $tabla\n";
+			$extra .= "------------------------------------------------------------\n";
+			$contenido = $extra.$contenido;				
 		}
 		return $contenido;		
 	}

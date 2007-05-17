@@ -94,6 +94,36 @@
 		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}
+	
+	/**
+	 * Convierte un array asociativo en una sentencia de INSERT formateada para evitar conflictos cuando hay merges
+	 * @param array $datos Array asociativo con el formato 'columna' => 'valor'
+	 */
+	function sql_array_a_insert_formateado($tabla, $datos)
+	{
+		if(!is_array($datos)){
+			throw new toba_error("Los datos tienen que ser un array");	
+		}
+		foreach(array_keys($datos) as $columna){
+			if(is_null( $datos[$columna] )){
+				$datos[$columna] = "%%NULL%%";//Identifico los nulos
+			}else{
+				$datos[$columna] = addslashes($datos[$columna]);//Escapo caracteres
+			}
+		}
+		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
+				" VALUES (";
+
+		$i = 1;
+		foreach ($datos as $clave => $valor) {
+			$coma = ($i < count($datos)) ? ',' : ' ';
+			$sql .= "\n\t'".$valor."'$coma --$clave";
+			$i++;
+		}
+		$sql .=	"\n);\n";
+		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
+		return $sql;	
+	}	
 
 	/**
 	 * Saca construcciones SQL de un STRING (necesario para concatenar el texto del usuario en el WHERE de un SQL)

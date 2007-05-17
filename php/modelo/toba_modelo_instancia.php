@@ -651,6 +651,32 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("OK");
 	}
 	
+	/**
+	 * Dado el valor de un campo generado por una secuencia determina el grupo de desarrollo que lo genero
+	 */
+	function get_grupo_desarrollo_de_valor($valor)
+	{
+		if (! is_numeric($valor)) {
+			return null;
+		}
+		return floor($valor / self::cantidad_seq_grupo);
+	}
+	
+	/**
+	 * Retorna el campo que es una secuencia en una tabla de la instancia
+	 */
+	function get_campo_secuencia_de_tabla($tabla)
+	{
+		if (! isset($this->lista_secuencias)) {
+			$this->lista_secuencias = toba_db_secuencias::get_lista();
+		}
+		foreach ($this->lista_secuencias as $datos) {
+			if ($datos['tabla'] == $tabla) {
+				return $datos['campo'];				
+			}
+		}
+	}
+	
 	//-----------------------------------------------------------
 	//	ELIMINAR una DB
 	//-----------------------------------------------------------

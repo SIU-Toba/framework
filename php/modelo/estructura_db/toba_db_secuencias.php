@@ -39,5 +39,6 @@ class toba_db_secuencias
 		$datos['apex_permiso_seq'] = array('campo' => 'permiso', 'tabla' => 'apex_permiso');
 		return $datos;
 	}
+
 }
 ?>
