@@ -10,6 +10,20 @@ class toba_db_tablas_instancia
 );
 	}
 
+	static function get_lista_global_usuario()
+	{
+		return array (
+  0 => 'apex_usuario',
+);
+	}
+
+	static function get_lista_proyecto_usuario()
+	{
+		return array (
+  0 => 'apex_usuario_proyecto',
+);
+	}
+
 	static function get_lista_proyecto_log()
 	{
 		return array (
@@ -29,20 +43,6 @@ class toba_db_tablas_instancia
   0 => 'apex_arbol_items_fotos',
   1 => 'apex_admin_album_fotos',
   2 => 'apex_admin_param_previsualizazion',
-);
-	}
-
-	static function get_lista_global_usuario()
-	{
-		return array (
-  0 => 'apex_usuario',
-);
-	}
-
-	static function get_lista_proyecto_usuario()
-	{
-		return array (
-  0 => 'apex_usuario_proyecto',
 );
 	}
 
@@ -95,6 +95,68 @@ class toba_db_tablas_instancia
     5 => 'administrador_2',
     6 => 'administrador_3',
     7 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_usuario()
+	{
+		return array (
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'usuario',
+  'zona' => 'usuario',
+  'desc' => '',
+  'instancia' => '1',
+  'usuario' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'usuario',
+    1 => 'clave',
+    2 => 'nombre',
+    3 => 'usuario_tipodoc',
+    4 => 'pre',
+    5 => 'ciu',
+    6 => 'suf',
+    7 => 'email',
+    8 => 'telefono',
+    9 => 'vencimiento',
+    10 => 'dias',
+    11 => 'hora_entrada',
+    12 => 'hora_salida',
+    13 => 'ip_permitida',
+    14 => 'solicitud_registrar',
+    15 => 'solicitud_obs_tipo_proyecto',
+    16 => 'solicitud_obs_tipo',
+    17 => 'solicitud_observacion',
+    18 => 'parametro_a',
+    19 => 'parametro_b',
+    20 => 'parametro_c',
+    21 => 'autentificacion',
+  ),
+);
+	}
+
+	static function apex_usuario_proyecto()
+	{
+		return array (
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'usuario' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario',
+    2 => 'usuario_grupo_acc',
+    3 => 'usuario_perfil_datos',
   ),
 );
 	}
@@ -187,68 +249,6 @@ class toba_db_tablas_instancia
     1 => 'usuario',
     2 => 'grupo_acceso',
     3 => 'punto_acceso',
-  ),
-);
-	}
-
-	static function apex_usuario()
-	{
-		return array (
-  'archivo' => 'pgsql_a02_tablas_usuario.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'usuario',
-  'zona' => 'usuario',
-  'desc' => '',
-  'instancia' => '1',
-  'usuario' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'usuario',
-    1 => 'clave',
-    2 => 'nombre',
-    3 => 'usuario_tipodoc',
-    4 => 'pre',
-    5 => 'ciu',
-    6 => 'suf',
-    7 => 'email',
-    8 => 'telefono',
-    9 => 'vencimiento',
-    10 => 'dias',
-    11 => 'hora_entrada',
-    12 => 'hora_salida',
-    13 => 'ip_permitida',
-    14 => 'solicitud_registrar',
-    15 => 'solicitud_obs_tipo_proyecto',
-    16 => 'solicitud_obs_tipo',
-    17 => 'solicitud_observacion',
-    18 => 'parametro_a',
-    19 => 'parametro_b',
-    20 => 'parametro_c',
-    21 => 'autentificacion',
-  ),
-);
-	}
-
-	static function apex_usuario_proyecto()
-	{
-		return array (
-  'archivo' => 'pgsql_a02_tablas_usuario.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'usuario',
-  'zona' => 'usuario',
-  'instancia' => '1',
-  'usuario' => '1',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario',
-    2 => 'usuario_grupo_acc',
-    3 => 'usuario_perfil_datos',
   ),
 );
 	}

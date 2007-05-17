@@ -1287,19 +1287,55 @@ class toba_ei_cuadro extends toba_ei
 				$valor = "";
                 if(isset($this->_info_cuadro_columna[$a]["clave"])){
 					if(isset($this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
-						$valor = $this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
+						$valor_real = $this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
 					}else{
-						$valor = '&nbsp;';
+						$valor_real = '&nbsp;';
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
 	                if(isset($this->_info_cuadro_columna[$a]["formateo"])){
 	                    $funcion = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
 	                    //Formateo el valor
-	                    $valor = $funcion($valor);
+	                    $valor = $funcion($valor_real);
+	                } else {
+	                	$valor = $valor_real;	
 	                }
 	            }
-                //*** 2) Genero el HTML
+	            //*** 2) La celda posee un vinculo??
+				if ( ($this->_tipo_salida != 'pdf') && ( $this->_info_cuadro_columna[$a]['usar_vinculo'] ) ) {
+					// Armo el vinculo.
+					$clave_columna = isset($this->_info_cuadro_columna[$a]['vinculo_indice']) ? $this->_info_cuadro_columna[$a]['vinculo_indice'] : $this->_info_cuadro_columna[$a]['clave'];
+					$opciones = array(); $parametros = array();
+					if($this->_info_cuadro_columna[$a]['vinculo_celda']) {
+						$opciones['celda_memoria'] = $this->_info_cuadro_columna[$a]['vinculo_celda'];
+					} else {
+						$opciones['celda_memoria'] = $clave_columna;
+					}
+					$parametros[$clave_columna] = $valor_real;
+					$item = $this->_info_cuadro_columna[$a]['vinculo_item'];
+					$url = toba::vinculador()->crear_vinculo(toba::proyecto()->get_id(),$item,$parametros,$opciones);
+					// Armo el disparo
+					if ( $this->_info_cuadro_columna[$a]['vinculo_popup'] ) {
+						$popup_parametros = array();
+						if($this->_info_cuadro_columna[$a]['vinculo_popup_param']) {
+							//Esto se puede optimizar (1 por columna en vez de columna/fila)!
+							$temp = explode(',',$this->_info_cuadro_columna[$a]['vinculo_popup_param']);
+							$temp = array_map('trim',$temp);
+							foreach($temp as $opcion) {
+								$o = explode(':',$opcion);
+								$o = array_map('trim',$o);
+								$popup_parametros[$o[0]] = $o[1];
+							}	
+						}
+						$opciones = toba_js::arreglo($popup_parametros, true);
+						$js = "abrir_popup('$clave_columna','$url',$opciones);";
+						$valor = "<a href='#' onclick=\"$js\">$valor</a>";
+					} else {
+						$target = ($this->_info_cuadro_columna[$a]['target']) ? "target='".$this->_info_cuadro_columna[$a]['target']."'" : '';
+						$valor = "<a href='$url' $target>$valor</a>";
+					}
+				}
+                //*** 3) Genero el HTML
                 echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."'>\n";
                 echo $valor;
                 echo "</td>\n";
@@ -1642,6 +1678,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
+			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();					
 		}
 		echo "</td></tr>\n";

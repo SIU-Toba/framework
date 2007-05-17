@@ -29,6 +29,7 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 					this.ef('vinculo_popup_par').ocultar();
 				}
 			}
+			
 			{$this->objeto_js}.evt__vinculo_popup__procesar = function() {
 				if (this.ef('usar_vinculo').valor() == '1') {
 					if (this.ef('vinculo_popup').chequeado()) {
@@ -43,5 +44,4 @@ class eiform_cuadro_prop_cols extends toba_ei_formulario
 		";
 	}
 }
-
 ?>

@@ -387,10 +387,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'vinculo_indice', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'6', --orden
+	'8', --orden
 	'Vinculo - ID propagacion', --etiqueta
 	NULL, --etiqueta_estilo
-	'Este indice se utiliza para recuperar un VINCULO del OBJETO (Entre el conjunto de vinculos asociados que puede tener)', --descripcion
+	'ID con el cual se va a recibir el valor propagado. Si no se especifica se utiliza el ID de la columna.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -524,7 +524,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'5', --orden
 	'Vinculo', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Permite asociar un vinculo al valor mostrado en la columna. El valor se propaga al item destino con el nombre de la columna como clave asociativa (comportamiento por defecto) o con una clave alternativa.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -591,7 +591,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'10', --orden
 	'Vinculo - Target', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Si, se estan utilizando multiples frames, indica sobre cual cargar el vinculo.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -658,7 +658,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'9', --orden
 	'Vinculo - Celda mem.', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Permite bifurcar un espacio de memoria para el popup.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -725,7 +725,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'vinculo_carpeta', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'7', --orden
+	'6', --orden
 	'Vinculo - Carpeta', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -792,7 +792,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'vinculo_item', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'8', --orden
+	'7', --orden
 	'Vinculo - Item', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -862,7 +862,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'11', --orden
 	'Vinculo - Es popup', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Indica que el vinculo debe abrirse en un popup.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

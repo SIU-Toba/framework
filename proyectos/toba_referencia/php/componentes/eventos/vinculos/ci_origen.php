@@ -39,12 +39,18 @@ class ci_origen extends toba_ci
 		$datos[0]['id'] = 3;		
 		$datos[0]['id2'] = 1;		
 		$datos[0]['descripcion'] = 'Esta es la fila 1';
+		$datos[0]['valor_a'] = 1000;
+		$datos[0]['valor_b'] = 600;
 		$datos[1]['id'] = 2;		
 		$datos[1]['id2'] = 1;		
 		$datos[1]['descripcion'] = 'Esta es la fila 2';
+		$datos[1]['valor_a'] = 200;
+		$datos[1]['valor_b'] = 7000;
 		$datos[2]['id'] = 1;		
 		$datos[2]['id2'] = 2;		
 		$datos[2]['descripcion'] = 'Esta es la fila 3';
+		$datos[2]['valor_a'] = 300;
+		$datos[2]['valor_b'] = 5000;
 		return $datos;
 	}
 }
