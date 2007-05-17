@@ -592,7 +592,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "\n</div>";
 	}
 	
-	protected function generar_layout($ancho)
+	protected function generar_layout($ancho='auto')
 	{
 		//Botonera de agregar y ordenar
 		$this->generar_botonera_manejo_filas();
