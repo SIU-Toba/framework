@@ -12,7 +12,7 @@ class toba_proyecto
 	static private $id_proyecto;
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	private $id;
-	private $indice_items_accesibles = array();
+	private $indice_items_accesibles;
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -235,17 +235,17 @@ class toba_proyecto
 	 *
 	 * @param unknown_type $solo_primer_nivel
 	 * @param string $proyecto Por defecto el actual
-	 * @param string $grupo_acceso Por defecto el del usuario actual
+	 * @param string $grupos_acceso Por defecto el del usuario actual
 	 * @return array RecordSet contienendo información de los items
 	 */
-	function get_items_menu($proyecto=null, $grupo_acceso=null)
+	function get_items_menu($proyecto=null, $grupos_acceso=null)
 	{
-		if (!isset($grupo_acceso)) $grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();
+		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_menu');
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupos_acceso, 'get_items_menu');
 		} else {
 			if (!isset($proyecto)) $proyecto = self::get_id();
-			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupo_acceso);
+			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}
 		return $rs;
 	}	
@@ -255,41 +255,41 @@ class toba_proyecto
 	 */
 	function puede_grupo_acceder_item($proyecto, $item)
 	{
-		$grupo_acceso = toba::manejador_sesiones()->get_grupo_acceso();	
+		$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();	
 		//Recupero los items y los formateo en un indice consultable
-		if(!isset($this->indice_items_accesibles[$grupo_acceso])) {
-			$this->indice_items_accesibles[$grupo_acceso] = array();
+		if(!isset($this->indice_items_accesibles)) {
+			$this->indice_items_accesibles = array();
 			if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-				$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_accesibles');
+				$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupos_acceso, 'get_items_accesibles');
 			} else {
-				$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupo_acceso);
+				$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupos_acceso);
 			}
 			foreach( $rs as $accesible ) {
-				$this->indice_items_accesibles[$grupo_acceso][$accesible['proyecto'].'-'.$accesible['item']] = 1;
+				$this->indice_items_accesibles[$accesible['proyecto'].'-'.$accesible['item']] = 1;
 			}
 		}
-		return isset($this->indice_items_accesibles[$grupo_acceso][$proyecto.'-'.$item]);
+		return isset($this->indice_items_accesibles[$proyecto.'-'.$item]);
 	}
 
 	/**
 	*	Devuelve la lista de items de la zona a los que puede acceder el grupo actual
 	*/
-	function get_items_zona($zona, $grupo_acceso)
+	function get_items_zona($zona, $grupos_acceso=null)
 	{
+		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_items_zona__'.$zona);
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupos_acceso, 'get_items_zona__'.$zona);
 		} else {
-			$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupo_acceso, $zona);	
+			$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupos_acceso, $zona);	
 		}
 		return $rs;
 	}
 
 	function get_grupo_acceso_usuario_anonimo()
 	{
-		//$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
-		//$grupos = array_map('trim',$grupos);
-		//return $grupos;
-		return $this->get_parametro('usuario_anonimo_grupos_acc');
+		$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
+		$grupos = array_map('trim',$grupos);
+		return $grupos;
 	}
 
 	//------------------------  Permisos  -------------------------
@@ -297,13 +297,13 @@ class toba_proyecto
 	/**
 	 * Retorna la lista de permisos globales (tambien llamados particulares) de un grupo de acceso en el proyecto actual
 	 */
-	function get_lista_permisos($grupo_acceso=null)
+	function get_lista_permisos($grupos_acceso=null)
 	{
-		$grupo_acceso = isset($grupo_acceso) ? $grupo_acceso : toba::manejador_sesiones()->get_grupo_acceso();	
+		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_grupo_acceso();	
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupo_acceso, 'get_lista_permisos');
+			$rs = $this->recuperar_datos_compilados('toba_mc_gene__grupo_'.$grupos_acceso, 'get_lista_permisos');
 		} else {
-			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupo_acceso);
+			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupos_acceso);
 		}
 		return $rs;
 	}

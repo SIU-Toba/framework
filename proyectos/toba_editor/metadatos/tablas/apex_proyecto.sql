@@ -20,10 +20,10 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'0', --orden
 	NULL, --palabra_vinculo_std
 	'1.0.0', --version_toba
-	'1', --requiere_validacion
+	'0', --requiere_validacion
 	'anonimo', --usuario_anonimo
 	'Usuario Anónimo', --usuario_anonimo_desc
-	'admin', --usuario_anonimo_grupos_acc
+	'admin,usuario,documentador', --usuario_anonimo_grupos_acc
 	NULL, --validacion_intentos
 	NULL, --validacion_intentos_min
 	'1', --validacion_debug

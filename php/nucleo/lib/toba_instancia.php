@@ -168,13 +168,11 @@ class toba_instancia
 	}
 	
 	/**
-	*	Devuelve el grupo de acceso de un usuario para un proyecto
+	*	Devuelve los grupos de acceso de un usuario para un proyecto
 	*/
-	function get_grupo_acceso($usuario, $proyecto)
+	function get_grupos_acceso($usuario, $proyecto)
 	{
-		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso,
-						up.usuario_perfil_datos as 				perfil_datos,
-						ga.nivel_acceso as						nivel_acceso
+		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
 				FROM 	apex_usuario_proyecto up,
 						apex_usuario_grupo_acc ga
 				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
@@ -183,9 +181,13 @@ class toba_instancia
 				AND		up.proyecto = '$proyecto';";
 		$datos = $this->get_db()->consultar($sql);
 		if($datos){
-			return $datos[0]['grupo_acceso'];
+			$grupos = array();
+			foreach($datos as $dato) {
+				$grupos[] = $dato['grupo_acceso'];
+			}
+			return $grupos;
 		} else {
-			return null;
+			return array();
 		}
 	}
 	

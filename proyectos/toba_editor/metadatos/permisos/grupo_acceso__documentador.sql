@@ -60,66 +60,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'toba_editor', --proyecto
 	'documentador', --usuario_grupo_acc
 	NULL, --item_id
-	'/admin/datos/fuente'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/items/carpeta_propiedades'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/items/catalogo_unificado'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/items/editor_items'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/menu_principal'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos/clonador'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos/editores/editor_estilos'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos/mensajes'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos/php'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
 	'/admin/objetos_toba/crear'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (

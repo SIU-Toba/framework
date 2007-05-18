@@ -6,7 +6,7 @@
 class toba_usuario_basico extends toba_usuario
 {
 	protected $datos_basicos;
-	protected $grupo_acceso;
+	protected $grupos_acceso;
 
 	/**
 	*	Realiza la autentificacion.
@@ -103,7 +103,7 @@ class toba_usuario_basico extends toba_usuario
 	function __construct($id_usuario)
 	{
 		$this->datos_basicos = toba::instancia()->get_info_usuario($id_usuario);
-		$this->grupo_acceso = toba::instancia()->get_grupo_acceso( $id_usuario, toba::proyecto()->get_id() );
+		$this->grupos_acceso = toba::instancia()->get_grupos_acceso( $id_usuario, toba::proyecto()->get_id() );
 	}
 
 	/**
@@ -126,9 +126,9 @@ class toba_usuario_basico extends toba_usuario
 	*	Retorna un array de grupos de acceso para el proyecto actual
 	*	@return $value	Retorna un array de grupos de acceso
 	*/
-	function get_grupo_acceso()
+	function get_grupos_acceso()
 	{
-		return $this->grupo_acceso;
+		return $this->grupos_acceso;
 	}
 
 	/*

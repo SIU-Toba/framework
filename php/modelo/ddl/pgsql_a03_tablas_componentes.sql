@@ -427,9 +427,8 @@ CREATE TABLE apex_arbol_items_fotos
 	foto_nombre							varchar(100)	NOT NULL,
 	foto_nodos_visibles					varchar			NULL,
 	foto_opciones						varchar			NULL,
-  CONSTRAINT "apex_arbol_items_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre"),
-  CONSTRAINT "apex_arbol_items_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT "apex_arbol_items_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre")
+  --CONSTRAINT "apex_arbol_items_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario") REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -453,9 +452,8 @@ CREATE TABLE apex_admin_album_fotos
 	foto_nodos_visibles					varchar			NULL,
 	foto_opciones						varchar			NULL,
 	predeterminada							smallint	NULL,
-  CONSTRAINT "apex_admin_album_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre", "foto_tipo"),
-  CONSTRAINT "apex_admin_album_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT "apex_admin_album_fotos_pk" PRIMARY KEY("proyecto", "usuario", "foto_nombre", "foto_tipo")
+  --CONSTRAINT "apex_admin_album_fotos_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")	REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################
@@ -474,11 +472,10 @@ CREATE TABLE apex_admin_param_previsualizazion
 (
 	proyecto							varchar(15)		NOT NULL, 
 	usuario								varchar(60)		NOT NULL,
-	grupo_acceso						varchar(20)		NOT NULL,
+	grupo_acceso						varchar(255)		NOT NULL,
 	punto_acceso						varchar(100)	NOT NULL,
-  CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario"),
-  CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario")
+  --CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")	REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
  
 --#################################################################################################

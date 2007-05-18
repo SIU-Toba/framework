@@ -207,12 +207,12 @@ class toba_manejador_sesiones
 	/**
 	*	Determina el grupo de acceso del usuario actual
 	*/
-	function get_grupo_acceso()
+	function get_grupos_acceso()
 	{
 		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
-			return toba_editor::get_grupo_acceso_previsualizacion();
+			return toba_editor::get_grupos_acceso_previsualizacion();
 		} else {
-			return $this->usuario()->get_grupo_acceso();
+			return $this->usuario()->get_grupos_acceso();
 		}
 	}
 
@@ -403,8 +403,8 @@ class toba_manejador_sesiones
 			$this->usuario = new toba_usuario_anonimo('anonimo');
 		}
 		// Se controla que el usuario tenga usuario un grupo de acceso valido para el proyecto actual
-		$grupo_acceso = $this->usuario->get_grupo_acceso();
-		if ( ! $grupo_acceso ) { 
+		$grupos_acceso = $this->usuario->get_grupos_acceso();
+		if ( ! $grupos_acceso ) { 
 			throw new toba_error($msg_error);
 		}
 	}

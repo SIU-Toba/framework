@@ -125,29 +125,35 @@ class toba_proyecto_db
 
 	//---------------------  Grupos de Acceso  -------------------------
 		
-	static function get_items_menu($proyecto, $grupo_acceso)
+	static function get_items_menu($proyecto, $grupos_acceso)
 	{
-		$sql = "SELECT 	i.padre as 		padre,
+		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
+		$sql = "SELECT DISTINCT
+						i.padre as 		padre,
 						i.carpeta as 	carpeta, 
 						i.proyecto as	proyecto,
 						i.item as 		item,
 						i.nombre as 	nombre,
+						i.orden as 		orden,
 						i.imagen,
 						i.imagen_recurso_origen
-				FROM 	apex_item i LEFT OUTER JOIN	apex_usuario_grupo_acc_item u ON
-							(	i.item = u.item AND i.proyecto = u.proyecto	)
+				FROM 	apex_item i 
+							LEFT OUTER JOIN	apex_usuario_grupo_acc_item u 
+								ON	(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE
 					(i.menu = 1)
-				AND	(u.usuario_grupo_acc = '$grupo_acceso' OR i.publico = 1)
+				AND	(u.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)
 				AND (i.item <> '__raiz__')
 				AND		(i.proyecto = '$proyecto')
 				ORDER BY i.padre,i.orden;";
 		return self::get_db()->consultar($sql);
 	}	
 
-	function get_items_accesibles($proyecto, $grupo_acceso)
+	function get_items_accesibles($proyecto, $grupos_acceso)
 	{
-		$sql = "SELECT	i.proyecto as proyecto,
+		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
+		$sql = "SELECT DISTINCT
+						i.proyecto as proyecto,
 						i.item as item
 				FROM	apex_item i,
 						apex_usuario_grupo_acc_item ui
@@ -155,16 +161,18 @@ class toba_proyecto_db
 				AND		ui.item = i.item
 				AND		ui.proyecto = i.proyecto
 				AND		ui.proyecto = '$proyecto'
-				AND		ui.usuario_grupo_acc = '$grupo_acceso';";
+				AND		ui.usuario_grupo_acc IN ($grupos_acceso);";
 		return self::get_db()->consultar($sql);
 	}
 
 	/**
 	*	Devuelve la lista de items de la zona a los que puede acceder el grupo actual
 	*/
-	static function get_items_zona($proyecto, $grupo_acceso, $zona)
+	static function get_items_zona($proyecto, $grupos_acceso, $zona)
 	{
-		$sql = "SELECT	i.proyecto as 					item_proyecto,
+		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
+		$sql = "SELECT	DISTINCT
+						i.proyecto as 					item_proyecto,
 						i.item as						item,
 						i.zona_orden as					orden,
 						i.imagen as						imagen,
@@ -177,23 +185,24 @@ class toba_proyecto_db
 				AND		i.zona_proyecto = '$proyecto'
 				AND 	ui.item = i.item
 				AND		ui.proyecto = i.proyecto
-				AND		ui.usuario_grupo_acc = '$grupo_acceso'
+				AND		ui.usuario_grupo_acc IN ($grupos_acceso)
 				AND		i.zona_listar = 1
 				ORDER BY 3;";
 		return self::get_db()->consultar($sql);	
 	}
 
-	static function get_lista_permisos($proyecto, $grupo_acceso)
+	static function get_lista_permisos($proyecto, $grupos_acceso)
 	{
+		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
 		$sql = " 
-			SELECT 
+			SELECT DISTINCT
 				per.nombre as nombre
 			FROM
 				apex_permiso_grupo_acc per_grupo,
 				apex_permiso per
 			WHERE
 				per_grupo.proyecto = '$proyecto'
-			AND	per_grupo.usuario_grupo_acc = '$grupo_acceso'
+			AND	per_grupo.usuario_grupo_acc IN ($grupos_acceso)
 			AND	per_grupo.permiso = per.permiso
 			AND	per_grupo.proyecto = per.proyecto
 		";

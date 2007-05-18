@@ -124,7 +124,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'requiere_validacion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Requiere autentificación', --etiqueta
 	NULL, --etiqueta_estilo
@@ -191,7 +191,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'usuario_anonimo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'ID Usuario anónimo', --etiqueta
 	NULL, --etiqueta_estilo
@@ -258,7 +258,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'validacion_intentos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Autentificación intentos', --etiqueta
 	NULL, --etiqueta_estilo
@@ -325,7 +325,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'validacion_intentos_min', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Autentificación tiempo intent.', --etiqueta
 	NULL, --etiqueta_estilo
@@ -392,7 +392,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'validacion_debug', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Autentificación debug', --etiqueta
 	NULL, --etiqueta_estilo
@@ -459,7 +459,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'sesion_tiempo_no_interac_min', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'8', --orden
 	'Sesión - Tope no interaccion', --etiqueta
 	NULL, --etiqueta_estilo
@@ -526,7 +526,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'sesion_tiempo_maximo_min', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Sesión - Duracion máxima', --etiqueta
 	NULL, --etiqueta_estilo
@@ -593,7 +593,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'item_pre_sesion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'12', --orden
 	'Item de autentificación', --etiqueta
 	NULL, --etiqueta_estilo
@@ -660,7 +660,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'carpeta_pre_sesion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'11', --orden
 	'Carpeta', --etiqueta
 	NULL, --etiqueta_estilo
@@ -727,7 +727,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'usuario_anonimo_desc', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Nombre usuario anónimo', --etiqueta
 	NULL, --etiqueta_estilo
@@ -791,10 +791,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'1850', --objeto_ei_formulario
 	'4776', --objeto_ei_formulario_fila
 	'usuario_anonimo_grupos_acc', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_multi_seleccion_lista', --elemento_formulario
 	'usuario_anonimo_grupos_acc', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Grupo de Acceso anónimo', --etiqueta
 	NULL, --etiqueta_estilo
@@ -846,10 +846,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --editor_botonera
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
-	NULL, --selec_utilidades
+	'0', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho
-	NULL, --selec_serializar
+	'1', --selec_serializar
 	NULL, --selec_cant_columnas
 	NULL  --upload_extensiones
 );
@@ -864,7 +864,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_barra_divisora', --elemento_formulario
 	'sep_item_login', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'10', --orden
 	'Operación de autentificación', --etiqueta
 	NULL, --etiqueta_estilo

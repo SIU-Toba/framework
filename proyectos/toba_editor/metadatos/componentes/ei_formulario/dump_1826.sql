@@ -124,7 +124,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'punto_acceso', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Punto de Acceso', --etiqueta
 	NULL, --etiqueta_estilo
@@ -188,14 +188,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'1826', --objeto_ei_formulario
 	'4589', --objeto_ei_formulario_fila
 	'grupo_acceso', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_multi_seleccion_lista', --elemento_formulario
 	'grupo_acceso', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Grupo de Acceso', --etiqueta
 	NULL, --etiqueta_estilo
-	'Grupo de acceso con el cual se ejecutará el proyecto en la previsualización. Esto determinará por ejemplo los permisos y el contenido del menú de la aplicación.', --descripcion
+	'Grupos de acceso con los cuales se ejecutará el proyecto en la previsualización. Esto determinará los derechos y el contenido del menú de la aplicación (items accesibles).', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -243,10 +243,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --editor_botonera
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
-	NULL, --selec_utilidades
+	'0', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho
-	NULL, --selec_serializar
+	'1', --selec_serializar
 	NULL, --selec_cant_columnas
 	NULL  --upload_extensiones
 );

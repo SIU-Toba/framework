@@ -24,9 +24,9 @@ class toba_usuario implements toba_interface_usuario
 		return null;
 	}
 	
-	function get_grupo_acceso()
+	function get_grupos_acceso()
 	{
-		return null;	
+		return array();	
 	}
 
 	function get_fecha_vencimiento()

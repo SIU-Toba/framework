@@ -175,11 +175,13 @@ class toba_editor
 		return $param_prev;
 	}
 
-	static function get_grupo_acceso_previsualizacion()
+	static function get_grupos_acceso_previsualizacion()
 	{
 		$param_prev = self::get_parametros_previsualizacion();
 		if(isset($param_prev['grupo_acceso'])) {
-			return $param_prev['grupo_acceso'];
+			$grupos = explode(',', $param_prev['grupo_acceso'] );
+			$grupos = array_map('trim', $grupos);
+			return $grupos;
 		} else {
 			throw new toba_error("No esta definido el parametro 'grupo de acceso' del editor.");	
 		}

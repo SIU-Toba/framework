@@ -7,10 +7,13 @@
 interface toba_interface_usuario
 {
 	static function autenticar($id_usuario, $clave, $datos_iniciales=null);
-
+	/* ID del usuario */
 	function get_id();
+	/* Nombre descriptivo del usuario */
 	function get_nombre();
-	function get_grupo_acceso();
+	/* Array con los grupos de acceso a los que pertenece */
+	function get_grupos_acceso();
+	//----------------------------
 	function get_fecha_vencimiento();
 	function get_horario_permitido();
 	function get_dias_semana_permitidos();

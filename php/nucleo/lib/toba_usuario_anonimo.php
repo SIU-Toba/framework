@@ -15,9 +15,9 @@ class toba_usuario_anonimo extends toba_usuario
 		return toba::proyecto()->get_parametro('usuario_anonimo_desc');
 	}
 	
-	function get_grupo_acceso()
+	function get_grupos_acceso()
 	{
-		return toba::proyecto()->get_grupo_acceso_usuario_anonimo();
+		return toba::proyecto()->get_grupos_acceso_usuario_anonimo();
 	}
 }
 ?>
