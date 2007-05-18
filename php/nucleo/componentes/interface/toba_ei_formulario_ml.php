@@ -541,8 +541,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					} elseif (is_array($datos[$dato])) {
 						//--- Caso para multi-seleccion
 						$temp = array();
-						foreach ($datos[$dato] as $string) {
-							$temp[] = $string;
+						foreach ($datos[$dato] as $clave => $string) {
+							$temp[$clave] = $string;
 						}
 					}
 				} else {
