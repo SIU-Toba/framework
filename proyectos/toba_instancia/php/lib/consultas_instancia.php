@@ -173,7 +173,19 @@ class consultas_instancia
 				AND		g.proyecto = up.proyecto
 				AND		u.usuario = up.usuario
 				AND		up.proyecto = '$proyecto';";
-		return toba::db()->consultar($sql);
+		$datos = toba::db()->consultar($sql);
+		$temp = array();
+		foreach( $datos as $dato ) {
+			$temp[$dato['usuario']]['proyecto'] = $dato['proyecto'];
+			$temp[$dato['usuario']]['usuario'] = $dato['usuario'];
+			$temp[$dato['usuario']]['nombre'] = $dato['nombre'];
+			if(isset($temp[$dato['usuario']]['grupo_acceso'])) {
+				$temp[$dato['usuario']]['grupo_acceso'] .= ', ' . $dato['grupo_acceso'];
+			}else{
+				$temp[$dato['usuario']]['grupo_acceso'] = $dato['grupo_acceso'];
+			}
+		}
+		return (array_values($temp));
 	}
 
 	static function get_usuarios_no_vinculados_proyecto($proyecto, $filtro=null)

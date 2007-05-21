@@ -1,1 +1,11 @@
-INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion, listar) VALUES ('curso', 'no', 'No posee', '', NULL);
+
+------------------------------------------------------------
+-- apex_usuario_perfil_datos
+------------------------------------------------------------
+INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion, listar) VALUES (
+	'curso', --proyecto
+	'no', --usuario_perfil_datos
+	'No posee', --nombre
+	'', --descripcion
+	NULL  --listar
+);

@@ -1,4 +1,5 @@
 <?php 
+
 class ci_asociacion_usuario extends toba_ci
 {
 	protected $s__filtro;
@@ -54,6 +55,10 @@ class ci_asociacion_usuario extends toba_ci
 		}
 	}
 
+	//-----------------------------------------------------------------------------
+	//-----  USUARIOS ASOCIADOS  --------------------------------------------------
+	//-----------------------------------------------------------------------------
+
 	//---- cuadro -------------------------------------------------------
 
 	function conf__cuadro($componente)
@@ -88,13 +93,26 @@ class ci_asociacion_usuario extends toba_ci
 
 	function conf__form()
 	{
-		return $this->dep('datos')->get();
+		$datos = array();
+		$registros = $this->dep('datos')->get_filas();
+		foreach($registros as $registro) {
+			$datos['proyecto'] = $registro['proyecto'];
+			$datos['usuario'] = $registro['usuario'];
+			$datos['usuario_grupo_acc'][] = $registro['usuario_grupo_acc'];
+		}
+		return $datos;
 	}
 	
 	function evt__form__guardar($datos)
 	{
-		$datos['proyecto'] = $this->s__proyecto;
-		$this->dep('datos')->set($datos);
+		$this->dep('datos')->eliminar_filas();
+		foreach($datos['usuario_grupo_acc'] as $grupo) {
+			$registro = array();
+			$registro['usuario_grupo_acc'] = $grupo;	
+			$registro['usuario'] = $datos['usuario'];
+			$registro['proyecto'] = $this->s__proyecto;
+			$this->dep('datos')->nueva_fila($registro);
+		}
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();	
 	}
@@ -103,6 +121,10 @@ class ci_asociacion_usuario extends toba_ci
 	{
 		$this->dep('datos')->resetear();	
 	}
+	
+	//-----------------------------------------------------------------------------
+	//-----  USUARIOS NO ASOCIADOS  -----------------------------------------------
+	//-----------------------------------------------------------------------------
 	
 	//---- cuadro2 -------------------------------------------------------
 
@@ -123,14 +145,19 @@ class ci_asociacion_usuario extends toba_ci
 	function conf__form2()
 	{
 		$datos['usuario'] = $this->s__usuario;
+		$datos['usuario_grupo_acc'] = array();
 		return $datos;
 	}
 	
 	function evt__form2__guardar($datos)
 	{
-		//$datos['usuario'] = $this->s__usuario;
-		$datos['proyecto'] = $this->s__proyecto;
-		$this->dep('datos')->set($datos);
+		foreach($datos['usuario_grupo_acc'] as $grupo) {
+			$registro = array();
+			$registro['usuario_grupo_acc'] = $grupo;	
+			$registro['usuario'] = $datos['usuario'];
+			$registro['proyecto'] = $this->s__proyecto;
+			$this->dep('datos')->nueva_fila($registro);
+		}
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();	
 		unset($this->s__usuario);

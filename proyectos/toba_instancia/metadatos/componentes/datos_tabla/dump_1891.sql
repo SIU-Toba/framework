@@ -91,7 +91,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'526', --col_id
 	'usuario_grupo_acc', --columna
 	'C', --tipo
-	'0', --pk
+	'1', --pk
 	NULL, --secuencia
 	'20', --largo
 	NULL, --no_nulo
@@ -129,6 +129,19 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'1891', --objeto
 	'538', --col_id
 	'grupo_acceso_desc', --columna
+	'C', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'1'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_instancia', --objeto_proyecto
+	'1891', --objeto
+	'608', --col_id
+	'proyecto_nombre', --columna
 	'C', --tipo
 	'0', --pk
 	NULL, --secuencia

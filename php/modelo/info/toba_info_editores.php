@@ -26,6 +26,12 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
+	function get_descripcion_proyecto($id_proyecto)
+	{
+		$sql = "SELECT descripcion || ' [' || proyecto || ']' as proyecto_nombre FROM apex_proyecto WHERE proyecto = '$id_proyecto'";
+		return  toba_contexto_info::get_db()->consultar($sql);
+	}
+
 	//---------------------------------------------------
 	//---------------- CLASES ---------------------------
 	//---------------------------------------------------

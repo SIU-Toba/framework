@@ -1,5 +1,63 @@
 ------------------------------------------------------------
 --[1000034]--  Clonador - Item con dependencias 
 ------------------------------------------------------------
-INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES ('1000033', 'toba_testing', '1000034', NULL, 'toba_testing', '/pruebas_item', '0', '0', 'web', 'toba', 'normal', 'toba', '0', 'toba', 'CI', 'Clonador - Item con dependencias', NULL, '', '0', NULL, '0', NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL);
-INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (NULL, 'toba_testing', '1000034', '1000135', '0', NULL);
+
+------------------------------------------------------------
+-- apex_item
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES (
+	'1000033', --item_id
+	'toba_testing', --proyecto
+	'1000034', --item
+	NULL, --padre_id
+	'toba_testing', --padre_proyecto
+	'/pruebas_item', --padre
+	'0', --carpeta
+	'0', --nivel_acceso
+	'web', --solicitud_tipo
+	'toba', --pagina_tipo_proyecto
+	'normal', --pagina_tipo
+	'toba', --actividad_buffer_proyecto
+	'0', --actividad_buffer
+	'toba', --actividad_patron_proyecto
+	'CI', --actividad_patron
+	'Clonador - Item con dependencias', --nombre
+	NULL, --descripcion
+	'', --actividad_accion
+	'0', --menu
+	NULL, --orden
+	'0', --solicitud_registrar
+	NULL, --solicitud_obs_tipo_proyecto
+	NULL, --solicitud_obs_tipo
+	NULL, --solicitud_observacion
+	'0', --solicitud_registrar_cron
+	NULL, --prueba_directorios
+	NULL, --zona_proyecto
+	NULL, --zona
+	NULL, --zona_orden
+	'0', --zona_listar
+	NULL, --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	'0', --publico
+	NULL, --redirecciona
+	NULL, --usuario
+	NULL  --creacion
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
+-- apex_item_objeto
+------------------------------------------------------------
+INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
+	NULL, --item_id
+	'toba_testing', --proyecto
+	'1000034', --item
+	'1000135', --objeto
+	'0', --orden
+	NULL  --inicializar
+);

@@ -7,7 +7,7 @@ class ci_navegacion extends toba_ci
 
 	function ini()
 	{
-		$this->dep('datos')->tabla('proyecto')->set_no_duplicado(array('proyecto'));
+		$this->dep('datos')->tabla('proyecto')->set_no_duplicado(array('proyecto','usuario_grupo_acc'));
 	}
 
 	//-------------------------------------------------------------------

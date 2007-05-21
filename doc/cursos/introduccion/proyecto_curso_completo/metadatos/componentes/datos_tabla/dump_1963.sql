@@ -1,17 +1,201 @@
 ------------------------------------------------------------
 --[1963]--  sedes_incSedes 
 ------------------------------------------------------------
-INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES ('curso', '1963', NULL, NULL, 'toba', 'objeto_datos_tabla', NULL, NULL, NULL, NULL, 'sedes_incSedes', NULL, NULL, NULL, 'curso', 'curso', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2007-05-16 16:11:54');
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES ('curso', '1963', NULL, NULL, '1', NULL, NULL, 'soe_sedes', NULL, '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '592', 'institucion', 'E', '1', '', '-1', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '593', 'sede', 'E', '1', 'soe_sedes_sede_seq', '-1', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '594', 'nombre', 'C', '0', '', '255', NULL, '1', '0');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '595', 'idpais', 'C', '0', '', '2', NULL, '0', '1');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '596', 'idprovincia', 'C', '0', '', '4', NULL, '0', '1');
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES ('curso', '1963', '597', 'codigopostal', 'C', '0', '', '10', NULL, '0', '0');
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES ('curso', '1963', '7', 'dao', '1', 'get_pais_localidad', 'soe_consultas', 'lib/soe_consultas.php', NULL);
-INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES ('curso', '1963', '8', 'dao', '1', 'get_provincia_localidad', 'soe_consultas', 'lib/soe_consultas.php', NULL);
-INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('curso', '1963', '7', '595', '1');
-INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('curso', '1963', '7', '597', '0');
-INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('curso', '1963', '8', '596', '1');
-INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES ('curso', '1963', '8', '597', '0');
+
+------------------------------------------------------------
+-- apex_objeto
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
+	'curso', --proyecto
+	'1963', --objeto
+	NULL, --anterior
+	NULL, --reflexivo
+	'toba', --clase_proyecto
+	'objeto_datos_tabla', --clase
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --objeto_categoria_proyecto
+	NULL, --objeto_categoria
+	'sedes_incSedes', --nombre
+	NULL, --titulo
+	NULL, --colapsable
+	NULL, --descripcion
+	'curso', --fuente_datos_proyecto
+	'curso', --fuente_datos
+	NULL, --solicitud_registrar
+	NULL, --solicitud_obj_obs_tipo
+	NULL, --solicitud_obj_observacion
+	NULL, --parametro_a
+	NULL, --parametro_b
+	NULL, --parametro_c
+	NULL, --parametro_d
+	NULL, --parametro_e
+	NULL, --parametro_f
+	NULL, --usuario
+	'2007-05-16 16:11:54'  --creacion
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_db_registros
+------------------------------------------------------------
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	NULL, --max_registros
+	NULL, --min_registros
+	'1', --ap
+	NULL, --ap_clase
+	NULL, --ap_archivo
+	'soe_sedes', --tabla
+	NULL, --alias
+	'0'  --modificar_claves
+);
+
+------------------------------------------------------------
+-- apex_objeto_db_registros_col
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'592', --col_id
+	'institucion', --columna
+	'E', --tipo
+	'1', --pk
+	'', --secuencia
+	'-1', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'593', --col_id
+	'sede', --columna
+	'E', --tipo
+	'1', --pk
+	'soe_sedes_sede_seq', --secuencia
+	'-1', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'594', --col_id
+	'nombre', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'255', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'595', --col_id
+	'idpais', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'2', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'1'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'596', --col_id
+	'idprovincia', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'4', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'1'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'597', --col_id
+	'codigopostal', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'10', --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_db_registros_ext
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'7', --externa_id
+	'dao', --tipo
+	'1', --sincro_continua
+	'get_pais_localidad', --metodo
+	'soe_consultas', --clase
+	'lib/soe_consultas.php', --include
+	NULL  --sql
+);
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'8', --externa_id
+	'dao', --tipo
+	'1', --sincro_continua
+	'get_provincia_localidad', --metodo
+	'soe_consultas', --clase
+	'lib/soe_consultas.php', --include
+	NULL  --sql
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_db_registros_ext_col
+------------------------------------------------------------
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'7', --externa_id
+	'595', --col_id
+	'1'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'7', --externa_id
+	'597', --col_id
+	'0'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'8', --externa_id
+	'596', --col_id
+	'1'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'curso', --objeto_proyecto
+	'1963', --objeto
+	'8', --externa_id
+	'597', --col_id
+	'0'  --es_resultado
+);

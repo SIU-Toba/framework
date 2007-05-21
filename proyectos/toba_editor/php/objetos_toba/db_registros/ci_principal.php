@@ -280,7 +280,8 @@ class ci_principal extends ci_editores_toba
 			}
 			$form->desactivar_efs($lista);
 		} else {
-			if( $datos['clase'] && $datos['include'] ) {
+			if( isset($datos['clase']) && $datos['clase'] && 
+					isset($datos['include']) && $datos['include'] ) {
 				$datos['estatico'] = 1;
 			}
 			$form->desactivar_efs(array('sql'));
