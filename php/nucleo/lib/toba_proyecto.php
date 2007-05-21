@@ -285,7 +285,7 @@ class toba_proyecto
 		return $rs;
 	}
 
-	function get_grupo_acceso_usuario_anonimo()
+	function get_grupos_acceso_usuario_anonimo()
 	{
 		$grupos = explode(',',$this->get_parametro('usuario_anonimo_grupos_acc'));
 		$grupos = array_map('trim',$grupos);
