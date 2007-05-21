@@ -1228,8 +1228,8 @@ class toba_mc_comp__1538
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
+      'parametros_a' => '1',
+      'parametros_b' => '1',
     ),
   ),
 );

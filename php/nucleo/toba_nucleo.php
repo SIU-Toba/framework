@@ -240,7 +240,7 @@ class toba_nucleo
 			require_once( self::get_directorio_compilacion() . '/oper/toba_mc_oper__' . $id . '.php' );
 			// Datos BASICOS
 			require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__basicos.php' );
-			$grupos_accesos = toba::manejador_sesiones()->get_grupos_acceso();
+			$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
 			foreach( $grupos_acceso as $grupo ) {
 				require_once( self::get_directorio_compilacion() . '/gene/toba_mc_gene__grupo_'.$grupo.'.php' );				
 			}

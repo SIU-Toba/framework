@@ -27,7 +27,7 @@ class toba_mc_gene__basicos
   'requiere_validacion' => 1,
   'usuario_anonimo' => 'anonimo',
   'usuario_anonimo_desc' => 'Usuario Anónimo',
-  'usuario_anonimo_grupos_acc' => 'admin',
+  'usuario_anonimo_grupos_acc' => 'admin,usuario,documentador',
   'validacion_intentos' => NULL,
   'validacion_intentos_min' => NULL,
   'validacion_debug' => 1,

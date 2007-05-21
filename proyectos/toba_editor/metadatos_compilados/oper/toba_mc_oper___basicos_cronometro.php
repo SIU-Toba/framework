@@ -25,7 +25,7 @@ class toba_mc_item___basicos_cronometro
     'item_parametro_a' => NULL,
     'item_parametro_b' => NULL,
     'item_parametro_c' => NULL,
-    'item_imagen_recurso_origen' => 'apex',
+    'item_imagen_recurso_origen' => 'proyecto',
     'item_imagen' => NULL,
     'tipo_pagina_clase' => 'toba_tp_basico',
     'tipo_pagina_archivo' => '',

@@ -104,8 +104,8 @@ class toba_mc_comp__10000024
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => NULL,
-      'parametros_b' => NULL,
+      'parametros_a' => '1',
+      'parametros_b' => '1',
     ),
     1 => 
     array (
@@ -130,8 +130,8 @@ class toba_mc_comp__10000024
       'subclase' => NULL,
       'subclase_archivo' => NULL,
       'fuente' => 'instancia',
-      'parametros_a' => '',
-      'parametros_b' => '',
+      'parametros_a' => NULL,
+      'parametros_b' => NULL,
     ),
   ),
 );

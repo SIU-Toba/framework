@@ -5,43 +5,47 @@ class toba_mc_gene__grupo_usuario
 	static function get_items_menu()
 	{
 		return array (
-  0 => 
+  'toba_editor-/admin/items/catalogo_unificado' => 
   array (
     'padre' => '/items',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/catalogo_unificado',
     'nombre' => 'Catálogo',
+    'orden' => '5',
     'imagen' => 'objetos/arbol.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  1 => 
+  'toba_editor-/admin/items/editor_items' => 
   array (
     'padre' => '/items',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/editor_items',
     'nombre' => 'Editor de Items',
+    'orden' => '6',
     'imagen' => 'objetos/editar.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  2 => 
+  'toba_editor-/admin/items/carpeta_propiedades' => 
   array (
     'padre' => '/items',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/carpeta_propiedades',
     'nombre' => 'CARPETA - Editor',
+    'orden' => '7',
     'imagen' => 'nucleo/carpeta.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  3 => 
+  'toba_editor-/admin/objetos_toba' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 1,
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba',
     'nombre' => 'Componentes',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'proyecto',
   ),
@@ -51,52 +55,52 @@ class toba_mc_gene__grupo_usuario
 	static function get_items_accesibles()
 	{
 		return array (
-  0 => 
+  'toba_editor-1000021' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000021',
   ),
-  1 => 
+  'toba_editor-1000045' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000045',
   ),
-  2 => 
+  'toba_editor-1240' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1240',
   ),
-  3 => 
+  'toba_editor-3280' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3280',
   ),
-  4 => 
+  'toba_editor-/admin/items/carpeta_propiedades' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/carpeta_propiedades',
   ),
-  5 => 
+  'toba_editor-/admin/items/catalogo_unificado' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/catalogo_unificado',
   ),
-  6 => 
+  'toba_editor-/admin/items/editor_items' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/items/editor_items',
   ),
-  7 => 
+  'toba_editor-/admin/objetos/clonador' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos/clonador',
   ),
-  8 => 
+  'toba_editor-/admin/objetos/editores/editor_estilos' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos/editores/editor_estilos',
   ),
-  9 => 
+  'toba_editor-/admin/objetos_toba/selector_archivo' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/selector_archivo',
@@ -113,7 +117,7 @@ class toba_mc_gene__grupo_usuario
 	static function get_items_zona__zona_item()
 	{
 		return array (
-  0 => 
+  'toba_editor-1000021' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '1000021',
@@ -123,7 +127,7 @@ class toba_mc_gene__grupo_usuario
     'nombre' => 'Clonador de Items',
     'descripcion' => NULL,
   ),
-  1 => 
+  'toba_editor-/admin/items/editor_items' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '/admin/items/editor_items',
@@ -139,7 +143,7 @@ class toba_mc_gene__grupo_usuario
 	static function get_items_zona__zona_objeto()
 	{
 		return array (
-  0 => 
+  'toba_editor-/admin/objetos/clonador' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '/admin/objetos/clonador',
@@ -155,7 +159,7 @@ class toba_mc_gene__grupo_usuario
 	static function get_items_zona__zona_carpeta()
 	{
 		return array (
-  0 => 
+  'toba_editor-/admin/items/carpeta_propiedades' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '/admin/items/carpeta_propiedades',
@@ -163,7 +167,7 @@ class toba_mc_gene__grupo_usuario
     'imagen' => 'nucleo/carpeta.gif',
     'imagen_origen' => 'apex',
     'nombre' => 'CARPETA - Editor',
-    'descripcion' => 'Propiedades de la Carpera',
+    'descripcion' => NULL,
   ),
 );
 	}

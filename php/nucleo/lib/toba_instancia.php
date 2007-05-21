@@ -196,7 +196,8 @@ class toba_instancia
 	*/
 	function get_lista_usuarios()
 	{
-		$sql = "SELECT 	u.usuario as usuario, 
+		$sql = "SELECT 	DISTINCT 
+						u.usuario as usuario, 
 						u.nombre as nombre
 				FROM 	apex_usuario u, apex_usuario_proyecto p
 				WHERE 	u.usuario = p.usuario

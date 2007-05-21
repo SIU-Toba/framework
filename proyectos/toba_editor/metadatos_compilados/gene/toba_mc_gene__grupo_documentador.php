@@ -5,143 +5,91 @@ class toba_mc_gene__grupo_documentador
 	static function get_items_menu()
 	{
 		return array (
-  0 => 
+  'toba_editor-3276' => 
   array (
     'padre' => '/admin/usuarios',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '3276',
     'nombre' => 'Derechos Globales',
+    'orden' => '55',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  1 => 
-  array (
-    'padre' => '/configuracion',
-    'carpeta' => 0,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/datos/fuente',
-    'nombre' => 'Fuente de Datos - Editor',
-    'imagen' => 'fuente.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  2 => 
+  'toba_editor-/admin/proyectos/propiedades' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/proyectos/propiedades',
     'nombre' => 'Proyecto - Parámetros Basicos',
+    'orden' => '0',
     'imagen' => 'nucleo/proyecto.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  3 => 
+  'toba_editor-3287' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '3287',
     'nombre' => 'Param. Previsualizacion',
+    'orden' => '1',
     'imagen' => 'config_previsualizacion.gif',
     'imagen_recurso_origen' => 'proyecto',
   ),
-  4 => 
+  'toba_editor-/admin/apex/elementos/pagina_tipo' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/pagina_tipo',
     'nombre' => 'Tipo de PAGINA',
+    'orden' => '10',
     'imagen' => 'tipo_pagina.gif',
     'imagen_recurso_origen' => 'proyecto',
   ),
-  5 => 
+  'toba_editor-/admin/apex/elementos/zona' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/zona',
     'nombre' => 'ZONA',
+    'orden' => '10',
     'imagen' => 'zona.gif',
     'imagen_recurso_origen' => 'proyecto',
   ),
-  6 => 
+  'toba_editor-/admin/apex/elementos/error' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/error',
     'nombre' => 'MENSAJES',
+    'orden' => '12',
     'imagen' => 'mensaje.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  7 => 
+  'toba_editor-1000020' => 
   array (
     'padre' => '/configuracion',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '1000020',
     'nombre' => 'Elementos de Formulario (efs)',
+    'orden' => NULL,
     'imagen' => 'objetos/abms_ef.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  8 => 
-  array (
-    'padre' => '/items',
-    'carpeta' => 0,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/catalogo_unificado',
-    'nombre' => 'Catálogo',
-    'imagen' => 'objetos/arbol.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  9 => 
-  array (
-    'padre' => '/items',
-    'carpeta' => 0,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/editor_items',
-    'nombre' => 'Editor de Items',
-    'imagen' => 'objetos/editar.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  10 => 
-  array (
-    'padre' => '/items',
-    'carpeta' => 0,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/carpeta_propiedades',
-    'nombre' => 'CARPETA - Editor',
-    'imagen' => 'nucleo/carpeta.gif',
-    'imagen_recurso_origen' => 'apex',
-  ),
-  11 => 
-  array (
-    'padre' => '__raiz__',
-    'carpeta' => 0,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/menu_principal',
-    'nombre' => 'Menu',
-    'imagen' => NULL,
-    'imagen_recurso_origen' => NULL,
-  ),
-  12 => 
-  array (
-    'padre' => '__raiz__',
-    'carpeta' => 1,
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos_toba',
-    'nombre' => 'Componentes',
-    'imagen' => NULL,
-    'imagen_recurso_origen' => 'proyecto',
-  ),
-  13 => 
+  'toba_editor-/inicio' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 0,
     'proyecto' => 'toba_editor',
     'item' => '/inicio',
     'nombre' => 'Inicio',
+    'orden' => '40',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
@@ -151,252 +99,207 @@ class toba_mc_gene__grupo_documentador
 	static function get_items_accesibles()
 	{
 		return array (
-  0 => 
+  'toba_editor-1000003' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000003',
   ),
-  1 => 
+  'toba_editor-1000020' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000020',
   ),
-  2 => 
+  'toba_editor-1000021' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000021',
   ),
-  3 => 
+  'toba_editor-1000043' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000043',
   ),
-  4 => 
+  'toba_editor-1000045' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000045',
   ),
-  5 => 
+  'toba_editor-1000058' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1000058',
   ),
-  6 => 
+  'toba_editor-1240' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1240',
   ),
-  7 => 
+  'toba_editor-1241' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1241',
   ),
-  8 => 
+  'toba_editor-1242' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '1242',
   ),
-  9 => 
+  'toba_editor-2045' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '2045',
   ),
-  10 => 
+  'toba_editor-2447' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '2447',
   ),
-  11 => 
+  'toba_editor-2865' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '2865',
   ),
-  12 => 
+  'toba_editor-3276' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3276',
   ),
-  13 => 
+  'toba_editor-3278' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3278',
   ),
-  14 => 
+  'toba_editor-3280' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3280',
   ),
-  15 => 
+  'toba_editor-3287' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3287',
   ),
-  16 => 
+  'toba_editor-3288' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3288',
   ),
-  17 => 
+  'toba_editor-3316' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3316',
   ),
-  18 => 
+  'toba_editor-/admin/acceso' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/acceso',
   ),
-  19 => 
+  'toba_editor-/admin/apex/elementos/ef' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/ef',
   ),
-  20 => 
+  'toba_editor-/admin/apex/elementos/error' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/error',
   ),
-  21 => 
+  'toba_editor-/admin/apex/elementos/observaciones_solicitud' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/observaciones_solicitud',
   ),
-  22 => 
+  'toba_editor-/admin/apex/elementos/pagina_tipo' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/pagina_tipo',
   ),
-  23 => 
+  'toba_editor-/admin/apex/elementos/zona' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/apex/elementos/zona',
   ),
-  24 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/datos/fuente',
-  ),
-  25 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/carpeta_propiedades',
-  ),
-  26 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/catalogo_unificado',
-  ),
-  27 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/items/editor_items',
-  ),
-  28 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/menu_principal',
-  ),
-  29 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/clonador',
-  ),
-  30 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/editores/editor_estilos',
-  ),
-  31 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/mensajes',
-  ),
-  32 => 
-  array (
-    'proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/php',
-  ),
-  33 => 
+  'toba_editor-/admin/objetos_toba/crear' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/crear',
   ),
-  34 => 
+  'toba_editor-/admin/objetos_toba/editores/ci' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ci',
   ),
-  35 => 
+  'toba_editor-/admin/objetos_toba/editores/db_registros' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/db_registros',
   ),
-  36 => 
+  'toba_editor-/admin/objetos_toba/editores/db_tablas' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/db_tablas',
   ),
-  37 => 
+  'toba_editor-/admin/objetos_toba/editores/ei_archivos' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ei_archivos',
   ),
-  38 => 
+  'toba_editor-/admin/objetos_toba/editores/ei_cuadro' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ei_cuadro',
   ),
-  39 => 
+  'toba_editor-/admin/objetos_toba/editores/ei_filtro' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ei_filtro',
   ),
-  40 => 
+  'toba_editor-/admin/objetos_toba/editores/ei_formulario' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ei_formulario',
   ),
-  41 => 
+  'toba_editor-/admin/objetos_toba/editores/ei_formulario_ml' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/editores/ei_formulario_ml',
   ),
-  42 => 
+  'toba_editor-/admin/objetos_toba/selector_archivo' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos_toba/selector_archivo',
   ),
-  43 => 
+  'toba_editor-/admin/proyectos/organizador' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/proyectos/organizador',
   ),
-  44 => 
+  'toba_editor-/admin/proyectos/propiedades' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/proyectos/propiedades',
   ),
-  45 => 
+  'toba_editor-/admin/usuarios/grupo' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/usuarios/grupo',
   ),
-  46 => 
+  'toba_editor-/basicos/cronometro' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/basicos/cronometro',
   ),
-  47 => 
+  'toba_editor-/inicio' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/inicio',
   ),
-  48 => 
+  'toba_editor-/pruebas/testing_automatico_consola' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/pruebas/testing_automatico_consola',
   ),
-  49 => 
+  'toba_editor-/pruebas/testing_automatico_web' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/pruebas/testing_automatico_web',
@@ -413,7 +316,7 @@ class toba_mc_gene__grupo_documentador
 	static function get_items_zona__zona_item()
 	{
 		return array (
-  0 => 
+  'toba_editor-1000021' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '1000021',
@@ -423,74 +326,24 @@ class toba_mc_gene__grupo_documentador
     'nombre' => 'Clonador de Items',
     'descripcion' => NULL,
   ),
-  1 => 
-  array (
-    'item_proyecto' => 'toba_editor',
-    'item' => '/admin/items/editor_items',
-    'orden' => NULL,
-    'imagen' => 'objetos/editar.gif',
-    'imagen_origen' => 'apex',
-    'nombre' => 'Editor de Items',
-    'descripcion' => 'Un [wiki:Referencia/Item ítem] es la definición de una operación.',
-  ),
 );
 	}
 
 	static function get_items_zona__zona_objeto()
 	{
 		return array (
-  0 => 
-  array (
-    'item_proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/mensajes',
-    'orden' => '0',
-    'imagen' => 'mensaje.gif',
-    'imagen_origen' => 'apex',
-    'nombre' => 'Propiedades - Mensajes',
-    'descripcion' => 'Mensajes asociados al componente. Forma parte del esquema de [wiki:Referencia/Mensajes Mensajes y Notificaciones]',
-  ),
-  1 => 
-  array (
-    'item_proyecto' => 'toba_editor',
-    'item' => '/admin/objetos/clonador',
-    'orden' => '29',
-    'imagen' => 'objetos/clonar.gif',
-    'imagen_origen' => 'apex',
-    'nombre' => 'Clonar Componente',
-    'descripcion' => 'Clonar el componente seleccionado',
-  ),
 );
 	}
 
 	static function get_items_zona__zona_carpeta()
 	{
 		return array (
-  0 => 
-  array (
-    'item_proyecto' => 'toba_editor',
-    'item' => '/admin/items/carpeta_propiedades',
-    'orden' => '4',
-    'imagen' => 'nucleo/carpeta.gif',
-    'imagen_origen' => 'apex',
-    'nombre' => 'CARPETA - Editor',
-    'descripcion' => 'Propiedades de la Carpera',
-  ),
 );
 	}
 
 	static function get_items_zona__zona_fuente()
 	{
 		return array (
-  0 => 
-  array (
-    'item_proyecto' => 'toba_editor',
-    'item' => '/admin/datos/fuente',
-    'orden' => '4',
-    'imagen' => 'fuente.gif',
-    'imagen_origen' => 'apex',
-    'nombre' => 'Fuente de Datos - Editor',
-    'descripcion' => 'Las [wiki:Referencia/FuenteDatos fuentes de datos] permiten conectar componentes y código propio a distintas bases de datos.',
-  ),
 );
 	}
 
@@ -503,7 +356,7 @@ class toba_mc_gene__grupo_documentador
 	static function get_items_zona__zona_grupo_acceso()
 	{
 		return array (
-  0 => 
+  'toba_editor-/admin/usuarios/grupo' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '/admin/usuarios/grupo',
@@ -513,7 +366,7 @@ class toba_mc_gene__grupo_documentador
     'nombre' => 'Grupo de Acceso - Propiedades',
     'descripcion' => NULL,
   ),
-  1 => 
+  'toba_editor-3288' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '3288',
@@ -523,7 +376,7 @@ class toba_mc_gene__grupo_documentador
     'nombre' => 'Grupo de Acceso - Items',
     'descripcion' => NULL,
   ),
-  2 => 
+  'toba_editor-3278' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '3278',

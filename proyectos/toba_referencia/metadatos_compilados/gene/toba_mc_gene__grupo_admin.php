@@ -5,623 +5,685 @@ class toba_mc_gene__grupo_admin
 	static function get_items_menu()
 	{
 		return array (
-  0 => 
+  'toba_referencia-10000024' => 
   array (
     'padre' => '10000022',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '10000024',
     'nombre' => 'Inscripcion a examen',
+    'orden' => NULL,
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  1 => 
+  'toba_referencia-1000065' => 
   array (
     'padre' => '1000063',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000065',
     'nombre' => 'Listado de Personas',
+    'orden' => NULL,
     'imagen' => 'objetos/cuadro_array.gif',
     'imagen_recurso_origen' => 'apex',
   ),
-  2 => 
+  'toba_referencia-1000073' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000073',
     'nombre' => 'Introducción',
+    'orden' => '0',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'proyecto',
   ),
-  3 => 
+  'toba_referencia-1000078' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000078',
     'nombre' => 'Editor',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  4 => 
+  'toba_referencia-1000075' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000075',
     'nombre' => 'Items',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  5 => 
+  'toba_referencia-1000076' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000076',
     'nombre' => 'Componentes',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  6 => 
+  'toba_referencia-1000083' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000083',
     'nombre' => 'CI',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  7 => 
+  'toba_referencia-1000091' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000091',
     'nombre' => 'Persistencia',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  8 => 
+  'toba_referencia-1000092' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000092',
     'nombre' => 'Formularios',
+    'orden' => '6',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  9 => 
+  'toba_referencia-1000094' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000094',
     'nombre' => 'Cuadros',
+    'orden' => '7',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  10 => 
+  'toba_referencia-1000097' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000097',
     'nombre' => 'ABM Simple',
+    'orden' => '8',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  11 => 
+  'toba_referencia-1000099' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000099',
     'nombre' => 'ABM Multi-Tabla',
+    'orden' => '9',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  12 => 
+  'toba_referencia-1000102' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000102',
     'nombre' => 'Javascript',
+    'orden' => '10',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  13 => 
+  'toba_referencia-1000100' => 
   array (
     'padre' => '3292',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000100',
     'nombre' => 'Más API',
+    'orden' => '11',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  14 => 
+  'toba_referencia-3315' => 
   array (
     'padre' => '3296',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3315',
     'nombre' => 'Control en PHP',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  15 => 
+  'toba_referencia-3313' => 
   array (
     'padre' => '3296',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3313',
     'nombre' => 'Control en JS',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  16 => 
+  'toba_referencia-3311' => 
   array (
     'padre' => '3296',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '3311',
     'nombre' => 'Desactivacion',
+    'orden' => '10',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  17 => 
+  'toba_referencia-/mensajes/vinculos' => 
   array (
     'padre' => '3296',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/mensajes/vinculos',
     'nombre' => 'Vinculos',
+    'orden' => '15',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  18 => 
+  'toba_referencia-3301' => 
   array (
     'padre' => '3311',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3301',
     'nombre' => 'Directa',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  19 => 
+  'toba_referencia-3305' => 
   array (
     'padre' => '3311',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3305',
     'nombre' => 'Utilizando Grupos',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  20 => 
+  'toba_referencia-2246' => 
   array (
     'padre' => '3311',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '2246',
     'nombre' => 'Por fila',
+    'orden' => '6',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  21 => 
+  'toba_referencia-3367' => 
   array (
     'padre' => '3363',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3367',
     'nombre' => 'Operacion A',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  22 => 
+  'toba_referencia-3365' => 
   array (
     'padre' => '3363',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3365',
     'nombre' => 'Operacion B',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  23 => 
+  'toba_referencia-2654' => 
   array (
     'padre' => '/abm',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '2654',
     'nombre' => 'ABM de Juegos',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  24 => 
+  'toba_referencia-2656' => 
   array (
     'padre' => '/abm',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '2656',
     'nombre' => 'ABM de Deportes',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  25 => 
+  'toba_referencia-2658' => 
   array (
     'padre' => '/abm',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '2658',
     'nombre' => 'ABM de Personas',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  26 => 
+  'toba_referencia-1000089' => 
   array (
     'padre' => '/abm',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000089',
     'nombre' => 'ABM de direcciones',
+    'orden' => NULL,
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  27 => 
+  'toba_referencia-1000077' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000077',
     'nombre' => 'Ejecución PHP Plano',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  28 => 
+  'toba_referencia-1000071' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000071',
     'nombre' => 'Impresión HTML',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  29 => 
+  'toba_referencia-/mensajes_notificaciones' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/mensajes_notificaciones',
     'nombre' => 'Mensajes y Notificaciones',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  30 => 
+  'toba_referencia-1000063' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '1000063',
     'nombre' => 'Zona',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  31 => 
+  'toba_referencia-10000022' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '10000022',
     'nombre' => 'Puntos de control',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'proyecto',
   ),
-  32 => 
+  'toba_referencia-3363' => 
   array (
     'padre' => '/mensajes',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '3363',
     'nombre' => 'Memoria',
+    'orden' => '10',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  33 => 
+  'toba_referencia-3308' => 
   array (
     'padre' => '/mensajes/vinculos',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3308',
     'nombre' => 'Control Permisos',
+    'orden' => '0',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  34 => 
+  'toba_referencia-5000003' => 
   array (
     'padre' => '/mensajes/vinculos',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '5000003',
     'nombre' => 'Control en runtime',
+    'orden' => '0',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  35 => 
+  'toba_referencia-/objetos/ci' => 
   array (
     'padre' => '/objetos',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ci',
     'nombre' => 'Controladores de Interface',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  36 => 
+  'toba_referencia-/objetos/formularios' => 
   array (
     'padre' => '/objetos',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/formularios',
     'nombre' => 'Formularios',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  37 => 
+  'toba_referencia-/objetos/cuadro' => 
   array (
     'padre' => '/objetos',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/cuadro',
     'nombre' => 'Cuadros',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  38 => 
+  'toba_referencia-/objetos/eis' => 
   array (
     'padre' => '/objetos',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/eis',
     'nombre' => 'Varios',
+    'orden' => '8',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'proyecto',
   ),
-  39 => 
+  'toba_referencia-3296' => 
   array (
     'padre' => '/objetos',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '3296',
     'nombre' => 'Eventos',
+    'orden' => '10',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  40 => 
+  'toba_referencia-/objetos/ci/ci_wizard' => 
   array (
     'padre' => '/objetos/ci',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ci/ci_wizard',
     'nombre' => 'Navegación Wizard',
+    'orden' => '0',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  41 => 
+  'toba_referencia-/objetos/ci/ci_anidado' => 
   array (
     'padre' => '/objetos/ci',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ci/ci_anidado',
     'nombre' => 'Navegación por subclase',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  42 => 
+  'toba_referencia-3289' => 
   array (
     'padre' => '/objetos/ci',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3289',
     'nombre' => 'Control de TABs',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  43 => 
+  'toba_referencia-1000072' => 
   array (
     'padre' => '/objetos/ci',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000072',
     'nombre' => 'Cambio de layout',
+    'orden' => NULL,
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  44 => 
+  'toba_referencia-/objetos/ei_filtro' => 
   array (
     'padre' => '/objetos/cuadro',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_filtro',
     'nombre' => 'Integración con filtro',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  45 => 
+  'toba_referencia-1240' => 
   array (
     'padre' => '/objetos/cuadro',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1240',
     'nombre' => 'Cortes control',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  46 => 
+  'toba_referencia-/objetos/ei_cuadro' => 
   array (
     'padre' => '/objetos/cuadro',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_cuadro',
     'nombre' => 'Paginado',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  47 => 
+  'toba_referencia-/objetos/ei_calendario' => 
   array (
     'padre' => '/objetos/eis',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_calendario',
     'nombre' => 'ei_calendario',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  48 => 
+  'toba_referencia-3270' => 
   array (
     'padre' => '/objetos/eis',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3270',
     'nombre' => 'ei_esquema',
+    'orden' => NULL,
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  49 => 
+  'toba_referencia-/objetos/ei_formulario_ml' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_formulario_ml',
     'nombre' => 'Multilínea (ml)',
+    'orden' => '1',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  50 => 
+  'toba_referencia-1000103' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000103',
     'nombre' => 'Ocultar / Mostrar Campos',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  51 => 
+  'toba_referencia-/efs/ef_upload' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/efs/ef_upload',
     'nombre' => 'Upload',
+    'orden' => '3',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  52 => 
+  'toba_referencia-/efs/dependencias' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/efs/dependencias',
     'nombre' => 'Cascadas',
+    'orden' => '4',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  53 => 
+  'toba_referencia-1000070' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000070',
     'nombre' => 'Máscaras',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  54 => 
+  'toba_referencia-3271' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '3271',
     'nombre' => 'Solo Lectura',
+    'orden' => '6',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  55 => 
+  'toba_referencia-1000096' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000096',
     'nombre' => 'Checkboxes y Radio Buttons',
+    'orden' => '7',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  56 => 
+  'toba_referencia-/objetos/ei_formulario' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_formulario',
     'nombre' => 'Cambio de layout y extensión JS',
+    'orden' => '8',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  57 => 
+  'toba_referencia-1000048' => 
   array (
     'padre' => '/objetos/formularios',
     'carpeta' => 0,
     'proyecto' => 'toba_referencia',
     'item' => '1000048',
     'nombre' => 'Popup',
+    'orden' => '9',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'apex',
   ),
-  58 => 
+  'toba_referencia-3292' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '3292',
     'nombre' => 'Tutorial',
+    'orden' => '1',
     'imagen' => 'tutorial.png',
     'imagen_recurso_origen' => 'proyecto',
   ),
-  59 => 
+  'toba_referencia-/objetos' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/objetos',
     'nombre' => 'Componentes',
+    'orden' => '2',
     'imagen' => NULL,
     'imagen_recurso_origen' => 'proyecto',
   ),
-  60 => 
+  'toba_referencia-/abm' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/abm',
     'nombre' => 'Operaciones Simples',
+    'orden' => '5',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
-  61 => 
+  'toba_referencia-/mensajes' => 
   array (
     'padre' => '__raiz__',
     'carpeta' => 1,
     'proyecto' => 'toba_referencia',
     'item' => '/mensajes',
     'nombre' => 'Varios',
+    'orden' => '10',
     'imagen' => NULL,
     'imagen_recurso_origen' => NULL,
   ),
@@ -631,277 +693,277 @@ class toba_mc_gene__grupo_admin
 	static function get_items_accesibles()
 	{
 		return array (
-  0 => 
+  'toba_referencia-10000024' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '10000024',
   ),
-  1 => 
+  'toba_referencia-1000048' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000048',
   ),
-  2 => 
+  'toba_referencia-1000065' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000065',
   ),
-  3 => 
+  'toba_referencia-1000067' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000067',
   ),
-  4 => 
+  'toba_referencia-1000069' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000069',
   ),
-  5 => 
+  'toba_referencia-1000070' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000070',
   ),
-  6 => 
+  'toba_referencia-1000071' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000071',
   ),
-  7 => 
+  'toba_referencia-1000072' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000072',
   ),
-  8 => 
+  'toba_referencia-1000073' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000073',
   ),
-  9 => 
+  'toba_referencia-1000075' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000075',
   ),
-  10 => 
+  'toba_referencia-1000076' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000076',
   ),
-  11 => 
+  'toba_referencia-1000077' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000077',
   ),
-  12 => 
+  'toba_referencia-1000078' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000078',
   ),
-  13 => 
+  'toba_referencia-1000083' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000083',
   ),
-  14 => 
+  'toba_referencia-1000089' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000089',
   ),
-  15 => 
+  'toba_referencia-1000091' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000091',
   ),
-  16 => 
+  'toba_referencia-1000092' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000092',
   ),
-  17 => 
+  'toba_referencia-1000094' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000094',
   ),
-  18 => 
+  'toba_referencia-1000096' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000096',
   ),
-  19 => 
+  'toba_referencia-1000097' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000097',
   ),
-  20 => 
+  'toba_referencia-1000099' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000099',
   ),
-  21 => 
+  'toba_referencia-1000100' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000100',
   ),
-  22 => 
+  'toba_referencia-1000102' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000102',
   ),
-  23 => 
+  'toba_referencia-1000103' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1000103',
   ),
-  24 => 
+  'toba_referencia-1240' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '1240',
   ),
-  25 => 
+  'toba_referencia-2246' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '2246',
   ),
-  26 => 
+  'toba_referencia-2654' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '2654',
   ),
-  27 => 
+  'toba_referencia-2656' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '2656',
   ),
-  28 => 
+  'toba_referencia-2658' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '2658',
   ),
-  29 => 
+  'toba_referencia-3270' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3270',
   ),
-  30 => 
+  'toba_referencia-3271' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3271',
   ),
-  31 => 
+  'toba_referencia-3273' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3273',
   ),
-  32 => 
+  'toba_referencia-3289' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3289',
   ),
-  33 => 
+  'toba_referencia-3294' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3294',
   ),
-  34 => 
+  'toba_referencia-3301' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3301',
   ),
-  35 => 
+  'toba_referencia-3305' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3305',
   ),
-  36 => 
+  'toba_referencia-3308' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3308',
   ),
-  37 => 
+  'toba_referencia-3310' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3310',
   ),
-  38 => 
+  'toba_referencia-3313' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3313',
   ),
-  39 => 
+  'toba_referencia-3315' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3315',
   ),
-  40 => 
+  'toba_referencia-3362' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3362',
   ),
-  41 => 
+  'toba_referencia-3365' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3365',
   ),
-  42 => 
+  'toba_referencia-3367' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '3367',
   ),
-  43 => 
+  'toba_referencia-5000003' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '5000003',
   ),
-  44 => 
+  'toba_referencia-5000005' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '5000005',
   ),
-  45 => 
+  'toba_referencia-/efs/dependencias' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/efs/dependencias',
   ),
-  46 => 
+  'toba_referencia-/efs/ef_upload' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/efs/ef_upload',
   ),
-  47 => 
+  'toba_referencia-/mensajes_notificaciones' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/mensajes_notificaciones',
   ),
-  48 => 
+  'toba_referencia-/objetos/ci/ci_anidado' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ci/ci_anidado',
   ),
-  49 => 
+  'toba_referencia-/objetos/ci/ci_wizard' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ci/ci_wizard',
   ),
-  50 => 
+  'toba_referencia-/objetos/ei_calendario' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_calendario',
   ),
-  51 => 
+  'toba_referencia-/objetos/ei_cuadro' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_cuadro',
   ),
-  52 => 
+  'toba_referencia-/objetos/ei_filtro' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_filtro',
   ),
-  53 => 
+  'toba_referencia-/objetos/ei_formulario' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_formulario',
   ),
-  54 => 
+  'toba_referencia-/objetos/ei_formulario_ml' => 
   array (
     'proyecto' => 'toba_referencia',
     'item' => '/objetos/ei_formulario_ml',
@@ -912,11 +974,11 @@ class toba_mc_gene__grupo_admin
 	static function get_lista_permisos()
 	{
 		return array (
-  0 => 
+  'derecho_a-' => 
   array (
     'nombre' => 'derecho_a',
   ),
-  1 => 
+  'derecho_b-' => 
   array (
     'nombre' => 'derecho_b',
   ),
@@ -926,7 +988,7 @@ class toba_mc_gene__grupo_admin
 	static function get_items_zona__personas()
 	{
 		return array (
-  0 => 
+  'toba_referencia-1000065' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000065',
@@ -936,7 +998,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Listado de Personas',
     'descripcion' => NULL,
   ),
-  1 => 
+  'toba_referencia-1000067' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000067',
@@ -946,7 +1008,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Deportes',
     'descripcion' => NULL,
   ),
-  2 => 
+  'toba_referencia-1000069' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000069',
@@ -962,7 +1024,7 @@ class toba_mc_gene__grupo_admin
 	static function get_items_zona__zona_tutorial()
 	{
 		return array (
-  0 => 
+  'toba_referencia-1000073' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000073',
@@ -972,7 +1034,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Introducción',
     'descripcion' => NULL,
   ),
-  1 => 
+  'toba_referencia-1000078' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000078',
@@ -982,7 +1044,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Editor',
     'descripcion' => NULL,
   ),
-  2 => 
+  'toba_referencia-1000075' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000075',
@@ -992,7 +1054,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Items',
     'descripcion' => NULL,
   ),
-  3 => 
+  'toba_referencia-1000076' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000076',
@@ -1002,7 +1064,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Componentes',
     'descripcion' => NULL,
   ),
-  4 => 
+  'toba_referencia-1000083' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000083',
@@ -1012,7 +1074,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'CI',
     'descripcion' => NULL,
   ),
-  5 => 
+  'toba_referencia-1000091' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000091',
@@ -1022,7 +1084,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Persistencia',
     'descripcion' => NULL,
   ),
-  6 => 
+  'toba_referencia-1000092' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000092',
@@ -1032,7 +1094,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Formularios',
     'descripcion' => NULL,
   ),
-  7 => 
+  'toba_referencia-1000094' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000094',
@@ -1042,7 +1104,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Cuadros',
     'descripcion' => NULL,
   ),
-  8 => 
+  'toba_referencia-1000097' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000097',
@@ -1052,7 +1114,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'ABM Simple',
     'descripcion' => NULL,
   ),
-  9 => 
+  'toba_referencia-1000099' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000099',
@@ -1062,7 +1124,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'ABM Multi-Tabla',
     'descripcion' => NULL,
   ),
-  10 => 
+  'toba_referencia-1000102' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000102',
@@ -1072,7 +1134,7 @@ class toba_mc_gene__grupo_admin
     'nombre' => 'Javascript',
     'descripcion' => NULL,
   ),
-  11 => 
+  'toba_referencia-1000100' => 
   array (
     'item_proyecto' => 'toba_referencia',
     'item' => '1000100',

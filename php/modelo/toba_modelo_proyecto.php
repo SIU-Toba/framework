@@ -622,19 +622,35 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$nombre_clase = 'toba_mc_gene__grupo_' . $grupo_acceso;
 			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 			$clase = new toba_clase_datos( $nombre_clase );
-			//Menu
-			$datos = toba_proyecto_db::get_items_menu( $this->get_id(), $grupo_acceso );
-			$clase->agregar_metodo_datos('get_items_menu', $datos );
-			//Control acceso
-			$datos = toba_proyecto_db::get_items_accesibles( $this->get_id(), $grupo_acceso );
-			$clase->agregar_metodo_datos('get_items_accesibles', $datos );
-			//Permisos
-			$datos = toba_proyecto_db::get_lista_permisos( $this->get_id(), $grupo_acceso );
-			$clase->agregar_metodo_datos('get_lista_permisos', $datos );
-			//Acceso items zonas
+			//-- Menu -------------------------------
+			$datos = toba_proyecto_db::get_items_menu( $this->get_id(), array($grupo_acceso) );
+			$temp = array();
+			foreach($datos as $dato) {
+				$temp[$dato['proyecto'].'-'.$dato['item']] = $dato;
+			}
+			$clase->agregar_metodo_datos('get_items_menu', $temp );
+			//-- Control acceso ---------------------
+			$datos = toba_proyecto_db::get_items_accesibles( $this->get_id(), array($grupo_acceso) );
+			$temp = array();
+			foreach($datos as $dato) {
+				$temp[$dato['proyecto'].'-'.$dato['item']] = $dato;
+			}
+			$clase->agregar_metodo_datos('get_items_accesibles', $temp );
+			//-- Permisos ---------------------------
+			$datos = toba_proyecto_db::get_lista_permisos( $this->get_id(), array($grupo_acceso) );
+			$temp = array();
+			foreach($datos as $dato) {
+				$temp[$dato['nombre'].'-'] = $dato;//Se concatena un string porque asi el merge unifica si o si aunque el nombre sea un numero
+			}
+			$clase->agregar_metodo_datos('get_lista_permisos', $temp );
+			//-- Acceso items zonas -----------------
 			foreach( $this->get_indice_zonas() as $zona ) {
-				$datos = toba_proyecto_db::get_items_zona( $this->get_id(), $grupo_acceso, $zona );
-				$clase->agregar_metodo_datos('get_items_zona__'.$zona, $datos );
+				$datos = toba_proyecto_db::get_items_zona( $this->get_id(), array($grupo_acceso), $zona );
+				$temp = array();
+				foreach($datos as $dato) {
+					$temp[$dato['item_proyecto'].'-'.$dato['item']] = $dato;
+				}
+				$clase->agregar_metodo_datos('get_items_zona__'.$zona, $temp );
 			}
 			//Guardo el archivo
 			$clase->guardar( $archivo );

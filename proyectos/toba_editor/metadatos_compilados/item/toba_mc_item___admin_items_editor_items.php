@@ -41,7 +41,7 @@ class toba_mc_item___admin_items_editor_items
     'item_existe_ayuda' => NULL,
     'carpeta' => 0,
     'menu' => 1,
-    'orden' => '10',
+    'orden' => '6',
     'publico' => 0,
     'redirecciona' => 0,
     'crono' => 0,

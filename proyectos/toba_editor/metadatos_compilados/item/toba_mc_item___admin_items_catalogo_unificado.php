@@ -41,7 +41,7 @@ class toba_mc_item___admin_items_catalogo_unificado
     'item_existe_ayuda' => NULL,
     'carpeta' => 0,
     'menu' => 1,
-    'orden' => '0',
+    'orden' => '5',
     'publico' => NULL,
     'redirecciona' => NULL,
     'crono' => NULL,

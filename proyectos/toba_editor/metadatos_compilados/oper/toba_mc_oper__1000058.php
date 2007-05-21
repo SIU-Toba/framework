@@ -41,7 +41,7 @@ class toba_mc_item__1000058
     'item_existe_ayuda' => NULL,
     'carpeta' => 0,
     'menu' => 0,
-    'orden' => NULL,
+    'orden' => '4',
     'publico' => 0,
     'redirecciona' => 0,
     'crono' => 0,

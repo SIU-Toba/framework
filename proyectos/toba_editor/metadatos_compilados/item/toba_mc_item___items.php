@@ -48,7 +48,7 @@ class toba_mc_item___items
     'solicitud_tipo' => NULL,
     'item_padre' => '__raiz__',
     'cant_dependencias' => '0',
-    'cant_items_hijos' => '6',
+    'cant_items_hijos' => '7',
   ),
   'objetos' => 
   array (

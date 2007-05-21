@@ -11,12 +11,12 @@ class toba_mc_gene__grupo_externo
 	static function get_items_accesibles()
 	{
 		return array (
-  0 => 
+  'toba_editor-3280' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '3280',
   ),
-  1 => 
+  'toba_editor-/admin/objetos/clonador' => 
   array (
     'proyecto' => 'toba_editor',
     'item' => '/admin/objetos/clonador',
@@ -39,7 +39,7 @@ class toba_mc_gene__grupo_externo
 	static function get_items_zona__zona_objeto()
 	{
 		return array (
-  0 => 
+  'toba_editor-/admin/objetos/clonador' => 
   array (
     'item_proyecto' => 'toba_editor',
     'item' => '/admin/objetos/clonador',
