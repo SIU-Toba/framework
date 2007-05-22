@@ -201,3 +201,16 @@ INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_i
 	'538', --col_id
 	'1'  --es_resultado
 );
+
+------------------------------------------------------------
+-- apex_objeto_db_registros_uniq
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_db_registros_uniq (objeto_proyecto, objeto, uniq_id, columnas) VALUES (
+	'toba_instancia', --objeto_proyecto
+	'1891', --objeto
+	'7', --uniq_id
+	'proyecto,usuario_grupo_acc'  --columnas
+);
+--- FIN Grupo de desarrollo 0

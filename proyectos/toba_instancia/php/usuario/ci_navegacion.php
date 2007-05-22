@@ -5,11 +5,6 @@ class ci_navegacion extends toba_ci
 	protected $s__filtro;
 	const umbral_registros_filtro_obligatorio = 50;
 
-	function ini()
-	{
-		$this->dep('datos')->tabla('proyecto')->set_no_duplicado(array('proyecto','usuario_grupo_acc'));
-	}
-
 	//-------------------------------------------------------------------
 	//--- Eventos GLOBALES
 	//-------------------------------------------------------------------

@@ -2,11 +2,6 @@
 
 class odt_cuadro_columnas extends toba_datos_tabla
 {
-	function configuracion()
-	{
-		$this->set_no_duplicado(array('clave'));
-	}
-
 	//-----------------------------------------------------
 	//--- Manejo de la relacion con los EVENTOS
 	//-----------------------------------------------------

@@ -2,11 +2,6 @@
 
 class odt_eventos extends toba_datos_tabla
 {
-	function configuracion()
-	{
-		$this->set_no_duplicado(array('identificador'));
-	}
-	
 	function hay_evento_de_fila()
 	{
 		foreach ($this->get_filas(null, false, false) as $fila) {

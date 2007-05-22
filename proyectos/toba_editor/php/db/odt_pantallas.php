@@ -2,11 +2,6 @@
 
 class odt_pantallas extends toba_datos_tabla
 {
-	function configuracion()
-	{
-		$this->set_no_duplicado(array('identificador'));
-	}
-	
 	function get_ids_pantallas()
 	{
 		$pantallas = array();
