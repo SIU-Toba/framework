@@ -501,7 +501,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	{
 		$this->manejador_interface->titulo('Compilacion del nucleo');
 		$this->resumir_definicion_componentes();
-		$this->resumir_nucleo();
+		//$this->resumir_nucleo();
 	}
 	
 	/**

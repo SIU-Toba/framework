@@ -64,6 +64,7 @@ class toba_datos_tabla extends toba_componente
 			}
 		}
 		$this->activar_cargas_externas();
+		$this->activar_control_valores_unicos();
 	}
 
 	/**
@@ -98,6 +99,20 @@ class toba_datos_tabla extends toba_componente
 				}
 			}
 		}		
+	}
+
+	/**
+	 * @ignore 
+	 */
+	protected function activar_control_valores_unicos()
+	{
+		foreach( $this->_info_valores_unicos as $regla ) {
+			if(isset($regla['columnas'])) {
+				$columnas = explode(',',$regla['columnas']);
+				$columnas = array_map('trim', $columnas);
+				$this->set_no_duplicado( $columnas );
+			}
+		}
 	}
 	
 	/**

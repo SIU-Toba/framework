@@ -305,7 +305,33 @@ class ci_principal extends ci_editores_toba
 		$this->get_entidad()->tabla('externas')->resetear_cursor();
 	}
 	
+	//*******************************************************************
+	//**  VALORES UNICOS  ***********************************************
+	//*******************************************************************	
 
+	function conf__4()
+	{
+		if (count($this->get_lista_columnas()) == 0) {
+			$this->pantalla()->eliminar_dep('valores_unicos');
+			$this->pantalla()->set_descripcion('No hay columnas definidas.');
+		} else {
+			$this->pantalla()->set_descripcion('Defina las combinaciones de columnas que deben ser unicas por fila.');
+		}
+	}
+	
+	function get_lista_columnas()
+	{
+		return $this->get_entidad()->tabla('columnas')->get_filas();
+	}
 
+	function evt__valores_unicos__modificacion($datos)
+	{
+		$this->get_entidad()->tabla('valores_unicos')->procesar_filas($datos);
+	}
+
+	function conf__valores_unicos($c)
+	{
+		$c->set_datos($this->get_entidad()->tabla('valores_unicos')->get_filas());
+	}
 }
 ?>

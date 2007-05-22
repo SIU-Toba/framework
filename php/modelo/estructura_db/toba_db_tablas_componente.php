@@ -25,8 +25,9 @@ class toba_db_tablas_componente
   17 => 'apex_objeto_db_registros_col',
   18 => 'apex_objeto_db_registros_ext',
   19 => 'apex_objeto_db_registros_ext_col',
-  20 => 'apex_objeto_datos_rel',
-  21 => 'apex_objeto_datos_rel_asoc',
+  20 => 'apex_objeto_db_registros_uniq',
+  21 => 'apex_objeto_datos_rel',
+  22 => 'apex_objeto_datos_rel_asoc',
 );
 	}
 
@@ -783,6 +784,30 @@ class toba_db_tablas_componente
     2 => 'externa_id',
     3 => 'col_id',
     4 => 'es_resultado',
+  ),
+);
+	}
+
+	static function apex_objeto_db_registros_uniq()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, uniq_id',
+  'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_proyecto',
+    1 => 'objeto',
+    2 => 'uniq_id',
+    3 => 'columnas',
   ),
 );
 	}

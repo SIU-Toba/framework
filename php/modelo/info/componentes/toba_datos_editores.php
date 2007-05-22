@@ -107,6 +107,13 @@ class toba_datos_editores
     'imagen' => 'objetos/carga_externa.png',
     'imagen_recurso_origen' => 'apex',
   ),
+  3 => 
+  array (
+    'identificador' => '4',
+    'etiqueta' => 'Valores unicos',
+    'imagen' => 'calendario.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
 );
 	}
 

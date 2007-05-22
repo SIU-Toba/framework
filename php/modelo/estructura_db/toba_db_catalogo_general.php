@@ -81,8 +81,9 @@ class toba_db_catalogo_general
   73 => 'apex_objeto_db_registros_col',
   74 => 'apex_objeto_db_registros_ext',
   75 => 'apex_objeto_db_registros_ext_col',
-  76 => 'apex_objeto_datos_rel',
-  77 => 'apex_objeto_datos_rel_asoc',
+  76 => 'apex_objeto_db_registros_uniq',
+  77 => 'apex_objeto_datos_rel',
+  78 => 'apex_objeto_datos_rel_asoc',
 );
 	}
 

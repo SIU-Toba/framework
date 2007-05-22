@@ -27,6 +27,7 @@ class toba_db_secuencias
 		$datos['apex_msg_seq'] = array('campo' => 'msg', 'tabla'=> 'apex_msg');
 		$datos['apex_objeto_dbr_columna_seq'] = array('campo' => 'col_id', 'tabla'=> 'apex_objeto_db_registros_col');
 		$datos['apex_objeto_dbr_ext_seq'] = array('campo' => 'externa_id', 'tabla' => 'apex_objeto_db_registros_ext');		
+		$datos['apex_objeto_dbr_uniq_seq'] = array('campo' => 'uniq_id', 'tabla' => 'apex_objeto_db_registros_uniq');		
 		$datos['apex_obj_ei_cuadro_col_seq'] = array('campo' => 'objeto_cuadro_col', 'tabla'=> 'apex_objeto_ei_cuadro_columna');	
 		$datos['apex_obj_ci_pantalla_seq'] = array('campo' => 'pantalla', 'tabla'=> 'apex_objeto_ci_pantalla');
 		$datos['apex_obj_ei_form_fila_seq'] = array('campo' => 'objeto_ei_formulario_fila', 'tabla'=> 'apex_objeto_ei_formulario_ef');

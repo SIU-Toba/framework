@@ -188,6 +188,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'917', --dep_id
+	'1399', --objeto_consumidor
+	'1974', --objeto_proveedor
+	'valores_unicos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -248,6 +260,22 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	'objetos/columna.gif', --imagen
 	'columnas', --objetos
+	'eliminar,procesar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1399', --objeto_ci
+	'1050', --pantalla
+	'4', --identificador
+	'4', --orden
+	'Valores unicos', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	'calendario.gif', --imagen
+	'valores_unicos', --objetos
 	'eliminar,procesar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

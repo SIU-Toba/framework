@@ -264,6 +264,9 @@ class componente_datos_tabla extends componente_toba
 		$estructura[5]['tabla'] = 'apex_objeto_db_registros_ext_col';
 		$estructura[5]['registros'] = 'n';
 		$estructura[5]['obligatorio'] = false;		
+		$estructura[6]['tabla'] = 'apex_objeto_db_registros_uniq';
+		$estructura[6]['registros'] = 'n';
+		$estructura[6]['obligatorio'] = false;		
 		return $estructura;		
 	}
 
@@ -344,6 +347,15 @@ class componente_datos_tabla extends componente_toba
 		$sql["_info_externas_col"]['sql'] .= ";";
 		$sql["_info_externas_col"]['registros']='n';
 		$sql["_info_externas_col"]['obligatorio']=false;
+		$sql["_info_valores_unicos"]['sql'] = "SELECT	columnas
+					 FROM	apex_objeto_db_registros_uniq
+					 WHERE	objeto_proyecto = '$proyecto'";
+		if ( isset($componente) ) {
+			$sql["_info_valores_unicos"]['sql'] .= "	AND		objeto='$componente' ";	
+		}
+		$sql["_info_valores_unicos"]['sql'] .= ";";
+		$sql["_info_valores_unicos"]['registros']='n';
+		$sql["_info_valores_unicos"]['obligatorio']=false;
 
 		return $sql;
 	}

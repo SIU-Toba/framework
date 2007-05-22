@@ -169,7 +169,30 @@ CREATE TABLE apex_objeto_db_registros_ext_col
 		
 );
 
+--###################################################################################################
 
+CREATE SEQUENCE apex_objeto_dbr_uniq_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_objeto_db_registros_uniq
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: objeto_proyecto
+--: dump_clave_componente: objeto
+--: dump_order_by: objeto, uniq_id
+--: dump_where: ( objeto_proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	objeto_proyecto    			   	varchar(15)		NOT NULL,
+	objeto 		                	int4       		NOT NULL,
+	uniq_id							int4			DEFAULT nextval('"apex_objeto_dbr_uniq_seq"'::text) 		NOT NULL, 
+	columnas						varchar(255)	NULL,
+	CONSTRAINT  "apex_obj_dbr_uniq_pk" PRIMARY KEY ("objeto_proyecto","objeto","uniq_id"),
+	CONSTRAINT  "apex_obj_dbr_uniq_fk_objeto_dbr" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto_db_registros" ("objeto_proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE	
+);
 
 --###################################################################################################
 --**************************************************************************************************
