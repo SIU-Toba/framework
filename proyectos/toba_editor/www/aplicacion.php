@@ -3,6 +3,7 @@
 define("apex_pa_proyecto","toba_editor");
 define('apex_pa_metadatos_compilados',0);
 define('apex_pa_archivos_compilados',0);
+define('apex_pa_requiere_validacion',1);
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

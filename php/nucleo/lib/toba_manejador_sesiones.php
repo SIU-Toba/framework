@@ -64,7 +64,7 @@ class toba_manejador_sesiones
 	/**
 	 * Acceso de un usuario aninimo a la instancia.
 	 */
-	function login_anonimo()
+	function login_anonimo($datos_iniciales=null)
 	{
 		if ( $this->existe_sesion_activa() ) {
 			throw new toba_error('No es posible loguearse sobre una sesion abierta.');
@@ -75,7 +75,7 @@ class toba_manejador_sesiones
 		if (!toba::proyecto()->get_parametro('usuario_anonimo_grupos_acc')) {
 			throw new toba_error('No esta definido el grupo de acceso del usuario anonimo. No es posible iniciar la sesion.');
 		}
-		$this->procesar_acceso_instancia();
+		$this->procesar_acceso_instancia(null, $datos_iniciales);
 		// Se recarga el nucleo, esta vez sobre una sesion activa.
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION... recargando el nucleo.');
@@ -102,6 +102,10 @@ class toba_manejador_sesiones
 	*/
 	function iniciar_sesion_proyecto($datos_iniciales)
 	{
+		//Login anonimo de sesiones extendidas.
+		if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
+			$this->login_anonimo($datos_iniciales);
+		}		
 		$this->procesar_acceso_proyecto($datos_iniciales);			
 		if (toba::nucleo()->solicitud_en_proceso()) {
 			throw new toba_reset_nucleo('INICIAR SESION PROYECTO... recargando el nucleo.');
@@ -270,10 +274,7 @@ class toba_manejador_sesiones
 				$this->registrar_activacion_sesion();
 			} catch ( toba_error $e ) {
 				$this->logout($e->getMessage());
-				// Si el proyecto no requiere autentificacion disparo una sesion anonima
-				/*if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
-					$this->login_anonimo();
-				}*/
+				$this->comprobar_acceso_anonimo();
 			}
 		} elseif( $this->existe_usuario_activo() ) {	//--> Hay un usuario en la instancia, pero no logueado al proyecto actual
 			//Inicializacion de la sesion del proyecto
@@ -305,14 +306,27 @@ class toba_manejador_sesiones
 				$this->procesar_acceso_proyecto();
 			}
 		} else {										//--> ** Entrada INICIAL **
-			// Si el proyecto no requiere autentificacion disparo una sesion anonima
-			if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
-				$this->login_anonimo();
-			}
+			$this->comprobar_acceso_anonimo();
 		}
 		if ( $this->modo_previsualizacion() ) {
 			$this->activar_editor();
 		}		
+	}
+	
+	private function comprobar_acceso_anonimo()
+	{
+		// Si el proyecto no requiere autentificacion disparo una sesion anonima
+		if ( ! toba::proyecto()->get_parametro('requiere_validacion') ) {
+			//Si la sesion esta extendida, aunque sea anonima necesita inicializacion.
+			if ( $this->sesion_posse_item_inicializacion() ) {
+				//Apunto al nucleo al item de inicializacion de sesion
+				$item[0] = toba::proyecto()->get_id();
+				$item[1] = toba::proyecto()->get_parametro('item_set_sesion');
+				toba::memoria()->set_item_solicitado($item);
+			} else {
+				$this->login_anonimo();
+			}
+		}
 	}
 
 	/**
