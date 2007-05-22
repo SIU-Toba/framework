@@ -9,7 +9,7 @@ class toba_instancia
 {
 	static private $instancia;
 	static protected $id;
-	static private $memoria;							//Referencia al segmento de $_SESSION asignado
+	private $memoria;							//Referencia al segmento de $_SESSION asignado
 		
 	/**
 	 * @return toba_instancia

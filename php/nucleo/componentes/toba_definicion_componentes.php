@@ -85,7 +85,7 @@ class componente_toba implements toba_componente_definicion
 		return $sql;
 	}
 
-	function get_vista_dependencias($proyecto, $componente=null)
+	static function get_vista_dependencias($proyecto, $componente=null)
 	{
 		$sql['sql'] = 	"	SELECT	d.identificador as		identificador,
 							o.proyecto as					proyecto,

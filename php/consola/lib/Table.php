@@ -156,7 +156,7 @@ class Console_Table
             return false;
         }
 
-        $table = &new Console_Table();
+        $table = new Console_Table();
         $table->setHeaders($headers);
 
         foreach ($data as $row) {

@@ -18,7 +18,7 @@ class toba_sesion
 	 * Ventana de extensión del inicio de la sesion de un usuario
 	 * @ventana
 	 */
-	function conf__inicial() {}
+	function conf__inicial($datos) {}
 
 	/**
 	 * Ventana de extensión del fin de la sesión actual

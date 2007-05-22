@@ -238,7 +238,7 @@ class toba_db
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}
 
-	function recuperar_secuencia()
+	function recuperar_secuencia($secuencia)
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}

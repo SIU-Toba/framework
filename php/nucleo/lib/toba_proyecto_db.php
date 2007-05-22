@@ -149,7 +149,7 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);
 	}	
 
-	function get_items_accesibles($proyecto, $grupos_acceso)
+	static function get_items_accesibles($proyecto, $grupos_acceso)
 	{
 		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
 		$sql = "SELECT DISTINCT
