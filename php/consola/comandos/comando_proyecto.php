@@ -37,7 +37,7 @@ class comando_proyecto extends comando_toba
 		if ( isset( $param['-c'] ) ) {
 			// COMPONENTES
 			$this->consola->subtitulo('Listado de COMPONENTES');
-			$this->consola->tabla( $p->get_lista_componentes() , array( 'Tipo', 'Cantidad') );
+			$this->consola->tabla( $p->get_resumen_componentes_utilizados() , array( 'Tipo', 'Cantidad') );
 		} elseif ( isset( $param['-g'] ) ) {
 			// GRUPOS de ACCESO
 			$this->consola->subtitulo('Listado de GRUPOS de ACCESO');

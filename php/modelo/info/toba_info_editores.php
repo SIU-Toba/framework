@@ -106,14 +106,6 @@ class toba_info_editores
 		}
 	}
 
-	static function get_clases_contenedoras()
-	{
-		return array(	
-						array('proyecto' => 'toba', 'clase' =>'objeto_ci'),
-						array('proyecto' => 'toba', 'clase' => 'objeto_datos_relacion')
-					);
-	}
-
 	static function get_lista_clases_item()
 	{
 		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('item'));
@@ -147,23 +139,6 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 
-	static function get_todas_clases_toba()
-	{
-		return self::get_lista_clases_toba(true);	
-	}
-	
-	static function get_archivo_de_clase($proyecto, $clase)
-	{
-		$sql = "SELECT 	archivo
-				FROM apex_clase 
-				WHERE 	clase = '$clase'
-				AND		proyecto = '$proyecto'";
-		$temp = toba_contexto_info::get_db()->consultar($sql);
-		if(is_array($temp)){
-			return $temp[0]['archivo'];
-		}
-	}
-	
 	static function get_clases_editores($contenedor=null)
 	{
 		$sql = "SELECT
@@ -188,21 +163,6 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
-	static function get_clases_tipos()
-	{
-		$sql = "SELECT DISTINCT
-					ct.clase_tipo,
-					ct.descripcion_corta
-				FROM 
-					apex_clase c,
-					apex_clase_tipo ct
-				WHERE
-					c.clase_tipo = ct.clase_tipo AND 
-					c.clase IN ('". implode("','",self::get_clases_validas() ) ."')
-				ORDER BY ct.clase_tipo";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}
-
 	static function get_ci_editor_clase($proyecto, $clase)
 	{
 		$sql = "SELECT 
@@ -224,24 +184,6 @@ class toba_info_editores
 		return $res[0];
 	}
 	
-	static function get_pantallas_de_ci($objeto)
-	{
-		if (is_numeric($objeto)) {
-			$sql = "SELECT
-						pantalla,
-						identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
-					FROM
-						apex_objeto_ci_pantalla
-					WHERE
-						objeto_ci_proyecto = '". toba_contexto_info::get_proyecto() ."' AND
-						objeto_ci = '$objeto'
-			";
-			return toba_contexto_info::get_db()->consultar($sql);
-		} else {
-			return array();	
-		}
-	}
-
 	static function get_clases_con_fuente_datos()
 	{
 		$clases = array();
@@ -367,6 +309,144 @@ class toba_info_editores
 	}
 
 	//---------------------------------------------------
+	//---------------- OBJETOS --------------------------
+	//---------------------------------------------------
+
+	static function get_lista_objetos_toba($clase)
+	{
+		$clase = explode(",",$clase);
+		$sql = "SELECT 	proyecto, 
+						objeto, 
+						objeto							   as id,
+						'[' || objeto || '] -- ' || nombre as descripcion
+				FROM apex_objeto 
+				WHERE 	clase = '{$clase[1]}'
+				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+				ORDER BY nombre";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+	
+	static function get_info_dependencia($objeto_proyecto, $objeto)
+	//Carga externa para un db_registros de dependencias
+	{
+		$sql = "SELECT 	o.clase || ' - ' || '[' || o.objeto || '] - ' || o.nombre as nombre_objeto,
+						'[' || o.objeto || '] - ' || o.nombre as descripcion,
+						o.clase_proyecto || ',' || o.clase as clase
+				FROM 	apex_clase c, apex_objeto o
+				WHERE 	o.clase = c.clase
+				AND 	o.clase_proyecto = c.proyecto
+				AND 	o.proyecto = '$objeto_proyecto'
+				AND 	o.objeto = '$objeto'";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	/**
+	*	Retorna el nombre de la clase del objeto
+	*/
+	static function get_clase_de_objeto($id)
+	{
+		$sql = "
+			SELECT 
+				o.clase
+			FROM 
+				apex_objeto o
+			WHERE 
+				(o.objeto = '{$id[1]}') AND 
+				(o.proyecto = '{$id[0]}')
+		";		
+		$datos = toba_contexto_info::get_db()->consultar($sql);
+		return $datos[0]['clase'];
+	}
+
+	//***************************************************
+	//**  CI  *******************************************
+	//***************************************************
+
+	static function get_pantallas_de_ci($objeto)
+	{
+		if (is_numeric($objeto)) {
+			$sql = "SELECT
+						pantalla,
+						identificador || ' - ' || COALESCE(etiqueta, '') as descripcion
+					FROM
+						apex_objeto_ci_pantalla
+					WHERE
+						objeto_ci_proyecto = '". toba_contexto_info::get_proyecto() ."' AND
+						objeto_ci = '$objeto'
+			";
+			return toba_contexto_info::get_db()->consultar($sql);
+		} else {
+			return array();	
+		}
+	}
+
+	//***************************************************
+	//** DATOS RELACION *********************************
+	//***************************************************
+	
+	/**
+	*	Retorna el id del objeto datos_relacion asociado a la clase
+	*/
+	static function get_dr_de_clase($clase)
+	{
+		$drs = array(
+			'objeto_datos_relacion' 	=> array( toba_editor::get_id(), '1532'),
+			'objeto_datos_tabla' 		=> array( toba_editor::get_id(), '1533'),
+			'objeto_ei_arbol'			=> array( toba_editor::get_id(), '1537'),
+			'objeto_ei_archivos'		=> array( toba_editor::get_id(), '1538'),
+			'objeto_ei_calendario'		=> array( toba_editor::get_id(), '1539'),
+			'objeto_ci' 				=> array( toba_editor::get_id(), '1507'),
+			'objeto_ei_cuadro' 			=> array( toba_editor::get_id(), '1531'),
+			'objeto_ei_filtro' 			=> array( toba_editor::get_id(), '1535'),
+			'objeto_ei_formulario' 		=> array( toba_editor::get_id(), '1534'),
+			'objeto_ei_formulario_ml' 	=> array( toba_editor::get_id(), '1536'),			
+			'objeto_ei_arbol' 			=> array( toba_editor::get_id(), '1610'),	
+			'objeto_cn'					=> array( toba_editor::get_id(), '1610'),
+			'item'						=> array( toba_editor::get_id(), '1554')
+		);
+		if (isset($drs[$clase])) {
+			return $drs[$clase];			
+		} else {
+			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
+		}
+	}	
+	
+	//***************************************************
+	//** DATOS TABLAS ***********************************
+	//***************************************************
+
+	static function get_lista_objetos_dt()
+	//Listar objetos que son datos_tabla
+	{
+		$sql = "SELECT 	proyecto, 
+						objeto, 
+						'[' || objeto || '] -- ' || nombre as descripcion
+				FROM apex_objeto 
+				WHERE 	clase = 'objeto_datos_tabla'
+				AND		clase_proyecto = 'toba'
+				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+				ORDER BY 2";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+	//---------------------------------------------------
+
+	static function get_lista_dt_columnas($objeto)
+	/*
+		Lista las columnas de los DATOS_TABLA (supone que el objeto pasado como parametro lo es)
+		Esta pregunta hay que hacercela a una clase de dominio (un datos_tabla)
+	*/
+	{
+		$sql = "SELECT 		columna as 	clave,
+							columna as 	descripcion,
+							col_id  as	col_id
+				FROM apex_objeto_db_registros_col 
+				WHERE 	objeto = $objeto
+				AND 	objeto_proyecto = '". toba_contexto_info::get_proyecto() ."'
+				ORDER BY 3";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	//---------------------------------------------------
 	//------------ PUNTOS DE CONTROL --------------------
 	//---------------------------------------------------
 
@@ -446,122 +526,6 @@ class toba_info_editores
     $sql .= "  ORDER BY descripcion   ";
 
 		return toba_contexto_info::get_db()->consultar($sql);  
-  }
-
-	//---------------------------------------------------
-	//---------------- OBJETOS --------------------------
-	//---------------------------------------------------
-
-	static function get_lista_objetos_toba($clase)
-	{
-		$clase = explode(",",$clase);
-		$sql = "SELECT 	proyecto, 
-						objeto, 
-						objeto							   as id,
-						'[' || objeto || '] -- ' || nombre as descripcion
-				FROM apex_objeto 
-				WHERE 	clase = '{$clase[1]}'
-				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
-				ORDER BY nombre";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}
-	
-	static function get_info_dependencia($objeto_proyecto, $objeto)
-	//Carga externa para un db_registros de dependencias
-	{
-		$sql = "SELECT 	o.clase || ' - ' || '[' || o.objeto || '] - ' || o.nombre as nombre_objeto,
-						'[' || o.objeto || '] - ' || o.nombre as descripcion,
-						o.clase_proyecto || ',' || o.clase as clase
-				FROM 	apex_clase c, apex_objeto o
-				WHERE 	o.clase = c.clase
-				AND 	o.clase_proyecto = c.proyecto
-				AND 	o.proyecto = '$objeto_proyecto'
-				AND 	o.objeto = '$objeto'";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}
-
-	/**
-	*	Retorna el nombre de la clase del objeto
-	*/
-	static function get_clase_de_objeto($id)
-	{
-		$sql = "
-			SELECT 
-				o.clase
-			FROM 
-				apex_objeto o
-			WHERE 
-				(o.objeto = '{$id[1]}') AND 
-				(o.proyecto = '{$id[0]}')
-		";		
-		$datos = toba_contexto_info::get_db()->consultar($sql);
-		return $datos[0]['clase'];
-	}
-
-	//---------------------------------------------------
-	//-- DATOS RELACION----------------------------------
-	//---------------------------------------------------
-	
-	/**
-	*	Retorna el id del objeto datos_relacion asociado a la clase
-	*/
-	static function get_dr_de_clase($clase)
-	{
-		$drs = array(
-			'objeto_datos_relacion' 	=> array( toba_editor::get_id(), '1532'),
-			'objeto_datos_tabla' 		=> array( toba_editor::get_id(), '1533'),
-			'objeto_ei_arbol'			=> array( toba_editor::get_id(), '1537'),
-			'objeto_ei_archivos'		=> array( toba_editor::get_id(), '1538'),
-			'objeto_ei_calendario'		=> array( toba_editor::get_id(), '1539'),
-			'objeto_ci' 				=> array( toba_editor::get_id(), '1507'),
-			'objeto_ei_cuadro' 			=> array( toba_editor::get_id(), '1531'),
-			'objeto_ei_filtro' 			=> array( toba_editor::get_id(), '1535'),
-			'objeto_ei_formulario' 		=> array( toba_editor::get_id(), '1534'),
-			'objeto_ei_formulario_ml' 	=> array( toba_editor::get_id(), '1536'),			
-			'objeto_ei_arbol' 			=> array( toba_editor::get_id(), '1610'),	
-			'objeto_cn'					=> array( toba_editor::get_id(), '1610'),
-			'item'						=> array( toba_editor::get_id(), '1554')
-		);
-		if (isset($drs[$clase])) {
-			return $drs[$clase];			
-		} else {
-			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
-		}
-	}	
-	
-	//---------------------------------------------------
-	//-- DATOS TABLA ------------------------------------
-	//---------------------------------------------------
-
-	static function get_lista_objetos_dt()
-	//Listar objetos que son datos_tabla
-	{
-		$sql = "SELECT 	proyecto, 
-						objeto, 
-						'[' || objeto || '] -- ' || nombre as descripcion
-				FROM apex_objeto 
-				WHERE 	clase = 'objeto_datos_tabla'
-				AND		clase_proyecto = 'toba'
-				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
-				ORDER BY 2";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}
-	//---------------------------------------------------
-
-	static function get_lista_dt_columnas($objeto)
-	/*
-		Lista las columnas de los DATOS_TABLA (supone que el objeto pasado como parametro lo es)
-		Esta pregunta hay que hacercela a una clase de dominio (un datos_tabla)
-	*/
-	{
-		$sql = "SELECT 		columna as 	clave,
-							columna as 	descripcion,
-							col_id  as	col_id
-				FROM apex_objeto_db_registros_col 
-				WHERE 	objeto = $objeto
-				AND 	objeto_proyecto = '". toba_contexto_info::get_proyecto() ."'
-				ORDER BY 3";
-		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 	//-------------------------------------------------

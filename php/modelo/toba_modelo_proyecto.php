@@ -776,7 +776,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->instancia->get_db()->consultar( $sql );
 	}
 
-	function get_lista_componentes()
+	function get_resumen_componentes_utilizados()
 	{
 		$sql = "	SELECT clase, COUNT(*) as cantidad
 					FROM apex_objeto
