@@ -190,12 +190,12 @@ CREATE TABLE apex_log_error_login
 (
 	log_error_login 			int4				DEFAULT nextval('"apex_log_error_login_seq"'::text) NOT NULL, 
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
-	usuario						varchar(60) 		NULL,
-	clave						varchar(20) 		NULL,
-	ip							varchar(20)			NULL,
+	usuario						varchar 			NULL,
+	clave						varchar		 		NULL,
+	ip							varchar				NULL,
 	gravedad					smallint			NULL,
 	mensaje						text				NULL,
-	punto_acceso				varchar(80) 		NULL,
+	punto_acceso				varchar		 		NULL,
 	CONSTRAINT	"apex_log_error_login_pk" PRIMARY KEY ("log_error_login")
 );
 --###################################################################################################-------------------
@@ -211,7 +211,7 @@ CREATE TABLE apex_log_ip_rechazada
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	ip							varchar(20)								NOT NULL,
+	ip							varchar													NOT NULL,
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT	"apex_ip_rechazada_pk" PRIMARY KEY ("ip")
 );
