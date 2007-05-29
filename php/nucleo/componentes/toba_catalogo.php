@@ -34,20 +34,6 @@ class toba_catalogo
 	{
 		return self::get_lista_tipo_componentes();
 	}
-	
-	static function get_nombre_clase_runtime( $tipo )
-	{
-		$clase_definicion = 'componente_'. $tipo;
-		$path = call_user_func( array( $clase_definicion, 'get_path_clase_runtime') );
-		return 'toba_'. $tipo;
-	}
-
-	static function get_nombre_clase_info( $tipo )
-	{
-		$clase_definicion = 'componente_'. $tipo;
-		$nombre = call_user_func( array( $clase_definicion, 'get_nombre_clase_info') );
-		return $nombre;
-	}
 
 	static function get_tipo( $componente )
 	{
@@ -56,7 +42,7 @@ class toba_catalogo
 					WHERE (objeto = '{$componente['componente']}')
 					AND (proyecto = '{$componente['proyecto']}')";
 		$datos = toba::instancia()->get_db()->consultar($sql);
-		return self::convertir_tipo( $datos[0]['clase'] );
+		return $datos[0]['clase'];
 	}
 
 	/**
@@ -96,22 +82,5 @@ class toba_catalogo
 			throw new toba_error("La clave utilizada para invocar el componente no es valida: ".var_export($clave_componente, true));	
 		}
 	}
-
-	/*
-		FUNCTION TEMPORAL:
-			Conversor necesario porque la definicion de APEX_CLASE tiene mal
-			el nombre de clase que tiene que tener ( no necesita 'objeto_')
-	*/
-	static function convertir_tipo( $tipo )
-	{
-		if(!isset($tipo)) return null;
-		if($tipo=='item') return 'item';
-		$no_mas = 'objeto_';
-		if( strrpos($tipo, $no_mas) !== false ) {
-			return substr($tipo, strlen($no_mas) );
-		} else {
-			return $tipo;	
-		}
-	}	
 }
 ?>

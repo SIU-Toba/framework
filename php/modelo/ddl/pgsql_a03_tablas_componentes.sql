@@ -154,8 +154,8 @@ CREATE TABLE apex_clase
 	clase_tipo						int4			NOT NULL, 
 	archivo							varchar(80)		NOT NULL,
 	descripcion						varchar(250)	NOT NULL,
-	descripcion_corta				varchar(40)		NULL,	--	NOT NULL, 
 	icono							varchar(60)		NOT NULL, --> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
+	descripcion_corta				varchar(40)		NULL,	--	NOT NULL, 
 	screenshot						varchar(60)		NULL,	--> Path a una imagen de la clase
 	ancestro_proyecto				varchar(15)		NULL,	--> Ancestro a	considerar para incluir	dependencias
 	ancestro						varchar(60)		NULL,

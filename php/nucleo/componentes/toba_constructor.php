@@ -21,19 +21,18 @@ class toba_constructor
 	{
 		// Controla la integridad de la clave
 		toba_catalogo::control_clave_valida( $id );
-		$tipo = toba_catalogo::convertir_tipo( $tipo );
 		if ( !isset( $tipo ) ) {
 			$tipo = toba_catalogo::get_tipo( $id );	
 		}
 		// Cargo los metadatos
 		if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
-			$datos = self::get_metadatos_compilados( $id, ($tipo=='item') );
+			$datos = self::get_metadatos_compilados( $id, ($tipo=='toba_item') );
 		} else {
 			$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo );
 		}
 		//--- INSTANCIACION	---
-		if ($tipo != 'item') {		//**** Creacion de OBJETOS
-			$clase = toba_catalogo::get_nombre_clase_runtime( $tipo );
+		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS
+			$clase = $tipo;
 			//Posee una subclase asociada?
 			if ( $datos['_info']['subclase'] && $con_subclase ) {
 				require_once($datos['_info']['subclase_archivo']);
@@ -65,7 +64,6 @@ class toba_constructor
 		$refrescar_cache = ($refrescar_cache || self::$refresco_forzado);
 		// Controla la integridad de la clave
 		toba_catalogo::control_clave_valida( $id );
-		$tipo = toba_catalogo::convertir_tipo( $tipo );
 		if ( !isset( $tipo ) ) {
 			$tipo = toba_catalogo::get_tipo( $id );	
 		}
@@ -74,12 +72,12 @@ class toba_constructor
 		if (! isset(self::$cache_infos[$hash]) || $refrescar_cache) {
 			if (! isset($datos)) {
 				if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
-					$datos = self::get_metadatos_compilados( $id, ($tipo=='item') );
+					$datos = self::get_metadatos_compilados( $id, ($tipo=='toba_item') );
 				} else {
 					$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, null, $resumidos );
 				}
 			}
-			$clase = toba_catalogo::get_nombre_clase_info( $tipo );
+			$clase = $tipo .'_info';
 			$obj = new $clase( $datos, $en_profundidad, $resumidos );
 			self::$cache_infos[$hash] = $obj;
 		}

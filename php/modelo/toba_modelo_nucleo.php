@@ -267,14 +267,14 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	/*
 	*	Exporta los metadatos correspondientes a las tablas maestras del sistema
 	*/
-	function exportar(instancia $instancia)
+	function exportar(toba_modelo_instancia $instancia)
 	{
 		$this->exportar_tablas_nucleo($instancia);
 		$this->exportar_tablas_nucleo_multiproyecto($instancia);
 		$this->get_sincronizador()->sincronizar();
 	}
 
-	function exportar_tablas_nucleo(instancia $instancia)
+	function exportar_tablas_nucleo(toba_modelo_instancia $instancia)
 	{
 		try {
 			$this->manejador_interface->titulo( "Tablas NUCLEO" );
@@ -306,7 +306,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		}
 	}
 
-	private function exportar_tablas_nucleo_multiproyecto(instancia $instancia)
+	private function exportar_tablas_nucleo_multiproyecto(toba_modelo_instancia $instancia)
 	{
 		$this->manejador_interface->titulo( "Tablas NUCLEO - PROYECTO" );
 		foreach ( toba_db_tablas_nucleo::get_lista_nucleo_multiproyecto() as $tabla ) {

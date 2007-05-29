@@ -1,0 +1,85 @@
+------------------------------------------------------------------------------------	
+ TAREAS
+------------------------------------------------------------------------------------
+
+	* hacer llamadas con _def y _info
+	* buscar toba_info_ y reemplazar
+
+	* Basar las consultas en el catalogo.
+		- Guardar reglas y relaciones en metadata
+			- dependencias y contenedores validos
+			- cuales usan fuentes de datos
+			- datos_relacion
+		- Armar un editor de clase en toba_editor que solo se vea cuando se edita a toba_editor.
+		- Armar un extensor.
+
+	* Migrar las clases de apex_clase:
+		- Utilizar los nombres reales de la clase.
+		- Eliminar las que no se usan.
+
+	* Eliminar la necesidad de compilar el nucleo despues de tocar una definicion.
+	* Documentar el proceso de agregar una clase.
+
+------------------------------------------------------------------------------------
+ Trabajo
+------------------------------------------------------------------------------------
+
+	toba_info_editores
+	------------------
+
+	*	get_clases_validas								HC
+	*	get_clases_validas_contenedor					HC	(dependencias validas)
+	*	get_contenedores_validos						HC	(contenedores posibles)
+	*	get_lista_clases_item							->HC
+	*	get_lista_clases_validas_en_ci					->HC
+	?	get_lista_clases_toba							(consulta catalogo componentes + restriccion cascadas viejas)
+	ok?	get_clases_editores								(consulta catalogo componentes)		??
+	ok	get_ci_editor_clase								(buscar el editor en la creacion generica)
+	*	get_clases_con_fuente_datos						HC
+	*	get_dr_de_clase									HC
+
+	ELIMINADAS: no se usaban
+	
+		get_clases_contenedoras				
+		get_todas_clases_toba				
+		get_archivo_de_clase				
+		get_clases_tipos					
+
+	toba_catalogo
+	-------------
+
+	(para los procesos de toba_modelo_proyecto)
+
+	*	get_lista_tipo_componentes						HC
+	*	get_lista_tipo_componentes_dump					->HC
+		get_lista_componentes 							(espera como parametro el componente viejo)
+	
+	(para el manejo de nombres del contructor y el cargador)	
+	
+		get_tipo	
+			
+	CLASES DEF
+	----------
+
+		get_tipo_abreviado() va ahi o en metadatos
+			- Los metadatos son para cosas que solo consume el editor
+			- los _def para proveer informacion al nucleo
+			
+	CLASES INFO
+	-----------
+	
+		get_clase_archivo() ?????????
+
+------------------------------------------------------------------------------
+
+	Agregar un nuevo componente:
+	
+		- Crear los metadatos
+			- Definicion
+			- Editor
+			- DR
+		- Crear clases
+			- Definicion
+			- runtime
+			- Info
+			- Incluir las clases en el autoload

@@ -737,7 +737,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$nombre_archivo = toba_manejador_archivos::nombre_valido( 'toba_mc_oper__' . $item['id'] );
 			$arbol = $this->get_arbol_componentes_item($item['proyecto'], $item['id']);
 			foreach( $arbol as $componente) {
-				$tipo = toba_catalogo::convertir_tipo($componente['tipo']);
+				$tipo = $componente['tipo'];
 				$prefijo_clase = ( $tipo == 'item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 				$nombre_clase = toba_manejador_archivos::nombre_valido($prefijo_clase . $componente['componente']);
 				$clase = new toba_clase_datos( $nombre_clase );		
@@ -1004,11 +1004,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
 		$rs = $this->db->consultar($sql);
-		$version = $rs[0]['version_toba'];
-		if (! isset($version)) {
+		if (! isset($rs[0]['version_toba'])) {
 			return toba_version::inicial();
 		}
-		return new toba_version($version);
+		return new toba_version($rs[0]['version_toba']);
 	}
 	
 	private function actualizar_campo_version($version)

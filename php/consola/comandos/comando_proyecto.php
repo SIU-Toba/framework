@@ -197,8 +197,8 @@ class comando_proyecto extends comando_toba
 		$proyecto = $this->get_proyecto();
 		//--- Parametros
 		$param = $this->get_parametros();
-		$desde = isset($param['-d']) ? new version_toba($param['-d']) : $proyecto->get_version_actual();
-		$hasta = isset($param['-h']) ? new version_toba($param['-h']) : toba_modelo_instalacion::get_version_actual();
+		$desde = isset($param['-d']) ? new toba_version($param['-d']) : $proyecto->get_version_actual();
+		$hasta = isset($param['-h']) ? new toba_version($param['-h']) : toba_modelo_instalacion::get_version_actual();
 
 		$desde_texto = $desde->__toString();
 		$hasta_texto = $hasta->__toString();

@@ -112,7 +112,7 @@ class toba_cargador
 		if ( isset($this->cache_metadatos_extendidos) ) {			// CACHE de EXTENDIDOS no implementado!
 			throw new toba_error('No implementado');
 		} else {													// Sin CACHE!
-			$clase_def = 'componente_'. $tipo;
+			$clase_def = $tipo . '_def';
 			$metodo_def = $resumidos ? 'get_vista_extendida_resumida' : 'get_vista_extendida';
 			$estructura = call_user_func_array( array(	$clase_def,
 														$metodo_def ),
