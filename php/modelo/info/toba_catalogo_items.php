@@ -60,7 +60,7 @@ class toba_catalogo_items
 		}
 		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
-		$sql_base = componente_item::get_vista_extendida($this->proyecto);
+		$sql_base = toba_item_def::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['basica']['sql'];
 		$sql .=	$filtro_items;
 		$sql .= "	AND		(i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')";
@@ -74,9 +74,9 @@ class toba_catalogo_items
 				$id['proyecto'] = $fila['item_proyecto'];
 				$datos = array('basica' => $fila);
 				if ($en_profundidad) {
-					$info = toba_constructor::get_info($id, 'item', true, null, true, true);
+					$info = toba_constructor::get_info($id, 'toba_item', true, null, true, true);
 				} else {
-					$info = toba_constructor::get_info($id, 'item', false, $datos);
+					$info = toba_constructor::get_info($id, 'toba_item', false, $datos);
 				}
 				$this->items[$fila['item']] = $info;
 			}

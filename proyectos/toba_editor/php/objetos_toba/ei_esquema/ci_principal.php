@@ -3,8 +3,8 @@ require_once('objetos_toba/ci_editores_toba.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $clase_actual = 'objeto_ei_esquema';	
-	protected $info_actual = 'toba_info_ei';
+	protected $clase_actual = 'toba_ei_esquema';	
+	protected $info_actual = 'toba_ei_info';
 	
 	function get_dbr_eventos()
 	{

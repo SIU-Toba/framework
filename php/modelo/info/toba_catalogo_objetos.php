@@ -73,7 +73,7 @@ class toba_catalogo_objetos
 		}
 		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
-		$sql_base = componente_toba::get_vista_extendida($this->proyecto);
+		$sql_base = toba_componente_def::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['_info']['sql'];
 		$sql .= "
 				AND		o.clase IN ('" . implode("', '", $clases) . "')

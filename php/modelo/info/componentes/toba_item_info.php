@@ -54,7 +54,7 @@ class toba_item_info implements toba_nodo_arbol
 		while (! $item_ancestro->es_raiz()) {
 			$id = array('componente' => $item_ancestro->get_id_padre(), 
 						'proyecto' => $item_ancestro->get_proyecto());
-			$nodo = toba_constructor::get_info($id, 'item', false);
+			$nodo = toba_constructor::get_info($id, 'toba_item', false);
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
 		}

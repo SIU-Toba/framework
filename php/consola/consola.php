@@ -326,7 +326,7 @@ class consola implements toba_proceso_gui
 	
 	function cargar_includes_basicos()
 	{
-		foreach(toba_nucleo::get_includes_basicos() as $archivo ) {
+		foreach(toba_nucleo::get_includes_funciones_globales() as $archivo ) {
 			require_once( toba_nucleo::toba_dir() . $archivo);
 		}
 	}

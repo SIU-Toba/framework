@@ -255,7 +255,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 			}
 		}
 		// Instanciador
-		if ( $this instanceof toba_info_ei_formulario || $this instanceof toba_info_ei_cuadro ) {
+		if ( $this instanceof toba_ei_formulario_info || $this instanceof toba_ei_cuadro_info ) {
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/instanciar.gif", false),
 				'ayuda' => 'Previsualizar el componente',

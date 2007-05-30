@@ -2,9 +2,6 @@
  TAREAS
 ------------------------------------------------------------------------------------
 
-	* hacer llamadas con _def y _info
-	* buscar toba_info_ y reemplazar
-
 	* Basar las consultas en el catalogo.
 		- Guardar reglas y relaciones en metadata
 			- dependencias y contenedores validos
@@ -17,7 +14,6 @@
 		- Utilizar los nombres reales de la clase.
 		- Eliminar las que no se usan.
 
-	* Eliminar la necesidad de compilar el nucleo despues de tocar una definicion.
 	* Documentar el proceso de agregar una clase.
 
 ------------------------------------------------------------------------------------

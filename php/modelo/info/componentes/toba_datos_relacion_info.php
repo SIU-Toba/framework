@@ -38,16 +38,16 @@ class toba_datos_relacion_info extends toba_componente_info
 		if (isset($this->datos['_info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
 			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo']) ) {
-				$iconos[] = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
 																			'nucleo/php_ap.gif' );
-				$iconos[] = toba_info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
 																			'reflexion/abrir_ap.gif' );
 			} else {
-				$iconos[] = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
 																			'nucleo/php_ap_inexistente.gif',

@@ -56,7 +56,7 @@ class toba_cargador
 			//Estoy entrando por el nucleo
 			$db = toba::instancia()->get_db();	
 		}
-		$clase_def = 'componente_'. $tipo;
+		$clase_def = $tipo . '_def';
 		$estructura = call_user_func(array($clase_def,'get_estructura'));
 		if ( isset($this->cache_metadatos_simples) ) {				// Con CACHE!
 			//Saco el componente del CACHE

@@ -13,7 +13,7 @@ class ci_principal extends ci_editores_toba
 	protected $s__seleccion_relacion_anterior;
 	protected $s__ap_php_db;							// La base posee registro de la existencia de una extension??
 	protected $s__ap_php_archivo;						// El archivo de la extension existe en el sistema de archivos??
-	protected $clase_actual = 'objeto_datos_relacion';
+	protected $clase_actual = 'toba_datos_relacion';
 
 	function conf()
 	{
@@ -51,13 +51,13 @@ class ci_principal extends ci_editores_toba
 	{
 		if ( $this->s__ap_php_db ) {
 			// Hay extension
-			$parametros = toba_info_componente::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
+			$parametros = toba_componente_info::get_utileria_editor_parametros(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
 			$form->evento('ver_php')->vinculo()->set_parametros($parametros);
 			if ( $this->s__ap_php_archivo ) {
 				// El archivo de la extension existe
-				$abrir = toba_info_componente::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
+				$abrir = toba_componente_info::get_utileria_editor_abrir_php(array('proyecto'=>$this->id_objeto['proyecto'],
 																				'componente'=> $this->id_objeto['objeto']),
 																			'ap');
 				$form->set_js_abrir( $abrir['js'] );

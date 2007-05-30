@@ -535,7 +535,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
 			$c = 0;
 			$this->manejador_interface->mensaje( $tipo, false );
-			if ( $tipo == 'item' ) {
+			if ( $tipo == 'toba_item' ) {
 				$directorio = $this->get_dir_componentes_compilados() . '/item';
 			} else {
 				$directorio = $this->get_dir_componentes_compilados() . '/comp';
@@ -738,7 +738,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$arbol = $this->get_arbol_componentes_item($item['proyecto'], $item['id']);
 			foreach( $arbol as $componente) {
 				$tipo = $componente['tipo'];
-				$prefijo_clase = ( $tipo == 'item') ? 'toba_mc_item__' : 'toba_mc_comp__';
+				$prefijo_clase = ( $tipo == 'toba_item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 				$nombre_clase = toba_manejador_archivos::nombre_valido($prefijo_clase . $componente['componente']);
 				$clase = new toba_clase_datos( $nombre_clase );		
 				$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( 	$componente, 
@@ -851,7 +851,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/
 	private function get_arbol_componentes_item($proyecto, $item)
 	{
-		$resultado[0] = array( 'tipo' => 'item', 'componente'=> $item, 'proyecto' => $proyecto);
+		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto);
 		$sql = "SELECT proyecto, objeto FROM apex_item_objeto WHERE item = '$item' AND proyecto = '$proyecto'";
 		$datos = $this->db->consultar($sql);
 		foreach($datos as $componente) {

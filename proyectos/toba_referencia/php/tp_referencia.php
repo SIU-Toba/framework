@@ -9,7 +9,7 @@ class tp_referencia extends toba_tp_normal
     {
         if (! isset($this->titulo)) {
             $info['basica'] = toba::solicitud()->get_datos_item();
-            $item = new toba_info_item($info);
+            $item = new toba_item_info($info);
             $item->cargar_rama();
             
             //Se recorre la rama

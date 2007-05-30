@@ -9,7 +9,7 @@ class toba_ci_info extends toba_ei_info
 	{
 		for ($i = 0 ; $i < count($this->datos['_info_ci_me_pantalla']) ; $i++) {
 			if ($this->datos['_info_ci_me_pantalla'][$i]['identificador'] === $subcomponente) {
-				return new toba_info_ci_pantalla($this->datos['_info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
+				return new toba_ci_pantalla_info($this->datos['_info_ci_me_pantalla'][$i],array(), $this->proyecto, $this->id);
 			}
 		}
 		throw new toba_error("No se encuentra la pantalla '$id'");
@@ -33,7 +33,7 @@ class toba_ci_info extends toba_ei_info
 	{
 		for ($i = 0 ; $i < count($this->datos['_info_ci_me_pantalla']) ; $i++) {
 			if ((string) $this->datos['_info_ci_me_pantalla'][$i]['pantalla'] === (string) $id) {
-				return new toba_info_ci_pantalla($this->datos['_info_ci_me_pantalla'][$i],
+				return new toba_ci_pantalla_info($this->datos['_info_ci_me_pantalla'][$i],
 											$this->subelementos, $this->proyecto, $this->id);
 			}
 		}
@@ -60,7 +60,7 @@ class toba_ci_info extends toba_ei_info
 			//Se ordena por la columna orden
 			$datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'],'orden');
 			foreach ($datos_pantallas as $pantalla) {
-				$pantallas[] = new toba_info_ci_pantalla($pantalla, $this->subelementos, $this->proyecto, $this->id);
+				$pantallas[] = new toba_ci_pantalla_info($pantalla, $this->subelementos, $this->proyecto, $this->id);
 			}
 		}
 		//Busca Dependencias libres
@@ -167,7 +167,7 @@ class toba_ci_info extends toba_ei_info
 		if (count($this->subelementos)>0) {
 			$molde->agregar( new toba_molde_separador_php('DEPENDENCIAS',null,'grande') );
 			foreach ($this->subelementos as $id => $elemento) {
-				$es_ei = ($elemento instanceof toba_info_ei) && !($elemento instanceof toba_info_ci);
+				$es_ei = ($elemento instanceof toba_ei_info) && !($elemento instanceof toba_ci_info);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
 					$molde->agregar( new toba_molde_separador_php($rol) );

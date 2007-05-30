@@ -107,14 +107,14 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		if ($this->datos['subclase'] && $this->datos['subclase_archivo']) {
 			// Hay PHP asociado
 			if ( admin_util::existe_archivo_subclase($this->datos['subclase_archivo']) ) {
-				$iconos[] = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			$this->datos['identificador'] );
-				$iconos[] = toba_info_componente::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			$this->datos['identificador'] );
 			} else {
-				$iconos[] = toba_info_componente::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
+				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			$this->datos['identificador'],
 																			'nucleo/php_inexistente.gif',

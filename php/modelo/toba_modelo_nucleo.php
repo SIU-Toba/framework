@@ -393,7 +393,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$pantallas = $instancia->get_db()->consultar($sql);
 			$clase_php->agregar_metodo_datos( 'get_pantallas_'.$datos['clase'] , $pantallas );
 		}
-		$dir = toba_dir()."/php/modelo/info/componentes";
+		$dir = toba_dir()."/php/modelo/info";
 		$clase_php->guardar( $dir.'/toba_datos_editores.php' );
 	}
 	
@@ -504,35 +504,6 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		//$this->resumir_nucleo();
 	}
 	
-	/**
-	* Resume las definicines de los componentes en un solo archivo
-	*	(Esto evita un monton de requires dinamicos cuando se cargan componentes)
-	*/
-	function resumir_definicion_componentes()
-	{
-		$this->manejador_interface->mensaje_directo('Definicion de componentes');			
-		$resumen = '';
-		$directorio =  toba_dir() . '/php/nucleo/componentes/definicion';
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.php|' );
-		sort($archivos);		
-		$buscar = array(	'|<\?php|',
-							'|\?>|',
-							'|/\*\*.*?\*/|s',
-							'|\s*//.*|',
-							'|^\s*$|m'
-						);
-		foreach($archivos as $archivo) {
-			$php = file_get_contents($archivo);
-			$php = preg_replace($buscar,'',$php);
-			$resumen .= $php;
-			$this->manejador_interface->mensaje_directo('.');			
-		}
-		$resumen = "<?php\n" . $resumen . "\n?>";
-		$destino = toba_dir() . '/php/nucleo/componentes/toba_definicion_componentes.php';
-		file_put_contents($destino, $resumen);
-		$this->manejador_interface->mensaje('OK');			
-	}
-
 	function resumir_nucleo()
 	{
 		$destino = toba_dir() . '/php/nucleo/toba_motor.php';
@@ -665,24 +636,24 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		$this->comp_archivos_modelo = array(
 			'modelo/info/componentes/toba_datos_editores.php',
 			'modelo/info/componentes/toba_interface_meta_clase.php',
-			'modelo/info/componentes/toba_info_componente.php',
-			'modelo/info/componentes/toba_info_ap_relacion_db.php',
-			'modelo/info/componentes/toba_info_ap_tabla_db.php',
-			'modelo/info/componentes/toba_info_cn.php',
-			'modelo/info/componentes/toba_info_datos_relacion.php',
-			'modelo/info/componentes/toba_info_datos_tabla.php',
-			'modelo/info/componentes/toba_info_ei.php',
-			'modelo/info/componentes/toba_info_ci.php',
-			'modelo/info/componentes/toba_info_ci_pantalla.php',
-			'modelo/info/componentes/toba_info_ei_arbol.php',
-			'modelo/info/componentes/toba_info_ei_archivos.php',
-			'modelo/info/componentes/toba_info_ei_calendario.php',
-			'modelo/info/componentes/toba_info_ei_cuadro.php',
-			'modelo/info/componentes/toba_info_ei_esquema.php',
-			'modelo/info/componentes/toba_info_ei_formulario.php',
-			'modelo/info/componentes/toba_info_ei_formulario_ml.php',
-			'modelo/info/componentes/toba_info_ei_filtro.php',
-			'modelo/info/componentes/toba_info_item.php',
+			'modelo/info/componentes/toba_componente_info.php',
+			'modelo/info/componentes/toba_ap_relacion_db_info.php',
+			'modelo/info/componentes/toba_ap_tabla_db_info.php',
+			'modelo/info/componentes/toba_cn_info.php',
+			'modelo/info/componentes/toba_datos_relacion_info.php',
+			'modelo/info/componentes/toba_datos_tabla_info.php',
+			'modelo/info/componentes/toba_ei_info.php',
+			'modelo/info/componentes/toba_ci_info.php',
+			'modelo/info/componentes/toba_ci_pantalla_info.php',
+			'modelo/info/componentes/toba_ei_arbol_info.php',
+			'modelo/info/componentes/toba_ei_archivos_info.php',
+			'modelo/info/componentes/toba_ei_calendario_info.php',
+			'modelo/info/componentes/toba_ei_cuadro_info.php',
+			'modelo/info/componentes/toba_ei_esquema_info.php',
+			'modelo/info/componentes/toba_ei_formulario_info.php',
+			'modelo/info/componentes/toba_ei_formulario_ml_info.php',
+			'modelo/info/componentes/toba_ei_filtro_info.php',
+			'modelo/info/componentes/toba_item_info.php',
 			'modelo/info/toba_info_editores.php',
 			'modelo/info/toba_info_permisos.php',
 			'modelo/info/toba_contexto_info.php'		

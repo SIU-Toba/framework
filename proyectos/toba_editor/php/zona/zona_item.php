@@ -28,12 +28,12 @@ class zona_item extends zona_editor
 		{
 			$componente = $this->get_editable();
 			// Ir al editor
-			$ver = toba_info_item::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
+			$ver = toba_item_info::get_utileria_editor_ver_php( array(	'proyecto'=>$componente[0],
 																		'componente' =>$componente[1] ) );			
 			echo "<a href='" . $ver['vinculo'] ."'>" . toba_recurso::imagen($ver['imagen'], null, null, $ver['ayuda']). "</a>\n";
 			// Apertura del archivo
 			if ( admin_util::existe_archivo_subclase($this->editable_info['actividad_accion']) ) {
-				$abrir = toba_info_item::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
+				$abrir = toba_item_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$componente[0],
 																				'componente' =>$componente[1] )  );	
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}

@@ -9,8 +9,8 @@ class ci_principal extends ci_editores_toba
 	private $id_intermedio_columna;
 	protected $s__cortes_control;
 	protected $s__importacion_cols;
-	protected $clase_actual = 'objeto_ei_cuadro';
-	protected $info_actual = 'toba_info_ei_cuadro';
+	protected $clase_actual = 'toba_ei_cuadro';
+	protected $info_actual = 'toba_ei_cuadro_info';
 	
 	function ini()
 	{
@@ -270,7 +270,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_estandar($modelo)
 	{
-		return toba_info_ei_cuadro::get_lista_eventos_estandar($modelo);
+		return toba_ei_cuadro_info::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()

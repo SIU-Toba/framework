@@ -11,19 +11,19 @@ class toba_catalogo
 	*/
 	static function get_lista_tipo_componentes()
 	{
-		$datos[] = 'item';
-		$datos[] = 'ci';
-		$datos[] = 'ei_arbol';
-		$datos[] = 'ei_archivos';
-		$datos[] = 'ei_calendario';
-		$datos[] = 'ei_filtro';
-		$datos[] = 'ei_formulario';
-		$datos[] = 'ei_formulario_ml';
-		$datos[] = 'ei_cuadro';
-		$datos[] = 'ei_esquema';
-		$datos[] = 'cn';
-		$datos[] = 'datos_tabla';
-		$datos[] = 'datos_relacion';
+		$datos[] = 'toba_item';
+		$datos[] = 'toba_ci';
+		$datos[] = 'toba_ei_arbol';
+		$datos[] = 'toba_ei_archivos';
+		$datos[] = 'toba_ei_calendario';
+		$datos[] = 'toba_ei_filtro';
+		$datos[] = 'toba_ei_formulario';
+		$datos[] = 'toba_ei_formulario_ml';
+		$datos[] = 'toba_ei_cuadro';
+		$datos[] = 'toba_ei_esquema';
+		$datos[] = 'toba_cn';
+		$datos[] = 'toba_datos_tabla';
+		$datos[] = 'toba_datos_relacion';
 		return $datos;
 	}
 
@@ -54,7 +54,7 @@ class toba_catalogo
 			//Estoy entrando por el nucleo
 			$db = toba::instancia()->get_db();	
 		}
-		if ($tipo_componente == 'item' ) {
+		if ($tipo_componente == 'toba_item' ) {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							item as 			componente
 					FROM apex_item 
@@ -62,7 +62,7 @@ class toba_catalogo
 					ORDER BY 1;";
 			$datos = $db->consultar( $sql );
 		} else {
-			$tipo_componente = 'objeto_'.$tipo_componente;
+			$tipo_componente = $tipo_componente;
 			$sql = "SELECT 	proyecto as 		proyecto,
 							objeto as 			componente
 					FROM apex_objeto 

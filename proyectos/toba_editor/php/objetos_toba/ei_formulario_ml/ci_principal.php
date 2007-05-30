@@ -3,8 +3,8 @@ require_once('objetos_toba/ci_editores_toba.php');
 
 class ci_principal extends ci_editores_toba
 {
-	protected $clase_actual = 'objeto_ei_formulario_ml';	
-	protected $info_actual = 'toba_info_ei_formulario_ml';
+	protected $clase_actual = 'toba_ei_formulario_ml';	
+	protected $info_actual = 'toba_ei_formulario_ml_info';
 	
 	function ini()
 	{
@@ -84,7 +84,7 @@ class ci_principal extends ci_editores_toba
 
 	function get_eventos_estandar($modelo)
 	{
-		return toba_info_ei_formulario_ml::get_lista_eventos_estandar($modelo);
+		return toba_ei_formulario_ml_info::get_lista_eventos_estandar($modelo);
 	}
 
 	function evt__3__salida()
