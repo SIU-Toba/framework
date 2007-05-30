@@ -38,53 +38,53 @@ class toba_info_editores
 
 	static function get_clases_validas()
 	{
-		return array(	'objeto_ci',
-						'objeto_cn',
-						'objeto_ei_cuadro',
-						'objeto_ei_formulario',
-						'objeto_ei_formulario_ml',
-						'objeto_ei_filtro',
-						'objeto_ei_arbol',
-						'objeto_ei_calendario',
-						'objeto_ei_archivos',
-						'objeto_ei_esquema',						
-						'objeto_datos_tabla',
-						'objeto_datos_relacion' );
+		return array(	'toba_ci',
+						'toba_cn',
+						'toba_ei_cuadro',
+						'toba_ei_formulario',
+						'toba_ei_formulario_ml',
+						'toba_ei_filtro',
+						'toba_ei_arbol',
+						'toba_ei_calendario',
+						'toba_ei_archivos',
+						'toba_ei_esquema',						
+						'toba_datos_tabla',
+						'toba_datos_relacion' );
 	}
 
 	static function get_clases_validas_contenedor($contenedor=null)
 	{
 		//item, ci, ci_pantalla, datos_relacion
 		if(!isset($contenedor)) return self::get_clases_validas();
-		if($contenedor=="item") return array('objeto_ci', 'objeto_cn');
-		if($contenedor=="datos_relacion") return array('objeto_datos_tabla');
+		if($contenedor=="toba_item") return array('toba_ci', 'toba_cn');
+		if($contenedor=="toba_datos_relacion") return array('toba_datos_tabla');
 		if($contenedor=="ci"){
-			return array(	'objeto_ci',
-							'objeto_ei_cuadro',
-							'objeto_ei_formulario',
-							'objeto_ei_formulario_ml',
-							'objeto_ei_filtro',
-							'objeto_ei_arbol',
-							'objeto_ei_calendario',
-							'objeto_ei_archivos',
-							'objeto_ei_esquema',
-							'objeto_datos_tabla',
-							'objeto_datos_relacion' );
+			return array(	'toba_ci',
+							'toba_ei_cuadro',
+							'toba_ei_formulario',
+							'toba_ei_formulario_ml',
+							'toba_ei_filtro',
+							'toba_ei_arbol',
+							'toba_ei_calendario',
+							'toba_ei_archivos',
+							'toba_ei_esquema',
+							'toba_datos_tabla',
+							'toba_datos_relacion' );
 		}
-		if($contenedor=="ci_pantalla"){
-			return array(	'objeto_ci',
-							'objeto_ei_cuadro',
-							'objeto_ei_formulario',
-							'objeto_ei_formulario_ml',
-							'objeto_ei_filtro',
-							'objeto_ei_arbol',
-							'objeto_ei_calendario',
-							'objeto_ei_archivos',
-							'objeto_ei_esquema' );
+		if($contenedor=="toba_ci_pantalla"){
+			return array(	'toba_ci',
+							'toba_ei_cuadro',
+							'toba_ei_formulario',
+							'toba_ei_formulario_ml',
+							'toba_ei_filtro',
+							'toba_ei_arbol',
+							'toba_ei_calendario',
+							'toba_ei_archivos',
+							'toba_ei_esquema' );
 		}
-		if($contenedor=="cn"){
-			return array(	'objeto_datos_tabla',
-							'objeto_datos_relacion' );
+		if($contenedor=="toba_cn"){
+			return array(	'toba_datos_tabla',
+							'toba_datos_relacion' );
 		}		
 		//Por defecto devulevo todo
 		return self::get_clases_validas();
@@ -93,27 +93,27 @@ class toba_info_editores
 	static function get_contenedores_validos($componente)
 	{
 		switch($componente) {
-			case 'objeto_ci':
-				return array('item','objeto_ci');
-			case 'objeto_cn':
-				return array('item','objeto_ci');
-			case 'objeto_datos_relacion':
-				return array('objeto_ci', 'objeto_cn');
-			case 'objeto_datos_tabla':
-				return array('objeto_datos_relacion', 'objeto_ci', 'objeto_cn');
+			case 'toba_ci':
+				return array('toba_item','toba_ci');
+			case 'toba_cn':
+				return array('toba_item','toba_ci');
+			case 'toba_datos_relacion':
+				return array('toba_ci', 'toba_cn');
+			case 'toba_datos_tabla':
+				return array('toba_datos_relacion', 'toba_ci', 'toba_cn');
 			default:
-				return array('objeto_ci');
+				return array('toba_ci');
 		}
 	}
 
 	static function get_lista_clases_item()
 	{
-		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('item'));
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_item'));
 	}
 	
 	static function get_lista_clases_validas_en_ci()
 	{
-		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('objeto_ci'));
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_ci'));
 	}	
 	
 	/*
@@ -179,7 +179,7 @@ class toba_info_editores
 					c.editor_proyecto = io.proyecto AND
 					io.objeto = o.objeto AND				-- Se busca el CI del item
 					io.proyecto = o.proyecto AND
-					o.clase = 'objeto_ci'";
+					o.clase = 'toba_ci'";
 		$res = toba_contexto_info::get_db()->consultar($sql);
 		return $res[0];
 	}
@@ -187,12 +187,12 @@ class toba_info_editores
 	static function get_clases_con_fuente_datos()
 	{
 		$clases = array();
-		$clases[] = 'objeto_ei_formulario';
-		$clases[] = 'objeto_ei_formulario_ml';
-		$clases[] = 'objeto_ei_filtro';
-		$clases[] = 'objeto_datos_tabla';
-		$clases[] = 'objeto_datos_relacion';
-		$clases[] = 'objeto_cn';
+		$clases[] = 'toba_ei_formulario';
+		$clases[] = 'toba_ei_formulario_ml';
+		$clases[] = 'toba_ei_filtro';
+		$clases[] = 'toba_datos_tabla';
+		$clases[] = 'toba_datos_relacion';
+		$clases[] = 'toba_cn';
 		return $clases;	
 	}
 	
@@ -390,19 +390,19 @@ class toba_info_editores
 	static function get_dr_de_clase($clase)
 	{
 		$drs = array(
-			'objeto_datos_relacion' 	=> array( toba_editor::get_id(), '1532'),
-			'objeto_datos_tabla' 		=> array( toba_editor::get_id(), '1533'),
-			'objeto_ei_arbol'			=> array( toba_editor::get_id(), '1537'),
-			'objeto_ei_archivos'		=> array( toba_editor::get_id(), '1538'),
-			'objeto_ei_calendario'		=> array( toba_editor::get_id(), '1539'),
-			'objeto_ci' 				=> array( toba_editor::get_id(), '1507'),
-			'objeto_ei_cuadro' 			=> array( toba_editor::get_id(), '1531'),
-			'objeto_ei_filtro' 			=> array( toba_editor::get_id(), '1535'),
-			'objeto_ei_formulario' 		=> array( toba_editor::get_id(), '1534'),
-			'objeto_ei_formulario_ml' 	=> array( toba_editor::get_id(), '1536'),			
-			'objeto_ei_arbol' 			=> array( toba_editor::get_id(), '1610'),	
-			'objeto_cn'					=> array( toba_editor::get_id(), '1610'),
-			'item'						=> array( toba_editor::get_id(), '1554')
+			'toba_datos_relacion' 		=> array( toba_editor::get_id(), '1532'),
+			'toba_datos_tabla' 			=> array( toba_editor::get_id(), '1533'),
+			'toba_ei_arbol'				=> array( toba_editor::get_id(), '1537'),
+			'toba_ei_archivos'			=> array( toba_editor::get_id(), '1538'),
+			'toba_ei_calendario'		=> array( toba_editor::get_id(), '1539'),
+			'toba_ci' 					=> array( toba_editor::get_id(), '1507'),
+			'toba_ei_cuadro' 			=> array( toba_editor::get_id(), '1531'),
+			'toba_ei_filtro' 			=> array( toba_editor::get_id(), '1535'),
+			'toba_ei_formulario' 		=> array( toba_editor::get_id(), '1534'),
+			'toba_ei_formulario_ml' 	=> array( toba_editor::get_id(), '1536'),			
+			'toba_ei_arbol' 			=> array( toba_editor::get_id(), '1610'),	
+			'toba_cn'					=> array( toba_editor::get_id(), '1610'),
+			'toba_item'					=> array( toba_editor::get_id(), '1554')
 		);
 		if (isset($drs[$clase])) {
 			return $drs[$clase];			
@@ -422,7 +422,7 @@ class toba_info_editores
 						objeto, 
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
-				WHERE 	clase = 'objeto_datos_tabla'
+				WHERE 	clase = 'toba_datos_tabla'
 				AND		clase_proyecto = 'toba'
 				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
 				ORDER BY 2";

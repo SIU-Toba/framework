@@ -191,7 +191,7 @@ class toba_proyecto
 			$rs = $temp['_info'];
 		} else {
 			//Busco la definicion del componente
-			$sql = componente_toba::get_vista_extendida($proyecto, $id_componente);
+			$sql = toba_componente_def::get_vista_extendida($proyecto, $id_componente);
 			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['_info']['sql']);
 		}
 		return $rs;
