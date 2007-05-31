@@ -2,6 +2,11 @@
 
 class toba_cn_info extends toba_componente_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "CN";		
+	}
+
 	function get_utilerias()
 	{
 		$iconos = array();

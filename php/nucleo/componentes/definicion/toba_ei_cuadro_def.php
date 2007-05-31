@@ -5,15 +5,15 @@ class toba_ei_cuadro_def extends toba_ei_def
  	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[4]['tabla'] = 'apex_objeto_cuadro';
-		$estructura[4]['registros'] = '1';
-		$estructura[4]['obligatorio'] = true;		
-		$estructura[5]['tabla'] = 'apex_objeto_cuadro_cc';
-		$estructura[5]['registros'] = 'n';
-		$estructura[5]['obligatorio'] = false;		
-		$estructura[6]['tabla'] = 'apex_objeto_ei_cuadro_columna';
-		$estructura[6]['registros'] = 'n';
-		$estructura[6]['obligatorio'] = false;		
+		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro',
+								'registros' => '1',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_cuadro_cc',
+								'registros' => 'n',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_ei_cuadro_columna',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 
@@ -112,11 +112,6 @@ class toba_ei_cuadro_def extends toba_ei_def
 		$sql['_info_cuadro_cortes']['registros']='n';
 		$sql['_info_cuadro_cortes']['obligatorio']=false;
 		return $sql;
-	}
-
-	static function get_tipo_abreviado()
-	{
-		return "Cuadro";		
 	}
 }
 ?>

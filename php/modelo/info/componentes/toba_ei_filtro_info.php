@@ -1,6 +1,11 @@
 <?php
 class toba_ei_filtro_info extends toba_ei_formulario_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "Filtro";		
+	}	
+
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------

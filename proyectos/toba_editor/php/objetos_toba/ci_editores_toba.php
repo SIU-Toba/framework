@@ -171,11 +171,14 @@ abstract class ci_editores_toba extends toba_ci
 		}
 	}
 	
+	function get_clase_info_actual()
+	{
+		return $this->get_clase_actual() . '_info';
+	}	
+	
 	function get_abreviacion_clase_actual()
 	{
-		$tipo = toba_catalogo::convertir_tipo( $this->get_clase_actual() );
-		$clase_definicion = 'componente_' . $tipo;
-		return call_user_func(array($clase_definicion, "get_tipo_abreviado"));
+		return call_user_func(array($this->get_clase_info_actual(), 'get_tipo_abreviado'));
 	}
 		
 	/*
@@ -187,12 +190,12 @@ abstract class ci_editores_toba extends toba_ci
 	
 	function get_modelos_evento()
 	{
-		return call_user_func(array($this->info_actual,'get_modelos_evento'));
+		return call_user_func(array($this->get_clase_info_actual(),'get_modelos_evento'));
 	}	
 	
 	function get_eventos_internos()
 	{
-		return call_user_func(array($this->info_actual,'get_eventos_internos'),	$this->get_entidad());
+		return call_user_func(array($this->get_clase_info_actual(),'get_eventos_internos'),	$this->get_entidad());
 	}
 	
 	

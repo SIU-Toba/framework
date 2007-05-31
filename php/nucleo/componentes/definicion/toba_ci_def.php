@@ -9,15 +9,15 @@ class toba_ci_def extends toba_ei_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[4]['tabla'] = 'apex_objeto_dependencias';
-		$estructura[4]['registros'] = 'n';
-		$estructura[4]['obligatorio'] = false;
-		$estructura[5]['tabla'] = 'apex_objeto_mt_me';
-		$estructura[5]['registros'] = '1';
-		$estructura[5]['obligatorio'] = true;
-		$estructura[6]['tabla'] = 'apex_objeto_ci_pantalla';
-		$estructura[6]['registros'] = 'n';
-		$estructura[6]['obligatorio'] = true;
+		$estructura[] = array( 	'tabla' => 'apex_objeto_dependencias',
+								'registros' => 'n',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_mt_me',
+								'registros' => '1',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_ci_pantalla',
+								'registros' => 'n',
+								'obligatorio' => true );
 		return $estructura;		
 	}
 	
@@ -75,11 +75,6 @@ class toba_ci_def extends toba_ei_def
 		unset($estructura['_info_eventos']);
 		unset($estructura['_info_puntos_control']);
 		return $estructura;
-	}
-
-	static function get_tipo_abreviado()
-	{
-		return "CI";		
 	}
 }
 ?>

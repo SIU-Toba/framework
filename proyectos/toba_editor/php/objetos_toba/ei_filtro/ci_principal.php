@@ -4,7 +4,6 @@ require_once('objetos_toba/ci_editores_toba.php');
 class ci_principal extends ci_editores_toba
 {
 	protected $clase_actual = 'toba_ei_filtro';	
-	protected $info_actual = 'toba_ei_filtro_info';
 	
 	function ini()
 	{

@@ -1,6 +1,11 @@
 <?php
 class toba_ei_cuadro_info extends toba_ei_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "Cuadro";		
+	}
+
 	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------

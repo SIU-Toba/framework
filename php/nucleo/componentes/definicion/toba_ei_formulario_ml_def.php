@@ -39,10 +39,5 @@ class toba_ei_formulario_ml_def extends toba_ei_formulario_def
 		$sql['_info_formulario_ef']['obligatorio']=false;
 		return $sql;
 	}
-
-	static function get_tipo_abreviado()
-	{
-		return "Form. ML";		
-	}
 }
 ?>

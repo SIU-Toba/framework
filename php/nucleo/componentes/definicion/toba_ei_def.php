@@ -5,19 +5,19 @@ class toba_ei_def extends toba_componente_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[2]['tabla'] = 'apex_objeto_eventos';
-		$estructura[2]['registros'] = 'n';
-		$estructura[2]['obligatorio'] = false;
-		$estructura[3]['tabla'] = 'apex_ptos_control_x_evento';
-		$estructura[3]['registros'] = 'n';
-		$estructura[3]['obligatorio'] = false;
+		$estructura[] = array( 	'tabla' => 'apex_objeto_eventos',
+								'registros' => 'n',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_ptos_control_x_evento',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
-		$sql["_info_eventos"]['sql'] = "SELECT	identificador			as identificador,
+		$sql['_info_eventos']['sql'] = "SELECT	identificador			as identificador,
 												etiqueta				as etiqueta,
 												maneja_datos			as maneja_datos,
 												sobre_fila				as sobre_fila,
@@ -43,13 +43,13 @@ class toba_ei_def extends toba_componente_def
 									FROM	apex_objeto_eventos
 									WHERE	proyecto='$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["_info_eventos"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_eventos']['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["_info_eventos"]['sql'] .= " ORDER BY orden;";
-		$sql["_info_eventos"]['registros']='n';
-		$sql["_info_eventos"]['obligatorio']=false;
-
-    $sql["_info_puntos_control"]['sql'] = "SELECT pe.pto_control, 
+		$sql['_info_eventos']['sql'] .= " ORDER BY orden;";
+		$sql['_info_eventos']['registros']='n';
+		$sql['_info_eventos']['obligatorio']=false;
+		// Puntos de control
+	    $sql['_info_puntos_control']['sql'] = "SELECT pe.pto_control, 
                                             oe.identificador as evento
                                        FROM apex_ptos_control_x_evento pe,
                                             apex_objeto_eventos oe
@@ -57,12 +57,11 @@ class toba_ei_def extends toba_componente_def
                                         AND pe.evento_id = oe.evento_id
                                         AND pe.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
-			$sql["_info_puntos_control"]['sql'] .= "	AND		oe.objeto='$componente' ";
+			$sql['_info_puntos_control']['sql'] .= "	AND		oe.objeto='$componente' ";
 		}
-    $sql["_info_puntos_control"]['sql'] .= " ORDER BY pto_control;";
-    $sql["_info_puntos_control"]['registros']='n';
-    $sql["_info_puntos_control"]['obligatorio']=false;
-                                                      
+	    $sql['_info_puntos_control']['sql'] .= " ORDER BY pto_control;";
+	    $sql['_info_puntos_control']['registros']='n';
+	    $sql['_info_puntos_control']['obligatorio']=false;
 		return $sql;
 	}
 }

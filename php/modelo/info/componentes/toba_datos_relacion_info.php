@@ -2,6 +2,11 @@
 
 class toba_datos_relacion_info extends toba_componente_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "Relación";		
+	}
+	
 	/**
 	*	Retorna la metaclase correspondiente al AP del datos relacion
 	*/

@@ -5,12 +5,12 @@ class toba_ei_formulario_def extends toba_ei_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[4]['tabla'] = 'apex_objeto_ut_formulario';
-		$estructura[4]['registros'] = '1';
-		$estructura[4]['obligatorio'] = false;
-		$estructura[5]['tabla'] = 'apex_objeto_ei_formulario_ef';
-		$estructura[5]['registros'] = 'n';
-		$estructura[5]['obligatorio'] = false;
+		$estructura[] = array( 	'tabla' => 'apex_objeto_ut_formulario',
+								'registros' => '1',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_ei_formulario_ef',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 
@@ -41,11 +41,6 @@ class toba_ei_formulario_def extends toba_ei_def
 		$sql['_info_formulario_ef']['registros']='n';
 		$sql['_info_formulario_ef']['obligatorio']=true;
 		return $sql;
-	}
-	
-	static function get_tipo_abreviado()
-	{
-		return "Form.";		
 	}
 }
 ?>

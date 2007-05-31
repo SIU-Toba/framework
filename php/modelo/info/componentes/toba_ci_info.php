@@ -2,6 +2,11 @@
 
 class toba_ci_info extends toba_ei_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "CI";		
+	}
+	
 	/**
 	*	Retorna la metaclase correspondiente a la pantalla
 	*/

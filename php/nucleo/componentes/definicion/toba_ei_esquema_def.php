@@ -5,9 +5,9 @@ class toba_ei_esquema_def extends toba_ei_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[4]['tabla'] = 'apex_objeto_esquema';
-		$estructura[4]['registros'] = '1';
-		$estructura[4]['obligatorio'] = false;
+		$estructura[] = array( 	'tabla' => 'apex_objeto_esquema',
+								'registros' => '1',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 
@@ -30,11 +30,6 @@ class toba_ei_esquema_def extends toba_ei_def
 		$sql['_info_esquema']['registros']='1';
 		$sql['_info_esquema']['obligatorio']=true;
 		return $sql;
-	}
-	
-	static function get_tipo_abreviado()
-	{
-		return "Esquema";		
 	}
 }
 ?>

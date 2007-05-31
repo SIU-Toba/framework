@@ -4,18 +4,18 @@ class toba_componente_def implements toba_componente_definicion
 {
 	static function get_estructura()
 	{
-		$estructura[0]['tabla'] = 'apex_objeto';
-		$estructura[0]['registros'] = '1';
-		$estructura[0]['obligatorio'] = true;
-		$estructura[1]['tabla'] = 'apex_objeto_info';
-		$estructura[1]['registros'] = '1';
-		$estructura[1]['obligatorio'] = false;
+		$estructura[] = array( 	'tabla' => 'apex_objeto',
+								'registros' => '1',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_info',
+								'registros' => '1',
+								'obligatorio' => false );								
 		return $estructura;		
 	}
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['_info']['sql'] = "	SELECT	o.proyecto          		as proyecto,                 
+		$sql['_info']['sql'] = "	SELECT	o.proyecto         		as proyecto,                 
 									o.objeto                    	as objeto,                   
 									o.anterior                  	as anterior,                 
 									o.reflexivo                 	as reflexivo,                

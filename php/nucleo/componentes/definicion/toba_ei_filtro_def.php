@@ -6,9 +6,5 @@
  */
 class toba_ei_filtro_def extends toba_ei_formulario_def
 {
-	static function get_tipo_abreviado()
-	{
-		return "Filtro";		
-	}	
 }
 ?>

@@ -2,6 +2,11 @@
 
 class toba_datos_tabla_info extends toba_componente_info
 {
+	static function get_tipo_abreviado()
+	{
+		return "Tabla";		
+	}
+
 	/**
 	*	Retorna la metaclase correspondiente al AP del datos tabla
 	*/

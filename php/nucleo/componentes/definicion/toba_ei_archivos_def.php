@@ -10,9 +10,5 @@
  */
 class toba_ei_archivos_def extends toba_ei_def
 {
-	static function get_tipo_abreviado()
-	{
-		return "Archivos";		
-	}
 }
 ?>

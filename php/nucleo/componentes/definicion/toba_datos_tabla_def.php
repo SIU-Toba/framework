@@ -5,21 +5,21 @@ class toba_datos_tabla_def extends toba_componente_def
 	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[2]['tabla'] = 'apex_objeto_db_registros';
-		$estructura[2]['registros'] = '1';
-		$estructura[2]['obligatorio'] = true;
-		$estructura[3]['tabla'] = 'apex_objeto_db_registros_col';
-		$estructura[3]['registros'] = 'n';
-		$estructura[3]['obligatorio'] = true;
-		$estructura[4]['tabla'] = 'apex_objeto_db_registros_ext';
-		$estructura[4]['registros'] = 'n';
-		$estructura[4]['obligatorio'] = false;		
-		$estructura[5]['tabla'] = 'apex_objeto_db_registros_ext_col';
-		$estructura[5]['registros'] = 'n';
-		$estructura[5]['obligatorio'] = false;		
-		$estructura[6]['tabla'] = 'apex_objeto_db_registros_uniq';
-		$estructura[6]['registros'] = 'n';
-		$estructura[6]['obligatorio'] = false;		
+		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros',
+								'registros' => '1',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros_col',
+								'registros' => 'n',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros_ext',
+								'registros' => 'n',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros_ext_col',
+								'registros' => 'n',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_objeto_db_registros_uniq',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 	
@@ -27,7 +27,7 @@ class toba_datos_tabla_def extends toba_componente_def
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- Info base de la estructura ----------------
-		$sql["_info_estructura"]['sql'] = "SELECT	dt.tabla    as tabla,
+		$sql['_info_estructura']['sql'] = "SELECT	dt.tabla    as tabla,
 											dt.alias          	as alias,
 											dt.min_registros  	as min_registros,
 											dt.max_registros  	as max_registros,
@@ -41,13 +41,13 @@ class toba_datos_tabla_def extends toba_componente_def
 				 				LEFT OUTER JOIN apex_admin_persistencia ap ON dt.ap = ap.ap
 					 WHERE		objeto_proyecto='$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["_info_estructura"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_estructura']['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["_info_estructura"]['sql'] .= ";";
-		$sql["_info_estructura"]['registros']='1';
-		$sql["_info_estructura"]['obligatorio']=true;
+		$sql['_info_estructura']['sql'] .= ";";
+		$sql['_info_estructura']['registros']='1';
+		$sql['_info_estructura']['obligatorio']=true;
 		//------------ Columnas ----------------
-		$sql["_info_columnas"]['sql'] = "SELECT	objeto_proyecto,
+		$sql['_info_columnas']['sql'] = "SELECT	objeto_proyecto,
 						objeto 			,	
 						col_id			,	
 						columna			,	
@@ -61,14 +61,14 @@ class toba_datos_tabla_def extends toba_componente_def
 					 FROM		apex_objeto_db_registros_col 
 					 WHERE		objeto_proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["_info_columnas"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_columnas']['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["_info_columnas"]['sql'] .= ";";
-		$sql["_info_columnas"]['registros']='n';
-		$sql["_info_columnas"]['obligatorio']=true;
+		$sql['_info_columnas']['sql'] .= ";";
+		$sql['_info_columnas']['registros']='n';
+		$sql['_info_columnas']['obligatorio']=true;
 		
 		//------------ Externas ----------------
-		$sql["_info_externas"]['sql'] = "SELECT	objeto_proyecto,
+		$sql['_info_externas']['sql'] = "SELECT	objeto_proyecto,
 						objeto 			,	
 						externa_id		,	
 						tipo			,	
@@ -80,14 +80,14 @@ class toba_datos_tabla_def extends toba_componente_def
 					 FROM		apex_objeto_db_registros_ext 
 					 WHERE		objeto_proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql["_info_externas"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_externas']['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["_info_externas"]['sql'] .= ";";
-		$sql["_info_externas"]['registros']='n';
-		$sql["_info_externas"]['obligatorio']=false;
+		$sql['_info_externas']['sql'] .= ";";
+		$sql['_info_externas']['registros']='n';
+		$sql['_info_externas']['obligatorio']=false;
 		
 		//------------ Externas ----------------
-		$sql["_info_externas_col"]['sql'] = "SELECT	ext_col.objeto_proyecto,
+		$sql['_info_externas_col']['sql'] = "SELECT	ext_col.objeto_proyecto,
 						ext_col.objeto 			,	
 						ext_col.externa_id		,	
 						ext_col.es_resultado	,
@@ -101,22 +101,22 @@ class toba_datos_tabla_def extends toba_componente_def
 					 		ext_col.col_id = col.col_id	
 					 	";
 		if ( isset($componente) ) {
-			$sql["_info_externas_col"]['sql'] .= "	AND		ext_col.objeto='$componente' ";	
+			$sql['_info_externas_col']['sql'] .= "	AND		ext_col.objeto='$componente' ";	
 		}
-		$sql["_info_externas_col"]['sql'] .= ";";
-		$sql["_info_externas_col"]['registros']='n';
-		$sql["_info_externas_col"]['obligatorio']=false;
+		$sql['_info_externas_col']['sql'] .= ";";
+		$sql['_info_externas_col']['registros']='n';
+		$sql['_info_externas_col']['obligatorio']=false;
 
 		//------------ Valores Unicos ----------------
-		$sql["_info_valores_unicos"]['sql'] = "SELECT	columnas
+		$sql['_info_valores_unicos']['sql'] = "SELECT	columnas
 					 FROM	apex_objeto_db_registros_uniq
 					 WHERE	objeto_proyecto = '$proyecto'";
 		if ( isset($componente) ) {
-			$sql["_info_valores_unicos"]['sql'] .= "	AND		objeto='$componente' ";	
+			$sql['_info_valores_unicos']['sql'] .= "	AND		objeto='$componente' ";	
 		}
-		$sql["_info_valores_unicos"]['sql'] .= ";";
-		$sql["_info_valores_unicos"]['registros']='n';
-		$sql["_info_valores_unicos"]['obligatorio']=false;
+		$sql['_info_valores_unicos']['sql'] .= ";";
+		$sql['_info_valores_unicos']['registros']='n';
+		$sql['_info_valores_unicos']['obligatorio']=false;
 				
 		return $sql;
 	}
@@ -128,11 +128,6 @@ class toba_datos_tabla_def extends toba_componente_def
 		unset($estructura['_info_externas']);
 		unset($estructura['_info_externas_col']);
 		return $estructura;
-	}
-	
-	static function get_tipo_abreviado()
-	{
-		return "Tabla";		
 	}
 }
 ?>

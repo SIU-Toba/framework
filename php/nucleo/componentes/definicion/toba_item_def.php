@@ -4,15 +4,15 @@ class toba_item_def implements toba_componente_definicion
 {
 	static function get_estructura()
 	{
-		$estructura[0]['tabla'] = 'apex_item';
-		$estructura[0]['registros'] = '1';
-		$estructura[0]['obligatorio'] = true;
-		$estructura[1]['tabla'] = 'apex_item_info';
-		$estructura[1]['registros'] = '1';
-		$estructura[1]['obligatorio'] = false;
-		$estructura[2]['tabla'] = 'apex_item_objeto';
-		$estructura[2]['registros'] = 'n';
-		$estructura[2]['obligatorio'] = false;
+		$estructura[] = array( 	'tabla' => 'apex_item',
+								'registros' => '1',
+								'obligatorio' => true );
+		$estructura[] = array( 	'tabla' => 'apex_item_info',
+								'registros' => '1',
+								'obligatorio' => false );
+		$estructura[] = array( 	'tabla' => 'apex_item_objeto',
+								'registros' => 'n',
+								'obligatorio' => false );
 		return $estructura;		
 	}
 	
