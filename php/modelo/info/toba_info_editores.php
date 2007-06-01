@@ -196,6 +196,20 @@ class toba_info_editores
 		return $clases;	
 	}
 	
+	/**
+	 * Devuelve la lista de tipos de clase
+	 */
+	function get_lista_tipos_clase()
+	{
+		$sql = "SELECT 
+					clase_tipo, 
+					descripcion_corta
+				FROM apex_clase_tipo
+				ORDER BY descripcion_corta
+				";	
+		return toba_contexto_info::get_db()->consultar($sql);	
+	}	
+	
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------
@@ -384,6 +398,21 @@ class toba_info_editores
 	//** DATOS RELACION *********************************
 	//***************************************************
 	
+	static function get_lista_objetos_dr()
+	//Listar objetos que son datos_relacion
+	{
+		$sql = "SELECT 	proyecto, 
+						objeto, 
+						'[' || objeto || '] -- ' || nombre as descripcion
+				FROM apex_objeto 
+				WHERE 	clase = 'toba_datos_relacion'
+				AND		clase_proyecto = 'toba'
+				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+				ORDER BY 2";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+	//---------------------------------------------------
+
 	/**
 	*	Retorna el id del objeto datos_relacion asociado a la clase
 	*/
