@@ -239,7 +239,7 @@ class ci_principal extends ci_editores_toba
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
-			$dt = toba_constructor::get_info( $clave, 'datos_tabla' );
+			$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
 			$datos = $dt->exportar_datos_columnas($datos['pk']);
 			//ei_arbol($datos);
 			$cols = $this->get_entidad()->tabla("columnas");

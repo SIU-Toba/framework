@@ -8,7 +8,7 @@
 			- cuales usan fuentes de datos
 			- datos_relacion
 	* Extensor para tipo de clase en la customizacion del nucleo
-
+	* Preparar la migracion a la 1.0.5
 	* Documentar el proceso de agregar una clase.
 
 ------------------------------------------------------------------------------------
@@ -42,11 +42,6 @@
 	
 		get_tipo	
 			
-	CLASES INFO
-	-----------
-	
-		get_clase_archivo() ?????????
-
 ------------------------------------------------------------------------------
 
 	Agregar un nuevo componente:

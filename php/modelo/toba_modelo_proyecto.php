@@ -557,7 +557,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//Armo la clase compilada
 		$this->manejador_interface->mensaje_directo('.');
 		toba_logger::instancia()->debug("COMPONENTE --  " . $id['componente']);
-		$prefijo = ($tipo == 'item') ? 'toba_mc_item__' : 'toba_mc_comp__';
+		$prefijo = ($tipo == 'toba_item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 		$nombre = toba_manejador_archivos::nombre_valido( $prefijo . $id['componente'] );
 		$clase = new toba_clase_datos( $nombre );		
 		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( $id, $tipo, $this->db );

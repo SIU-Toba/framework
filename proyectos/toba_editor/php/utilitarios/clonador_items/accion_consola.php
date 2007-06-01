@@ -19,7 +19,7 @@ if (!isset($this->parametros['-dest_fuente'])) {
 
 $id = array(	'proyecto' => $this->parametros['-orig_proy'],
 			 	'componente' =>  $this->parametros['-orig_item']);
-$info_item = toba_constructor::get_info($id, 'item');
+$info_item = toba_constructor::get_info($id, 'toba_item');
 
 $nuevos_datos = array();
 $nuevos_datos['proyecto'] = $this->parametros['-dest_proy'];

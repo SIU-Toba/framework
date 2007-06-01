@@ -56,11 +56,11 @@ class ci_creador_objeto extends toba_ci
 	{
 		
 		if (isset($this->destino)) {
-			if ($this->destino['tipo'] == 'datos_relacion') {
+			if ($this->destino['tipo'] == 'toba_datos_relacion') {
 					$this->pantalla()->agregar_dep('info_asignacion_dr');
-			} elseif ($this->destino['tipo'] == 'ci' ||
-						$this->destino['tipo'] == 'ci_pantalla' || 
-							$this->destino['tipo'] == 'cn') { 
+			} elseif ($this->destino['tipo'] == 'toba_ci' ||
+						$this->destino['tipo'] == 'toba_ci_pantalla' || 
+							$this->destino['tipo'] == 'toba_cn') { 
 				$this->pantalla()->agregar_dep('info_asignacion');
 			}
 		}
@@ -75,15 +75,15 @@ class ci_creador_objeto extends toba_ci
 			case 'tipos':
 				$des = "<strong>Tipo de objeto</strong><br>Seleccione el tipo de [wiki:Referencia/Objetos objeto] a crear.";
 				switch ($this->destino['tipo']) {
-					case 'item': 
+					case 'toba_item': 
 						$des .= "<br>El objeto construido se asignará automáticamente al 
 								<strong>item</strong> seleccionado.";
 						break;
-					case 'ci':
+					case 'toba_ci':
 						$des .= "<br>El objeto construido se asignará automáticamente al 
 								<strong>CI</strong> seleccionado,<br> con el rol ingresado.";
 						break;		
-					case 'ci_pantalla':
+					case 'toba_ci_pantalla':
 						$des .= "<br>El objeto construido se asignará automáticamente a la 
 								<strong>pantalla</strong> seleccionada,<br> con el rol ingresado.";
 						break;		
@@ -180,15 +180,15 @@ class ci_creador_objeto extends toba_ci
 		$nombre = "";
 		if (isset($this->destino)) {
 			switch ($this->destino['tipo']) {
-				case 'item': 
-				case 'ci':
-				case 'datos_relacion':
+				case 'toba_item': 
+				case 'toba_ci':
+				case 'toba_datos_relacion':
 					$info = toba_constructor::get_info($clave, $this->destino['tipo'], false);								
 					$nombre .= $info->get_nombre_corto();
 					break;
-				case 'ci_pantalla':
+				case 'toba_ci_pantalla':
 					//--- Si es una pantalla el info_ci se carga en profunidad para traer el nombre de la misma
-					$info = toba_constructor::get_info($clave, 'ci', true);			
+					$info = toba_constructor::get_info($clave, 'toba_ci', true);			
 					$pantalla = $info->get_pantalla($this->destino['pantalla']);
 					$nombre .= $info->get_nombre_corto() .' - '.$pantalla->get_id();
 					break;
@@ -204,7 +204,7 @@ class ci_creador_objeto extends toba_ci
 	
 	function destino_es_item()
 	{
-		return $this->destino['tipo'] == 'item';	
+		return $this->destino['tipo'] == 'toba_item';	
 	}
 	
 	function get_nombre_rol()

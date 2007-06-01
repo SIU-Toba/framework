@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Clases posibles', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -85,16 +85,16 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --subtitulo
 	NULL, --sql
 	'proyecto,clase', --columnas_clave
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
-	NULL, --ordenar
-	NULL, --paginar
+	'300px', --ancho
+	'0', --ordenar
+	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
-	NULL, --eof_invisible
+	'P', --tipo_paginado
+	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar
+	'0', --exportar
 	NULL, --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
@@ -107,7 +107,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	NULL, --scroll
+	'0', --scroll
 	NULL, --scroll_alto
 	't', --cc_modo
 	'0', --cc_modo_anidado_colap
@@ -145,7 +145,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'toba_editor', --objeto_cuadro_proyecto
 	'1522', --objeto_cuadro
 	'335', --objeto_cuadro_col
-	'descripcion_corta', --clave
+	'clase', --clave
 	'2', --orden
 	NULL, --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
@@ -177,7 +177,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'7', --estilo
-	NULL, --ancho
+	'200px', --ancho
 	'15', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar

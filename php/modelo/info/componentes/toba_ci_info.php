@@ -91,7 +91,7 @@ class toba_ci_info extends toba_ei_info
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado al controlador",
 			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
-								array(	'destino_tipo' => 'ci', 
+								array(	'destino_tipo' => 'toba_ci', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id ),
 										false, false, null, true, "central"),
@@ -115,6 +115,8 @@ class toba_ci_info extends toba_ei_info
 	{
 		$modelo[0]['id'] = 'proceso';
 		$modelo[0]['nombre'] = 'Guardar - Cancelar';
+		$modelo[1]['id'] = 'abm';
+		$modelo[1]['nombre'] = 'ABM / CRUD';
 		return $modelo;
 	}
 
@@ -123,6 +125,7 @@ class toba_ci_info extends toba_ei_info
 		$evento = array();
 		switch($modelo){
 			case 'proceso':
+				//Procesar
 				$evento[0]['identificador'] = "procesar";
 				$evento[0]['etiqueta'] = "&Guardar";
 				$evento[0]['imagen_recurso_origen'] = 'apex';
@@ -131,11 +134,47 @@ class toba_ci_info extends toba_ei_info
 				$evento[0]['orden'] = 0;
 				$evento[0]['en_botonera'] = 1;
 				$evento[0]['defecto'] = 1;
+				//Cancelar
 				$evento[1]['identificador'] = "cancelar";
 				$evento[1]['etiqueta'] = "&Cancelar";
 				$evento[1]['maneja_datos'] = 0;
 				$evento[1]['orden'] = 1;
 				$evento[1]['en_botonera'] = 1;
+				break;
+			case 'abm':
+				//Agregar
+				$evento[0]['identificador'] = "agregar";
+				$evento[0]['etiqueta'] = "&Agregar";
+				$evento[0]['imagen_recurso_origen'] = 'apex';
+				$evento[0]['imagen'] = 'nucleo/agregar.gif';
+				$evento[0]['maneja_datos'] = 0;
+				$evento[0]['orden'] = 0;
+				$evento[0]['en_botonera'] = 1;
+				//volver
+				$evento[1]['identificador'] = "cancelar";
+				$evento[1]['etiqueta'] = "&Volver";
+				$evento[1]['imagen_recurso_origen'] = 'apex';
+				$evento[1]['imagen'] = 'deshacer.png';
+				$evento[1]['maneja_datos'] = 0;
+				$evento[1]['orden'] = 1;
+				$evento[1]['en_botonera'] = 1;
+				//Eliminar
+				$evento[2]['identificador'] = "eliminar";
+				$evento[2]['etiqueta'] = "&Eliminar";
+				$evento[2]['imagen_recurso_origen'] = 'apex';
+				$evento[2]['imagen'] = 'borrar.png';
+				$evento[2]['maneja_datos'] = 0;
+				$evento[2]['orden'] = 2;
+				$evento[2]['en_botonera'] = 1;
+				//Guardar
+				$evento[3]['identificador'] = "guardar";
+				$evento[3]['etiqueta'] = "&Guardar";
+				$evento[3]['imagen_recurso_origen'] = 'apex';
+				$evento[3]['imagen'] = 'guardar.gif';
+				$evento[3]['maneja_datos'] = 1;
+				$evento[3]['orden'] = 3;
+				$evento[3]['en_botonera'] = 1;
+				$evento[3]['defecto'] = 1;
 				break;
 		}
 		return $evento;

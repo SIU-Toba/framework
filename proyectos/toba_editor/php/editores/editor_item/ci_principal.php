@@ -76,8 +76,10 @@ class ci_principal extends toba_ci
 		}
 		$dr->tabla('base')->set( $datos );
 		//Le agrego el permiso del usuario actual
-		$permiso_usuario_actual = array('usuario_grupo_acc' => toba::usuario()->get_grupo_acceso() );
-		$dr->tabla('permisos')->nueva_fila( $permiso_usuario_actual );
+		foreach( toba::usuario()->get_grupos_acceso() as $grupo) {
+			$permiso_usuario_actual = array('usuario_grupo_acc' => $grupo );
+			$dr->tabla('permisos')->nueva_fila( $permiso_usuario_actual );
+		}
 	}
 
 	//-------------------------------------------------------------------

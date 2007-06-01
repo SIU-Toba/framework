@@ -24,7 +24,7 @@ class ci_php extends toba_ci
 			}
 			//- 1 - Obtengo la clase INFO del compomente que se selecciono.
 			$clave_componente = array( 'componente'=>$datos['item'], 'proyecto'=>$datos['proyecto'] );		
-			$meta_clase = toba_constructor::get_info( $clave_componente, 'item');
+			$meta_clase = toba_constructor::get_info( $clave_componente, 'toba_item');
 			//Si el componente no tiene definida una subclase, no tiene sentido estar aca.
 			if (!$datos['actividad_accion']) {
 				throw new toba_error('El item no tiene un archivo php definido');	

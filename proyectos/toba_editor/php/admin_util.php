@@ -38,7 +38,7 @@ class admin_util
 	static function redirecionar_a_editor_item($proyecto, $item)
 	{
 		$clave = array( 'proyecto' => $proyecto, 'componente' => $item );		
-		$elem_item = toba_constructor::get_info($clave, 'item');
+		$elem_item = toba_constructor::get_info($clave, 'toba_item');
 		$vinculo = $elem_item->vinculo_editor();
 		echo toba_js::abrir();
 		echo "window.location.href='$vinculo'\n";

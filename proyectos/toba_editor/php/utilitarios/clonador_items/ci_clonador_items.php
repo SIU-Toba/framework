@@ -17,7 +17,7 @@ class ci_clonador_items extends toba_ci
 	{
 		list($proyecto_actual, $item_actual) = toba::zona()->get_editable();
 		$id = array('proyecto' => $proyecto_actual, 'componente' => $item_actual);
-		$info_item = toba_constructor::get_info($id, 'item');
+		$info_item = toba_constructor::get_info($id, 'toba_item');
 		$directorio = false;
 		if ($this->opciones['con_subclases']) {
 			$directorio = $this->opciones['carpeta_subclases'];

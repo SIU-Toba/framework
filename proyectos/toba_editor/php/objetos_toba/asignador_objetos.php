@@ -18,16 +18,16 @@ class asignador_objetos
 	function asignar()
 	{
 		switch ($this->destino['tipo']) {
-			case 'item':
+			case 'toba_item':
 				$this->asignar_a_item();
 				break;
-			case 'ci':
+			case 'toba_ci':
 				$this->asignar_a_ci();
 				break;
-			case 'ci_pantalla':
+			case 'toba_ci_pantalla':
 				$this->asignar_a_pantalla_ci();
 				break;
-			case 'datos_relacion':
+			case 'toba_datos_relacion':
 				$this->asignar_a_datos_relacion();
 				break;
 			default:

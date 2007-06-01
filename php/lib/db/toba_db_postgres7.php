@@ -106,8 +106,15 @@ class toba_db_postgres7 extends toba_db
 			throw new toba_error("La tabla '$tabla' no existe");	
 		}
 		//2) Normalizo VALORES
+		$procesadas = array();
 		$columnas_booleanas = array('uk','pk','not_null','tiene_predeterminado');
 		foreach(array_keys($columnas) as $id) {
+			//El query de arriba duplica columnas si pertenecen a mas de un indice...
+			//Esto es un fix momentaneo que anda para la mayoria de los casos...(jaja?)
+			if(isset($procesadas[$columnas[$id]['nombre']])) {
+				unset($columnas[$id]);
+				continue;
+			}
 			//Estas columnas manejan string en vez de booleanos
 			foreach($columnas_booleanas as $x) {
 				if($columnas[$id][$x]=='t'){
@@ -129,8 +136,10 @@ class toba_db_postgres7 extends toba_db
 					$columnas[$id]['secuencia'] = $match[3];
 				}			
 			}
+			//Guardo las que procese
+			$procesadas[$columnas[$id]['nombre']] = $id;
 		}
-		return $columnas;
+		return array_values($columnas);
 	}
 }
 ?>

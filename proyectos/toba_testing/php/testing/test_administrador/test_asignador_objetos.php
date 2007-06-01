@@ -26,7 +26,7 @@ class test_asignador_objetos extends test_toba
 	function test_asignar_a_item()
 	{
 		//Setup
-		$item_destino = array('tipo' => 'item', 'objeto' =>'1240', 'proyecto' => 'toba_testing');
+		$item_destino = array('tipo' => 'toba_item', 'objeto' =>'1240', 'proyecto' => 'toba_testing');
 		
 		//Test
 		$asignador = new asignador_objetos($this->objeto_creado, $item_destino);
@@ -45,7 +45,7 @@ class test_asignador_objetos extends test_toba
 		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci', true, null, true);		
 		//Setup
-		$ci_destino = array('tipo' => 'ci',
+		$ci_destino = array('tipo' => 'toba_ci',
 							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci');
@@ -71,7 +71,7 @@ class test_asignador_objetos extends test_toba
 		$obj = toba_constructor::get_info(array('proyecto' => 'toba_testing', 'componente' => '1605'), 
 											'toba_ci');			
 		//Setup
-		$ci_destino = array('tipo' => 'ci_pantalla',
+		$ci_destino = array('tipo' => 'toba_ci_pantalla',
 							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',
@@ -97,7 +97,7 @@ class test_asignador_objetos extends test_toba
 	function test_asignar_a_pantalla_ci_con_objetos_previos()
 	{	
 		//Setup, se le asigna a una pantalla que ya tiene un objeto
-		$ci_destino = array('tipo' => 'ci_pantalla',
+		$ci_destino = array('tipo' => 'toba_ci_pantalla',
 							'objeto' =>'1605', 
 							'proyecto' => 'toba_testing',
 							'id_dependencia' => 'el_ci',

@@ -44,3 +44,12 @@
 	DEFERRABLE
 	INITIALLY
 	IMMEDIATE;
+
+	ALTER TABLE apex_clase ADD CONSTRAINT	"apex_clase_fk_dr" 
+	FOREIGN	KEY ("objeto_dr_proyecto","objeto_dr")	
+	REFERENCES "apex_objeto" ("proyecto","objeto") 
+	ON DELETE NO ACTION 
+	ON UPDATE NO ACTION 
+	DEFERRABLE	
+	INITIALLY 
+	IMMEDIATE;

@@ -94,7 +94,6 @@ class ci_principal extends ci_editores_toba
 	function evt__columnas__leer_db()
 	{
 		$columnas = $this->obtener_definicion_columnas();
-		//ei_arbol($columnas);		
 		$dbr = $this->get_entidad()->tabla("columnas");
 		$actuales = $dbr->get_filas(null, true);
 		for($a=0;$a<count($columnas);$a++){

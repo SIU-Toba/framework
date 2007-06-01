@@ -154,21 +154,25 @@ CREATE TABLE apex_clase
 	clase_tipo						int4			NOT NULL, 
 	archivo							varchar(80)		NOT NULL,
 	descripcion						varchar(250)	NOT NULL,
-	icono							varchar(60)		NOT NULL, --> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
-	descripcion_corta				varchar(40)		NULL,	--	NOT NULL, 
-	screenshot						varchar(60)		NULL,	--> Path a una imagen de la clase
-	ancestro_proyecto				varchar(15)		NULL,	--> Ancestro a	considerar para incluir	dependencias
+	icono							varchar(60)		NOT NULL, 		--> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
+	descripcion_corta				varchar(40)		NULL,			--	NOT NULL, 
+	editor_proyecto					varchar(15)		NULL,
+	editor_item						varchar(60)		NULL,			--> Item	del catalogo a	invocar como editor de objetos de esta	clase
+	objeto_dr_proyecto				varchar(15)		NULL,			--	NOT NULL, 
+	objeto_dr						int4			NULL,			--	NOT NULL, 
+	utiliza_fuente_datos			int4			NULL,
+	-----------------------------------------------------------
+	screenshot						varchar(60)		NULL,			--> Path a una imagen de la clase
+	ancestro_proyecto				varchar(15)		NULL,			--> Ancestro a	considerar para incluir	dependencias
 	ancestro						varchar(60)		NULL,
 	instanciador_id					int4			NULL,	
 	instanciador_proyecto			varchar(15)		NULL,
-	instanciador_item				varchar(60)		NULL,	--> Item	del catalogo a	invocar como instanciador de objetos de esta	clase
+	instanciador_item				varchar(60)		NULL,			--> Item	del catalogo a	invocar como instanciador de objetos de esta	clase
 	editor_id						int4			NULL,	
-	editor_proyecto					varchar(15)		NULL,
-	editor_item						varchar(60)		NULL,	--> Item	del catalogo a	invocar como editor de objetos de esta	clase
-	editor_ancestro_proyecto		varchar(15)		NULL,	--> Ancestro a	considerar para el EDITOR
+	editor_ancestro_proyecto		varchar(15)		NULL,			--> Ancestro a	considerar para el EDITOR
 	editor_ancestro					varchar(60)		NULL,
-	plan_dump_objeto				varchar(255)	NULL, --> Lista ordenada de tablas	que poseen la definicion del objeto	(respetar FK!)
-	sql_info						text			NULL, --> SQL	que DUMPEA el estado	del objeto
+	plan_dump_objeto				varchar(255)	NULL, 			--> Lista ordenada de tablas	que poseen la definicion del objeto	(respetar FK!)
+	sql_info						text			NULL, 			--> SQL	que DUMPEA el estado	del objeto
 	doc_clase						varchar(255)	NULL,			--> GIF donde hay	un	Diagrama	de	clases.
 	doc_db							varchar(255)	NULL,			--> GIF donde hay	un	DER de las tablas	que necesita la clase.
 	doc_sql							varchar(255)	NULL,			--> path	al	archivo que	crea las	tablas.
@@ -181,11 +185,29 @@ CREATE TABLE apex_clase
 	CONSTRAINT	"apex_clase_pk" PRIMARY	KEY ("proyecto","clase"),
 	CONSTRAINT	"apex_clase_uq" UNIQUE 	("clase"),
 	CONSTRAINT	"apex_clase_fk_proyecto" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
---	CONSTRAINT	"apex_clase_fk_editor_anc"	FOREIGN KEY	("editor_ancestro_proyecto","editor_ancestro") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_ancestro" FOREIGN	KEY ("ancestro_proyecto","ancestro") REFERENCES	"apex_clase" ("proyecto","clase") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
---	CONSTRAINT	"apex_clase_fk_instan" FOREIGN KEY ("instanciador_proyecto","instanciador_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_clase_fk_tipo"	FOREIGN KEY	("clase_tipo")	REFERENCES "apex_clase_tipo" ("clase_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_fk_editor" FOREIGN KEY ("editor_proyecto","editor_item")	REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+);
+--#################################################################################################
+
+CREATE SEQUENCE apex_clase_relacion_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_clase_relacion
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: clase_relacion
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto							varchar(15)		NOT NULL,
+	clase_relacion						int4			DEFAULT nextval('"apex_clase_relacion_seq"'::text) NOT NULL, 
+	clase_contenedora					varchar(60)		NOT NULL,
+	clase_contenida						varchar(60)		NOT NULL,
+	CONSTRAINT	"apex_clase_rel_pk" PRIMARY KEY ("clase_relacion"),
+	CONSTRAINT	"apex_clase_rel_fk_clase_padre" FOREIGN KEY ("proyecto","clase_contenedora") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_clase_rel_fk_clase_hijo" FOREIGN KEY ("proyecto","clase_contenida") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 

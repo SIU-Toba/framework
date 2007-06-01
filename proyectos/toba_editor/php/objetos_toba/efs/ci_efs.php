@@ -354,7 +354,7 @@ class ci_efs extends toba_ci
 		if(isset($datos['datos_tabla'])){
 			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
 							'componente' => $datos['datos_tabla'] );
-			$dt = toba_constructor::get_info( $clave, 'datos_tabla' );
+			$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
 			$datos = $dt->exportar_datos_efs($datos['pk']);
 			foreach($datos as $ef){
 				try{

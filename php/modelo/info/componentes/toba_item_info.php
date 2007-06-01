@@ -370,7 +370,7 @@ class toba_item_info implements toba_nodo_arbol
 				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un objeto asociado al item",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
-									array('destino_tipo' =>'item', 
+									array('destino_tipo' =>'toba_item', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id ),
 											false, false, null, true, "central"),
