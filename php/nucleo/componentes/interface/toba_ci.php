@@ -30,10 +30,12 @@ class toba_ci extends toba_ei
 	protected $_en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	protected $_ini_operacion = true;				// Indica si la operación recién se inicia
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
+	// Relacion CI/CN
+	protected $_excluir_ci_com_cn;
 	
 	function __construct($id)
 	{
-		$this->set_propiedades_sesion(array('_ini_operacion'));		
+		$this->set_propiedades_sesion(array('_ini_operacion','_excluir_ci_com_cn'));		
 		parent::__construct($id);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
@@ -219,13 +221,28 @@ class toba_ci extends toba_ei
 		$this->_log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
 	}
 
-	protected function get_dependencias_ci()
-	// Avisa que dependencias son CI, si hay una regla ad-hoc que define que CIs cargar
-	// (osea: si se utilizo el metodo 'get_lista_ei' para dicidir cual de dos dependencias de tipo CI cargar)
-	// hay que redeclarar este metodo con la misma regla utilizada en 
-	// por la operacion
+	/**
+	*	Excluye un CI contenido de las comunicaciones con el CN de la operacion.
+	*/
+	function excluir_dependencia_ci($identificador)
 	{
-		return $this->get_dependencias_clase('objeto_ci');
+		$this->_excluir_ci_com_cn[] = $identificador;
+	}
+
+	/**
+	*	@ignore
+	*	Devuelve los identificadores de las dependencias que son CI, y no fueron
+	*	explicitamente excluidas del dialogo con los CN.
+	*/
+	protected function get_dependencias_ci()
+	{
+		$id_deps = $this->get_dependencias_clase('toba_ci');
+		foreach( array_keys($id_deps) as $d ){
+			if( in_array($id_deps[$d], $this->_excluir_ci_com_cn) )	{
+				unset( $id_deps[$d] );
+			}
+		}
+		return $id_deps;
 	}
 	
 	//------------------------------------------------
