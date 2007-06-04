@@ -266,7 +266,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		//Editor
 		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
 			$ayuda = null;
-			if (in_array($this->datos['_info']['clase'], toba_info_editores::get_clases_validas())) {
+			if (in_array($this->datos['_info']['clase'], toba_info_editores::get_lista_tipo_componentes())) {
 				$metodo = "get_pantallas_".$this->datos['_info']['clase'];
 				$pantallas = call_user_func(array("toba_datos_editores", $metodo));
 				//-- Se incluye un vinculo a cada pantalla encontrada

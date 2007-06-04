@@ -85,7 +85,7 @@ class zona_item extends zona_editor
 					echo "<tr>";
 						echo "<td  class='barra-obj-link' width='5'>".toba_recurso::imagen_toba($rs["clase_icono"],true)."</td>";
 						echo "<td  class='barra-obj-link' >[".$rs["objeto"]."] ".$rs["objeto_nombre"]."</td>";
-						if (!in_array($rs['clase'], toba_info_editores::get_clases_validas())) { 
+						if (!in_array($rs['clase'], toba_info_editores::get_lista_tipo_componentes())) { 
 							echo "<td  class='barra-obj-id' width='5'>";
 							echo "<a href='" . toba::vinculador()->generar_solicitud(
 													toba_editor::get_id(),"/admin/objetos/propiedades",

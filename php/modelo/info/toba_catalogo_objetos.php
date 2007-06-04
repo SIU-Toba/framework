@@ -26,7 +26,7 @@ class toba_catalogo_objetos
 		if (isset($opciones['clase'])) {
 			$clases = array($opciones['clase']);	
 		} else {
-			$clases = toba_info_editores::get_clases_validas();
+			$clases = toba_info_editores::get_lista_tipo_componentes();
 		}
 		
 		//---ID

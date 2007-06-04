@@ -50,7 +50,7 @@ class toba_cargador
 	{
 		$metadatos = array();	
 		if ( !isset( $tipo ) ) {
-			$tipo = toba_catalogo::get_tipo( $componente );	
+			$tipo = self::get_tipo( $componente );	
 		}
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
@@ -96,7 +96,7 @@ class toba_cargador
 	function get_metadatos_extendidos( $componente, $tipo=null, $db=null, $resumidos=false)
 	{
 		if ( !isset( $tipo ) ) {
-			$tipo = toba_catalogo::get_tipo( $componente );	
+			$tipo = self::get_tipo( $componente );	
 		}
 		if (!isset($db)) {
 			//Estoy entrando por el nucleo
@@ -139,6 +139,16 @@ class toba_cargador
 	{
 		$clave_ser = $componente['proyecto'].'||'.$componente['componente'];
 		$this->redefinidos[$clave_ser] = $metadatos;
+	}
+
+	static function get_tipo( $componente )
+	{
+		$sql = " 	SELECT clase
+					FROM apex_objeto
+					WHERE (objeto = '{$componente['componente']}')
+					AND (proyecto = '{$componente['proyecto']}')";
+		$datos = toba::instancia()->get_db()->consultar($sql);
+		return $datos[0]['clase'];
 	}
 	
 	//----------------------------------------------------------------

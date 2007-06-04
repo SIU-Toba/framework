@@ -115,7 +115,7 @@ class ci_creador_objeto extends toba_ci
 	
 	function conf__tipos()
 	{
-		return toba_info_editores::get_clases_editores($this->destino['tipo']);
+		return toba_info_editores::get_info_tipos_componente($this->destino['tipo']);
 	}
 	
 	function evt__tipos__seleccionar($clase)

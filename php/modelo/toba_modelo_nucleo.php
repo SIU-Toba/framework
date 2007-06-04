@@ -364,7 +364,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 					apex_item_objeto io,
 					apex_objeto o
 				WHERE
-					c.clase IN ('". implode("','", toba_info_editores::get_clases_validas() ) ."')	AND
+					c.clase IN ('". implode("','", toba_info_editores::get_lista_tipo_componentes() ) ."')	AND
 					c.proyecto = 'toba' AND
 					c.editor_item = io.item AND				-- Se busca el item editor
 					c.editor_proyecto = io.proyecto AND

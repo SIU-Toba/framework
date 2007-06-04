@@ -156,10 +156,10 @@ CREATE TABLE apex_clase
 	descripcion						varchar(250)	NOT NULL,
 	icono							varchar(60)		NOT NULL, 		--> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
 	descripcion_corta				varchar(40)		NULL,			--	NOT NULL, 
-	editor_proyecto					varchar(15)		NULL,
-	editor_item						varchar(60)		NULL,			--> Item	del catalogo a	invocar como editor de objetos de esta	clase
-	objeto_dr_proyecto				varchar(15)		NULL,			--	NOT NULL, 
-	objeto_dr						int4			NULL,			--	NOT NULL, 
+	editor_proyecto					varchar(15)		NOT NULL,
+	editor_item						varchar(60)		NOT NULL,			--> Item	del catalogo a	invocar como editor de objetos de esta	clase
+	objeto_dr_proyecto				varchar(15)		NOT NULL,		
+	objeto_dr						int4			NOT NULL,		
 	utiliza_fuente_datos			int4			NULL,
 	-----------------------------------------------------------
 	screenshot						varchar(60)		NULL,			--> Path a una imagen de la clase

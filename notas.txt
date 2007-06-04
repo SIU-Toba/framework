@@ -2,57 +2,19 @@
  TAREAS
 ------------------------------------------------------------------------------------
 
-	* Basar las consultas en el catalogo (editor de apex_clase para toba_editor).
-		- Guardar reglas y relaciones en metadata
-			- dependencias y contenedores validos
-			- cuales usan fuentes de datos
-			- datos_relacion
-	* Extensor para tipo de clase en la customizacion del nucleo
 	* Preparar la migracion a la 1.0.5
 	* Documentar el proceso de agregar una clase.
 
-------------------------------------------------------------------------------------
- lookup de clases
-------------------------------------------------------------------------------------
-
-	toba_info_editores
-	------------------
-
-	*	get_clases_validas								HC
-	*	get_clases_validas_contenedor					HC	(dependencias validas)
-	*	get_contenedores_validos						HC	(contenedores posibles)
-	*	get_lista_clases_item							->HC
-	*	get_lista_clases_validas_en_ci					->HC
-	?	get_lista_clases_toba							(consulta catalogo componentes + restriccion cascadas viejas)
-	ok?	get_clases_editores								(consulta catalogo componentes)		??
-	ok	get_ci_editor_clase								(buscar el editor en la creacion generica)
-	*	get_clases_con_fuente_datos						HC
-	*	get_dr_de_clase									HC
-
-	toba_catalogo
-	-------------
-
-	(para los procesos de toba_modelo_proyecto)
-
-	*	get_lista_tipo_componentes						HC
-	*	get_lista_tipo_componentes_dump					->HC
-		get_lista_componentes 							(espera como parametro el componente viejo)
-	
-	(para el manejo de nombres del contructor y el cargador)	
-	
-		get_tipo	
-			
 ------------------------------------------------------------------------------
 
 	Agregar un nuevo componente:
 	
 		- Crear los metadatos
-			- Definicion
-			- Editor
-			- DR
+			- Crear Editor
+			- Definicion (Linkear editor y DR del editor)
 		- Crear clases
-			- Definicion
+			- definicion
 			- runtime
 			- Info
-			- Incluir las clases en el autoload
+		- Incluir las clases en el autoload
 

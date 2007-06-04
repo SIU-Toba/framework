@@ -308,7 +308,6 @@ class toba_nucleo
 			'toba_solicitud_accion'					=> 'nucleo/toba_solicitud_accion.php',
 			'toba_solicitud_consola'				=> 'nucleo/toba_solicitud_consola.php',
 			'toba_cargador'							=> 'nucleo/componentes/toba_cargador.php',
-			'toba_catalogo'							=> 'nucleo/componentes/toba_catalogo.php',
 			'toba_constructor'						=> 'nucleo/componentes/toba_constructor.php',
 			'toba_admin_fuentes'					=> 'nucleo/lib/toba_admin_fuentes.php',
 			'toba_contexto_ejecucion'				=> 'nucleo/lib/toba_contexto_ejecucion.php',

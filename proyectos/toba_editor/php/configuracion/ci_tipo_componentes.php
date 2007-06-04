@@ -1,4 +1,5 @@
 <?php 
+
 class ci_editor extends toba_ci
 {
 	//-----------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ class ci_editor extends toba_ci
 
 	function conf__cuadro($componente)
 	{
-		return toba_info_editores::get_clases_editores();
+		return toba_info_editores::get_info_tipos_componente();
 	}
 
 	//---- form_clase -------------------------------------------------------------------

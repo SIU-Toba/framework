@@ -233,7 +233,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --inicializacion
 	NULL, --estado_defecto
 	'0', --solo_lectura
-	'get_clases_editores', --carga_metodo
+	'get_info_tipos_componente', --carga_metodo
 	'toba_info_editores', --carga_clase
 	'modelo/info/toba_info_editores.php', --carga_include
 	'clase', --carga_col_clave

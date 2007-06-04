@@ -202,9 +202,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$this->manejador_interface->mensaje("Exportando componentes", false);
 		toba_cargador::instancia()->crear_cache_simple( $this->get_id(), $this->db );
-		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
-			$lista_componentes = toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db );
-			foreach ( $lista_componentes as $id_componente) {
+		foreach ($this->get_lista_tipo_componentes() as $tipo) {
+			foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
 			$this->manejador_interface->mensaje_directo(".");
@@ -532,7 +531,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function compilar_componentes()
 	{
 		$this->manejador_interface->titulo("Compilando componentes");
-		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
+		foreach ($this->get_lista_tipo_componentes() as $tipo) {
 			$c = 0;
 			$this->manejador_interface->mensaje( $tipo, false );
 			if ( $tipo == 'toba_item' ) {
@@ -541,7 +540,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$directorio = $this->get_dir_componentes_compilados() . '/comp';
 			}
 			toba_manejador_archivos::crear_arbol_directorios( $directorio );
-			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
+			foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
 				$this->compilar_componente( $tipo, $id_componente, $directorio );
 				$c++;
 			}
@@ -711,8 +710,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$nombre_clase = 'toba_mc_gene__msj_proyecto_objeto';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
-		foreach (toba_catalogo::get_lista_tipo_componentes_dump() as $tipo) {
-			foreach (toba_catalogo::get_lista_componentes( $tipo, $this->get_id(), $this->db ) as $id_componente) {
+		foreach ($this->get_lista_tipo_componentes() as $tipo) {
+			foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
 				$objeto = $id_componente['componente'];
 				foreach( $this->get_indice_mensajes_objeto($objeto) as $mensaje ) {
 					$datos = toba_proyecto_db::get_mensaje_objeto( $this->get_id(), $objeto, $mensaje );
@@ -846,6 +845,45 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $datos;
 	}
 
+	//-------------------------------------------------------------------------------------
+	//-- Info interna sobre componentes para los procesos
+	//-------------------------------------------------------------------------------------
+
+	/**
+	*	Devuelve la lista de componentes para los procesos de exportacion y compilacion
+	*/
+	function get_lista_tipo_componentes()
+	{
+		$datos = toba_info_editores::get_lista_tipo_componentes();
+		$datos[] = 'toba_item';
+		return $datos;
+	}
+	
+	/**
+	*	Lista de componentes del proyecto
+	*/
+	function get_lista_componentes( $tipo_componente )
+	{
+		$proyecto = $this->get_id();
+		if ($tipo_componente == 'toba_item' ) {
+			$sql = "SELECT 	proyecto as 		proyecto,
+							item as 			componente
+					FROM apex_item 
+					WHERE proyecto = '$proyecto'
+					ORDER BY 1;";
+			$datos = $this->db->consultar( $sql );
+		} else {
+			$sql = "SELECT 	proyecto as 		proyecto,
+							objeto as 			componente
+					FROM apex_objeto 
+					WHERE proyecto = '$proyecto'
+					AND clase = '$tipo_componente'
+					ORDER BY 1;";
+			$datos = $this->db->consultar( $sql );
+		}
+		return $datos;
+	}
+
 	/**
 	*	Devuelve la lista de dependencias de un ITEM
 	*/
@@ -884,7 +922,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		return $resultado;
 	}
-		
+
 	//-----------------------------------------------------------
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------

@@ -2,9 +2,211 @@
 
 class toba_info_editores
 {
-	//---------------------------------------------------
-	//---------------- PROYECTOS-------------------------
-	//---------------------------------------------------
+	//------------------------------------------------------------------------------
+	//----------  TIPOS de COMPONENTES  --------------------------------------------
+	//------------------------------------------------------------------------------
+
+	/**
+	*	listado de tipos de componentes basico utilizado en el administrador
+	*/
+	static function get_info_tipos_componente($contenedor=null)
+	{
+		$where = '';
+		if(isset($contenedor)){
+			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."') ";
+		}
+		$sql = "SELECT
+					c.proyecto,
+					c.clase,
+					c.editor_proyecto,
+					c.editor_item,
+					c.icono,
+					c.descripcion_corta,
+					ct.clase_tipo,
+					ct.descripcion_corta as clase_tipo_desc
+				FROM 
+					apex_clase c,
+					apex_clase_tipo ct
+				WHERE
+					c.clase_tipo = ct.clase_tipo 
+					$where
+					AND c.proyecto = 'toba'
+				ORDER BY ct.orden DESC, c.descripcion_corta";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	static function get_lista_tipo_componentes()
+	{
+		$datos = array();
+		foreach ( self::get_info_tipos_componente() as $c ) {
+			$datos[] = $c['clase'];
+		}
+		return $datos;
+	}
+
+	static function get_clases_validas_contenedor($contenedor)
+	{
+		if( $contenedor=='toba_item' ) {
+			return array('toba_ci', 'toba_cn');
+		} elseif ($contenedor == 'toba_ci_pantalla') {
+			//Pantalla: de las cosas que pueden ir en un CI, filtro los elementos de interface y controladores
+			return self::get_lista_componentes_validos_en_contenedor('toba_ci', array(7,8));
+		} else {
+			return self::get_lista_componentes_validos_en_contenedor($contenedor);
+		}
+	}	
+
+	/**
+	*	Busca en la base los conte
+	*/
+	static function get_lista_componentes_validos_en_contenedor($contenedor, $categorias = null)
+	{
+		$where = '';
+		if(isset($categorias)) {
+			$where = "AND	c.clase_tipo IN (".implode(',',$categorias).")";
+		}
+		$sql = "SELECT 	c.clase as clase
+				FROM 	apex_clase c, 
+					apex_clase_relacion r
+				WHERE 	r.clase_contenida = c.clase
+				$where
+				AND	r.clase_contenedora = '$contenedor'";
+		$datos = array();
+		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
+			$datos[] = $c['clase'];
+		}
+		return $datos;
+	}
+
+	static function get_contenedores_validos($componente)
+	{
+		switch($componente) {
+			case 'toba_ci':
+				return array_merge(array('toba_item'), self::get_lista_componentes_contenedores($componente));
+			case 'toba_cn':
+				return array('toba_item');
+			default:
+				return self::get_lista_componentes_contenedores($componente);
+		}
+	}
+
+	static function get_lista_componentes_contenedores($tipo_componente_contenido)
+	{
+		$sql = "SELECT 	c.clase as clase
+				FROM 	apex_clase c, 
+						apex_clase_relacion r
+				WHERE 	r.clase_contenedora = c.clase
+				AND	r.clase_contenida = '$tipo_componente_contenido'";
+		$datos = array();
+		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
+			$datos[] = $c['clase'];
+		}
+		return $datos;
+	}
+	
+	static function get_lista_clases_item()
+	{
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_item'));
+	}
+	
+	static function get_lista_clases_validas_en_ci()
+	{
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_ci'));
+	}	
+	
+	/*
+		Lista de tipos de componponentes en COMBOS
+		Las clases usan un ID concatenado para que las cascadas
+		las soporten (actualmente pasan un parametro solo)
+	*/
+	static function get_lista_clases_toba($todas=false, $especificas=null)
+	{
+		if ($todas) {
+			$sql_todas = "";
+		} else {
+			$clases = (isset($especificas)) ? $especificas : self::get_lista_tipo_componentes();
+			$sql_todas = "clase IN ('". implode("','", $clases) ."') AND";
+		}
+			
+		$sql = "SELECT 	proyecto || ',' || clase as clase, 
+						descripcion_corta as descripcion
+				FROM apex_clase 
+				WHERE 
+					$sql_todas
+					(proyecto = '". toba_contexto_info::get_proyecto() ."' OR proyecto='toba')
+				ORDER BY descripcion_corta";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+
+	/**
+	*	Retorna el ID de componente del CI editor de un tipo de componente
+	*/
+	static function get_ci_editor_clase($proyecto, $clase)
+	{
+		$sql = "SELECT 
+				 	o.proyecto,
+					o.objeto
+				FROM
+					apex_clase c,
+					apex_item_objeto io,
+					apex_objeto o
+				WHERE
+					c.clase = '$clase' AND
+					c.proyecto = '$proyecto' AND
+					c.editor_item = io.item AND				-- Se busca el item editor
+					c.editor_proyecto = io.proyecto AND
+					io.objeto = o.objeto AND				-- Se busca el CI del item
+					io.proyecto = o.proyecto AND
+					o.clase = 'toba_ci'";
+		$res = toba_contexto_info::get_db()->consultar($sql);
+		return $res[0];
+	}
+	
+	/**
+	*	Retorna el id del objeto datos_relacion asociado a la clase
+	*/
+	static function get_dr_de_clase($clase)
+	{
+		$sql = "SELECT objeto_dr_proyecto, objeto_dr
+				FROM apex_clase
+				WHERE clase = '$clase';";
+		$datos = toba_contexto_info::get_db()->consultar($sql);
+		if( ! $datos ) {
+			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
+		} else {
+			return array( $datos[0]['objeto_dr_proyecto'], $datos[0]['objeto_dr'] );
+		}
+	}
+		
+	static function get_clases_con_fuente_datos()
+	{
+		$sql = "SELECT clase
+				FROM apex_clase
+				WHERE utiliza_fuente_datos = 1;";
+		$datos = array();
+		foreach ( toba_contexto_info::get_db()->consultar($sql) as $c ) {
+			$datos[] = $c['clase'];
+		}
+		return $datos;
+	}
+
+	/**
+	 * Categorias que clasifican los tipos de componente (interface, persistencia, controladores, negocio)
+	 */
+	function get_lista_tipos_clase()
+	{
+		$sql = "SELECT 
+					clase_tipo, 
+					descripcion_corta
+				FROM apex_clase_tipo
+				ORDER BY descripcion_corta
+				";	
+		return toba_contexto_info::get_db()->consultar($sql);	
+	}
+	
+	//----------------------------------------------------------------------------
+	//---------------- PROYECTOS--------------------------------------------------
+	//----------------------------------------------------------------------------
 	
 	/**
 	 * Retorna la lista de proyectos que el usuario actual puede modificar
@@ -32,184 +234,6 @@ class toba_info_editores
 		return  toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	//---------------------------------------------------
-	//---------------- CLASES ---------------------------
-	//---------------------------------------------------
-
-	static function get_clases_validas()
-	{
-		return array(	'toba_ci',
-						'toba_cn',
-						'toba_ei_cuadro',
-						'toba_ei_formulario',
-						'toba_ei_formulario_ml',
-						'toba_ei_filtro',
-						'toba_ei_arbol',
-						'toba_ei_calendario',
-						'toba_ei_archivos',
-						'toba_ei_esquema',						
-						'toba_datos_tabla',
-						'toba_datos_relacion' );
-	}
-
-	static function get_clases_validas_contenedor($contenedor=null)
-	{
-		//item, ci, ci_pantalla, datos_relacion
-		if(!isset($contenedor)) return self::get_clases_validas();
-		if($contenedor=="toba_item") return array('toba_ci', 'toba_cn');
-		if($contenedor=="toba_datos_relacion") return array('toba_datos_tabla');
-		if($contenedor=="ci"){
-			return array(	'toba_ci',
-							'toba_ei_cuadro',
-							'toba_ei_formulario',
-							'toba_ei_formulario_ml',
-							'toba_ei_filtro',
-							'toba_ei_arbol',
-							'toba_ei_calendario',
-							'toba_ei_archivos',
-							'toba_ei_esquema',
-							'toba_datos_tabla',
-							'toba_datos_relacion' );
-		}
-		if($contenedor=="toba_ci_pantalla"){
-			return array(	'toba_ci',
-							'toba_ei_cuadro',
-							'toba_ei_formulario',
-							'toba_ei_formulario_ml',
-							'toba_ei_filtro',
-							'toba_ei_arbol',
-							'toba_ei_calendario',
-							'toba_ei_archivos',
-							'toba_ei_esquema' );
-		}
-		if($contenedor=="toba_cn"){
-			return array(	'toba_datos_tabla',
-							'toba_datos_relacion' );
-		}		
-		//Por defecto devulevo todo
-		return self::get_clases_validas();
-	}
-
-	static function get_contenedores_validos($componente)
-	{
-		switch($componente) {
-			case 'toba_ci':
-				return array('toba_item','toba_ci');
-			case 'toba_cn':
-				return array('toba_item','toba_ci');
-			case 'toba_datos_relacion':
-				return array('toba_ci', 'toba_cn');
-			case 'toba_datos_tabla':
-				return array('toba_datos_relacion', 'toba_ci', 'toba_cn');
-			default:
-				return array('toba_ci');
-		}
-	}
-
-	static function get_lista_clases_item()
-	{
-		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_item'));
-	}
-	
-	static function get_lista_clases_validas_en_ci()
-	{
-		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_ci'));
-	}	
-	
-	/*
-		Las clases usan un ID concatenado para que las cascadas
-		las soporten (actualmente pasan un parametro solo)
-	*/
-	static function get_lista_clases_toba($todas=false, $especificas=null)
-	{
-		if ($todas) {
-			$sql_todas = "";
-		} else {
-			$clases = (isset($especificas)) ? $especificas : self::get_clases_validas();
-			$sql_todas = "clase IN ('". implode("','", $clases) ."') AND";
-		}
-			
-		$sql = "SELECT 	proyecto || ',' || clase as clase, 
-						descripcion_corta as descripcion
-				FROM apex_clase 
-				WHERE 
-					$sql_todas
-					(proyecto = '". toba_contexto_info::get_proyecto() ."' OR proyecto='toba')
-				ORDER BY descripcion_corta";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}	
-
-	static function get_clases_editores($contenedor=null)
-	{
-		$sql = "SELECT
-					c.proyecto,
-					c.clase,
-					c.editor_proyecto,
-					c.editor_item,
-					c.icono,
-					c.descripcion_corta,
-					ct.clase_tipo,
-					ct.descripcion_corta as clase_tipo_desc
-				FROM 
-					apex_clase c,
-					apex_clase_tipo ct
-				WHERE
-					c.clase_tipo = ct.clase_tipo AND 
-					c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."')	AND
-						--El proyecto es Toba o el actual
-					(c.proyecto = '". toba_contexto_info::get_proyecto() ."' OR c.proyecto = 'toba') AND
-					c.editor_item IS NOT NULL
-				ORDER BY ct.orden DESC, c.descripcion_corta";
-		return toba_contexto_info::get_db()->consultar($sql);
-	}
-	
-	static function get_ci_editor_clase($proyecto, $clase)
-	{
-		$sql = "SELECT 
-				 	o.proyecto,
-					o.objeto
-				FROM
-					apex_clase c,
-					apex_item_objeto io,
-					apex_objeto o
-				WHERE
-					c.clase = '$clase' AND
-					c.proyecto = '$proyecto' AND
-					c.editor_item = io.item AND				-- Se busca el item editor
-					c.editor_proyecto = io.proyecto AND
-					io.objeto = o.objeto AND				-- Se busca el CI del item
-					io.proyecto = o.proyecto AND
-					o.clase = 'toba_ci'";
-		$res = toba_contexto_info::get_db()->consultar($sql);
-		return $res[0];
-	}
-	
-	static function get_clases_con_fuente_datos()
-	{
-		$clases = array();
-		$clases[] = 'toba_ei_formulario';
-		$clases[] = 'toba_ei_formulario_ml';
-		$clases[] = 'toba_ei_filtro';
-		$clases[] = 'toba_datos_tabla';
-		$clases[] = 'toba_datos_relacion';
-		$clases[] = 'toba_cn';
-		return $clases;	
-	}
-	
-	/**
-	 * Devuelve la lista de tipos de clase
-	 */
-	function get_lista_tipos_clase()
-	{
-		$sql = "SELECT 
-					clase_tipo, 
-					descripcion_corta
-				FROM apex_clase_tipo
-				ORDER BY descripcion_corta
-				";	
-		return toba_contexto_info::get_db()->consultar($sql);	
-	}	
-	
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------
@@ -326,6 +350,24 @@ class toba_info_editores
 	//---------------- OBJETOS --------------------------
 	//---------------------------------------------------
 
+	/**
+	*	Retorna el nombre de la clase del objeto
+	*/
+	static function get_clase_de_objeto($id)
+	{
+		$sql = "
+			SELECT 
+				o.clase
+			FROM 
+				apex_objeto o
+			WHERE 
+				(o.objeto = '{$id[1]}') AND 
+				(o.proyecto = '{$id[0]}')
+		";		
+		$datos = toba_contexto_info::get_db()->consultar($sql);
+		return $datos[0]['clase'];
+	}
+
 	static function get_lista_objetos_toba($clase)
 	{
 		$clase = explode(",",$clase);
@@ -352,24 +394,6 @@ class toba_info_editores
 				AND 	o.proyecto = '$objeto_proyecto'
 				AND 	o.objeto = '$objeto'";
 		return toba_contexto_info::get_db()->consultar($sql);
-	}
-
-	/**
-	*	Retorna el nombre de la clase del objeto
-	*/
-	static function get_clase_de_objeto($id)
-	{
-		$sql = "
-			SELECT 
-				o.clase
-			FROM 
-				apex_objeto o
-			WHERE 
-				(o.objeto = '{$id[1]}') AND 
-				(o.proyecto = '{$id[0]}')
-		";		
-		$datos = toba_contexto_info::get_db()->consultar($sql);
-		return $datos[0]['clase'];
 	}
 
 	//***************************************************
@@ -411,35 +435,7 @@ class toba_info_editores
 				ORDER BY 2";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
-	//---------------------------------------------------
 
-	/**
-	*	Retorna el id del objeto datos_relacion asociado a la clase
-	*/
-	static function get_dr_de_clase($clase)
-	{
-		$drs = array(
-			'toba_datos_relacion' 		=> array( toba_editor::get_id(), '1532'),
-			'toba_datos_tabla' 			=> array( toba_editor::get_id(), '1533'),
-			'toba_ei_arbol'				=> array( toba_editor::get_id(), '1537'),
-			'toba_ei_archivos'			=> array( toba_editor::get_id(), '1538'),
-			'toba_ei_calendario'		=> array( toba_editor::get_id(), '1539'),
-			'toba_ci' 					=> array( toba_editor::get_id(), '1507'),
-			'toba_ei_cuadro' 			=> array( toba_editor::get_id(), '1531'),
-			'toba_ei_filtro' 			=> array( toba_editor::get_id(), '1535'),
-			'toba_ei_formulario' 		=> array( toba_editor::get_id(), '1534'),
-			'toba_ei_formulario_ml' 	=> array( toba_editor::get_id(), '1536'),			
-			'toba_ei_arbol' 			=> array( toba_editor::get_id(), '1610'),	
-			'toba_cn'					=> array( toba_editor::get_id(), '1610'),
-			'toba_item'					=> array( toba_editor::get_id(), '1554')
-		);
-		if (isset($drs[$clase])) {
-			return $drs[$clase];			
-		} else {
-			throw new toba_error("No hay definido un datos_relacion para la clase $clase");
-		}
-	}	
-	
 	//***************************************************
 	//** DATOS TABLAS ***********************************
 	//***************************************************

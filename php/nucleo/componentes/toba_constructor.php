@@ -20,9 +20,9 @@ class toba_constructor
 	static function get_runtime( $id, $tipo=null, $con_subclase=true )
 	{
 		// Controla la integridad de la clave
-		toba_catalogo::control_clave_valida( $id );
+		self::control_clave_valida( $id );
 		if ( !isset( $tipo ) ) {
-			$tipo = toba_catalogo::get_tipo( $id );	
+			$tipo = toba_cargador::get_tipo( $id );	
 		}
 		// Cargo los metadatos
 		if ( toba::nucleo()->utilizar_metadatos_compilados($id['proyecto']) ) {
@@ -63,9 +63,9 @@ class toba_constructor
 	{
 		$refrescar_cache = ($refrescar_cache || self::$refresco_forzado);
 		// Controla la integridad de la clave
-		toba_catalogo::control_clave_valida( $id );
+		self::control_clave_valida( $id );
 		if ( !isset( $tipo ) ) {
-			$tipo = toba_catalogo::get_tipo( $id );	
+			$tipo = toba_cargador::get_tipo( $id );	
 		}
 		//--- Si esta en el cache lo retorna
 		$hash = $id['componente']."-".$id['proyecto']."-".$tipo;
@@ -112,6 +112,15 @@ class toba_constructor
 			$clase = 'toba_mc_comp__' . $id['componente'];
 		}
 		return call_user_func( array( $clase, 'get_metadatos' ) );
+	}
+
+	static function control_clave_valida( $clave_componente )
+	{
+		if(! is_array($clave_componente) 
+			|| !isset($clave_componente['componente']) 
+			|| !isset($clave_componente['proyecto']) ) {
+			throw new toba_error("La clave utilizada para invocar el componente no es valida: ".var_export($clave_componente, true));	
+		}
 	}
 	
 	static function set_refresco_forzado($refrescar)
