@@ -12,7 +12,7 @@ class toba_mc_comp__1364
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'ml_columnas_lista',
     'subclase_archivo' => 'objetos_toba/ei_cuadro/ml_columnas_lista.php',
     'objeto_categoria_proyecto' => NULL,

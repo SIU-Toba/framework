@@ -12,7 +12,7 @@ class toba_mc_comp__1000213
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,

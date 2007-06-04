@@ -12,7 +12,7 @@ class toba_mc_comp__1504
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => 'odt_pantallas',
     'subclase_archivo' => 'db/odt_pantallas.php',
     'objeto_categoria_proyecto' => NULL,
@@ -265,6 +265,13 @@ class toba_mc_comp__1504
   ),
   '_info_externas_col' => 
   array (
+  ),
+  '_info_valores_unicos' => 
+  array (
+    0 => 
+    array (
+      'columnas' => 'identificador',
+    ),
   ),
 );
 	}

@@ -61,7 +61,7 @@ class toba_mc_item__1000096
       'objeto_subclase_archivo' => 'componentes/efs/checks_radios/ci_checks_radios.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

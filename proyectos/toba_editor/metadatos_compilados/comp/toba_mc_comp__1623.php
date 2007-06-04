@@ -12,7 +12,7 @@ class toba_mc_comp__1623
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => '/admin/objetos_toba/ei_cuadro/eiform_cuadro_prop_cortes.php',
     'objeto_categoria_proyecto' => NULL,

@@ -12,9 +12,9 @@ class toba_mc_comp__1528
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
-    'subclase' => 'odt_datos_tabla_columna',
-    'subclase_archivo' => 'db/odt_datos_tabla_columna.php',
+    'clase' => 'toba_datos_tabla',
+    'subclase' => NULL,
+    'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
     'nombre' => 'OBJETO - DATOS tabla col.',
@@ -57,7 +57,7 @@ class toba_mc_comp__1528
     'ap' => 1,
     'ap_sub_clase' => NULL,
     'ap_sub_clase_archivo' => NULL,
-    'ap_modificar_claves' => NULL,
+    'ap_modificar_claves' => 0,
     'ap_clase' => 'ap_tabla_db_s',
     'ap_clase_archivo' => 'nucleo/componentes/persistencia/toba_ap_tabla_db_s.php',
   ),
@@ -223,6 +223,13 @@ class toba_mc_comp__1528
   ),
   '_info_externas_col' => 
   array (
+  ),
+  '_info_valores_unicos' => 
+  array (
+    0 => 
+    array (
+      'columnas' => 'columna',
+    ),
   ),
 );
 	}

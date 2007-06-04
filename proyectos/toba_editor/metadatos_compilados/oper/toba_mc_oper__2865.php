@@ -61,7 +61,7 @@ class toba_mc_item__2865
       'objeto_subclase_archivo' => 'objetos_toba/ei_esquema/ci_principal.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,
@@ -89,7 +89,7 @@ class toba_mc_comp__1751
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_principal',
     'subclase_archivo' => 'objetos_toba/ei_esquema/ci_principal.php',
     'objeto_categoria_proyecto' => NULL,
@@ -234,7 +234,7 @@ class toba_mc_comp__1751
       'identificador' => 'base',
       'proyecto' => 'toba_editor',
       'objeto' => 1355,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'eiform_prop_base',
       'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
@@ -247,7 +247,7 @@ class toba_mc_comp__1751
       'identificador' => 'datos',
       'proyecto' => 'toba_editor',
       'objeto' => 1752,
-      'clase' => 'objeto_datos_relacion',
+      'clase' => 'toba_datos_relacion',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -260,7 +260,7 @@ class toba_mc_comp__1751
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1385,
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'subclase' => 'ci_eventos',
       'subclase_archivo' => 'objetos_toba/ci_eventos.php',
@@ -273,7 +273,7 @@ class toba_mc_comp__1751
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
       'objeto' => 1754,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -299,7 +299,7 @@ class toba_mc_comp__1355
     'anterior' => NULL,
     'reflexivo' => 1,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_prop_base',
     'subclase_archivo' => 'objetos_toba/eiform_prop_base.php',
     'objeto_categoria_proyecto' => 'toba',
@@ -1209,7 +1209,7 @@ class toba_mc_comp__1752
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_relacion',
+    'clase' => 'toba_datos_relacion',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1312,7 +1312,7 @@ class toba_mc_comp__1752
       'identificador' => 'base',
       'proyecto' => 'toba_editor',
       'objeto' => 1501,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1325,7 +1325,7 @@ class toba_mc_comp__1752
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1505,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => 'odt_eventos',
       'subclase_archivo' => 'db/odt_eventos.php',
@@ -1338,7 +1338,7 @@ class toba_mc_comp__1752
       'identificador' => 'prop_basicas',
       'proyecto' => 'toba_editor',
       'objeto' => 1753,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1351,7 +1351,7 @@ class toba_mc_comp__1752
       'identificador' => 'puntos_control',
       'proyecto' => 'toba_editor',
       'objeto' => 10000033,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1377,7 +1377,7 @@ class toba_mc_comp__1501
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1701,6 +1701,9 @@ class toba_mc_comp__1501
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -1718,7 +1721,7 @@ class toba_mc_comp__1505
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => 'odt_eventos',
     'subclase_archivo' => 'db/odt_eventos.php',
     'objeto_categoria_proyecto' => NULL,
@@ -2168,6 +2171,13 @@ class toba_mc_comp__1505
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+    0 => 
+    array (
+      'columnas' => 'identificador',
+    ),
+  ),
 );
 	}
 
@@ -2185,7 +2195,7 @@ class toba_mc_comp__1753
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -2439,6 +2449,9 @@ class toba_mc_comp__1753
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -2456,7 +2469,7 @@ class toba_mc_comp__10000033
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -2570,6 +2583,9 @@ class toba_mc_comp__10000033
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -2587,7 +2603,7 @@ class toba_mc_comp__1385
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_eventos',
     'subclase_archivo' => 'objetos_toba/ci_eventos.php',
     'objeto_categoria_proyecto' => NULL,
@@ -2665,7 +2681,7 @@ class toba_mc_comp__1385
       'identificador' => 'eventos',
       'proyecto' => 'toba_editor',
       'objeto' => 1366,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => 'eiform_eventos',
       'subclase_archivo' => 'objetos_toba/eiform_eventos.php',
@@ -2678,7 +2694,7 @@ class toba_mc_comp__1385
       'identificador' => 'eventos_lista',
       'proyecto' => 'toba_editor',
       'objeto' => 1745,
-      'clase' => 'objeto_ei_formulario_ml',
+      'clase' => 'toba_ei_formulario_ml',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'eiform_abm_detalle',
       'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
@@ -2691,7 +2707,7 @@ class toba_mc_comp__1385
       'identificador' => 'generador',
       'proyecto' => 'toba_editor',
       'objeto' => 1719,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -2717,7 +2733,7 @@ class toba_mc_comp__1366
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_eventos',
     'subclase_archivo' => 'objetos_toba/eiform_eventos.php',
     'objeto_categoria_proyecto' => NULL,
@@ -3815,7 +3831,7 @@ class toba_mc_comp__1745
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'eiform_abm_detalle',
     'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
     'objeto_categoria_proyecto' => NULL,
@@ -4357,7 +4373,7 @@ class toba_mc_comp__1719
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -4519,7 +4535,7 @@ class toba_mc_comp__1754
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,

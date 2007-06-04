@@ -61,7 +61,7 @@ class toba_mc_item__2654
       'objeto_subclase_archivo' => 'operaciones_simples/abm_juegos/ci_abm_juegos.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,
@@ -89,7 +89,7 @@ class toba_mc_comp__1721
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_abm_juegos',
     'subclase_archivo' => 'operaciones_simples/abm_juegos/ci_abm_juegos.php',
     'objeto_categoria_proyecto' => NULL,
@@ -167,7 +167,7 @@ class toba_mc_comp__1721
       'identificador' => 'cuadro',
       'proyecto' => 'toba_referencia',
       'objeto' => 1725,
-      'clase' => 'objeto_ei_cuadro',
+      'clase' => 'toba_ei_cuadro',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -180,7 +180,7 @@ class toba_mc_comp__1721
       'identificador' => 'datos',
       'proyecto' => 'toba_referencia',
       'objeto' => 1723,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -193,7 +193,7 @@ class toba_mc_comp__1721
       'identificador' => 'formulario',
       'proyecto' => 'toba_referencia',
       'objeto' => 1724,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -219,7 +219,7 @@ class toba_mc_comp__1725
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -390,7 +390,7 @@ class toba_mc_comp__1723
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -490,6 +490,9 @@ class toba_mc_comp__1723
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -507,7 +510,7 @@ class toba_mc_comp__1724
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,

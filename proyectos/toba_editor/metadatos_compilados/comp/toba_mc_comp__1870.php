@@ -12,7 +12,7 @@ class toba_mc_comp__1870
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_simulacion',
     'subclase_archivo' => 'objetos_toba/ci_simulacion.php',
     'objeto_categoria_proyecto' => NULL,

@@ -61,7 +61,7 @@ class toba_mc_item__3271
       'objeto_subclase_archivo' => 'componentes/uso_del_solo_lectura/ci_principal.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

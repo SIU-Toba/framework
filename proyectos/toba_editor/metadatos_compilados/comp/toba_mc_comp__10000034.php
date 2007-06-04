@@ -12,7 +12,7 @@ class toba_mc_comp__10000034
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'eiform_controles',
     'subclase_archivo' => 'objetos_toba/eiform_controles.php',
     'objeto_categoria_proyecto' => NULL,

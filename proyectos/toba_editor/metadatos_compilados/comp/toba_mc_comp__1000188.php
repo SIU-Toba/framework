@@ -12,7 +12,7 @@ class toba_mc_comp__1000188
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_php',
     'subclase_archivo' => 'editores/editor_item/ci_php.php',
     'objeto_categoria_proyecto' => NULL,

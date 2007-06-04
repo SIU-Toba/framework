@@ -12,7 +12,7 @@ class toba_mc_comp__1904
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_arbol',
+    'clase' => 'toba_ei_arbol',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,

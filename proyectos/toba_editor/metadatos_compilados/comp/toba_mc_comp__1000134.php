@@ -12,7 +12,7 @@ class toba_mc_comp__1000134
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'form_opciones',
     'subclase_archivo' => 'utilitarios/clonador_items/form_opciones.php',
     'objeto_categoria_proyecto' => NULL,

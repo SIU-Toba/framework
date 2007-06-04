@@ -12,7 +12,7 @@ class toba_mc_comp__1524
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => 'odt_cuadro_columnas',
     'subclase_archivo' => 'db/odt_cuadro_columnas.php',
     'objeto_categoria_proyecto' => NULL,
@@ -419,6 +419,13 @@ class toba_mc_comp__1524
   ),
   '_info_externas_col' => 
   array (
+  ),
+  '_info_valores_unicos' => 
+  array (
+    0 => 
+    array (
+      'columnas' => 'clave',
+    ),
   ),
 );
 	}

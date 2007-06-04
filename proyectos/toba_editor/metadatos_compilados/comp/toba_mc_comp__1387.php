@@ -12,7 +12,7 @@ class toba_mc_comp__1387
     'anterior' => NULL,
     'reflexivo' => 1,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => 'toba',

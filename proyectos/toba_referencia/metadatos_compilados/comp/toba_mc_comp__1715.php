@@ -12,7 +12,7 @@ class toba_mc_comp__1715
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'extension_cuadro_full',
     'subclase_archivo' => 'componentes/ei_cuadro - cortes control/extension_cuadro_full.php',
     'objeto_categoria_proyecto' => NULL,

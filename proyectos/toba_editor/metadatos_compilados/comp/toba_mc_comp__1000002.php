@@ -12,7 +12,7 @@ class toba_mc_comp__1000002
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_filtro',
+    'clase' => 'toba_ei_filtro',
     'subclase' => 'filtro_opciones',
     'subclase_archivo' => 'utilitarios/logger/filtro_opciones.php',
     'objeto_categoria_proyecto' => NULL,

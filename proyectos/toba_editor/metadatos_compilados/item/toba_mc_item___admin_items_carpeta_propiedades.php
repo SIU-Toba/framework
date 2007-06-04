@@ -61,7 +61,7 @@ class toba_mc_item___admin_items_carpeta_propiedades
       'objeto_subclase_archivo' => 'editores/editor_item/ci_carpetas.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

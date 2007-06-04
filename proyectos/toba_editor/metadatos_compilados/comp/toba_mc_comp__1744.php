@@ -12,7 +12,7 @@ class toba_mc_comp__1744
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'eiform_abm_detalle',
     'subclase_archivo' => 'objetos_toba/eiform_abm_detalle.php',
     'objeto_categoria_proyecto' => NULL,

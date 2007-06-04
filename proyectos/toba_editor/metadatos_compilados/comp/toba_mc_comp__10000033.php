@@ -12,7 +12,7 @@ class toba_mc_comp__10000033
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -124,6 +124,9 @@ class toba_mc_comp__10000033
   array (
   ),
   '_info_externas_col' => 
+  array (
+  ),
+  '_info_valores_unicos' => 
   array (
   ),
 );

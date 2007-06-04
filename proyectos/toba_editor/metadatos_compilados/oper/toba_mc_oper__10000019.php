@@ -61,7 +61,7 @@ class toba_mc_item__10000019
       'objeto_subclase_archivo' => 'configuracion/ci_puntos_control.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,
@@ -89,7 +89,7 @@ class toba_mc_comp__10000021
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_puntos_control',
     'subclase_archivo' => 'configuracion/ci_puntos_control.php',
     'objeto_categoria_proyecto' => NULL,
@@ -286,7 +286,7 @@ class toba_mc_comp__10000021
       'identificador' => 'controles',
       'proyecto' => 'toba_editor',
       'objeto' => 10000034,
-      'clase' => 'objeto_ei_formulario_ml',
+      'clase' => 'toba_ei_formulario_ml',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => 'eiform_controles',
       'subclase_archivo' => 'objetos_toba/eiform_controles.php',
@@ -299,7 +299,7 @@ class toba_mc_comp__10000021
       'identificador' => 'cuadro',
       'proyecto' => 'toba_editor',
       'objeto' => 10000025,
-      'clase' => 'objeto_ei_cuadro',
+      'clase' => 'toba_ei_cuadro',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_cuadro.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -312,7 +312,7 @@ class toba_mc_comp__10000021
       'identificador' => 'detalle',
       'proyecto' => 'toba_editor',
       'objeto' => 10000026,
-      'clase' => 'objeto_ei_formulario',
+      'clase' => 'toba_ei_formulario',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -325,7 +325,7 @@ class toba_mc_comp__10000021
       'identificador' => 'parametros',
       'proyecto' => 'toba_editor',
       'objeto' => 10000027,
-      'clase' => 'objeto_ei_formulario_ml',
+      'clase' => 'toba_ei_formulario_ml',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -338,7 +338,7 @@ class toba_mc_comp__10000021
       'identificador' => 'relacion',
       'proyecto' => 'toba_editor',
       'objeto' => 10000024,
-      'clase' => 'objeto_datos_relacion',
+      'clase' => 'toba_datos_relacion',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_relacion.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -364,7 +364,7 @@ class toba_mc_comp__10000034
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'eiform_controles',
     'subclase_archivo' => 'objetos_toba/eiform_controles.php',
     'objeto_categoria_proyecto' => NULL,
@@ -811,7 +811,7 @@ class toba_mc_comp__10000025
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -982,7 +982,7 @@ class toba_mc_comp__10000026
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1280,7 +1280,7 @@ class toba_mc_comp__10000027
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1589,7 +1589,7 @@ class toba_mc_comp__10000024
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_relacion',
+    'clase' => 'toba_datos_relacion',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1676,7 +1676,7 @@ class toba_mc_comp__10000024
       'identificador' => 'apex_ptos_control',
       'proyecto' => 'toba_editor',
       'objeto' => 10000022,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1689,7 +1689,7 @@ class toba_mc_comp__10000024
       'identificador' => 'apex_ptos_ctrl_param',
       'proyecto' => 'toba_editor',
       'objeto' => 10000028,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1702,7 +1702,7 @@ class toba_mc_comp__10000024
       'identificador' => 'ptos_control_ctrl',
       'proyecto' => 'toba_editor',
       'objeto' => 10000035,
-      'clase' => 'objeto_datos_tabla',
+      'clase' => 'toba_datos_tabla',
       'clase_archivo' => 'nucleo/componentes/persistencia/toba_datos_tabla.php',
       'subclase' => NULL,
       'subclase_archivo' => NULL,
@@ -1728,7 +1728,7 @@ class toba_mc_comp__10000022
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1828,6 +1828,9 @@ class toba_mc_comp__10000022
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -1845,7 +1848,7 @@ class toba_mc_comp__10000028
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -1945,6 +1948,9 @@ class toba_mc_comp__10000028
   '_info_externas_col' => 
   array (
   ),
+  '_info_valores_unicos' => 
+  array (
+  ),
 );
 	}
 
@@ -1962,7 +1968,7 @@ class toba_mc_comp__10000035
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -2088,6 +2094,9 @@ class toba_mc_comp__10000035
   array (
   ),
   '_info_externas_col' => 
+  array (
+  ),
+  '_info_valores_unicos' => 
   array (
   ),
 );

@@ -61,7 +61,7 @@ class toba_mc_item___objetos_ei_formulario
       'objeto_subclase_archivo' => 'componentes/ei_formulario/extension_ci.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

@@ -12,7 +12,7 @@ class toba_mc_comp__1000239
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_cronometro',
     'subclase_archivo' => 'utilitarios/cronometro/ci_cronometro.php',
     'objeto_categoria_proyecto' => NULL,

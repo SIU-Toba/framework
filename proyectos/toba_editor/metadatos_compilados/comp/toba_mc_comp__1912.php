@@ -12,7 +12,7 @@ class toba_mc_comp__1912
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_ini_sesion',
     'subclase_archivo' => 'login/eiform_ini_sesion.php',
     'objeto_categoria_proyecto' => NULL,

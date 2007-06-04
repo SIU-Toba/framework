@@ -275,6 +275,11 @@ class toba_mc_gene__grupo_admin
     'proyecto' => 'toba_editor',
     'item' => '3359',
   ),
+  'toba_editor-3391' => 
+  array (
+    'proyecto' => 'toba_editor',
+    'item' => '3391',
+  ),
   'toba_editor-/admin/acceso' => 
   array (
     'proyecto' => 'toba_editor',

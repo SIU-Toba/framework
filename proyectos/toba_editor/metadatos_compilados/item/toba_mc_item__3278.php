@@ -61,7 +61,7 @@ class toba_mc_item__3278
       'objeto_subclase_archivo' => 'editores/editor_grupos/ci_grupo_permisos.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

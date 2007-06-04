@@ -12,7 +12,7 @@ class toba_mc_comp__1426
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_archivos',
+    'clase' => 'toba_ei_archivos',
     'subclase' => 'ei_selector_archivos',
     'subclase_archivo' => 'editores/eiarbol_selector_archivos.php',
     'objeto_categoria_proyecto' => NULL,

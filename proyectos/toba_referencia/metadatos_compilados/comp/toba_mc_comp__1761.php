@@ -12,7 +12,7 @@ class toba_mc_comp__1761
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'form_solo_lectura',
     'subclase_archivo' => 'componentes/uso_del_solo_lectura/form_solo_lectura.php',
     'objeto_categoria_proyecto' => NULL,

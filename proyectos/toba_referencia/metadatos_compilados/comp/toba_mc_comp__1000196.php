@@ -12,7 +12,7 @@ class toba_mc_comp__1000196
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'cuadro_autologin',
     'subclase_archivo' => 'login/cuadro_autologin.php',
     'objeto_categoria_proyecto' => NULL,

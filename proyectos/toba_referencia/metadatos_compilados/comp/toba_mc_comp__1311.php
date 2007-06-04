@@ -12,7 +12,7 @@ class toba_mc_comp__1311
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_mensajes',
     'subclase_archivo' => 'mensajes/ci_mensajes.php',
     'objeto_categoria_proyecto' => NULL,

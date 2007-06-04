@@ -12,7 +12,7 @@ class toba_mc_comp__1821
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'cuadro_actividad_local',
     'subclase_archivo' => 'utilitarios/actividad_local/cuadro_actividad_local.php',
     'objeto_categoria_proyecto' => NULL,

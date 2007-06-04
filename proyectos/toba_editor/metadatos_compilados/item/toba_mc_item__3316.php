@@ -61,7 +61,7 @@ class toba_mc_item__3316
       'objeto_subclase_archivo' => 'objetos_toba/ci_simulacion.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

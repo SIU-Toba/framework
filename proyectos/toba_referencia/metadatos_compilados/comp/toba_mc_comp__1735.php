@@ -12,7 +12,7 @@ class toba_mc_comp__1735
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => NULL,
     'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
@@ -237,6 +237,9 @@ class toba_mc_comp__1735
       'es_resultado' => 1,
       'columna' => 'desc_dia_semana',
     ),
+  ),
+  '_info_valores_unicos' => 
+  array (
   ),
 );
 	}

@@ -61,7 +61,7 @@ class toba_mc_item___basicos_cronometro
       'objeto_subclase_archivo' => 'utilitarios/cronometro/ci_cronometro.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

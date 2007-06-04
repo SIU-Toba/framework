@@ -61,7 +61,7 @@ class toba_mc_item__2656
       'objeto_subclase_archivo' => 'operaciones_simples/abm_deportes/ci_abm_deportes.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

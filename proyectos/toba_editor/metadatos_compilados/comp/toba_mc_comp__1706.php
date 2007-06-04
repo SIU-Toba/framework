@@ -12,7 +12,7 @@ class toba_mc_comp__1706
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ci',
+    'clase' => 'toba_ci',
     'subclase' => 'ci_instanciador_ei_cuadro',
     'subclase_archivo' => 'instanciadores/ci_instanciador_ei_cuadro.php',
     'objeto_categoria_proyecto' => NULL,

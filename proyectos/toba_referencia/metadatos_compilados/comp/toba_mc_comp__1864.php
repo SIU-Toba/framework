@@ -12,7 +12,7 @@ class toba_mc_comp__1864
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_ocultar_desactivar1',
     'subclase_archivo' => 'componentes/eventos/eiform_ocultar_desactivar1.php',
     'objeto_categoria_proyecto' => NULL,

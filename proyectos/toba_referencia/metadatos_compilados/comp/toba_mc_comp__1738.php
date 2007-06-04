@@ -12,7 +12,7 @@ class toba_mc_comp__1738
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'form_persona_juegos',
     'subclase_archivo' => 'operaciones_simples/abm_personas/form_persona_juegos.php',
     'objeto_categoria_proyecto' => NULL,

@@ -12,7 +12,7 @@ class toba_mc_comp__5000004
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'cuadro_origen',
     'subclase_archivo' => 'componentes/eventos/vinculos/cuadro_origen.php',
     'objeto_categoria_proyecto' => NULL,

@@ -12,9 +12,9 @@ class toba_mc_comp__1530
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
-    'subclase' => 'odt_formulario_efs',
-    'subclase_archivo' => 'db/odt_formulario_efs.php',
+    'clase' => 'toba_datos_tabla',
+    'subclase' => NULL,
+    'subclase_archivo' => NULL,
     'objeto_categoria_proyecto' => NULL,
     'objeto_categoria' => NULL,
     'nombre' => 'OBJETO - EI formulario EF',
@@ -1007,6 +1007,13 @@ class toba_mc_comp__1530
   ),
   '_info_externas_col' => 
   array (
+  ),
+  '_info_valores_unicos' => 
+  array (
+    0 => 
+    array (
+      'columnas' => 'identificador',
+    ),
   ),
 );
 	}

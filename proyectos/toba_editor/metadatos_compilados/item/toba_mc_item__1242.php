@@ -61,7 +61,7 @@ class toba_mc_item__1242
       'objeto_subclase_archivo' => 'utilerias_graficas/comparador_css/ci_comparador.php',
       'orden' => 1,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

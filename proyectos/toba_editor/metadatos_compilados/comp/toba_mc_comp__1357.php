@@ -12,7 +12,7 @@ class toba_mc_comp__1357
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_pantallas',
     'subclase_archivo' => 'objetos_toba/ci/eiform_pantallas.php',
     'objeto_categoria_proyecto' => NULL,

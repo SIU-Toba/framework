@@ -12,7 +12,7 @@ class toba_mc_comp__1000154
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'form_varios',
     'subclase_archivo' => 'objetos_toba/efs/form_varios.php',
     'objeto_categoria_proyecto' => NULL,

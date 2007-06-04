@@ -12,7 +12,7 @@ class toba_mc_comp__1713
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'extendion_cuadro_estetica_a',
     'subclase_archivo' => 'componentes/ei_cuadro - cortes control/extension_cuadro_estetica_a.php',
     'objeto_categoria_proyecto' => NULL,

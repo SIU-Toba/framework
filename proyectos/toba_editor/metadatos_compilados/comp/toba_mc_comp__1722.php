@@ -12,7 +12,7 @@ class toba_mc_comp__1722
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario',
+    'clase' => 'toba_ei_formulario',
     'subclase' => 'eiform_eventos',
     'subclase_archivo' => 'objetos_toba/ci/eiform_eventos.php',
     'objeto_categoria_proyecto' => NULL,

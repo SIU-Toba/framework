@@ -61,7 +61,7 @@ class toba_mc_item___admin_objetos_toba_crear
       'objeto_subclase_archivo' => 'objetos_toba/ci_creador_objeto.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

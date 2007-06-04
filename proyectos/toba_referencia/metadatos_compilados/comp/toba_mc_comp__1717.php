@@ -12,7 +12,7 @@ class toba_mc_comp__1717
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'extension_seleccion_evt',
     'subclase_archivo' => 'componentes/eventos/extension_seleccion_evt.php',
     'objeto_categoria_proyecto' => NULL,

@@ -12,7 +12,7 @@ class toba_mc_comp__1808
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_datos_tabla',
+    'clase' => 'toba_datos_tabla',
     'subclase' => 'odt_permisos_grupos',
     'subclase_archivo' => 'db/odt_permisos_grupos.php',
     'objeto_categoria_proyecto' => NULL,
@@ -110,6 +110,9 @@ class toba_mc_comp__1808
   array (
   ),
   '_info_externas_col' => 
+  array (
+  ),
+  '_info_valores_unicos' => 
   array (
   ),
 );

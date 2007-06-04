@@ -61,7 +61,7 @@ class toba_mc_item__1000103
       'objeto_subclase_archivo' => 'componentes/efs/ocultar_mostrar/ci_ocultar_mostrar.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

@@ -61,7 +61,7 @@ class toba_mc_item___pruebas_testing_automatico_web
       'objeto_subclase_archivo' => 'utilitarios/testing_unitario/casos_web.php',
       'orden' => 0,
       'clase_proyecto' => 'toba',
-      'clase' => 'objeto_ci',
+      'clase' => 'toba_ci',
       'clase_archivo' => 'nucleo/componentes/interface/toba_ci.php',
       'fuente_proyecto' => NULL,
       'fuente' => NULL,

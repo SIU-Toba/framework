@@ -12,7 +12,7 @@ class toba_mc_comp__703
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_formulario_ml',
+    'clase' => 'toba_ei_formulario_ml',
     'subclase' => 'objeto_ei_formulario_ml_asignar',
     'subclase_archivo' => 'acciones/pruebas/capas/prueba_2_interface.php',
     'objeto_categoria_proyecto' => NULL,

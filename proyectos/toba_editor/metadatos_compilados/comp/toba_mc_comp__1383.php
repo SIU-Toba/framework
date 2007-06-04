@@ -12,7 +12,7 @@ class toba_mc_comp__1383
     'anterior' => NULL,
     'reflexivo' => NULL,
     'clase_proyecto' => 'toba',
-    'clase' => 'objeto_ei_cuadro',
+    'clase' => 'toba_ei_cuadro',
     'subclase' => 'cuadro_fotos',
     'subclase_archivo' => 'catalogos/cuadro_fotos.php',
     'objeto_categoria_proyecto' => NULL,
