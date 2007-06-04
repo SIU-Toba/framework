@@ -354,6 +354,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 
 	function parsear_editores(toba_modelo_instancia $instancia)
 	{
+		toba_contexto_info::set_db($instancia->get_db());
 		//--- Se busca el CI asociado a cada clase
 		$sql = "SELECT 
 					c.clase,
@@ -370,7 +371,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 					c.editor_proyecto = io.proyecto AND
 					io.objeto = o.objeto AND				-- Se busca el CI del item
 					io.proyecto = o.proyecto AND
-					o.clase = 'objeto_ci'";
+					o.clase = 'toba_ci'";
 		$rs = $instancia->get_db()->consultar($sql);
 		
 		$clase_php = new toba_clase_datos( "toba_datos_editores" );		
