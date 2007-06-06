@@ -527,7 +527,7 @@ class toba_item_info implements toba_nodo_arbol
 	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion=true)
 	{
 		//-- Cargo el DR asociado
-		$id_dr = toba_info_editores::get_dr_de_clase('item');
+		$id_dr = toba_info_editores::get_dr_de_clase('toba_item');
 		$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
 		$dr = toba_constructor::get_runtime($componente);
 		$dr->inicializar();

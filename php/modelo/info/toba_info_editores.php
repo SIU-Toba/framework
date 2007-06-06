@@ -167,6 +167,9 @@ class toba_info_editores
 	*/
 	static function get_dr_de_clase($clase)
 	{
+		if ($clase == 'toba_item' ) {
+			return array( toba_editor::get_id(), '1554' );
+		}
 		$sql = "SELECT objeto_dr_proyecto, objeto_dr
 				FROM apex_clase
 				WHERE clase = '$clase';";
