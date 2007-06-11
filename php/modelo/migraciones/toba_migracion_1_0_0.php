@@ -129,7 +129,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 					punto_acceso						varchar(100)	NOT NULL,
 				  CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario"),
 				  CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")
-																REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
+				    											REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 				);
 		';
 		
@@ -464,11 +464,11 @@ class toba_migracion_1_0_0 extends toba_migracion
 			foreach ($param as $clave => $valor) {
 				if (isset($correlacion[$clave])) {
 					$nuevos[$correlacion[$clave]] = $valor;
-				} elseif ($clave == 'tipo') { 
-					if (!is_numeric($valor)) { 
-						$valor = ($valor == 'i') ? 0 : 1; 
-					} 
-						$nuevos['fieldset_fin'] = $valor; 				
+				} elseif ($clave == 'tipo') {
+					if (!is_numeric($valor)) {
+						$valor = ($valor == 'i') ? 0 : 1;
+					}
+					$nuevos['fieldset_fin'] = $valor;
 				} elseif ($clave == 'valor') {
 					if ($ef['elemento_formulario'] == 'ef_checkbox') {
 						$nuevos['check_valor_si'] = $valor;
@@ -534,7 +534,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$cant = $this->elemento->get_db()->ejecutar($sql);
 		return $cant;
 	}
-/*
+
 	function proyecto__path_includes()
 	{
 		$editor = new toba_editor_archivos();
@@ -576,7 +576,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
-*/	
+	
 	/**
 	 * En toba 1.0 hay una unica plantilla de estilos: toba
 	 */
@@ -697,15 +697,15 @@ class toba_migracion_1_0_0 extends toba_migracion
 			//--- Borra las tablas secundarias comunes de estos objetos
 			$sql[] = "DELETE FROM apex_objeto_ut_formulario WHERE 
 								objeto_ut_formulario = '$id_obj'
-								   AND objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'"; 
-								 
-			$sql[] = "DELETE FROM apex_objeto_lista WHERE  
-									objeto_lista = '$id_obj' 
-								AND objeto_lista_proyecto = '{$this->elemento->get_id()}'";
+							AND objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'";					
 			
 			$sql[] = "DELETE FROM apex_objeto_cuadro WHERE 
 								objeto_cuadro = '$id_obj'
-							AND objeto_cuadro_proyecto = '{$this->elemento->get_id()}'";					
+							AND objeto_cuadro_proyecto = '{$this->elemento->get_id()}'";
+			
+			$sql[] = "DELETE FROM apex_objeto_lista WHERE 
+								objeto_lista = '$id_obj'
+							AND objeto_lista_proyecto = '{$this->elemento->get_id()}'";			
 						
 			
 			//--- Borra los vinculos entrantes y salientes de estos objetos
@@ -752,7 +752,6 @@ class toba_migracion_1_0_0 extends toba_migracion
 	 * 	evt__entrada__id por evt__id__entrada	
 	 *  evt__inicializar por ini
 	 */
-/*
 	function proyecto__cambio_api_ci()
 	{
 		$editor = new toba_editor_archivos();
@@ -763,7 +762,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
-*/	
+	
 	function proyecto__fuente_no_obligatoria()
 	{
 		$sql = "
@@ -799,7 +798,6 @@ class toba_migracion_1_0_0 extends toba_migracion
 	/**
 	 * Todas las clases del nucleo deben estar precedidas por toba_
 	 */
-/*
 	function proyecto__namespace_toba()
 	{
 		$editor = new toba_editor_archivos();
@@ -826,12 +824,11 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
-*/	
+	
 	/**
 	 * Debido a las nuevas convenciones, se prefiere que los metodos que no retornan tipos simples
 	 * no se prefijen con get_, por ej. se usa toba::logger()
 	 */
-/*
 	function proyecto__cambio_convenciones_clase_toba()
 	{
 		$editor = new toba_editor_archivos();
@@ -852,7 +849,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}
-*/	
+	
 	function proyecto__notificacion_js()
 	{
 		$editor = new toba_editor_archivos();		
@@ -866,9 +863,9 @@ class toba_migracion_1_0_0 extends toba_migracion
 	 * cargar_estado_ef pasa a ser set_datos_defecto
 	 * Cambios en toba_recurso
 	 */
-/*	function proyecto__cambio_api_varios()
+	function proyecto__cambio_api_varios()
 	{
-		
+ 		
 		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/evt__obtener_datos_cn/', 		'evt__get_datos_cn');
 		$editor->agregar_sustitucion('/obtener_clave_fila/', 			'get_clave_fila');
@@ -890,11 +887,11 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}
-*/	
+	
 	/**
 	 * Algunos metodos del hilo se derivan al toba_proyecto, toba_usuario, etc.
 	 */
-/*	function proyecto__cambio_api_hilo()
+	function proyecto__cambio_api_hilo()
 	{
 		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion('/toba::hilo\(\)->get_proyecto_path/', 			'toba::proyecto()->get_path');
@@ -912,6 +909,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}	
+	
 	function proyecto__cambio_memoria_por_hilo()
 	{
 		$editor = new toba_editor_archivos();
@@ -919,7 +917,6 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);				
 	}
-*/	
 	
 	
 	/**
