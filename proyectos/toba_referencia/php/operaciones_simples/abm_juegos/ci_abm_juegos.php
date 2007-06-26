@@ -4,15 +4,6 @@ require_once('operaciones_simples/consultas.php');
 
 class ci_abm_juegos extends toba_ci
 {
-	function resetear()
-	{
-		$this->dep('datos')->resetear();
-	}
-
-	//-------------------------------------------------------------------
-	//--- Dependencias
-	//-------------------------------------------------------------------
-
 	//-- CUADRO --
 	
 	function conf__cuadro($cuadro)
@@ -38,26 +29,26 @@ class ci_abm_juegos extends toba_ci
 	{
 		$this->dep('datos')->nueva_fila($datos);
 		$this->dep('datos')->sincronizar();
-		$this->resetear();
+		$this->dep('datos')->resetear();
 	}
 
 	function evt__formulario__modificacion($datos)
 	{
 		$this->dep('datos')->set($datos);
 		$this->dep('datos')->sincronizar();
-		$this->resetear();
+		$this->dep('datos')->resetear();
 	}
 
 	function evt__formulario__baja()
 	{
 		$this->dep('datos')->eliminar_filas();
 		$this->dep('datos')->sincronizar();
-		$this->resetear();
+		$this->dep('datos')->resetear();
 	}
 
 	function evt__formulario__cancelar()
 	{
-		$this->resetear();		
+		$this->dep('datos')->resetear();
 	}
 }
 ?>

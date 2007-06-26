@@ -152,7 +152,7 @@ CREATE TABLE apex_clase
 	proyecto						varchar(15)		NOT NULL,
 	clase							varchar(60)		NOT NULL,
 	clase_tipo						int4			NOT NULL, 
-	archivo							varchar(80)		NOT NULL,
+	archivo							varchar(80)		NULL,
 	descripcion						varchar(250)	NOT NULL,
 	icono							varchar(60)		NOT NULL, 		--> Icono con	el	que los objetos de la clase aparecen representados	en	las listas
 	descripcion_corta				varchar(40)		NULL,			--	NOT NULL, 

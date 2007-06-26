@@ -434,6 +434,11 @@ class toba_nucleo
 			'toba_cn'								=> 'nucleo/componentes/negocio/toba_cn.php',
 			'toba_cn_def'							=> 'nucleo/componentes/definicion/toba_cn_def.php',
 			'toba_cn_info'							=> 'modelo/info/componentes/toba_cn_info.php',
+			//- Planes de generacion de operaciones -
+			'toba_plan_operacion_def'				=> 'nucleo/componentes/definicion/toba_plan_operacion_def.php',
+			'toba_plan_operacion_abms_def'			=> 'nucleo/componentes/definicion/toba_plan_operacion_abms_def.php',
+			'toba_plan_operacion'					=> 'modelo/plan_operacion/toba_plan_operacion.php',
+			'toba_plan_operacion_abms'				=> 'modelo/plan_operacion/toba_plan_operacion_abms.php',
  			//------------- Soporte a COMPONENTES -----------------------------------
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',

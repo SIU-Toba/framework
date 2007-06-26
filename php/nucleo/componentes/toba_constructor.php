@@ -35,7 +35,9 @@ class toba_constructor
 			$clase = $tipo;
 			//Posee una subclase asociada?
 			if ( $datos['_info']['subclase'] && $con_subclase ) {
-				require_once($datos['_info']['subclase_archivo']);
+				if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
+					require_once($datos['_info']['subclase_archivo']);
+				}
 				$clase = $datos['_info']['subclase'];
 			}
 			//Instancio el objeto

@@ -4,18 +4,9 @@ require_once('operaciones_simples/consultas.php');
 
 class ci_abm_deportes extends toba_ci
 {
-	protected $seleccion;
-	protected $filtro;
+	protected $s__seleccion;
+	protected $s__filtro;
 		
-	function mantener_estado_sesion()
-	{
-		$propiedades = parent::mantener_estado_sesion();
-		$propiedades[] = 'seleccion';			// Clave seleccionada por el cuadro
-		$propiedades[] = 'filtro';				// Clave seleccionada por el cuadro
-		$propiedades[] = 'pantalla_actual';
-		return $propiedades;
-	}
-
 	private function get_tabla() 
 	{
 		return $this->dependencia('datos');
@@ -25,8 +16,8 @@ class ci_abm_deportes extends toba_ci
 	{
 		$this->get_tabla()->resetear();
 		$this->set_pantalla('seleccion');
-		if(isset($this->seleccion)){
-			unset($this->seleccion);
+		if(isset($this->s__seleccion)){
+			unset($this->s__seleccion);
 		}
 	}
 
@@ -43,25 +34,25 @@ class ci_abm_deportes extends toba_ci
 
 	function evt__filtro__filtrar($filtro)
 	{
-		$this->filtro = $filtro;
+		$this->s__filtro = $filtro;
 	}
 
 	function conf__filtro()
 	{
-		if(isset($this->filtro)) return $this->filtro;
+		if(isset($this->s__filtro)) return $this->s__filtro;
 	}
 
 	function evt__filtro__cancelar()
 	{
-		unset($this->filtro);
+		unset($this->s__filtro);
 	}
 
 	//-- CUADRO --
 	
 	function conf__cuadro()
 	{
-		if(isset($this->filtro)){
-			return consultas::get_deportes($this->filtro);
+		if(isset($this->s__filtro)){
+			return consultas::get_deportes($this->s__filtro);
 		}else{
 			return consultas::get_deportes();
 		}
@@ -69,7 +60,7 @@ class ci_abm_deportes extends toba_ci
 
 	function evt__cuadro__seleccion($seleccion)
 	{
-		$this->seleccion = $seleccion;
+		$this->s__seleccion = $seleccion;
 		$this->set_pantalla('edicion');
 	}
 
@@ -86,9 +77,9 @@ class ci_abm_deportes extends toba_ci
 
 	function conf__formulario()
 	{
-		if(isset($this->seleccion)){
+		if(isset($this->s__seleccion)){
 			$t = $this->get_tabla();
-			$t->cargar($this->seleccion);
+			$t->cargar($this->s__seleccion);
 			return $t->get();
 		}
 	}
@@ -108,7 +99,7 @@ class ci_abm_deportes extends toba_ci
 
 	function evt__formulario__modificacion($datos)
 	{
-		if(isset($this->seleccion)){
+		if(isset($this->s__seleccion)){
 			$t = $this->get_tabla();
 			$t->set($datos);
 			$t->sincronizar();
@@ -118,7 +109,7 @@ class ci_abm_deportes extends toba_ci
 
 	function evt__formulario__baja()
 	{
-		if(isset($this->seleccion)){
+		if(isset($this->s__seleccion)){
 			$t = $this->get_tabla();
 			$t->eliminar_filas(false);
 			$t->sincronizar();

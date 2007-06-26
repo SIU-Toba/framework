@@ -9,11 +9,14 @@ class toba_info_editores
 	/**
 	*	listado de tipos de componentes basico utilizado en el administrador
 	*/
-	static function get_info_tipos_componente($contenedor=null)
+	static function get_info_tipos_componente($contenedor=null, $excluir_internos=true)
 	{
 		$where = '';
 		if(isset($contenedor)){
 			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."') ";
+		}
+		if($excluir_internos) {
+			$where = " AND ct.clase_tipo <> 10 ";
 		}
 		$sql = "SELECT
 					c.proyecto,
@@ -35,10 +38,10 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	static function get_lista_tipo_componentes()
+	static function get_lista_tipo_componentes($excluir_internos=true)
 	{
 		$datos = array();
-		foreach ( self::get_info_tipos_componente() as $c ) {
+		foreach ( self::get_info_tipos_componente(null,$excluir_internos) as $c ) {
 			$datos[] = $c['clase'];
 		}
 		return $datos;

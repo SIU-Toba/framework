@@ -236,6 +236,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//Obtengo el nombre del componente
 		if ( isset($metadatos['apex_objeto']) ) {
 			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
+		} elseif (isset($metadatos['apex_plan_operacion'])) {
+			$nombre_componente = $metadatos['apex_plan_operacion'][0]['nombre'];	
 		} else {
 			$nombre_componente = $metadatos['apex_item'][0]['nombre'];		
 		}
@@ -854,7 +856,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	*/
 	function get_lista_tipo_componentes()
 	{
-		$datos = toba_info_editores::get_lista_tipo_componentes();
+		$datos = toba_info_editores::get_lista_tipo_componentes(false);
 		$datos[] = 'toba_item';
 		return $datos;
 	}
@@ -869,6 +871,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$sql = "SELECT 	proyecto as 		proyecto,
 							item as 			componente
 					FROM apex_item 
+					WHERE proyecto = '$proyecto'
+					ORDER BY 1;";
+			$datos = $this->db->consultar( $sql );
+		} elseif(strpos($tipo_componente,'toba_plan_operacion')!== false) {
+			$sql = "SELECT 	proyecto as 		proyecto,
+							plan as 			componente
+					FROM apex_plan_operacion 
 					WHERE proyecto = '$proyecto'
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );

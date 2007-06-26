@@ -45,13 +45,16 @@ class ci_editor extends toba_ci
 
 	function conf__cuadro($componente)
 	{
-		return toba_info_editores::get_info_tipos_componente();
+		return toba_info_editores::get_info_tipos_componente(null,false);
 	}
 
 	//---- form_clase -------------------------------------------------------------------
 
 	function evt__form_clase__modificacion($datos)
 	{
+		if(!isset($datos['editor_proyecto'])){
+			$datos['editor_proyecto'] = toba_editor::get_proyecto_cargado();
+		}
 		$this->dep('datos')->tabla('clase')->set($datos);
 	}
 

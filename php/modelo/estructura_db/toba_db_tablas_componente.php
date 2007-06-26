@@ -28,6 +28,9 @@ class toba_db_tablas_componente
   20 => 'apex_objeto_db_registros_uniq',
   21 => 'apex_objeto_datos_rel',
   22 => 'apex_objeto_datos_rel_asoc',
+  23 => 'apex_plan_operacion',
+  24 => 'apex_plan_operacion_abms',
+  25 => 'apex_plan_operacion_abms_fila',
 );
 	}
 
@@ -871,6 +874,104 @@ class toba_db_tablas_componente
     11 => 'hijo_clave',
     12 => 'cascada',
     13 => 'orden',
+  ),
+);
+	}
+
+	static function apex_plan_operacion()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'plan',
+  'dump_order_by' => 'plan',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'plan',
+    2 => 'operacion_tipo',
+    3 => 'nombre',
+    4 => 'carpeta_item',
+    5 => 'carpeta_archivos',
+  ),
+);
+	}
+
+	static function apex_plan_operacion_abms()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'plan',
+  'dump_order_by' => 'plan',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'plan',
+    2 => 'tabla',
+    3 => 'gen_usa_filtro',
+    4 => 'gen_separar_pantallas',
+    5 => 'cuadro_eof',
+    6 => 'cuadro_id',
+    7 => 'cuadro_eliminar_filas',
+    8 => 'cuadro_datos_origen',
+    9 => 'cuadro_datos_origen_ci_sql',
+    10 => 'cuadro_datos_orgien_php_archivo',
+    11 => 'cuadro_datos_orgien_php_clase',
+    12 => 'cuadro_datos_orgien_php_metodo',
+    13 => 'datos_tabla_validacion',
+    14 => 'apdb_pre',
+  ),
+);
+	}
+
+	static function apex_plan_operacion_abms_fila()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'plan',
+  'dump_order_by' => 'plan, fila',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'plan',
+    2 => 'fila',
+    3 => 'orden',
+    4 => 'columna',
+    5 => 'etiqueta',
+    6 => 'en_cuadro',
+    7 => 'en_form',
+    8 => 'en_filtro',
+    9 => 'elemento_formulario',
+    10 => 'ef_desactivar_modificacion',
+    11 => 'ef_procesar_javascript',
+    12 => 'ef_datos_origen',
+    13 => 'ef_datos_origen_ci_sql',
+    14 => 'ef_datos_orgien_php_archivo',
+    15 => 'ef_datos_orgien_php_clase',
+    16 => 'ef_datos_orgien_php_metodo',
   ),
 );
 	}
