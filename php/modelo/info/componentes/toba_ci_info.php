@@ -189,42 +189,42 @@ class toba_ci_info extends toba_ei_info
 		$molde = $this->get_molde_vacio();
 		//************** Elementos PROPIOS *************
 		//-- Inicializacion -----------------------
-		$molde->agregar( new toba_molde_separador_php('Inicializacion',null,'grande') );
-		$molde->agregar( new toba_molde_metodo_php('ini') );
-		$molde->agregar( new toba_molde_metodo_php('ini__operacion') );
-		$molde->agregar( new toba_molde_separador_php('Config.','Configuracion','grande') );
-		$molde->agregar( new toba_molde_metodo_php('conf') );
+		$molde->agregar( new toba_codigo_separador_php('Inicializacion',null,'grande') );
+		$molde->agregar( new toba_codigo_metodo_php('ini') );
+		$molde->agregar( new toba_codigo_metodo_php('ini__operacion') );
+		$molde->agregar( new toba_codigo_separador_php('Config.','Configuracion','grande') );
+		$molde->agregar( new toba_codigo_metodo_php('conf') );
 		//-- Configuracion de pantallas -----------
-		$molde->agregar( new toba_molde_separador_php('Configuracion de Pantallas','Pantallas') );
+		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$molde->agregar( new toba_molde_metodo_php('conf__' . $pantalla['identificador'], array('$pantalla') ) );
+			$molde->agregar( new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('$pantalla') ) );
 		}
 		//-- Eventos propios ----------------------
 		if (count($this->eventos_predefinidos()) > 0) {
-			$molde->agregar( new toba_molde_separador_php('Eventos',null,'grande') );
+			$molde->agregar( new toba_codigo_separador_php('Eventos',null,'grande') );
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$molde->agregar( new toba_molde_metodo_php('evt__' . $evento) );
+				$molde->agregar( new toba_codigo_metodo_php('evt__' . $evento) );
 			}
 		}
 		//**************** DEPENDENCIAS ***************
 		if (count($this->subelementos)>0) {
-			$molde->agregar( new toba_molde_separador_php('DEPENDENCIAS',null,'grande') );
+			$molde->agregar( new toba_codigo_separador_php('DEPENDENCIAS',null,'grande') );
 			foreach ($this->subelementos as $id => $elemento) {
 				$es_ei = ($elemento instanceof toba_ei_info) && !($elemento instanceof toba_ci_info);
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
-					$molde->agregar( new toba_molde_separador_php($rol) );
+					$molde->agregar( new toba_codigo_separador_php($rol) );
 					//Eventos predefinidos del elemento
 					if (count($elemento->eventos_predefinidos()) > 0) {
 						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
-							$molde->agregar( new toba_molde_metodo_php('evt__' . $rol . '__' .$evento,	
+							$molde->agregar( new toba_codigo_metodo_php('evt__' . $rol . '__' .$evento,	
 																		$info['parametros'],
 																		$info['comentarios']) );
 						}
 					}
 					//Metodo de CONFIGURACION
-					$molde->agregar( new toba_molde_metodo_php('conf__' . $rol,	
+					$molde->agregar( new toba_codigo_metodo_php('conf__' . $rol,	
 																array('$componente'),
 																array($elemento->get_comentario_carga()) ) );
 				}

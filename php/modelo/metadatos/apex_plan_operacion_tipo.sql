@@ -1,1 +1,1 @@
-INSERT INTO apex_plan_operacion_tipo (operacion_tipo, descripcion_corta, descripcion, clase, icono, orden) VALUES ('10', 'ABM simple', 'Alta, baja y modificacion de registros de una tabla', 'toba_plan_operacion_abms', NULL, '1');
+INSERT INTO apex_plan_operacion_tipo (operacion_tipo, descripcion_corta, descripcion, clase, icono, orden) VALUES ('10', 'ABM simple', 'Alta, baja y modificacion de registros de una tabla', 'toba_asistente_abms', NULL, '1');

@@ -1,13 +1,8 @@
 <?php
-require_once('toba_molde_metodo_php.php');
-require_once('toba_molde_metodo_js.php');
-require_once('toba_molde_separador_php.php');
-require_once('toba_molde_separador_js.php');
-
 /**
  * @ignore
  */
-class toba_molde_clase
+class toba_codigo_clase
 {
 	protected $nombre;
 	protected $nombre_ancestro;
@@ -31,18 +26,18 @@ class toba_molde_clase
 
 	//-- Contruccion del molde ------------------------------------
 
-	function agregar(toba_molde_elemento $elemento)
+	function agregar(toba_codigo_elemento $elemento)
 	{
-		if ($elemento instanceof toba_molde_metodo_js || $elemento instanceof toba_molde_separador_js ) {
+		if ($elemento instanceof toba_codigo_metodo_js || $elemento instanceof toba_codigo_separador_js ) {
 			$this->elementos_js[$this->orden] = $elemento;
 			$this->ultimo_elemento = $this->elementos_js[$this->orden];
-			if ($elemento instanceof toba_molde_metodo_js) {
+			if ($elemento instanceof toba_codigo_metodo_js) {
 				$this->indices_js[$elemento->get_nombre()] = $this->elementos_js[$this->orden];
 			}
-		} elseif ($elemento instanceof toba_molde_metodo_php || $elemento instanceof toba_molde_separador_php ) {
+		} elseif ($elemento instanceof toba_codigo_metodo_php || $elemento instanceof toba_codigo_separador_php ) {
 			$this->elementos_php[$this->orden] = $elemento;
 			$this->ultimo_elemento = $this->elementos_php[$this->orden];
-			if ($elemento instanceof toba_molde_metodo_php) {
+			if ($elemento instanceof toba_codigo_metodo_php) {
 				$this->indices_php[$elemento->get_nombre()] = $this->elementos_php[$this->orden];
 			}
 		} else {
@@ -107,14 +102,14 @@ class toba_molde_clase
 		$subtitulo = '';
 		$a = 0;
 		foreach ($elementos as $id => $elemento) {
-			if(	$elemento instanceof toba_molde_separador ) {
+			if(	$elemento instanceof toba_codigo_separador ) {
 				if( $elemento->get_tipo() == 'chico' ) {
 					$subtitulo = $elemento->get_descripcion();
 				} else {
 					$titulo = $elemento->get_descripcion();
 					$subtitulo = '';
 				}
-			} elseif( $elemento instanceof toba_molde_metodo ) {
+			} elseif( $elemento instanceof toba_codigo_metodo ) {
 				$desc = $prefijo . ' # ';
 				$desc .= ($titulo && $subtitulo) ? $titulo.' - '.$subtitulo : $titulo.$subtitulo;
 				$desc .=  ' => ' . $elemento->get_descripcion();
@@ -160,7 +155,7 @@ class toba_molde_clase
 	function filtrar_metodos( &$elementos, $elementos_a_utilizar)
 	{
 		foreach( array_keys($elementos) as $id) {
-			if ( ($elementos[$id] instanceof toba_molde_metodo ) 
+			if ( ($elementos[$id] instanceof toba_codigo_metodo ) 
 					&& (!in_array($id, $elementos_a_utilizar))) {
 				unset($elementos[$id]);
 			}
@@ -177,7 +172,7 @@ class toba_molde_clase
 		$sep_chico_en_analisis = null;
 		$sep_grande_en_analisis = null;
 		foreach ($elementos as $id => $elemento) {
-			if(	$elemento instanceof toba_molde_separador ) {
+			if(	$elemento instanceof toba_codigo_separador ) {
 				if( $elemento->get_tipo() == 'chico' ) {
 					if( isset($sep_chico_en_analisis) ) {
 						unset($elementos[$sep_chico_en_analisis]);
@@ -192,7 +187,7 @@ class toba_molde_clase
 					}
 					$sep_grande_en_analisis = $id;
 				}
-			} elseif( $elemento instanceof toba_molde_metodo ) {
+			} elseif( $elemento instanceof toba_codigo_metodo ) {
 				$sep_chico_en_analisis = null;
 				$sep_grande_en_analisis = null;
 			}
@@ -239,10 +234,10 @@ class toba_molde_clase
 			$php = 'echo "' . salto_linea();
 			$php .= $javascript;
 			$php .= '";';
-			$metodo = new toba_molde_metodo_php('extender_objeto_js');
+			$metodo = new toba_codigo_metodo_php('extender_objeto_js');
 			$metodo->set_contenido($php);
 			$metodo->identar(1);
-			$separador = new toba_molde_separador_php('JAVASCRIPT',null,'grande');
+			$separador = new toba_codigo_separador_php('JAVASCRIPT',null,'grande');
 			$separador->identar(1);
 			$this->codigo_php .= salto_linea();
 			$this->codigo_php .= $separador->get_codigo();

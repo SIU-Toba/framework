@@ -16,16 +16,16 @@ class toba_ei_cuadro_info extends toba_ei_info
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );		
 		$molde->agregar_bloque( $this->get_molde_eventos_sobre_fila() );
 		// Cortes de control
-		$molde->agregar( new toba_molde_separador_php('Configuracion de Pantallas','Pantallas') );
+		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_cortes = rs_ordenar_por_columna($this->datos['_info_cuadro_cortes'],'orden');
 		foreach($datos_cortes as $corte) {
-			$molde->agregar( new toba_molde_metodo_php('sumarizar_cc__' . $corte['identificador'] . '__IDENTIFICADOR', array('$filas') ) );
+			$molde->agregar( new toba_codigo_metodo_php('sumarizar_cc__' . $corte['identificador'] . '__IDENTIFICADOR', array('$filas') ) );
 			$molde->ultimo_elemento()->set_contenido('return 0;');
-			$molde->agregar( new toba_molde_metodo_php('html_cabecera_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
+			$molde->agregar( new toba_codigo_metodo_php('html_cabecera_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
 			$molde->ultimo_elemento()->set_contenido('echo \'descripcion\';');
-			$molde->agregar( new toba_molde_metodo_php('html_pie_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
+			$molde->agregar( new toba_codigo_metodo_php('html_pie_cc_contenido__' . $corte['identificador'], array('&$nodo') ) );
 			$molde->ultimo_elemento()->set_contenido('echo \'descripcion\';');
-			$molde->agregar( new toba_molde_metodo_php('html_pie_cc_cabecera__' . $corte['identificador'], array('&$nodo') ) );
+			$molde->agregar( new toba_codigo_metodo_php('html_pie_cc_cabecera__' . $corte['identificador'], array('&$nodo') ) );
 			$molde->ultimo_elemento()->set_contenido('return \'descripcion\';');
 		}		
 		return $molde;

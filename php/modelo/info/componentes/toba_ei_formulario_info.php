@@ -14,7 +14,7 @@ class toba_ei_formulario_info extends toba_ei_info
 	{
 		$molde = $this->get_molde_vacio();
 		// Redefinicion del LAYOUT
-		$molde->agregar( new toba_molde_metodo_php('generar_layout') );
+		$molde->agregar( new toba_codigo_metodo_php('generar_layout') );
 		$php = array();
 		foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 			$php[] = '$this->generar_html_ef(\''.$info['identificador'].'\');';
@@ -22,21 +22,21 @@ class toba_ei_formulario_info extends toba_ei_info
 		$molde->ultimo_elemento()->set_contenido($php);		
 		// Javascript
 		$molde->agregar_bloque( $this->get_molde_eventos_js() );	
-		$molde->agregar( new toba_molde_separador_js('Validacion general') );		
-		$molde->agregar( new toba_molde_metodo_js('evt__validar_datos') );		
+		$molde->agregar( new toba_codigo_separador_js('Validacion general') );		
+		$molde->agregar( new toba_codigo_metodo_js('evt__validar_datos') );		
 		if(count($this->datos['_info_formulario_ef'])) {
 			//-- Procesamiento de EFs
-			$molde->agregar( new toba_molde_separador_js('Procesamiento de EFs') );		
+			$molde->agregar( new toba_codigo_separador_js('Procesamiento de EFs') );		
 			foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 				$parametros = array('es_inicial');
 				if($multilinea) $parametros[] = 'fila';
-				$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );		
+				$molde->agregar( new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__procesar', $parametros) );		
 			}
 			//-- Validacion de EFs
-			$molde->agregar( new toba_molde_separador_js('Validacion de EFs') );		
+			$molde->agregar( new toba_codigo_separador_js('Validacion de EFs') );		
 			foreach ($this->datos['_info_formulario_ef'] as $ef => $info) {
 				$parametros = $multilinea ? array('fila') : array();
-				$molde->agregar( new toba_molde_metodo_js('evt__' . $info['identificador'] . '__validar', $parametros) );		
+				$molde->agregar( new toba_codigo_metodo_js('evt__' . $info['identificador'] . '__validar', $parametros) );		
 			}
 		}
 		return $molde;

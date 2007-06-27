@@ -1,10 +1,10 @@
 <?php
-require_once('toba_molde_elemento.php');
+require_once('toba_codigo_elemento.php');
 
 /**
  * @ignore
  */
-abstract class toba_molde_metodo extends toba_molde_elemento
+abstract class toba_codigo_metodo extends toba_codigo_elemento
 {
 	protected $descripcion;
 	protected $parametros;

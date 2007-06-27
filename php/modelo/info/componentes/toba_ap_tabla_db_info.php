@@ -15,7 +15,7 @@ class toba_ap_tabla_db_info implements toba_meta_clase
 
 	function get_molde_subclase()
 	{
-		return new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+		return new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
 	}
 	
 	function get_clase_nombre()

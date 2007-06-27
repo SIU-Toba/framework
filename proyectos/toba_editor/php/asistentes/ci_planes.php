@@ -15,17 +15,12 @@ class ci_planes extends toba_ci
 
 	function evt__procesar()
 	{
-		$plan = $this->get_info_plan('toba_editor',1,'toba_plan_operacion_abms');
-		$plan->mostrar();
+		$asistente = toba_catalogo_asistentes::buscar('toba_plan_operacion_abms','toba_editor',1);
+		$asistente->generar();
 	}
 
 	function evt__cancelar()
 	{
-	}
-
-	function get_info_plan($proyecto, $plan, $tipo)
-	{
-		return toba_constructor::get_runtime( array('proyecto'=>$proyecto, 'componente' => $plan ),$tipo);
 	}
 }
 

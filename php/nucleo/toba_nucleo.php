@@ -437,8 +437,21 @@ class toba_nucleo
 			//- Planes de generacion de operaciones -
 			'toba_plan_operacion_def'				=> 'nucleo/componentes/definicion/toba_plan_operacion_def.php',
 			'toba_plan_operacion_abms_def'			=> 'nucleo/componentes/definicion/toba_plan_operacion_abms_def.php',
-			'toba_plan_operacion'					=> 'modelo/plan_operacion/toba_plan_operacion.php',
-			'toba_plan_operacion_abms'				=> 'modelo/plan_operacion/toba_plan_operacion_abms.php',
+			'toba_catalogo_asistentes'				=> 'modelo/asistentes/toba_catalogo_asistentes.php',
+			'toba_asistente'						=> 'modelo/asistentes/toba_asistente.php',
+			'toba_asistente_abms'					=> 'modelo/asistentes/toba_asistente_abms.php',
+			'toba_ci_molde'                         => 'modelo/moldes/toba_ci_molde.php',                       
+			'toba_datos_relacion_molde'             => 'modelo/moldes/toba_datos_relacion_molde.php',           
+			'toba_datos_tabla_molde'                => 'modelo/moldes/toba_datos_tabla_molde.php',              
+			'toba_ei_cuadro_molde'                  => 'modelo/moldes/toba_ei_cuadro_molde.php',                
+			'toba_ei_filtro_molde'                  => 'modelo/moldes/toba_ei_filtro_molde.php',                
+			'toba_ei_formulario_ml_molde'           => 'modelo/moldes/toba_ei_formulario_ml_molde.php',         
+			'toba_ei_formulario_molde'              => 'modelo/moldes/toba_ei_formulario_molde.php',            
+			'toba_item_molde'                       => 'modelo/moldes/toba_item_molde.php',                     
+			'toba_molde_elemento'                   => 'modelo/moldes/toba_molde_elemento.php',                 
+			'toba_molde_elemento_componente'        => 'modelo/moldes/toba_molde_elemento_componente.php',      
+			'toba_molde_elemento_componente_datos'  => 'modelo/moldes/toba_molde_elemento_componente_datos.php',
+			'toba_molde_elemento_componente_ei'   	=> 'modelo/moldes/toba_molde_elemento_componente_ei.php',   
  			//------------- Soporte a COMPONENTES -----------------------------------
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
@@ -516,14 +529,14 @@ class toba_nucleo
  			'toba_archivo_php'						=> 'lib/reflexion/toba_archivo_php.php',
 			'toba_clase_datos'						=> 'lib/reflexion/toba_clase_datos.php',
  			'toba_clase_php' 						=> 'lib/reflexion/toba_clase_php.php',
- 			'toba_molde_elemento' 					=> 'lib/reflexion/toba_molde_elemento.php',
-			'toba_molde_clase'						=> 'lib/reflexion/toba_molde_clase.php',
- 			'toba_molde_metodo' 					=> 'lib/reflexion/toba_molde_metodo.php',
- 			'toba_molde_metodo_js' 					=> 'lib/reflexion/toba_molde_metodo_js.php',
- 			'toba_molde_metodo_php' 				=> 'lib/reflexion/toba_molde_metodo_php.php',
- 			'toba_molde_separador' 					=> 'lib/reflexion/toba_molde_separador.php',
- 			'toba_molde_separador_js' 				=> 'lib/reflexion/toba_molde_separador_js.php',
- 			'toba_molde_separador_php' 				=> 'lib/reflexion/toba_molde_separador_php.php'
+ 			'toba_codigo_elemento' 					=> 'lib/reflexion/toba_codigo_elemento.php',
+			'toba_codigo_clase'						=> 'lib/reflexion/toba_codigo_clase.php',
+ 			'toba_codigo_metodo' 					=> 'lib/reflexion/toba_codigo_metodo.php',
+ 			'toba_codigo_metodo_js' 				=> 'lib/reflexion/toba_codigo_metodo_js.php',
+ 			'toba_codigo_metodo_php' 				=> 'lib/reflexion/toba_codigo_metodo_php.php',
+ 			'toba_codigo_separador' 				=> 'lib/reflexion/toba_codigo_separador.php',
+ 			'toba_codigo_separador_js' 				=> 'lib/reflexion/toba_codigo_separador_js.php',
+ 			'toba_codigo_separador_php' 			=> 'lib/reflexion/toba_codigo_separador_php.php'
 		);
 	}
 

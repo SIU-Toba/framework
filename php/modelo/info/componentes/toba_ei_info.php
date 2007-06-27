@@ -70,15 +70,15 @@ abstract class toba_ei_info extends toba_componente_info
 	
 	function get_molde_eventos_js()
 	{
-		$bloque_molde[] = new toba_molde_separador_js('Eventos');
+		$bloque_molde[] = new toba_codigo_separador_js('Eventos');
 		foreach ($this->eventos_predefinidos() as $evento => $info) {
 			//$info['info'] no esta seteado en los eventos predefinidos agregados a mano
 			if( isset($info['info']) && !$info['info']['implicito'] ) {	//Excluyo los implicitos
 				// Atrapar evento en JS
 				if ($info['info']['accion'] == 'V') { //Vinculo
-					$bloque_molde[] = new toba_molde_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
+					$bloque_molde[] = new toba_codigo_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
 				} else {
-					$bloque_molde[] = new toba_molde_metodo_js('evt__' . $evento);
+					$bloque_molde[] = new toba_codigo_metodo_js('evt__' . $evento);
 				}
 			}
 		}
@@ -87,9 +87,9 @@ abstract class toba_ei_info extends toba_componente_info
 
 	function get_molde_eventos_sobre_fila()
 	{
-		$bloque_molde[] = new toba_molde_separador_php('Config. EVENTOS sobre fila');
+		$bloque_molde[] = new toba_codigo_separador_php('Config. EVENTOS sobre fila');
 		foreach ($this->eventos_sobre_fila() as $evento => $info) {
-			$bloque_molde[] = new toba_molde_metodo_php('conf_evt__' . $evento, array('$evento', '$fila'));
+			$bloque_molde[] = new toba_codigo_metodo_php('conf_evt__' . $evento, array('$evento', '$fila'));
 		}
 		return $bloque_molde;
 	}

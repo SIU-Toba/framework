@@ -3,7 +3,7 @@
 /**
  * @ignore
  */
-abstract class toba_molde_elemento
+abstract class toba_codigo_elemento
 {
 	protected $nombre;
 	protected $identacion=0;

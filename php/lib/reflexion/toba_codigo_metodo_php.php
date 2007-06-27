@@ -1,10 +1,10 @@
 <?php
-require_once('toba_molde_metodo.php');
+require_once('toba_codigo_metodo.php');
 
 /**
  * @ignore
  */
-class toba_molde_metodo_php extends toba_molde_metodo
+class toba_codigo_metodo_php extends toba_codigo_metodo
 {
 	function get_declaracion()
 	{

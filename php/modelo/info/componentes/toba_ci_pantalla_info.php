@@ -152,8 +152,8 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 
 	function get_molde_subclase()
 	{
-		$molde = new toba_molde_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
-		$molde->agregar( new toba_molde_metodo_php('generar_layout') );
+		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );
+		$molde->agregar( new toba_codigo_metodo_php('generar_layout') );
 		$php = array();
 		$existe_previo = 0;
 		foreach($this->get_lista_dependencias_asociadas() as $dep) {
