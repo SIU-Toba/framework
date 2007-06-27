@@ -19,6 +19,8 @@ class toba_mock_proceso_gui implements toba_proceso_gui
 	function mensaje( $texto ){}
 	function error( $texto ){}
 	function progreso_avanzar() {}
+	function progreso_fin() {}
 	function enter(){}
+	function cerrar(){}
 }
 ?>

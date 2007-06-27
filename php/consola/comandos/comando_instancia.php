@@ -196,7 +196,11 @@ class comando_instancia extends comando_toba
 			}
 		}
 		$this->consola->enter();
-		$this->opcion__eliminar();
+		$i = $this->get_instancia();
+		$this->consola->lista( $i->get_parametros_db(), 'BASE' );
+		if ( $this->consola->dialogo_simple('Desea eliminar los datos de la INSTANCIA?') ) {
+			$i->eliminar_base();
+		}
 		$this->get_instancia()->cargar();
 	}
 

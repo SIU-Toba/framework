@@ -4,7 +4,8 @@ class toba_gtk_admin
 {
 	protected static $comp_req = array(
 			'vbox', 'arbol_comandos', 'label_comando',
-			'caja_opciones', 'label_info'
+			'caja_opciones', 'label_info',
+			'frame', 'frame_contenido', 'frame_label'
 	);
 	
 	protected $toba_instalador;
@@ -47,7 +48,6 @@ class toba_gtk_admin
 		$selection->set_mode(Gtk::SELECTION_SINGLE);	
 		$selection->connect('changed', array($this, 'evt__seleccionar_comando'));		
 		//$this->connect('button-release-event', array($this, 'evt__popup'));
-
 		return $this->comp['vbox'];		
 	}
 	
@@ -148,7 +148,7 @@ class toba_gtk_admin
 		list($comando, $instancia, $proyecto, $base) = $this->determinar_comando($seleccion);
 		$nombre_com = 'comando_'.$comando;
 		require_once("consola/comandos/$nombre_com.php");
-		$objeto = new $nombre_com($this->progreso);
+		$objeto = new $nombre_com(isset($this->progreso) ? $this->progreso : null);
 		$argumentos = array();
 		if (isset($instancia)) {
 			$argumentos[] = "-i$instancia";
@@ -253,7 +253,11 @@ class toba_gtk_admin
 	
 	function evt__ejecutar($item, $opcion, $atributos)
 	{
+		if (isset($this->progreso)) {
+			$this->progreso->cerrar();
+		}
 		try {
+			
 			$param_extra = null;
 			//---- Ejecución de dialogos particulares			
 			if (isset($atributos['tags']['gtk_param_extra'])) {
@@ -266,19 +270,27 @@ class toba_gtk_admin
 				}
 			}
 			//--------------------------------------
-
-			$this->progreso = new inst_dlg_progreso($this);
+			$this->progreso = new inst_dlg_progreso($this, false);
+			$this->comp['frame']->set_visible(true);
+			$this->comp['frame_contenido']->add($this->progreso->get_widget());
 			$this->progreso->set_cant_pasos_general(1);
 			$this->progreso->set_cant_pasos_internos(100);		
+
 			$objeto_com = $this->get_objeto_comando($this->seleccion);
+			$info = $objeto_com->get_nombre()." $opcion ".$objeto_com->get_argumentos_string();
+			$this->comp['frame_label']->set_markup("Comando: ".$info);
+			
 			$metodo = 'opcion__'.$opcion;
 			$objeto_com->$metodo($param_extra);
-			$this->progreso->finalizar();
+			if (isset($this->progreso)) {
+				$this->progreso->finalizar();
+			}
 		} catch (Exception  $e) {
 			inst_fact::logger()->error($e->__toString());
 			inst_fact::gtk()->mostrar_excepcion($e);
 			$this->evt__progreso__cancelar();
-		}	
+		}
+
 	}
 	
 	function evt__progreso__cancelar()
@@ -289,6 +301,8 @@ class toba_gtk_admin
 	function evt__progreso__cerrar()
 	{
 		$this->progreso->cerrar();
+		unset($this->progreso);
+		$this->comp['frame']->set_visible(false);
 	}	
 	
 	

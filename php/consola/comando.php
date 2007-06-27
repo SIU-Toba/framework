@@ -21,6 +21,15 @@ class comando
 		return $temp[1];
 	}
 	
+	function get_argumentos_string()
+	{
+		$salida = '';
+		foreach ($this->get_parametros() as $id => $valor) {
+			$salida .= "$id $valor ";
+		}
+		return $salida;
+	}
+	
 	function set_argumentos( $argumentos )
 	{
 		$this->argumentos = $argumentos;

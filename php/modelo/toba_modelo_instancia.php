@@ -266,15 +266,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	*/
 	function exportar_local()
 	{
-		try {
-			$this->manejador_interface->titulo( "Exportación local de la instancia '{$this->get_id()}'" );
-			$this->exportar_global();
-			$this->exportar_proyectos();
-			$this->sincronizar_archivos();
-		} catch ( toba_error $e ) {
-			$this->manejador_interface->error( "Ha ocurrido un error durante la exportacion:\n".
-												$e->getMessage());
-		}
+		$this->manejador_interface->titulo( "Exportación local de la instancia '{$this->get_id()}'" );
+		$this->exportar_global();
+		$this->exportar_proyectos();
+		$this->sincronizar_archivos();
 	}
 
 	private function sincronizar_archivos()
@@ -428,8 +423,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
-												$e->getMessage());
+			throw $e;
 		}
 	}
 
@@ -462,8 +456,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->get_db()->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( "Ha ocurrido un error durante la inicializacion de la instancia:\n".
-												$e->getMessage());
+			throw $e;
 		}		
 	}
 
@@ -640,7 +633,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$res = $this->get_db()->consultar($sql, null, true);
 				$nuevo = $res[0]['nuevo'];
 			} else {
-				//Sino se toma utilizando los lï¿½ites segn el ID del grupo
+				//Sino se toma utilizando los límites según el ID del grupo
 				$lim_inf = self::cantidad_seq_grupo * $id_grupo_de_desarrollo;
 				$lim_sup = self::cantidad_seq_grupo * ( $id_grupo_de_desarrollo + 1 );
 				$sql_nuevo = "SELECT max({$datos['campo']}) as nuevo
@@ -737,8 +730,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
 		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
-			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de TABLAS de la instancia:\n".
-												$e->getMessage());		
+			throw $e;
 		}
 	}
 
