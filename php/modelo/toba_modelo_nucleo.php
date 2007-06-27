@@ -449,9 +449,9 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$total += $atr['size'];
 			$nuevo = $comp->getClean(array('code' =>file_get_contents($archivo), 'name' => basename($archivo)));
 			$salida[] = $nuevo;
-			$this->manejador_interface->mensaje_directo('.');			
+			$this->manejador_interface->progreso_avanzar();			
 		}
-		$this->manejador_interface->mensaje('OK');		
+		$this->manejador_interface->progreso_fin();		
 		$todo = implode("\n", $salida);
 		$version = toba_modelo_instalacion::get_version_actual();
 		$version = $version->__toString();
@@ -483,14 +483,14 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 				$this->manejador_interface->enter();
 				$relativo = str_replace(toba_dir(), '', $archivo);
 				$this->manejador_interface->subtitulo("$relativo :");			
-				echo implode("\n", $salida);
+				$this->manejador_interface->mensaje(implode("\n", $salida));
 				$ok = false;
 				break;
 			}
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}
 		if ($ok) {
-			$this->manejador_interface->mensaje('OK');
+			$this->manejador_interface->progreso_fin();
 		}
 	}
 
@@ -508,7 +508,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	function resumir_nucleo()
 	{
 		$destino = toba_dir() . '/php/nucleo/toba_motor.php';
-		$this->manejador_interface->mensaje_directo('Clases del nucleo');			
+		$this->manejador_interface->mensaje('Clases del nucleo', false);			
 		$this->cargar_lista_archivos();
 		$resumen = '';
 		$archivos = array_merge($this->comp_archivos_nucleo, $this->comp_archivos_modelo);
@@ -523,11 +523,11 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$php = file_get_contents(toba_dir(). '/php/' . $archivo);
 			$php = preg_replace($buscar,'',$php);
 			$resumen .= $php;
-			$this->manejador_interface->mensaje_directo('.');			
+			$this->manejador_interface->progreso_avanzar();			
 		}
 		$resumen = "<?php\n" . $resumen . "\n?>";
 		file_put_contents($destino, $resumen);
-		$this->manejador_interface->mensaje('OK');			
+		$this->manejador_interface->progreso_fin();			
 	}
 	
 	function cargar_lista_archivos()

@@ -21,9 +21,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		toba_logger::instancia()->debug('INSTALACION "'.$this->dir.'"');
 	}
 
-	function cargar_info_ini()
+	function cargar_info_ini($forzar_recarga=false)
 	{
-		if (!$this->ini_cargado) {
+		if ($forzar_recarga || !$this->ini_cargado) {
 			//--- Levanto la CONFIGURACION de bases
 			$archivo_ini_bases = $this->dir . '/' . self::info_bases;
 			if ( ! is_file( $archivo_ini_bases ) ) {
@@ -130,6 +130,35 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return array_keys( $this->ini_bases );
 	}
 
+	function agregar_db( $id_base, $parametros )
+	{
+		self::validar_parametros_db($parametros);
+		$ini = new toba_ini( self::archivo_info_bases() );
+		$ini->agregar_titulo( self::info_bases_titulo );
+		$ini->agregar_entrada( $id_base, $parametros );
+		$ini->guardar();
+		toba_logger::instancia()->debug("Agregada definicion base '$id_base'");		
+		$this->ini_cargado=false;
+	}
+		
+	/**
+	 * Actualiza una entrada en el archivo bases.ini
+	 */
+	function actualizar_db($id_base, $parametros)
+	{
+		self::validar_parametros_db($parametros);
+		$ini = new toba_ini( self::archivo_info_bases() );	
+		if ($ini->existe_entrada($id_base)) {
+			$ini->set_datos_entrada($id_base, $parametros);
+		} else {
+			$ini->agregar_titulo( self::info_bases_titulo );
+			$ini->agregar_entrada( $id_base, $parametros );
+		}
+		$ini->guardar();
+		$this->ini_cargado=false;		
+		toba_logger::instancia()->debug("Actualizada definicion base '$id_base'");				
+	}	
+	
 	//------------------------------------------------------------------------
 	// Relacion con el MOTOR de base de datos
 	//------------------------------------------------------------------------
@@ -137,7 +166,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	*	Conecta una base de datos definida en bases.ini
 	*	@param string $nombre Nombre de la base
-	* 	@return db Objeto db resultante
+	* 	@return toba_db Objeto db resultante
 	*/
 	function conectar_base( $nombre )
 	{
@@ -155,7 +184,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$base_a_crear = $info_db['base'];
 		if($info_db['motor']=='postgres7')
 		{
-			sleep(1);	//Para esperar que el script se desconecte			
+			dormir(1000);	//Para esperar que el script se desconecte			
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
 			$sql = "CREATE DATABASE \"$base_a_crear\" ENCODING '" . self::db_encoding_estandar . "';";
@@ -177,7 +206,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$base_a_borrar = $info_db['base'];
 		if($info_db['motor']=='postgres7')
 		{
-			sleep(1);	//Para esperar que el script se desconecte
+			dormir(1000);	//Para esperar que el script se desconecte
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
 			$sql = "DROP DATABASE \"$base_a_borrar\";";
@@ -432,27 +461,6 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		}		
 	}
 	
-	static function agregar_db( $id_base, $parametros )
-	{
-		self::validar_parametros_db($parametros);
-		$ini = new toba_ini( self::archivo_info_bases() );
-		$ini->agregar_titulo( self::info_bases_titulo );
-		$ini->agregar_entrada( $id_base, $parametros );
-		$ini->guardar();
-		toba_logger::instancia()->debug("Agregada definicion base '$id_base'");		
-	}
-	
-	static function actualizar_db($id_base, $parametros)
-	{
-		self::validar_parametros_db($parametros);
-		$ini = new toba_ini( self::archivo_info_bases() );	
-		if ($ini->existe_entrada($id_base)) {
-			$ini->set_datos_entrada($id_base, $parametros);
-		}
-		$ini->guardar();
-		toba_logger::instancia()->debug("Actualizada definicion base '$id_base'");				
-	}
-		
 	static function eliminar_db( $id_base )
 	{
 		$ini = new toba_ini( self::archivo_info_bases() );
@@ -481,8 +489,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		toba_logger::instancia()->debug("Migrando instalación hacia version ".$version->__toString());
 		$this->manejador_interface->mensaje("Migrando instalación.", false);
 		$version->ejecutar_migracion('instalacion', $this, null, $this->manejador_interface);
-		$this->actualizar_version($version);
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 		
 		//-- Se migran las instancias incluidas		
 		if ($recursivo) {
@@ -490,6 +497,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				$this->get_instancia($instancia)->migrar_version($version,$recursivo);
 			}
 		}
+		$this->actualizar_version($version);		
 	}
 	
 	private function actualizar_version($version)
@@ -499,6 +507,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		toba_logger::instancia()->debug("Actualizada instalación a versión $numero");
 	}
 	
+	/**
+	 * @return toba_version 
+	 */
 	static function get_version_actual()
 	{
 		return new toba_version(file_get_contents(toba_dir()."/VERSION"));

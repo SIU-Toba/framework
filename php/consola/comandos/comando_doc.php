@@ -16,6 +16,7 @@ class comando_doc extends comando_toba
 
 	/**
 	 * Descarga la documentación online del wiki desde desarrollos2.siu.edu.ar utilizando httracker
+	 * @gtk_icono nucleo/doc-wiki.png
 	 */
 	function opcion__wiki()
 	{
@@ -115,8 +116,9 @@ class comando_doc extends comando_toba
 	
 	/**
 	 * Genera la documentación del API en base a los tags phpdoc del código
+	 * @gtk_icono nucleo/doc-php.png 
 	 */
-	function opcion__api()
+	function opcion__api_php()
 	{
 		
 		$dest = toba_dir().'/proyectos/toba_editor/www/doc/api';
@@ -163,7 +165,8 @@ class comando_doc extends comando_toba
 
 	/**
 	 * Genera la documentación del API Javascript
-	 * Utiliza jsdoc (http://jsdoc.sourceforge.net/)
+	 * Requiere Perl y jsdoc (http://jsdoc.sourceforge.net/)
+	 * @gtk_icono nucleo/doc-js.png 
 	 */	
 	function opcion__api_js()
 	{
@@ -191,7 +194,7 @@ class comando_doc extends comando_toba
 	
 	protected function convertir_codificacion($archivo, $desde, $hasta)
 	{	
-		$this->consola->mensaje_directo(".");
+		$this->consola->progreso_avanzar();
 		$utf8 = file_get_contents($archivo);
 		$iso = iconv($desde, $hasta, $utf8);
 		file_put_contents($archivo, $iso);

@@ -127,10 +127,15 @@ class consola implements toba_proceso_gui
 		}
 	}
 	
-	function mensaje_directo($texto)
+	function progreso_avanzar()
 	{
-		echo $texto;	
+		echo '.';	
 	}
+	
+	function progreso_fin()
+	{
+		echo "OK\n";	
+	}	
 	
 	function enter()
 	{

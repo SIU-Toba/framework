@@ -4,9 +4,10 @@ class toba_referencia extends toba_modelo_proyecto
 {
 	function instalar()
 	{
-		$this->manejador_interface->mensaje('Instalando el Proyecto de REFERENCIA.', false);
-		$id_base = 'toba_referencia';
-		$id_def_base = $this->get_instancia()->get_id().' toba_referencia toba_referencia';		
+		$version = $this->get_instalacion()->get_version_actual(); 
+		$this->manejador_interface->titulo("Instalando proyecto de Referencia de Toba ".$version->__toString());
+		$id_base = 'toba_referencia_'.$version->get_string_partes();
+		$id_def_base = $this->construir_id_def_base('toba_referencia');
 
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->get_instalacion()->existe_base_datos_definida($id_def_base)) {
@@ -30,16 +31,21 @@ class toba_referencia extends toba_modelo_proyecto
 			$existe = false;
 		}
 		$reemplazar = false;
-		if ($existe) {
-			$reemplazar = $this->manejador_interface->dialogo_simple("\nYa existe el modelo de datos ".
+		/*if ($existe) {
+			$reemplazar = $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos ".
 							"del proyecto REFERENCIA desea reemplazarlo", 's');
-		}
+		}*/
 		if ($reemplazar) {
+			$this->manejador_interface->mensaje('Borrando datos actuales', false);
 			$db->ejecutar_archivo($this->get_dir().'/sql/borrado.sql');
+			$this->manejador_interface->progreso_avanzar();
+			$this->manejador_interface->progreso_fin();			
 		}
 		if (! $existe || $reemplazar) {
+			$this->manejador_interface->mensaje('Cargando datos predeterminados', false);
 			$db->ejecutar_archivo($this->get_dir().'/sql/creacion.sql');
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_avanzar();
+			$this->manejador_interface->progreso_fin();			
 		}
 	}
 }

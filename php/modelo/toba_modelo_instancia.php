@@ -75,19 +75,25 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			if ( ! isset( $this->datos_ini['proyectos'] ) ) {
 				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee una entrada 'proyectos')");
 			}
-			$lista_proyectos = explode(',', $this->datos_ini['proyectos'] );
-			$lista_proyectos = array_map('trim',$lista_proyectos);
-			if ( count( $lista_proyectos ) == 0 ) {
-				throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+			$lista_proyectos = array();
+			if (trim($this->datos_ini['proyectos']) != '') {
+				$lista_proyectos = explode(',', $this->datos_ini['proyectos'] );
+				$lista_proyectos = array_map('trim',$lista_proyectos);
+				if ( count( $lista_proyectos ) == 0 ) {
+					throw new toba_error("INSTANCIA: La instancia '{$this->identificador}' es invalida. (El archivo de configuracion '$archivo_ini' no posee proyectos asociados. La entrada 'proyectos' debe estar constituida por una lista de proyectos separados por comas)");
+				}
 			}
 			$this->ini_proyectos_vinculados = $lista_proyectos;
 		}
 	}
-
+	
 	//-----------------------------------------------------------
 	//	Manejo de subcomponentes
 	//-----------------------------------------------------------
 
+	/**
+	 * @return toba_modelo_proyecto
+	 */
 	function get_proyecto($id)
 	{
 		return toba_modelo_catalogo::instanciacion()->get_proyecto( $this->get_id(), 
@@ -188,15 +194,18 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//	Manipulacion de la DEFINICION
 	//-----------------------------------------------------------
 
-	function vincular_proyecto( $proyecto )
+	function vincular_proyecto($proyecto, $path=null)
 	{
-		if ( toba_modelo_proyecto::existe( $proyecto ) ) {
+		if ( isset($path) || toba_modelo_proyecto::existe($proyecto) ) {
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
 			$datos = array_map('trim',$datos);
 			if ( ! in_array( $proyecto, $datos ) ) {
 				$datos[] = $proyecto;
 				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
+				if (isset($path)) {
+					$ini->agregar_entrada( $proyecto, array('path' => $path) );
+				}
 				$ini->guardar();
 			}
 			toba_logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
@@ -258,7 +267,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function exportar_local()
 	{
 		try {
-			$this->manejador_interface->titulo( "Exportación local de la instancia" );
+			$this->manejador_interface->titulo( "Exportación local de la instancia '{$this->get_id()}'" );
 			$this->exportar_global();
 			$this->exportar_proyectos();
 			$this->sincronizar_archivos();
@@ -287,7 +296,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->exportar_tablas_global( 'get_lista_global', $dir_global .'/' . self::archivo_datos, 'GLOBAL' );	
 		$this->exportar_tablas_global( 'get_lista_global_usuario', $dir_global .'/' . self::archivo_usuarios, 'USUARIOS' );	
 		$this->exportar_tablas_global( 'get_lista_global_log', $dir_global .'/'. $this->nombre_log, 'LOGS' );
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	private function exportar_tablas_global( $metodo_lista_tablas, $path, $texto )
@@ -309,7 +318,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			$this->manejador_interface->mensaje_directo(".");
+			$this->manejador_interface->progreso_avanzar();
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $path  , $contenido );			
@@ -329,7 +338,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 		}
 	}
 
@@ -367,7 +376,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			for ( $a = 0; $a < count( $datos ) ; $a++ ) {
 				$contenido .= sql_array_a_insert( $tabla, $datos[$a] );
 			}
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}
 		if ( trim( $contenido ) != '' ) {
 			$this->guardar_archivo( $nombre_archivo, $contenido );			
@@ -394,7 +403,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
 			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
 			$this->instalacion->crear_base_datos( $this->ini_base );
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 		}
 		// Esta el modelo cargado
 		if ( $this->existe_modelo() ) {
@@ -411,7 +420,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->get_db()->retrazar_constraints();
 			$this->crear_modelo_datos_toba();
 			$this->cargar_proyectos();
-			$this->manejador_interface->separador();
+			$this->manejador_interface->enter();
 			$this->cargar_informacion_instancia();
 			$this->generar_info_carga();
 			$this->actualizar_secuencias();
@@ -431,7 +440,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
 			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
 			$this->instalacion->crear_base_datos( $this->ini_base );
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 		}
 		// Esta el modelo cargado
 		if ( $this->existe_modelo() ) {
@@ -477,10 +486,10 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");			
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 	
 	private function crear_tablas_minimas()
@@ -490,16 +499,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$archivo = $directorio . "/pgsql_a00_tablas_instancia.sql";
 		$cant = $this->get_db()->ejecutar_archivo( $archivo );
 		toba_logger::instancia()->debug($archivo . ". ($cant)");			
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		$archivo = $directorio . "/pgsql_a02_tablas_usuario.sql";
 		$cant = $this->get_db()->ejecutar_archivo( $archivo );
 		toba_logger::instancia()->debug($archivo . ". ($cant)");			
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		$archivo = $directorio . "/pgsql_a04_tablas_solicitudes.sql" ;
 		$cant = $this->get_db()->ejecutar_archivo( $archivo );
 		toba_logger::instancia()->debug($archivo . ". ($cant)");			
-		$this->manejador_interface->mensaje_directo('.');
-		$this->manejador_interface->mensaje("OK");		
+		$this->manejador_interface->progreso_avanzar();
+		$this->manejador_interface->progreso_fin();		
 	}
 
 	function eliminar_tablas_minimas()
@@ -539,9 +548,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->mensaje_directo('.');			
+			$this->manejador_interface->progreso_avanzar();			
 		}
-		$this->manejador_interface->mensaje("OK");		
+		$this->manejador_interface->progreso_fin();		
 	}
 
 	/*
@@ -552,7 +561,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
 				$this->manejador_interface->enter();
-				$this->manejador_interface->subtitulo("PROYECTO: $id_proyecto");
+				$this->manejador_interface->subtitulo("$id_proyecto:");
 				$proyecto = $this->get_proyecto($id_proyecto);
 				if(!$informacion_reducida) {
 					$proyecto->cargar();										
@@ -583,11 +592,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				foreach( $archivos as $archivo ) {
 					$cant = $this->get_db()->ejecutar_archivo( $archivo );
 					toba_logger::instancia()->debug($archivo . ". ($cant)");
-					$this->manejador_interface->mensaje_directo('.');
+					$this->manejador_interface->progreso_avanzar();
 				}
 			}
 		}
-		$this->manejador_interface->mensaje('OK');		
+		$this->manejador_interface->progreso_avanzar();		
+		$this->manejador_interface->progreso_fin();		
 	}
 
 	function cargar_informacion_instancia_proyecto( $proyecto )
@@ -599,9 +609,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach ( $archivos as $archivo ) {
 			$cant = $this->get_db()->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	/*
@@ -646,9 +656,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				$this->get_db()->consultar( $sql );	
 			}
 			toba_logger::instancia()->debug("SECUENCIA $seq: $nuevo");
-			$this->manejador_interface->mensaje_directo(".");			
+			$this->manejador_interface->progreso_avanzar();			
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 	
 	/**
@@ -699,7 +709,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->desconectar_db();
 			$this->manejador_interface->mensaje("Eliminando base '{$this->ini_base}'...", false);
 			$this->instalacion->borrar_base_datos( $this->ini_base );
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 		} catch ( toba_error $e ) {
 			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n".
 												$e->getMessage());
@@ -723,7 +733,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$sql = sql_array_secuencias_drop( $secuencias );
 			$this->get_db()->ejecutar( $sql );
 			$this->get_db()->cerrar_transaccion();
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
 		} catch ( toba_error $e ) {
 			$this->get_db()->abortar_transaccion();
@@ -732,6 +742,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 	}
 
+	/**
+	 * Elimina los archivos de configuracion y datos propios de la instancia
+	 */
+	function eliminar_archivos()
+	{
+		toba_manejador_archivos::eliminar_directorio($this->dir);		
+	}
+	
 	//-----------------------------------------------------------
 	//	Informacion sobre METADATOS
 	//-----------------------------------------------------------
@@ -873,7 +891,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
 				$proyecto = $this->get_proyecto($id_proyecto);										
-				toba_modelo_instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $this->get_id());	
+				$proyecto->agregar_alias_apache();	
 			}
 		}			
 	}
@@ -890,7 +908,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			toba_logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());
 			$this->get_db()->abrir_transaccion();
 			$version->ejecutar_migracion('instancia', $this, null, $this->manejador_interface);
-			$this->set_version($version);
 			
 			//-- Se migran los proyectos incluidos
 			if ($recursivo) {
@@ -905,6 +922,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 					}
 				}
 			}
+			$this->set_version($version);			
 			$this->get_db()->cerrar_transaccion();
 		} else {
 			toba_logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());

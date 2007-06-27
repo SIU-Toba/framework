@@ -11,9 +11,8 @@ class comando_item extends comando_toba
 	
 	/**
 	 * Permite ejecutar items de consola
-	 *	 -p: proyecto del item
-	 *	 -t: identificador del item
-	 *	 -u: usuario toba con el que se ejecuta el item
+	 * @consola_parametros [-p Proyecto] [-t id_item] [-u usuario que ejecuta]
+	 * @gtk_icono instanciar.png  
 	 */
 	function opcion__ejecutar()
 	{

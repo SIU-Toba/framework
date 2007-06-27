@@ -1016,7 +1016,9 @@ class toba_ei_cuadro extends toba_ei
 	private function html_fin()
 	{
 		if( $this->tabla_datos_es_general() ){
-			$this->html_cuadro_totales_columnas($this->_acumulador);
+			if (isset($this->_acumulador)) {
+				$this->html_cuadro_totales_columnas($this->_acumulador);
+			}
 			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();					
 		}
@@ -1259,7 +1261,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 	
-	protected function html_cuadro(&$filas, &$totales=null)
+	protected function html_cuadro(&$filas)
 	{
 		//Si existen cortes de control y el layout es tabular, el encabezado de la tabla ya se genero
 		if( ! $this->tabla_datos_es_general() ){
@@ -1378,9 +1380,6 @@ class toba_ei_cuadro extends toba_ei
             echo "</tr>\n";
             $par = !$par;
         }
-		if(isset($totales)){
-			$this->html_cuadro_totales_columnas($totales);
-		}
 		if( ! $this->tabla_datos_es_general() ){
 			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();

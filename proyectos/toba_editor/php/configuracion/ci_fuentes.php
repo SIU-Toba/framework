@@ -72,10 +72,10 @@ class ci_fuentes extends toba_ci
 			$datos = array_dejar_llaves($datos, array('motor', 'profile', 'usuario', 'clave', 'base'));
 			if (in_array($id_base, $bases)) {
 				//---Actualiza la entrada actual
-				toba_modelo_instalacion::actualizar_db($id_base, $datos);
+				$instalacion->actualizar_db($id_base, $datos);
 			} else {
 				//---Crea una nueva entrada	
-				toba_modelo_instalacion::agregar_db($id_base, $datos);
+				$instalacion->agregar_db($id_base, $datos);
 			}
 		}
 	}

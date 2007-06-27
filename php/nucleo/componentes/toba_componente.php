@@ -1,5 +1,6 @@
 <?php
 define('apex_callback_sin_rpta', 'apex_callback_sin_rpta');
+define("apex_datos_clave_fila","x_dbr_clave");			//Clave interna de los componentes tabulares, por compatibilidad es igual.
 
 /**
  * Padre de todas las clases que definen componentes

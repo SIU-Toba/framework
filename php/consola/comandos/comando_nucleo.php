@@ -21,7 +21,8 @@ class comando_nucleo extends comando_toba
 	//-------------------------------------------------------------
 
 	/**
-	*	Genera la metadata necesaria para los exportadores.
+	* Genera la metadata necesaria para los exportadores.
+	* @gtk_icono exportar.png 
 	*/
 	function opcion__parsear_ddl()
 	{
@@ -29,8 +30,9 @@ class comando_nucleo extends comando_toba
 	}
 
 	/**
-	*	Exporta las tablas maestras del sistema. 
-	*	PARAMETROS: [-i id_instancia] o variable 'toba_instancia'
+	* Exporta las tablas maestras del sistema. 
+	* @consola_parametros [-i id_instancia] o variable 'toba_instancia'
+	* @gtk_icono exportar.png
 	*/
 	function opcion__exportar_datos()
 	{
@@ -41,6 +43,7 @@ class comando_nucleo extends comando_toba
 	
 	/**
 	 * Actualiza los objetos info en base a los editores de los objetos
+	 * @gtk_icono exportar.png 
 	 */
 	function opcion__parsear_editores()
 	{
@@ -51,6 +54,7 @@ class comando_nucleo extends comando_toba
 	
 	/**
 	 * Comprime el codigo js
+	* @gtk_icono extension_zip.png 
 	 */
 	function opcion__comprimir_js()
 	{
@@ -59,7 +63,9 @@ class comando_nucleo extends comando_toba
 	}
 	
 	/**
-	 * Valida el javascript utilizando jslint (-a patron inclusion, -b patron de exclusion)
+	 * Valida el javascript utilizando jslint
+	 * @consola_parametros [-a patron inclusion] [-b patron de exclusion]
+	 * @gtk_icono tilde.gif
 	 */
 	function opcion__validar_js()
 	{
@@ -79,6 +85,7 @@ class comando_nucleo extends comando_toba
 
 	/**
 	 * Reune las definiciones de los componentes en un solo archivo
+	* @gtk_icono compilar.png 
 	 */
 	function opcion__compilar()
 	{

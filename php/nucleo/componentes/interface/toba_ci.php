@@ -668,7 +668,7 @@ class toba_ci extends toba_ei
 	}
 	
 	/**
-	 * Ventana para insertar lógica de la configuración del ci y sus dependencias
+	 * Ventana para insertar lógica posterior a la configuración del ci y sus dependencias
 	 * @ventana 
 	 */
 	function post_configurar(){}

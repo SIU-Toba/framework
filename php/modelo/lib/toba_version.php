@@ -7,6 +7,7 @@ class toba_version
 	
 	function __construct($numero)
 	{
+		$numero = trim($numero);
 		$this->partes = explode('.', $numero);
 		//Validando el numero
 		if (count($this->partes) !== 3) {
@@ -126,11 +127,11 @@ class toba_version
 					toba_logger::instancia()->info("Migración $nombre_metodo: $cant registros.");
 				}
 				if (isset($interface)) {
-					$interface->mensaje_directo('.');	
+					$interface->progreso_avanzar();	
 				}
 			}
 		}
-		$interface->mensaje('OK');
+		$interface->progreso_fin();
 	}
 	
 	static function inicial()

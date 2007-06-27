@@ -26,8 +26,100 @@ class comando_proyecto extends comando_toba
 	// Opciones
 	//-------------------------------------------------------------
 
+
 	/**
-	*	Brinda informacion sobre los METADATOS del proyecto.
+	* Crea un proyecto NUEVO.
+	* @gtk_icono nucleo/agregar.gif 
+	* @gtk_no_mostrar 1
+	*/
+	function opcion__crear()
+	{
+		$id_instancia = $this->get_id_instancia_actual();
+		$id_proyecto = $this->get_id_proyecto_actual();
+		$instancia = $this->get_instancia($id_instancia);
+		
+		// --  Creo el proyecto
+		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
+		$usuarios = $this->seleccionar_usuarios( $instancia );
+		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios );
+		$this->consola->progreso_fin();
+		
+		// -- Asigno un nuevo item de login
+		$proyecto = $this->get_proyecto();		
+		$proyecto->actualizar_login();
+		
+		// -- Exporto el proyecto creado
+		$proyecto->exportar();
+		$instancia->exportar_local();
+		$this->consola->separador();
+		$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
+		if ($agregar) {
+			$proyecto->agregar_alias_apache();
+			$this->consola->separador();
+			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
+									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
+			$this->consola->separador();									
+		}
+		
+	}	
+	
+
+	/**
+	* Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
+	* Opcionalmente crea el alias del proyecto
+	* @gtk_icono importar.png
+	* @gtk_no_mostrar 1
+	*/
+	function opcion__cargar()
+	{
+		$path = null;
+		$id_proyecto = $this->get_id_proyecto_actual(false);
+		if (!isset($id_proyecto)) {
+			list($id_proyecto, $path) = $this->seleccionar_proyectos(false, false);
+			if ($id_proyecto == $path) {
+				$path=null;
+			}
+		}
+		$p = $this->get_proyecto($id_proyecto);
+		$i = $p->get_instancia();
+		if ( ! $i->existen_metadatos_proyecto( $p->get_id() ) ) {
+
+			//-- 1 -- Cargar proyecto
+			$this->consola->enter();
+			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
+			$i->vincular_proyecto( $p->get_id(), $path );
+			$p->cargar_autonomo();
+			$this->consola->mensaje("Vinculando usuarios", false);
+			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
+			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
+			foreach ( $usuarios as $usuario ) {
+				$p->vincular_usuario( $usuario, $grupo_acceso );
+				toba_logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
+				$this->consola->progreso_avanzar();
+			}
+			$this->consola->progreso_fin();
+			
+			//-- 2 -- Exportar proyecto
+			$this->consola->enter();
+			// Exporto la instancia con la nueva configuracion (por fuera del request)
+			$i->exportar_local();
+		} else {
+			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");
+		}
+
+		//--- Generación del alias
+		$this->consola->separador();
+		$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
+		if ($agregar) {
+			$p->agregar_alias_apache();
+		}		
+	}
+	
+
+	/**
+	* Brinda informacion sobre los METADATOS del proyecto.
+	* @gtk_icono info_chico.gif
+	* @gtk_no_mostrar 1
 	*/
 	function opcion__info()
 	{
@@ -46,12 +138,23 @@ class comando_proyecto extends comando_toba
 			$this->consola->subtitulo('Reportes');
 			$subopciones = array( 	'-c' => 'Listado de COMPONENTES',
 									'-g' => 'Listado de GRUPOS de ACCESO' ) ;
-			$this->consola->coleccion( $subopciones );			
-		}
+			$this->consola->coleccion( $subopciones );	
+		}		
 	}
-
+	
 	/**
-	*	Exporta los METADATOS del proyecto.
+	 * Ejecuta el proceso de instalación propio del proyecto
+	 * @gtk_icono instalacion.png
+	 */
+	function opcion__instalar()
+	{
+		$proyecto = $this->get_proyecto();
+		$proyecto->instalar();		
+	}	
+	
+	/**
+	* Exporta los METADATOS del proyecto.
+	* @gtk_icono exportar.png 
 	*/
 	function opcion__exportar()
 	{
@@ -61,20 +164,8 @@ class comando_proyecto extends comando_toba
 	}
 
 	/**
-	 * Exporta los METADATOS y luego actualiza el proyecto (usando svn)
-	 */
-	function opcion__actualizar()
-	{
-		$this->consola->titulo("1.- Exportando METADATOS");		
-		$this->opcion__exportar();
-
-		$this->consola->titulo("2.- Actualizando el proyecto utilizando SVN");
-		$p = $this->get_proyecto();		
-		$p->actualizar();		
-	}
-	
-	/**
-	*	Elimina los METADATOS del proyecto y los vuelve a cargar.
+	* Elimina los METADATOS del proyecto y los vuelve a cargar.
+	* @gtk_icono importar.png 
 	*/
 	function opcion__regenerar()
 	{
@@ -82,52 +173,8 @@ class comando_proyecto extends comando_toba
 	}
 
 	/**
-	*	Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
-	* 	Opcionalmente crea el alias del proyecto
-	*/
-	function opcion__cargar()
-	{
-		$p = $this->get_proyecto();
-		$i = $p->get_instancia();
-		if ( ! $i->existen_metadatos_proyecto( $p->get_id() ) ) {
-
-			//-- 1 -- Cargar proyecto
-			$this->consola->enter();
-			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
-			$i->vincular_proyecto( $p->get_id() );
-			$p->cargar_autonomo();
-			$this->consola->mensaje("Vinculando usuarios", false);
-			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
-			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
-			foreach ( $usuarios as $usuario ) {
-				$p->vincular_usuario( $usuario, $grupo_acceso );
-				toba_logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
-				$this->consola->mensaje_directo('.');
-			}
-			$this->consola->mensaje("OK");
-			
-			//-- 2 -- Exportar proyecto
-			$this->consola->enter();
-			// Exporto la instancia con la nueva configuracion (por fuera del request)
-			$i->exportar_local();
-		} else {
-			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");
-		}
-
-		//--- Generación del alias
-		$this->consola->separador();
-		$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
-		if ($agregar) {
-			toba_modelo_instalacion::agregar_alias_apache($p->get_alias(), $p->get_dir(), $p->get_instancia()->get_id());
-			$this->consola->separador();
-			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
-									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
-			$this->consola->separador();									
-		}		
-	}
-
-	/**
-	*	Elimina el PROYECTO de la INSTANCIA (Elimina los metadatos y el vinculo entre ambos elementos).
+	* Elimina el PROYECTO de la INSTANCIA (Elimina los metadatos y el vinculo entre ambos elementos).
+	* @gtk_icono borrar.png
 	*/
 	function opcion__eliminar()
 	{
@@ -145,52 +192,54 @@ class comando_proyecto extends comando_toba
 	}
 	
 	/**
-	*	Crea un proyecto NUEVO.
-	*/
-	function opcion__crear()
+	 * Exporta los METADATOS y luego actualiza el proyecto (usando svn)
+	 * @gtk_icono refrescar.png
+	 */
+	function opcion__actualizar()
 	{
-		$id_proyecto = $this->get_id_proyecto_actual();
-		$instancia = $this->get_instancia();
-		$id_instancia = $instancia->get_id();
+		$this->consola->titulo("1.- Exportando METADATOS");		
+		$this->opcion__exportar();
 
-		// --  Creo el proyecto
-		$this->consola->mensaje( "Creando el proyecto '$id_proyecto' en la instancia '$id_instancia'...", false );
-		$usuarios = $this->seleccionar_usuarios( $instancia );
-		toba_modelo_proyecto::crear( $instancia, $id_proyecto, $usuarios );
-		$this->consola->mensaje( "OK" );
-		
-		// -- Asigno un nuevo item de login
-		$proyecto = $this->get_proyecto();		
-		$proyecto->actualizar_login();
-		
-		// -- Exporto el proyecto creado
-		$proyecto->exportar();
-		$instancia->exportar_local();
-		$this->consola->separador();
-		$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
-		if ($agregar) {
-			toba_modelo_instalacion::agregar_alias_apache($proyecto->get_alias(), $proyecto->get_dir(), $proyecto->get_instancia()->get_id());
-			$this->consola->separador();
-			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
-									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
-			$this->consola->separador();									
-		}
-		
-	}
-
+		$this->consola->titulo("2.- Actualizando el proyecto utilizando SVN");
+		$p = $this->get_proyecto();		
+		$p->actualizar();		
+	}	
+	
 	/**
-	*	Compila los METADATOS del proyecto.
+	* Compila los METADATOS del proyecto.
+	* @gtk_icono compilar.png 
 	*/
 	function opcion__compilar()
 	{
 		$this->get_proyecto()->compilar();
 	}
 	
+
+	
 	/**
-	 * Migra un proyecto entre dos versiones toba. [-d 'desde']  [-h 'hasta'] [-m 'metodo']
-	 * -d se asume la versión de toba que posee actualmente el proyecto
-	 * -h se asume la versión de toba que posee actualmente la instalacion
-	 * -m ejecuta solo un metodo de la migración (incluir nombre completo)
+	 * Actualiza o crea el item de login asociado al proyecto
+	 * @gtk_icono usuarios/usuario.gif
+	 */
+	function opcion__actualizar_login()
+	{
+		$proyecto = $this->get_proyecto();
+	
+		//--- Existe un item de login??
+		$pisar = false;
+		if ($proyecto->get_item_login()) {
+			$clonar = $this->consola->dialogo_simple("El proyecto ya posee un item de login propio, ¿desea continuar?", true);
+			if (!$clonar) {
+				return;
+			}
+			$pisar = $this->consola->dialogo_simple("¿Desea borrar del proyecto el item de login anterior?", false);
+		}
+		$proyecto->actualizar_login($pisar);
+	}
+	
+	/**
+	 * Migra un proyecto entre dos versiones toba.
+	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1]
+	 * @gtk_icono convertir.png 
 	 */
 	function opcion__migrar()
 	{
@@ -215,34 +264,6 @@ class comando_proyecto extends comando_toba
 			//Se pidio un método puntual
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
-	}	
-	
-	/**
-	 * Ejecuta el proceso de instalación propio del proyecto
-	 */
-	function opcion__instalar()
-	{
-		$proyecto = $this->get_proyecto();
-		$proyecto->instalar();		
-	}
-	
-	/**
-	 * Actualiza o crea el item de login asociado al proyecto
-	 */
-	function opcion__actualizar_login()
-	{
-		$proyecto = $this->get_proyecto();
-	
-		//--- Existe un item de login??
-		$pisar = false;
-		if ($proyecto->get_item_login()) {
-			$clonar = $this->consola->dialogo_simple("El proyecto ya posee un item de login propio, ¿desea continuar?", true);
-			if (!$clonar) {
-				return;
-			}
-			$pisar = $this->consola->dialogo_simple("¿Desea borrar del proyecto el item de login anterior?", false);
-		}
-		$proyecto->actualizar_login($pisar);
-	}
+	}		
 }
 ?>

@@ -87,7 +87,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
-	 * @return instancia
+	 * @return toba_modelo_instancia
 	 */	
 	function get_instancia()
 	{
@@ -95,7 +95,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 	
 	/**
-	 * @return instalacion
+	 * @return toba_modelo_instalacion
 	 */
 	function get_instalacion()
 	{	
@@ -105,6 +105,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_db()
 	{
 		return $this->instancia->get_db();	
+	}
+	
+	/**
+	 * Dado el nombre de una fuente construye el id a utilizar en bases.ini unido a la instancia actual
+	 */
+	function construir_id_def_base($nombre_fuente)
+	{
+		return $this->get_instancia()->get_id().' '.$this->get_id().' '.$nombre_fuente;
 	}
 
 	//-----------------------------------------------------------
@@ -158,9 +166,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			if ( trim( $contenido ) != '' ) {
 				$this->guardar_archivo( $this->get_dir_tablas() .'/'. $tabla . '.sql', $contenido );			
 			}
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	private function get_contenido_tabla($tabla, $where_extra=null)
@@ -206,9 +214,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
 				$this->exportar_componente( $tipo, $id_componente );
 			}
-			$this->manejador_interface->mensaje_directo(".");
+			$this->manejador_interface->progreso_avanzar();
 		}
-		$this->manejador_interface->mensaje("OK");		
+		$this->manejador_interface->progreso_fin();		
 	}
 	
 	/*
@@ -306,10 +314,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 			if ( $contenido ) {
 				$this->guardar_archivo( $this->get_dir_permisos() .'/'. self::dump_prefijo_permisos . $permiso . '.sql', $contenido );			
-				$this->manejador_interface->mensaje_directo('.');
+				$this->manejador_interface->progreso_avanzar();
 			}			
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	//-----------------------------------------------------------
@@ -349,15 +357,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_permisos();
 	}
 	
-	/**
-	 * Ejecuta un script de instalación propio del proyecto
-	 * Redefinir para crear el propio entorno
-	 * @ventana
-	 */
-	function instalar()
-	{
-				
-	}
 	
 	private function cargar_tablas()
 	{
@@ -367,10 +366,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		foreach( $archivos as $archivo ) {
 			$cant = $this->db->ejecutar_archivo( $archivo );
 			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 			$cant_total++;
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 	
 	private function cargar_permisos()
@@ -382,10 +381,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			foreach( $archivos as $archivo ) {
 				$cant = $this->db->ejecutar_archivo( $archivo );
 				toba_logger::instancia()->debug($archivo . ". ($cant)");
-				$this->manejador_interface->mensaje_directo('.');
+				$this->manejador_interface->progreso_avanzar();
 				$cant_total++;
 			}
-			$this->manejador_interface->mensaje("OK");
+			$this->manejador_interface->progreso_fin();
 		} catch (toba_error $e) {
 			$this->manejador_interface->mensaje($e->getMessage());
 		}
@@ -401,9 +400,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$cant = $this->db->ejecutar_archivo( $archivo );
 				toba_logger::instancia()->debug($archivo . " ($cant)");
 			}
-			$this->manejador_interface->mensaje_directo('.');			
+			$this->manejador_interface->progreso_avanzar();			
 		}
-		$this->manejador_interface->mensaje('OK');
+		$this->manejador_interface->progreso_fin();
 	}
 
 	/*
@@ -420,6 +419,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_permisos();
 	}
 
+	function agregar_alias_apache()
+	{
+		toba_modelo_instalacion::agregar_alias_apache($this->get_alias(),
+														$this->get_dir(),
+														$this->get_instancia()->get_id());
+	}
+	
 	//-----------------------------------------------------------
 	//	ELIMINAR
 	//-----------------------------------------------------------
@@ -449,7 +455,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$cant = count($sql);		
 		$cant = $this->db->ejecutar( $sql );
 		toba_logger::instancia()->debug("Eliminacion. Registros borrados: $cant");
-		$this->manejador_interface->mensaje( "OK" );				
+		$this->manejador_interface->progreso_fin();				
 	}
 
 	/*
@@ -556,7 +562,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function compilar_componente( $tipo, $id, $directorio )
 	{
 		//Armo la clase compilada
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		toba_logger::instancia()->debug("COMPONENTE --  " . $id['componente']);
 		$prefijo = ($tipo == 'toba_item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 		$nombre = toba_manejador_archivos::nombre_valido( $prefijo . $id['componente'] );
@@ -595,22 +601,22 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$clase = new toba_clase_datos( $nombre_clase );
 		$datos = toba_proyecto_db::cargar_info_basica( $this->get_id() );
 		$clase->agregar_metodo_datos('info_basica', $datos);
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		//-- Fuentes --
 		foreach( $this->get_indice_fuentes() as $fuente ) {		
 			$datos = toba_proyecto_db::get_info_fuente_datos( $this->get_id(), $fuente );
 			$clase->agregar_metodo_datos('info_fuente__'.$fuente, $datos );
 		}
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		//-- Permisos --
 		foreach( $this->get_indice_permisos() as $permiso ) {		
 			$datos = toba_proyecto_db::get_descripcion_permiso( $this->get_id(), $permiso );
 			$clase->agregar_metodo_datos('info_permiso__'.$permiso, $datos );
 		}
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		//Creo el archivo
 		$clase->guardar( $archivo );
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	/**
@@ -655,9 +661,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 			//Guardo el archivo
 			$clase->guardar( $archivo );
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}		
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	/**
@@ -677,9 +683,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			//Guardo el archivo
 			$clase->agregar_metodo_datos('get_info', $datos );
 			$clase->guardar( $archivo );
-			$this->manejador_interface->mensaje_directo('.');
+			$this->manejador_interface->progreso_avanzar();
 		}		
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 	
 	/**
@@ -697,7 +703,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$clase->agregar_metodo_datos('get__'.$mensaje, $datos );
 		}		
 		$clase->guardar( $archivo );
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		//---- Mensajes PROYECTO ------
 		$nombre_clase = 'toba_mc_gene__msj_proyecto';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
@@ -707,7 +713,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$clase->agregar_metodo_datos('get__'.$mensaje, $datos );
 		}		
 		$clase->guardar( $archivo );
-		$this->manejador_interface->mensaje_directo('.');
+		$this->manejador_interface->progreso_avanzar();
 		//---- Mensajes OBJETOS ------
 		$nombre_clase = 'toba_mc_gene__msj_proyecto_objeto';
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
@@ -722,9 +728,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 		}
 		$clase->guardar( $archivo );
-		$this->manejador_interface->mensaje_directo('.');	
+		$this->manejador_interface->progreso_avanzar();	
 		//---------------------------
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 	
 
@@ -750,9 +756,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 			$php .= "\n?>";
 			file_put_contents($directorio .'/'. $nombre_archivo . '.php', $php);
-			$this->manejador_interface->mensaje_directo('.');	
+			$this->manejador_interface->progreso_avanzar();	
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 	}
 
 	//-----------------------------------------------------------
@@ -894,6 +900,25 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
+	*  Retorna el grupo de acceso que será el predeterminado del usuario administrador en la instalación 
+	*/
+	function get_grupo_acceso_admin()
+	{
+		$ga = $this->get_lista_grupos_acceso();
+		if ( count( $ga ) == 1 ) {
+			return $ga[0]['id'];
+		} else {
+			//--- Si hay un grupo llamado 'admin' lo prefiere, sino toma el primero que encuentra
+			foreach ($ga as $grupo) {
+				if ($grupo['id'] == 'admin') {
+					return 'admin';
+				}
+			}
+			return $ga[0]['id'];
+		}
+	}
+		
+	/**
 	*	Devuelve la lista de dependencias de un ITEM
 	*/
 	private function get_arbol_componentes_item($proyecto, $item)
@@ -966,7 +991,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! $this->instancia->existen_metadatos_proyecto( toba_editor::get_id() )) {
 			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
 			toba_logger::instancia()->info($msg);
-			$this->manejador_interface->mensaje($msg);
+			$this->manejador_interface->error($msg);
 			return;
 		}
 		//--- Averiguo la fuente destino
@@ -982,7 +1007,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		
 		//--- Clonando
-		$comando = 'toba item ejecutar -p toba_editor -t 1000043 ';
+		$ejecutable = toba_manejador_archivos::path_a_plataforma(toba_dir().'/bin/toba');
+		$id_instancia = $this->get_instancia()->get_id();
+		$comando = $ejecutable." item ejecutar -p toba_editor -i $id_instancia  -t 1000043 ";
 		$comando .= ' -orig_proy toba_editor';
 		$comando .= ' -orig_item 1000042';
 		$comando .= ' -dest_proy '.$this->identificador;
@@ -994,26 +1021,30 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! empty($usuarios)) {
 			$comando .= ' -u '.$usuarios[0]['usuario'];	
 		}		
-
 		
 		$this->manejador_interface->mensaje("Clonando item de login...", false);
 		toba_logger::instancia()->debug("Ejecutando el comando: $comando");
-		$id_item = trim(exec($comando));
+		$id_item = null;
+		$error = null;
+		ejecutar_consola($comando, $id_item, $error);
+		$id_item = trim(implode("\n", $id_item));
+		$error = implode("\n", $error);
 		if (! is_numeric($id_item)) {
-			throw new toba_error("($id_item). A ocurrido un error clonando el item de login. Ver el log del proyecto toba_editor");
+			throw new toba_error("$id_item $error". "\n\nError clonando el item de login. Comando ejecutado:\n\n".
+					 "$comando\n\nPara más información ver el log del proyecto toba_editor");
 		}
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 		
 		//--- Actualizar el item de login
 		$this->manejador_interface->mensaje("Actualizando el proyecto...", false);		
 		$sql = "UPDATE apex_proyecto SET item_pre_sesion='$id_item'
 				WHERE proyecto='{$this->identificador}'";
 		$this->get_db()->ejecutar($sql);
-		$this->manejador_interface->mensaje("OK");
+		$this->manejador_interface->progreso_fin();
 		
 		//--- Borrar el item viejo
 		if ($pisar_anterior) {
-			echo "Aun no está implementada la eliminación desde consola";
+			$this->manejador_interface->mensaje( "Aun no está implementada la eliminación desde consola");
 		}		
 	}
 
@@ -1047,6 +1078,21 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->get_db()->cerrar_transaccion();		
 	}
 
+	/**
+	 * Retorna el número de versión propio del proyecto
+	 * @return toba_version
+	 */
+	function get_version_proyecto()
+	{
+		if (file_exists($this->get_dir().'/VERSION')) {
+			return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
+		}
+	}
+	
+	/**
+	 * Retorna la versión de TOBA con la cual fue cargado el proyecto en la instancia  
+	 * @return toba_version
+	 */
 	function get_version_actual()
 	{
 		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
@@ -1069,6 +1115,41 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$sql = "UPDATE apex_proyecto SET version_toba='$nueva' WHERE proyecto='$id_proyecto'";
 		return $sql;
 	}	
+
+	//-----------------------------------------------------------
+	//	VENTANAS
+	//-----------------------------------------------------------	
+
+	/**
+	 * Ejecuta un script de instalación propio del proyecto
+	 * Redefinir para crear el propio entorno
+	 * @ventana
+	 */
+	function instalar()
+	{
+				
+	}
+
+	/**
+	 * Ejecuta un script de carga de datos de negocio en una nueva instancia
+	 * Redefinir para cargar datos propios
+	 * @ventana
+	 */	
+	function crear_instancia_negocio($nombre_instancia)
+	{
+		
+	}	
+	
+	/**
+	 * Ejecuta un script de migracion de datos de negocio entre la version actual y la dada
+	 * Redefinir para migraciones de datos propias
+	 * @ventana
+	 */		
+	function migrar_datos_negocio(toba_version $desde, toba_version $hasta)
+	{
+
+	}
+	
 	
 	//-----------------------------------------------------------
 	//	Funcionalidad ESTATICA

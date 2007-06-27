@@ -5,7 +5,7 @@ class comando
 	protected $manejador_interface;
 	protected $argumentos;
 
-	function __construct( toba_proceso_gui $manejador_interface )
+	function __construct( $manejador_interface )
 	{
 		$this->consola = $manejador_interface;
 	}
@@ -49,7 +49,17 @@ class comando
 		$this->consola->titulo( $this->get_info() );
 		$this->mostrar_observaciones();
 		$this->consola->subtitulo( 'Lista de opciones' );
-		$this->consola->coleccion( $this->inspeccionar_opciones() );
+		$opciones = $this->inspeccionar_opciones();
+		$salida = array();
+		foreach ($opciones as $id => $opcion) {
+			if (!isset($opcion['tags']['consola_no_mostrar'])) {
+				$salida[$id] = $opcion['ayuda'];
+				if (isset($opcion['tags']['consola_parametros'])) {
+					$salida[$id] .= "\n".$opcion['tags']['consola_parametros'];
+				}
+			}
+		}
+		$this->consola->coleccion($salida);
 	}
 
 	function inspeccionar_opciones()
@@ -60,11 +70,14 @@ class comando
 			if (substr($metodo->getName(), 0, 8) == 'opcion__'){
 				$temp = explode('__', $metodo->getName());
 				$nombre = $temp[1];
-				$info = parsear_doc_comment( $metodo->getDocComment() );
-				$opciones[ $nombre ] = $info;
+				$comentario = $metodo->getDocComment();
+				$opciones[ $nombre ] = array(
+						'ayuda' => parsear_doc_comment($comentario),
+						'tags' => parsear_doc_tags($comentario)	
+				);
 			}
 		}
-		return $opciones;
+		return $opciones;		
 	}
 
 	/*
@@ -72,20 +85,23 @@ class comando
 	*/
 	protected function get_parametros()
 	{
+		
 	   $params = array();
 	   for ($i=0; $i < count( $this->argumentos ); $i++){
 	
 	       if ( $this->es_parametro($this->argumentos[$i]) ){
-	          
 	           if (strlen($this->argumentos[$i]) == 1){
 	
 	           }elseif ( strlen($this->argumentos[$i]) == 2){
-	               $paramName = $this->argumentos[$i];
-	               if( isset($this->argumentos[ $i + 1 ]) ) {
-		               $paramVal = ( !$this->es_parametro( $this->argumentos[ $i + 1 ] ) ) ? $this->argumentos[$i + 1] : '';
-	            	} else {
-	            		$paramVal = '';
-	            	}
+					$paramName = $this->argumentos[$i];
+					$y=1;
+					$paramVal = '';	               
+					while (isset($this->argumentos[ $i + $y ]) && 
+					  			!$this->es_parametro( $this->argumentos[ $i + $y ] )) {
+						$paramVal .=  $this->argumentos[ $i + $y ] . ' ';
+						$y++;
+					}
+					$paramVal = trim($paramVal);
 	           }elseif ( strlen($this->argumentos[$i]) > 2){
 	               $paramName = substr($this->argumentos[$i],0,2);
 	               $paramVal = substr($this->argumentos[$i],2);

@@ -13,13 +13,13 @@ class toba_modelo_catalogo
 	*/
 	function get_instalacion( $manejador_interface = null )
 	{
+		if (! isset($manejador_interface)) {
+			$manejador_interface = new toba_mock_proceso_gui();
+		}
 		if ( ! isset( $this->instalacion ) ) {
 			$this->instalacion = new toba_modelo_instalacion();
-			if (! isset($manejador_interface)) {
-				$manejador_interface = new toba_mock_proceso_gui();
-			}
-			$this->instalacion->set_manejador_interface( $manejador_interface );
 		}
+		$this->instalacion->set_manejador_interface( $manejador_interface );		
 		return $this->instalacion;
 	}
 
@@ -28,14 +28,14 @@ class toba_modelo_catalogo
 	*/
 	function get_instancia( $id_instancia, $manejador_interface=null)
 	{
+		if (! isset($manejador_interface)) {
+			$manejador_interface = new toba_mock_proceso_gui();
+		}
 		if ( ! isset ( $this->instancia[ $id_instancia ] ) ) {
 			$instalacion = $this->get_instalacion( $manejador_interface );
 			$this->instancia[ $id_instancia ] = new toba_modelo_instancia( $instalacion, $id_instancia );
-			if (! isset($manejador_interface)) {
-				$manejador_interface = new toba_mock_proceso_gui();
-			}
-			$this->instancia[ $id_instancia ]->set_manejador_interface( $manejador_interface );
 		}
+		$this->instancia[ $id_instancia ]->set_manejador_interface( $manejador_interface );		
 		return $this->instancia[ $id_instancia ];
 	}
 	

@@ -36,7 +36,7 @@
 	}
 
 	
-	function parsear_doc_comment( $com )
+	function parsear_doc_comment( $com, $sin_tags=true )
 	{
 	    $com = preg_replace("/(^[\\s]*\\/\\*\\*)
 	                                 |(^[\\s]\\*\\/)
@@ -45,7 +45,24 @@
 	                                 |(^[\\t]*)/ixm", "", $com);
 	    $com = str_replace("\r", "", $com);
 	    $com = trim(preg_replace("/([\\t])+/", "\t", $com));
-		$com = trim(preg_replace("/\\*\\//", "", $com));	    
+		$com = trim(preg_replace("/\\*\\//", "", $com));
+		if ($sin_tags) {
+			$com = trim(preg_replace("/@.*/", "", $com));
+		}
 		return $com;
+	}
+	
+	/**
+	 * Retorna un arreglo de custom tags dentro de un phpdoc 
+	 */
+	function parsear_doc_tags( $com )
+	{
+		$tags = array();
+		$salida = array();
+		preg_match_all("/@([\w]+) (.*)/", $com, $salida, PREG_SET_ORDER);
+		foreach ($salida as $tag) {
+			$tags[trim($tag[1])] = trim($tag[2]);
+		}
+		return $tags;
 	}
 ?>

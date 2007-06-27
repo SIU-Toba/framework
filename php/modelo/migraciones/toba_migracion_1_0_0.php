@@ -490,7 +490,7 @@ class toba_migracion_1_0_0 extends toba_migracion
 					$extendido = "Se decarta el valor '$valor' del parámetro '$clave' en el ef '{$ef['identificador']}' del formulario".
 								" '{$ef['objeto_ei_formulario']}'";
 					toba_logger::instancia()->warning($extendido);
-					echo "$msg (Ver log para más detalles)\n";	
+					$this->manejador_interface->mensaje("$msg (Ver log para más detalles)\n");	
 				}
 			}
 			if (! empty($nuevos)) {

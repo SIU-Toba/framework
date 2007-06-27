@@ -46,7 +46,7 @@ function ei_archivos(instancia, input_submit, path_relativo) {
 	 */
 	ei_archivos.prototype.crear_carpeta = function(nombre) {
 		this._parametros = prompt('Nombre de la carpeta','nombre de la carpeta');
-		if (this._parametros !== '' && this._parametros !== null) {
+		if (isset(this._parametros) && this._parametros !== '' && this._parametros !== null) {
 			this.set_evento( new evento_ei('crear_carpeta', true, '', this._parametros));
 		}
 	};
@@ -56,7 +56,7 @@ function ei_archivos(instancia, input_submit, path_relativo) {
 	 */
 	ei_archivos.prototype.crear_archivo = function(nombre) {
 		this._parametros = prompt('Nombre del archivo','nombre del archivo');
-		if (this._parametros !== '' && this._parametros !== null) {
+		if (isset(this._parametros) && this._parametros !== '' && this._parametros !== null) {
 			this.set_evento( new evento_ei('crear_archivo', true, '', this._parametros));
 		}
 	};

@@ -18,12 +18,101 @@ class comando_instancia extends comando_toba
 		$this->consola->enter();
 	}
 
+	function get_info_extra()
+	{
+		$i = $this->get_instancia();
+		try {
+			$salida = "Versión: ".$i->get_version_actual()->__toString();
+		} catch (toba_error_db $e) {
+			$salida = $e->getMessage();
+		}
+		$db = $i->get_parametros_db();
+		$salida .= "\nBase: {$db['profile']} / {$db['base']}";
+		return $salida;
+	}
+		
+	
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
 
+
 	/**
-	*	Brinda informacion sobre la instancia.
+	* Crea una instancia NUEVA. 
+	* @consola_parametros [-t mini] se crea una instancia reducida, útil para ejecutar proyectos compilados
+	* @gtk_icono nucleo/agregar.gif 
+	* @gtk_no_mostrar 1
+	*/
+	function opcion__crear($datos=null)
+	{
+		if (isset($datos)) {
+			list($id_instancia, $tipo, $base, $proyectos, $usuario) = $datos;
+		} else {
+			$id_instancia = $this->get_id_instancia_actual();			
+			$tipo = $this->get_tipo_instancia();
+					
+		}
+		$instalacion = $this->get_instalacion();
+		if ( toba_modelo_instancia::existe_carpeta_instancia($id_instancia) ) {
+			throw new toba_error("Ya existe una INSTANCIA con el nombre '$id_instancia'");
+		}
+		if ( ! $instalacion->hay_bases() ) {
+			throw new toba_error("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+		}
+		$this->consola->titulo("Creando la INSTANCIA: $id_instancia TIPO: $tipo");
+
+		//---- A: Creo la definicion de la instancia
+		$this->consola->enter();
+		if (!isset($base)) {
+			$base = $this->seleccionar_base();
+		}
+		if (!isset($proyectos)) {
+			$proyectos = $this->seleccionar_proyectos();
+		}
+		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos, $tipo );
+
+		//---- B: Cargo la INSTANCIA en la BASE
+		$instancia = $this->get_instancia($id_instancia);
+		if($tipo == 'mini') {
+			$metodo_carga = 'cargar_tablas_minimas';
+		} else {
+			$metodo_carga = 'cargar';
+		}
+		try {
+			$instancia->$metodo_carga();
+		} catch ( toba_error_modelo_preexiste $e ) {
+			$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
+			$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
+			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
+				$instancia->$metodo_carga( true );
+			} else {
+				return;	
+			}
+		} catch ( toba_error $e ) {
+			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
+			$this->consola->error( $e->getMessage() );
+		}
+
+		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
+		$instancia->set_version( toba_modelo_instalacion::get_version_actual());
+		$this->opcion__crear_usuario($usuario, false, $id_instancia);
+
+		if($tipo != 'mini') {
+			//---- D: Exporto la informacion LOCAL
+			$instancia->exportar_local();
+			//-- Agregar los alias
+			$this->consola->enter();		
+			$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
+			if ($crear_alias) {
+				$instancia->crear_alias_proyectos();
+			}
+		}
+	}
+
+	/**
+	* Brinda informacion sobre la instancia.
+	* @gtk_icono info_chico.gif 
+	* @gtk_no_mostrar 1
 	*/
 	function opcion__info()
 	{
@@ -49,7 +138,37 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
-	*	Exporta la instancia completa de la DB referenciada (METADATOS propios y de proyectos contenidos).
+	* Crea un nuevo proyecto asociado a la instancia
+	* @consola_no_mostrar 1 
+	* @gtk_icono nucleo/agregar.gif
+	*/	
+	function opcion__crear_proyecto()
+	{
+		//------ESTO ES UN ALIAS DE PROYECTO::CREAR
+		require_once('comando_proyecto.php');
+		$comando = new comando_proyecto($this->consola);
+		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
+		$comando->opcion__crear();
+	}
+	
+	/**
+	* Crea un nuevo proyecto asociado a la instancia
+	* @consola_no_mostrar 1 
+	* @gtk_icono nucleo/proyecto.gif
+	*/	
+	function opcion__cargar_proyecto()
+	{
+		//------ESTO ES UN ALIAS DE PROYECTO::CARGAR
+		require_once('comando_proyecto.php');
+		$comando = new comando_proyecto($this->consola);
+		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
+		$comando->opcion__cargar();		
+	}	
+	
+	/**
+	* Exporta la instancia completa incluyendo METADATOS propios y de proyectos contenidos.
+	* @gtk_icono exportar.png 
+	* @gtk_separador 1
 	*/
 	function opcion__exportar()
 	{
@@ -57,7 +176,8 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	 *	Exporta los METADATOS propios de la instancia de la DB (exclusivamente la informacion local).
+	 * Exporta los METADATOS propios de la instancia de la DB (exclusivamente la información local).
+	 * @gtk_icono exportar.png	 
 	 */
 	function opcion__exportar_local()
 	{
@@ -65,8 +185,9 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	 *	Elimina la instancia y la vuelve a cargar.
-	*/
+	 * Elimina la instancia y la vuelve a cargar.
+	 * @gtk_icono importar.png
+	 */
 	function opcion__regenerar()
 	{
 		if ($this->get_instancia()->existe_modelo()) {
@@ -79,8 +200,10 @@ class comando_instancia extends comando_toba
 		$this->get_instancia()->cargar();
 	}
 
-/**
-	*	Carga una instancia en la DB referenciada, partiendo de los METADATOS en el sistema de archivos.
+	
+	/**
+	* Carga una instancia en la DB referenciada, partiendo de los METADATOS en el sistema de archivos.
+	* @gtk_icono importar.png 
 	*/
 	function opcion__cargar()
 	{
@@ -97,87 +220,35 @@ class comando_instancia extends comando_toba
 			$this->consola->error( $e->getMessage() );
 		}
 	}
-
+	
+	
 	/**
-	*	Elimina la instancia.
+	* Elimina la instancia.
+	* @gtk_icono borrar.png
 	*/
 	function opcion__eliminar()
 	{
 		$i = $this->get_instancia();
 		$this->consola->lista( $i->get_parametros_db(), 'BASE' );
-		if ( $this->consola->dialogo_simple('Desea eliminar la INSTANCIA?') ) {
+		if ( $this->consola->dialogo_simple('Desea eliminar los datos de la INSTANCIA?') ) {
 			$i->eliminar_base();
 		}
-	}
-
-	/**
-	*	Crea una instancia NUEVA. (Utiliando el parametro [-t mini] se crea una instancia reducida, util para ejecutar proyectos compilados)
-	*/
-	function opcion__crear()
-	{
-		$id_instancia = $this->get_id_instancia_actual();
-		$instalacion = $this->get_instalacion();
-		if ( toba_modelo_instancia::existe_carpeta_instancia($id_instancia) ) {
-			throw new toba_error("Ya existe una INSTANCIA con el nombre '$id_instancia'");
-		}
-		if ( ! $instalacion->hay_bases() ) {
-			throw new toba_error("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
-		}
-		$tipo = $this->get_tipo_instancia();
-		$this->consola->titulo("Creando la INSTANCIA: $id_instancia TIPO: $tipo");
-
-		//---- A: Creo la definicion de la instancia
-		$proyectos = $this->seleccionar_proyectos();
-		$this->consola->enter();
-		$base = $this->seleccionar_base();
-		toba_modelo_instancia::crear_instancia( $id_instancia, $base, $proyectos, $tipo );
-
-		//---- B: Cargo la INSTANCIA en la BASE
-		$instancia = $this->get_instancia();
-		if($tipo == 'mini') {
-			$metodo_carga = 'cargar_tablas_minimas';
-		} else {
-			$metodo_carga = 'cargar';
-		}
-
-		try {
-			$instancia->$metodo_carga();
-		} catch ( toba_error_modelo_preexiste $e ) {
-			$this->consola->error( 'ATENCION: Ya existe una instancia en la base de datos seleccionada' );
-			$this->consola->lista( $instancia->get_parametros_db(), 'BASE' );
-			if ( $this->consola->dialogo_simple('Desea ELIMINAR la instancia y luego CARGARLA (La informacion local previa se perdera!)?') ) {
-				$instancia->$metodo_carga( true );
-			} else {
-				return;	
-			}
-		} catch ( toba_error $e ) {
-			$this->consola->error( 'Ha ocurrido un error durante la importacion de la instancia.' );
-			$this->consola->error( $e->getMessage() );
-		}
-
-		//---- C: Actualizo la versión, Creo un USUARIO y lo asigno a los proyectos
-		$instancia->set_version( toba_modelo_instalacion::get_version_actual());
-		$this->opcion__crear_usuario(false);
-
-		if($tipo != 'mini') {
-			//---- D: Exporto la informacion LOCAL
-			$instancia->exportar_local();
-			//-- Agregar los alias
-			$this->consola->enter();		
-			$crear_alias = $this->consola->dialogo_simple("Desea crear automáticamente los alias de apache en el archivo toba.conf?", true);
-			if ($crear_alias) {
-				$instancia->crear_alias_proyectos();
-			}
-		}
+		if ( $this->consola->dialogo_simple('Desea eliminar la carpeta de datos y configuración de la INSTANCIA?') ) {
+			$i->eliminar_archivos();
+		}		
 	}
 
 	/**
 	 * Crea un usuario administrador y lo asigna a los proyectos
+	 * @gtk_icono usuarios/usuario_nuevo.gif
+	 * @gtk_param_extra crear_usuario
 	 */
-	function opcion__crear_usuario($asociar_previsualizacion_admin=true)
+	function opcion__crear_usuario($datos=null, $asociar_previsualizacion_admin=true, $id_instancia=null)
 	{
-		$instancia = $this->get_instancia();		
-		$datos = $this->definir_usuario( "Crear USUARIO" );
+		$instancia = $this->get_instancia($id_instancia);
+		if (!isset($datos)) {
+			$datos = $this->definir_usuario( "Crear USUARIO" );
+		}
 		$instancia->agregar_usuario( $datos['usuario'], $datos['nombre'], $datos['clave'] );
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$proyecto = $instancia->get_proyecto($id_proyecto);
@@ -187,8 +258,9 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
-	 * Permite cambiar los grupos de acceso de un usuario [-u usuario]
-	 * 
+	 * Permite cambiar los grupos de acceso de un usuario 
+	 * @consola_parametros [-u usuario]
+	 * @gtk_icono usuarios/grupo.gif
 	 */
 	function opcion__editar_acceso()
 	{
@@ -197,7 +269,13 @@ class comando_instancia extends comando_toba
 		if ( isset($param['-u']) &&  (trim($param['-u']) != '') ) {
 			$usuario = $param['-u'];
 		} else {
-			throw new toba_error("Es necesario indicar el usuario con '-u'");
+			$usuarios = $instancia->get_lista_usuarios();
+			$usuarios = rs_convertir_asociativo($usuarios, array('usuario'),'nombre');
+			$usuario = $this->consola->dialogo_lista_opciones( $usuarios, 'Seleccionar Usuario', false, 'Nombre de usuario', 
+														true);			
+		}
+		if (! isset($usuario)) {
+			throw new toba_error("Es necesario indicar el usuario con '-u'");			
 		}
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$this->consola->enter();			
@@ -205,7 +283,7 @@ class comando_instancia extends comando_toba
 			$grupos = $proyecto->get_lista_grupos_acceso();
 			$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
 			$grupos['ninguno'] = 'No vincular al proyecto';
-			$grupo_acceso = $this->consola->dialogo_lista_opciones($grupos, $id_proyecto, false, 'Descripción');
+			$grupo_acceso = $this->consola->dialogo_lista_opciones($grupos, "Proyecto $id_proyecto", false, 'Descripción');
 			$proyecto->desvincular_usuario($usuario);
 			if ($grupo_acceso != 'ninguno') {
 				$proyecto->vincular_usuario( $usuario, $grupo_acceso );
@@ -215,6 +293,7 @@ class comando_instancia extends comando_toba
 	
 	/**
 	 * Limpia la tabla de ips bloqueadas
+	 * @gtk_icono desbloquear.png
 	 */
 	function opcion__desbloquear_ips()
 	{
@@ -237,10 +316,9 @@ class comando_instancia extends comando_toba
 	}
 
 	/**
-	 * Migra un instancia entre dos versiones toba. [-d 'desde']  [-h 'hasta'] [-R 0|1].
-	 * -d se asume la versión de toba que posee actualmente la instancia
-	 * -h se asume la versión de toba que posee actualmente la instalacion
-	 * -R asume 1, esto quiere decir que migra también todos los proyecto incluídos, sino solo la propio de la instancia
+	 * Migra un instancia entre dos versiones toba.
+	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] 
+	 * @gtk_icono convertir.png
 	 */
 	function opcion__migrar()
 	{

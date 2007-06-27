@@ -70,7 +70,7 @@ class ci_login extends toba_ci
 
 	function conf__seleccion_usuario()
 	{
-		return toba::instancia()->get_lista_usuarios();
+		return toba_instancia::get_lista_usuarios();
 	}
 	
 	//-------------------------------------------------------------------

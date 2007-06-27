@@ -24,7 +24,7 @@ if ( isset( $_SERVER['toba_dir'] ) ) {
 	$consola = new consola( $directorio_comandos, $clase_menu );
 	$consola->run( $argv );
 	
-	$dir_logs = toba_modelo_instalacion::dir_base()."/logs_consola";
+	$dir_logs = toba_modelo_instalacion::dir_base()."/logs_comandos";
 	toba_logger::instancia()->set_directorio_logs($dir_logs);
 	toba_logger::instancia()->guardar_en_archivo('comandos.log');
 

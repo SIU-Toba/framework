@@ -3,7 +3,6 @@ define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna u
 define("apex_ei_evento","evt");
 define("apex_ei_separador","__");
 define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
-define("apex_datos_clave_fila","x_dbr_clave");				//Clave interna de los datos_tabla, por compatibilidad es igual.
 define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
 define('apex_ei_evt_maneja_datos', 1);
 define('apex_ei_evt_no_maneja_datos', -1);

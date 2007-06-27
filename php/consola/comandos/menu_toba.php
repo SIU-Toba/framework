@@ -18,9 +18,11 @@ class menu_toba extends menu
 	{
 		return array(
 						'instalacion',
+						'base',
 						'instancia',
 						'proyecto',
 						'test'
+
 		);	
 	}
 }

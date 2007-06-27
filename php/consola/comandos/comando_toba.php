@@ -12,13 +12,20 @@ require_once('consola/comando.php');
 class comando_toba extends comando
 {
 	private $interprete; 
+	protected $id_proyecto_actual;
+	protected $id_instancia_actual;
 
-	function __construct( toba_proceso_gui $manejador_interface, $interprete = null )
+	function __construct( $manejador_interface, $interprete = null )
 	{
 		parent::__construct( $manejador_interface );
 		$this->interprete = $interprete;
 	}
 
+	function get_info_extra()
+	{
+		return '';
+	}
+	
 	//-----------------------------------------------------------
 	// Acceso a los SUJETOS sobre los que actuan los comandos
 	//-----------------------------------------------------------
@@ -34,9 +41,12 @@ class comando_toba extends comando
 	/**
 	*	Devuelve una referencia a la INSTANCIA
 	*/
-	protected function get_instancia()
+	protected function get_instancia($id=null)
 	{
-		return toba_modelo_catalogo::instanciacion()->get_instancia(	$this->get_id_instancia_actual(),
+		if (!isset($id)) {
+			$id = $this->get_id_instancia_actual();
+		}
+		return toba_modelo_catalogo::instanciacion()->get_instancia(	$id,
 																$this->consola );
 	}
 
@@ -78,17 +88,26 @@ class comando_toba extends comando
 	*/
 	protected function get_id_instancia_actual( $obligatorio = true )
 	{
+
 		$id = null;
 		$param = $this->get_parametros();
 		if ( isset($param['-i'] ) && ( trim( $param['-i'] ) != '') ) {
 			$id = $param['-i'];
+		} elseif (isset($this->id_instancia_actual)) {
+			$id = $this->id_instancia_actual;
 		} else {
 			$id = $this->get_entorno_id_instancia();
 		}
+		
 		if ( $obligatorio && is_null( $id ) ) {
 			throw new toba_error("Es necesario definir una INSTANCIA. Utilice el modificador '-i' o defina la variable de entorno 'toba_instancia'");
 		}
 		return $id;
+	}
+	
+	function set_id_instancia_actual($id)
+	{
+		$this->id_instancia_actual = $id;
 	}
 
 	/**
@@ -114,6 +133,11 @@ class comando_toba extends comando
 			$id = $this->get_entorno_id_proyecto();
 		}
 		if ( $obligatorio && is_null( $id ) ) {
+			//--- Lo pregunta explicitamente y recuerda el seteo
+			if (!isset($this->id_proyecto_actual)) {
+				 $this->id_proyecto_actual = $this->consola->dialogo_ingresar_texto('Id. del Proyecto', true);
+				 return $this->id_proyecto_actual;
+			}
 			throw new toba_error("Es necesario definir un PROYECTO. Utilice el modificador '-p' o defina la variable de entorno 'toba_proyecto'");
 		}
 		return $id;
@@ -178,6 +202,7 @@ class comando_toba extends comando
 		$opcion[2] = "Mostrar una lista de usuario y SELECCIONAR";
 		$ok = $this->consola->dialogo_lista_opciones( $opcion, 'Asociar USUARIOS al proyecto. Seleccione una FORMA de CARGA', false );
 		*/		
+		$usuarios = array();
 		$ok = 1;
 		switch ( $ok ) {
 			case 0:			// Usuario toba (pero..existe?)
@@ -199,18 +224,8 @@ class comando_toba extends comando
 	*/
 	protected function seleccionar_grupo_acceso( toba_modelo_proyecto $proyecto )
 	{
-		$ga = $proyecto->get_lista_grupos_acceso();
-		if ( count( $ga ) == 1 ) {
-			return $ga[0]['id'];
-		} else {
-			//TODO: Seleccion del grupo de ACCESO, por ahora prefiere el grupo ADMIN
-			foreach ($ga as $grupo) {
-				if ($grupo['id'] == 'admin') {
-					return 'admin';
-				}
-			}
-			return $ga[0]['id'];
-		}
+		//TODO: Seleccion del grupo de ACCESO, por ahora prefiere el grupo ADMIN
+		return $proyecto->get_grupo_acceso_admin();
 	}
 
 	/**
@@ -239,21 +254,26 @@ class comando_toba extends comando
 	*/
 	protected function seleccionar_proyectos( $seleccion_multiple = true, $obligatorio = false )
 	{
-		$titulo = "Seleccionar PROYECTOS";
+		$titulo = $seleccion_multiple ? "Seleccionar PROYECTOS" : "Seleccionar PROYECTO";
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if( count( $proyectos ) > 0 ) {
-			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, true, 'Nombre real del proyecto', 
+			$sel = $this->consola->dialogo_lista_opciones( $proyectos, $titulo, $seleccion_multiple, 'Nombre real del proyecto', 
 														$obligatorio, array_keys($proyectos), 'todos');
 			//--- Se valida que un proyecto no se incluya dos veces
 			//--- Ademas se transpone la matriz, ya que ahora proyecto es una PK
 			$seleccion = array();
-			foreach ($sel as $path) {
-				if (isset($seleccion[$proyectos[$path]])) {
-					throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
+			if ($seleccion_multiple) {
+				foreach ($sel as $path) {
+					if (isset($seleccion[$proyectos[$path]])) {
+						throw new toba_error('ERROR: Una instancia no soporta contener el mismo proyecto más de una vez');	
+					}
+					$seleccion[$proyectos[$path]] = $path;
 				}
-				$seleccion[$proyectos[$path]] = $path;
+			} else {
+				//--Arreglo id,path
+				return array($proyectos[$sel], $sel);
 			}
-			return $seleccion;
+			return $seleccion;			
 		} else {
 			if ( $obligatorio ) {
 				throw new toba_error('No hay proyectos definidos');	

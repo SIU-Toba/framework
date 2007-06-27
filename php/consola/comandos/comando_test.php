@@ -25,7 +25,7 @@ class comando_test extends comando_toba
 	
 	/**
 	 * Ejecuta la batería de test automáticos de un proyecto
-	 * Argumentos: -p Proyecto [-c Cat] [-t Caso] 
+	 * @consola_parametros Parámetros: -p Proyecto [-c Cat] [-t Caso] 
 	 */
 	function opcion__automaticos()
 	{
@@ -72,9 +72,9 @@ class comando_test extends comando_toba
 			
 		} catch (Exception $e) {
 			if (method_exists($e, 'mensaje_consola'))
-				echo $e->mensaje_consola();
+				$this->consola->mensaje( $e->mensaje_consola() );
 			else
-				echo $e;
+				$this->consola->mensaje( $e );
 		}
 		
 	}

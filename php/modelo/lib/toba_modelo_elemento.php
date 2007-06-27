@@ -4,7 +4,7 @@ class toba_modelo_elemento
 {
 	protected $manejador_interface;	
 
-	function set_manejador_interface( toba_proceso_gui $manejador_interface )
+	function set_manejador_interface( $manejador_interface )
 	{
 		$this->manejador_interface = $manejador_interface;
 	}
