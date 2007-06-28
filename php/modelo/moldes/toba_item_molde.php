@@ -8,12 +8,11 @@ class toba_item_molde extends toba_molde_elemento
 
 	function ini()
 	{
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'padre_proyecto',$this->proyecto);
+		$this->set_tipo_solicitud('web');
+		$this->set_tipo_pagina('titulo');
 	}
 	
-	//----------------------------------------------------
-	//-- API CONSTRUCCION
-	//----------------------------------------------------
-
 	function ci()
 	{
 		if(!isset($this->ci)) $this->ci = new toba_ci_molde($this->asistente);
@@ -26,8 +25,32 @@ class toba_item_molde extends toba_molde_elemento
 		return $this->cn;
 	}
 	
+	//----------------------------------------------------
+	//-- API CONSTRUCCION
+	//----------------------------------------------------
+
 	function set_carpeta_item($id)
 	{
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'padre',$id);
+	}
+	
+	function set_tipo_solicitud($id)
+	{
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'solicitud_tipo',$id);
+	}
+
+	function set_tipo_pagina($id, $proyecto=null)
+	{
+		if(!isset($proyecto)) $proyecto = 'toba';
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'pagina_tipo_proyecto',$proyecto);
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'pagina_tipo',$id);
+	}
+
+	function cargar_grupos_acceso_activos()
+	{
+		foreach(toba_editor::get_grupos_acceso_previsualizacion() as $grupo) {
+			$this->datos->tabla('permisos')->nueva_fila(array('usuario_grupo_acc'=>$grupo));
+		}
 	}
 
 	//---------------------------------------------------
@@ -39,12 +62,33 @@ class toba_item_molde extends toba_molde_elemento
 		//Abrir transaccion
 		if(isset($this->ci)) {
 			$this->ci->generar();	
+			$clave = $this->ci->get_clave_componente_generado();
+			$this->asociar_objeto($clave['clave']);
 		}
 		if(isset($this->cn)) {
 			$this->cn->generar();	
+			$clave = $this->ci->get_clave_componente_generado();
+			$this->asociar_objeto($clave['clave']);
 		}
-		//Asociar CI y CN
 		parent::generar();
+	}
+	
+	function asociar_objeto($clave)
+	{
+		static $a = 0;
+		$this->datos->tabla('objetos')->nueva_fila( array(	'proyecto'=>$this->proyecto,
+															'objeto'=>$clave,
+															'orden'=> $a ));
+		$a++;
+	}
+
+	//---------------------------------------------------
+	
+	function get_clave_componente_generado()
+	{
+		$datos = $this->datos->tabla('base')->get_clave_valor(0);
+		return array(	'clave' => $datos['item'],
+						'proyecto' => $datos['proyecto']);
 	}
 }
 ?>

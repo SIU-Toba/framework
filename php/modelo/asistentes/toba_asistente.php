@@ -16,13 +16,17 @@ class toba_asistente
 		$this->id_plan = $plan['_info']['plan'];
 		//Cargo el plan
 		foreach (array_keys($plan) as $parte) {
-			$this->_definicion_partes[] = $parte;
 			$this->$parte = $plan[$parte];
 		}
+		$this->crear_elementos_basicos();
+	}	
+	
+	function crear_elementos_basicos()
+	{
 		//$a = new toba_item_molde();
 		$this->item = new toba_item_molde($this);
 		$this->ci = $this->item->ci();
-	}	
+	}
 	
 	//---------------------------------------------------
 	//-- Armar molde 
@@ -74,10 +78,15 @@ class toba_asistente
 
 	function generar_elementos()
 	{
-		//Abre transaccion
-		$this->item->generar();
-		$this->guardar_log_elementos_generados();
-		//Cerrar transaccion
+		try {
+			abrir_transaccion();
+			$this->item->generar();
+			$this->guardar_log_elementos_generados();
+			cerrar_transaccion();
+		} catch (toba_error $e) {
+			toba::notificacion()->agregar($e->getMessage());
+			abortar_transaccion();
+		}
 	}
 
 	function existe_generacion_previa()
@@ -93,13 +102,23 @@ class toba_asistente
 	}
 
 	//---------------------------------------------------
+	//-- API para elementos del molde
+	//---------------------------------------------------
+
+	function get_proyecto()
+	{
+		return $this->id_plan_proyecto;	
+	}
+
+	//---------------------------------------------------
 	//-- LOG de elementos creados
 	//---------------------------------------------------
 
-	function registrar_elemento_creado($tipo, $id )
+	function registrar_elemento_creado($tipo, $proyecto, $id )
 	{
 		static $a = 0;
 		$this->log_elementos_creados[$a]['tipo'] = $tipo;
+		$this->log_elementos_creados[$a]['proyecto'] = $proyecto;
 		$this->log_elementos_creados[$a]['identificador'] = $id;
 		$a++;
 	}

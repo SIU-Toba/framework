@@ -5,6 +5,7 @@
 class toba_molde_elemento
 {
 	protected $asistente;
+	protected $proyecto;
 	protected $datos;				// Datos relacion que persiste el componente
 	protected $extension;			// Molde del codigo de la extension
 	protected $carpeta_base;		
@@ -13,13 +14,14 @@ class toba_molde_elemento
 	function __construct($asistente)
 	{
 		$this->asistente = $asistente;
+		$this->proyecto = $this->asistente->get_proyecto();
 		//Busco el datos relacion correspondiente al componente
 		$id = toba_info_editores::get_dr_de_clase($this->clase);
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
 		$this->datos = toba_constructor::get_runtime($componente);
-		$this->datos->tabla('base')->nueva_fila(array());
-		//Hay que desactivar la transaccion por DR
-		//$this->datos->
+		$this->datos->tabla('base')->nueva_fila(array(	'nombre'=>$this->clase.' generado automaticamente',
+														'proyecto'=>$this->proyecto) );
+		$this->datos->tabla('base')->set_cursor(0);
 		$this->ini();
 	}
 
@@ -67,11 +69,14 @@ class toba_molde_elemento
 	
 	protected function guardar_metadatos()
 	{
-		ei_arbol($this->datos->get_conjunto_datos_interno());
-		//$this->datos->sincronizar();
-		//Le saco el ID
-		$id = 12345;
-		$this->asistente->registrar_elemento_creado($this->clase, $id);
+		ei_arbol($this->datos->get_conjunto_datos_interno(), $this->clase);
+		$this->datos->get_persistidor()->desactivar_transaccion();
+		$this->datos->sincronizar();
+		$clave = $this->get_clave_componente_generado();
+		$this->asistente->registrar_elemento_creado(	$this->clase, 
+														$clave['proyecto'],
+														$clave['clave'] );
 	}
+	
 }
 ?>
