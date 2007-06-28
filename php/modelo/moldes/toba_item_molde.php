@@ -1,14 +1,10 @@
 <?php
 
-/*
-*	Falta un arbol para componentes.
-*/
 class toba_item_molde extends toba_molde_elemento
 {
 	protected $clase_dr = 'toba_item';
-	protected $item;
-	protected $ci = null;
-	protected $cn = null;
+	protected $ci = null;						// CI base
+	protected $cn = null;						// CN base
 
 	function __construct()
 	{
@@ -16,32 +12,29 @@ class toba_item_molde extends toba_molde_elemento
 		$this->datos->tabla('base')->nueva_fila(array());
 	}
 
-	//----------------------------------------
-	//-- Api ITEM ----------------------------
-	//----------------------------------------
-	
-	function set_nombre($nombre)
+	function ci()
 	{
-		$this->datos->tabla('base')->set_fila_columna_valor(0,'nombre',$nombre);
+		if(!isset($this->ci)) $this->ci = new toba_ci_molde();
+		return $this->ci;
 	}
+	
+	function cn()
+	{
+		if(!isset($this->cn)) $this->cn = new toba_cn_molde();
+		return $this->cn;
+	}
+	
+	//----------------------------------------------------
+	//-- API CONSTRUCCION
+	//----------------------------------------------------
 	
 	function set_carpeta_item($id)
 	{
 	}
 
-	function ci()
-	{
-		$this->ci_principal	= $this->get_dr('toba_ci');
-	}
-	
-	function cn()
-	{
-		
-	}
-
-	//----------------------------------------
-	//------- Guardar -------------------------
-	//----------------------------------------
+	//---------------------------------------------------
+	//-- GENERAR
+	//---------------------------------------------------
 
 	function generar()
 	{
@@ -52,11 +45,8 @@ class toba_item_molde extends toba_molde_elemento
 		if(isset($this->cn)) {
 			$this->cn->generar();	
 		}
-		ei_arbol($this->datos->tabla('base')->get_filas());
-	}
-
-	function get_ids_generados()
-	{
+		//Asociar CI y CN
+		parent::generar();
 	}
 }
 ?>

@@ -16,7 +16,8 @@ class ci_planes extends toba_ci
 	function evt__procesar()
 	{
 		$asistente = toba_catalogo_asistentes::buscar('toba_plan_operacion_abms','toba_editor',1);
-		$asistente->generar();
+		//$asistente->generar_molde();
+		//$asistente->crear_operacion();
 	}
 
 	function evt__cancelar()

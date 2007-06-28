@@ -1,12 +1,14 @@
 <?php
 /*
-*
+*	El ASISTENTE carga un PLAN y lo utiliza para generar el MOLDE de una operacion.
 */
 class toba_asistente
 {
 	protected $id_plan_proyecto;
 	protected $id_plan;
-	protected $item;		//Prototipo de la operacion que se esta creando
+	protected $item;		// Molde del item
+	protected $ci;			// Shortcut al molde del CI
+	
 	
 	function __construct($definicion)
 	{
@@ -16,25 +18,50 @@ class toba_asistente
 		foreach (array_keys($definicion) as $parte) {
 			$this->_definicion_partes[] = $parte;
 			$this->$parte = $definicion[$parte];
-		}		
-		//ei_arbol(array($this->_info, $this->_info_abms, $this->_info_abms_fila));
-		$this->item = new toba_item_molde();
-		$this->inicializar_operacion();
+		}
+		$a = new toba_item_molde();
+		//$this->item = new toba_item_molde();
+		//$this->ci = $this->item->ci();
 	}	
+	
+	//---------------------------------------------------
+	//-- GUARDAR 
+	//---------------------------------------------------
 
-	function inicializar_operacion()
+	/**
+	* Se crea el molde 
+	*/
+	function generar_molde()
+	{
+		$this->generar_base();
+		$this->generar();
+	}
+
+	/**
+	*	Crea el item universal
+	*/
+	function generar_base()
 	{
 		$this->item->set_nombre($this->_info['nombre']);
 		$this->item->set_carpeta_item($this->_info['carpeta_item']);
 		$this->item->set_carpeta_archivos($this->_info['carpeta_archivos']);
 	}
 
+	protected function generar()
+	{
+		throw new toba_error('ASISTENTE: no se definio una ejecucion del plan');
+	}
+
+	//---------------------------------------------------
+	//-- GUARDAR 
+	//---------------------------------------------------
+
 	/**
+	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function generar($forzar_regeneracion=false)
+	function crear_operacion($forzar_regeneracion=false)
 	{
-		$this->ejecutar_plan();
 		if(  $this->existe_generacion_previa() ) {
 			if ($forzar_regeneracion) {
 				$this->borrar_generacion_previa();
@@ -42,13 +69,15 @@ class toba_asistente
 				throw new toba_error('');
 			}
 		}
-		$this->item->generar();
-		$this->guardar_resultado();
+		$this->generar_elementos();
 	}
 
-	protected function ejecutar_plan()
+	function generar_elementos()
 	{
-		throw new toba_error('ASISTENTE: no se definio una ejecucion del plan');
+		//Abre transaccion
+		$this->item->generar();
+		$this->log_elementos_generados();
+		//Cerrar transaccion
 	}
 
 	function existe_generacion_previa()
@@ -63,10 +92,10 @@ class toba_asistente
 		
 	}
 
-	protected function guardar_resultado()
+	protected function log_elementos_generados()
 	{
 		//Se guarda el resultado de la generacion
-		$this->item->get_ids_generados();
+		//$this->item->get_ids_generados();
 	}
 }
 ?>

@@ -1,5 +1,7 @@
 <?php
-
+/*
+*	Unidad METADATO/EXTENSION
+*/
 class toba_molde_elemento
 {
 	protected $datos;				// Datos relacion que persiste el componente
@@ -12,11 +14,20 @@ class toba_molde_elemento
 		//Busco el datos relacion correspondiente al componente
 		$id = toba_info_editores::get_dr_de_clase($this->clase_dr);
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
-		$this->datos = toba_constructor::get_runtime($componente);
+		$datos = toba_constructor::get_runtime($componente);
 		//Hay que desactivar la transaccion por DR
 		//$this->datos->
 	}
 	
+	//----------------------------------------------------
+	//-- API CONSTRUCCION
+	//----------------------------------------------------
+	
+	function set_nombre($nombre)
+	{
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'nombre',$nombre);
+	}
+
 	function set_carpeta_archivos($carpeta)
 	{
 		$this->carpeta_base = $carpeta;
@@ -28,12 +39,14 @@ class toba_molde_elemento
 	}
 
 	//---------------------------------------------------
+	//-- Guardar METADATO / ARCHIVO 
+	//---------------------------------------------------
 
 	function generar()
 	{
 		$this->generar_archivo();
-		$this->asociar_archivo_a_componente();
-		$this->generar_metadatos();
+		$this->asociar_archivo();
+		$this->guardar_metadatos();
 	}
 	
 	protected function generar_archivo()
@@ -41,12 +54,12 @@ class toba_molde_elemento
 		
 	}
 	
-	protected function asociar_archivo_a_componente()
+	protected function asociar_archivo()
 	{
 		
 	}
 	
-	protected function generar_metadatos()
+	protected function guardar_metadatos()
 	{
 		$this->datos->sincronizar();
 	}
