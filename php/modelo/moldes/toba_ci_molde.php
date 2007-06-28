@@ -4,13 +4,13 @@
 */
 class toba_ci_molde extends toba_molde_elemento_componente_ei
 {
-	protected $clase_dr = 'toba_ci';
+	protected $clase = 'toba_ci';
 	protected $deps;
 
 	function agregar_dep($tipo, $id)
 	{
 		$clase = $tipo . '_molde';
-		$this->deps[$id] = new $clase();
+		$this->deps[$id] = new $clase($this->asistente);
 	}
 
 	function dep($id)

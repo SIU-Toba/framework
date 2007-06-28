@@ -1,6 +1,6 @@
 <?php
 /*
-*	El ASISTENTE carga un PLAN y lo utiliza para generar el MOLDE de una operacion.
+*	El ASISTENTE lee un PLAN para generar un MOLDE con el cual crear una OPERACION.
 */
 class toba_asistente
 {
@@ -8,24 +8,24 @@ class toba_asistente
 	protected $id_plan;
 	protected $item;		// Molde del item
 	protected $ci;			// Shortcut al molde del CI
+	protected $log_elementos_creados;
 	
-	
-	function __construct($definicion)
+	function __construct($plan)
 	{
-		$this->id_plan_proyecto = $definicion['_info']['proyecto'];
-		$this->id_plan = $definicion['_info']['plan'];
-		//Cargo las variables internas que forman la definicion
-		foreach (array_keys($definicion) as $parte) {
+		$this->id_plan_proyecto = $plan['_info']['proyecto'];
+		$this->id_plan = $plan['_info']['plan'];
+		//Cargo el plan
+		foreach (array_keys($plan) as $parte) {
 			$this->_definicion_partes[] = $parte;
-			$this->$parte = $definicion[$parte];
+			$this->$parte = $plan[$parte];
 		}
-		$a = new toba_item_molde();
-		//$this->item = new toba_item_molde();
-		//$this->ci = $this->item->ci();
+		//$a = new toba_item_molde();
+		$this->item = new toba_item_molde($this);
+		$this->ci = $this->item->ci();
 	}	
 	
 	//---------------------------------------------------
-	//-- GUARDAR 
+	//-- Armar molde 
 	//---------------------------------------------------
 
 	/**
@@ -53,7 +53,7 @@ class toba_asistente
 	}
 
 	//---------------------------------------------------
-	//-- GUARDAR 
+	//-- Crear la operacion 
 	//---------------------------------------------------
 
 	/**
@@ -76,7 +76,7 @@ class toba_asistente
 	{
 		//Abre transaccion
 		$this->item->generar();
-		$this->log_elementos_generados();
+		$this->guardar_log_elementos_generados();
 		//Cerrar transaccion
 	}
 
@@ -92,10 +92,23 @@ class toba_asistente
 		
 	}
 
-	protected function log_elementos_generados()
+	//---------------------------------------------------
+	//-- LOG de elementos creados
+	//---------------------------------------------------
+
+	function registrar_elemento_creado($tipo, $id )
 	{
-		//Se guarda el resultado de la generacion
-		//$this->item->get_ids_generados();
+		static $a = 0;
+		$this->log_elementos_creados[$a]['tipo'] = $tipo;
+		$this->log_elementos_creados[$a]['identificador'] = $id;
+		$a++;
 	}
+
+	protected function guardar_log_elementos_generados()
+	{
+		ei_arbol($this->log_elementos_creados);
+		//Se guarda el resultado de la generacion
+	}
+
 }
 ?>
