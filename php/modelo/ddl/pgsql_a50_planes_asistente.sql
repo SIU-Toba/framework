@@ -53,6 +53,61 @@ CREATE TABLE apex_plan_operacion
 );
 --###################################################################################################
 
+CREATE SEQUENCE apex_plan_operacion_log_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_plan_operacion_log
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: plan
+--: dump_order_by: generacion
+--: dump_where: ( proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto  					varchar(255)	NOT NULL,
+	plan						int4	 		NOT NULL, 
+	generacion					int4			DEFAULT nextval('"apex_plan_operacion_log_seq"'::text) 		NOT NULL, 
+	momento						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
+	CONSTRAINT  "apex_plan_operacion_log_pk" PRIMARY KEY ("generacion"),
+	CONSTRAINT  "apex_plan_operacion_log_fk" FOREIGN KEY ("proyecto","plan") REFERENCES "apex_plan_operacion" ("proyecto","plan") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+--###################################################################################################
+
+CREATE SEQUENCE apex_plan_operacion_log_elementos_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE apex_plan_operacion_log_elementos
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: plan
+--: dump_order_by: generacion
+--: dump_where: ( proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	generacion					int4			NOT NULL, 
+	id							int4			DEFAULT nextval('"apex_plan_operacion_log_elementos_seq"'::text) 		NOT NULL, 
+	tipo						varchar(255)	NOT NULL,
+	proyecto					varchar(255)	NOT NULL,
+	clave						int4	 		NOT NULL, 
+	CONSTRAINT  "apex_plan_operacion_log_e_pk" PRIMARY KEY ("id"),
+	CONSTRAINT  "apex_plan_operacion_log_e_fk" FOREIGN KEY ("generacion") REFERENCES "apex_plan_operacion_log" ("generacion") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
+
+--**************************************************************************************************
+--**************************************************************************************************
+--************************                 ABM SIMPLE                 ******************************
+--**************************************************************************************************
+--**************************************************************************************************
+
+
 CREATE TABLE apex_plan_operacion_abms
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
