@@ -1,0 +1,27 @@
+LICENCIA DE USO
+---------------
+
+El MINISTERIO DE EDUCACION, CIENCIA Y TECNOLOGIA, en adelante el Licenciante, autoriza a utilizar el SIU-TOBA según las cláusulas y condiciones que a continuación se exponen:
+
+OBJETO DE LA LICENCIA
+Se permite el uso, copia, modificación y distribución del software SIU-TOBA y su documentación en forma gratuita y a perpetuidad. 
+El uso del software SIU-TOBA implica la aceptación de los términos y condiciones fijados en la presente licencia de uso, el no cumplimiento de algunas de las cláusulas implica automáticamente la revocación de la autorización brindada en la presente licencia de uso.
+
+TITULARIDAD DE DERECHOS
+
+El LICENCIANTE es titular de los derechos de autor sobre el SIU-TOBA.  No esta permitido remover el texto contenido en los programas fuentes que describe la titularidad de derechos.
+Si se modifica el SIU-TOBA, se debe dejar constancia de los cambios realizados de manera que quien reciba o use la versión modificada sepa que el SIU-TOBA fue modificado.
+Cuando el SIU-TOBA se distribuye, hay que respetar las siguientes condiciones según sea el caso en que se produce:
+"	Si se distribuye el SIU-TOBA se debe incorporar el texto de la presente licencia.
+"	Si se distribuye una versión adaptada o mejorada del SIU-TOBA, la licencia bajo la cual se distribuye debe contener y respetar todas las condiciones definidas en la presente licencia. 
+"	Si se distribuye junto a un sistema desarrollado, en forma total o parcial, con SIU-TOBA, la licencia del sistema desarrollado debe contener y respetar las condiciones definidas en la presente licencia en lo que respecta a SIU-TOBA. El sistema desarrollado debe contener, en la ayuda en línea o en el" acerca de", la leyenda que indica que fue desarrollado con SIU-TOBA.
+
+CONTRAPRESTACIÓN, EXCLUSIÓN DE GARANTÍA Y LIMITACIÓN DE RESPONSABILIDAD:
+
+Como consecuencia de que el SIU-TOBA se licencia como gratuito, no existirá garantía alguna por la que se deba responder. El LICENCIANTE pone a disposición el programa "como está", sin ningún tipo de garantías, quien lo utiliza declara conocer este hecho y aceptarlo mediante el uso del programa. El riesgo que el programa esté en perfectas condiciones y funcione como tal corre por cuenta de quien lo recibe, al igual que los gastos necesarios para su servicio, reparación o corrección en el supuesto en que dicho programa contenga defectos.
+El LICENCIANTE no será responsable por ningún tipo de daño resultado del uso o incapacidad de uso del programa, incluyendo de manera enunciativa más no limitativa la pérdida de información, inexactitud en la información, perdidas sufridas por el usuario del programa o por terceras personas o la incapacidad del programa para operar con otros programas.
+El LICENCIANTE tampoco será responsable por bugs o errores en las versiones entregadas.
+
+INCLUMPLIMIENTO
+
+La violación de alguna de las cláusulas y condiciones establecidas en la presente revoca automáticamente la licencia y habilita a El LICENCIANTE a iniciar las acciones legales que crea convenientes.
