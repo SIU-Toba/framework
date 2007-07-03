@@ -30,12 +30,10 @@ class toba_ci extends toba_ei
 	protected $_en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	protected $_ini_operacion = true;				// Indica si la operación recién se inicia
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
-	// Relacion CI/CN
-	protected $_excluir_ci_com_cn;
 	
 	function __construct($id)
 	{
-		$this->set_propiedades_sesion(array('_ini_operacion','_excluir_ci_com_cn'));		
+		$this->set_propiedades_sesion(array('_ini_operacion','_dependencias_ci'));		
 		parent::__construct($id);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
@@ -117,13 +115,11 @@ class toba_ci extends toba_ei
 	function disparar_limpieza_memoria()
 	{
 		$this->_log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
-		foreach($this->get_dependencias_ci() as $dep){
-			if( !isset($this->_dependencias[$dep]) ){
-				$this->inicializar_dependencias(array($dep));
-			}
-			$this->_dependencias[$dep]->disparar_limpieza_memoria();
+		//Itero los CIs instanciados durante la operacion para limpiarles la memoria
+		foreach($this->_dependencias_ci as $dep){
+			$this->dependencia($dep)->disparar_limpieza_memoria();
 		}
-		$this->evt__limpieza_memoria(array('_ini_operacion'));
+		$this->limpiar_memoria(array('_ini_operacion'));
 		unset($this->_pantalla_id_eventos);		
 		$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');	
 		$this->ini__operacion();
@@ -133,8 +129,9 @@ class toba_ci extends toba_ei
 	 * Borra la memoria de este CI y lo reinicializa
 	 * @param array $no_borrar Excepciones, propiedades que no se van a poner en null
 	 */
-	function evt__limpieza_memoria($no_borrar=null)
+	function limpiar_memoria($no_borrar=null)
 	{
+		$this->_log->debug( $this->get_txt() . "[ limpiar_memoria ]", 'toba');
 		$this->borrar_memoria();
 		$this->eliminar_estado_sesion($no_borrar);
 		$this->ini();
@@ -143,6 +140,11 @@ class toba_ci extends toba_ei
 	//--------------------------------------------------------------
 	//------  Interaccion con un CONTROLADOR de NEGOCIO ------------
 	//--------------------------------------------------------------
+
+	function cn()
+	{
+		return $this->_cn;	
+	}
 
 	/**
 	 * Asocia al componente un controlador de negocio
@@ -154,97 +156,6 @@ class toba_ci extends toba_ei
 		$this->_cn = $controlador;
 	}
 
-	//--  ENTRADA de DATOS ----
-
-	/**
-	 * Método a llamar al inicio de la transacción de negocios para llenar los cis de esta operación con información del cn
-	 * Recorre recursivamente todas las dependencias cis llamando al metodo evt__get_datos_cn
-	 * @param mixed $parametros Parametros particulares de esta carga, su significado lo decide la operación
-	 * @see evt__get_datos_cn()
-	 */
-	function disparar_obtencion_datos_cn( $parametros=null )
-	{
-		$this->_log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ]", 'toba');
-		$this->evt__get_datos_cn( $parametros );
-		$deps = $this->get_dependencias_ci();
-		foreach( $deps as $dep ){
-			if( !isset($this->_dependencias[$dep]) ){
-				$this->inicializar_dependencias(array($dep));
-			}
-			$this->_log->debug( $this->get_txt() . "[ disparar_obtencion_datos_cn ] ejecutar '$dep'", 'toba');
-			$this->_dependencias[$dep]->disparar_obtencion_datos_cn( $parametros );
-		}
-	}
-
-	/**
-	 * Ventana de extensión pensada para que el ci le pida datos al cn al empezar el tránsito de una transacción.
-	 * Es el dialogo inicial que existe entre este ci particular y el cn global de la operación
-	 * @param mixed $parametros Parametros particulares de esta carga, su significado lo decide la operación
-	 * 
-	 * @ventana
-	 */
-	function evt__get_datos_cn( $modo=null )
-	{
-		//Esta funcion hay que redefinirla en un hijo para OBTENER datos
-		$this->_log->warning($this->get_txt() . "[ evt__get_datos_cn ] No fue redefinido!");
-	}
-
-	//--  SALIDA de DATOS ----
-
-	/**
-	 * Método a llamar al final de la transacción de negocios para cargar al cn de esta operación con información de los cis
-	 * Recorre recursivamente todas las dependencias cis llamando al metodo evt__engrega_datos_cn
-	 * @see evt__entregar_datos_cn()
-	 */	
-	function disparar_entrega_datos_cn()
-	{
-		$this->_log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ]", 'toba');
-		$this->evt__entregar_datos_cn();
-		$deps = $this->get_dependencias_ci();
-		foreach( $deps as $dep ){
-			if( !isset($this->_dependencias[$dep]) ){
-				$this->inicializar_dependencias(array($dep));
-			}
-			$this->_log->debug( $this->get_txt() . "[ disparar_entrega_datos_cn ] ejecutar '$dep'", 'toba');
-			$this->_dependencias[$dep]->disparar_entrega_datos_cn();
-		}
-	}
-
-	/**
-	 * Ventana de extensión pensada para que el ci le brinde datos al cn al comenzar el tránsito de una transacción.
-	 * Es el dialogo final que existe entre este ci particular y el cn global de la operación
-	 * @ventana
-	 */	
-	function evt__entregar_datos_cn()
-	{
-		//Esta funcion hay que redefinirla en un hijo para ENTREGAR datos
-		$this->_log->warning($this->get_txt() . "[ evt__entregar_datos_cn ] No fue redefinido!");
-	}
-
-	/**
-	*	Excluye un CI contenido de las comunicaciones con el CN de la operacion.
-	*/
-	function excluir_dependencia_ci($identificador)
-	{
-		$this->_excluir_ci_com_cn[] = $identificador;
-	}
-
-	/**
-	*	@ignore
-	*	Devuelve los identificadores de las dependencias que son CI, y no fueron
-	*	explicitamente excluidas del dialogo con los CN.
-	*/
-	protected function get_dependencias_ci()
-	{
-		$id_deps = $this->get_dependencias_clase('toba_ci');
-		foreach( array_keys($id_deps) as $d ){
-			if( in_array($id_deps[$d], $this->_excluir_ci_com_cn) )	{
-				unset( $id_deps[$d] );
-			}
-		}
-		return $id_deps;
-	}
-	
 	//------------------------------------------------
 	//--  ETAPA EVENTOS   ----------------------------
 	//------------------------------------------------
@@ -456,7 +367,7 @@ class toba_ci extends toba_ei
 	 */
 	protected function inicializar_dependencias( $dependencias )
 	{
-		toba_asercion::es_array($dependencias,"No hay dependencias definidas");
+		toba_asercion::es_array($dependencias,"[Inicializar_dependencias] No se definio la lista de dependencias a inicializar");
 		$this->_log->debug( $this->get_txt() . "[ inicializar_dependencias ]\n" . var_export($dependencias, true), 'toba');
 		//Parametros a generales
 		$parametro["nombre_formulario"] = $this->_nombre_formulario;
@@ -482,7 +393,7 @@ class toba_ci extends toba_ei
 	{
 		if( in_array( $dep, $this->_dependencias_inicializadas ) )  return;
 		if ($this->_dependencias[$dep] instanceof toba_ci ){
-			$this->_dependencias_ci[$dep] = $this->_dependencias[$dep]->get_clave_memoria_global();
+			$this->_dependencias_ci[$dep] = $dep;
 			if(isset($this->_cn)){
 				$this->_dependencias[$dep]->asignar_controlador_negocio( $this->_cn );
 			}
@@ -668,7 +579,7 @@ class toba_ci extends toba_ei
 	}
 	
 	/**
-	 * Ventana para insertar lógica posterior a la configuración del ci y sus dependencias
+	 * Ventana para insertar lógica de la configuración del ci y sus dependencias
 	 * @ventana 
 	 */
 	function post_configurar(){}
