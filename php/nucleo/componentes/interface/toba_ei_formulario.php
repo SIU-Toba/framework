@@ -630,20 +630,15 @@ class toba_ei_formulario extends toba_ei
 			$campo_valor = $this->_elemento_formulario[$id_ef]->get_campo_valor();
 			$es_posicional = $this->_elemento_formulario[$id_ef]->son_campos_posicionales();
 	
-			$valores = array();
-			if (isset($parametros['carga_no_seteado']) && ! isset($valores[apex_ef_no_seteado])) {
-				$valores[apex_ef_no_seteado] = $parametros['carga_no_seteado'];
-			}
 		}
 		if (isset($parametros['carga_lista'])) {
 			//--- Carga a partir de una lista de valores
-			$nuevos = $this->ef_metodo_carga_lista($id_ef, $parametros, $maestros);
-			return $valores + $nuevos;
+			$salida = $this->ef_metodo_carga_lista($id_ef, $parametros, $maestros);
 		} elseif (isset($parametros['carga_sql'])) {
 			//--- Carga a partir de un SQL
 			$nuevos = $this->ef_metodo_carga_sql($id_ef, $parametros, $maestros, $es_posicional);
 			if ($seleccionable) {
-				return $valores + rs_convertir_asociativo($nuevos, $campos_clave, $campo_valor);
+				$salida = rs_convertir_asociativo($nuevos, $campos_clave, $campo_valor);
 			} else {
 				if (! empty($nuevos)) {
 					return $nuevos[0][0];					
@@ -653,11 +648,19 @@ class toba_ei_formulario extends toba_ei
 			//--- Carga a partir de un Método PHP
 			$nuevos = $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
 			if ($seleccionable) {
-				$val = $valores + rs_convertir_asociativo($nuevos, $campos_clave, $campo_valor);
-				return $val;
+				$salida = rs_convertir_asociativo($nuevos, $campos_clave, $campo_valor);
 			} else {
 				return $nuevos;	
 			}
+		}
+		//--- Agrega el no-seteado en caso que existan elementos
+		if (isset($parametros['carga_no_seteado']) && ! isset($salida[apex_ef_no_seteado])
+				&& ! empty($salida)) {
+			$lista = array();
+			$lista[apex_ef_no_seteado] = $parametros['carga_no_seteado'];
+			return $lista + $salida;
+		} else {
+			return $salida;	
 		}
 	}
 

@@ -269,7 +269,6 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			try {
 				var datos = eval('(' + respuesta.responseText + ')');
 				this.ef(respuesta.argument).set_opciones(datos);
-				this.ef(respuesta.argument).activar();
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
 				notificacion.limpiar();

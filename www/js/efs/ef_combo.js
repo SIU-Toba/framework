@@ -194,6 +194,7 @@ ef_radio.prototype.constructor = ef_radio;
 			i++;
 		}
 		//--- Tiene que reconstruir la tabla
+		var hay_datos=false;
 		for (id in valores) {
     		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
@@ -203,9 +204,13 @@ ef_radio.prototype.constructor = ef_radio;
     		if (i % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
     		}
+    		hay_datos=true;
 		}
 		nuevo += '</table>';
 		opciones.innerHTML = nuevo;
+		if (hay_datos) {
+			this.activar();
+		}		
 		this.refrescar_callbacks();
 	};
 	

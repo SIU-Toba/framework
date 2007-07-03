@@ -100,6 +100,7 @@ ef_popup.prototype.constructor = ef_popup;
 		} else {
 			this.set_estado(opciones);
 		}
+		this.activar();
 	};
 		
 	/**

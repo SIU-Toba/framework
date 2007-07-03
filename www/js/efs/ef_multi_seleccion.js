@@ -106,8 +106,13 @@ ef_multi_seleccion_lista.constructor = ef_multi_seleccion_lista;
 	ef_multi_seleccion_lista.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input();
+		var hay_datos = false;
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
+			hay_datos=true;
+		}
+		if (hay_datos) {
+			this.activar();
 		}
 	};
 	
@@ -206,6 +211,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		var opciones = document.getElementById(this._id_form + '_opciones');		
 		var nuevo = "<table>";
 		var i = 0;
+		var hay_datos = false;
 		for (clave in valores) {
     		if (i % this._cant_columnas === 0) {
     			nuevo += "<tr>\n";	
@@ -217,10 +223,14 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 			i++;
     		if (i % this._cant_columnas === 0) {
     			nuevo += "</tr>\n";	
-    		}			
+    		}
+    		hay_datos = true;
 		}
 		nuevo += '</table>';		
 		opciones.innerHTML = nuevo;
+		if (hay_datos) {
+			this.activar();
+		}
 		if (typeof this._callback != 'undefined') {
 			this.cuando_cambia_valor(this._callback);
 		}
@@ -367,8 +377,13 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	ef_multi_seleccion_doble.prototype.set_opciones = function(valores) {
 		this.borrar_opciones();
 		var input = this.input('izq');
+		var hay_datos=false;
 		for (id in valores){
 			input.options[input.options.length] = new Option(valores[id], id);
+			hay_datos=true;
+		}
+		if (hay_datos) {
+			this.activar();
 		}
 	};
 	
