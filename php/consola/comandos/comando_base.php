@@ -177,10 +177,11 @@ class comando_base extends comando_toba
 	function opcion__test_conexion()
 	{
 		$def = $this->get_id_base_actual();
-		if ( $this->get_instalacion()->existe_base_datos( $def ) ) {
+		$existe = $this->get_instalacion()->existe_base_datos( $def, array(), true );
+		if ($existe === true) {
 			$this->consola->mensaje('Conexion OK!');
 		} else {
-			$this->consola->error("No es posible conectarse a '$def'");
+			$this->consola->error("No es posible conectarse a '$def': $existe");
 		}
 	}
 	

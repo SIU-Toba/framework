@@ -338,8 +338,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error( "PROYECTO: Ha ocurrido un error durante la IMPORTACION:\n".
-												$e->getMessage() );
+			throw $e;
 		}
 	}
 
@@ -513,8 +512,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->db->cerrar_transaccion();
 		} catch ( toba_error $e ) {
 			$this->db->abortar_transaccion();
-			$this->manejador_interface->error("PROYECTO {$this->identificador}: Ha ocurrido un error durante la IMPORTACION:\n".
-												$e->getMessage());
+			throw $e;
 		}
 	}
 
