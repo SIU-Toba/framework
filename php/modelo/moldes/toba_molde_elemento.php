@@ -6,10 +6,9 @@ class toba_molde_elemento
 {
 	protected $asistente;
 	protected $proyecto;
+	protected $carpeta_archivo;		
 	protected $datos;				// Datos relacion que persiste el componente
-	protected $extension;			// Molde del codigo de la extension
-	protected $carpeta_base;		
-	protected $archivo;
+	protected $archivo;				// Manejador de archivos
 
 	function __construct($asistente)
 	{
@@ -36,14 +35,19 @@ class toba_molde_elemento
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'nombre',$nombre);
 	}
 
-	function set_carpeta_archivos($carpeta)
+	function set_carpeta_archivo($carpeta_relativa)
 	{
-		$this->carpeta_base = $carpeta;
+		$this->carpeta_archivo = $carpeta_relativa;
 	}
 
-	function extender_clase($archivo)
+	function archivo_relativo()
 	{
-		
+		return $this->carpeta_archivo .'/'. $this->archivo;		
+	}
+	
+	function archivo_absoluto()
+	{
+		return toba::proyecto($this->proyecto)->get_path() . '/php/'. $this->archivo_relativo();
 	}
 
 	//---------------------------------------------------
@@ -52,19 +56,18 @@ class toba_molde_elemento
 
 	function generar()
 	{
-		$this->generar_archivo();
-		$this->asociar_archivo();
+		if (isset($this->archivo) ) {
+			toba_manejador_archivos::crear_arbol_directorios($this->carpeta_archivo);
+			$this->generar_archivo();
+			$this->asociar_archivo();
+		}
 		$this->guardar_metadatos();
 	}
 	
 	protected function generar_archivo()
 	{
-		
-	}
-	
-	protected function asociar_archivo()
-	{
-		
+		$php = $this->get_codigo_php();
+		file_put_contents($this->archivo_absoluto(), "<?php\n$php\n?>");
 	}
 	
 	protected function guardar_metadatos()

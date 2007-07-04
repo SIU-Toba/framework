@@ -52,6 +52,11 @@ class toba_item_molde extends toba_molde_elemento
 			$this->datos->tabla('permisos')->nueva_fila(array('usuario_grupo_acc'=>$grupo));
 		}
 	}
+	
+	function set_accion($archivo)
+	{
+		$this->archivo = $archivo;
+	}
 
 	//---------------------------------------------------
 	//-- GENERAR
@@ -80,6 +85,16 @@ class toba_item_molde extends toba_molde_elemento
 															'objeto'=>$clave,
 															'orden'=> $a ));
 		$a++;
+	}
+
+	protected function get_codigo_php()
+	{
+		return '';
+	}
+	
+	protected function asociar_archivo()
+	{
+		
 	}
 
 	//---------------------------------------------------

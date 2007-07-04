@@ -41,14 +41,10 @@ class toba_asistente
 		$this->generar();
 	}
 
-	/**
-	*	Crea el item universal
-	*/
 	function generar_base()
 	{
 		$this->item->set_nombre($this->_info['nombre']);
 		$this->item->set_carpeta_item($this->_info['carpeta_item']);
-		$this->item->set_carpeta_archivos($this->_info['carpeta_archivos']);
 	}
 
 	protected function generar()
@@ -108,6 +104,11 @@ class toba_asistente
 	function get_proyecto()
 	{
 		return $this->id_plan_proyecto;	
+	}
+	
+	function get_carpeta_archivos()
+	{
+		return $this->_info['carpeta_archivos'];
 	}
 
 	//---------------------------------------------------
