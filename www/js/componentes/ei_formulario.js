@@ -142,6 +142,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	ei_formulario.prototype.cascadas_cambio_maestro = function(id_ef)
 	{
 		if (this._esclavos[id_ef]) {
+			this.evt__cascadas_inicio(this.ef(id_ef));
 			//--Se recorren los esclavos del master modificado
 			for (var i=0; i < this._esclavos[id_ef].length; i++) {
 				this.cascadas_preparar_esclavo(this._esclavos[id_ef][i]);
@@ -269,6 +270,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			try {
 				var datos = eval('(' + respuesta.responseText + ')');
 				this.ef(respuesta.argument).set_opciones(datos);
+				this.evt__cascadas_fin(this.ef(respuesta.argument), datos);
 			} catch (e) {
 				var error = 'Error en la respueta.<br>' + "Mensaje Server:<br>" + respuesta.responseText + "<br><br>Error JS:<br>" + e;
 				notificacion.limpiar();
@@ -277,6 +279,28 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			}
 		}
 	};
+
+	/**
+	 * Esquema de Cascadas:<br>
+	 * Ventana de ejecución anterior al pedido de respuesta de la cascada
+	 * Extender para agregar un comportamiento anterior a la respuesta
+	 * @param {ef} ef_maestro Instancia del ef maestro que inicia la cascada
+	 * @ventana
+	 */
+	ei_formulario.prototype.evt__cascadas_inicio = function(ef_maestro)	{
+	}
+	
+	/**
+	 * Esquema de Cascadas:<br>
+	 * Ventana de ejecución posterior a la respuesta de una cascada.
+	 * Extender para agregar un comportamiento post-respuesta
+	 * @param {ef} ef_esclavo Instancia del ef esclavo destino de la cascada
+	 * @param {Object} datos Datos de respuesta usados en la cascada
+	 * @ventana
+	 */
+	ei_formulario.prototype.evt__cascadas_fin = function(ef_esclavo, datos) {
+	}
+	
 	
 	//----Validación 
 	/**
