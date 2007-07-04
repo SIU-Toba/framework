@@ -1,6 +1,12 @@
 <?php
 /*
 *	Unidad METADATO/EXTENSION
+
+
+	FALTA:
+		- Si no se guardan datos, borrar archivos.
+
+
 */
 class toba_molde_elemento
 {
@@ -14,7 +20,7 @@ class toba_molde_elemento
 	{
 		$this->asistente = $asistente;
 		$this->proyecto = $this->asistente->get_proyecto();
-		//Busco el datos relacion correspondiente al componente
+		//Busco el datos relacion correspondientes al componente
 		$id = toba_info_editores::get_dr_de_clase($this->clase);
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
 		$this->datos = toba_constructor::get_runtime($componente);
@@ -24,6 +30,9 @@ class toba_molde_elemento
 		$this->ini();
 	}
 
+	/**
+	*	Ventana para que cada componente setee su estado inicial
+	*/
 	function ini(){}
 	
 	//----------------------------------------------------
@@ -35,29 +44,17 @@ class toba_molde_elemento
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'nombre',$nombre);
 	}
 
-	function set_carpeta_archivo($carpeta_relativa)
-	{
-		$this->carpeta_archivo = $carpeta_relativa;
-	}
-
-	function archivo_relativo()
-	{
-		return $this->carpeta_archivo .'/'. $this->archivo;		
-	}
-	
-	function archivo_absoluto()
-	{
-		return toba::proyecto($this->proyecto)->get_path() . '/php/'. $this->archivo_relativo();
-	}
-
 	//---------------------------------------------------
-	//-- Guardar METADATO / ARCHIVO 
+	//-- Generacion de METADATOS & ARCHIVOS
 	//---------------------------------------------------
 
 	function generar()
 	{
 		if (isset($this->archivo) ) {
-			toba_manejador_archivos::crear_arbol_directorios($this->carpeta_archivo);
+			if(!isset($this->carpeta_archivo)){
+				throw new toba_error('La carpeta no fue definida.');	
+			}
+			toba_manejador_archivos::crear_arbol_directorios($this->directorio_absoluto());
 			$this->generar_archivo();
 			$this->asociar_archivo();
 		}
@@ -68,11 +65,14 @@ class toba_molde_elemento
 	{
 		$php = $this->get_codigo_php();
 		file_put_contents($this->archivo_absoluto(), "<?php\n$php\n?>");
+		$this->asistente->registrar_elemento_creado(	'archivo', 
+														$this->proyecto,
+														$this->archivo_relativo() );
 	}
 	
 	protected function guardar_metadatos()
 	{
-		ei_arbol($this->datos->get_conjunto_datos_interno(), $this->clase);
+		//ei_arbol($this->datos->get_conjunto_datos_interno(), $this->clase);
 		$this->datos->get_persistidor()->desactivar_transaccion();
 		$this->datos->sincronizar();
 		$clave = $this->get_clave_componente_generado();
@@ -80,6 +80,27 @@ class toba_molde_elemento
 														$clave['proyecto'],
 														$clave['clave'] );
 	}
+
+	//-- PATHs -------------------------------------------------------------	
+
+	function archivo_relativo()
+	{
+		return $this->directorio_relativo() .'/'. $this->archivo;		
+	}
 	
+	function archivo_absoluto()
+	{
+		return $this->directorio_absoluto() .'/'. $this->archivo;		
+	}
+
+	function directorio_absoluto()
+	{
+		return toba::proyecto($this->proyecto)->get_path() . '/php/'. $this->directorio_relativo();
+	}
+
+	function directorio_relativo()
+	{
+		return $this->carpeta_archivo;
+	}
 }
 ?>

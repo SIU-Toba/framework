@@ -15,14 +15,18 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	}
 	
 	//---------------------------------------------------
-	//-- Extension
+	//-- Extension de clases
 	//---------------------------------------------------	
 
+	/**
+	*	Declara la extension del archivo, despues de su invocacion se puede usar
+	*	el metodo php() para acceder al molde de la clase
+	*/
 	function extender($subclase, $archivo)
 	{
-		$this->set_carpeta_archivo($this->asistente->get_carpeta_archivos());
 		$this->subclase = $subclase;
 		$this->archivo = $archivo;
+		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();
 		$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase );
 	}
 
@@ -30,6 +34,10 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	{
 		return $this->molde_php;	
 	}
+	
+	//---------------------------------------------------
+	//-- Generacion de METADATOS & ARCHIVOS
+	//---------------------------------------------------	
 
 	protected function get_codigo_php()
 	{
@@ -41,10 +49,6 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'subclase',$this->subclase);
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'subclase_archivo',$this->archivo_relativo());
 	}
-	
-	//---------------------------------------------------
-	//-- Guardar
-	//---------------------------------------------------	
 	
 	function get_clave_componente_generado()
 	{

@@ -7,9 +7,9 @@ class toba_asistente_abms extends toba_asistente
 		//ei_arbol(array($this->_info, $this->_info_abms, $this->_info_abms_fila));
 		$this->item->cargar_grupos_acceso_activos();
 		$this->ci->agregar_pantalla('pantalla_1', 'Pantalla UNO');
-		$this->ci->extender('ci','ci.php');
-		$this->ci->agregar_dep('toba_ei_formulario', 'formulario', 'pantalla_1');
-		$this->generar_formulario($this->ci->dep('formulario'));
+		//$this->ci->extender('ci','ci.php');
+		//$this->ci->agregar_dep('toba_ei_formulario', 'formulario', 'pantalla_1');
+		//$this->generar_formulario($this->ci->dep('formulario'));
 		//$this->ci->agregar_dep('toba_ei_cuadro', 'cuadro');
 		//$this->generar_cuadro();
 		//$this->generar_datos_tabla();
@@ -34,7 +34,6 @@ class toba_asistente_abms extends toba_asistente
 	function generar_datos_tabla()
 	{
 		$this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		
 	}
 }
 ?>

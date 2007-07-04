@@ -2,7 +2,7 @@
 /*
 *	El ASISTENTE lee un PLAN para generar un MOLDE con el cual crear una OPERACION.
 */
-class toba_asistente
+abstract class toba_asistente
 {
 	protected $id_plan_proyecto;
 	protected $id_plan;
@@ -18,19 +18,11 @@ class toba_asistente
 		foreach (array_keys($plan) as $parte) {
 			$this->$parte = $plan[$parte];
 		}
-		$this->crear_elementos_basicos();
 	}	
 	
-	function crear_elementos_basicos()
-	{
-		//$a = new toba_item_molde();
-		$this->item = new toba_item_molde($this);
-		$this->ci = $this->item->ci();
-	}
-	
-	//---------------------------------------------------
-	//-- Armar molde 
-	//---------------------------------------------------
+	//-----------------------------------------------------------
+	//-- Armar MOLDE: Se construye el modelo de la operacion
+	//-----------------------------------------------------------
 
 	/**
 	* Se crea el molde 
@@ -43,18 +35,17 @@ class toba_asistente
 
 	function generar_base()
 	{
+		$this->item = new toba_item_molde($this);
+		$this->ci = $this->item->ci();
 		$this->item->set_nombre($this->_info['nombre']);
 		$this->item->set_carpeta_item($this->_info['carpeta_item']);
 	}
 
-	protected function generar()
-	{
-		throw new toba_error('ASISTENTE: no se definio una ejecucion del plan');
-	}
+	abstract function generar();
 
-	//---------------------------------------------------
-	//-- Crear la operacion 
-	//---------------------------------------------------
+	//----------------------------------------------------------------------
+	//-- Crear OPERACION: Se transforma el modelo a elementos toba concretos
+	//----------------------------------------------------------------------
 
 	/**
 	*	Usa el molde para generar una operacion.
@@ -98,7 +89,7 @@ class toba_asistente
 	}
 
 	//---------------------------------------------------
-	//-- API para elementos del molde
+	//-- API para los elementos
 	//---------------------------------------------------
 
 	function get_proyecto()
@@ -120,14 +111,22 @@ class toba_asistente
 		static $a = 0;
 		$this->log_elementos_creados[$a]['tipo'] = $tipo;
 		$this->log_elementos_creados[$a]['proyecto'] = $proyecto;
-		$this->log_elementos_creados[$a]['identificador'] = $id;
+		$this->log_elementos_creados[$a]['clave'] = $id;
 		$a++;
 	}
 
+	/**
+	*	Guarda el resultado de la generacion
+	*/
 	protected function guardar_log_elementos_generados()
 	{
-		ei_arbol($this->log_elementos_creados);
-		//Se guarda el resultado de la generacion
+		$sql = "INSERT INTO apex_plan_operacion_log (proyecto, plan) VALUES ('$this->id_plan_proyecto','$this->id_plan')";
+		ejecutar_fuente($sql);
+		$id_generacion = recuperar_secuencia('apex_plan_operacion_log_seq');
+		foreach( $this->log_elementos_creados as $elemento) {
+			$sql = "INSERT INTO apex_plan_operacion_log_elementos (plan, generacion, tipo, proyecto, clave) VALUES ('$this->id_plan','$id_generacion','{$elemento['tipo']}','{$elemento['proyecto']}','{$elemento['clave']}')";
+			ejecutar_fuente($sql);
+		}
 	}
 
 }

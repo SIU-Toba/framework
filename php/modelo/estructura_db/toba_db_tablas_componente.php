@@ -29,8 +29,10 @@ class toba_db_tablas_componente
   21 => 'apex_objeto_datos_rel',
   22 => 'apex_objeto_datos_rel_asoc',
   23 => 'apex_plan_operacion',
-  24 => 'apex_plan_operacion_abms',
-  25 => 'apex_plan_operacion_abms_fila',
+  24 => 'apex_plan_operacion_log',
+  25 => 'apex_plan_operacion_log_elementos',
+  26 => 'apex_plan_operacion_abms',
+  27 => 'apex_plan_operacion_abms_fila',
 );
 	}
 
@@ -881,7 +883,7 @@ class toba_db_tablas_componente
 	static function apex_plan_operacion()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
@@ -904,10 +906,60 @@ class toba_db_tablas_componente
 );
 	}
 
+	static function apex_plan_operacion_log()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'plan',
+  'dump_order_by' => 'generacion',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'plan',
+    2 => 'generacion',
+    3 => 'momento',
+  ),
+);
+	}
+
+	static function apex_plan_operacion_log_elementos()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'plan',
+  'dump_order_by' => 'generacion',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'generacion',
+    1 => 'plan',
+    2 => 'id',
+    3 => 'tipo',
+    4 => 'proyecto',
+    5 => 'clave',
+  ),
+);
+	}
+
 	static function apex_plan_operacion_abms()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
@@ -942,7 +994,7 @@ class toba_db_tablas_componente
 	static function apex_plan_operacion_abms_fila()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',

@@ -781,5 +781,41 @@ class toba_info_editores
 					ORDER BY momento DESC;";	
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+
+	//------------------------------------------------------------------------------
+	//----------  Planes de generacion de operaciones  -----------------------------
+	//------------------------------------------------------------------------------
+
+	function get_lista_planes_existentes($proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT		t.operacion_tipo 		as tipo,
+							t.descripcion_corta		as tipo_desc,
+							o.proyecto				as proyecto,
+							o.plan					as plan,
+							o.nombre				as nombre,
+							o.carpeta_archivos		as carpeta_archivos,
+							o.carpeta_item			as carpeta_item,
+							(SELECT COUNT(*) FROM apex_plan_operacion_log WHERE plan = o.plan AND proyecto = o.proyecto) 
+													as generaciones
+					FROM	apex_plan_operacion o,
+							apex_plan_operacion_tipo t
+					WHERE	o.operacion_tipo = t.operacion_tipo
+					AND		o.proyecto = '$proyecto'
+					ORDER BY 1,3;";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	function get_lista_ejecuciones_plan($proyecto, $plan)
+	{
+		$sql = "SELECT		generacion,
+							momento
+					FROM	apex_plan_operacion_log
+					WHERE	plan = '$plan'
+					AND		proyecto = '$proyecto'
+					ORDER BY 1;";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
 }
 ?>

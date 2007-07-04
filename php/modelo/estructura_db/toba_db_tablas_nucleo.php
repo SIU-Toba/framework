@@ -631,7 +631,7 @@ class toba_db_tablas_nucleo
 	static function apex_plan_operacion_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_plan_operacion.sql',
+  'archivo' => 'pgsql_a50_planes_asistente.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'operacion_tipo',

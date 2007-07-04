@@ -1,6 +1,6 @@
 <?php
 
-class toba_plan_operacion_def implements toba_componente_definicion
+class toba_asistente_def implements toba_componente_definicion
 {
 	static function get_estructura()
 	{

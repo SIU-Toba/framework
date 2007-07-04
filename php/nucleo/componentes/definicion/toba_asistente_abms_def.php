@@ -1,6 +1,6 @@
 <?php
 
-class toba_plan_operacion_abms_def extends toba_plan_operacion_def
+class toba_asistente_abms_def extends toba_asistente_def
 {
  	static function get_estructura()
 	{

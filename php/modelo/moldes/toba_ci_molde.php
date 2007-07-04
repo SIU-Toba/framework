@@ -27,7 +27,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	}	
 	
 	//---------------------------------------------------
-	//-- Manejo de subcomponentes
+	//-- Manejo de SUBCOMPONENTES
 	//---------------------------------------------------	
 
 	function agregar_dep($tipo, $id, $pantalla=null)
@@ -47,7 +47,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function dep($id)
 	{
 		if(!isset($this->deps[$id])){
-			throw new toba_error("Molde CI: La dependencia '$id' no existe");
+			throw new toba_error("La dependencia '$id' no existe");
 		}
 		return $this->deps[$id];
 	}

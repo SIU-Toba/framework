@@ -13,6 +13,10 @@ class toba_item_molde extends toba_molde_elemento
 		$this->set_tipo_pagina('titulo');
 	}
 	
+	//----------------------------------------------------
+	//-- API CONSTRUCCION
+	//----------------------------------------------------
+
 	function ci()
 	{
 		if(!isset($this->ci)) $this->ci = new toba_ci_molde($this->asistente);
@@ -24,10 +28,6 @@ class toba_item_molde extends toba_molde_elemento
 		if(!isset($this->cn)) $this->cn = new toba_cn_molde($this->asistente);
 		return $this->cn;
 	}
-	
-	//----------------------------------------------------
-	//-- API CONSTRUCCION
-	//----------------------------------------------------
 
 	function set_carpeta_item($id)
 	{
@@ -59,7 +59,7 @@ class toba_item_molde extends toba_molde_elemento
 	}
 
 	//---------------------------------------------------
-	//-- GENERAR
+	//-- Generacion de METADATOS & ARCHIVOS
 	//---------------------------------------------------
 
 	function generar()
@@ -97,8 +97,6 @@ class toba_item_molde extends toba_molde_elemento
 		
 	}
 
-	//---------------------------------------------------
-	
 	function get_clave_componente_generado()
 	{
 		$datos = $this->datos->tabla('base')->get_clave_valor(0);

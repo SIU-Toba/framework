@@ -87,8 +87,10 @@ class toba_db_catalogo_general
   79 => 'apex_objeto_datos_rel_asoc',
   80 => 'apex_plan_operacion_tipo',
   81 => 'apex_plan_operacion',
-  82 => 'apex_plan_operacion_abms',
-  83 => 'apex_plan_operacion_abms_fila',
+  82 => 'apex_plan_operacion_log',
+  83 => 'apex_plan_operacion_log_elementos',
+  84 => 'apex_plan_operacion_abms',
+  85 => 'apex_plan_operacion_abms_fila',
 );
 	}
 

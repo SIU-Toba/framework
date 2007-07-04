@@ -13,7 +13,7 @@ INSERT INTO apex_plan_operacion (proyecto, plan, operacion_tipo, nombre, carpeta
 	'10', --operacion_tipo
 	'TEst A', --nombre
 	'3392', --carpeta_item
-	NULL  --carpeta_archivos
+	'test_asistentes'  --carpeta_archivos
 );
 --- FIN Grupo de desarrollo 0
 

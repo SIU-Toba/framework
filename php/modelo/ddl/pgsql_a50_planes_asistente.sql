@@ -43,9 +43,9 @@ CREATE TABLE apex_plan_operacion
 	proyecto  					varchar(255)	NOT NULL,
 	plan						int4			DEFAULT nextval('"apex_plan_operacion_seq"'::text) 		NOT NULL, 
 	operacion_tipo				int4			NOT NULL,
-	nombre                  	varchar(255) 	NULL,
-	carpeta_item				varchar(60)		NULL,
-	carpeta_archivos           	varchar(255) 	NULL,
+	nombre                  	varchar(255) 	NOT NULL,
+	carpeta_item				varchar(60)		NOT NULL,
+	carpeta_archivos           	varchar(255) 	NOT NULL,
 	CONSTRAINT  "apex_plan_operacion_pk" PRIMARY KEY ("proyecto","plan"),
 	CONSTRAINT	"apex_plan_operacion_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_plan_operacion_fk_carpeta" FOREIGN	KEY ("proyecto","carpeta_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -93,13 +93,16 @@ CREATE TABLE apex_plan_operacion_log_elementos
 ---------------------------------------------------------------------------------------------------
 (
 	generacion					int4			NOT NULL, 
+	plan						int4	 		NOT NULL, 
 	id							int4			DEFAULT nextval('"apex_plan_operacion_log_elementos_seq"'::text) 		NOT NULL, 
 	tipo						varchar(255)	NOT NULL,
 	proyecto					varchar(255)	NOT NULL,
-	clave						int4	 		NOT NULL, 
+	clave						varchar(255)	NOT NULL, 
 	CONSTRAINT  "apex_plan_operacion_log_e_pk" PRIMARY KEY ("id"),
 	CONSTRAINT  "apex_plan_operacion_log_e_fk" FOREIGN KEY ("generacion") REFERENCES "apex_plan_operacion_log" ("generacion") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
+
+
 
 --**************************************************************************************************
 --**************************************************************************************************

@@ -30,9 +30,9 @@
 	/**
 	*	@see toba_db::recuperar_secuencia()
 	*/
-	function recuperar_secuencia($sql, $id_fuente=null)
+	function recuperar_secuencia($secuencia, $id_fuente=null)
 	{
-		return toba::db($id_fuente)->recuperar_secuencia($sql);
+		return toba::db($id_fuente)->recuperar_secuencia($secuencia);
 	}
 	
 	/**
