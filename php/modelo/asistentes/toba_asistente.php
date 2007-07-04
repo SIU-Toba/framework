@@ -61,6 +61,7 @@ abstract class toba_asistente
 			}
 		}
 		$this->generar_elementos();
+		toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 	}
 
 	function generar_elementos()

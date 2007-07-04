@@ -19,7 +19,7 @@ class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 	//-- API de construccion
 	//---------------------------------------------------	
 
-	function agregar_ef($tipo, $identificador, $etiqueta = null, $orden=null, $columnas=null)
+	function agregar_ef($identificador, $tipo, $etiqueta = null, $orden=null, $columnas=null)
 	{
 		if(!isset($etiqueta)) $etiqueta = $identificador;
 		if(!isset($orden)) $orden = $this->proximo_ef; $this->proximo_ef++;
