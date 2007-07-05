@@ -889,7 +889,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					AND		proyecto = '$proyecto'
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
-			print_r($datos);
 		} else {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							objeto as 			componente

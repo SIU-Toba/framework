@@ -53,7 +53,7 @@ INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna,
 	NULL, --en_cuadro
 	NULL, --en_form
 	NULL, --en_filtro
-	'22', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript
 	NULL, --ef_datos_origen

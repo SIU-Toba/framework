@@ -43,6 +43,14 @@ class ci_planes extends toba_ci
 	//---- Ejecutar -----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function conf__ejecutar()
+	{
+		$datos = toba_info_editores::get_info_plan($this->s__proyecto, $this->s__plan);
+		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
+		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
+		$this->pantalla()->set_descripcion($txt);
+	}
+
 	function conf__cuadro_ejecuciones($componente)
 	{
 		return toba_info_editores::get_lista_ejecuciones_plan($this->s__proyecto, $this->s__plan);
