@@ -18,7 +18,7 @@ class toba_asistente_abms_def extends toba_asistente_def
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- abms ----------------
-		$sql['_info_abms']['sql'] = "SELECT			proyecto  							,
+		$sql['plan_abms']['sql'] = "SELECT			proyecto  							,
 													plan								,
 													tabla								,
 													gen_usa_filtro						,
@@ -36,13 +36,13 @@ class toba_asistente_abms_def extends toba_asistente_def
 							 FROM		apex_plan_operacion_abms 
 							 WHERE	proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
-			$sql['_info_abms']['sql'] .= "	AND		plan='$componente' ";	
+			$sql['plan_abms']['sql'] .= "	AND		plan='$componente' ";	
 		}
-		$sql['_info_abms']['sql'] .= ";";
-		$sql['_info_abms']['registros']='1';
-		$sql['_info_abms']['obligatorio']=true;
+		$sql['plan_abms']['sql'] .= ";";
+		$sql['plan_abms']['registros']='1';
+		$sql['plan_abms']['obligatorio']=true;
 		//------------ Columnas ----------------
-		$sql['_info_abms_fila']['sql'] = "SELECT	proyecto  							,
+		$sql['plan_abms_fila']['sql'] = "SELECT	proyecto  							,
 													plan								,
 													fila								,
 													orden								,
@@ -62,11 +62,11 @@ class toba_asistente_abms_def extends toba_asistente_def
 										 FROM		apex_plan_operacion_abms_fila
 										 WHERE	proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql['_info_abms_fila']['sql'] .= "	AND		plan='$componente' ";
+			$sql['plan_abms_fila']['sql'] .= "	AND		plan='$componente' ";
 		}
-		$sql['_info_abms_fila']['sql'] .= " ORDER BY fila;";
-		$sql['_info_abms_fila']['registros']='n';
-		$sql['_info_abms_fila']['obligatorio']=true;
+		$sql['plan_abms_fila']['sql'] .= " ORDER BY fila;";
+		$sql['plan_abms_fila']['registros']='n';
+		$sql['plan_abms_fila']['obligatorio']=true;
 		return $sql;
 	}
 }

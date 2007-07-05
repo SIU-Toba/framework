@@ -12,22 +12,22 @@ class toba_asistente_def implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['_info']['sql'] = "	SELECT	p.proyecto  		as				proyecto  				,
+		$sql['plan']['sql'] = "	SELECT	p.proyecto  		as				proyecto  				,
 											p.plan				as				plan					,
 											p.operacion_tipo	as				operacion_tipo			,
 											p.nombre	        as  			nombre                  ,
 											p.carpeta_item		as				carpeta_item			,
 											p.carpeta_archivos	as				carpeta_archivos		,
-											t.clase				as				subclase				
+											t.clase				as				clase				
 						FROM	apex_plan_operacion p,
 								apex_plan_operacion_tipo t
 						WHERE	p.operacion_tipo = t.operacion_tipo
 						AND		p.proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['_info']['sql'] .= "	AND		p.plan='$componente';";	
+			$sql['plan']['sql'] .= "	AND		p.plan='$componente';";	
 		}
-		$sql['_info']['registros']='1';	
-		$sql['_info']['obligatorio']=true;
+		$sql['plan']['registros']='1';	
+		$sql['plan']['obligatorio']=true;
 		return $sql;
 	}
 		

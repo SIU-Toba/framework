@@ -5,9 +5,11 @@ class toba_catalogo_asistentes
 	static function cargar_por_plan($id_plan_proyecto, $id_plan)
 	{
 		$tipo_plan = self::get_asistente_plan($id_plan_proyecto, $id_plan);
-		return toba_constructor::get_runtime( array('proyecto'=>$id_plan_proyecto, 
-													'componente' => $id_plan),
-													$tipo_plan[0]['asistente'] );
+		$datos = toba_cargador::instancia()->get_metadatos_extendidos( array('proyecto'=>$id_plan_proyecto, 
+																'componente' => $id_plan),
+																$tipo_plan[0]['asistente'] );
+		$clase = $datos['plan']['clase'];
+		return new $clase($datos);
 	}
 	
 	static function get_asistente_plan($id_plan_proyecto, $id_plan)

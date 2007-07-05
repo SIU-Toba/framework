@@ -1,6 +1,6 @@
 <?php
 
-class toba_asistente_abms extends toba_asistente
+class toba_asistente_grilla extends toba_asistente
 {
 	function generar()
 	{	

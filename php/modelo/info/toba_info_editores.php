@@ -813,7 +813,7 @@ class toba_info_editores
 					FROM	apex_plan_operacion_log
 					WHERE	plan = '$plan'
 					AND		proyecto = '$proyecto'
-					ORDER BY 1;";
+					ORDER BY 1 DESC;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 

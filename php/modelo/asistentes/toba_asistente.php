@@ -12,8 +12,8 @@ abstract class toba_asistente
 	
 	function __construct($plan)
 	{
-		$this->id_plan_proyecto = $plan['_info']['proyecto'];
-		$this->id_plan = $plan['_info']['plan'];
+		$this->id_plan_proyecto = $plan['plan']['proyecto'];
+		$this->id_plan = $plan['plan']['plan'];
 		//Cargo el plan
 		foreach (array_keys($plan) as $parte) {
 			$this->$parte = $plan[$parte];
@@ -37,8 +37,8 @@ abstract class toba_asistente
 	{
 		$this->item = new toba_item_molde($this);
 		$this->ci = $this->item->ci();
-		$this->item->set_nombre($this->_info['nombre']);
-		$this->item->set_carpeta_item($this->_info['carpeta_item']);
+		$this->item->set_nombre($this->plan['nombre']);
+		$this->item->set_carpeta_item($this->plan['carpeta_item']);
 	}
 
 	abstract function generar();
@@ -80,7 +80,7 @@ abstract class toba_asistente
 	function existe_generacion_previa()
 	{
 		//a nivel a archivos hay que preguntarle a la operacion que va a crear
-		//Leer en this->_info_plan_resultado
+		//Leer en this->plan_plan_resultado
 		return false;	
 	}
 
@@ -100,7 +100,7 @@ abstract class toba_asistente
 	
 	function get_carpeta_archivos()
 	{
-		return $this->_info['carpeta_archivos'];
+		return $this->plan['carpeta_archivos'];
 	}
 
 	//---------------------------------------------------

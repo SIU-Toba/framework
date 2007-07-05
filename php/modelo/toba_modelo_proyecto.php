@@ -878,13 +878,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 					WHERE proyecto = '$proyecto'
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
-		} elseif(strpos($tipo_componente,'toba_plan_operacion')!== false) {
-			$sql = "SELECT 	proyecto as 		proyecto,
-							plan as 			componente
-					FROM apex_plan_operacion 
-					WHERE proyecto = '$proyecto'
+		} elseif(strpos($tipo_componente,'toba_asistente')!== false) {
+			$sql = "SELECT 	o.proyecto as 		proyecto,
+							o.plan as 			componente,
+							t.clase
+					FROM 	apex_plan_operacion o,
+							apex_plan_operacion_tipo t
+					WHERE 	o.operacion_tipo = t.operacion_tipo
+					AND		t.clase = '$tipo_componente'
+					AND		proyecto = '$proyecto'
 					ORDER BY 1;";
 			$datos = $this->db->consultar( $sql );
+			print_r($datos);
 		} else {
 			$sql = "SELECT 	proyecto as 		proyecto,
 							objeto as 			componente
