@@ -88,7 +88,12 @@ class toba_instancia
 		if ($proyecto == 'toba') {
 			return toba::instalacion()->get_path();	
 		} elseif (isset($this->memoria[$proyecto]['path'])) {
-			return $this->memoria[$proyecto]['path'];
+			$path = $this->memoria[$proyecto]['path'];
+			if (substr($path, 0, 1) == '.') {
+				return realpath(toba_dir().'/'.$this->memoria[$proyecto]['path']);
+			} else {
+				return $this->memoria[$proyecto]['path'];
+			}
 		} else {
 			return toba_dir() . "/proyectos/" . $proyecto;
 		}
