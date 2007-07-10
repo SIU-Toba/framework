@@ -17,6 +17,8 @@ class toba_asistente_grilla extends toba_asistente
 	function generar_formulario_ml($form)
 	{
 		$form->set_nombre($this->plan['nombre'] . ' - Form');
+		$form->agregar_filas_js();
+		$form->set_analisis_cambios('LINEA');
 		foreach( $this->plan_abms_fila as $fila ) {
 			$form->agregar_ef($fila['columna'], $fila['elemento_formulario'], $fila['etiqueta']);
 		}
