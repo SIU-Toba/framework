@@ -114,6 +114,9 @@ class toba_cargador
 		} else {													// Sin CACHE!
 			$clase_def = $tipo . '_def';
 			$metodo_def = $resumidos ? 'get_vista_extendida_resumida' : 'get_vista_extendida';
+			//----TODO: HACK para evitar bug en php 5.2.1 y 5.2.3
+			new $clase_def;
+			//----
 			$estructura = call_user_func_array( array(	$clase_def,
 														$metodo_def ),
 														array( $proyecto, $id ) );
