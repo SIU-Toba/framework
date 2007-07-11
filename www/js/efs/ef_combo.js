@@ -27,6 +27,7 @@ ef_combo.prototype.constructor = ef_combo;
 		}
 		var valor = this.get_estado();
 		if (this._obligatorio && 
+				this.input().type != 'hidden' &&
 			(valor == apex_ef_no_seteado || this.input().options.length === 0 ||
 				valor === null)) {
 			this._error = 'es obligatorio.';

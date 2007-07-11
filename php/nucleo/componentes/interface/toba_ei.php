@@ -134,6 +134,10 @@ abstract class toba_ei extends toba_componente
 	{
 		if(isset($this->_eventos_usuario[ $id ])){
 			if(isset($this->_eventos_usuario_utilizados[ $id ])){
+				if (isset($this->_evento_implicito) && 
+						$this->_evento_implicito === $this->_eventos_usuario_utilizados[ $id ]) {
+					unset($this->_evento_implicito);
+				}
 				unset($this->_eventos_usuario_utilizados[ $id ]);
 				toba::logger()->debug("Se elimino el evento: $id", 'toba');
 			}		
@@ -573,7 +577,7 @@ abstract class toba_ei extends toba_componente
 	{
 		$identado = toba_js::instancia()->identado();
 		//-- EVENTO implicito --
-		if(is_object($this->_evento_implicito)){
+		if (isset($this->_evento_implicito) && is_object($this->_evento_implicito)){
 			$evento_js = $this->_evento_implicito->get_evt_javascript();
 			echo toba_js::instancia()->identado()."{$this->objeto_js}.set_evento_implicito($evento_js);\n";
 		}
