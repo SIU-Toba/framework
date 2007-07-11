@@ -72,6 +72,7 @@ ef_cuit.prototype.constructor = ef_cuit;
 	};
 	
 	ef_cuit.prototype.set_solo_lectura = function(solo_lectura) {
+		this._solo_lectura = solo_lectura;
 		for (var i=1 ; i<4; i++) {
 			this.input(i).readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
 		}

@@ -104,6 +104,7 @@ ef_editable.prototype.constructor = ef_editable;
 	
 	ef_editable.prototype.set_solo_lectura = function(solo_lectura) {
 		this.input().readOnly = (typeof solo_lectura == 'undefined' || solo_lectura);
+		this._solo_lectura = this.input().readOnly;		
 	};	
 
 	

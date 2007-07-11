@@ -44,6 +44,7 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
 		}
+		this._solo_lectura = solo_lectura;
 		var input = this.input();
 		if (input) {
 			input.disabled = solo_lectura;
@@ -177,6 +178,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 	
 	ef_multi_seleccion_check.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);		
+		this._solo_lectura = solo_lectura;		
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
 			elem[i].disabled = solo_lectura;
@@ -391,6 +393,7 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 		if (typeof solo_lectura == 'undefined') {
 			solo_lectura = true;
 		}
+		this._solo_lectura = solo_lectura;		
 		this.input('izq').selectedIndex = -1;			
 		this.input('izq').disabled = solo_lectura;
 		this.input('der').selectedIndex = -1;		

@@ -7,6 +7,13 @@ class form_ocultar_mostrar extends toba_ei_formulario
 	function extender_objeto_js()
 	{
 		echo "
+			{$this->objeto_js}.evt__efecto__procesar = function(es_inicial) 
+			{
+				if (! es_inicial) {
+					this.evt__categoria__procesar(es_inicial);
+				}
+			}		
+			
 			{$this->objeto_js}.evt__categoria__procesar = function(es_inicial) 
 			{
 				switch (this.ef('categoria').get_estado()) {
@@ -31,16 +38,26 @@ class form_ocultar_mostrar extends toba_ei_formulario
 			
 			{$this->objeto_js}.mostrar_bloque_A = function(visible)
 			{
-				this.ef('sepa').mostrar(visible);
-				this.ef('a1').mostrar(visible);
-				this.ef('a2').mostrar(visible);
+				if (this.ef('efecto').get_estado() == 'ocultar') {
+					this.ef('sepa').mostrar(visible);
+					this.ef('a1').mostrar(visible);
+					this.ef('a2').mostrar(visible);
+				} else {
+					this.ef('a1').set_solo_lectura(visible);
+					this.ef('a2').set_solo_lectura(visible);
+				}
 			}
 			
 			{$this->objeto_js}.mostrar_bloque_B = function(visible)
 			{
-				this.ef('sepb').mostrar(visible);
-				this.ef('b1').mostrar(visible);
-				this.ef('b2').mostrar(visible);			
+				if (this.ef('efecto').get_estado() == 'ocultar') {			
+					this.ef('sepb').mostrar(visible);
+					this.ef('b1').mostrar(visible);
+					this.ef('b2').mostrar(visible);			
+				} else {
+					this.ef('b1').set_solo_lectura(visible);
+					this.ef('b2').set_solo_lectura(visible);
+				}
 			}			
 		";
 	}

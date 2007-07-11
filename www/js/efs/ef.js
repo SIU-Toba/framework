@@ -21,6 +21,7 @@ function ef(id_form, etiqueta, obligatorio, colapsable) {
 
 	this._id = null;
 	this._oculto = false;
+	this._solo_lectura = false;
 	this._id_form = id_form;
 	this._id_form_orig = this._id_form;
 	this._etiqueta = etiqueta;
@@ -150,7 +151,8 @@ ef.prototype.constructor = ef;
 				this._obligatorio = this._controlador.cascadas_maestros_preparados(this._id);	
 			}
 			if (this._obligatorio_oculto_relaj) {
-				this._obligatorio = !this._oculto;	
+				//--- Relaja la validacion si es oculto o esta solo_lectura
+				this._obligatorio = !(this._oculto || this._solo_lectura);	
 			}
 		}
 		return true;
@@ -288,6 +290,7 @@ ef.prototype.constructor = ef;
 	 */
 	ef.prototype.set_solo_lectura = function(solo_lectura) {
 		this.input().disabled = (typeof solo_lectura == 'undefined' || solo_lectura);
+		this._solo_lectura = this.input().disabled;
 	};
 	
 	/**

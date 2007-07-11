@@ -154,7 +154,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'elemento_formulario', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Tipo de elemento', --etiqueta
 	NULL, --etiqueta_estilo
@@ -224,7 +224,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'etiqueta', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Etiqueta', --etiqueta
 	NULL, --etiqueta_estilo
@@ -291,7 +291,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'identificador', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Identificador', --etiqueta
 	NULL, --etiqueta_estilo
@@ -358,7 +358,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'obligatorio', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Oblig.', --etiqueta
 	NULL, --etiqueta_estilo
@@ -428,11 +428,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'oculto_relaja_obligatorio', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Relajar oculto', --etiqueta
 	NULL, --etiqueta_estilo
-	'Cuando un campo obligatorio se oculta (utilizando la API javascript) es posible desactivar su validación de obligatorio.', --descripcion
+	'Cuando un campo obligatorio se oculta o se pone solo-lectura (por ejemplo utilizando la API javascript) se desactiva su validación de obligatorio.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

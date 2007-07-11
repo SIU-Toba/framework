@@ -86,6 +86,7 @@ ef_popup.prototype.constructor = ef_popup;
 	
 	ef_popup.prototype.set_solo_lectura = function(solo_lectura) {
 		solo_lectura = (typeof solo_lectura != 'undefined' && solo_lectura);
+		this._solo_lectura = solo_lectura;		
 		this.input().disabled = solo_lectura;
 		this.vinculo().style.visibility = (solo_lectura) ? "hidden" : "visible";
 	};	
