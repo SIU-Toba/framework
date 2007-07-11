@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Dependencias en ML', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_referencia', --fuente_datos_proyecto
 	'toba_referencia', --fuente_datos
@@ -98,14 +98,14 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ancho
 	NULL, --ancho_etiqueta
 	NULL, --campo_bl
-	NULL, --scroll
-	'1', --filas
+	'0', --scroll
+	'0', --filas
 	'1', --filas_agregar
-	'1', --filas_agregar_online
+	'0', --filas_agregar_online
 	NULL, --filas_undo
-	NULL, --filas_ordenar
-	NULL, --columna_orden
-	NULL, --filas_numerar
+	'0', --filas_ordenar
+	'', --columna_orden
+	'0', --filas_numerar
 	NULL, --ev_seleccion
 	NULL, --alto
 	'NO'  --analisis_cambios
@@ -123,10 +123,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'localidad', --identificador
 	'ef_combo', --elemento_formulario
 	'localidad', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'2', --orden
-	NULL, --etiqueta
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'4', --orden
+	'Localidad', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
@@ -192,31 +192,31 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'pais', --identificador
 	'ef_combo', --elemento_formulario
 	'pais', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'0', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'2', --orden
 	'País', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	'4', --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
-	'SELECT \'ar\', \'Argentina\'
+	'SELECT \'ar\', \'%oculto% - Argentina\'
 UNION
-SELECT \'br\', \'Brasil\'', --carga_sql
-	NULL, --carga_fuente
+SELECT \'br\', \'%oculto% - Brasil\'', --carga_sql
+	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'oculto', --carga_maestros
+	'0', --carga_cascada_relaj
 	'-- Seleccione --', --carga_no_seteado
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -261,31 +261,31 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'provincia', --identificador
 	'ef_combo', --elemento_formulario
 	'provincia', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'1', --orden
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'3', --orden
 	'Provincia', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	'4', --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
-	'SELECT \'ba\', \'Buenos Aires\' WHERE \'ar\' = \'%pais%\'
+	'SELECT \'ba\', \'%oculto% - Buenos Aires\' WHERE \'ar\' = \'%pais%\'
 UNION
-SELECT \'sj\', \'San Juan\' WHERE \'ar\' = \'%pais%\'', --carga_sql
-	NULL, --carga_fuente
+SELECT \'sj\', \'%oculto% - San Juan\' WHERE \'ar\' = \'%pais%\'', --carga_sql
+	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
-	'pais', --carga_maestros
-	NULL, --carga_cascada_relaj
+	'pais,oculto', --carga_maestros
+	'0', --carga_cascada_relaj
 	'-- Seleccione --', --carga_no_seteado
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -324,3 +324,73 @@ SELECT \'sj\', \'San Juan\' WHERE \'ar\' = \'%pais%\'', --carga_sql
 	NULL  --upload_extensiones
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_col_clave, carga_col_desc, carga_sql, carga_fuente, carga_lista, carga_maestros, carga_cascada_relaj, carga_no_seteado, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'toba_referencia', --objeto_ei_formulario_proyecto
+	'1390', --objeto_ei_formulario
+	'1000430', --objeto_ei_formulario_fila
+	'oculto', --identificador
+	'ef_oculto', --elemento_formulario
+	'oculto', --columnas
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'1', --orden
+	'Oculto', --etiqueta
+	NULL, --etiqueta_estilo
+	NULL, --descripcion
+	NULL, --colapsado
+	NULL, --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	NULL, --estado_defecto
+	NULL, --solo_lectura
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_sql
+	NULL, --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_maestros
+	NULL, --carga_cascada_relaj
+	NULL, --carga_no_seteado
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --fieldset_fin
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+--- FIN Grupo de desarrollo 1

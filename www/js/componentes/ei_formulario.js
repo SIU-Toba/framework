@@ -139,13 +139,13 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * Un ef indica que su valor cambio y por lo tanto sus esclavos deben refrescarse
 	 * @param {string} id_ef Identificador del ef maestro que sufrio una modificación
 	 */
-	ei_formulario.prototype.cascadas_cambio_maestro = function(id_ef)
+	ei_formulario.prototype.cascadas_cambio_maestro = function(id_ef, fila)
 	{
 		if (this._esclavos[id_ef]) {
 			this.evt__cascadas_inicio(this.ef(id_ef));
 			//--Se recorren los esclavos del master modificado
 			for (var i=0; i < this._esclavos[id_ef].length; i++) {
-				this.cascadas_preparar_esclavo(this._esclavos[id_ef][i]);
+				this.cascadas_preparar_esclavo(this._esclavos[id_ef][i], fila);
 			}
 		}
 	};
@@ -174,7 +174,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * la comunicación con el servidor
 	 * @param {string} id_esclavo Identificador del ef esclavo que se refrescara
 	 */	
-	ei_formulario.prototype.cascadas_preparar_esclavo = function (id_esclavo)
+	ei_formulario.prototype.cascadas_preparar_esclavo = function (id_esclavo, fila)
 	{
 		//Primero se resetea por si la consulta nunca retorna
 		this.cascadas_en_espera(id_esclavo);
@@ -196,7 +196,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		}
 		//--- Si estan todos los maestros puedo ir al server a preguntar el valor de este
 		if (con_estado) {
-			this.cascadas_comunicar(id_esclavo, valores);
+			this.cascadas_comunicar(id_esclavo, valores, fila);
 		}
 	};
 	
@@ -240,10 +240,13 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * @param {string} id_ef Id. del ef a refrescar (un ef esclavo)
 	 * @param {string valores Lista plana de valores. Formato: ef1-;-valor1-|-ef2-;-valor2-|- etc.
 	 */
-	ei_formulario.prototype.cascadas_comunicar = function(id_ef, valores) 
+	ei_formulario.prototype.cascadas_comunicar = function(id_ef, valores, fila) 
 	{
 		//Empaqueto toda la informacion que tengo que mandar.
 		var parametros = {'cascadas-ef': id_ef, 'cascadas-maestros' : valores};
+		if (typeof fila != 'undefined') {
+			parametros['cascadas-fila'] = fila;
+		}
 		var callback = {
 			success: this.cascadas_respuesta,
 			failure: toba.error_comunicacion,

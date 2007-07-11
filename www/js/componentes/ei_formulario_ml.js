@@ -218,7 +218,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (var ef in this._efs) {
 			this._efs[ef].ir_a_fila(actual);
 		}
-		ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef);
+		ei_formulario.prototype.cascadas_cambio_maestro.call(this, id_ef, actual);
 	};	
 	
 	//----Selección 

@@ -759,6 +759,7 @@ class toba_ei_formulario extends toba_ei
 			throw new toba_error("Cascadas: Invocación incorrecta");	
 		}
 		$id_ef = trim(toba::memoria()->get_parametro('cascadas-ef'));
+		$fila_actual = trim(toba::memoria()->get_parametro('cascadas-fila'));
 		$maestros = array();
 		$ids_maestros = $this->_cascadas_maestros[$id_ef];
 		foreach (explode('-|-', toba::memoria()->get_parametro('cascadas-maestros')) as $par) {
@@ -794,6 +795,11 @@ class toba_ei_formulario extends toba_ei
 		}
 		//--- Recorro la lista de maestros para ver si falta alguno. Permite tener ocultos como maestros
 		foreach ($ids_maestros as $id_ef_maestro) {
+			if (isset($fila_actual)) {
+				//-- Caso especial del ML, necesita ir a la fila actual y recargar su estado
+				$this->ef($id_ef_maestro)->ir_a_fila($fila_actual);
+				$this->ef($id_ef_maestro)->cargar_estado_post();
+			}
 			if (! $this->ef($id_ef_maestro)->tiene_estado()) {
 				throw new toba_error("Cascadas: El ef maestro '$id_ef_maestro' no tiene estado cargado");
 			}
