@@ -29,7 +29,14 @@ class toba_migracion_1_0_5 extends toba_migracion
 						clase_contenedora					varchar(60)		NOT NULL,
 						clase_contenida						varchar(60)		NOT NULL
 					);";
-		$this->elemento->get_db()->ejecutar($sql);
+		
+		$this->elemento->get_db()->ejecutar($sql);		
+
+		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a50_planes_asistente.sql';
+		if (file_exists($archivo)) {
+			$this->elemento->get_db()->ejecutar_archivo($archivo);
+		}
+
 	}
 	
 	function instancia__migracion_nombre_componentes()
