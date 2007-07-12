@@ -39,6 +39,7 @@ abstract class toba_asistente
 		$this->ci = $this->item->ci();
 		$this->item->set_nombre($this->plan['nombre']);
 		$this->item->set_carpeta_item($this->plan['carpeta_item']);
+		$this->item->cargar_grupos_acceso_activos();
 	}
 
 	abstract function generar();

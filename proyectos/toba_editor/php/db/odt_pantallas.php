@@ -16,6 +16,15 @@ class odt_pantallas extends toba_datos_tabla
 	//--- Manejo de la relacion con las DEPENDENCIAS
 	//-----------------------------------------------------
 
+	function agregar_dependencia_pantalla($pantalla, $dep)
+	{
+		$deps = $this->get_dependencias_pantalla($pantalla);
+		if(!isset($deps) || !in_array($dep, $deps)){
+			$deps[] = $dep;	
+			$this->set_dependencias_pantalla($pantalla, $deps);
+		}
+	}
+
 	function set_dependencias_pantalla($pantalla, $dependencias)
 	//Setea las dependencias asociadas a una pantalla		
 	{
@@ -75,11 +84,31 @@ class odt_pantallas extends toba_datos_tabla
 	//--- Manejo de la relacion con los EVENTOS
 	//-----------------------------------------------------
 
+	function agregar_evento_pantalla($pantalla, $evt)
+	{
+		$eventos = $this->get_eventos_pantalla($pantalla);
+		if(!isset($eventos) || !in_array($evt, $eventos)){
+			$eventos[] = $evt;	
+			$this->set_eventos_pantalla($pantalla, $eventos);
+		}
+	}
+
 	function set_eventos_pantalla($pantalla, $eventos)
 	//Setea las eventos asociadas a una pantalla		
 	{
 		$deps = implode(",", $eventos);
 		$this->set_fila_columna_valor($pantalla, 'eventos', $deps);
+	}
+
+	function get_eventos_pantalla($pantalla)
+	//Devuelve las eventos asociadas a una pantalla
+	{
+		$out = array();
+		$deps = $this->get_fila_columna($pantalla, 'eventos');
+		if(trim($deps)!=""){
+			$out = array_map("trim", explode(",", $deps ) );		
+		}
+		return $out;
 	}
 	
 	/**
@@ -127,17 +156,6 @@ class odt_pantallas extends toba_datos_tabla
 		return $pantallas;
 	}
 	
-	function get_eventos_pantalla($pantalla)
-	//Devuelve las eventos asociadas a una pantalla
-	{
-		$out = array();
-		$deps = $this->get_fila_columna($pantalla, 'eventos');
-		if(trim($deps)!=""){
-			$out = array_map("trim", explode(",", $deps ) );		
-		}
-		return $out;
-	}
-
 	function eliminar_evento($evento)
 	//Elimino una evento de todas las pantallas donde este
 	{

@@ -5,7 +5,7 @@
 class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 {
 	protected $clase = 'toba_ei_formulario';
-	protected $mapeo_efs;
+	protected $efs;
 	protected $proximo_ef = 0;
 	
 	function ini()
@@ -19,26 +19,33 @@ class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 	//-- API de construccion
 	//---------------------------------------------------	
 
-	function agregar_ef($identificador, $tipo, $etiqueta = null, $orden=null, $columnas=null)
+	function agregar_ef($identificador, $tipo)
 	{
-		if(!isset($etiqueta)) $etiqueta = $identificador;
-		if(!isset($orden)) $orden = $this->proximo_ef; $this->proximo_ef++;
-		if(!isset($columnas)) {
-			$columnas = $identificador;	
-		}else{
-			if(!is_array($columnas)){
-				throw new error_toba('Las columnas deben definirse mediante un array');	
-			}else{
-				$columnas = implode(', ',$columnas);
-			}
-		}
-		$datos = array(	'elemento_formulario'	=> $tipo,
-						'orden' 				=> $orden,
-						'identificador'			=> $identificador,
-						'etiqueta'				=> $etiqueta,
-						'columnas'				=> $columnas 
-					);
-		$this->mapeo_efs[$identificador] = $this->datos->tabla('efs')->nueva_fila($datos);
+		$this->efs[$identificador] = new toba_molde_ef($identificador, $tipo);
+		$this->efs[$identificador]->set_orden($this->proximo_ef);
+		$this->proximo_ef++;
+		return $this->efs[$identificador];
 	}
+
+	function ef($identificador)
+	{
+		if(!isset($this->efs[$identificador])) {
+			throw new toba_error('Molde formulario: El ef solicitado no existe');	
+		}
+		return $this->efs[$identificador];
+	}
+
+	//---------------------------------------------------
+	//-- Generacion de METADATOS & ARCHIVOS
+	//---------------------------------------------------
+	
+	function generar()
+	{
+		foreach($this->efs as $ef) {
+		 	$this->datos->tabla('efs')->nueva_fila($ef->get_datos());
+		}
+		parent::generar();
+	}
+
 }
 ?>

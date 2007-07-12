@@ -5,7 +5,6 @@ class toba_asistente_abms extends toba_asistente
 	function generar()
 	{	
 		//ei_arbol(array($this->plan, $this->plan_abms, $this->plan_abms_fila));
-		$this->item->cargar_grupos_acceso_activos();
 		$this->ci->agregar_pantalla('pantalla_1', 'Pantalla UNO');
 		$this->ci->extender('ci','ci.php');
 		$this->ci->agregar_dep('toba_ei_formulario', 'formulario', 'pantalla_1');
