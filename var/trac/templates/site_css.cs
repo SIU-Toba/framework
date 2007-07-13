@@ -86,3 +86,6 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
