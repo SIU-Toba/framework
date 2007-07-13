@@ -2,6 +2,9 @@
 
 class toba_catalogo_asistentes
 {
+	/**
+	*	Carga un asistente a partir de un plan de generacion
+	*/
 	static function cargar_por_plan($id_plan_proyecto, $id_plan)
 	{
 		$tipo_plan = self::get_asistente_plan($id_plan_proyecto, $id_plan);

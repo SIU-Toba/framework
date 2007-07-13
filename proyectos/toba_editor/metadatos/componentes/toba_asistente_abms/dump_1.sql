@@ -43,7 +43,7 @@ INSERT INTO apex_plan_operacion_abms (proyecto, plan, tabla, gen_usa_filtro, gen
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_datos_origen, ef_datos_origen_ci_sql, ef_datos_orgien_php_archivo, ef_datos_orgien_php_clase, ef_datos_orgien_php_metodo) VALUES (
+INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_datos_origen, ef_datos_origen_ci_sql, ef_datos_orgien_php_archivo, ef_datos_orgien_php_clase, ef_datos_orgien_php_metodo) VALUES (
 	'toba_editor', --proyecto
 	'1', --plan
 	'1', --fila
@@ -53,6 +53,10 @@ INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna,
 	NULL, --en_cuadro
 	NULL, --en_form
 	NULL, --en_filtro
+	NULL, --dt_tipo_dato
+	NULL, --dt_largo
+	NULL, --dt_secuencia
+	NULL, --dt_pk
 	'ef_editable', --elemento_formulario
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript

@@ -456,6 +456,8 @@ class toba_nucleo
 			'toba_molde_elemento_componente_ei'   	=> 'modelo/moldes/toba_molde_elemento_componente_ei.php',   
 			'toba_molde_ef'   						=> 'modelo/moldes/toba_molde_ef.php',   
 			'toba_molde_evento' 					=> 'modelo/moldes/toba_molde_evento.php',   
+			'toba_molde_cuadro_col'					=> 'modelo/moldes/toba_molde_cuadro_col.php',   
+			'toba_molde_datos_tabla_col' 			=> 'modelo/moldes/toba_molde_datos_tabla_col.php',   
  			//------------- Soporte a COMPONENTES -----------------------------------
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
