@@ -41,6 +41,11 @@ class toba_molde_evento
 		$this->datos['en_botonera'] = 1;
 	}
 
+	function sobre_fila()
+	{
+		$this->datos['sobre_fila'] = 1;
+	}
+
 	function implicito()
 	{
 		$this->datos['implicito'] = 1;

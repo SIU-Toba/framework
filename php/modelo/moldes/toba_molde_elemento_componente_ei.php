@@ -4,7 +4,7 @@
 */
 class toba_molde_elemento_componente_ei extends toba_molde_elemento_componente
 {
-	protected $eventos;
+	protected $eventos = array();
 	protected $proximo_evento = 0;
 
 	//---------------------------------------------------

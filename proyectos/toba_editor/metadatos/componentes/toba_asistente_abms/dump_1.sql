@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1]--  Test A 
+--[2]--  Test B 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,9 +23,9 @@ INSERT INTO apex_plan_operacion (proyecto, plan, operacion_tipo, nombre, carpeta
 INSERT INTO apex_plan_operacion_abms (proyecto, plan, tabla, gen_usa_filtro, gen_separar_pantallas, cuadro_eof, cuadro_id, cuadro_eliminar_filas, cuadro_datos_origen, cuadro_datos_origen_ci_sql, cuadro_datos_orgien_php_archivo, cuadro_datos_orgien_php_clase, cuadro_datos_orgien_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
 	'1', --plan
-	'pepe', --tabla
-	'1', --gen_usa_filtro
-	'1', --gen_separar_pantallas
+	'apex_tipo_datos', --tabla
+	'0', --gen_usa_filtro
+	'0', --gen_separar_pantallas
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_id
 	NULL, --cuadro_eliminar_filas
@@ -48,13 +48,36 @@ INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna,
 	'1', --plan
 	'1', --fila
 	'1', --orden
-	'1', --columna
-	'1', --etiqueta
+	'tipo', --columna
+	'Tipo', --etiqueta
 	NULL, --en_cuadro
 	NULL, --en_form
 	NULL, --en_filtro
-	NULL, --dt_tipo_dato
-	NULL, --dt_largo
+	'C', --dt_tipo_dato
+	'1', --dt_largo
+	NULL, --dt_secuencia
+	'1', --dt_pk
+	'ef_editable', --elemento_formulario
+	NULL, --ef_desactivar_modificacion
+	NULL, --ef_procesar_javascript
+	NULL, --ef_datos_origen
+	NULL, --ef_datos_origen_ci_sql
+	NULL, --ef_datos_orgien_php_archivo
+	NULL, --ef_datos_orgien_php_clase
+	NULL  --ef_datos_orgien_php_metodo
+);
+INSERT INTO apex_plan_operacion_abms_fila (proyecto, plan, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_datos_origen, ef_datos_origen_ci_sql, ef_datos_orgien_php_archivo, ef_datos_orgien_php_clase, ef_datos_orgien_php_metodo) VALUES (
+	'toba_editor', --proyecto
+	'1', --plan
+	'3', --fila
+	'2', --orden
+	'descripcion', --columna
+	'Descripcion', --etiqueta
+	NULL, --en_cuadro
+	NULL, --en_form
+	NULL, --en_filtro
+	'C', --dt_tipo_dato
+	'30', --dt_largo
 	NULL, --dt_secuencia
 	NULL, --dt_pk
 	'ef_editable', --elemento_formulario
