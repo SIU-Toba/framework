@@ -644,8 +644,9 @@ class toba_db_tablas_nucleo
     1 => 'descripcion_corta',
     2 => 'descripcion',
     3 => 'clase',
-    4 => 'icono',
-    5 => 'orden',
+    4 => 'ci',
+    5 => 'icono',
+    6 => 'orden',
   ),
 );
 	}

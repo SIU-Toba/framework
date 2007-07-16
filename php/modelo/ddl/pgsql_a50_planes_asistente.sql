@@ -19,6 +19,7 @@ CREATE TABLE apex_plan_operacion_tipo
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
 	clase							varchar(255)		NOT NULL,
+	ci								varchar(255)		NOT NULL,
 	icono							varchar(30)			NULL,
 	orden							float				NULL,
 	CONSTRAINT	"apex_plan_operacion_tipo_pk"	 PRIMARY	KEY ("operacion_tipo")
