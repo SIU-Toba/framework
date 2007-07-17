@@ -16,19 +16,13 @@ class toba_asistente_abms extends toba_asistente
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario($form);
 		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		$this->generar_datos_tabla($tabla);
+		$this->generar_datos_tabla($tabla, $this->molde_abms_fila);
 	}
 	
 	function generar_formulario($form)
 	{
 		$form->set_nombre($this->molde['nombre'] . ' - Form');
-		foreach( $this->molde_abms_fila as $fila ) {
-			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
-			if($fila['dt_largo']){
-				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
-				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
-			}
-		}
+		$this->generar_efs($form, $this->molde_abms_fila);
 		//- Evento ALTA ----
 		$evento = $form->agregar_evento('alta');
 		$evento->en_botonera();
@@ -50,20 +44,6 @@ class toba_asistente_abms extends toba_asistente
 		$evento = $cuadro->agregar_evento('seleccion');
 		$evento->sobre_fila();
 		$evento->set_imagen('doc.gif');
-	}
-	
-	function generar_datos_tabla($tabla)
-	{
-		$tabla->set_tabla($this->molde_abms['tabla']);
-		foreach( $this->molde_abms_fila as $fila ) {
-			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
-			if($fila['dt_pk']){
-				$col->pk();
-			}
-			if($fila['dt_secuencia']){
-				$col->set_secuencia($fila['dt_secuencia']);
-			}
-		}
 	}
 }
 ?>

@@ -131,11 +131,11 @@ CREATE TABLE apex_molde_operacion_abms
 	cuadro_eof							varchar(255)	NULL,
 	cuadro_eliminar_filas				smallint		NULL,
 	cuadro_id							varchar(255)	NULL,
-	cuadro_datos_origen					varchar(10)		NULL,
-	cuadro_datos_origen_ci_sql			varchar			NULL,
-	cuadro_datos_origen_php_include		varchar(255)	NULL,
-	cuadro_datos_origen_php_clase		varchar(255)	NULL,
-	cuadro_datos_origen_php_metodo		varchar(255)	NULL,
+	cuadro_carga						varchar(20)		NULL,	-- Donde meter la consula? => datos_tabla, consulta_php, ci
+	cuadro_carga_sql					varchar			NULL,
+	cuadro_carga_php_include			varchar(255)	NULL,
+	cuadro_carga_php_clase				varchar(255)	NULL,
+	cuadro_carga_php_metodo				varchar(255)	NULL,
 	datos_tabla_validacion				smallint		NULL,
 	apdb_pre							smallint		NULL,	-- Hay que poner uno por ventana.
 	CONSTRAINT  "apex_molde_operacion_abms_pk" PRIMARY KEY ("proyecto","molde"),
@@ -174,8 +174,8 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	elemento_formulario					varchar(30)		NULL,
 	ef_desactivar_modificacion			smallint		NULL,
 	ef_procesar_javascript				smallint		NULL,
-	ef_carga							varchar(10)		NULL,
-	ef_carga_ci_sql						varchar			NULL,
+	ef_carga							varchar(20)		NULL,	-- Donde meter la consula? => consulta_php, ci, ef
+	ef_carga_sql						varchar			NULL,
 	ef_carga_php_include				varchar(255)	NULL,
 	ef_carga_php_clase					varchar(255)	NULL,
 	ef_carga_php_metodo					varchar(255)	NULL,

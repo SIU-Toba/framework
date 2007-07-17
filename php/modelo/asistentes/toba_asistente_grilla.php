@@ -13,7 +13,7 @@ class toba_asistente_grilla extends toba_asistente
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario_ml($form);
 		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		$this->generar_datos_tabla($tabla);
+		$this->generar_datos_tabla($tabla, $this->molde_abms_fila);
 		//- Eventos del CI ---------------------------------------
 		$evento = $this->ci->agregar_evento('guardar');
 		$evento->maneja_datos();
@@ -46,30 +46,10 @@ class toba_asistente_grilla extends toba_asistente
 		$form->set_nombre($this->molde['nombre'] . ' - Form');
 		$form->set_analisis_cambios('LINEA');
 		$form->agregar_filas_js();
-		foreach( $this->molde_abms_fila as $fila ) {
-			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
-			if($fila['dt_largo']){
-				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
-				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
-			}
-		}
+		$this->generar_efs($form, $this->molde_abms_fila);
 		$evento = $form->agregar_evento('modificacion');
 		$evento->maneja_datos();
 		$evento->implicito();
-	}
-	
-	function generar_datos_tabla($tabla)
-	{
-		$tabla->set_tabla($this->molde_abms['tabla']);
-		foreach( $this->molde_abms_fila as $fila ) {
-			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
-			if($fila['dt_pk']){
-				$col->pk();
-			}
-			if($fila['dt_secuencia']){
-				$col->set_secuencia($fila['dt_secuencia']);
-			}
-		}
 	}
 }
 ?>

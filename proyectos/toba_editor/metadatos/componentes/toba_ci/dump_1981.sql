@@ -315,7 +315,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1981', --objeto_ci
 	'1053', --pantalla
 	'elegir', --identificador
-	'2', --orden
+	'1', --orden
 	'Planes de generacion', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -363,7 +363,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1981', --objeto_ci
 	'1057', --pantalla
 	'crear', --identificador
-	'1', --orden
+	'2', --orden
 	'Crear Plan', --etiqueta
 	NULL, --descripcion
 	NULL, --tip

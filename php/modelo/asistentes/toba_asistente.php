@@ -1,7 +1,5 @@
 <?php
-/*
-*	El ASISTENTE lee un molde para generar un MOLDE con el cual crear una OPERACION.
-*/
+
 abstract class toba_asistente
 {
 	protected $id_molde_proyecto;
@@ -131,5 +129,33 @@ abstract class toba_asistente
 		}
 	}
 
+	//---------------------------------------------------
+	//-- Primitivas transversales de generacion
+	//---------------------------------------------------
+
+	function generar_efs($form, $filas)
+	{
+		foreach( $filas as $fila ) {
+			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
+			if($fila['dt_largo']){
+				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
+				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
+			}
+		}
+	}
+	
+	function generar_datos_tabla($tabla, $filas)
+	{
+		$tabla->set_tabla($this->molde_abms['tabla']);
+		foreach( $filas as $fila ) {
+			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
+			if($fila['dt_pk']){
+				$col->pk();
+			}
+			if($fila['dt_secuencia']){
+				$col->set_secuencia($fila['dt_secuencia']);
+			}
+		}
+	}
 }
 ?>
