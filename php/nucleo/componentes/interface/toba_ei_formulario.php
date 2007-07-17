@@ -727,7 +727,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
-		if (isset($parametros['carga_include'])) {
+		if (isset($parametros['carga_include']) || isset($parametros['carga_clase'])) {
 			if(!class_exists($parametros['carga_clase'])) {
 				require_once($parametros['carga_include']);
 			}

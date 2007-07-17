@@ -786,20 +786,34 @@ class toba_info_editores
 	//----------  Planes de generacion de operaciones  -----------------------------
 	//------------------------------------------------------------------------------
 
-	function get_lista_tipo_plan()
+	function get_lista_tipo_plan($operacion_tipo = null)
 	{
+		$where_operacion = '';
+		if (isset($operacion_tipo)) {
+			$where_operacion = "WHERE operacion_tipo='$operacion_tipo'";
+		}
 		$sql = "	SELECT	operacion_tipo,
 							descripcion_corta,
 							ci,
 							icono
 					FROM apex_plan_operacion_tipo
+					$where_operacion
 					ORDER BY orden";		
-		return toba_contexto_info::get_db()->consultar($sql);
+		if (!isset($operacion_tipo)) {
+			return toba_contexto_info::get_db()->consultar($sql);
+		} else {
+			return toba_contexto_info::get_db()->consultar_fila($sql);			
+		}
 	}
+	
 
-	function get_lista_planes_existentes($proyecto=null)
+	function get_lista_planes_existentes($proyecto=null, $tipo_operacion = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql_tipo_operacion = '';
+		if (isset($tipo_operacion)) {
+			$sql_tipo_operacion = " AND t.operacion_tipo = '$tipo_operacion'";
+		}
 		$sql = "SELECT		t.operacion_tipo 		as tipo,
 							t.descripcion_corta		as tipo_desc,
 							o.proyecto				as proyecto,
@@ -811,7 +825,8 @@ class toba_info_editores
 													as generaciones
 					FROM	apex_plan_operacion o,
 							apex_plan_operacion_tipo t
-					WHERE	o.operacion_tipo = t.operacion_tipo
+					WHERE	o.operacion_tipo = t.operacion_tipo 
+							$sql_tipo_operacion
 					AND		o.proyecto = '$proyecto'
 					ORDER BY 1,3;";
 		return toba_contexto_info::get_db()->consultar($sql);

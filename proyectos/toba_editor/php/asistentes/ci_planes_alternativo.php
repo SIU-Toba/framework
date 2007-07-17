@@ -1,6 +1,6 @@
 <?php 
 
-class ci_planes extends toba_ci
+class ci_planes_alternativo extends toba_ci
 {
 	protected $s__plan;
 	protected $s__proyecto;
@@ -15,44 +15,33 @@ class ci_planes extends toba_ci
 		return toba_info_editores::get_lista_tipo_plan();
 	}
 
-	function evt__cuadro_tipo_plan__seleccion($datos)
+	function evt__form_tipo_plan__modificacion($datos)
 	{
-		$this->s__tipo_plan_nuevo = $datos;
-		$this->set_pantalla('editar');
-	}
-	
-	function evt__elegir()
-	{
-		$this->set_pantalla('elegir');
+		$this->s__tipo_plan_nuevo = $datos['tipo'];
 	}
 	
 	//-----------------------------------------------------------------------------------
 	//---- Elegir PLAN ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function conf__pant_elegir($pantalla)
+	{
+		$datos = toba_info_editores::get_lista_tipo_plan($this->s__tipo_plan_nuevo);
+		$pantalla->set_etiqueta("Moldes <em>{$datos['descripcion_corta']}</em>");	
+	}
+	
 	function conf__cuadro_planes($componente)
 	{
-		return toba_info_editores::get_lista_planes_existentes();
-	}
-
-	function evt__cuadro_planes__ejecutar($seleccion)
-	{
-		$this->s__plan = $seleccion['plan'];
-		$this->s__proyecto = $seleccion['proyecto'];
-		$this->set_pantalla('ejecutar');
+		return toba_info_editores::get_lista_planes_existentes(null, $this->s__tipo_plan_nuevo);
 	}
 
 	function evt__cuadro_planes__editar($seleccion)
 	{
 		$this->s__proyecto = $seleccion['proyecto'];
 		$this->s__plan = $seleccion['plan'];
-		$this->set_pantalla('editar');
+		$this->set_pantalla('pant_editar');
 	}
 
-	function evt__agregar()
-	{
-		$this->set_pantalla('crear');
-	}
 
 	//-----------------------------------------------------------------------------------
 	//---- Editar PLAN ------------------------------------------------------------------
