@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --inicializacion
 	NULL, --estado_defecto
 	'0', --solo_lectura
-	'get_lista_tipo_plan', --carga_metodo
+	'get_lista_tipo_molde', --carga_metodo
 	'toba_info_editores', --carga_clase
 	NULL, --carga_include
 	'operacion_tipo', --carga_col_clave

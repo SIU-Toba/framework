@@ -133,7 +133,7 @@ CREATE TABLE apex_molde_operacion_abms
 	cuadro_id							varchar(255)	NULL,
 	cuadro_datos_origen					varchar(10)		NULL,
 	cuadro_datos_origen_ci_sql			varchar			NULL,
-	cuadro_datos_origen_php_archivo		varchar(255)	NULL,
+	cuadro_datos_origen_php_include		varchar(255)	NULL,
 	cuadro_datos_origen_php_clase		varchar(255)	NULL,
 	cuadro_datos_origen_php_metodo		varchar(255)	NULL,
 	datos_tabla_validacion				smallint		NULL,

@@ -12,7 +12,7 @@ class toba_asistente_def implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['molde']['sql'] = "	SELECT		p.proyecto  		as				proyecto  				,
+		$sql['molde']['sql'] = "	SELECT	p.proyecto  		as				proyecto  				,
 											p.molde				as				molde					,
 											p.operacion_tipo	as				operacion_tipo			,
 											p.nombre	        as  			nombre                  ,

@@ -36,7 +36,7 @@ class toba_db_tablas_nucleo
   13 => 'apex_objeto_mt_me_tipo_nav',
   14 => 'apex_admin_persistencia',
   15 => 'apex_tipo_datos',
-  16 => 'apex_plan_operacion_tipo',
+  16 => 'apex_molde_operacion_tipo',
 );
 	}
 
@@ -628,10 +628,10 @@ class toba_db_tablas_nucleo
 );
 	}
 
-	static function apex_plan_operacion_tipo()
+	static function apex_molde_operacion_tipo()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo',
   'dump_order_by' => 'operacion_tipo',

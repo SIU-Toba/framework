@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_planes', --subclase
-	'asistentes/ci_planes.php', --subclase_archivo
+	'ci_moldes', --subclase
+	'asistentes/ci_moldes.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Planes de generacion', --nombre

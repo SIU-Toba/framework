@@ -28,11 +28,11 @@ class toba_db_tablas_componente
   20 => 'apex_objeto_db_registros_uniq',
   21 => 'apex_objeto_datos_rel',
   22 => 'apex_objeto_datos_rel_asoc',
-  23 => 'apex_plan_operacion',
-  24 => 'apex_plan_operacion_log',
-  25 => 'apex_plan_operacion_log_elementos',
-  26 => 'apex_plan_operacion_abms',
-  27 => 'apex_plan_operacion_abms_fila',
+  23 => 'apex_molde_operacion',
+  24 => 'apex_molde_operacion_log',
+  25 => 'apex_molde_operacion_log_elementos',
+  26 => 'apex_molde_operacion_abms',
+  27 => 'apex_molde_operacion_abms_fila',
 );
 	}
 
@@ -880,15 +880,15 @@ class toba_db_tablas_componente
 );
 	}
 
-	static function apex_plan_operacion()
+	static function apex_molde_operacion()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'plan',
-  'dump_order_by' => 'plan',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde',
   'dump_where' => '( proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
@@ -897,7 +897,7 @@ class toba_db_tablas_componente
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'plan',
+    1 => 'molde',
     2 => 'operacion_tipo',
     3 => 'nombre',
     4 => 'carpeta_item',
@@ -906,14 +906,14 @@ class toba_db_tablas_componente
 );
 	}
 
-	static function apex_plan_operacion_log()
+	static function apex_molde_operacion_log()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'plan',
+  'dump_clave_componente' => 'molde',
   'dump_order_by' => 'generacion',
   'dump_where' => '( proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
@@ -923,21 +923,21 @@ class toba_db_tablas_componente
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'plan',
+    1 => 'molde',
     2 => 'generacion',
     3 => 'momento',
   ),
 );
 	}
 
-	static function apex_plan_operacion_log_elementos()
+	static function apex_molde_operacion_log_elementos()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'plan',
+  'dump_clave_componente' => 'molde',
   'dump_order_by' => 'generacion',
   'dump_where' => '( proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
@@ -947,7 +947,7 @@ class toba_db_tablas_componente
   'columnas' => 
   array (
     0 => 'generacion',
-    1 => 'plan',
+    1 => 'molde',
     2 => 'id',
     3 => 'tipo',
     4 => 'proyecto',
@@ -956,15 +956,15 @@ class toba_db_tablas_componente
 );
 	}
 
-	static function apex_plan_operacion_abms()
+	static function apex_molde_operacion_abms()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'plan',
-  'dump_order_by' => 'plan',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde',
   'dump_where' => '( proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
@@ -973,33 +973,33 @@ class toba_db_tablas_componente
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'plan',
+    1 => 'molde',
     2 => 'tabla',
     3 => 'gen_usa_filtro',
     4 => 'gen_separar_pantallas',
     5 => 'cuadro_eof',
-    6 => 'cuadro_id',
-    7 => 'cuadro_eliminar_filas',
+    6 => 'cuadro_eliminar_filas',
+    7 => 'cuadro_id',
     8 => 'cuadro_datos_origen',
     9 => 'cuadro_datos_origen_ci_sql',
-    10 => 'cuadro_datos_orgien_php_archivo',
-    11 => 'cuadro_datos_orgien_php_clase',
-    12 => 'cuadro_datos_orgien_php_metodo',
+    10 => 'cuadro_datos_origen_php_include',
+    11 => 'cuadro_datos_origen_php_clase',
+    12 => 'cuadro_datos_origen_php_metodo',
     13 => 'datos_tabla_validacion',
     14 => 'apdb_pre',
   ),
 );
 	}
 
-	static function apex_plan_operacion_abms_fila()
+	static function apex_molde_operacion_abms_fila()
 	{
 		return array (
-  'archivo' => 'pgsql_a50_planes_asistente.sql',
+  'archivo' => 'pgsql_a50_asistentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
   'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'plan',
-  'dump_order_by' => 'plan, fila',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde, fila',
   'dump_where' => '( proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
@@ -1008,7 +1008,7 @@ class toba_db_tablas_componente
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'plan',
+    1 => 'molde',
     2 => 'fila',
     3 => 'orden',
     4 => 'columna',
@@ -1023,11 +1023,13 @@ class toba_db_tablas_componente
     13 => 'elemento_formulario',
     14 => 'ef_desactivar_modificacion',
     15 => 'ef_procesar_javascript',
-    16 => 'ef_datos_origen',
-    17 => 'ef_datos_origen_ci_sql',
-    18 => 'ef_datos_orgien_php_archivo',
-    19 => 'ef_datos_orgien_php_clase',
-    20 => 'ef_datos_orgien_php_metodo',
+    16 => 'ef_carga',
+    17 => 'ef_carga_ci_sql',
+    18 => 'ef_carga_php_include',
+    19 => 'ef_carga_php_clase',
+    20 => 'ef_carga_php_metodo',
+    21 => 'ef_carga_col_clave',
+    22 => 'ef_carga_col_desc',
   ),
 );
 	}

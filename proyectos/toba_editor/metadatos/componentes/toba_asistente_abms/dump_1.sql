@@ -20,18 +20,18 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpe
 ------------------------------------------------------------
 -- apex_molde_operacion_abms
 ------------------------------------------------------------
-INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, cuadro_eof, cuadro_id, cuadro_eliminar_filas, cuadro_datos_origen, cuadro_datos_origen_ci_sql, cuadro_datos_origen_php_archivo, cuadro_datos_origen_php_clase, cuadro_datos_origen_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
+INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_datos_origen, cuadro_datos_origen_ci_sql, cuadro_datos_origen_php_include, cuadro_datos_origen_php_clase, cuadro_datos_origen_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
 	'1', --molde
 	'apex_tipo_datos', --tabla
 	'0', --gen_usa_filtro
 	'0', --gen_separar_pantallas
 	'No hay filas', --cuadro_eof
-	'tipo', --cuadro_id
 	NULL, --cuadro_eliminar_filas
+	'tipo', --cuadro_id
 	NULL, --cuadro_datos_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_datos_origen_ci_sql
-	NULL, --cuadro_datos_origen_php_archivo
+	NULL, --cuadro_datos_origen_php_include
 	NULL, --cuadro_datos_origen_php_clase
 	NULL, --cuadro_datos_origen_php_metodo
 	NULL, --datos_tabla_validacion
@@ -43,7 +43,7 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga, ef_carga_ci_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo) VALUES (
+INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga, ef_carga_ci_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_col_clave, ef_carga_col_desc) VALUES (
 	'toba_editor', --proyecto
 	'1', --molde
 	'1', --fila
@@ -64,9 +64,11 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_carga_ci_sql
 	NULL, --ef_carga_php_include
 	NULL, --ef_carga_php_clase
-	NULL  --ef_carga_php_metodo
+	NULL, --ef_carga_php_metodo
+	NULL, --ef_carga_col_clave
+	NULL  --ef_carga_col_desc
 );
-INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga, ef_carga_ci_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo) VALUES (
+INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga, ef_carga_ci_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_col_clave, ef_carga_col_desc) VALUES (
 	'toba_editor', --proyecto
 	'1', --molde
 	'3', --fila
@@ -87,6 +89,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_carga_ci_sql
 	NULL, --ef_carga_php_include
 	NULL, --ef_carga_php_clase
-	NULL  --ef_carga_php_metodo
+	NULL, --ef_carga_php_metodo
+	NULL, --ef_carga_col_clave
+	NULL  --ef_carga_col_desc
 );
 --- FIN Grupo de desarrollo 0

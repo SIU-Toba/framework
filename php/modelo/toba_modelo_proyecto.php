@@ -244,8 +244,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//Obtengo el nombre del componente
 		if ( isset($metadatos['apex_objeto']) ) {
 			$nombre_componente = $metadatos['apex_objeto'][0]['nombre'];		
-		} elseif (isset($metadatos['apex_plan_operacion'])) {
-			$nombre_componente = $metadatos['apex_plan_operacion'][0]['nombre'];	
+		} elseif (isset($metadatos['apex_molde_operacion'])) {
+			$nombre_componente = $metadatos['apex_molde_operacion'][0]['nombre'];	
 		} else {
 			$nombre_componente = $metadatos['apex_item'][0]['nombre'];		
 		}
@@ -880,10 +880,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$datos = $this->db->consultar( $sql );
 		} elseif(strpos($tipo_componente,'toba_asistente')!== false) {
 			$sql = "SELECT 	o.proyecto as 		proyecto,
-							o.plan as 			componente,
+							o.molde as 			componente,
 							t.clase
-					FROM 	apex_plan_operacion o,
-							apex_plan_operacion_tipo t
+					FROM 	apex_molde_operacion o,
+							apex_molde_operacion_tipo t
 					WHERE 	o.operacion_tipo = t.operacion_tipo
 					AND		t.clase = '$tipo_componente'
 					AND		proyecto = '$proyecto'
