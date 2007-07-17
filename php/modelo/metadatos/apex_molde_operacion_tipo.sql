@@ -1,0 +1,2 @@
+INSERT INTO apex_molde_operacion_tipo (operacion_tipo, descripcion_corta, descripcion, clase, ci, icono, orden) VALUES ('10', 'ABM simple', 'Alta, baja y modificacion de registros de una tabla', 'toba_asistente_abms', '1988', 'objetos/ut_formulario.gif', '1');
+INSERT INTO apex_molde_operacion_tipo (operacion_tipo, descripcion_corta, descripcion, clase, ci, icono, orden) VALUES ('11', 'Grilla simple', 'Alta, baja y modificacion a travez de una grilla', 'toba_asistente_grilla', '1987', 'objetos/calendario.gif', '1');

@@ -12,7 +12,7 @@ class ci_planes extends toba_ci
 
 	function conf__cuadro_tipo_plan()
 	{
-		return toba_info_editores::get_lista_tipo_plan();
+		return toba_info_editores::get_lista_tipo_molde();
 	}
 
 	function evt__cuadro_tipo_plan__seleccion($datos)
@@ -32,7 +32,7 @@ class ci_planes extends toba_ci
 
 	function conf__cuadro_planes($componente)
 	{
-		return toba_info_editores::get_lista_planes_existentes();
+		return toba_info_editores::get_lista_moldes_existentes();
 	}
 
 	function evt__cuadro_planes__ejecutar($seleccion)
@@ -88,7 +88,7 @@ class ci_planes extends toba_ci
 
 	function conf__ejecutar()
 	{
-		$datos = toba_info_editores::get_info_plan($this->s__proyecto, $this->s__plan);
+		$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__plan);
 		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
 		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
 		$this->pantalla()->set_descripcion($txt);
@@ -96,7 +96,7 @@ class ci_planes extends toba_ci
 
 	function conf__cuadro_ejecuciones($componente)
 	{
-		return toba_info_editores::get_lista_ejecuciones_plan($this->s__proyecto, $this->s__plan);
+		return toba_info_editores::get_lista_ejecuciones_molde($this->s__proyecto, $this->s__plan);
 	}
 
 	//El formato del retorno debe ser array('id_ef' => $valor, ...)

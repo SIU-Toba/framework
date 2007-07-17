@@ -1,22 +1,22 @@
 <?php
 /*
-*	El ASISTENTE lee un PLAN para generar un MOLDE con el cual crear una OPERACION.
+*	El ASISTENTE lee un molde para generar un MOLDE con el cual crear una OPERACION.
 */
 abstract class toba_asistente
 {
-	protected $id_plan_proyecto;
-	protected $id_plan;
+	protected $id_molde_proyecto;
+	protected $id_molde;
 	protected $item;		// Molde del item
 	protected $ci;			// Shortcut al molde del CI
 	protected $log_elementos_creados;
 	
-	function __construct($plan)
+	function __construct($molde)
 	{
-		$this->id_plan_proyecto = $plan['plan']['proyecto'];
-		$this->id_plan = $plan['plan']['plan'];
-		//Cargo el plan
-		foreach (array_keys($plan) as $parte) {
-			$this->$parte = $plan[$parte];
+		$this->id_molde_proyecto = $molde['molde']['proyecto'];
+		$this->id_molde = $molde['molde']['molde'];
+		//Cargo el molde
+		foreach (array_keys($molde) as $parte) {
+			$this->$parte = $molde[$parte];
 		}
 	}	
 	
@@ -37,8 +37,8 @@ abstract class toba_asistente
 	{
 		$this->item = new toba_item_molde($this);
 		$this->ci = $this->item->ci();
-		$this->item->set_nombre($this->plan['nombre']);
-		$this->item->set_carpeta_item($this->plan['carpeta_item']);
+		$this->item->set_nombre($this->molde['nombre']);
+		$this->item->set_carpeta_item($this->molde['carpeta_item']);
 		$this->item->cargar_grupos_acceso_activos();
 	}
 
@@ -81,7 +81,7 @@ abstract class toba_asistente
 	function existe_generacion_previa()
 	{
 		//a nivel a archivos hay que preguntarle a la operacion que va a crear
-		//Leer en this->plan_plan_resultado
+		//Leer en this->molde_molde_resultado
 		return false;	
 	}
 
@@ -96,12 +96,12 @@ abstract class toba_asistente
 
 	function get_proyecto()
 	{
-		return $this->id_plan_proyecto;	
+		return $this->id_molde_proyecto;	
 	}
 	
 	function get_carpeta_archivos()
 	{
-		return $this->plan['carpeta_archivos'];
+		return $this->molde['carpeta_archivos'];
 	}
 
 	//---------------------------------------------------
@@ -122,11 +122,11 @@ abstract class toba_asistente
 	*/
 	protected function guardar_log_elementos_generados()
 	{
-		$sql = "INSERT INTO apex_plan_operacion_log (proyecto, plan) VALUES ('$this->id_plan_proyecto','$this->id_plan')";
+		$sql = "INSERT INTO apex_molde_operacion_log (proyecto, molde) VALUES ('$this->id_molde_proyecto','$this->id_molde')";
 		ejecutar_fuente($sql);
-		$id_generacion = recuperar_secuencia('apex_plan_operacion_log_seq');
+		$id_generacion = recuperar_secuencia('apex_molde_operacion_log_seq');
 		foreach( $this->log_elementos_creados as $elemento) {
-			$sql = "INSERT INTO apex_plan_operacion_log_elementos (plan, generacion, tipo, proyecto, clave) VALUES ('$this->id_plan','$id_generacion','{$elemento['tipo']}','{$elemento['proyecto']}','{$elemento['clave']}')";
+			$sql = "INSERT INTO apex_molde_operacion_log_elementos (molde, generacion, tipo, proyecto, clave) VALUES ('$this->id_molde','$id_generacion','{$elemento['tipo']}','{$elemento['proyecto']}','{$elemento['clave']}')";
 			ejecutar_fuente($sql);
 		}
 	}

@@ -4,8 +4,8 @@ class toba_asistente_abms extends toba_asistente
 {
 	function generar()
 	{	
-		//ei_arbol(array($this->plan, $this->plan_abms, $this->plan_abms_fila));
-		$this->ci->set_titulo($this->plan['nombre']);
+		//ei_arbol(array($this->molde, $this->molde_abms, $this->molde_abms_fila));
+		$this->ci->set_titulo($this->molde['nombre']);
 		$this->ci->agregar_pantalla(1, 'Pantalla');
 		$this->ci->extender('ci','ci.php');
 		//- Creo dependencias -----------------------------------
@@ -21,8 +21,8 @@ class toba_asistente_abms extends toba_asistente
 	
 	function generar_formulario($form)
 	{
-		$form->set_nombre($this->plan['nombre'] . ' - Form');
-		foreach( $this->plan_abms_fila as $fila ) {
+		$form->set_nombre($this->molde['nombre'] . ' - Form');
+		foreach( $this->molde_abms_fila as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
 			if($fila['dt_largo']){
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
@@ -43,8 +43,8 @@ class toba_asistente_abms extends toba_asistente
 	function generar_cuadro($cuadro)
 	{
 		$cuadro->set_clave('id');
-		$this->ci->dep('cuadro')->set_nombre($this->plan['nombre'] . ' - Cuadro.');
-		foreach( $this->plan_abms_fila as $fila ) {
+		$this->ci->dep('cuadro')->set_nombre($this->molde['nombre'] . ' - Cuadro.');
+		foreach( $this->molde_abms_fila as $fila ) {
 			$columna = $cuadro->agregar_columna($fila['columna'], 4);
 		}
 		$evento = $cuadro->agregar_evento('seleccion');
@@ -54,8 +54,8 @@ class toba_asistente_abms extends toba_asistente
 	
 	function generar_datos_tabla($tabla)
 	{
-		$tabla->set_tabla($this->plan_abms['tabla']);
-		foreach( $this->plan_abms_fila as $fila ) {
+		$tabla->set_tabla($this->molde_abms['tabla']);
+		foreach( $this->molde_abms_fila as $fila ) {
 			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
 			if($fila['dt_pk']){
 				$col->pk();

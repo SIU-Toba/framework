@@ -5,10 +5,10 @@ class toba_asistente_abms_def extends toba_asistente_def
  	static function get_estructura()
 	{
 		$estructura = parent::get_estructura();
-		$estructura[] = array( 	'tabla' => 'apex_plan_operacion_abms',
+		$estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms',
 								'registros' => '1',
 								'obligatorio' => true );
-		$estructura[] = array( 	'tabla' => 'apex_plan_operacion_abms_fila',
+		$estructura[] = array( 	'tabla' => 'apex_molde_operacion_abms_fila',
 								'registros' => 'n',
 								'obligatorio' => false );
 		return $estructura;		
@@ -18,8 +18,8 @@ class toba_asistente_abms_def extends toba_asistente_def
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
 		//------------- abms ----------------
-		$sql['plan_abms']['sql'] = "SELECT			proyecto  							,
-													plan								,
+		$sql['molde_abms']['sql'] = "SELECT			proyecto  							,
+													molde								,
 													tabla								,
 													gen_usa_filtro						,
 													gen_separar_pantallas				,
@@ -33,17 +33,17 @@ class toba_asistente_abms_def extends toba_asistente_def
 													cuadro_datos_orgien_php_metodo		,
 													datos_tabla_validacion				,
 													apdb_pre							
-							 FROM		apex_plan_operacion_abms 
+							 FROM		apex_molde_operacion_abms 
 							 WHERE	proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
-			$sql['plan_abms']['sql'] .= "	AND		plan='$componente' ";	
+			$sql['molde_abms']['sql'] .= "	AND		molde='$componente' ";	
 		}
-		$sql['plan_abms']['sql'] .= ";";
-		$sql['plan_abms']['registros']='1';
-		$sql['plan_abms']['obligatorio']=true;
+		$sql['molde_abms']['sql'] .= ";";
+		$sql['molde_abms']['registros']='1';
+		$sql['molde_abms']['obligatorio']=true;
 		//------------ Columnas ----------------
-		$sql['plan_abms_fila']['sql'] = "SELECT	proyecto  							,
-													plan								,
+		$sql['molde_abms_fila']['sql'] = "SELECT	proyecto  							,
+													molde								,
 													fila								,
 													orden								,
 													columna        						,
@@ -63,14 +63,14 @@ class toba_asistente_abms_def extends toba_asistente_def
 													ef_datos_orgien_php_archivo			,
 													ef_datos_orgien_php_clase			,
 													ef_datos_orgien_php_metodo			
-										 FROM		apex_plan_operacion_abms_fila
+										 FROM		apex_molde_operacion_abms_fila
 										 WHERE	proyecto = '$proyecto' ";
 		if ( isset($componente) ) {
-			$sql['plan_abms_fila']['sql'] .= "	AND		plan='$componente' ";
+			$sql['molde_abms_fila']['sql'] .= "	AND		molde='$componente' ";
 		}
-		$sql['plan_abms_fila']['sql'] .= " ORDER BY fila;";
-		$sql['plan_abms_fila']['registros']='n';
-		$sql['plan_abms_fila']['obligatorio']=true;
+		$sql['molde_abms_fila']['sql'] .= " ORDER BY fila;";
+		$sql['molde_abms_fila']['registros']='n';
+		$sql['molde_abms_fila']['obligatorio']=true;
 		return $sql;
 	}
 }

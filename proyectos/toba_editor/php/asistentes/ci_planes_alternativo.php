@@ -12,7 +12,7 @@ class ci_planes_alternativo extends toba_ci
 
 	function conf__cuadro_tipo_plan()
 	{
-		return toba_info_editores::get_lista_tipo_plan();
+		return toba_info_editores::get_lista_tipo_molde();
 	}
 
 	function evt__form_tipo_plan__modificacion($datos)
@@ -26,13 +26,13 @@ class ci_planes_alternativo extends toba_ci
 
 	function conf__pant_elegir($pantalla)
 	{
-		$datos = toba_info_editores::get_lista_tipo_plan($this->s__tipo_plan_nuevo);
+		$datos = toba_info_editores::get_lista_tipo_molde($this->s__tipo_plan_nuevo);
 		$pantalla->set_etiqueta("Moldes <em>{$datos['descripcion_corta']}</em>");	
 	}
 	
 	function conf__cuadro_planes($componente)
 	{
-		return toba_info_editores::get_lista_planes_existentes(null, $this->s__tipo_plan_nuevo);
+		return toba_info_editores::get_lista_moldes_existentes(null, $this->s__tipo_plan_nuevo);
 	}
 
 	function evt__cuadro_planes__editar($seleccion)
@@ -77,7 +77,7 @@ class ci_planes_alternativo extends toba_ci
 
 	function conf__ejecutar()
 	{
-		$datos = toba_info_editores::get_info_plan($this->s__proyecto, $this->s__plan);
+		$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__plan);
 		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
 		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
 		$this->pantalla()->set_descripcion($txt);
@@ -85,7 +85,7 @@ class ci_planes_alternativo extends toba_ci
 
 	function conf__cuadro_ejecuciones($componente)
 	{
-		return toba_info_editores::get_lista_ejecuciones_plan($this->s__proyecto, $this->s__plan);
+		return toba_info_editores::get_lista_ejecuciones_molde($this->s__proyecto, $this->s__plan);
 	}
 
 	//El formato del retorno debe ser array('id_ef' => $valor, ...)

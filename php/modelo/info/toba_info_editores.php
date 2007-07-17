@@ -786,7 +786,7 @@ class toba_info_editores
 	//----------  Planes de generacion de operaciones  -----------------------------
 	//------------------------------------------------------------------------------
 
-	function get_lista_tipo_plan($operacion_tipo = null)
+	function get_lista_tipo_molde($operacion_tipo = null)
 	{
 		$where_operacion = '';
 		if (isset($operacion_tipo)) {
@@ -796,7 +796,7 @@ class toba_info_editores
 							descripcion_corta,
 							ci,
 							icono
-					FROM apex_plan_operacion_tipo
+					FROM apex_molde_operacion_tipo
 					$where_operacion
 					ORDER BY orden";		
 		if (!isset($operacion_tipo)) {
@@ -807,7 +807,7 @@ class toba_info_editores
 	}
 	
 
-	function get_lista_planes_existentes($proyecto=null, $tipo_operacion = null)
+	function get_lista_moldes_existentes($proyecto=null, $tipo_operacion = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$sql_tipo_operacion = '';
@@ -817,14 +817,14 @@ class toba_info_editores
 		$sql = "SELECT		t.operacion_tipo 		as tipo,
 							t.descripcion_corta		as tipo_desc,
 							o.proyecto				as proyecto,
-							o.plan					as plan,
+							o.molde					as molde,
 							o.nombre				as nombre,
 							o.carpeta_archivos		as carpeta_archivos,
 							o.carpeta_item			as carpeta_item,
-							(SELECT COUNT(*) FROM apex_plan_operacion_log WHERE plan = o.plan AND proyecto = o.proyecto) 
+							(SELECT COUNT(*) FROM apex_molde_operacion_log WHERE molde = o.molde AND proyecto = o.proyecto) 
 													as generaciones
-					FROM	apex_plan_operacion o,
-							apex_plan_operacion_tipo t
+					FROM	apex_molde_operacion o,
+							apex_molde_operacion_tipo t
 					WHERE	o.operacion_tipo = t.operacion_tipo 
 							$sql_tipo_operacion
 					AND		o.proyecto = '$proyecto'
@@ -832,33 +832,33 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_lista_ejecuciones_plan($proyecto, $plan)
+	function get_lista_ejecuciones_molde($proyecto, $molde)
 	{
 		$sql = "SELECT		generacion,
 							momento
-					FROM	apex_plan_operacion_log
-					WHERE	plan = '$plan'
+					FROM	apex_molde_operacion_log
+					WHERE	molde = '$molde'
 					AND		proyecto = '$proyecto'
 					ORDER BY 1 DESC;";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
-	function get_info_plan($proyecto, $plan)
+	function get_info_molde($proyecto, $molde)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$sql = "SELECT		t.descripcion_corta		as tipo,
 							o.proyecto				as proyecto,
-							o.plan					as plan,
+							o.molde					as molde,
 							o.nombre				as nombre,
 							o.carpeta_archivos		as carpeta_archivos,
 							o.carpeta_item			as carpeta_item,
-							(SELECT COUNT(*) FROM apex_plan_operacion_log WHERE plan = o.plan AND proyecto = o.proyecto) 
+							(SELECT COUNT(*) FROM apex_molde_operacion_log WHERE molde = o.molde AND proyecto = o.proyecto) 
 													as generaciones
-					FROM	apex_plan_operacion o,
-							apex_plan_operacion_tipo t
+					FROM	apex_molde_operacion o,
+							apex_molde_operacion_tipo t
 					WHERE	o.operacion_tipo = t.operacion_tipo
 					AND		o.proyecto = '$proyecto'
-					AND		o.plan = '$plan';";
+					AND		o.molde = '$molde';";
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
 }

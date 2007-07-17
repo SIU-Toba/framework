@@ -4,7 +4,7 @@ class toba_asistente_def implements toba_componente_definicion
 {
 	static function get_estructura()
 	{
-		$estructura[] = array( 	'tabla' => 'apex_plan_operacion',
+		$estructura[] = array( 	'tabla' => 'apex_molde_operacion',
 								'registros' => '1',
 								'obligatorio' => true );
 		return $estructura;		
@@ -12,22 +12,22 @@ class toba_asistente_def implements toba_componente_definicion
 
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
-		$sql['plan']['sql'] = "	SELECT	p.proyecto  		as				proyecto  				,
-											p.plan				as				plan					,
+		$sql['molde']['sql'] = "	SELECT		p.proyecto  		as				proyecto  				,
+											p.molde				as				molde					,
 											p.operacion_tipo	as				operacion_tipo			,
 											p.nombre	        as  			nombre                  ,
 											p.carpeta_item		as				carpeta_item			,
 											p.carpeta_archivos	as				carpeta_archivos		,
 											t.clase				as				clase				
-						FROM	apex_plan_operacion p,
-								apex_plan_operacion_tipo t
+						FROM	apex_molde_operacion p,
+								apex_molde_operacion_tipo t
 						WHERE	p.operacion_tipo = t.operacion_tipo
 						AND		p.proyecto='$proyecto'";
 		if ( isset($componente) ) {
-			$sql['plan']['sql'] .= "	AND		p.plan='$componente';";	
+			$sql['molde']['sql'] .= "	AND		p.molde='$componente';";	
 		}
-		$sql['plan']['registros']='1';	
-		$sql['plan']['obligatorio']=true;
+		$sql['molde']['registros']='1';	
+		$sql['molde']['obligatorio']=true;
 		return $sql;
 	}
 		
