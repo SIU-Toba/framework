@@ -85,12 +85,13 @@ class toba_db_catalogo_general
   77 => 'apex_objeto_db_registros_uniq',
   78 => 'apex_objeto_datos_rel',
   79 => 'apex_objeto_datos_rel_asoc',
-  80 => 'apex_molde_operacion_tipo',
-  81 => 'apex_molde_operacion',
-  82 => 'apex_molde_operacion_log',
-  83 => 'apex_molde_operacion_log_elementos',
-  84 => 'apex_molde_operacion_abms',
-  85 => 'apex_molde_operacion_abms_fila',
+  80 => 'apex_molde_opciones_generacion',
+  81 => 'apex_molde_operacion_tipo',
+  82 => 'apex_molde_operacion',
+  83 => 'apex_molde_operacion_log',
+  84 => 'apex_molde_operacion_log_elementos',
+  85 => 'apex_molde_operacion_abms',
+  86 => 'apex_molde_operacion_abms_fila',
 );
 	}
 

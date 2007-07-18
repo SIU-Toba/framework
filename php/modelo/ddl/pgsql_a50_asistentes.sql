@@ -4,6 +4,22 @@
 --**************************************************************************************************
 --**************************************************************************************************
 
+CREATE TABLE apex_molde_opciones_generacion
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						varchar(15)			NOT NULL,
+	origen_datos_cuadro				varchar(20)			NULL,		-- consulta_php, datos_tabla
+	CONSTRAINT "apex_molde_opciones_generacion_pk" PRIMARY KEY("proyecto"),
+	CONSTRAINT "apex_molde_opciones_generacion_fk_proy" 	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+);
+--#################################################################################################
+
 CREATE SEQUENCE apex_molde_operacion_tipo_seq	INCREMENT 1	MINVALUE	0 MAXVALUE 9223372036854775807 CACHE 1;
 CREATE TABLE apex_molde_operacion_tipo
 ---------------------------------------------------------------------------------------------------
@@ -131,7 +147,7 @@ CREATE TABLE apex_molde_operacion_abms
 	cuadro_eof							varchar(255)	NULL,
 	cuadro_eliminar_filas				smallint		NULL,
 	cuadro_id							varchar(255)	NULL,
-	cuadro_carga						varchar(20)		NULL,	-- Donde meter la consula? => datos_tabla, consulta_php, ci
+	cuadro_carga_origen					varchar(15)		NULL,
 	cuadro_carga_sql					varchar			NULL,
 	cuadro_carga_php_include			varchar(255)	NULL,
 	cuadro_carga_php_clase				varchar(255)	NULL,
@@ -174,7 +190,6 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	elemento_formulario					varchar(30)		NULL,
 	ef_desactivar_modificacion			smallint		NULL,
 	ef_procesar_javascript				smallint		NULL,
-	ef_carga							varchar(20)		NULL,	-- Donde meter la consula? => consulta_php, ci, ef
 	ef_carga_sql						varchar			NULL,
 	ef_carga_php_include				varchar(255)	NULL,
 	ef_carga_php_clase					varchar(255)	NULL,

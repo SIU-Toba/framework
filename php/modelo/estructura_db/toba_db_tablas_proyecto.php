@@ -26,6 +26,7 @@ class toba_db_tablas_proyecto
   18 => 'apex_item_nota',
   19 => 'apex_objeto_nota',
   20 => 'apex_permiso',
+  21 => 'apex_molde_opciones_generacion',
 );
 	}
 
@@ -662,6 +663,23 @@ class toba_db_tablas_proyecto
     2 => 'nombre',
     3 => 'descripcion',
     4 => 'mensaje_particular',
+  ),
+);
+	}
+
+	static function apex_molde_opciones_generacion()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'origen_datos_cuadro',
   ),
 );
 	}
