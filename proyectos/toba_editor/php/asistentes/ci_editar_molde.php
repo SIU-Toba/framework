@@ -23,6 +23,16 @@ class ci_editar_molde extends toba_ci
 				$this->set_pantalla('pant_generar');
 			}
 		}
+
+		//--- Se agrega la dependencia dinamicamente
+		if(isset($this->s__proyecto) && isset($this->s__molde)) {	
+			// molde Existente
+			$ci = toba_catalogo_asistentes::get_ci_molde($this->s__proyecto, $this->s__molde);
+		} else {
+			throw new toba_error('No se definio el tipo de molde a editar');	
+		}
+		$this->agregar_dependencia('asistente', 'toba_editor', $ci);
+	
 	}
 	
 
@@ -32,13 +42,6 @@ class ci_editar_molde extends toba_ci
 
 	function conf__pant_editar()
 	{
-		if(isset($this->s__proyecto) && isset($this->s__molde)) {	
-			// molde Existente
-			$ci = toba_catalogo_asistentes::get_ci_molde($this->s__proyecto, $this->s__molde);
-		} else {
-			throw new toba_error('No se definio el tipo de molde a editar');	
-		}
-		$this->agregar_dependencia('asistente', 'toba_editor', $ci);
 		$this->pantalla()->agregar_dep('asistente');
 	}
 
