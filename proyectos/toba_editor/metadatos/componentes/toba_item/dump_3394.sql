@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3394]--  Generacion Automática de Operaciones 
+--[3394]--  Moldes de operaciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,12 +18,12 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
 	'toba', --pagina_tipo_proyecto
-	'titulo', --pagina_tipo
+	'vacio', --pagina_tipo
 	NULL, --actividad_buffer_proyecto
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Generacion Automática de Operaciones', --nombre
+	'Moldes de operaciones', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu

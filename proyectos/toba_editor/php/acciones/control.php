@@ -152,18 +152,10 @@ function abrir_toba_instancia(){
 
 		<td><?php echo gif_nulo(3,1) ?></td>
 
-		<td class='listado-tabi'>
-        <a title='Asistente para la generacion de operaciones' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3394') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba('wizard.png',true) ?></a>
-        </td>
-
-		<td class='listado-tabi'>
-        <a title='LOG de modificación de componentes' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"3280") ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>"><?php echo toba_recurso::imagen_proyecto("actividad_local.gif",true) ?></a>
-        </td>
-
-		<td class='listado-tabi'>
-			<a title="Crear un nuevo Componente" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",null,false,false,null,true) ?>" class="list-obj" target="<?php echo  apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("objetos/objeto_nuevo.gif",true) ?></a>
+		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('wizard.png',true); ?></td>
+		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
+		<a title='Asistente para la generacion de operaciones' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">MOLDES</a>		
 		</td>
-
 		<td><?php echo gif_nulo(3,1) ?></td>
 
 		<td class='listado-tabi'>

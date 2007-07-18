@@ -56,7 +56,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'apex', --imagen_recurso_origen
 	'doc.gif', --imagen
 	'0', --en_botonera
-	'Editar el plan', --ayuda
+	'Editar el molde', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	NULL, --implicito
@@ -84,9 +84,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'wizard.png', --imagen
+	'generar.png', --imagen
 	'0', --en_botonera
-	'Ejecutar el plan', --ayuda
+	'Generar el molde', --ayuda
 	'2', --orden
 	NULL, --ci_predep
 	NULL, --implicito
@@ -137,8 +137,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	'1', --scroll
-	'450px', --scroll_alto
+	'0', --scroll
+	NULL, --scroll_alto
 	't', --cc_modo
 	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'1984', --objeto_cuadro
 	'26', --objeto_cuadro_cc
 	'tipo', --identificador
-	'Tipo operacion', --descripcion
+	NULL, --descripcion
 	'1', --orden
 	'tipo', --columnas_id
 	'tipo_desc', --columnas_descripcion

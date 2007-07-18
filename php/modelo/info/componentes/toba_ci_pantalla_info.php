@@ -157,8 +157,8 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$php = array();
 		$existe_previo = 0;
 		foreach($this->get_lista_dependencias_asociadas() as $dep) {
-			if($existe_previo) $php[] =  '<hr />';
-			$php[] = '$this->dependencias[\''.$dep.'\']->generar_html();';
+			if($existe_previo) $php[] =  "echo '<hr />';";
+			$php[] = '$this->dep(\''.$dep.'\')->generar_html();';
 			$existe_previo = 1;
 		}
 		$molde->ultimo_elemento()->set_contenido($php);
