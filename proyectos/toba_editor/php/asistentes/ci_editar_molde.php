@@ -1,58 +1,30 @@
 <?php 
 
-class ci_moldes extends toba_ci
+class ci_editar_molde extends toba_ci
 {
 	protected $s__molde;
 	protected $s__proyecto;
-	protected $s__tipo_molde_nuevo;
 
-	//-----------------------------------------------------------------------------------
-	//---- Crear molde -------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__cuadro_tipo_plan()
+	function ini()
 	{
-		return toba_info_editores::get_lista_tipo_molde();
-	}
-
-	function evt__cuadro_tipo_plan__seleccion($datos)
-	{
-		$this->s__tipo_molde_nuevo = $datos;
-		$this->set_pantalla('editar');
+		$molde = toba::memoria()->get_parametro('molde');
+		$proyecto = toba::memoria()->get_parametro('proyecto');
+		if (isset($molde)) {
+			$this->s__molde = $molde;
+		}
+		if (isset($proyecto)) {
+			$this->s__proyecto = $proyecto;
+		}
+		$evento = toba::memoria()->get_parametro(apex_ei_evento);
+		if (isset($evento)) {
+			if ($evento == 'editar') {
+				$this->set_pantalla('pant_editar');
+			} else {
+				$this->set_pantalla('pant_generar');
+			}
+		}
 	}
 	
-	function evt__elegir()
-	{
-		$this->set_pantalla('elegir');
-	}
-	
-	//-----------------------------------------------------------------------------------
-	//---- Elegir molde ------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__cuadro_planes($componente)
-	{
-		return toba_info_editores::get_lista_moldes_existentes();
-	}
-
-	function evt__cuadro_planes__ejecutar($seleccion)
-	{
-		$this->s__molde = $seleccion['molde'];
-		$this->s__proyecto = $seleccion['proyecto'];
-		$this->set_pantalla('ejecutar');
-	}
-
-	function evt__cuadro_planes__editar($seleccion)
-	{
-		$this->s__proyecto = $seleccion['proyecto'];
-		$this->s__molde = $seleccion['molde'];
-		$this->set_pantalla('editar');
-	}
-
-	function evt__agregar()
-	{
-		$this->set_pantalla('crear');
-	}
 
 	//-----------------------------------------------------------------------------------
 	//---- Editar molde ------------------------------------------------------------------
@@ -73,15 +45,16 @@ class ci_moldes extends toba_ci
 		$this->pantalla()->agregar_dep('asistente');
 	}
 
-	function evt__guardar()
+	function evt__procesar()
 	{
-		$this->set_pantalla('ejecutar');
+		$this->set_pantalla('pant_generar');
 	}
 	
-	function evt__cancelar_edicion()
+	function evt__generar()
 	{
+		$this->evt__procesar();	
 	}
-
+	
 	//-----------------------------------------------------------------------------------
 	//---- Ejecutar molde ----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -111,16 +84,6 @@ class ci_moldes extends toba_ci
 		$asistente->crear_operacion();
 	}
 
-	function evt__editar($parametros)
-	{
-		$this->set_pantalla('editar');
-	}
 
-	function evt__cancelar_ejecucion()
-	{
-		unset($this->s__molde);
-		unset($this->s__proyecto);
-		$this->set_pantalla('elegir');
-	}
 }
 ?>

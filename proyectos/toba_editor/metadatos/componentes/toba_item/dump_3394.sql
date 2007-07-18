@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3394]--  Moldes de operaciones 
+--[3394]--  Listado de moldes 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Moldes de operaciones', --nombre
+	'Listado de moldes', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu

@@ -122,6 +122,11 @@ class toba_boton
 		$this->datos['confirmacion'] = $texto;
 	}
 
+	function set_estilo_css($estilo)
+	{
+		$this->datos['estilo'] = $estilo;
+	}
+	
 	//------ Desactivar y Ocultar
 
 	function desactivar()

@@ -1,6 +1,6 @@
 <?php 
 
-class pant_crear extends toba_ei_pantalla
+class pant_tipo_operacion extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
@@ -10,8 +10,7 @@ class pant_crear extends toba_ei_pantalla
 				}
 			</style>
 		";
-		
-		$this->dep('form_tipo_plan')->generar_html();
+		$this->dep('form_tipo_operacion')->generar_html();
 		echo "<hr><div style='text-align: center; padding-bottom: 100px; padding-top:100px; font-weight:bold;color:gray'>
 				Vista previa en GIF animado o FLASH<br>
 				Como para dar una idea del flujo de la operación	

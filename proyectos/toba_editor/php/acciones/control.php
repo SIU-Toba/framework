@@ -154,7 +154,7 @@ function abrir_toba_instancia(){
 
 		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('wizard.png',true); ?></td>
 		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title='Asistente para la generacion de operaciones' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">MOLDES</a>		
+		<a title='Los moldes permiten generar operaciones a partir de asistentes' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">MOLDES</a>		
 		</td>
 		<td><?php echo gif_nulo(3,1) ?></td>
 
