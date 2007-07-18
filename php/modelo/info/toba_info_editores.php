@@ -798,7 +798,7 @@ class toba_info_editores
 							icono
 					FROM apex_molde_operacion_tipo
 					$where_operacion
-					ORDER BY orden";		
+					ORDER BY orden";	
 		if (!isset($operacion_tipo)) {
 			return toba_contexto_info::get_db()->consultar($sql);
 		} else {

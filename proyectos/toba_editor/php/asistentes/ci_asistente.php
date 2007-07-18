@@ -3,6 +3,10 @@ class ci_asistente extends toba_ci
 {
 	protected $s__tipo;
 
+	//-----------------------------------------------------------------------------------
+	//---- Elegir tipo ------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------	
+	
 	function conf__form_tipo_operacion()
 	{
 		if (isset($this->s__tipo)) {
@@ -14,6 +18,18 @@ class ci_asistente extends toba_ci
 	{
 		$this->s__tipo = $datos;
 	}	
+
+	//-----------------------------------------------------------------------------------
+	//---- Editar ------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------	
+	
+	function conf__pant_edicion()
+	{
+		$info = toba_info_editores::get_lista_tipo_molde($this->s__tipo['tipo']);
+		$ci = $info['ci'];
+		$this->agregar_dependencia('asistente', 'toba_editor', $ci);
+		$this->pantalla()->agregar_dep('asistente');		
+	}
 	
 	function evt__siguiente()
 	{
