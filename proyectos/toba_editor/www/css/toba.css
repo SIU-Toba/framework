@@ -1,3 +1,9 @@
+/* Se sacan algunos bordes */
+.ei-form-base, .ei-cuadro-cc-fondo, .ei-cuadro-cuerpo, .ci-tabs-h-cont, .ci-cuerpo {
+	border:none !important;
+}
+
+
 .barra-separador {
 	font-size:9px;
 }

@@ -6,6 +6,12 @@ class toba_ei_cuadro_info extends toba_ei_info
 		return "Cuadro";		
 	}
 
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "cuadro";	
+	}		
+	
 	//---------------------------------------------------------------------	
 	//-- METACLASE
 	//---------------------------------------------------------------------

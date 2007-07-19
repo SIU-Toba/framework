@@ -366,6 +366,18 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	//-- METACLASE
 	//---------------------------------------------------------------------
 
+	/**
+	 * Retorna el nombre de la clase o la subclase asociada al componente
+	 */
+	function get_clase_nombre_final()
+	{
+		$nombre = $this->get_subclase_nombre();
+		if ($nombre == '') {
+			$nombre = $this->get_clase_nombre();
+		}
+		return $nombre;
+	}
+	
 	function get_clase_nombre()
 	{
 		return str_replace('objeto_', 'toba_', $this->datos['_info']['clase']);
@@ -391,6 +403,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		return new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
 	}
 
+	function get_nombre_instancia_abreviado()
+	{
+		return "componente";	
+	}	
+	
 	//---------------------------------------------------------------------	
 	//-- Preguntas sobre EVENTOS
 	//---------------------------------------------------------------------

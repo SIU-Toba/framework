@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1988]--  Plan - ABMS 
+--[1988]--  Asistente - ABMS 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -14,11 +14,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'ci_principal', --subclase
+	'asistentes/abm_simple/ci_principal.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Plan - ABMS', --nombre
+	'Asistente - ABMS', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -39,6 +39,49 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
+-- apex_objeto_dependencias
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000161', --dep_id
+	'1988', --objeto_consumidor
+	'1000294', --objeto_proveedor
+	'datos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000160', --dep_id
+	'1988', --objeto_consumidor
+	'1000293', --objeto_proveedor
+	'form_basico', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000164', --dep_id
+	'1988', --objeto_consumidor
+	'1000297', --objeto_proveedor
+	'form_filas', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
@@ -46,7 +89,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1988', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
+	'100%', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
@@ -72,14 +115,14 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1988', --objeto_ci
 	'1059', --pantalla
-	'pant_inicial', --identificador
+	'pant_basica', --identificador
 	'1', --orden
-	'Pantalla Inicial', --etiqueta
+	'pant_basica', --etiqueta
 	'Edicion de un plan de tipo ABMS', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	NULL, --objetos
+	'form_basico,form_filas', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

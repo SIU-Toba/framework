@@ -6,6 +6,12 @@ class toba_ei_esquema_info extends toba_ei_info
 		return "Esquema";		
 	}
 		
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "esquema";	
+	}	
+		
 	//------------------------------------------------------------------------
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------

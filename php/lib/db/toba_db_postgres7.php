@@ -61,6 +61,16 @@ class toba_db_postgres7 extends toba_db
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------
 
+	function get_lista_tablas()
+	{
+	   $sql = "	SELECT tablename as nombre
+				FROM pg_tables
+				WHERE 
+						tablename NOT LIKE 'pg_%'
+					AND tablename NOT LIKE 'sql_%' ";
+		return $this->consultar($sql);
+	}
+	
 	/**
 	*	Busca la definicion de un TABLA. Falta terminar
 	*/

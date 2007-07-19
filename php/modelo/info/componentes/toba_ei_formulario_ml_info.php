@@ -6,6 +6,12 @@ class toba_ei_formulario_ml_info extends toba_ei_formulario_info
 		return "Form. ML";		
 	}
 	
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "form_ml";	
+	}		
+	
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------

@@ -5,6 +5,11 @@ class toba_ei_formulario_info extends toba_ei_info
 	{
 		return "Form.";		
 	}
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "form";	
+	}	
 	
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
@@ -44,7 +49,7 @@ class toba_ei_formulario_info extends toba_ei_info
 
 	function get_comentario_carga()
 	{
-		return "El formato del retorno debe ser array('id_ef' => \$valor, ...)";
+		return "El formato del carga debe ser array('id_ef' => \$valor, ...)";
 	}
 
 	//-- Generacion de metadatos

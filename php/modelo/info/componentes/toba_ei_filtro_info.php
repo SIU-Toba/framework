@@ -6,6 +6,11 @@ class toba_ei_filtro_info extends toba_ei_formulario_info
 		return "Filtro";		
 	}	
 
+	function get_nombre_instancia_abreviado()
+	{
+		return "filtro";	
+	}		
+	
 	//---------------------------------------------------------------------	
 	//-- EVENTOS
 	//---------------------------------------------------------------------

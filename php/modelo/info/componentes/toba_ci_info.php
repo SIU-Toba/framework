@@ -224,8 +224,10 @@ class toba_ci_info extends toba_ei_info
 						}
 					}
 					//Metodo de CONFIGURACION
+					$tipo = $elemento->get_clase_nombre_final();
+					$nombre_instancia = $elemento->get_nombre_instancia_abreviado();
 					$molde->agregar( new toba_codigo_metodo_php('conf__' . $rol,	
-																array('$componente'),
+																array($tipo.' $'.$nombre_instancia),
 																array($elemento->get_comentario_carga()) ) );
 				}
 			}

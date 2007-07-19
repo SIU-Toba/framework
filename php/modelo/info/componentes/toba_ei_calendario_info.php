@@ -6,6 +6,12 @@ class toba_ei_calendario_info extends toba_ei_info
 		return "Calendario";		
 	}
 	
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "calendario";	
+	}		
+	
 	//------------------------------------------------------------------------
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------

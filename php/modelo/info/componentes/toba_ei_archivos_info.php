@@ -6,6 +6,12 @@ class toba_ei_archivos_info extends toba_ei_info
 		return "Archivos";		
 	}
 	
+
+	function get_nombre_instancia_abreviado()
+	{
+		return "archivos";	
+	}		
+	
 	//------------------------------------------------------------------------
 	//------ METACLASE -------------------------------------------------------
 	//------------------------------------------------------------------------
