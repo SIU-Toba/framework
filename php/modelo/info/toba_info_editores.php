@@ -433,6 +433,7 @@ class toba_info_editores
 	{
 		$sql = "SELECT 	proyecto, 
 						objeto, 
+						nombre as descripcion_corta,
 						'[' || objeto || '] -- ' || nombre as descripcion
 				FROM apex_objeto 
 				WHERE 	clase = 'toba_datos_relacion'
@@ -449,13 +450,17 @@ class toba_info_editores
 	static function get_lista_objetos_dt()
 	//Listar objetos que son datos_tabla
 	{
-		$sql = "SELECT 	proyecto, 
-						objeto, 
-						'[' || objeto || '] -- ' || nombre as descripcion
-				FROM apex_objeto 
-				WHERE 	clase = 'toba_datos_tabla'
-				AND		clase_proyecto = 'toba'
-				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
+		$sql = "SELECT 	o.proyecto as 								proyecto, 
+						o.objeto as 								objeto, 
+						'[' || o.objeto || '] -- ' || o.nombre as 	descripcion,
+						d.tabla as									tabla
+				FROM 	apex_objeto o,
+						apex_objeto_db_registros d
+				WHERE 	o.clase = 'toba_datos_tabla'
+				AND		o.objeto = d.objeto
+				AND		o.proyecto = d.objeto_proyecto
+				AND		o.clase_proyecto = 'toba'
+				AND 	o.proyecto = '". toba_contexto_info::get_proyecto() ."'
 				ORDER BY 2";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}

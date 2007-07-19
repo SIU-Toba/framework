@@ -159,7 +159,7 @@ function abrir_toba_instancia(){
 
 		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('fuente.png',true); ?></td>
 		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title='Acceso a datos' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">DATOS</a>		
+		<a title='Acceso a datos' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3397,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">DATOS</a>		
 		</td>
 
 		<td><?php echo gif_nulo(3,1) ?></td>

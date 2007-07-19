@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[/admin/menu_principal]--  Menu 
+--[3395]--  Datos 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -8,44 +8,44 @@
 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES (
-	'87', --item_id
+	'3394', --item_id
 	'toba_editor', --proyecto
-	'/admin/menu_principal', --item
-	'139', --padre_id
+	'3395', --item
+	NULL, --padre_id
 	'toba_editor', --padre_proyecto
 	'__raiz__', --padre
-	'0', --carpeta
+	'1', --carpeta
 	'0', --nivel_acceso
-	'web', --solicitud_tipo
-	'toba', --pagina_tipo_proyecto
-	'vacio', --pagina_tipo
-	'toba', --actividad_buffer_proyecto
-	'0', --actividad_buffer
-	'toba', --actividad_patron_proyecto
-	'especifico', --actividad_patron
-	'Menu', --nombre
+	NULL, --solicitud_tipo
+	NULL, --pagina_tipo_proyecto
+	NULL, --pagina_tipo
+	NULL, --actividad_buffer_proyecto
+	NULL, --actividad_buffer
+	NULL, --actividad_patron_proyecto
+	NULL, --actividad_patron
+	'Datos', --nombre
 	NULL, --descripcion
-	'acciones/control.php', --actividad_accion
-	'1', --menu
-	'2', --orden
-	'0', --solicitud_registrar
+	NULL, --actividad_accion
+	'0', --menu
+	NULL, --orden
+	NULL, --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
 	NULL, --solicitud_observacion
-	'0', --solicitud_registrar_cron
+	NULL, --solicitud_registrar_cron
 	NULL, --prueba_directorios
 	NULL, --zona_proyecto
 	NULL, --zona
 	NULL, --zona_orden
-	'0', --zona_listar
+	NULL, --zona_listar
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	'0', --publico
-	'0', --redirecciona
+	NULL, --publico
+	NULL, --redirecciona
 	NULL, --usuario
-	'2003-09-26 01:55:56'  --creacion
+	NULL  --creacion
 );
 --- FIN Grupo de desarrollo 0

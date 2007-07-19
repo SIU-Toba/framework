@@ -32,9 +32,9 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'tipo', --cuadro_id
 	'consulta_php', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
-	'test_asistentes/test_consulta_php2', --ef_carga_php_include
-	'test_consulta_php2', --ef_carga_php_clase
-	'get_tipos_dato', --ef_carga_php_metodo
+	'test_asistentes/test_consulta_php2', --cuadro_carga_php_include
+	'test_consulta_php2', --cuadro_carga_php_clase
+	'get_tipos_dato', --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );
