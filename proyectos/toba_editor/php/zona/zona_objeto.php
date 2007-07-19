@@ -110,10 +110,6 @@ class zona_objeto extends zona_editor
 					" Items Consumidores ($cant)</td></tr>";
 			echo "<tr'><td  class='barra-obj-leve'>";
 			echo "<table id='zona_objeto_item' style='display:none' class='tabla-0' width='400'>";
-			echo "<tr>";
-			echo "<td  colspan='2' class='barra-obj-tit'>ITEM</td>";
-			echo "<td  colspan='2' class='barra-obj-tit'>Editar</td>";
-			echo "</tr>\n";
 			foreach($datos as $rs){
 				echo "<tr>";
 				//echo "<td  class='barra-obj-link' width='1%' >&nbsp;".$rs["proyecto"]."&nbsp;</td>";
@@ -170,11 +166,6 @@ class zona_objeto extends zona_editor
 					" Controladores ($cant)</td></tr>";
 			echo "<tr><td  class='barra-obj-leve'>";
 			echo "<table  id='zona_objeto_cont' style='display:none' class='tabla-0'>";
-			echo "<tr>";
-			echo "<td  colspan='2' class='barra-obj-tit'>Componente</td>";
-			echo "<td  class='barra-obj-tit'>ROL</td>";
-			echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
-			echo "</tr>\n";
 			foreach($datos as $rs){
 				if(!isset($contador[$rs["clase"]])){
 					$contador[$rs["clase"]] = 0;
@@ -246,10 +237,6 @@ class zona_objeto extends zona_editor
 					" Dependencias ($cant)</td></tr>";
 			echo "<tr ><td  class='barra-obj-leve'>";
 			echo "<table id='zona_objeto_dep' style='display:none' class='tabla-0'>";
-			echo "<tr>";
-			echo "<td  colspan='2' class='barra-obj-tit'>COMPONENTE</td>";
-			echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
-			echo "</tr>\n";
 			foreach ($rs as $fila) {
 				if(!isset($contador[$fila["clase"]])){
 					$contador[$fila["clase"]] = 0;

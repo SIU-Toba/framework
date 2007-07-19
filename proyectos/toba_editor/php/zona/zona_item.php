@@ -72,10 +72,6 @@ class zona_item extends zona_editor
 			$datos = toba::db()->consultar($sql);
 			if(! empty($datos)){
 				echo "<table class='tabla-0'>";
-				echo "<tr>";
-				echo "<td  colspan='2' class='barra-obj-tit'>COMPONENTE</td>";
-				echo "<td  colspan='3' class='barra-obj-tit'>Editar</td>";
-				echo "</tr>\n";
 				foreach($datos as $rs){
 					if(!isset($contador[$rs["clase"]])){
 						$contador[$rs["clase"]] = 0;

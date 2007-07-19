@@ -66,10 +66,9 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
-		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>
-		 <?php echo toba_recurso::imagen_toba('icono_16.png',true)?>
+        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
+		 <?php echo toba_recurso::imagen_toba('icono_16.png',true)?></a>
 		 </td>
-
 		<td width='100%'><?php echo gif_nulo(3,1) ?></td>
 <?php
 		echo "<td class='listado-barra-superior-tabi' title='Recarga el Proyecto en el Editor'>";
@@ -108,10 +107,6 @@ function abrir_toba_instancia(){
         <a title='Indice de la ayuda disponible' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 		 <?php echo toba_recurso::imagen_toba("ayuda.gif",true) ?></a></td>
 
-        <td class='listado-tabi'>
-        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
-		 <?php echo toba_recurso::imagen_toba("home.png",true) ?></a></td>
-
 		<td class='listado-tabi'>
 			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
 		</td>
@@ -144,7 +139,9 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' width='100%'>
 	<tr > 
 
-		<td><?php echo gif_nulo(3,1) ?></td>
+		<td>
+		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 10px 0px 0px 0px;' alt='' /></a>		
+		</td>
 
 		 <td class='listado-tabi'><?php echo toba_recurso::imagen_proyecto("item.gif",true) ?></td>
 		 <td class='listado-tabn' <?php echo $js_cambiar_color_1 ?> >

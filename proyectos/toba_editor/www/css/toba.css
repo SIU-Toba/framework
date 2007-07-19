@@ -2,7 +2,9 @@
 .ei-form-base, .ei-cuadro-cc-fondo, .ei-cuadro-cuerpo, .ci-tabs-h-cont, .ci-cuerpo {
 	border:none !important;
 }
-
+hr {
+	visibility:hidden;
+}
 
 .barra-separador {
 	font-size:9px;

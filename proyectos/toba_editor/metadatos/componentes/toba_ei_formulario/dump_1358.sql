@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'OBJETO - General - Dependencias', --nombre
 	'Objeto Asociado', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	'Asocia objetos a items', --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -185,8 +185,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --clase_proyecto
 	NULL, --clase
 	'1', --auto_reset
-	'500', --ancho
-	NULL, --ancho_etiqueta
+	'100%', --ancho
+	'150px', --ancho_etiqueta
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
