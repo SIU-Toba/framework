@@ -7,7 +7,8 @@ class toba_asistente_abms extends toba_asistente
 		//ei_arbol(array($this->molde, $this->molde_abms, $this->molde_abms_fila));
 		$this->ci->set_titulo($this->molde['nombre']);
 		$this->ci->agregar_pantalla(1, 'Pantalla');
-		$this->ci->extender('ci','ci.php');
+		$clase = $this->molde['prefijo_clases'] . 'ci';
+		$this->ci->extender($clase , $clase . '.php');
 		//- Creo dependencias -----------------------------------
 		$cuadro = $this->ci->agregar_dep('toba_ei_cuadro', 'cuadro');
 		$this->ci->asociar_pantalla_dep(1, $cuadro);
@@ -16,7 +17,7 @@ class toba_asistente_abms extends toba_asistente
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario($form);
 		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		$this->generar_datos_tabla($tabla, $this->molde_abms_fila);
+		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 	}
 	
 	function generar_formulario($form)
@@ -44,6 +45,20 @@ class toba_asistente_abms extends toba_asistente
 		$evento = $cuadro->agregar_evento('seleccion');
 		$evento->sobre_fila();
 		$evento->set_imagen('doc.gif');
+		//--- conf ---------------------------
+		if($this->molde['cuadro_carga_php_metodo']) {
+			$this->ci->php()->agregar_archivo_requerido($this->molde['cuadro_carga_php_include']);
+			$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$componente'));
+			$origen = $this->molde['cuadro_carga_php_clase'] . '::' . $this->molde['cuadro_carga_php_metodo'] . '()';
+			$metodo->set_contenido("\$componente->set_datos($origen);");
+			$this->ci->php()->agregar($metodo);		
+			if(isset($this->molde['cuadro_carga_sql'])){
+				$this->crear_consulta_php(	$this->molde['cuadro_carga_php_include'],
+											$this->molde['cuadro_carga_php_clase'],
+											$this->molde['cuadro_carga_php_metodo'],
+											$this->molde['cuadro_carga_sql'] );
+			}
+		}		
 	}
 }
 ?>

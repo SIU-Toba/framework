@@ -17,6 +17,7 @@ class toba_codigo_clase
 	protected $analisis_ventanas_no_utilizadas = array();
 	protected $analisis_metodos_usuario = array();
 	protected $ultimo_elemento;
+	protected $archivos_requeridos = array();
 
 	function __construct($nombre, $nombre_ancestro)
 	{
@@ -121,6 +122,11 @@ class toba_codigo_clase
 		return $lista;
 	}
 
+	function agregar_archivo_requerido($require)
+	{
+		$this->archivos_requeridos[] = $require;	
+	}
+
 	//--------------------------------------------------------------
 	//-- Generacion de codigo --------------------------------------
 	//--------------------------------------------------------------
@@ -205,6 +211,9 @@ class toba_codigo_clase
 
 	function generar_codigo()
 	{
+		foreach($this->archivos_requeridos as $archivo) {
+			$this->codigo_php .= "require_once('$archivo');" . salto_linea();
+		}
 		$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
 		$this->generar_codigo_php();
 		$this->generar_codigo_js();

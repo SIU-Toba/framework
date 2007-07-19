@@ -901,7 +901,8 @@ class toba_db_tablas_componente
     2 => 'operacion_tipo',
     3 => 'nombre',
     4 => 'carpeta_item',
-    5 => 'carpeta_archivos',
+    5 => 'prefijo_clases',
+    6 => 'carpeta_archivos',
   ),
 );
 	}

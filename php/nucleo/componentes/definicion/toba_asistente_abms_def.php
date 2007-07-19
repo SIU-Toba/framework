@@ -26,7 +26,7 @@ class toba_asistente_abms_def extends toba_asistente_def
 													cuadro_eof							,
 													cuadro_id							,
 													cuadro_eliminar_filas				,
-													cuadro_carga					,
+													cuadro_carga_origen					,
 													cuadro_carga_sql			,
 													cuadro_carga_php_include		,
 													cuadro_carga_php_clase		,
@@ -58,11 +58,12 @@ class toba_asistente_abms_def extends toba_asistente_def
 													elemento_formulario					,
 													ef_desactivar_modificacion			,
 													ef_procesar_javascript				,
-													ef_carga						,
 													ef_carga_sql				,
 													ef_carga_php_include			,
 													ef_carga_php_clase			,
-													ef_carga_php_metodo			
+													ef_carga_php_metodo			,
+													ef_carga_col_clave,
+													ef_carga_col_desc
 										 FROM		apex_molde_operacion_abms_fila
 										 WHERE	proyecto = '$proyecto' ";
 		if ( isset($componente) ) {

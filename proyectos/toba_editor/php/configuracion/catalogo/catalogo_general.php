@@ -22,30 +22,40 @@ class catalogo_general extends toba_nodo_basico
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
-		$hijos[1] = new toba_nodo_basico('Tipo de Pagina', $this);
-		$hijos[1]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("tipo_pagina.gif", false),
+		$hijos[1] = new toba_nodo_basico('Previsualización', $this);
+		$hijos[1]->agregar_icono(  array( 'imagen' => 	toba_recurso::imagen_proyecto("config_previsualizacion.gif", false),
+							'ayuda' => null ));
+		$hijos[1]->agregar_utileria( array(
+				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
+				'ayuda' => 'Configuración de la previsualización del proyecto',
+				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3287', $opciones ),
+				'target' => apex_frame_centro
+		) );
+		//----------------------------------------------------------------------
+		$hijos[3] = new toba_nodo_basico('Tipo de Pagina', $this);
+		$hijos[3]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("tipo_pagina.gif", false),
 										'ayuda' => null ) );
-		$hijos[1]->agregar_utileria(  array(
+		$hijos[3]->agregar_utileria(  array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar Mensajes del sistema',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(),'/admin/apex/elementos/pagina_tipo', $opciones ),
 				'target' => apex_frame_centro
 				) );
 		//----------------------------------------------------------------------
-		$hijos[2] = new toba_nodo_basico('Zona', $this);
-		$hijos[2]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("zona.gif", false),
+		$hijos[5] = new toba_nodo_basico('Zona', $this);
+		$hijos[5]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("zona.gif", false),
 							'ayuda' => null ) );
-		$hijos[2]->agregar_utileria( array(
+		$hijos[5]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar ZONA',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/apex/elementos/zona', $opciones ),
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
-		$hijos[3] = new toba_nodo_basico('Mensajes', $this);
-		$hijos[3]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("mensaje.gif", false),
+		$hijos[8] = new toba_nodo_basico('Mensajes', $this);
+		$hijos[8]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("mensaje.gif", false),
 							'ayuda' => null ) );
-		$hijos[3]->agregar_utileria( array(
+		$hijos[8]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar Mensajes del sistema',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/apex/elementos/error', $opciones ),
@@ -53,30 +63,30 @@ class catalogo_general extends toba_nodo_basico
 		) );
 		//----------------------------------------------------------------------
 /*
-		$hijos[4] = new toba_nodo_basico('Elementos de Formulario', $this);
-		$hijos[4]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/abms_ef.gif", false),
+		$hijos[10] = new toba_nodo_basico('Elementos de Formulario', $this);
+		$hijos[10]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/abms_ef.gif", false),
 							'ayuda' => null ) );
-		$hijos[4]->agregar_utileria( array(
+		$hijos[10]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar elementos de formulario',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), 1000020, $opciones ),
 				'target' => apex_frame_centro
 		) );*/
 		//----------------------------------------------------------------------
-		$hijos[5] = new toba_nodo_basico('Derechos', $this);
-		$hijos[5]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/permisos.gif", false),
+		$hijos[15] = new toba_nodo_basico('Derechos', $this);
+		$hijos[15]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/permisos.gif", false),
 							'ayuda' => null ) );
-		$hijos[5]->agregar_utileria( array(
+		$hijos[15]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar DERECHOS globales',
 				'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3276', $opciones ),
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
-      	$hijos[6] = new toba_nodo_basico('Puntos de control', $this);
-  		$hijos[6]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/punto_control.png", false),
+      	$hijos[20] = new toba_nodo_basico('Puntos de control', $this);
+  		$hijos[20]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("usuarios/punto_control.png", false),
 							'ayuda' => null ) );
-	  	$hijos[6]->agregar_utileria( array(
+	  	$hijos[20]->agregar_utileria( array(
         'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
         'ayuda'   => 'Editar PUNTOS DE CONTROL globales',
         'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '10000019', $opciones ),
@@ -84,10 +94,10 @@ class catalogo_general extends toba_nodo_basico
 		) );
 		//----------------------------------------------------------------------
 		if( toba_editor::acceso_recursivo() ) {
-	      	$hijos[7] = new toba_nodo_basico('Tipos de COMPONENTES', $this);
-	  		$hijos[7]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/objeto.gif", false),
+	      	$hijos[27] = new toba_nodo_basico('Tipos de COMPONENTES', $this);
+	  		$hijos[27]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("objetos/objeto.gif", false),
 								'ayuda' => null ) );
-		  	$hijos[7]->agregar_utileria( array(
+		  	$hijos[27]->agregar_utileria( array(
 	        'imagen'  => toba_recurso::imagen_toba("objetos/editar.gif", false),
 	        'ayuda'   => 'Editar PUNTOS DE CONTROL globales',
 	        'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3391', $opciones ),

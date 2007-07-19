@@ -13,7 +13,7 @@ class toba_asistente_grilla extends toba_asistente
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario_ml($form);
 		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		$this->generar_datos_tabla($tabla, $this->molde_abms_fila);
+		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		//- Eventos del CI ---------------------------------------
 		$evento = $this->ci->agregar_evento('guardar');
 		$evento->maneja_datos();
@@ -24,7 +24,8 @@ class toba_asistente_grilla extends toba_asistente
 	
 	function crear_extension()
 	{
-		$this->ci->extender('ci','ci.php');
+		$clase = $this->molde['prefijo_clases'] . 'ci';
+		$this->ci->extender($clase , $clase . '.php');
 		$metodo = new toba_codigo_metodo_php('ini__operacion');
 		$metodo->set_contenido("\$this->dep('datos')->cargar();");
 		$this->ci->php()->agregar($metodo);

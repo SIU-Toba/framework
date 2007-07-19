@@ -7,6 +7,7 @@ abstract class toba_asistente
 	protected $item;		// Molde del item
 	protected $ci;			// Shortcut al molde del CI
 	protected $log_elementos_creados;
+	protected $opciones;
 	
 	function __construct($molde)
 	{
@@ -16,6 +17,7 @@ abstract class toba_asistente
 		foreach (array_keys($molde) as $parte) {
 			$this->$parte = $molde[$parte];
 		}
+		$this->opciones = toba_info_editores::get_opciones_generacion();
 	}	
 	
 	//-----------------------------------------------------------
@@ -130,23 +132,47 @@ abstract class toba_asistente
 	}
 
 	//---------------------------------------------------
-	//-- Primitivas transversales de generacion
+	//-- Primitivas para los hijos
 	//---------------------------------------------------
+
+	function get_opcion($opcion)
+	{
+		if(isset($this->opcion[$opcion])){
+			return 	$this->opcion[$opcion];
+		}
+		return null;
+	}
 
 	function generar_efs($form, $filas)
 	{
 		foreach( $filas as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
+			//Largo EDITABLEs
 			if($fila['dt_largo']){
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
 				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
 			}
+			//Metodo de CARGA
+			if($fila['ef_carga_php_metodo']) {
+				$ef->set_propiedad('carga_include',$fila['ef_carga_php_include']);
+				$ef->set_propiedad('carga_clase',$fila['ef_carga_php_clase']);
+				$ef->set_propiedad('carga_metodo',$fila['ef_carga_php_metodo']);
+				$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
+				$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
+				if(isset($fila['ef_carga_sql'])){
+					$this->crear_consulta_php(	$fila['ef_carga_php_include'],
+												$fila['ef_carga_php_clase'],
+												$fila['ef_carga_php_metodo'],
+												$fila['ef_carga_sql'] );
+				}
+			}
+			//Procesar en JAVASCRIPT?
 		}
 	}
 	
-	function generar_datos_tabla($tabla, $filas)
+	function generar_datos_tabla($tabla, $nombre, $filas)
 	{
-		$tabla->set_tabla($this->molde_abms['tabla']);
+		$tabla->set_tabla($nombre);
 		foreach( $filas as $fila ) {
 			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
 			if($fila['dt_pk']){
@@ -156,6 +182,38 @@ abstract class toba_asistente
 				$col->set_secuencia($fila['dt_secuencia']);
 			}
 		}
+	}
+
+	//-- Manejo de consultas_php ------------------------
+
+	function crear_consulta_dt($tabla, $sql)
+	{
+		$clase = $this->molde['prefijo_clases']. 'dt';
+		$tabla->extender($clase, $clase . '.php');
+		//$tabla->php()->
+	}
+
+	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros='')
+	{
+		/*
+		$archivo = new toba_archivo_php($path);
+		if(!$archivo->existe()) {
+		}
+		if(!$archivo->contiene_clase($clase)){
+		}
+		if(!$contiene->contiene_metodo($metodo)){
+		}*/
+
+		$path = toba::proyecto()->get_path() . '/php/' . $include;
+		$php = "<?php\nclass $clase\n{\n";
+		$php .= "
+	function $metodo($parametros)
+	{
+		\$sql = \"$sql\";
+		return consultar_fuente(\$sql);
+	}\n";
+		$php .= "\n}\n?>";
+		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
 	}
 }
 ?>

@@ -14,7 +14,10 @@ CREATE TABLE apex_molde_opciones_generacion
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto						varchar(15)			NOT NULL,
-	origen_datos_cuadro				varchar(20)			NULL,		-- consulta_php, datos_tabla
+	uso_autoload					smallint			NULL,		-- Hace que no se generen require_once
+	origen_datos_cuadro				varchar(20)			NULL,		-- metodologia usada para proveer datos: consulta_php, datos_tabla
+	carga_php_include				varchar(255)		NULL,		-- consulta_php por defecto
+	carga_php_clase					varchar(255)		NULL,		-- consulta_php por defecto
 	CONSTRAINT "apex_molde_opciones_generacion_pk" PRIMARY KEY("proyecto"),
 	CONSTRAINT "apex_molde_opciones_generacion_fk_proy" 	FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -62,6 +65,7 @@ CREATE TABLE apex_molde_operacion
 	operacion_tipo				int4			NOT NULL,
 	nombre                  	varchar(255) 	NOT NULL,
 	carpeta_item				varchar(60)		NOT NULL,
+	prefijo_clases				varchar(30)		NOT NULL,
 	carpeta_archivos           	varchar(255) 	NOT NULL,
 	CONSTRAINT  "apex_molde_operacion_pk" PRIMARY KEY ("proyecto","molde"),
 	CONSTRAINT	"apex_molde_operacion_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,

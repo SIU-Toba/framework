@@ -24,10 +24,12 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	*/
 	function extender($subclase, $archivo)
 	{
-		$this->subclase = $subclase;
-		$this->archivo = $archivo;
-		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();
-		$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase );
+		if(!isset($this->subclase)) {
+			$this->subclase = $subclase;
+			$this->archivo = $archivo;
+			$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();
+			$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase );
+		}
 	}
 
 	function php()

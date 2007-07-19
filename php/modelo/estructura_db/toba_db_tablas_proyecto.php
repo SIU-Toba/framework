@@ -680,6 +680,9 @@ class toba_db_tablas_proyecto
   array (
     0 => 'proyecto',
     1 => 'origen_datos_cuadro',
+    2 => 'carga_php_include',
+    3 => 'carga_php_clase',
+    4 => 'carga_php_metodo',
   ),
 );
 	}

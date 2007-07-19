@@ -786,6 +786,15 @@ class toba_info_editores
 	//----------  Planes de generacion de operaciones  -----------------------------
 	//------------------------------------------------------------------------------
 
+	function get_opciones_generacion($proyecto = null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "	SELECT * 
+					FROM apex_molde_opciones_generacion
+					WHERE proyecto = '$proyecto'";
+		return toba_contexto_info::get_db()->consultar_fila($sql);			
+	}
+
 	function get_lista_tipo_molde($operacion_tipo = null)
 	{
 		$where_operacion = '';

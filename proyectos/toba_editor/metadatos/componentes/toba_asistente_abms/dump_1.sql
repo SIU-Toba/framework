@@ -7,12 +7,13 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, carpeta_archivos) VALUES (
+INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, prefijo_clases, carpeta_archivos) VALUES (
 	'toba_editor', --proyecto
 	'1', --molde
 	'10', --operacion_tipo
 	'Test A', --nombre
 	'3392', --carpeta_item
+	'test_a_', --prefijo_clases
 	'test_asistentes'  --carpeta_archivos
 );
 --- FIN Grupo de desarrollo 0
@@ -29,11 +30,11 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_eliminar_filas
 	'tipo', --cuadro_id
-	NULL, --cuadro_carga_origen
+	'consulta_php', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
-	NULL, --cuadro_carga_php_include
-	NULL, --cuadro_carga_php_clase
-	NULL, --cuadro_carga_php_metodo
+	'test_asistentes/test_consulta_php2', --ef_carga_php_include
+	'test_consulta_php2', --ef_carga_php_clase
+	'get_tipos_dato', --ef_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );

@@ -7,12 +7,13 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, carpeta_archivos) VALUES (
+INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, prefijo_clases, carpeta_archivos) VALUES (
 	'toba_editor', --proyecto
 	'3', --molde
 	'10', --operacion_tipo
 	'Test C', --nombre
 	'3392', --carpeta_item
+	'test_c_', --prefijo_clases
 	'test_asistentes'  --carpeta_archivos
 );
 --- FIN Grupo de desarrollo 0
@@ -29,7 +30,7 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_eliminar_filas
 	NULL, --cuadro_id
-	NULL, --cuadro_carga_origen
+	'datos_tabla', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
 	NULL, --cuadro_carga_php_include
 	NULL, --cuadro_carga_php_clase
@@ -109,11 +110,11 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript
 	'SELECT usuario_tipodoc, descripcion FROM apex_usuario_tipodoc', --ef_carga_sql
-	NULL, --ef_carga_php_include
-	NULL, --ef_carga_php_clase
-	NULL, --ef_carga_php_metodo
-	NULL, --ef_carga_col_clave
-	NULL  --ef_carga_col_desc
+	'test_asistentes/test_consulta_php', --ef_carga_php_include
+	'test_consulta_php', --ef_carga_php_clase
+	'get_tipos_documento', --ef_carga_php_metodo
+	'usuario_tipodoc', --ef_carga_col_clave
+	'descripcion'  --ef_carga_col_desc
 );
 INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_col_clave, ef_carga_col_desc) VALUES (
 	'toba_editor', --proyecto
@@ -129,7 +130,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'20', --dt_largo
 	NULL, --dt_secuencia
 	'1', --dt_pk
-	'ef_editable', --elemento_formulario
+	'ef_combo', --elemento_formulario
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript
 	NULL, --ef_carga_sql

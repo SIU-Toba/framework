@@ -7,12 +7,13 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, carpeta_archivos) VALUES (
+INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, prefijo_clases, carpeta_archivos) VALUES (
 	'toba_editor', --proyecto
 	'2', --molde
 	'11', --operacion_tipo
 	'Test B', --nombre
 	'3392', --carpeta_item
+	'test_b_', --prefijo_clases
 	'test_asistentes'  --carpeta_archivos
 );
 --- FIN Grupo de desarrollo 0
