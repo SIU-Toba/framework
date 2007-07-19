@@ -4,6 +4,11 @@ class pant_tipo_operacion extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
+		$tipos = toba_info_editores::get_lista_tipo_molde();
+		$tipos = rs_convertir_asociativo_matriz($tipos, array('operacion_tipo'), array('descripcion'));
+		echo toba_js::abrir();
+		echo "var tipos_operacion = ".toba_js::arreglo($tipos, true, true)."\n";
+		echo toba_js::cerrar();
 		echo "<style type='text/css'>
 				.ei-form-base {
 					border:none;
@@ -15,8 +20,7 @@ class pant_tipo_operacion extends toba_ei_pantalla
 				Vista previa en GIF animado o FLASH<br>
 				Como para dar una idea del flujo de la operación	
 			</div>";	
-		echo "<hr><div style='text-align: center; padding-bottom: 5px; padding-top:5px;color:gray'>
-			Explicación contextual del tipo de operación
+		echo "<hr><div id='operacion_descripcion' style='text-align: center; padding-bottom: 5px; padding-top:5px;color:gray'>
 			</div>";			
 	}
 	

@@ -794,6 +794,7 @@ class toba_info_editores
 		}
 		$sql = "	SELECT	operacion_tipo,
 							descripcion_corta,
+							descripcion,
 							ci,
 							icono
 					FROM apex_molde_operacion_tipo

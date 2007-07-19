@@ -27,6 +27,7 @@ class toba_ci extends toba_ei
 	protected $_pantalla_id_eventos;					// Id de la pantalla que se atienden eventos
 	private   $_pantalla_id_servicio;					// Id de la pantalla a mostrar en el servicio
 	protected $_pantalla_servicio;					// Comp. pantalla que se muestra en el servicio 
+	protected $_es_pantalla_inicial = false;
 	protected $_en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	protected $_ini_operacion = true;				// Indica si la operación recién se inicia
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
@@ -80,6 +81,7 @@ class toba_ci extends toba_ei
 			$this->_log->debug($this->get_txt(). "[ ini__operacion ]", 'toba');
 			$this->ini__operacion();
 			$this->_ini_operacion = false;
+			$this->_es_pantalla_inicial = true;
 		}
 		$this->ini();
 		$this->definir_pantalla_eventos();		
@@ -203,16 +205,19 @@ class toba_ci extends toba_ei
 	 */
 	protected function controlar_cambio_pantalla()
 	{
-		$cambio_pantalla_explicito = (isset($this->_pantalla_id_servicio) && 
-										isset($this->_pantalla_id_eventos) &&
-				 						$this->_pantalla_id_servicio !== $this->_pantalla_id_eventos);
+		$cambio_pantalla_explicito = isset($this->_pantalla_id_servicio) && 
+										($this->_es_pantalla_inicial ||
+										(isset($this->_pantalla_id_eventos) &&
+				 						$this->_pantalla_id_servicio !== $this->_pantalla_id_eventos));
 		
 		//--- Se da la oportunidad de que alguien rechaze el seteo, y vuelva todo para atras
 		if ($cambio_pantalla_explicito) { 
 			try {
-				// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
-				$evento_salida = apex_ei_evento . apex_ei_separador . $this->_pantalla_id_eventos . apex_ei_separador . "salida";
-				$this->invocar_callback($evento_salida);				
+				if (! $this->_es_pantalla_inicial) {
+					// -[ 1 ]-  Controlo que se pueda salir de la pantalla anterior
+					$evento_salida = apex_ei_evento . apex_ei_separador . $this->_pantalla_id_eventos . apex_ei_separador . "salida";
+					$this->invocar_callback($evento_salida);				
+				}
 	
 				// -[ 2 ]-  Controlo que se pueda ingresar a la etapa propuesta como ACTUAL
 				$evento_entrada = apex_ei_evento . apex_ei_separador . $this->_pantalla_id_servicio . apex_ei_separador . "entrada";

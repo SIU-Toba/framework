@@ -48,7 +48,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000324', --evento_id
 	'1000288', --objeto
 	'procesar', --identificador
-	'Guardar', --etiqueta
+	'Guardar Molde', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -78,7 +78,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000325', --evento_id
 	'1000288', --objeto
 	'generar', --identificador
-	'Generar', --etiqueta
+	'Generar operación', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion

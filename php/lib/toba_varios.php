@@ -189,6 +189,43 @@
 		}
         return $valores;
     }	
+    
+	//-----------------------------------------------------------------	
+	    
+	/**
+	 * Toma una matriz en formato recordset y retorna la misma matriz pero con la primer componente asociativa
+	 *
+	 * @param array $datos_recordset Matriz en formato recordset
+	 * @param array $claves Campos (asociativos o numericos) claves de cada registro
+	 * @param string $valores Campos valor (asociativo o numerico) de cada registro, se asumen todos los campos
+	 * @return array 
+	 */
+    function rs_convertir_asociativo_matriz($datos_recordset, $claves, $valores=null)
+    {
+    	if (!isset($datos_recordset)) {
+    		return array();	
+    	}
+		$salida = array();
+		foreach ($datos_recordset as $fila){
+			$valores_clave = array();
+			foreach($claves as $clave) {
+				if (isset($fila[$clave])) {
+					$valores_clave[] = $fila[$clave];
+				} else {
+					throw new toba_error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
+				}
+			}
+			if (isset($valores)) {
+				foreach ($valores as $valor) {
+	            	$salida[implode(apex_qs_separador, $valores_clave)][$valor] = $fila[$valor];
+				}
+			} else {
+
+				$salida[implode(apex_qs_separador, $valores_clave)] = $fila;
+			}
+		}
+        return $salida;
+    }
 
 	//-----------------------------------------------------------------	
 

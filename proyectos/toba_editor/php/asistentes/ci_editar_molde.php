@@ -47,7 +47,7 @@ class ci_editar_molde extends toba_ci
 
 	function evt__procesar()
 	{
-		$this->set_pantalla('pant_generar');
+		//$this->set_pantalla('pant_generar');
 	}
 	
 	function evt__generar()

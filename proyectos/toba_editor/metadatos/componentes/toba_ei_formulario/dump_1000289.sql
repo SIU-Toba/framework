@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_tipo_operacion', --subclase
+	'asistentes/form_tipo_operacion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Planes de generacion - crear - form_tipo_plan', --nombre
