@@ -414,8 +414,19 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//por eso mantiene la variable $this->_ordenes
 		if ($this->_info_formulario['columna_orden']) {
 			$ordenes = array();
+			//-- Permite que un orden no sea especificado, se asume que va ultimo
+			$maximo = 0;
 			foreach ($this->_datos as $id => $dato) {
-				$ordenes[$id] = $dato[$this->_info_formulario['columna_orden']];
+				if (isset($dato[$this->_info_formulario['columna_orden']])) {
+					$orden = $dato[$this->_info_formulario['columna_orden']];	
+					if ($orden > $maximo) {
+						$maximo = $orden;	
+					}
+				} else {
+					$maximo++;
+					$orden = $maximo;	
+				}
+				$ordenes[$id] = $orden;
 			}
 			asort($ordenes);
 			$this->_ordenes = array_keys($ordenes);

@@ -643,6 +643,16 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);	
 	}
 	
+	function get_fuente_datos_defecto($proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}
+		$sql = "SELECT fuente_datos FROM apex_proyecto WHERE proyecto='$proyecto'";
+		$rs = toba_contexto_info::get_db()->consultar_fila($sql);	
+		return $rs['fuente_datos'];
+	}	
+	
 	/**
 	 * Lista de motores de base de datos disponibles para definir una fuente
 	 */

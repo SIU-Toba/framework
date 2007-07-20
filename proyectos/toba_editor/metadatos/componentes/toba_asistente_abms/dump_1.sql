@@ -48,12 +48,12 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'toba_editor', --proyecto
 	'1', --molde
 	'1', --fila
-	'1', --orden
+	'2', --orden
 	'tipo', --columna
 	'Tipo', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
-	NULL, --en_filtro
+	'1', --en_cuadro
+	'0', --en_form
+	'0', --en_filtro
 	'C', --dt_tipo_dato
 	'1', --dt_largo
 	NULL, --dt_secuencia
@@ -72,12 +72,12 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'toba_editor', --proyecto
 	'1', --molde
 	'3', --fila
-	'2', --orden
+	'1', --orden
 	'descripcion', --columna
-	'Descripcion', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
-	NULL, --en_filtro
+	'Descripción', --etiqueta
+	'1', --en_cuadro
+	'0', --en_form
+	'0', --en_filtro
 	'C', --dt_tipo_dato
 	'30', --dt_largo
 	NULL, --dt_secuencia

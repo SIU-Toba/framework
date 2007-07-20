@@ -15,8 +15,10 @@ class ci_asistente extends toba_ci
 	{
 		$info = toba_info_editores::get_lista_tipo_molde($this->s__tipo['tipo']);
 		$ci = $info['ci'];
-		$this->agregar_dependencia('asistente', 'toba_editor', $ci);		
+		$this->agregar_dependencia('asistente', 'toba_editor', $ci);	
+		$this->dep('asistente')->set_molde_nuevo();
 	}
+	
 	//-----------------------------------------------------------------------------------
 	//---- Elegir tipo ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
@@ -46,6 +48,11 @@ class ci_asistente extends toba_ci
 	function evt__siguiente()
 	{
 		$this->set_pantalla('pant_edicion');	
+	}
+	
+	function evt__generar()
+	{
+		$this->dep('asistente')->sincronizar();
 	}
 	
 	function evt__volver()

@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_principal', --subclase
-	'asistentes/abm_simple/ci_principal.php', --subclase_archivo
+	'ci_abms_principal', --subclase
+	'asistentes/abm_simple/ci_abms_principal.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Asistente - ABMS', --nombre

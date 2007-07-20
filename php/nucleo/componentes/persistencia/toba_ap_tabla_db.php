@@ -17,7 +17,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 {
 	protected $_objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
 	protected $_columnas;						// DATOS_TABLA: Estructura del objeto
-	protected $_datos;							// DATOS_TABLA: DATOS que conforman las filas
+	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
 	protected $_cambios;							// DATOS_TABLA: Estado de los cambios
 	protected $_tabla;							// DATOS_TABLA: Tabla
 	protected $_alias;							// DATOS_TABLA: Alias

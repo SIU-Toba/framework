@@ -32,7 +32,7 @@ class comando_doc extends comando_toba
 		$comando = 'httrack "https://localhost/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
-					-*WikiMacros* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*reuniones*';
+					-*WikiMacros* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*/Reuniones*';
 		system($comando);
 
 		//-- Busca el archivo css del wik y modifica algunos estilos
@@ -57,6 +57,7 @@ class comando_doc extends comando_toba
 			div.wiki { padding-left: 10px; }	
 			h2 {background-color: #BD0000 !important;}		
 		";
+		
 		$archivo_css = $destino."/trac/toba/chrome/common/css/trac.css";
 		file_put_contents($archivo_css, $cambios, FILE_APPEND);
 		

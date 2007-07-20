@@ -87,6 +87,12 @@ class toba_editor
 			return toba_dba::get_db(self::$memoria['base']);
 		}
 	}
+	
+	static function get_db_defecto()
+	{
+		$fuente = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
+		return toba::db($fuente, toba_editor::get_proyecto_cargado());
+	}
 
 	static function get_proyecto_cargado()
 	{

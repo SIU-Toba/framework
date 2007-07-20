@@ -32,6 +32,7 @@ class ci_editar_molde extends toba_ci
 			throw new toba_error('No se definio el tipo de molde a editar');	
 		}
 		$this->agregar_dependencia('asistente', 'toba_editor', $ci);
+		$this->dep('asistente')->set_molde($this->s__proyecto, $this->s__molde);				
 	
 	}
 	
@@ -42,11 +43,13 @@ class ci_editar_molde extends toba_ci
 
 	function conf__pant_editar()
 	{
+
 		$this->pantalla()->agregar_dep('asistente');
 	}
 
 	function evt__procesar()
 	{
+		$this->dep('asistente')->sincronizar();
 		//$this->set_pantalla('pant_generar');
 	}
 	
