@@ -10,14 +10,14 @@ class toba_asistente_abms extends toba_asistente
 		$clase = $this->molde['prefijo_clases'] . 'ci';
 		$this->ci->extender($clase , $clase . '.php');
 		//- Creo dependencias -----------------------------------
+		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
+		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		$cuadro = $this->ci->agregar_dep('toba_ei_cuadro', 'cuadro');
 		$this->ci->asociar_pantalla_dep(1, $cuadro);
 		$this->generar_cuadro($cuadro);
 		$form = $this->ci->agregar_dep('toba_ei_formulario', 'formulario');
 		$this->ci->asociar_pantalla_dep(1, $form);
 		$this->generar_formulario($form);
-		$tabla = $this->ci->agregar_dep('toba_datos_tabla', 'datos');
-		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 	}
 	
 	function generar_formulario($form)
@@ -37,7 +37,7 @@ class toba_asistente_abms extends toba_asistente
 	
 	function generar_cuadro($cuadro)
 	{
-		$cuadro->set_clave('id');
+		$cuadro->set_clave($this->molde_abms['cuadro_id']);
 		$this->ci->dep('cuadro')->set_nombre($this->molde['nombre'] . ' - Cuadro.');
 		foreach( $this->molde_abms_fila as $fila ) {
 			$columna = $cuadro->agregar_columna($fila['columna'], 4);
@@ -46,17 +46,17 @@ class toba_asistente_abms extends toba_asistente
 		$evento->sobre_fila();
 		$evento->set_imagen('doc.gif');
 		//--- conf ---------------------------
-		if($this->molde['cuadro_carga_php_metodo']) {
-			$this->ci->php()->agregar_archivo_requerido($this->molde['cuadro_carga_php_include']);
+		if(isset($this->molde_abms['cuadro_carga_php_metodo'])&&$this->molde_abms['cuadro_carga_php_metodo']) {
+			$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
 			$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$componente'));
-			$origen = $this->molde['cuadro_carga_php_clase'] . '::' . $this->molde['cuadro_carga_php_metodo'] . '()';
+			$origen = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'] . '()';
 			$metodo->set_contenido("\$componente->set_datos($origen);");
 			$this->ci->php()->agregar($metodo);		
-			if(isset($this->molde['cuadro_carga_sql'])){
-				$this->crear_consulta_php(	$this->molde['cuadro_carga_php_include'],
-											$this->molde['cuadro_carga_php_clase'],
-											$this->molde['cuadro_carga_php_metodo'],
-											$this->molde['cuadro_carga_sql'] );
+			if(isset($this->molde_abms['cuadro_carga_sql'])){
+				$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
+											$this->molde_abms['cuadro_carga_php_clase'],
+											$this->molde_abms['cuadro_carga_php_metodo'],
+											$this->molde_abms['cuadro_carga_sql'] );
 			}
 		}		
 	}

@@ -29,12 +29,12 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'0', --gen_separar_pantallas
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_eliminar_filas
-	NULL, --cuadro_id
+	'tipo', --cuadro_id
 	'datos_tabla', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
-	NULL, --cuadro_carga_php_include
-	NULL, --cuadro_carga_php_clase
-	NULL, --cuadro_carga_php_metodo
+	'test_asistentes/test_consulta_php.php', --cuadro_carga_php_include
+	'test_consulta_php', --cuadro_carga_php_clase
+	'get_tipos_dato', --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );
@@ -110,8 +110,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript
 	'SELECT usuario_tipodoc, descripcion FROM apex_usuario_tipodoc', --ef_carga_sql
-	'test_asistentes/test_consulta_php', --ef_carga_php_include
-	'test_consulta_php', --ef_carga_php_clase
+	'test_asistentes/test_consulta_php3.php', --ef_carga_php_include
+	'test_consulta_php3', --ef_carga_php_clase
 	'get_tipos_documento', --ef_carga_php_metodo
 	'usuario_tipodoc', --ef_carga_col_clave
 	'descripcion'  --ef_carga_col_desc

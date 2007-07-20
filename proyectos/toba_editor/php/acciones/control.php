@@ -152,7 +152,7 @@ function abrir_toba_instancia(){
 
 		 <td class='listado-tabi'><?php echo toba_recurso::imagen_toba("objetos/objeto.gif",true) ?></td>
 		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title="Listado de Componentes creados en el Proyecto" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<?php echo apex_frame_lista ?>">COMPONENTES</a>
+		<a title="Listado de Componentes creados en el Proyecto" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<?php echo apex_frame_lista ?>">COMP.</a>
 		</td>
 
 		<td><?php echo gif_nulo(3,1) ?></td>
@@ -164,8 +164,9 @@ function abrir_toba_instancia(){
 
 		<td><?php echo gif_nulo(3,1) ?></td>
 
-		<td  class='listado-tabi'>
-		<a title="Los moldes permiten generar operaciones a partir de asistentes" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<?php echo apex_frame_lista ?>"><?php echo toba_recurso::imagen_toba("wizard.png",true) ?></a>
+		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('wizard.png',true); ?></td>
+		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
+		<a title='Los moldes permiten generar operaciones a partir de asistentes' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">MOLDES</a>		
 		</td>
 
 		<td><?php echo gif_nulo(3,1) ?></td>

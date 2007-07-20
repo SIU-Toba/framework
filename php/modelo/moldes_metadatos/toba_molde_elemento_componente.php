@@ -6,7 +6,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 {
 	protected $clase_proyecto ='toba';
 	protected $subclase;
-	protected $molde_php;					// Clase molde de codigo PHP
+	protected $molde_php = null;					// Clase molde de codigo PHP
 	
 	function ini()
 	{
@@ -24,7 +24,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	*/
 	function extender($subclase, $archivo)
 	{
-		if(!isset($this->subclase)) {
+		if(!isset($this->molde_php)) {
 			$this->subclase = $subclase;
 			$this->archivo = $archivo;
 			$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();

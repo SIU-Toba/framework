@@ -211,8 +211,11 @@ class toba_codigo_clase
 
 	function generar_codigo()
 	{
-		foreach($this->archivos_requeridos as $archivo) {
-			$this->codigo_php .= "require_once('$archivo');" . salto_linea();
+		if(count($this->archivos_requeridos)>0) {
+			foreach($this->archivos_requeridos as $archivo) {
+				$this->codigo_php .= "require_once('$archivo');" . salto_linea();
+			}
+			$this->codigo_php .= salto_linea();
 		}
 		$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
 		$this->generar_codigo_php();
