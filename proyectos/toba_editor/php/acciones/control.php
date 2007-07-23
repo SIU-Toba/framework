@@ -67,7 +67,7 @@ function abrir_toba_instancia(){
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
         <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
-		 <?php echo toba_recurso::imagen_toba('icono_16.png',true)?></a>
+		 <?php echo toba_recurso::imagen_toba('icono_24.png',true)?></a>
 		 </td>
 		<td width='100%'><?php echo gif_nulo(3,1) ?></td>
 <?php
