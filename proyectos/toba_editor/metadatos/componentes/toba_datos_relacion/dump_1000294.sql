@@ -54,6 +54,45 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase,
 );
 
 ------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000294', --objeto
+	'1000015', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1000298', --padre_objeto
+	'molde', --padre_id
+	'proyecto,molde', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'1000295', --hijo_objeto
+	'base', --hijo_id
+	'proyecto,molde', --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000294', --objeto
+	'1000016', --asoc_id
+	NULL, --identificador
+	'toba_editor', --padre_proyecto
+	'1000295', --padre_objeto
+	'base', --padre_id
+	'proyecto,molde', --padre_clave
+	'toba_editor', --hijo_proyecto
+	'1000296', --hijo_objeto
+	'filas', --hijo_id
+	'proyecto,molde', --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -78,6 +117,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'filas', --identificador
 	'', --parametros_a
 	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000165', --dep_id
+	'1000294', --objeto_consumidor
+	'1000298', --objeto_proveedor
+	'molde', --identificador
+	'1', --parametros_a
+	'1', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	NULL  --orden

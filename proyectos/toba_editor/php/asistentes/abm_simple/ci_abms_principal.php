@@ -1,27 +1,8 @@
 <?php 
+require_once('asistentes/ci_asistente_base.php');
 
-class ci_abms_principal extends toba_ci
+class ci_abms_principal extends ci_asistente_base
 {
-	function set_molde($proyecto, $id)
-	{
-		$this->dep('datos')->cargar(array('proyecto' => $proyecto, 'molde' => $id));
-	}
-	
-	function set_molde_nuevo()
-	{
-		$datos_basicos = array('proyecto' =>  toba_editor::get_proyecto_cargado());
-		$this->dep('datos')->tabla('base')->set($datos_basicos);	
-	}
-	
-	function sincronizar()
-	{
-		$this->dep('datos')->sincronizar();	
-	}
-	
-	function get_tablas()
-	{
-		return toba_editor::get_db_defecto()->get_lista_tablas();
-	}
 	
 	//---- Basico ----------------------------------------
 
