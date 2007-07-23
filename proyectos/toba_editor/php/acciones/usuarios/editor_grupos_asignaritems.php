@@ -72,13 +72,13 @@
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  width='450px' colspan='<?php echo ($maximo-$nivel)?>'>&nbsp;&nbsp;<?php echo $item->get_nombre()?></td>
 	          <td  class='cat-arbol-carpeta-info'  width='1px'>
-				<? if($item->es_de_menu()){?>
+				<?php if($item->es_de_menu()){?>
 							<img src='<?php echo toba_recurso::imagen_proyecto("menu.gif") ?>' border='0'>
-				<? }else{ echo gif_nulo(); } ?>
+				<?php }else{ echo gif_nulo(); } ?>
 			  </td>
 	          <td  class='cat-arbol-carpeta-info'  width='1px'></td>
 		  
-			<? }else{
+			<?php }else{
 				//******************< Items comunes >*************************
 			?>
 			          <td  class='ei-arbol-nodo' width='100%'  colspan='<?php echo ($maximo-$nivel)+3?>'>
@@ -90,9 +90,9 @@
 
 			          </td>
 			          <td  class='ei-arbol-nodo'  width='1px'>
-			<? if($item->es_de_menu()){?>
+			<?php if($item->es_de_menu()){?>
 						<img src='<?php echo toba_recurso::imagen_proyecto("menu.gif") ?>' border='0'>
-			<? }else{ echo gif_nulo(); } ?>
+			<?php }else{ echo gif_nulo(); } ?>
 					  </td>
 			          <td  class='ei-arbol-nodo' width='1px' ><?php echo toba_recurso::imagen_proyecto("item.gif",true,null,null,'ID: ' . $item->get_id()) ?></td>
 			<?php

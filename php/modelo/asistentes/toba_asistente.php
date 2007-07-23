@@ -186,11 +186,14 @@ abstract class toba_asistente
 
 	//-- Manejo de consultas_php ------------------------
 
-	function crear_consulta_dt($tabla, $sql)
+	function crear_consulta_dt($tabla, $metodo, $sql, $parametros='')
 	{
 		$clase = $this->molde['prefijo_clases']. 'dt';
 		$tabla->extender($clase, $clase . '.php');
-		//$tabla->php()->
+		$metodo = new toba_codigo_metodo_php($metodo);
+		$metodo->set_contenido(array(	"\$sql = \"$sql\";",
+										"return consultar_fuente(\$sql);"));
+		$tabla->php()->agregar($metodo);		
 	}
 
 	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros='')

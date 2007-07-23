@@ -60,6 +60,14 @@ class toba_molde_evento
 		$this->datos['imagen'] = $url_relativa;
 	}
 
+	function set_grupos($grupos)
+	{
+		if(is_array($grupos)){
+			$grupos = implode(',',$grupos);	
+		}
+		$this->datos['grupo'] = $grupos;
+	}
+
 	//---------------------------------------------------
 	
 	function get_datos()

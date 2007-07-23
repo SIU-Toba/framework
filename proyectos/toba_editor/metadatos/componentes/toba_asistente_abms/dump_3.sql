@@ -29,12 +29,12 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'0', --gen_separar_pantallas
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_eliminar_filas
-	'tipo', --cuadro_id
+	'usuario', --cuadro_id
 	'datos_tabla', --cuadro_carga_origen
-	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
-	'test_asistentes/test_consulta_php.php', --cuadro_carga_php_include
-	'test_consulta_php', --cuadro_carga_php_clase
-	'get_tipos_dato', --cuadro_carga_php_metodo
+	'SELECT * FROM apex_usuario', --cuadro_carga_sql
+	'', --cuadro_carga_php_include
+	'', --cuadro_carga_php_clase
+	'get_listado', --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );
@@ -55,7 +55,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	NULL, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
-	'1', --dt_largo
+	'20', --dt_largo
 	NULL, --dt_secuencia
 	'1', --dt_pk
 	'ef_editable', --elemento_formulario
@@ -121,15 +121,15 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'3', --molde
 	'4', --fila
 	'4', --orden
-	'clase', --columna
-	'Tipo clase', --etiqueta
+	'parametro_a', --columna
+	'Parametro A', --etiqueta
 	NULL, --en_cuadro
 	NULL, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
 	'20', --dt_largo
 	NULL, --dt_secuencia
-	'1', --dt_pk
+	NULL, --dt_pk
 	'ef_combo', --elemento_formulario
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript
