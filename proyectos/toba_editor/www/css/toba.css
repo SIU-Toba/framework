@@ -3,6 +3,9 @@
 	border:none !important;
 }
 
+/*.ci-barra-sup {
+	background-color: #D5D2CD !important;
+}*/
 .barra-separador {
 	font-size:9px;
 }
@@ -254,7 +257,8 @@ TD.listado-barra-superior {
 	 PADDING-BOTTOM: 0px;
 	 MARGIN: 0px;
 	 PADDING-TOP: 0px;
-	 BACKGROUND-COLOR: #231f20;
+	 BACKGROUND-COLOR: #D5CECD;
+     /*BACKGROUND-COLOR: #231f20;*/
 	 TEXT-ALIGN: right
 }
 TD.listado-tabn {
@@ -300,7 +304,7 @@ TD.listado-tabi {
 	 COLOR: #7b7979;
 	 PADDING-TOP: 2px;
 	 BORDER-BOTTOM: #a7a5a6 1px solid;
-	 BACKGROUND-COLOR: #7b7979;
+	 BACKGROUND-COLOR: #EEEAE6;
 	 TEXT-ALIGN: center
 }
 TD.listado-normal {

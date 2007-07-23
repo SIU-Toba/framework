@@ -18,6 +18,11 @@
 	}
 	echo toba_form::abrir("cambiar_proyecto", '');                        
 ?>
+<style type='text/css'>
+.ci-tabs-h-lista a {
+	padding: 5px 12px 4px 3px;
+}
+</style>
 <script type="text/javascript" language='javascript'>
 var frame_admin = top.document.getElementById('frameset_admin');
 if (frame_admin) {
@@ -52,10 +57,31 @@ function abrir_toba_instancia(){
 	$js_editor = toba_recurso::js('editor.js');
 	$datos = toba_editor::get_parametros_previsualizacion_js();
 	$parametros_previsualizacion = toba_js::arreglo($datos, true);
+	
+	$url_li_sel = 'url("'.toba_recurso::imagen_skin('tabs/left_on.gif').'") no-repeat left top';
+	$url_a_sel = 'url("'.toba_recurso::imagen_skin('tabs/right_on.gif').'") no-repeat right top';
+	$url_li = 'url("'.toba_recurso::imagen_skin('tabs/left.gif').'") no-repeat left top';
+	$url_a = 'url("'.toba_recurso::imagen_skin('tabs/right.gif').'") no-repeat right top';	
+	$estilo_li_sel = "background: $url_li_sel";
+	$estilo_a_sel = "background: $url_a_sel";
+	$estilo_li = "background: $url_li";
+	$estilo_a = "background: $url_a";
 ?>
 <SCRIPT language='JavaScript1.4' type='text/javascript' src='<?php echo $js_editor  ?>'></SCRIPT>
 <SCRIPT language='JavaScript1.4' type='text/javascript' >
 	editor.set_parametros_previsualizacion(<?php echo $parametros_previsualizacion ?>);
+
+	var tab_actual = null;	
+	function seleccionar_tab(span)
+	{
+		if (isset(tab_actual)) {
+			tab_actual.parentNode.style.background = '<?php echo $url_li ?>';
+			tab_actual.style.background = '<?php echo $url_a ?>';
+		}
+		span.parentNode.style.background = '<?php echo $url_li_sel ?>';
+		span.style.background = '<?php echo $url_a_sel ?>';
+		tab_actual = span;
+	}
 </script>
 
 
@@ -105,7 +131,7 @@ function abrir_toba_instancia(){
 
          <td class='listado-tabi'>
         <a title='Indice de la ayuda disponible' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
-		 <?php echo toba_recurso::imagen_toba("ayuda.gif",true) ?></a></td>
+		 <?php echo toba_recurso::imagen_toba("ayuda.png",true) ?></a></td>
 
 		<td class='listado-tabi'>
 			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
@@ -132,55 +158,57 @@ function abrir_toba_instancia(){
 	</tr>
 	</table>
 </td></tr>
-<tr><td class='listado-barra-superior' ><?php echo gif_nulo(1,2) ?></td></tr>
-<tr><td  class='listado-linea' ><?php echo gif_nulo(1,1) ?></td></tr>
-<tr><td  class='listado-normal'><?php echo gif_nulo(1,4) ?></td></tr>
-<tr><td class='listado-normal'>
-	<table class='tabla-0' width='100%'>
-	<tr > 
+<?php
+	$item_actual = toba::memoria()->get_item_solicitado();
+	//------------ TABS
+	$tabs = array(
+		array(
+			'nombre' => 'Items',
+			'imagen' => toba_recurso::imagen_proyecto("item.gif",true),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral'),
+			'ayuda' => 'Operaciones disponibles en el Proyecto',
+		),
+		array(
+			'nombre' => 'Comp.',
+			'imagen' => toba_recurso::imagen_toba("objetos/objeto.gif",true),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral'),
+			'ayuda' => 'Componentes disponibles en el Proyecto',
+		),	
+		array(
+			'nombre' => 'Datos',
+			'imagen' => toba_recurso::imagen_toba('fuente.png',true),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),3397,null,false,false,null,true,'lateral'),
+			'ayuda' => 'Acceso a datos',
+		),
+		array(
+			'nombre' => 'Moldes',
+			'imagen' => toba_recurso::imagen_toba('wizard.png',true),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral'),
+			'ayuda' => 'Creación y edición de moldes de operaciones',
+		),			
+		array(
+			'nombre' => '',
+			'imagen' => toba_recurso::imagen_toba('configurar.png',true),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador",null,false,false,null,true,'lateral'),
+			'ayuda' => 'Configuración general del proyecto',
+		),				
+	);
 
-		<td>
-		<a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_proyecto("contraer.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 10px 0px 0px 0px;' alt='' /></a>		
-		</td>
-
-		 <td class='listado-tabi'><?php echo toba_recurso::imagen_proyecto("item.gif",true) ?></td>
-		 <td class='listado-tabn' <?php echo $js_cambiar_color_1 ?> >
-		<a title="Listado de Operaciones disponibles en el Proyecto" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral') ?>" class="list-obj" target="<?php echo  apex_frame_lista ?>">ITEMS</a>
-		</td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-		 <td class='listado-tabi'><?php echo toba_recurso::imagen_toba("objetos/objeto.gif",true) ?></td>
-		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title="Listado de Componentes creados en el Proyecto" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral') ?>" class="list-obj" target="<?php echo apex_frame_lista ?>">COMP.</a>
-		</td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('fuente.png',true); ?></td>
-		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title='Acceso a datos' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3397,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">DATOS</a>		
-		</td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-		<td class='listado-tabi'><?php echo toba_recurso::imagen_toba('wizard.png',true); ?></td>
-		<td class='listado-tabn' <?php echo $js_cambiar_color_1 ?>>
-		<a title='Los moldes permiten generar operaciones a partir de asistentes' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral') ?>" class="list-obj"  target="<?php echo  apex_frame_lista ?>">MOLDES</a>		
-		</td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-		<td  class='listado-tabi'>
-		<a title="Configuración general del proyecto" href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador") ?>" class="list-obj" target="<?php echo apex_frame_lista ?>"><?php echo toba_recurso::imagen_toba("configurar.png",true) ?></a>
-		</td>
-
-		<td><?php echo gif_nulo(3,1) ?></td>
-
-		</tr>
-	</table>
-</td></tr>
-<tr><td  class='listado-normal'><?php echo gif_nulo(1,4) ?></td></tr>
+	$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
+	echo "<tr><td style='$estilo' class='ci-tabs-h-lista'>";		
+	echo "<ul>\n";
+	$id = 'id="tab_inicial"';
+	foreach( $tabs as $tab ) {
+		
+		echo "<li class='ci-tabs-h-solapa' style='$estilo_li'>";
+		echo "<a $id href='{$tab['url']}' title='{$tab['ayuda']}'  onclick='seleccionar_tab(this)' style='$estilo_a' target='".apex_frame_lista."'>{$tab['imagen']} {$tab['nombre']}</a>";
+		echo "</li>";
+		$id = '';
+	}
+	echo toba_js::ejecutar('$("tab_inicial").onclick()');	
+	echo "</ul>";
+	echo "</td></tr>\n";
+?>
 </table>
 <?php 
 	echo toba_form::cerrar();
