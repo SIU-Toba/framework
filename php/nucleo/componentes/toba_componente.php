@@ -65,7 +65,7 @@ abstract class toba_componente
 		$this->cargar_info_dependencias();
 		$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
 	}
-
+	
 	/**
 	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 
@@ -139,6 +139,16 @@ abstract class toba_componente
 	{
 		return $this->_id;	
 	}
+	
+
+	/**
+	 * Retorna un parámetro estático definido en las prop. básicas del componente
+	 * @param string $parametro Puede ser a,b,c,d,e,f
+	 */
+	function get_parametro($parametro)
+	{
+		return $this->_info['parametro_'.$parametro];
+	}	
 	
 	/**
 	 * Retorna la referencia al componente padre o contenedor del actual, generalmente un ci
