@@ -9,7 +9,6 @@ class toba_molde_evento
 	function __construct($identificador)
 	{
 		$this->datos['identificador'] = $identificador;
-		$this->datos['etiqueta'] = $identificador;
 	}
 
 	function get_identificador()
@@ -66,6 +65,16 @@ class toba_molde_evento
 			$grupos = implode(',',$grupos);	
 		}
 		$this->datos['grupo'] = $grupos;
+	}
+
+	function set_confirmacion($mensaje)
+	{
+		$this->datos['confirmacion'] = $mensaje;
+	}
+	
+	function set_estilo($estilo)
+	{
+		$this->datos['estilo'] = $estilo;
 	}
 
 	//---------------------------------------------------

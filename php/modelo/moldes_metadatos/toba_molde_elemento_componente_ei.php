@@ -32,6 +32,14 @@ class toba_molde_elemento_componente_ei extends toba_molde_elemento_componente
 		return $this->eventos[$identificador];
 	}
 
+	function set_ancho($ancho)
+	{
+		if((strpos($ancho,'%')===false) && (strpos($ancho,'px')===false)) {
+			throw new toba_error("MOLDE CUADRO: El ancho debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $ancho");
+		}
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'ancho',$ancho);
+	}
+
 	//---------------------------------------------------
 	//-- Generacion de METADATOS & ARCHIVOS
 	//---------------------------------------------------

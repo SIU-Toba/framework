@@ -51,8 +51,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'1', --orden
 	'usuario', --columna
 	'Usuario', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
+	1, --en_cuadro
+	1, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
 	'20', --dt_largo
@@ -76,7 +76,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'clave', --columna
 	'Clave', --etiqueta
 	NULL, --en_cuadro
-	NULL, --en_form
+	1, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
 	'30', --dt_largo
@@ -99,8 +99,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'3', --orden
 	'usuario_tipodoc', --columna
 	'Tipo Doc.', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
+	1, --en_cuadro
+	1, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
 	'1', --dt_largo
@@ -123,8 +123,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'4', --orden
 	'parametro_a', --columna
 	'Parametro A', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
+	1, --en_cuadro
+	1, --en_form
 	NULL, --en_filtro
 	'C', --dt_tipo_dato
 	'20', --dt_largo

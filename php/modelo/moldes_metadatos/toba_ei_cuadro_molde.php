@@ -43,6 +43,20 @@ class toba_ei_cuadro_molde extends toba_molde_elemento_componente_ei
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'columnas_clave',$clave);
 	}
 
+	function set_eof($mensaje)
+	{
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'eof_customizado',$mensaje);
+	}
+	
+	function set_scroll($alto)
+	{
+		if((strpos($alto,'%')===false) && (strpos($alto,'px')===false)) {
+			throw new toba_error("MOLDE CUADRO: El alto del SCROLL debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
+		}
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'scroll',1);
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'scroll_alto',$alto);
+	}
+	
 	//---------------------------------------------------
 	//-- Generacion de METADATOS & ARCHIVOS
 	//---------------------------------------------------

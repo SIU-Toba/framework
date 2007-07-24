@@ -7,6 +7,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	protected $clase = 'toba_ci';
 	protected $deps = array();
 	protected $mapeo_pantallas;
+	protected $orden_pantalla = 0;
 
 	function ini()
 	{
@@ -21,9 +22,10 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 
 	function agregar_pantalla($identificador, $etiqueta=null)
 	{
-		$datos = array('identificador'=>$identificador, 'etiqueta'=>$etiqueta);
+		$datos = array('identificador'=>$identificador, 'etiqueta'=>$etiqueta, 'orden'=>$this->orden_pantalla);
 		$id = $this->datos->tabla('pantallas')->nueva_fila($datos);
 		$this->mapeo_pantallas[$identificador] = $id;
+		$this->orden_pantalla++;
 	}
 	
 	function asociar_pantalla_dep($pantalla, $dep)
@@ -61,6 +63,14 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 		}
 		$id_fila = $this->mapeo_pantallas[$pantalla];
 		$this->datos->tabla('pantallas')->agregar_evento_pantalla($id_fila,$evento);
+	}
+
+	function set_alto($alto)
+	{
+		if((strpos($alto,'%')===false) && (strpos($alto,'px')===false)) {
+			throw new toba_error("MOLDE CUADRO: El alto debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
+		}
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'alto',$alto);
 	}
 	
 	//---------------------------------------------------
