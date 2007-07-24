@@ -146,29 +146,27 @@ abstract class toba_asistente
 	function generar_efs($form, $filas)
 	{
 		foreach( $filas as $fila ) {
-			if($fila['en_form']) {
-				$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
-				//Largo EDITABLEs
-				if($fila['dt_largo']){
-					$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
-					$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
-				}
-				//Metodo de CARGA
-				if($fila['ef_carga_php_metodo']) {
-					$ef->set_propiedad('carga_include',$fila['ef_carga_php_include']);
-					$ef->set_propiedad('carga_clase',$fila['ef_carga_php_clase']);
-					$ef->set_propiedad('carga_metodo',$fila['ef_carga_php_metodo']);
-					$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
-					$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
-					if(isset($fila['ef_carga_sql'])){
-						$this->crear_consulta_php(	$fila['ef_carga_php_include'],
-													$fila['ef_carga_php_clase'],
-													$fila['ef_carga_php_metodo'],
-													$fila['ef_carga_sql'] );
-					}
-				}
-				//Procesar en JAVASCRIPT?
+			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
+			//Largo EDITABLEs
+			if($fila['dt_largo']){
+				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
+				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
 			}
+			//Metodo de CARGA
+			if($fila['ef_carga_php_metodo']) {
+				$ef->set_propiedad('carga_include',$fila['ef_carga_php_include']);
+				$ef->set_propiedad('carga_clase',$fila['ef_carga_php_clase']);
+				$ef->set_propiedad('carga_metodo',$fila['ef_carga_php_metodo']);
+				$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
+				$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
+				if(isset($fila['ef_carga_sql'])){
+					$this->crear_consulta_php(	$fila['ef_carga_php_include'],
+												$fila['ef_carga_php_clase'],
+												$fila['ef_carga_php_metodo'],
+												$fila['ef_carga_sql'] );
+				}
+			}
+			//Procesar en JAVASCRIPT?
 		}
 	}
 	

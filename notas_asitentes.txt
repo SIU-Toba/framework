@@ -1,0 +1,23 @@
+
+General (pantalla anterior a mostrar el ML de las filas)
+-------
+
+	* Usa filtro?					SI: gen_usa_filtro = 1
+		(SI no se usa filtro, hay que ocultar las dos columnas en el ML)
+
+	* Separar en pantallas?		SI: gen_separar_pantallas = 1
+	
+Cuadro
+------
+
+	* Eliminar filas?				SI: cuadro_eliminar_filas = 1
+
+	* Origen DATOS: 				cuadro_carga_origen: 'datos_tabla' o 'consulta_php'
+										(no puede quedar vacio!)
+
+	Si el metodo de carga no existe y es preciso crearlo, 
+		hay que llenar 'cuadro_carga_sql' con un query.
+			Si se definio un filtro, el query tiene que tener un %f% en su estructura,
+				para que el generador del metodo de consulta ponga en ese lugar
+				el parametro aportado por el CI (el que setea el filtro)
+	

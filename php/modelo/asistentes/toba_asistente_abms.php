@@ -17,6 +17,9 @@ class toba_asistente_abms extends toba_asistente
 		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		$this->generar_cuadro($cuadro);
 		$this->generar_formulario($form);
+		if ($this->molde_abms['gen_usa_filtro']) {
+			$filtro = $this->ci->agregar_dep('toba_ei_filtro', 'filtro');			
+		}
 		//- Pantallas --------------------------------------------
 		if (!$this->molde_abms['gen_separar_pantallas']) {
 			//Pantalla UNICA
@@ -124,7 +127,14 @@ class toba_asistente_abms extends toba_asistente
 	function generar_formulario($form)
 	{
 		$form->set_nombre($this->molde['nombre'] . ' - Form');
-		$this->generar_efs($form, $this->molde_abms_fila);
+		//Creo las filas
+		$filas = array();
+		foreach( $this->molde_abms_fila as $fila ) {
+			if($fila['en_form']) {
+				$filas[] = $fila;
+			}
+		}
+		$this->generar_efs($form, $filas);
 		$this->ci->php()->agregar( new toba_codigo_separador_php('Formulario') );	
 		//--------------------------------------------------------
 		//--- conf__formulario  ----------------------------------

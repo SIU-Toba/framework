@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[2]--  Test B 
+--[1]--  Test A 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,11 +9,11 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpeta_item, prefijo_clases, carpeta_archivos) VALUES (
 	'toba_editor', --proyecto
-	'2', --molde
-	'11', --operacion_tipo
-	'Test B', --nombre
+	'4', --molde
+	'10', --operacion_tipo
+	'Test A: Pantallas separadas', --nombre
 	'3392', --carpeta_item
-	'test_b_', --prefijo_clases
+	'test_a3_', --prefijo_clases
 	'test_asistentes'  --carpeta_archivos
 );
 --- FIN Grupo de desarrollo 0
@@ -23,18 +23,18 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpe
 ------------------------------------------------------------
 INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
-	'2', --molde
+	'4', --molde
 	'apex_tipo_datos', --tabla
-	'0', --gen_usa_filtro
-	'0', --gen_separar_pantallas
+	'1', --gen_usa_filtro
+	'1', --gen_separar_pantallas
 	'No hay filas', --cuadro_eof
-	NULL, --cuadro_eliminar_filas
-	NULL, --cuadro_id
-	NULL, --cuadro_carga_origen
-	NULL, --cuadro_carga_sql
-	NULL, --cuadro_carga_php_include
-	NULL, --cuadro_carga_php_clase
-	NULL, --cuadro_carga_php_metodo
+	'0', --cuadro_eliminar_filas
+	'tipo', --cuadro_id
+	'consulta_php', --cuadro_carga_origen
+	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
+	'test_asistentes/test_consulta_php2.php', --cuadro_carga_php_include
+	'test_consulta_php2', --cuadro_carga_php_clase
+	'get_tipos_dato', --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );
@@ -46,14 +46,14 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_col_clave, ef_carga_col_desc) VALUES (
 	'toba_editor', --proyecto
-	'2', --molde
+	'4', --molde
 	'1', --fila
-	'1', --orden
+	'2', --orden
 	'tipo', --columna
 	'Tipo', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
-	NULL, --en_filtro
+	'1', --en_cuadro
+	'1', --en_form
+	'0', --en_filtro
 	'C', --dt_tipo_dato
 	'1', --dt_largo
 	NULL, --dt_secuencia
@@ -70,14 +70,14 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 );
 INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, columna, etiqueta, en_cuadro, en_form, en_filtro, dt_tipo_dato, dt_largo, dt_secuencia, dt_pk, elemento_formulario, ef_desactivar_modificacion, ef_procesar_javascript, ef_carga_sql, ef_carga_php_include, ef_carga_php_clase, ef_carga_php_metodo, ef_carga_col_clave, ef_carga_col_desc) VALUES (
 	'toba_editor', --proyecto
-	'2', --molde
+	'4', --molde
 	'3', --fila
-	'2', --orden
+	'1', --orden
 	'descripcion', --columna
-	'Descripcion', --etiqueta
-	NULL, --en_cuadro
-	NULL, --en_form
-	NULL, --en_filtro
+	'Descripción', --etiqueta
+	'1', --en_cuadro
+	'1', --en_form
+	'0', --en_filtro
 	'C', --dt_tipo_dato
 	'30', --dt_largo
 	NULL, --dt_secuencia

@@ -187,6 +187,7 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	en_cuadro							smallint		NULL,
 	en_form								smallint		NULL,
 	en_filtro							smallint		NULL,
+	filtro_operador						varchar(10)		NULL, -- Que operador utilizar? (=, <>, >, <, LIKE, etc)
 	dt_tipo_dato						varchar(1)		NULL,
 	dt_largo							smallint		NULL,
 	dt_secuencia						varchar(255)	NULL,
