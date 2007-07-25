@@ -61,6 +61,8 @@ class toba_tp_basico extends toba_tipo_pagina
 	{
 		echo toba_recurso::link_css('toba', 'screen');
 		echo toba_recurso::link_css('toba_impr', 'print');
+		$ico = toba_recurso::imagen_proyecto('favicon.ico');
+		echo '<link rel="icon" href="'.$ico.'" type="image/x-icon" /><link rel="shortcut icon" href="'.$ico.'" type="image/x-icon" />';		
 	}
 	
 	protected function estilos_css()
