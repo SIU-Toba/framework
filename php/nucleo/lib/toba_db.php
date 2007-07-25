@@ -18,6 +18,14 @@
 	{
 		return toba::db($id_fuente)->ejecutar($sql);
 	}
+
+	/**
+	*	@see toba_db::ejecutar()
+	*/
+	function sentencia_fuente($sql, $parametros=null, $id_fuente=null)
+	{
+		return toba::db($id_fuente)->sentencia($sql, $parametros=null);
+	}
 	
 	/**
 	*	@see toba_db::ejecutar_transaccion()

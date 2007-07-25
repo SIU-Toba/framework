@@ -99,42 +99,6 @@ class toba_db
 	*	@param mixed $sql Comando o arreglo de comandos
 	*	@throws toba_error_db en caso de que algun comando falle	
 	*/
-/*	function ejecutar($sql)
-	{
-		$afectados = 0;
-		if (is_array($sql)) {
-			foreach(array_keys($sql) as $id) {
-				try {
-					$stm = $this->conexion->prepare($sql[$id]);
-					$stm->execute();
-					$afectados += $stm->rowCount();
-					if ($this->debug) $this->log_debug($sql[$id]);
-				} catch (PDOException $e) {
-					throw new toba_error_db("ERROR ejecutando SQL. ".
-											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-											"-- SQL ejecutado: [" . $sql[$id] . "].", $e->getCode() );
-				}
-			}
-		} else {
-			try {
-				$stm = $this->conexion->prepare($sql);
-				$stm->execute();
-				$afectados += $stm->rowCount();
-				if ($this->debug) $this->log_debug($sql);
-			} catch (PDOException $e) {
-				if (strlen($sql) > 10000) {
-					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
-				}
-				throw new toba_error_db("ERROR ejecutando SQL. ".
-										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-										
-			}
-		}
-		return $afectados;
-	}
-*/
-
 	function ejecutar($sql)
 	{
 		$afectados = 0;
@@ -165,7 +129,35 @@ class toba_db
 		}
 		return $afectados;
 	}
-	
+
+	/**
+	*	Crea una PDO_STATEMENT y lo ejecuta.
+	*	@param string $sql Consulta
+	*	@param mixed $parametros Arreglo de parametros para el statement. Si el SQL poseia
+	*			marcadores de tipo '?', hay que pasar un array posicional, si poseia marcadores
+	*			de tipo 'nombre:', hay que pasar un array asociativo.
+	*	@throws toba_error_db en caso de que algun comando falle	
+	*/
+	function sentencia($sql, $parametros=null)
+	{
+		$afectados = 0;
+		try {
+			$stm = $this->conexion->prepare($sql);
+			$stm->execute($parametros);
+			$afectados += $stm->rowCount();
+			if ($this->debug) $this->log_debug($sql);
+		} catch (PDOException $e) {
+			if (strlen($sql) > 10000) {
+				$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
+			}
+			throw new toba_error_db("ERROR ejecutando SQL. ".
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
+									
+		}
+		return $afectados;
+	}
+
 	/**
 	*	Ejecuta una consulta sql
 	*	@param string $sql Consulta
