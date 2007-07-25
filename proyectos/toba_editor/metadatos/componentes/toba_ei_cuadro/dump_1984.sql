@@ -42,6 +42,39 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 -- apex_objeto_eventos
 ------------------------------------------------------------
 
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
+	'1000334', --evento_id
+	'1984', --objeto
+	'borrar', --identificador
+	NULL, --etiqueta
+	NULL, --maneja_datos
+	'1', --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'borrar.gif', --imagen
+	'0', --en_botonera
+	'Borrar el molde y/o su resultado', --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	NULL, --implicito
+	NULL, --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	'V', --accion
+	NULL, --accion_imphtml_debug
+	'3392', --accion_vinculo_carpeta
+	'1000109', --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	'frame_centro', --accion_vinculo_target
+	'central'  --accion_vinculo_celda
+);
+--- FIN Grupo de desarrollo 1
+
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
@@ -54,10 +87,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'doc.gif', --imagen
+	'editar.gif', --imagen
 	'0', --en_botonera
 	'Editar el molde', --ayuda
-	'1', --orden
+	'2', --orden
 	NULL, --ci_predep
 	NULL, --implicito
 	NULL, --defecto
@@ -77,7 +110,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_editor', --proyecto
 	'664', --evento_id
 	'1984', --objeto
-	'ejecutar', --identificador
+	'generar', --identificador
 	NULL, --etiqueta
 	NULL, --maneja_datos
 	'1', --sobre_fila
@@ -87,7 +120,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'generar.png', --imagen
 	'0', --en_botonera
 	'Generar el molde', --ayuda
-	'2', --orden
+	'3', --orden
 	NULL, --ci_predep
 	NULL, --implicito
 	NULL, --defecto
@@ -203,7 +236,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1984', --objeto_cuadro
 	'595', --objeto_cuadro_col
 	'generaciones', --clave
-	'4', --orden
+	'3', --orden
 	'Generaciones', --titulo
 	NULL, --estilo_titulo
 	'2', --estilo
@@ -234,33 +267,6 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'Carpeta Archivos', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
-	NULL, --formateo
-	NULL, --vinculo_indice
-	NULL, --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	NULL, --total
-	NULL, --total_cc
-	NULL, --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL  --vinculo_celda
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
-	'toba_editor', --objeto_cuadro_proyecto
-	'1984', --objeto_cuadro
-	'599', --objeto_cuadro_col
-	'carpeta_item', --clave
-	'3', --orden
-	'Carpeta Item', --titulo
-	NULL, --estilo_titulo
-	'2', --estilo
 	NULL, --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice

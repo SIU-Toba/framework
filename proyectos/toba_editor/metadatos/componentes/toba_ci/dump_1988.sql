@@ -118,7 +118,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_basica', --identificador
 	'1', --orden
 	'pant_basica', --etiqueta
-	'Edicion de un plan de tipo ABMS', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

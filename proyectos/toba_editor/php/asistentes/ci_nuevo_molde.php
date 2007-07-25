@@ -74,9 +74,10 @@ class ci_nuevo_molde extends toba_ci
 	
 	function conf__pant_edicion()
 	{
+		$info = toba_info_editores::get_lista_tipo_molde($this->s__tipo['tipo']);
+		$this->pantalla()->set_descripcion('Edición de un '.$info['descripcion_corta']);
 		$this->pantalla()->agregar_dep('asistente');		
 	}
-	
 
 	//-----------------------------------------------------------------------------------
 	//---- Generación ------------------------------------------------------------------

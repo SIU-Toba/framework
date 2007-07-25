@@ -4,6 +4,7 @@ class toba_catalogo_asistentes
 {
 	/**
 	*	Carga un asistente a partir de un molde de generacion
+	* 	@return toba_asistente
 	*/
 	static function cargar_por_molde($id_molde_proyecto, $id_molde)
 	{

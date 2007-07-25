@@ -662,17 +662,17 @@ class toba_ci extends toba_ei
 	 */
 	protected function set_pantalla($id)
 	{
-    $ok = false;
-    foreach($this->_info_ci_me_pantalla as $info_pantalla) 
-			$ok |= ($info_pantalla['identificador'] == $id);
-
-		if (! $ok) 
-			throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
-
-		if (isset($this->_pantalla_servicio)) 
-			throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
-
-    $this->_pantalla_id_servicio	= $id;
+	    $ok = false;
+	    foreach($this->_info_ci_me_pantalla as $info_pantalla) 
+				$ok |= ($info_pantalla['identificador'] == $id);
+	
+			if (! $ok) 
+				throw new toba_error($this->get_txt()."El identificador de pantalla '". $id ."' no está definido en el ci.");
+	
+			if (isset($this->_pantalla_servicio)) 
+				throw new toba_error($this->get_txt()."No es posible cambiar la pantalla a mostrar porque ya ha sido utilizada.");
+	
+	    $this->_pantalla_id_servicio	= $id;
 	}
 
 	/**

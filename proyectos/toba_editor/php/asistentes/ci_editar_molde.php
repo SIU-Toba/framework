@@ -4,6 +4,7 @@ class ci_editar_molde extends toba_ci
 {
 	protected $s__molde;
 	protected $s__proyecto;
+	protected $s__opciones_borrar;
 
 	function ini()
 	{
@@ -17,13 +18,18 @@ class ci_editar_molde extends toba_ci
 		}
 		$evento = toba::memoria()->get_parametro(apex_ei_evento);
 		if (isset($evento)) {
-			if ($evento == 'editar') {
-				$this->set_pantalla('pant_editar');
-			} else {
-				$this->set_pantalla('pant_generar');
+			switch ($evento) {
+				case 'editar':
+					$this->set_pantalla('pant_editar');
+					break;
+				case 'generar':
+					$this->set_pantalla('pant_generar');
+					break;				
+				case 'borrar':
+					$this->set_pantalla('pant_borrar');
+					break;									
 			}
 		}
-
 		//--- Se agrega la dependencia dinamicamente
 		if(isset($this->s__proyecto) && isset($this->s__molde)) {	
 			// molde Existente
@@ -36,7 +42,30 @@ class ci_editar_molde extends toba_ci
 	
 	}
 	
-
+	function conf()
+	{
+		$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__molde);
+		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
+		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
+		$this->pantalla()->set_descripcion($txt);
+	}
+	
+	
+	//-----------------------------------------------------------------------------
+	//---- BORRAR  ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------
+	
+	function evt__form_borrar__modificacion($datos)
+	{
+		$this->s__opciones_borrar = $datos;
+	}
+	
+	function evt__borrar()
+	{
+		toba::notificacion()->agregar('No implementado', 'info');
+	}
+	
+	
 	//-----------------------------------------------------------------------------------
 	//---- Editar molde ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
@@ -50,42 +79,32 @@ class ci_editar_molde extends toba_ci
 	function evt__procesar()
 	{
 		$this->dep('asistente')->sincronizar();
-		//$this->set_pantalla('pant_generar');
-	}
-	
-	function evt__generar()
-	{
-		$this->evt__procesar();	
 	}
 	
 	//-----------------------------------------------------------------------------------
 	//---- Generar el molde ----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__pant_generar()
-	{
-		$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__molde);
-		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
-		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
-		$this->pantalla()->set_descripcion($txt);
-	}
-
 	function conf__cuadro_ejecuciones($componente)
 	{
 		return toba_info_editores::get_lista_ejecuciones_molde($this->s__proyecto, $this->s__molde);
 	}
 
-	//El formato del retorno debe ser array('id_ef' => $valor, ...)
 	function conf__form_generar($componente)
 	{
 	}
 	
-	function evt__form_generar__generar($parametros)
+	function evt__form_generar__modificacion($parametros)
+	{
+
+	}
+	
+	function evt__generar()
 	{
 		$asistente = toba_catalogo_asistentes::cargar_por_molde($this->s__proyecto, $this->s__molde);
 		$asistente->generar_molde();
 		$asistente->crear_operacion();
-	}
+	}	
 
 
 }
