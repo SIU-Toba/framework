@@ -99,7 +99,7 @@ class toba_db
 	*	@param mixed $sql Comando o arreglo de comandos
 	*	@throws toba_error_db en caso de que algun comando falle	
 	*/
-	function ejecutar($sql)
+/*	function ejecutar($sql)
 	{
 		$afectados = 0;
 		if (is_array($sql)) {
@@ -133,9 +133,7 @@ class toba_db
 		}
 		return $afectados;
 	}
-
-/*
-	VERSION ANTERIOR, reemplazada por un error en el reporte de las AFFECTED ROWS
+*/
 
 	function ejecutar($sql)
 	{
@@ -167,7 +165,6 @@ class toba_db
 		}
 		return $afectados;
 	}
-*/
 	
 	/**
 	*	Ejecuta una consulta sql
