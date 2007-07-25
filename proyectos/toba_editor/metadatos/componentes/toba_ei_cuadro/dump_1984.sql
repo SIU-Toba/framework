@@ -156,7 +156,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	NULL, --eof_customizado
+	'Un molde permite construir una operación completa en base a un catalogo de operaciones más comunes. Presione <strong>Crear Molde</strong> para comenzar el asistente.', --eof_customizado
 	'0', --exportar
 	NULL, --exportar_rtf
 	NULL, --pdf_propiedades

@@ -12,6 +12,9 @@
 #editor_previsualizacion {
 	display:none;
 }
+.mensaje-cuerpo-info {
+	font-weight: normal;
+}
 .editor-imagen-preview {
 	vertical-align: middle;
 	white-space: nowrap;
