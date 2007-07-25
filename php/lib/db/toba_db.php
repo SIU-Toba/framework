@@ -105,6 +105,44 @@ class toba_db
 		if (is_array($sql)) {
 			foreach(array_keys($sql) as $id) {
 				try {
+					$stm = $this->conexion->prepare($sql[$id]);
+					$stm->execute();
+					$afectados += $stm->rowCount();
+					if ($this->debug) $this->log_debug($sql[$id]);
+				} catch (PDOException $e) {
+					throw new toba_error_db("ERROR ejecutando SQL. ".
+											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+											"-- SQL ejecutado: [" . $sql[$id] . "].", $e->getCode() );
+				}
+			}
+		} else {
+			try {
+				$stm = $this->conexion->prepare($sql);
+				$stm->execute();
+				$afectados += $stm->rowCount();
+				if ($this->debug) $this->log_debug($sql);
+			} catch (PDOException $e) {
+				if (strlen($sql) > 10000) {
+					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
+				}
+				throw new toba_error_db("ERROR ejecutando SQL. ".
+										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
+										
+			}
+		}
+		return $afectados;
+	}
+
+/*
+	VERSION ANTERIOR, reemplazada por un error en el reporte de las AFFECTED ROWS
+
+	function ejecutar($sql)
+	{
+		$afectados = 0;
+		if (is_array($sql)) {
+			foreach(array_keys($sql) as $id) {
+				try {
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
@@ -129,6 +167,7 @@ class toba_db
 		}
 		return $afectados;
 	}
+*/
 	
 	/**
 	*	Ejecuta una consulta sql
