@@ -1,23 +1,57 @@
 
-General (pantalla anterior a mostrar el ML de las filas)
--------
+ASISTENTE ABM simple
 
-	* Usa filtro?					SI: gen_usa_filtro = 1
+-----------(1) Definicion basica
+
+
+	* Usa filtro?		*** molde_operacion_abms: gen_usa_filtro = 1
 		(SI no se usa filtro, hay que ocultar las dos columnas en el ML)
-
-	* Separar en pantallas?		SI: gen_separar_pantallas = 1
+	* Detalle filas
+		* La etiqueta puede ser el ID con ucwords()
+		* Se proponen tipos de datos para el DT en base a apex_molde_operacion_tipo_datos
 	
-Cuadro
-------
+-----------(2) Configuracion avanzada (ya se puede generar)
 
-	* Eliminar filas?				SI: cuadro_eliminar_filas = 1
+TAB Cuadro
+----------
 
-	* Origen DATOS: 				cuadro_carga_origen: 'datos_tabla' o 'consulta_php'
-										(no puede quedar vacio!)
+	* Eliminar filas?	*** molde_operacion_abms: cuadro_eliminar_filas = 1
 
-	Si el metodo de carga no existe y es preciso crearlo, 
-		hay que llenar 'cuadro_carga_sql' con un query.
-			Si se definio un filtro, el query tiene que tener un %f% en su estructura,
-				para que el generador del metodo de consulta ponga en ese lugar
-				el parametro aportado por el CI (el que setea el filtro)
+	* Origen DATOS: 				
 	
+			* Elegir si el origen de datos es el datos_tabla o una consulta_php
+						*** molde_operacion_abms: cuadro_carga_origen: 'datos_tabla' o 'consulta_php' (ATENCION: no puede quedar vacio!)
+
+				* Si es el datos_tabla: no definir metodo, clase ni archivo.
+					(se asume get_listado(), hay que buscar si existe para presentar o no el
+					generador de SQL)
+
+				* Si es una consulta_php: , definir el metodo, clase y archivo.
+					Se elege la clase con un combo que liste las definidas
+
+	* Definir un EOF relacionado con la entidad
+						*** molde_operacion_abms: cuadro_eof 
+	* Definir el ID de la tabla??? (aparentemente no)
+						*** molde_operacion_abms: cuadro_id 
+	* Elegir un estilo grafico para cada columna
+						*** molde_operacion_abms: cuadro_id 
+	
+TAB Formulario
+--------------
+
+	* Filas COMBOS: Definir el origen / sql de cada combo.
+
+TAB Filtro (si existe)
+----------------------
+
+	* Mostra el operador de comparacion de cada fila
+	* Ofrecer un campo para poner el nombre del campo SQL a machear por si no se quiere usar el nombre de la col??
+	
+
+TAB Aspecto interface
+---------------------
+
+	* Separar en pantallas?						gen_separar_pantallas = 1
+	* Anchos y altos.
+	* Titulos especificos para los EIs
+				

@@ -37,6 +37,7 @@ class toba_db_tablas_nucleo
   14 => 'apex_admin_persistencia',
   15 => 'apex_tipo_datos',
   16 => 'apex_molde_operacion_tipo',
+  17 => 'apex_molde_operacion_tipo_dato',
 );
 	}
 
@@ -647,6 +648,30 @@ class toba_db_tablas_nucleo
     4 => 'ci',
     5 => 'icono',
     6 => 'orden',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_tipo_dato()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'tipo_dato',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo_dato',
+    1 => 'descripcion_corta',
+    2 => 'descripcion',
+    3 => 'dt_tipo_dato',
+    4 => 'elemento_formulario',
+    5 => 'cuadro_estilo',
+    6 => 'cuadro_formato',
+    7 => 'orden',
   ),
 );
 	}

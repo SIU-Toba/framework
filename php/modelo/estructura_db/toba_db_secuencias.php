@@ -40,6 +40,7 @@ class toba_db_secuencias
 		$datos['apex_admin_persistencia_seq'] = array('campo' => 'ap', 'tabla'=> 'apex_admin_persistencia');
 		$datos['apex_permiso_seq'] = array('campo' => 'permiso', 'tabla' => 'apex_permiso');
 		$datos['apex_molde_operacion_tipo_seq'] = array('campo' => 'operacion_tipo', 'tabla' => 'apex_molde_operacion_tipo');
+		$datos['apex_molde_operacion_tipo_dato_seq'] = array('campo' => 'tipo_dato', 'tabla' => 'apex_molde_operacion_tipo_dato');
 		$datos['apex_molde_operacion_seq'] = array('campo' => 'molde', 'tabla' => 'apex_molde_operacion');
 		$datos['apex_molde_operacion_abms_fila_seq'] = array('campo' => 'fila', 'tabla' => 'apex_molde_operacion_abms_fila');
 		$datos['apex_molde_operacion_log_seq'] = array('campo' => 'generacion', 'tabla' => 'apex_molde_operacion_log');

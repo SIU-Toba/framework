@@ -34,7 +34,7 @@ CREATE TABLE apex_molde_operacion_tipo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	operacion_tipo					int4				DEFAULT nextval('"apex_clase_tipo_seq"'::text) NOT	NULL,	
+	operacion_tipo					int4				DEFAULT nextval('"apex_molde_operacion_tipo_seq"'::text) NOT	NULL,	
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
 	clase							varchar(255)		NOT NULL,
@@ -42,6 +42,33 @@ CREATE TABLE apex_molde_operacion_tipo
 	icono							varchar(30)			NULL,
 	orden							float				NULL,
 	CONSTRAINT	"apex_molde_operacion_tipo_pk"	 PRIMARY	KEY ("operacion_tipo")
+);
+--#################################################################################################
+
+CREATE SEQUENCE apex_molde_operacion_tipo_dato_seq	INCREMENT 1	MINVALUE	0 MAXVALUE 9223372036854775807 CACHE 1;
+CREATE TABLE apex_molde_operacion_tipo_dato
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo
+--: dump_order_by: tipo_dato
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(	
+	tipo_dato						int4				DEFAULT nextval('"apex_molde_operacion_tipo_dato_seq"'::text) NOT	NULL,
+	descripcion_corta				varchar(40)			NOT NULL,
+	descripcion						varchar(255)		NULL,
+	dt_tipo_dato					varchar(1)			NULL,		
+	elemento_formulario				varchar(30)			NULL,
+	cuadro_estilo 					int4		    	NULL,	
+	cuadro_formato 					int4		    	NULL,	
+	orden							float				NULL,
+	CONSTRAINT	"apex_molde_operacion_tipo_dato_pk"	PRIMARY	KEY ("tipo_dato"),
+	CONSTRAINT  "apex_molde_operacion_tipo_dato_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_tipo_dato_fk_estilo" FOREIGN KEY ("cuadro_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_tipo_dato_fk_formato" FOREIGN KEY ("cuadro_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_tipo_dato_fk_tipo_datos" FOREIGN KEY ("dt_tipo_dato") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
 
@@ -183,11 +210,14 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	fila								int4			DEFAULT nextval('"apex_molde_operacion_abms_fila_seq"'::text) NOT NULL,
 	orden								float			NOT NULL,
 	columna        						varchar(255)   	NOT NULL,
+	asistente_tipo_dato					int4		   	NULL,
 	etiqueta       						varchar(255)   	NULL,
 	en_cuadro							smallint		NULL,
 	en_form								smallint		NULL,
 	en_filtro							smallint		NULL,
 	filtro_operador						varchar(10)		NULL, -- Que operador utilizar? (=, <>, >, <, LIKE, etc)
+	cuadro_estilo 						int4		   	NULL,	
+	cuadro_formato 						int4		  	NULL,	
 	dt_tipo_dato						varchar(1)		NULL,
 	dt_largo							smallint		NULL,
 	dt_secuencia						varchar(255)	NULL,
@@ -202,7 +232,11 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	ef_carga_col_clave					varchar(255)	NULL,
 	ef_carga_col_desc					varchar(255)	NULL,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_pk" PRIMARY KEY ("proyecto","molde","fila"),
-	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_molde" FOREIGN KEY ("proyecto","molde") REFERENCES "apex_molde_operacion" ("proyecto","molde") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
-	--CONSTRAINT  "apex_molde_operacion_abms_fila" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_molde" FOREIGN KEY ("proyecto","molde") REFERENCES "apex_molde_operacion" ("proyecto","molde") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_abms_fila" FOREIGN KEY ("asistente_tipo_dato") REFERENCES "apex_molde_operacion_tipo_dato" ("tipo_dato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_estilo" FOREIGN KEY ("cuadro_estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_formato" FOREIGN KEY ("cuadro_formato") REFERENCES "apex_columna_formato" ("columna_formato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_tipo_datos" FOREIGN KEY ("dt_tipo_dato") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
