@@ -203,7 +203,7 @@ padding-left:4px;
 }
 
 /*************************
-		Form. Común
+		Form. Comï¿½n
 **************************/
 
 .ei-form-base {
@@ -218,6 +218,14 @@ padding-left:4px;
 	clear:both;
 	white-space: nowrap;
 	vertical-align: middle;
+}
+.ei-form-fila-desc {
+	font-style: italic;
+	display:block;
+	margin-left: 20px;
+	padding-bottom: 10px;
+	color: #6c6c6c;
+	color: #2E2A26;
 }
 .ei-form-fila-oculta, .ei-form-fila-filtrada {
 }

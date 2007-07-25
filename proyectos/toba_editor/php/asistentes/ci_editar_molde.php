@@ -54,6 +54,11 @@ class ci_editar_molde extends toba_ci
 	//-----------------------------------------------------------------------------
 	//---- BORRAR  ----------------------------------------------------------------
 	//-----------------------------------------------------------------------------
+
+	function conf__form_borrar(toba_ei_formulario $form)
+	{
+		$form->set_mostrar_ayuda_en_tooltips(false);
+	}
 	
 	function evt__form_borrar__modificacion($datos)
 	{

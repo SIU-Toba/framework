@@ -128,7 +128,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'1', --orden
 	'Borrar Molde', --etiqueta
 	NULL, --etiqueta_estilo
-	'Borra la definición del molde.', --descripcion
+	'Elimina las definiciones del molde', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'2', --orden
 	'Borrar Componentes', --etiqueta
 	NULL, --etiqueta_estilo
-	'Borra el item y los componentes creados por el molde.', --descripcion
+	'Elimina el item y los componentes creados por la generación del molde.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -262,7 +262,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'3', --orden
 	'Borrar Archivos', --etiqueta
 	NULL, --etiqueta_estilo
-	'Borra los archivos generados por el molde.', --descripcion
+	'Elmina los archivos de las extensiones de componentes generados por el molde.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -300,10 +300,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
 	NULL, --fieldset_fin
-	NULL, --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
+	'1', --check_valor_si
+	'0', --check_valor_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
