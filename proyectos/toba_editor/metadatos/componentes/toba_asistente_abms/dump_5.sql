@@ -27,11 +27,11 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'apex_tipo_datos', --tabla
 	'1', --gen_usa_filtro
 	'1', --gen_separar_pantallas
-	NULL, --filtro_comprobar_parametros
+	'1', --filtro_comprobar_parametros
 	'No hay filas', --cuadro_eof
 	'0', --cuadro_eliminar_filas
 	'tipo', --cuadro_id
-	NULL, --cuadro_forzar_filtro
+	'1', --cuadro_forzar_filtro
 	'consulta_php', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
 	'test_asistentes/test_consulta_php2.php', --cuadro_carga_php_include

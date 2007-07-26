@@ -3,6 +3,7 @@
 class toba_asistente_abms extends toba_asistente
 {
 	protected $confirmacion_eliminar = '¿Desea eliminar el registro?';
+	protected $mensaje_filtro_incompleto = 'El filtro no posee valores';
 
 	protected function generar()
 	{	
@@ -92,7 +93,17 @@ class toba_asistente_abms extends toba_asistente
 		$evento->set_imagen('filtrar.png');
 		$evento->maneja_datos();
 		$metodo = new toba_codigo_metodo_php('evt__filtro__filtrar',array('$datos'));
-		$metodo->set_contenido("\$this->s__datos_filtro = \$datos;");
+		$asignacion = "\$this->s__datos_filtro = \$datos;";
+		if($this->molde_abms['filtro_comprobar_parametros']) {
+			//Solo guarda el filtro si existe una variable seteada
+			$metodo->set_contenido(array(	"if (array_no_nulo(\$datos)) {",
+											"\t$asignacion",
+											"} else { ",
+											"\ttoba::notificacion()->agregar('$this->mensaje_filtro_incompleto');",
+											"}"));
+		}else{
+			$metodo->set_contenido($asignacion);
+		}
 		$this->ci->php()->agregar($metodo);		
 		//--------------------------------------------------------
 		//--- evt__filtro__cancelar ------------------------------
@@ -156,11 +167,21 @@ class toba_asistente_abms extends toba_asistente
 			} else {
 				throw new toba_error('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
 			}
-			//-- Interaccion con el filtro
+			//-- SI la operacion tiene FILTRO....
 			if ($this->molde_abms['gen_usa_filtro']) {
-				$php[] = "\$cuadro->set_datos($php_recuperacion($this->s__datos_filtro));";
+				$php = array();
+				$php[] = "if(isset(\$this->s__datos_filtro)){";
+				$php[] = "\t\$cuadro->set_datos(".$php_recuperacion."(\$this->s__datos_filtro));";
+				if($this->molde_abms['cuadro_forzar_filtro']) {
+					// El cuadro solo se carga si el filtro esta seteado
+					$php[] = "}";
+				} else {
+					$php[] = "} else {";
+					$php[] = "\t\$cuadro->set_datos($php_recuperacion());";
+					$php[] = "}";
+				}
 			}else{
-				$php[] = "\$cuadro->set_datos($php_recuperacion());"
+				$php[] = "\$cuadro->set_datos($php_recuperacion());";
 			}
 			$metodo->set_contenido($php);
 			$this->ci->php()->agregar($metodo);		
@@ -172,7 +193,7 @@ class toba_asistente_abms extends toba_asistente
 		$evento->sobre_fila();
 		$evento->set_imagen('doc.gif');
 		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
-		$php[] = "\$this->dep('datos')->cargar(\$datos);";
+		$php = array("\$this->dep('datos')->cargar(\$datos);");
 		if ($this->molde_abms['gen_separar_pantallas']) {
 			$php[] = "\$this->set_pantalla('edicion');";
 		}
