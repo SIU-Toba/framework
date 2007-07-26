@@ -7,7 +7,6 @@ ASISTENTE ABM simple
 	* Usa filtro?		*** molde_operacion_abms: gen_usa_filtro = 1
 		(SI no se usa filtro, hay que ocultar las dos columnas en el ML)
 	* Detalle filas
-		* La etiqueta puede ser el ID con ucwords()
 		* Se proponen tipos de datos para el DT en base a apex_molde_operacion_tipo_datos
 	
 -----------(2) Configuracion avanzada (ya se puede generar)

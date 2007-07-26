@@ -76,6 +76,32 @@ class ci_abms_principal extends ci_asistente_base
 	{
 		$this->dep('datos')->tabla('filas')->procesar_filas($datos);
 	}
+
+	//---- Cuadro ----------------------------------------
+	
+	function evt__form_cuadro__modificacion($datos)
+	{
+		$this->dep('datos')->tabla('base')->set($datos);
+	}
+
+	function conf__form_cuadro(toba_ei_formulario $form)
+	{
+		return $this->dep('datos')->tabla('base')->get();
+	}
+	
+	//---- Cuadro ----------------------------------------
+	
+	function evt__form_form__modificacion($datos)
+	{
+		$this->dep('datos')->tabla('base')->set($datos);
+	}
+
+	function conf__form_form(toba_ei_formulario $form)
+	{
+		return $this->dep('datos')->tabla('base')->get();
+	}	
+	
+	
 }
 
 ?>

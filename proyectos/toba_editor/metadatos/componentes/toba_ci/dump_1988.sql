@@ -69,10 +69,34 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
+	'1000173', --dep_id
+	'1988', --objeto_consumidor
+	'1000315', --objeto_proveedor
+	'form_cuadro', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
 	'1000164', --dep_id
 	'1988', --objeto_consumidor
 	'1000297', --objeto_proveedor
 	'form_filas', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000174', --dep_id
+	'1988', --objeto_consumidor
+	'1000316', --objeto_proveedor
+	'form_presentacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -92,7 +116,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'100%', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
-	NULL, --tipo_navegacion
+	'tab_h', --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -117,7 +141,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1059', --pantalla
 	'pant_basica', --identificador
 	'1', --orden
-	'pant_basica', --etiqueta
+	'Datos', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -128,3 +152,70 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1988', --objeto_ci
+	'1000171', --pantalla
+	'pant_cuadro', --identificador
+	'2', --orden
+	'Cuadro', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_cuadro', --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1988', --objeto_ci
+	'1000172', --pantalla
+	'pant_form', --identificador
+	'3', --orden
+	'Formulario', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1988', --objeto_ci
+	'1000173', --pantalla
+	'pant_filtro', --identificador
+	'4', --orden
+	'Filtro', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1988', --objeto_ci
+	'1000174', --pantalla
+	'pant_presentacion', --identificador
+	'5', --orden
+	'Presentación', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_presentacion', --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+--- FIN Grupo de desarrollo 1
