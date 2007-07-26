@@ -192,7 +192,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carpeta', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'25', --orden
+	'22', --orden
 	'carpeta', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -326,7 +326,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'imagen', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'22', --orden
+	'19', --orden
 	'Imagen', --etiqueta
 	NULL, --etiqueta_estilo
 	'Imagen que representa al item', --descripcion
@@ -393,7 +393,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'imagen_recurso_origen', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'21', --orden
+	'18', --orden
 	'Imagen - origen', --etiqueta
 	NULL, --etiqueta_estilo
 	'Procedencia de la imagen', --descripcion
@@ -527,7 +527,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'menu', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'13', --orden
+	'10', --orden
 	'Mostrar en el menú', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -728,7 +728,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'orden', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'14', --orden
+	'11', --orden
 	'Orden en el menú', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -929,12 +929,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'parametro_a', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'10', --orden
+	'24', --orden
 	'Parametro A', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'1', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
@@ -996,12 +996,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'parametro_b', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'11', --orden
+	'25', --orden
 	'Parametro B', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'1', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
@@ -1063,12 +1063,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'parametro_c', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'12', --orden
+	'26', --orden
 	'Parametro C', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'1', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
@@ -1130,7 +1130,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'publico', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'23', --orden
+	'20', --orden
 	'Público', --etiqueta
 	NULL, --etiqueta_estilo
 	'El ITEM puede ser accedido por cualquier USUARIO, sin considerar el GRUPO de ACCESO al que pertenece.', --descripcion
@@ -1197,7 +1197,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'solicitud_obs_tipo_proyecto, solicitud_obs_tipo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'18', --orden
+	'15', --orden
 	'ACCESO - Clasificar', --etiqueta
 	NULL, --etiqueta_estilo
 	'Categorizacion pensada para navegar facilmente los LOGS.', --descripcion
@@ -1264,7 +1264,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'solicitud_observacion', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'19', --orden
+	'16', --orden
 	'ACC. - Obs.', --etiqueta
 	NULL, --etiqueta_estilo
 	'Observacion sobre el acceso a este item.', --descripcion
@@ -1331,7 +1331,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'solicitud_registrar', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'26', --orden
+	'23', --orden
 	'ACCESO - Registrar', --etiqueta
 	NULL, --etiqueta_estilo
 	'Registrar el acceso a este ITEM', --descripcion
@@ -1398,7 +1398,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'solicitud_registrar_cron', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'20', --orden
+	'17', --orden
 	'ACC - Cronom.', --etiqueta
 	NULL, --etiqueta_estilo
 	'Cronometrar el acceso al ITEM', --descripcion
@@ -1535,7 +1535,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'zona_proyecto, zona', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'15', --orden
+	'12', --orden
 	'ZONA', --etiqueta
 	NULL, --etiqueta_estilo
 	'Zona de la que el ITEM forma parte', --descripcion
@@ -1602,7 +1602,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'zona_listar', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'16', --orden
+	'13', --orden
 	'Zona - listar', --etiqueta
 	NULL, --etiqueta_estilo
 	'Listar el ITEM en la barra de navegación de la zona', --descripcion
@@ -1669,7 +1669,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'zona_orden', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'17', --orden
+	'14', --orden
 	'Zona - Orden', --etiqueta
 	NULL, --etiqueta_estilo
 	'Orden que ocupa el item en la zona', --descripcion
@@ -1803,7 +1803,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'redirecciona', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'24', --orden
+	'21', --orden
 	'Redirecciona', --etiqueta
 	NULL, --etiqueta_estilo
 	'Indica que el ITEM puede bifurcarse (un evento del mismo puede pasar el control a otro item)', --descripcion

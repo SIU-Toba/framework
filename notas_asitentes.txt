@@ -46,6 +46,11 @@ TAB Filtro (si existe)
 	* Mostra el operador de comparacion de cada fila
 	* Ofrecer un campo para poner el nombre del campo SQL a machear por si no se quiere usar el nombre de la col??
 	
+	NUEVOS!!
+		
+	* filtro_comprobar_parametros = 1: No se setea el filtro al menos que algun parametro del mismo no sea NULL
+	* cuadro_forzar_filtro = 1: No se muestra el cuadro hasta que no se setee el filtro
+
 
 TAB Aspecto interface
 ---------------------

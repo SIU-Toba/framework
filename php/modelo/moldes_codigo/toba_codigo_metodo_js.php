@@ -1,6 +1,4 @@
 <?php
-require_once('toba_codigo_metodo.php');
-
 /**
  * @ignore
  */

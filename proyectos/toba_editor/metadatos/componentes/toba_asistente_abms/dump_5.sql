@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[5]--  Test A: Pantallas separadas 
+--[5]--  Test A: Filtro & pantallas 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -11,7 +11,7 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpe
 	'toba_editor', --proyecto
 	'5', --molde
 	'10', --operacion_tipo
-	'Test A: Pantallas separadas', --nombre
+	'Test A: Filtro & pantallas', --nombre
 	'3392', --carpeta_item
 	'test_a3_', --prefijo_clases
 	'test_asistentes'  --carpeta_archivos
@@ -21,15 +21,17 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpe
 ------------------------------------------------------------
 -- apex_molde_operacion_abms
 ------------------------------------------------------------
-INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
+INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
 	'5', --molde
 	'apex_tipo_datos', --tabla
 	'1', --gen_usa_filtro
 	'1', --gen_separar_pantallas
+	NULL, --filtro_comprobar_parametros
 	'No hay filas', --cuadro_eof
 	'0', --cuadro_eliminar_filas
 	'tipo', --cuadro_id
+	NULL, --cuadro_forzar_filtro
 	'consulta_php', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
 	'test_asistentes/test_consulta_php2.php', --cuadro_carga_php_include
@@ -82,8 +84,8 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'Descripción', --etiqueta
 	'1', --en_cuadro
 	'1', --en_form
-	'0', --en_filtro
-	NULL, --filtro_operador
+	'1', --en_filtro
+	'LIKE', --filtro_operador
 	NULL, --cuadro_estilo
 	NULL, --cuadro_formato
 	'C', --dt_tipo_dato

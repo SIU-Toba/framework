@@ -35,6 +35,11 @@ class ci_catalogo extends toba_ci
 
 	function conf__consultas(toba_ei_cuadro $cuadro)
 	{
+		$datos = toba_info_editores::get_consultas_php();
+		foreach(array_keys($datos) as $id) {
+			$datos[$id]['icono']	= 'editar.gif';
+		}
+		$cuadro->set_datos($datos);
 	}
 }
 ?>

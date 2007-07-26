@@ -702,18 +702,6 @@ class toba_info_editores
 	}
 
 	/**
-	*	Consultas PHP declaradas
-	*/
-	function get_consultas_php()
-	{
-		$sql = "SELECT proyecto, nucleo, nucleo 
-				FROM apex_nucleo
-				WHERE ( proyecto = '". toba_contexto_info::get_proyecto() ."' )
-				ORDER BY 2 ASC";
-		return toba_contexto_info::get_db()->consultar($sql);	
-	}
-
-	/**
 	*	Lista de Skins
 	*/
 	function get_lista_skins()
@@ -886,5 +874,21 @@ class toba_info_editores
 					AND		o.molde = '$molde';";
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
+
+	//------------------------------------------------------------------------------
+	//----------  CONSULTAs PHP  ---------------------------------------------------
+	//------------------------------------------------------------------------------
+
+	function get_consultas_php($proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT		consulta_php,
+							clase,
+							archivo
+					FROM	apex_consulta_php
+					WHERE	proyecto = '$proyecto'";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
 }
 ?>

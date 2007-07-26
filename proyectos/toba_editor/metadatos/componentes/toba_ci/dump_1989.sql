@@ -134,7 +134,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'fuentes,tablas,relaciones', --objetos
+	'fuentes,consultas,tablas,relaciones', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

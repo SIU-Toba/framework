@@ -463,6 +463,7 @@ class toba_nucleo
  			'toba_codigo_metodo' 					=> 'modelo/moldes_codigo/toba_codigo_metodo.php',
  			'toba_codigo_metodo_js' 				=> 'modelo/moldes_codigo/toba_codigo_metodo_js.php',
  			'toba_codigo_metodo_php' 				=> 'modelo/moldes_codigo/toba_codigo_metodo_php.php',
+ 			'toba_codigo_propiedad_php'				=> 'modelo/moldes_codigo/toba_codigo_propiedad_php.php',
  			'toba_codigo_separador' 				=> 'modelo/moldes_codigo/toba_codigo_separador.php',
  			'toba_codigo_separador_js' 				=> 'modelo/moldes_codigo/toba_codigo_separador_js.php',
  			'toba_codigo_separador_php' 			=> 'modelo/moldes_codigo/toba_codigo_separador_php.php',

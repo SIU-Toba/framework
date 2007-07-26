@@ -17,6 +17,7 @@ class toba_codigo_clase
 	protected $analisis_ventanas_no_utilizadas = array();
 	protected $analisis_metodos_usuario = array();
 	protected $ultimo_elemento;
+	protected $propiedades = array();
 	protected $archivos_requeridos = array();
 
 	function __construct($nombre, $nombre_ancestro)
@@ -41,7 +42,9 @@ class toba_codigo_clase
 			if ($elemento instanceof toba_codigo_metodo_php) {
 				$this->indices_php[$elemento->get_nombre()] = $this->elementos_php[$this->orden];
 			}
-		} else {
+		} elseif($elemento instanceof toba_codigo_propiedad_php) {
+			$this->propiedades[] = $elemento;	
+		}else {
 			throw new toba_error('molde_clase: El elemento no corresponde a un tipo valido. Nombre: ' . $elemento->get_nombre() );	
 		}
 		$this->orden++;
@@ -226,6 +229,13 @@ class toba_codigo_clase
 
 	function generar_codigo_php()
 	{
+		if(count($this->propiedades)>0) {
+			foreach($this->propiedades as $propiedad) {
+				$propiedad->identar(1);
+				$this->codigo_php .= $propiedad->get_codigo();
+			}
+			$this->codigo_php .= salto_linea();
+		}
 		$paso = 0;
 		foreach ($this->elementos_php as $elemento) {
 			$elemento->identar(1);
