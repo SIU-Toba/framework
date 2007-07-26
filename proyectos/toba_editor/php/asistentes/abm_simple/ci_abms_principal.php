@@ -61,12 +61,13 @@ class ci_abms_principal extends ci_asistente_base
 			if (!$existe) {
 				$datos = array();
 				$datos['columna'] = $nueva['nombre'];
-				$datos['etiqueta'] = $nueva['nombre'];
+				$datos['etiqueta'] = ucwords($nueva['nombre']);
 				$tabla->nueva_fila($datos);
 			}
 		}		
 		
 		//--- Rellena el ML
+		$ml->set_ordenar_en_linea(true);
 		$ml->set_proximo_id($tabla->get_proximo_id());
 		$ml->set_datos( $tabla->get_filas());		
 	}

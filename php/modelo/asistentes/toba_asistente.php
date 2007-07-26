@@ -33,7 +33,7 @@ abstract class toba_asistente
 		$this->generar();
 	}
 
-	function generar_base()
+	protected function generar_base()
 	{
 		$this->item = new toba_item_molde($this);
 		$this->ci = $this->item->ci();
@@ -42,7 +42,7 @@ abstract class toba_asistente
 		$this->item->cargar_grupos_acceso_activos();
 	}
 
-	abstract function generar();
+	abstract protected function generar();
 
 	//----------------------------------------------------------------------
 	//-- Crear OPERACION: Se transforma el modelo a elementos toba concretos
@@ -61,21 +61,23 @@ abstract class toba_asistente
 				throw new toba_error('');
 			}
 		}
-		$this->generar_elementos();
-		toba::notificacion()->agregar('La generación se realizó exitosamente','info');
+		try {
+			abrir_transaccion();
+			$this->generar_elementos();
+			cerrar_transaccion();
+			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
+			return true;
+		} catch (toba_error $e) {
+			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
+			abortar_transaccion();
+			return false;
+		}
 	}
 
 	function generar_elementos()
 	{
-		try {
-			abrir_transaccion();
-			$this->item->generar();
-			$this->guardar_log_elementos_generados();
-			cerrar_transaccion();
-		} catch (toba_error $e) {
-			toba::notificacion()->agregar($e->getMessage());
-			abortar_transaccion();
-		}
+		$this->item->generar();
+		$this->guardar_log_elementos_generados();
 	}
 
 	function existe_generacion_previa()
@@ -85,9 +87,9 @@ abstract class toba_asistente
 		return false;	
 	}
 
-	protected function borrar_generacion_previa()
+	function borrar_generacion_previa($borrar_archivos=false)
 	{
-		
+		ei_arbol($this->log_elementos_creados);		
 	}
 
 	//---------------------------------------------------

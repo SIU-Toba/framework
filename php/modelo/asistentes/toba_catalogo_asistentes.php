@@ -47,5 +47,21 @@ class toba_catalogo_asistentes
 			throw new toba_error('El molde solicitado no existe.');	
 		}
 	}
+
+	//------------------------------------------------
+	//---- Consultas
+	//------------------------------------------------
+
+	function get_lista_tipo_dato()
+	{
+		$sql = 'SELECT 
+					tipo_dato,
+					descripcion_corta
+				FROM apex_molde_operacion_tipo_dato
+		';		
+		return consultar_fuente($sql);
+	}
+
+	
 }
 ?>

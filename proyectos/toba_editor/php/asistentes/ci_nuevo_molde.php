@@ -35,11 +35,6 @@ class ci_nuevo_molde extends toba_ci
 	}
 	
 	
-	function evt__generar()
-	{
-		$this->dep('asistente')->sincronizar();
-	}
-	
 	function evt__volver_editar()
 	{
 		$this->set_pantalla('pant_tipo_operacion');	
@@ -94,6 +89,21 @@ class ci_nuevo_molde extends toba_ci
 		$relacion = $this->dep('asistente')->dep('datos');
 		$relacion->tabla('molde')->set($datos);		
 	}
+
+	function evt__generar()
+	{
+		//--- Crea el molde
+		$this->dep('asistente')->sincronizar();
+		$clave = $this->dependencia('asistente')->dep('datos')->tabla('base')->get_clave_valor(0);
+		
+		//--- Genera la operacion
+		$asistente = toba_catalogo_asistentes::cargar_por_molde($clave['proyecto'], $clave['molde']);
+		$asistente->generar_molde();
+		if ($asistente->crear_operacion()) {		
+			admin_util::refrescar_barra_lateral();
+		}		
+	}
+	
 	
 }
 

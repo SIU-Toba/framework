@@ -67,7 +67,9 @@ class ci_editar_molde extends toba_ci
 	
 	function evt__borrar()
 	{
-		toba::notificacion()->agregar('No implementado', 'info');
+		$asistente = toba_catalogo_asistentes::cargar_por_molde($this->s__proyecto, $this->s__molde);
+		$asistente->borrar_generacion_previa();
+		//toba::notificacion()->agregar('No implementado', 'info');
 	}
 	
 	

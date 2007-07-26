@@ -22,10 +22,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_analizar_diferencias=false;		//¿Se analizan las diferencias entre lo enviado - recibido y se adjunta el resultado?
 	protected $_eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $_ordenes = array();				//Ordenes de las claves de los datos recibidos
+	protected $_ordenar_en_linea = false;
 	protected $_registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
 	protected $_id_fila_actual;					//¿Que fila se esta procesando actualmente?
 	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
 	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
+	protected $_colspan;
 	
 	function __construct($id)
 	{
@@ -81,6 +83,15 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->_analizar_diferencias = false;
 				$this->_eventos_granulares = false;
 		}	
+	}
+
+	/**
+	 * Cambia la forma gráfica del ordenamiento de las filas, si es en_linea se muestran las flechas al lado del registro, sino se muestran en una botonera separada 
+	 * @param boolean $en_linea
+	 */
+	function set_ordenar_en_linea($en_linea)
+	{
+		$this->_ordenar_en_linea = $en_linea;
 	}
 	
 	/**
@@ -581,6 +592,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$this->carga_inicial();
 		}
 		
+		$this->_colspan = 0;
+		if ($this->_info_formulario['filas_numerar']) {
+			$this->_colspan++;
+		}
+		if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
+			$this->_colspan++;
+		}		
+		
 		//Ancho y Scroll
 		$estilo = '';
 		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
@@ -625,8 +644,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$primera = true;
 		foreach ($this->_lista_ef_post	as	$ef){
 			$extra = '';
-			if ($primera && $this->_info_formulario['filas_numerar']) {
-				$extra = 'colspan="2"';
+			if ($primera) {
+				$extra = 'colspan="'.($this->_colspan + 1).'"';
 			}
 			echo "<th $extra class='ei-ml-columna'>\n";
 			$this->generar_etiqueta_columna($ef);
@@ -677,9 +696,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "<tfoot>\n";		
 		//Defino la cantidad de columnas
 		$colspan = count($this->_lista_ef_post);
-		if ($this->_info_formulario['filas_numerar']) {
-			$colspan++;
-		}
+		$colspan += $this->_colspan;
 		//------ Totales y Eventos------
 		echo "\n<!-- TOTALES -->\n";
 		if(count($this->_lista_ef_totales)>0){
@@ -749,6 +766,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			echo "\n<!-- FILA $fila -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
 			//--Numeración de las filas
+			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
+				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-ordenar'>\n";
+				echo "<a href='javascript: {$this->objeto_js}.subir_seleccionada();' id='{$this->objeto_js}_subir$fila' style='visibility:hidden'>".toba_recurso::imagen_toba('nucleo/orden_subir.gif', true)."</a>";
+				echo "<a href='javascript: {$this->objeto_js}.bajar_seleccionada();' id='{$this->objeto_js}_bajar$fila' style='visibility:hidden'>".toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true)."</a>";
+				echo "</td>\n";
+			}
 			if ($this->_info_formulario['filas_numerar']) {
 				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-numero'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
@@ -818,7 +841,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$agregar = $this->_info_formulario['filas_agregar'];
 		$ordenar = $this->_info_formulario['filas_ordenar'];
-		if ($agregar || $ordenar) {
+		if ($agregar || ($ordenar && !$this->_ordenar_en_linea)) {
 			echo "<div class='ei-ml-botonera'>";
 			if ($agregar) {
 				echo toba_form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_toba('nucleo/agregar.gif', true), 
@@ -830,7 +853,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');
 				echo "&nbsp;";
 			}
-			if ($ordenar) {
+			if ($ordenar && !$this->_ordenar_en_linea) {
 				echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true), 
 										"onclick='{$this->objeto_js}.subir_seleccionada();' disabled", $this->_rango_tabs[0]++, '<', 'Sube una posición la fila seleccionada');
 				echo toba_form::button_html("{$this->objeto_js}_bajar", toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true),

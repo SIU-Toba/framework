@@ -4,7 +4,7 @@ class toba_asistente_abms extends toba_asistente
 {
 	protected $confirmacion_eliminar = '¿Desea eliminar el registro?';
 
-	function generar()
+	protected function generar()
 	{	
 		$clase = $this->molde['prefijo_clases'] . 'ci';
 		$this->ci->extender($clase , $clase . '.php');
@@ -44,7 +44,7 @@ class toba_asistente_abms extends toba_asistente
 		}
 	}
 
-	function generar_cuadro($cuadro)
+	protected function generar_cuadro($cuadro)
 	{
 		//Cabecera
 		$cuadro->set_clave($this->molde_abms['cuadro_id']);
@@ -124,7 +124,7 @@ class toba_asistente_abms extends toba_asistente
 		}
 	}
 
-	function generar_formulario($form)
+	protected function generar_formulario($form)
 	{
 		$form->set_nombre($this->molde['nombre'] . ' - Form');
 		//Creo las filas
