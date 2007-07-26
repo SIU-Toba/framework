@@ -45,6 +45,7 @@ class toba_db_secuencias
 		$datos['apex_molde_operacion_abms_fila_seq'] = array('campo' => 'fila', 'tabla' => 'apex_molde_operacion_abms_fila');
 		$datos['apex_molde_operacion_log_seq'] = array('campo' => 'generacion', 'tabla' => 'apex_molde_operacion_log');
 		$datos['apex_molde_operacion_log_elementos_seq'] = array('campo' => 'id', 'tabla' => 'apex_molde_operacion_log_elementos');
+		$datos['apex_consulta_php_seq'] = array('campo' => 'consulta_php', 'tabla' => 'apex_consulta_php');
 		return $datos;
 	}
 

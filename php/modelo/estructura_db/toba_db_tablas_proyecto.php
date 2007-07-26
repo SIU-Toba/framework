@@ -14,19 +14,20 @@ class toba_db_tablas_proyecto
   6 => 'apex_ptos_control',
   7 => 'apex_ptos_control_param',
   8 => 'apex_ptos_control_ctrl',
-  9 => 'apex_usuario_perfil_datos',
-  10 => 'apex_item_zona',
-  11 => 'apex_clase',
-  12 => 'apex_clase_relacion',
-  13 => 'apex_conversion',
-  14 => 'apex_msg',
-  15 => 'apex_item_msg',
-  16 => 'apex_objeto_msg',
-  17 => 'apex_nota',
-  18 => 'apex_item_nota',
-  19 => 'apex_objeto_nota',
-  20 => 'apex_permiso',
-  21 => 'apex_molde_opciones_generacion',
+  9 => 'apex_consulta_php',
+  10 => 'apex_usuario_perfil_datos',
+  11 => 'apex_item_zona',
+  12 => 'apex_clase',
+  13 => 'apex_clase_relacion',
+  14 => 'apex_conversion',
+  15 => 'apex_msg',
+  16 => 'apex_item_msg',
+  17 => 'apex_objeto_msg',
+  18 => 'apex_nota',
+  19 => 'apex_item_nota',
+  20 => 'apex_objeto_nota',
+  21 => 'apex_permiso',
+  22 => 'apex_molde_opciones_generacion',
 );
 	}
 
@@ -276,6 +277,27 @@ class toba_db_tablas_proyecto
     2 => 'clase',
     3 => 'archivo',
     4 => 'actua_como',
+  ),
+);
+	}
+
+	static function apex_consulta_php()
+	{
+		return array (
+  'archivo' => 'pgsql_a01_tablas_nucleo.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'proyecto',
+  'dump_where' => '(	proyecto =	\\\'%%\\\' )',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'consulta_php',
+    2 => 'clase',
+    3 => 'archivo',
   ),
 );
 	}

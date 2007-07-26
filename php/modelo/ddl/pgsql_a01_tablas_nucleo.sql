@@ -348,3 +348,23 @@ CREATE TABLE apex_ptos_control_ctrl
 );
 
 --#################################################################################################
+
+CREATE SEQUENCE apex_consulta_php_seq INCREMENT	1 MINVALUE 0 MAXVALUE 9223372036854775807	CACHE	1;
+CREATE TABLE	apex_consulta_php
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: proyecto
+--: dump_where: (	proyecto =	'%%' )
+--: zona: nucleo
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+  	proyecto 					VARCHAR(15)  	NOT NULL,
+	consulta_php				int4			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
+  	clase                   	VARCHAR(60)  	NOT NULL,
+  	archivo                 	VARCHAR(255) 	NOT NULL,
+  	CONSTRAINT "apex_consulta_php_pk" PRIMARY KEY("proyecto", "consulta_php"),
+  	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);
