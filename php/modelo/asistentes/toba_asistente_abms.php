@@ -146,23 +146,36 @@ class toba_asistente_abms extends toba_asistente
 		//--------------------------------------------------------
 		if(isset($this->molde_abms['cuadro_carga_php_metodo'])&&$this->molde_abms['cuadro_carga_php_metodo']) {
 			$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$cuadro'));
-			//Los datos son provistos por un archivo de consultas php
+			//Si hay un filtro, armo los parametros
+			if ($this->molde_abms['gen_usa_filtro']) {
+				$filtro = array();
+				foreach( $this->molde_abms_fila as $fila ) {
+					if($fila['en_filtro']) {
+						$filtro[$fila['columna']] = $fila['filtro_operador'];
+					}
+				}
+			} else {
+				$filtro = null;	
+			}
 			if($this->molde_abms['cuadro_carga_origen'] == 'consulta_php' ) {
+				//----> Los datos son provistos por un archivo de consultas php
 				$php_recuperacion = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'];
 				if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
 					$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
 					$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
 												$this->molde_abms['cuadro_carga_php_clase'],
 												$this->molde_abms['cuadro_carga_php_metodo'],
-												$this->molde_abms['cuadro_carga_sql'] );
+												$this->molde_abms['cuadro_carga_sql'],
+												$filtro );
 				}
-			//Los datos son provistos por un datos_tabla
 			} elseif ($this->molde_abms['cuadro_carga_origen'] == 'datos_tabla' ) {
+				//----> Los datos son provistos por un datos_tabla
 				$php_recuperacion = '$this->dep(\'datos\')->' . $this->molde_abms['cuadro_carga_php_metodo'];
 				if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
 					$this->crear_consulta_dt(	$this->ci->dep('datos'),
 												$this->molde_abms['cuadro_carga_php_metodo'],
-												$this->molde_abms['cuadro_carga_sql'] );
+												$this->molde_abms['cuadro_carga_sql'],
+												$filtro );
 				}				
 			} else {
 				throw new toba_error('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	

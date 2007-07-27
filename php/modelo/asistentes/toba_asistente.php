@@ -188,17 +188,18 @@ abstract class toba_asistente
 
 	//-- Manejo de consultas_php ------------------------
 
-	function crear_consulta_dt($tabla, $metodo, $sql, $parametros='')
+	function crear_consulta_dt($tabla, $metodo, $sql, $parametros=null)
 	{
 		$clase = $this->molde['prefijo_clases']. 'dt';
 		$tabla->extender($clase, $clase . '.php');
 		$metodo = new toba_codigo_metodo_php($metodo);
+		$sql = $this->crear_expresion_sql($sql, $parametros);
 		$metodo->set_contenido(array(	"\$sql = \"$sql\";",
 										"return consultar_fuente(\$sql);"));
 		$tabla->php()->agregar($metodo);		
 	}
 
-	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros='')
+	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
 	{
 		/*
 		$archivo = new toba_archivo_php($path);
@@ -208,17 +209,31 @@ abstract class toba_asistente
 		}
 		if(!$contiene->contiene_metodo($metodo)){
 		}*/
-
+		if(isset($parametros)){
+			$invocacion_parametros = '$parametros=null';
+		}else{
+			$invocacion_parametros = '';
+		}
+		$sql = $this->crear_expresion_sql($sql, $parametros);
 		$path = toba::proyecto()->get_path() . '/php/' . $include;
 		$php = "<?php\nclass $clase\n{\n";
 		$php .= "
-	function $metodo($parametros)
+	function $metodo($invocacion_parametros)
 	{
 		\$sql = \"$sql\";
 		return consultar_fuente(\$sql);
 	}\n";
 		$php .= "\n}\n?>";
 		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+	}
+	
+	function crear_expresion_sql($sql, $parametros=null)
+	{
+		if(!isset($parametros)){
+			return $sql;	
+		}else{
+			return $sql;	
+		}
 	}
 }
 ?>
