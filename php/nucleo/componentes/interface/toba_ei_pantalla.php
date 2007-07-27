@@ -1,4 +1,4 @@
-sv<?php
+<?php
 /**
  * Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
  * Es posible acceder a la pantalla desde el ci usando el metodo $this->pantalla()->..
