@@ -1,4 +1,4 @@
-<?php
+sv<?php
 /**
  * Una pantalla es la parte gráfica de una etapa del controlador de interface (ci).
  * Es posible acceder a la pantalla desde el ci usando el metodo $this->pantalla()->..
@@ -139,6 +139,17 @@ class toba_ei_pantalla extends toba_ei
 	{
 		return $this->_lista_dependencias;
 	}
+	
+	/**
+	 * Retorna verdadero si la dependencia se va a mostrar en esta pantalla
+	 * @return boolean
+	 */
+	function existe_dependencia($nombre_dep)
+	{
+		$lista_dep = $this->get_lista_dependencias();
+		return in_array($nombre_dep, $lista_dep);
+	}
+	
 	
 	/**
 	 * @ignore 
