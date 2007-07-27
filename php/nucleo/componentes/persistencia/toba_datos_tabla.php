@@ -1304,6 +1304,7 @@ class toba_datos_tabla extends toba_componente
 		$this->log("RESET!!");
 		$this->_datos = array();
 		$this->_datos_originales = array();
+		$this->_cargada = false;
 		$this->_cambios = array();
 		$this->_proxima_fila = 0;
 		$this->_where = null;
