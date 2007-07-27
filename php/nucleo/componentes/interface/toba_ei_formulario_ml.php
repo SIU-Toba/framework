@@ -596,10 +596,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		if ($this->_info_formulario['filas_numerar']) {
 			$this->_colspan++;
 		}
-		if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
-			$this->_colspan++;
-		}		
-		
+	
 		//Ancho y Scroll
 		$estilo = '';
 		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
@@ -643,15 +640,20 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "<tr>\n";
 		$primera = true;
 		foreach ($this->_lista_ef_post	as	$ef){
+			$id_form = $this->_elemento_formulario[$ef]->get_id_form_orig();	
 			$extra = '';
 			if ($primera) {
 				$extra = 'colspan="'.($this->_colspan + 1).'"';
 			}
-			echo "<th $extra class='ei-ml-columna'>\n";
+			echo "<th $extra id='nodo_$id_form' class='ei-ml-columna'>\n";
 			$this->generar_etiqueta_columna($ef);
 			echo "</th>\n";
 			$primera = false;
 		}
+		if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
+			echo "<th class='ei-ml-columna'>\n";
+			echo "</th>\n";
+		}		
         //-- Eventos sobre fila
 		if($this->cant_eventos_sobre_fila() > 0){
 			foreach ($this->get_eventos_sobre_fila() as $evento) {
@@ -765,19 +767,21 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$this->cargar_opciones_efs();
 			echo "\n<!-- FILA $fila -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
-			//--Numeración de las filas
-			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
-				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-ordenar'>\n";
-				echo "<a href='javascript: {$this->objeto_js}.subir_seleccionada();' id='{$this->objeto_js}_subir$fila' style='visibility:hidden'>".toba_recurso::imagen_toba('nucleo/orden_subir.gif', true)."</a>";
-				echo "<a href='javascript: {$this->objeto_js}.bajar_seleccionada();' id='{$this->objeto_js}_bajar$fila' style='visibility:hidden'>".toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true)."</a>";
-				echo "</td>\n";
-			}
 			if ($this->_info_formulario['filas_numerar']) {
 				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-numero'>\n<span id='{$this->objeto_js}_numerofila$fila'>".($a + 1);
 				echo "</span></td>\n";
 			}			
 			//--Layout de las filas
 			$this->generar_layout_fila($fila);
+			//--Numeración de las filas
+			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
+				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-ordenar'>\n";
+				echo "<a href='javascript: {$this->objeto_js}.subir_seleccionada();' id='{$this->objeto_js}_subir$fila' style='visibility:hidden' title='Subir la fila'>".
+					toba_recurso::imagen_toba('nucleo/orden_subir.gif', true)."</a>";
+				echo "<a href='javascript: {$this->objeto_js}.bajar_seleccionada();' id='{$this->objeto_js}_bajar$fila' style='visibility:hidden' title='Bajar la fila'>".
+					toba_recurso::imagen_toba('nucleo/orden_bajar.gif', true)."</a>";
+				echo "</td>\n";
+			}			
 			//--Creo los EVENTOS de la FILA
 			$this->generar_eventos_fila($fila);			
 			echo "</tr>\n";

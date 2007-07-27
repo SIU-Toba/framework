@@ -25,7 +25,7 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'toba_editor', --proyecto
 	'1', --molde
 	'apex_tipo_datos', --tabla
-	'0', --gen_usa_filtro
+	'1', --gen_usa_filtro
 	'0', --gen_separar_pantallas
 	NULL, --filtro_comprobar_parametros
 	'No hay filas', --cuadro_eof
@@ -91,7 +91,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'C', --dt_tipo_dato
 	'30', --dt_largo
 	NULL, --dt_secuencia
-	NULL, --dt_pk
+	'0', --dt_pk
 	'ef_editable', --elemento_formulario
 	NULL, --ef_desactivar_modificacion
 	NULL, --ef_procesar_javascript

@@ -599,6 +599,20 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}		
 	};
 	
+	/**
+	 * Muestra u oculta una columna completa
+	 * @param {string} id_ef Id. del ef o columna a variar
+	 * @param {string} total Nuevo total
+	 * @see #agregar_total
+	 */
+	ei_formulario_ml.prototype.mostrar_columna = function(columna, mostrar) {
+		this._efs[columna].sin_fila().mostrar(mostrar);
+		for (id_fila in this._filas) {
+			this._efs[columna].ir_a_fila(this._filas[id_fila]).mostrar(mostrar);
+		}
+
+	}
+	
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 
 if (self.Node && ! self.Node.prototype.swapNode) {

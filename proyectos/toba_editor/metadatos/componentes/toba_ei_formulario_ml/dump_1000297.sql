@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Asistente - ABMS - pant_basica - form_filas', --nombre
-	NULL, --titulo
+	'Definición de campos', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Columna', --etiqueta
+	'Campo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -170,7 +170,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --check_valor_no
 	NULL, --check_desc_si
 	NULL, --check_desc_no
-	NULL, --fijo_sin_estado
+	'0', --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
 	NULL, --editor_botonera

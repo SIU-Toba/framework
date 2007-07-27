@@ -1,11 +1,13 @@
 <?php
 	$proyecto = toba::proyecto()->get_parametro('descripcion');
+	$ico = toba_recurso::imagen_proyecto('favicon.ico');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
 <title><?php echo $proyecto ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="icon" href="<?php echo $ico;?>" type="image/x-icon" /><link rel="shortcut icon" href="<?php echo $ico;?>" type="image/x-icon" />
 </head>
 
 <frameset rows="*" cols="380,*" frameborder="YES" border="1" bordercolor="#553DA1" framespacing="0" id='frameset_admin'>

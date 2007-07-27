@@ -148,8 +148,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen
 	'form_basico,form_filas', --objetos
 	NULL, --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_basico', --subclase
+	'asistentes/abm_simple/pant_basico.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
 
