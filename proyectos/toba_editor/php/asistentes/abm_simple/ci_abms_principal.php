@@ -11,6 +11,14 @@ class ci_abms_principal extends ci_asistente_base
 		return $this->dep('datos')->tabla('base')->get_columna('tabla');		
 	}
 	
+	function conf()
+	{
+		$con_filtro = $this->dep('datos')->tabla('base')->get_columna('gen_usa_filtro');	
+		if (! $con_filtro) {
+			$this->pantalla()->tab('pant_filtro')->ocultar();	
+		}
+	}
+	
 	function conf__pant_basica()
 	{
 		if ($this->get_nombre_tabla_actual() == '') {

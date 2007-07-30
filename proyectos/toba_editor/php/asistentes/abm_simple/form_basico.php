@@ -26,8 +26,10 @@ class form_basico extends toba_ei_formulario
 					if (! es_inicial) {
 						if (this.ef('gen_usa_filtro').chequeado()) {
 							$id_ml.mostrar_columna('en_filtro', true);		
+							this.controlador.mostrar_tab('pant_filtro');							
 						} else {
 							$id_ml.mostrar_columna('en_filtro', false);
+							this.controlador.ocultar_tab('pant_filtro');							
 						}
 					}
 				}
