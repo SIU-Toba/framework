@@ -52,14 +52,33 @@ class toba_catalogo_asistentes
 	//---- Consultas
 	//------------------------------------------------
 
-	function get_lista_tipo_dato()
+	static function get_lista_tipo_dato()
 	{
 		$sql = 'SELECT 
-					tipo_dato,
-					descripcion_corta
+					*
 				FROM apex_molde_operacion_tipo_dato
 		';		
 		return consultar_fuente($sql);
+	}
+	
+	/**
+	 * Dada una tabla retorna los valroes por defecto de una fila de un abm
+	 */
+	static function get_lista_filas_tabla($tabla)
+	{
+		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
+		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
+		$salida = array();
+		foreach ($nuevas as $nueva) {
+			$fila = array();
+			$fila['dt_pk'] = $nueva['pk'];
+			$fila['columna'] = $nueva['nombre'];
+			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
+			$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';
+			$fila['asistente_tipo_dato'] = $tipo_datos[$tipo]['tipo_dato'];
+			$salida[] = $fila;
+		}
+		return $salida;
 	}
 
 	

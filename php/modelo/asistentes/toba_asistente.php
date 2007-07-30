@@ -105,7 +105,7 @@ abstract class toba_asistente
 	{
 		return $this->molde['carpeta_archivos'];
 	}
-
+	
 	//---------------------------------------------------
 	//-- LOG de elementos creados
 	//---------------------------------------------------
