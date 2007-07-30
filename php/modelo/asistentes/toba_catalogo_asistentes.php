@@ -57,6 +57,7 @@ class toba_catalogo_asistentes
 		$sql = 'SELECT 
 					*
 				FROM apex_molde_operacion_tipo_dato
+				ORDER BY descripcion_corta
 		';		
 		return consultar_fuente($sql);
 	}
@@ -69,13 +70,32 @@ class toba_catalogo_asistentes
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();
+		//ei_arbol($nuevas);
 		foreach ($nuevas as $nueva) {
+			$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';			
 			$fila = array();
 			$fila['dt_pk'] = $nueva['pk'];
+			$fila['dt_largo'] = $tipo_datos[$tipo]['cuadro_formato'];			
+			$fila['dt_secuencia'] = $tipo_datos[$tipo]['cuadro_formato'];
 			$fila['columna'] = $nueva['nombre'];
 			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
-			$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';
 			$fila['asistente_tipo_dato'] = $tipo_datos[$tipo]['tipo_dato'];
+			$fila['en_filtro'] = 0;
+			$fila['en_cuadro'] = ($tipo_datos[$tipo]['cuadro_estilo'] !== '');
+			$fila['en_form'] = 1;			
+			if ($nueva['secuencia'] != '') {
+				$fila['en_form'] = 0;
+				$fila['en_cuadro'] = 0;
+			}
+			$fila['cuadro_estilo'] = $tipo_datos[$tipo]['cuadro_estilo'];
+			$fila['cuadro_formato'] = $tipo_datos[$tipo]['cuadro_formato'];
+			//$fila['orden'] = $tipo_datos[$tipo]['orden'];			
+			if ($nueva['pk']) {
+				$fila['orden'] = 1;
+			}
+			if ($nueva['pk'] && $fila['en_form']) {
+				$nueva['ef_desactivar_modificacion'] = 1;
+			}
 			$salida[] = $fila;
 		}
 		return $salida;

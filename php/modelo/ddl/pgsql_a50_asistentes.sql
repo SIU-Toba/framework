@@ -61,8 +61,6 @@ CREATE TABLE apex_molde_operacion_tipo_dato
 	descripcion						varchar(255)		NULL,
 	dt_tipo_dato					varchar(1)			NULL,		
 	elemento_formulario				varchar(30)			NULL,
-	en_cuadro						smallint			NULL,
-	en_form							smallint			NULL,
 	cuadro_estilo 					int4		    	NULL,	
 	cuadro_formato 					int4		    	NULL,	
 	orden							float				NULL,

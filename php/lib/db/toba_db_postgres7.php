@@ -67,7 +67,9 @@ class toba_db_postgres7 extends toba_db
 				FROM pg_tables
 				WHERE 
 						tablename NOT LIKE 'pg_%'
-					AND tablename NOT LIKE 'sql_%' ";
+					AND tablename NOT LIKE 'sql_%' 
+				ORDER BY nombre
+		";
 		return $this->consultar($sql);
 	}
 	

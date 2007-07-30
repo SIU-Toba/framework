@@ -124,7 +124,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'descripcion', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
@@ -191,7 +191,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'descripcion_corta', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Descripción corta', --etiqueta
 	NULL, --etiqueta_estilo
@@ -258,11 +258,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'estilo', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Skin', --etiqueta
 	NULL, --etiqueta_estilo
-	'Elegir el [wiki:Referencia/Skins Skin] que utiliza el proyecto.', --descripcion
+	'Elegir el [wiki:Referencia/Skin Skin] que utiliza el proyecto.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -325,7 +325,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'menu', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Menú', --etiqueta
 	NULL, --etiqueta_estilo
@@ -393,7 +393,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'administrador', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'12', --orden
 	'Mail Administrador', --etiqueta
 	NULL, --etiqueta_estilo
@@ -460,7 +460,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'listar_multiproyecto', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'13', --orden
 	'Listar multiproyecto', --etiqueta
 	NULL, --etiqueta_estilo
@@ -527,7 +527,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'orden', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'14', --orden
 	'Orden', --etiqueta
 	NULL, --etiqueta_estilo
@@ -594,7 +594,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'palabra_vinculo_std', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'15', --orden
 	'Palabra vinculo std', --etiqueta
 	NULL, --etiqueta_estilo
@@ -661,7 +661,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_fijo', --elemento_formulario
 	'version_toba', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Versión toba', --etiqueta
 	NULL, --etiqueta_estilo
@@ -728,7 +728,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'encriptar_qs', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Encriptar QS', --etiqueta
 	NULL, --etiqueta_estilo
@@ -795,7 +795,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'registrar_solicitud', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'10', --orden
 	'Registrar solicitud', --etiqueta
 	NULL, --etiqueta_estilo
@@ -862,7 +862,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'registrar_cronometro', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'11', --orden
 	'Registrar cronometro', --etiqueta
 	NULL, --etiqueta_estilo
@@ -929,7 +929,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'log_archivo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Log a archivo', --etiqueta
 	NULL, --etiqueta_estilo
@@ -996,7 +996,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'log_archivo_nivel', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'8', --orden
 	'Nivel LOG', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1063,7 +1063,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'fuente_datos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Fuente de Datos predet.', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1130,7 +1130,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'item_inicio_sesion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'18', --orden
 	'Item inicial', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1197,7 +1197,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'carpeta_inicio_sesion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'17', --orden
 	'Carpeta', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1267,7 +1267,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_barra_divisora', --elemento_formulario
 	'separador', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'16', --orden
 	'Item Inicial', --etiqueta
 	NULL, --etiqueta_estilo
