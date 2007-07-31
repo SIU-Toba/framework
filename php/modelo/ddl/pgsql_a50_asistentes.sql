@@ -234,6 +234,7 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	ef_carga_col_clave					varchar(255)	NULL,
 	ef_carga_col_desc					varchar(255)	NULL,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_pk" PRIMARY KEY ("proyecto","molde","fila"),
+	CONSTRAINT	"apex_molde_operacion_abms_fila_uq" UNIQUE 	("proyecto","molde","columna"),
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_molde" FOREIGN KEY ("proyecto","molde") REFERENCES "apex_molde_operacion" ("proyecto","molde") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_abms_fila" FOREIGN KEY ("asistente_tipo_dato") REFERENCES "apex_molde_operacion_tipo_dato" ("tipo_dato") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

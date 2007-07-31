@@ -192,48 +192,48 @@ abstract class toba_asistente
 	{
 		$clase = $this->molde['prefijo_clases']. 'dt';
 		$tabla->extender($clase, $clase . '.php');
-		$metodo = new toba_codigo_metodo_php($metodo);
-		$sql = $this->crear_expresion_sql($sql, $parametros);
-		$metodo->set_contenido(array(	"\$sql = \"$sql\";",
-										"return consultar_fuente(\$sql);"));
+		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
 		$tabla->php()->agregar($metodo);		
 	}
 
 	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
 	{
-		/*
-		$archivo = new toba_archivo_php($path);
-		if(!$archivo->existe()) {
-		}
-		if(!$archivo->contiene_clase($clase)){
-		}
-		if(!$contiene->contiene_metodo($metodo)){
-		}*/
-		if(isset($parametros)){
-			$invocacion_parametros = '$parametros=null';
-		}else{
-			$invocacion_parametros = '';
-		}
-		$sql = $this->crear_expresion_sql($sql, $parametros);
+		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
+		//Creacion temporal de la clase
+		$metodo->identar(1);
 		$path = toba::proyecto()->get_path() . '/php/' . $include;
 		$php = "<?php\nclass $clase\n{\n";
-		$php .= "
-	function $metodo($invocacion_parametros)
-	{
-		\$sql = \"$sql\";
-		return consultar_fuente(\$sql);
-	}\n";
+		$php .= $metodo->get_codigo();
 		$php .= "\n}\n?>";
 		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
 	}
 	
-	function crear_expresion_sql($sql, $parametros=null)
+	function crear_metodo_consulta($nombre, $sql, $parametros=null)
 	{
+		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
+		$metodo = new toba_codigo_metodo_php($nombre, $param_metodo);
 		if(!isset($parametros)){
-			return $sql;	
+			$php = 	"\$sql = \"$sql\";" . salto_linea() .
+					"return consultar_fuente(\$sql);";
 		}else{
-			return $sql;	
+			$php = "\$where = array();" . salto_linea();
+			foreach($parametros as $id => $operador) {
+				$php .= "if(isset(\$filtro['$id'])) {" . salto_linea();
+				if($operador == 'LIKE') {
+					$php .= "\t\$where[] = \"$id $operador '\".\$filtro['$id'].\"%'\";" . salto_linea();
+				} else {
+					$php .= "\t\$where[] = \"$id $operador '\".\$filtro['$id'].\"'\";" . salto_linea();
+				}
+				$php .= "}" . salto_linea();
+			}
+			$php .=	"\$sql = \"$sql\";" . salto_linea();
+			$php .= "if(count(\$where)>0) {" . salto_linea();
+			$php .= "\t\$sql = sql_concatenar_where(\$sql, \$where);" . salto_linea();
+			$php .= "}" . salto_linea();
+			$php .= "return consultar_fuente(\$sql);";
 		}
+		$metodo->set_contenido($php);
+		return $metodo;	
 	}
 }
 ?>

@@ -26,6 +26,15 @@
 	}
 
 	/**
+	 * Concatena sentencias a la clausula WHERE de un SQL (Utilizando un AND)
+	 */	
+	function sql_concatenar_where($sql,$clausulas_where=array())
+	{
+		echo "ACA: $sql";
+		return $sql;
+	}
+
+	/**
 	 * Concatena tablas a la clausula FROM de un SQL
 	 */	
 	function sql_agregar_tablas_from($sql,$tablas_from=null)
