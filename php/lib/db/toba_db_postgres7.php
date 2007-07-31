@@ -98,6 +98,7 @@ class toba_db_postgres7 extends toba_db
 						pg_attribute a 	
 							LEFT OUTER JOIN pg_attrdef d
 								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
+							--- Foreign Keys
 							LEFT OUTER JOIN (pg_constraint const 
 												INNER JOIN pg_class fc ON fc.oid = const.confrelid
 												INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]) 
@@ -106,6 +107,7 @@ class toba_db_postgres7 extends toba_db
 										AND const.contype='f'
 										AND const.conkey[1] = a.attnum
 								)
+							---- Indices
 							LEFT OUTER JOIN ( pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid ) 
 								ON ( a.attrelid = i.indrelid 
 									AND (i.indkey[0] = a.attnum 

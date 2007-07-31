@@ -896,10 +896,10 @@ class toba_info_editores
 		if (is_array($consulta_php)) {
 			$consulta_php = $consulta_php['cuadro_carga_php_include'];
 		}
-		if (substr($consulta_php, 0, 9) == '$toba_dir') {
-			$archivo = toba_dir().substr($consulta_php, 9);
-		} else {
-			$archivo = toba::proyecto()->get_path_php().'/'.$consulta_php;			
+		$reemplazo = false;
+		$archivo = preg_replace_callback('/\{(\w+)\}/', array('toba_info_editores', 'parsear_consulta_php'), $consulta_php, -1 , $reemplazo);
+		if (! $reemplazo) {
+			$archivo = toba::proyecto()->get_path_php().'/'.$archivo;			
 		}
 		$codigo = file_get_contents($archivo);
 		$tokens = token_get_all($codigo);
@@ -918,6 +918,17 @@ class toba_info_editores
  		    }
     	}
     	return $metodos;
+	}
+	
+	function parsear_consulta_php($matches)
+	{
+		$variable = substr($matches[0], 1, strlen($matches[0])-2);
+		//TODO: Casos Harcodeado
+		if ($variable == 'toba_modelo') {
+			return toba_dir().'/php/modelo';			
+		} else {
+			return toba::proyecto()->get_path_php();
+		}
 	}
 
 }
