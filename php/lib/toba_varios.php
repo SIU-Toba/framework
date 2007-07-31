@@ -209,11 +209,7 @@
 		foreach ($datos_recordset as $fila){
 			$valores_clave = array();
 			foreach($claves as $clave) {
-				if (isset($fila[$clave])) {
-					$valores_clave[] = $fila[$clave];
-				} else {
-					throw new toba_error("La fila del recordset no contiene la clave '$clave'. ".var_export($fila, true));
-				}
+				$valores_clave[] = $fila[$clave];
 			}
 			if (isset($valores)) {
 				foreach ($valores as $valor) {

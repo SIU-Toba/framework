@@ -361,6 +361,7 @@ class toba_db
 		'DOUBLE PRECISION' => 'N',
 		'SMALLFLOAT' => 'N',
 		'FLOAT' => 'N',
+		'FLOAT8' => 'N',
 		'NUMBER' => 'N',
 		'NUM' => 'N',
 		'NUMERIC' => 'N',
@@ -384,7 +385,7 @@ class toba_db
 		);
 		if(isset($typeMap[$tipo])) 
 			return $typeMap[$tipo];
-		return null;
+		return 'Z';
 	}
 
 	//-----------------------------------------------------------------------------------

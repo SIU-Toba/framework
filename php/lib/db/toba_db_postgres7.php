@@ -90,12 +90,22 @@ class toba_db_postgres7 extends toba_db
 						i.indisunique AS 		uk,
 						i.indisprimary AS 		pk,
 						'' as					secuencia,
+						fc.relname				as fk_tabla,
+						fa.attname				as fk_campo,						
 						a.attnum as 			orden
 				FROM 	pg_class c,
 						pg_type t,
 						pg_attribute a 	
 							LEFT OUTER JOIN pg_attrdef d
 								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
+							LEFT OUTER JOIN (pg_constraint const 
+												INNER JOIN pg_class fc ON fc.oid = const.confrelid
+												INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]) 
+											)
+								ON (const.conrelid = a.attrelid
+										AND const.contype='f'
+										AND const.conkey[1] = a.attnum
+								)
 							LEFT OUTER JOIN ( pg_index i INNER JOIN pg_class ic ON ic.oid = i.indexrelid ) 
 								ON ( a.attrelid = i.indrelid 
 									AND (i.indkey[0] = a.attnum 

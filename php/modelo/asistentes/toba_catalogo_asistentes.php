@@ -70,13 +70,15 @@ class toba_catalogo_asistentes
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();
-		//ei_arbol($nuevas);
 		foreach ($nuevas as $nueva) {
-			$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';			
+			$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';
+			if (isset($nueva['pk_tabla'])) {	
+				$tipo = '';	
+			}
 			$fila = array();
 			$fila['dt_pk'] = $nueva['pk'];
-			$fila['dt_largo'] = $tipo_datos[$tipo]['cuadro_formato'];			
-			$fila['dt_secuencia'] = $tipo_datos[$tipo]['cuadro_formato'];
+			$fila['dt_largo'] = $nueva['longitud'];			
+			$fila['dt_secuencia'] = $nueva['secuencia'];
 			$fila['columna'] = $nueva['nombre'];
 			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
 			$fila['asistente_tipo_dato'] = $tipo_datos[$tipo]['tipo_dato'];
