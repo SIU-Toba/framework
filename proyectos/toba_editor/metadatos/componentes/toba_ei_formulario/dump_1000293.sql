@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'2', --orden
 	'Puede filtrar los datos', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Permite al usuario filtrar la información en base a criterios sobre los campos.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

@@ -889,6 +889,36 @@ class toba_info_editores
 					WHERE	proyecto = '$proyecto'";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	function get_metodos_consulta_php($consulta_php, $proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		if (is_array($consulta_php)) {
+			$consulta_php = $consulta_php['cuadro_carga_php_include'];
+		}
+		if (substr($consulta_php, 0, 9) == '$toba_dir') {
+			$archivo = toba_dir().substr($consulta_php, 9);
+		} else {
+			$archivo = toba::proyecto()->get_path_php().'/'.$consulta_php;			
+		}
+		$codigo = file_get_contents($archivo);
+		$tokens = token_get_all($codigo);
+		$metodos = array();
+		$proximo_es_metodo = false;
+		foreach ($tokens as $token) {
+    		if (is_array($token)) {
+		        list($id, $texto) = $token;
+				if ($id == T_FUNCTION) {
+					$proximo_es_metodo = true;
+				}
+				if ($id == T_STRING && $proximo_es_metodo) {
+					$metodos[] = array('metodo' => $texto);
+					$proximo_es_metodo = false;
+				}
+ 		    }
+    	}
+    	return $metodos;
+	}
 
 }
 ?>
