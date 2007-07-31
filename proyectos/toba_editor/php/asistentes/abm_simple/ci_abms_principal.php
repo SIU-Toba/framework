@@ -82,7 +82,13 @@ class ci_abms_principal extends ci_asistente_base
 		$this->dep('datos')->tabla('filas')->procesar_filas($datos);
 	}
 
-	//---- Cuadro ----------------------------------------
+	function evt__form_filas__refrescar($datos)
+	{
+		$this->dep('datos')->tabla('filas')->resetear();
+	}
+	
+
+	//---- Form ----------------------------------------
 	
 	function evt__form_cuadro__modificacion($datos)
 	{
