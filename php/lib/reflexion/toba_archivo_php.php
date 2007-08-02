@@ -199,5 +199,42 @@ class toba_archivo_php
 		$this->contenido = $inicio."\n".$codigo."\n".$final;	
 	}
 
+	/**
+	*	Dado un codigo PHP, extrae un metodo y los sustituye por codigo nuevo
+	*/
+	static function reemplazar_metodo($codigo, $nombre_metodo_a_extraer, $codigo_a_insertar)
+	{
+		$contenido = explode(salto_linea(),$codigo);
+		$codigo_a_insertar = explode(salto_linea(),$codigo_a_insertar);
+		$encontrado = false;
+		$comenzo_cuerpo = false;
+		$balance = 0;
+		$linea_i = null;
+		$linea_f = null;
+		//Busco la region en donde se encuentra el metodo
+		foreach($contenido as $linea => $codigo) {
+			if(	!$encontrado && preg_match("/function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+				$encontrado = true;
+				$linea_i = $linea;
+			}
+			if( $encontrado ) {
+				if(!$comenzo_cuerpo && (strpos($codigo,'{')!==false) ) $comenzo_cuerpo = true;
+				$balance += substr_count($codigo, '{');
+				$balance -= substr_count($codigo, '}');
+				if($comenzo_cuerpo && $balance==0) {
+					$linea_f = $linea;
+					break;
+				}
+			}
+		}
+		//Reemplazo la region por el codigo nuevo
+		if( $linea_i && $linea_f ) {
+			$inicio = array_splice($contenido, 0, $linea_i);
+			$recorte = array_splice($contenido, 0, ($linea_f-$linea_i)+1);
+			$fin = $contenido;
+			$contenido = array_merge($inicio, $codigo_a_insertar, $fin);
+		}
+		return implode(salto_linea(), $contenido);
+	}
 }
 ?>
