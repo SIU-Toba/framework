@@ -164,19 +164,22 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+--- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
-	'1000159', --dep_id
+	'930', --dep_id
 	'1000288', --objeto_consumidor
-	'1986', --objeto_proveedor
-	'form_generar', --identificador
+	'1994', --objeto_proveedor
+	'form_generaciones', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	NULL  --orden
 );
---- FIN Grupo de desarrollo 1
+--- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
 -- apex_objeto_mt_me
@@ -219,7 +222,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_generar,cuadro_generaciones', --objetos
+	'form_generaciones,cuadro_generaciones', --objetos
 	'generar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

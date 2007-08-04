@@ -5,6 +5,8 @@ class ci_editar_molde extends toba_ci
 	protected $s__molde;
 	protected $s__proyecto;
 	protected $s__opciones_borrar;
+	protected $s__opciones_generacion;
+	protected $asistente;
 
 	function ini()
 	{
@@ -92,27 +94,56 @@ class ci_editar_molde extends toba_ci
 	//---- Generar el molde ----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__cuadro_ejecuciones($componente)
+	function conf__pant_generar()
+	{
+		//Si hay algun tema bloqueante, no dejo hacer nada
+		$bloqueos = $this->asistente(true)->get_bloqueos();
+		if($bloqueos) {
+			$this->pantalla()->eliminar_evento('generar');
+			$this->pantalla()->eliminar_dep('form_generaciones');
+			toba::notificacion()->agregar('Existen problemas que imposibilitan la ejecución del molde. '
+											.' Por favor edite el mismo y vuelva a intentar. '
+											.'Los errores se describen a continuacion.');
+			foreach($bloqueos as $bloqueo) {
+				toba::notificacion()->agregar($bloqueo);	
+			}
+		}
+		// Si no hay opciones de generacion, excluyo el form de opciones
+		$opciones = $this->asistente()->get_opciones_generacion();
+		if(!$opciones) {
+			$this->pantalla()->eliminar_dep('form_generaciones');
+		}
+	}
+
+	function conf__cuadro_generaciones($componente)
 	{
 		return toba_info_editores::get_lista_ejecuciones_molde($this->s__proyecto, $this->s__molde);
 	}
 
-	function conf__form_generar($componente)
-	{
-	}
-	
-	function evt__form_generar__modificacion($parametros)
-	{
+	//--- Opciones de generacion ----
 
+	function conf__form_generaciones($componente)
+	{
+		$componente->set_datos( $this->asistente()->get_opciones_generacion() );
 	}
 	
+	function evt__form_generaciones__modificacion($datos)
+	{
+		$this->s__opciones_generacion = $datos;
+	}
+
 	function evt__generar()
 	{
-		$asistente = toba_catalogo_asistentes::cargar_por_molde($this->s__proyecto, $this->s__molde);
-		$asistente->generar_molde();
-		$asistente->crear_operacion();
+		$this->asistente()->crear_operacion( $this->s__opciones_generacion );
 	}	
 
-
+	function asistente($reset=false)
+	{
+		if($reset || !isset($this->asistente)) {
+			$this->asistente = toba_catalogo_asistentes::cargar_por_molde($this->s__proyecto, $this->s__molde);
+			$this->asistente->preparar_molde();
+		}
+		return $this->asistente;
+	}
 }
 ?>

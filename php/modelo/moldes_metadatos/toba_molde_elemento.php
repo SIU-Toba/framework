@@ -10,6 +10,7 @@
 */
 class toba_molde_elemento
 {
+	protected $id;					//ID unico del elemento el todo el molde
 	protected $asistente;
 	protected $proyecto;
 	protected $carpeta_archivo;		
@@ -19,6 +20,7 @@ class toba_molde_elemento
 	function __construct($asistente)
 	{
 		$this->asistente = $asistente;
+		$this->id = $this->asistente->get_id_elemento();
 		$this->proyecto = $this->asistente->get_proyecto();
 		//Busco el datos relacion correspondientes al componente
 		$id = toba_info_editores::get_dr_de_clase($this->clase);
@@ -55,8 +57,9 @@ class toba_molde_elemento
 				throw new toba_error('La carpeta no fue definida.');	
 			}
 			toba_manejador_archivos::crear_arbol_directorios($this->directorio_absoluto());
-			$this->generar_archivo();
-			$this->asociar_archivo();
+			if ( $this->generar_archivo() ) {
+				$this->asociar_archivo();
+			}
 		}
 		$this->guardar_metadatos();
 	}
@@ -68,6 +71,7 @@ class toba_molde_elemento
 		$this->asistente->registrar_elemento_creado(	'archivo', 
 														$this->proyecto,
 														$this->archivo_relativo() );
+		return true;
 	}
 	
 	protected function guardar_metadatos()
@@ -79,6 +83,11 @@ class toba_molde_elemento
 		$this->asistente->registrar_elemento_creado(	$this->clase, 
 														$clave['proyecto'],
 														$clave['clave'] );
+	}
+
+	function get_id_opcion_archivo()
+	{
+		return 'elemento_' . $this->id . '_archivo';	
 	}
 
 	//-- PATHs -------------------------------------------------------------	

@@ -58,4 +58,71 @@ TAB Aspecto interface
 	* Separar en pantallas?						gen_separar_pantallas = 1
 	* Anchos y altos.
 	* Titulos especificos para los EIs
-				
+
+#############################################################
+
+Manejo de creacion de consultas_php
+------------------------------------
+		
+	Se ingresa con: archivo, clase, metodo
+
+	-> Existe archivo?
+		* NO
+			-> Crear archivo
+			-> Crear clase
+			-> Crear metodo
+		* SI
+			-> Existe clase?
+				* NO
+					-> Hay codigo?
+						* NO
+							-> Crear clase
+							-> Crear metodo
+						* SI *******************> ERROR! Se pide cambiar el archivo.
+				* SI
+					-> Existe metodo?
+						* NO
+							-> Crear metodo al final
+						* SI
+							*******************> Se avisa que se va a sobreescribir un metodo
+							-> Reemplazar metodo
+
+Creacion de extension
+---------------------
+
+	-> Si exite archivo:
+		**************> Se avisa que archivos se van a sobreescribir
+		
+###############################################################################3
+		
+Opciones de generacion
+----------------------
+
+	$asistente->cargar_plan()
+	$asistente->get_opciones()
+		Lista para alimentar el ML, recordset con columnas opcion/estado
+	$asistente->get_bloqueos()
+		Lista de cosas que hacen que no se pueda avanzar en la generacion
+	
+	-> Cuando se prepara el plan, se crea la cola de preguntas, que se muestran al usuario,
+		La interface usa esto para alimentar un ML con checkbox, retorna al usuario como opciones.
+	-> En el caso de que algo trabe la generacion, se le comenta al usuario lo que tiene que hacer
+		y no se muestra
+
+
+###############################################################################3
+
+	FALTA:
+	
+		- Mostrar las cosas generadas despues de ejecutar
+			- Poder: ejecutar el item, ir a los editores, abrir los archivos, cargar
+					el arbol de la operacion, etc.
+
+		- Manejar en forma centralizada la generacion de archivos que no son extensiones.
+			- Que pasa si se tienen que meter dos metodos en la misma clase
+			- Ver la manera de ofrecer opciones de generacion de estos archivos
+				- hay que ejecutar todo el arbol de controles
+			
+		- Injeccion de clausulas where en un SQL
+
+

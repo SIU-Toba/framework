@@ -7,7 +7,12 @@ abstract class toba_asistente
 	protected $item;		// Molde del item
 	protected $ci;			// Shortcut al molde del CI
 	protected $log_elementos_creados;
-	protected $opciones;
+	protected $valores_predefinidos;
+	protected $envio_opciones_generacion = array();
+	protected $retorno_opciones_generacion = array();
+	protected $bloqueos_generacion = array();
+	protected $archivos_php;
+	protected $id_elementos = 0;
 	
 	function __construct($molde)
 	{
@@ -17,17 +22,21 @@ abstract class toba_asistente
 		foreach (array_keys($molde) as $parte) {
 			$this->$parte = $molde[$parte];
 		}
-		$this->opciones = toba_info_editores::get_opciones_generacion();
+		$this->valores_predefinidos = toba_info_editores::get_opciones_predefinidas_molde();
 	}	
 	
+	######################################################################
+	## Api para el CI del generador
+	######################################################################
+
 	//-----------------------------------------------------------
 	//-- Armar MOLDE: Se construye el modelo de la operacion
 	//-----------------------------------------------------------
 
 	/**
-	* Se crea el molde 
+	* Se crea el molde y se deja a disposicion
 	*/
-	function generar_molde()
+	function preparar_molde()
 	{
 		$this->generar_base();
 		$this->generar();
@@ -45,6 +54,20 @@ abstract class toba_asistente
 	abstract protected function generar();
 
 	//----------------------------------------------------------------------
+	//-- Informacion sobre el molde
+	//----------------------------------------------------------------------
+
+	function get_opciones_generacion()
+	{
+		return $this->envio_opciones_generacion;
+	}
+
+	function get_bloqueos()
+	{
+		return $this->bloqueos_generacion;
+	}
+
+	//----------------------------------------------------------------------
 	//-- Crear OPERACION: Se transforma el modelo a elementos toba concretos
 	//----------------------------------------------------------------------
 
@@ -52,63 +75,35 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function crear_operacion($forzar_regeneracion=false)
+	function crear_operacion($retorno_opciones_generacion)
 	{
-		if(  $this->existe_generacion_previa() ) {
-			if ($forzar_regeneracion) {
-				$this->borrar_generacion_previa();
-			} else {
-				throw new toba_error('');
-			}
+		//Registro las opciones de generacion
+		foreach( $retorno_opciones_generacion as $opcion) {
+			$this->retorno_opciones_generacion[$opcion['opcion']] = $opcion['estado'];
 		}
 		try {
 			abrir_transaccion();
 			$this->generar_elementos();
 			cerrar_transaccion();
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
-			return true;
+			return $this->log_elementos_creados;
 		} catch (toba_error $e) {
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
 			abortar_transaccion();
-			return false;
 		}
 	}
 
-	function generar_elementos()
+	protected function generar_elementos()
 	{
 		$this->item->generar();
 		$this->guardar_log_elementos_generados();
 	}
 
-	function existe_generacion_previa()
-	{
-		//a nivel a archivos hay que preguntarle a la operacion que va a crear
-		//Leer en this->molde_molde_resultado
-		return false;	
-	}
+	######################################################################
+	## Primitivas para los asistentes derivados
+	######################################################################
 
-	function borrar_generacion_previa($borrar_archivos=false)
-	{
-		ei_arbol($this->log_elementos_creados);		
-	}
-
-	//---------------------------------------------------
-	//-- API para los elementos
-	//---------------------------------------------------
-
-	function get_proyecto()
-	{
-		return $this->id_molde_proyecto;	
-	}
-	
-	function get_carpeta_archivos()
-	{
-		return $this->molde['carpeta_archivos'];
-	}
-	
-	//---------------------------------------------------
-	//-- LOG de elementos creados
-	//---------------------------------------------------
+	//-- LOG de elementos creados ------------------------------
 
 	function registrar_elemento_creado($tipo, $proyecto, $id )
 	{
@@ -133,17 +128,56 @@ abstract class toba_asistente
 		}
 	}
 
-	//---------------------------------------------------
-	//-- Primitivas para los hijos
-	//---------------------------------------------------
+	//-- Manejo de opciones ------------------------------
 
-	function get_opcion($opcion)
+	/**
+	*	Acceso a los valores predefinidos globales
+	*/
+	function get_valor_predefinido($opcion)
 	{
-		if(isset($this->opcion[$opcion])){
-			return 	$this->opcion[$opcion];
+		if(isset($this->valores_predefinidos[$opcion])){
+			return 	$this->valores_predefinidos[$opcion];
 		}
 		return null;
 	}
+	
+	/**
+	*	Setea una opcion de generacion. Para ser utilizada por un asistente
+	*		derivado durante la preparacion del molde.
+	*/
+	function agregar_opcion_generacion($id, $texto, $ayuda=null)
+	{
+		$opcion = array(	'opcion'	=> $id,
+							'texto'		=> $texto,
+							'ayuda'		=> $ayuda,
+							'estado'	=> 1 );
+		$this->envio_opciones_generacion[] = $opcion;
+	}
+	
+	/**
+	*	Indica el valor que retorno de una opcion de generacion.
+	*		Para ser utilizada por un asisntente derivado durante la genracion concreta
+	*/
+	function consultar_opcion_generacion($opcion)
+	{
+		if(isset($this->retorno_opciones_generacion[$opcion])) {
+			return $this->retorno_opciones_generacion[$opcion];
+		} else {
+			throw new toba_error("ASISTENTE: La opcion de generacion '$opcion' no existe!");	
+		}
+	}
+
+	/**
+	*	Agrega una falla bloqueante del molde. Se debe reportar durante la preparacion del molde.
+	*/
+	function agregar_bloqueo_generacion($bloqueo)
+	{
+		$this->bloqueos_generacion[] = $bloqueo;
+	}
+	
+	//----------------------------------------------------------------------
+	//-- Primitivas para la construccion de elementos
+	//----------------------------------------------------------------------
 
 	function generar_efs($form, $filas)
 	{
@@ -186,6 +220,23 @@ abstract class toba_asistente
 		}
 	}
 
+	//-- API para los elementos del molde ----------------------------------------
+
+	function get_proyecto()
+	{
+		return $this->id_molde_proyecto;	
+	}
+	
+	function get_carpeta_archivos()
+	{
+		return $this->molde['carpeta_archivos'];
+	}
+	
+	function get_id_elemento()
+	{
+		return $this->id_elemento++;
+	}
+
 	//-- Manejo de consultas_php ------------------------
 
 	function crear_consulta_dt($tabla, $metodo, $sql, $parametros=null)
@@ -196,18 +247,6 @@ abstract class toba_asistente
 		$tabla->php()->agregar($metodo);		
 	}
 
-	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
-	{
-		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
-		//Creacion temporal de la clase
-		$metodo->identar(1);
-		$path = toba::proyecto()->get_path() . '/php/' . $include;
-		$php = "<?php\nclass $clase\n{\n";
-		$php .= $metodo->get_codigo();
-		$php .= "\n}\n?>";
-		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
-	}
-	
 	function crear_metodo_consulta($nombre, $sql, $parametros=null)
 	{
 		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
@@ -234,6 +273,29 @@ abstract class toba_asistente
 		}
 		$metodo->set_contenido($php);
 		return $metodo;	
+	}
+
+	//----------------------------------------------------------------------
+	//-- Creacion de archivos que no son extensiones.
+	//----------------------------------------------------------------------
+
+	protected function archivo()
+	{
+		
+	}
+
+	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
+	{
+		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
+		//Creacion temporal de la clase
+		$metodo->identar(1);
+		$path = toba::proyecto()->get_path() . '/php/' . $include;
+		$php = "<?php\nclass $clase\n{\n";
+		$php .= $metodo->get_codigo();
+		$php .= "\n}\n?>";
+		
+		//Atencion, estoy en el momento de carga, no tengo que crear el archivo!!
+		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
 	}
 }
 ?>

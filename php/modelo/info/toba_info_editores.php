@@ -789,7 +789,7 @@ class toba_info_editores
 	//----------  Planes de generacion de operaciones  -----------------------------
 	//------------------------------------------------------------------------------
 
-	function get_opciones_generacion($proyecto = null)
+	function get_opciones_predefinidas_molde($proyecto = null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		$sql = "	SELECT * 

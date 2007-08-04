@@ -233,8 +233,11 @@ class toba_archivo_php
 			$recorte = array_splice($contenido, 0, ($linea_f-$linea_i)+1);
 			$fin = $contenido;
 			$contenido = array_merge($inicio, $codigo_a_insertar, $fin);
+			return implode(salto_linea(), $contenido);
+		} else {
+			//Lanzar una excepcion?
+			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	
 		}
-		return implode(salto_linea(), $contenido);
 	}
 }
 ?>
