@@ -190,7 +190,6 @@ class toba_recurso
 		}
 		if ($ayuda != '') {
 			$ayuda .= ' '.$ayuda_extra;
-			$ayuda = toba_parser_ayuda::parsear($ayuda);
 			$ayuda = str_replace(array("\n", "\r"), '', $ayuda);
 			$ayuda = str_replace(array("\""), "`", $ayuda);
 			$a .= " onmouseover=\"if (typeof window.tipclick != 'undefined' &amp;&amp; window.tipclick !== null) return window.tipclick.show('$ayuda',this,event, $delay_ayuda);\" onmouseout=\"if (typeof window.tipclick != 'undefined' &amp;&amp; window.tipclick !== null) return window.tipclick.hide();\" ";

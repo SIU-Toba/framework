@@ -947,6 +947,7 @@ class toba_ei_formulario extends toba_ei
 		if ($this->_ayuda_tooltip) {
 			$desc = $this->_elemento_formulario[$ef]->get_descripcion();		
 			if ($desc !=""){
+				$desc = toba_parser_ayuda::parsear($desc);
 				$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
 			}
 		}

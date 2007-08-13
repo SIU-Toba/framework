@@ -454,7 +454,8 @@ abstract class toba_ei extends toba_componente
 			//--- Descripcion Tooltip
 			if(trim($this->_info["descripcion"])!="" &&  $this->_modo_descripcion_tooltip){
 				echo '<span class="ei-barra-sup-desc">';
-				echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $this->_info["descripcion"]);
+				$desc = toba_parser_ayuda::parsear($this->_info["descripcion"]);
+				echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $desc);
 				echo '</span>';
 			}
 	

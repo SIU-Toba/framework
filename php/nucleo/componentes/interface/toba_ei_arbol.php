@@ -298,7 +298,8 @@ class toba_ei_arbol extends toba_ei
 	{
 		$salida = '';
 		foreach ($nodo->get_iconos() as $icono) {
-			$img = toba_recurso::imagen($icono['imagen'], null, null, $icono['ayuda']);
+			$ayuda = toba_parser_ayuda::parsear($icono['ayuda']);
+			$img = toba_recurso::imagen($icono['imagen'], null, null, $ayuda);
 			if (isset($icono['vinculo'])) {
 				$salida .= "<a target='{$this->_frame_destino}' href='".$icono['vinculo']."'>$img</a>\n";
 			} else {
@@ -324,7 +325,8 @@ class toba_ei_arbol extends toba_ei
 			$salida .= "<span style='float:right;'>";	
 			$cant_plegados = 0;
 			foreach ($utilerias as $utileria) {
-				$img = toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']);
+				$ayuda = toba_parser_ayuda::parsear($utileria['ayuda']);
+				$img = toba_recurso::imagen($utileria['imagen'], null, null, $ayuda);
 				if (isset($utileria['vinculo'])) {
 					if (isset($utileria['target'])) {
 						$target = "target='".$utileria['target']."'";

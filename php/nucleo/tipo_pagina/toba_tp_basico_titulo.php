@@ -18,7 +18,8 @@ class toba_tp_basico_titulo extends toba_tp_basico
 		$this->info_version();				
 		echo "<div class='item-barra'>";
 		if (trim($info['item_descripcion']) != '') {
-			$ayuda = toba_recurso::ayuda(null, trim($info['item_descripcion']), 'item-barra-ayuda', 0);
+			$desc = toba_parser_ayuda::parsear(trim($info['item_descripcion']));
+			$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
 			echo "<div $ayuda>";
 			echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
 			echo "</div>";

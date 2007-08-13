@@ -24,6 +24,7 @@ class toba_parser_ayuda
 	{
 		$parseado = "";
 		$resultado = array();
+		if (strpos($texto, '[') === false) return $texto;
 		if (preg_match_all(self::exp_reg(), $texto, $resultado)) {
 			for ($i=0; $i< count($resultado[0]); $i++) {
 				$tipo = $resultado[2][$i];
