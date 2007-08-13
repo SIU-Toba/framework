@@ -2,6 +2,18 @@
 
 class ci_catalogo extends toba_ci
 {
+	protected $datos_editores;
+	
+	function ini()
+	{
+		//Inicializa la lista de editores
+		$info_componentes = toba_info_editores::get_info_tipos_componente();
+		foreach($info_componentes as $componente) {
+			$this->datos_editores[$componente['clase']] = array(	'proyecto' => $componente['editor_proyecto'],
+																	'item' => $componente['editor_item']);
+		}
+	}
+	
 	//-----------------------------------------------------------------------------------
 	//---- DEPENDENCIAS ------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -20,6 +32,7 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_lista_objetos_dt();
 		foreach(array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'objetos/datos_tabla.gif';
+			$datos[$id]['editar'] = $this->get_acceso_editores('toba_datos_tabla',$datos[$id]['proyecto'],$datos[$id]['objeto']);
 		}
 		$cuadro->set_datos($datos);
 	}
@@ -29,6 +42,7 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_lista_objetos_dr();
 		foreach(array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'objetos/datos_relacion.gif';
+			$datos[$id]['editar'] = $this->get_acceso_editores('toba_datos_relacion',$datos[$id]['proyecto'],$datos[$id]['objeto']);
 		}
 		$cuadro->set_datos($datos);
 	}
@@ -41,51 +55,45 @@ class ci_catalogo extends toba_ci
 		}
 		$cuadro->set_datos($datos);
 	}
-/*
-	function get_acceso_editores($clase, $id_componente)
+	
+	//---------------------------------------------------------------
+	//---------------------------------------------------------------
+
+	function get_acceso_editores($clase, $proyecto, $componente)
 	{
-	}	
-	function acceso_zona($parametros = array())
-	{
-		$parametros[apex_hilo_qs_zona] = $this->proyecto . apex_qs_separador . $this->id;
-		return $parametros;
+		$parametros_editor[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $componente;
+		// AYUDA
+		$ayuda = null;
+		$metodo = "get_pantallas_$clase";
+		$pantallas = call_user_func(array("toba_datos_editores", $metodo));
+		//-- Se incluye un vinculo a cada pantalla encontrada
+		$ayuda = "<div class='editor-lista-vinculos'>";
+		foreach ($pantallas as $pantalla) {
+			$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
+			$origen = ($pantalla['imagen'] != '') ? $pantalla['imagen_recurso_origen'] : 'apex';
+			$vinculo = $this->vinculo_editor($clase, array_merge( $parametros_editor, array('etapa' => $pantalla['identificador'])) );
+			$tag_img = ($origen == 'apex') ? toba_recurso::imagen_toba($img, true) : toba_recurso::imagen_proyecto($img, true);
+			$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
+						" title='".$pantalla['etiqueta']."'>".
+						$tag_img.
+						'</a> ';
+		}
+		$ayuda .= "</div>";
+		$ayuda = str_replace("'", "\\'", $ayuda);
+		
+		//$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+		$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null, $ayuda);
+
+		$html = "<a href=\"".$this->vinculo_editor($clase, $parametros_editor)."\" target=\"".apex_frame_centro."\">$img</a>\n";
+		return $html;	
 	}
 
-	function vinculo_editor($parametros = array())
+	function vinculo_editor($clase, $parametros)
 	{
-		$editor_item = $this->datos['_info']['clase_editor_item'];
-		$editor_proyecto = $this->datos['_info']['clase_editor_proyecto'];
-		return toba::vinculador()->generar_solicitud( $editor_proyecto, $editor_item, $this->acceso_zona($parametros),
+		return toba::vinculador()->generar_solicitud( 		$this->datos_editores[$clase]['proyecto'], 
+															$this->datos_editores[$clase]['item'],
+															$parametros,
 															false, false, null, true, 'central');
 	}
-		//Editor
-		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
-			$ayuda = null;
-			if (in_array($this->datos['_info']['clase'], toba_info_editores::get_lista_tipo_componentes())) {
-				$metodo = "get_pantallas_".$this->datos['_info']['clase'];
-				$pantallas = call_user_func(array("toba_datos_editores", $metodo));
-				//-- Se incluye un vinculo a cada pantalla encontrada
-				$ayuda = "<div class='editor-lista-vinculos'>";
-				foreach ($pantallas as $pantalla) {
-					$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
-					$origen = ($pantalla['imagen'] != '') ? $pantalla['imagen_recurso_origen'] : 'apex';
-					$vinculo = $this->vinculo_editor(array('etapa' => $pantalla['identificador']));
-					$tag_img = ($origen == 'apex') ? toba_recurso::imagen_toba($img, true) : toba_recurso::imagen_proyecto($img, true);
-					$ayuda .= '<a href='.$vinculo.' target='.apex_frame_centro.
-								" title='".$pantalla['etiqueta']."'>".
-								$tag_img.
-								'</a> ';
-				}
-				$ayuda .= "</div>";
-				$ayuda = str_replace("'", "\\'", $ayuda);
-			}
-			$iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
-				'ayuda' => $ayuda,
-				'vinculo' => $this->vinculo_editor()
-			);
-		}
-		return $iconos;	
-*/
 }
 ?>
