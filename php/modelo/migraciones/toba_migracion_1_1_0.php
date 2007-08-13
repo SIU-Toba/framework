@@ -1,8 +1,7 @@
 <?php
 
-class toba_migracion_1_0_5 extends toba_migracion
+class toba_migracion_1_1_0 extends toba_migracion
 {
-	
 	function instancia__cambios_estructura()
 	{
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN usar_vinculo			smallint		";
@@ -29,14 +28,18 @@ class toba_migracion_1_0_5 extends toba_migracion
 						clase_contenedora					varchar(60)		NOT NULL,
 						clase_contenida						varchar(60)		NOT NULL
 					);";
-		
+		$sql[] = "	CREATE TABLE	apex_consulta_php
+					(
+					  	proyecto 					VARCHAR(15)  	NOT NULL,
+						consulta_php				int4			NOT NULL, 
+					  	clase                   	VARCHAR(60)  	NOT NULL,
+					  	archivo                 	VARCHAR(255) 	NOT NULL
+					);";		
 		$this->elemento->get_db()->ejecutar($sql);		
-
-		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a50_planes_asistente.sql';
+		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a50_asistentes.sql';
 		if (file_exists($archivo)) {
 			$this->elemento->get_db()->ejecutar_archivo($archivo);
 		}
-
 	}
 	
 	function instancia__migracion_nombre_componentes()
