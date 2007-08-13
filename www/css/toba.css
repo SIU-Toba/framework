@@ -28,11 +28,12 @@
 #editor_previsualizacion {
 	position: fixed;
 	_position: absolute;
-	right: 0px;
+	left: 0px;
 	bottom: 0px;
 	background-color: white;
 	border: 1px solid gray;
 	padding: 6px;
+	padding-left: 0;
 }
 #editor_previsualizacion img {
 	vertical-align: middle;

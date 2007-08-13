@@ -17,7 +17,7 @@ a:hover {
 
 #php-referencia-cont {
 	bottom: 0;
-	left: 0;
+	right: 0;
 	position: fixed;
 	background-color:white;
 	border: 1px solid black;

@@ -361,7 +361,7 @@ class toba_item_info implements toba_nodo_arbol
 				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
-				'plegado' => true								
+				'plegado' => false								
 			);			
 
 		} else { //Es un item común
