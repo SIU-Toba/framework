@@ -38,7 +38,7 @@ class toba_vinculo
 	}
 	
 	/**
-	 * Cambia el item destino del vinculo
+	 * Cambia la operación destino del vinculo
 	 */
 	function set_item( $proyecto, $item )
 	{
@@ -73,7 +73,7 @@ class toba_vinculo
 	}
 	
 	/**
-	 * Agrega a la URL generado un parámetro que carga automáticamente la zona del item destino del vínculo
+	 * Agrega a la URL generado un parámetro que carga automáticamente la zona de la operación destino del vínculo
 	 * @param mixed $editable Valor común de los items a cargar en la zona
 	 * @see toba_zona
 	 */

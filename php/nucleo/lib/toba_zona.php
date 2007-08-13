@@ -168,7 +168,7 @@ class toba_zona
 	}
 
 	/**
-	 * Genera el html de la seccion de ITEMs pertenecientes ala barra
+	 * Genera el html de la seccion de OPERACIONES pertenecientes a la barra
 	 * Extender en caso de querer cambiar radicamente la forma de mostrar iconos,
 	 * probar antes si con estilos no es posible encontrar el layout buscado
 	 * @ventana

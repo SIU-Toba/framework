@@ -10,7 +10,7 @@ vinculador = new function() {
 	this._vinculos = [];	
 };
 	/**
-	 * Crea una URL hacia el item actual
+	 * Crea una URL hacia la operación actual
 	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
 	 * @param {Object} parametros Objeto asociativo parametro=>valor (ej. {'precio': 123} )
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)

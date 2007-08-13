@@ -104,7 +104,7 @@ class zona_item extends zona_editor
 				}
 				echo "</table>\n";
 			}else{
-				echo "El ITEM no consume COMPONENTES.";
+				echo "El la OPERACION no contiene COMPONENTES.";
 			}
 		echo "</td></tr></table>";
 	}

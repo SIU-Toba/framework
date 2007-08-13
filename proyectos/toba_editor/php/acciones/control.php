@@ -163,7 +163,7 @@ function abrir_toba_instancia(){
 	//------------ TABS
 	$tabs = array(
 		array(
-			'nombre' => 'Items',
+			'nombre' => 'Operac.',
 			'imagen' => toba_recurso::imagen_proyecto("item.gif",true),
 			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral'),
 			'ayuda' => 'Operaciones disponibles en el Proyecto',

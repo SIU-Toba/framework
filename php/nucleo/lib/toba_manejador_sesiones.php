@@ -98,7 +98,7 @@ class toba_manejador_sesiones
 	}
 	
 	/**
-	*	Entrada a un proyecto desde el item de inicializacion de sesion
+	*	Entrada a un proyecto desde la operación de inicializacion de sesion
 	*/
 	function iniciar_sesion_proyecto($datos_iniciales)
 	{

@@ -396,7 +396,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'4', --orden
 	'Anexo Nombre', --etiqueta
 	NULL, --etiqueta_estilo
-	'Modifica el nombre del item y sus componentes agregando una cadena al inicio de cada nombre.', --descripcion
+	'Modifica el nombre de a opearción y sus componentes agregando una cadena al inicio de cada nombre.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

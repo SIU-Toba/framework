@@ -477,7 +477,7 @@ class toba_editor
 		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_centro';
 		$vinculo['imagen'] = 'objetos/editar.gif';
-		$vinculo['tip'] = 'Ir al editor del item.';
+		$vinculo['tip'] = 'Ir al editor de la operación.';
 		$vinculos[] = $vinculo;
 
 		//Catalogo Unificado
@@ -489,7 +489,7 @@ class toba_editor
 		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
-		$vinculo['tip'] = 'Ver composicion del ITEM.';
+		$vinculo['tip'] = 'Ver composicion de la operación.';
 		$vinculos[] = $vinculo;
 
 /*		//Consola JS
@@ -497,7 +497,7 @@ class toba_editor
 		$vinculos[2]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/objetos/consola_js');
 		$vinculos[2]['frame'] = 'frame_lista';
 		$vinculos[2]['imagen'] = 'solic_consola.gif';
-		$vinculos[2]['tip'] = 'Ir al editor del item.';
+		$vinculos[2]['tip'] = 'Ir al editor de la operación.';
 */
 		return $vinculos;
 	}

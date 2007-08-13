@@ -329,7 +329,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'1', --orden
 	'Anexo nombre', --etiqueta
 	NULL, --etiqueta_estilo
-	'Modifica el nombre del item (y sus dependencias si se clonan también) agregando una cadena al inicio de cada nombre.', --descripcion
+	'Modifica el nombre de la operación (y sus dependencias si se clonan también) agregando una cadena al inicio de cada nombre.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

@@ -99,7 +99,7 @@ class toba_error_ini_sesion extends toba_error
 
 /**
  * Excepción para recargar una solicitud
- * es necesario que el item donde se ejecute esta excepcion este marcado como "recar
+ * es necesario que la operación donde se ejecute esta excepcion este marcado como "recar
  */
 class toba_reset_nucleo extends Exception
 {

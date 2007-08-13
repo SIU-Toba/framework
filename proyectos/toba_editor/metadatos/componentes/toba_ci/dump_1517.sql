@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'editores/editor_item/ci_principal.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Editor ITEM', --nombre
+	'Editor de una operación', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'&Eliminar', --etiqueta
 	'0', --maneja_datos
 	'0', --sobre_fila
-	'¿Desea eliminar el ITEM?', --confirmacion
+	'¿Desea eliminar la Operación?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen

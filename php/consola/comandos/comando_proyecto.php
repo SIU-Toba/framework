@@ -217,7 +217,7 @@ class comando_proyecto extends comando_toba
 
 	
 	/**
-	 * Actualiza o crea el item de login asociado al proyecto
+	 * Actualiza o crea la operación de login asociada al proyecto
 	 * @gtk_icono usuarios/usuario.gif
 	 */
 	function opcion__actualizar_login()

@@ -27,7 +27,7 @@ class ci_php extends toba_ci
 			$meta_clase = toba_constructor::get_info( $clave_componente, 'toba_item');
 			//Si el componente no tiene definida una subclase, no tiene sentido estar aca.
 			if (!$datos['actividad_accion']) {
-				throw new toba_error('El item no tiene un archivo php definido');	
+				throw new toba_error('La operación no tiene un archivo php definido');	
 			}			
 			//- 3 - Creo el toba_archivo_php y la clase_php que quiero mostrar
 			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['actividad_accion'];

@@ -991,7 +991,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		//--- ¿Existe el proyecto editor?
 		if (! $this->instancia->existen_metadatos_proyecto( toba_editor::get_id() )) {
-			$msg = "No se crea el item de login porque el proyecto editor no está cargado en la instancia";
+			$msg = "No se crea la operación de login porque el proyecto editor no está cargado en la instancia";
 			toba_logger::instancia()->info($msg);
 			$this->manejador_interface->error($msg);
 			return;

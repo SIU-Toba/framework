@@ -1132,7 +1132,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'15', --orden
 	'Ver:', --etiqueta
 	NULL, --etiqueta_estilo
-	'Las opciones son: <ul><li><b>Ocultar ya utilizados en el item</b>: Elimina los puntos de control que ya se utilizaron en pantallas anteriores del mismo item.<li><b>Filtrar por campos</b>: Solo muestra los puntos de control cuyos parametros tengan el mismo nombre que los definidos en el cuadro en edición.</ul>', --descripcion
+	'Las opciones son: <ul><li><b>Ocultar ya utilizados en la operación</b>: Elimina los puntos de control que ya se utilizaron en pantallas anteriores del mismo item.<li><b>Filtrar por campos</b>: Solo muestra los puntos de control cuyos parametros tengan el mismo nombre que los definidos en el cuadro en edición.</ul>', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1147,7 +1147,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --carga_col_desc
 	NULL, --carga_sql
 	'toba_referencia', --carga_fuente
-	'T/Todos,P/Ocultar ya utilizados en el item,C/Filtrar por campos', --carga_lista
+	'T/Todos,P/Ocultar ya utilizados en la operación,C/Filtrar por campos', --carga_lista
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado

@@ -52,7 +52,7 @@ class toba_nucleo
 				toba::logger()->debug('Se recargo el nucleo','toba');
 				//El item puede redireccionar?
 				if ( !$this->solicitud->get_datos_item('redirecciona') ) {
-					throw new toba_error('ERROR: El item no esta habilitado para provocar redirecciones.');
+					throw new toba_error('ERROR: La operación no esta habilitada para provocar redirecciones.');
 				}
 				//TRAP para forzar la recarga de solicitud
 				$this->solicitud_en_proceso = false;
@@ -129,7 +129,7 @@ class toba_nucleo
 				// Esto apunta a solucionar ese error: Blanqueo el item solicitado y vuelvo a intentar.
 				// (NOTA: esto puede ocultar la navegacion entre items supuestamente publicos)
 				if ( toba::memoria()->get_item_solicitado() ) {
-					toba::logger()->debug('Fallo la carga de un item publico. Se intenta con el item predeterminado', 'toba');
+					toba::logger()->debug('Fallo la carga de una operación publica. Se intenta con la operación predeterminada', 'toba');
 					toba::memoria()->set_item_solicitado(null);					
 					$item = $this->get_id_item('item_pre_sesion');
 					$this->iniciar_contexto_solicitud($item);
@@ -159,7 +159,7 @@ class toba_nucleo
 				$item[1] = toba::proyecto()->get_parametro($predefinido);		
 				toba::memoria()->set_item_solicitado($item);
 			} else {
-				throw new toba_error('NUCLEO: No es posible determinar el item a cargar');
+				throw new toba_error('NUCLEO: No es posible determinar la operación a cargar');
 			}
 		}
 		return $item;

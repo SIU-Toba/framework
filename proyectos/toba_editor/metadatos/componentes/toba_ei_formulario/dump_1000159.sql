@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'CARPETA - Propiedades', --nombre
 	NULL, --titulo
 	'0', --colapsable
-	'Propiedades del ITEM', --descripcion
+	'Propiedades de la operación', --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
 	NULL, --solicitud_registrar

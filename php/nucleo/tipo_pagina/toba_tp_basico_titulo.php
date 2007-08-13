@@ -1,8 +1,8 @@
 <?php
 /**
 * 
-* Incluye una barra con nombre y ayuda contextual del item, 
-* y centraliza el contenido de la salida del item
+* Incluye una barra con nombre y ayuda contextual de la operación, 
+* y centraliza el contenido de la salida de la operación
 * 
 * @package SalidaGrafica
 */
@@ -28,7 +28,7 @@ class toba_tp_basico_titulo extends toba_tp_basico
 	}
 	
 	/**
-	 * Retorna el título del item actual, utilizado en la barra superior
+	 * Retorna el título de la opreación actual, utilizado en la barra superior
 	 */
 	protected function titulo_item()
 	{

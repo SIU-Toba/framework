@@ -91,7 +91,7 @@ class toba_ci extends toba_ei
 	 * Ventana de extensión que se ejecuta cuando el componente se inicia en la operación.
 	 * Su utilidad recide en por ejemplo inicializar un conjunto de variables de sesion y evitar
 	 * el chequeo continuo de las mismas.
-	 * Este momento generalmente se corresponde con el inicio del item, aunque existen excepciones:
+	 * Este momento generalmente se corresponde con el inicio de la operación, aunque existen excepciones:
 	 *  - Si el componente es un ci dentro de otro ci, recien se ejecuta cuando entra a la operacion que no necesariamente es al inicio,
 	 * 		si por ejemplo se encuentra en la 3er pantalla del ci principal.
 	 *  - Si se ejecuta una limpieza de memoria (comportamiento por defecto del evt__cancelar)

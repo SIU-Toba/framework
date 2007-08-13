@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'2', --orden
 	'Borrar Componentes', --etiqueta
 	NULL, --etiqueta_estilo
-	'Elimina el item y los componentes creados por la generación del molde.', --descripcion
+	'Elimina la operación y los componentes creados por la generación del molde.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

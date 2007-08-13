@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Esta clase maneja la VINCULACION entre ITEMS. Conoce todos los lugares a los que el 
- * ITEM actual puede acceder (considerando el USUARIO que lo solicito)
- * Para navegar hacia estos items puede construir URLs e incluirlos en algún TAG
+ * Esta clase maneja la VINCULACION entre operaciones. Conoce todos los lugares a los que la
+ * operación actual puede acceder (considerando el USUARIO que lo solicito)
+ * Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG
  * @package Centrales
  * @jsdoc vinculador vinculador
- * @wiki Referencia/Item Vincula ítems
+ * @wiki Referencia/Operacion Vincula operaciones
  * @todo agregar un nivel de vinculos globales para un OBJETO puntual
  */
 class toba_vinculador 
@@ -115,7 +115,7 @@ class toba_vinculador
  	{
  		$separador = '&';
 		//-[1]- Determino ITEM
-		//Por defecto se propaga el item actual, o un item del mismo proyecto
+		//Por defecto se propaga el id de la operación actual, o una operación del mismo proyecto
 		$autovinculo = false;
 		if ($item_proyecto == null || $item == null) {
 			$item_solic = toba::memoria()->get_item_solicitado();
@@ -340,7 +340,7 @@ class toba_vinculador
 	 *
 	 * @param string $item_proyecto Proyecto al que pertenece el ítem destino (por defecto el actual)
 	 * @param string $item ID. del ítem destino (por defecto el actual)
-	 * @param array $parametros Parametros pasados al ITEM (Array asociativo de strings)
+	 * @param array $parametros Parametros pasados a la OPERACION (Array asociativo de strings)
 	 * @param boolean $zona Activa la propagacion automatica del editable de la ZONA
 	 * @param boolean $cronometrar Indica si la solicitud generada por este vinculo debe cronometrarse
 	 * @return string Comando JS que contiene el salto de página

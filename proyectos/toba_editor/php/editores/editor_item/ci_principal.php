@@ -235,7 +235,7 @@ class ci_principal extends toba_ci
 	function evt__eliminar()
 	{
 		$this->get_entidad()->eliminar();
-		toba::notificacion()->agregar("El item ha sido eliminado","info");
+		toba::notificacion()->agregar("La operación ha sido eliminada","info");
 		toba::zona()->resetear();
 		admin_util::refrescar_editor_item();
 	}

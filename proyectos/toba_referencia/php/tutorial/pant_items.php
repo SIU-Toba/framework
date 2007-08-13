@@ -66,7 +66,7 @@ class pant_php_plano extends pant_tutorial
 			En este caso se asocia al ítem un archivo en el sistema de archivos y en él se programa la operación de la forma tradicional en PHP. 
 			</p>
 			
-			<p>Se puede definir el archivo en las propiedades básica del item
+			<p>Se puede definir el archivo en las propiedades básica de la operación
 			</p>
 			";
 			echo "<div style='text-align: center'>";
@@ -87,8 +87,8 @@ class pant_masinfo extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Item', 
-													'Documentación de un ítem',
+		$wiki1 = toba_parser_ayuda::parsear_wiki('Referencia/Operacion', 
+													'Documentación de una operación',
 													'toba_editor');
 		echo "
 			<ul>

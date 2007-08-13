@@ -62,7 +62,7 @@ abstract class toba_solicitud
 	 * Construye un componente y lo mantiene en un slot interno
 	 *
 	 * @param string $clase Nombre de la clase de componente
-	 * @param int $posicion Posición del objeto en el item
+	 * @param int $posicion Posición del componente en la operación
 	 * @param mixed $parametros
 	 * @return int Indice o slot interno donde se almaceno el componente
 	 */
@@ -168,7 +168,7 @@ abstract class toba_solicitud
 	}
 	
 	/**
-	* Retorna un arreglo de datos básicos del item que se esta ejecutando
+	* Retorna un arreglo de datos básicos de la operación que se esta ejecutando
 	* @param string $prop Propiedad a obtener (opcional)
 	*/
 	function get_datos_item($prop=null)

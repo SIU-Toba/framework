@@ -38,7 +38,7 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
 	'toba_editor', --proyecto
 	'zona_item', --zona
-	'Edicion de ITEMs', --nombre
+	'Edicion de Operaciones', --nombre
 	NULL, --clave_editable
 	'zona/zona_item.php', --archivo
 	NULL, --descripcion

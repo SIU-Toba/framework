@@ -23,8 +23,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Editor de Items', --nombre
-	'Un [wiki:Referencia/Item ítem] es la definición de una operación.', --descripcion
+	'Editor de Operaciones', --nombre
+	'Una [wiki:Referencia/Operacion operación] es la unidad accesible por el usuario.', --descripcion
 	'', --actividad_accion
 	'1', --menu
 	'6', --orden

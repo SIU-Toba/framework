@@ -3,7 +3,7 @@
 /**
  * Permite seleccionar un valor a partir de un item de popup. Pensado para conjunto grandes de valores
  * El ef solo se encarga del componente grafico que lanza el popup y de recibir el estado desde el popup, pero no de 
- * armar el item de popup ni su forma de elección del valor
+ * armar la operación de popup ni su forma de elección del valor
  * @package Componentes
  * @subpackage Efs
  * @jsdoc ef_popup ef_popup

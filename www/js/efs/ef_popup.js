@@ -69,7 +69,7 @@ ef_popup.prototype.constructor = ef_popup;
 	};	
 	
 	/**
-	 * Abre el item de popup asociado pasandole los valores actuales del elemento
+	 * Abre la operación de popup asociada pasandole los valores actuales del elemento
 	 * Similar a clickear sobre el icono de apertura de popup
 	 * En formulario es posible atrapar el vinculo de apertura y modificarlo
 	 */

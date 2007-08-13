@@ -256,8 +256,8 @@ class toba_memoria
 	}
 
 	/**
-	 * Retorna el item requerido originalmente por el usuario en este pedido de página
-	 * Puede diferir del item actualmente atendido ya que se pudo hacer una redirección
+	 * Retorna la operación requerida originalmente por el usuario en este pedido de página
+	 * Puede diferir de la operación actual ya que se pudo hacer una redirección
 	 * @see get_item_solicitado
 	 * @return array [0]=>proyecto, [1]=>id_item
 	 */	
@@ -653,7 +653,7 @@ class toba_memoria
 			
 			$es_distinto_item = ($this->celda_memoria_actual['item_anterior'] != $this->celda_memoria_actual['item']);
 			if($es_distinto_item && !$es_item_cascada && !$vino_item_cascada) {
-				toba::logger()->debug("TOBA MEMORIA: Reciclaje por cambio de ITEM", 'toba');
+				toba::logger()->debug("TOBA MEMORIA: Reciclaje por cambio de OPERACION", 'toba');
 				foreach( $this->celda_memoria_actual['reciclables'] as $reciclable => $tipo){	
 					if($tipo == apex_hilo_reciclado_item){
 						$this->eliminar_dato_operacion($reciclable);

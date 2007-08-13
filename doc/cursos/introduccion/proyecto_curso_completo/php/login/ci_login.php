@@ -5,7 +5,7 @@ class ci_login extends toba_ci
 	protected $s__datos;
 	
 	/**
-	 * Guarda el id del item original así se hace una redirección una vez logueado
+	 * Guarda el id de la operación original así se hace una redirección una vez logueado
 	 */
 	function ini__operacion()
 	{

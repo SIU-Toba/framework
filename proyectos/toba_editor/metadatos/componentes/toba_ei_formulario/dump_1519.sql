@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'ITEM - Propiedades Básicas', --nombre
 	NULL, --titulo
 	'0', --colapsable
-	'Propiedades del ITEM', --descripcion
+	'Propiedades de la operación', --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
 	NULL, --solicitud_registrar
@@ -1133,7 +1133,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'20', --orden
 	'Público', --etiqueta
 	NULL, --etiqueta_estilo
-	'El ITEM puede ser accedido por cualquier USUARIO, sin considerar el GRUPO de ACCESO al que pertenece.', --descripcion
+	'La operación puede ser accedida por cualquier USUARIO, sin considerar el GRUPO de ACCESO al que pertenece.', --descripcion
 	'1', --colapsado
 	NULL, --desactivado
 	NULL, --estilo
@@ -1334,7 +1334,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'23', --orden
 	'ACCESO - Registrar', --etiqueta
 	NULL, --etiqueta_estilo
-	'Registrar el acceso a este ITEM', --descripcion
+	'Registrar el acceso a esta operación en el LOG', --descripcion
 	'1', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1401,7 +1401,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'17', --orden
 	'ACC - Cronom.', --etiqueta
 	NULL, --etiqueta_estilo
-	'Cronometrar el acceso al ITEM', --descripcion
+	'Cronometrar el acceso a la operación', --descripcion
 	'1', --colapsado
 	'1', --desactivado
 	NULL, --estilo
@@ -1468,7 +1468,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'4', --orden
 	'Tipo de solicitud', --etiqueta
 	NULL, --etiqueta_estilo
-	'El [wiki:Referencia/Solicitud Tipo de Solicitud] marca desde que ambiente se puede solicitar el item y que clases/funciones habrá disponible para esa ejecución. Usualmente son solicitudes Web.', --descripcion
+	'El [wiki:Referencia/Solicitud Tipo de Solicitud] marca desde que ambiente se puede solicitar la operación y que clases/funciones habrá disponible para esa ejecución. Usualmente son solicitudes Web.', --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
 	NULL, --estilo
@@ -1538,7 +1538,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'12', --orden
 	'ZONA', --etiqueta
 	NULL, --etiqueta_estilo
-	'Zona de la que el ITEM forma parte', --descripcion
+	'Zona de la que la operación forma parte', --descripcion
 	NULL, --colapsado
 	NULL, --desactivado
 	NULL, --estilo
@@ -1605,7 +1605,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'13', --orden
 	'Zona - listar', --etiqueta
 	NULL, --etiqueta_estilo
-	'Listar el ITEM en la barra de navegación de la zona', --descripcion
+	'Listar la operación en la barra de navegación de la zona', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1672,7 +1672,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'14', --orden
 	'Zona - Orden', --etiqueta
 	NULL, --etiqueta_estilo
-	'Orden que ocupa el item en la zona', --descripcion
+	'Orden que ocupa la operación en la zona', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1806,7 +1806,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'21', --orden
 	'Redirecciona', --etiqueta
 	NULL, --etiqueta_estilo
-	'Indica que el ITEM puede bifurcarse (un evento del mismo puede pasar el control a otro item)', --descripcion
+	'Indica que la oepración puede bifurcarse (un evento del mismo puede pasar el control a otra operación)', --descripcion
 	'1', --colapsado
 	'0', --desactivado
 	NULL, --estilo

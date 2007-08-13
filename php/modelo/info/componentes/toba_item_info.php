@@ -98,7 +98,7 @@ class toba_item_info implements toba_nodo_arbol
 	}
 
 	/**
-	*	EJECUCION de ITEMS desde el administrador
+	*	EJECUCION de operaciones desde el editor
 	*/
 	function vinculo_ejecutar()
 	{
@@ -287,7 +287,7 @@ class toba_item_info implements toba_nodo_arbol
 		} else {
 			$iconos[] = array(
 				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_proyecto("item.gif", false),
-				'ayuda' => "[wiki:Referencia/Item Item] que representa una operación del proyecto.",
+				'ayuda' => "Una [wiki:Referencia/Operacion Operación] representa la unidad accesible por el usuario.",
 				);
 				
 			if ($this->es_de_consola()) {
@@ -304,25 +304,25 @@ class toba_item_info implements toba_nodo_arbol
 			if($this->crono()){		
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("cronometro.gif", false),
-					'ayuda'=> "El ITEM se cronometra"
+					'ayuda'=> "La operación se cronometra"
 				);			
 			}
 			if($this->es_publico()){
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("usuarios/usuario.gif", false),
-					'ayuda'=> "ITEM público"
+					'ayuda'=> "Operación pública"
 				);				
 			}
 			if($this->puede_redireccionar()){
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("refrescar.png", false),
-					'ayuda'=> "ITEM puede redireccionar."
+					'ayuda'=> "La operación puede redireccionar hacia otra."
 				);				
 			}
 			if($this->registra_solicitud() == 1){
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("solicitudes.gif", false),
-					'ayuda'=> "El ITEM se registra"
+					'ayuda'=> "La operación se registra en el log"
 				);				
 			}
 			if ( $this->posee_accion_predefinida() && ! $this->existe_php_accion() ) {
@@ -358,7 +358,7 @@ class toba_item_info implements toba_nodo_arbol
 			);
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_proyecto("item_nuevo.gif", false),
-				'ayuda'=> "Crear ITEM hijo en esta rama del CATALOGO",
+				'ayuda'=> "Crear una nueva operación en esta carpeta",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => false								
@@ -389,7 +389,7 @@ class toba_item_info implements toba_nodo_arbol
 				$this->get_tipo_solicitud() !="wddx") {
 			$utilerias[] = array(
 							'imagen' => toba_recurso::imagen_toba("instanciar.png",false),
-							'ayuda' => 'Ejecutar el ITEM',
+							'ayuda' => 'Ejecutar la operación',
 							'vinculo' => $this->vinculo_ejecutar()
 						);			
 			
@@ -397,7 +397,7 @@ class toba_item_info implements toba_nodo_arbol
 			
 		$utilerias[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
-			'ayuda' => "Editar propiedades del ITEM",
+			'ayuda' => "Editar propiedades globales a la operación",
 			'vinculo' => $this->vinculo_editor()
 		);				
 		return $utilerias;

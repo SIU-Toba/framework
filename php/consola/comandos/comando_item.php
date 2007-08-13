@@ -24,7 +24,7 @@ class comando_item extends comando_toba
 			$usuario = $param['-u'];
 		}
 		if (!isset($param['-t'])) {
-			throw new toba_error("Es necesario definir una ITEM. Utilice el modificador '-t'");
+			throw new toba_error("Es necesario definir una OPERACION. Utilice el modificador '-t'");
 		}
 		$item = $param['-t'];
 		
