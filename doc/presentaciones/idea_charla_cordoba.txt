@@ -1,0 +1,102 @@
+1)
+	Nos presentamos
+	Que es el siu minimamente.
+	Agenda:
+		* Idea de la herramienta
+		* Contar el contexto
+		* Mostrar la herramienta en detalle
+		* Resultados y perspectivas.
+
+2) Mostrar rapido la herramienta
+	(screenshot 1: aplicacion)
+	* Se abre el tehuelche
+		Aplicaciones web transaccionales
+			* No orientadas a mostrar contenidos sino a modelar circuitos de gestion complejos.
+			* Implementar procesos de carga de informacion en los que la calidad de los datos recolectos es esencial.
+			* Orientada a reemplazar sistemas implementados en escritorio (80's y 90's). 
+				Tipicos usuarios y sistemas acostumbrados a utilizar herramientas hechas en FOX, VB y power buider, etc.
+	* Mostrar puntos de edicion
+	* Contar que existe un IDE (screenshot 2 toba)
+	* Modificar detalles de la operacion
+	
+3) Es un ambiente de desarrollo web
+	* Posee un IDE (aporta dinamismo en la construccion, misma metafora CMS)
+	* Abarca todos los aspectos involucrados en la construccion de aplicaciones
+		 (marco de problemas comunes de desarrollo). Nota: No librería
+	* Arquitectura basada en definicion de componentes (metadatos que son interpretados por un runtime)
+	* Enfocado en sistemas transaccionales (circuitos de gestión complejos).
+
+4) Contexto SIU
+5) Filosofia SIU
+	* Heterogeneidad del sistema universitario (tamaño, poblacion, diversidad geografica, cultural, social). La solucion requiere que cada universidad adecue los sistemas a su realidad.
+	* proyecto guarani, desde 1998. Se busca involucrar a todos los actores. El soft no era libre, pero en el universo del sisema universitario la filosofia se correspondia con la filosofia del software libre: conocimiento libre, actividad transversal a las instituciones, repositorios comunes, etc.
+	* Esto dio como resultado la conformacion de una comunidad transversal a las instituciones que trabaja con una morfologia de red en pos de mejorar la gestion haciendola mas eficiente.
+
+6) Liberacion
+	* El Proceso llevo varios meses: componentes legales, tecnico/administrativas y politicas.
+	* Complejidad inicial: no hay legislacion sobre licenciamiento por parte del estado. No hay vias preestablecidas para lograr algo asi.
+	* Trabajo en equipo: asesoramiento y apoyo
+		Gestion Publica:	 Jose Carlinni Fernando Marezca
+		Redes: 	Enrique Cambours	Estela Barone
+		Firma de filmus.
+
+7) Construyendo con SIU-Toba
+ - Item
+    - Es la unidad accesible del usuario sobre la cual se establece el esquema de permisos.
+ 	- Relación entre el arbol de items y el menu
+ 	- Creación de un item y su impacto en el menú (recordar poner en menu=1)
+ - Una operacion esta formada por componentes
+ 	- ABMs
+    	- Identificacion de los componentes en una operacion 
+    	- Mostramos el arbol de componentes
+    	- Codigo asociado
+    - Operacion grande
+    	- Mostramos arbol de componentes
+    	- Esquema de tablas
+ 
+8) Características del ambiente
+	* Posee una arquitectura de componentes orientada a crear operaciones transaccionales.
+		- Separación en capas (controles gráficos, comportamiento, persistencia).
+		- Validaciones predefinidas.
+		- Comportamientos AJAX predefinidos.
+		- Soporte para transacciones complejas.
+	* Minimiza la programacion:
+		- Permite focalizarse en la logica de negocio.
+		- Oculta complejidad tecnologías web
+		- Reduce curva de aprendizaje (herencia de php)
+	* Abarca todos los aspectos involucrados en la construccion de aplicaciones.
+		- Administracion de usuarios y permisos.
+		- Construccion de menues
+		- Manejo de errores y mensajes
+		- Utilerias de debug
+ 
+9) Metodología/actividad del grupo de trabajo
+	* Cooperacion a travez de un sistema de control de versiones (SVN)
+	* Base de conocimiento abierta (WIKI)
+	* Manejo del proyecto: bugs y mejoras (TRAC)
+
+10) Resultados
+	* 23 sistemas desarrollados por 4 grupos de desarrolladores en distintos puntos del pais
+	* Se programaron muchos sistemas chicos en poco tiempo
+	* Los sistemas complejos resolvieron todos los problemas planteados
+	* Todos los sitemas tienen un diseño, arquitectura y look & feel homogeneo
+		(Los sistemas pueden rotar entre desarrolladores sin perder tiempo en el cambiode contexto)
+
+11) Perspectivas
+	* Seguir trabajando sobre la herramienta
+		* Acompañar otros aspectos del proceso de desarrollo
+	* Introducir la herramienta en el sistema universitario que adapten los sistemas
+	* Extender el uso del sistema a otros organismos estatales que tengan problemas similares a los del siu
+	* Crear una comunidad alrededor del sistema
+		
+12) Preguntas	
+
+
+
+
+
+----
+
+
+
+			
