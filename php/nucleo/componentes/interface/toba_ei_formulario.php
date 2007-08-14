@@ -24,7 +24,6 @@ class toba_ei_formulario extends toba_ei
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $_objeto_js;	
 	protected $_ancho_etiqueta = '150px';
-	protected $_ayuda_tooltip = true;
 	protected $_efs_invalidos = array();
 	protected $_info_formulario = array();
 	protected $_info_formulario_ef = array();
@@ -286,9 +285,9 @@ class toba_ei_formulario extends toba_ei
 	 * Permite alternar entre mostrar la ayuda a los efs con un tooltip (predeterminado) o a través de un texto visible inicialmente
 	 * @param boolean $mostrar
 	 */
-	function set_mostrar_ayuda_en_tooltips($mostrar)
+	function set_expandir_descripcion($mostrar)
 	{
-		$this->_ayuda_tooltip = $mostrar;
+		$this->_info_formulario['expandir_descripcion'] = $mostrar;
 	}
 	
 	/**
@@ -911,7 +910,7 @@ class toba_ei_formulario extends toba_ei
 			echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
 			$this->generar_input_ef($ef);
 			echo "</div>";
-			if (!$this->_ayuda_tooltip) {
+			if ($this->_info_formulario['expandir_descripcion']) {
 				echo '<span class="ei-form-fila-desc">'.$this->_elemento_formulario[$ef]->get_descripcion().'</span>';
 			}
 
@@ -944,7 +943,7 @@ class toba_ei_formulario extends toba_ei
     	    }
 		}
 		$desc='';
-		if ($this->_ayuda_tooltip) {
+		if (! $this->_info_formulario['expandir_descripcion']) {
 			$desc = $this->_elemento_formulario[$ef]->get_descripcion();		
 			if ($desc !=""){
 				$desc = toba_parser_ayuda::parsear($desc);

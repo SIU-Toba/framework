@@ -59,7 +59,6 @@ class ci_editar_molde extends toba_ci
 
 	function conf__form_borrar(toba_ei_formulario $form)
 	{
-		$form->set_mostrar_ayuda_en_tooltips(false);
 	}
 	
 	function evt__form_borrar__modificacion($datos)
@@ -81,7 +80,6 @@ class ci_editar_molde extends toba_ci
 
 	function conf__pant_editar()
 	{
-
 		$this->pantalla()->agregar_dep('asistente');
 	}
 

@@ -1,15 +1,12 @@
 <?php 
 class form_cuadro extends toba_ei_formulario
 {
-	function generar_layout()
+	
+	protected function generar_html_ef($ef)
 	{
-		$this->generar_html_ef('cuadro_eliminar_filas');
-		$this->generar_html_ef('cuadro_eof');
-		$this->generar_html_ef('sep');
-		$this->generar_html_ef('cuadro_carga_origen');
-		$this->generar_html_ef('cuadro_carga_php');
-		$this->generar_html_ef('cuadro_carga_php_metodo');
-		$this->generar_html_ef('cuadro_carga_sql');
+		if ($ef != 'cuadro_carga_php_metodo_nuevo') {
+			parent::generar_html_ef($ef);		
+		}
 	}
 	
 	protected function generar_input_ef($ef)
@@ -36,18 +33,31 @@ class form_cuadro extends toba_ei_formulario
 			if (this.ef('cuadro_carga_origen').get_estado() == 'consulta_php') {
 				this.ef('cuadro_carga_php').mostrar();
 				this.ef('cuadro_carga_php_metodo').mostrar();
+				if (! es_inicial) {
+					this.evt__cuadro_carga_php__procesar(false);
+				}
 			} else {
 				this.ef('cuadro_carga_php').ocultar();
 				this.ef('cuadro_carga_php_metodo').ocultar();
+				this.ef('cuadro_carga_php_metodo_nuevo').ocultar();
 			}
 		}
-		
+	
+		{$this->objeto_js}.evt__cuadro_carga_php__procesar = function(es_inicial)
+		{
+			if (! es_inicial) {
+				this.evt__cuadro_carga_php_metodo__procesar(false);
+			}
+		}
+	
 		{$this->objeto_js}.evt__cuadro_carga_php_metodo__procesar = function(es_inicial)
 		{
-			if (this.ef('cuadro_carga_php_metodo').get_estado() == apex_ef_no_seteado) {
-				this.ef('cuadro_carga_php_metodo_nuevo').mostrar();
-			} else {
-				this.ef('cuadro_carga_php_metodo_nuevo').ocultar();
+			if (this.ef('cuadro_carga_origen').get_estado() == 'consulta_php') {
+				if (this.ef('cuadro_carga_php_metodo').get_estado() == apex_ef_no_seteado) {
+					this.ef('cuadro_carga_php_metodo_nuevo').mostrar();
+				} else {
+					this.ef('cuadro_carga_php_metodo_nuevo').ocultar();
+				}
 			}
 		}		
 		";

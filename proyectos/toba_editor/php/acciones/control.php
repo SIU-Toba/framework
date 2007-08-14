@@ -20,7 +20,7 @@
 ?>
 <style type='text/css'>
 .ci-tabs-h-lista a {
-	padding: 5px 12px 4px 3px;
+	padding: 5px 10px 2px 3px;
 }
 </style>
 <script type="text/javascript" language='javascript'>
@@ -32,11 +32,11 @@ var expandido = true;
 function mostrar_ocultar_frame() {
 	var imagen = document.getElementById('imagen_manejo_frame');
 	if (expandido) {
-		imagen.src = '<?php echo toba_recurso::imagen_proyecto("expandir.gif",false);?>';
-		frame_admin.cols = '8,*';
+		imagen.src = '<?php echo toba_recurso::imagen_toba("nucleo/expandir_der.gif",false);?>';
+		frame_admin.cols = '12,*';
 		expandido = false;
 	} else {
-		imagen.src = '<?php echo toba_recurso::imagen_proyecto("contraer.gif",false);?>';
+		imagen.src = '<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false);?>';
 		frame_admin.cols = ancho_frame;
 		expandido = true;
 	}
@@ -92,6 +92,7 @@ function abrir_toba_instancia(){
 	<table class='tabla-0' width='100%'>
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
+        <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
         <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 		 <?php echo toba_recurso::imagen_toba('icono_24.png',true)?></a>
 		 </td>
@@ -194,7 +195,7 @@ function abrir_toba_instancia(){
 		),				
 	);
 
-	$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
+	$estilo = 'padding:0; background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
 	echo "<tr><td style='$estilo' class='ci-tabs-h-lista'>";		
 	echo "<ul>\n";
 	$id = 'id="tab_inicial"';

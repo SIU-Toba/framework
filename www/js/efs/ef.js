@@ -159,7 +159,9 @@ ef.prototype.constructor = ef;
 			}
 			if (this._obligatorio_oculto_relaj) {
 				//--- Relaja la validacion si es oculto o esta solo_lectura
-				this._obligatorio = !(this._oculto || this._solo_lectura);	
+				if (this._oculto || this._solo_lectura) {
+					this._obligatorio = false;
+				}
 			}
 		}
 		return true;
