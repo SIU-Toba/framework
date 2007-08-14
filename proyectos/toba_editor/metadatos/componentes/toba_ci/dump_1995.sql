@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1989]--  Catalogo 
+--[1995]--  Consulta PHP 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,16 +9,16 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_editor', --proyecto
-	'1989', --objeto
+	'1995', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_catalogo', --subclase
-	'datos/ci_catalogo.php', --subclase_archivo
+	'ci_consultas_php', --subclase
+	'datos/ci_consultas_php.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Catalogo', --nombre
+	'Consulta PHP', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -34,7 +34,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2007-07-19 18:05:08'  --creacion
+	'2007-08-13 19:13:44'  --creacion
 );
 --- FIN Grupo de desarrollo 0
 
@@ -45,46 +45,46 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'673', --evento_id
-	'1989', --objeto
-	'crear_dt', --identificador
-	'Tabla', --etiqueta
-	'0', --maneja_datos
+	'669', --evento_id
+	'1995', --objeto
+	'procesar', --identificador
+	'&Guardar', --etiqueta
+	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'objetos/datos_tabla.gif', --imagen
+	'guardar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	'0', --defecto
+	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
-	'V', --accion
-	'0', --accion_imphtml_debug
-	'/admin/objetos_toba/editores', --accion_vinculo_carpeta
-	'/admin/objetos_toba/editores/db_registros', --accion_vinculo_item
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
-	'frame_centro', --accion_vinculo_target
-	'central'  --accion_vinculo_celda
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'674', --evento_id
-	'1989', --objeto
-	'crear_dr', --identificador
-	'Relacion', --etiqueta
+	'670', --evento_id
+	'1995', --objeto
+	'eliminar', --identificador
+	'&Eliminar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'objetos/datos_relacion.gif', --imagen
+	'borrar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
@@ -93,75 +93,15 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
-	'V', --accion
-	'0', --accion_imphtml_debug
-	'/admin/objetos_toba/editores', --accion_vinculo_carpeta
-	'/admin/objetos_toba/editores/db_tablas', --accion_vinculo_item
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
-	'frame_centro', --accion_vinculo_target
-	'central'  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'675', --evento_id
-	'1989', --objeto
-	'crear_fuente', --identificador
-	'Fuente', --etiqueta
-	'0', --maneja_datos
-	NULL, --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'nucleo/agregar.gif', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'3', --orden
-	NULL, --ci_predep
-	'0', --implicito
-	'0', --defecto
-	NULL, --display_datos_cargados
-	NULL, --grupo
-	'V', --accion
-	'0', --accion_imphtml_debug
-	'3395', --accion_vinculo_carpeta
-	'/admin/datos/fuente', --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	'frame_centro', --accion_vinculo_target
-	'central'  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'676', --evento_id
-	'1989', --objeto
-	'crear_php', --identificador
-	'Consulta PHP', --etiqueta
-	'0', --maneja_datos
-	NULL, --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'nucleo/agregar.gif', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'4', --orden
-	NULL, --ci_predep
-	'0', --implicito
-	'0', --defecto
-	NULL, --display_datos_cargados
-	NULL, --grupo
-	'V', --accion
-	'0', --accion_imphtml_debug
-	'3395', --accion_vinculo_carpeta
-	'3398', --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	'frame_centro', --accion_vinculo_target
-	'central'  --accion_vinculo_celda
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
 );
 --- FIN Grupo de desarrollo 0
 
@@ -172,10 +112,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
-	'927', --dep_id
-	'1989', --objeto_consumidor
-	'1991', --objeto_proveedor
-	'consultas', --identificador
+	'931', --dep_id
+	'1995', --objeto_consumidor
+	'1996', --objeto_proveedor
+	'datos', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -184,34 +124,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
-	'926', --dep_id
-	'1989', --objeto_consumidor
-	'1990', --objeto_proveedor
-	'fuentes', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_editor', --proyecto
-	'929', --dep_id
-	'1989', --objeto_consumidor
-	'1993', --objeto_proveedor
-	'relaciones', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_editor', --proyecto
-	'928', --dep_id
-	'1989', --objeto_consumidor
-	'1992', --objeto_proveedor
-	'tablas', --identificador
+	'932', --dep_id
+	'1995', --objeto_consumidor
+	'1997', --objeto_proveedor
+	'form', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -225,12 +141,12 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
 	'toba_editor', --objeto_mt_me_proyecto
-	'1989', --objeto_mt_me
+	'1995', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'100%', --ancho
+	NULL, --ancho
 	NULL, --alto
-	'arriba', --posicion_botonera
+	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
@@ -252,17 +168,17 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_editor', --objeto_ci_proyecto
-	'1989', --objeto_ci
-	'1060', --pantalla
+	'1995', --objeto_ci
+	'1061', --pantalla
 	'pant_inicial', --identificador
-	'1', --orden
+	NULL, --orden
 	'Pantalla Inicial', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	'apex', --imagen_recurso_origen
+	NULL, --imagen_recurso_origen
 	NULL, --imagen
-	'fuentes,consultas,tablas,relaciones', --objetos
-	'crear_dt,crear_dr,crear_php,crear_fuente', --eventos
+	'form', --objetos
+	'procesar,eliminar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

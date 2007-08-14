@@ -33,7 +33,8 @@ class toba_migracion_1_1_0 extends toba_migracion
 					  	proyecto 					VARCHAR(15)  	NOT NULL,
 						consulta_php				int4			NOT NULL, 
 					  	clase                   	VARCHAR(60)  	NOT NULL,
-					  	archivo                 	VARCHAR(255) 	NOT NULL
+					  	archivo                 	VARCHAR(255) 	NOT NULL,
+					  	descripcion                	VARCHAR(255) 	NULL
 					);";		
 		$this->elemento->get_db()->ejecutar($sql);		
 		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a50_asistentes.sql';

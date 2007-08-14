@@ -365,6 +365,7 @@ CREATE TABLE	apex_consulta_php
 	consulta_php				int4			DEFAULT nextval('"apex_consulta_php_seq"'::text) NOT NULL, 
   	clase                   	VARCHAR(60)  	NOT NULL,
   	archivo                 	VARCHAR(255) 	NOT NULL,
+  	descripcion                	VARCHAR(255) 	NULL,
   	CONSTRAINT "apex_consulta_php_pk" PRIMARY KEY("proyecto", "consulta_php"),
   	CONSTRAINT "apex_consulta_php_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

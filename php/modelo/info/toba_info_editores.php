@@ -882,7 +882,8 @@ class toba_info_editores
 	function get_consultas_php($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$sql = "SELECT		consulta_php,
+		$sql = "SELECT		proyecto,
+							consulta_php,
 							clase,
 							archivo
 					FROM	apex_consulta_php

@@ -47,7 +47,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'consulta_php', --columnas_clave
+	'proyecto, consulta_php', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
