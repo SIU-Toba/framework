@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_numero', --elemento_formulario
 	'id', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Identificador', --etiqueta
 	NULL, --etiqueta_estilo
@@ -222,7 +222,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'clase', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Tipo de Componente', --etiqueta
 	NULL, --etiqueta_estilo
@@ -235,8 +235,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_info_tipos_componente', --carga_metodo
-	'toba_info_editores', --carga_clase
-	'modelo/info/toba_info_editores.php', --carga_include
+	NULL, --carga_clase
+	NULL, --carga_include
 	'clase', --carga_col_clave
 	'descripcion_corta', --carga_col_desc
 	NULL, --carga_sql
@@ -289,7 +289,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'extendidos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Con Subclase', --etiqueta
 	NULL, --etiqueta_estilo
@@ -356,7 +356,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'nombre', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Nombre', --etiqueta
 	NULL, --etiqueta_estilo
@@ -423,7 +423,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'dao', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Consulta PHP', --etiqueta
 	NULL, --etiqueta_estilo
@@ -490,7 +490,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'tabla', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Tabla', --etiqueta
 	NULL, --etiqueta_estilo
@@ -557,7 +557,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'subclase', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Subclase - Nombre', --etiqueta
 	NULL, --etiqueta_estilo

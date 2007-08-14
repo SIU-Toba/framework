@@ -12,7 +12,7 @@ class toba_catalogo_objetos
 		$this->proyecto = $proyecto;
 	}
 	
-	function get_objetos($opciones, $en_profundidad = false)
+	function get_objetos($opciones, $en_profundidad = false, $excluir_clases=array())
 	{
 		//---Metodo de Consulta (DAO)
 		$filtro_dao = "";
@@ -27,6 +27,13 @@ class toba_catalogo_objetos
 			$clases = array($opciones['clase']);	
 		} else {
 			$clases = toba_info_editores::get_lista_tipo_componentes();
+			if(count($excluir_clases)>0) {
+				foreach(array_keys($clases) as $i) {
+					if(in_array($clases[$i], $excluir_clases)) {
+						unset($clases[$i]);
+					}
+				}
+			}
 		}
 		
 		//---ID

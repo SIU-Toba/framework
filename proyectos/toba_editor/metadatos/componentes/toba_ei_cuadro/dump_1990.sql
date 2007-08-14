@@ -146,7 +146,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'1%', --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar

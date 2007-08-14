@@ -120,4 +120,15 @@ class ci_catalogo extends toba_ci
 		return $this->tag_vinculo_editor($item_editor_proyecto, $item_editor, $parametros_editor,$img);
 	}
 }
+
+class pantalla_catalogo extends toba_ei_pantalla 
+{
+	function generar_layout()
+	{
+		foreach($this->_dependencias as $dep) {
+			$dep->generar_html();	
+		}
+	}
+}
+
 ?>
