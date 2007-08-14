@@ -107,7 +107,14 @@ ef.prototype.constructor = ef;
 	 * @see #nodo 
 	 */
 	ef.prototype.get_contenedor = function() {
-		return document.getElementById('cont_' + this._id_form);		
+		var cont = document.getElementById('cont_' + this._id_form);		
+		if (! cont) {
+			var input = this.input();
+			if (input) {
+				return input.parentNode;
+			}
+		}
+		return cont;
 	};
 
 	/**
@@ -251,14 +258,18 @@ ef.prototype.constructor = ef;
 
 	/**
 	 * Oculta temporalmente el elemento y su etiqueta
-	 * @param {boolean} resetar Además de ocultar el elemento borra su estado o valor actual
+	 * @param {boolean} resetar Además de ocultar el elemento borra su estado o valor actual, por defecto false
 	 * @see #mostrar
 	 */
 	ef.prototype.ocultar = function(resetear) {
 		if (typeof resetear == 'undefined') {
 			resetear = false;
 		}
-		this.nodo().style.display = 'none';	
+		var nodo = this.nodo();
+		if (! nodo) {
+			nodo = this.input();	
+		}		
+		nodo.style.display = 'none';	
 		this._oculto = true;
 		if (resetear) {
 			this.resetear_estado();
@@ -275,7 +286,11 @@ ef.prototype.constructor = ef;
 			mostrar = true;
 		}
 		if (mostrar) {
-			this.nodo().style.display = '';	
+			var nodo = this.nodo();
+			if (! nodo) {
+				nodo = this.input();	
+			}
+			nodo.style.display = '';	
 			this._oculto = false;
 		} else {
 			this.ocultar(resetear);	

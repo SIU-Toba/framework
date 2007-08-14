@@ -27,7 +27,8 @@ TAB Cuadro
 
 				* Si es una consulta_php: , definir el metodo, clase y archivo.
 					Se elege la clase con un combo que liste las definidas
-
+				(Porque existe en los metadatos el campo cuadro_carga_sql? No se guarda en un archivo?)
+				
 	* Definir un EOF relacionado con la entidad
 						*** molde_operacion_abms: cuadro_eof 
 	* Definir el ID de la tabla??? (aparentemente no)
