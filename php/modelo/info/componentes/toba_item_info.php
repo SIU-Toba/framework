@@ -368,7 +368,7 @@ class toba_item_info implements toba_nodo_arbol
 
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
-				'ayuda' => "Crear un objeto asociado al item",
+				'ayuda' => "Crear un componente asociado al item",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 									array('destino_tipo' =>'toba_item', 
 											'destino_proyecto' => $this->proyecto,

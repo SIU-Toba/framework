@@ -89,7 +89,7 @@ class toba_ci_info extends toba_ei_info
 		$iconos = array();
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
-			'ayuda' => "Crear un objeto asociado al controlador",
+			'ayuda' => "Crear un nuevo componente asociado al controlador",
 			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
 								array(	'destino_tipo' => 'toba_ci', 
 										'destino_proyecto' => $this->proyecto,

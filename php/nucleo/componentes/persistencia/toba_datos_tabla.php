@@ -1281,7 +1281,7 @@ class toba_datos_tabla extends toba_componente
 	function eliminar_todo()
 	{
 		//Me elimino a mi
-		$this->eliminar_filas();
+		$this->eliminar_filas(false);
 		//Sincronizo con la base
 		$this->get_persistidor()->sincronizar_eliminados();
 		$this->resetear();
