@@ -74,7 +74,7 @@ class ci_abms_principal extends ci_asistente_base
 		//--- Rellena el ML
 		$ml->set_ordenar_en_linea(true);
 		$ml->set_proximo_id($tabla->get_proximo_id());
-		$ml->set_datos( $tabla->get_filas());		
+		$ml->set_datos( $tabla->get_filas(null, true));		
 	}
 	
 	function evt__form_filas__modificacion($datos)
@@ -92,12 +92,17 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function evt__form_cuadro__modificacion($datos)
 	{
+		if (!isset($datos['cuadro_carga_php_metodo']) && isset($datos['cuadro_carga_php_metodo_nuevo'])) {
+			$datos['cuadro_carga_php_metodo'] = $datos['cuadro_carga_php_metodo_nuevo'];
+		}
 		$this->dep('datos')->tabla('base')->set($datos);
 	}
 
 	function conf__form_cuadro(toba_ei_formulario $form)
 	{
-		return $this->dep('datos')->tabla('base')->get();
+		$datos = $this->dep('datos')->tabla('base')->get();
+		$datos['cuadro_carga_php_metodo_nuevo'] = $datos['cuadro_carga_php_metodo'];
+		$form->set_datos($datos);
 	}
 	
 	//---- Cuadro ----------------------------------------

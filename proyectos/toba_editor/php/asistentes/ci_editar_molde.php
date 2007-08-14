@@ -41,7 +41,6 @@ class ci_editar_molde extends toba_ci
 		}
 		$this->agregar_dependencia('asistente', 'toba_editor', $ci);
 		$this->dep('asistente')->set_molde($this->s__proyecto, $this->s__molde);				
-	
 	}
 	
 	function conf()

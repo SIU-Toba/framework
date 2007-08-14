@@ -110,7 +110,7 @@ abstract class toba_componente
 	 */
 	function get_txt()
 	{
-		return "componente(".$this->_id[1]."): ";	
+		return "componente(".$this->_id[1]." - $this->_id_en_controlador): ";	
 	}
 
 	/**

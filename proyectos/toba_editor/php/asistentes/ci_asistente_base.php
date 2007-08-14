@@ -4,7 +4,9 @@ class ci_asistente_base extends toba_ci
 {
 	function set_molde($proyecto, $id)
 	{
-		$this->dep('datos')->cargar(array('proyecto' => $proyecto, 'molde' => $id));
+		if (! $this->dep('datos')->esta_cargada()) {
+			$this->dep('datos')->cargar(array('proyecto' => $proyecto, 'molde' => $id));
+		}
 	}
 	
 	function set_molde_nuevo($operacion_tipo)

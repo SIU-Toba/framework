@@ -278,7 +278,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --carga_col_desc
 	NULL, --carga_sql
 	'instancia', --carga_fuente
-	'consulta_php/Clase PHP de consultas,datos_tabla/Componente de persistencia (método get_listado del datos_tabla)', --carga_lista
+	'datos_tabla/Componente de persistencia (método get_listado del datos_tabla),consulta_php/Clase PHP de consultas', --carga_lista
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
