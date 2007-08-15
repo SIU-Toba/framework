@@ -63,13 +63,14 @@ class toba_catalogo_asistentes
 	}
 	
 	/**
-	 * Dada una tabla retorna los valroes por defecto de una fila de un abm
+	 * Dada una tabla retorna los valores por defecto de una fila de un abm
 	 */
 	static function get_lista_filas_tabla($tabla)
 	{
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();
+		ei_arbol($nuevas);
 		foreach ($nuevas as $nueva) {
 			$fila = array();			
 			if (! isset($nueva['fk_tabla'])) {	
@@ -84,6 +85,12 @@ class toba_catalogo_asistentes
 				$fila['cuadro_estilo'] = 1;
 				$fila['cuadro_formato'] = 1;
 				$fila['en_cuadro'] = 1;
+				
+				$datos_carga_sql = self::get_opciones_sql_campo_externo($nueva);
+				$fila['ef_carga_col_clave'] = $datos_carga_sql['clave'];
+				$fila['ef_carga_col_desc'] = $datos_carga_sql['descripcion'];
+				$fila['ef_carga_tabla'] = $datos_carga_sql['tabla'];
+				$fila['ef_carga_sql'] = $datos_carga_sql['sql'];
 			}
 			$fila['dt_pk'] = $nueva['pk'];
 			$fila['dt_largo'] = $nueva['longitud'];			
@@ -106,6 +113,35 @@ class toba_catalogo_asistentes
 			$salida[] = $fila;
 		}
 		return $salida;
+	}
+	
+	/**
+	 * Determina la sql,clave y desc de un campo externo de una tabla
+	 * Remonta N-niveles de indireccion de FKs
+	 */
+	static protected function get_opciones_sql_campo_externo($campo)
+	{
+		//--- Busca cual es el campo descripcion de la tabla destino
+		while (isset($campo['fk_tabla'])) {
+			$tabla = $campo['fk_tabla'];
+			$clave = $campo['fk_campo'];
+			$descripcion = $campo['fk_campo'];
+			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
+			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+			$encontrado = false;			
+			foreach ($campos_tabla_externa as $campo_tabla_ext) {
+				//---Detecta cual es la clave para seguir ejecutando el script
+				if ($campo_tabla_ext['nombre'] == $clave) {
+					$campo = $campo_tabla_ext;
+				}
+				if (! $encontrado && !$campo_tabla_ext['pk'] && $campo_tabla_ext['tipo'] == 'C') {
+					$descripcion = $campo_tabla_ext['nombre'];
+					$encontrado = true;
+				}
+			}
+			$sql = "SELECT $clave, $descripcion FROM $tabla";
+		}
+		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
 	}
 
 	
