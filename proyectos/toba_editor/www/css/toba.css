@@ -1,9 +1,3 @@
-/**** Cambios puntuales a operaciones *********/
-#cont_ef_form_1000315_form_cuadrocuadro_carga_origen {
-	margin-left: 20px !important;
-	padding-bottom: 10px;
-}
-
 /* Se sacan algunos bordes */
 .ei-form-base, .ei-cuadro-cc-fondo, .ei-cuadro-cuerpo, .ci-tabs-h-cont, .ci-cuerpo {
 	border:none !important;

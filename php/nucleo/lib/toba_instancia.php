@@ -14,10 +14,10 @@ class toba_instancia
 	/**
 	 * @return toba_instancia
 	 */
-	static function instancia()
+	static function instancia($recargar=false)
 	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_instancia();	
+		if (!isset(self::$instancia) || $recargar) {
+			self::$instancia = new toba_instancia($recargar);	
 		}
 		return self::$instancia;	
 	}
@@ -27,10 +27,10 @@ class toba_instancia
 		self::$instancia = null;
 	}
 
-	private function __construct()
+	private function __construct($recargar)
 	{
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_instancia();
-		if(!$this->memoria) {
+		if(!$this->memoria || $recargar) {
 			$this->memoria = $this->get_datos_instancia( self::get_id() );
 		}
 	}

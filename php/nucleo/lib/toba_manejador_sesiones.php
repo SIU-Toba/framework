@@ -520,6 +520,17 @@ class toba_manejador_sesiones
 		toba_proyecto::instancia($proyecto, true);
 	}
 	
+	function recargar_info_instalacion()
+	{
+		toba_instalacion::instancia(true);
+	}
+	
+	function recargar_info_instancia()
+	{
+		toba_instancia::instancia(true);
+	}
+	
+	
 	//------------------------------------------------------------------
 	
 	private function guardar_contexto()

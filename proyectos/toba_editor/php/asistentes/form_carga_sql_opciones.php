@@ -1,5 +1,5 @@
 <?php 
-class form_cuadro extends toba_ei_formulario
+class form_carga_sql_opciones extends toba_ei_formulario
 {
 	
 	protected function generar_html_ef($ef)

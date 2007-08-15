@@ -14,10 +14,10 @@ class toba_instalacion
 	/**
 	 * @return toba_instalacion
 	 */
-	static function instancia()
+	static function instancia($recargar=false)
 	{
-		if (!isset(self::$instancia)) {
-			self::$instancia = new toba_instalacion();	
+		if (!isset(self::$instancia) || $recargar) {
+			self::$instancia = new toba_instalacion($recargar);	
 		}
 		return self::$instancia;	
 	}
@@ -27,10 +27,10 @@ class toba_instalacion
 		self::$instancia = null;
 	}
 
-	private function __construct()
+	private function __construct($recargar)
 	{
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_instalacion();
-		if(!$this->memoria) {
+		if(!$this->memoria || $recargar) {
 			$this->memoria = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
 		}
 	}

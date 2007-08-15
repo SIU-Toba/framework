@@ -32,11 +32,11 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'1', --cuadro_eliminar_filas
 	'tipo', --cuadro_id
 	NULL, --cuadro_forzar_filtro
-	'datos_tabla', --cuadro_carga_origen
+	'consulta_php', --cuadro_carga_origen
 	'SELECT tipo, descripcion FROM apex_tipo_datos', --cuadro_carga_sql
 	'{toba_modelo}/info/toba_info_editores.php', --cuadro_carga_php_include
 	'toba_info_editores', --cuadro_carga_php_clase
-	NULL, --cuadro_carga_php_metodo
+	'fsfs', --cuadro_carga_php_metodo
 	NULL, --datos_tabla_validacion
 	NULL  --apdb_pre
 );
@@ -52,7 +52,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'1', --fila
 	'1', --orden
 	'tipo', --columna
-	NULL, --asistente_tipo_dato
+	'1000001', --asistente_tipo_dato
 	'Tipo', --etiqueta
 	'1', --en_cuadro
 	'1', --en_form
@@ -80,7 +80,7 @@ INSERT INTO apex_molde_operacion_abms_fila (proyecto, molde, fila, orden, column
 	'3', --fila
 	'2', --orden
 	'descripcion', --columna
-	NULL, --asistente_tipo_dato
+	'1000001', --asistente_tipo_dato
 	'Descripcion', --etiqueta
 	'1', --en_cuadro
 	'1', --en_form

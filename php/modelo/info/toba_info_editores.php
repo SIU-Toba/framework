@@ -918,6 +918,7 @@ class toba_info_editores
 				}
  		    }
     	}
+    	sort($metodos);
     	return $metodos;
 	}
 	

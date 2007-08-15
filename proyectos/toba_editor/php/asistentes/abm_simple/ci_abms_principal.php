@@ -84,13 +84,26 @@ class ci_abms_principal extends ci_asistente_base
 
 	function evt__form_filas__refrescar($datos)
 	{
-		$this->dep('datos')->tabla('filas')->resetear();
+		$this->dep('datos')->tabla('filas')->eliminar_filas();
 	}
 	
 
-	//---- Form ----------------------------------------
+	//---- CUADRO - Prop. basicas ----------------------------------------
 	
 	function evt__form_cuadro__modificacion($datos)
+	{
+		$this->dep('datos')->tabla('base')->set($datos);
+	}
+
+	function conf__form_cuadro(toba_ei_formulario $form)
+	{
+		$datos = $this->dep('datos')->tabla('base')->get();
+		$form->set_datos($datos);
+	}
+	
+	//---- CUADRO - Opciones de carga ----------------------------------------
+	
+	function evt__form_cuadro_carga__modificacion($datos)
 	{
 		if (!isset($datos['cuadro_carga_php_metodo']) && isset($datos['cuadro_carga_php_metodo_nuevo'])) {
 			$datos['cuadro_carga_php_metodo'] = $datos['cuadro_carga_php_metodo_nuevo'];
@@ -98,23 +111,31 @@ class ci_abms_principal extends ci_asistente_base
 		$this->dep('datos')->tabla('base')->set($datos);
 	}
 
-	function conf__form_cuadro(toba_ei_formulario $form)
+	function conf__form_cuadro_carga(toba_ei_formulario $form)
 	{
 		$datos = $this->dep('datos')->tabla('base')->get();
 		$datos['cuadro_carga_php_metodo_nuevo'] = $datos['cuadro_carga_php_metodo'];
 		$form->set_datos($datos);
+	}	
+	
+	//---- FORM ----------------------------------------
+	
+	function conf__pant_form()
+	{
+		if (! $this->dep('datos')->tabla('filas')->hay_cursor()) {
+			$this->pantalla()->eliminar_dep('form_form_fila');
+		}
 	}
 	
-	//---- Cuadro ----------------------------------------
-	
-	function evt__form_form__modificacion($datos)
+	function evt__cuadro_form_filas__seleccion($seleccion)
 	{
-		$this->dep('datos')->tabla('base')->set($datos);
+		$this->dep('datos')->tabla('filas')->set_cursor($seleccion);
 	}
 
-	function conf__form_form(toba_ei_formulario $form)
+	function conf__cuadro_form_filas(toba_ei_cuadro $cuadro)
 	{
-		return $this->dep('datos')->tabla('base')->get();
+		//--Retorna sola las columnas con referencias
+		$cuadro->set_datos($this->dep('datos')->tabla('filas')->get_filas(array('asistente_tipo_dato' => '1000008')));
 	}	
 	
 	

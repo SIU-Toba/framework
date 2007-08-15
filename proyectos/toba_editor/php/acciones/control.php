@@ -11,6 +11,10 @@
 		$opciones = array('validar' => false);
 		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), '/admin/acceso', array(), $opciones);
 		
+		//-- Fuerza a recargar los datos de instalacion e instancia
+		toba_manejador_sesiones::recargar_info_instalacion();
+		toba_manejador_sesiones::recargar_info_instancia();
+		
 		//--- Refresca los otros frames
 		echo toba_js::abrir();
 		echo "top.location.href = '$vinculo';";

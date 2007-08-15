@@ -7,8 +7,8 @@ class form_opciones extends toba_ei_formulario
 		echo "
 			{$this->objeto_js}.evt__identificador__validar = function() {
 				if (this.ef('con_destino').chequeado() && 
-					(this.ef('tipo').valor() == 'objeto_ci' || 
-						this.ef('tipo').valor() == 'objeto_datos_relacion')) {	
+					(this.ef('tipo').valor() == 'toba_ci' || 
+						this.ef('tipo').valor() == 'toba_datos_relacion')) {	
 					if (this.ef('identificador').valor() == '') {
 						this.ef('identificador').set_error('El identificador es obligatorio');
 						return false
@@ -37,11 +37,11 @@ class form_opciones extends toba_ei_formulario
 
 				if (this.ef('con_destino').chequeado()) {
 					switch (this.ef('tipo').valor()) {
-						case 'objeto_ci':
+						case 'toba_ci':
 							this.ef('ci_pantalla').mostrar();
 							this.ef('identificador').mostrar();
 							break;
-						case 'objeto_datos_relacion':
+						case 'toba_datos_relacion':
 							this.ef('identificador').mostrar();
 							this.ef('min_filas').mostrar();
 							this.ef('max_filas').mostrar();
