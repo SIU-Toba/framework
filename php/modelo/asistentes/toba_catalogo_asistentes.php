@@ -70,7 +70,6 @@ class toba_catalogo_asistentes
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();
-		ei_arbol($nuevas);
 		foreach ($nuevas as $nueva) {
 			$fila = array();			
 			if (! isset($nueva['fk_tabla'])) {	

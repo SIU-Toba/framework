@@ -208,7 +208,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'toba_info_editores', --carga_clase
 	'modelo/info/toba_info_editores.php', --carga_include
 	'archivo,clase', --carga_col_clave
-	'archivo', --carga_col_desc
+	'descripcion', --carga_col_desc
 	NULL, --carga_sql
 	'instancia', --carga_fuente
 	NULL, --carga_lista

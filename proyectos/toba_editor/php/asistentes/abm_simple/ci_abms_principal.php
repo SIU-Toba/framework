@@ -118,7 +118,9 @@ class ci_abms_principal extends ci_asistente_base
 		$form->desactivar_efs(array('carga_col_clave', 'carga_col_desc'));
 		$datos = $this->dep('datos')->tabla('base')->get();
 		$datos = array_cambiar_prefijo_claves($datos, 'cuadro_', true);
-		$datos['carga_php_metodo_nuevo'] = $datos['carga_php_metodo'];		
+		if (isset($datos['carga_php_metodo'])) {
+			$datos['carga_php_metodo_nuevo'] = $datos['carga_php_metodo'];
+		}		
 		$form->set_datos($datos);
 	}	
 	
@@ -154,9 +156,11 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function conf__form_form_fila(toba_ei_formulario $form)
 	{
-		
 		$datos = $this->dep('datos')->tabla('filas')->get();
 		$datos = array_cambiar_prefijo_claves($datos, 'ef_', true);
+		if (isset($datos['carga_php_metodo'])) {
+			$datos['carga_php_metodo_nuevo'] = $datos['carga_php_metodo'];
+		}		
 		$form->set_datos($datos);
 	}
 	

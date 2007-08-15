@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	'No se definió ninguna columna como <strong>Referencia</strong> a otra tabla.', --eof_customizado
+	'No se definió ningun campo como <strong>Referencia</strong> a otra tabla.', --eof_customizado
 	'0', --exportar
 	NULL, --exportar_rtf
 	NULL, --pdf_propiedades

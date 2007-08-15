@@ -885,9 +885,12 @@ class toba_info_editores
 		$sql = "SELECT		proyecto,
 							consulta_php,
 							clase,
-							archivo
+							archivo,
+							clase || ' (' || archivo || ')' as descripcion
 					FROM	apex_consulta_php
-					WHERE	proyecto = '$proyecto'";
+					WHERE	proyecto = '$proyecto'
+					ORDER BY clase
+		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
