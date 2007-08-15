@@ -895,7 +895,7 @@ class toba_info_editores
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		if (is_array($consulta_php)) {
-			$consulta_php = $consulta_php['cuadro_carga_php_include'];
+			$consulta_php = $consulta_php['carga_php_include'];
 		}
 		$reemplazo = false;
 		$archivo = preg_replace_callback('/\{(\w+)\}/', array('toba_info_editores', 'parsear_consulta_php'), $consulta_php, -1 , $reemplazo);

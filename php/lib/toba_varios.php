@@ -32,8 +32,10 @@
 		return $x;
 	}
 
+	/**
+	 * Renombra todas las llaves de primer nivel de $arreglo por la $nueva_llave
+	 */
 	function array_renombrar_llave($arreglo,$nueva_llave)
-	//Renombra todas las llaves de primer nivel de $arreglo por la $nueva_llave
 	{
 		$llaves = array_keys($arreglo);
 		$cambios = array();
@@ -42,6 +44,21 @@
 		}
 		return array_renombrar_llaves($arreglo, $cambios, false);
 	}
+	
+	function array_cambiar_prefijo_claves($arreglo, $prefijo, $quitar)
+	{
+		$salida = array();
+		foreach ($arreglo as $id => $dato) {
+			if ($quitar && substr($id, 0, strlen($prefijo)) == $prefijo) {
+				$id = substr($id, strlen($prefijo));
+			}
+			if (! $quitar) {
+				$id = $prefijo.$id;
+			}
+			$salida[$id] = $dato;
+		}		
+		return $salida;
+	}	
 	
 	/**
 	 * Recorre un arreglo dejando solo aquellas entradas pasadas por parametro

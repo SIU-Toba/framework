@@ -6,6 +6,7 @@ class ci_abms_principal extends ci_asistente_base
 	
 	//---- Basico ----------------------------------------
 
+
 	function get_nombre_tabla_actual()
 	{
 		return $this->dep('datos')->tabla('base')->get_columna('tabla');		
@@ -105,6 +106,7 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function evt__form_cuadro_carga__modificacion($datos)
 	{
+		$datos = array_cambiar_prefijo_claves($datos, 'cuadro_', false);		
 		if (!isset($datos['cuadro_carga_php_metodo']) && isset($datos['cuadro_carga_php_metodo_nuevo'])) {
 			$datos['cuadro_carga_php_metodo'] = $datos['cuadro_carga_php_metodo_nuevo'];
 		}
@@ -113,8 +115,10 @@ class ci_abms_principal extends ci_asistente_base
 
 	function conf__form_cuadro_carga(toba_ei_formulario $form)
 	{
+		$form->desactivar_efs(array('carga_col_clave', 'carga_col_desc'));
 		$datos = $this->dep('datos')->tabla('base')->get();
-		$datos['cuadro_carga_php_metodo_nuevo'] = $datos['cuadro_carga_php_metodo'];
+		$datos = array_cambiar_prefijo_claves($datos, 'cuadro_', true);
+		$datos['carga_php_metodo_nuevo'] = $datos['carga_php_metodo'];		
 		$form->set_datos($datos);
 	}	
 	
@@ -137,6 +141,27 @@ class ci_abms_principal extends ci_asistente_base
 		//--Retorna sola las columnas con referencias
 		$cuadro->set_datos($this->dep('datos')->tabla('filas')->get_filas(array('asistente_tipo_dato' => '1000008')));
 	}	
+	
+	function evt__form_form_fila__modificacion($datos)
+	{
+		$datos = array_cambiar_prefijo_claves($datos, 'ef_', false);		
+		if (!isset($datos['ef_carga_php_metodo']) && isset($datos['ef_carga_php_metodo_nuevo'])) {
+			$datos['ef_carga_php_metodo'] = $datos['ef_carga_php_metodo_nuevo'];
+		}		
+		$this->dep('datos')->tabla('filas')->set($datos);
+		$this->dep('datos')->tabla('filas')->resetear_cursor();
+	}
+	
+	function conf__form_form_fila(toba_ei_formulario $form)
+	{
+		
+		$datos = $this->dep('datos')->tabla('filas')->get();
+		$datos = array_cambiar_prefijo_claves($datos, 'ef_', true);
+		$form->set_datos($datos);
+	}
+	
+	
+	
 	
 	
 }
