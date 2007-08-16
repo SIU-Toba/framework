@@ -38,7 +38,7 @@ body {
 	background-color: #808080 !important;	
 	width: 100%;
 }
-.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar {
+.ei-boton, .ei-boton-centro, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar {
 	color: #231f20;
 	background-color: #ffffff;
 }

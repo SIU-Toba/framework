@@ -187,15 +187,19 @@ padding-left:4px;
 .ei-barra-sup-sin-tit .ei-botonera {
 	float:none;
 }
-.ei-boton, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar, .ei-boton-baja {
+.ei-boton, .ei-boton-centro, .ei-boton-izq, .ei-boton-alta, .ei-boton-mod, .ei-boton-canc, .ei-boton-filtrar, .ei-boton-limpiar, .ei-boton-baja {
 	font-size: 11px;
 	height: 24px;
+	white-space: nowrap;	
 }
 
 .ei-boton-izq {
 	float: left;
 }
+.ei-boton-centro {
+	margin-right: 30%;
 
+}
 .ei-boton-defecto {
 	
 }

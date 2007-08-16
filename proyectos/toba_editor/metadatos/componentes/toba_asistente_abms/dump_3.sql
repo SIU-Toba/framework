@@ -33,7 +33,34 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'usuario', --cuadro_id
 	NULL, --cuadro_forzar_filtro
 	'consulta_php', --cuadro_carga_origen
-	'SELECT * FROM apex_usuario', --cuadro_carga_sql
+	'SELECT
+	au.usuario,
+	au.clave,
+	au.nombre,
+	aut.descripcion as usuario_tipodoc,
+	au.pre,
+	au.ciu,
+	au.suf,
+	au.email,
+	au.telefono,
+	au.vencimiento,
+	au.dias,
+	au.hora_entrada,
+	au.hora_salida,
+	au.ip_permitida,
+	au.solicitud_registrar,
+	au.solicitud_obs_tipo_proyecto,
+	au.solicitud_obs_tipo,
+	au.solicitud_observacion,
+	au.parametro_a,
+	au.parametro_b,
+	au.parametro_c,
+	au.autentificacion
+FROM
+	apex_usuario as au,
+	apex_usuario_tipodoc as aut
+WHERE
+	au.usuario_tipodoc = aut.usuario_tipodoc', --cuadro_carga_sql
 	'{toba_modelo}/info/toba_info_editores.php', --cuadro_carga_php_include
 	'toba_info_editores', --cuadro_carga_php_clase
 	'otro', --cuadro_carga_php_metodo

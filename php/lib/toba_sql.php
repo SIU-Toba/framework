@@ -189,4 +189,16 @@
 		return $sql;
 	}
 
+	/**
+	 * Dada una tabla, asume un posible alias para el select
+	 */
+	function sql_get_alias($tabla)
+	{
+		$alias = '';
+		foreach(explode('_', $tabla) as $parte) {
+			$alias .= substr($parte, 0, 1);
+		}
+		return $alias;
+	}
+	
 ?>

@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_cuadro,form_cuadro_carga,form_cuadro_carga', --objetos
+	'form_cuadro,form_cuadro_carga', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

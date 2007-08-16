@@ -63,11 +63,11 @@ class toba_catalogo_asistentes
 	}
 	
 	/**
-	 * Dada una tabla retorna los valores por defecto de una fila de un abm
+	 * Dada una tabla retorna los valores por defecto de cada fila para utilizar en un abm
 	 */
 	static function get_lista_filas_tabla($tabla)
 	{
-		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);		
+		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();
 		foreach ($nuevas as $nueva) {
@@ -111,8 +111,10 @@ class toba_catalogo_asistentes
 			}
 			$salida[] = $fila;
 		}
+		//ei_arbol($salida);
 		return $salida;
 	}
+	
 	
 	/**
 	 * Determina la sql,clave y desc de un campo externo de una tabla
@@ -142,6 +144,44 @@ class toba_catalogo_asistentes
 		}
 		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
 	}
+	
+	/**
+	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos
+	 * @param string $tabla
+	 */
+	static function get_sql_carga_tabla($tabla)
+	{
+		$columnas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+		$select = array();
+		$alias = sql_get_alias($tabla);		
+		$from = array($tabla.' as '.$alias);
+		$aliases = array($alias);
+		$where = array();
+		foreach ($columnas as $columna) {
+			//-- Si es clave o no es una referencia se trae el dato puro
+			if ($columna['pk']  || !$columna['fk_tabla']) {
+				$select[] = $alias.'.'.$columna['nombre'];
+			} else {
+				//--- Es una referencia, hay que hacer joins
+				$externo = self::get_opciones_sql_campo_externo($columna);
+				$alias_externo = sql_get_alias( $externo['tabla']);
+				if (in_array($alias_externo, $aliases)) {
+					$alias_externo = $externo['tabla']; //En caso de existir el alias, usa el nombre de la tabla
+				}
+				$aliases[] = $alias_externo;				
+				$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];
+				$from[] = $externo['tabla'].' as '.$alias_externo;
+				$where[] = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
+			}
+		}
+		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
+		$sql .= "FROM\n\t".implode(",\n\t",$from)."\n";
+		if (!empty($where)) {
+			$sql .= "WHERE\n\t".implode(",\n\t",$where)."\n";
+		}
+		return $sql;
+	}
+	
 
 	
 }

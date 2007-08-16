@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1000042', --objeto_cuadro_col
 	'columna', --clave
 	'1', --orden
-	'Campos de tipo REFERENCIA', --titulo
+	'Referencias a otras tablas', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho

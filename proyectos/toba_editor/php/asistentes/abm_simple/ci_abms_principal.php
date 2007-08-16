@@ -124,6 +124,15 @@ class ci_abms_principal extends ci_asistente_base
 		$form->set_datos($datos);
 	}	
 	
+	/**
+	 * Modifica los datos y regenera la SQL de carga del cuadro
+	 */
+	function evt__form_cuadro_carga__regenerar($datos)
+	{
+		$datos['carga_sql'] = toba_catalogo_asistentes::get_sql_carga_tabla($this->get_nombre_tabla_actual());
+		$this->evt__form_cuadro_carga__modificacion($datos);
+	}
+	
 	//---- FORM ----------------------------------------
 	
 	function conf__pant_form()
