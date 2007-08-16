@@ -44,6 +44,7 @@ class ci_fuentes extends toba_ci
 		if (! $zona->cargada()) {
 			$zona->cargar(array_values($clave));
 		}
+		$this->carga_ok = true;
 		admin_util::refrescar_barra_lateral();
 	}
 
@@ -51,6 +52,7 @@ class ci_fuentes extends toba_ci
 	{
 		$this->dependencia('datos')->eliminar_todo();
 		toba::solicitud()->zona()->resetear();
+		$this->carga_ok = false;
 		admin_util::refrescar_barra_lateral();
 	}
 	

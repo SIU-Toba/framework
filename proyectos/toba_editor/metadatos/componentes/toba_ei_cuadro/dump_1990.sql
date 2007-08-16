@@ -114,7 +114,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'toba_editor', --objeto_cuadro_proyecto
 	'1990', --objeto_cuadro
 	'601', --objeto_cuadro_col
-	'descripcion_corta', --clave
+	'descripcion', --clave
 	'2', --orden
 	NULL, --titulo
 	NULL, --estilo_titulo
