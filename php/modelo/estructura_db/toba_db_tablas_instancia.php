@@ -10,28 +10,6 @@ class toba_db_tablas_instancia
 );
 	}
 
-	static function get_lista_proyecto_log()
-	{
-		return array (
-  0 => 'apex_log_objeto',
-  1 => 'apex_solicitud',
-  2 => 'apex_sesion_browser',
-  3 => 'apex_solicitud_browser',
-  4 => 'apex_solicitud_consola',
-  5 => 'apex_solicitud_cronometro',
-  6 => 'apex_solicitud_observacion',
-);
-	}
-
-	static function get_lista_proyecto()
-	{
-		return array (
-  0 => 'apex_arbol_items_fotos',
-  1 => 'apex_admin_album_fotos',
-  2 => 'apex_admin_param_previsualizazion',
-);
-	}
-
 	static function get_lista_global_usuario()
 	{
 		return array (
@@ -46,12 +24,34 @@ class toba_db_tablas_instancia
 );
 	}
 
+	static function get_lista_proyecto_log()
+	{
+		return array (
+  0 => 'apex_solicitud',
+  1 => 'apex_sesion_browser',
+  2 => 'apex_solicitud_browser',
+  3 => 'apex_solicitud_consola',
+  4 => 'apex_solicitud_cronometro',
+  5 => 'apex_solicitud_observacion',
+  6 => 'apex_log_objeto',
+);
+	}
+
 	static function get_lista_global_log()
 	{
 		return array (
   0 => 'apex_log_sistema',
   1 => 'apex_log_error_login',
   2 => 'apex_log_ip_rechazada',
+);
+	}
+
+	static function get_lista_proyecto()
+	{
+		return array (
+  0 => 'apex_arbol_items_fotos',
+  1 => 'apex_admin_album_fotos',
+  2 => 'apex_admin_param_previsualizazion',
 );
 	}
 
@@ -95,98 +95,6 @@ class toba_db_tablas_instancia
     5 => 'administrador_2',
     6 => 'administrador_3',
     7 => 'creacion',
-  ),
-);
-	}
-
-	static function apex_log_objeto()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'log_objeto',
-  'dump_where' => 'objeto_proyecto =\\\'%%\\\'',
-  'zona' => 'solicitud',
-  'desc' => '',
-  'historica' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'log_objeto',
-    1 => 'momento',
-    2 => 'usuario',
-    3 => 'objeto_proyecto',
-    4 => 'objeto',
-    5 => 'item',
-    6 => 'observacion',
-  ),
-);
-	}
-
-	static function apex_arbol_items_fotos()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'usuario, foto_nombre',
-  'zona' => 'usuario',
-  'instancia' => '1',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario',
-    2 => 'foto_nombre',
-    3 => 'foto_nodos_visibles',
-    4 => 'foto_opciones',
-  ),
-);
-	}
-
-	static function apex_admin_album_fotos()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'usuario, foto_tipo, foto_nombre',
-  'zona' => 'usuario',
-  'instancia' => '1',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario',
-    2 => 'foto_tipo',
-    3 => 'foto_nombre',
-    4 => 'foto_nodos_visibles',
-    5 => 'foto_opciones',
-    6 => 'predeterminada',
-  ),
-);
-	}
-
-	static function apex_admin_param_previsualizazion()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'usuario, proyecto',
-  'zona' => 'usuario',
-  'instancia' => '1',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario',
-    2 => 'grupo_acceso',
-    3 => 'punto_acceso',
   ),
 );
 	}
@@ -454,6 +362,98 @@ class toba_db_tablas_instancia
   array (
     0 => 'ip',
     1 => 'momento',
+  ),
+);
+	}
+
+	static function apex_log_objeto()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'log_objeto',
+  'dump_where' => 'objeto_proyecto =\\\'%%\\\'',
+  'zona' => 'solicitud',
+  'desc' => '',
+  'historica' => '1',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'log_objeto',
+    1 => 'momento',
+    2 => 'usuario',
+    3 => 'objeto_proyecto',
+    4 => 'objeto',
+    5 => 'item',
+    6 => 'observacion',
+  ),
+);
+	}
+
+	static function apex_arbol_items_fotos()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario, foto_nombre',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario',
+    2 => 'foto_nombre',
+    3 => 'foto_nodos_visibles',
+    4 => 'foto_opciones',
+  ),
+);
+	}
+
+	static function apex_admin_album_fotos()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario, foto_tipo, foto_nombre',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario',
+    2 => 'foto_tipo',
+    3 => 'foto_nombre',
+    4 => 'foto_nodos_visibles',
+    5 => 'foto_opciones',
+    6 => 'predeterminada',
+  ),
+);
+	}
+
+	static function apex_admin_param_previsualizazion()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario, proyecto',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario',
+    2 => 'grupo_acceso',
+    3 => 'punto_acceso',
   ),
 );
 	}

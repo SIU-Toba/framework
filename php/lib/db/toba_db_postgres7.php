@@ -6,6 +6,8 @@
  */
 class toba_db_postgres7 extends toba_db
 {
+	protected $cache_metadatos = array(); //Guarda un cache de los metadatos de cada tabla
+	
 	function __construct($profile, $usuario, $clave, $base, $puerto)
 	{
 		$this->motor = "postgres7";
@@ -74,10 +76,13 @@ class toba_db_postgres7 extends toba_db
 	}
 	
 	/**
-	*	Busca la definicion de un TABLA. Falta terminar
+	*	Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
 	*/
 	function get_definicion_columnas($tabla)
 	{
+		if (isset($this->cache_metadatos[$tabla])) {
+			return $this->cache_metadatos[$tabla];
+		}
 		//1) Busco definicion
 		$sql = "SELECT 	a.attname as 			nombre,
 						t.typname as 			tipo,
@@ -169,7 +174,8 @@ class toba_db_postgres7 extends toba_db
 			//Guardo las que procese
 			$procesadas[$columnas[$id]['nombre']] = $id;
 		}
-		return array_values($columnas);
+		$this->cache_metadatos[$tabla] = array_values($columnas);
+		return $this->cache_metadatos[$tabla];
 	}
 }
 ?>

@@ -439,7 +439,7 @@ class toba_info_editores
 				WHERE 	clase = 'toba_datos_relacion'
 				AND		clase_proyecto = 'toba'
 				AND 	proyecto = '". toba_contexto_info::get_proyecto() ."'
-				ORDER BY 2";
+				ORDER BY descripcion_corta";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
@@ -461,7 +461,7 @@ class toba_info_editores
 				AND		o.proyecto = d.objeto_proyecto
 				AND		o.clase_proyecto = 'toba'
 				AND 	o.proyecto = '". toba_contexto_info::get_proyecto() ."'
-				ORDER BY 2";
+				ORDER BY tabla";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	//---------------------------------------------------

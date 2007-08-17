@@ -62,6 +62,11 @@ class toba_catalogo_asistentes
 		return consultar_fuente($sql);
 	}
 	
+	
+	//------------------------------------------------
+	//---- Reflexión de de las tablas
+	//------------------------------------------------	
+	
 	/**
 	 * Dada una tabla retorna los valores por defecto de cada fila para utilizar en un abm
 	 */
@@ -117,35 +122,6 @@ class toba_catalogo_asistentes
 	
 	
 	/**
-	 * Determina la sql,clave y desc de un campo externo de una tabla
-	 * Remonta N-niveles de indireccion de FKs
-	 */
-	static protected function get_opciones_sql_campo_externo($campo)
-	{
-		//--- Busca cual es el campo descripcion de la tabla destino
-		while (isset($campo['fk_tabla'])) {
-			$tabla = $campo['fk_tabla'];
-			$clave = $campo['fk_campo'];
-			$descripcion = $campo['fk_campo'];
-			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
-			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
-			$encontrado = false;			
-			foreach ($campos_tabla_externa as $campo_tabla_ext) {
-				//---Detecta cual es la clave para seguir ejecutando el script
-				if ($campo_tabla_ext['nombre'] == $clave) {
-					$campo = $campo_tabla_ext;
-				}
-				if (! $encontrado && !$campo_tabla_ext['pk'] && $campo_tabla_ext['tipo'] == 'C') {
-					$descripcion = $campo_tabla_ext['nombre'];
-					$encontrado = true;
-				}
-			}
-			$sql = "SELECT $clave, $descripcion FROM $tabla";
-		}
-		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
-	}
-	
-	/**
 	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos
 	 * @param string $tabla
 	 */
@@ -199,7 +175,34 @@ class toba_catalogo_asistentes
 		return $sql;
 	}
 	
-
+	/**
+	 * Determina la sql,clave y desc de un campo externo de una tabla
+	 * Remonta N-niveles de indireccion de FKs
+	 */
+	static protected function get_opciones_sql_campo_externo($campo)
+	{
+		//--- Busca cual es el campo descripcion de la tabla destino
+		while (isset($campo['fk_tabla'])) {
+			$tabla = $campo['fk_tabla'];
+			$clave = $campo['fk_campo'];
+			$descripcion = $campo['fk_campo'];
+			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
+			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+			$encontrado = false;			
+			foreach ($campos_tabla_externa as $campo_tabla_ext) {
+				//---Detecta cual es la clave para seguir ejecutando el script
+				if ($campo_tabla_ext['nombre'] == $clave) {
+					$campo = $campo_tabla_ext;
+				}
+				if (! $encontrado && !$campo_tabla_ext['pk'] && $campo_tabla_ext['tipo'] == 'C') {
+					$descripcion = $campo_tabla_ext['nombre'];
+					$encontrado = true;
+				}
+			}
+			$sql = "SELECT $clave, $descripcion FROM $tabla";
+		}
+		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
+	}
 	
 }
 ?>

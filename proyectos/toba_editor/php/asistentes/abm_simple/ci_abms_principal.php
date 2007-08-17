@@ -6,7 +6,6 @@ class ci_abms_principal extends ci_asistente_base
 	
 	//---- Basico ----------------------------------------
 
-
 	function get_nombre_tabla_actual()
 	{
 		return $this->dep('datos')->tabla('base')->get_columna('tabla');		
@@ -35,7 +34,12 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function evt__form_basico__modificacion($datos)
 	{
+		$tabla_vieja = $this->get_nombre_tabla_actual();
 		$this->dep('datos')->tabla('base')->set($datos);
+		//--- Si cambio de tabla se regenera la sql de carga del cuadro
+		if ($tabla_vieja != $this->get_nombre_tabla_actual()) {
+			$this->evt__form_cuadro_carga__regenerar(array());
+		}
 	}
 
 	function conf__form_basico(toba_ei_formulario $form)
@@ -45,6 +49,7 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function conf__form_filas(toba_ei_formulario_ml $ml)
 	{
+	
 		$tabla = $this->dep('datos')->tabla('filas');
 		//--- Recorre las columnas y las rellenas con los nuevos datos
 		$actuales =  $tabla->get_filas(null, true);
@@ -108,8 +113,6 @@ class ci_abms_principal extends ci_asistente_base
 		$form->set_datos($datos);
 	}
 	
-	//---- CUADRO - Opciones de carga ----------------------------------------
-	
 	function evt__form_cuadro_carga__modificacion($datos)
 	{
 		$datos = array_cambiar_prefijo_claves($datos, 'cuadro_', false);		
@@ -159,14 +162,33 @@ class ci_abms_principal extends ci_asistente_base
 		$cuadro->set_datos($this->dep('datos')->tabla('filas')->get_filas(array('asistente_tipo_dato' => '1000008')));
 	}	
 	
-	function evt__form_form_fila__modificacion($datos)
+	function evt__form_form_fila__modificacion($datos, $resetear=true)
 	{
 		$datos = array_cambiar_prefijo_claves($datos, 'ef_', false);		
 		if (!isset($datos['ef_carga_php_metodo']) && isset($datos['ef_carga_php_metodo_nuevo'])) {
 			$datos['ef_carga_php_metodo'] = $datos['ef_carga_php_metodo_nuevo'];
 		}		
 		$this->dep('datos')->tabla('filas')->set($datos);
-		$this->dep('datos')->tabla('filas')->resetear_cursor();
+		if ($resetear) {
+			$this->dep('datos')->tabla('filas')->resetear_cursor();
+		}
+	}
+	
+	function evt__form_form_fila__regenerar($datos)
+	{
+		$fila = $this->dep('datos')->tabla('filas')->get();
+		//-- Reparsea todos los metadatos y busca los datos nuevos
+		$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($this->get_nombre_tabla_actual());
+		foreach ($nuevas as $nueva) {
+			if ($nueva['columna'] == $fila['columna']) {
+				$datos['carga_col_clave'] = $nueva['ef_carga_col_clave'];
+				$datos['carga_col_desc'] = $nueva['ef_carga_col_desc'];
+				$datos['carga_tabla'] = $nueva['ef_carga_tabla'];
+				$datos['carga_sql'] = $nueva['ef_carga_sql'];
+				break;
+			}
+		}
+		$this->evt__form_form_fila__modificacion($datos, false);
 	}
 	
 	function conf__form_form_fila(toba_ei_formulario $form)
@@ -180,7 +202,37 @@ class ci_abms_principal extends ci_asistente_base
 	}
 	
 	
+	//---- FILTRO ----------------------------------------
+
+	function evt__pant_filtro__entrada()
+	{
+		$datos = $this->dep('datos')->tabla('filas')->get_filas(array('en_filtro' => 1));
+		if (empty($datos)) {
+			throw new toba_error('Para poder utilizar el filtro es necesario definir que columnas se muestran en el mismo');
+		}
+	}
 	
+	function evt__form_filtro__modificacion($datos)
+	{
+		$this->dep('datos')->tabla('base')->set($datos);
+	}	
+	
+	function conf__form_filtro(toba_ei_formulario $form)
+	{
+		$datos = $this->dep('datos')->tabla('base')->get();
+		$form->set_datos($datos);	
+	}
+	
+	function evt__ml_filtro_filas__modificacion($datos)
+	{
+			$this->dep('datos')->tabla('filas')->procesar_filas($datos);
+	}
+	
+	function conf__ml_filtro_filas(toba_ei_formulario_ml $ml)
+	{
+		$datos = $this->dep('datos')->tabla('filas')->get_filas(array('en_filtro' => 1));
+		$ml->set_datos($datos);
+	}
 	
 	
 }

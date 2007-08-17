@@ -384,7 +384,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
-	'6', --edit_filas
+	'15', --edit_filas
 	'50', --edit_columnas
 	NULL, --edit_wrap
 	'0', --edit_resaltar
