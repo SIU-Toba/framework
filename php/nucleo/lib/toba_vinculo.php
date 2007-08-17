@@ -82,6 +82,15 @@ class toba_vinculo
 		$this->parametros[apex_hilo_qs_zona] = toba::vinculador()->variable_a_url($editable);
 	}
 	
+	/**
+	 * Determina si el vinculo actual propaga el editable de la zona (si tiene zona y esta cargada)
+	 * @param boolean $propagar
+	 * @see toba_zona
+	 */
+	function set_propagar_zona($propagar=true)
+	{
+		$this->opciones['zona'] = $propagar;
+	}
 
 	function get_parametros()
 	{
