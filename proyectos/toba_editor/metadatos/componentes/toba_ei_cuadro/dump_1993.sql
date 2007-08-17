@@ -55,7 +55,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
-	'0', --eof_invisible
+	'1', --eof_invisible
 	'No hay datos_relacion definidos', --eof_customizado
 	'0', --exportar
 	NULL, --exportar_rtf
