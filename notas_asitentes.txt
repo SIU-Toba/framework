@@ -113,6 +113,6 @@ Creacion de extension
 ###############################################################################3
 
 	Dudas
-		- Â¿La carga de opciones de los efs de un form no pueden tener el origen del datos_tabla como el cuadro? 
-			
+		- ¿La carga de opciones de los efs de un form no pueden tener el origen del datos_tabla como el cuadro? 
+		- Para que es el campo datos_tabla_validacion de la tabla apex_molde_operacion_abms?
 		
