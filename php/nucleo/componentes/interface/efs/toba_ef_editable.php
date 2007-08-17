@@ -146,6 +146,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 {
 	protected $rango_inferior = array('limite' => '*', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '*', 'incluido' => 1);
+	protected $cambio_rango = false;
 	protected $tamano = 10;
 	protected $mensaje_defecto;
 
@@ -190,6 +191,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 		if (isset($partes[1])) {
 			$this->mensaje_defecto = $partes[1];
 		}
+		$this->cambio_rango = true;
 	}
 	
 	protected function mensaje_validacion_rango()
@@ -273,12 +275,19 @@ class toba_ef_editable_numero extends toba_ef_editable
 class toba_ef_editable_moneda extends toba_ef_editable_numero
 {
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
-	protected $mensaje_defecto = ' debe ser un importe positivo.';
 	protected $tamano = 12;	
 	
 	function crear_objeto_js()
 	{
 		return "new ef_editable_moneda({$this->parametros_js()})";
+	}	
+	
+	protected function mensaje_validacion_rango()
+	{
+		if (! $this->cambio_rango) {
+			return ' debe ser un importe positivo.';
+		}
+		return parent::mensaje_validacion_rango();
 	}	
 }
 
@@ -295,7 +304,6 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 {
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '100', 'incluido' => 1);
-	protected $mensaje_defecto = ' debe estar entre 0% y 100%.';
 	
 
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
@@ -312,6 +320,14 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 	{
 		return "new ef_editable_porcentaje({$this->parametros_js()})";
 	}	
+	
+	protected function mensaje_validacion_rango()
+	{
+		if (! $this->cambio_rango) {
+			return ' debe estar entre 0% y 100%.';
+		}
+		return parent::mensaje_validacion_rango();
+	}		
 }
 
 //########################################################################################################

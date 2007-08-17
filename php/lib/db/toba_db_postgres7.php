@@ -150,8 +150,14 @@ class toba_db_postgres7 extends toba_db
 			//Tipo de datos generico
 			$columnas[$id]['tipo'] = $this->get_tipo_datos_generico($columnas[$id]['tipo']);
 			//longitudes
+			//-- Si el tipo es -1 es que es 'varlena' http://www.postgresql.org/docs/7.4/static/catalog-pg-type.html
+			//-- Para el caso de varchar hay que restarle 4
 			if($columnas[$id]['tipo_longitud'] <= 0){
 				$columnas[$id]['longitud'] = $columnas[$id]['longitud'] - 4;
+			}
+			//-- Si es numerico(a,b) la longitud es 327680*b+a, pero para facilitar el proceso general se usa -1
+			if ($columnas[$id]['tipo'] == 'numeric') {
+				$columnas[$id]['longitud'] = -1;
 			}
 			//Secuencias
 			if($columnas[$id]['tiene_predeterminado']){

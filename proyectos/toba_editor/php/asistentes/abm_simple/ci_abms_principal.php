@@ -18,6 +18,12 @@ class ci_abms_principal extends ci_asistente_base
 		if (! $con_filtro) {
 			$this->pantalla()->tab('pant_filtro')->ocultar();	
 		}
+		if ($this->get_nombre_tabla_actual() == '') {
+			$this->pantalla()->tab('pant_cuadro')->ocultar();	
+			$this->pantalla()->tab('pant_form')->ocultar();	
+			$this->pantalla()->tab('pant_filtro')->ocultar();	
+			$this->pantalla()->tab('pant_presentacion')->ocultar();	
+		}
 	}
 	
 	function conf__pant_basica()

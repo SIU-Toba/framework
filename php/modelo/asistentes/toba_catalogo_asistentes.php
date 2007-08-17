@@ -154,9 +154,10 @@ class toba_catalogo_asistentes
 		$columnas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
 		$select = array();
 		$alias = sql_get_alias($tabla);		
-		$from = array($tabla.' as '.$alias);
+		$from = array();
 		$aliases = array($alias);
 		$where = array();
+		$left = array();
 		foreach ($columnas as $columna) {
 			//-- Si es clave o no es una referencia se trae el dato puro
 			if ($columna['pk']  || !$columna['fk_tabla']) {
@@ -169,13 +170,29 @@ class toba_catalogo_asistentes
 					$alias_externo = $externo['tabla']; //En caso de existir el alias, usa el nombre de la tabla
 				}
 				$aliases[] = $alias_externo;				
-				$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];
-				$from[] = $externo['tabla'].' as '.$alias_externo;
-				$where[] = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
+				$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];				
+				$ext_where = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
+				$ext_from = $externo['tabla'].' as '.$alias_externo;
+				if ($columna['not_null']) {
+					//-- Si es NOT NULL, se hace un INNER join
+					$from[] = $ext_from;
+					$where[] = $ext_where;
+				} else {
+					//-- Si es NULL, se hace un LEFT OUTER join
+					$left[] = "$ext_from ON ($ext_where)";
+				}
 			}
 		}
+		$from = array_unique($from);
 		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
-		$sql .= "FROM\n\t".implode(",\n\t",$from)."\n";
+		$sql .= "FROM\n\t$tabla as $alias\n\t";
+		if (!empty($left)) {
+			$texto_left = "\tLEFT OUTER JOIN ";
+			$sql .= $texto_left.implode("\n$texto_left",$left)."\n";
+		}
+		if (!empty($from)) {
+			$sql .= "\n\t,".implode(",\n\t",$from)."\n";			
+		}
 		if (!empty($where)) {
 			$sql .= "WHERE\n\t".implode(",\n\t",$where)."\n";
 		}
