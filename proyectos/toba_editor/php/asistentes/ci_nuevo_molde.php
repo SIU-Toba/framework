@@ -95,10 +95,10 @@ class ci_nuevo_molde extends toba_ci
 		//--- Crea el molde
 		$this->dep('asistente')->sincronizar();
 		$clave = $this->dependencia('asistente')->dep('datos')->tabla('base')->get_clave_valor(0);
+		$asistente = toba_catalogo_asistentes::cargar_por_molde($clave['proyecto'], $clave['molde']);		
+		$asistente->preparar_molde();		
 		
 		//--- Genera la operacion
-		$asistente = toba_catalogo_asistentes::cargar_por_molde($clave['proyecto'], $clave['molde']);
-		$asistente->generar_molde();
 		if ($asistente->crear_operacion()) {		
 			admin_util::refrescar_barra_lateral();
 		}		

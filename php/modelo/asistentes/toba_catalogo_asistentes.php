@@ -83,8 +83,12 @@ class toba_catalogo_asistentes
 				$fila['cuadro_estilo'] = $tipo_datos[$tipo]['cuadro_estilo'];
 				$fila['cuadro_formato'] = $tipo_datos[$tipo]['cuadro_formato'];
 				$fila['en_cuadro'] = ($tipo_datos[$tipo]['cuadro_estilo'] !== '');
+				$fila['elemento_formulario'] = $tipo_datos[$tipo]['elemento_formulario'];					
+				$fila['dt_tipo_datos'] = $tipo_datos[$tipo]['dt_tipo_dato'];
 			} else {
 				//--- Es una referencia
+				$fila['elemento_formulario'] = 'ef_combo';
+				$fila['dt_tipo_datos'] = 'C';
 				$fila['asistente_tipo_dato'] = '1000008';
 				$fila['cuadro_estilo'] = 1;
 				$fila['cuadro_formato'] = 1;
@@ -96,6 +100,7 @@ class toba_catalogo_asistentes
 				$fila['ef_carga_tabla'] = $datos_carga_sql['tabla'];
 				$fila['ef_carga_sql'] = $datos_carga_sql['sql'];
 			}
+	
 			$fila['dt_pk'] = $nueva['pk'];
 			$fila['dt_largo'] = $nueva['longitud'];			
 			$fila['dt_secuencia'] = $nueva['secuencia'];
@@ -124,10 +129,12 @@ class toba_catalogo_asistentes
 	/**
 	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos
 	 * @param string $tabla
+	 * @return array(sql, clave)
 	 */
 	static function get_sql_carga_tabla($tabla)
 	{
 		$columnas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+		$claves = array();
 		$select = array();
 		$alias = sql_get_alias($tabla);		
 		$from = array();
@@ -135,6 +142,9 @@ class toba_catalogo_asistentes
 		$where = array();
 		$left = array();
 		foreach ($columnas as $columna) {
+			if ($columna['pk']) {
+				$claves[] = $columna['nombre'];	
+			}
 			//-- Si es clave o no es una referencia se trae el dato puro
 			if ($columna['pk']  || !$columna['fk_tabla']) {
 				$select[] = $alias.'.'.$columna['nombre'];
@@ -161,18 +171,18 @@ class toba_catalogo_asistentes
 		}
 		$from = array_unique($from);
 		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
-		$sql .= "FROM\n\t$tabla as $alias\n\t";
+		$sql .= "FROM\n\t$tabla as $alias";
 		if (!empty($left)) {
 			$texto_left = "\tLEFT OUTER JOIN ";
 			$sql .= $texto_left.implode("\n$texto_left",$left)."\n";
 		}
 		if (!empty($from)) {
-			$sql .= "\n\t,".implode(",\n\t",$from)."\n";			
+			$sql .= ",\n\t".implode(",\n\t",$from)."\n";			
 		}
 		if (!empty($where)) {
 			$sql .= "WHERE\n\t".implode(",\n\t",$where)."\n";
 		}
-		return $sql;
+		return array($sql, implode(',',$claves));
 	}
 	
 	/**

@@ -138,7 +138,9 @@ class ci_abms_principal extends ci_asistente_base
 	 */
 	function evt__form_cuadro_carga__regenerar($datos)
 	{
-		$datos['carga_sql'] = toba_catalogo_asistentes::get_sql_carga_tabla($this->get_nombre_tabla_actual());
+		list($sql, $id) = toba_catalogo_asistentes::get_sql_carga_tabla($this->get_nombre_tabla_actual());
+		$datos['carga_sql'] = $sql;
+		$datos['id'] = $id;
 		$this->evt__form_cuadro_carga__modificacion($datos);
 	}
 	

@@ -75,7 +75,7 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function crear_operacion($retorno_opciones_generacion)
+	function crear_operacion($retorno_opciones_generacion=array())
 	{
 		//Registro las opciones de generacion
 		foreach( $retorno_opciones_generacion as $opcion) {
@@ -88,6 +88,7 @@ abstract class toba_asistente
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 			return $this->log_elementos_creados;
 		} catch (toba_error $e) {
+			toba::logger()->debug($e);
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
 			abortar_transaccion();
 		}

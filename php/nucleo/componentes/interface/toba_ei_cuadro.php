@@ -843,7 +843,7 @@ class toba_ei_cuadro extends toba_ei
                 if(trim($this->_info_cuadro["eof_customizado"])!=""){
 					$texto = $this->_info_cuadro["eof_customizado"];
                 }else{
-					$texto = "No se cargaron datos!";
+					$texto = "No hay datos cargados";
                 }
 				$this->generar_mensaje_cuadro_vacio($texto);
             }
