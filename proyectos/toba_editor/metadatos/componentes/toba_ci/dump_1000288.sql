@@ -48,7 +48,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000324', --evento_id
 	'1000288', --objeto
 	'procesar', --identificador
-	'Guardar Molde', --etiqueta
+	'Guardar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -133,6 +133,36 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
+	'1000365', --evento_id
+	'1000288', --objeto
+	'editar_basicos', --identificador
+	'Editar Opciones', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'0', --en_botonera
+	NULL, --ayuda
+	'4', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -181,6 +211,21 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 --- FIN Grupo de desarrollo 0
 
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000181', --dep_id
+	'1000288', --objeto_consumidor
+	'1000299', --objeto_proveedor
+	'form_molde', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 1
+
 ------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
@@ -223,7 +268,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_generaciones,cuadro_generaciones', --objetos
-	'generar', --eventos
+	'editar_basicos,generar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -239,7 +284,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
-	'procesar', --eventos
+	'procesar,editar_basicos', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -255,7 +300,23 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_borrar', --objetos
-	'borrar', --eventos
+	'borrar,editar_basicos', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_editor', --objeto_ci_proyecto
+	'1000288', --objeto_ci
+	'1000177', --pantalla
+	'pant_basicos', --identificador
+	'4', --orden
+	'Opciones básicas', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_molde', --objetos
+	'procesar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

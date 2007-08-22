@@ -124,8 +124,8 @@ class toba_evento_usuario extends toba_boton
 	//--------- Consumo interno ------------
 	
 	/**
-	*	Genera el HTML del BOTON
-	*/
+	 *	Genera el HTML del BOTON
+	 */
 	function get_html($id_submit, $objeto_js, $id_componente)
 	{
 		if ( $this->anulado ) return null;
@@ -147,43 +147,15 @@ class toba_evento_usuario extends toba_boton
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
 		$estilo_inline = $this->oculto ? 'display: none' : null;
-		
-		if ( $this->posee_accion_imprimir() ) {
-			// ---*** IMPRIMIR HTML ***---
-			$opciones['servicio'] = 'vista_toba_impr_html';
-			$opciones['objetos_destino'] = array( $id_componente );
-			//$opciones['celda_memoria'] = 'popup';
-			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
-			if ( $this->datos['accion_imphtml_debug'] == 1 ) {
-				$js = "onclick=\"imprimir_html('$url',true);\"";
-			} else {
-				$js = "onclick=\"imprimir_html('$url');\"";
-			}
-		} elseif ( $this->posee_accion_vincular() ) {
-			// ---*** VINCULO ***---
-			// Registro el vinculo en el vinculador
-			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
-			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
-				return;
-			}
-			// Escribo la sentencia que invocaria el vinculo
-			$js = "onclick=\"{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');\"";
-		} elseif ( $this->datos['accion'] == 'P' ) {
-			//--- En una respuesta a un ef_popup
-			$param = addslashes(str_replace('"',"'",$this->parametros));
-			$js = "onclick=\"respuesta_ef_popup('$param');\"";
-		} else {
-			// Manejo estandar de eventos
-			$js = "onclick=\"{$objeto_js}.set_evento(".$this->get_evt_javascript().");\"";
-		}
+		$js = 'onclick="'.$this->get_invocacion_js($objeto_js, $id_componente).'"';
 		return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
 										$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
 		
 	}
 
 	/**
-	*	Genera el evento JS
-	*/
+	 *	Genera el evento JS
+	 */
 	function get_evt_javascript()
 	{
 		$js_confirm = $this->posee_confirmacion() ? "'".$this->get_msg_confirmacion()."'" : "''";
@@ -194,6 +166,48 @@ class toba_evento_usuario extends toba_boton
 			$param = (isset($this->parametros)) ? ", '".addslashes(str_replace('"',"'",$this->parametros))."'" : '';
 		}
 		return "new evento_ei('".$this->get_id()."', $js_validar, $js_confirm $param)";
+	}
+	
+	/**
+	 * Genera la invocación JS necesaria para incluir en un onclick por ejemplo
+	 */
+	function get_invocacion_js($objeto_js=null, $id_componente = null)
+	{
+		if (! isset($objeto_js)) {
+			$objeto_js = $this->contenedor->get_id_objeto_js();
+		}
+		if (! isset($id_componente)) {
+			$id_componente = $this->contenedor->get_id();
+		}		
+		if ( $this->posee_accion_imprimir() ) {
+			// ---*** IMPRIMIR HTML ***---
+			$opciones['servicio'] = 'vista_toba_impr_html';
+			$opciones['objetos_destino'] = array( $id_componente );
+			//$opciones['celda_memoria'] = 'popup';
+			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
+			if ( $this->datos['accion_imphtml_debug'] == 1 ) {
+				$js = "imprimir_html('$url',true);";
+			} else {
+				$js = "imprimir_html('$url');";
+			}
+		} elseif ( $this->posee_accion_vincular() ) {
+			// ---*** VINCULO ***---
+			// Registro el vinculo en el vinculador
+			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
+			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
+				return;
+			}
+			// Escribo la sentencia que invocaria el vinculo
+			$js = "{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');";
+		} elseif ( $this->datos['accion'] == 'P' ) {
+			//--- En una respuesta a un ef_popup
+			$param = addslashes(str_replace('"',"'",$this->parametros));
+			$js = "respuesta_ef_popup('$param');";
+		} else {
+			// Manejo estandar de eventos
+			$js = "{$objeto_js}.set_evento(".$this->get_evt_javascript().");";
+		}
+		return $js;
 	}
 }
 ?>

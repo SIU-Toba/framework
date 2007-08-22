@@ -156,7 +156,7 @@ abstract class toba_ei extends toba_componente
 	protected function cargar_lista_eventos()
 	{
 		foreach ($this->_info_eventos as $info_evento) {
-			$e = new toba_evento_usuario($info_evento);
+			$e = new toba_evento_usuario($info_evento, $this);
 			$this->_eventos_usuario[ $e->get_id() ] = $e;				//Lista de eventos
 			$this->_eventos_usuario_utilizados[ $e->get_id() ] = $e;		//Lista de utilizados
 			if( $e->es_implicito() ){
@@ -320,18 +320,24 @@ abstract class toba_ei extends toba_componente
 	 * Genera el html de un botón específico
 	 * @param toba_evento_usuario $evento
 	 */
-	protected function generar_html_boton($evento)
+	protected function generar_html_boton($evento, $retornar=false)
 	{
+		$salida = '';
 		//--- Link al editor
 		if (toba_editor::modo_prueba()) {
-			echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
+			$salida .= toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
 		}
 		//--- Utilidades de impresion
 		if ( $evento->posee_accion_imprimir() ) {
 			$this->_utilizar_impresion_html = true;					
 		}
 		if( ! $evento->esta_anulado() ) {
-			echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
+			$salida .= $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
+		}
+		if ($retornar) {
+			return $salida;
+		} else {
+			echo $salida;
 		}
 	}
 
@@ -340,12 +346,17 @@ abstract class toba_ei extends toba_componente
 	* @param string $id_evento Id. del evento a generar el botón
 	* @param boolean $excluir_botonera El botón no se incluye en la botonera predeterminada del componente
 	*/
-	function generar_boton($id_evento, $excluir_botonera=true)
+	function generar_boton($id_evento, $excluir_botonera=true, $retornar=false)
 	{
-		$this->generar_html_boton($this->evento($id_evento));
+		$salida = $this->generar_html_boton($this->evento($id_evento), $retornar);
 		if($excluir_botonera) {
 			$this->_botones_graficados_ad_hoc[] = $id_evento;
 		}
+		if ($retornar) {
+			return $salida;
+		} else {
+			echo $salida;
+		}		
 	}
 
 	//--------------------------------------------------------------------

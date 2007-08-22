@@ -436,7 +436,7 @@ class toba_ei_pantalla extends toba_ei
 				$html .= "</div><div class='ci-wiz-descr'>$descripcion</div></div>";
 				echo $html;
 			} else {
-				echo "<div class='ci-pant-desc'>$imagen&nbsp;$descripcion</div>\n";
+				echo "<table class='tabla-0 ci-pant-desc'><tr><td class='ci-pant-desc-img' >$imagen</td><td>$descripcion</td></table>\n";
 			}
 			echo "<hr class='ci-pant-sep' />\n";
 		}

@@ -11,8 +11,9 @@ class toba_boton
 	protected $activado = true;
 	protected $oculto = false;
 	protected $anulado = false;
+	protected $contenedor;
 
-	function __construct($datos=null)
+	function __construct($datos=null, $contenedor=null)
 	{
 		if (isset($datos)) {
 			$this->datos = $datos;
@@ -28,7 +29,9 @@ class toba_boton
 			$this->datos['accion'] = '';
 			$this->datos['grupo'] = '';
 		}
+		$this->contenedor = $contenedor;
 	}
+	
 
 	//--------- Preguntas ---------------------
 

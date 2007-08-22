@@ -45,12 +45,22 @@ class ci_editar_molde extends toba_ci
 	
 	function conf()
 	{
-		$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__molde);
-		$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
-		$txt .= "<strong>Nombre</strong>: {$datos['nombre']}";
-		$this->pantalla()->set_descripcion($txt);
+		if ($this->get_id_pantalla() != 'pant_basicos') {
+			$datos = toba_info_editores::get_info_molde($this->s__proyecto, $this->s__molde);
+			$js = $this->pantalla()->evento('editar_basicos')->get_invocacion_js();
+			$txt = "<strong>Tipo</strong>: {$datos['tipo']}<br>";
+			$txt .= "<strong>Nombre</strong>: {$datos['nombre']}<br>";
+			$txt .= "<strong>Carpeta de archivos</strong>: {$datos['carpeta_archivos']}";
+			$txt .= "<br>&nbsp;&nbsp;<a href='#' onclick=\"$js\">Editar Opciones Básicas</a>";
+			$this->pantalla()->set_descripcion($txt);
+		}
 	}
 	
+	
+	function evt__editar_basicos()
+	{
+		$this->set_pantalla('pant_basicos');
+	}
 	
 	//-----------------------------------------------------------------------------
 	//---- BORRAR  ----------------------------------------------------------------
@@ -85,6 +95,7 @@ class ci_editar_molde extends toba_ci
 	function evt__procesar()
 	{
 		$this->dep('asistente')->sincronizar();
+		$this->set_pantalla('pant_editar');
 	}
 	
 	//-----------------------------------------------------------------------------------
@@ -95,7 +106,7 @@ class ci_editar_molde extends toba_ci
 	{
 		//Si hay algun tema bloqueante, no dejo hacer nada
 		$bloqueos = $this->asistente(true)->get_bloqueos();
-		if($bloqueos) {
+		if(! empty($bloqueos)) {
 			$this->pantalla()->eliminar_evento('generar');
 			$this->pantalla()->eliminar_dep('form_generaciones');
 			toba::notificacion()->agregar('Existen problemas que imposibilitan la ejecución del molde. '
@@ -107,7 +118,7 @@ class ci_editar_molde extends toba_ci
 		}
 		// Si no hay opciones de generacion, excluyo el form de opciones
 		$opciones = $this->asistente()->get_opciones_generacion();
-		if(!$opciones) {
+		if(empty($opciones)) {
 			$this->pantalla()->eliminar_dep('form_generaciones');
 		}
 	}
@@ -117,6 +128,21 @@ class ci_editar_molde extends toba_ci
 		return toba_info_editores::get_lista_ejecuciones_molde($this->s__proyecto, $this->s__molde);
 	}
 
+	//--- Opciones del molde
+	function conf__form_molde(toba_ei_formulario $form)
+	{
+		$relacion = $this->dep('asistente')->dep('datos');
+		$form->set_datos($relacion->tabla('molde')->get());
+	}
+	
+	function evt__form_molde__modificacion($datos)
+	{
+		$relacion = $this->dep('asistente')->dep('datos');
+		$relacion->tabla('molde')->set($datos);		
+	}
+	
+	
+	
 	//--- Opciones de generacion ----
 
 	function conf__form_generaciones($componente)
@@ -131,6 +157,7 @@ class ci_editar_molde extends toba_ci
 
 	function evt__generar()
 	{
+		$this->dep('asistente')->sincronizar();
 		$this->asistente()->crear_operacion( $this->s__opciones_generacion );
 	}	
 
