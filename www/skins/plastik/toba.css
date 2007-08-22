@@ -36,6 +36,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	_height: 30px;
 	min-height: 30px;
 }
+.barra-popup .item-barra {
+	float: none;
+	text-align: center;
+}
+
 .zona-barra-id {
 	color:white;
 }
@@ -62,7 +67,6 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border: 0;
 	margin: 0;
 }
-
 
 .ei-barra-sup {
 	border: 1px solid #5C5F9E;

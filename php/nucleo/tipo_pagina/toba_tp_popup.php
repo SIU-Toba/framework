@@ -36,19 +36,19 @@ class toba_tp_popup extends toba_tp_basico_titulo
 	
 	protected function barra_superior()
 	{
-		echo "<table width='100%' class='item-barra'><tr>";
-		echo "<td width='1'>". gif_nulo(8,22) . "</td>";
-		echo "<td width='95%' class='item-barra-tit'>".$this->titulo_pagina()."</td>";
-		echo "</tr></table>\n\n";		
-	}
 	
-	function pie()
-	{
-		echo "\n\n";
-		echo "<table width='100%' class='item-barra'><tr>";
-		echo "<td>".gif_nulo(8,22)."</td>";
-		echo "</tr></table>\n\n";
-		parent::pie();
+		echo "<div class='barra-superior barra-superior-tit barra-popup'>\n";		
+		$info = toba::solicitud()->get_datos_item();
+		echo "<div class='item-barra'>";
+		if (trim($info['item_descripcion']) != '') {
+			$desc = toba_parser_ayuda::parsear(trim($info['item_descripcion']));
+			$ayuda = toba_recurso::ayuda(null, $desc, 'item-barra-ayuda', 0);
+			echo "<div $ayuda>";
+			echo toba_recurso::imagen_toba("ayuda_grande.gif", true);
+			echo "</div>";
+		}		
+		echo "<div class='item-barra-tit'>".$this->titulo_item()."</div>";
+		echo "</div>\n\n";
 	}
 
 }

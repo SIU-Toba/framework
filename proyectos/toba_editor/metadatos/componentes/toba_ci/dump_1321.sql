@@ -132,7 +132,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1321', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'600px', --ancho
+	'95%', --ancho
 	'450px', --alto
 	'arriba', --posicion_botonera
 	'tab_h', --tipo_navegacion
@@ -159,11 +159,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1321', --objeto_ci
 	'354', --pantalla
 	'1', --identificador
-	'2', --orden
+	'1', --orden
 	'Código Fuente', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
 	'abrir,refrescar', --eventos
@@ -175,11 +175,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1321', --objeto_ci
 	'355', --pantalla
 	'2', --identificador
-	'1', --orden
+	'2', --orden
 	'Análisis', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
 	'abrir,refrescar', --eventos
@@ -195,7 +195,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Crear Subclase', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'subclase', --objetos
 	'', --eventos

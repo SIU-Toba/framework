@@ -92,8 +92,15 @@ class toba_archivo_php
 			$archivo = str_replace(" ", "\\ ", $archivo);
 			$com = "$cmd $archivo";
 			toba::logger()->debug("Intentando abrir archivo con comando: '$com'");
-			$fp = popen($com, 'r');
-			pclose($fp);
+			$fp = popen($com. ' 2>&1', 'r');
+			stream_set_blocking($fp, 0);
+			sleep(1);
+			$salida = fgets($fp, 2096);
+			pclose($fp);			
+			if ($salida != '') {
+				throw new toba_error("Intentando abrir archivo con comando: '$com'<br><br>Mensaje de error:<br>".$salida);
+			}
+
 		}
 	}
 	

@@ -13,6 +13,7 @@ class toba_ei_archivos extends toba_ei
 	protected $_filtro;
 	protected $_extensiones = array('php');
 	protected $_ocultos = array('.svn');
+	protected $solo_carpetas = false;
 
     function __construct($id)
     {
@@ -119,6 +120,11 @@ class toba_ei_archivos extends toba_ei
 		}
 	}
 
+	function set_solo_carpetas($solo)
+	{
+		$this->solo_carpetas = $solo;
+	}
+	
 	/**
 	 * Cambia el conjunto de extensiones permitidas en la visualización
 	 * @param array $extensiones
@@ -175,10 +181,12 @@ class toba_ei_archivos extends toba_ei
 		$img_crear_archivo = toba_recurso::imagen_toba('nucleo/archivo_nuevo.gif', true);
 
 		
-		echo "<span style='float: right'>
-				<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>
-				<a href='#' onclick='{$this->objeto_js}.crear_archivo()' title='Crear archivo'>$img_crear_archivo</a>
-			  </span>\n";			
+		echo "<span style='float: right'>";
+		echo "<a href='#' onclick='{$this->objeto_js}.crear_carpeta()' title='Crear carpeta'>$img_crear_carpeta</a>";
+		if (! $this->solo_carpetas) {
+			echo "<a href='#' onclick='{$this->objeto_js}.crear_archivo()' title='Crear archivo'>$img_crear_archivo</a>";
+		}
+		echo "</span>\n";			
 		
 		if ($hay_padre) {
 			$img_subir = toba_recurso::imagen_toba('nucleo/subir.gif', true);
@@ -194,11 +202,13 @@ class toba_ei_archivos extends toba_ei
 				<a href='#' onclick='{$this->objeto_js}.ir_a_carpeta(\"$carpeta\")' 
 					title='Entrar a la carpeta'>$carpeta</a></div>\n";
 		}
-		$img_archivo = toba_recurso::imagen_toba('nucleo/php_22.gif', true);
-		foreach ($archivos as $archivo) {
-			echo "<div class='ei_archivos-archivo'>$img_archivo 
-					<a href='#' onclick='{$this->objeto_js}.seleccionar_archivo(\"$archivo\")' 
-					 title='Seleccionar el archivo'>$archivo</a>\n</div>";
+		if (! $this->solo_carpetas) {
+			$img_archivo = toba_recurso::imagen_toba('nucleo/php_22.gif', true);
+			foreach ($archivos as $archivo) {
+				echo "<div class='ei_archivos-archivo'>$img_archivo 
+						<a href='#' onclick='{$this->objeto_js}.seleccionar_archivo(\"$archivo\")' 
+						 title='Seleccionar el archivo'>$archivo</a>\n</div>";
+			}
 		}
 		echo "</div>";
 		echo "</div>\n";		

@@ -103,7 +103,7 @@ class nombre_clase extends clase_padre
 		/**
 		 * El objetivo es mejorar la legibilidad del código. 
 		 * Para esto se buscan un balance entre
-		 * 	- Cantidad de cosas concretas por linea (si es ~1, mejor)
+		 * 	- Cantidad de cosas concretas por línea (si es ~1, mejor)
 		 * 	- Entendimiento de donde inicia y termina un bloque
 		 */
 		

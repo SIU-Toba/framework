@@ -251,7 +251,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1981', --objeto_ci
 	'1053', --pantalla
-	'elegir', --identificador
+	'pant_elegir', --identificador
 	'1', --orden
 	'Planes de generacion', --etiqueta
 	NULL, --descripcion
@@ -270,7 +270,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1981', --objeto_ci
 	'1000170', --pantalla
-	'opciones', --identificador
+	'pant_opciones', --identificador
 	'2', --orden
 	'Opciones', --etiqueta
 	NULL, --descripcion
@@ -278,7 +278,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_opciones', --objetos
-	'volver,guardar', --eventos
+	'guardar,volver', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
