@@ -29,6 +29,16 @@ class toba_archivo_php
 	}
 	
 	/**
+	 * Retorna verdadero si el archivo esta creado
+	 * @return boolean
+	 */
+	function existe()
+	{
+		return file_exists($this->nombre) && is_file($this->nombre);
+	}
+
+
+	/**
 	 * Retorna verdadero si el archivo no tiene texto
 	 * @return boolean
 	 */
@@ -40,14 +50,17 @@ class toba_archivo_php
 		else
 			return false;
 	}
-	
+
 	/**
-	 * Retorna verdadero si el archivo esta creado
+	 * Retorna verdadero si el archivo contiene algo de codigo php (sin contar los tags de apertura y finalizacion
 	 * @return boolean
 	 */
-	function existe()
+	function contiene_codigo_php()
 	{
-		return file_exists($this->nombre) && is_file($this->nombre);
+		$macheos = array();
+		if (preg_match("/(<\?php|<\?)(.*)\?>/",file_get_contents($this->nombre),$macheos)) {
+			ei_arbol($macheos);
+		}
 	}
 
 	/**
@@ -56,9 +69,19 @@ class toba_archivo_php
 	 */
 	function contiene_clase($nombre)
 	{
-		return strpos(file_get_contents($this->nombre), "class $nombre") !== false;
+		return preg_match("/class\s+$nombre/",file_get_contents($this->nombre));
 	}
-	
+
+	/**
+	 * Retorna verdadero si el archivo tiene definido un metodo con el nombre especificado
+	 * @return boolean
+	 */
+	function contiene_metodo($nombre)
+	{
+		return preg_match("/function\s+$nombre/",file_get_contents($this->nombre));
+	}
+
+
 	/**
 	 * Muestra el código fuente del archivo en formato HTML
 	 */

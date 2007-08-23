@@ -13,6 +13,8 @@ abstract class toba_asistente
 	protected $bloqueos_generacion = array();
 	protected $archivos_php;
 	protected $id_elementos = 0;
+	//Manejo de clases de consultas
+	protected $archivos_consultas;
 	
 	function __construct($molde)
 	{
@@ -75,11 +77,13 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function crear_operacion($retorno_opciones_generacion=array())
+	function crear_operacion($retorno_opciones_generacion=null)
 	{
 		//Registro las opciones de generacion
-		foreach( $retorno_opciones_generacion as $opcion) {
-			$this->retorno_opciones_generacion[$opcion['opcion']] = $opcion['estado'];
+		if(isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion) ) {
+			foreach( $retorno_opciones_generacion as $opcion) {
+				$this->retorno_opciones_generacion[$opcion['opcion']] = $opcion['estado'];
+			}
 		}
 		try {
 			abrir_transaccion();
@@ -97,6 +101,7 @@ abstract class toba_asistente
 	protected function generar_elementos()
 	{
 		$this->item->generar();
+		$this->generar_archivos_consultas();
 		$this->guardar_log_elementos_generados();
 	}
 
@@ -280,23 +285,53 @@ abstract class toba_asistente
 	//-- Creacion de archivos que no son extensiones.
 	//----------------------------------------------------------------------
 
-	protected function archivo()
-	{
-		
-	}
-
 	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
 	{
-		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
-		//Creacion temporal de la clase
-		$metodo->identar(1);
-		$path = toba::proyecto()->get_path() . '/php/' . $include;
-		$php = "<?php\nclass $clase\n{\n";
-		$php .= $metodo->get_codigo();
-		$php .= "\n}\n?>";
-		
-		//Atencion, estoy en el momento de carga, no tengo que crear el archivo!!
-		toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+		$archivo = $this->agregar_archivo($include, $clase);
+		$metodo_php = $this->crear_metodo_consulta($metodo, $sql, $parametros);
+		$metodo_php->identar(1);
+		$this->archivos_consultas[$include]['metodos'][] = $metodo_php;
+		/*
+		if( $archivo->existe() && $archivo->contiene_metodo($metodo) ) {
+			//ATENCION: Se va a sobreescribir un metodo.
+			$id_opcion = 'consulta__' . $include . '__' . $clase . '__' . $metodo;
+			$this->agregar_opcion_generacion($id_opcion, "Sobreescribir metodo: '$metodo' en el archivo '$include'");
+		}
+		*/
+	}
+
+	function agregar_archivo($include, $clase)
+	{
+		if(!isset($this->archivos_consultas[$include]['archivo'])){
+			$archivo = new toba_archivo_php($include);
+			if( $archivo->existe() ) {
+				if( $archivo->contiene_codigo_php() ) {
+					if( ! $archivo->contiene_clase($clase) ) {
+						//Hay codigo PHP que no es de la clase... error bloqueante!
+							
+					}
+				}
+			}
+			$this->archivos_consultas[$include]['archivo'] = $archivo;
+			$this->archivos_consultas[$include]['clase'] = $clase;
+		}
+		return $this->archivos_consultas[$include]['archivo'];
+	}
+
+	function generar_archivos_consultas()
+	{
+		foreach($this->archivos_consultas as $id => $contenido) {
+			$path = toba::proyecto()->get_path() . '/php/' . $id;
+			$php = "<?php\nclass {$contenido['clase']}\n{\n";
+			foreach($contenido['metodos'] as $metodo ) {
+				$php .= $metodo->get_codigo();
+			}
+			$php .= "\n}\n?>";
+			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+			$this->asistente->registrar_elemento_creado(	$path, 
+															$clave['proyecto'],
+															$clave['clave'] );
+		}
 	}
 }
 ?>

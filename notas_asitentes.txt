@@ -114,5 +114,7 @@ Creacion de extension
 
 	Dudas
 		- ¿La carga de opciones de los efs de un form no pueden tener el origen del datos_tabla como el cuadro? 
+			Es verdad! Lo unico raro seria que el DT del que se estaria hablando esta fuera de la operacion...
+			esto llevaria a nuevos planteos... por ahora lo dejaria afuera
 		- Para que es el campo datos_tabla_validacion de la tabla apex_molde_operacion_abms?
-		
+			Era por si queria un DT extendido con las ventanas de validacion
