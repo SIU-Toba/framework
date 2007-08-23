@@ -37,29 +37,6 @@ function ei_cuadro(instancia, input_submit) {
 		}
 	};
 
-	//Chequea si es posible realiza el submit de todos los objetos asociados	
-	ei_cuadro.prototype.puede_submit = function() {
-		if(this._evento) { //Si hay un evento seteado...
-			//- 1 - Hay que llamar a una ventana de control especifica para este evento?
-			if(existe_funcion(this, "evt__" + this._evento.id)){
-				var res = this["evt__" + this._evento.id](this._evento.parametros);
-				if(typeof res != 'undefined' && !res ){
-					this.reset_evento();
-					return false;
-				}
-			}		
-			//- 2 - Hay que confirmar la ejecucion del evento?
-			//La confirmacion se solicita escribiendo el texto de la misma
-			if (trim(this._evento.confirmar) !== "") {
-				if (!this._silencioso && !(confirm(this._evento.confirmar))){
-					this.reset_evento();
-					return false;
-				}
-			}
-		}
-		return true;
-	};
-	
 	ei_cuadro.prototype.colapsar_corte = function(corte)
 	{
 		var objeto = document.getElementById(corte);

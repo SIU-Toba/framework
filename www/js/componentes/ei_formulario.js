@@ -112,22 +112,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 				this.reset_evento();
 				return false;
 			}
-			//- 2 - Hay que llamar a una ventana de control especifica para este evento?
-			if (existe_funcion(this, "evt__" + this._evento.id)){
-				var res = this["evt__" + this._evento.id](this._evento.parametros);
-				if (typeof res != 'undefined' && !res ){			
-					this.reset_evento();
-					return false;
-				}
-			}
-			//- 3 - Hay que confirmar la ejecucion del evento?
-			//La confirmacion se solicita escribiendo el texto de la misma
-			if(trim(this._evento.confirmar) !== "") {
-				if (!this._silencioso && !(confirm(this._evento.confirmar))){
-					this.reset_evento();
-					return false;
-				}
-			}
+			if (! ei.prototype.puede_submit.call(this)) {
+				return false;
+			}			
 		}
 		return true;
 	};

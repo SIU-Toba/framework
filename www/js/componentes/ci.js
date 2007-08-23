@@ -7,7 +7,8 @@ ci.prototype.constructor = ci;
  * @constructor
  * @phpdoc Componentes/Eis/toba_ci toba_ci
  */
-function ci(instancia, form, input_submit, id_en_controlador) {
+function ci(id, instancia, form, input_submit, id_en_controlador) {
+	this._id = id;
 	this.controlador = null;							//CI contenedor	
 	this._instancia = instancia;						//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._form = form;									//Nombre del form contenedor del objeto
@@ -25,7 +26,7 @@ function ci(instancia, form, input_submit, id_en_controlador) {
 	 *	@private
 	 */
 	ci.prototype.agregar_objeto = function(objeto, identificador) {
-		objeto.set_controlador(this);
+		objeto.set_controlador(this, identificador);
 		this._deps[identificador] = objeto;
 	};
 

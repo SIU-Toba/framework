@@ -11,6 +11,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 	this.confirmar = (typeof confirmar == 'undefined') ? false : confirmar;
 	this.parametros = parametros;
 	this._silencioso = false;
+	this._id_dep;
 }
 
 /**
@@ -39,8 +40,9 @@ ei.prototype.constructor = ei;
 	/**
 	 * @private
 	 */
-	ei.prototype.set_controlador = function(ci) {
+	ei.prototype.set_controlador = function(ci, identificador) {
 		this.controlador = ci;
+		this._id_dep = identificador;
 	};
 	
 	//----------------------------------------------------------------
@@ -95,11 +97,29 @@ ei.prototype.constructor = ei;
 	 * @type boolean
 	 */
 	ei.prototype.puede_submit = function() {
-		if(this._evento && existe_funcion(this, "evt__" + this._evento.id)){
-			var res = this["evt__" + this._evento.id](this._evento.parametros);
-			if(typeof res != 'undefined' && !res ){		
-				this.reset_evento();
-				return false;
+		if (this._evento) {
+			//La confirmacion se solicita escribiendo el texto de la misma
+			if (trim(this._evento.confirmar) !== "") {
+				if (!this._silencioso && !(confirm(this._evento.confirmar))){
+					this.reset_evento();
+					return false;
+				}
+			}		
+			var metodo = "evt__" + this._evento.id;
+			if(existe_funcion(this, metodo)){
+				var res = this[metodo](this._evento.parametros);
+				if(typeof res != 'undefined' && !res ){		
+					this.reset_evento();
+					return false;
+				}
+			}
+			metodo = "evt__" + this._id_dep + '__' + this._evento.id;
+			if (this.controlador && existe_funcion( this.controlador, metodo)) {
+				var res = this.controlador[metodo](this._evento.parametros);
+				if(typeof res != 'undefined' && !res ){		
+					this.reset_evento();
+					return false;
+				}
 			}
 		}
 		return true;
@@ -243,5 +263,40 @@ ei.prototype.constructor = ei;
 	ei.prototype.get_boton = function(id) {
 		return document.getElementById(this._input_submit + '_' + id);
 	};
+	
+	//----------------------------------------------------------------  
+	//---Servicios AJAX
+
+	/**
+	 * Ejecuta una callback conteniendo un valor pedido al server utilizando AJAX
+	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta
+	 * @param {mixed} parametros Parametros que se enviaran al servidor
+	 */
+	ei.prototype.ajax_dato = function(metodo, parametros, clase, funcion) {
+		var respuesta = new ajax_respuesta('D');
+		respuesta.set_callback(clase, funcion);
+		var callback_real = {
+			success: respuesta.recibir,
+			failure: toba.error_comunicacion,
+			scope: respuesta
+		};
+		var param = {'ajax-metodo': metodo, 'ajax-modo': 'D', 'ajax-param': serializar(parametros)};
+		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
+	};
+	
+	ei.prototype.ajax_html = function(metodo, parametros, nodo_html) {
+		var respuesta = new ajax_respuesta('H');
+		respuesta.set_nodo_html(nodo_html);
+		var callback_real = {
+			success: respuesta.recibir,
+			failure: toba.error_comunicacion,
+			scope: respuesta
+		};
+		var param = {'ajax-metodo': metodo, 'ajax-modo': 'H', 'ajax-param': serializar(parametros)};
+		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
+	};	
+	
 
 toba.confirmar_inclusion('componentes/ei');

@@ -310,6 +310,22 @@ class toba_solicitud_web extends toba_solicitud
 			$objeto->servicio__ejecutar();
 		}
 	}
+	
+	
+	protected function servicio__ajax($objetos)
+	{
+		toba::memoria()->desactivar_reciclado();
+		try {
+			if (count($objetos) != 1) {
+				$actual = count($objetos);
+				throw new toba_error("La invocacion AJAX sólo admite un objeto destino (actualmente: $actual)");
+			}
+			$objetos[0]->servicio__ajax();
+		} catch(toba_error $e) {
+			toba::logger()->error($e, 'toba');
+		}
+	}
+	
 
 	function registrar()
 	{

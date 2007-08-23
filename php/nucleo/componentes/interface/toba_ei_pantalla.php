@@ -564,6 +564,7 @@ class toba_ei_pantalla extends toba_ei
 	function get_consumo_javascript()
 	{
 		$consumo_js = parent::get_consumo_javascript();
+		$consumo_js[] = 'basicos/ajax_respuesta';		
 		$consumo_js[] = 'componentes/ci';
 		foreach($this->_dependencias as $dep) {
 			$temp = $dep->get_consumo_javascript();
@@ -579,9 +580,10 @@ class toba_ei_pantalla extends toba_ei
 	 */	
 	protected function crear_objeto_js()
 	{
+		$id = toba_js::arreglo($this->_id, false);
 		$identado = toba_js::instancia()->identado();	
 		//Crea le objeto CI
-		echo $identado."window.{$this->objeto_js} = new ci('{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}');\n";
+		echo $identado."window.{$this->objeto_js} = new ci($id, '{$this->objeto_js}', '{$this->_nombre_formulario}', '{$this->_submit}', '{$this->_id_en_controlador}');\n";
 
 		//Crea los objetos hijos
 		$objetos = array();

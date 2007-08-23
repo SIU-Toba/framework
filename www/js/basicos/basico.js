@@ -138,6 +138,17 @@ function array_maximo(arreglo) {
 	return maximo;
 }
 
+function serializar(dato) {
+	if (typeof dato == 'object') {
+		var salida = [];
+		for (i in dato) {
+			salida.push(i + '^^' + dato[i]);
+		}
+		return salida.join(toba_hilo_separador);
+	}
+	return dato;
+}
+
 //---Eventos
 //--------------------------------------------
 

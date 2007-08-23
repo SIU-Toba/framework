@@ -543,7 +543,9 @@ class toba_nucleo
 			'toba_sincronizador_archivos'			=> 'lib/toba_sincronizador_archivos.php',
  			'toba_archivo_php'						=> 'lib/reflexion/toba_archivo_php.php',
 			'toba_clase_datos'						=> 'lib/reflexion/toba_clase_datos.php',
- 			'toba_clase_php' 						=> 'lib/reflexion/toba_clase_php.php'
+ 			'toba_clase_php' 						=> 'lib/reflexion/toba_clase_php.php',
+ 			'toba_fecha' 							=> 'lib/toba_fecha.php',
+ 			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php'
 		);
 	}
 

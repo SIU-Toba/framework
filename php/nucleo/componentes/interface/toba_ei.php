@@ -599,7 +599,8 @@ abstract class toba_ei extends toba_componente
 		//Se agrega al objeto al singleton toba
 		echo $identado."toba.agregar_objeto(window.{$this->objeto_js});\n";		
 	}
-
+	
+	
 	//---------------------------------------------------------------
 	//----------------------  SALIDA Impresion  ---------------------
 	//---------------------------------------------------------------

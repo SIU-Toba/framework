@@ -709,5 +709,22 @@ class toba_ci extends toba_ei
 		return $this->pantalla()->generar_js();
 	}
 	
+	//------------------------------------------------------------
+	//----------------------  SERVICIO AJAX  ---------------------
+	//------------------------------------------------------------
+	
+	function servicio__ajax()
+	{
+		$metodo = 'ajax__'.trim(toba::memoria()->get_parametro('ajax-metodo'));
+		$metodo = substr($metodo,0,80);
+		$parametros = trim(toba::memoria()->get_parametro('ajax-param'));
+		$modo = trim(toba::memoria()->get_parametro('ajax-modo'));		
+		$respuesta = new toba_ajax_respuesta($modo);
+		
+		$variable = toba_vinculador::url_a_variable($parametros);		
+		$this->$metodo($variable, $respuesta);
+		$respuesta->comunicar();
+	}
+	
 }
 ?>
