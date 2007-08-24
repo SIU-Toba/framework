@@ -31,7 +31,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function asociar_pantalla_dep($pantalla, $dep)
 	{
 		if(!isset($this->mapeo_pantallas[$pantalla])){
-			throw new toba_error('Molde CI, asociando a pantallas: La pantalla solicitada no existe.');
+			throw new toba_error_asistentes('Molde CI, asociando a pantallas: La pantalla solicitada no existe.');
 		}
 		if(is_object($dep)){
 			foreach($this->deps as $id => $d) {
@@ -42,7 +42,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 			}
 		} else {
 			if(!isset($this->deps[$dep])){
-				throw new toba_error('Molde CI, asociando a pantallas: La dependencia solicitada no existe.');
+				throw new toba_error_asistentes('Molde CI, asociando a pantallas: La dependencia solicitada no existe.');
 			}
 		}
 		$id_fila = $this->mapeo_pantallas[$pantalla];
@@ -52,13 +52,13 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function asociar_pantalla_evento($pantalla, $evento)
 	{
 		if(!isset($this->mapeo_pantallas[$pantalla])){
-			throw new toba_error('Molde CI, asociando a pantallas: La pantalla solicitada no existe.');
+			throw new toba_error_asistentes('Molde CI, asociando a pantallas: La pantalla solicitada no existe.');
 		}
 		if(is_object($evento)){
 			$evento = $evento->get_identificador();	
 		} else {
 			if(!isset($this->eventos[$evento])){
-				throw new toba_error('Molde CI, asociando a pantallas: El evento solicitado no existe.');
+				throw new toba_error_asistentes('Molde CI, asociando a pantallas: El evento solicitado no existe.');
 			}
 		}
 		$id_fila = $this->mapeo_pantallas[$pantalla];
@@ -68,7 +68,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function set_alto($alto)
 	{
 		if((strpos($alto,'%')===false) && (strpos($alto,'px')===false)) {
-			throw new toba_error("MOLDE CUADRO: El alto debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
+			throw new toba_error_asistentes("MOLDE CUADRO: El alto debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
 		}
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'alto',$alto);
 	}
@@ -88,7 +88,7 @@ class toba_ci_molde extends toba_molde_elemento_componente_ei
 	function dep($id)
 	{
 		if(!isset($this->deps[$id])){
-			throw new toba_error("La dependencia '$id' no existe");
+			throw new toba_error_asistentes("La dependencia '$id' no existe");
 		}
 		return $this->deps[$id];
 	}

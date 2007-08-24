@@ -45,7 +45,7 @@ class toba_codigo_clase
 		} elseif($elemento instanceof toba_codigo_propiedad_php) {
 			$this->propiedades[] = $elemento;	
 		}else {
-			throw new toba_error('molde_clase: El elemento no corresponde a un tipo valido. Nombre: ' . $elemento->get_nombre() );	
+			throw new toba_error_asistentes('molde_clase: El elemento no corresponde a un tipo valido. Nombre: ' . $elemento->get_nombre() );	
 		}
 		$this->orden++;
 	}

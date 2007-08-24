@@ -30,7 +30,7 @@ class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 	function ef($identificador)
 	{
 		if(!isset($this->efs[$identificador])) {
-			throw new toba_error('Molde formulario: El ef solicitado no existe');	
+			throw new toba_error_asistentes('Molde formulario: El ef solicitado no existe');	
 		}
 		return $this->efs[$identificador];
 	}

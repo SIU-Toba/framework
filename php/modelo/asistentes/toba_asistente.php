@@ -91,7 +91,7 @@ abstract class toba_asistente
 			cerrar_transaccion();
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 			return $this->log_elementos_creados;
-		} catch (toba_error $e) {
+		} catch (toba_error_asistentes $e) {
 			toba::logger()->debug($e);
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
 			abortar_transaccion();
@@ -169,7 +169,7 @@ abstract class toba_asistente
 		if(isset($this->retorno_opciones_generacion[$opcion])) {
 			return $this->retorno_opciones_generacion[$opcion];
 		} else {
-			throw new toba_error("ASISTENTE: La opcion de generacion '$opcion' no existe!");	
+			throw new toba_error_asistentes("ASISTENTE: La opcion de generacion '$opcion' no existe!");	
 		}
 	}
 

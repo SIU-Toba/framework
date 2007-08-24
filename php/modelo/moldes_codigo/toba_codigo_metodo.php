@@ -14,11 +14,11 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 		$this->nombre = $nombre;
 		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		if(!is_array($parametros)){
-			throw new toba_error("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
+			throw new toba_error_asistentes("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
 		}
 		$this->parametros = $parametros;
 		if(!is_array($comentarios)){
-			throw new toba_error("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
+			throw new toba_error_asistentes("Error en el metodo: $nombre. Los PARAMETROS deben ser un array");	
 		}
 		$this->comentarios = $comentarios;
 	}

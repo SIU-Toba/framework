@@ -53,7 +53,7 @@ class toba_molde_evento
 	function set_imagen($url_relativa, $origen='apex')
 	{
 		if ($origen != 'apex' &&  $origen != 'proyecto' ) {
-			throw new toba_error_def("Molde EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
+			throw new toba_error_asistentes("Molde EVENTO: El origen de la imagen debe ser 'apex' o 'proyecto'. Valor recibido: $origen");	
 		}
 		$this->datos['imagen_recurso_origen'] = $origen;
 		$this->datos['imagen'] = $url_relativa;

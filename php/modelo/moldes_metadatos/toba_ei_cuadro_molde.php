@@ -30,7 +30,7 @@ class toba_ei_cuadro_molde extends toba_molde_elemento_componente_ei
 	function columna($identificador)
 	{
 		if(!isset($this->columnas[$identificador])) {
-			throw new toba_error('Molde cuadro: la columna solicitada no existe');	
+			throw new toba_error_asistentes('Molde cuadro: la columna solicitada no existe');	
 		}
 		return $this->columnas[$identificador];
 	}
@@ -51,7 +51,7 @@ class toba_ei_cuadro_molde extends toba_molde_elemento_componente_ei
 	function set_scroll($alto)
 	{
 		if((strpos($alto,'%')===false) && (strpos($alto,'px')===false)) {
-			throw new toba_error("MOLDE CUADRO: El alto del SCROLL debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
+			throw new toba_error_asistentes("MOLDE CUADRO: El alto del SCROLL debe definirse con el tipo de medida asociado ('%' o 'px'). Definido: $alto");
 		}
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'scroll',1);
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'scroll_alto',$alto);

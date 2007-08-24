@@ -46,7 +46,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function columna($identificador)
 	{
 		if(!isset($this->columnas[$identificador])) {
-			throw new toba_error('Molde formulario: El ef solicitado no existe');	
+			throw new toba_error_asistentes('Molde formulario: El ef solicitado no existe');	
 		}
 		return $this->columnas[$identificador];
 	}

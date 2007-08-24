@@ -68,7 +68,7 @@ class toba_asistente_abms extends toba_asistente
 			}
 		}
 		if(count($filas)==0) {
-			throw new toba_error('ASISTENTE ABMS: Se especifico un filtro pero no se definio que filas participan del mismo');	
+			throw new toba_error_asistentes('ASISTENTE ABMS: Se especifico un filtro pero no se definio que filas participan del mismo');	
 		}
 		$this->generar_efs($filtro, $filas);
 		$this->ci->php()->agregar( new toba_codigo_separador_php('Filtro') );	
@@ -178,7 +178,7 @@ class toba_asistente_abms extends toba_asistente
 												$filtro );
 				}				
 			} else {
-				throw new toba_error('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
+				throw new toba_error_asistentes('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
 			}
 			//-- SI la operacion tiene FILTRO....
 			if ($this->molde_abms['gen_usa_filtro']) {

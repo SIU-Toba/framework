@@ -14,7 +14,7 @@ class toba_codigo_separador extends toba_codigo_elemento
 		$this->nombre = $nombre;
 		$this->descripcion = isset($descripcion) ? $descripcion : $this->nombre;
 		if( ($tipo != 'chico') && ($tipo != 'grande') ) {
-			throw new toba_error('Error en la construccion del molde_separador: los tipos validos son \'chico\' y \'grande\'. Tipo solicitado: ' .$tipo . ' - Separador "' . $nombre . '"' );
+			throw new toba_error_asistentes('Error en la construccion del molde_separador: los tipos validos son \'chico\' y \'grande\'. Tipo solicitado: ' .$tipo . ' - Separador "' . $nombre . '"' );
 		}
 		$this->tipo = $tipo;
 	}

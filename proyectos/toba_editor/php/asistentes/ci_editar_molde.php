@@ -104,21 +104,27 @@ class ci_editar_molde extends toba_ci
 
 	function conf__pant_generar()
 	{
-		//Si hay algun tema bloqueante, no dejo hacer nada
-		$bloqueos = $this->asistente(true)->get_bloqueos();
-		if(! empty($bloqueos)) {
-			$this->pantalla()->eliminar_evento('generar');
-			$this->pantalla()->eliminar_dep('form_generaciones');
-			toba::notificacion()->agregar('Existen problemas que imposibilitan la ejecución del molde. '
-											.' Por favor edite el mismo y vuelva a intentar. '
-											.'Los errores se describen a continuacion.');
-			foreach($bloqueos as $bloqueo) {
-				toba::notificacion()->agregar($bloqueo);	
+		try {
+			//Si hay algun tema bloqueante, no dejo hacer nada
+			$bloqueos = $this->asistente(true)->get_bloqueos();
+			if(! empty($bloqueos)) {
+				$this->pantalla()->eliminar_evento('generar');
+				$this->pantalla()->eliminar_dep('form_generaciones');
+				toba::notificacion()->agregar('Existen problemas que imposibilitan la ejecución del molde. '
+												.' Por favor edite el mismo y vuelva a intentar. '
+												.'Los errores se describen a continuacion.');
+				foreach($bloqueos as $bloqueo) {
+					toba::notificacion()->agregar($bloqueo);	
+				}
 			}
-		}
-		// Si no hay opciones de generacion, excluyo el form de opciones
-		$opciones = $this->asistente()->get_opciones_generacion();
-		if(empty($opciones)) {
+			// Si no hay opciones de generacion, excluyo el form de opciones
+			$opciones = $this->asistente()->get_opciones_generacion();
+			if(empty($opciones)) {
+				$this->pantalla()->eliminar_dep('form_generaciones');
+			}
+		} catch ( toba_error_asistentes $e ) {
+			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
+			$this->pantalla()->eliminar_evento('generar');
 			$this->pantalla()->eliminar_dep('form_generaciones');
 		}
 	}

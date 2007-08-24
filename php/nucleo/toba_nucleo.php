@@ -526,6 +526,7 @@ class toba_nucleo
 			'toba_modelo_elemento'					=> 'modelo/lib/toba_modelo_elemento.php',
 			'toba_error_modelo'						=> 'modelo/lib/toba_modelo_error.php',
 			'toba_error_modelo_preexiste'			=> 'modelo/lib/toba_modelo_error.php',
+			'toba_error_asistentes'					=> 'modelo/lib/toba_modelo_error.php',
 			'toba_version'							=> 'modelo/lib/toba_version.php',
 			'toba_proceso_gui'						=> 'modelo/lib/toba_proceso_gui.php',
 			'toba_mock_proceso_gui'					=> 'modelo/lib/toba_proceso_gui.php',
