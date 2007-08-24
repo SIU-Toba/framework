@@ -169,6 +169,9 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ef-barra-divisora {
 	border-bottom: gray 1px solid;
 }
+.ei-ml-fila-total {
+	border-top: gray 1px solid;
+}
 /*************************
 		CI
 **************************/

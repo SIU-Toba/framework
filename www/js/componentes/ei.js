@@ -264,39 +264,6 @@ ei.prototype.constructor = ei;
 		return document.getElementById(this._input_submit + '_' + id);
 	};
 	
-	//----------------------------------------------------------------  
-	//---Servicios AJAX
-
-	/**
-	 * Ejecuta una callback conteniendo un valor pedido al server utilizando AJAX
-	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta
-	 * @param {mixed} parametros Parametros que se enviaran al servidor
-	 */
-	ei.prototype.ajax_dato = function(metodo, parametros, clase, funcion) {
-		var respuesta = new ajax_respuesta('D');
-		respuesta.set_callback(clase, funcion);
-		var callback_real = {
-			success: respuesta.recibir,
-			failure: toba.error_comunicacion,
-			scope: respuesta
-		};
-		var param = {'ajax-metodo': metodo, 'ajax-modo': 'D', 'ajax-param': serializar(parametros)};
-		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
-		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
-	};
-	
-	ei.prototype.ajax_html = function(metodo, parametros, nodo_html) {
-		var respuesta = new ajax_respuesta('H');
-		respuesta.set_nodo_html(nodo_html);
-		var callback_real = {
-			success: respuesta.recibir,
-			failure: toba.error_comunicacion,
-			scope: respuesta
-		};
-		var param = {'ajax-metodo': metodo, 'ajax-modo': 'H', 'ajax-param': serializar(parametros)};
-		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
-		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
-	};	
 	
 
 toba.confirmar_inclusion('componentes/ei');

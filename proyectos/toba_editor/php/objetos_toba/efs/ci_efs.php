@@ -172,7 +172,7 @@ class ci_efs extends toba_ci
 	function conf__efs($form)
 	{
 		//--- Solo el ML tiene la propiedad totalizar
-		if ($this->controlador->get_clase_actual() != 'objeto_ei_formulario_ml') {
+		if ($this->controlador->get_clase_actual() != 'toba_ei_formulario_ml') {
 			$form->desactivar_efs(array('total'));
 		}
 		$this->s__seleccion_efs_anterior = $this->s__seleccion_efs;

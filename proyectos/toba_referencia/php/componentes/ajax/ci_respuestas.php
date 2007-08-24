@@ -3,7 +3,8 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class ci_respuestas extends toba_ci
 {
-
+	protected $s__cache_feriados = array();
+	
 	/****************************************************
 	 *** CASO 1: Comunicación de datos via AJAX
 	 ****************************************************/
@@ -71,8 +72,55 @@ class ci_respuestas extends toba_ci
 	}
 
 	
+	/******************************************************************************
+	 *** CASO 2: Comunicación de datos via AJAX utilizado en una validación en JS
+	 *******************************************************************************/	
+	
+	/**
+	 * Método invocado desde JS para validar un día especifico contra un WebService de feriados
+	 * del Ministerio del Interior (http://www.mininterior.gov.ar/servicios/wsferiados.asp)
+	 */
+	function ajax__validar_dia_habil($dia, toba_ajax_respuesta $respuesta)
+	{
+		$es_valido = true;
+		$mensaje = '';
+		
+		$fecha = toba_fecha::desde_pantalla($dia);
+		$anio = $fecha->get_parte('año');
+		//--- Se forma un cache de feriados por año para evitar ir al WS en cada pedido, esto es un ejemplo de juguete!
+		if (! isset($this->s__cache_feriados[$anio])) {
+			$client = new SoapClient("http://webservices.mininterior.gov.ar/Feriados/Service.svc?wsdl");
+			$d1 = mktime(0, 0, 0, 1, 1, $anio);
+			$d2 = mktime(0, 0, 0, 12, 31, $anio);
+			$feriados = $client->FeriadosEntreFechasAsXml(array('d1'=>$d1, 'd2'=>$d2));
+			$this->s__cache_feriados[$anio] = $feriados->FeriadosEntreFechasAsXmlResult;
+		}
+		$feriados = simplexml_load_string($this->s__cache_feriados[$anio]);
+		foreach($feriados as $feriado) {
+			$fecha_feriado = new toba_fecha((string) $feriado->FechaEfectiva);
+			if ($fecha_feriado->es_igual_que($fecha)) {
+				$es_valido = false;
+				$mensaje = 'El '.$fecha->get_fecha_pantalla().'
+								 es '. (string) utf8_decode($feriado->Descripcion).
+								' por '.(string) utf8_decode($feriado->TipoDescripcion);
+				break;		
+			}
+		}
+		$respuesta->set(array('es_valido' => $es_valido, 'mensaje' => $mensaje));
+	}
+	
+	/**
+	 * Javascript necesario para el caso de preguntar/responder datos
+	 */
+	function js_caso_validacion()
+	{
+		echo "		
+		";
+	}	
+	
+	
 	/****************************************************
-	 *** CASO 2: Comunicación de HTML via AJAX
+	 *** CASO 3: Comunicación de HTML via AJAX
 	 ****************************************************/
 	
 	/**
@@ -145,13 +193,15 @@ class ci_respuestas extends toba_ci
 		";
 	}	
 	
+	
 	/****************************************************
-	 *** CASO 3: Utilización Ad-Hoc de la API de bajo nivel
+	 *** CASO 4: Utilización Ad-Hoc de la API de bajo nivel
 	 ****************************************************/	
 	
 	function extender_objeto_js()
 	{
 		$this->js_caso_datos();
+		$this->js_caso_validacion();
 		$this->js_caso_html();
 		
 	}

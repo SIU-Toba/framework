@@ -39,6 +39,43 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
+-- apex_objeto_eventos
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
+	'1000372', --evento_id
+	'1000323', --objeto
+	'confimar', --identificador
+	'Confirmar', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	'ei-boton-izq', --estilo
+	'apex', --imagen_recurso_origen
+	'aplicar.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'1', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+--- FIN Grupo de desarrollo 1
+
+------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -79,6 +116,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'1000185', --dep_id
+	'1000323', --objeto_consumidor
+	'1000327', --objeto_proveedor
+	'form_validacion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -90,7 +139,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
 	'600px', --ancho
-	'300px', --alto
+	NULL, --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion
 	'0', --con_toc
@@ -132,11 +181,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000323', --objeto_ci
 	'1000181', --pantalla
 	'api_html', --identificador
-	'2', --orden
+	'3', --orden
 	'Comunicación de HTML', --etiqueta
 	'En esta operación se escucha el evento del botón Buscar y se le pide a PHP que busque en [url:http://www.flickr.com/ Flickr] las fotos relacionadas.
-<br>
-<strong>Nota:</strong> Este ejemplo necesita la extensión <strong>curl</strong> de PHP', --descripcion
+<br><br>
+<strong>Nota:</strong> Este ejemplo necesita la extensión <strong>curl</strong> de PHP y una conexión a internet.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -150,14 +199,34 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000323', --objeto_ci
 	'1000182', --pantalla
 	'api_bajo_nivel', --identificador
-	'3', --orden
+	'4', --orden
 	'API Bajo Nivel', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --objetos
-	NULL, --eventos
+	'', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1000323', --objeto_ci
+	'1000183', --pantalla
+	'api_dato_validacion', --identificador
+	'2', --orden
+	'Validación', --etiqueta
+	'Esta pantalla presenta dos validaciones pedidas al servidor:<ul>
+<li>Ante cada cambio de fecha inmediatamente se hace un pedido asincronico de validación por feriado (ingresar fechas como <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"25/12/2007\")\'>25/12/2007</a> o <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"9/7/2008\")\'>9/7/2008</a>). 
+<li>Cuando el usuario decide confirmar los cambios se envían todas las fechas al servidor para que se validen en conjunto, pudiendo detener el proceso de submit del formulario.
+</ul>
+<strong>Nota:</strong> Este ejemplo necesita la extensiones <strong>soap</strong> y <strong>SimpleXML</strong> de PHP y una conexión a internet para acceder al [url:http://www.mininterior.gov.ar/servicios/wsferiados.asp Web Service de Feriados]', --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_validacion', --objetos
+	'confimar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

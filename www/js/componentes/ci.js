@@ -308,4 +308,39 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
 	};	
 	
+	//----------------------------------------------------------------  
+	//---Servicios AJAX
+
+	/**
+	 * Ejecuta una callback conteniendo un valor pedido al server utilizando AJAX
+	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta
+	 * @param {mixed} parametros Parametros que se enviaran al servidor
+	 */
+	ci.prototype.ajax_dato = function(metodo, parametros, clase, funcion, contexto) {
+		var respuesta = new ajax_respuesta('D');
+		respuesta.set_callback(clase, funcion);
+		respuesta.set_contexto(contexto);
+		var callback_real = {
+			success: respuesta.recibir,
+			failure: toba.error_comunicacion,
+			scope: respuesta
+		};
+		var param = {'ajax-metodo': metodo, 'ajax-modo': 'D', 'ajax-param': serializar(parametros)};
+		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
+	};
+	
+	ci.prototype.ajax_html = function(metodo, parametros, nodo_html) {
+		var respuesta = new ajax_respuesta('H');
+		respuesta.set_nodo_html(nodo_html);
+		var callback_real = {
+			success: respuesta.recibir,
+			failure: toba.error_comunicacion,
+			scope: respuesta
+		};
+		var param = {'ajax-metodo': metodo, 'ajax-modo': 'H', 'ajax-param': serializar(parametros)};
+		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
+	};		
+	
 toba.confirmar_inclusion('componentes/ci');
