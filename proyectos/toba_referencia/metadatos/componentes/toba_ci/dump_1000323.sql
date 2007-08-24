@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_respuestas', --subclase
-	'componentes/ajax/ci_respuestas.php', --subclase_archivo
+	'ci_ajax', --subclase
+	'componentes/ajax/ci_ajax.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Comportamientos AJAX', --nombre
@@ -47,7 +47,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_referencia', --proyecto
 	'1000372', --evento_id
 	'1000323', --objeto
-	'confimar', --identificador
+	'confirmar', --identificador
 	'Confirmar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
@@ -221,12 +221,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 <li>Ante cada cambio de fecha inmediatamente se hace un pedido asincronico de validación por feriado (ingresar fechas como <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"25/12/2007\")\'>25/12/2007</a> o <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"9/7/2008\")\'>9/7/2008</a>). 
 <li>Cuando el usuario decide confirmar los cambios se envían todas las fechas al servidor para que se validen en conjunto, pudiendo detener el proceso de submit del formulario.
 </ul>
-<strong>Nota:</strong> Este ejemplo necesita la extensiones <strong>soap</strong> y <strong>SimpleXML</strong> de PHP y una conexión a internet para acceder al [url:http://www.mininterior.gov.ar/servicios/wsferiados.asp Web Service de Feriados]', --descripcion
+<strong>Nota:</strong> Este ejemplo necesita la extensiones <strong>soap</strong> y <strong>SimpleXML</strong> de PHP y una conexión a internet para acceder al [url:http://www.mininterior.gov.ar/servicios/wsferiados.asp Web Service de Feriados]. La primera vez que accede puede tardar bastante tiempo...', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_validacion', --objetos
-	'confimar', --eventos
+	'confirmar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

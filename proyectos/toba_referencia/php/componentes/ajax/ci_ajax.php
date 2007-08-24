@@ -1,7 +1,7 @@
 <?php 
 php_referencia::instancia()->agregar(__FILE__);
 
-class ci_respuestas extends toba_ci
+class ci_ajax extends toba_ci
 {
 	protected $s__cache_feriados = array();
 	
@@ -82,9 +82,32 @@ class ci_respuestas extends toba_ci
 	 */
 	function ajax__validar_dia_habil($dia, toba_ajax_respuesta $respuesta)
 	{
-		$es_valido = true;
 		$mensaje = '';
-		
+		$es_valido = $this->validar_dia($dia, $mensaje);
+		$respuesta->set(array('es_valido' => $es_valido, 'mensaje' => $mensaje));
+	}
+	
+	function ajax__validar_lista_dias($fechas, toba_ajax_respuesta $respuesta)
+	{
+		$salida = array();
+		foreach($fechas as $fecha) {
+			$mensaje = '';
+			if (! $this->validar_dia($fecha, $mensaje)) {
+				$salida[] = $mensaje;	
+			}
+		}
+		$respuesta->set($salida);
+	}
+	
+	/**
+	 * Función de ayuda que comprueba si un dia es feriado
+	 */
+	function validar_dia($dia, & $mensaje)
+	{
+		if (trim($dia) == '') {
+			return true;
+		}
+		$es_valido = true;
 		$fecha = toba_fecha::desde_pantalla($dia);
 		$anio = $fecha->get_parte('año');
 		//--- Se forma un cache de feriados por año para evitar ir al WS en cada pedido, esto es un ejemplo de juguete!
@@ -101,12 +124,12 @@ class ci_respuestas extends toba_ci
 			if ($fecha_feriado->es_igual_que($fecha)) {
 				$es_valido = false;
 				$mensaje = 'El '.$fecha->get_fecha_pantalla().'
-								 es '. (string) utf8_decode($feriado->Descripcion).
-								' por '.(string) utf8_decode($feriado->TipoDescripcion);
+								 es '. trim((string) utf8_decode($feriado->Descripcion)).
+								' por '.trim((string) utf8_decode($feriado->TipoDescripcion));
 				break;		
 			}
 		}
-		$respuesta->set(array('es_valido' => $es_valido, 'mensaje' => $mensaje));
+		return $es_valido;
 	}
 	
 	/**
@@ -114,10 +137,48 @@ class ci_respuestas extends toba_ci
 	 */
 	function js_caso_validacion()
 	{
-		echo "		
+		echo "
+			var confirmado = false;
+			{$this->objeto_js}.evt__confirmar = function() {
+				if (confirmado) {
+					return true;
+				}
+				var datos = this.dep('form_validacion').get_datos();
+				var parametros = [];
+				for (i in datos) {
+					parametros.push(datos[i]['dia']);
+				}
+				this.ajax_dato('validar_lista_dias', parametros, this, this.respuesta_confirmacion);
+				return false;			
+			}
+			
+			/**
+			 * Acción cuando vuelve la respuesta desde PHP
+			 */
+			{$this->objeto_js}.respuesta_confirmacion = function(errores)
+			{
+				if (errores.length > 0) {
+					var error = 'Errores: <ul>';
+					for (i in errores) {
+						error = error + '<li>' + errores[i] + '</li>';
+					}
+					error = error + '</ul>';
+					notificacion.limpiar();
+					notificacion.agregar(error);
+					notificacion.mostrar();					
+				} else {
+					confirmado = true;
+					{$this->objeto_js}.set_evento(new evento_ei('confirmar', true, '' ));
+				}
+			}				
 		";
 	}	
 	
+	
+	function evt__confirmar()
+	{
+		toba::notificacion()->agregar('Confirmado OK!', 'info');	
+	}
 	
 	/****************************************************
 	 *** CASO 3: Comunicación de HTML via AJAX

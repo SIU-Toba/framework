@@ -111,7 +111,7 @@ class toba_ef_editable extends toba_ef
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
-			$input .= ' '. $this->unidad;
+			$input = "<div style='white-space:nowrap'>".$input .' '.$this->unidad.'</div>';
 		}
 		return $input;
 	}
