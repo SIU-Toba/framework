@@ -7,7 +7,9 @@ class extension_ci extends toba_ci
 	
 	function conf__formulario()
 	{
-		return array( 'archivo' => $this->s__nombre_archivo );
+		if (isset($this->s__nombre_archivo)) {
+			return array( 'archivo' => $this->s__nombre_archivo );
+		}
 	}
 	
 	function evt__formulario__modificacion($datos)

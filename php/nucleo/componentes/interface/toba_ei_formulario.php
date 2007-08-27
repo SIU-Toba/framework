@@ -910,7 +910,7 @@ class toba_ei_formulario extends toba_ei
 			echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
 			$this->generar_input_ef($ef);
 			echo "</div>";
-			if ($this->_info_formulario['expandir_descripcion']) {
+			if (isset($this->_info_formulario['expandir_descripcion']) && $this->_info_formulario['expandir_descripcion']) {
 				echo '<span class="ei-form-fila-desc">'.$this->_elemento_formulario[$ef]->get_descripcion().'</span>';
 			}
 
@@ -943,7 +943,7 @@ class toba_ei_formulario extends toba_ei
     	    }
 		}
 		$desc='';
-		if (! $this->_info_formulario['expandir_descripcion']) {
+		if (isset($this->_info_formulario['expandir_descripcion']) && ! $this->_info_formulario['expandir_descripcion']) {
 			$desc = $this->_elemento_formulario[$ef]->get_descripcion();		
 			if ($desc !=""){
 				$desc = toba_parser_ayuda::parsear($desc);

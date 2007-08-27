@@ -210,6 +210,12 @@ class toba_memoria
 		return $this->servicio;	
 	}
 	
+	function set_servicio_solicitado($servicio)
+	{
+		$this->servicio = $servicio;
+	}
+	
+	
 	/**
 	 * Retorna la referencia a aquellos objetos destino del servicio solicitado
 	 */

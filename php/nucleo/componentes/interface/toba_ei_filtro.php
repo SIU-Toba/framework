@@ -41,6 +41,7 @@ class toba_ei_filtro extends toba_ei_formulario
 	
 	function vista_impresion_html( $salida )
 	{
+		$this->cargar_opciones_efs();		
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='tabla-0' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef ){

@@ -51,7 +51,7 @@ class toba_ef_upload extends toba_ef
 		}
 		$salida = "";
 		if (! $this->solo_lectura) {
-			if (isset($nombre_archivo)) {
+			if (isset($nombre_archivo) && $nombre_archivo != '') {
 				$salida .= toba_form::archivo($this->id_form, null, "ef-upload", "style='display:none'");
 				$salida .= "<div id='{$this->id_form}_desicion' class='ef-upload-desc'>". $nombre_archivo . "</div>";
 				$salida .= toba_form::checkbox("{$this->id_form}_check", null, 1, 'ef-checkbox', "$extra onclick=\"{$this->objeto_js()}.set_editable()\"");
@@ -61,7 +61,7 @@ class toba_ef_upload extends toba_ef
 				$salida .= toba_form::checkbox("{$this->id_form}_check", 1, 1, 'ef-checkbox', "style='display:none'");
 			}
 		} else { // En modo sólo lectura
-			if (isset($nombre_archivo)) {
+			if (isset($nombre_archivo) && $nombre_archivo != '') {
 				$salida = "<div class='ef-upload-desc'>". $nombre_archivo ."</div>";
 			} else {
 				$salida = toba_form::archivo($this->id_form, null, "ef-upload", "disabled='disabled'");

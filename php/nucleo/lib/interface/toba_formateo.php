@@ -86,7 +86,7 @@
    
     function formato_checkbox($valor)
     {
-        if ($valor == 1)
+        if ($valor == 1 || $valor == 'S' || $valor == 's')
             $html = "SI";
         else
             $html = "NO";
