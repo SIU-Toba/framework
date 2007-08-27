@@ -311,7 +311,7 @@ abstract class toba_componente
 		$props = reflexion_buscar_propiedades($this, 's__');
 		if (! empty($props)) {
 			$this->set_propiedades_sesion($props);
-		}		
+		}
 	}
 
 	/**

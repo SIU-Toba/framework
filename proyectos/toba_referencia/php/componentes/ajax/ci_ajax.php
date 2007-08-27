@@ -4,6 +4,14 @@ php_referencia::instancia()->agregar(__FILE__);
 class ci_ajax extends toba_ci
 {
 	protected $s__cache_feriados = array();
+
+	function extender_objeto_js()
+	{
+		$this->js_caso_datos();
+		$this->js_caso_validacion();
+		$this->js_caso_html();
+		$this->js_caso_bajo_nivel();
+	}	
 	
 	/****************************************************
 	 *** CASO 1: Comunicación de datos via AJAX
@@ -259,13 +267,38 @@ class ci_ajax extends toba_ci
 	 *** CASO 4: Utilización Ad-Hoc de la API de bajo nivel
 	 ****************************************************/	
 	
-	function extender_objeto_js()
+	function ajax__api_bajo_nivel($parametros, toba_ajax_respuesta $respuesta)
 	{
-		$this->js_caso_datos();
-		$this->js_caso_validacion();
-		$this->js_caso_html();
-		
+		$respuesta->agregar('html_puro', '<strong>HTML</strong> Puro');
+		$respuesta->agregar('un_dato', date());
+		$respuesta->agregar('arreglo', array('uno'=>1, 'dos'=>dos));
+		$respuesta->agregar('codigo', 'alert("hey");');
 	}
+	
+	/**
+	 * Javascript necesario para el caso de una respuesta html
+	 */
+	function js_caso_bajo_nivel()
+	{
+		echo "		
+			/**
+			 * Acción del botón BUSCAR
+			 */
+			{$this->objeto_js}.evt__boton = function() {
+				this.ajax('api_bajo_nivel', null, this, this.metodo_callback);				
+							
+				//--- Evito que el mecanismo 'normal' de comunicacion cliente-servidor se ejecute
+				return false;
+			}
+			
+			{$this->objeto_js}.metodo_callback = function() {
+				//respuesta.get('html_puro');
+				this.nodo_pie().innerHTML = 'hey';		
+			}
+						
+			
+		";
+	}	
 }
 
 ?>

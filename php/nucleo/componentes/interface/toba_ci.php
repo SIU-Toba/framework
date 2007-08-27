@@ -31,10 +31,11 @@ class toba_ci extends toba_ei
 	protected $_en_servicio = false;					// Indica que se ha entrado en la etapa de servicios
 	protected $_ini_operacion = true;				// Indica si la operación recién se inicia
 	protected $_wizard_sentido_navegacion;			// Indica si el wizard avanza o no
+	protected $_metodos_ajax;						//Metodos AJAX que se pueden invocar en este pedido de página
 	
 	function __construct($id)
 	{
-		$this->set_propiedades_sesion(array('_ini_operacion','_dependencias_ci'));		
+		$this->set_propiedades_sesion(array('_ini_operacion','_dependencias_ci', '_metodos_ajax'));		
 		parent::__construct($id);
 		$this->_nombre_formulario = "formulario_toba" ;//Cargo el nombre del <form>
 	}
@@ -46,6 +47,8 @@ class toba_ci extends toba_ei
 	 */	
 	protected function preparar_componente(){}
 
+
+	
 	/**
 	 * Destructor del componente
 	 */	
@@ -59,6 +62,8 @@ class toba_ci extends toba_ei
 			$this->_memoria['tabs'] = array_keys($this->_pantalla_servicio->get_lista_tabs());
 			$this->_eventos_usuario_utilizados = $this->_pantalla_servicio->get_lista_eventos_usuario();
 			$this->_eventos = $this->_pantalla_servicio->get_lista_eventos_internos();
+			//Guarda aquellos metodos ajax que se pueden invocar en el pedido siguiente
+			$this->_metodos_ajax = reflexion_buscar_metodos($this, 'ajax__');		
 		}
 		parent::destruir();
 	}
@@ -717,6 +722,9 @@ class toba_ci extends toba_ei
 	{
 		$metodo = 'ajax__'.trim(toba::memoria()->get_parametro('ajax-metodo'));
 		$metodo = substr($metodo,0,80);
+		if (!isset($this->_metodos_ajax) || !in_array($metodo, $this->_metodos_ajax)) {
+			throw new toba_error('Invocación AJAX incorrecta');
+		}
 		$parametros = trim(toba::memoria()->get_parametro('ajax-param'));
 		$modo = trim(toba::memoria()->get_parametro('ajax-modo'));		
 		$respuesta = new toba_ajax_respuesta($modo);

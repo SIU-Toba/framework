@@ -441,6 +441,7 @@ class toba_ei_pantalla extends toba_ei
 			echo "<hr class='ci-pant-sep' />\n";
 		}
 		$this->generar_layout();
+		echo "<div id='{$this->objeto_js}_pie'></div>";
 	}
 	
 	/**

@@ -308,20 +308,33 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		return document.getElementById(this._input_submit + '_cambiar_tab_' + id);
 	};	
 	
+	/**
+	 * Retorna la referencia al tag HTML al pie del cuerpo del CI
+	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 	
+	 */	
+	ci.prototype.nodo_pie = function() {
+		return document.getElementById(this._instancia + '_pie');
+	}
+	
 	//----------------------------------------------------------------  
 	//---Servicios AJAX
 
 	/**
-	 * Ejecuta una callback conteniendo un valor pedido al server utilizando AJAX
-	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta
-	 * @param {mixed} parametros Parametros que se enviaran al servidor
+	 * Pide al servidor un conjunto de datos en forma asincrónica
+	 * Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta
+	 * 
+	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')
+	 * @param {mixed} parametros Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo
+	 * @param {object} clase_callback Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
+	 * @param {function} funcion_callback Metodo de la clase al que se le retornará la respuesta del servidor 
+	 * @param {mixed} contexto_callback Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
 	 */
-	ci.prototype.ajax_dato = function(metodo, parametros, clase, funcion, contexto) {
+	ci.prototype.ajax_dato = function(metodo, parametros, clase_callback, funcion_callback, contexto_callback) {
 		var respuesta = new ajax_respuesta('D');
-		respuesta.set_callback(clase, funcion);
-		respuesta.set_contexto(contexto);
+		respuesta.set_callback(clase_callback, funcion_callback);
+		respuesta.set_contexto(contexto_callback);
 		var callback_real = {
-			success: respuesta.recibir,
+			success: respuesta.recibir_respuesta,
 			failure: toba.error_comunicacion,
 			scope: respuesta
 		};
@@ -330,11 +343,20 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};
 	
+	/**
+	
+	/**
+	 * Pide al servidor en forma asincrónica un HTML que actualizara un nodo dado
+	 * 
+	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')
+	 * @param {mixed} parametros Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo
+	 * @param {object} nodo_html Nodo HTML que se actualizará con la respuesta del server. Se utiliza la propiedad innerHTML del nodo.
+	 */
 	ci.prototype.ajax_html = function(metodo, parametros, nodo_html) {
 		var respuesta = new ajax_respuesta('H');
 		respuesta.set_nodo_html(nodo_html);
 		var callback_real = {
-			success: respuesta.recibir,
+			success: respuesta.recibir_respuesta,
 			failure: toba.error_comunicacion,
 			scope: respuesta
 		};
@@ -342,5 +364,30 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};		
+	
+	/**
+	 * Pide al servidor un conjunto de datos en forma asincrónica
+	 * Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta
+	 * 
+	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')
+	 * @param {mixed} parametros Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo. En caso de necesitar un tipo más compejo serializar manualmente
+	 * @param {object} clase_callback Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
+	 * @param {function} funcion_callback Metodo de la clase al que se le retornará la respuesta del servidor 
+	 * @param {mixed} contexto_callback Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
+	 */
+	ci.prototype.ajax = function(metodo, parametros, clase_callback, funcion_callback, contexto_callback) {
+		var respuesta = new ajax_respuesta('P');
+		respuesta.set_callback(clase_callback, funcion_callback);
+		respuesta.set_contexto(contexto_callback);
+		var callback_real = {
+			success: respuesta.recibir_respuesta,
+			failure: toba.error_comunicacion,
+			scope: respuesta
+		};
+		var param = {'ajax-metodo': metodo, 'ajax-modo': 'P', 'ajax-param': parametros};
+		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
+	};	
+	
 	
 toba.confirmar_inclusion('componentes/ci');

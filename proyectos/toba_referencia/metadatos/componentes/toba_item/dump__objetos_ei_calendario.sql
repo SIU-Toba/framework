@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[/objetos/ei_calendario]--  ei_calendario 
+--[/objetos/ei_calendario]--  Calendario 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,12 +23,12 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'ei_calendario', --nombre
+	'Calendario', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu
 	'1', --orden
-	NULL, --solicitud_registrar
+	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
 	NULL, --solicitud_observacion
@@ -37,14 +37,14 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona_proyecto
 	NULL, --zona
 	NULL, --zona_orden
-	NULL, --zona_listar
-	NULL, --imagen_recurso_origen
+	'0', --zona_listar
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	NULL, --publico
-	NULL, --redirecciona
+	'0', --publico
+	'0', --redirecciona
 	NULL, --usuario
 	'2005-08-12 13:51:55'  --creacion
 );

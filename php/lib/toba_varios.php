@@ -424,6 +424,19 @@
 		return $props;		
 	}
 	
+	function reflexion_buscar_metodos($obj, $patron)
+	{
+		$ref = new ReflectionClass($obj);
+		$props = array();
+		foreach ($ref->getMethods() as $prop) {
+			$nombre = $prop->getName();
+			if (strpos($nombre, $patron) === 0) {
+				$props[] = $nombre;
+			}
+		}
+		return $props;		
+	}	
+	
 	function agregar_dir_include_path($dir)
 	{
 		$i_path = ini_get("include_path");

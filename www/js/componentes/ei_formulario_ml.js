@@ -162,27 +162,6 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		return es_valido;
 	};
 	
-	/**
-	 * Informa que un ef cumple o no una validación especifica. 
-	 * En caso de que no sea valido el estado del ef se informa al usuario
-	 * Si es valido se quita el estado de invalido (la cruz al lado del campo).
-	 * @param {ef} ef Ef en cuestión
-	 * @param {boolean} es_valido 
-	 * @param {boolean} solo_online En caso que no sea valido sólo muestra la cruz al lado del campo y no un mensaje explícito
-	 */	
-	ei_formulario_ml.prototype.set_ef_valido = function(ef, es_valido, solo_online) {
-		if (!es_valido) {
-			if (! this._silencioso) {
-				ef.resaltar(ef.get_error(), 8);
-			}
-			if (typeof solo_online != 'undefined' && ! solo_online) {
-				notificacion.agregar(ef.get_error(), 'error', ef._etiqueta);
-			}
-			ef.resetear_error();
-		} else {		
-			ef.no_resaltar();
-		}	
-	}
 	
 	ei_formulario_ml.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {
