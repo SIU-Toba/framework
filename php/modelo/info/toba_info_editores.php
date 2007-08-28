@@ -636,7 +636,7 @@ class toba_info_editores
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
-		$sql = "SELECT proyecto, fuente_datos, descripcion_corta, descripcion
+		$sql = "SELECT proyecto, fuente_datos, descripcion as descripcion_corta, descripcion
 				FROM apex_fuente_datos
 				WHERE ( proyecto = '$proyecto' )
 				ORDER BY 2";

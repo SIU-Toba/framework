@@ -176,6 +176,7 @@ CREATE TABLE apex_molde_operacion_abms
 	gen_usa_filtro						smallint		NULL,
 	gen_separar_pantallas				smallint		NULL,
 	filtro_comprobar_parametros			smallint		NULL,
+	fuente								varchar(20)		NULL,
 	cuadro_eof							varchar(255)	NULL,
 	cuadro_eliminar_filas				smallint		NULL,
 	cuadro_id							varchar(255)	NULL,
@@ -188,6 +189,7 @@ CREATE TABLE apex_molde_operacion_abms
 	datos_tabla_validacion				smallint		NULL,
 	apdb_pre							smallint		NULL,	-- Hay que poner uno por ventana.
 	CONSTRAINT  "apex_molde_operacion_abms_pk" PRIMARY KEY ("proyecto","molde"),
+	CONSTRAINT	"apex_molde_operacion_abms_fk_fuente" FOREIGN KEY	("proyecto","fuente") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_abms_fk_molde" FOREIGN KEY ("proyecto","molde") REFERENCES "apex_molde_operacion" ("proyecto","molde") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
