@@ -6,7 +6,7 @@
 function ajax_respuesta(modo) {
 	this._modo = modo;
 	this._contexto = null;
-	this._partes = {};
+	this._respuesta_plana = '';
 };
 ajax_respuesta.prototype.constructor = ajax_respuesta;
 
@@ -32,17 +32,31 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 			throw 'AJAX HTML: Se requiere que el 3er parámetro sea un nodo html válido';
 		}
 	}
-
 	
-	ajax_respuesta.prototype.get = function(parametro) {
-		
+	/**
+	 * Retorna parte de una respuesta a un pedido de datos plano (sin encoding)
+	 */
+	ajax_respuesta.prototype.get_string = function(clave) {
+		var string_clave = '<--toba:' + clave + '-->';
+		var inicial = this._respuesta_plana.indexOf(string_clave);
+		if (inicial != -1) {
+			inicial = inicial + string_clave.length;
+			var fin = this._respuesta_plana.indexOf('<--toba', inicial);
+			if (fin == -1) {
+				fin = this._respuesta_plana.length;
+			}
+			return this._respuesta_plana.substr(inicial, fin-inicial);
+		} else {
+			return null;
+		}
 	}
+		
 	
 	ajax_respuesta.prototype.recibir_respuesta = function(response) {
 		try {
 			switch (this._modo) {
 				case 'D': 
-					//-- Comunicación de datos
+					//-- Comunicación de datos codificados con JSON
 					var parametro = eval('(' + response.responseText + ')');
 					this._funcion.call(this._clase, parametro, this._contexto)
 					break;
@@ -50,24 +64,12 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 					//-- Comunicación de HTML
 					this._nodo_html.innerHTML = response.responseText;
 					break;
-				case 'P':					
-					//-- Comunicación de Bajo nivel
-					var texto = response.responseText;
-					var pos, pos_anterior = 0;
-					while (pos != -1) {
-						pos = texto.indexOf('<--toba-->', pos_anterior);
-						if (pos != -1) {
-							this._partes.push(texto.substr(pos_anterior, pos-pos_anterior));
-							pos_anterior = pos + 10;
-						}
-					}
-					var restante = texto.substr(pos_anterior);
-					if (restante.length >0) {
-						this._partes.push(restante);
-					}					
-					this._funcion.call(this._clase, this, this._contexto)					
-					break;
-			}
+				case 'P': 
+					this._respuesta_plana = response.responseText;
+					//-- Comunicación de información plana
+					this._funcion.call(this._clase, this, this._contexto)
+					break;		
+			}			
 
 		} catch (e) {
 			var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + response.responseText + "<br><br>Error JS:<br>" + e;

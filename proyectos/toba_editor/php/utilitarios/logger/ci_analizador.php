@@ -2,19 +2,11 @@
 
 class ci_analizador extends toba_ci
 {
-	protected $opciones;
-	public $seleccion;
+	protected $s__opciones;
+	public $s__seleccion;
 	protected $archivo;
 	protected $cambiar_pantalla = false;
 	protected $analizador;
-	
-	function mantener_estado_sesion()
-	{
-		$estado = parent::mantener_estado_sesion();
-		$estado[] = 'opciones';
-		$estado[] = 'seleccion';
-		return $estado;	
-	}
 	
 	/**
 	 * @todo Se desactiva el logger porque no corre como proyecto toba sino como el de la aplicacion
@@ -23,57 +15,49 @@ class ci_analizador extends toba_ci
 	function ini()
 	{
 		toba::logger()->desactivar();	
-		if (!isset($this->opciones)) {
-			$this->opciones['proyecto'] = toba_editor::get_proyecto_cargado();
-			$this->opciones['fuente'] = 'fs';
-			$this->seleccion = 'ultima';
+		if (!isset($this->s__opciones)) {
+			$this->s__opciones['proyecto'] = toba_editor::get_proyecto_cargado();
+			$this->s__opciones['fuente'] = 'fs';
+			$this->s__seleccion = 'ultima';
 		}
 		$this->cargar_analizador();
 	}
 		
-	function conf()
-	{
-		$this->cargar_analizador();
-	}
-
 	function conf__visor()
 	{
 		$this->pantalla()->analizador = $this->analizador;		
 	}
 	
-	function servicio__ejecutar()
+	function ajax__get_datos_logger($anterior_mod, toba_ajax_respuesta $respuesta)
 	{
-		$res = $this->analizador->get_pedido($this->seleccion);
+		$res = $this->analizador->get_pedido($this->s__seleccion);
 		$encabezado = $this->pantalla()->generar_html_encabezado($res);
 		list($detalle, $cant_por_nivel) = $this->pantalla()->generar_html_detalles($res);
-		$anterior_mod = toba::memoria()->get_parametro('mtime');
 		$ultima_mod = $this->timestamp_archivo();
 		if ($anterior_mod != $ultima_mod) {
-			echo $ultima_mod;		
-			echo "<--toba-->";			
-			echo $encabezado;
-			echo "<--toba-->";		
-			echo $detalle;
-			echo "<--toba-->";
-			echo toba_js::arreglo($cant_por_nivel, true);
+			$salida['ultima_mod'] = $ultima_mod;		
+			$salida['encabezado'] = $encabezado;		
+			$salida['detalle'] = $detalle;	
+			$salida['cant_por_nivel'] = $cant_por_nivel;
+			$respuesta->set($salida);
 		}
 	}
-	
+
 	//---- Consultas varias ----------------------------------------------------	
 	
 	function get_logger()
 	{
-		return toba_logger::instancia($this->opciones['proyecto']);
+		return toba_logger::instancia($this->s__opciones['proyecto']);
 	}
 	
 	function get_proyecto()
 	{
-		return $this->opciones['proyecto'];
+		return $this->s__opciones['proyecto'];
 	}
 
 	function cargar_analizador()
 	{
-		if (isset($this->opciones)) {
+		if (isset($this->s__opciones)) {
 			$this->archivo = $this->get_logger()->directorio_logs()."/sistema.log";		
 			$this->analizador = new toba_analizador_logger_fs($this->archivo);
 		}
@@ -81,8 +65,8 @@ class ci_analizador extends toba_ci
 	
 	function debe_mostrar_visor()
 	{
-		if ($this->get_id_pantalla() == 'visor' && isset($this->seleccion)) {
-			if (isset($this->opciones['proyecto']) && isset($this->opciones['fuente'])) {
+		if ($this->get_id_pantalla() == 'visor' && isset($this->s__seleccion)) {
+			if (isset($this->s__opciones['proyecto']) && isset($this->s__opciones['fuente'])) {
 				return true;
 			}
 		}
@@ -113,23 +97,23 @@ class ci_analizador extends toba_ci
 	
 	function evt__anterior()
 	{
-		if (isset($this->seleccion)) {
-			if ($this->seleccion == 'ultima') {
-				$this->seleccion = $this->analizador->get_cantidad_pedidos() -1;
+		if (isset($this->s__seleccion)) {
+			if ($this->s__seleccion == 'ultima') {
+				$this->s__seleccion = $this->analizador->get_cantidad_pedidos() -1;
 			} else {
-				$this->seleccion--;
+				$this->s__seleccion--;
 			}
 		}
 	}
 	
 	function evt__siguiente()
 	{
-		if (isset($this->seleccion)) {
+		if (isset($this->s__seleccion)) {
 			$ultima = $this->analizador->get_cantidad_pedidos();
-			if ($this->seleccion == $ultima -1 ) {
-				$this->seleccion = 'ultima';	
+			if ($this->s__seleccion == $ultima -1 ) {
+				$this->s__seleccion = 'ultima';	
 			} else {
-				$this->seleccion++;				
+				$this->s__seleccion++;				
 			}
 		}
 	}
@@ -138,19 +122,19 @@ class ci_analizador extends toba_ci
 	
 	function evt__filtro__filtrar($opciones)
 	{
-		$this->opciones = $opciones;		
-		$this->opciones['fuente'] = 'fs';
+		$this->s__opciones = $opciones;		
+		$this->s__opciones['fuente'] = 'fs';
 	}
 	
 	function evt__filtro__cancelar()
 	{
-		unset($this->opciones);	
+		unset($this->s__opciones);	
 	}
 	
 	function conf__filtro()
 	{
-		if (isset($this->opciones)) {
-			return $this->opciones;	
+		if (isset($this->s__opciones)) {
+			return $this->s__opciones;	
 		}
 	}
 	
@@ -174,13 +158,13 @@ class ci_analizador extends toba_ci
 	
 	function evt__pedidos__seleccion($id)
 	{
-		$this->seleccion = $id['numero'];
+		$this->s__seleccion = $id['numero'];
 		$this->set_pantalla("visor");
 	}
 	
 	function evt__pedidos__ultima()
 	{
-		$this->seleccion = 'ultima';
+		$this->s__seleccion = 'ultima';
 		$this->set_pantalla("visor");
 	}
 		

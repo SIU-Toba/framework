@@ -32,7 +32,7 @@ class pantalla_visor extends toba_ei_pantalla
 							"<strong>{$this->controlador->get_proyecto()}</strong>");
 			return;
 		}			
-		$seleccion = $this->controlador->seleccion;
+		$seleccion = $this->controlador->s__seleccion;
 		$niveles = toba::logger()->get_niveles();
 		$niveles = array_reverse($niveles);		
 		
@@ -168,7 +168,6 @@ class pantalla_visor extends toba_ei_pantalla
 		}
 		$niveles = toba::logger()->get_niveles();		
 		$parametros = array();
-//		$vinculo = toba::vinculador()->crear_autovinculo($parametros, array('servicio' => 'ejecutar'));
 ?>
 			var ultima_mod ='<?php echo $this->controlador->timestamp_archivo();?>';
 			var niveles = <?php echo toba_js::arreglo($niveles)?>;
@@ -177,37 +176,22 @@ class pantalla_visor extends toba_ei_pantalla
 			var consultando = false;
 
 			<?php echo $this->objeto_js?>.evt__refrescar = function() {
-				var callback =
-				{
-				  success: this.respuesta_refresco ,
-				  failure: toba.error_comunicacion,
-				  scope: this
-				}
-				var parametros = {'mtime': ultima_mod};
-				var vinculo = vinculador.crear_autovinculo('ejecutar', parametros);
-				conexion.asyncRequest('GET', vinculo, callback, null);
+				this.ajax_dato('get_datos_logger', ultima_mod, this, this.respuesta_refresco);
 				return false;
 			}
 			
 			<?php echo $this->objeto_js?>.respuesta_refresco = function(resp)
 			{
-				try {
-					var partes = toba.analizar_respuesta_servicio(resp);
-					//Se actualizo el logger?
-					if (partes.length > 0) {
-						toba.inicio_aguardar();
-						ultima_mod = partes[0];
-						document.getElementById('logger_encabezados').innerHTML = partes[1];
-						document.getElementById('logger_detalle').innerHTML = partes[2];
-						var cant = eval('(' + partes[3] + ')');
-						refrescar_cantidad_niveles(cant);
-						refrescar_detalle();
-						setTimeout("toba.fin_aguardar()", 200);
-					}
-				} catch (e) {
-					//alert(e);
+				if (resp != null) {
+					toba.inicio_aguardar();				
+					ultima_mod = resp['ultima_mod'];
+					document.getElementById('logger_encabezados').innerHTML = resp['encabezado'];
+					document.getElementById('logger_detalle').innerHTML = resp['detalle'];
+					refrescar_cantidad_niveles(resp['cant_por_nivel']);		
+					refrescar_detalle();
+					setTimeout("toba.fin_aguardar()", 200);					
 				}
-				consultando = false;				
+				consultando = false;
 			}
 			
 			function mostrar_nivel(nivel)

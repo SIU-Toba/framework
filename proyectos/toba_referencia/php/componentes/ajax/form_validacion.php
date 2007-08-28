@@ -21,7 +21,7 @@ class form_validacion extends toba_ei_formulario_ml
 					if (this.ef('dia').validar() && dia != '') {
 						//Hago la peticion de datos al server, la respuesta vendra en el método this.validar_dia
 						//Como caso especial se le pasa en el ultimo parametro la fila sobre la cual quiero consultar asi la recuerda en la respuesta 
-						this.controlador.ajax_dato('validar_dia_habil', dia, this, this.validar_dia, fila)
+						this.controlador.ajax('validar_dia_habil', dia, this, this.validar_dia, fila)
 					}
 				}
 			}

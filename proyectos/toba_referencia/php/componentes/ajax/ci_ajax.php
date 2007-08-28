@@ -62,7 +62,7 @@ class ci_ajax extends toba_ci
 				var parametros = this.dep('form_datos_param').get_datos();
 				
 				//--- Hago la peticion de datos al server, la respuesta vendra en el método this.actualizar_datos
-				this.ajax_dato('calcular', parametros, this, this.actualizar_datos);
+				this.ajax('calcular', parametros, this, this.actualizar_datos);
 				
 				//--- Evito que el mecanismo 'normal' de comunicacion cliente-servidor se ejecute
 				return false;
@@ -156,7 +156,7 @@ class ci_ajax extends toba_ci
 				for (i in datos) {
 					parametros.push(datos[i]['dia']);
 				}
-				this.ajax_dato('validar_lista_dias', parametros, this, this.respuesta_confirmacion);
+				this.ajax('validar_lista_dias', parametros, this, this.respuesta_confirmacion);
 				return false;			
 			}
 			
@@ -269,10 +269,9 @@ class ci_ajax extends toba_ci
 	
 	function ajax__api_bajo_nivel($parametros, toba_ajax_respuesta $respuesta)
 	{
-		$respuesta->agregar('html_puro', '<strong>HTML</strong> Puro');
-		$respuesta->agregar('un_dato', date());
-		$respuesta->agregar('arreglo', array('uno'=>1, 'dos'=>dos));
-		$respuesta->agregar('codigo', 'alert("hey");');
+		$html_wikipedia = utf8_decode(file_get_contents(dirname(__FILE__).'/ejemplo_ajax.html'));
+		$respuesta->agregar_string('html_puro', '<div style="height:400px;overflow:auto">'.$html_wikipedia.'</div>');
+		$respuesta->agregar_string('javascript', 'alert("Transferido también este alert")');
 	}
 	
 	/**
@@ -281,22 +280,19 @@ class ci_ajax extends toba_ci
 	function js_caso_bajo_nivel()
 	{
 		echo "		
-			/**
-			 * Acción del botón BUSCAR
-			 */
 			{$this->objeto_js}.evt__boton = function() {
-				this.ajax('api_bajo_nivel', null, this, this.metodo_callback);				
-							
+				this.ajax_plano('api_bajo_nivel', null, this, this.metodo_callback);				
 				//--- Evito que el mecanismo 'normal' de comunicacion cliente-servidor se ejecute
 				return false;
 			}
 			
-			{$this->objeto_js}.metodo_callback = function() {
-				//respuesta.get('html_puro');
-				this.nodo_pie().innerHTML = 'hey';		
+			/**
+			 *	La respuesta llega 
+			 */
+			{$this->objeto_js}.metodo_callback = function(respuesta) {
+				this.nodo_pie().innerHTML = respuesta.get_string('html_puro');		
+				eval(respuesta.get_string('javascript'));
 			}
-						
-			
 		";
 	}	
 }

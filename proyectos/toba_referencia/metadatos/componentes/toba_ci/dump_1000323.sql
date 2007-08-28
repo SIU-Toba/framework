@@ -73,6 +73,36 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
+	'1000373', --evento_id
+	'1000323', --objeto
+	'boton', --identificador
+	'Traer datos planos', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'descargar.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'1', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -200,13 +230,15 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000182', --pantalla
 	'api_bajo_nivel', --identificador
 	'4', --orden
-	'API Bajo Nivel', --etiqueta
-	NULL, --descripcion
+	'Datos planos', --etiqueta
+	'Cuando lo que necesitamos comunicar entre servidor y cliente es mucha información que no necesita ser codificada ni decodificada (por ejemplo mucho código HTML, javascript y demás) por una cuestión de eficiencia se utiliza la llamada <strong>this.ajax_plano</strong> construyendo la respuesta en el server con <strong>$respuesta->agregar_string($clave, $valor)</strong>.
+<br><br>
+En este caso el ejemplo trae un página de wikipedia y un código conteniendo un alert en javascript.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	NULL, --objetos
-	'', --eventos
+	'', --objetos
+	'boton', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

@@ -9,8 +9,7 @@ require_once(toba_dir() . '/php/3ros/JSON.php');
 class toba_ajax_respuesta
 {
 	protected $modo;
-	protected $contenido;
-	protected $secciones = array();
+	protected $contenido = null;
 	
 	/**
 	 * @ignore 
@@ -21,7 +20,7 @@ class toba_ajax_respuesta
 	}
 	
 	/**
-	 * Método de alto nivel, construye la respuesta en base al contenido pasado.
+	 * Construye la respuesta en base al contenido pasado.
 	 * Cuando se comunica este contenido a JS se adecua el formato según como fue el pedido inicialmente (datos o html)
 	 * @param mixed $contenido
 	 */
@@ -31,15 +30,12 @@ class toba_ajax_respuesta
 	}
 	
 	/**
-	 * Método de bajo nivel: Permite armar la respuesta a js basado en un conjunto de secciones identificadas por un nombre
-	 * Este método puede ser llamado cuantas veces se necesite acumulando la respuesta
-	 * La serializacion/deserialización de los datos queda a cargo del consumidor
-	 * @param string $nombre
-	 * @param mixed $contenido
+	 * Construye la respuesta gradualmente a partir de pares (clave, valor) cada uno de estos valores no será codificado ni en php ni decodificado en js
+	 * En caso de necesitar codificacion/decodificacion queda a cargo del consumidor
 	 */
-	function agregar($nombre, $contenido)
+	function agregar_string($clave, $valor)
 	{
-		$this->secciones[$nombre] = $contenido;
+		$this->contenido[$clave] = $valor;
 	}
 	
 	/**
@@ -47,7 +43,7 @@ class toba_ajax_respuesta
 	 */
 	function comunicar()
 	{
-		if (isset($this->contenido) && isset($this->modo)) {
+		if (isset($this->modo)) {
 			switch ($this->modo) {
 				case 'D':
 					$json = new Services_JSON();
@@ -57,11 +53,14 @@ class toba_ajax_respuesta
 				case 'H':
 					echo $this->contenido;
 					break;
-			}
-		} elseif (!empty($this->secciones)) {
-			foreach ($this->secciones as $seccion => $contenido) {
-				echo "<--toba: $seccion-->";
-				echo $contenido;
+				case 'P':
+					if (is_array($this->contenido)) {
+						foreach ($this->contenido as $clave => $valor) {
+							echo "<--toba:$clave-->";
+							echo $valor;
+						}
+					}
+					break;
 			}
 		}
 	}
