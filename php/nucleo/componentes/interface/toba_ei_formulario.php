@@ -943,7 +943,7 @@ class toba_ei_formulario extends toba_ei
     	    }
 		}
 		$desc='';
-		if (isset($this->_info_formulario['expandir_descripcion']) && ! $this->_info_formulario['expandir_descripcion']) {
+		if (!isset($this->_info_formulario['expandir_descripcion']) || ! $this->_info_formulario['expandir_descripcion']) {
 			$desc = $this->_elemento_formulario[$ef]->get_descripcion();		
 			if ($desc !=""){
 				$desc = toba_parser_ayuda::parsear($desc);
