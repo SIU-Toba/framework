@@ -344,7 +344,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			if (! this._silencioso) {
 				ef.resaltar(ef.get_error());
 			}
-			if (typeof solo_online != 'undefined' && ! solo_online) {
+			if (typeof solo_online == 'undefined' || !solo_online) {
 				notificacion.agregar(ef.get_error(), 'error', ef._etiqueta);
 			}
 			ef.resetear_error();

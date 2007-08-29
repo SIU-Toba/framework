@@ -320,17 +320,19 @@ abstract class toba_asistente
 
 	function generar_archivos_consultas()
 	{
-		foreach($this->archivos_consultas as $id => $contenido) {
-			$path = toba::proyecto()->get_path() . '/php/' . $id;
-			$php = "<?php\nclass {$contenido['clase']}\n{\n";
-			foreach($contenido['metodos'] as $metodo ) {
-				$php .= $metodo->get_codigo();
+		if (isset($this->archivos_consultas)) {
+			foreach($this->archivos_consultas as $id => $contenido) {
+				$path = toba::proyecto()->get_path() . '/php/' . $id;
+				$php = "<?php\nclass {$contenido['clase']}\n{\n";
+				foreach($contenido['metodos'] as $metodo ) {
+					$php .= $metodo->get_codigo();
+				}
+				$php .= "\n}\n?>";
+				toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+				$this->asistente->registrar_elemento_creado(	$path, 
+																$clave['proyecto'],
+																$clave['clave'] );
 			}
-			$php .= "\n}\n?>";
-			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
-			$this->asistente->registrar_elemento_creado(	$path, 
-															$clave['proyecto'],
-															$clave['clave'] );
 		}
 	}
 }
