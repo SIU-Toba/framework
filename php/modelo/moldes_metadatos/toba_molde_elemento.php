@@ -104,7 +104,8 @@ class toba_molde_elemento
 
 	function directorio_absoluto()
 	{
-		return toba::proyecto($this->proyecto)->get_path() . '/php/'. $this->directorio_relativo();
+		$path_proyecto = toba::instancia()->get_path_proyecto($this->proyecto);
+		return  $path_proyecto . '/php/'. $this->directorio_relativo();
 	}
 
 	function directorio_relativo()

@@ -163,9 +163,8 @@ class ci_editar_molde extends toba_ci
 
 	function evt__generar()
 	{
-		$this->dep('asistente')->info();
 		$this->dep('asistente')->sincronizar();
-		//$this->asistente()->crear_operacion( $this->s__opciones_generacion );
+		$this->asistente()->crear_operacion( $this->s__opciones_generacion );
 	}	
 
 	function asistente($reset=false)

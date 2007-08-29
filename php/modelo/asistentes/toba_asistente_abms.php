@@ -144,61 +144,63 @@ class toba_asistente_abms extends toba_asistente
 		//--------------------------------------------------------
 		//--- conf__cuadro  --------------------------------------
 		//--------------------------------------------------------
-		if(isset($this->molde_abms['cuadro_carga_php_metodo'])&&$this->molde_abms['cuadro_carga_php_metodo']) {
-			$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$cuadro'));
-			//Si hay un filtro, armo los parametros
-			if ($this->molde_abms['gen_usa_filtro']) {
-				$filtro = array();
-				foreach( $this->molde_abms_fila as $fila ) {
-					if($fila['en_filtro']) {
-						$filtro[$fila['columna']] = $fila['filtro_operador'];
-					}
+		$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$cuadro'));
+		//Si hay un filtro, armo los parametros
+		if ($this->molde_abms['gen_usa_filtro']) {
+			$filtro = array();
+			foreach( $this->molde_abms_fila as $fila ) {
+				if($fila['en_filtro']) {
+					$filtro[$fila['columna']] = $fila['filtro_operador'];
 				}
+			}
+		} else {
+			$filtro = null;	
+		}
+		if($this->molde_abms['cuadro_carga_origen'] == 'consulta_php' ) {
+			if( !isset($this->molde_abms['cuadro_carga_php_metodo'])
+					|| ($this->molde_abms['cuadro_carga_php_metodo'])) {
+				throw new toba_error_asistentes('El metodo de carga del cuadro no esta definido');	
+			}
+			//----> Los datos son provistos por un archivo de consultas php
+			$php_recuperacion = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'];
+			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
+				$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
+				$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
+											$this->molde_abms['cuadro_carga_php_clase'],
+											$this->molde_abms['cuadro_carga_php_metodo'],
+											$this->molde_abms['cuadro_carga_sql'],
+											$filtro );
+			}
+		} elseif ($this->molde_abms['cuadro_carga_origen'] == 'datos_tabla' ) {
+			//----> Los datos son provistos por un datos_tabla
+			$php_recuperacion = '$this->dep(\'datos\')->' . $this->molde_abms['cuadro_carga_php_metodo'];
+			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
+				$this->crear_consulta_dt(	$this->ci->dep('datos'),
+											'get_listado',
+											$this->molde_abms['cuadro_carga_sql'],
+											$filtro );
+			}				
+		} else {
+			throw new toba_error_asistentes('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
+		}
+		//-- SI la operacion tiene FILTRO....
+		if ($this->molde_abms['gen_usa_filtro']) {
+			$php = array();
+			$php[] = "if(isset(\$this->s__datos_filtro)){";
+			$php[] = "\t\$cuadro->set_datos(".$php_recuperacion."(\$this->s__datos_filtro));";
+			if($this->molde_abms['cuadro_forzar_filtro']) {
+				// El cuadro solo se carga si el filtro esta seteado
+				$php[] = "}";
 			} else {
-				$filtro = null;	
+				$php[] = "} else {";
+				$php[] = "\t\$cuadro->set_datos($php_recuperacion());";
+				$php[] = "}";
 			}
-			if($this->molde_abms['cuadro_carga_origen'] == 'consulta_php' ) {
-				//----> Los datos son provistos por un archivo de consultas php
-				$php_recuperacion = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'];
-				if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
-					$this->ci->php()->agregar_archivo_requerido($this->molde_abms['cuadro_carga_php_include']);
-					$this->crear_consulta_php(	$this->molde_abms['cuadro_carga_php_include'],
-												$this->molde_abms['cuadro_carga_php_clase'],
-												$this->molde_abms['cuadro_carga_php_metodo'],
-												$this->molde_abms['cuadro_carga_sql'],
-												$filtro );
-				}
-			} elseif ($this->molde_abms['cuadro_carga_origen'] == 'datos_tabla' ) {
-				//----> Los datos son provistos por un datos_tabla
-				$php_recuperacion = '$this->dep(\'datos\')->' . $this->molde_abms['cuadro_carga_php_metodo'];
-				if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
-					$this->crear_consulta_dt(	$this->ci->dep('datos'),
-												$this->molde_abms['cuadro_carga_php_metodo'],
-												$this->molde_abms['cuadro_carga_sql'],
-												$filtro );
-				}				
-			} else {
-				throw new toba_error_asistentes('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	
-			}
-			//-- SI la operacion tiene FILTRO....
-			if ($this->molde_abms['gen_usa_filtro']) {
-				$php = array();
-				$php[] = "if(isset(\$this->s__datos_filtro)){";
-				$php[] = "\t\$cuadro->set_datos(".$php_recuperacion."(\$this->s__datos_filtro));";
-				if($this->molde_abms['cuadro_forzar_filtro']) {
-					// El cuadro solo se carga si el filtro esta seteado
-					$php[] = "}";
-				} else {
-					$php[] = "} else {";
-					$php[] = "\t\$cuadro->set_datos($php_recuperacion());";
-					$php[] = "}";
-				}
-			}else{
-				$php[] = "\$cuadro->set_datos($php_recuperacion());";
-			}
-			$metodo->set_contenido($php);
-			$this->ci->php()->agregar($metodo);		
-		}		
+		}else{
+			$php[] = "\$cuadro->set_datos($php_recuperacion());";
+		}
+		$metodo->set_contenido($php);
+		$this->ci->php()->agregar($metodo);		
 		//--------------------------------------------------------
 		//--- evt__cuadro__seleccion -----------------------------
 		//--------------------------------------------------------

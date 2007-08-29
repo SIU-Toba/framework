@@ -903,23 +903,27 @@ class toba_info_editores
 		$reemplazo = false;
 		$archivo = preg_replace_callback('/\{(\w+)\}/', array('toba_info_editores', 'parsear_consulta_php'), $consulta_php, -1 , $reemplazo);
 		if (! $reemplazo) {
-			$archivo = toba::proyecto()->get_path_php().'/'.$archivo;			
+			$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo;			
 		}
-		$codigo = file_get_contents($archivo);
-		$tokens = token_get_all($codigo);
-		$metodos = array();
-		$proximo_es_metodo = false;
-		foreach ($tokens as $token) {
-    		if (is_array($token)) {
-		        list($id, $texto) = $token;
-				if ($id == T_FUNCTION) {
-					$proximo_es_metodo = true;
-				}
-				if ($id == T_STRING && $proximo_es_metodo) {
-					$metodos[] = array('metodo' => $texto);
-					$proximo_es_metodo = false;
-				}
- 		    }
+		if(!file_exists($archivo)) {
+			$metodos[] = array('metodo' => 'La clase no existe');
+		} else {
+			$codigo = file_get_contents($archivo);
+			$tokens = token_get_all($codigo);
+			$metodos = array();
+			$proximo_es_metodo = false;
+			foreach ($tokens as $token) {
+	    		if (is_array($token)) {
+			        list($id, $texto) = $token;
+					if ($id == T_FUNCTION) {
+						$proximo_es_metodo = true;
+					}
+					if ($id == T_STRING && $proximo_es_metodo) {
+						$metodos[] = array('metodo' => $texto);
+						$proximo_es_metodo = false;
+					}
+	 		    }
+	    	}
     	}
     	sort($metodos);
     	return $metodos;

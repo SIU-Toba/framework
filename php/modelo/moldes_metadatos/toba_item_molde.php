@@ -46,6 +46,12 @@ class toba_item_molde extends toba_molde_elemento
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'pagina_tipo',$id);
 	}
 
+	function set_acceso_menu($estado=true, $orden=0)
+	{
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'menu',$estado);
+		$this->datos->tabla('base')->set_fila_columna_valor(0,'orden',$orden);
+	}
+
 	function cargar_grupos_acceso_activos()
 	{
 		foreach(toba_editor::get_grupos_acceso_previsualizacion() as $grupo) {

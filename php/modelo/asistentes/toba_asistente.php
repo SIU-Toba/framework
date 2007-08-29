@@ -14,7 +14,7 @@ abstract class toba_asistente
 	protected $archivos_php;
 	protected $id_elementos = 0;
 	//Manejo de clases de consultas
-	protected $archivos_consultas;
+	protected $archivos_consultas = array();
 	
 	function __construct($molde)
 	{
@@ -50,6 +50,8 @@ abstract class toba_asistente
 		$this->ci = $this->item->ci();
 		$this->item->set_nombre($this->molde['nombre']);
 		$this->item->set_carpeta_item($this->molde['carpeta_item']);
+		$this->item->set_tipo_pagina('normal','toba');
+		$this->item->set_acceso_menu();
 		$this->item->cargar_grupos_acceso_activos();
 	}
 
@@ -247,15 +249,16 @@ abstract class toba_asistente
 
 	function crear_consulta_dt($tabla, $metodo, $sql, $parametros=null)
 	{
+		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
 		$clase = $this->molde['prefijo_clases']. 'dt';
 		$tabla->extender($clase, $clase . '.php');
-		$metodo = $this->crear_metodo_consulta($metodo, $sql, $parametros);
+		$metodo = $this->crear_metodo_consulta($metodo, $sql, $param_metodo);
 		$tabla->php()->agregar($metodo);		
 	}
 
 	function crear_metodo_consulta($nombre, $sql, $parametros=null)
 	{
-		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
+		$param_metodo = isset($parametros)? array('$filtro=array()') : array();
 		$metodo = new toba_codigo_metodo_php($nombre, $param_metodo);
 		if(!isset($parametros)){
 			$php = 	"\$sql = \"$sql\";" . salto_linea() .
@@ -298,6 +301,7 @@ abstract class toba_asistente
 			$this->agregar_opcion_generacion($id_opcion, "Sobreescribir metodo: '$metodo' en el archivo '$include'");
 		}
 		*/
+		ei_arbol($this->archivos_consultas);
 	}
 
 	function agregar_archivo($include, $clase)
@@ -320,19 +324,18 @@ abstract class toba_asistente
 
 	function generar_archivos_consultas()
 	{
-		if (isset($this->archivos_consultas)) {
-			foreach($this->archivos_consultas as $id => $contenido) {
-				$path = toba::proyecto()->get_path() . '/php/' . $id;
-				$php = "<?php\nclass {$contenido['clase']}\n{\n";
-				foreach($contenido['metodos'] as $metodo ) {
-					$php .= $metodo->get_codigo();
-				}
-				$php .= "\n}\n?>";
-				toba_manejador_archivos::crear_archivo_con_datos($path, $php);
-				$this->asistente->registrar_elemento_creado(	$path, 
-																$clave['proyecto'],
-																$clave['clave'] );
+		foreach($this->archivos_consultas as $id => $contenido) {
+
+			$path = toba::proyecto()->get_path() . '/php/' . $id;
+			$php = "<?php\nclass {$contenido['clase']}\n{\n";
+			foreach($contenido['metodos'] as $metodo ) {
+				$php .= $metodo->get_codigo();
 			}
+			$php .= "\n}\n?>";
+			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+			$this->asistente->registrar_elemento_creado(	$path, 
+															$clave['proyecto'],
+															$clave['clave'] );
 		}
 	}
 }
