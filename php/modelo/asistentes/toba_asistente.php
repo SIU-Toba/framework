@@ -191,6 +191,7 @@ abstract class toba_asistente
 	{
 		foreach( $filas as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
+			$ef->set_etiqueta($fila['etiqueta']);
 			//Largo EDITABLEs
 			if($fila['dt_largo']){
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
@@ -329,9 +330,8 @@ abstract class toba_asistente
 				$php .= $metodo->get_codigo();
 			}
 			$php .= "\n}\n?>";
-			$path_dir = toba::instancia()->get_path_proyecto( $this->get_proyecto() ) . '/php';
-			$path = $path_dir . '/' . $id;
-			toba_manejador_archivos::crear_arbol_directorios($path_dir);
+			$path = toba::instancia()->get_path_proyecto( $this->get_proyecto() ) . '/php/' . $id;
+			toba_manejador_archivos::crear_arbol_directorios(dirname($path));
 			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
 			$this->registrar_elemento_creado(	'Archivo consultas', 
 												$this->get_proyecto(),

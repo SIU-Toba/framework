@@ -29,6 +29,15 @@ class ci_abms_principal extends ci_asistente_base
 	{
 		if ($this->get_nombre_tabla_actual() == '') {
 			$this->pantalla()->eliminar_dep('form_filas');
+		} else {
+			$tabla = $this->dep('datos')->tabla('filas');
+			//Lleno las filas???			
+			if($tabla->get_cantidad_filas() === 0) {
+				$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($this->get_nombre_tabla_actual());
+				foreach ($nuevas as $nueva) {
+					$tabla->nueva_fila($nueva);
+				}		
+			}
 		}
 	}
 	
@@ -116,6 +125,9 @@ class ci_abms_principal extends ci_asistente_base
 	function evt__form_cuadro_carga__modificacion($datos)
 	{
 		$datos = array_cambiar_prefijo_claves($datos, 'cuadro_', false);		
+		if (!isset($datos['cuadro_carga_origen'])) {
+			$datos['cuadro_carga_origen'] = 'datos_tabla';
+		}
 		if (!isset($datos['cuadro_carga_php_metodo']) && isset($datos['cuadro_carga_php_metodo_nuevo'])) {
 			$datos['cuadro_carga_php_metodo'] = $datos['cuadro_carga_php_metodo_nuevo'];
 		}
