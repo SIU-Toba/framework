@@ -17,12 +17,12 @@ class ci_listado_moldes extends toba_ci
 	
 	function evt__opciones()
 	{
-		$this->set_pantalla('opciones');
+		$this->set_pantalla('pant_opciones');
 	}
 	
 	function evt__volver()
 	{
-		$this->set_pantalla('elegir');	
+		$this->set_pantalla('pant_elegir');	
 	}
 	
 	function conf__form_opciones(toba_ei_formulario $form)

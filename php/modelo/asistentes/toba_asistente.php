@@ -301,7 +301,6 @@ abstract class toba_asistente
 			$this->agregar_opcion_generacion($id_opcion, "Sobreescribir metodo: '$metodo' en el archivo '$include'");
 		}
 		*/
-		ei_arbol($this->archivos_consultas);
 	}
 
 	function agregar_archivo($include, $clase)
@@ -325,17 +324,18 @@ abstract class toba_asistente
 	function generar_archivos_consultas()
 	{
 		foreach($this->archivos_consultas as $id => $contenido) {
-
-			$path = toba::proyecto()->get_path() . '/php/' . $id;
 			$php = "<?php\nclass {$contenido['clase']}\n{\n";
 			foreach($contenido['metodos'] as $metodo ) {
 				$php .= $metodo->get_codigo();
 			}
 			$php .= "\n}\n?>";
+			$path_dir = toba::instancia()->get_path_proyecto( $this->get_proyecto() ) . '/php';
+			$path = $path_dir . '/' . $id;
+			toba_manejador_archivos::crear_arbol_directorios($path_dir);
 			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
-			$this->asistente->registrar_elemento_creado(	$path, 
-															$clave['proyecto'],
-															$clave['clave'] );
+			$this->registrar_elemento_creado(	'Archivo consultas', 
+												$this->get_proyecto(),
+												$path );
 		}
 	}
 }

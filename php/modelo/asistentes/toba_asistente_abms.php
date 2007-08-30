@@ -172,11 +172,16 @@ class toba_asistente_abms extends toba_asistente
 											$filtro );
 			}
 		} elseif ($this->molde_abms['cuadro_carga_origen'] == 'datos_tabla' ) {
+			if(!$this->molde_abms['cuadro_carga_php_metodo']){
+				$metodo_recuperacion = 'get_listado';
+			}else{
+				$metodo_recuperacion = $this->molde_abms['cuadro_carga_php_metodo'];
+			}
 			//----> Los datos son provistos por un datos_tabla
-			$php_recuperacion = '$this->dep(\'datos\')->' . $this->molde_abms['cuadro_carga_php_metodo'];
+			$php_recuperacion = '$this->dep(\'datos\')->' . $metodo_recuperacion;
 			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta no existes
 				$this->crear_consulta_dt(	$this->ci->dep('datos'),
-											'get_listado',
+											$metodo_recuperacion,
 											$this->molde_abms['cuadro_carga_sql'],
 											$filtro );
 			}				

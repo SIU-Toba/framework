@@ -73,7 +73,9 @@ class toba_catalogo_asistentes
 	static function get_lista_filas_tabla($tabla)
 	{
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+		ei_arbol($nuevas,'NUEVAS');
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
+		ei_arbol($tipo_datos,'TIPOS');
 		$salida = array();
 		foreach ($nuevas as $nueva) {
 			$fila = array();			
