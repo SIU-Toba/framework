@@ -73,9 +73,7 @@ class toba_catalogo_asistentes
 	static function get_lista_filas_tabla($tabla)
 	{
 		$nuevas = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
-		ei_arbol($nuevas,'NUEVAS');
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
-		ei_arbol($tipo_datos,'TIPOS');
 		$salida = array();
 		foreach ($nuevas as $nueva) {
 			$fila = array();			
@@ -104,7 +102,7 @@ class toba_catalogo_asistentes
 			}
 	
 			$fila['dt_pk'] = $nueva['pk'];
-			$fila['dt_largo'] = $nueva['longitud'];			
+			
 			$fila['dt_secuencia'] = $nueva['secuencia'];
 			$fila['columna'] = $nueva['nombre'];
 			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
@@ -121,7 +119,9 @@ class toba_catalogo_asistentes
 			if ($nueva['pk'] && $fila['en_form']) {
 				$nueva['ef_desactivar_modificacion'] = 1;
 			}
+
 			$salida[] = $fila;
+
 		}
 		//ei_arbol($salida);
 		return $salida;

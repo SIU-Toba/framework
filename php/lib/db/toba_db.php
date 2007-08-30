@@ -321,9 +321,9 @@ class toba_db
 		'LONGBINARY' => 'B',
 		'B' => 'B',
 		##
-		'YEAR' => 'D', // mysql
-		'DATE' => 'D',
-		'D' => 'D',
+		'YEAR' => 'F', // mysql
+		'DATE' => 'F',
+		'D' => 'F',
 		##
 		'TIME' => 'T',
 		'TIMESTAMP' => 'T',
@@ -375,7 +375,7 @@ class toba_db
 		'SQLFLOAT' => 'N', 
 		'SQLMONEY' => 'N', 
 		'SQLDECIMAL' => 'N', 
-		'SQLDATE' => 'D', 
+		'SQLDATE' => 'F', 
 		'SQLVCHAR' => 'C', 
 		'SQLCHAR' => 'C', 
 		'SQLDTIME' => 'T', 
