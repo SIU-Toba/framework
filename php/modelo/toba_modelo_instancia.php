@@ -156,6 +156,15 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return toba_dir() . "/proyectos/" . $proyecto;
 		}		
 	}
+	
+	function get_url_proyecto($proyecto)
+	{
+		if (isset($this->datos_ini[$proyecto]['url'])) {
+			return $this->datos_ini[$proyecto]['url'];
+		} else {
+			return '/'.$proyecto;
+		}			
+	}
 
 	function get_lista_proyectos_vinculados()
 	{
@@ -194,17 +203,24 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//	Manipulacion de la DEFINICION
 	//-----------------------------------------------------------
 
-	function vincular_proyecto($proyecto, $path=null)
+	function vincular_proyecto($proyecto, $path=null, $url=null)
 	{
 		if ( isset($path) || toba_modelo_proyecto::existe($proyecto) ) {
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
 			$datos = array_map('trim',$datos);
+			$datos_ini = array();
 			if ( ! in_array( $proyecto, $datos ) ) {
 				$datos[] = $proyecto;
 				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
 				if (isset($path)) {
-					$ini->agregar_entrada( $proyecto, array('path' => $path) );
+					 $datos_ini['path'] = $path;
+				}
+				if (isset($url)) {
+					 $datos_ini['url'] = $url;
+				}				
+				if (! empty($datos_ini)) {
+					$ini->agregar_entrada($proyecto, $datos_ini);
 				}
 				$ini->guardar();
 			}

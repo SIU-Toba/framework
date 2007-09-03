@@ -8,6 +8,7 @@ class toba_nucleo
 	static private $instancia;
 	static private $dir_compilacion;
 	static private $indice_archivos;
+	static private $path;	
 	private $solicitud;
 	private $medio_acceso;
 	private $solicitud_en_proceso = false;
@@ -200,8 +201,11 @@ class toba_nucleo
 
 	static function toba_dir()
 	{
-		$dir = dirname(__FILE__);
-		return substr($dir,0, -11);
+		if (! isset(self::$path)) {
+			$dir = dirname(__FILE__);
+			self::$path = substr($dir,0, -11);
+		}
+		return self::$path;
 	}
 
 	/**

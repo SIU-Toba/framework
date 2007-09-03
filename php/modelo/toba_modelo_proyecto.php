@@ -1217,6 +1217,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		try {
 			//- 2 - Modificaciones en el sistema de archivos
 			$dir_proyecto = $instancia->get_path_proyecto($nombre);
+			$url_proyecto = $instancia->get_url_proyecto($nombre);
+			
 			// Creo la CARPETA del PROYECTO
 			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 			
@@ -1229,7 +1231,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
 			// Asocio el proyecto a la instancia
-			$instancia->vincular_proyecto( $nombre );
+			$instancia->vincular_proyecto( $nombre, null, $url_proyecto);
 
 			//- 3 - Modificaciones en la BASE de datos
 			$db = $instancia->get_db();

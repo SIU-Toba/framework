@@ -22,9 +22,15 @@ class toba_recurso
 	/**
 	 * Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
 	 * @return string
+	 * @see toba_instalacion::get_url
 	 */		
 	static function url_toba()
 	{
+		$alias = toba::instalacion()->get_url();
+		if (isset($alias)) {
+			return $alias;
+		}
+		//-- Compatibilidad hacia atrás
 		if (isset($_SERVER['TOBA_ALIAS'])) {
 			$alias = $_SERVER['TOBA_ALIAS'];
 		}else{

@@ -96,8 +96,19 @@ class toba_instalacion
 	 */
 	function get_path()
 	{
-		return toba_dir();
+		return toba_nucleo::toba_dir();
 	}	
+	
+	/**
+	 * Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)
+	 * @return string
+	 */			
+	function get_url()
+	{
+		if (isset($this->memoria['url'])) {
+			return $this->memoria['url'];
+		}		
+	}
 	
 	/**
 	 * Retorna un path donde incluir archivos temporales, el path no es navegable

@@ -271,19 +271,19 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		toba_modelo_instalacion::actualizar_version( toba_modelo_instalacion::get_version_actual() );
 		$apex_clave_get = md5(uniqid(rand(), true)); 
 		$apex_clave_db = md5(uniqid(rand(), true)); 
-		toba_modelo_instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo );
+		$editor = toba_manejador_archivos::es_windows() ? 'start' : '';
+		toba_modelo_instalacion::crear_info_basica( $apex_clave_get, $apex_clave_db, $id_grupo_desarrollo, $editor, $alias_nucleo );
 		toba_modelo_instalacion::crear_info_bases();
 		toba_modelo_instalacion::crear_directorio_proyectos();
-		self::crear_archivo_apache($alias_nucleo);
+		self::crear_archivo_apache();
 	}
 	
-	static function crear_archivo_apache($alias_nucleo)
+	static function crear_archivo_apache()
 	{
 		$archivo = self::get_archivo_alias_apache();
 		copy( toba_dir(). '/php/modelo/var/toba.conf', $archivo );
 		$editor = new toba_editor_archivos();
 		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
-		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
 		$editor->procesar_archivo( $archivo );
 	}
 	
@@ -300,20 +300,10 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		$archivo = self::get_archivo_alias_apache();
 				
-		//--- Se determina cual es el alias del nucleo
-		$alias_nucleo = 'toba';
-		$contenido = file_get_contents($archivo);
-		if (preg_match('/TOBA_ALIAS(.+)/', $contenido, $salida)) {
-			$alias_nucleo = trim($salida[1]);
-			$alias_nucleo = str_replace(array('"', "'"), '', $alias_nucleo);	//Se sacan las comillas
-		}
-		
 		//--- Se agrega el proyecto al archivo
 		$template = file_get_contents(toba_dir(). '/php/modelo/var/proyecto.conf');
 		$editor = new toba_editor_texto();
 		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
-		$editor->agregar_sustitucion( '|__toba_alias__|', $alias_nucleo );
-		$editor->agregar_sustitucion( '|__proyecto_alias__|', $alias );
 		$editor->agregar_sustitucion( '|__proyecto_dir__|', toba_manejador_archivos::path_a_unix($dir) );
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
 		$salida = $editor->procesar( $template );
@@ -371,7 +361,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	* Crea el archivo con la informacion basica sobre la instalacion	
 	*/
-	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo=null, $editor='start' )
+	static function crear_info_basica($clave_qs, $clave_db, $id_grupo_desarrollo, $editor, $url)
 	{
 		$ini = new toba_ini();
 		$ini->agregar_titulo( self::info_basica_titulo );
@@ -379,6 +369,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'clave_querystring', $clave_qs );	
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->agregar_entrada( 'editor_php', $editor );
+		$ini->agregar_entrada( 'url', $url );
 		$ini->guardar( self::archivo_info_basica() );
 		toba_logger::instancia()->debug("Creado archivo ".self::archivo_info_basica());
 	}
