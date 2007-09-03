@@ -5,6 +5,8 @@ require_once(toba_dir() . '/php/3ros/JSON.php');
  * Clase que representa una respuesta AJAX (php => js)
  * Tiene dos metodos, uno pensado para comportamientos de alto nivel (set) en donde el framework interpreta el tipo de salida
  * y otro para bajo nivel (agregar) en donde el manejo de la información queda a cargo del consumidor
+ * @package Componentes
+ * @subpackage Eis 
  */
 class toba_ajax_respuesta
 {
@@ -33,7 +35,7 @@ class toba_ajax_respuesta
 	 * Construye la respuesta gradualmente a partir de pares (clave, valor) cada uno de estos valores no será codificado ni en php ni decodificado en js
 	 * En caso de necesitar codificacion/decodificacion queda a cargo del consumidor
 	 */
-	function agregar_string($clave, $valor)
+	function agregar_cadena($clave, $valor)
 	{
 		$this->contenido[$clave] = $valor;
 	}

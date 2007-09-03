@@ -196,8 +196,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000178', --pantalla
 	'api_dato', --identificador
 	'1', --orden
-	'Comunicación de Datos', --etiqueta
-	'Esta operación cuenta con dos formularios. La idea es que el segundo formulario se actualice via AJAX tomando los datos del primero. La mejor forma de hacer esto es poner la lógica tanto de PHP como de JS en el contenedor de ambos componentes (el CI).', --descripcion
+	'Búsqueda de Datos', --etiqueta
+	'Esta operación cuenta con dos formularios. La idea es que el segundo formulario se actualice via AJAX tomando los datos del primero. La mejor forma de hacer esto es poner la lógica tanto de PHP como de JS en el contenedor de ambos componentes (el CI). Se utiliza la llamada javascript <strong>this.ajax()</strong> construyendo la respuesta en el server con <strong>$respuesta->set(array($cant_dias, $total))</strong>.', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -212,8 +212,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000181', --pantalla
 	'api_html', --identificador
 	'3', --orden
-	'Comunicación de HTML', --etiqueta
-	'En esta operación se escucha el evento del botón Buscar y se le pide a PHP que busque en [url:http://www.flickr.com/ Flickr] las fotos relacionadas.
+	'HTML dinámico', --etiqueta
+	'En esta operación se escucha el evento del botón Buscar y se le pide a PHP que busque en [url:http://www.flickr.com/ Flickr] las fotos relacionadas. Se utiliza la llamada <strong>this.ajax_html()</strong> de javascript construyendo la respuesta en el server con <strong>$respuesta->set($html)</strong>.
 <br><br>
 <strong>Nota:</strong> Este ejemplo necesita la extensión <strong>curl</strong> de PHP y una conexión a internet.', --descripcion
 	NULL, --tip
@@ -230,7 +230,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000182', --pantalla
 	'api_bajo_nivel', --identificador
 	'4', --orden
-	'Datos planos', --etiqueta
+	'API Bajo Nivel', --etiqueta
 	'Cuando lo que necesitamos comunicar entre servidor y cliente es mucha información que no necesita ser codificada ni decodificada (por ejemplo mucho código HTML, javascript y demás) por una cuestión de eficiencia se utiliza la llamada <strong>this.ajax_plano</strong> construyendo la respuesta en el server con <strong>$respuesta->agregar_string($clave, $valor)</strong>.
 <br><br>
 En este caso el ejemplo trae un página de wikipedia y un código conteniendo un alert en javascript.', --descripcion
@@ -248,11 +248,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000183', --pantalla
 	'api_dato_validacion', --identificador
 	'2', --orden
-	'Validación', --etiqueta
+	'Validación remota', --etiqueta
 	'Esta pantalla presenta dos validaciones pedidas al servidor:<ul>
 <li>Ante cada cambio de fecha inmediatamente se hace un pedido asincronico de validación por feriado (ingresar fechas como <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"25/12/2007\")\'>25/12/2007</a> o <a href=\'#\' onclick=\'ejemplo_cambiar_fecha(\"9/7/2008\")\'>9/7/2008</a>). 
 <li>Cuando el usuario decide confirmar los cambios se envían todas las fechas al servidor para que se validen en conjunto, pudiendo detener el proceso de submit del formulario.
 </ul>
+Para ambas validaciones se utiliza la llamada javascript <strong>this.ajax()</strong> construyendo la respuesta en el server con <strong>$respuesta->set($salida)</strong>.<br><br>
 <strong>Nota:</strong> Este ejemplo necesita la extensiones <strong>soap</strong> y <strong>SimpleXML</strong> de PHP y una conexión a internet para acceder al [url:http://www.mininterior.gov.ar/servicios/wsferiados.asp Web Service de Feriados]. La primera vez que accede puede tardar bastante tiempo...', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

@@ -10,6 +10,9 @@ function ajax_respuesta(modo) {
 };
 ajax_respuesta.prototype.constructor = ajax_respuesta;
 
+	/**
+	 * @private
+	 */	
 	ajax_respuesta.prototype.set_callback = function(clase, funcion) {
 		if (typeof clase != 'object') {
 			throw 'AJAX DATOS: Se requiere que el 3er parámetro sea un objeto';
@@ -21,10 +24,16 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 		this._funcion = funcion;
 	}
 	
+	/**
+	 * @private
+	 */		
 	ajax_respuesta.prototype.set_contexto = function(contexto) {
 		this._contexto = contexto;
 	}
 	
+	/**
+	 * @private
+	 */		
 	ajax_respuesta.prototype.set_nodo_html = function(nodo) {
 		if (nodo != null && typeof nodo == 'object' && isset(nodo['innerHTML'])) {
 			this._nodo_html = nodo;
@@ -36,7 +45,7 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 	/**
 	 * Retorna parte de una respuesta a un pedido de datos plano (sin encoding)
 	 */
-	ajax_respuesta.prototype.get_string = function(clave) {
+	ajax_respuesta.prototype.get_cadena = function(clave) {
 		var string_clave = '<--toba:' + clave + '-->';
 		var inicial = this._respuesta_plana.indexOf(string_clave);
 		if (inicial != -1) {
@@ -51,7 +60,9 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 		}
 	}
 		
-	
+	/**
+	 * @private
+	 */		
 	ajax_respuesta.prototype.recibir_respuesta = function(response) {
 		try {
 			switch (this._modo) {
@@ -79,3 +90,4 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 		}
 	}
 	
+toba.confirmar_inclusion('basicos/ajax_respuesta');

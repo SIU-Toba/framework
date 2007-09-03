@@ -325,14 +325,14 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	 * 
 	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')
 	 * @param {mixed} parametros Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo
-	 * @param {object} clase_callback Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
-	 * @param {function} funcion_callback Metodo de la clase al que se le retornará la respuesta del servidor.  La estructura de datos que retorne el server se utilizará como 1er parámetro en la llamada
-	 * @param {mixed} contexto_callback Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
+	 * @param {object} clase_js Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
+	 * @param {function} funcion_js Metodo de la clase al que se le retornará la respuesta del servidor.  La estructura de datos que retorne el server se utilizará como 1er parámetro en la llamada
+	 * @param {mixed} contexto_js Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
 	 */
-	ci.prototype.ajax = function(metodo, parametros, clase_callback, funcion_callback, contexto_callback) {
+	ci.prototype.ajax = function(metodo, parametros, clase_js, funcion_js, contexto_js) {
 		var respuesta = new ajax_respuesta('D');
-		respuesta.set_callback(clase_callback, funcion_callback);
-		respuesta.set_contexto(contexto_callback);
+		respuesta.set_callback(clase_js, funcion_js);
+		respuesta.set_contexto(contexto_js);
 		var callback_real = {
 			success: respuesta.recibir_respuesta,
 			failure: toba.error_comunicacion,
@@ -371,15 +371,15 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	 * 
 	 * @param {string} metodo Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')
 	 * @param {mixed} parametros Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo. En caso de necesitar un tipo más compejo serializar manualmente
-	 * @param {object} clase_callback Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
-	 * @param {function} funcion_callback Metodo de la clase al que se le retornará la respuesta del servidor. Un objeto de tipo ajax_respuesta se utilizará como 1er parámetro en la llamada
-	 * @param {mixed} contexto_callback Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
+	 * @param {object} clase_js Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'
+	 * @param {function} funcion_js Metodo de la clase al que se le retornará la respuesta del servidor. Un objeto de tipo ajax_respuesta se utilizará como 1er parámetro en la llamada
+	 * @param {mixed} contexto_js Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback
 	 * @see ajax_respuesta
 	 */
-	ci.prototype.ajax_plano = function(metodo, parametros, clase_callback, funcion_callback, contexto_callback) {
+	ci.prototype.ajax_cadenas = function(metodo, parametros, clase_js, funcion_js, contexto_js) {
 		var respuesta = new ajax_respuesta('P');
-		respuesta.set_callback(clase_callback, funcion_callback);
-		respuesta.set_contexto(contexto_callback);
+		respuesta.set_callback(clase_js, funcion_js);
+		respuesta.set_contexto(contexto_js);
 		var callback_real = {
 			success: respuesta.recibir_respuesta,
 			failure: toba.error_comunicacion,
@@ -388,7 +388,6 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		var param = {'ajax-metodo': metodo, 'ajax-modo': 'P', 'ajax-param': parametros};
 		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
-	};	
-	
+	};
 	
 toba.confirmar_inclusion('componentes/ci');

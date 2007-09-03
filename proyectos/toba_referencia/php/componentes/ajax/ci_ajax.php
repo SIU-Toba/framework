@@ -270,8 +270,8 @@ class ci_ajax extends toba_ci
 	function ajax__api_bajo_nivel($parametros, toba_ajax_respuesta $respuesta)
 	{
 		$html_wikipedia = utf8_decode(file_get_contents(dirname(__FILE__).'/ejemplo_ajax.html'));
-		$respuesta->agregar_string('html_puro', '<div style="height:400px;overflow:auto">'.$html_wikipedia.'</div>');
-		$respuesta->agregar_string('javascript', 'alert("Transferido también este alert")');
+		$respuesta->agregar_cadena('html_puro', '<div style="height:400px;overflow:auto">'.$html_wikipedia.'</div>');
+		$respuesta->agregar_cadena('javascript', 'alert("Transferido también este alert")');
 	}
 	
 	/**
@@ -281,7 +281,7 @@ class ci_ajax extends toba_ci
 	{
 		echo "		
 			{$this->objeto_js}.evt__boton = function() {
-				this.ajax_plano('api_bajo_nivel', null, this, this.metodo_callback);				
+				this.ajax_cadenas('api_bajo_nivel', null, this, this.metodo_callback);				
 				//--- Evito que el mecanismo 'normal' de comunicacion cliente-servidor se ejecute
 				return false;
 			}
@@ -290,8 +290,8 @@ class ci_ajax extends toba_ci
 			 *	La respuesta llega 
 			 */
 			{$this->objeto_js}.metodo_callback = function(respuesta) {
-				this.nodo_pie().innerHTML = respuesta.get_string('html_puro');		
-				eval(respuesta.get_string('javascript'));
+				this.nodo_pie().innerHTML = respuesta.get_cadena('html_puro');		
+				eval(respuesta.get_cadena('javascript'));
 			}
 		";
 	}	
