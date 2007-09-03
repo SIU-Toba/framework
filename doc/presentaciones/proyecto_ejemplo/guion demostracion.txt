@@ -1,0 +1,46 @@
+Demostracion del ambiente en 22 minutos
+
+INTRODUCCION
+------------
+
+ * Ahora vamos a continuar la presentacion mostrando la herramienta en funcionamiento. Como se dijo antes, la herramienta esta enfocada en construir en base a definiciones, y estas definiciones se generan a travez de un entorno visual. Vamos a ver como es este entorno [se ejecuta el login al editor]
+ * El entorno visual es una aplicacion web. La pantalla esta dividida en dos: listados / panel de edicion. El entorno siempre se encuentra posicionado sobre un proyecto. En este caso, un proyecto vacio creado para la ocasion.
+ * El primer concepto que se necesita para trabajar es el de OPERACION. Este es un concepto universal que casi no requiere introduccion: es una unidad funcional que circunscribe una porcion de la logica del dominio. Un sistema es un conjunto de operaciones. Comunmente se accede a las operaciones a travez de un menu. En el toba las operaciones se organizan en una estructura de arbol.
+ * "Empecemos a definir operaciones"... (Se crean carpetas anidadas e items dentro de ellas)
+ * Ya tenemos un conjunto basico de definiciones que conforman el esqueleto del sistema. ¿Como se ve esto desde el punto de vista del usuario? Todos los entornos visuales tienen dos contextos: Edicion y previsualizacion. (Se ejecuta la previsualizacion y se compara el arbol de operaciones con el menu del sistema)
+ * Tenemos un esqueleto pero las operaciones estan vacias. ¿Como se construye el cuerpo de una operacion? Combinando componentes: el ambiente provee piezas que se ensamblan para lograr una funcionalidad especifica. En esta presentacion no vamos a armar una operacion creando componentes por separado y combinandolos (aunque es posible), Vamos a utilizar un ASISTENTE. El mismo va a crear varios componentes y la logica que los vincula (definida en PHP) un solo paso. Los asistentes trabajan sobre modelos estandar de operacion. Vamos a armar un ABM, una operacion simple que permite manipular el contenido de una tabla: crear, modificar y eliminar registros.
+
+EJEMPLO 1 (Creacion de un ABM simple)
+-------------------------------------
+
+ * Existe una base preparada [Se muestra el modelo del ejemplo de personas]. Vamos a hacer una operacion de mantenimiento de personas.
+ * La base ya se encuentra vinculada al proyecto (comentar concepto fuente de datos)
+ * Se ingresa al asistente de una operacion.
+   * Se elige la tabla, se ordenan los campos, se dispara la generacion.
+ * ¿Que fue lo que hicimos? Se dispara la operacion, se utiliza el ABM.
+ * ¿Como esta compuesta esta operacion por dentro?
+   * Se visualizan los vinculos al editor (se comenta la vista de edicion en previsualizacion).
+   * Se elige el vinculo a la vista en arbol de la operacion
+   * Se muestran los componentes que componen la operacion. Se comenta su funcionalidad
+   * Se muestra el codigo asociado al CI. Sobre esto se comenta:
+   	 * No es codigo spaguetti.
+   	 * Existe un esquema de eventos (VB, Delphi)
+   	 * Existe un api que se puede consumir desde estos lugares.
+ * Se vuelve a mostrar la operacion, se muestra un error: se pueden meter nulos
+   * Se agregan validaciones de obligatoriedad en algunos campos.
+   
+EJEMPLO 2 (Paseo por una operacion sofisticadas)
+------------------------------------------------
+
+ * Ahora vamos a ver un caso real, con requerimientos de interface mas sofisticados. El ejemplo esta tomado de un sistema de gestion de becas universitarias. [Se muestra el UML de la operacion] Vamos a ver el formulario a travez del cual un estudiante solicita una beca.
+ * [Se previsualiza el sistema y se navega hasta la operacion que se desea mostrar]
+   * El formulario tiene varios pasos y tiene detalles de interface interesantes (ver pasos 1:campos opcionales,3: cascada,4: ML)
+ * ¿Cual es la estructura que maneja esto? [Se muestra una diapositiva del modelo de datos] Tabla central y tablas satelites.
+ * ¿Como esta conformada esta operacion?
+   * Componentes visuales
+     * Se muestran las pantallas y los formularios que cuelgan.
+     * Se comenta que se crearon interfaces con comportamientos visuales complejos en forma declarativa sin preocuparse por HTML, JS (ajax)
+   * Componentes de persistencia
+     * Se muestra la vista del datos relacion que vincula las tablas.
+     * Se comenta que se puede manejar un modelo complejo sin escribir SQL
+     * Se comenta que las modificaciones se ejecutan como paquete (se oculta problema HTTP)
