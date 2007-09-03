@@ -95,13 +95,14 @@ class toba_instalador
 	{
 		$instalacion = $this->get_instalacion();
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();
+		$alias = '/'.$nombre_toba;
 		
 		//--- Borra todo rastro anterior
 		if (toba_modelo_instalacion::existe_info_basica() ) {		
 			toba_modelo_instalacion::borrar_directorio();
 		}
 		//--- Crea el dir instalacion
-		toba_modelo_instalacion::crear($grupo, $nombre_toba );
+		toba_modelo_instalacion::crear($grupo, $alias );
 		
 		//--- Agrega la fuente de datos de la instancia
 		$datos_motor['base'] = $nombre_toba.'_'.$nombre_instancia;

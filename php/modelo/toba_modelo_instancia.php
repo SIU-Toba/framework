@@ -851,11 +851,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		
 		//--- Se revisa la lista de proyectos para ver si algun id_proyecto != dir_proyecto
 		foreach ($lista_proyectos as $id_pro => $path_pro) {
+			$datos_ini = array('url' => '/'.$id_pro);
 			if ($path_pro != $id_pro) {
 				//--- Se agrega una seccion para el proyecto
-				$path_absoluto_pro = toba_dir().'/proyectos/'.$path_pro;
-				$ini->agregar_entrada($id_pro, array('path' => $path_absoluto_pro));
+				$datos_ini['path'] = toba_dir().'/proyectos/'.$path_pro;
 			}
+			$ini->agregar_entrada($id_pro, $datos_ini);			
 		}
 		
 		$archivo = self::dir_instancia( $nombre ) . '/' . toba_modelo_instancia::toba_instancia ;

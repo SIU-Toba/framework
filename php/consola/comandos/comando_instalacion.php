@@ -38,7 +38,8 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__instalar()
 	{
-		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();		
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();
+		$alias = '/'.$nombre_toba;
 		$this->consola->titulo("Instalación Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
@@ -71,7 +72,7 @@ class comando_instalacion extends comando_toba
 		}
 		//--- Crea la INSTALACION		
 		if ($forzar_instalacion) {
-			toba_modelo_instalacion::crear( 0, $nombre_toba );			
+			toba_modelo_instalacion::crear( 0, $alias );			
 		}
 		
 		//--- Crea la definicion de bases
@@ -362,9 +363,9 @@ class comando_instalacion extends comando_toba
 		$this->consola->enter();
 		$resultado = $this->consola->dialogo_ingresar_texto( 'Nombre del Alias (por defecto "toba")', false );
 		if ( $resultado == '' ) {
-			return 'toba';
+			return '/toba';
 		} else {
-			return $resultado;	
+			return '/'.$resultado;	
 		}
 		
 	}
