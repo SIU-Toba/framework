@@ -635,37 +635,47 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_formulario_encabezado()
 	{
-		echo "<thead>\n";		
-		//------ TITULOS -----	
-		echo "<tr>\n";
-		$primera = true;
-		foreach ($this->_lista_ef_post	as	$ef){
-			$id_form = $this->_elemento_formulario[$ef]->get_id_form_orig();	
-			$extra = '';
-			if ($primera) {
-				$extra = 'colspan="'.($this->_colspan + 1).'"';
+		//¿Algún EF tiene etiqueta?
+		$alguno_tiene_etiqueta = false;
+		foreach ($this->_lista_ef_post as $ef) {
+			if ($this->_elemento_formulario[$ef]->get_etiqueta() != '') {
+        		$alguno_tiene_etiqueta = true;
+        		break;
 			}
-			echo "<th $extra id='nodo_$id_form' class='ei-ml-columna'>\n";
-			$this->generar_etiqueta_columna($ef);
-			echo "</th>\n";
-			$primera = false;
 		}
-		if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
-			echo "<th class='ei-ml-columna'>\n";
-			echo "</th>\n";
-		}		
-        //-- Eventos sobre fila
-		if($this->cant_eventos_sobre_fila() > 0){
-			foreach ($this->get_eventos_sobre_fila() as $evento) {
-				echo "<th class='ei-ml-columna ei-ml-columna-extra'>&nbsp;\n";
-				if (toba_editor::modo_prueba()) {
-					echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
+		if ($alguno_tiene_etiqueta) {
+			echo "<thead>\n";		
+			//------ TITULOS -----	
+			echo "<tr>\n";
+			$primera = true;
+			foreach ($this->_lista_ef_post	as	$ef){
+				$id_form = $this->_elemento_formulario[$ef]->get_id_form_orig();	
+				$extra = '';
+				if ($primera) {
+					$extra = 'colspan="'.($this->_colspan + 1).'"';
 				}
-	            echo "</th>\n";
+				echo "<th $extra id='nodo_$id_form' class='ei-ml-columna'>\n";
+				$this->generar_etiqueta_columna($ef);
+				echo "</th>\n";
+				$primera = false;
 			}
-		}		
-		echo "</tr>\n";
-		echo "</thead>\n";		
+			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
+				echo "<th class='ei-ml-columna'>\n";
+				echo "</th>\n";
+			}		
+	        //-- Eventos sobre fila
+			if($this->cant_eventos_sobre_fila() > 0){
+				foreach ($this->get_eventos_sobre_fila() as $evento) {
+					echo "<th class='ei-ml-columna ei-ml-columna-extra'>&nbsp;\n";
+					if (toba_editor::modo_prueba()) {
+						echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
+					}
+		            echo "</th>\n";
+				}
+			}		
+			echo "</tr>\n";
+			echo "</thead>\n";
+		}
 	}
 	
 	protected function generar_etiqueta_columna($ef)
