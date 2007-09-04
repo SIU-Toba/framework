@@ -17,6 +17,12 @@ class ci_ini_sesion extends toba_ci
 	{
 		$this->evt__form__modificacion($datos);
 	}
+	
+	function conf__form()
+	{
+		return array('instancia' => toba::instancia()->get_id());
+	}
+	
 
 	//--- COMBOS ----------------------------------------------------------------
 

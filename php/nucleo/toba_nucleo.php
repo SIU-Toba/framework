@@ -113,6 +113,9 @@ class toba_nucleo
 	{
 		if (toba::manejador_sesiones()->existe_sesion_activa()) {		// Estoy dentro de una SESION
 			$item = $this->get_id_item('item_inicio_sesion', false, true);
+			if(!$item[0]||!$item[1]) {
+				throw new toba_error('ERROR: No esta definido el ITEM de INICIO de sesion');	
+			}			
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if (!$solicitud->es_item_publico()) {
@@ -122,6 +125,9 @@ class toba_nucleo
 		} else {														// Estoy fuera de la sesion. Solo se puede acceder a lo publico
 			$mensaje_error = 'La seccion no esta activa. Solo es posible acceder items PUBLICOS.';
 			$item = $this->get_id_item('item_pre_sesion');
+			if(!$item[0]||!$item[1]) {
+				throw new toba_error('ERROR: No esta definido el ITEM de LOGIN');	
+			}			
 			$this->iniciar_contexto_solicitud($item);
 			$solicitud = toba_constructor::get_runtime(array('proyecto'=>$item[0],'componente'=>$item[1]), 'toba_item');
 			if (!$solicitud->es_item_publico()) {

@@ -792,16 +792,23 @@ class toba_migracion_1_0_0 extends toba_migracion
 	/**
 	 * Se cambia:
 	 *	evt__id__carga por conf__id
-	 * 	evt__entrada__id por evt__id__entrada	
+	 * 	evt__entrada__id por evt__id__entrada
 	 *  evt__inicializar por ini
 	 */
 	function proyecto__cambio_api_ci()
 	{
 		$editor = new toba_editor_archivos();
-		$editor->agregar_sustitucion('/evt__(\w+)__carga\(/', 'conf__${1}(');		
+		$editor->agregar_sustitucion('/evt__(\w+)__carga\(/', 'conf__${1}(');
 		$editor->agregar_sustitucion('/evt__entrada__(\w+)\(/', 'evt__${1}__entrada(');
 		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
 		$editor->agregar_sustitucion('/evt__inicializar\(/', 'ini(');
+		$editor->agregar_sustitucion("|this->cn|","this->cn()");
+		$editor->agregar_sustitucion("|evt__get_datos_cn|","get_datos_cn");
+		$editor->agregar_sustitucion("|evt__entregar_datos_cn|","set_datos_cn");
+		$editor->agregar_sustitucion("|set_etapa_gi|","set_pantalla");
+		$editor->agregar_sustitucion("|get_etapa_gi|","get_id_pantalla");
+		$editor->agregar_sustitucion("|this\._ci|","this.controlador");
+		$editor->agregar_sustitucion("|this->dependencias\[['\"](.*?)['\"]\]|","this->dep('$1')");
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
@@ -927,6 +934,10 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$editor->agregar_sustitucion('/toba_recurso::path_apl/',		'toba_recurso::url_toba');
 		$editor->agregar_sustitucion('/toba_recurso::imagen_apl/',		'toba_recurso::imagen_toba');
 		$editor->agregar_sustitucion('/toba_recurso::imagen_pro/',		'toba_recurso::imagen_proyecto');
+		$editor->agregar_sustitucion("|ejecutar_sql\b.*?\(|","ejecutar_fuente(");
+		$editor->agregar_sustitucion("|deshabilitar_efs|","set_solo_lectura");
+		$editor->agregar_sustitucion("|\.valor\(|",".get_estado(");
+		$editor->agregar_sustitucion("|\.cambiar_valor\(|",".set_estado(");		
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);		
 	}
