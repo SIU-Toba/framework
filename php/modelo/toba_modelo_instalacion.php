@@ -297,7 +297,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	 * Agrega al archivo toba.conf la definicion del proyecto
 	 */
-	static function agregar_alias_apache($alias, $dir, $instancia)
+	static function agregar_alias_apache($alias, $dir, $instancia, $id_proyecto)
 	{
 		$archivo = self::get_archivo_alias_apache();
 				
@@ -307,11 +307,39 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );		
 		$editor->agregar_sustitucion( '|__proyecto_dir__|', toba_manejador_archivos::path_a_unix($dir) );
 		$editor->agregar_sustitucion( '|__proyecto_alias__|', $alias ); 
+		$editor->agregar_sustitucion( '|__proyecto_id__|', $id_proyecto); 
 		$editor->agregar_sustitucion( '|__instancia__|', $instancia );
 		$salida = $editor->procesar( $template );
-		$salida = "\n\t#Creado automáticamente por Toba - ".date('d/m/y H:m:s').$salida;
 		file_put_contents($archivo, $salida, FILE_APPEND);
 	}
+	
+	static function existe_alias_apache($id_proyecto)
+	{
+		$archivo = self::get_archivo_alias_apache();
+		$conf = file_get_contents($archivo);
+		return strpos($conf, '#Proyecto: '.$id_proyecto) !== false;
+	}
+	
+	static function quitar_alias_apache($id_proyecto)
+	{
+		$archivo = self::get_archivo_alias_apache();
+		$conf = file_get_contents($archivo);
+		$str_inicio = '#Proyecto: '.$id_proyecto;
+		$str_fin = '</Directory>';
+		$inicio = strpos($conf, $str_inicio);
+		if ($inicio !== false) {
+			$fin = strpos($conf, $str_fin, $inicio) + strlen($str_fin);
+			if ($fin !== false) {
+				$salida = trim(substr($conf, 0, $inicio)) . substr($conf, $fin);
+				file_put_contents($archivo, $salida);
+			} else {
+				throw new toba_error('No es posible encontrar el fin del alias');
+			}
+		} else {
+			throw new toba_error('No es posible encontrar el inicio del alias');
+		}
+	}
+	
 
 	static function dir_base()
 	{

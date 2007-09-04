@@ -46,9 +46,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 	
 	
-	function get_alias()
+	function get_url()
 	{
-		return $this->get_id();
+		return $this->instancia->get_url_proyecto($this->get_id());
 	}
 	
 	function get_dir()
@@ -418,11 +418,29 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_permisos();
 	}
 
-	function agregar_alias_apache()
+	function publicar($url=null)
 	{
-		toba_modelo_instalacion::agregar_alias_apache($this->get_alias(),
-														$this->get_dir(),
-														$this->get_instancia()->get_id());
+		if (! $this->esta_publicado()) {
+			if ($url != null) {
+				$this->instancia->set_url_proyecto($this->get_id(), $url);
+			}
+			toba_modelo_instalacion::agregar_alias_apache($this->get_url(),
+															$this->get_dir(),
+															$this->get_instancia()->get_id(),
+															$this->get_id());
+		}
+	}
+	
+	function despublicar()
+	{
+		if ($this->esta_publicado()) {
+			toba_modelo_instalacion::quitar_alias_apache($this->get_id());
+		}
+	}
+	
+	function esta_publicado()
+	{
+		return toba_modelo_instalacion::existe_alias_apache($this->get_id());
 	}
 	
 	//-----------------------------------------------------------

@@ -174,7 +174,7 @@ class toba_instalador
 			$this->progreso->progreso_avanzar();
 		}
 		$instancia->exportar_local();
-		$proyecto->agregar_alias_apache();
+		$proyecto->publicar();
 		
 		//--- Ventana de instalacion propia del proyecto
 		$proyecto->instalar();

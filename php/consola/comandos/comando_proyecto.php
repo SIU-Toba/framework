@@ -51,16 +51,17 @@ class comando_proyecto extends comando_toba
 		// -- Exporto el proyecto creado
 		$proyecto->exportar();
 		$instancia->exportar_local();
-		$this->consola->separador();
-		$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
-		if ($agregar) {
-			$proyecto->agregar_alias_apache();
+		if (! $proyecto->esta_publicado()) {
 			$this->consola->separador();
-			$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
-									"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
-			$this->consola->separador();									
+			$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
+			if ($agregar) {
+				$proyecto->publicar();
+				$this->consola->separador();
+				$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
+										"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
+				$this->consola->separador();									
+			}
 		}
-		
 	}	
 	
 
@@ -107,12 +108,14 @@ class comando_proyecto extends comando_toba
 			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");
 		}
 
-		//--- Generación del alias
-		$this->consola->separador();
-		$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
-		if ($agregar) {
-			$p->agregar_alias_apache();
-		}		
+		if (! $p->esta_publicado()) {
+			//--- Generación del alias
+			$this->consola->separador();
+			$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
+			if ($agregar) {
+				$p->publicar();
+			}		
+		}
 	}
 	
 
@@ -215,6 +218,37 @@ class comando_proyecto extends comando_toba
 	}
 	
 
+	/**
+	* Incluye al proyecto dentro del archivo de configuración de apache (toba.conf)
+	* @consola_parametros Opcional: [-u 'url'] Lo publica en una url específica (por ej. /mi_proyecto )
+	*/
+	function opcion__publicar()
+	{
+		$param = $this->get_parametros();
+		$url = '';
+		if (isset($param['-u'])) {
+			$url = $param['-u'];
+		}
+
+		if (! $this->get_proyecto()->esta_publicado()) {
+			$this->get_proyecto()->publicar($url);
+		} else {
+			throw new toba_error("El proyecto ya se encuentra publicado. Debe despublicarlo primero");
+		}
+	}	
+	
+	/**
+	* Quita al proyecto del archivo de configuración de apache (toba.conf)
+	*/
+	function opcion__despublicar()
+	{
+		if ($this->get_proyecto()->esta_publicado()) {
+			$this->get_proyecto()->despublicar();
+		} else {
+			throw new toba_error("El proyecto no se encuentra actualmente publicado.");
+		}
+	}		
+	
 	
 	/**
 	 * Actualiza o crea la operación de login asociada al proyecto

@@ -165,6 +165,18 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			return '/'.$proyecto;
 		}			
 	}
+	
+	function set_url_proyecto($id_proyecto, $url)
+	{
+		$ini = $this->get_ini();
+		$conf_proy = $ini->get_datos_entrada($id_proyecto);
+		$conf_proy['url'] = $url;
+		$ini->agregar_entrada($id_proyecto, $conf_proy);
+		$ini->guardar();
+		toba_logger::instancia()->debug("Cambiando la url del proyecto '$id_proyecto' a '$url'");
+		// Recargo la inicializacion de la instancia
+		$this->cargar_info_ini();
+	}
 
 	function get_lista_proyectos_vinculados()
 	{
@@ -252,6 +264,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->cargar_info_ini();
 	}
 
+	/**
+	 * @return toba_ini
+	 */
 	function get_ini()
 	{
 		$ini = new toba_ini( $this->dir . '/' . self::toba_instancia );
@@ -900,7 +915,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
 				$proyecto = $this->get_proyecto($id_proyecto);										
-				$proyecto->agregar_alias_apache();	
+				$proyecto->publicar();	
 			}
 		}			
 	}

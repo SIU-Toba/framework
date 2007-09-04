@@ -25,7 +25,11 @@ class toba_proyecto
 			} else {
 				//--- Si no viene por url, se toma la constante
 				if(! defined('apex_pa_proyecto') ){
-					throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
+					if (isset($_SERVER['TOBA_PROYECTO'])) {
+						define('apex_pa_proyecto', $_SERVER['TOBA_PROYECTO']);
+					} else {
+						throw new toba_error("Es necesario definir la constante 'apex_pa_proyecto'");
+					}
 				} 
 				self::$id_proyecto = apex_pa_proyecto;
 			}
