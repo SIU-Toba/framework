@@ -975,7 +975,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 					$temp = $this->get_valor_imprimible_ef( $ef );
-					echo "</td><td class='". $temp['css'] ."'>\n";
+					echo "<td class='". $temp['css'] ."'>\n";
 					echo $temp['valor'];
 					echo "</td>\n";
 				}

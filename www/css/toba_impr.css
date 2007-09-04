@@ -360,3 +360,17 @@ td.col-cen-s3 {
 	 background-color: #e9e8e8;
 	 text-align: center;
 }
+
+
+/*************************
+	VISTA PREVIA IMPRESION
+**************************/
+
+.barra-impresion {
+	padding: 7px;
+	background-color: #cccccc;
+	text-align: right;
+}
+.marco-impresion {
+	padding: 10px;
+}

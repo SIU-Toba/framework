@@ -273,6 +273,13 @@ class ci_efs extends toba_ci
 			}
 		}
 		$this->dependencia('param_varios')->desactivar_efs($efs_a_desactivar);
+
+		//--- Si es un popup y tiene carga estatica chequear el checkbox
+		$tiene_clase = (isset($fila['popup_carga_desc_clase']) && $fila['popup_carga_desc_clase'] != '');
+		$tiene_include = (isset($fila['popup_carga_desc_include']) && $fila['popup_carga_desc_include'] != '');
+		if ($tiene_clase || $tiene_include) {
+			$fila['popup_carga_desc_estatico'] = 1;
+		}		
 		return $fila;
 	}
 	
