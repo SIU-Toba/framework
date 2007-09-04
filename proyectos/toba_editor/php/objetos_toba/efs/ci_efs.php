@@ -64,10 +64,11 @@ class ci_efs extends toba_ci
 			$this->pantalla()->eliminar_evento('aceptar');
 			$this->pantalla()->agregar_dep('efs_importar');
 			$this->dependencia('efs_importar')->colapsar();
-			if ($this->hay_cascadas()) {
-				$this->pantalla()->agregar_dep('esquema_cascadas');
-			}			
 		}
+		if (! $this->hay_cascadas()) {
+			$this->dep('efs_lista')->eliminar_evento('mostrar_esquema');
+		}			
+		
 	}
 	
 	function evt__cancelar()
@@ -403,6 +404,22 @@ class ci_efs extends toba_ci
 		return false;
 	}	
 	
+	
+	function extender_objeto_js()
+	{
+		echo "
+			{$this->objeto_js}.evt__efs_lista__mostrar_esquema = function() {
+				this.ajax_html('esquema_cascadas', null, this.nodo_pie());
+				return false;	
+			}
+		";
+	}
+	
+	function ajax__esquema_cascadas($parametros, toba_ajax_respuesta $respuesta)
+	{
+		$this->pantalla()->agregar_dep('esquema_cascadas');
+		$this->dep('esquema_cascadas')->generar_html();
+	}
 	
 }
 ?>

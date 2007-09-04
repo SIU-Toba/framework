@@ -231,7 +231,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'api_bajo_nivel', --identificador
 	'4', --orden
 	'API Bajo Nivel', --etiqueta
-	'Cuando lo que necesitamos comunicar entre servidor y cliente es mucha información que no necesita ser codificada ni decodificada (por ejemplo mucho código HTML, javascript y demás) por una cuestión de eficiencia se utiliza la llamada <strong>this.ajax_plano</strong> construyendo la respuesta en el server con <strong>$respuesta->agregar_string($clave, $valor)</strong>.
+	'Cuando lo que necesitamos comunicar entre servidor y cliente es mucha información que no necesita ser codificada ni decodificada (por ejemplo mucho código HTML, javascript y demás) por una cuestión de eficiencia se utiliza la llamada <strong>this.ajax_cadenas</strong> construyendo la respuesta en el server con <strong>$respuesta->agregar_cadena($clave, $valor)</strong>.
 <br><br>
 En este caso el ejemplo trae un página de wikipedia y un código conteniendo un alert en javascript.', --descripcion
 	NULL, --tip
