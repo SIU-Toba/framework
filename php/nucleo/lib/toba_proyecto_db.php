@@ -161,7 +161,7 @@ class toba_proyecto_db
 				AND		ui.item = i.item
 				AND		ui.proyecto = i.proyecto
 				AND		ui.proyecto = '$proyecto'
-				AND		ui.usuario_grupo_acc IN ($grupos_acceso);";
+				AND		(ui.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)";
 		return self::get_db()->consultar($sql);
 	}
 

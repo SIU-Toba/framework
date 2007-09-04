@@ -535,48 +535,91 @@ class toba_migracion_1_0_0 extends toba_migracion
 		return $cant;
 	}
 
-	function proyecto__path_includes()
+
+	/*
+		Eliminar requires a toba, ahora se carga todo con autoload
+	*/
+	function proyecto__eliminar_includes()
 	{
 		$editor = new toba_editor_archivos();
-		$editor->agregar_sustitucion('|nucleo/lib/asercion.php|'						,'lib/toba_asercion.php');          
-		$editor->agregar_sustitucion('|nucleo/lib/cache_db.php|'              			,'lib/toba_cache_db.php');               
-		$editor->agregar_sustitucion('|nucleo/lib/editor_archivos.php|'       			,'lib/toba_editor_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/encriptador.php|'           			,'lib/toba_encriptador.php');      
-		$editor->agregar_sustitucion('|nucleo/lib/ini.php|'                   			,'lib/toba_ini.php');          
-		$editor->agregar_sustitucion('|nucleo/lib/manejador_archivos.php|'	   			,'lib/toba_manejador_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/parseo.php|'                			,'lib/toba_parseo.php');   
-		$editor->agregar_sustitucion('|nucleo/lib/sincronizador_archivos.php|'			,'lib/toba_sincronizador_archivos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/sql.php|'                   			,'lib/toba_sql.php');
-		$editor->agregar_sustitucion('|nucleo/lib/texto.php|'                 			,'lib/toba_texto.php');
-		$editor->agregar_sustitucion('|nucleo/lib/varios.php|'							,'lib/toba_varios.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/toba_archivo_php.php|'		,'lib/reflexion/toba_archivo_php.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_datos.php|' 			,'lib/reflexion/toba_clase_datos.php');
-		$editor->agregar_sustitucion('|nucleo/lib/reflexion/clase_php.php|'   			,'lib/reflexion/toba_clase_php.php');
-		$editor->agregar_sustitucion('|nucleo/browser/zona/zona.php|'					,'nucleo/lib/zona.php');
-		$editor->agregar_sustitucion('|nucleo/lib/db.php|'                    			,'nucleo/lib/toba_db.php');                     
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto.php|'               ,'nucleo/componentes/objeto.php'                 			);		
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ci.php|'            ,'nucleo/componentes/interface/objeto_ci.php'              );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ci_abm.php|'          ,'nucleo/componentes/interface/objeto_ci_abm.php'          );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei.php|'              ,'nucleo/componentes/interface/objeto_ei.php'              );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_arbol.php|'        ,'nucleo/componentes/interface/objeto_ei_arbol.php'        );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_archivos.php|'     ,'nucleo/componentes/interface/objeto_ei_archivos.php'     );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_calendario.php|'   ,'nucleo/componentes/interface/objeto_ei_calendario.php'   );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_cuadro.php|'       ,'nucleo/componentes/interface/objeto_ei_cuadro.php'       );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_filtro.php|'       ,'nucleo/componentes/interface/objeto_ei_filtro.php'       );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_formulario.php|'   ,'nucleo/componentes/interface/objeto_ei_formulario.php'   );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_ei_formulario_ml.php|','nucleo/componentes/interface/objeto_ei_formulario_ml.php');
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_cuadro.php|'          ,'nucleo/componentes/transversales/objeto_cuadro.php'      );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_cuadro_reg.php|'      ,'nucleo/componentes/transversales/objeto_cuadro_reg.php'  );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_filtro.php|'          ,'nucleo/componentes/transversales/objeto_filtro.php'      );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_grafico.php|'         ,'nucleo/componentes/transversales/objeto_grafico.php'     );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_hoja.php|'            ,'nucleo/componentes/transversales/objeto_hoja.php'        );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_html.php|'            ,'nucleo/componentes/transversales/objeto_html.php'        );
-		$editor->agregar_sustitucion('|nucleo/browser/clases/objeto_lista.php|'           ,'nucleo/componentes/transversales/objeto_lista.php'       );
-		$editor->agregar_sustitucion('|nucleo/persistencia/|' 					          ,'nucleo/componentes/persistencia/' 					      );
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/asercion.php['\"]\)\s*;|"						,"");          
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/cache_db.php['\"]\)\s*;|"              			,"");               
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/editor_archivos.php['\"]\)\s*;|"       			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/encriptador.php['\"]\)\s*;|"           			,"");      
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/ini.php['\"]\)\s*;|"                   			,"");          
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/manejador_archivos.php['\"]\)\s*;|"	   			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/parseo.php['\"]\)\s*;|"                			,"");   
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/sincronizador_archivos.php['\"]\)\s*;|"			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/sql.php['\"]\)\s*;|"                   			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/texto.php['\"]\)\s*;|"                 			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/varios.php['\"]\)\s*;|"							,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/reflexion/toba_archivo_php.php['\"]\)\s*;|"		,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/reflexion/clase_datos.php['\"]\)\s*;|" 			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/reflexion/clase_php.php['\"]\)\s*;|"   			,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/refleccion.php['\"]\)\s*;|"              			,"");                     
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/db.php['\"]\)\s*;|"                    			,"");                     
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/lib/salidas/html_impr.php['\"]\)\s*;|","");                     
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/componentes/info/interfaces.php['\"]\)\s*;|","");                     
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/zona/zona.php['\"]\)\s*;|"					,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto.php['\"]\)\s*;|"               ,"");		
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ci.php['\"]\)\s*;|"            ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ci_abm.php['\"]\)\s*;|"          ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ci_me_tab.php['\"]\)\s*;|"          ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei.php['\"]\)\s*;|"              ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_arbol.php['\"]\)\s*;|"        ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_archivos.php['\"]\)\s*;|"     ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_calendario.php['\"]\)\s*;|"   ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_cuadro.php['\"]\)\s*;|"       ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_filtro.php['\"]\)\s*;|"       ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_formulario.php['\"]\)\s*;|"   ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_ei_formulario_ml.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_cuadro.php['\"]\)\s*;|"          ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_cuadro_reg.php['\"]\)\s*;|"      ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_filtro.php['\"]\)\s*;|"          ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_grafico.php['\"]\)\s*;|"         ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_hoja.php['\"]\)\s*;|"            ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_html.php['\"]\)\s*;|"            ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/clases/objeto_lista.php['\"]\)\s*;|"           ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/persistencia/ap_tabla_db.php['\"]\)\s*;|" ,"");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn_t.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/browser/subclases/ci_cn.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn_buffer.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn_ent_pd.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn_ent_se.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn_ent.php['\"]\)\s*;|","");
+		$editor->agregar_sustitucion("|require_once\(['\"]nucleo/negocio/objeto_cn.php['\"]\)\s*;|","");
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);
 	}
-	
+
+	/*
+		Modificar los nombres de las clases
+	*/
+	function proyecto__cambiar_nombres_clases_componentes()
+	{
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion("|extends\s*objeto_ci_me_tab|","extends toba_ci");
+		$editor->agregar_sustitucion("|extends\s*objeto_ci|","extends toba_ci");
+		$editor->agregar_sustitucion("|extends\s*ci_cn|","extends toba_ci");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn_buffer|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn_ent_pd|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn_ent_se|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn_ent|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn_t|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_cn|","extends toba_cn");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_arbol|","extends toba_ei_arbol");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_archivos|","extends toba_ei_archivos");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_calendario|","extends toba_ei_calendario");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_cuadro|","extends toba_ei_cuadro");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_filtro|","extends toba_ei_filtro");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_formulario|","extends toba_ei_formulario");
+		$editor->agregar_sustitucion("|extends\s*objeto_ei_formulario_ml|","extends toba_ei_formulario_ml");
+		$editor->agregar_sustitucion("|extends\s*html_impr|","extends toba_impr_html");
+		$editor->agregar_sustitucion("|implements\s*recorrible_como_arbol|","implements toba_nodo_arbol");
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		$editor->procesar_archivos($archivos);
+	}
+
 	/**
 	 * En toba 1.0 hay una unica plantilla de estilos: toba
 	 */
