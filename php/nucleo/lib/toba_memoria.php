@@ -133,7 +133,7 @@ class toba_memoria
 		//-----------------------------------------------------------------------------
 
 		if (isset($this->parametros[apex_hilo_qs_servicio])) {
-			$this->servicio = $this->parametros[apex_hilo_qs_servicio];
+			$this->servicio = substr($this->parametros[apex_hilo_qs_servicio], 0, 60);
 			unset($this->parametros[apex_hilo_qs_servicio]);
 		}
 		if (isset($this->parametros[apex_hilo_qs_objetos_destino])) {

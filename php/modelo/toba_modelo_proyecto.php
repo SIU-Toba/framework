@@ -435,7 +435,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		if ($this->esta_publicado()) {
 			toba_modelo_instalacion::quitar_alias_apache($this->get_id());
-			$this->manejador_interface->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 		}
 	}
 	
