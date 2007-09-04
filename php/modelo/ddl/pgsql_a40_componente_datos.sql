@@ -37,7 +37,7 @@ CREATE TABLE apex_tipo_datos
 ---------------------------------------------------------------------------------------------------
 (
 	tipo							varchar(1)			NOT NULL,
-	descripcion						varchar(30)			NOT	NULL,
+	descripcion						varchar(50)			NOT	NULL,
 	CONSTRAINT	"apex_tipo_datos_pk" PRIMARY	KEY ("tipo")
 );
 --###################################################################################################
@@ -221,7 +221,7 @@ CREATE TABLE apex_objeto_datos_rel
 	ap								int4			NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(120)	NULL,
---	Opciones de sincronización
+--	Opciones de sincronizaciï¿½n
 	sinc_susp_constraints			smallint		NULL DEFAULT(0),
 	sinc_orden_automatico			smallint		NULL DEFAULT(1),
 	CONSTRAINT  "apex_objeto_datos_rel_pk" PRIMARY KEY ("proyecto","objeto"),
@@ -248,17 +248,17 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	proyecto 		   			   	varchar(15)			NOT NULL,
 	objeto 		                	int4       			NOT NULL,
 	asoc_id							int4				DEFAULT nextval('"apex_objeto_datos_rel_asoc_seq"'::text) 		NOT NULL, 
-	identificador    				varchar(40)			NULL, 
+	identificador    				varchar(60)			NULL, 
 --	padre --
 	padre_proyecto					varchar(15)			NOT NULL,
 	padre_objeto					int4				NOT NULL,
 	padre_id						varchar(20)			NOT NULL,
-	padre_clave		    			varchar(60)			NULL, 
+	padre_clave		    			varchar(255)			NULL, 
 --	hijo --
 	hijo_proyecto					varchar(15)			NOT NULL,
 	hijo_objeto						int4				NOT NULL,
 	hijo_id							varchar(20)			NOT NULL,
-	hijo_clave		    			varchar(60)			NULL, 
+	hijo_clave		    			varchar(255)			NULL, 
 	cascada							smallint			NULL,
 	orden							float				NULL,
 	CONSTRAINT  "apex_obj_datos_rel_asoc_pk" PRIMARY KEY ("proyecto","objeto","asoc_id"),

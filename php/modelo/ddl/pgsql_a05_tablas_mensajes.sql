@@ -16,7 +16,7 @@ CREATE TABLE apex_msg_tipo
 (  
 	msg_tipo                	 	varchar(20)    NOT NULL,
    descripcion                	varchar(255)   NOT NULL,
-   icono                      	varchar(30)    NULL,
+   icono                      	varchar(60)    NULL,
    CONSTRAINT  "apex_msg_tipo_pk" PRIMARY KEY ("msg_tipo")
 );
 --#################################################################################################

@@ -22,7 +22,7 @@ CREATE TABLE apex_item_zona
 	descripcion						varchar			NULL,		-- OBSOLETO
 	consulta_archivo				varchar(255)	NULL,
 	consulta_clase					varchar(60)		NULL,
-	consulta_metodo					varchar(60)		NULL,
+	consulta_metodo					varchar(80)		NULL,
 	CONSTRAINT	"apex_item_zona_pk" PRIMARY KEY ("proyecto","zona"),
 	CONSTRAINT	"apex_item_zona_fk_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
@@ -73,12 +73,12 @@ CREATE TABLE apex_item
 	zona_listar						smallint		NULL,
 	imagen_recurso_origen			varchar(10)		NULL,
 	imagen							varchar(60)		NULL,
-	parametro_a						varchar(100)	NULL,
-	parametro_b						varchar(100)	NULL,
-	parametro_c						varchar(100)	NULL,
+	parametro_a						varchar(255)	NULL,
+	parametro_b						varchar(255)	NULL,
+	parametro_c						varchar(255)	NULL,
 	publico							smallint		NULL,
 	redirecciona					smallint		NULL,
-	usuario							varchar(20)		NULL,
+	usuario							varchar(60)		NULL,
 	creacion						timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("proyecto","item"),
 	CONSTRAINT	"apex_item_uq_path" UNIQUE	("proyecto","item"),
@@ -132,7 +132,7 @@ CREATE TABLE apex_clase_tipo
 	clase_tipo						int4				DEFAULT nextval('"apex_clase_tipo_seq"'::text) NOT	NULL,	
 	descripcion_corta				varchar(40)			NOT NULL,
 	descripcion						varchar(255)		NULL,
-	icono							varchar(30)			NULL,
+	icono							varchar(60)			NULL,
 	orden							float				NULL,
 	metodologia						varchar(10)			NULL, --NOT
 	CONSTRAINT	"apex_clase_tipo_pk"	 PRIMARY	KEY ("clase_tipo")
@@ -299,7 +299,7 @@ CREATE TABLE apex_objeto_dependencias
 	dep_id								int4				DEFAULT nextval('"apex_objeto_dep_seq"'::text) NOT NULL, 
 	objeto_consumidor					int4				NOT NULL,
 	objeto_proveedor					int4				NOT NULL,
-	identificador						varchar(20)			NOT NULL,
+	identificador						varchar(40)			NOT NULL,
 	parametros_a						varchar(255)		NULL,
 	parametros_b						varchar(255)		NULL,
 	parametros_c						varchar(255)		NULL,
@@ -329,16 +329,16 @@ CREATE TABLE apex_objeto_eventos
 	proyecto							varchar(15)			NOT NULL,
 	evento_id							int4				DEFAULT nextval('"apex_objeto_eventos_seq"'::text) NOT NULL,
 	objeto								int4				NOT NULL,
-	identificador						varchar(20)			NOT NULL,
-	etiqueta							varchar(60)			NULL,
+	identificador						varchar(40)			NOT NULL,
+	etiqueta							varchar(255)		NULL,
 	maneja_datos						smallint			NULL DEFAULT 1,
 	sobre_fila							smallint			NULL,
-	confirmacion						varchar(160)		NULL,
+	confirmacion						varchar(255)		NULL,
 	estilo								varchar(40)			NULL,
 	imagen_recurso_origen				varchar(10)			NULL,
 	imagen								varchar(60)			NULL,
 	en_botonera							smallint			NULL DEFAULT 1,
-	ayuda								varchar(255)		NULL,
+	ayuda								varchar				NULL,
 	orden								smallint			NULL,
 	ci_predep							smallint			NULL, 
 	implicito							smallint			NULL,
@@ -446,7 +446,7 @@ CREATE TABLE apex_arbol_items_fotos
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)		NOT NULL, 
-	usuario								varchar(20)		NOT NULL,
+	usuario								varchar(60)		NOT NULL,
 	foto_nombre							varchar(100)	NOT NULL,
 	foto_nodos_visibles					varchar			NULL,
 	foto_opciones						varchar			NULL,
@@ -469,7 +469,7 @@ CREATE TABLE apex_admin_album_fotos
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto							varchar(15)		NOT NULL, 
-	usuario								varchar(20)		NOT NULL,
+	usuario								varchar(60)		NOT NULL,
 	foto_tipo							varchar(20)		NOT NULL,	--cat_item u cat_objeto
 	foto_nombre							varchar(100)	NOT NULL,
 	foto_nodos_visibles					varchar			NULL,

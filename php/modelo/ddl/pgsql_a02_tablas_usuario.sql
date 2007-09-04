@@ -39,8 +39,8 @@ CREATE TABLE apex_usuario
 	pre								varchar(2)		NULL,
 	ciu								varchar(18)		NULL,
 	suf								varchar(1)		NULL,
-	email							varchar(80)		NULL,
-	telefono						varchar(18)		NULL,
+	email							varchar(255)		NULL,
+	telefono						varchar(30)		NULL,
 	vencimiento						date				NULL,
 	dias							smallint			NULL,
 	hora_entrada					time(0) without time	zone NULL,
@@ -50,9 +50,9 @@ CREATE TABLE apex_usuario
 	solicitud_obs_tipo_proyecto		varchar(15)		NULL,
 	solicitud_obs_tipo				varchar(20)		NULL,
 	solicitud_observacion			varchar(255)	NULL,
-	parametro_a						varchar(100)	NULL,
-	parametro_b						varchar(100)	NULL,
-	parametro_c						varchar(100)	NULL,
+	parametro_a						varchar(255)	NULL,
+	parametro_b						varchar(255)	NULL,
+	parametro_c						varchar(255)	NULL,
 	autentificacion					varchar(10)		NULL DEFAULT('plano'),
 	CONSTRAINT	"apex_usuario_pk"	 PRIMARY	KEY ("usuario"),
 	--CONSTRAINT	"apex_usuario_fk_sol_ot" FOREIGN	KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo")	REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -92,7 +92,7 @@ CREATE TABLE apex_usuario_grupo_acc
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_grupo_acc				varchar(20)		NOT NULL,
+	usuario_grupo_acc				varchar(30)		NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	nivel_acceso					smallint		NULL,
 	descripcion						varchar			NULL,
@@ -119,7 +119,7 @@ CREATE TABLE apex_usuario_proyecto
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto							varchar(15)			NOT NULL,
-	usuario_grupo_acc					varchar(20)			NOT NULL,
+	usuario_grupo_acc					varchar(30)			NOT NULL,
 	usuario								varchar(60)			NOT NULL,
 	usuario_perfil_datos				varchar(20)			NULL,		-- BORRAR
 	CONSTRAINT	"apex_usu_proy_pk"  PRIMARY KEY ("proyecto", "usuario_grupo_acc", "usuario"),
@@ -140,7 +140,7 @@ CREATE TABLE apex_usuario_grupo_acc_item
 ---------------------------------------------------------------------------------------------------
 (
 	proyecto								varchar(15)		NOT NULL,
-	usuario_grupo_acc					varchar(20)		NOT NULL,
+	usuario_grupo_acc					varchar(30)		NOT NULL,
 	item_id								int4				NULL,	
 	item									varchar(60)		NOT NULL,
 	CONSTRAINT	"apex_usu_item_pk" PRIMARY	KEY ("proyecto","usuario_grupo_acc","item"),
@@ -161,7 +161,7 @@ CREATE TABLE apex_permiso_grupo_acc
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto							varchar(15)		NOT NULL,
-	usuario_grupo_acc					varchar(20)		NOT NULL,
+	usuario_grupo_acc					varchar(30)		NOT NULL,
 	permiso								int4			NOT NULL,
 	CONSTRAINT	"apex_per_grupo_acc_pk" 		PRIMARY	KEY ("usuario_grupo_acc","permiso","proyecto"),
 	CONSTRAINT	"apex_per_grupo_acc_grupo_fk"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE

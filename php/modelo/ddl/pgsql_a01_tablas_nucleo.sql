@@ -16,7 +16,7 @@ CREATE TABLE	apex_menu
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	menu						varchar(15)		NOT NULL,
+	menu						varchar(40)		NOT NULL,
 	descripcion					varchar(255)	NOT NULL,
 	archivo						varchar(255)	NOT NULL,
 	soporta_frames				smallint		NULL,
@@ -36,7 +36,7 @@ CREATE TABLE			apex_estilo
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	estilo					varchar(15)		NOT NULL,
+	estilo					varchar(40)		NOT NULL,
 	descripcion				varchar(255)	NOT NULL,
 	proyecto				varchar(15)		NOT NULL,
 	CONSTRAINT	"apex_estilo_pk" PRIMARY KEY ("estilo"),
@@ -95,12 +95,12 @@ CREATE TABLE apex_fuente_datos
 	descripcion_corta			varchar(40)		NULL,	--	NOT NULL,
 	fuente_datos_motor			varchar(30)		NULL,
 	host						varchar(60)		NULL,
-	usuario						varchar(30)		NULL,
-	clave						varchar(30)		NULL,
-	base						varchar(30)		NULL,	--	NOT? ODBC e	instancia no la utilizan...
+	usuario						varchar(60)		NULL,
+	clave						varchar(60)		NULL,
+	base						varchar(60)		NULL,	--	NOT? ODBC e	instancia no la utilizan...
 	administrador				varchar(60)		NULL,
 	link_instancia				smallint		NULL,	--	En	vez de abrir una conexion,	utilizar	la	conexion	a la intancia
-	instancia_id				varchar(30)	NULL,
+	instancia_id				varchar(60)	NULL,
 	subclase_archivo			varchar(255) 	NULL,
 	subclase_nombre				varchar(60) 	NULL,
 	orden						smallint		NULL,
@@ -138,7 +138,7 @@ CREATE TABLE apex_recurso_origen
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	recurso_origen				varchar(10)			NOT NULL,
+	recurso_origen				varchar(30)			NOT NULL,
 	descripcion					varchar(255)		NOT NULL,
 	CONSTRAINT	"apex_rec_origen_pk"	PRIMARY KEY	("recurso_origen") 
 );
@@ -189,7 +189,7 @@ CREATE TABLE apex_elemento_formulario
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	elemento_formulario				varchar(30)		NOT NULL,
+	elemento_formulario				varchar(50)		NOT NULL,
 	padre							varchar(30)		NULL,
 	descripcion						text			NOT NULL,
 	parametros						varchar			NULL,	--	Lista de los parametros	que recibe este EF
@@ -278,7 +278,7 @@ CREATE TABLE apex_columna_formato
 ---------------------------------------------------------------------------------------------------
 (
 	columna_formato					int4				DEFAULT nextval('"apex_columna_formato_seq"'::text) NOT NULL, 
-	funcion								varchar(40)		NOT NULL,
+	funcion								varchar(60)		NOT NULL,
 	archivo								varchar(80)		NULL,
 	descripcion							varchar(255)	NULL,
 	descripcion_corta					varchar(40)		NULL,
@@ -302,7 +302,7 @@ CREATE TABLE apex_ptos_control
 ---------------------------------------------------------------------------------------------------
 (
   proyecto VARCHAR(15) NOT NULL,
-  pto_control          VARCHAR(20) NOT NULL,
+  pto_control          VARCHAR(30) NOT NULL,
   descripcion          VARCHAR(255) NULL,
   CONSTRAINT "apex_ptos_control__pk" PRIMARY KEY("proyecto", "pto_control")
 );
@@ -320,7 +320,7 @@ CREATE TABLE apex_ptos_control_param
 ---------------------------------------------------------------------------------------------------
 (
   proyecto VARCHAR(15) NOT NULL,
-  pto_control              VARCHAR(20) NOT NULL,
+  pto_control              VARCHAR(30) NOT NULL,
   parametro                VARCHAR(60) NULL,
   CONSTRAINT "apex_ptos_ctrl_param__pk" PRIMARY KEY("proyecto", "pto_control", "parametro"),
   CONSTRAINT "apex_ptos_ctrl_param_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "public"."apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -339,7 +339,7 @@ CREATE TABLE apex_ptos_control_ctrl
 ---------------------------------------------------------------------------------------------------
 (
   proyecto VARCHAR(15)  NOT NULL,
-  pto_control             VARCHAR(20)  NOT NULL,
+  pto_control             VARCHAR(30)  NOT NULL,
   clase                   VARCHAR(60)  NOT NULL,
   archivo                 VARCHAR(255) NULL,
   actua_como              CHAR(1)      DEFAULT 'M' NOT NULL CHECK (actua_como IN ('E','A','M')),

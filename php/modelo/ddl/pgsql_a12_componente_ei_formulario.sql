@@ -21,7 +21,7 @@ CREATE TABLE apex_objeto_ut_formulario
 	objeto_ut_formulario_proyecto    	varchar(15)		NOT NULL,
 	objeto_ut_formulario       			int4  			NOT NULL,
 	tabla                      			varchar(100)   	NULL,
-	titulo                     			varchar(80)    	NULL,       -- Titulo de la interface
+	titulo                     			varchar(255)   	NULL,       -- Titulo de la interface
 	ev_agregar							smallint		NULL,		-- Proponer agregar si no hay estado
 	ev_agregar_etiq						varchar(30)		NULL,
 	ev_mod_modificar					smallint		NULL,
