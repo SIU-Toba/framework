@@ -21,13 +21,14 @@ INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, carpe
 ------------------------------------------------------------
 -- apex_molde_operacion_abms
 ------------------------------------------------------------
-INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
+INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, fuente, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
 	'2', --molde
 	'apex_tipo_datos', --tabla
 	'0', --gen_usa_filtro
 	'0', --gen_separar_pantallas
 	NULL, --filtro_comprobar_parametros
+	NULL, --fuente
 	'No hay filas', --cuadro_eof
 	NULL, --cuadro_eliminar_filas
 	NULL, --cuadro_id

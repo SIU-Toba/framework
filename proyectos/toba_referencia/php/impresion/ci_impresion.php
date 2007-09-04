@@ -22,6 +22,11 @@ class ci_impresion extends toba_ci
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
 		$this->dependencia('ml')->vista_impresion( $salida );
 	}
+	
+	function get_popup($clave)
+	{
+		return 'Nombre';
+	}
 
 	function conf__cuadro()
 	{
@@ -53,6 +58,7 @@ class ci_impresion extends toba_ci
 		$datos['checkbox'] = '1';
 		$datos['precio'] = '227';
 		$datos['lista'] = array('a', 'c');
+		$datos['popup'] = '1';
 		return $datos;
 	}
 

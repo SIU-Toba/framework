@@ -70,6 +70,18 @@ class toba_ef_popup extends toba_ef_editable
 		return !$this->editable;	
 	}
 	
+	/**
+	 * Retorna la descripción asociada a la opción actualmente seleccionada
+	 */
+	function get_descripcion_estado()
+	{
+		if ( isset($this->descripcion_estado)) {
+			return $this->descripcion_estado;
+		} else {
+			return $this->estado;	
+		}
+	}	
+	
 	function set_opciones($descripcion, $maestros_cargados=true)
 	{
 		//--- No se actualiza $this->opciones_cargadas porque los popups requieren

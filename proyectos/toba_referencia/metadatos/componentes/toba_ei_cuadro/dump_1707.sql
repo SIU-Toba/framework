@@ -83,7 +83,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar) VALUES (
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
 	'1707', --objeto_cuadro
 	'4', --objeto_cuadro_cc
@@ -95,9 +95,10 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'0', --pie_contar_filas
 	NULL, --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
-	NULL  --imp_paginar
+	NULL, --imp_paginar
+	'0'  --modo_inicio_colapsado
 );
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar) VALUES (
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
 	'1707', --objeto_cuadro
 	'5', --objeto_cuadro_cc
@@ -109,7 +110,8 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'0', --pie_contar_filas
 	NULL, --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
-	NULL  --imp_paginar
+	NULL, --imp_paginar
+	'0'  --modo_inicio_colapsado
 );
 --- FIN Grupo de desarrollo 0
 

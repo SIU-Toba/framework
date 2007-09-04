@@ -14,15 +14,15 @@ class toba_db_tablas_nucleo
   6 => 'apex_solicitud_tipo',
   7 => 'apex_columna_estilo',
   8 => 'apex_columna_formato',
-  9 => 'apex_usuario_tipodoc',
-  10 => 'apex_msg_tipo',
-  11 => 'apex_objeto_mt_me_tipo_nav',
-  12 => 'apex_admin_persistencia',
-  13 => 'apex_tipo_datos',
-  14 => 'apex_nota_tipo',
-  15 => 'apex_clase_tipo',
-  16 => 'apex_molde_operacion_tipo',
-  17 => 'apex_molde_operacion_tipo_dato',
+  9 => 'apex_objeto_mt_me_tipo_nav',
+  10 => 'apex_clase_tipo',
+  11 => 'apex_molde_operacion_tipo',
+  12 => 'apex_molde_operacion_tipo_dato',
+  13 => 'apex_msg_tipo',
+  14 => 'apex_usuario_tipodoc',
+  15 => 'apex_admin_persistencia',
+  16 => 'apex_tipo_datos',
+  17 => 'apex_nota_tipo',
 );
 	}
 
@@ -35,9 +35,9 @@ class toba_db_tablas_nucleo
   3 => 'apex_solicitud_obs_tipo',
   4 => 'apex_pagina_tipo',
   5 => 'apex_proyecto',
-  6 => 'apex_msg',
-  7 => 'apex_clase',
-  8 => 'apex_clase_relacion',
+  6 => 'apex_clase',
+  7 => 'apex_clase_relacion',
+  8 => 'apex_msg',
 );
 	}
 
@@ -398,68 +398,6 @@ class toba_db_tablas_nucleo
 );
 	}
 
-	static function apex_usuario_tipodoc()
-	{
-		return array (
-  'archivo' => 'pgsql_a02_tablas_usuario.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'usuario_tipodoc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'usuario_tipodoc',
-    1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_msg_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'msg_tipo',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'msg_tipo',
-    1 => 'descripcion',
-    2 => 'icono',
-  ),
-);
-	}
-
-	static function apex_msg()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo_multiproyecto',
-  'dump_order_by' => 'msg',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'msg',
-    1 => 'indice',
-    2 => 'proyecto',
-    3 => 'msg_tipo',
-    4 => 'descripcion_corta',
-    5 => 'mensaje_a',
-    6 => 'mensaje_b',
-    7 => 'mensaje_c',
-    8 => 'mensaje_customizable',
-  ),
-);
-	}
-
 	static function apex_objeto_mt_me_tipo_nav()
 	{
 		return array (
@@ -475,66 +413,6 @@ class toba_db_tablas_nucleo
   array (
     0 => 'tipo_navegacion',
     1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_admin_persistencia()
-	{
-		return array (
-  'archivo' => 'pgsql_a40_componente_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'ap',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'ap',
-    1 => 'clase',
-    2 => 'archivo',
-    3 => 'descripcion',
-    4 => 'categoria',
-  ),
-);
-	}
-
-	static function apex_tipo_datos()
-	{
-		return array (
-  'archivo' => 'pgsql_a40_componente_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'tipo',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'tipo',
-    1 => 'descripcion',
-  ),
-);
-	}
-
-	static function apex_nota_tipo()
-	{
-		return array (
-  'archivo' => 'pgsql_a05_tablas_notas.sql',
-  'proyecto' => 'toba',
-  'dump' => 'nucleo',
-  'dump_order_by' => 'nota_tipo',
-  'zona' => 'general',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'nota_tipo',
-    1 => 'descripcion',
-    2 => 'icono',
   ),
 );
 	}
@@ -672,6 +550,128 @@ class toba_db_tablas_nucleo
     5 => 'cuadro_estilo',
     6 => 'cuadro_formato',
     7 => 'orden',
+  ),
+);
+	}
+
+	static function apex_msg_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'msg_tipo',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'msg_tipo',
+    1 => 'descripcion',
+    2 => 'icono',
+  ),
+);
+	}
+
+	static function apex_msg()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_mensajes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'msg',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'msg',
+    1 => 'indice',
+    2 => 'proyecto',
+    3 => 'msg_tipo',
+    4 => 'descripcion_corta',
+    5 => 'mensaje_a',
+    6 => 'mensaje_b',
+    7 => 'mensaje_c',
+    8 => 'mensaje_customizable',
+  ),
+);
+	}
+
+	static function apex_usuario_tipodoc()
+	{
+		return array (
+  'archivo' => 'pgsql_a02_tablas_usuario.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'usuario_tipodoc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'usuario_tipodoc',
+    1 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_admin_persistencia()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'ap',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'ap',
+    1 => 'clase',
+    2 => 'archivo',
+    3 => 'descripcion',
+    4 => 'categoria',
+  ),
+);
+	}
+
+	static function apex_tipo_datos()
+	{
+		return array (
+  'archivo' => 'pgsql_a40_componente_datos.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'tipo',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo',
+    1 => 'descripcion',
+  ),
+);
+	}
+
+	static function apex_nota_tipo()
+	{
+		return array (
+  'archivo' => 'pgsql_a05_tablas_notas.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo',
+  'dump_order_by' => 'nota_tipo',
+  'zona' => 'general',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'nota_tipo',
+    1 => 'descripcion',
+    2 => 'icono',
   ),
 );
 	}
