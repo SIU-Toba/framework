@@ -428,7 +428,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 															$this->get_dir(),
 															$this->get_instancia()->get_id(),
 															$this->get_id());
-			$this->manejador_interface->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');															
 		}
 	}
 	

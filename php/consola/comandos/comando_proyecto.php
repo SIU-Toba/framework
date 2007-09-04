@@ -56,10 +56,7 @@ class comando_proyecto extends comando_toba
 			$agregar = $this->consola->dialogo_simple("El proyecto ha sido creado. ¿Desea agregar el alias de apache al archivo toba.conf?", true);
 			if ($agregar) {
 				$proyecto->publicar();
-				$this->consola->separador();
-				$this->consola->mensaje("OK. Para poder acceder via Web, recuerde chequear que el archivo '".toba_modelo_instalacion::get_archivo_alias_apache().
-										"' se encuentre incluído en la configuración de apache (con un include explícito en httpd.conf o un link simbolico en la carpeta sites-enabled)");
-				$this->consola->separador();									
+				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 			}
 		}
 	}	
@@ -114,6 +111,7 @@ class comando_proyecto extends comando_toba
 			$agregar = $this->consola->dialogo_simple("¿Desea agregar el alias de apache al archivo toba.conf?", true);
 			if ($agregar) {
 				$p->publicar();
+				$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 			}		
 		}
 	}
@@ -232,6 +230,7 @@ class comando_proyecto extends comando_toba
 
 		if (! $this->get_proyecto()->esta_publicado()) {
 			$this->get_proyecto()->publicar($url);
+			$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 		} else {
 			throw new toba_error("El proyecto ya se encuentra publicado. Debe despublicarlo primero");
 		}
@@ -244,6 +243,7 @@ class comando_proyecto extends comando_toba
 	{
 		if ($this->get_proyecto()->esta_publicado()) {
 			$this->get_proyecto()->despublicar();
+			$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
 		} else {
 			throw new toba_error("El proyecto no se encuentra actualmente publicado.");
 		}
