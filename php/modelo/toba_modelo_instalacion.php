@@ -330,7 +330,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		if ($inicio !== false) {
 			$fin = strpos($conf, $str_fin, $inicio) + strlen($str_fin);
 			if ($fin !== false) {
-				$salida = trim(substr($conf, 0, $inicio)) . substr($conf, $fin);
+				$salida = rtrim(substr($conf, 0, $inicio)) . substr($conf, $fin);
 				file_put_contents($archivo, $salida);
 			} else {
 				throw new toba_error('No es posible encontrar el fin del alias');
