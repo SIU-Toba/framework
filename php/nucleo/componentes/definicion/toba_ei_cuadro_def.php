@@ -100,7 +100,8 @@ class toba_ei_cuadro_def extends toba_ei_def
 											identificador		,	
 											pie_contar_filas	,	
 											pie_mostrar_titular ,	
-											pie_mostrar_titulos	,	
+											pie_mostrar_titulos	,
+											modo_inicio_colapsado, 	
 											imp_paginar,
 											descripcion				
 									 FROM		apex_objeto_cuadro_cc	

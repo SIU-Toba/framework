@@ -1025,7 +1025,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->cargar_opciones_efs();		
 		$salida->subtitulo( $this->get_titulo() );
-		echo "<table class='tabla-0' width='{$this->_info_formulario['ancho']}'>";
+		echo "<table class='ei-base ei-form-base' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef){
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();

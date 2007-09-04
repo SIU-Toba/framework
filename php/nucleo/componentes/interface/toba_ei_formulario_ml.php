@@ -614,7 +614,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		//Campo de comunicacion con JS
 		echo toba_form::hidden("{$this->objeto_js}_listafilas",'');
 		echo toba_form::hidden("{$this->objeto_js}__parametros", '');		
-		echo "<div class='ei-cuerpo ei-ml' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
+		echo "<div class='ei-cuerpo ei-ml-base' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
 		$this->generar_layout($ancho);
 		echo "\n</div>";
 	}
@@ -949,7 +949,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$salida->subtitulo( $this->get_titulo() );
 		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
-		echo "<table class='tabla-0' style='width: $ancho'>\n";
+		echo "<table class='tabla-0 ei-base ei-ml-base' style='width: $ancho'>\n";
 		//-- Encabezado
 		echo "<tr>\n";
 		if ($this->_info_formulario['filas_numerar']) {
@@ -968,7 +968,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
 				$this->cargar_opciones_efs();
-				echo "<tr class='col-tex-p1'>";
+				echo "<tr class='ei-ml-fila'>";
 				if ($this->_info_formulario['filas_numerar']) {
 					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
 				}

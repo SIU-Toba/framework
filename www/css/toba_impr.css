@@ -1,18 +1,20 @@
 body {
 	margin: 0px 0px 0px 0px;
-	FONT-SIZE: 10px;
-	 FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.tabla-0, .ei-base {
+	font-size: 10px;
+	padding: 0;
+	margin: 0;		
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;
+	margin-bottom: 20px;
 }
 
-.ef-etiqueta {
-	border: 1px solid #000000 ;
-	font-weight: bold;
-	font-size: 11px;
-	vertical-align: middle;
-	color: #000000;
-	text-align: left;
-}
-
+/*************************************
+		Propios de impresión
+***************************************/
 .imp-titulo {
 	border-style: solid;
 	border-color: #000000;
@@ -45,320 +47,69 @@ body {
 	 page-break-after: always;	 
 }
 
-/*------ CUADRO --------*/ 
 
-.cuadro-cabecera{
-	 empty-cells: hide
+/*************************
+		Formulario
+**************************/
+
+.ei-form-base td {
+	border: 1px solid #000000;
+}
+.ei-form-etiq {
+	font-weight: bold;
+	vertical-align: middle;
+	color: #000000;
+	text-align: left;
+	padding-left:10px;
+}
+.ei-form-valor {
+	padding-left:5px;
+	padding-right:5px;
 }
 
-.cuadro-pie{
+/*************************
+		ML
+**************************/
+
+.ei-ml-fila td {
+	padding: 2px;
+	border: 1px solid #000000;
+}
+
+/*************************
+		Cuadro
+**************************/ 
+
+.ei-cuadro-cabecera, .ei-cuadro-pie {
 	 empty-cells: hide
+}
+.ei-cuadro-col-tit {
+	border: 1px solid black;
+	font-weight: bold;
+	text-align: center;
+}
+.ei-cuadro-fila {
+	padding: 2px;
+	margin: 0px;
+	border: 1px solid black;	
 }
 
 /*-- nivel 0 --*/
 
-.cuadro-cc-tit-nivel-0{
-	border: 2px solid #666666;
+.ei-cuadro-cc-tit-nivel-0{
 	font-size: 12px;
 	color: #000000;
 	padding: 2px;
+	padding-left: 5px;
 }
 
-.cuadro-cc-pie-nivel-0{
+.ei-cuadro-cc-pie-nivel-0{
 	color: #000000;
 	font-size: 10px;
-}
-
-.cuadro-cc-pie-cab-nivel-0{
-	background-color: #514a84;
-	color: #ffffff;
-	font-size: 10px;
-	margin: 4px;
-	padding: 3px;
-}
-
-.cuadro-cc-sum-nivel-0 {
-	background-color: #ffd87c;
-	color: #231f20;
-	margin: 0px;
-	padding: 2px;
-	text-align: right
-}
-
-/*-- nivel 1 --*/
-
-.cuadro-cc-tit-nivel-1{
-	border-color: #000000;
-	border-style: solid;
-	border-width: 1px;
-	font-size: 12px;
-	color: #000000;
-	padding: 2px;
-}
-
-.cuadro-cc-pie-nivel-1{
-	 color: #231f20;
-	 background-color: #fffaaf;
-	font-size: 10px;
-}
-
-.cuadro-cc-pie-cab-nivel-1{
-	font-size: 10px;
-	background-color: #999999;
-	color: #ffffff;
-	margin: 4px;
-	padding: 3px;
-	width: auto;
-}
-
-.cuadro-cc-sum-nivel-1 {
-	border: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 background-color: #fffaaf;
-	 margin: 0px;
-	text-align: right
-}
-
-/*-- nivel 2 --*/
-
-.cuadro-cc-tit-nivel-2{
-	border-color: #000000;
-	border-style: solid;
-	border-width: 1px;
-	font-size: 12px;
-	color: #000000;
-	padding: 2px;
-}
-
-.cuadro-cc-pie-nivel-2{
-	 color: #231f20;
-	 background-color: #ffffff;
-	font-size: 10px;
-}
-
-.cuadro-cc-pie-cab-nivel-2{
-	font-size: 10px;
-	background-color: #d4d0c8;
-	color: #000000;
-	margin: 4px;
-	width: auto;
-}
-
-.cuadro-cc-sum-nivel-2 {
-	border: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 background-color: #ffffff;
-	 text-align: right;
-	margin: 0px;
-	padding: 2px;
-}
-
-/* tabla de sumarizaciones ad-hoc */
-
-.cuadro-cc-tabla-sum {
-	border-right: 1px solid #4f4c4d ;
-	padding: 5px;
-	margin: 5px;
-	border-collapse: collapse;
-	empty-cells: hide
-}
-
-/* color de fondo */
-.cuadro-cc-fondo {
-	padding: 0px;
-}
-/*-------------------------------------*/
-
-table.objeto-base {
-	border-bottom: 2px solid #000000;
-	border-left: 1px solid #555555;
-	border-right: 2px solid #000000;
-	border-top: 1px solid #555555;
-	padding-right: 0px;
-	padding-left: 0px;
-	padding-bottom: 0px;
-	padding-top: 0px;
-	font-size: 12px;
-	margin: 0px;
-	border-collapse: collapse;
-	text-align: left;
-	empty-cells: show;
-}
-
-td.lista-subtitulo {
-	padding-right: 5px;
-	 padding-left: 10px;
-	 font-size: 10px;
-	 padding-bottom: 5px;
-	 color: #ffffff;
-	 padding-top: 5px;
-	 background-color: #4f4c4d;
-	 text-align: left
-}
-.ei-cuadro-col-tit {
-	border: 1px solid #000000 ;
-	font-weight: bold;
-	font-size: 11px;
-	vertical-align: bottom;
-	color: #000000;
-	text-align: center;
-}
-td.titulo-monoespacio{
-	border: 1px solid #231f20;
-	 font-weight: bold;
-	 font-size: 10px;
-	 vertical-align: bottom;
-	 color: #000000;
-	 background-color: #d4d0c8;
-	 text-align: left;
-	 font-family: courier;
-}
-
-table.tabla-0 {
-	 font-size: 10px;
-	 border-collapse: collapse;
-	margin-top: 10px;
-}
-
-.lista-pag-bot {
-	 text-align: center;
-}
-
-td.col-num-p1 {
-	border: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 color: #aa0000;
-	 padding-top: 2px;
-	 background-color: #ffffff;
-	 text-align: right
-}
-
-td.col-num-p2 {
-	border: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 color: #aa0000;
-	 padding-top: 2px;
-	 background-color: #e9e8e8;
-	 text-align: right
-}
-td.col-num-p3 {
-	border: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 color: #231f20;
-	 padding-top: 2px;
-	 background-color: #e9e8e8;
-	 text-align: right
-}
-td.col-num-p4 {
-	border: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 margin: 0px;
-	 color: #231f20;
-	 padding-top: 2px;
-	 background-color: #4f4c4d;
-	 text-align: right
-}
-td.col-tex-p1 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 4px;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #000011;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #ffffff;
-	 text-align: left;	 
-}
-td.col-tex-p2 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 4px;
-	 font-weight: bold;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #aa0000;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #ffffff;
-	 text-align: left;
-}
-td.col-tex-p3 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 margin: 0px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #d3d2d2;
-	 text-align: left;
-}
-td.columna-monoespacio {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 4px;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #000011;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #ffffff;
-	 font-family: courier;
-	 font-size: 11px;
-	 text-align: left;
-}
-td.col-cen-s1 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 text-align: center;
-}
-td.col-cen-s2 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #ffffff;
-	 text-align: center;
-}
-td.col-cen-s3 {
-	border-right: 1px solid #4f4c4d ;
-	 padding-right: 2px;
-	 border-top: 1px solid #4f4c4d ;
-	 padding-left: 2px;
-	 padding-bottom: 2px;
-	 border-left: 1px solid #4f4c4d ;
-	 color: #231f20;
-	 padding-top: 2px;
-	 border-bottom: 1px solid #4f4c4d ;
-	 background-color: #e9e8e8;
-	 text-align: center;
+	padding: 0;
+	margin: 0;		
+	BORDER-COLLAPSE: collapse;
+	empty-cells: hide;	
 }
 
 
@@ -374,3 +125,19 @@ td.col-cen-s3 {
 .marco-impresion {
 	padding: 10px;
 }
+
+
+/*************************
+	 Formateo de Columnas
+**************************/
+
+.col-num-p1, .col-num-p2, .col-num-p3, .col-num-p4 {
+	text-align: right;
+}
+.col-tex-p1, .col-tex-p2, .col-tex-p3, .col-tex-p4 {
+	text-align: left;
+}
+.col-cen-s1, .col-cen-s2, .col-cen-s3, .col-cen-s4  {
+	text-align: center;
+}
+

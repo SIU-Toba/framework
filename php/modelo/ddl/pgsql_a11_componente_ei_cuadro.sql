@@ -84,6 +84,7 @@ CREATE TABLE apex_objeto_cuadro_cc
 	pie_mostrar_titular				smallint		NULL,			-- Cabecera del PIE
 	pie_mostrar_titulos				smallint		NULL,			-- Repetir los titulos de las columnas
 	imp_paginar						smallint		NULL,		
+	modo_inicio_colapsado			smallint		NULL DEFAULT 0,			-- El corte de este nivel se inicia colapsado
 	CONSTRAINT  "apex_obj_cuadro_cc_pk" PRIMARY KEY ("objeto_cuadro_proyecto","objeto_cuadro","objeto_cuadro_cc"),
 	CONSTRAINT  "apex_obj_cuadro_cc_uq" UNIQUE ("objeto_cuadro_proyecto","objeto_cuadro","identificador"),
 	CONSTRAINT  "apex_obj_cuadro_cc_fk_objeto_cuadro" FOREIGN KEY ("objeto_cuadro_proyecto","objeto_cuadro") REFERENCES "apex_objeto_cuadro" ("objeto_cuadro_proyecto","objeto_cuadro") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE

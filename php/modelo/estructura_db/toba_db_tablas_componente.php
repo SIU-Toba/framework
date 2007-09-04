@@ -438,6 +438,7 @@ class toba_db_tablas_componente
     6 => 'ap_archivo',
     7 => 'sinc_susp_constraints',
     8 => 'sinc_orden_automatico',
+    12 => 'modo_inicio_colapsado',
   ),
 );
 	}

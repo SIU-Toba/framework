@@ -97,6 +97,7 @@ class toba_ei_cuadro extends toba_ei
 				$col_desc = explode(',',$this->_info_cuadro_cortes[$a]['columnas_descripcion']);
 				$col_desc = array_map('trim',$col_desc);
 				$this->_cortes_def[$id_corte]['descripcion'] = $col_desc;
+  				$this->_cortes_def[$id_corte]['colapsa'] = $this->_info_cuadro_cortes[$a]['modo_inicio_colapsado']; 				
 				$estructura_datos = array_merge($estructura_datos, $col_desc, $col_id);
 			}
 			$this->_cortes_modo = $this->_info_cuadro['cc_modo'];
@@ -922,7 +923,8 @@ class toba_ei_cuadro extends toba_ei
 		$this->generar_cabecera_corte_control($nodo, $id_unico);
 		//Genero el corte
 		if ($this->_cortes_anidado_colap) {
-			echo "<table class='tabla-0' id='$id_unico' width='100%' border='1'><tr><td>\n";
+			$estilo = $this->get_estilo_inicio_colapsado($nodo);
+			echo "<table class='tabla-0' id='$id_unico' width='100%' border='1' $estilo><tr><td>\n";
 		}
 
 		//Disparo la generacion recursiva de hijos
@@ -962,6 +964,15 @@ class toba_ei_cuadro extends toba_ei
 		$metodo = $this->_tipo_salida . '_cc_fin_nivel';
 		$this->$metodo();
 	}
+	
+	private function get_estilo_inicio_colapsado(&$nodo)
+	{
+		$estilo = '';
+		if($this->_cortes_def[$nodo['corte']]['colapsa'] == '1'){       //El corte debe colapsarse al inicio.
+			$estilo = " style='display:none'";              //Si uso clase css javascript despues no me da bola
+		}
+		return $estilo;
+	}	
 
 //################################################################################
 //#################################    HTML    ###################################
@@ -1659,7 +1670,7 @@ class toba_ei_cuadro extends toba_ei
 	private function pdf_inicio()
 	{
 		$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
-        echo "<TABLE width='$ancho' class='tabla-0'>";
+        echo "<TABLE width='$ancho' class='ei-base ei-cuadro-base'>";
 		// Cabecera
 		echo"<tr><td class='ei-cuadro-cabecera'>";
 		$this->html_cabecera();		
