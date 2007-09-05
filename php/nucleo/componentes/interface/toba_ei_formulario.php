@@ -341,6 +341,15 @@ class toba_ei_formulario extends toba_ei
 	{
 		return $this->_elemento_formulario[$id];
 	}
+	
+	/**
+	 * Indica si existe un ef
+	 * @return boolean
+	 */
+	function existe_ef($id)
+	{
+		return isset($this->_elemento_formulario[$id]);
+	}
 
 	
 	/**

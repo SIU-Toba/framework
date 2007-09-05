@@ -48,7 +48,7 @@ class toba_test_lista_casos
 		return $categorias;
 	}
 	
-	static function get_casos($categoria = apex_ef_no_seteado)
+	static function get_casos($categoria = 'nopar')
 	{
 		$casos = array();
 		$path = self::get_path();
@@ -78,7 +78,7 @@ class toba_test_lista_casos
 		
 		usort($casos, array("toba_test_lista_casos", "comparar"));			
 
-		if ($categoria == 'todas' || $categoria == apex_ef_no_seteado)
+		if ($categoria == 'todas' || $categoria == 'nopar')
 			return $casos;
 		else {
 			$casos_selecc = array();

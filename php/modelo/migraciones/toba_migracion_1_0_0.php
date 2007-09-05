@@ -803,8 +803,11 @@ class toba_migracion_1_0_0 extends toba_migracion
 		$editor->agregar_sustitucion('/evt__salida__(\w+)\(/', 'evt__${1}__salida(');
 		$editor->agregar_sustitucion('/evt__inicializar\(/', 'ini(');
 		$editor->agregar_sustitucion("|this->cn|","this->cn()");
-		$editor->agregar_sustitucion("|evt__get_datos_cn|","get_datos_cn");
+		$editor->agregar_sustitucion("|evt__obtener_datos_cn|","get_datos_cn");
 		$editor->agregar_sustitucion("|evt__entregar_datos_cn|","set_datos_cn");
+		$editor->agregar_sustitucion("|evt__limpieza_memoria|","limpiar_memoria");
+		$editor->agregar_sustitucion("|disparar_obtencion_datos_cn|","disparar_get_datos_cn");
+		$editor->agregar_sustitucion("|disparar_entrega_datos_cn|","disparar_set_datos_cn");		
 		$editor->agregar_sustitucion("|set_etapa_gi|","set_pantalla");
 		$editor->agregar_sustitucion("|get_etapa_gi|","get_id_pantalla");
 		$editor->agregar_sustitucion("|this\._ci|","this.controlador");
@@ -917,7 +920,6 @@ class toba_migracion_1_0_0 extends toba_migracion
 	{
  		
 		$editor = new toba_editor_archivos();
-		$editor->agregar_sustitucion('/evt__obtener_datos_cn/', 		'evt__get_datos_cn');
 		$editor->agregar_sustitucion('/obtener_clave_fila/', 			'get_clave_fila');
 		$editor->agregar_sustitucion('/obtener_proyecto\(\)/', 			'get_proyecto()');
 		$editor->agregar_sustitucion('/obtener_proyecto_path\(\)/', 	'get_proyecto_path()');

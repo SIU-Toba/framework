@@ -72,13 +72,17 @@
 	}
 
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo){
-		if (isset($fecha)) {
+		if (isset($fecha) && trim($fecha)!='') {
 			$f = explode($sep_actual,$fecha);
+			if(count($f)!==3){
+				toba::logger()->notice("Formateador: se recibio una fecha invalida. [$fecha]");
+				return '';	
+			}
 			$dia = str_pad($f[0],2,0,STR_PAD_LEFT);
 			$mes = str_pad($f[1],2,0,STR_PAD_LEFT);
 			return $f[2] . $sep_nuevo . $mes . $sep_nuevo .$dia;
 		}
-	}
+	}	
 
 	function formato_fecha($fecha){
 	    if(isset($fecha)&&($fecha!='')){return cambiar_fecha($fecha,'-','/');} else {return '';};

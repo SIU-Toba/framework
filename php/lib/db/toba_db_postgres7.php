@@ -59,6 +59,29 @@ class toba_db_postgres7 extends toba_db
 		toba_logger::instancia()->debug("************ CERRAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 
+	
+	/**
+	*	Recupera el valor actual de una secuencia. Requiere la extension origineal pgsql
+	*	@param string $tabla Nombre de la tabla en la que se insertarán los datos
+	*	@param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
+	*	@param string $delimitador Separador de datos de cada fila.
+	*	@param string $valor_nulo Cadena que se utlilizará como valor nulo.
+	*	@return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
+	*/
+	function insert_masivo($tabla,$datos) {	
+		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
+		$host = "host={$this->profile}";
+		$base =  "dbname={$this->base}";
+		$usuario = "user={$this->usuario}";
+		$clave = "password={$this->clave}";		
+		$conn_string = "$host $puerto $base $usuario $clave";
+		$dbconn = pg_connect($conn_string);
+		$salida = pg_copy_from($dbconn,$tabla,$datos);
+		pg_close($dbconn);
+		return $salida;
+	}
+
+	
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------

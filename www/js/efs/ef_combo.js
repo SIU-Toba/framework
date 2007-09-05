@@ -106,7 +106,7 @@ ef_combo.prototype.constructor = ef_combo;
 		}
 		if (hay_datos) {
 			input.disabled = false;
-			input.focus();
+			this.seleccionar();
 			if (input.onchange) {
 				input.onchange();
 			}			

@@ -138,6 +138,7 @@ class toba_migracion_0_9_0 extends toba_migracion
 		$sql = array();
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN salida_impr_html_c varchar(1);";
 		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN salida_impr_html_a varchar(1);";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN version_toba varchar(10);";		
 		$sql[] = "ALTER TABLE apex_objeto_dependencias ADD COLUMN orden smallint;";
 		$sql[] = "ALTER TABLE apex_usuario ADD COLUMN autentificacion varchar(10);";
 		$sql[] = "ALTER TABLE apex_usuario ADD COLUMN clave2 varchar(128);";
