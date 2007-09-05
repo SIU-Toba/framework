@@ -8,10 +8,14 @@ class zona_item extends zona_editor
 	{
 		//Cuando se cargan explicitamente (generalmente desde el ABM que maneja la EXISTENCIA del EDITABLE)
 		//Las claves de los registros que los ABM manejan son asociativas
-		$sql = 	"	SELECT	i.*
+		$sql = 	"	SELECT	i.*,
+							m.molde as molde,
+							(SELECT COUNT(*) FROM apex_item_objeto WHERE item = i.item) as componentes
 					FROM	apex_item i
+							LEFT OUTER JOIN apex_molde_operacion m
+								ON i.item = m.item AND i.proyecto = m.proyecto
 					WHERE	i.proyecto='{$this->editable_id[0]}'
-					AND		item='{$this->editable_id[1]}';";
+					AND		i.item='{$this->editable_id[1]}';";
 		$rs = toba::db()->consultar($sql);
 		if(empty($rs)) {
 			throw new toba_error("No se puede encontrar informacion del item {$this->editable_id[0]},{$this->editable_id[1]}");
@@ -23,6 +27,11 @@ class zona_item extends zona_editor
 	
 	function generar_html_barra_vinculos()
 	{	
+		if( $this->editable_info['molde'] || $this->editable_info['componentes'] == 0 ) 
+		{
+			$vinculo = toba::vinculador()->crear_vinculo( 	toba_editor::get_id(), 1000110, null, array('zona'=>true, 'validar'=>false,'menu'=>1) );
+			echo "<a href=\"" . $vinculo ."\">". toba_recurso::imagen_toba('wizard.png', true, null, null, 'Asistente para la generación de Operaciones'). "</a>\n";
+		}
 		//Acceso al EDITOR PHP
 		if( $this->editable_info['actividad_accion'] != '' )
 		{
@@ -38,7 +47,7 @@ class zona_item extends zona_editor
 				echo "<a href=\"" . $abrir['vinculo'] ."\">". toba_recurso::imagen($abrir['imagen'], null, null, $abrir['ayuda']). "</a>\n";
 			}
 		}
-		parent::generar_html_barra_vinculos();		
+		parent::generar_html_barra_vinculos();
 	}
 	
 	function generar_html_barra_inferior()	

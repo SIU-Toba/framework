@@ -16,7 +16,7 @@ class toba_asistente_def implements toba_componente_definicion
 											p.molde				as				molde					,
 											p.operacion_tipo	as				operacion_tipo			,
 											p.nombre	        as  			nombre                  ,
-											p.carpeta_item		as				carpeta_item			,
+											p.item		as				item					,
 											p.carpeta_archivos	as				carpeta_archivos		,
 											p.prefijo_clases	as				prefijo_clases,
 											t.clase				as				clase				

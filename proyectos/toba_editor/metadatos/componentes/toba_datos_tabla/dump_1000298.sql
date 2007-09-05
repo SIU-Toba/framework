@@ -115,7 +115,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'toba_editor', --objeto_proyecto
 	'1000298', --objeto
 	'1000209', --col_id
-	'carpeta_item', --columna
+	'item', --columna
 	'C', --tipo
 	'0', --pk
 	'', --secuencia

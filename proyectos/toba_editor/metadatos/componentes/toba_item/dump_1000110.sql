@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000110]--  Crear operación 
+--[1000110]--  Asistente 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Crear operación', --nombre
+	'Asistente', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu
@@ -34,8 +34,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --solicitud_observacion
 	NULL, --solicitud_registrar_cron
 	NULL, --prueba_directorios
-	NULL, --zona_proyecto
-	NULL, --zona
+	'toba_editor', --zona_proyecto
+	'zona_item', --zona
 	NULL, --zona_orden
 	'0', --zona_listar
 	'apex', --imagen_recurso_origen

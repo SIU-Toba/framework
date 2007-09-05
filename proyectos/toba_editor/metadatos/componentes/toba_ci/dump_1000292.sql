@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_nuevo_molde', --subclase
-	'asistentes/ci_nuevo_molde.php', --subclase_archivo
+	'ci_admin_molde', --subclase
+	'asistentes/ci_admin_molde.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Asistente de operaciones', --nombre
@@ -199,19 +199,22 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 1
+--- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
-	'1000166', --dep_id
+	'933', --dep_id
 	'1000292', --objeto_consumidor
-	'1000299', --objeto_proveedor
-	'form_molde', --identificador
+	'1994', --objeto_proveedor
+	'form_generaciones', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
 	NULL  --orden
 );
+--- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
 	'1000157', --dep_id
@@ -299,7 +302,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_molde', --objetos
+	'form_generaciones', --objetos
 	'generar,volver_generar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

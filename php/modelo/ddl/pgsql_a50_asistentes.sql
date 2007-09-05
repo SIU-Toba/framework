@@ -90,13 +90,14 @@ CREATE TABLE apex_molde_operacion
 	proyecto  					varchar(255)	NOT NULL,
 	molde						int4			DEFAULT nextval('"apex_molde_operacion_seq"'::text) 		NOT NULL, 
 	operacion_tipo				int4			NOT NULL,
-	nombre                  	varchar(255) 	NOT NULL,
-	carpeta_item				varchar(60)		NOT NULL,
-	prefijo_clases				varchar(30)		NOT NULL,
+	nombre                  	varchar(255) 	NULL,
+	item						varchar(60)		NOT NULL,
 	carpeta_archivos           	varchar(255) 	NOT NULL,
+	prefijo_clases				varchar(30)		NOT NULL,
 	CONSTRAINT  "apex_molde_operacion_pk" PRIMARY KEY ("proyecto","molde"),
+	CONSTRAINT 	"apex_molde_operacion_item" UNIQUE ("item"),
 	CONSTRAINT	"apex_molde_operacion_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_molde_operacion_fk_carpeta" FOREIGN	KEY ("proyecto","carpeta_item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_molde_operacion_fk_item" FOREIGN	KEY ("proyecto","item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_fk_tipo"  FOREIGN KEY ("operacion_tipo") REFERENCES   "apex_molde_operacion_tipo" ("operacion_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

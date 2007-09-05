@@ -49,7 +49,6 @@ abstract class toba_asistente
 		$this->item = new toba_item_molde($this);
 		$this->ci = $this->item->ci();
 		$this->item->set_nombre($this->molde['nombre']);
-		$this->item->set_carpeta_item($this->molde['carpeta_item']);
 		$this->item->set_tipo_pagina('normal','toba');
 		$this->item->set_acceso_menu();
 		$this->item->cargar_grupos_acceso_activos();
