@@ -86,6 +86,11 @@ class toba_item_info implements toba_nodo_arbol
 
 	function puede_redireccionar() { return $this->datos['basica']['redirecciona']; } 
 
+	function generado_con_wizard()
+	{
+		return isset($this->datos['basica']['molde']);	
+	}
+
 	function vinculo_editor()
 	{
 		if ($this->es_carpeta())
@@ -329,6 +334,12 @@ class toba_item_info implements toba_nodo_arbol
 				$iconos[] = array(
 					'imagen' => toba_recurso::imagen_toba("nucleo/php_inexistente.gif", false),
 					'ayuda'=> "Existe un PHP plano asociado al item, pero el archivo no existe en el path especificado."
+				);				
+			}
+			if($this->generado_con_wizard()){
+				$iconos[] = array(
+					'imagen' => toba_recurso::imagen_toba("wizard.png", false),
+					'ayuda'=> "La operación fue generada con un ASISTENTE"
 				);				
 			}
 		}

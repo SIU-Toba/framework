@@ -168,13 +168,13 @@ function abrir_toba_instancia(){
 	//------------ TABS
 	$tabs = array(
 		array(
-			'nombre' => 'Operac.',
+			'nombre' => 'Operaciones',
 			'imagen' => toba_recurso::imagen_proyecto("item.gif",true),
 			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral'),
 			'ayuda' => 'Operaciones disponibles en el Proyecto',
 		),
 		array(
-			'nombre' => 'Comp.',
+			'nombre' => 'Componentes',
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto.gif",true),
 			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1240,null,false,false,null,true,'lateral'),
 			'ayuda' => 'Componentes disponibles en el Proyecto',
@@ -185,12 +185,6 @@ function abrir_toba_instancia(){
 			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),3397,null,false,false,null,true,'lateral'),
 			'ayuda' => 'Acceso a datos',
 		),
-		array(
-			'nombre' => 'Moldes',
-			'imagen' => toba_recurso::imagen_toba('wizard.png',true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),3394,null,false,false,null,true,'lateral'),
-			'ayuda' => 'Creación y edición de moldes de operaciones',
-		),			
 		array(
 			'nombre' => '',
 			'imagen' => toba_recurso::imagen_toba('configurar.png',true),

@@ -61,11 +61,13 @@ class toba_item_def implements toba_componente_definicion
 						(SELECT COUNT(*) FROM apex_item_objeto 
 							WHERE item = i.item AND proyecto = i.proyecto) as cant_dependencias,
 						(SELECT COUNT(*) FROM apex_item 
-							WHERE padre = i.item AND proyecto = i.proyecto AND (solicitud_tipo <> 'fantasma' OR solicitud_tipo IS NULL) AND item != '__raiz__') as cant_items_hijos						
+							WHERE padre = i.item AND proyecto = i.proyecto AND (solicitud_tipo <> 'fantasma' OR solicitud_tipo IS NULL) AND item != '__raiz__') as cant_items_hijos,
+						m.molde as molde
 				FROM	apex_item i	
 							LEFT OUTER JOIN apex_item_zona z	ON	( i.zona_proyecto	= z.proyecto AND i.zona	= z.zona	)
 							LEFT OUTER JOIN apex_item_info ii ON (i.proyecto = ii.item_proyecto AND i.item = ii.item)
 							LEFT OUTER JOIN	apex_pagina_tipo pt	ON (pt.pagina_tipo	= i.pagina_tipo	AND	pt.proyecto	= i.pagina_tipo_proyecto)
+							LEFT OUTER JOIN apex_molde_operacion m ON (i.item = m.item AND i.proyecto = m.proyecto)
 				WHERE	i.proyecto = '$proyecto'";
 		if ( isset($componente) ) {
 			$sql['basica']['sql'] .= "	AND		i.item ='$componente' ";	

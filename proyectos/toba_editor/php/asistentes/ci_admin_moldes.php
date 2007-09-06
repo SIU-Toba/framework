@@ -1,35 +1,49 @@
 <?php 
-
 /*
 	Este tiene que tener una manera de preguntarle al CI hijo si ya se puede generar
 	La sincronizacion del editor hijo tiene que ser a travez de un API
 	TAmbien el pedido de la clave del molde
 	En resumen, todo lo que accede: $this->dependencia('asistente')->dep('datos')->
+	
+	ADMIN asistentes
 
 */
-class ci_admin_molde extends toba_ci
+class ci_admin_moldes extends toba_ci
 {
-	protected $s__tipo;
-	protected $datos_tipo_operacion;
+	protected $s__datos_asistente = array();
+	protected $s__clave_molde;
 	protected $s__opciones_generacion;
+	protected $s__formulario_tipo;
+	protected $s__molde_preexistente = false;
 
-
-	function ini()
+	function ini__operacion()
 	{
 		if (! toba::zona()->cargada()) {
 			throw new toba_error('La operación se debe invocar desde la zona de un item');
-		}
-		if (isset($this->s__tipo)) {
+		} else {
+			$info = toba::zona()->get_info();
+			if($info['molde']) {					//Ya existe un molde
+				$this->s__molde_preexistente = true;
+				$this->s__datos_asistente = toba_info_editores::get_lista_tipo_molde($info['molde_tipo_operacion']);
+				$this->cargar_editor_molde();
+				$this->dep('asistente')->set_molde($info['proyecto'], $info['molde']);
+				$this->set_pantalla('pant_edicion');				
+			}
+		}		
+	}
+
+	function ini()
+	{
+		if ( $this->s__datos_asistente ) {
 			$this->cargar_editor_molde();
-		}	
+		}
 	}
 	
-	function cargar_editor_molde()
+	function cargar_editor_molde($forzar=false)
 	{
-		$info = toba_info_editores::get_lista_tipo_molde($this->s__tipo['tipo']);
-		$ci = $info['ci'];
-		$this->agregar_dependencia('asistente', 'toba_editor', $ci);	
-		$this->dep('asistente')->set_molde_nuevo($this->s__tipo['tipo']);
+		if( !$this->existe_dependencia('asistente') || $forzar ) {
+			$this->agregar_dependencia('asistente', 'toba_editor', $this->s__datos_asistente['ci']);
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -41,7 +55,7 @@ class ci_admin_molde extends toba_ci
 		$info_item = toba::zona()->get_info();
 		$datos['item'] = $info_item['item'];
 		$datos['proyecto'] = $info_item['proyecto'];
-		$datos['operacion_tipo'] = $this->s__tipo['tipo'];
+		$datos['operacion_tipo'] = $this->s__datos_asistente['operacion_tipo'];
 		return $datos;
 	}
 	
@@ -57,7 +71,8 @@ class ci_admin_molde extends toba_ci
 	
 	function evt__siguiente_generar()
 	{
-		$this->dep('asistente')->dep('datos')->sincronizar();
+		$this->dep('asistente')->sincronizar();
+		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
 		$this->set_pantalla('pant_generacion');	
 	}
 	
@@ -79,15 +94,16 @@ class ci_admin_molde extends toba_ci
 
 	function conf__form_tipo_operacion()
 	{
-		if (isset($this->s__tipo)) {
-			return $this->s__tipo;
+		if (isset($this->s__formulario_tipo)) {
+			return $this->s__formulario_tipo;
 		}
 	}
 	
 	function evt__form_tipo_operacion__modificacion($datos)
 	{
-		$this->s__tipo = $datos;
-		$this->cargar_editor_molde();
+		$this->s__formulario_tipo = $datos;
+		$this->s__datos_asistente = toba_info_editores::get_lista_tipo_molde($this->s__formulario_tipo['tipo']);
+		$this->cargar_editor_molde(true);
 	}	
 
 	//-----------------------------------------------------------------------------------
@@ -96,9 +112,11 @@ class ci_admin_molde extends toba_ci
 	
 	function conf__pant_edicion()
 	{
-		$info = toba_info_editores::get_lista_tipo_molde($this->s__tipo['tipo']);
-		$this->pantalla()->set_descripcion('Edición de un '.$info['descripcion_corta']);
+		$this->pantalla()->set_descripcion('Edición de un '.$this->s__datos_asistente['descripcion_corta']);
 		$this->pantalla()->agregar_dep('asistente');		
+		if( $this->s__molde_preexistente ) {
+			$this->pantalla()->eliminar_evento('volver_editar');	
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -152,8 +170,8 @@ class ci_admin_molde extends toba_ci
 	function asistente($reset=false)
 	{
 		if($reset || !isset($this->asistente)) {
-			$clave = $this->dependencia('asistente')->dep('datos')->tabla('base')->get_clave_valor(0);
-			$this->asistente = toba_catalogo_asistentes::cargar_por_molde($clave['proyecto'], $clave['molde']);
+			$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
+																			$this->s__clave_molde['molde'] );
 			$this->asistente->preparar_molde();
 		}
 		return $this->asistente;

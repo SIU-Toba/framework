@@ -833,7 +833,7 @@ class toba_info_editores
 							o.molde					as molde,
 							o.nombre				as nombre,
 							o.carpeta_archivos		as carpeta_archivos,
-							o.carpeta_item			as carpeta_item,
+							o.item					as item,
 							(SELECT COUNT(*) FROM apex_molde_operacion_log WHERE molde = o.molde AND proyecto = o.proyecto) 
 													as generaciones
 					FROM	apex_molde_operacion o,
@@ -864,7 +864,7 @@ class toba_info_editores
 							o.molde					as molde,
 							o.nombre				as nombre,
 							o.carpeta_archivos		as carpeta_archivos,
-							o.carpeta_item			as carpeta_item,
+							o.item					as item,
 							(SELECT COUNT(*) FROM apex_molde_operacion_log WHERE molde = o.molde AND proyecto = o.proyecto) 
 													as generaciones
 					FROM	apex_molde_operacion o,

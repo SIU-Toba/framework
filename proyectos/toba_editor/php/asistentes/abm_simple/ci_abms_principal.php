@@ -41,18 +41,6 @@ class ci_abms_principal extends ci_asistente_base
 		}
 	}
 
-	function evt__form_molde__modificacion($datos)
-	{
-		$datos_basicos = $this->controlador()->get_datos_basicos();
-		$datos = array_merge($datos, $datos_basicos);
-		$this->dep('datos')->tabla('molde')->set($datos);
-	}
-
-	function conf__form_molde()
-	{
-		return $this->dep('datos')->tabla('molde')->get();
-	}
-	
 	function evt__form_basico__modificacion($datos)
 	{
 		$tabla_vieja = $this->get_nombre_tabla_actual();
