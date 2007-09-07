@@ -216,7 +216,11 @@ abstract class toba_solicitud
 	 */
 	function zona()
 	{
-		return $this->zona;
+		if(isset($this->zona)) {
+			return $this->zona;
+		} else {
+			throw new toba_error('ERROR: No existe una zona cargada');	
+		}
 	}
 	
 	/**

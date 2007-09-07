@@ -353,7 +353,7 @@ class toba_info_editores
 	}
 
 	//---------------------------------------------------
-	//---------------- OBJETOS --------------------------
+	//--------------- COMPONENTES -----------------------
 	//---------------------------------------------------
 
 	/**
@@ -400,6 +400,65 @@ class toba_info_editores
 				AND 	o.proyecto = '$objeto_proyecto'
 				AND 	o.objeto = '$objeto'";
 		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+	//***************************************************
+	//**  Devuelve el ARBOL de componentes de un ITEM
+	//***************************************************
+
+	/**
+	*	Devuelve la lista de dependencias de un ITEM
+	*/
+	function get_arbol_componentes_item($proyecto, $item)
+	{
+		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto);
+		$sql = "SELECT 	proyecto,
+						objeto
+				FROM 	apex_item_objeto 
+				WHERE 	item = '$item'
+				AND 	proyecto = '$proyecto'";
+		$datos = toba_contexto_info::get_db()->consultar($sql);
+		foreach($datos as $componente) {
+			$resultado = array_merge($resultado, self::get_arbol_componentes_componente($componente['proyecto'], $componente['objeto']));
+		}
+		return $resultado;
+	}
+	
+	/*
+	*	Devuelve la lista de dependencias de un ITEM
+	*/
+	function get_arbol_componentes_componente($proyecto, $componente, $componente_padre=null)
+	{
+		static $id = 1;
+		$excluir_padre = isset($componente_padre) ? "AND objeto_consumidor <> '$componente_padre'" : "";
+		$sql = "SELECT 	o.proyecto as 			proyecto, 
+						o.objeto as 			objeto,
+						o.clase as 				clase,
+						o.subclase as			subclase,
+						o.subclase_archivo as	subclase_archivo,
+						(SELECT COUNT(*) 
+							FROM apex_objeto_dependencias dd
+							WHERE dd.objeto_proveedor = o.objeto
+							AND dd.proyecto = '$proyecto' $excluir_padre ) as consumidores_externos,
+						d.objeto_proveedor as 	dep
+				FROM 	apex_objeto o LEFT OUTER JOIN apex_objeto_dependencias d
+						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto
+				WHERE 	o.objeto = '$componente' 
+				AND 	o.proyecto = '$proyecto'";
+		$datos = toba_contexto_info::get_db()->consultar($sql);
+		$resultado[$id] = array( 	'tipo' => $datos[0]['clase'], 
+									'componente'=> $datos[0]['objeto'],
+									'proyecto' => $datos[0]['proyecto'],
+									'subclase' => $datos[0]['subclase'],
+									'subclase_archivo' => $datos[0]['subclase_archivo'],
+									'consumidores_externos' => $datos[0]['consumidores_externos']);
+		foreach($datos as $componente_hijo) {
+			if(isset($componente_hijo['dep'])) {
+				$id++;
+				$resultado = array_merge($resultado, self::get_arbol_componentes_componente($componente_hijo['proyecto'], $componente_hijo['dep'], $componente));
+			}
+		}
+		return $resultado;
 	}
 
 	//***************************************************
@@ -786,7 +845,7 @@ class toba_info_editores
 	}
 
 	//------------------------------------------------------------------------------
-	//----------  Planes de generacion de operaciones  -----------------------------
+	//----------  MOLDES
 	//------------------------------------------------------------------------------
 
 	function get_opciones_predefinidas_molde($proyecto = null)

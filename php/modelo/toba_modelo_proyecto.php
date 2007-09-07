@@ -551,6 +551,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	/*
 	*	Ciclo de compilacion de componentes
+
 	*/
 	function compilar_componentes()
 	{
@@ -758,7 +759,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$directorio = $this->get_dir_componentes_compilados() . '/oper';
 			toba_manejador_archivos::crear_arbol_directorios( $directorio );
 			$nombre_archivo = toba_manejador_archivos::nombre_valido( 'toba_mc_oper__' . $item['id'] );
-			$arbol = $this->get_arbol_componentes_item($item['proyecto'], $item['id']);
+			$arbol = toba_info_editores::get_arbol_componentes_item($item['proyecto'], $item['id']);
 			foreach( $arbol as $componente) {
 				$tipo = $componente['tipo'];
 				$prefijo_clase = ( $tipo == 'toba_item') ? 'toba_mc_item__' : 'toba_mc_comp__';
@@ -938,45 +939,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 	}
 		
-	/**
-	*	Devuelve la lista de dependencias de un ITEM
-	*/
-	private function get_arbol_componentes_item($proyecto, $item)
-	{
-		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto);
-		$sql = "SELECT proyecto, objeto FROM apex_item_objeto WHERE item = '$item' AND proyecto = '$proyecto'";
-		$datos = $this->db->consultar($sql);
-		foreach($datos as $componente) {
-			$resultado = array_merge($resultado, self::get_arbol_componentes($componente['proyecto'], $componente['objeto']));
-		}
-		return $resultado;
-	}
-	
-	/*
-	*	Devuelve la lista de dependencias de un ITEM
-	*/
-	private function get_arbol_componentes($proyecto, $componente)
-	{
-		static $id = 1;
-		$sql = "SELECT 	o.proyecto as 			proyecto, 
-						o.objeto as 			objeto,
-						o.clase as 				clase,
-						d.objeto_proveedor as 	dep
-				FROM 	apex_objeto o LEFT OUTER JOIN apex_objeto_dependencias d
-						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto
-				WHERE 	o.objeto = '$componente' 
-				AND 	o.proyecto = '$proyecto'";
-		$datos = $this->db->consultar($sql);
-		$resultado[$id] = array( 'tipo' => $datos[0]['clase'], 'componente'=> $datos[0]['objeto'], 'proyecto' => $datos[0]['proyecto']);
-		foreach($datos as $componente) {
-			if(isset($componente['dep'])) {
-				$id++;
-				$resultado = array_merge($resultado, self::get_arbol_componentes($componente['proyecto'], $componente['dep']));
-			}
-		}
-		return $resultado;
-	}
-
 	//-----------------------------------------------------------
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------

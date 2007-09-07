@@ -186,10 +186,10 @@ class toba_zona
 					}elseif($item['imagen_origen']=="proyecto"){
 						echo toba_recurso::imagen_proyecto($item['imagen'],true,null,null,$item['nombre']);
 					}else{
-						echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,$item['nombre']);
+						echo toba_recurso::imagen_toba("descripcion.gif",true,null,null,$item['nombre']);
 					}
 				}else{
-					echo toba_recurso::imagen_toba("check_cascada_off.gif",true,null,null,$item['nombre']);
+					echo toba_recurso::imagen_toba("descripcion.gif",true,null,null,$item['nombre']);
 				}
 				echo "</a>";
 			}
