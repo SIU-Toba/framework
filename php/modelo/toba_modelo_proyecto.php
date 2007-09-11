@@ -622,6 +622,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//-- Fuentes --
 		foreach( $this->get_indice_fuentes() as $fuente ) {		
 			$datos = toba_proyecto_db::get_info_fuente_datos( $this->get_id(), $fuente );
+			//-- Se busca la relacion entre nombre_tabla y dt
+			$mapeo = toba_proyecto_db::get_mapeo_tabla_dt($this->get_id(), $fuente);
+			$datos['mapeo_tablas_dt'] = $mapeo;
 			$clase->agregar_metodo_datos('info_fuente__'.$fuente, $datos );
 		}
 		$this->manejador_interface->progreso_avanzar();

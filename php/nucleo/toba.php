@@ -192,13 +192,30 @@ class toba
 		return toba_manejador_sesiones::instancia();
 	}		
 	
-/**
+	/**
 	 * Retorna el objeto que contiene información de los puntos de control
 	 * @return toba_puntos_control
 	 */
-  static function puntos_control()
-  {
-  	return toba_puntos_control::instancia();
-  }
+	static function puntos_control()
+	{
+		return toba_puntos_control::instancia();
+	}
+	
+	/**
+	 * Retorna un componente datos_tabla de una tabla específica del sistema
+	 * @return toba_datos_tabla
+	 */
+	static function tabla($nombre_tabla, $fuente = null)
+	{
+		if(!isset($fuente)) {
+			$fuente = toba_admin_fuentes::get_fuente_predeterminada(true);	
+		}
+		$id = array();
+		$id['proyecto'] = toba_proyecto::get_id();
+		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
+		//Se pide el dt con el cache activado asi evita duplicar las instancias
+		return toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+	}
+
 }
 ?>

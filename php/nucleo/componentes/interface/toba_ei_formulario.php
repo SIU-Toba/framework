@@ -630,6 +630,7 @@ class toba_ei_formulario extends toba_ei
 			isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_lista'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql'])
+			|| isset($this->_parametros_carga_efs[$id_ef]['carga_dt'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['popup_carga_desc_metodo']);
 	}
 	
@@ -663,8 +664,13 @@ class toba_ei_formulario extends toba_ei
 				}
 			}
 		} elseif (isset($parametros['carga_metodo'])) {
-			//--- Carga a partir de un Método PHP
-			$nuevos = $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
+			if (isset($parametros['carga_dt'])) {
+				//--- Carga a partir de un Método datos_tabla
+				$nuevos = $this->ef_metodo_carga_dt($id_ef, $parametros, $maestros);
+			} else {
+				//--- Carga a partir de un PHP
+				$nuevos = $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
+			}
 			if ($seleccionable) {
 				$salida = rs_convertir_asociativo($nuevos, $campos_clave, $campo_valor);
 			} else {
@@ -761,6 +767,16 @@ class toba_ei_formulario extends toba_ei
 			//--- Es un metodo del CI contenedor
 			return call_user_func_array( array($this->controlador, $parametros['carga_metodo']), $maestros);
 		}
+	}
+	
+	
+	/**
+	 * @ignore 
+	 */
+	protected function ef_metodo_carga_dt($id_ef, $parametros, $maestros)
+	{
+		$dt = toba_constructor::get_runtime(array('proyecto' => $this->_id[0],'componente' => $parametros['carga_dt']));
+		return call_user_func_array(array($dt, $parametros['carga_metodo']), $maestros);
 	}
 	
 	//-------------------------------------------------------------------------------

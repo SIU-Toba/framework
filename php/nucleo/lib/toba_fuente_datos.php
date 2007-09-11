@@ -34,6 +34,20 @@ class toba_fuente_datos
 	}
 	
 	/**
+	 * Dado el nombre de una tabla de la fuente, retorna el id de su datos_tabla asociado
+	 * @param string $tabla
+	 * @return int
+	 */
+	function get_id_datos_tabla($tabla)
+	{
+		if (isset($this->definicion['mapeo_tablas_dt'][$tabla])) {
+			return $this->definicion['mapeo_tablas_dt'][$tabla];
+		} else {
+			throw new toba_error("No se encuentra el datos_tabla asociado a la tabla $tabla en la fuente {$this->definicion['fuente_datos']}");
+		}
+	}
+	
+	/**
 	*	Ventana para personalizar las acciones previas a la conexión
 	* @ventana
 	*/

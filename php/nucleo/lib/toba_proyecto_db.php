@@ -85,6 +85,25 @@ class toba_proyecto_db
 		return self::get_db()->consultar_fila($sql);
 	}
 
+	static function get_mapeo_tabla_dt($proyecto, $id_fuente)
+	{
+		$sql = "
+			SELECT 
+				dt.objeto,
+				dt.tabla
+			FROM 
+				apex_objeto_db_registros as dt,
+				apex_objeto as comp
+			WHERE
+					dt.objeto_proyecto = '$proyecto'
+				AND dt.objeto = comp.objeto
+				AND dt.objeto_proyecto = comp.proyecto
+				AND comp.fuente_datos = '$id_fuente'
+		";
+		$rs = self::get_db()->consultar($sql);
+		return rs_convertir_asociativo($rs, array('tabla'), 'objeto');
+	}
+	
 	static function get_descripcion_permiso($proyecto, $permiso)
 	{
 		$sql = "	SELECT
@@ -241,5 +260,7 @@ class toba_proyecto_db
 				AND objeto = '$objeto';";
 		return self::get_db()->consultar_fila($sql);	
 	}
+	
+	
 }
 ?>

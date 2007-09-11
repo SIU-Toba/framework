@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Formulario prueba solo-lectura', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_referencia', --fuente_datos_proyecto
 	'toba_referencia', --fuente_datos
@@ -187,7 +187,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -227,11 +227,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --inicializacion
 	NULL, --estado_defecto
 	'0', --solo_lectura
-	'datos_combo_dao', --carga_metodo
+	'get_listado', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
-	'clave', --carga_col_clave
-	'valor', --carga_col_desc
+	'id', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_sql
 	'toba_referencia', --carga_fuente
 	NULL, --carga_lista

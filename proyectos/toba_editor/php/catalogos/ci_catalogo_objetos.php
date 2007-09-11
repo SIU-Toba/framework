@@ -62,7 +62,8 @@ class ci_catalogo_objetos extends ci_catalogo
 		$this->dependencia('listado')->set_frame_destino(apex_frame_centro);
 		if (isset($this->s__opciones)) {
 			//Excluyo clases de persistencia del listado
-			$excluir = array('toba_datos_tabla', 'toba_datos_relacion');
+			//$excluir = array('toba_datos_tabla', 'toba_datos_relacion');
+			$excluir = array();
 			return $this->catalogo->get_objetos($this->s__opciones, false, $excluir );
 		}
 	}
@@ -93,7 +94,7 @@ class ci_catalogo_objetos extends ci_catalogo
 		$datos = toba_info_editores::get_info_tipos_componente();
 		foreach(array_keys($datos) as $id){
 			if($datos[$id]['clase_tipo'] == 9){
-				unset($datos[$id]);
+				//unset($datos[$id]);
 			}
 		}
 		return $datos;

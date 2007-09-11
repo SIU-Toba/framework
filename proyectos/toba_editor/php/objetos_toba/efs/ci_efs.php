@@ -11,7 +11,7 @@ class ci_efs extends toba_ci
 	protected $s__seleccion_efs_anterior;
 	protected $s__importacion_efs;
 	private $id_intermedio_efs;
-	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
+	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista', 'carga_dt');
 	protected $modificado = false;
 
 	function get_tabla()
@@ -203,6 +203,9 @@ class ci_efs extends toba_ci
 		if (in_array('carga_lista', $param)) {
 			$tipos[] = array('carga_lista', 'Lista de Opciones');
 		}
+		if (in_array('carga_dt', $param)) {
+			$tipos[] = array('carga_dt', 'Tabla (datos_tabla)');
+		}		
 		return $tipos;
 	}
 	
@@ -303,7 +306,8 @@ class ci_efs extends toba_ci
 		foreach ($todos as $disponible) {
 			if (! in_array($disponible, $lista_param) &&
 					$disponible != 'mecanismo' &&
-					$disponible != 'estatico') {
+					$disponible != 'estatico' &&
+					$disponible != 'sep') {
 				if (isset($fila[$disponible])) {
 					unset($fila[$disponible]);	
 				}						
@@ -315,7 +319,6 @@ class ci_efs extends toba_ci
 		foreach ($this->mecanismos_carga as $mec) {
 			if (isset($fila[$mec])) {
 				$fila['mecanismo'] = $mec;
-				break;
 			}
 		}
 		//--- Si el mecanismo es un metodo php y es estatico chequear el checkbox
@@ -334,8 +337,12 @@ class ci_efs extends toba_ci
 		$this->modificado = true;		
 		$actual = $datos['mecanismo'];
 		foreach ($this->mecanismos_carga as $valor_mec) {
+			//-- Se quitan los valores de los otros mecanismo por si la interface no lo hizo
 			if ($valor_mec != $actual && isset($datos[$valor_mec])) {
-				unset($datos[$valor_mec]);
+				//-- Caso particular a la carga php y dt que comparten un parametro
+				if ($actual != 'carga_dt' && $valor_mec == 'carga_metodo') {
+					unset($datos[$valor_mec]);
+				}
 			}
 		}
 		if ($datos['mecanismo'] != null) {

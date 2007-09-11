@@ -69,7 +69,7 @@ class toba_ef_barra_divisora extends toba_ef_sin_estado
 {
 	function get_input()
 	{
-		echo "<div class='ef-barra-divisora'>{$this->etiqueta}</div>\n";
+		echo "<div class='ef-barra-divisora' id='{$this->id_form}'>{$this->etiqueta}</div>\n";
 	}
 }
 

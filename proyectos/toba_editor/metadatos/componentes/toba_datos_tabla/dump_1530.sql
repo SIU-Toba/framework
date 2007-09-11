@@ -897,8 +897,8 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1530', --objeto
-	'1000088', --col_id
-	'oculto_relaja_obligatorio', --columna
+	'1000226', --col_id
+	'carga_dt', --columna
 	'E', --tipo
 	'0', --pk
 	NULL, --secuencia
@@ -914,19 +914,6 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'toba_editor', --objeto_proyecto
 	'1530', --objeto
 	'4000001', --col_id
-	'selec_cant_columnas', --columna
-	'E', --tipo
-	'0', --pk
-	NULL, --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0'  --externa
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
-	'toba_editor', --objeto_proyecto
-	'1530', --objeto
-	'4000002', --col_id
 	'selec_cant_columnas', --columna
 	'E', --tipo
 	'0', --pk

@@ -137,6 +137,7 @@ abstract class toba_ef
 			'carga_col_clave',
 			'carga_col_desc',
 			'carga_sql',
+			'carga_dt',
 			'carga_fuente',
 			'carga_lista',
 			'carga_maestros',

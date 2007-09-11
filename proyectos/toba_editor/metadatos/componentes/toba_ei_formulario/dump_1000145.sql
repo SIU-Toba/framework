@@ -97,7 +97,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -115,6 +115,143 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 ------------------------------------------------------------
 -- apex_objeto_ei_formulario_ef
 ------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_col_clave, carga_col_desc, carga_sql, carga_fuente, carga_lista, carga_maestros, carga_cascada_relaj, carga_no_seteado, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'toba_editor', --objeto_ei_formulario_proyecto
+	'1000145', --objeto_ei_formulario
+	'4887', --objeto_ei_formulario_fila
+	'sep', --identificador
+	'ef_barra_divisora', --elemento_formulario
+	'sep', --columnas
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'13', --orden
+	'Esquema de cascadas', --etiqueta
+	NULL, --etiqueta_estilo
+	NULL, --descripcion
+	NULL, --colapsado
+	NULL, --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	NULL, --estado_defecto
+	NULL, --solo_lectura
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_sql
+	NULL, --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_maestros
+	NULL, --carga_cascada_relaj
+	NULL, --carga_no_seteado
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --fieldset_fin
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_col_clave, carga_col_desc, carga_sql, carga_fuente, carga_lista, carga_maestros, carga_cascada_relaj, carga_no_seteado, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'toba_editor', --objeto_ei_formulario_proyecto
+	'1000145', --objeto_ei_formulario
+	'4888', --objeto_ei_formulario_fila
+	'carga_dt', --identificador
+	'ef_combo', --elemento_formulario
+	'carga_dt', --columnas
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'2', --orden
+	'Tabla', --etiqueta
+	NULL, --etiqueta_estilo
+	'Nombre del [wiki:Referencia/Objetos/datos_tabla datos_tabla] desde el cual se obtendrán las opciones de carga.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	NULL, --estado_defecto
+	'0', --solo_lectura
+	'get_lista_objetos_dt', --carga_metodo
+	'toba_info_editores', --carga_clase
+	'modelo/info/toba_info_editores.php', --carga_include
+	'objeto', --carga_col_clave
+	'tabla', --carga_col_desc
+	NULL, --carga_sql
+	'instancia', --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_maestros
+	'0', --carga_cascada_relaj
+	'--- Seleccione ---', --carga_no_seteado
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --fieldset_fin
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+--- FIN Grupo de desarrollo 0
 
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_ei_formulario, objeto_ei_formulario_fila, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_col_clave, carga_col_desc, carga_sql, carga_fuente, carga_lista, carga_maestros, carga_cascada_relaj, carga_no_seteado, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
@@ -193,7 +330,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_include', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'4', --orden
+	'5', --orden
 	'Archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	'Archivo donde se encuentra definida la clase', --descripcion
@@ -260,7 +397,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_clase', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'5', --orden
+	'6', --orden
 	'Clase', --etiqueta
 	NULL, --etiqueta_estilo
 	'Nombre de la clase que contiene el método a consultar. Este método necesita ser <strong>estático</strong>.', --descripcion
@@ -327,7 +464,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_metodo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'3', --orden
 	'Nombre del método', --etiqueta
 	NULL, --etiqueta_estilo
 	'Las opciones se cargan a partir del resultado del método. El formato de retorno generalmente es una matriz fila por columnas, salvo los editables y el popup que requieren el retorno de un único valor.', --descripcion
@@ -394,7 +531,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'estatico', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'3', --orden
+	'4', --orden
 	'¿Es estático?', --etiqueta
 	NULL, --etiqueta_estilo
 	'Normalmente el método se encuentra en el [wiki:Referencia/Objetos/Ci CI] contenedor, si en cambio se encuentra en alguna otra clase/archivo se denomina carga estática (porque se invoca clase::metodo).', --descripcion
@@ -461,7 +598,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_col_clave', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'8', --orden
+	'9', --orden
 	'Columna Clave', --etiqueta
 	NULL, --etiqueta_estilo
 	'Columna/s del recordset que representa la clave del registro. En caso de ser más de una separar por comas. Por defecto se asume que es posicional y la clave es la componente `0`.', --descripcion
@@ -528,7 +665,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_col_desc', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'9', --orden
+	'10', --orden
 	'Columna Descripción', --etiqueta
 	NULL, --etiqueta_estilo
 	'Columna del recordset que representa la descripción del registro. Por defecto se asume que es posicional y la clave es la componente `1`.', --descripcion
@@ -595,7 +732,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_sql', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'6', --orden
+	'7', --orden
 	'Consulta SQL', --etiqueta
 	NULL, --etiqueta_estilo
 	'Consulta SQL que se utiliza para cargar las opciones disponibles en el EF. Para el caso de ef-editables y ef-popup se toma el valor de la primera fila de la primera columna de la respuesta, sino se deben especificar las columna(s) clave(s) y la de descripción. Para el caso del ef-popup se puede utilizar el valor %id_ef% (donde id_ef es el identificador del ef actual) que será reemplazado por el valor actual de la clave.', --descripcion
@@ -662,7 +799,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_fuente', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'7', --orden
+	'8', --orden
 	'Fuente', --etiqueta
 	NULL, --etiqueta_estilo
 	'[wiki:Referencia/FuenteDatos Fuente de datos] en la que se ejecuta la consulta.', --descripcion
@@ -729,7 +866,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_lista', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'11', --orden
+	'12', --orden
 	'Lista de Opciones', --etiqueta
 	NULL, --etiqueta_estilo
 	'Las opciones provienen de una lista fija. Los valores se separan por coma (,). Si la clave y descripción varian se separan con barra (/). Por ejemplo a,b,c o  a/A,b/B,c/C', --descripcion
@@ -796,7 +933,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_maestros', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'12', --orden
+	'14', --orden
 	'Cascada - Maestros', --etiqueta
 	NULL, --etiqueta_estilo
 	'Seleccione los efs de los que dependen los posibles valores que puede tomar el actual. Si la carga es a través de un método PHP los valores de los maestros llegarán por parámetro en el orden que son declarados, en el caso de una consulta SQL se reemplazarán las ocurrencia de %id_ef_maestro% (donde id_ef_maestro es el identificador del ef maestro al actual). [wiki:Referencia/efs#Cascadas Ver más]', --descripcion
@@ -863,7 +1000,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_cascada_relaj', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'13', --orden
+	'15', --orden
 	'Cascada Relajada', --etiqueta
 	NULL, --etiqueta_estilo
 	'Si esta seleccionado, la obligatoriedad del campo se elimina en caso de que algunos de sus ef\'s maestros no tengan estado.', --descripcion
@@ -930,7 +1067,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'carga_no_seteado', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'10', --orden
+	'11', --orden
 	'Desc. No-Selección', --etiqueta
 	NULL, --etiqueta_estilo
 	'Descripcion que representa la NO-SELECCION de opciones.', --descripcion

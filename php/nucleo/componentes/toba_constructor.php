@@ -5,7 +5,7 @@
  */
 class toba_constructor
 {
-	static $objetos_runtime_instanciados;		// Referencias a los objetos creados
+	static $objetos_runtime_instanciados = array();		// Referencias a los objetos creados
 	static $cache_infos = array();
 	static $refresco_forzado = false;
 
@@ -14,10 +14,10 @@ class toba_constructor
 	 *
 	 * @param array $id Arreglo con dos claves 'componente' y 'proyecto'
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas toba_recursos
+	 * @param boolean $usar_cache Si el componente fue previamente construido en este pedido de página, retorna su referencia, sino lo crea.
 	 * @return objeto
-	 * @todo Cuando la arquitectura 1 se acabe sacar el 3er parametro, es para que el ambs pueda crear un ut-form
 	 */
-	static function get_runtime( $id, $tipo=null, $con_subclase=true )
+	static function get_runtime( $id, $tipo=null, $usar_cache = false )
 	{
 		// Controla la integridad de la clave
 		self::control_clave_valida( $id );
@@ -32,18 +32,20 @@ class toba_constructor
 		}
 		//--- INSTANCIACION	---
 		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS
-			$clase = $tipo;
-			//Posee una subclase asociada?
-			if ( $datos['_info']['subclase'] && $con_subclase ) {
-				if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
-					require_once($datos['_info']['subclase_archivo']);
+			if (!$usar_cache || !isset(self::$objetos_runtime_instanciados[ $id['componente'] ])) {
+				$clase = $tipo;
+				//Posee una subclase asociada?
+				if ( $datos['_info']['subclase']) {
+					if(isset($datos['_info']['subclase_archivo'])) { //Puede estar en un autoload
+						require_once($datos['_info']['subclase_archivo']);
+					}
+					$clase = $datos['_info']['subclase'];
 				}
-				$clase = $datos['_info']['subclase'];
+				//Instancio el objeto
+				$objeto = new $clase( $datos );
+				self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
 			}
-			//Instancio el objeto
-			$objeto = new $clase( $datos );
-			self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
-			return 	$objeto;
+			return self::$objetos_runtime_instanciados[ $id['componente'] ];
 		} else {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
 			return new $clase($datos);
@@ -85,7 +87,7 @@ class toba_constructor
 		}
 		return self::$cache_infos[$hash];
 	}	
-
+	
 	/**
 	 * Retorna el objeto-php que representa un runtime YA INSTANCIADO previamente con
 	 *	con get_runtime()

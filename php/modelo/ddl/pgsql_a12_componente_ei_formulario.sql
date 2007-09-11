@@ -100,6 +100,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	carga_col_clave						varchar(100)	NULL,
 	carga_col_desc						varchar(100)	NULL,
 	carga_sql							varchar			NULL,
+	carga_dt							int4			NULL,	
 	carga_fuente						varchar(30)		NULL,
 	carga_lista							varchar(255)	NULL,
 	carga_maestros						varchar(255)	NULL,
@@ -144,6 +145,8 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	CONSTRAINT  "apex_ei_f_ef_pk" PRIMARY KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario","objeto_ei_formulario_fila"),
 	CONSTRAINT  "apex_ei_f_ef_fk_estilo" FOREIGN KEY ("estilo") REFERENCES "apex_columna_estilo" ("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_ei_f_ef_fk_padre" FOREIGN KEY ("objeto_ei_formulario_proyecto","objeto_ei_formulario") REFERENCES "apex_objeto_ut_formulario" ("objeto_ut_formulario_proyecto","objeto_ut_formulario") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_ei_f_ef_fk_ef" FOREIGN KEY ("elemento_formulario") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_f_ef_fk_datos_tabla" FOREIGN KEY ("objeto_ei_formulario_proyecto","carga_dt") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+
 );
 --###################################################################################################

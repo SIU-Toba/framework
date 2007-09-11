@@ -114,7 +114,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'toba_editor', --proyecto
 	'802', --dep_id
 	'1847', --objeto_consumidor
-	'1848', --objeto_proveedor
+	'1818', --objeto_proveedor
 	'datos', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b

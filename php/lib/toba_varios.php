@@ -474,6 +474,12 @@
 			case '>=':
 				return $valor1 >= $valor2;
 				break;
+			case '!=':
+				return $valor1 != $valor2;
+				break;
+			case '!==':
+				return $valor1 !== $valor2;
+				break;			
 			default:
 				throw new toba_error("El operador $operador no está soportado");
 		}

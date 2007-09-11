@@ -1052,7 +1052,7 @@ class toba_datos_tabla extends toba_componente
 								}
 							}
 						}
-						if($combinacion_existente){
+						if ($combinacion_existente){
 							throw new toba_error($this->get_txt().": Error de valores repetidos en columna '$columna'");
 						}
 					}
