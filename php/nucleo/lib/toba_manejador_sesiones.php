@@ -650,6 +650,9 @@ class toba_manejador_sesiones
 		if (toba::instancia()->es_ip_rechazada($ip)) {
 			throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 		}
+		if (toba::instancia()->es_usuario_bloqueado($id_usuario)) {
+			throw new toba_error('El usuario se encuentra bloqueado. Contactese con el administrador');
+		}
 		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
 		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
 		if( $subclase && $archivo ) {
@@ -659,17 +662,27 @@ class toba_manejador_sesiones
 			$estado = toba_usuario_basico::autenticar($id_usuario, $clave);
 		}
 		if(!$estado) {
-			$error = 'La combinacion usuario/clave es incorrecta.';
+			$error = 'La combinacion usuario/clave es incorrecta';
 			toba::instancia()->registrar_error_login($id_usuario, $ip, $error);
 			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');
 			if (isset($cant_max_intentos)) {
-				//Bloqueo la IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
+				$bloquear_usuario = toba::proyecto()->get_parametro('validacion_bloquear_usuario');
+				//Bloqueo el Usuario o IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
 				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
-				$intentos = toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
+				if ( $bloquear_usuario ) {
+					$intentos = toba::instancia()->get_cantidad_intentos_usuario_en_ventana_temporal($id_usuario, $ventana_temporal);
+				}else{
+					$intentos = toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
+				}
 				$supero_tope_intentos_en_ventana = $intentos > $cant_max_intentos;
 				if ( $supero_tope_intentos_en_ventana ) {
-					toba::instancia()->bloquear_ip($ip);
-					throw new toba_error_autenticacion("$error. La IP ha sido bloqueada.");
+					if ( $bloquear_usuario ) {
+						toba::instancia()->bloquear_usuario($id_usuario);
+						throw new toba_error_autenticacion("$error. Ha superado el limite de inicios de sesion. El usuario ha sido bloqueado.");
+					}else{
+						toba::instancia()->bloquear_ip($ip);
+						throw new toba_error_autenticacion("$error. La IP ha sido bloqueada.");
+					}
 				}
 			}
 			throw new toba_error_autenticacion($error);

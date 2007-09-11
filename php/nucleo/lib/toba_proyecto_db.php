@@ -44,6 +44,7 @@ class toba_proyecto_db
 						usuario_anonimo_grupos_acc		,
 						validacion_intentos				,
 						validacion_intentos_min			,
+						validacion_bloquear_usuario		,
 						validacion_debug				,
 						sesion_tiempo_no_interac_min	,
 						sesion_tiempo_maximo_min		,

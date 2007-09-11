@@ -176,7 +176,7 @@ class pantalla_visor extends toba_ei_pantalla
 			var consultando = false;
 
 			<?php echo $this->objeto_js?>.evt__refrescar = function() {
-				this.ajax_dato('get_datos_logger', ultima_mod, this, this.respuesta_refresco);
+				this.ajax('get_datos_logger', ultima_mod, this, this.respuesta_refresco);
 				return false;
 			}
 			

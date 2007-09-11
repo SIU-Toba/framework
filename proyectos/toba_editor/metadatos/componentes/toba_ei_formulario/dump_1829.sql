@@ -934,14 +934,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'7', --orden
 	'Log a archivo', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Determina si los [wiki:Referencia/Logs sucesos (logs)] registrados en la ejecución son guardados en un archivo de logs.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -974,8 +974,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --fieldset_fin
 	'1', --check_valor_si
 	'0', --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -1001,24 +1001,24 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'8', --orden
 	'Nivel LOG', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Nivel mínimo requerido del suceso para que sea registrado en el sistema.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_sql
-	NULL, --carga_fuente
-	'1,2,3,4,5,6,7', --carga_lista
+	'instancia', --carga_fuente
+	'2/Critical,3/Error,4/Warning,5/Notice,6/Info,7/Debug', --carga_lista
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --edit_tamano
 	NULL, --edit_maximo

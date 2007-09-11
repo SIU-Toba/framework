@@ -66,6 +66,15 @@ class toba_proyecto
 			$this->memoria = self::cargar_info_basica();
 			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
+		if (defined('apex_pa_log_archivo_nivel')) {
+			toba::logger()->set_nivel(apex_pa_log_archivo_nivel);
+		} else {
+			toba::logger()->set_nivel($this->memoria['log_archivo_nivel']);
+		}
+		if ((!defined('apex_pa_log_archivo') && !$this->memoria['log_archivo'])
+				|| (defined('apex_pa_log_archivo') && !apex_pa_log_archivo)) {
+			toba::logger()->desactivar();
+		}
 	}
 
 	/**

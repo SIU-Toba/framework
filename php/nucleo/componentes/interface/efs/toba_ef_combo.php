@@ -216,6 +216,7 @@ class toba_ef_combo extends toba_ef_seleccion
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";
 			$js = '';
+
 			if ($this->cuando_cambia_valor != '') {
 				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 			}

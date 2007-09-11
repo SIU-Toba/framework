@@ -392,6 +392,14 @@ abstract class toba_ei extends toba_componente
 	}
 	
 	/**
+	 * Fuerza a que el componente se grafique descolapsado, pudiendo el usuario colapsarlo posteriormente
+	 */
+	function descolapsar()
+	{
+		$this->colapsado = false;
+	} 	
+	
+	/**
 	 * Determina si el componente podra ser colapsado/descolapsado por el usuario
 	 * @param boolean $colapsable Si o no se permite colapsar
 	 */

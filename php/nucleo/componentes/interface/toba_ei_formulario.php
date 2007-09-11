@@ -907,6 +907,7 @@ class toba_ei_formulario extends toba_ei
 	 * Genera el cuerpo del formulario conteniendo la lista de efs
 	 * Por defecto el layout de esta lista es uno sobre otro, este método se puede extender
 	 * para incluir algún layout específico
+	 * @ventana Extender para cambiar el layout por defecto
 	 */	
 	protected function generar_layout()
 	{
@@ -940,11 +941,15 @@ class toba_ei_formulario extends toba_ei
 			}
 
 		} else {		
-			echo $this->_elemento_formulario[$ef]->get_input();
+			$this->generar_input_ef($ef);
 		}
 		echo "</div>\n";		
 	}
 	
+	/**
+	 * Genera la salida gráfica de un ef particular
+	 * @ventana Extender para agregar html antes o despues de un ef específico
+	 */
 	protected function generar_input_ef($ef)
 	{
 		echo $this->_elemento_formulario[$ef]->get_input();

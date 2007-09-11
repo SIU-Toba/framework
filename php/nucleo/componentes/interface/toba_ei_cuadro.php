@@ -127,6 +127,20 @@ class toba_ei_cuadro extends toba_ei
 	}
 
 	/**
+	 * Elimina columnas del cuadro
+	 * @param array $columnas. Ids de las columanas a eliminar
+	 */
+	function eliminar_columnas($columnas)
+	{
+		foreach($columnas as $clave) {
+			$id = $this->_columnas[$clave];
+			unset($this->_info_cuadro_columna[$id]);
+			unset($this->_columnas[$clave]);
+			unset($this->_acumulador[$clave]);
+		}		
+	}
+	
+	/**
 	 * Elimina todas las columnas actualmente definidas en el cuadro
 	 */
 	function limpiar_columnas()
@@ -354,6 +368,25 @@ class toba_ei_cuadro extends toba_ei
 			}
 		}
 	}
+	
+	/**
+	 * Cambia el mensaje a mostra cuando el cuadro no tiene datos
+	 */
+	function set_eof_mensaje($mensaje)
+	{
+		$this->_info_cuadro["eof_customizado"] = $mensaje;		
+	}
+
+	/**
+	 * Habilita o deshabilita el mensaje a mostrar cuando el cuadro no tiene datos que mostrar
+	 * @param boolean $mostrar
+	 */
+	function set_eof_mostrar($mostrar=true)
+	{
+		$valor = ($mostrar) ? 1 : 0;
+		$this->info_cuadro["eof_invisible"] = $valor;
+	}
+	
 
 //################################################################################
 //############################   CLAVE  y  SELECCION   ###########################

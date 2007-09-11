@@ -49,11 +49,10 @@ class toba_logger
 	private $proyectos = array();
 	
 	private $proximo = 0;
-	private $nivel_maximo = 0;
+	private $nivel_maximo = 7;
 	private $activo = true;
 	
 	private $dir_logs;
-	
 	//--- Variables que son necesarias para cuando el logger se muestra antes de terminar la pág.
 	private $mostrado = false;				//Ya fue guardado en este pedido de página
 	private $cant_mostrada;					//Cant. de logs que había cuando se mostro
@@ -73,21 +72,13 @@ class toba_logger
 		$this->ref_niveles[6] = "INFO";
 		$this->ref_niveles[7] = "DEBUG";
 		
+		
 		//--- Valores por defecto
-		if (!defined('apex_pa_log_archivo')) define('apex_pa_log_archivo', true);
-		if (!defined('apex_pa_log_db'))	define('apex_pa_log_db', false);
-		if (!defined('apex_pa_log_archivo_nivel')) define('apex_pa_log_archivo_nivel', 10);
-		if (!defined('apex_pa_log_db_nivel')) define('apex_pa_log_db_nivel', 0);
-		if (apex_pa_log_db  && apex_pa_log_db_nivel > $this->nivel_maximo) {
-			$this->nivel_maximo = apex_pa_log_db_nivel;
-		}
-		if (apex_pa_log_archivo && apex_pa_log_archivo_nivel > $this->nivel_maximo) {
-			$this->nivel_maximo = apex_pa_log_archivo_nivel;
-		}		
 		if (!defined('apex_log_archivo_tamanio')) define('apex_log_archivo_tamanio', 1024);
 		if (!defined('apex_log_archivo_backup_cant')) define('apex_log_archivo_backup_cant', 10);
 		if (!defined('apex_log_archivo_backup_compr')) define('apex_log_archivo_backup_compr', false);		
 	}
+
 	
 	/**
 	 * Este es un singleton por proyecto
@@ -131,6 +122,11 @@ class toba_logger
 		$this->activo = false;
 	}
 	
+	
+	function set_nivel($nivel)
+	{
+		$this->nivel_maximo = $nivel;
+	}
 	
 	/**
 	 * @ignore 
@@ -381,12 +377,8 @@ class toba_logger
 	 */
 	function guardar()
 	{
-		if (!$this->activo) return;
-		if(apex_pa_log_archivo){
+		if ($this->activo) {
 			$this->guardar_en_archivo("sistema.log");
-		}
-		if(apex_pa_log_db){
-			$this->guardar_db();
 		}
 	}
 	
@@ -407,7 +399,7 @@ class toba_logger
 	function guardar_en_archivo($archivo, $forzar_salida = false)
 	{
 		$hay_salida = false;
-		$mascara_ok = $this->mascara_hasta( apex_pa_log_archivo_nivel );
+		$mascara_ok = $this->mascara_hasta( $this->nivel_maximo );
 		$salto = "\r\n";
 		$texto = self::separador.$salto;
 		$texto .= "Fecha: ".date("d-m-Y H:i:s").$salto;

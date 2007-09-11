@@ -47,6 +47,7 @@ class ci_login extends toba_ci
 
 	function evt__datos__modificacion($datos)
 	{
+		toba::logger()->desactivar();
 		$this->s__datos = $datos;
 	}
 

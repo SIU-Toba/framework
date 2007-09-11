@@ -2,6 +2,8 @@
 //--------------------------------------------------------------------
 class form_carga extends toba_ei_formulario
 {
+	
+
 	function extender_objeto_js()
 	{
 		echo "
@@ -67,6 +69,12 @@ class form_carga extends toba_ei_formulario
 						}						
 						this.ef('carga_metodo').mostrar(estado, true);
 						break; 
+				}
+			}
+			
+			{$this->objeto_js}.evt__carga_dt__procesar = function(inicial) {
+				if (this.ef('carga_dt').get_estado() != apex_ef_no_seteado) {
+					this.ef('carga_metodo').get_contenedor()
 				}
 			}
 		";

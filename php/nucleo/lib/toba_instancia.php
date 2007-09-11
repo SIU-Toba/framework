@@ -134,6 +134,29 @@ class toba_instancia
 
 	//---------------------- LOGIN USUARIOS -------------------------------------
 	
+	function agregar_usuario( $usuario, $nombre, $clave )
+	{
+		$algoritmo = 'sha256';
+		$clave = encriptar_con_sal($clave, $algoritmo);
+		//toba::logger()->debug("Agregando el usuario '$usuario' a la instancia {$this->id}");
+		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
+				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
+		return $this->get_db()->ejecutar( $sql );
+	}
+	
+	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
+	{
+		$sql = array();
+		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
+				// Decide un PA por defecto para el proyecto
+		if($set_previsualizacion) {
+			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
+						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+		}
+		return $this->get_db()->ejecutar( $sql );
+	}
+	
 	/**
 	 * Retorna la información cruda de un usuario, tal como está en la base de datos
 	 * Para hacer preguntas del usuario actual utilizar toba::usuario()->
@@ -332,6 +355,16 @@ class toba_instancia
 		$this->get_db()->ejecutar($sql);
 	}
 
+	function bloquear_ip($ip)
+	{
+		try {
+			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
+			$this->get_db()->ejecutar($sql);
+		} catch ( toba_error $e ) {
+			//La ip ya esta rechazada	
+		}
+	}
+	
 	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
 		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0)";
@@ -342,14 +375,48 @@ class toba_instancia
 		return $rs[0]['total'];
 	}
 	
-	function bloquear_ip($ip)
+	//-------------------- Bloqueo de Usuarios en LOGIN  ----------------------------
+	
+	
+	function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
+	{
+		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE usuario='$usuario' AND (gravedad > 0)";
+		if (isset($ventana_temporal)) {
+			$sql .= " AND ((now()-momento) < '$ventana_temporal min')";
+		}
+		$rs = $this->get_db()->consultar($sql);
+		return $rs[0]['total'];
+	}
+	
+	function bloquear_usuario($usuario)
 	{
 		try {
-			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
+			$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = '$usuario'";
 			$this->get_db()->ejecutar($sql);
 		} catch ( toba_error $e ) {
-			//La ip ya esta rechazada	
+			//el usuario ya esta bloqueado
 		}
 	}
+	
+	function desbloquear_usuario($usuario)
+	{
+		try {
+			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario'";
+			$this->get_db()->ejecutar($sql);
+		} catch ( toba_error $e ) {
+			//el usuario ya esta bloqueado
+		}
+	}
+	
+	function es_usuario_bloqueado($usuario)
+	{
+		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = '$usuario' AND bloqueado = 1";
+		$rs = $this->get_db()->consultar($sql);
+		if ( empty($rs)) {
+			return false;
+		}
+		return true;
+	}
+	
 }
 ?>

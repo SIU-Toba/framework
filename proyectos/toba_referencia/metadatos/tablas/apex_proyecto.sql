@@ -41,8 +41,8 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'1000073', --item_inicio_sesion
 	'1000059', --item_pre_sesion
 	NULL, --item_set_sesion
-	'0', --log_archivo
-	'1', --log_archivo_nivel
+	'1', --log_archivo
+	'7', --log_archivo_nivel
 	'toba_referencia', --fuente_datos
 	'1.0.3', --version
 	'2006-11-06', --version_fecha
