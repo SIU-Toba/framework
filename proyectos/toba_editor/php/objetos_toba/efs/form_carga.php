@@ -73,10 +73,38 @@ class form_carga extends toba_ei_formulario
 			}
 			
 			{$this->objeto_js}.evt__carga_dt__procesar = function(inicial) {
-				if (this.ef('carga_dt').get_estado() != apex_ef_no_seteado) {
-					this.ef('carga_metodo').get_contenedor()
+				if (inicial) return;
+				var tabla_actual = this.ef('carga_dt').get_estado();
+				if (tabla_actual != apex_ef_no_seteado) {
+					this.ef('carga_metodo').set_estado('');
+					this.controlador.ajax('existe_metodo_dt', tabla_actual, this, this.respuesta_existe_dt); 
+				} else {
+					this.ef('carga_metodo').ocultar(true);
 				}
 			}
+			
+			{$this->objeto_js}.respuesta_existe_dt = function(existe) {
+				this.ef('carga_metodo').mostrar();
+				var div = $('nodo_carga_metodo');
+				if (! div) {
+					this.ef('carga_metodo').get_contenedor().innerHTML += '<span id=\"nodo_carga_metodo\"></span>';	
+				}			
+				div = $('nodo_carga_metodo');				
+				if (! existe) {
+					this.ef('carga_metodo').set_estado('');
+					var link = '<a href=\"javascript: {$this->objeto_js}.generar_metodo()\" ';
+					link += 'title=\"Crea un método get_listado() dentro de la extensión del datos tabla, conteniendo el select requerido para cargar esta tabla\">';
+					link += 'Crear método <strong>get_listado</strong></a>';
+					div.innerHTML = link;
+				} else {
+					div.innerHTML = '';
+				}			
+			}			
+			
+			{$this->objeto_js}.generar_metodo = function() {
+				this.ef('carga_metodo').set_estado('get_listado');
+			}
+			
 		";
 	}
 

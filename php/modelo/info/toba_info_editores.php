@@ -423,6 +423,29 @@ class toba_info_editores
 		}
 		return $resultado;
 	}
+
+	/**
+	 * Dado un componente retorna la subclase asociada (si no existe retorna null)
+	 */
+	function get_subclase_componente($id, $proyecto=null)
+	{
+		if (! isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}		
+		$sql = "SELECT 	
+					subclase
+				FROM
+					apex_objeto
+				WHERE 	
+						objeto = $id 
+					AND proyecto = '$proyecto'";
+		$datos = toba_contexto_info::get_db()->consultar_fila($sql);				
+		if (! empty($datos)) {
+			return $datos['subclase'];
+		} else {
+			return null;
+		}
+	}
 	
 	/*
 	*	Devuelve la lista de dependencias de un ITEM

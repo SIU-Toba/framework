@@ -235,7 +235,7 @@ class toba_proyecto
 		} else {
 			if (! isset($proyecto)) $proyecto = self::get_id();
 			$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
-			$rs['mapeo_tablas_dt'] = toba_proyecto_db::get_mapeo_tabla_dt($proyecto, $id_fuente);
+			//-- No se carga aqui la relacion entre tabla y dt por un tema de eficiencia, se hace con un lazyload en toba_fuente_datos
 		}
 		if (empty($rs)) {
 			throw new toba_error("No se puede encontrar la fuente '$id_fuente' en el proyecto '$proyecto'");	

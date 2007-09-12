@@ -83,7 +83,8 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 			}			
 
 		} catch (e) {
-			var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + response.responseText + "<br><br>Error JS:<br>" + e;
+			var error = 'Error en la respuesta.<br>' + "Mensaje Server:<br>" + response.responseText;
+			error += "<br><br>Error JS:<br>" + e + "<br><br>" + "Ver el log del sistema para más información";
 			notificacion.limpiar();
 			notificacion.agregar(error);
 			notificacion.mostrar();

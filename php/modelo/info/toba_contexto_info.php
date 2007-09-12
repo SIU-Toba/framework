@@ -17,6 +17,9 @@ class toba_contexto_info
 		self::$proyecto = $proyecto;
 	}
 	
+	/**
+	 * @return toba_db
+	 */
 	static function get_db()
 	{
 		if (!isset(self::$db)) {

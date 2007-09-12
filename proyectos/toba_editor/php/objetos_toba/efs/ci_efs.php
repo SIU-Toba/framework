@@ -358,7 +358,24 @@ class ci_efs extends toba_ci
 		$this->set_parametros($datos);
 	}
 			
+	function ajax__existe_metodo_dt($dt, toba_ajax_respuesta $respuesta)
+	{
+		$dt = toba_contexto_info::get_db()->quote($dt);
+		$subclase = toba_info_editores::get_subclase_componente($dt);
+		if (isset($subclase) && $subclase != '') {
+			$php = new toba_archivo_php($subclase);
+			die('jey');
+			$respuesta->set($php->contiene_metodo('get_listado'));
+		} else {
+			$respuesta->set(false);
+		}
+	}
+	
+	function ajax__crear_metodo_get_listado($parametros, toba_ajax_respuesta $respuesta)
+	{
 		
+	}	
+	
 	//---------------------------------
 	//---- EI: IMPORTAR definicion ----
 	//---------------------------------
@@ -428,6 +445,7 @@ class ci_efs extends toba_ci
 			}
 		";
 	}
+
 	
 	function ajax__esquema_cascadas($parametros, toba_ajax_respuesta $respuesta)
 	{

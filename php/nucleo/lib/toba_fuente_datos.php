@@ -40,13 +40,17 @@ class toba_fuente_datos
 	 */
 	function get_id_datos_tabla($tabla)
 	{
+		if (! isset($this->definicion['mapeo_tablas_dt'])) {
+			//-- Lazyload de la relacion entre tabla y dt por un tema de eficiencia
+			$this->definicion['mapeo_tablas_dt'] = toba_proyecto_db::get_mapeo_tabla_dt($this->definicion['proyecto'], $this->definicion['fuente_datos']);
+		}
 		if (isset($this->definicion['mapeo_tablas_dt'][$tabla])) {
 			return $this->definicion['mapeo_tablas_dt'][$tabla];
 		} else {
 			throw new toba_error("No se encuentra el datos_tabla asociado a la tabla $tabla en la fuente {$this->definicion['fuente_datos']}");
 		}
 	}
-	
+
 	/**
 	*	Ventana para personalizar las acciones previas a la conexión
 	* @ventana

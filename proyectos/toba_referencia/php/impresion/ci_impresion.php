@@ -35,7 +35,7 @@ class ci_impresion extends toba_ci
 		$this->dependencia('cuadro')->vista_pdf( $salida );
 		$salida->salto_pagina();
 		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
-		$salida->salto_linea();
+		$salida->separacion();
 		$this->dependencia('ml')->vista_pdf( $salida );
 	}
 	
