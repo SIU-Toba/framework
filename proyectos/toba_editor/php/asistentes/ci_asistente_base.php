@@ -3,7 +3,7 @@
 class ci_asistente_base extends toba_ci 
 {
 	//-----------------------------------------------------------------------------------
-	//-- API para el administrador de asistentes (controlador)
+	//-- API para el ADMINISTRADOR de asistentes
 	//-----------------------------------------------------------------------------------
 
 	function sincronizar()
@@ -26,7 +26,24 @@ class ci_asistente_base extends toba_ci
 	{
 		$this->dep('datos')->cargar(array('proyecto' => $proyecto, 'molde' => $id));
 	}
+
+	/**
+	*	Indica si ya existe la informacion necesaria para disparar la generacion
+	*	Hay que sobreescribirlo en cada asistente.
+	*/
+	function posee_informacion_completa()
+	{
+		$datos_molde = $this->dep('datos')->tabla('molde')->get();	
+		if( isset($datos_molde['carpeta_archivos']) && isset($datos_molde['prefijo_clases']) ) {
+			return true;	
+		}
+		return false;
+	}
 	
+	/*
+		Por ahora no se utilizaria, cambiar de tipo de asistente asociado a un item
+		tiene varias implicancias que hay que analizar, por ahora habria que eliminar el item
+	*/
 	function unset_molde()
 	{
 		if ($this->dep('datos')->esta_cargada()) {

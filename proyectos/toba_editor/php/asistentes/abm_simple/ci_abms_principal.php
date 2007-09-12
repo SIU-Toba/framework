@@ -3,6 +3,26 @@ require_once('asistentes/ci_asistente_base.php');
 
 class ci_abms_principal extends ci_asistente_base
 {
+	function posee_informacion_completa()
+	{
+		if( parent::posee_informacion_completa() ) {
+			$base = $this->dep('datos')->tabla('base')->get();	
+			if( !isset($base['tabla'])) {
+				return false;	
+			}
+			$filas = $this->dep('datos')->tabla('filas')->get_filas();	
+			foreach($filas as $fila) {
+				if( $fila['elemento_formulario']=='ef_combo' ) {
+					if(!isset($fila['ef_carga_origen'])) {
+						echo "aca";
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
 
 	//---- Basico ----------------------------------------
 

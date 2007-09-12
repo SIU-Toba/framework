@@ -1,14 +1,6 @@
 <?php 
-/*
-	Este tiene que tener una manera de preguntarle al CI hijo si ya se puede generar
-	La sincronizacion del editor hijo tiene que ser a travez de un API
-	TAmbien el pedido de la clave del molde
-	En resumen, todo lo que accede: $this->dependencia('asistente')->dep('datos')->
-	
-	ADMIN asistentes
 
-*/
-class ci_admin_moldes extends toba_ci
+class ci_admin_asistentes extends toba_ci
 {
 	protected $s__datos_asistente = array();
 	protected $s__clave_molde;
@@ -47,7 +39,7 @@ class ci_admin_moldes extends toba_ci
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- API para CIs contenidos ------------------------------------------------------
+	//---- API para ASISTENTES embebidos ------------------------------------------------
 	//-----------------------------------------------------------------------------------	
 
 	function get_datos_basicos()
@@ -60,38 +52,9 @@ class ci_admin_moldes extends toba_ci
 	}
 	
 	//-----------------------------------------------------------------------------------
-	//---- Navegacion ------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------	
-	
-	
-	function evt__siguiente_editar()
-	{
-		$this->set_pantalla('pant_edicion');	
-	}
-	
-	function evt__siguiente_generar()
-	{
-		$this->dep('asistente')->sincronizar();
-		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
-		$this->set_pantalla('pant_generacion');	
-	}
-	
-	
-	function evt__volver_editar()
-	{
-		$this->set_pantalla('pant_tipo_operacion');	
-	}	
-	
-	function evt__volver_generar()
-	{
-		$this->set_pantalla('pant_edicion');	
-	}	
-		
-	
-	//-----------------------------------------------------------------------------------
 	//---- Elegir tipo ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
-
+	
 	function conf__form_tipo_operacion()
 	{
 		if (isset($this->s__formulario_tipo)) {
@@ -106,6 +69,11 @@ class ci_admin_moldes extends toba_ci
 		$this->cargar_editor_molde(true);
 	}	
 
+	function evt__siguiente_editar()
+	{
+		$this->set_pantalla('pant_edicion');	
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- Editar ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
@@ -117,13 +85,54 @@ class ci_admin_moldes extends toba_ci
 		if( $this->s__molde_preexistente ) {
 			$this->pantalla()->eliminar_evento('volver_editar');	
 		}
+		if( ! $this->puede_generar() ) {
+			$this->pantalla()->eliminar_evento('siguiente_generar');				
+		}
+	}
+	
+	function evt__volver_editar()
+	{
+		$this->set_pantalla('pant_tipo_operacion');	
+	}
+	
+	function evt__siguiente_generar()
+	{
+		$this->dep('asistente')->sincronizar();
+		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
+		if( $this->generacion_requiere_confirmacion() ) {
+			$this->set_pantalla('pant_confirmacion');	
+		} else {
+			$this->asistente()->crear_operacion();
+		}
+	}
+	
+	function puede_generar()
+	{
+		return $this->dep('asistente')->posee_informacion_completa();
+	}
+	
+	function generacion_requiere_confirmacion()
+	{
+		try {
+			$bloqueos = $this->asistente(true)->get_bloqueos();
+			if(! empty($bloqueos) ) {
+				return true;
+			}
+			$confirmaciones = $this->asistente()->get_opciones_generacion();
+			if( empty($confirmaciones) ) {
+				return true;
+			}
+			return false;
+		} catch ( toba_error_asistentes $e ) {
+			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
+		}		
 	}
 
 	//-----------------------------------------------------------------------------------
 	//---- Generación ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
-		
-	function conf__pant_generar()
+
+	function conf__pant_confirmacion()
 	{
 		try {
 			//Si hay algun tema bloqueante, no dejo hacer nada
@@ -148,6 +157,11 @@ class ci_admin_moldes extends toba_ci
 			$this->pantalla()->eliminar_evento('generar');
 			$this->pantalla()->eliminar_dep('form_generaciones');
 		}
+	}
+	
+	function evt__volver_generar()
+	{
+		$this->set_pantalla('pant_edicion');	
 	}
 
 	//--- Opciones de generacion ----

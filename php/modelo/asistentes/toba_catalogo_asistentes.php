@@ -116,7 +116,6 @@ class toba_catalogo_asistentes
 					$fila['ef_carga_php_metodo'] = 'get_' . $datos_carga_sql['clave'];
 				}
 			}
-
 			//Parches temporales!
 			if(isset($tipo)) {
 				if($tipo == 'N') {

@@ -46,12 +46,7 @@ abstract class toba_asistente
 
 	protected function generar_base()
 	{
-		$this->item = new toba_item_molde($this);
-		$this->ci = $this->item->ci();
-		$this->item->set_nombre($this->molde['nombre']);
-		$this->item->set_tipo_pagina('normal','toba');
-		$this->item->set_acceso_menu();
-		$this->item->cargar_grupos_acceso_activos();
+		$this->ci = new toba_ci_molde($this);
 	}
 
 	abstract protected function generar();
@@ -101,7 +96,7 @@ abstract class toba_asistente
 
 	protected function generar_elementos()
 	{
-		$this->item->generar();
+		$this->ci->generar();
 		$this->generar_archivos_consultas();
 		$this->guardar_log_elementos_generados();
 	}
