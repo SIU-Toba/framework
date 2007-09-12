@@ -4,12 +4,17 @@ require_once(toba_dir() . '/php/3ros/ezpdf/class.ezpdf.php');
 /**
  * Genera un pdf a través de una api básica
  * @package SalidaGrafica
+ * @todo La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que 
+ * implementar un método que en base al tipo de papel y orientación de la página, devuelva las 
+ * coordenadas para una correcta visualización de la numeración de páginas.
+ * @todo El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar
+ * con discreción.
  */
 class toba_vista_pdf
 {
 	protected $objetos = array();
 	protected $configuracion = array('hoja_tamanio' => 'a4', 'hoja_orientacion' => 'portrait');
-	protected $pdf;
+	protected $pdf;	
 	protected $texto_pie;
 	protected $nombre_archivo = 'archivo.pdf';
 	protected $tipo_descarga = 'attachment';
@@ -38,9 +43,6 @@ class toba_vista_pdf
 	//------------------------------------------------------------------------
 	//-- Configuracion
 	//------------------------------------------------------------------------
-	/**
-	 * 
-	 */
 	
 	/**
 	 * Genera el encabezado y pie del pdf
@@ -115,19 +117,37 @@ class toba_vista_pdf
 		foreach( $this->objetos as $objeto ) {
 			$objeto->vista_pdf( $this );	
 		}
+		$this->parar_numeracion_paginas();
 		$this->crear_pdf();		
 	}
 	
-	protected function crear_pdf( $opciones=null )
+	/**
+	 * Devuelve el objeto pdf para manipular a gusto y piachere.
+	 */
+	function get_pdf()
 	{
-		if (!is_array($opciones)){
-    		$opciones = array();
-  		}
-  		if ( isset($opciones['compress']) && $opciones['compress']==0){
-    		$tmp = $this->pdf->output(1);
-  		} else {
-    		$tmp = $this->pdf->output();
-  		}
+		return $this->pdf;
+	}
+	
+	/**
+	 * Indica el momento en el que se comienzan a numerar las páginas.
+	 * @param string $posicion Indica la posicion de la numeracion de las paginas (left,right)
+	 * @param string $formato Como se visualizará la numeración de las páginas. Los formatos posibles
+	 * pueden variar siemrpe respetando el nombre de las variables. Es posible por ejemplo setear
+	 * $formato='{PAGENUM}'. Solo se visualizará el número de página.
+	 */
+	function numerar_paginas($posicion='right',$formato='{PAGENUM} de {TOTALPAGENUM}')
+	{
+		$this->pdf->ezStartPageNumbers(500,20,8,$posicion,$formato,1);
+	}
+	
+	function parar_numeracion_paginas(){
+		$this->pdf->ezStopPageNumbers(1,1);
+	}
+	
+	protected function crear_pdf()
+	{
+  		$tmp = $this->pdf->ezOutput(0);
    		$this->cabecera_http( strlen(ltrim($tmp)) );
    		echo ltrim($tmp);
 	}
@@ -180,6 +200,18 @@ class toba_vista_pdf
 	function texto( $texto, $tamanio=8, $opciones=array( 'justification' => 'left'))
 	{
 		$this->pdf->ezText($texto, $tamanio, $opciones);	
+	}
+	
+	/**
+	 * Inserta una imagen siguiendo el flujo del texto en el documento.
+	 * @version OJO! ezImage es un método en estado beta de la clase ezpdf y por lo que pude ver
+	 * solo funciona con archivos jpg. Utilizar con cuidado.
+	 * @param string $archivo full path de la imagen
+	 * @param string $alineacion left, right, center
+	 */
+	function insertar_imagen($archivo,$alineacion='left')
+	{
+		$this->pdf->ezImage("$archivo",5,0,'none',$alineacion); 	
 	}
 	
 	/**

@@ -1009,7 +1009,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 					$k = $ef;
 					$v = $this->get_valor_imprimible_ef( $ef );
-					$datos_temp[$k] = $v['valor'];
+					$datos_temp[$k] = str_replace(array( "&nbsp;" ), ' ', $v['valor'] );
 				}
 				$a[] = $datos_temp;
 			}

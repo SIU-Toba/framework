@@ -1081,6 +1081,8 @@ class toba_ei_formulario extends toba_ei
 		$valor = $ef->get_descripcion_estado();
 		if ( $ef instanceof toba_ef_editable_moneda ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_moneda($valor) );
+		} elseif ( $ef instanceof toba_ef_editable_numero_porcentaje ){
+			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_porcentaje($valor) );
 		} elseif ( $ef instanceof toba_ef_editable_numero ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
 		} elseif ( $ef instanceof toba_ef_editable_fecha ) {

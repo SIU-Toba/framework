@@ -1382,6 +1382,8 @@ function ezImage($image,$pad = 5,$width = 0,$resize = 'full',$just = 'center',$b
 		{
 			$offset = 0;
 		}
+	}else{
+		$offset = 0;
 	}
 
 

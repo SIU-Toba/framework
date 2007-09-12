@@ -39,6 +39,15 @@ class toba_ef_cuit extends toba_ef
 	    }
 	}
 	
+	function tiene_estado()
+	{
+		if (isset($this->estado)) {
+			return ($this->estado != "");
+		} else{
+			return false;
+		}
+	}
+	
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();

@@ -19,14 +19,14 @@
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return "&nbsp;" . number_format($valor,2,',','.');
+		return number_format($valor,2,',','.');
 	}	
 
 	function formato_porcentaje($valor)
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return "&nbsp;" . number_format($valor,2,',','.') . "&nbsp;%";
+		return number_format($valor,2,',','.') . "&nbsp;%";
 	}	
 	
 	function formato_moneda($valor)
@@ -43,9 +43,14 @@
 
 	function formato_millares($valor)
 	{
-		return "&nbsp;" . number_format($valor,0,',','.');
+		return number_format($valor,0,',','.');
 	}
-
+	
+	function formato_numero($valor)
+	{	
+		return number_format($valor,2,',','.');
+	}
+	
 	function formato_persona($valor)
 	{
 		return $valor . "&nbsp;p.";
@@ -116,7 +121,7 @@
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return "&nbsp;" . number_format($valor,2,',','.') . "&nbsp;" . "Km²";
+		return number_format($valor,2,',','.') . "&nbsp;" . "Km²";
 	}	
 
 	function formato_cuit($valor)
