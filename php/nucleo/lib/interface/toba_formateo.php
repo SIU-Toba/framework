@@ -119,4 +119,13 @@
 		return "&nbsp;" . number_format($valor,2,',','.') . "&nbsp;" . "Km²";
 	}	
 
+	function formato_cuit($valor)
+	{
+		if (isset($valor) && $valor!='') {
+			$length = strlen($valor);
+			return substr($valor, 0, 2) . '-' . substr($valor, 2, $length - 3) . '-' . substr($valor, $length - 1, $length);
+		} else
+			return '';
+	}
+
 ?>

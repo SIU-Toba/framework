@@ -676,7 +676,10 @@ class toba_ei_formulario extends toba_ei
 			} else {
 				return $nuevos;	
 			}
+		} else {
+			throw new toba_error_def('No está definido un método de carga. Parámetros: '.var_export($parametros, true));
 		}
+		
 		//--- Agrega el no-seteado en caso que existan elementos
 		if (isset($parametros['carga_no_seteado']) && ! isset($salida[apex_ef_no_seteado])
 				&& ! empty($salida)) {
@@ -1086,6 +1089,8 @@ class toba_ei_formulario extends toba_ei
 			} else {
 				$temp = array( 'css' => 'col-tex-p1', 'valor'=> '' );
 			}
+		} elseif ($ef instanceof toba_ef_cuit ) {
+			$temp = array( 'css' => 'col-num-p1', 'valor' => formato_cuit($valor) );
 		} else {
 			$temp = array( 'css' => 'col-tex-p1', 'valor'=> $valor );
 		}

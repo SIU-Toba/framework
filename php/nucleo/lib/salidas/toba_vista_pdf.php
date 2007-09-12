@@ -134,6 +134,7 @@ class toba_vista_pdf
 	
 	protected function cabecera_http( $longuitud )
 	{
+		header("Cache-Control: private");
   		header("Content-type: application/pdf");
   		header("Content-Length: $longuitud");	
    		header("Content-Disposition: {$this->tipo_descarga}; filename={$this->nombre_archivo}");

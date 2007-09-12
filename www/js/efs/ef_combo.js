@@ -51,11 +51,13 @@ ef_combo.prototype.constructor = ef_combo;
 		var input = this.input();
 		var opciones = input.options;
 		var ok = false;
-		for (var i =0 ; i < opciones.length; i++) {
-			if (opciones[i].value == nuevo) {
-				opciones[i].selected = true;
-				ok = true;
-				break;
+		if (opciones){
+			for (var i =0 ; i < opciones.length; i++) {
+				if (opciones[i].value == nuevo) {
+					opciones[i].selected = true;
+					ok = true;
+					break;
+				}
 			}
 		}
 		if (!ok) {

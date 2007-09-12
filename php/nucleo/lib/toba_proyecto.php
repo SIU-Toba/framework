@@ -13,6 +13,7 @@ class toba_proyecto
 	private $memoria;								//Referencia al segmento de $_SESSION asignado
 	private $id;
 	private $indice_items_accesibles;
+	private $items_excluidos = array();
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	static function get_id()
@@ -265,8 +266,18 @@ class toba_proyecto
 			if (!isset($proyecto)) $proyecto = self::get_id();
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}
-		return $rs;
+		// Se quitan los items excluidos de la lista de items que puede acceder el usuario.
+		$res = array();
+		foreach ($rs as $r)
+			if (!in_array($r['item'],$this->items_excluidos))
+				$res[] = $r;
+		return $res;
 	}	
+
+	function quitar_item_menu($item)
+	{
+		$this->items_excluidos[] = $item;
+	}
 
 	/**
 	 * Valida que un grupo de acceso tenga acceso a un item
