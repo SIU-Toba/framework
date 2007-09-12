@@ -226,9 +226,14 @@ class toba_solicitud_web extends toba_solicitud
        	$this->tipo_pagina->pie();
 	}
 	
+	/**
+	 * Genera una salida en formato pdf
+	 */
+	
 	protected function servicio__vista_pdf( $objetos )
 	{
-		$salida = new toba_pdf();
+		//-- TO-DO: implementar la posibilidad de personalizar el objeto vista_pdf
+		$salida = new toba_vista_pdf();
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}

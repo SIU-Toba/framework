@@ -85,6 +85,11 @@ class toba_evento_usuario extends toba_boton
 		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'V');
 	}
 	
+	function posee_accion_vista_pdf()
+	{
+		return $this->posee_accion_asociada() && ($this->datos['accion'] == 'F');
+	}
+	
 	function posee_grupo_asociado()
 	{
 		return trim($this->datos['grupo'])!='';
@@ -190,6 +195,12 @@ class toba_evento_usuario extends toba_boton
 			} else {
 				$js = "imprimir_html('$url');";
 			}
+		} elseif ( $this->posee_accion_vista_pdf()) {
+			// ---*** VISTA PDF ***---
+			$opciones['servicio'] = 'vista_pdf';
+			$opciones['objetos_destino'] = array( $id_componente );
+			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
+			$js = "document.location.href='$url';";
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---
 			// Registro el vinculo en el vinculador

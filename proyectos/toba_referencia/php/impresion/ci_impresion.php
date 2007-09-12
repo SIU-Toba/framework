@@ -23,6 +23,22 @@ class ci_impresion extends toba_ci
 		$this->dependencia('ml')->vista_impresion( $salida );
 	}
 	
+	function vista_pdf(toba_vista_pdf $salida)
+	{
+		$salida->titulo( $this->get_nombre() );
+		$salida->mensaje('Nota: Este es el Principal');
+		$this->dependencia('filtro')->vista_pdf( $salida );
+		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$salida->salto_pagina();
+		$salida->mensaje('Nota: Esta es una copia');
+		$this->dependencia('filtro')->vista_pdf( $salida );
+		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$salida->salto_pagina();
+		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
+		$salida->salto_linea();
+		$this->dependencia('ml')->vista_pdf( $salida );
+	}
+	
 	function get_popup($clave)
 	{
 		return 'Nombre';

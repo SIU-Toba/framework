@@ -1702,6 +1702,13 @@ class toba_ei_cuadro extends toba_ei
 		$salida->subtitulo( $this->get_titulo() );
 		$this->generar_salida("pdf");
 	}
+	
+	/**
+	 * @todo Implementar
+	 */
+	function vista_pdf( $salida )
+	{
+	}
 
 	private function pdf_inicio()
 	{

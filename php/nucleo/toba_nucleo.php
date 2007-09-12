@@ -511,7 +511,7 @@ class toba_nucleo
 			'toba_form'								=> 'nucleo/lib/interface/toba_form.php',
 			'toba_impr_html'						=> 'nucleo/lib/salidas/toba_impr_html.php',
 			'toba_impresion'						=> 'nucleo/lib/salidas/toba_impresion.php',
-			'toba_pdf'								=> 'nucleo/lib/salidas/toba_pdf.php',
+			'toba_vista_pdf'						=> 'nucleo/lib/salidas/toba_vista_pdf.php',
  			'toba_componente_definicion'			=> 'nucleo/componentes/definicion/_interfaces.php',
 			'toba_meta_clase'						=> 'modelo/info/componentes/toba_interface_meta_clase.php',
 			'toba_datos_editores'					=> 'modelo/info/toba_datos_editores.php',

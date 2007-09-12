@@ -185,7 +185,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_textarea', --elemento_formulario
 	'ayuda', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Ayuda', --etiqueta
 	NULL, --etiqueta_estilo
@@ -252,7 +252,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_textarea', --elemento_formulario
 	'confirmacion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Confirmacion', --etiqueta
 	NULL, --etiqueta_estilo
@@ -319,7 +319,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'estilo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Clase CSS', --etiqueta
 	NULL, --etiqueta_estilo
@@ -387,7 +387,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'sobre_fila', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'A nivel de fila', --etiqueta
 	NULL, --etiqueta_estilo
@@ -454,7 +454,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'maneja_datos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Maneja datos', --etiqueta
 	NULL, --etiqueta_estilo
@@ -521,7 +521,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'grupo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Grupos', --etiqueta
 	NULL, --etiqueta_estilo
@@ -588,7 +588,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_multi_seleccion_lista', --elemento_formulario
 	'pantallas', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Pantallas', --etiqueta
 	NULL, --etiqueta_estilo
@@ -655,28 +655,28 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'accion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'8', --orden
 	'Accion predefinida', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_sql
-	NULL, --carga_fuente
-	'H/Impresion HTML,V/Vinculo', --carga_lista
+	'instancia', --carga_fuente
+	'H/Impresion HTML,V/Vinculo,F/Vista PDF', --carga_lista
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	'Ninguna', --carga_no_seteado
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -722,7 +722,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'accion_imphtml_debug', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Vista Previa', --etiqueta
 	NULL, --etiqueta_estilo
@@ -789,7 +789,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'accion_vinculo_target', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'13', --orden
 	'Vinculo - Target', --etiqueta
 	NULL, --etiqueta_estilo
@@ -856,7 +856,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'accion_vinculo_celda', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'12', --orden
 	'Vinculo - Celda mem.', --etiqueta
 	NULL, --etiqueta_estilo
@@ -926,7 +926,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'accion_vinculo_carpeta', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'10', --orden
 	'Vinculo - Carpeta', --etiqueta
 	NULL, --etiqueta_estilo
@@ -993,7 +993,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'accion_vinculo_item', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'11', --orden
 	'Vinculo - Item', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1060,7 +1060,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_checkbox', --elemento_formulario
 	'accion_vinculo_popup', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'14', --orden
 	'Vinculo - Es popup', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1127,7 +1127,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'accion_vinculo_popup_param', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'15', --orden
 	'Vinculo - Popup param.', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1197,7 +1197,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_barra_divisora', --elemento_formulario
 	'ptos_ctrl_titulo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'16', --orden
 	'Puntos de control', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1264,7 +1264,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'filtro_ptos_control', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'17', --orden
 	'Ver:', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1331,7 +1331,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_multi_seleccion_doble', --elemento_formulario
 	'ptos_de_control', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'18', --orden
 	'Puntos de control', --etiqueta
 	NULL, --etiqueta_estilo

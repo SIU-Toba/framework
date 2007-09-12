@@ -21,8 +21,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'Soy el nombre del CI', --nombre
 	NULL, --titulo
 	'0', --colapsable
-	'Esta operación incluye a un CI con dos eventos uno que ofrece una vista previa y otro que imprime directamente.<br>
-El layout de la impresión es guiado por el método <em>vista_impresion</em> de la extensión.', --descripcion
+	'Esta operación incluye a un CI con tres eventos:<ul>
+<li>Vista Previa que ofrece una vista previa de impresion html. El layout de la impresión es guiado por el método <em>vista_impresion</em> de la extensión.
+<li>Imprimir, directamente imprime el documento. El layout de la impresión es guiado por el método <em>vista_impresion</em> de la extensión.
+<li>Exportar a pdf utiliza el método del ci <em>vista_pdf</em> para construir un pdf con los componentes contenidos.
+</ul>', --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
 	NULL, --solicitud_registrar
@@ -46,6 +49,36 @@ El layout de la impresión es guiado por el método <em>vista_impresion</em> de la
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_referencia', --proyecto
+	'1000376', --evento_id
+	'1000208', --objeto
+	'pdf', --identificador
+	'Exportar a PDF', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	'ei-boton-izq', --estilo
+	'apex', --imagen_recurso_origen
+	'extension_pdf.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	'F', --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
 	'1000228', --evento_id
 	'1000208', --objeto
 	'imprimir_debug', --identificador
@@ -58,7 +91,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'impresora.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'1', --orden
+	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -88,7 +121,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'impresora.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'2', --orden
+	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -99,7 +132,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -191,7 +224,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	'filtro,cuadro', --objetos
-	'imprimir,imprimir_debug', --eventos
+	'imprimir,imprimir_debug,pdf', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
@@ -207,7 +240,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	'ml', --objetos
-	'imprimir,imprimir_debug', --eventos
+	'imprimir,imprimir_debug,pdf', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

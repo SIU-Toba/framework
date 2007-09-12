@@ -985,5 +985,41 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		echo "\n</table>\n";
 	}
+	
+	function vista_pdf( $salida )
+	{
+		//-- Encabezado
+		$tit_col = array();
+		foreach ($this->_lista_ef_post	as	$ef){
+			$k = $ef;
+			$v = $this->_elemento_formulario[$ef]->get_etiqueta();
+			$tit_col[$k] = $v;
+		}
+		
+		//-- Cuerpo
+		if( isset( $this->_ordenes ) ) {
+			$a = array();
+			foreach ($this->_ordenes as $fila) {
+				$dato = $this->_datos[$fila];
+				$this->cargar_registro_a_ef($fila, $dato);
+				$this->cargar_opciones_efs();
+				
+				$datos_temp = array();
+				foreach ($this->_lista_ef_post as $ef){
+					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
+					$k = $ef;
+					$v = $this->get_valor_imprimible_ef( $ef );
+					$datos_temp[$k] = $v['valor'];
+				}
+				$a[] = $datos_temp;
+			}
+		}
+		//-- Salida a pdf
+		$datos['titulo_tabla'] = $this->get_titulo();
+		$datos['titulos_columnas'] = $tit_col;
+		$datos['datos_tabla'] = $a;
+		
+		$salida->tabla( $datos, true );
+	}
 }
 ?>

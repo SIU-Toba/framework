@@ -234,14 +234,22 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return $consumos;
 	}
 		
-	function get_descripcion_estado()
+	function get_descripcion_estado( $solo_datos=false )
 	{
-		$desc = "<ul>\n";
-		foreach ($this->get_estado_para_input() as $estado) {
-			$desc .= "<li>{$this->opciones[$estado]}</li>\n";
+		if ( $solo_datos ) {
+			$desc = array();
+			foreach ($this->get_estado_para_input() as $estado) {
+				$desc[] = $this->opciones[$estado];
+			}
+			return $desc;	
+		}else{
+			$desc = "<ul>\n";
+			foreach ($this->get_estado_para_input() as $estado) {
+				$desc .= "<li>{$this->opciones[$estado]}</li>\n";
+			}
+			$desc .= "</ul>\n";
+			return $desc;	
 		}
-		$desc .= "</ul>\n";
-		return $desc;	
 	}
 	
 	/**
