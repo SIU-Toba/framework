@@ -32,7 +32,7 @@ class toba_usuario_basico extends toba_usuario
 				}
 			}
 			if( !($datos_usuario['clave'] === $clave) ) {
-				toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorecta", 'toba');
+				toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorrecta", 'toba');
 				return false;
 			}
 		}

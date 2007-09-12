@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Cuadro Cortes Estandar (redef. estetica)', --nombre
 	'Localidades de Santa Fe', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -48,16 +48,16 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --subtitulo
 	NULL, --sql
 	'zona_id, dep_id, loc_id', --columnas_clave
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	NULL, --ordenar
-	NULL, --paginar
+	'0', --ordenar
+	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
-	NULL, --eof_invisible
+	'P', --tipo_paginado
+	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar
+	'0', --exportar
 	NULL, --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
@@ -70,10 +70,10 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	NULL, --scroll
+	'0', --scroll
 	NULL, --scroll_alto
 	't', --cc_modo
-	'0', --cc_modo_anidado_colap
+	'1', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
@@ -93,10 +93,10 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'dep_id', --columnas_id
 	'departamento', --columnas_descripcion
 	'0', --pie_contar_filas
-	NULL, --pie_mostrar_titular
+	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
+	'1'  --modo_inicio_colapsado
 );
 INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
 	'toba_referencia', --objeto_cuadro_proyecto
@@ -108,7 +108,7 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'zona_id', --columnas_id
 	'zona', --columnas_descripcion
 	'0', --pie_contar_filas
-	NULL, --pie_mostrar_titular
+	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar
 	'0'  --modo_inicio_colapsado

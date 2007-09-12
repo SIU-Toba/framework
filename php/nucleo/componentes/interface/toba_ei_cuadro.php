@@ -14,6 +14,7 @@ class toba_ei_cuadro extends toba_ei
 {
 	protected $_info_cuadro = array();
 	protected $_info_cuadro_columna = array();
+	protected $_info_cuadro_columna_indices = array();
 	protected $_info_cuadro_cortes;
 	protected $_prefijo = 'cuadro';	
  	protected $_columnas;
@@ -107,6 +108,7 @@ class toba_ei_cuadro extends toba_ei
 		for($a=0;$a<count($this->_info_cuadro_columna);$a++){
 			// Indice de columnas
 			$clave = $this->_info_cuadro_columna[$a]['clave'];
+			$this->_info_cuadro_columna_indices[$clave] = $a;
 			$this->_columnas[ $clave ] =& $this->_info_cuadro_columna[$a];
 			//Sumarizacion general
 			if ($this->_info_cuadro_columna[$a]['total'] == 1) {
@@ -133,10 +135,11 @@ class toba_ei_cuadro extends toba_ei
 	function eliminar_columnas($columnas)
 	{
 		foreach($columnas as $clave) {
-			$id = $this->_columnas[$clave];
+			$id = $this->_info_cuadro_columna_indices[$clave];
 			unset($this->_info_cuadro_columna[$id]);
 			unset($this->_columnas[$clave]);
 			unset($this->_acumulador[$clave]);
+			unset($this->_info_cuadro_columna_indices[$clave]);
 		}		
 	}
 	
