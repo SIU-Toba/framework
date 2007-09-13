@@ -362,9 +362,9 @@ class ci_efs extends toba_ci
 	{
 		$dt = toba_contexto_info::get_db()->quote($dt);
 		$subclase = toba_info_editores::get_subclase_componente($dt);
-		if (isset($subclase) && $subclase != '') {
-			$php = new toba_archivo_php($subclase);
-			die('jey');
+		if (isset($subclase) && !empty($subclase)) {
+			$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
+			$php = new toba_archivo_php($archivo);
 			$respuesta->set($php->contiene_metodo('get_listado'));
 		} else {
 			$respuesta->set(false);

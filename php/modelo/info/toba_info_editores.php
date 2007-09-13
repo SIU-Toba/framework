@@ -426,6 +426,7 @@ class toba_info_editores
 
 	/**
 	 * Dado un componente retorna la subclase asociada (si no existe retorna null)
+	 * @return array subclase,subclase_archivo
 	 */
 	function get_subclase_componente($id, $proyecto=null)
 	{
@@ -433,18 +434,15 @@ class toba_info_editores
 			$proyecto = toba_contexto_info::get_proyecto();
 		}		
 		$sql = "SELECT 	
-					subclase
+					subclase,
+					subclase_archivo
 				FROM
 					apex_objeto
 				WHERE 	
 						objeto = $id 
 					AND proyecto = '$proyecto'";
-		$datos = toba_contexto_info::get_db()->consultar_fila($sql);				
-		if (! empty($datos)) {
-			return $datos['subclase'];
-		} else {
-			return null;
-		}
+		$datos = toba_contexto_info::get_db()->consultar_fila($sql);
+		return $datos;				
 	}
 	
 	/*

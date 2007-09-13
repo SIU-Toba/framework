@@ -98,6 +98,7 @@ class form_carga extends toba_ei_formulario
 					div.innerHTML = link;
 				} else {
 					div.innerHTML = '';
+					this.ef('carga_metodo').set_estado('get_listado');
 				}			
 			}			
 			

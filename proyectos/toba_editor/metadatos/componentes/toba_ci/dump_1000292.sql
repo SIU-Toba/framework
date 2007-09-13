@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_admin_asistentes', --subclase
-	'asistentes/ci_admin_asistentes.php', --subclase_archivo
+	'ci_admin_moldes', --subclase
+	'asistentes/ci_admin_moldes.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Asistente de operaciones', --nombre
@@ -168,13 +168,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000331', --evento_id
 	'1000292', --objeto
 	'siguiente_generar', --identificador
-	'Generar', --etiqueta
+	'Siguiente', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'generar.png', --imagen
+	'instanciar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'5', --orden
@@ -295,7 +295,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1000292', --objeto_ci
 	'1000167', --pantalla
-	'pant_confirmacion', --identificador
+	'pant_generacion', --identificador
 	'3', --orden
 	'Generación', --etiqueta
 	'Opciones de generación', --descripcion
