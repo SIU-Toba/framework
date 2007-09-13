@@ -335,7 +335,7 @@ class toba_proyecto
 	 */
 	function get_lista_permisos($grupos_acceso=null)
 	{
-		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_grupo_acceso();	
+		$grupos_acceso = isset($grupos_acceso) ? $grupos_acceso : toba::manejador_sesiones()->get_grupos_acceso();	
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', $grupos_acceso, 'get_lista_permisos');
 		} else {
