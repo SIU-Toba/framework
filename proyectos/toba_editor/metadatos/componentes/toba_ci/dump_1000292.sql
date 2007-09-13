@@ -168,13 +168,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000331', --evento_id
 	'1000292', --objeto
 	'siguiente_generar', --identificador
-	'Siguiente', --etiqueta
+	'Generar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'instanciar.png', --imagen
+	'generar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'5', --orden
@@ -295,7 +295,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'toba_editor', --objeto_ci_proyecto
 	'1000292', --objeto_ci
 	'1000167', --pantalla
-	'pant_generacion', --identificador
+	'pant_confirmacion', --identificador
 	'3', --orden
 	'Generación', --etiqueta
 	'Opciones de generación', --descripcion
