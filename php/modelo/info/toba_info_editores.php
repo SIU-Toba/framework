@@ -544,6 +544,29 @@ class toba_info_editores
 				ORDER BY tabla";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+
+	//---------------------------------------------------	
+	
+	static function get_tabla_fuente_de_dt($id, $proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}
+		$sql = "
+			SELECT 
+				dt.tabla,
+				comp.fuente_datos
+			FROM 
+				apex_objeto_db_registros as dt,
+				apex_objeto as comp
+			WHERE
+					dt.objeto = $id
+				AND	dt.objeto_proyecto = '$proyecto'
+				AND dt.objeto = comp.objeto
+				AND dt.objeto_proyecto = comp.proyecto
+		";
+		return toba_contexto_info::get_db()->consultar_fila($sql);
+	}	
 	//---------------------------------------------------
 
 	static function get_lista_dt_columnas($objeto)

@@ -227,7 +227,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --inicializacion
 	NULL, --estado_defecto
 	'0', --solo_lectura
-	NULL, --carga_metodo
+	'get_listado', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	'id', --carga_col_clave

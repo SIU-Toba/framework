@@ -630,7 +630,6 @@ class toba_ei_formulario extends toba_ei
 			isset($this->_parametros_carga_efs[$id_ef]['carga_metodo'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_lista'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['carga_sql'])
-			|| isset($this->_parametros_carga_efs[$id_ef]['carga_dt'])
 			|| isset($this->_parametros_carga_efs[$id_ef]['popup_carga_desc_metodo']);
 	}
 	

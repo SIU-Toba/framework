@@ -388,6 +388,108 @@ class toba_db
 		return 'Z';
 	}
 
+	/**
+	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos
+	 * @param string $tabla
+	 * @return array(sql, clave)
+	 */
+	function get_sql_carga_tabla($tabla)
+	{
+		$columnas = $this->get_definicion_columnas($tabla);
+		$claves = array();
+		$select = array();
+		$alias = sql_get_alias($tabla);		
+		$from = array();
+		$aliases = array($alias);
+		$where = array();
+		$left = array();
+		$campo_descripcion = null;
+		foreach ($columnas as $columna) {
+			if ($columna['pk']) {
+				$claves[] = $columna['nombre'];	
+			}
+			//-- Si es clave o no es una referencia se trae el dato puro
+			if ($columna['pk']  || !$columna['fk_tabla']) {
+				$select[] = $alias.'.'.$columna['nombre'];
+				//-- Aprovecha para detectar el candidato a campo 'descripcion'
+				if (! isset($campo_descripcion) || $this->es_campo_descripcion($columna)) {
+					$campo_descripcion = $columna['nombre'];
+				}				
+			} else {
+				//--- Es una referencia, hay que hacer joins
+				$externo = $this->get_opciones_sql_campo_externo($columna);
+				$alias_externo = sql_get_alias( $externo['tabla']);
+				if (in_array($alias_externo, $aliases)) {
+					$alias_externo = $externo['tabla']; //En caso de existir el alias, usa el nombre de la tabla
+				}
+				$aliases[] = $alias_externo;				
+				$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];				
+				$ext_where = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
+				$ext_from = $externo['tabla'].' as '.$alias_externo;
+				if ($columna['not_null']) {
+					//-- Si es NOT NULL, se hace un INNER join
+					$from[] = $ext_from;
+					$where[] = $ext_where;
+				} else {
+					//-- Si es NULL, se hace un LEFT OUTER join
+					$left[] = "$ext_from ON ($ext_where)";
+				}
+			}
+		}
+		$from = array_unique($from);
+		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
+		$sql .= "FROM\n\t$tabla as $alias";
+		if (!empty($left)) {
+			$texto_left = "\tLEFT OUTER JOIN ";
+			$sql .= $texto_left.implode("\n$texto_left",$left)."\n";
+		}
+		if (!empty($from)) {
+			$sql .= ",\n\t".implode(",\n\t",$from)."\n";			
+		}
+		if (!empty($where)) {
+			$sql .= "WHERE\n\t".implode(",\n\t",$where)."\n";
+		}
+		return array($sql, implode(',',$claves), $campo_descripcion);
+	}
+	
+	/**
+	 * Determina la sql,clave y desc de un campo externo de una tabla
+	 * Remonta N-niveles de indireccion de FKs
+	 */
+	function get_opciones_sql_campo_externo($campo)
+	{
+		//--- Busca cual es el campo descripcion de la tabla destino
+		while (isset($campo['fk_tabla'])) {
+			$tabla = $campo['fk_tabla'];
+			$clave = $campo['fk_campo'];
+			$descripcion = $campo['fk_campo'];
+			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
+			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+			$encontrado = false;			
+			foreach ($campos_tabla_externa as $campo_tabla_ext) {
+				//---Detecta cual es la clave para seguir ejecutando el script
+				if ($campo_tabla_ext['nombre'] == $clave) {
+					$campo = $campo_tabla_ext;
+				}
+				if (! $encontrado && $this->es_campo_descripcion($campo_tabla_ext)) {
+					$descripcion = $campo_tabla_ext['nombre'];
+					$encontrado = true;
+				}
+			}
+			$sql = "SELECT $clave, $descripcion FROM $tabla";
+		}
+		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
+	}	
+	
+	/**
+	 * Determina si la definición de un campo de una tabla es un campo descripción
+	 * @param array $campo Definicion de un campo
+	 */
+	protected function es_campo_descripcion($campo)
+	{
+		return !$campo['pk'] && $campo['tipo'] == 'C';
+	}
+	
 	//-----------------------------------------------------------------------------------
 	//-- GENERACION de MENSAJES de ERROR (Esto necesita adecuacion al esquema actual)
 	//-----------------------------------------------------------------------------------

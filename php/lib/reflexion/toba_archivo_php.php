@@ -78,7 +78,7 @@ class toba_archivo_php
 	 */
 	function contiene_metodo($nombre)
 	{
-		return preg_match("/function\s+$nombre/",file_get_contents($this->nombre));
+		return preg_match("/function\s+$nombre\s*\(/",file_get_contents($this->nombre));
 	}
 
 

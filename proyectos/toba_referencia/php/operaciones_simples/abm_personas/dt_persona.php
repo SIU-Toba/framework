@@ -2,7 +2,7 @@
 class dt_persona extends toba_datos_tabla
 {
 	
-	function get_listado()
+	function get_listados()
 	{
 		$sql = "
 			SELECT 

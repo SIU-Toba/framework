@@ -80,11 +80,21 @@ class form_carga extends toba_ei_formulario
 					this.controlador.ajax('existe_metodo_dt', tabla_actual, this, this.respuesta_existe_dt); 
 				} else {
 					this.ef('carga_metodo').ocultar(true);
+					this.ef('carga_col_clave').ocultar(true);
+					this.ef('carga_col_desc').ocultar(true);
 				}
 			}
 			
+			{$this->objeto_js}.generar_metodo = function() {
+				var tabla_actual = this.ef('carga_dt').get_estado();
+				this.controlador.ajax('crear_metodo_get_listado', tabla_actual, this, this.respuesta_crear_dt);
+			}
+
+			
 			{$this->objeto_js}.respuesta_existe_dt = function(existe) {
 				this.ef('carga_metodo').mostrar();
+				this.ef('carga_col_clave').mostrar(true);
+				this.ef('carga_col_desc').mostrar(true);				
 				var div = $('nodo_carga_metodo');
 				if (! div) {
 					this.ef('carga_metodo').get_contenedor().innerHTML += '<span id=\"nodo_carga_metodo\"></span>';	
@@ -102,10 +112,14 @@ class form_carga extends toba_ei_formulario
 				}			
 			}			
 			
-			{$this->objeto_js}.generar_metodo = function() {
-				this.ef('carga_metodo').set_estado('get_listado');
-			}
 			
+			{$this->objeto_js}.respuesta_crear_dt = function(datos) {
+				if (datos) {
+					this.ef('carga_metodo').set_estado('get_listado');
+					this.ef('carga_col_clave').set_estado(datos[1]);
+					this.ef('carga_col_desc').set_estado(datos[2]);
+				}
+			}
 		";
 	}
 

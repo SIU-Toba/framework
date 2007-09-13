@@ -371,9 +371,25 @@ class ci_efs extends toba_ci
 		}
 	}
 	
-	function ajax__crear_metodo_get_listado($parametros, toba_ajax_respuesta $respuesta)
+	function ajax__crear_metodo_get_listado($dt, toba_ajax_respuesta $respuesta)
 	{
-		
+		$dt = toba_contexto_info::get_db()->quote($dt);
+		$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);
+		if (! empty($datos)) {
+			$db = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado());
+			$sql = $db->get_sql_carga_tabla($datos['tabla']);
+			$respuesta->set($sql);
+		}
+		return;
+		$subclase = toba_info_editores::get_subclase_componente($dt);
+		toba_catalogo_asistentes::get_sql_carga_tabla();
+		if (isset($subclase) && !empty($subclase)) {
+			/*$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
+			$php = new toba_archivo_php($archivo);
+			$php->reemplazar_metodo()*/
+		} else {
+			$respuesta->set(false);			
+		}
 	}	
 	
 	//---------------------------------
