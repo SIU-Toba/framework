@@ -62,6 +62,10 @@ class toba_catalogo_asistentes
 		return consultar_fuente($sql);
 	}
 	
+	static function tipo_dato_referencia()
+	{
+		return '1000008';
+	}
 	
 	//------------------------------------------------
 	//---- Reflexión de de las tablas
@@ -90,7 +94,7 @@ class toba_catalogo_asistentes
 				//--- Es una referencia
 				$fila['elemento_formulario'] = 'ef_combo';
 				$fila['dt_tipo_datos'] = 'C';
-				$fila['asistente_tipo_dato'] = '1000008';
+				$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
 				$fila['cuadro_estilo'] = 1;
 				$fila['cuadro_formato'] = 1;
 				$fila['en_cuadro'] = 1;

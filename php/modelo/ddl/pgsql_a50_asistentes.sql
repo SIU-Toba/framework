@@ -230,6 +230,7 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	elemento_formulario					varchar(30)		NULL,
 	ef_desactivar_modificacion			smallint		NULL,
 	ef_procesar_javascript				smallint		NULL,
+	ef_carga_origen						varchar(15)		NULL,
 	ef_carga_sql						varchar			NULL,
 	ef_carga_php_include				varchar(255)	NULL,
 	ef_carga_php_clase					varchar(255)	NULL,

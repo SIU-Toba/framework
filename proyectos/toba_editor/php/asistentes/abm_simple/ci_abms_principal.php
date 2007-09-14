@@ -7,23 +7,25 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function posee_informacion_completa()
 	{
+		$mensajes = array();
 		if( parent::posee_informacion_completa() ) {
 			$base = $this->dep('datos')->tabla('base')->get();	
 			if( !isset($base['tabla'])) {
 				return false;	
 			}
+			if(!isset($base['cuadro_carga_origen'])) {
+				$mensajes[] = 'Formulario: Falta indicar el origen de la carga del cuadro';
+			}			
 			$filas = $this->dep('datos')->tabla('filas')->get_filas();	
 			foreach($filas as $fila) {
-				if( $fila['elemento_formulario']=='ef_combo' ) {
+				if( $fila['asistente_tipo_dato']== toba_catalogo_asistentes::tipo_dato_referencia()) {
 					if(!isset($fila['ef_carga_origen'])) {
-						echo "aca";
-						return false;
+						$mensajes[] = 'Formulario: Falta indicar el origen de la carga del campo "'.$fila['columna'].'"';
 					}
 				}
 			}
-			return true;
 		}
-		return false;
+		return empty($mensajes) ? true : $mensajes;
 	}
 	
 	function autocompletar_informacion($refrescar_todo=false)

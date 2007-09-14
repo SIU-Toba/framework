@@ -85,7 +85,11 @@ class ci_admin_asistentes extends toba_ci
 		if( $this->s__molde_preexistente ) {
 			$this->pantalla()->eliminar_evento('volver_editar');	
 		}
-		if( ! $this->puede_generar() ) {
+		$completo = $this->dep('asistente')->posee_informacion_completa();
+		if( $completo !== true) {
+			if (is_array($completo)) {
+				$this->pantalla()->set_descripcion('Datos faltantes: <ul><li>'.implode('</li><li>', $completo).'</ul>');
+			}
 			$this->pantalla()->eliminar_evento('siguiente_generar');				
 		}
 	}
@@ -105,12 +109,7 @@ class ci_admin_asistentes extends toba_ci
 			$this->asistente()->crear_operacion();
 		}
 	}
-	
-	function puede_generar()
-	{
-		return $this->dep('asistente')->posee_informacion_completa();
-	}
-	
+
 	function generacion_requiere_confirmacion()
 	{
 		try {
@@ -119,7 +118,7 @@ class ci_admin_asistentes extends toba_ci
 				return true;
 			}
 			$confirmaciones = $this->asistente()->get_opciones_generacion();
-			if( empty($confirmaciones) ) {
+			if(! empty($confirmaciones) ) {
 				return true;
 			}
 			return false;
