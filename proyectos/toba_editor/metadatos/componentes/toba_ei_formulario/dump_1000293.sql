@@ -124,14 +124,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'fuente', --identificador
 	'ef_combo', --elemento_formulario
 	'fuente', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Fuente de Datos', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
@@ -217,7 +217,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --carga_dt
 	'instancia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_maestros
+	'fuente', --carga_maestros
 	'0', --carga_cascada_relaj
 	'-- Seleccione --', --carga_no_seteado
 	NULL, --edit_tamano

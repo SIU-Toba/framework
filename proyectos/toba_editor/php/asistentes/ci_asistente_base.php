@@ -72,9 +72,9 @@ class ci_asistente_base extends toba_ci
 	//-- DAOS
 	//-----------------------------------------------------------------------------------
 
-	function get_tablas()
+	function get_tablas($fuente)
 	{
-		return toba_editor::get_db_defecto()->get_lista_tablas();
+		return toba::db($fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
 	}
 		
 }

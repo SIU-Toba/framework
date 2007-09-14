@@ -70,9 +70,9 @@ class toba_catalogo_asistentes
 	/**
 	 * Dada una tabla retorna los valores por defecto de cada fila para utilizar en un abm
 	 */
-	static function get_lista_filas_tabla($tabla)
+	static function get_lista_filas_tabla($tabla, $fuente)
 	{
-		$db = toba_editor::get_db_defecto();
+		$db = toba::db($fuente, toba_editor::get_proyecto_cargado());
 		$nuevas = $db->get_definicion_columnas($tabla);
 		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
 		$salida = array();

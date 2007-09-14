@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --estado_defecto
+	'prueba', --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -203,7 +203,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --estado_defecto
+	'prueba', --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
