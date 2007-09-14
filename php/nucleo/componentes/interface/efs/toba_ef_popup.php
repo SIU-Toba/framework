@@ -61,7 +61,6 @@ class toba_ef_popup extends toba_ef_editable
 										$this->ventana );
         $vinculo->agregar_opcion('menu',1);
         $this->id_vinculo = toba::vinculador()->registrar_vinculo( $vinculo );
-
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}
 	
@@ -116,11 +115,13 @@ class toba_ef_popup extends toba_ef_editable
 			$r .= toba_form::hidden($this->id_form, $this->estado, $js);
 			$r .= toba_form::text($this->id_form."_desc", $this->descripcion_estado, false, "", $this->tamano, "ef-input", "disabled ");
 		}	
-		$display = ($this->solo_lectura) ? "visibility:hidden" : "";
-		$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
-		$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
-        $r .= " href='#'>".toba_recurso::imagen_toba('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
-        $r .= "</span>\n";
+		if (isset($this->id_vinculo)) {
+			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
+			$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
+			$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
+	        $r .= " href='#'>".toba_recurso::imagen_toba('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
+	        $r .= "</span>\n";
+		}
 		return $r;
 	}
     

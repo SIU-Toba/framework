@@ -284,7 +284,7 @@ class toba_proyecto
 	 */
 	function puede_grupo_acceder_item($proyecto, $item)
 	{
-		$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();	
+		$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles)) {
 			$this->indice_items_accesibles = array();

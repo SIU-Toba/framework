@@ -26,10 +26,10 @@ class ci_abms_principal extends ci_asistente_base
 		return false;
 	}
 	
-	function autocompletar_informacion($forzar_refresco=false)
+	function autocompletar_informacion($refrescar_todo=false)
 	{
 		$tabla = $this->dep('datos')->tabla('filas');
-		if($forzar_refresco) {
+		if($refrescar_todo) {
 			$tabla->eliminar_filas();	
 		}
 		//--- Recorre las columnas y las rellenas con los nuevos datos
@@ -71,6 +71,7 @@ class ci_abms_principal extends ci_asistente_base
 		list($sql, $id) = $db->get_sql_carga_tabla($this->get_nombre_tabla_actual());
 		$datos['cuadro_carga_sql'] = $sql;
 		$datos['cuadro_id'] = $id;
+		$datos['cuadro_carga_origen'] = 'datos_tabla';
 		$this->dep('datos')->tabla('base')->set($datos);		
 	}
 	
@@ -166,7 +167,8 @@ class ci_abms_principal extends ci_asistente_base
 
 	function evt__form_filas__refrescar($datos)
 	{
-		$this->autocompletar_informacion(true);
+		$this->evt__form_filas__modificacion($datos);
+		$this->autocompletar_informacion();
 	}
 	
 
@@ -288,7 +290,7 @@ class ci_abms_principal extends ci_asistente_base
 	
 	function evt__ml_filtro_filas__modificacion($datos)
 	{
-			$this->dep('datos')->tabla('filas')->procesar_filas($datos);
+		$this->dep('datos')->tabla('filas')->procesar_filas($datos);
 	}
 	
 	function conf__ml_filtro_filas(toba_ei_formulario_ml $ml)

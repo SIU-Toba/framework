@@ -175,12 +175,11 @@ class toba_proyecto_db
 		$sql = "SELECT DISTINCT
 						i.proyecto as proyecto,
 						i.item as item
-				FROM	apex_item i,
-						apex_usuario_grupo_acc_item ui
+				FROM	apex_item i 
+								LEFT OUTER JOIN apex_usuario_grupo_acc_item ui ON 
+									(i.item = ui.item AND i.proyecto = ui.proyecto)
 				WHERE	(i.carpeta <> 1 OR i.carpeta IS NULL)
-				AND		ui.item = i.item
-				AND		ui.proyecto = i.proyecto
-				AND		ui.proyecto = '$proyecto'
+				AND		i.proyecto = '$proyecto'
 				AND		(ui.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)";
 		return self::get_db()->consultar($sql);
 	}

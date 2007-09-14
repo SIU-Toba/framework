@@ -93,48 +93,9 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__columnas__leer_db()
 	{
-		$columnas = $this->obtener_definicion_columnas();
-		$dbr = $this->get_entidad()->tabla("columnas");
-		$actuales = $dbr->get_filas(null, true);
-		for($a=0;$a<count($columnas);$a++){
-			try{
-				//--- Evita incluir dos veces el mismo nombre
-				$nueva = true;
-				foreach ($actuales as $id => $actual) {
-					if ($columnas[$a]['columna'] == $actual['columna']) {
-						$nueva = false;
-					}
-				}
-				if ($nueva) {
-					$dbr->nueva_fila($columnas[$a]);
-				}
-			}catch(toba_error $e){
-				toba::notificacion()->agregar("Error agregando la COLUMNA '{$columnas[$a]['columna']}'. " . $e->getMessage());
-			}
-		}
+		$this->get_entidad()->actualizar_campos();
 	}
 
-	function obtener_definicion_columnas()
-	//Utilizo ADODB para recuperar los metadatos
-	{
-		//-[ 1 ]- Obtengo datos
-		$tabla = $this->get_entidad()->tabla("prop_basicas")->get_fila_columna(0,"tabla");
-		$reg = $this->get_entidad()->tabla("base")->get();
-		$proyecto = $reg['fuente_datos_proyecto'];
-		$id_fuente = $reg['fuente_datos'];
-		$fuente = toba::db($id_fuente, toba_editor::get_proyecto_cargado());
-		try{
-			$columnas = $fuente->get_definicion_columnas($tabla);
-			foreach(array_keys($columnas) as $id){
-				$columnas[$id]['columna'] = $columnas[$id]['nombre'];	
-				$columnas[$id]['largo'] = $columnas[$id]['longitud'];	
-				$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];	
-			}
-			return $columnas;
-		}catch(toba_error $e){
-			toba::notificacion()->agregar( $e->getMessage() );
-		}
-	}	
 	
 	//*******************************************************************
 	//**  EXTERNAS  *****************************************************

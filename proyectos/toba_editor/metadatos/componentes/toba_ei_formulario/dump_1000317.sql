@@ -165,7 +165,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	'datos_tabla', --estado_defecto
+	NULL, --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
