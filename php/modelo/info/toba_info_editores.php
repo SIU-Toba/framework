@@ -454,29 +454,42 @@ class toba_info_editores
 		$excluir_padre = isset($componente_padre) ? "AND objeto_consumidor <> '$componente_padre'" : "";
 		$sql = "SELECT 	o.proyecto as 			proyecto, 
 						o.objeto as 			objeto,
+						o.nombre as 			nombre,
 						o.clase as 				clase,
 						o.subclase as			subclase,
 						o.subclase_archivo as	subclase_archivo,
+						c.icono as				icono,
 						(SELECT COUNT(*) 
 							FROM apex_objeto_dependencias dd
 							WHERE dd.objeto_proveedor = o.objeto
 							AND dd.proyecto = '$proyecto' $excluir_padre ) as consumidores_externos,
 						d.objeto_proveedor as 	dep
 				FROM 	apex_objeto o LEFT OUTER JOIN apex_objeto_dependencias d
-						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto
-				WHERE 	o.objeto = '$componente' 
-				AND 	o.proyecto = '$proyecto'";
+						ON o.objeto = d.objeto_consumidor AND o.proyecto = d.proyecto,
+						apex_clase c
+				WHERE 	
+						o.objeto = '$componente' 
+					AND o.proyecto = '$proyecto'
+					AND o.clase = c.clase
+		";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		$resultado[$id] = array( 	'tipo' => $datos[0]['clase'], 
 									'componente'=> $datos[0]['objeto'],
 									'proyecto' => $datos[0]['proyecto'],
 									'subclase' => $datos[0]['subclase'],
 									'subclase_archivo' => $datos[0]['subclase_archivo'],
+									'icono' => $datos[0]['icono'],
+									'nombre' => $datos[0]['nombre'],
 									'consumidores_externos' => $datos[0]['consumidores_externos']);
+		//ei_arbol($datos, $componente_padre. ' '.$resultado[$id]['componente']);									
 		foreach($datos as $componente_hijo) {
 			if(isset($componente_hijo['dep'])) {
 				$id++;
-				$resultado = array_merge($resultado, self::get_arbol_componentes_componente($componente_hijo['proyecto'], $componente_hijo['dep'], $componente));
+				$nietos = self::get_arbol_componentes_componente($componente_hijo['proyecto'], $componente_hijo['dep'], $componente);
+				foreach ($nietos as $id_nieto => $nieto) {
+					$nietos[$id_nieto]['consumidores_externos'] +=  $datos[0]['consumidores_externos'];
+				}
+				$resultado = array_merge($resultado, $nietos);
 			}
 		}
 		return $resultado;

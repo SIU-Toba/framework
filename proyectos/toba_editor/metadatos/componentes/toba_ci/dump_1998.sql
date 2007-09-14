@@ -49,9 +49,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1998', --objeto
 	'eliminar', --identificador
 	'Eliminar', --etiqueta
-	'0', --maneja_datos
+	'1', --maneja_datos
 	NULL, --sobre_fila
-	NULL, --confirmacion
+	'Por favor confirme la eliminación de los componentes seleccionados.', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.png', --imagen
@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form', --objetos
-	'eliminar', --eventos
+	'eliminar,', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

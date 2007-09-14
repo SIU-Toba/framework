@@ -1,3 +1,9 @@
+/* Algunos estilos especificos por operaciones */
+#cuerpo_js_form_1999_form * {
+	text-align:center;
+}
+
+
 /* Se sacan algunos bordes */
 .ei-form-base, .ei-cuadro-cc-fondo, .ei-cuadro-cuerpo, .ci-tabs-h-cont, .ci-cuerpo {
 	border:none !important;
