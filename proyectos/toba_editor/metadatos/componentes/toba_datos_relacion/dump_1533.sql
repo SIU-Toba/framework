@@ -66,11 +66,11 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	'toba_editor', --padre_proyecto
 	'1501', --padre_objeto
 	'base', --padre_id
-	'proyecto,objeto', --padre_clave
+	'proyecto,objeto,fuente_datos_proyecto,fuente_datos', --padre_clave
 	'toba_editor', --hijo_proyecto
 	'1527', --hijo_objeto
 	'prop_basicas', --hijo_id
-	'objeto_proyecto,objeto', --hijo_clave
+	'objeto_proyecto,objeto,fuente_datos_proyecto,fuente_datos', --hijo_clave
 	'0', --cascada
 	'1'  --orden
 );

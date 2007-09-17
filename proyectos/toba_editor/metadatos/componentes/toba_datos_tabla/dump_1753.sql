@@ -41,7 +41,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
-INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves) VALUES (
+INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, ap, ap_clase, ap_archivo, tabla, alias, modificar_claves, fuente_datos_proyecto, fuente_datos) VALUES (
 	'toba_editor', --objeto_proyecto
 	'1753', --objeto
 	NULL, --max_registros
@@ -51,7 +51,9 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	NULL, --ap_archivo
 	'apex_objeto_esquema', --tabla
 	NULL, --alias
-	'0'  --modificar_claves
+	'0', --modificar_claves
+	'toba_editor', --fuente_datos_proyecto
+	'instancia'  --fuente_datos
 );
 
 ------------------------------------------------------------

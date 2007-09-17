@@ -15,7 +15,9 @@ class toba_migracion_1_1_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr_proyecto				varchar(15)	";
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr						int4		";
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN utiliza_fuente_datos			int4		";
-		$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (tabla)";
+		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos_proyecto			varchar(15)";		
+		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos					varchar(20)";				
+		$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (tabla,fuente_datos_proyecto,fuente_datos)";
 		$sql[] = "	CREATE TABLE apex_objeto_db_registros_uniq
 					(
 						objeto_proyecto    			   	varchar(15)		NOT NULL,
@@ -72,7 +74,29 @@ class toba_migracion_1_1_0 extends toba_migracion
 		$sql[] = "UPDATE apex_objeto SET clase = 'toba_ei_formulario'         WHERE clase =  'objeto_ei_formulario';                      ";
 		$sql[] = "UPDATE apex_objeto SET clase = 'toba_ei_filtro'  			WHERE clase =  'objeto_ei_filtro';                      ";
 		$sql[] = "UPDATE apex_objeto SET clase = 'toba_ei_formulario_ml'      WHERE clase =  'objeto_ei_formulario_ml';                          ";
+
 		$this->elemento->get_db()->ejecutar($sql);
+	}
+	
+
+	/**
+	 * Para poder utilizar el unique de (tabla,fuente) es necesario replicar la info de la fuente en la tabla del datos_tabla
+	 */
+	function proyecto__dt_duplicacion_fuente()
+	{
+		$sql[] = "
+			UPDATE apex_objeto_db_registros 
+				SET 
+					fuente_datos = (SELECT fuente_datos FROM apex_objeto WHERE 
+											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto 
+										AND apex_objeto.objeto = apex_objeto_db_registros.objeto ),
+					fuente_datos_proyecto = (SELECT fuente_datos_proyecto FROM apex_objeto WHERE 
+											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto 
+										AND apex_objeto.objeto = apex_objeto_db_registros.objeto )
+				WHERE
+					objeto_proyecto = '{$this->elemento->get_id()}'
+		";
+		return $this->elemento->get_db()->ejecutar($sql);
 	}
 }
 	

@@ -70,9 +70,11 @@ CREATE TABLE apex_objeto_db_registros
 	tabla 							varchar(120)	NULL,
 	alias 							varchar(60)		NULL,
 	modificar_claves				smallint		NULL,
+	fuente_datos_proyecto			varchar(15)		NULL,
+	fuente_datos					varchar(20)		NULL,	
 --	Fin configuracion del AP
 	CONSTRAINT  "apex_objeto_dbr_pk" PRIMARY KEY ("objeto_proyecto","objeto"),
-	CONSTRAINT	"apex_objeto_dbr_uq_tabla" UNIQUE ("objeto_proyecto","tabla"),
+	CONSTRAINT	"apex_objeto_dbr_uq_tabla" UNIQUE ("objeto_proyecto","fuente_datos_proyecto", "fuente_datos", "tabla"),
 	CONSTRAINT  "apex_objeto_dbr_fk_ap"  FOREIGN KEY ("ap") REFERENCES   "apex_admin_persistencia" ("ap") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_objeto_dbr_fk_objeto"  FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES   "apex_objeto" ("proyecto","objeto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 
