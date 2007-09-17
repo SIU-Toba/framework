@@ -18,7 +18,7 @@ class odr_datos_tabla extends toba_datos_relacion
 		foreach(array_keys($columnas) as $id){
 			$columnas[$id]['columna'] = $columnas[$id]['nombre'];	
 			$columnas[$id]['largo'] = $columnas[$id]['longitud'];	
-			$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];	
+			$columnas[$id]['no_nulo_db'] = $columnas[$id]['not_null'];
 		}
 		$dbr = $this->tabla("columnas");
 		$actuales = $dbr->get_filas(null, true);

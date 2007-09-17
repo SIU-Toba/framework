@@ -655,6 +655,12 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					$valores_sql[$a] = "NULL";
 				}else{
 					if(	toba_tipo_datos::numero($columna['tipo']) ){
+						//-- Los booleanos muchas veces se representan como enteros en la base
+						if ($registro[$col] === true) {
+							$registro[$col] = 1;
+						} elseif ($registro[$col] === false) {
+							$registro[$col] = 0;
+						}
 						$valores_sql[$a] = $registro[$col];
 					}else{
 						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";

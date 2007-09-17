@@ -534,6 +534,7 @@ class toba_nucleo
 			'toba_db_tablas_nucleo'					=> 'modelo/estructura_db/toba_db_tablas_nucleo.php',
 			'toba_db_tablas_proyecto'				=> 'modelo/estructura_db/toba_db_tablas_proyecto.php',
 			'toba_modelo_elemento'					=> 'modelo/lib/toba_modelo_elemento.php',
+			'toba_modelo_operacion'					=> 'modelo/lib/toba_modelo_operacion.php',			
 			'toba_error_modelo'						=> 'modelo/lib/toba_modelo_error.php',
 			'toba_error_modelo_preexiste'			=> 'modelo/lib/toba_modelo_error.php',
 			'toba_error_asistentes'					=> 'modelo/lib/toba_modelo_error.php',

@@ -218,7 +218,7 @@ abstract class toba_asistente
 	{
 		$dt_actual = toba_info_editores::get_dt_de_tabla_fuente($nombre, $this->get_fuente());
 		if (empty($dt_actual)) {		
-			$tabla->set_tabla($nombre);
+			$tabla->crear($nombre);
 			foreach( $filas as $fila ) {
 				$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
 				if($fila['dt_pk']){

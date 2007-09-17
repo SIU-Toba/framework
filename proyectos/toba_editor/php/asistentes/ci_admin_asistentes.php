@@ -7,6 +7,7 @@ class ci_admin_asistentes extends toba_ci
 	protected $s__opciones_generacion;
 	protected $s__formulario_tipo;
 	protected $s__molde_preexistente = false;
+	protected $operacion_borrar;
 
 	function ini__operacion()
 	{
@@ -114,7 +115,7 @@ class ci_admin_asistentes extends toba_ci
 	{
 		try {
 			$bloqueos = $this->asistente(true)->get_bloqueos();
-			if(! empty($bloqueos) ) {
+			if (! empty($bloqueos) ) {
 				return true;
 			}
 			$confirmaciones = $this->asistente()->get_opciones_generacion();
@@ -133,6 +134,7 @@ class ci_admin_asistentes extends toba_ci
 
 	function conf__pant_confirmacion()
 	{
+		$this->cargar_operacion_borrar();
 		try {
 			//Si hay algun tema bloqueante, no dejo hacer nada
 			$bloqueos = $this->asistente(true)->get_bloqueos();
@@ -164,7 +166,15 @@ class ci_admin_asistentes extends toba_ci
 	}
 
 	//--- Opciones de generacion ----
-
+	function cargar_operacion_borrar()
+	{
+		if (! isset($this->operacion_borrar)) {
+			$info = toba::zona()->get_info();
+			$this->operacion_borrar = new toba_modelo_operacion($info['proyecto'], $info['item']);
+		}
+		return $this->operacion_borrar;
+	}
+	
 	function conf__form_generaciones($componente)
 	{
 		$componente->set_datos( $this->asistente()->get_opciones_generacion() );
@@ -174,6 +184,12 @@ class ci_admin_asistentes extends toba_ci
 	{
 		$this->s__opciones_generacion = $datos;
 	}
+	
+	function conf__form_eliminacion()
+	{
+		$this->cargar_operacion_borrar();
+		return $this->operacion_borrar->get_info_eliminacion();
+	}
 
 	function evt__generar()
 	{
@@ -182,12 +198,13 @@ class ci_admin_asistentes extends toba_ci
 
 	function asistente($reset=false)
 	{
-		if($reset || !isset($this->asistente)) {
+		if ($reset || !isset($this->asistente)) {
 			$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
 																			$this->s__clave_molde['molde'] );
 			$this->asistente->preparar_molde();
 		}
 		return $this->asistente;
 	}
+	
 }
 ?>
