@@ -13,6 +13,12 @@ class toba_item_molde extends toba_molde_elemento
 		$this->set_tipo_pagina('titulo');
 	}
 	
+	
+	function cargar($id)
+	{
+		$this->datos->cargar(array('proyecto' => $this->proyecto, 'item' => $id));
+	}
+	
 	//----------------------------------------------------
 	//-- API CONSTRUCCION
 	//----------------------------------------------------
@@ -27,6 +33,11 @@ class toba_item_molde extends toba_molde_elemento
 	{
 		if(!isset($this->cn)) $this->cn = new toba_cn_molde($this->asistente);
 		return $this->cn;
+	}
+	
+	function set_ci($ci)
+	{
+		$this->ci = $ci;
 	}
 
 	function set_carpeta_item($id)

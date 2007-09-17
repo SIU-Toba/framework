@@ -105,11 +105,18 @@ class toba_zona
 	}
 
 	/**
-	 * Retorna la información relacionada con el editable actualmente cargado
+	 *  Retorna la información relacionada con el editable actualmente cargado
+	 *
+	 * @param mixed $clave Si la información es un arreglo permite retornar una componente del mismo
+	 * @return mixed
 	 */
-	function get_info()
+	function get_info($clave=null)
 	{
-		return $this->editable_info;
+		if (! isset($clave)) {
+			return $this->editable_info;
+		} else {
+			return $this->editable_info[$clave];
+		}
 	}
 	
 	protected function get_editable_nombre()

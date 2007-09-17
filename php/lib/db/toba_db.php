@@ -447,7 +447,7 @@ class toba_db
 			$sql .= ",\n\t".implode(",\n\t",$from)."\n";			
 		}
 		if (!empty($where)) {
-			$sql .= "WHERE\n\t".implode(",\n\t",$where)."\n";
+			$sql .= "WHERE\n\t\t".implode("\n\tAND  ",$where)."\n";
 		}
 		return array($sql, implode(',',$claves), $campo_descripcion);
 	}

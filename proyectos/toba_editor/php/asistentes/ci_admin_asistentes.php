@@ -106,7 +106,7 @@ class ci_admin_asistentes extends toba_ci
 		if( $this->generacion_requiere_confirmacion() ) {
 			$this->set_pantalla('pant_confirmacion');	
 		} else {
-			$this->asistente()->crear_operacion();
+			$this->evt__generar();
 		}
 	}
 
@@ -177,7 +177,7 @@ class ci_admin_asistentes extends toba_ci
 
 	function evt__generar()
 	{
-		$this->asistente()->crear_operacion( $this->s__opciones_generacion );
+		$this->asistente()->crear_operacion(toba::zona()->get_info('item'), $this->s__opciones_generacion );
 	}	
 
 	function asistente($reset=false)

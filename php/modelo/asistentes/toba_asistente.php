@@ -73,7 +73,7 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function crear_operacion($retorno_opciones_generacion=null)
+	function crear_operacion($id_item, $retorno_opciones_generacion=null)
 	{
 		//Registro las opciones de generacion
 		if(isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion) ) {
@@ -83,7 +83,7 @@ abstract class toba_asistente
 		}
 		try {
 			abrir_transaccion();
-			$this->generar_elementos();
+			$this->generar_elementos($id_item);
 			cerrar_transaccion();
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 			return $this->log_elementos_creados;
@@ -94,9 +94,14 @@ abstract class toba_asistente
 		}
 	}
 
-	protected function generar_elementos()
+	protected function generar_elementos($id_item)
 	{
-		$this->ci->generar();
+		//--- Carga el item acual y le asigna el ci creado
+		$item = new toba_item_molde($this);
+		$item->cargar($id_item);
+		$item->set_ci($this->ci);
+		$item->generar();
+		
 		$this->generar_archivos_consultas();
 		$this->guardar_log_elementos_generados();
 	}
