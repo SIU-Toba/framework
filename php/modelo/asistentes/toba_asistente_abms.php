@@ -4,7 +4,7 @@ class toba_asistente_abms extends toba_asistente
 {
 	protected $confirmacion_eliminar = '¿Desea eliminar el registro?';
 	protected $mensaje_filtro_incompleto = 'El filtro no posee valores';
-
+	
 	protected function generar()
 	{	
 		$clase = $this->molde['prefijo_clases'] . 'ci';

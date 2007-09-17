@@ -167,3 +167,5 @@ class Image_Barcode_int25
     } // function create
 
 } // class
+
+?>

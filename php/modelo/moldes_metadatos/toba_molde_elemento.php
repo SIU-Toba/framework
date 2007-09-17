@@ -27,7 +27,10 @@ class toba_molde_elemento
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
 		$this->datos = toba_constructor::get_runtime($componente);
 		$this->datos->tabla('base')->nueva_fila(array(	'nombre'=>$this->clase.' generado automaticamente',
-														'proyecto'=>$this->proyecto) );
+														'proyecto'=>$this->proyecto,
+														'fuente_datos_proyecto' => $this->proyecto,
+														'fuente_datos' => $this->asistente->get_fuente()
+														) );
 		$this->datos->tabla('base')->set_cursor(0);
 		$this->ini();
 	}

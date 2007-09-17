@@ -87,8 +87,8 @@ abstract class toba_asistente
 			cerrar_transaccion();
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
 			return $this->log_elementos_creados;
-		} catch (toba_error_asistentes $e) {
-			toba::logger()->debug($e);
+		} catch (toba_error $e) {
+			toba::logger()->error($e);
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
 			abortar_transaccion();
 		}
@@ -211,15 +211,21 @@ abstract class toba_asistente
 	
 	function generar_datos_tabla($tabla, $nombre, $filas)
 	{
-		$tabla->set_tabla($nombre);
-		foreach( $filas as $fila ) {
-			$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
-			if($fila['dt_pk']){
-				$col->pk();
+		$dt_actual = toba_info_editores::get_dt_de_tabla_fuente($nombre, $this->get_fuente());
+		if (empty($dt_actual)) {		
+			$tabla->set_tabla($nombre);
+			foreach( $filas as $fila ) {
+				$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
+				if($fila['dt_pk']){
+					$col->pk();
+				}
+				if($fila['dt_secuencia']){
+					$col->set_secuencia($fila['dt_secuencia']);
+				}
 			}
-			if($fila['dt_secuencia']){
-				$col->set_secuencia($fila['dt_secuencia']);
-			}
+		} else {
+			$tabla->cargar($dt_actual['id']);
+			$tabla->actualizar_campos();
 		}
 	}
 
@@ -239,6 +245,11 @@ abstract class toba_asistente
 	{
 		return $this->id_elemento++;
 	}
+
+	function get_fuente()
+	{
+		return $this->molde_abms['fuente'];
+	}	
 
 	//-- Manejo de consultas_php ------------------------
 

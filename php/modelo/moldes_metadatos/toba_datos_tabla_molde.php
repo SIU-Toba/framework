@@ -5,22 +5,32 @@
 class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 {
 	protected $clase = 'toba_datos_tabla';
-	protected $columnas;
+	protected $columnas = array();
 	
 	function ini()
 	{
 		parent::ini();
-		$this->datos->tabla('prop_basicas')->nueva_fila(array('ap'=>1));	//Admin persistencia por defecto
-		$this->datos->tabla('prop_basicas')->set_cursor(0);
 	}
 	
+	function crear($tabla)
+	{
+		$this->datos->tabla('prop_basicas')->nueva_fila(array('ap'=>1));	//Admin persistencia por defecto
+		$this->datos->tabla('prop_basicas')->set_cursor(0);
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla);		
+	}
+	
+	function cargar($id)
+	{
+		$this->datos->cargar(array('proyecto' => $this->proyecto, 'objeto' => $id));
+	}
+
 	//---------------------------------------------------
 	//-- API de construccion
-	//---------------------------------------------------	
-
-	function set_tabla($tabla)
+	//---------------------------------------------------		
+	
+	function actualizar_campos()
 	{
-		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla);
+		$this->datos->actualizar_campos();
 	}
 
 	function set_ap($subclase, $archivo)
