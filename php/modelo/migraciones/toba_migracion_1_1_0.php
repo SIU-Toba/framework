@@ -90,9 +90,7 @@ class toba_migracion_1_1_0 extends toba_migracion
 					fuente_datos = (SELECT fuente_datos FROM apex_objeto WHERE 
 											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto 
 										AND apex_objeto.objeto = apex_objeto_db_registros.objeto ),
-					fuente_datos_proyecto = (SELECT fuente_datos_proyecto FROM apex_objeto WHERE 
-											apex_objeto.proyecto = apex_objeto_db_registros.objeto_proyecto 
-										AND apex_objeto.objeto = apex_objeto_db_registros.objeto )
+					fuente_datos_proyecto = '{$this->elemento->get_id()}'
 				WHERE
 					objeto_proyecto = '{$this->elemento->get_id()}'
 		";

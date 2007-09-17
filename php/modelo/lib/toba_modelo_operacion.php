@@ -16,6 +16,11 @@ class toba_modelo_operacion
 		$this->arbol = toba_info_editores::get_arbol_componentes_item($proyecto, $item);
 	}
 	
+	function hay_componentes_eliminar()
+	{
+		return count($this->arbol) > 1;
+	}
+	
 	function get_info_eliminacion()
 	{
 		$datos = array();

@@ -317,7 +317,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_eliminacion,form_generaciones', --objetos
+	'form_generaciones,form_eliminacion', --objetos
 	'volver_generar,generar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

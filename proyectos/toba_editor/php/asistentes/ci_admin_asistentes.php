@@ -122,6 +122,10 @@ class ci_admin_asistentes extends toba_ci
 			if(! empty($confirmaciones) ) {
 				return true;
 			}
+			$this->cargar_operacion_borrar();
+			if ($this->operacion_borrar->hay_componentes_eliminar()) {
+				return true;
+			}
 			return false;
 		} catch ( toba_error_asistentes $e ) {
 			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
@@ -136,6 +140,11 @@ class ci_admin_asistentes extends toba_ci
 	{
 		$this->cargar_operacion_borrar();
 		try {
+			if (! $this->operacion_borrar->hay_componentes_eliminar()) {
+				$this->pantalla()->eliminar_dep('form_eliminacion');
+			} else {
+				$this->dep('form_eliminacion')->set_titulo('Eliminar componentes actuales');
+			}
 			//Si hay algun tema bloqueante, no dejo hacer nada
 			$bloqueos = $this->asistente(true)->get_bloqueos();
 			if(! empty($bloqueos)) {
