@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1538]--  OBJETO - EI archivos 
+--[1538]--  Comp. ei_archivos 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI archivos', --nombre
+	'Comp. ei_archivos', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1610]--  OBJETO - ei_arbol 
+--[1610]--  Comp. ei_arbol 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - ei_arbol', --nombre
+	'Comp. ei_arbol', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

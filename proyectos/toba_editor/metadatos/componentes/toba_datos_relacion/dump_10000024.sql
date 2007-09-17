@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[10000024]--  PUNTOS DE CONTROL - relacion 
+--[10000024]--  Puntos de Control 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'PUNTOS DE CONTROL - relacion', --nombre
+	'Puntos de Control', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

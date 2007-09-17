@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1534]--  OBJETO - EI formulario 
+--[1534]--  Comp. ei_formulario 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI formulario', --nombre
+	'Comp. ei_formulario', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1554]--  Objeto - El item 
+--[1554]--  Item 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Objeto - El item', --nombre
+	'Item', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

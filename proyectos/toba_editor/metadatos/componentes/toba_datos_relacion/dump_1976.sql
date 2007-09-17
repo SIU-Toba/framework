@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1976]--  COMPONENTES - datos 
+--[1976]--  Tipos de componentes 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'COMPONENTES - datos', --nombre
+	'Tipos de componentes', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

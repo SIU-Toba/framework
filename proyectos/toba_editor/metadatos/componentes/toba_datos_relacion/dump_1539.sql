@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1539]--  OBJETO - EI calendario 
+--[1539]--  Comp. ei_calendario 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI calendario', --nombre
+	'Comp. ei_calendario', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

@@ -199,6 +199,21 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
+	'1000189', --dep_id
+	'1000292', --objeto_consumidor
+	'1999', --objeto_proveedor
+	'form_eliminacion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 1
+
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
@@ -302,8 +317,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_generaciones', --objetos
-	'generar,volver_generar', --eventos
+	'form_eliminacion,form_generaciones', --objetos
+	'volver_generar,generar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

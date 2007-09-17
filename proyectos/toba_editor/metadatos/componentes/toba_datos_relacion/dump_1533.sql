@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1533]--  OBJETO - DATOS tabla 
+--[1533]--  Comp. datos_tabla 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'db/odr_datos_tabla.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - DATOS tabla', --nombre
+	'Comp. datos_tabla', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

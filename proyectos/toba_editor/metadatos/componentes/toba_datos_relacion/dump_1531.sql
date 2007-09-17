@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1531]--  OBJETO - EI cuadro 
+--[1531]--  Comp. ei_cuadro 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'db/odr_ei_cuadro.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI cuadro', --nombre
+	'Comp. ei_cuadro', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

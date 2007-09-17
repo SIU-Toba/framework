@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1507]--  OBJETO - EI ci 
+--[1507]--  Comp. ci 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'db/odr_ci.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI ci', --nombre
+	'Comp. ci', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

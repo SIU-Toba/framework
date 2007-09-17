@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1752]--  OBJETO - EI esquema 
+--[1752]--  Comp. ei_esquema 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI esquema', --nombre
+	'Comp. ei_esquema', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1532]--  OBJETO - DATOS relacion 
+--[1532]--  Comp. datos_relacion 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - DATOS relacion', --nombre
+	'Comp. datos_relacion', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

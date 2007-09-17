@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000130]--  EF - relacion 
+--[1000130]--  Comp. ef 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'EF - relacion', --nombre
+	'Comp. ef', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

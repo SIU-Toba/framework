@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000294]--  Asistente - ABMS - datos 
+--[1000294]--  Asistente abms 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Asistente - ABMS - datos', --nombre
+	'Asistente abms', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion

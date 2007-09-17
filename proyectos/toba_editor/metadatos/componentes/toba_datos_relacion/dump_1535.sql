@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1535]--  OBJETO - EI filtro 
+--[1535]--  Comp. ei_filtro 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'OBJETO - EI filtro', --nombre
+	'Comp. ei_filtro', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
