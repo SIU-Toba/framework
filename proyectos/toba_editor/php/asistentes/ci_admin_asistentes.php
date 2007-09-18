@@ -177,6 +177,7 @@ class ci_admin_asistentes extends toba_ci
 	function evt__generar()
 	{
 		$this->asistente()->crear_operacion(toba::zona()->get_info('item'), $this->s__opciones_generacion );
+		admin_util::refrescar_editor_item(toba::zona()->get_info('item'));
 	}	
 
 	function asistente($reset=false)
