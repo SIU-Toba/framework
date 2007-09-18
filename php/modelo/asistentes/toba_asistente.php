@@ -83,6 +83,10 @@ abstract class toba_asistente
 		}
 		try {
 			abrir_transaccion();
+			//--Borra los actuales
+			$op_actual = new toba_modelo_operacion($this->id_molde_proyecto, $id_item);
+			$op_actual->eliminar_componentes_propios(false);
+			//--Genera los nuevos
 			$this->generar_elementos($id_item);
 			cerrar_transaccion();
 			toba::notificacion()->agregar('La generación se realizó exitosamente','info');
@@ -253,7 +257,7 @@ abstract class toba_asistente
 
 	function get_fuente()
 	{
-		return $this->molde_abms['fuente'];
+		return $this->molde['fuente'];
 	}	
 
 	//-- Manejo de consultas_php ------------------------

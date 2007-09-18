@@ -7,7 +7,6 @@ class ci_admin_asistentes extends toba_ci
 	protected $s__opciones_generacion;
 	protected $s__formulario_tipo;
 	protected $s__molde_preexistente = false;
-	protected $operacion_borrar;
 
 	function ini__operacion()
 	{
@@ -122,10 +121,6 @@ class ci_admin_asistentes extends toba_ci
 			if(! empty($confirmaciones) ) {
 				return true;
 			}
-			$this->cargar_operacion_borrar();
-			if ($this->operacion_borrar->hay_componentes_eliminar()) {
-				return true;
-			}
 			return false;
 		} catch ( toba_error_asistentes $e ) {
 			toba::notificacion()->agregar("El molde que desea cargar posee errores en su definicion: " . $e->getMessage() );
@@ -138,13 +133,7 @@ class ci_admin_asistentes extends toba_ci
 
 	function conf__pant_confirmacion()
 	{
-		$this->cargar_operacion_borrar();
 		try {
-			if (! $this->operacion_borrar->hay_componentes_eliminar()) {
-				$this->pantalla()->eliminar_dep('form_eliminacion');
-			} else {
-				$this->dep('form_eliminacion')->set_titulo('Eliminar componentes actuales');
-			}
 			//Si hay algun tema bloqueante, no dejo hacer nada
 			$bloqueos = $this->asistente(true)->get_bloqueos();
 			if(! empty($bloqueos)) {
@@ -174,16 +163,7 @@ class ci_admin_asistentes extends toba_ci
 		$this->set_pantalla('pant_edicion');	
 	}
 
-	//--- Opciones de generacion ----
-	function cargar_operacion_borrar()
-	{
-		if (! isset($this->operacion_borrar)) {
-			$info = toba::zona()->get_info();
-			$this->operacion_borrar = new toba_modelo_operacion($info['proyecto'], $info['item']);
-		}
-		return $this->operacion_borrar;
-	}
-	
+
 	function conf__form_generaciones($componente)
 	{
 		$componente->set_datos( $this->asistente()->get_opciones_generacion() );
@@ -194,12 +174,6 @@ class ci_admin_asistentes extends toba_ci
 		$this->s__opciones_generacion = $datos;
 	}
 	
-	function conf__form_eliminacion()
-	{
-		$this->cargar_operacion_borrar();
-		return $this->operacion_borrar->get_info_eliminacion();
-	}
-
 	function evt__generar()
 	{
 		$this->asistente()->crear_operacion(toba::zona()->get_info('item'), $this->s__opciones_generacion );

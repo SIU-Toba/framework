@@ -133,6 +133,9 @@ class ci_abms_principal extends ci_asistente_base
 
 	function evt__form_basico__modificacion($datos)
 	{
+		if (isset($datos['fuente'])) {
+			$this->dep('datos')->tabla('molde')->set(array('fuente' => $datos['fuente']));
+		}
 		$tabla_vieja = $this->get_nombre_tabla_actual();
 		$this->dep('datos')->tabla('base')->set($datos);
 		//--- Si cambio de tabla se regenera la información
@@ -144,9 +147,12 @@ class ci_abms_principal extends ci_asistente_base
 
 	function conf__form_basico(toba_ei_formulario $form)
 	{
-		$datos = $this->dep('datos')->tabla('base')->get();
-		if (!isset($datos)) {
+		$datos = $this->dep('datos')->tabla('base')->get();		
+		$datos_molde = $this->dep('datos')->tabla('molde')->get();
+		if (! isset($datos_molde['fuente'])) {
 			$datos['fuente'] = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
+		} else {
+			$datos['fuente'] = $datos_molde['fuente'];
 		}
 		return $datos;
 	}

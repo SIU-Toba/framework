@@ -21,6 +21,9 @@ class toba_modelo_operacion
 		return count($this->arbol) > 1;
 	}
 	
+	/**
+	 * Retorna un recorset con la información de los componentes a borrar
+	 */
 	function get_info_eliminacion()
 	{
 		$datos = array();
@@ -58,6 +61,27 @@ class toba_modelo_operacion
 			$a++;
 		}
 		return $datos;
+	}
+	
+	/**
+	 * Elimina de la operación aquellos componentes que no tienen referencias externas o son de datos
+	 */
+	function eliminar_componentes_propios($con_transaccion=true)
+	{
+		$arbol_componentes = array_slice($this->arbol,1);
+		$opciones = array();
+		foreach( $arbol_componentes as $arbol ) {
+			$eliminar = false;
+			//-- Esta embebido?
+			if ($arbol['consumidores_externos'] == 0) {
+				//-- No es un datos?				
+				if (!in_array($arbol['tipo'], array('toba_datos_tabla', 'toba_datos_relacion'))) {
+					$eliminar = true;
+				}
+			}
+			$opciones[$arbol['componente']] = array('eliminar' => $eliminar, 'eliminar_archivo' => false);
+		}
+		$this->eliminar(false, $opciones, $con_transaccion);
 	}
 
 	/**

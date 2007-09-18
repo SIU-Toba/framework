@@ -7,28 +7,28 @@
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, item, carpeta_archivos, prefijo_clases) VALUES (
+INSERT INTO apex_molde_operacion (proyecto, molde, operacion_tipo, nombre, item, carpeta_archivos, prefijo_clases, fuente) VALUES (
 	'toba_editor', --proyecto
 	'2', --molde
 	'10', --operacion_tipo
 	NULL, --nombre
 	'3401', --item
 	'eeeee', --carpeta_archivos
-	'eeeee'  --prefijo_clases
+	'eeeee', --prefijo_clases
+	'instancia'  --fuente
 );
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
 -- apex_molde_operacion_abms
 ------------------------------------------------------------
-INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, fuente, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
+INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, gen_separar_pantallas, filtro_comprobar_parametros, cuadro_eof, cuadro_eliminar_filas, cuadro_id, cuadro_forzar_filtro, cuadro_carga_origen, cuadro_carga_sql, cuadro_carga_php_include, cuadro_carga_php_clase, cuadro_carga_php_metodo, datos_tabla_validacion, apdb_pre) VALUES (
 	'toba_editor', --proyecto
 	'2', --molde
 	'apex_admin_param_previsualizazion', --tabla
 	'0', --gen_usa_filtro
 	NULL, --gen_separar_pantallas
 	NULL, --filtro_comprobar_parametros
-	NULL, --fuente
 	NULL, --cuadro_eof
 	NULL, --cuadro_eliminar_filas
 	'proyecto,usuario', --cuadro_id

@@ -21,7 +21,6 @@ class toba_asistente_abms_def extends toba_asistente_def
 		$sql['molde_abms']['sql'] = "SELECT			proyecto  							,
 													molde								,
 													tabla								,
-													fuente								,
 													gen_usa_filtro						,
 													gen_separar_pantallas				,
 													cuadro_eof							,

@@ -19,6 +19,7 @@ class toba_asistente_def implements toba_componente_definicion
 											p.item		as				item					,
 											p.carpeta_archivos	as				carpeta_archivos		,
 											p.prefijo_clases	as				prefijo_clases,
+											p.fuente			as				fuente,
 											t.clase				as				clase				
 						FROM	apex_molde_operacion p,
 								apex_molde_operacion_tipo t
