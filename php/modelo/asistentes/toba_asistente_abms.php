@@ -5,6 +5,113 @@ class toba_asistente_abms extends toba_asistente
 	protected $confirmacion_eliminar = '¿Desea eliminar el registro?';
 	protected $mensaje_filtro_incompleto = 'El filtro no posee valores';
 	
+	#####################################################################################
+	################################   Autocompletado   #################################
+	#####################################################################################
+	
+	function posee_informacion_completa()
+	{
+		$mensajes = array();
+		if( parent::posee_informacion_completa() ) {
+			$base = $this->dr_molde->tabla('base')->get();	
+			if( !isset($base['tabla'])) {
+				return false;	
+			}
+			if(!isset($base['cuadro_carga_origen'])) {
+				$mensajes[] = 'Formulario: Falta indicar el origen de la carga del cuadro';
+			}			
+			$filas = $this->dr_molde->tabla('filas')->get_filas();	
+			foreach($filas as $fila) {
+				if( $fila['asistente_tipo_dato']== toba_catalogo_asistentes::tipo_dato_referencia()) {
+					if(!isset($fila['ef_carga_origen'])) {
+						$mensajes[] = 'Formulario: Falta indicar el origen de la carga del campo "'.$fila['columna'].'"';
+					}
+				}
+			}
+		}
+		return empty($mensajes) ? true : $mensajes;
+	}
+	
+	function autocompletar_informacion($refrescar_todo=false)
+	{
+		$nombre_tabla = $this->dr_molde->tabla('base')->get_columna('tabla');
+		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');		
+		$tabla = $this->dr_molde->tabla('filas');
+		if($refrescar_todo) {
+			$tabla->eliminar_filas();	
+		}
+		//--- Recorre las columnas y las rellenas con los nuevos datos
+		$actuales =  $tabla->get_filas(null, true);
+		$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($nombre_tabla, $nombre_fuente);
+		//-- Borra las filas viejas que ya no estan en la tabla
+		foreach ($actuales as $id => $actual) {
+			$existe = false;
+			foreach ($nuevas as $nueva) {
+				if ($nueva['columna'] == $actual['columna']) {
+					$existe = true;
+					break;	
+				}
+			}
+			if (!$existe) {
+				$tabla->eliminar_fila($id);
+			}
+		}
+		//-- Agrega las filas nuevas
+		foreach ($nuevas as $nueva) {
+			$existe = false;
+			foreach ($actuales as $id => $actual) {
+				if ($nueva['columna'] == $actual['columna']) {
+					$existe = true;
+					break;	
+				}
+			}
+			if (!$existe) {
+				$tabla->nueva_fila($nueva);
+			}
+		}
+		$this->autocompletar_carga_cuadro();
+	}
+	
+	function autocompletar_carga_cuadro()
+	{
+		$nombre_tabla = $this->dr_molde->tabla('base')->get_columna('tabla');
+		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');		
+		$db = toba::db($nombre_fuente, toba_editor::get_proyecto_cargado());
+		$datos = array();
+		list($sql, $id) = $db->get_sql_carga_tabla($nombre_tabla);
+		$datos['cuadro_carga_sql'] = $sql;
+		$datos['cuadro_id'] = $id;
+		$datos['cuadro_carga_origen'] = 'datos_tabla';
+		$this->dr_molde->tabla('base')->set($datos);		
+	}
+	
+	/**
+	 * Asume que el dt 'filas' tiene un cursor seteado en la fila actual
+	 */
+	function autocompletar_carga_combo($columna)
+	{
+		$nombre_tabla = $this->dr_molde->tabla('base')->get_columna('tabla');
+		$nombre_fuente = $this->dr_molde->tabla('base')->get_columna('fuente');			
+		$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($nombre_tabla, $nombre_fuente);
+		$datos = array();
+		//-- Busca la fila a actualizar
+		foreach ($nuevas as $nueva) {
+			if ($nueva['columna'] == $columna) {
+				$datos['ef_carga_col_clave'] = $nueva['ef_carga_col_clave'];
+				$datos['ef_carga_col_desc'] = $nueva['ef_carga_col_desc'];
+				$datos['ef_carga_tabla'] = $nueva['ef_carga_tabla'];
+				$datos['ef_carga_sql'] = $nueva['ef_carga_sql'];
+				break;
+			}
+		}
+		$this->dr_molde->tabla('filas')->set($datos);		
+	}
+	
+	
+	################################################################################
+	################################  GENERACION   #################################
+	################################################################################	
+	
 	protected function generar()
 	{	
 		$clase = $this->molde['prefijo_clases'] . 'ci';

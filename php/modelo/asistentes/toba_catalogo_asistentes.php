@@ -6,14 +6,20 @@ class toba_catalogo_asistentes
 	*	Carga un asistente a partir de un molde de generacion
 	* 	@return toba_asistente
 	*/
-	static function cargar_por_molde($id_molde_proyecto, $id_molde)
+	static function cargar_por_molde($id_molde_proyecto, $id_molde, $dr_molde)
 	{
 		$tipo_molde = self::get_asistente_molde($id_molde_proyecto, $id_molde);
 		$datos = toba_cargador::instancia()->get_metadatos_extendidos( array('proyecto'=>$id_molde_proyecto, 
 																'componente' => $id_molde),
 																$tipo_molde );
 		$clase = $datos['molde']['clase'];
-		return new $clase($datos);
+		return new $clase($datos, $dr_molde);
+	}
+	
+	static function cargar_por_tipo_operacion($tipo_operacion, $dr_molde)
+	{
+		$clase = self::get_clase_asistente($tipo_operacion);
+		return new $clase(null, $dr_molde);
 	}
 	
 	static function get_asistente_molde($id_molde_proyecto, $id_molde)
@@ -46,6 +52,19 @@ class toba_catalogo_asistentes
 		} else {
 			throw new toba_error('El molde solicitado no existe.');	
 		}
+	}
+	
+	static function get_clase_asistente($tipo_operacion)
+	{
+		$sql = "SELECT 	t.clase
+				FROM apex_molde_operacion_tipo t
+				WHERE 	t.operacion_tipo = '$tipo_operacion'";
+		$temp = consultar_fuente($sql);
+		if($temp) {
+			return $temp[0]['clase'];
+		} else {
+			throw new toba_error('El tipo de operación no existe');	
+		}		
 	}
 
 	//------------------------------------------------

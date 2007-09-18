@@ -13,16 +13,22 @@ abstract class toba_asistente
 	protected $bloqueos_generacion = array();
 	protected $archivos_php;
 	protected $id_elementos = 0;
+	protected $dr_molde;
 	//Manejo de clases de consultas
 	protected $archivos_consultas = array();
 	
-	function __construct($molde)
+	function __construct($molde=null, $dr_molde=null)
 	{
-		$this->id_molde_proyecto = $molde['molde']['proyecto'];
-		$this->id_molde = $molde['molde']['molde'];
-		//Cargo el molde
-		foreach (array_keys($molde) as $parte) {
-			$this->$parte = $molde[$parte];
+		if (isset($molde)) {
+			$this->id_molde_proyecto = $molde['molde']['proyecto'];
+			$this->id_molde = $molde['molde']['molde'];
+			//Cargo el molde
+			foreach (array_keys($molde) as $parte) {
+				$this->$parte = $molde[$parte];
+			}
+		}
+		if (isset($dr_molde)) {
+			$this->dr_molde = $dr_molde;
 		}
 		$this->valores_predefinidos = toba_info_editores::get_opciones_predefinidas_molde();
 	}	
@@ -35,6 +41,19 @@ abstract class toba_asistente
 	//-- Armar MOLDE: Se construye el modelo de la operacion
 	//-----------------------------------------------------------
 
+	/**
+	*	Indica si ya existe la informacion necesaria para disparar la generacion
+	*	Hay que sobreescribirlo en cada asistente.
+	*/
+	function posee_informacion_completa()
+	{
+		$datos_molde = $this->dr_molde->tabla('molde')->get();	
+		if( isset($datos_molde['carpeta_archivos']) && isset($datos_molde['prefijo_clases']) ) {
+			return true;	
+		}
+		return false;
+	}	
+	
 	/**
 	* Se crea el molde y se deja a disposicion
 	*/

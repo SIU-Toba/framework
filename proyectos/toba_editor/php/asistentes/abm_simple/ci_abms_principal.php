@@ -4,98 +4,6 @@ require_once('asistentes/ci_asistente_base.php');
 class ci_abms_principal extends ci_asistente_base
 {
 	protected $cambio_tabla = false;
-	
-	function posee_informacion_completa()
-	{
-		$mensajes = array();
-		if( parent::posee_informacion_completa() ) {
-			$base = $this->dep('datos')->tabla('base')->get();	
-			if( !isset($base['tabla'])) {
-				return false;	
-			}
-			if(!isset($base['cuadro_carga_origen'])) {
-				$mensajes[] = 'Formulario: Falta indicar el origen de la carga del cuadro';
-			}			
-			$filas = $this->dep('datos')->tabla('filas')->get_filas();	
-			foreach($filas as $fila) {
-				if( $fila['asistente_tipo_dato']== toba_catalogo_asistentes::tipo_dato_referencia()) {
-					if(!isset($fila['ef_carga_origen'])) {
-						$mensajes[] = 'Formulario: Falta indicar el origen de la carga del campo "'.$fila['columna'].'"';
-					}
-				}
-			}
-		}
-		return empty($mensajes) ? true : $mensajes;
-	}
-	
-	function autocompletar_informacion($refrescar_todo=false)
-	{
-		$tabla = $this->dep('datos')->tabla('filas');
-		if($refrescar_todo) {
-			$tabla->eliminar_filas();	
-		}
-		//--- Recorre las columnas y las rellenas con los nuevos datos
-		$actuales =  $tabla->get_filas(null, true);
-		$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($this->get_nombre_tabla_actual(), $this->get_fuente_actual());
-		//-- Borra las filas viejas que ya no estan en la tabla
-		foreach ($actuales as $id => $actual) {
-			$existe = false;
-			foreach ($nuevas as $nueva) {
-				if ($nueva['columna'] == $actual['columna']) {
-					$existe = true;
-					break;	
-				}
-			}
-			if (!$existe) {
-				$tabla->eliminar_fila($id);
-			}
-		}
-		//-- Agrega las filas nuevas
-		foreach ($nuevas as $nueva) {
-			$existe = false;
-			foreach ($actuales as $id => $actual) {
-				if ($nueva['columna'] == $actual['columna']) {
-					$existe = true;
-					break;	
-				}
-			}
-			if (!$existe) {
-				$tabla->nueva_fila($nueva);
-			}
-		}
-		$this->autocompletar_carga_cuadro();
-	}
-	
-	function autocompletar_carga_cuadro()
-	{
-		$db = toba::db($this->get_fuente_actual(), toba_editor::get_proyecto_cargado());
-		$datos = array();
-		list($sql, $id) = $db->get_sql_carga_tabla($this->get_nombre_tabla_actual());
-		$datos['cuadro_carga_sql'] = $sql;
-		$datos['cuadro_id'] = $id;
-		$datos['cuadro_carga_origen'] = 'datos_tabla';
-		$this->dep('datos')->tabla('base')->set($datos);		
-	}
-	
-	/**
-	 * Asume que el dt 'filas' tiene un cursor seteado en la fila actual
-	 */
-	function autocompletar_carga_combo($columna)
-	{
-		$nuevas = toba_catalogo_asistentes::get_lista_filas_tabla($this->get_nombre_tabla_actual(), $this->get_fuente_actual());
-		$datos = array();
-		//-- Busca la fila a actualizar
-		foreach ($nuevas as $nueva) {
-			if ($nueva['columna'] == $columna) {
-				$datos['ef_carga_col_clave'] = $nueva['ef_carga_col_clave'];
-				$datos['ef_carga_col_desc'] = $nueva['ef_carga_col_desc'];
-				$datos['ef_carga_tabla'] = $nueva['ef_carga_tabla'];
-				$datos['ef_carga_sql'] = $nueva['ef_carga_sql'];
-				break;
-			}
-		}
-		$this->dep('datos')->tabla('filas')->set($datos);		
-	}
 
 	//---------------------------------------------------
 	//---- Basico ----------------------------------------
@@ -140,7 +48,7 @@ class ci_abms_principal extends ci_asistente_base
 		$this->dep('datos')->tabla('base')->set($datos);
 		//--- Si cambio de tabla se regenera la información
 		if ($tabla_vieja != $this->get_nombre_tabla_actual()) {
-			$this->autocompletar_informacion();
+			$this->asistente()->autocompletar_informacion();
 			$this->cambio_tabla = true;
 		}		
 	}
@@ -176,11 +84,11 @@ class ci_abms_principal extends ci_asistente_base
 	function evt__form_filas__refrescar($datos)
 	{
 		$this->evt__form_filas__modificacion($datos);
-		$this->autocompletar_informacion();
+		$this->asistente()->autocompletar_informacion();
 	}
 	
-
-	//---- CUADRO - Prop. basicas ----------------------------------------
+	//---------------------------------------------------
+	//---- CUADRO  ----------------------------------------
 	
 	function evt__form_cuadro__modificacion($datos)
 	{
@@ -222,9 +130,10 @@ class ci_abms_principal extends ci_asistente_base
 	function evt__form_cuadro_carga__regenerar($datos)
 	{
 		$this->evt__form_cuadro_carga__modificacion($datos);
-		$this->autocompletar_carga_cuadro();
+		$this->asistente()->autocompletar_carga_cuadro();
 	}
 	
+	//---------------------------------------------------	
 	//---- FORM ----------------------------------------
 	
 	function conf__pant_form()
@@ -261,7 +170,7 @@ class ci_abms_principal extends ci_asistente_base
 	{
 		$fila = $this->dep('datos')->tabla('filas')->get();
 		$this->evt__form_form_fila__modificacion($datos, false);		
-		$this->autocompletar_carga_combo($fila['columna']);
+		$this->asistente()->autocompletar_carga_combo($fila['columna']);
 	}
 	
 	function conf__form_form_fila(toba_ei_formulario $form)
@@ -274,7 +183,7 @@ class ci_abms_principal extends ci_asistente_base
 		$form->set_datos($datos);
 	}
 	
-	
+	//---------------------------------------------------	
 	//---- FILTRO ----------------------------------------
 
 	function evt__pant_filtro__entrada()

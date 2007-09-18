@@ -19,6 +19,7 @@ class ci_admin_asistentes extends toba_ci
 				$this->s__datos_asistente = toba_info_editores::get_lista_tipo_molde($info['molde_tipo_operacion']);
 				$this->cargar_editor_molde();
 				$this->dep('asistente')->set_molde($info['proyecto'], $info['molde']);
+				$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();				
 				$this->set_pantalla('pant_edicion');				
 			}
 		}		
@@ -55,6 +56,7 @@ class ci_admin_asistentes extends toba_ci
 	//---- Elegir tipo ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
 	
+	
 	function conf__form_tipo_operacion()
 	{
 		if (isset($this->s__formulario_tipo)) {
@@ -85,7 +87,7 @@ class ci_admin_asistentes extends toba_ci
 		if( $this->s__molde_preexistente ) {
 			$this->pantalla()->eliminar_evento('volver_editar');	
 		}
-		$completo = $this->dep('asistente')->posee_informacion_completa();
+		$completo = $this->asistente()->posee_informacion_completa();
 		if( $completo !== true) {
 			if (is_array($completo)) {
 				$this->pantalla()->set_descripcion('Datos faltantes: <ul><li>'.implode('</li><li>', $completo).'</ul>');
@@ -102,6 +104,7 @@ class ci_admin_asistentes extends toba_ci
 	function evt__siguiente_generar()
 	{
 		$this->dep('asistente')->sincronizar();
+		$this->s__molde_preexistente = true;
 		$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();
 		if( $this->generacion_requiere_confirmacion() ) {
 			$this->set_pantalla('pant_confirmacion');	
@@ -183,9 +186,15 @@ class ci_admin_asistentes extends toba_ci
 	function asistente($reset=false)
 	{
 		if ($reset || !isset($this->asistente)) {
-			$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
-																			$this->s__clave_molde['molde'] );
-			$this->asistente->preparar_molde();
+			if ($this->s__molde_preexistente) {
+				$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
+																				$this->s__clave_molde['molde'], 
+																				$this->dep('asistente')->dep('datos') );
+				$this->asistente->preparar_molde();
+			} else {
+				$this->asistente = toba_catalogo_asistentes::cargar_por_tipo_operacion(	$this->s__datos_asistente['operacion_tipo'], 
+																				$this->dep('asistente')->dep('datos') );
+			}
 		}
 		return $this->asistente;
 	}

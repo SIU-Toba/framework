@@ -2,6 +2,7 @@
 
 class ci_asistente_base extends toba_ci 
 {
+	protected $asistente;
 	//-----------------------------------------------------------------------------------
 	//-- API para el ADMINISTRADOR de asistentes
 	//-----------------------------------------------------------------------------------
@@ -26,19 +27,12 @@ class ci_asistente_base extends toba_ci
 	{
 		$this->dep('datos')->cargar(array('proyecto' => $proyecto, 'molde' => $id));
 	}
-
-	/**
-	*	Indica si ya existe la informacion necesaria para disparar la generacion
-	*	Hay que sobreescribirlo en cada asistente.
-	*/
-	function posee_informacion_completa()
+	
+	function asistente()
 	{
-		$datos_molde = $this->dep('datos')->tabla('molde')->get();	
-		if( isset($datos_molde['carpeta_archivos']) && isset($datos_molde['prefijo_clases']) ) {
-			return true;	
-		}
-		return false;
+		return $this->controlador->asistente();
 	}
+
 	
 	/*
 		Por ahora no se utilizaria, cambiar de tipo de asistente asociado a un item
