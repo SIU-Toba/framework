@@ -1,7 +1,23 @@
 <?php
 
-class toba_asistente_grilla extends toba_asistente
+class toba_asistente_grilla extends toba_asistente_1dt
 {
+	#####################################################################################
+	################################   Autocompletado   #################################
+	#####################################################################################
+
+	function posee_informacion_completa()
+	{
+		$mensajes = array();
+		if( parent::posee_informacion_completa() ) {
+		}
+		return empty($mensajes) ? true : $mensajes;
+	}
+	
+	################################################################################
+	################################  GENERACION   #################################
+	################################################################################
+	
 	function generar()
 	{	
 		//ei_arbol(array($this->molde, $this->molde_abms, $this->molde_abms_fila));

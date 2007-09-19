@@ -205,7 +205,7 @@ abstract class toba_asistente
 	{
 		$this->bloqueos_generacion[] = $bloqueo;
 	}
-	
+
 	//----------------------------------------------------------------------
 	//-- Primitivas para la construccion de elementos
 	//----------------------------------------------------------------------
