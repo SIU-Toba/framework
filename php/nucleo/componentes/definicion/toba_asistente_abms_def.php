@@ -63,6 +63,7 @@ class toba_asistente_abms_def extends toba_asistente_def
 													elemento_formulario					,
 													ef_desactivar_modificacion			,
 													ef_procesar_javascript				,
+													ef_obligatorio						,
 													ef_carga_origen,
 													ef_carga_sql				,
 													ef_carga_tabla,

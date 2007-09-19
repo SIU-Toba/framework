@@ -142,15 +142,9 @@ class toba_catalogo_asistentes
 				}*/
 			}
 			//Parches temporales!
-			if(isset($tipo)) {
-				if($tipo == 'N') {
-					$fila['dt_largo'] = 10;
-				} else {
-					if($tipo!='F') {
-						$fila['dt_largo'] = $nueva['longitud'];			
-					}
-				}
-			}
+			if($tipo == 'C' && $nueva['longitud'] > 0) {
+				$fila['dt_largo'] = $nueva['longitud'];			
+			} 
 			$fila['dt_pk'] = $nueva['pk'];
 			$fila['dt_secuencia'] = $nueva['secuencia'];
 			$fila['columna'] = $nueva['nombre'];
@@ -161,6 +155,7 @@ class toba_catalogo_asistentes
 				$fila['en_form'] = 0;
 				$fila['en_cuadro'] = 0;
 			}
+			$fila['ef_obligatorio'] = $fila['en_form'] && ($nueva['pk'] || $nueva['not_null']);			
 			if ($nueva['pk']) {
 				$fila['orden'] = 1;
 			}

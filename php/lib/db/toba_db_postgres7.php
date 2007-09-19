@@ -111,6 +111,7 @@ class toba_db_postgres7 extends toba_db
 						t.typname as 			tipo,
 						a.attlen as 			tipo_longitud,
 						a.atttypmod as 			longitud,
+						format_type(a.atttypid, a.atttypmod) as tipo_sql,
 						a.attnotnull as 		not_null,
 						a.atthasdef as 			tiene_predeterminado,
 						d.adsrc as 				valor_predeterminado,

@@ -215,12 +215,14 @@ abstract class toba_asistente
 		foreach( $filas as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
 			$ef->set_etiqueta($fila['etiqueta']);
+			$ef->set_propiedad('obligatorio', $fila['ef_obligatorio']);			
 			//Largo EDITABLEs
 			if($fila['dt_largo']){
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
 				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
 			}
 			if (isset($fila['ef_carga_origen'])) {
+				$ef->set_propiedad('carga_no_seteado', '-- Seleccione --');
 				switch ($fila['ef_carga_origen']) {
 					
 					case 'datos_tabla':

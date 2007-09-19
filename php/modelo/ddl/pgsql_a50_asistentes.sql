@@ -228,6 +228,7 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	dt_secuencia						varchar(255)	NULL,
 	dt_pk								smallint		NULL,
 	elemento_formulario					varchar(30)		NULL,
+	ef_obligatorio						smallint		NULL,
 	ef_desactivar_modificacion			smallint		NULL,
 	ef_procesar_javascript				smallint		NULL,
 	ef_carga_origen						varchar(15)		NULL,
