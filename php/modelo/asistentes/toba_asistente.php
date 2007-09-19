@@ -215,7 +215,10 @@ abstract class toba_asistente
 		foreach( $filas as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
 			$ef->set_etiqueta($fila['etiqueta']);
-			$ef->set_propiedad('obligatorio', $fila['ef_obligatorio']);			
+			if ($form->get_clase() != 'toba_ei_filtro') {
+				//-- Solo se tiene en cuenta lo obligatorio para los form
+				$ef->set_propiedad('obligatorio', $fila['ef_obligatorio']);
+			}			
 			//Largo EDITABLEs
 			if($fila['dt_largo']){
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);

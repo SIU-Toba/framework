@@ -16,6 +16,13 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();		
 	}
 	
+	function get_clase()
+	{
+		if (isset($this->clase)) {
+			return $this->clase;
+		}
+	}
+	
 	//---------------------------------------------------
 	//-- Extension de clases
 	//---------------------------------------------------	

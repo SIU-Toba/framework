@@ -114,7 +114,7 @@ class toba_catalogo_asistentes
 				$fila['elemento_formulario'] = 'ef_combo';
 				$fila['dt_tipo_datos'] = 'C';
 				$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
-				$fila['cuadro_estilo'] = 1;
+				$fila['cuadro_estilo'] = 4;
 				$fila['cuadro_formato'] = 1;
 				$fila['en_cuadro'] = 1;
 				

@@ -21,6 +21,16 @@ class toba_molde_cuadro_col
 		$this->datos['titulo'] = $etiqueta;
 	}
 	
+	function set_estilo($estilo)
+	{
+		$this->datos['estilo'] = $estilo;
+	}
+	
+	function set_formato($formato)
+	{
+		$this->datos['formateo'] = $formato;
+	}
+	
 	function set_orden($orden)
 	{
 		$this->datos['orden'] = $orden;

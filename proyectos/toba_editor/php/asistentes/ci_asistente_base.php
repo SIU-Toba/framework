@@ -59,7 +59,16 @@ class ci_asistente_base extends toba_ci
 
 	function conf__form_molde()
 	{
-		return $this->dep('datos')->tabla('molde')->get();
+		//-- Asume los nombres a partir de la operación 
+		$nombre_asumido = toba::zona()->get_info('nombre');
+		$datos = $this->dep('datos')->tabla('molde')->get();
+		if (!isset($datos['prefijo_clases'])) {
+			$datos['prefijo_clases'] = $nombre_asumido;
+		}
+		if (!isset($datos['carpeta_archivos'])) {
+			$datos['carpeta_archivos'] = $nombre_asumido;
+		}		
+		return $datos;
 	}
 
 	//-----------------------------------------------------------------------------------

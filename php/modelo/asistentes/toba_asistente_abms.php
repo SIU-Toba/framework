@@ -133,11 +133,12 @@ class toba_asistente_abms extends toba_asistente
 		if (!$this->molde_abms['gen_separar_pantallas']) {
 			//Pantalla UNICA
 			$this->ci->agregar_pantalla(1, 'Pantalla');
-			$this->ci->asociar_pantalla_dep(1, $cuadro);
-			$this->ci->asociar_pantalla_dep(1, $form);
 			if ($this->molde_abms['gen_usa_filtro']) {
 				$this->ci->asociar_pantalla_dep(1, $filtro);
 			}
+			
+			$this->ci->asociar_pantalla_dep(1, $cuadro);
+			$this->ci->asociar_pantalla_dep(1, $form);
 		} else {
 			//Pantallas SELECCION & EDICION
 			$this->ci->agregar_pantalla('seleccion', 'Selección');
@@ -245,6 +246,9 @@ class toba_asistente_abms extends toba_asistente
 		foreach( $this->molde_abms_fila as $fila ) {
 			if($fila['en_cuadro']) {
 				$columna = $cuadro->agregar_columna($fila['columna'], 4);
+				$columna->set_etiqueta($fila['etiqueta']);
+				$columna->set_estilo($fila['cuadro_estilo']);
+				$columna->set_formato($fila['cuadro_formato']);
 			}
 		}
 		$this->ci->php()->agregar( new toba_codigo_separador_php('Cuadro') );	
