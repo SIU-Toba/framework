@@ -221,8 +221,12 @@ abstract class toba_asistente
 			}			
 			//Largo EDITABLEs
 			if($fila['dt_largo']){
-				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
 				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
+				if($fila['dt_largo'] > 60) {
+					$ef->set_propiedad('edit_tamano',60);
+				} else {
+					$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
+				}
 			}
 			if (isset($fila['ef_carga_origen'])) {
 				$ef->set_propiedad('carga_no_seteado', '-- Seleccione --');

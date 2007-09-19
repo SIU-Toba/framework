@@ -116,7 +116,7 @@ class consola implements toba_proceso_gui
 
 	function mensaje( $texto, $bajar_linea=true )
 	{
-		$lineas = separar_texto_lineas( $texto, self::display_ancho );
+		$lineas = toba_texto::separar_texto_lineas( $texto, self::display_ancho );
 		for ($i=0; $i< count($lineas); $i++) {
 			if ($bajar_linea || $i < count($lineas) - 1) {
 				$extra = "\n";
@@ -148,7 +148,7 @@ class consola implements toba_proceso_gui
 	function error( $texto )
 	{
 		toba_logger::instancia()->error($texto);
-		$lineas = separar_texto_lineas( $texto, self::display_ancho );
+		$lineas = toba_texto::separar_texto_lineas( $texto, self::display_ancho );
 		foreach( $lineas as $linea ) {
 			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );
 		}
@@ -163,7 +163,7 @@ class consola implements toba_proceso_gui
 		$espacio_descripcion = self::display_ancho - self::display_coleccion_espacio_nombre 
 								- strlen( self::display_prefijo_linea );
 		foreach( $coleccion as $nombre => $descripcion ) {
-			$lineas = separar_texto_lineas( $descripcion, $espacio_descripcion );
+			$lineas = toba_texto::separar_texto_lineas( $descripcion, $espacio_descripcion );
 			$this->mensaje( str_pad( $nombre, self::display_coleccion_espacio_nombre, ' ' ) . array_shift( $lineas ) );
 			foreach( $lineas as $linea ) {
 				$this->mensaje( str_repeat(' ', self::display_coleccion_espacio_nombre ) . $linea );	

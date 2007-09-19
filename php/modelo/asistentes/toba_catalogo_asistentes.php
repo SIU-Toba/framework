@@ -124,25 +124,9 @@ class toba_catalogo_asistentes
 				$fila['ef_carga_tabla'] = $datos_carga_sql['tabla'];
 				$fila['ef_carga_sql'] = $datos_carga_sql['sql'];
 				$fila['ef_carga_origen'] = 'datos_tabla';
-				
-				/*//Seteo la clase de consultas predefinida
-				$consultas_php = toba_info_editores::get_consultas_php();
-				if(count($consultas_php)>0) {
-					$fila['carga_origen'] = 'consulta_php';
-					$fila['carga_php_include'] = $consultas_php[0]['archivo'];
-					$fila['carga_php_clase'] = $consultas_php[0]['clase'];
-					$fila['carga_php_metodo_nuevo'] = 'get_' . $datos_carga_sql['clave'];
-					$fila['carga_php_metodo'] = 'get_' . $datos_carga_sql['clave'];
-					//Parches temporales!
-					$fila['ef_carga_origen'] = 'consulta_php';
-					$fila['ef_carga_php_include'] = $consultas_php[0]['archivo'];
-					$fila['ef_carga_php_clase'] = $consultas_php[0]['clase'];
-					$fila['ef_carga_php_metodo_nuevo'] = 'get_' . $datos_carga_sql['clave'];
-					$fila['ef_carga_php_metodo'] = 'get_' . $datos_carga_sql['clave'];
-				}*/
 			}
 			//Parches temporales!
-			if($tipo == 'C' && $nueva['longitud'] > 0) {
+			if(isset($tipo) && $tipo == 'C' && $nueva['longitud'] > 0) {
 				$fila['dt_largo'] = $nueva['longitud'];			
 			} 
 			$fila['dt_pk'] = $nueva['pk'];

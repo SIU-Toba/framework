@@ -1,23 +1,24 @@
 <?php
 
+class toba_texto
+{
 	/*
 	*	Devuelve un array de lineas
 	*	Atencion: 	1) Algo anda mal.
 	*				2) No respeta los saltos de linea
 	*				
 	*/
-	function separar_texto_lineas( $texto, $caracteres_linea )
+	static function separar_texto_lineas( $texto, $caracteres_linea )
 	{
 		$salida = array();
 		$lineas_separadas = explode("\n", $texto);
 		foreach ($lineas_separadas as $linea) {
-			$salida= array_merge($salida, _separar_texto_lineas_interno($linea, $caracteres_linea));
+			$salida= array_merge($salida, self::separar_texto_lineas_interno($linea, $caracteres_linea));
 		}
 		return $salida;
 	}
 	
-	
-	function _separar_texto_lineas_interno($texto, $caracteres_linea)
+	private static function separar_texto_lineas_interno($texto, $caracteres_linea)
 	{
 		$palabras = explode(' ', $texto );
 		$lineas = array();
@@ -48,4 +49,11 @@
 		return $salida;
 	}
 
+	static function nombre_valido_clase($nombre)
+	{
+		static $caracteres_invalidos = array(' ', '*', '?', '/', '>', '<', '"', "'", ':', '|', '%', '$', '@', ')', '(', '-',  '.', ';', ',');
+		static $caracteres_reemplazo = '_';
+		return str_replace($caracteres_invalidos, $caracteres_reemplazo, strtolower($nombre) );
+	}
+}
 ?>

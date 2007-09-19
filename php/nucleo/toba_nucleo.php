@@ -299,7 +299,6 @@ class toba_nucleo
 		return array( 
 			'/php/lib/toba_varios.php',
 			'/php/lib/toba_parseo.php',
-			'/php/lib/toba_texto.php',
 			'/php/lib/toba_sql.php',
 			'/php/nucleo/lib/toba_db.php',
 			'/php/nucleo/lib/interface/toba_ei.php',
@@ -375,6 +374,7 @@ class toba_nucleo
 			'toba_db_mysql'							=> 'lib/db/toba_db_mysql.php',
 			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
 			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
+			'toba_texto'							=> 'lib/toba_texto.php',
  			//-----------------------------------------------------------------------------------------------
 			//--------- COMPONENTES -------------------------------------------------------------------------
  			//-----------------------------------------------------------------------------------------------

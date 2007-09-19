@@ -96,6 +96,14 @@ class toba_migracion_1_1_0 extends toba_migracion
 		";
 		return $this->elemento->get_db()->ejecutar($sql);
 	}
+
+	function proyecto__namespace_toba()
+	{
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion('/separar_texto_lineas(/', 			'toba_texto::separar_texto_lineas(');
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);
+	}
 }
 	
 ?>
