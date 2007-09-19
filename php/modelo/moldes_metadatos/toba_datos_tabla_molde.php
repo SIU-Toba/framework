@@ -10,6 +10,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function ini()
 	{
 		parent::ini();
+		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos_datos();		
 	}
 	
 	function crear($tabla)
@@ -22,6 +23,11 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function cargar($id)
 	{
 		$this->datos->cargar(array('proyecto' => $this->proyecto, 'objeto' => $id));
+	}
+	
+	function get_tabla_nombre()
+	{
+		return $this->datos->tabla('prop_basicas')->get_columna('tabla');	
 	}
 
 	//---------------------------------------------------
@@ -61,9 +67,11 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 		return $this->columnas[$identificador];
 	}
 
+	
 	//---------------------------------------------------
 	//-- Generacion de METADATOS & ARCHIVOS
 	//---------------------------------------------------
+
 	
 	function generar()
 	{

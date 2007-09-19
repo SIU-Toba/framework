@@ -12,6 +12,8 @@ class toba_migracion_1_0_4 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_ancho varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN selec_cant_columnas varchar";
 		$sql[] = "ALTER TABLE apex_estilo ADD COLUMN proyecto varchar";
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN validacion_bloquear_usuario smallint";
+		$sql[] = "ALTER TABLE apex_objeto_cuadro_cc ADD COLUMN modo_inicio_colapsado smallint";
 		$sql[] = "
 				CREATE TABLE apex_ptos_control 
 				(

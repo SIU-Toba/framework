@@ -5,7 +5,8 @@
 class toba_molde_ef
 {
 	private $datos;
-
+	protected $molde_datos_tabla = null;
+	
 	function __construct($identificador, $tipo)
 	{
 		$this->datos['identificador'] = $identificador;
@@ -48,8 +49,30 @@ class toba_molde_ef
 		$this->datos[$nombre] = $valor;
 	}
 		
-	//---------------------------------------------------
+	//--------------Relación con el datos_tabla de carga -----------------------
 	
+	function tiene_carga_datos_tabla()
+	{
+		return isset($this->molde_datos_tabla);
+	}
+	
+	function set_molde_datos_tabla_carga($molde)
+	{
+		$this->molde_datos_tabla = $molde;	
+	}
+	
+	/**
+	 * Genera el datos_tabla utilizado para la tabla y lo asocia al parametro del ef
+	 */
+	function generar_datos_tabla_carga()
+	{
+		$this->molde_datos_tabla->generar();	
+		$clave = $this->molde_datos_tabla->get_clave_componente_generado();
+		$this->datos['carga_dt'] = $clave['clave'];
+	}
+	
+	//------------------------------------------------------------------
+		
 	function get_datos()
 	{
 		return $this->datos;	

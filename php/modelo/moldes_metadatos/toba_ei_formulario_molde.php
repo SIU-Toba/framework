@@ -42,6 +42,10 @@ class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 	function generar()
 	{
 		foreach($this->efs as $ef) {
+			//-- Se generan los datos_tabla necesarios para la carga de los combos			
+			if ($ef->tiene_carga_datos_tabla()) {
+				$ef->generar_datos_tabla_carga();
+			}
 		 	$this->datos->tabla('efs')->nueva_fila($ef->get_datos());
 		}
 		parent::generar();

@@ -13,7 +13,8 @@ abstract class toba_asistente
 	protected $bloqueos_generacion = array();
 	protected $archivos_php;
 	protected $id_elementos = 0;
-	protected $dr_molde;
+	protected $dr_molde;  //Datos relacion del cual surje o surgio el molde (para el caso en que aun se este construyendo)
+	
 	//Manejo de clases de consultas
 	protected $archivos_consultas = array();
 	
@@ -124,7 +125,7 @@ abstract class toba_asistente
 		$item->cargar($id_item);
 		$item->set_ci($this->ci);
 		$item->generar();
-		
+
 		$this->generar_archivos_consultas();
 		$this->guardar_log_elementos_generados();
 	}
@@ -219,42 +220,94 @@ abstract class toba_asistente
 				$ef->set_propiedad('edit_tamano',$fila['dt_largo']);
 				$ef->set_propiedad('edit_maximo',$fila['dt_largo']);
 			}
-			//Metodo de CARGA
-			if($fila['ef_carga_php_metodo']) {
-				$ef->set_propiedad('carga_include',$fila['ef_carga_php_include']);
-				$ef->set_propiedad('carga_clase',$fila['ef_carga_php_clase']);
-				$ef->set_propiedad('carga_metodo',$fila['ef_carga_php_metodo']);
-				$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
-				$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
-				if(isset($fila['ef_carga_sql'])){
-					$this->crear_consulta_php(	$fila['ef_carga_php_include'],
-												$fila['ef_carga_php_clase'],
-												$fila['ef_carga_php_metodo'],
-												$fila['ef_carga_sql'] );
+			if (isset($fila['ef_carga_origen'])) {
+				switch ($fila['ef_carga_origen']) {
+					
+					case 'datos_tabla':
+						if(!$fila['ef_carga_php_metodo']){
+							$metodo_recuperacion = 'get_descripciones';
+						} else {
+							$metodo_recuperacion = $fila['ef_carga_php_metodo'];
+						}						
+						//-- Se crea el molde del datos tabla y se progama para que se genere antes de generar el ef
+						$molde_dt = $this->get_molde_datos_tabla($fila['ef_carga_tabla']);
+						$ef->set_molde_datos_tabla_carga($molde_dt);
+
+						//-- Setea propiedades del ef
+						$ef->set_propiedad('carga_metodo', $metodo_recuperacion);						
+						$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
+						$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
+						if (isset($fila['ef_carga_sql'])) {
+								$this->crear_consulta_dt(	$molde_dt,
+															$metodo_recuperacion,
+															$fila['ef_carga_sql']);
+						}											
+						break;
+						
+					case 'consulta_php':
+						//Metodo de CARGA
+						if($fila['ef_carga_php_metodo']) {
+							$ef->set_propiedad('carga_include',$fila['ef_carga_php_include']);
+							$ef->set_propiedad('carga_clase',$fila['ef_carga_php_clase']);
+							$ef->set_propiedad('carga_metodo',$fila['ef_carga_php_metodo']);
+							$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
+							$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
+							if(isset($fila['ef_carga_sql'])){
+								$this->crear_consulta_php(	$fila['ef_carga_php_include'],
+															$fila['ef_carga_php_clase'],
+															$fila['ef_carga_php_metodo'],
+															$fila['ef_carga_sql'] );
+							}
+						}
+						break;
+						
+					default:
+						throw new toba_error('No esta definida la acción para el método de carga '.$fila['ef_carga_origen']);
 				}
 			}
 			//Procesar en JAVASCRIPT?
 		}
 	}
 	
-	function generar_datos_tabla($tabla, $nombre, $filas)
+	/**
+	 * Dado un molde de un datos_tabla, si no existe el componente lo crea y agrega las filas. Si ya existe actualiza los campos
+	 */
+	function generar_datos_tabla($molde_dt, $tabla, $filas)
 	{
-		$dt_actual = toba_info_editores::get_dt_de_tabla_fuente($nombre, $this->get_fuente());
+		$dt_actual = toba_info_editores::get_dt_de_tabla_fuente($tabla, $this->get_fuente());
 		if (empty($dt_actual)) {		
-			$tabla->crear($nombre);
-			foreach( $filas as $fila ) {
-				$col = $tabla->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
-				if($fila['dt_pk']){
-					$col->pk();
+			$molde_dt->crear($tabla);
+			if (isset($filas)) {
+				foreach( $filas as $fila ) {
+					$col = $molde_dt->agregar_columna($fila['columna'], $fila['dt_tipo_dato']);
+					if($fila['dt_pk']){
+						$col->pk();
+					}
+					if($fila['dt_secuencia']){
+						$col->set_secuencia($fila['dt_secuencia']);
+					}
 				}
-				if($fila['dt_secuencia']){
-					$col->set_secuencia($fila['dt_secuencia']);
-				}
+			} else {
+				//-- Si no se pasan filas explicitas, se descubren solas
+				$molde_dt->actualizar_campos();
 			}
 		} else {
-			$tabla->cargar($dt_actual['id']);
-			$tabla->actualizar_campos();
+			$molde_dt->cargar($dt_actual['id']);
+			$molde_dt->actualizar_campos();			
 		}
+	}
+
+	/**
+	 * Dado el nombre de una tabla, retorna el molde del datos_tabla ya sea representando a un comp. existente o creando uno nuevo
+	 * @param string $tabla
+	 * @return toba_datos_tabla_molde
+	 * @todo: Puede pasar que el molde a crear ya haya sido creado previamente para esta operación, haria falta un indice de los moldes
+	 */
+	function get_molde_datos_tabla($tabla)
+	{
+		$molde = new toba_datos_tabla_molde($this);
+		$this->generar_datos_tabla($molde, $tabla, null);
+		return $molde;
 	}
 
 	//-- API para los elementos del molde ----------------------------------------
@@ -268,6 +321,11 @@ abstract class toba_asistente
 	{
 		return $this->molde['carpeta_archivos'];
 	}
+	
+	function get_carpeta_archivos_datos()
+	{
+		return 'datos';
+	}	
 	
 	function get_id_elemento()
 	{
@@ -285,7 +343,7 @@ abstract class toba_asistente
 	{
 		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
 		$clase = $this->molde['prefijo_clases']. 'dt';
-		$tabla->extender($clase, $clase . '.php');
+		$tabla->extender($tabla->get_tabla_nombre(), $tabla->get_tabla_nombre() . '.php');
 		$metodo = $this->crear_metodo_consulta($metodo, $sql, $param_metodo);
 		$tabla->php()->agregar($metodo);		
 	}

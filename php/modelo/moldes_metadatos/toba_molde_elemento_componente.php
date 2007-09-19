@@ -7,11 +7,13 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	protected $clase_proyecto ='toba';
 	protected $subclase;
 	protected $molde_php = null;					// Clase molde de codigo PHP
+	protected $carpeta_archivo;
 	
 	function ini()
 	{
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'clase',$this->clase);
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'clase_proyecto',$this->clase_proyecto);
+		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();		
 	}
 	
 	//---------------------------------------------------
@@ -27,7 +29,6 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		if(!isset($this->molde_php)) {
 			$this->subclase = $subclase;
 			$this->archivo = $archivo;
-			$this->carpeta_archivo = $this->asistente->get_carpeta_archivos();
 			$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase );
 			//Dejo la marca
 			if( file_exists($this->archivo_absoluto()) ) {
