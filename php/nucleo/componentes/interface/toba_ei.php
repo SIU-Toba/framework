@@ -459,7 +459,13 @@ abstract class toba_ei extends toba_componente
 				$estilo .= ' ei-barra-sup-sin-botonera';
 			}
 			//ei_barra_inicio("ei-barra-sup $estilo");
-			echo "<div class='ei-barra-sup $estilo'>\n";
+	
+			//---Barra de colapsado
+			$colapsado = "";
+			if ($this->_info['colapsable'] && isset($this->objeto_js)) {
+				$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
+			}			
+			echo "<div class='ei-barra-sup $estilo' $colapsado>\n";
 			//--> Botonera
 			if ($botonera_sup) {
 				$this->generar_botones();
@@ -479,15 +485,13 @@ abstract class toba_ei extends toba_componente
 			}
 	
 			//---Barra de colapsado
-			$colapsado = "";
 			if ($this->_info['colapsable'] && isset($this->objeto_js)) {
-				$colapsado = "style='cursor: pointer; cursor: hand;' onclick=\"{$this->objeto_js}.cambiar_colapsado();\" title='Mostrar / Ocultar'";
 				$img_min = toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false);
-				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min' $colapsado>";
+				echo "<img class='ei-barra-colapsar' id='colapsar_boton_{$this->objeto_js}' src='$img_min'>";
 			}
 
 			//---Titulo			
-			echo "<span class='ei-barra-sup-tit' $colapsado>$titulo</span>\n";
+			echo "<span class='ei-barra-sup-tit'>$titulo</span>\n";
 			echo "</div>";
 			//echo ei_barra_fin();
 		}

@@ -207,7 +207,7 @@ class comando_instalacion extends comando_toba
 			toba_modelo_instalacion::crear( $id_grupo_desarrollo, $alias );
 			$this->consola->enter();
 			$this->consola->mensaje("La instalacion ha sido inicializada");
-			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba instalacion agregar_db -d [nombre_base]'");
+			$this->consola->mensaje("Para definir bases de datos, utilize el comando 'toba base registrar -d [nombre_base]'");
 		} else {
 			$this->consola->enter();
 			$this->consola->mensaje( 'Ya existe una INSTALACION.' );

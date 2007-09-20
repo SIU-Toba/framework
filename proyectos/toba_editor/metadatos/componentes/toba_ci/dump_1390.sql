@@ -238,11 +238,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'efs', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'', --objetos
 	'aceptar,cancelar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_efs', --subclase
+	'objetos_toba/efs/pant_efs.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0

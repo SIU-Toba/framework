@@ -177,7 +177,10 @@ class ci_efs extends toba_ci
 			$form->desactivar_efs(array('total'));
 		}
 		$this->s__seleccion_efs_anterior = $this->s__seleccion_efs;
-		return $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
+		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
+		$form->set_titulo('Propiedades del ef <em>'.$fila['identificador'].'</em>');		
+		return $fila;
+		
 	}
 
 	function evt__efs__cancelar()
@@ -307,6 +310,7 @@ class ci_efs extends toba_ci
 			if (! in_array($disponible, $lista_param) &&
 					$disponible != 'mecanismo' &&
 					$disponible != 'estatico' &&
+					$disponible != 'sep_carga' &&
 					$disponible != 'sep') {
 				if (isset($fila[$disponible])) {
 					unset($fila[$disponible]);	

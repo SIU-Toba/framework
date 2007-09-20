@@ -403,7 +403,7 @@ class toba_db
 		$aliases = array($alias);
 		$where = array();
 		$left = array();
-		$campo_descripcion = null;
+		$candidatos_descripcion = array();
 		foreach ($columnas as $columna) {
 			if ($columna['pk']) {
 				$claves[] = $columna['nombre'];	
@@ -412,8 +412,8 @@ class toba_db
 			if ($columna['pk']  || !$columna['fk_tabla']) {
 				$select[] = $alias.'.'.$columna['nombre'];
 				//-- Aprovecha para detectar el candidato a campo 'descripcion'
-				if (! isset($campo_descripcion) || $this->es_campo_descripcion($columna)) {
-					$campo_descripcion = $columna['nombre'];
+				if ($this->es_campo_candidato_descripcion($columna)) {
+					$candidatos_descripcion[] = $columna['nombre'];
 				}				
 			} else {
 				//--- Es una referencia, hay que hacer joins
@@ -436,6 +436,7 @@ class toba_db
 				}
 			}
 		}
+		$campo_descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
 		$from = array_unique($from);
 		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
 		$sql .= "FROM\n\t$tabla as $alias";
@@ -465,17 +466,18 @@ class toba_db
 			$descripcion = $campo['fk_campo'];
 			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
 			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
-			$encontrado = false;			
+			$encontrado = false;
+			$candidatos_descripcion = array();
 			foreach ($campos_tabla_externa as $campo_tabla_ext) {
 				//---Detecta cual es la clave para seguir ejecutando el script
 				if ($campo_tabla_ext['nombre'] == $clave) {
 					$campo = $campo_tabla_ext;
 				}
-				if (! $encontrado && $this->es_campo_descripcion($campo_tabla_ext)) {
-					$descripcion = $campo_tabla_ext['nombre'];
-					$encontrado = true;
+				if ($this->es_campo_candidato_descripcion($campo_tabla_ext)) {
+					$candidatos_descripcion[] = $campo_tabla_ext['nombre'];
 				}
 			}
+			$descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
 			$sql = "SELECT $clave, $descripcion FROM $tabla";
 		}
 		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
@@ -485,9 +487,32 @@ class toba_db
 	 * Determina si la definición de un campo de una tabla es un campo descripción
 	 * @param array $campo Definicion de un campo
 	 */
-	protected function es_campo_descripcion($campo)
+	protected function es_campo_candidato_descripcion($campo)
 	{
 		return !$campo['pk'] && $campo['tipo'] == 'C';
+	}
+	
+	/**
+	 * Dado un conjunto de campos, escoje cual es el campo 'descripcion'
+	 * @param unknown_type $campos
+	 * @ignore
+	 */
+	protected function elegir_mejor_campo_descripcion($campos)
+	{
+		$mejor = null;
+		$mejor_puntaje = 100;
+		$puntajes = array('nombre' => 10, 'descripcion_corta'=> 9, 'descripcion'=> 8);	//Orden de preferencia
+		foreach($campos as $campo) {
+			if (isset($puntajes[$campo]) && $puntajes[$campo] > $mejor_puntaje) {
+				$mejor = $campo;
+				$mejor_puntaje = $puntajes[$campo];
+			} else {
+				if (! isset($mejor)) {
+					$mejor = $campo;
+				}
+			}
+		}
+		return $mejor;
 	}
 	
 	//-----------------------------------------------------------------------------------

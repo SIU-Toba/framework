@@ -57,7 +57,7 @@ class comando_instancia extends comando_toba
 			throw new toba_error("Ya existe una INSTANCIA con el nombre '$id_instancia'");
 		}
 		if ( ! $instalacion->hay_bases() ) {
-			throw new toba_error("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba instalacion agregar_db'");
+			throw new toba_error("Para crear una INSTANCIA, es necesario definir al menos una BASE. Utilice el comando 'toba base registrar'");
 		}
 		$this->consola->titulo("Creando la INSTANCIA: $id_instancia TIPO: $tipo");
 

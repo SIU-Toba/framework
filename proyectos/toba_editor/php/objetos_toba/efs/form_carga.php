@@ -2,7 +2,6 @@
 //--------------------------------------------------------------------
 class form_carga extends toba_ei_formulario
 {
-	
 
 	function extender_objeto_js()
 	{
@@ -20,7 +19,7 @@ class form_carga extends toba_ei_formulario
 				var mostrar = (actual != apex_ef_no_seteado);
 				//---Ocultar/Mostrar todos
 				for (var id_ef in this._efs) {
-					if (id_ef != 'mecanismo') {
+					if (id_ef != 'mecanismo' && id_ef != 'sep_carga') {
 						this.ef(id_ef).mostrar(mostrar, true);
 					}
 				}

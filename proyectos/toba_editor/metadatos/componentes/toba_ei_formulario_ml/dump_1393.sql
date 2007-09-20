@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'OBJETO - Editor FORM - EF (ini)', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -99,14 +99,14 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ancho_etiqueta
 	NULL, --expandir_descripcion
 	NULL, --campo_bl
-	NULL, --scroll
+	'0', --scroll
 	NULL, --filas
-	NULL, --filas_agregar
+	'0', --filas_agregar
 	'1', --filas_agregar_online
 	NULL, --filas_undo
-	NULL, --filas_ordenar
-	NULL, --columna_orden
-	NULL, --filas_numerar
+	'0', --filas_ordenar
+	'', --columna_orden
+	'0', --filas_numerar
 	NULL, --ev_seleccion
 	NULL, --alto
 	'NO'  --analisis_cambios
