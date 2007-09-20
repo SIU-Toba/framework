@@ -31,6 +31,9 @@ abstract class toba_asistente
 		if (isset($dr_molde)) {
 			$this->dr_molde = $dr_molde;
 		}
+		if (! isset($this->id_molde_proyecto)) {
+			$this->id_molde_proyecto = toba_contexto_info::get_proyecto();
+		}
 		$this->valores_predefinidos = toba_info_editores::get_opciones_predefinidas_molde();
 	}	
 	
@@ -116,6 +119,26 @@ abstract class toba_asistente
 			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
 			abortar_transaccion();
 		}
+	}
+	
+	function crear_item($nombre, $padre)
+	{
+		try {
+			abrir_transaccion();
+			$item = new toba_item_molde($this);
+			$item->set_nombre($nombre);
+			$item->set_carpeta_item($padre);
+			$item->set_tipo_pagina('normal');
+			$item->cargar_grupos_acceso_activos();
+			$item->generar();
+			$clave = $item->get_clave_componente_generado();
+			cerrar_transaccion();
+			return $clave;
+		} catch (toba_error $e) {
+			toba::logger()->error($e);
+			toba::notificacion()->agregar("Fallo en la generación: ".$e->getMessage(), 'error');
+			abortar_transaccion();
+		}		
 	}
 
 	protected function generar_elementos($id_item)
@@ -345,6 +368,11 @@ abstract class toba_asistente
 	{
 		return $this->molde['fuente'];
 	}	
+	
+	function tiene_fuente_definida()
+	{
+		return isset($this->molde['fuente']);
+	}
 
 	//-- Manejo de consultas_php ------------------------
 

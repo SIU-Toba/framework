@@ -26,11 +26,14 @@ class toba_molde_elemento
 		$id = toba_info_editores::get_dr_de_clase($this->clase);
 		$componente = array('proyecto' => $id[0], 'componente' => $id[1]);
 		$this->datos = toba_constructor::get_runtime($componente);
-		$this->datos->tabla('base')->nueva_fila(array(	'nombre'=>$this->clase.' generado automaticamente',
-														'proyecto'=>$this->proyecto,
-														'fuente_datos_proyecto' => $this->proyecto,
-														'fuente_datos' => $this->asistente->get_fuente()
-														) );
+		$datos = array(	'nombre'=>$this->clase.' generado automaticamente',	
+						'proyecto'=>$this->proyecto);
+		if ($this->asistente->tiene_fuente_definida()) {
+			$datos['fuente_datos_proyecto'] = $this->proyecto;
+			$datos['fuente_datos'] = $this->asistente->get_fuente();
+			
+		}
+		$this->datos->tabla('base')->nueva_fila($datos);
 		$this->datos->tabla('base')->set_cursor(0);
 		$this->ini();
 	}

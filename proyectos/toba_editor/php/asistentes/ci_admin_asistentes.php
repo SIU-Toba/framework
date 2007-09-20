@@ -7,14 +7,13 @@ class ci_admin_asistentes extends toba_ci
 	protected $s__opciones_generacion;
 	protected $s__formulario_tipo;
 	protected $s__molde_preexistente = false;
+	protected $s__carpeta_item;
 
 	function ini__operacion()
 	{
-		if (! toba::zona()->cargada()) {
-			throw new toba_error('La operación se debe invocar desde la zona de un item');
-		} else {
+		if (toba::zona()->cargada()) {
 			$info = toba::zona()->get_info();
-			if($info['molde']) {					//Ya existe un molde
+			if ($info['molde']) {					//Ya existe un molde
 				$this->s__molde_preexistente = true;
 				$this->s__datos_asistente = toba_info_editores::get_lista_tipo_molde($info['molde_tipo_operacion']);
 				$this->cargar_editor_molde();
@@ -22,7 +21,9 @@ class ci_admin_asistentes extends toba_ci
 				$this->s__clave_molde = $this->dep('asistente')->get_clave_molde();				
 				$this->set_pantalla('pant_edicion');				
 			}
-		}		
+		} else {
+			$this->s__carpeta_item = toba::memoria()->get_parametro('padre_i');
+		}
 	}
 
 	function ini()
@@ -56,9 +57,11 @@ class ci_admin_asistentes extends toba_ci
 	//---- Elegir tipo ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------	
 	
-	
-	function conf__form_tipo_operacion()
+	function conf__form_tipo_operacion(toba_ei_formulario $form)
 	{
+		if (toba::zona()->cargada()) {
+			$form->desactivar_efs(array('nombre'));
+		}		
 		if (isset($this->s__formulario_tipo)) {
 			return $this->s__formulario_tipo;
 		}
@@ -69,6 +72,14 @@ class ci_admin_asistentes extends toba_ci
 		$this->s__formulario_tipo = $datos;
 		$this->s__datos_asistente = toba_info_editores::get_lista_tipo_molde($this->s__formulario_tipo['tipo']);
 		$this->cargar_editor_molde(true);
+		//-- Si no hay zona, hay que crear el item y cargarla
+		if (! toba::zona()->cargada()) {
+			$id_item = $this->asistente()->crear_item($this->s__formulario_tipo['nombre'], $this->s__carpeta_item);
+			if (isset($id_item)) {
+				toba::zona()->cargar(array($id_item['proyecto'], $id_item['clave']));
+				admin_util::refrescar_editor_item();
+			}
+		}
 	}	
 
 	function evt__siguiente_editar()
@@ -166,7 +177,6 @@ class ci_admin_asistentes extends toba_ci
 		$this->set_pantalla('pant_edicion');	
 	}
 
-
 	function conf__form_generaciones($componente)
 	{
 		$componente->set_datos( $this->asistente()->get_opciones_generacion() );
@@ -185,15 +195,19 @@ class ci_admin_asistentes extends toba_ci
 
 	function asistente($reset=false)
 	{
+		$datos = null;
+		if ($this->existe_dependencia('asistente')) {
+			$datos = $this->dep('asistente')->dep('datos');
+		}
 		if ($reset || !isset($this->asistente)) {
 			if ($this->s__molde_preexistente) {
 				$this->asistente = toba_catalogo_asistentes::cargar_por_molde(	$this->s__clave_molde['proyecto'], 
 																				$this->s__clave_molde['molde'], 
-																				$this->dep('asistente')->dep('datos') );
+																				 $datos);
 				$this->asistente->preparar_molde();
 			} else {
 				$this->asistente = toba_catalogo_asistentes::cargar_por_tipo_operacion(	$this->s__datos_asistente['operacion_tipo'], 
-																				$this->dep('asistente')->dep('datos') );
+																				$datos );
 			}
 		}
 		return $this->asistente;

@@ -411,7 +411,8 @@ class toba_info_editores
 	*/
 	function get_arbol_componentes_item($proyecto, $item)
 	{
-		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto);
+		$resultado[0] = array( 'tipo' => 'toba_item', 'componente'=> $item, 'proyecto' => $proyecto, 
+								'icono' => 'item.gif', 'consumidores_externos' => 0, 'nombre' => '');
 		$sql = "SELECT 	proyecto,
 						objeto
 				FROM 	apex_item_objeto 

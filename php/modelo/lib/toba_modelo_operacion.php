@@ -28,7 +28,8 @@ class toba_modelo_operacion
 	{
 		$datos = array();
 		$a=0;
-		$arbol_componentes = array_slice($this->arbol,1);
+		//$arbol_componentes = array_slice($this->arbol,1);
+		$arbol_componentes = $this->arbol;
 
 		foreach( $arbol_componentes as $arbol ) {
 			$img = '';

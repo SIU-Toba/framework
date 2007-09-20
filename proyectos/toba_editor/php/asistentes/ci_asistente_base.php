@@ -67,7 +67,7 @@ class ci_asistente_base extends toba_ci
 		}
 		if (!isset($datos['carpeta_archivos'])) {
 			$datos['carpeta_archivos'] = toba_manejador_archivos::nombre_valido( $nombre );
-		}		
+		}
 		return $datos;
 	}
 
