@@ -60,7 +60,7 @@ class ci_admin_asistentes extends toba_ci
 	function conf__form_tipo_operacion(toba_ei_formulario $form)
 	{
 		if (toba::zona()->cargada()) {
-			$form->desactivar_efs(array('nombre'));
+			$form->desactivar_efs(array('carpeta','nombre'));
 		}		
 		if (isset($this->s__formulario_tipo)) {
 			return $this->s__formulario_tipo;
@@ -74,7 +74,7 @@ class ci_admin_asistentes extends toba_ci
 		$this->cargar_editor_molde(true);
 		//-- Si no hay zona, hay que crear el item y cargarla
 		if (! toba::zona()->cargada()) {
-			$id_item = $this->asistente()->crear_item($this->s__formulario_tipo['nombre'], $this->s__carpeta_item);
+			$id_item = $this->asistente()->crear_item($this->s__formulario_tipo['nombre'], $datos['carpeta']);
 			if (isset($id_item)) {
 				toba::zona()->cargar(array($id_item['proyecto'], $id_item['clave']));
 				admin_util::refrescar_editor_item();

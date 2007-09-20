@@ -42,37 +42,40 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 -- apex_objeto_eventos
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'56', --evento_id
+	'1000389', --evento_id
 	'1381', --objeto
-	'sacar_foto', --identificador
-	'Foto', --etiqueta
+	'asistente', --identificador
+	'Crear', --etiqueta
 	'1', --maneja_datos
-	'0', --sobre_fila
+	NULL, --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	'foto.gif', --imagen
+	'wizard.png', --imagen
 	'1', --en_botonera
-	'Guarda una copia del arbol, permitiendo recrearlo en situaciones posteriores.', --ayuda
+	'Ejecuta un aisistente que lo guiará en la creación de una nueva operación a partir de un catálogo de tipos de operación.', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
+	'V', --accion
+	'0', --accion_imphtml_debug
+	'3392', --accion_vinculo_carpeta
+	'1000110', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
+	'frame_centro', --accion_vinculo_target
+	'central'  --accion_vinculo_celda
 );
+--- FIN Grupo de desarrollo 1
+
+--- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
 	'57', --evento_id
@@ -90,7 +93,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	NULL, --defecto
+	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -190,7 +193,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	'fotos,filtro,items', --objetos
-	'refrescar,sacar_foto', --eventos
+	'refrescar,asistente', --eventos
 	'pant_catalogo_items', --subclase
 	NULL  --subclase_archivo
 );

@@ -380,13 +380,13 @@ class toba_item_info implements toba_nodo_arbol
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => false								
 			);
-			$utilerias[] = array(
+			/*$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("wizard.png", false),
 				'ayuda'=> "Crear una nueva operación a partir de un asistente",
 				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000110", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => false								
-			);			
+			);*/			
 
 		} else { //Es un item común
 
