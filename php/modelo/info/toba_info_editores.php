@@ -949,7 +949,8 @@ class toba_info_editores
 							descripcion_corta,
 							descripcion,
 							ci,
-							icono
+							icono,
+							vista_previa
 					FROM apex_molde_operacion_tipo
 					$where_operacion
 					ORDER BY orden";	

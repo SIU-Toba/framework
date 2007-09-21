@@ -40,6 +40,7 @@ CREATE TABLE apex_molde_operacion_tipo
 	clase							varchar(255)		NOT NULL,
 	ci								varchar(255)		NOT NULL,
 	icono							varchar(30)			NULL,
+	vista_previa					varchar(100)		NULL,
 	orden							float				NULL,
 	CONSTRAINT	"apex_molde_operacion_tipo_pk"	 PRIMARY	KEY ("operacion_tipo")
 );

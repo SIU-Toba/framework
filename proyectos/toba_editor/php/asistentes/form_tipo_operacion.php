@@ -17,8 +17,9 @@ class form_tipo_operacion extends toba_ei_formulario
 			var descripcion = '';
 			if (isset(tipos_operacion[valor])) {
 				descripcion = tipos_operacion[valor]['descripcion'];
+				vista_previa = '<img src=\"' + tipos_operacion[valor]['vista_previa'] + '\" />';
 			}
-			$('operacion_descripcion').innerHTML = descripcion;
+			$('operacion_descripcion').innerHTML = descripcion + '<br><br>' + vista_previa;
 		}
 		";
 	}

@@ -4,18 +4,21 @@ class pant_tipo_operacion extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		$tipos = toba_info_editores::get_lista_tipo_molde();
-		$tipos = rs_convertir_asociativo_matriz($tipos, array('operacion_tipo'), array('descripcion'));
+		$tipos_rs = toba_info_editores::get_lista_tipo_molde();
+		$tipos = array();
+		foreach ($tipos_rs as $tipo) {
+			$tipos[$tipo['operacion_tipo']] = array('descripcion' => $tipo['descripcion'],
+													'vista_previa' => toba_recurso::imagen_proyecto($tipo['vista_previa'], false));
+		}
 		echo toba_js::abrir();
 		echo "var tipos_operacion = ".toba_js::arreglo($tipos, true, true)."\n";
 		echo toba_js::cerrar();
 		$this->dep('form_tipo_operacion')->generar_html();
-		echo "<hr><div style='text-align: center; padding-bottom: 100px; padding-top:100px; font-weight:bold;color:gray'>
-				Vista previa en GIF animado o FLASH<br>
-				Como para dar una idea del flujo de la operación	
-			</div>";	
-		echo "<hr><div id='operacion_descripcion' style='text-align: center; padding-bottom: 5px; padding-top:5px'>
-			</div>";			
+		$this->generar_botones();
+		//$this->generar_boton('siguiente_editar');
+		echo "<div style='background-color: #808080;padding-bottom: 15px;margin-top: 5px; color: white; text-align:center; font-size:12px; font-weight: bold;'><hr>";
+		echo "<div id='operacion_descripcion'></div>";			
+		echo "</div>";
 	}
 	
 }

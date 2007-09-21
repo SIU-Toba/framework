@@ -49,6 +49,11 @@ class toba_molde_evento
 	{
 		$this->datos['implicito'] = 1;
 	}
+	
+	function set_predeterminado()
+	{
+		$this->datos['defecto'] = 1;
+	}
 
 	function set_imagen($url_relativa, $origen='apex')
 	{

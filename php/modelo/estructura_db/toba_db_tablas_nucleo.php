@@ -526,7 +526,8 @@ class toba_db_tablas_nucleo
     3 => 'clase',
     4 => 'ci',
     5 => 'icono',
-    6 => 'orden',
+    6 => 'vista_previa',
+    7 => 'orden',
   ),
 );
 	}

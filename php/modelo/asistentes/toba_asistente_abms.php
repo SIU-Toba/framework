@@ -323,6 +323,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$evento->set_etiqueta('Alta');
 		$evento->set_imagen('nucleo/agregar.gif');
 		$evento->maneja_datos();
+		$evento->set_predeterminado();
 		$evento->set_grupos('no_cargado');
 		$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
 		$metodo->set_contenido( array(	"\$this->dep('datos')->nueva_fila(\$datos);",
@@ -351,6 +352,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$evento->set_etiqueta('Modificar');
 		$evento->en_botonera();
 		$evento->maneja_datos();
+		$evento->set_predeterminado();		
 		$evento->set_imagen('refrescar.png');
 		$evento->set_grupos('cargado');
 		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));
