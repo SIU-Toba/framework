@@ -165,8 +165,16 @@ class toba_ei_cuadro extends toba_ei
 			if (!isset($valor['estilo_titulo']))
 				$columnas[$clave]['total_cc'] = '';
 		}
-		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, $columnas);
+		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
 	}	
+	
+	/**
+	 * Retorna la definición de las columnas actuales del cuadro
+	 */
+	function get_columnas()
+	{
+		return $this->_columnas;	
+	}
 	
 	/**
 	 * Si el usuario declaro funciones de sumarizacion por algun corte,
@@ -841,13 +849,6 @@ class toba_ei_cuadro extends toba_ei
 		return $this->_estructura_datos;		
 	}
 	
-	/**
-	 * Retorna la definición de las columnas actuales del cuadro
-	 */
-	function get_columnas()
-	{
-		return $this->_columnas;	
-	}
 	
 //################################################################################
 //#####################    INTERFACE GRAFICA GENERICA  ###########################

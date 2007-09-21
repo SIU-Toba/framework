@@ -13,7 +13,11 @@ abstract class toba_asistente
 	protected $bloqueos_generacion = array();
 	protected $archivos_php;
 	protected $id_elementos = 0;
+	protected $asumir_confirmacion = false;	//Permite asumir que las opciones de generacion booleanas se confirman afirmativamente
 	protected $dr_molde;  //Datos relacion del cual surje o surgio el molde (para el caso en que aun se este construyendo)
+	protected $moldes = array(); //Moldes utilizados en el asistente
+	
+	
 	
 	//Manejo de clases de consultas
 	protected $archivos_consultas = array();
@@ -36,6 +40,11 @@ abstract class toba_asistente
 		}
 		$this->valores_predefinidos = toba_info_editores::get_opciones_predefinidas_molde();
 	}	
+	
+	function registrar_molde(toba_molde_elemento $molde)
+	{
+		$this->moldes[] = $molde;	
+	}
 	
 	######################################################################
 	## Api para el CI del generador
@@ -96,7 +105,7 @@ abstract class toba_asistente
 	*	Usa el molde para generar una operacion.
 	*	Hay que definir los modos de regeneracion: no pisar archivos pero si metadatos, todo nuevo, etc.
 	*/
-	function crear_operacion($id_item, $retorno_opciones_generacion=null)
+	function ejecutar($id_item, $retorno_opciones_generacion=null)
 	{
 		//Registro las opciones de generacion
 		if(isset($retorno_opciones_generacion) && is_array($retorno_opciones_generacion) ) {
@@ -214,6 +223,9 @@ abstract class toba_asistente
 	*/
 	function consultar_opcion_generacion($opcion)
 	{
+		if ($this->asumir_confirmacion) {
+			return true;
+		}
 		if(isset($this->retorno_opciones_generacion[$opcion])) {
 			return $this->retorno_opciones_generacion[$opcion];
 		} else {
@@ -221,6 +233,14 @@ abstract class toba_asistente
 		}
 	}
 
+	/**
+	 * Permite asumir que las opciones de generacion booleanas se confirman afirmativamente
+	 */
+	function asumir_confirmaciones()
+	{
+		$this->asumir_confirmacion = true;
+	}
+	
 	/**
 	*	Agrega una falla bloqueante del molde. Se debe reportar durante la preparacion del molde.
 	*/
@@ -270,9 +290,7 @@ abstract class toba_asistente
 						$ef->set_propiedad('carga_col_clave',$fila['ef_carga_col_clave']);
 						$ef->set_propiedad('carga_col_desc',$fila['ef_carga_col_desc']);
 						if (isset($fila['ef_carga_sql'])) {
-								$this->crear_consulta_dt(	$molde_dt,
-															$metodo_recuperacion,
-															$fila['ef_carga_sql']);
+							$molde_dt->crear_metodo_consulta($metodo_recuperacion, $fila['ef_carga_sql']);
 						}											
 						break;
 						
@@ -335,8 +353,11 @@ abstract class toba_asistente
 	 * @return toba_datos_tabla_molde
 	 * @todo: Puede pasar que el molde a crear ya haya sido creado previamente para esta operación, haria falta un indice de los moldes
 	 */
-	function get_molde_datos_tabla($tabla)
+	function get_molde_datos_tabla($tabla, $fuente=null)
 	{
+		if (isset($fuente)) {
+			$this->molde['fuente'] = $fuente;
+		}
 		$molde = new toba_datos_tabla_molde($this);
 		$this->generar_datos_tabla($molde, $tabla, null);
 		return $molde;
@@ -351,7 +372,9 @@ abstract class toba_asistente
 	
 	function get_carpeta_archivos()
 	{
-		return $this->molde['carpeta_archivos'];
+		if (isset($this->molde['carpeta_archivos'])) {
+			return $this->molde['carpeta_archivos'];
+		}
 	}
 	
 	function get_carpeta_archivos_datos()
@@ -376,15 +399,9 @@ abstract class toba_asistente
 
 	//-- Manejo de consultas_php ------------------------
 
-	function crear_consulta_dt($tabla, $metodo, $sql, $parametros=null)
-	{
-		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
-		$clase = $this->molde['prefijo_clases']. 'dt';
-		$tabla->extender($tabla->get_tabla_nombre(), $tabla->get_tabla_nombre() . '.php');
-		$metodo = $this->crear_metodo_consulta($metodo, $sql, $param_metodo);
-		$tabla->php()->agregar($metodo);		
-	}
-
+	/**
+	 * @return toba_codigo_metodo_php
+	 */
 	function crear_metodo_consulta($nombre, $sql, $parametros=null)
 	{
 		$param_metodo = isset($parametros)? array('$filtro=array()') : array();

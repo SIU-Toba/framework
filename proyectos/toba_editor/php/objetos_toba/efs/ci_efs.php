@@ -369,32 +369,43 @@ class ci_efs extends toba_ci
 		if (isset($subclase) && !empty($subclase)) {
 			$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
 			$php = new toba_archivo_php($archivo);
-			$respuesta->set($php->contiene_metodo('get_listado'));
+			if ($php->existe() && $php->contiene_metodo('get_descripciones')) {
+				$sql = $this->get_sql_carga_tabla($dt);
+				$respuesta->set($sql);
+			} else {
+				$respuesta->set(false);
+			}
 		} else {
 			$respuesta->set(false);
 		}
 	}
 	
-	function ajax__crear_metodo_get_listado($dt, toba_ajax_respuesta $respuesta)
+	function ajax__crear_metodo_get_descripciones($dt, toba_ajax_respuesta $respuesta)
 	{
 		$dt = toba_contexto_info::get_db()->quote($dt);
-		$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);
-		if (! empty($datos)) {
-			$db = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado());
-			$sql = $db->get_sql_carga_tabla($datos['tabla']);
+		$sql = $this->get_sql_carga_tabla($dt);
+		if (isset($sql)) {
+			$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);			
+			$asistente = new toba_asistente_adhoc();
+			$asistente->asumir_confirmaciones();
+			$molde = $asistente->get_molde_datos_tabla($datos['tabla'], $datos['fuente_datos']);
+			$molde->crear_metodo_consulta('get_descripciones', $sql[0]);
+			$molde->generar();
 			$respuesta->set($sql);
-		}
-		return;
-		$subclase = toba_info_editores::get_subclase_componente($dt);
-		toba_catalogo_asistentes::get_sql_carga_tabla();
-		if (isset($subclase) && !empty($subclase)) {
-			/*$archivo = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto()).'/php/'.$subclase['subclase_archivo'];
-			$php = new toba_archivo_php($archivo);
-			$php->reemplazar_metodo()*/
 		} else {
 			$respuesta->set(false);			
 		}
 	}	
+	
+	protected function get_sql_carga_tabla($dt)
+	{
+		$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);		
+		if (! empty($datos)) {		
+			$db = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado());
+			$sql = $db->get_sql_carga_tabla($datos['tabla']);
+			return $sql;
+		}
+	}
 	
 	//---------------------------------
 	//---- EI: IMPORTAR definicion ----

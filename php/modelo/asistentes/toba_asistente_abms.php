@@ -234,10 +234,9 @@ class toba_asistente_abms extends toba_asistente_1dt
 			//----> Los datos son provistos por un datos_tabla
 			$php_recuperacion = '$this->dep(\'datos\')->' . $metodo_recuperacion;
 			if(isset($this->molde_abms['cuadro_carga_sql'])){ // La consulta existe
-				$this->crear_consulta_dt(	$this->ci->dep('datos'),
-											$metodo_recuperacion,
-											$this->molde_abms['cuadro_carga_sql'],
-											$filtro );
+				$this->ci->dep('datos')->crear_metodo_consulta($metodo_recuperacion,
+																$this->molde_abms['cuadro_carga_sql'],
+																$filtro );
 			}
 		} else {
 			throw new toba_error_asistentes('El tipo de origen de datos no fue definido correctamente [' . $this->molde_abms['cuadro_carga_php_clase'] . ']');	

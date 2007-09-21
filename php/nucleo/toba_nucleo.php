@@ -450,6 +450,7 @@ class toba_nucleo
 			'toba_asistente_grilla_def'				=> 'nucleo/componentes/definicion/toba_asistente_grilla_def.php',
 			'toba_catalogo_asistentes'				=> 'modelo/asistentes/toba_catalogo_asistentes.php',
 			'toba_asistente'						=> 'modelo/asistentes/toba_asistente.php',
+			'toba_asistente_adhoc'					=> 'modelo/asistentes/toba_asistente_adhoc.php',
 			'toba_asistente_1dt'					=> 'modelo/asistentes/toba_asistente_1dt.php',
 			'toba_asistente_abms'					=> 'modelo/asistentes/toba_asistente_abms.php',
 			'toba_asistente_grilla'					=> 'modelo/asistentes/toba_asistente_grilla.php',

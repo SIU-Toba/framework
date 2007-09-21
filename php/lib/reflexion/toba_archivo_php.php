@@ -269,5 +269,6 @@ class toba_archivo_php
 			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	
 		}
 	}
+
 }
 ?>

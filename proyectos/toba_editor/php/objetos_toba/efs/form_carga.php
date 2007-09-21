@@ -76,6 +76,8 @@ class form_carga extends toba_ei_formulario
 				var tabla_actual = this.ef('carga_dt').get_estado();
 				if (tabla_actual != apex_ef_no_seteado) {
 					this.ef('carga_metodo').set_estado('');
+					this.ef('carga_col_clave').set_estado('');
+					this.ef('carga_col_desc').set_estado('');					
 					this.controlador.ajax('existe_metodo_dt', tabla_actual, this, this.respuesta_existe_dt); 
 				} else {
 					this.ef('carga_metodo').ocultar(true);
@@ -83,12 +85,6 @@ class form_carga extends toba_ei_formulario
 					this.ef('carga_col_desc').ocultar(true);
 				}
 			}
-			
-			{$this->objeto_js}.generar_metodo = function() {
-				var tabla_actual = this.ef('carga_dt').get_estado();
-				this.controlador.ajax('crear_metodo_get_listado', tabla_actual, this, this.respuesta_crear_dt);
-			}
-
 			
 			{$this->objeto_js}.respuesta_existe_dt = function(existe) {
 				this.ef('carga_metodo').mostrar();
@@ -102,19 +98,24 @@ class form_carga extends toba_ei_formulario
 				if (! existe) {
 					this.ef('carga_metodo').set_estado('');
 					var link = '<a href=\"javascript: {$this->objeto_js}.generar_metodo()\" ';
-					link += 'title=\"Crea un método get_listado() dentro de la extensión del datos tabla, conteniendo el select requerido para cargar esta tabla\">';
-					link += 'Crear método <strong>get_listado</strong></a>';
+					link += 'title=\"Crea un método get_descripciones() dentro de la extensión del datos tabla, conteniendo el select requerido para cargar las descripciones de esta tabla\">';
+					link += 'Crear método <strong>get_descripciones</strong></a>';
 					div.innerHTML = link;
 				} else {
-					div.innerHTML = '';
-					this.ef('carga_metodo').set_estado('get_listado');
+					this.respuesta_crear_dt(existe);
 				}			
 			}			
 			
+			{$this->objeto_js}.generar_metodo = function() {
+				var tabla_actual = this.ef('carga_dt').get_estado();
+				this.controlador.ajax('crear_metodo_get_descripciones', tabla_actual, this, this.respuesta_crear_dt);
+			}			
 			
 			{$this->objeto_js}.respuesta_crear_dt = function(datos) {
 				if (datos) {
-					this.ef('carga_metodo').set_estado('get_listado');
+					var div = $('nodo_carga_metodo');				
+					div.innerHTML = '';				
+					this.ef('carga_metodo').set_estado('get_descripciones');
 					this.ef('carga_col_clave').set_estado(datos[1]);
 					this.ef('carga_col_desc').set_estado(datos[2]);
 				}

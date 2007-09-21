@@ -45,6 +45,15 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 			}
 		}
 	}
+	
+	/**
+	 * Tiene una subclase?
+	 * @return boolean
+	 */
+	function extendido()
+	{
+		return $this->datos->tabla('base')->get_columna('subclase') != '';
+	}
 
 	function php()
 	{

@@ -10,13 +10,12 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function ini()
 	{
 		parent::ini();
-		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos_datos();		
+		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos_datos();	
 	}
 	
 	function crear($tabla)
 	{
-		$this->datos->tabla('prop_basicas')->nueva_fila(array('ap'=>1));	//Admin persistencia por defecto
-		$this->datos->tabla('prop_basicas')->set_cursor(0);
+		$this->datos->tabla('prop_basicas')->set(array('ap'=>1));	//Admin persistencia por defecto
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla);		
 	}
 	
@@ -65,6 +64,49 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 			throw new toba_error_asistentes('Molde formulario: El ef solicitado no existe');	
 		}
 		return $this->columnas[$identificador];
+	}
+
+	//---------------------------------------------------
+	//-- API de subclase
+	//---------------------------------------------------		
+
+	function archivo_relativo()
+	{
+		return $this->archivo;		
+	}
+
+	function directorio_absoluto()
+	{
+		$path_proyecto = toba::instancia()->get_path_proyecto($this->proyecto);
+		return  $path_proyecto . '/php/';
+	}
+	
+	/**
+	 * Para el datos tabla, al querer acceder a la extension se crea sola ya que es global al proyecto
+	 *
+	 * @return unknown
+	 */
+	function php()
+	{
+		if (! isset($this->molde_php)) {
+			if (! $this->extendido()) {
+				$clase = $this->get_tabla_nombre();
+				$archivo = $this->carpeta_archivo.'/'.$clase.'.php';
+			} else {
+				//-- Ya estaba extendido previamente, se carga la clase
+				$clase = $this->datos->tabla('base')->get_columna('subclase');
+				$archivo = $this->datos->tabla('base')->get_columna('subclase_archivo');
+			}
+			$this->extender($clase, $archivo);			
+		}
+		return $this->molde_php;	
+	}	
+	
+	function crear_metodo_consulta($metodo, $sql, $parametros=null)
+	{
+		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
+		$metodo = $this->asistente->crear_metodo_consulta($metodo, $sql, $param_metodo);
+		$this->php()->agregar($metodo);
 	}
 
 	

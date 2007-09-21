@@ -20,6 +20,7 @@ class toba_molde_elemento
 	function __construct($asistente)
 	{
 		$this->asistente = $asistente;
+		$this->asistente->registrar_molde($this);
 		$this->id = $this->asistente->get_id_elemento();
 		$this->proyecto = $this->asistente->get_proyecto();
 		//Busco el datos relacion correspondientes al componente
@@ -33,8 +34,7 @@ class toba_molde_elemento
 			$datos['fuente_datos'] = $this->asistente->get_fuente();
 			
 		}
-		$this->datos->tabla('base')->nueva_fila($datos);
-		$this->datos->tabla('base')->set_cursor(0);
+		$this->datos->tabla('base')->set($datos);
 		$this->ini();
 	}
 

@@ -49,6 +49,15 @@ class toba_codigo_clase
 		}
 		$this->orden++;
 	}
+	
+	/**
+	 * Agrega un método a la clase, si ya existe lo reemplaza
+	 * @param toba_codigo_elemento $elemento
+	 */
+	function agregar_o_reemplazar(toba_codigo_elemento $elemento)
+	{
+				
+	}
 
 	function ultimo_elemento()
 	{
