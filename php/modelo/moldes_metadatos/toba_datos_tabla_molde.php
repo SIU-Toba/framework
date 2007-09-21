@@ -10,6 +10,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function ini()
 	{
 		parent::ini();
+		$this->pisar_archivo = false;
 		$this->carpeta_archivo = $this->asistente->get_carpeta_archivos_datos();	
 	}
 	
@@ -101,6 +102,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 		}
 		return $this->molde_php;	
 	}	
+	
 	
 	function crear_metodo_consulta($metodo, $sql, $parametros=null)
 	{

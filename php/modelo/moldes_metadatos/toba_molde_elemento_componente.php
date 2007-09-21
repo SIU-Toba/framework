@@ -36,7 +36,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 		if(!isset($this->molde_php)) {
 			$this->subclase = $subclase;
 			$this->archivo = $archivo;
-			$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase );
+			$this->molde_php = new toba_codigo_clase( $this->subclase, $this->clase);
 			//Dejo la marca
 			if( file_exists($this->archivo_absoluto()) ) {
 				$txt = "Reemplazar archivo: " . $this->archivo_relativo();
@@ -79,7 +79,11 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 
 	protected function get_codigo_php()
 	{
-		return $this->molde_php->get_codigo();	
+		$existente = null;
+		if (!$this->pisar_archivo && file_exists($this->archivo_absoluto())) {
+			$existente = toba_archivo_php::codigo_sacar_tags_php(file_get_contents($this->archivo_absoluto()));
+		}
+		return $this->molde_php->get_codigo($existente);	
 	}
 
 	protected function asociar_archivo()

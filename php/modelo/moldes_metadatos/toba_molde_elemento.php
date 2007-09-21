@@ -16,6 +16,7 @@ class toba_molde_elemento
 	protected $carpeta_archivo;		
 	protected $datos;				// Datos relacion que persiste el componente
 	protected $archivo;				// Manejador de archivos
+	protected $pisar_archivo = true;
 
 	function __construct($asistente)
 	{

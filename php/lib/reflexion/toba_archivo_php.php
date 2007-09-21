@@ -59,8 +59,9 @@ class toba_archivo_php
 	{
 		$macheos = array();
 		if (preg_match("/(<\?php|<\?)(.*)\?>/",file_get_contents($this->nombre),$macheos)) {
-			ei_arbol($macheos);
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -69,7 +70,7 @@ class toba_archivo_php
 	 */
 	function contiene_clase($nombre)
 	{
-		return preg_match("/class\s+$nombre/",file_get_contents($this->nombre));
+		return self::codigo_tiene_clase(file_get_contents($this->nombre), $nombre);
 	}
 
 	/**
@@ -78,7 +79,7 @@ class toba_archivo_php
 	 */
 	function contiene_metodo($nombre)
 	{
-		return preg_match("/function\s+$nombre\s*\(/",file_get_contents($this->nombre));
+		return self::codigo_tiene_metodo(file_get_contents($this->nombre), $nombre);
 	}
 
 
@@ -243,6 +244,18 @@ class toba_archivo_php
 		$linea_f = null;
 		//Busco la region en donde se encuentra el metodo
 		foreach($contenido as $linea => $codigo) {
+			if(	!$encontrado && preg_match("/protected function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+				$encontrado = true;
+				$linea_i = $linea;
+			}
+			if(	!$encontrado && preg_match("/public function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+				$encontrado = true;
+				$linea_i = $linea;
+			}
+				if(	!$encontrado && preg_match("/private function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+				$encontrado = true;
+				$linea_i = $linea;
+			}			
 			if(	!$encontrado && preg_match("/function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
 				$encontrado = true;
 				$linea_i = $linea;
@@ -268,6 +281,45 @@ class toba_archivo_php
 			//Lanzar una excepcion?
 			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	
 		}
+	}
+
+	static function codigo_tiene_metodo($codigo, $nombre)
+	{
+		return preg_match("/function\s+$nombre\s*\(/", $codigo);		
+	}
+	
+	static function codigo_tiene_clase($codigo, $nombre)
+	{
+		return preg_match("/class\s+$nombre/", $codigo);
+	}
+	
+	static function codigo_agregar_metodo($codigo_actual, $metodo)
+	{
+		$pos = strrpos($codigo_actual, '}');
+		if ($pos !== false) {
+			return substr($codigo_actual, 0, $pos-1).salto_linea().$metodo.salto_linea().substr($codigo_actual, $pos);
+		} else {
+			throw new toba_error("El codigo no contiene una llave de fin de clase");
+		}
+
+	}	
+	
+	static function codigo_sacar_tags_php($codigo)
+	{
+		$pos = strpos($codigo, '<?php');
+		if ($pos !== false) {
+			$codigo = substr($codigo, $pos + 6);
+		} else {
+			$pos = strpos($codigo, '<?');
+			if ($pos !== false) {
+				$codigo = substr($this->contenido, $pos + 2);
+			}
+		}
+		$pos = strpos($codigo, '?>');
+		if ($pos !== false) {
+			$codigo = substr($codigo, 0, $pos-1);
+		}
+		return $codigo;
 	}
 
 }

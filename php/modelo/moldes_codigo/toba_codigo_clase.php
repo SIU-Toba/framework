@@ -50,14 +50,6 @@ class toba_codigo_clase
 		$this->orden++;
 	}
 	
-	/**
-	 * Agrega un método a la clase, si ya existe lo reemplaza
-	 * @param toba_codigo_elemento $elemento
-	 */
-	function agregar_o_reemplazar(toba_codigo_elemento $elemento)
-	{
-				
-	}
 
 	function ultimo_elemento()
 	{
@@ -143,7 +135,7 @@ class toba_codigo_clase
 	//-- Generacion de codigo --------------------------------------
 	//--------------------------------------------------------------
 
-	function get_codigo($elementos_a_utilizar=null)
+	function get_codigo($codigo_existente=null, $elementos_a_utilizar=null)
 	{
 		// Filtro el plan de generacion
 		if (isset($elementos_a_utilizar)) {
@@ -153,7 +145,7 @@ class toba_codigo_clase
 			$this->filtrar_contenido($elementos_a_utilizar);
 		} 
 		// Genero el codigo
-		return $this->generar_codigo();
+		return $this->generar_codigo($codigo_existente);
 	}
 
 	//-- Filtro de contenido ------------------------------------
@@ -221,23 +213,36 @@ class toba_codigo_clase
 
 	//-- Generacion de CODIGO ------------------------------------
 
-	function generar_codigo()
+	function generar_codigo($codigo_existente)
 	{
+		$this->codigo_php = $codigo_existente;
+		
+		//TODO: Falta implementar el agregado de requires a codigo existente
 		if(count($this->archivos_requeridos)>0) {
 			foreach($this->archivos_requeridos as $archivo) {
 				$this->codigo_php .= "require_once('$archivo');" . salto_linea();
 			}
 			$this->codigo_php .= salto_linea();
 		}
-		$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
-		$this->generar_codigo_php();
-		$this->generar_codigo_js();
-		$this->codigo_php .= "}". salto_linea();
+		//--Crea o reemplza la definicion de la clase
+		if (! toba_archivo_php::codigo_tiene_clase($codigo_existente, $this->nombre)) {
+			$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
+			$this->generar_codigo_php();
+			$this->generar_codigo_js();
+			$this->codigo_php .= "}". salto_linea();
+		} else {
+			$this->generar_codigo_php($codigo_existente);
+			$this->generar_codigo_js($codigo_existente);
+		}
 		return $this->codigo_php;
 	}		
 
-	function generar_codigo_php()
+	/**
+	 * @todo: Falta implementar el reemplazo de propiedades
+	 */	
+	function generar_codigo_php($codigo_existente='')
 	{
+		//TODO: Asume que el no hay codigo actual
 		if(count($this->propiedades)>0) {
 			foreach($this->propiedades as $propiedad) {
 				$propiedad->identar(1);
@@ -245,15 +250,34 @@ class toba_codigo_clase
 			}
 			$this->codigo_php .= salto_linea();
 		}
+		
+		
 		$paso = 0;
 		foreach ($this->elementos_php as $elemento) {
 			$elemento->identar(1);
 			if($paso) $this->codigo_php .= salto_linea();
-			$this->codigo_php .= $elemento->get_codigo();
+			if ($codigo_existente != '') {
+				if ($elemento instanceof toba_codigo_metodo_php &&
+			 			toba_archivo_php::codigo_tiene_metodo($codigo_existente, $elemento->get_nombre()) )	{
+					//Reemplaza el metodo
+					$this->codigo_php = toba_archivo_php::reemplazar_metodo($this->codigo_php, 
+																$elemento->get_nombre(), 
+																$elemento->get_codigo());
+			 	} else {
+			 		//Agrego el metodo en un lugar adecuado
+					$this->codigo_php = toba_archivo_php::codigo_agregar_metodo($this->codigo_php, $elemento->get_codigo());			 		
+			 	}
+			} else {
+				//Agrego el metodo según como viene el flujo
+				$this->codigo_php .= $elemento->get_codigo();
+			}
 			$paso = 1;
 		}	
 	}
 
+	/**
+	 * @todo: Falta implementar el reemplazo
+	 */
 	function generar_codigo_js()
 	{
 		$javascript = '';
