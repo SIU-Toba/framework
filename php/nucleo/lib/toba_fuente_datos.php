@@ -50,7 +50,7 @@ class toba_fuente_datos
 			throw new toba_error("No se encuentra el datos_tabla asociado a la tabla $tabla en la fuente {$this->definicion['fuente_datos']}");
 		}
 	}
-
+	
 	/**
 	*	Ventana para personalizar las acciones previas a la conexión
 	* @ventana

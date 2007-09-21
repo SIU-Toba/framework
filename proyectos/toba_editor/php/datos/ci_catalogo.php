@@ -55,24 +55,42 @@ class ci_catalogo extends toba_ci
 	
 	function conf__tablas(toba_ei_cuadro $cuadro)
 	{
-		$datos = toba_info_editores::get_lista_objetos_dt();
-		foreach(array_keys($datos) as $id) {
-			$datos[$id]['icono']	= 'objetos/datos_tabla.gif';
-			$datos[$id]['editar'] = $this->get_acceso_editores('toba_datos_tabla',
-																$datos[$id]['proyecto'],
-																$datos[$id]['objeto']);
+		$proyecto = toba_contexto_info::get_proyecto();
+		$catalogo = new toba_catalogo_objetos($proyecto);
+		$objetos = $catalogo->get_objetos(array('clase' => 'toba_datos_tabla'));
+		$tablas = toba_info_editores::get_tabla_fuente_de_dt();
+		$tablas = rs_convertir_asociativo($tablas, array('id'), 'tabla');
+		$datos = array();
+		foreach ($objetos as $comp) {
+			$tabla = $tablas[$comp->get_id()];
+			$datos[$tabla]['editar'] = $this->get_string_iconos($comp->get_utilerias());
+			$datos[$tabla]['proyecto'] = $proyecto;
+			$datos[$tabla]['objeto'] = $comp->get_id();
+			$datos[$tabla]['tabla'] = $tabla;		
+			$datos[$tabla]['icono'] = $this->get_string_iconos($comp->get_iconos());
 		}
-		$cuadro->set_datos($datos);
+		//Lo recorre de nuevo para que esten en orden		
+		$salida = array();
+		foreach ($tablas as $tabla) {
+			$salida[] = $datos[$tabla];
+		}
+		$cuadro->set_datos($salida);
 	}
 
 	function conf__relaciones(toba_ei_cuadro $cuadro)
 	{
-		$datos = toba_info_editores::get_lista_objetos_dr();
-		foreach(array_keys($datos) as $id) {
-			$datos[$id]['icono']	= 'objetos/datos_relacion.gif';
-			$datos[$id]['editar'] = $this->get_acceso_editores('toba_datos_relacion',
-																$datos[$id]['proyecto'],
-																$datos[$id]['objeto']);
+		$proyecto = toba_contexto_info::get_proyecto();
+		$catalogo = new toba_catalogo_objetos($proyecto);
+		$objetos = $catalogo->get_objetos(array('clase' => 'toba_datos_relacion'));
+		$datos = array();
+		$i = 0;
+		foreach ($objetos as $comp) {
+			$datos[$i]['editar'] = $this->get_string_iconos($comp->get_utilerias(false));
+			$datos[$i]['proyecto'] = $proyecto;
+			$datos[$i]['objeto'] = $comp->get_id();
+			$datos[$i]['descripcion_corta'] = $comp->get_nombre();
+			$datos[$i]['icono'] = $this->get_string_iconos($comp->get_iconos());
+			$i++;
 		}
 		$cuadro->set_datos($datos);
 	}
@@ -114,10 +132,23 @@ class ci_catalogo extends toba_ci
 		}
 		$ayuda .= "</div>";
 		$ayuda = str_replace("'", "\\'", $ayuda);
-		
-		//$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 		$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null, $ayuda);
 		return $this->tag_vinculo_editor($item_editor_proyecto, $item_editor, $parametros_editor,$img);
+	}
+	
+	function get_string_iconos($iconos)
+	{
+		$salida = '';
+		foreach ($iconos as $icono) {
+			$ayuda = toba_parser_ayuda::parsear($icono['ayuda']);
+			$img = toba_recurso::imagen($icono['imagen'], null, null, $ayuda);
+			if (isset($icono['vinculo'])) {
+				$salida .= "<a target='".apex_frame_centro."' href=\"".$icono['vinculo']."\">$img</a>\n";
+			} else {
+				$salida .= $img."\n";
+			}
+		}
+		return $salida;	
 	}
 }
 

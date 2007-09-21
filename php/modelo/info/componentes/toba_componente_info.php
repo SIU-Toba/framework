@@ -233,11 +233,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	
 	function get_iconos()
 	{
-		$clase_corto = substr($this->datos['_info']['clase'], 7);		
+		$clase_corto = substr($this->datos['_info']['clase'], 5);
 		$iconos = array();
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba($this->datos['_info']['clase_icono'], false),
-				'ayuda' => "Objeto [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
+				'ayuda' => "Componente [wiki:Referencia/Objetos/$clase_corto $clase_corto]"
 			);	
 		return $iconos;
 	}

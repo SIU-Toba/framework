@@ -1386,7 +1386,12 @@ class toba_ei_cuadro extends toba_ei
 					}
 				}
                 //*** 3) Genero el HTML
-                echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."'>\n";
+            	if(isset($this->_info_cuadro_columna[$a]["ancho"])){
+	                $ancho = " width='". $this->_info_cuadro_columna[$a]["ancho"] . "'";
+	            }else{
+	                $ancho = "";
+	            }                
+                echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."' $ancho>\n";
                 echo $valor;
                 echo "</td>\n";
                 //Termino la CELDA

@@ -190,13 +190,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'Formateo', --etiqueta
 	NULL, --etiqueta_estilo
 	'Formateo a aplicar sobre el valor retornado por el query para esta columna', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -205,11 +205,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'SELECT columna_formato, descripcion_corta 
 FROM apex_columna_formato', --carga_sql
 	NULL, --carga_dt
-	NULL, --carga_fuente
+	'instancia', --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
-	'NO', --carga_no_seteado
+	'0', --carga_cascada_relaj
+	'Sin formato', --carga_no_seteado
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

@@ -19,20 +19,22 @@ class toba_datos_relacion_info extends toba_componente_info
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
 
-	function get_utilerias()
+	function get_utilerias($icono_nuevo=true)
 	{
 		//ei_arbol($this->datos);
 		$iconos = array();
-		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
-			'ayuda' => "Crear una nueva tabla asociada a la relación",
-			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
-								array(	'destino_tipo' => 'toba_datos_relacion', 
-										'destino_proyecto' => $this->proyecto,
-										'destino_id' => $this->id),
-										false, false, null, true, "central"),
-			'plegado' => true										
-		);
+		if ($icono_nuevo) {
+			$iconos[] = array(
+				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
+				'ayuda' => "Crear una nueva tabla asociada a la relación",
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+									array(	'destino_tipo' => 'toba_datos_relacion', 
+											'destino_proyecto' => $this->proyecto,
+											'destino_id' => $this->id),
+											false, false, null, true, "central"),
+				'plegado' => true										
+			);
+		}
 		//--- Mejora para el caso de que la query sea una unica
 		if (isset($this->datos['_info']['ap_clase'])) {
 			$this->datos['_info_estructura']['ap_clase'] = $this->datos['_info']['ap_clase'];
@@ -43,14 +45,15 @@ class toba_datos_relacion_info extends toba_componente_info
 		if (isset($this->datos['_info_estructura']['ap_clase'])) {
 			// Hay PHP asociado
 			if ( admin_util::existe_archivo_subclase($this->datos['_info_estructura']['ap_archivo']) ) {
+				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
+																					'componente' =>$this->id ),
+																			'ap',
+																			'reflexion/abrir_ap.gif' );				
 				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),
 																			'ap',
 																			'nucleo/php_ap.gif' );
-				$iconos[] = toba_componente_info::get_utileria_editor_abrir_php( array(	'proyecto'=>$this->proyecto,
-																					'componente' =>$this->id ),
-																			'ap',
-																			'reflexion/abrir_ap.gif' );
+
 			} else {
 				$iconos[] = toba_componente_info::get_utileria_editor_ver_php( array(	'proyecto'=>$this->proyecto,
 																					'componente' =>$this->id ),

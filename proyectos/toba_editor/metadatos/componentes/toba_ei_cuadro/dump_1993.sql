@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	'15', --formateo
+	NULL, --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
 	NULL, --mostrar_xls
@@ -119,7 +119,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'100%', --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
@@ -145,9 +145,9 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'3', --orden
 	NULL, --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'0', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'5', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
 	NULL, --mostrar_xls

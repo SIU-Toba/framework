@@ -561,25 +561,35 @@ class toba_info_editores
 
 	//---------------------------------------------------	
 	
-	static function get_tabla_fuente_de_dt($id, $proyecto=null)
+	static function get_tabla_fuente_de_dt($id=null, $proyecto=null)
 	{
 		if (!isset($proyecto)) {
 			$proyecto = toba_contexto_info::get_proyecto();
 		}
+		$objeto = '';
+		if (isset($id)) {
+			$objeto = "					dt.objeto = $id AND";
+		}
 		$sql = "
 			SELECT 
 				dt.tabla,
-				comp.fuente_datos
+				comp.fuente_datos,
+				comp.objeto as id
 			FROM 
 				apex_objeto_db_registros as dt,
 				apex_objeto as comp
 			WHERE
-					dt.objeto = $id
-				AND	dt.objeto_proyecto = '$proyecto'
+				$objeto
+					dt.objeto_proyecto = '$proyecto'
 				AND dt.objeto = comp.objeto
 				AND dt.objeto_proyecto = comp.proyecto
+			ORDER BY tabla				
 		";
-		return toba_contexto_info::get_db()->consultar_fila($sql);
+		if (isset($id)) {
+			return toba_contexto_info::get_db()->consultar_fila($sql);
+		} else {
+			return toba_contexto_info::get_db()->consultar($sql);
+		}
 	}
 	//---------------------------------------------------
 	

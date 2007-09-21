@@ -63,7 +63,7 @@
 
 	function formato_indivisible($valor)
 	{
-		return str_replace (" ","&nbsp;", trim($valor));
+		return "<span style='white-space:nowrap'>$valor</span>";
 	}
 	
 	function formato_may_ind($valor)

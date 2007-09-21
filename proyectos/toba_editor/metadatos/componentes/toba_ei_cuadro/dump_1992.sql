@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	'1', --ordenar
+	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	'15', --formateo
+	NULL, --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
 	NULL, --mostrar_xls
@@ -116,23 +116,23 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'607', --objeto_cuadro_col
 	'tabla', --clave
 	'2', --orden
-	'TABLA', --titulo
+	NULL, --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	NULL, --ancho
+	'100%', --ancho
 	NULL, --formateo
 	NULL, --vinculo_indice
-	NULL, --no_ordenar
+	'0', --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	NULL, --total
+	'0', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	NULL, --vinculo_popup
+	'0', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL  --vinculo_celda
@@ -145,9 +145,9 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'3', --orden
 	NULL, --titulo
 	NULL, --estilo_titulo
-	'4', --estilo
+	'0', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'5', --formateo
 	NULL, --vinculo_indice
 	'1', --no_ordenar
 	NULL, --mostrar_xls
