@@ -22,7 +22,7 @@ vinculador = new function() {
 
 	/**
 	 * Crea una URL hacia un item especifico
-	 * @param {string} destino Item destino
+	 * @param {Array} destino [proyecto,operacion] destino
 	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
 	 * @param {Object} parametros Objeto asociativo parametro=>valor (ej. {'precio': 123} )
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)

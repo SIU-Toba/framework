@@ -165,7 +165,7 @@ class comando_base extends comando_toba
 			$archivo = $param['-a'];
 		} else {
 			throw new toba_error("Es necesario indicar el archivo a ejecutar. Utilice el modificador '-a'");
-		}		
+		}
 		$db = $this->get_instalacion()->conectar_base($this->get_id_base_actual());
 		$db->ejecutar_archivo($archivo);
 	}		

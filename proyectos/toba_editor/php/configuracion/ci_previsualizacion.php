@@ -28,7 +28,11 @@ class ci_previsualizacion extends toba_ci
 
 	function conf__datos()
 	{
-		return toba_editor::get_parametros_previsualizacion();
+		$parametros = toba_editor::get_parametros_previsualizacion();
+		if (! isset($parametros)) {
+			$parametros['punto_acceso'] = toba::instancia()->get_url_proyecto(toba_editor::get_proyecto_cargado());
+		}
+		return $parametros;
 	}
 }
 ?>

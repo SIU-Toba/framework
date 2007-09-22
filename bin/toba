@@ -2,7 +2,9 @@
 #
 #	Disparo la consola!!!
 #
+dir_actual=`pwd`
 cd `dirname $0`
 toba_dir=`pwd`
 export toba_dir=`dirname $toba_dir`
+cd $dir_actual
 php $toba_dir/php/consola/run.php $*

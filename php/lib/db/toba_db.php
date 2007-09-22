@@ -248,7 +248,6 @@ class toba_db
 	*	@param string $archivo Path absoluto del archivo
 	*/
 	function ejecutar_archivo($archivo)
-	//Esta función ejecuta una serie de comandos sql dados en un archivo, contra la BD dada.
 	{
 		if (!file_exists($archivo)) {
 			throw new toba_error("Error al ejecutar comandos. El archivo '$archivo' no existe");

@@ -221,9 +221,8 @@ class toba_editor
 			if ($rs) {
 				self::$memoria['previsualizacion'] = $rs;
 			} else {
-				self::$memoria['previsualizacion']['punto_acceso'] = null;
-				self::$memoria['previsualizacion']['grupo_acceso'] = null;
-			}		
+				 self::$memoria['previsualizacion'] = null;
+			}
 		}
 		return 	self::$memoria['previsualizacion'];
 	}

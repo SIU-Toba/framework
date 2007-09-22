@@ -14,7 +14,9 @@ var editor =
 		var parametros_vacios = (this._parametros.punto_acceso === '' ) || 
 								(this._parametros.proyecto === '' );
 		if ( parametros_nulos || parametros_vacios )  {
-			alert('No es posible previsualizar ITEMS.\n Los parametros de conexion al proyecto no fueron especificados.');
+			alert('Por favor especifique los parámetros de previsualización');
+			this.abrir_editor('frame_centro', vinculador.crear(['toba_editor', '3287']));
+			
 		} else {
 			url = this._parametros.punto_acceso + '?' + window.toba_hilo_qs + '=' + 
 					this._parametros.proyecto;
