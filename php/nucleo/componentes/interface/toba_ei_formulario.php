@@ -681,7 +681,7 @@ class toba_ei_formulario extends toba_ei
 		
 		//--- Agrega el no-seteado en caso que existan elementos
 		if (isset($parametros['carga_no_seteado']) && ! isset($salida[apex_ef_no_seteado])
-				&& ! empty($salida)) {
+				&& (! empty($salida) || !$parametros['carga_no_seteado_ocultar'])) {
 			$lista = array();
 			$lista[apex_ef_no_seteado] = $parametros['carga_no_seteado'];
 			return $lista + $salida;

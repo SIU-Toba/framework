@@ -100,6 +100,11 @@ class ci_principal extends toba_ci
 		if (isset($datos['actividad_patron']) && $datos['actividad_patron'] != 'especifico') {
 			$datos['comportamiento'] = 'patron';
 		}
+		if (! isset($datos['pagina_tipo'])) {
+			$pagina = toba_info_editores::get_tipo_pagina_defecto();
+			$datos['pagina_tipo'] = $pagina['pagina_tipo'];
+			$datos['pagina_tipo_proyecto'] = $pagina['proyecto']; 
+		}
 		return $datos;
 	}
 

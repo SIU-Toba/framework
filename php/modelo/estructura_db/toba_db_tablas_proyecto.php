@@ -317,10 +317,11 @@ class toba_db_tablas_proyecto
     39 => 'log_archivo',
     40 => 'log_archivo_nivel',
     41 => 'fuente_datos',
-    42 => 'version',
-    43 => 'version_fecha',
-    44 => 'version_detalle',
-    45 => 'version_link',
+    42 => 'pagina_tipo',
+    43 => 'version',
+    44 => 'version_fecha',
+    45 => 'version_detalle',
+    46 => 'version_link',
   ),
 );
 	}

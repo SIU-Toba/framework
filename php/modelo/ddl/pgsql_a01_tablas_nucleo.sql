@@ -238,8 +238,8 @@ CREATE TABLE apex_pagina_tipo
 	clase_archivo						varchar(255)	NULL,
 	include_arriba						varchar(100)	NULL,
 	include_abajo						varchar(100)	NULL,
-	exclusivo_toba						smallint			NULL,
-	contexto								varchar(255)	NULL,	--	Establece variables de CONTEXTO?	Cuales?
+	exclusivo_toba						smallint		NULL,
+	contexto							varchar(255)	NULL,	--	Establece variables de CONTEXTO?	Cuales?
 	CONSTRAINT	"apex_pagina_tipo_pk" PRIMARY	KEY ("proyecto","pagina_tipo"),
 	CONSTRAINT	"apex_pagina_tipo_fk_proy"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );

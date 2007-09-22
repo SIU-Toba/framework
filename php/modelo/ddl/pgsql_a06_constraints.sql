@@ -27,6 +27,17 @@
 	INITIALLY
 	IMMEDIATE;
 
+	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_pagina_tipo" 
+	FOREIGN KEY ("proyecto", "pagina_tipo") 
+	REFERENCES	"apex_pagina_tipo" ("proyecto","pagina_tipo") 
+	ON DELETE NO ACTION	
+	ON	UPDATE NO ACTION 
+	DEFERRABLE 
+	INITIALLY
+	IMMEDIATE;
+
+
+
 	ALTER TABLE apex_usuario_grupo_acc ADD CONSTRAINT "apex_usu_g_acc_fk_proy"
 	FOREIGN KEY ("proyecto")
 	REFERENCES "apex_proyecto" ("proyecto")

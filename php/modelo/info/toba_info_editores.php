@@ -730,6 +730,35 @@ class toba_info_editores
 				ORDER BY 3";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	function get_tipos_pagina_proyecto()
+	{
+		$sql = "SELECT proyecto, pagina_tipo, descripcion 
+				FROM apex_pagina_tipo 
+				WHERE ( proyecto = '". toba_contexto_info::get_proyecto() ."' )
+				ORDER BY 3";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
+	/**
+	 * Retorna el tipo de pagina predeterminado para el proyecto actual
+	 */
+	function get_tipo_pagina_defecto($proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}
+		$sql = "
+			SELECT 
+				COALESCE(t.proyecto, 'toba')		 as proyecto,
+				COALESCE(t.pagina_tipo, 'normal')	 as pagina_tipo
+			FROM 
+				apex_proyecto p LEFT OUTER JOIN apex_pagina_tipo t 
+					ON (p.proyecto = t.proyecto AND p.pagina_tipo = t.pagina_tipo) 
+			WHERE ( p.proyecto = '$proyecto' )
+		";
+		return toba_contexto_info::get_db()->consultar_fila($sql);
+	}
 
 	/**
 	* BUFFERs

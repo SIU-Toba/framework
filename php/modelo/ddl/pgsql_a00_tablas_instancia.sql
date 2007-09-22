@@ -89,6 +89,7 @@ CREATE TABLE			apex_proyecto
 	log_archivo							smallint		NULL,
 	log_archivo_nivel					smallint		NULL,
 	fuente_datos						varchar(20)		NULL,--NOT
+	pagina_tipo							varchar(20)		NULL,
 	version								varchar(20)		NULL,
 	version_fecha						date			NULL,
 	version_detalle						varchar			NULL,

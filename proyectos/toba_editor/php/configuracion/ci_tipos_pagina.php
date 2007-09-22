@@ -5,10 +5,7 @@ class ci_tipos_pagina extends ci_abm_basico
 {
 	function get_datos_listado()
 	{
-		$sql = "SELECT proyecto, pagina_tipo, descripcion
-				FROM apex_pagina_tipo
-				WHERE proyecto = '" . toba_editor::get_proyecto_cargado() . "'";
-		return toba::db()->consultar($sql);
+		return toba_info_editores::get_tipos_pagina();
 	}
 }
 

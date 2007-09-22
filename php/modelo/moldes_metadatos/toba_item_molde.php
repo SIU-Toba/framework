@@ -11,6 +11,8 @@ class toba_item_molde extends toba_molde_elemento
 		$this->datos->tabla('base')->set_fila_columna_valor(0,'padre_proyecto',$this->proyecto);
 		$this->set_tipo_solicitud('web');
 		$this->set_tipo_pagina('titulo');
+		$tipo_pagina = toba_info_editores::get_tipo_pagina_defecto($this->proyecto);
+		$this->set_tipo_pagina($tipo_pagina['pagina_tipo'], $tipo_pagina['proyecto']);
 		$this->set_acceso_menu();
 	}
 	
