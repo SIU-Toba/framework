@@ -14,7 +14,10 @@ class ci_asistente_base extends toba_ci
 			$datos = $this->dep('datos')->tabla('molde')->get();
 			$datos = array_merge($datos, $this->controlador()->get_datos_basicos() );
 			$this->dep('datos')->tabla('molde')->set($datos);
-		}
+		} 
+		//-- Actualiza el nombre del molde en base al nombre del item
+		$info_item = toba::zona()->get_info();		
+		$this->dep('datos')->tabla('molde')->set(array('nombre' => $info_item['nombre']));		
 		$this->dep('datos')->sincronizar();	
 	}
 
@@ -63,7 +66,7 @@ class ci_asistente_base extends toba_ci
 		$datos = $this->dep('datos')->tabla('molde')->get();
 		$nombre = strtolower(toba::zona()->get_info('nombre'));
 		if (!isset($datos['prefijo_clases'])) {
-			$datos['prefijo_clases'] = toba_texto::nombre_valido_clase( $nombre );
+			$datos['prefijo_clases'] = toba_texto::nombre_valido_clase( $nombre ).'_';
 		}
 		if (!isset($datos['carpeta_archivos'])) {
 			$datos['carpeta_archivos'] = toba_texto::nombre_valido_clase( $nombre );

@@ -58,6 +58,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 	protected function generar()
 	{	
 		$clase = $this->molde['prefijo_clases'] . 'ci';
+		$this->ci->set_nombre($this->molde['nombre'] . ' - CI');
 		$this->ci->extender($clase , $clase . '.php');
 		$this->ci->set_ancho('500px');
 		$this->ci->set_alto('300px');
@@ -176,9 +177,11 @@ class toba_asistente_abms extends toba_asistente_1dt
 	{
 		//Cabecera
 		$cuadro->set_clave($this->molde_abms['cuadro_id']);
-		$this->ci->dep('cuadro')->set_nombre($this->molde['nombre'] . ' - Cuadro.');
-		if ($this->molde_abms['cuadro_eof']) {
-			$cuadro->set_eof($this->molde_abms['cuadro_eof']);
+		$cuadro->set_nombre($this->molde['nombre'] . ' - Cuadro.');
+		if (trim($this->molde_abms['cuadro_eof']) != '') {
+			$cuadro->set_eof(trim($this->molde_abms['cuadro_eof']));
+		} else {
+			$cuadro->set_eof_invisible();
 		}
 		$cuadro->set_ancho('100%');
 		if (!$this->molde_abms['gen_separar_pantallas']) {

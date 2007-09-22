@@ -43,6 +43,11 @@ class toba_ei_cuadro_molde extends toba_molde_elemento_componente_ei
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'columnas_clave',$clave);
 	}
 
+	function set_eof_invisible()
+	{
+		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'eof_invisible', 1);
+	}
+	
 	function set_eof($mensaje)
 	{
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'eof_customizado',$mensaje);

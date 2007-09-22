@@ -137,7 +137,6 @@ abstract class toba_asistente
 			$item = new toba_item_molde($this);
 			$item->set_nombre($nombre);
 			$item->set_carpeta_item($padre);
-			$item->set_tipo_pagina('normal');
 			$item->cargar_grupos_acceso_activos();
 			$item->generar();
 			$clave = $item->get_clave_componente_generado();
