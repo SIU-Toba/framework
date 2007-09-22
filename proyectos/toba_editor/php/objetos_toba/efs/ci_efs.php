@@ -402,7 +402,7 @@ class ci_efs extends toba_ci
 		$datos = toba_info_editores::get_tabla_fuente_de_dt($dt);		
 		if (! empty($datos)) {		
 			$db = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado());
-			$sql = $db->get_sql_carga_tabla($datos['tabla']);
+			$sql = $db->get_sql_carga_descripciones($datos['tabla']);
 			return $sql;
 		}
 	}

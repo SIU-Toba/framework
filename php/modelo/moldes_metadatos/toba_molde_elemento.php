@@ -63,7 +63,7 @@ class toba_molde_elemento
 			if(!isset($this->carpeta_archivo)){
 				throw new toba_error_asistentes('La carpeta no fue definida.');	
 			}
-			toba_manejador_archivos::crear_arbol_directorios($this->directorio_absoluto());
+			toba_manejador_archivos::crear_arbol_directorios(dirname($this->archivo_absoluto()));
 			if ( $this->generar_archivo() ) {
 				$this->asociar_archivo();
 			}

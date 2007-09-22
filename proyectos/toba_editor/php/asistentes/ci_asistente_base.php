@@ -66,7 +66,7 @@ class ci_asistente_base extends toba_ci
 			$datos['prefijo_clases'] = toba_texto::nombre_valido_clase( $nombre );
 		}
 		if (!isset($datos['carpeta_archivos'])) {
-			$datos['carpeta_archivos'] = toba_manejador_archivos::nombre_valido( $nombre );
+			$datos['carpeta_archivos'] = toba_texto::nombre_valido_clase( $nombre );
 		}
 		return $datos;
 	}

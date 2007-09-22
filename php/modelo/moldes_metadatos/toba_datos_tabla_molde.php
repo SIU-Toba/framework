@@ -79,7 +79,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	function directorio_absoluto()
 	{
 		$path_proyecto = toba::instancia()->get_path_proyecto($this->proyecto);
-		return  $path_proyecto . '/php/';
+		return  $path_proyecto . '/php';
 	}
 	
 	/**

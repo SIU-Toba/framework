@@ -389,9 +389,9 @@ class toba_db
 	}
 
 	/**
-	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos
+	 * Dada una tabla retorna la SQL de carga de la tabla y sus campos cosméticos remontando referencias usando joins
 	 * @param string $tabla
-	 * @return array(sql, clave)
+	 * @return array(sql, campo_clave, campo_descripcion)
 	 */
 	function get_sql_carga_tabla($tabla)
 	{
@@ -454,6 +454,30 @@ class toba_db
 	}
 	
 	/**
+	 * Dada una tabla retorna la SQL que relaciona las claves con las descripciones
+	 * @param string $tabla
+	 * @return array(sql, campo_clave, campo_descripcion)
+	 */	
+	function get_sql_carga_descripciones($tabla)
+	{
+		$campos = $this->get_definicion_columnas($tabla);
+		$encontrado = false;
+		$candidatos_descripcion = array();
+		$clave = null;
+		foreach ($campos as $campo) {
+			if ($campo['pk']) {
+				$clave = $campo['nombre'];
+			}
+			if ($this->es_campo_candidato_descripcion($campo)) {
+				$candidatos_descripcion[] = $campo['nombre'];
+			}
+		}
+		$descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
+		$sql = "SELECT $clave, $descripcion FROM $tabla";
+		return array($sql, $clave, $descripcion);
+	}
+		
+	/**
 	 * Determina la sql,clave y desc de un campo externo de una tabla
 	 * Remonta N-niveles de indireccion de FKs
 	 */
@@ -465,7 +489,7 @@ class toba_db
 			$clave = $campo['fk_campo'];
 			$descripcion = $campo['fk_campo'];
 			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
-			$campos_tabla_externa = toba_editor::get_db_defecto()->get_definicion_columnas($tabla);
+			$campos_tabla_externa = $this->get_definicion_columnas($tabla);
 			$encontrado = false;
 			$candidatos_descripcion = array();
 			foreach ($campos_tabla_externa as $campo_tabla_ext) {
