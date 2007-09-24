@@ -53,7 +53,13 @@ class toba_texto
 	{
 		static $caracteres_invalidos = array(' ', '*', '?', '/', '>', '<', '"', "'", ':', '|', '%', '$', '@', ')', '(', '-',  '.', ';', ',');
 		static $caracteres_reemplazo = '_';
-		return str_replace($caracteres_invalidos, $caracteres_reemplazo, strtolower($nombre) );
+		$salida = str_replace($caracteres_invalidos, $caracteres_reemplazo, strtolower($nombre) );
+		$salida = str_replace('á', 'a', $salida);
+		$salida = str_replace('é', 'e', $salida);
+		$salida = str_replace('í', 'i', $salida);
+		$salida = str_replace('ó', 'o', $salida);
+		$salida = str_replace('ú', 'u', $salida);
+		return $salida;
 	}
 }
 ?>

@@ -6,6 +6,9 @@
 #editor-ef .ei-base {
 	background-color: #E7E4E0 !important;
 }
+#editor-ef .ei-form-etiq-oblig {
+	font-weight: normal;
+}
 
 /* Se sacan algunos bordes */
 .ei-form-base, .ei-cuadro-cc-fondo, .ei-cuadro-cuerpo, .ci-tabs-h-cont, .ci-cuerpo {

@@ -293,7 +293,9 @@ class toba_ef_radio extends toba_ef_seleccion
 	    	$es_actual = (strval($estado) == strval($clave));
 			if (! $this->solo_lectura) {
 	    		$sel = ($es_actual) ? "checked" : "";
-	    		$clave = htmlentities($clave, ENT_QUOTES);
+	    		if (! $this->permitir_html) {
+	    			$clave = htmlentities($clave, ENT_QUOTES);
+	    		}
 				$html .= "<input type='radio' id='$id' name='{$this->id_form}' value='$clave' $sel $callback $tab_index />";
 				$tab_index = '';
 			} else {
@@ -301,7 +303,9 @@ class toba_ef_radio extends toba_ef_seleccion
 				$img = ($es_actual) ? 'efradio_on.gif' : 'efradio_off.gif';
 				$html .= toba_recurso::imagen_toba('nucleo/'.$img,true,16,16);
 			}
-			$valor = htmlentities($valor, ENT_QUOTES);
+			if (! $this->permitir_html) {
+				$valor = htmlentities($valor, ENT_QUOTES);
+			}
 			$html .= "$valor</label></td>\n";			
     		$i++;
     		if ($i % $this->cantidad_columnas == 0) {

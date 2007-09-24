@@ -22,6 +22,20 @@ class ci_orden_items extends toba_ci
 		}
 		$this->dep('datos')->procesar_filas($datos);
 	}
+	
+	function evt__items__alfabeticamente($datos)
+	{
+		$this->evt__items__modificacion($datos);
+		$filas = $this->dep('datos')->get_filas();
+		$ordenadas = rs_ordenar_por_columna($filas, 'nombre');
+		$orden = 1;
+		foreach(array_keys($ordenadas) as $id) {
+			$ordenadas[$id]['orden'] = $orden;
+			$ordenadas[$id][apex_ei_analisis_fila] = 'M';
+			$orden++;
+		}
+		$this->dep('datos')->procesar_filas($ordenadas);
+	}
 
 	function conf__items($ml)
 	{

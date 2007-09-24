@@ -31,9 +31,15 @@ class toba_ei_formulario_def extends toba_ei_def
 		$sql['_info_formulario']['registros']='1';
 		$sql['_info_formulario']['obligatorio']=true;
 		//EF
-		$sql["_info_formulario_ef"]['sql'] = "SELECT	*
-								FROM	apex_objeto_ei_formulario_ef
-								WHERE	objeto_ei_formulario_proyecto='$proyecto'";
+		$sql["_info_formulario_ef"]['sql'] = "SELECT	
+										ef.*,
+										con.clase as carga_consulta_php_clase,
+										con.archivo as carga_consulta_php_archivo
+								FROM	apex_objeto_ei_formulario_ef ef
+											LEFT OUTER JOIN apex_consulta_php con ON
+												(ef.objeto_ei_formulario_proyecto = con.proyecto AND
+													ef.carga_consulta_php = con.consulta_php) 
+								WHERE	ef.objeto_ei_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {
 			$sql['_info_formulario_ef']['sql'] .= "	AND		objeto_ei_formulario='$componente' ";	
 		}

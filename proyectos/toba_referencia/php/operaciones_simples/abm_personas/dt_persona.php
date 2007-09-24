@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 class dt_persona extends toba_datos_tabla
 {
 	
@@ -14,6 +15,13 @@ class dt_persona extends toba_datos_tabla
 		return toba::db()->consultar($sql);	
 	}
 	
+
+	function get_descripciones()
+	{
+		$sql = "SELECT id, nombre FROM ref_persona ORDER BY nombre";
+		return consultar_fuente($sql);
+	}
+
 }
 
 ?>

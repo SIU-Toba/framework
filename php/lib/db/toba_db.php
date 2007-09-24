@@ -449,6 +449,7 @@ class toba_db
 		if (!empty($where)) {
 			$sql .= "WHERE\n\t\t".implode("\n\tAND  ",$where)."\n";
 		}
+		$sql .= "ORDER BY $campo_descripcion";
 		return array($sql, implode(',',$claves), $campo_descripcion);
 	}
 	
@@ -472,7 +473,7 @@ class toba_db
 			}
 		}
 		$descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
-		$sql = "SELECT $clave, $descripcion FROM $tabla";
+		$sql = "SELECT $clave, $descripcion FROM $tabla ORDER BY $descripcion";
 		return array($sql, $clave, $descripcion);
 	}
 		

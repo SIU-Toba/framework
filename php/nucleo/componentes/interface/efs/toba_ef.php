@@ -34,6 +34,7 @@ abstract class toba_ef
 	protected $ancho_etiqueta = 150;
 	protected $estilo_etiqueta = '';
 	protected $agregado_form;			//Número de linea en un form multilinea	
+	protected $permitir_html = false;		//Hace un htmlentities para evitar ataques XSS
 	
 	//--- DEPENDENCIAS ---
 	protected $cascada_relajada = false;
@@ -138,6 +139,7 @@ abstract class toba_ef
 			'carga_col_desc',
 			'carga_sql',
 			'carga_dt',
+			'carga_consulta_php',
 			'carga_fuente',
 			'carga_lista',
 			'carga_maestros',
@@ -485,6 +487,15 @@ abstract class toba_ef
 	    }
 	}
 
+	/**
+	 * Determina si el ef puede contener en su estado HTML, por defecto falso para evitar ataques de seguridad XSS
+	 * @param boolean $permitir
+	 */
+	function set_permitir_html($permitir)
+	{
+		$this->permitir_html = $permitir;
+	}
+	
 	/**
 	 * Carga el estado actual del ef a partir del $_POST dejado por este mismo componente en el pedido anterior
 	 */

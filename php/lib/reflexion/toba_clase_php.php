@@ -50,7 +50,7 @@ class toba_clase_php
 	function get_codigo($opciones)
 	{
 		$molde_clase = $this->meta_clase->get_molde_subclase();
-		return $molde_clase->get_codigo($opciones);
+		return $molde_clase->get_codigo(null, $opciones);
 	}
 	
 	//---------------------------------------------------------------

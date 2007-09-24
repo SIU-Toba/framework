@@ -46,7 +46,9 @@ class toba_ef_upload extends toba_ef
 		}
 		//-- Si hay un archivo lo deja marcado en sesion para la etapa siguiente
 		if (isset($nombre_archivo)) {
-			$nombre_archivo = htmlentities($nombre_archivo, ENT_QUOTES);
+			if (! $this->permitir_html) {
+				$nombre_archivo = htmlentities($nombre_archivo, ENT_QUOTES);
+			}
 			toba::memoria()->set_dato_sincronizado($this->id_form."_cargado", true);
 		}
 		$salida = "";

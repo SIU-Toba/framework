@@ -11,7 +11,7 @@ class ci_efs extends toba_ci
 	protected $s__seleccion_efs_anterior;
 	protected $s__importacion_efs;
 	private $id_intermedio_efs;
-	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista', 'carga_dt');
+	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
 	protected $modificado = false;
 
 	function get_tabla()
@@ -198,18 +198,25 @@ class ci_efs extends toba_ci
 		$param = $this->get_definicion_parametros(true);		
 		$tipos = array();
 		if (in_array('carga_metodo', $param)) {
-			$tipos[] = array('carga_metodo', 'Método PHP');
+			$tipos[] = array('carga_metodo', 'Método de consulta PHP');
 		}
+		if (in_array('carga_lista', $param)) {
+			$tipos[] = array('carga_lista', 'Lista fija de Opciones');
+		}		
 		if (in_array('carga_sql', $param)) {		
 			$tipos[] = array('carga_sql', 'Consulta SQL');
 		}
-		if (in_array('carga_lista', $param)) {
-			$tipos[] = array('carga_lista', 'Lista de Opciones');
-		}
-		if (in_array('carga_dt', $param)) {
-			$tipos[] = array('carga_dt', 'Tabla (datos_tabla)');
-		}		
 		return $tipos;
+	}
+	
+	function get_tipos_clase()
+	{
+		return array(
+			array('tipo' => 'datos_tabla', 	'descripcion' => toba_recurso::imagen_toba('objetos/datos_tabla.gif', true).' Tabla (datos_tabla)'),
+			array('tipo' => 'consulta_php', 'descripcion' => toba_recurso::imagen_toba('editar.gif', true).' Clase de Consulta PHP'),
+			array('tipo' => 'ci', 			'descripcion' => toba_recurso::imagen_toba('objetos/multi_etapa.gif', true).' CI controlador'),
+			array('tipo' => 'estatica', 	'descripcion' => toba_recurso::imagen_toba('nucleo/php.gif', true).' Clase estática específica'),
+		);
 	}
 	
 	function get_posibles_maestros()
@@ -299,8 +306,9 @@ class ci_efs extends toba_ci
 	//---- PARAMETROS de CARGA
 	//---------------------------------
 
-	function conf__param_carga()
+	function conf__param_carga(toba_ei_formulario $form)
 	{
+		$form->ef('tipo_clase')->set_permitir_html(true);
 		$lista_param = $this->get_definicion_parametros(true);
 		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
 		
@@ -309,7 +317,8 @@ class ci_efs extends toba_ci
 		foreach ($todos as $disponible) {
 			if (! in_array($disponible, $lista_param) &&
 					$disponible != 'mecanismo' &&
-					$disponible != 'estatico' &&
+					$disponible != 'tipo_clase' &&
+					$disponible != 'carga_metodo_lista' &&
 					$disponible != 'sep_carga' &&
 					$disponible != 'sep') {
 				if (isset($fila[$disponible])) {
@@ -325,12 +334,17 @@ class ci_efs extends toba_ci
 				$fila['mecanismo'] = $mec;
 			}
 		}
-		//--- Si el mecanismo es un metodo php y es estatico chequear el checkbox
+		//--- Setear el combo de tipo_clase
 		if (isset($fila['mecanismo']) && $fila['mecanismo'] == 'carga_metodo') {
-			$tiene_clase = (isset($fila['carga_clase']) && $fila['carga_clase'] != '');
-			$tiene_include = (isset($fila['carga_include']) && $fila['carga_include'] != '');
-			if ($tiene_clase || $tiene_include) {
-				$fila['estatico'] = 1;
+			if (isset($fila['carga_clase']) && $fila['carga_clase'] != '') {
+				$fila['tipo_clase'] = 'estatica';
+			} elseif (isset($fila['carga_dt']) && $fila['carga_dt'] != '') {
+				 $fila['tipo_clase'] = 'datos_tabla';
+			} elseif (isset($fila['carga_consulta_php']) && $fila['carga_consulta_php'] != '') {
+				 $fila['tipo_clase'] = 'consulta_php';
+				 $fila['carga_metodo_lista'] = $fila['carga_metodo'];
+			} else {
+				$fila['tipo_clase'] = 'ci';
 			}
 		}
 		return $fila;

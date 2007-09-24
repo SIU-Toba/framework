@@ -11,7 +11,8 @@ class toba_migracion_1_1_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_popup_param	varchar(100)	";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_target		varchar(40)		";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_celda		varchar(40)		";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_dt		int4	";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_dt					int4	";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_consulta_php		int4	";
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr_proyecto				varchar(15)	";
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr						int4		";
 		$sql[] = "ALTER TABLE apex_clase ADD COLUMN utiliza_fuente_datos			int4		";

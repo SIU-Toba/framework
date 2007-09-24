@@ -6,12 +6,39 @@ class form_carga extends toba_ei_formulario
 	function extender_objeto_js()
 	{
 		echo "
-			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista', 'carga_dt'];
+			var mecanismos_carga = ['carga_metodo','carga_sql', 'carga_lista'];
 			
-			{$this->objeto_js}.evt__estatico__procesar = function(inicial) {
-				var cheq = this.ef('estatico').chequeado();
-				this.ef('carga_include').mostrar(cheq, true);
-				this.ef('carga_clase').mostrar(cheq, true);
+			{$this->objeto_js}.evt__tipo_clase__procesar = function(inicial) {
+				var cheq = this.ef('tipo_clase').get_estado();
+				this.ef('carga_include').mostrar((cheq == 'estatica'), true);
+				this.ef('carga_clase').mostrar((cheq == 'estatica'), true);
+				this.ef('carga_consulta_php').mostrar((cheq == 'consulta_php'), true);
+				this.ef('carga_dt').mostrar((cheq == 'datos_tabla'), true);
+				this.ef('carga_metodo_lista').mostrar((cheq == 'consulta_php'), true);
+				if (! inicial) {
+					this.ef('carga_col_clave').mostrar(cheq != apex_ef_no_seteado);
+					this.ef('carga_col_desc').mostrar(cheq != apex_ef_no_seteado);
+				}
+				var div = $('nodo_carga_metodo');
+				if (div) {				
+					div.innerHTML = '';
+				}
+				this.ef('carga_metodo').mostrar(cheq != apex_ef_no_seteado);
+			}
+			
+			/**
+			 *  Actualiza el edit del metodo a partir del combo
+			 */
+			{$this->objeto_js}.evt__carga_metodo_lista__procesar = function(inicial) {
+				var estado = this.ef('carga_metodo_lista').get_estado();
+				if (this.ef('tipo_clase').get_estado() == 'consulta_php') {
+					if (estado != apex_ef_no_seteado) {
+						this.ef('carga_metodo').set_estado(estado);
+						this.ef('carga_metodo').ocultar();
+					} else {
+						this.ef('carga_metodo').mostrar();
+					}
+				}
 			}
 						
 			{$this->objeto_js}.evt__mecanismo__procesar = function(inicial) {
@@ -35,18 +62,8 @@ class form_carga extends toba_ei_formulario
 			{$this->objeto_js}.cambiar_mecanismo = function(mecanismo, estado, actual) {
 				switch (mecanismo) {
 					case 'carga_metodo':
-						this.ef('estatico').mostrar(estado, true);
-						if (estado) {
-							this.evt__estatico__procesar(false);
-						} else {
-							this.ef('carga_include').ocultar(true);
-							this.ef('carga_clase').ocultar(true);						
-						}
-						if (actual == 'carga_dt') {
-							//-- Caso particular porque la forma de esta extension no se banca que dos mecanismos re-utilicen un ef						
-							estado = true;
-						}
-						this.ef('carga_metodo').mostrar(estado, true);
+						this.ef('tipo_clase').mostrar(estado, true);
+						this.evt__tipo_clase__procesar(false);
 						break;
 					case 'carga_sql':
 						this.ef('carga_sql').mostrar(estado, true);
@@ -60,14 +77,6 @@ class form_carga extends toba_ei_formulario
 						if (this.ef('carga_col_desc')) 							
 							this.ef('carga_col_desc').mostrar(!estado, true);
 						break;
-					case 'carga_dt':
-						this.ef('carga_dt').mostrar(estado, true);
-						if (actual == 'carga_metodo') {
-							//-- Caso particular porque la forma de esta extension no se banca que dos mecanismos re-utilicen un ef						
-							estado = true;
-						}						
-						this.ef('carga_metodo').mostrar(estado, true);
-						break; 
 				}
 			}
 			

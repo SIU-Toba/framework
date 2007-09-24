@@ -666,6 +666,9 @@ class toba_ei_formulario extends toba_ei
 			if (isset($parametros['carga_dt'])) {
 				//--- Carga a partir de un Método datos_tabla
 				$nuevos = $this->ef_metodo_carga_dt($id_ef, $parametros, $maestros);
+			} elseif (isset($parametros['carga_consulta_php'])) {
+				//--- Carga a partir de una Consulta PHP				
+				$nuevos = $this->ef_metodo_carga_consulta_php($id_ef, $parametros, $maestros);
 			} else {
 				//--- Carga a partir de un PHP
 				$nuevos = $this->ef_metodo_carga_php($id_ef, $parametros, $maestros);
@@ -754,7 +757,7 @@ class toba_ei_formulario extends toba_ei
 	protected function ef_metodo_carga_php($id_ef, $parametros, $maestros)
 	{
 		if (isset($parametros['carga_include']) || isset($parametros['carga_clase'])) {
-			if(!class_exists($parametros['carga_clase'])) {
+			if(!class_exists($parametros['carga_clase']) && isset($parametros['carga_include']) && $parametros['carga_include'] != '') {
 				require_once($parametros['carga_include']);
 			}
 			$instanciable = (isset($parametros['instanciable']) && $parametros['instanciable']=='1');
@@ -771,6 +774,20 @@ class toba_ei_formulario extends toba_ei
 		}
 	}
 	
+	/**
+	 * @ignore 
+	 */
+	protected function ef_metodo_carga_consulta_php($id_ef, $parametros, $maestros)
+	{
+		if (isset($parametros['carga_consulta_php_clase']) && isset($parametros['carga_consulta_php_archivo'])) {
+			if(!class_exists($parametros['carga_consulta_php_clase'])) {
+				require_once($parametros['carga_consulta_php_archivo']);
+			}
+			$metodo = array($parametros['carga_consulta_php_clase'], $parametros['carga_metodo']);
+			return call_user_func_array($metodo, $maestros);
+		} 
+	}
+		
 	
 	/**
 	 * @ignore 

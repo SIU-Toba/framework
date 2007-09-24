@@ -1075,50 +1075,36 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
+	function get_consulta_php($consulta, $proyecto)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT		clase,
+							archivo
+					FROM	apex_consulta_php
+					WHERE	proyecto = '$proyecto' AND consulta_php = $consulta
+		";
+		return toba_contexto_info::get_db()->consultar_fila($sql);		
+	}
+	
 	function get_metodos_consulta_php($consulta_php, $proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		if (is_array($consulta_php)) {
-			$consulta_php = $consulta_php['carga_php_include'];
-		}
-		$reemplazo = false;
-		$archivo = preg_replace_callback('/\{(\w+)\}/', array('toba_info_editores', 'parsear_consulta_php'), $consulta_php, -1 , $reemplazo);
-		if (! $reemplazo) {
-			$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo;			
-		}
-		if(!file_exists($archivo)) {
-			$metodos[] = array('metodo' => 'La clase no existe');
+			$archivo = $consulta_php['carga_php_include'];
 		} else {
-			$codigo = file_get_contents($archivo);
-			$tokens = token_get_all($codigo);
-			$metodos = array();
-			$proximo_es_metodo = false;
-			foreach ($tokens as $token) {
-	    		if (is_array($token)) {
-			        list($id, $texto) = $token;
-					if ($id == T_FUNCTION) {
-						$proximo_es_metodo = true;
-					}
-					if ($id == T_STRING && $proximo_es_metodo) {
-						$metodos[] = array('metodo' => $texto);
-						$proximo_es_metodo = false;
-					}
-	 		    }
-	    	}
-    	}
-    	sort($metodos);
-    	return $metodos;
-	}
-	
-	function parsear_consulta_php($matches)
-	{
-		$variable = substr($matches[0], 1, strlen($matches[0])-2);
-		//TODO: Casos Harcodeado
-		if ($variable == 'toba_modelo') {
-			return toba_dir().'/php/modelo';			
-		} else {
-			return toba::proyecto()->get_path_php();
+			$datos = self::get_consulta_php($consulta_php, $proyecto);
+			$archivo = $datos['archivo'];
 		}
+		$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo;			
+		$metodos = array();
+		if (file_exists($archivo)) {
+			$metodos = toba_archivo_php::codigo_get_nombre_metodos(file_get_contents($archivo), true);
+		}
+		$salida = array();
+		foreach ($metodos as $metodo) {
+			$salida[] = array('metodo' => $metodo);
+		}
+		return $salida;
 	}
 
 }

@@ -293,6 +293,26 @@ class toba_archivo_php
 		return preg_match("/class\s+$nombre/", $codigo);
 	}
 	
+	static function codigo_get_nombre_metodos($codigo, $solo_publicos=true)
+	{
+		$no_publicos = '';
+		if ($solo_publicos) {
+			$no_publicos = '';
+		}
+		$patron = "/(protected|private|public|)[\s]+function[\s]+([\w]+)\s*\(/";
+		$metodos = array();
+		preg_match_all($patron, $codigo, $macheos);
+		if (count($macheos) == 3) {
+			foreach ($macheos[2] as $id => $metodo) {
+				if (!$solo_publicos || ($macheos[1][$id] == 'public' || $macheos[1][$id] == '')) {
+					$metodos[] = $metodo;
+				}
+			}
+		}
+		sort($metodos);
+		return $metodos;
+	}
+	
 	static function codigo_agregar_metodo($codigo_actual, $metodo)
 	{
 		$pos = strrpos($codigo_actual, '}');

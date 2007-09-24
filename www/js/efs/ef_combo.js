@@ -172,6 +172,17 @@ ef_radio.prototype.constructor = ef_radio;
 	
 	//---Comandos	
 	
+	ef_radio.prototype.resetear_estado = function() {
+		if (this.tiene_estado()) {
+			var elem = this.input();		
+			for (var i=0; i < elem.length ; i++) {
+				if (elem[i].checked) {
+					elem[i].checked = false;
+				}
+			}
+		}
+	};	
+	
 	/**
 	 * Elimina las opciones disponibles en el radio-button
 	 */			
