@@ -45,6 +45,36 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
+	'1000486', --evento_id
+	'1000292', --objeto
+	'show', --identificador
+	'Ver demo', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	'ei-boton-izq', --estilo
+	'apex', --imagen_recurso_origen
+	'tv.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
 	'1000327', --evento_id
 	'1000292', --objeto
 	'volver_editar', --identificador
@@ -57,7 +87,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'volver.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'1', --orden
+	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -87,7 +117,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'volver.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'2', --orden
+	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -117,7 +147,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'generar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'3', --orden
+	'4', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'1', --defecto
@@ -147,7 +177,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'instanciar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'4', --orden
+	'5', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'1', --defecto
@@ -177,7 +207,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'generar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'5', --orden
+	'6', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'1', --defecto
@@ -238,7 +268,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
 	'600px', --ancho
-	'400px', --alto
+	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
@@ -271,7 +301,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_tipo_operacion', --objetos
-	'siguiente_editar', --eventos
+	'siguiente_editar,show', --eventos
 	'pant_tipo_operacion', --subclase
 	'asistentes/pant_tipo_operacion.php'  --subclase_archivo
 );

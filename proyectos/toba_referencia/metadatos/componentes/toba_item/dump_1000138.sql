@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000138]--  Carga de descripciones 
+--[1000138]--  Descripciones de Combos y Radios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Carga de descripciones', --nombre
+	'Descripciones de Combos y Radios', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

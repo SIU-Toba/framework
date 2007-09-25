@@ -14,11 +14,21 @@ class pant_tipo_operacion extends toba_ei_pantalla
 		echo "var tipos_operacion = ".toba_js::arreglo($tipos, true, true)."\n";
 		echo toba_js::cerrar();
 		$this->dep('form_tipo_operacion')->generar_html();
-		$this->generar_botones();
+		//$this->generar_botones();
 		//$this->generar_boton('siguiente_editar');
-		echo "<div style='background-color: #808080;padding-bottom: 15px;margin-top: 5px; color: white; text-align:center; font-size:12px; font-weight: bold;'><hr>";
+		echo "<div style='display:none; background-color: #808080;padding-bottom: 15px;margin-top: 5px; color: white; text-align:center; font-size:12px; font-weight: bold;'><hr>";
 		echo "<div id='operacion_descripcion'></div>";			
 		echo "</div>";
+	}
+	
+	function extender_objeto_js()
+	{
+		echo "
+		{$this->objeto_js}.evt__show = function() {
+			toggle_nodo($('operacion_descripcion').parentNode);
+			return false;
+		}
+		";
 	}
 	
 }

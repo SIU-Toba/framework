@@ -36,7 +36,6 @@ class comando_instancia extends comando_toba
 	// Opciones
 	//-------------------------------------------------------------
 
-
 	/**
 	* Crea una instancia NUEVA. 
 	* @consola_parametros [-t mini] se crea una instancia reducida, útil para ejecutar proyectos compilados
@@ -50,7 +49,7 @@ class comando_instancia extends comando_toba
 		} else {
 			$id_instancia = $this->get_id_instancia_actual();			
 			$tipo = $this->get_tipo_instancia();
-					
+			$usuario = null;
 		}
 		$instalacion = $this->get_instalacion();
 		if ( toba_modelo_instancia::existe_carpeta_instancia($id_instancia) ) {

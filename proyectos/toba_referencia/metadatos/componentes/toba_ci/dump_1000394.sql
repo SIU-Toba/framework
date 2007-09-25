@@ -65,7 +65,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1000394', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
+	'500px', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
 	NULL, --tipo_navegacion
@@ -92,11 +92,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000394', --objeto_ci
 	'1000203', --pantalla
 	'pant_inicial', --identificador
-	NULL, --orden
+	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	NULL, --descripcion
+	'Todo ef que permita seleccionar uno o más elementos además de tener un <em>estado</em> asociado tiene un conjunto de <em>descripciones</em> o opciones que se asocian a los posibles estados que puede tomar el campo.', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form', --objetos
 	NULL, --eventos
