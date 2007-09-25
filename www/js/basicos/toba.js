@@ -199,6 +199,13 @@ toba = new function() {
 	toba.error_comunicacion = function(error) {
 		alert('Error de comunicacion AJAX');
 	};
+
+	/**
+	 * @private
+	 */	
+	toba.falta_imagen = function(src) {
+		alert('No se encontro la imagen: ' + src);
+	}
 	
 	/**
 	 * Muestra un div/imagen contienendo un mensaje de 'Procesando'

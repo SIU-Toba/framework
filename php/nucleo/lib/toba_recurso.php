@@ -170,7 +170,7 @@ class toba_recurso
 			$estilo ="style=\"$estilo\"";
 		}
 		if (toba_editor::modo_prueba()) {
-			$img = "<img alt='' onerror='alert(\"No se encuentra la imagen: \" + this.src)' src=$src $x $y $a $m  $estilo $js/>";
+			$img = "<img alt='' onerror='toba.falta_imagen(this.src)' src=$src $x $y $a $m  $estilo $js/>";
 		} else {
 			$img = "<img alt=\"\" src=$src $x $y $a $m  $estilo $js/>";
 		}

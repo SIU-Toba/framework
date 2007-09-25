@@ -437,19 +437,21 @@ class toba_db
 		}
 		$campo_descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
 		$from = array_unique($from);
-		$sql = "SELECT\n\t".implode(",\n\t", $select)."\n";
-		$sql .= "FROM\n\t$tabla as $alias";
+		$sql = "SELECT\n\t".implode(",\n\t", $select);
+		$sql .= "\nFROM\n\t$tabla as $alias";
 		if (!empty($left)) {
 			$texto_left = "\tLEFT OUTER JOIN ";
-			$sql .= $texto_left.implode("\n$texto_left",$left)."\n";
+			$sql .= $texto_left.implode("\n$texto_left",$left);
 		}
 		if (!empty($from)) {
-			$sql .= ",\n\t".implode(",\n\t",$from)."\n";			
+			$sql .= ",\n\t".implode(",\n\t",$from);	
 		}
 		if (!empty($where)) {
-			$sql .= "WHERE\n\t\t".implode("\n\tAND  ",$where)."\n";
+			$sql .= "\nWHERE\n\t\t".implode("\n\tAND  ",$where);
 		}
-		$sql .= "ORDER BY $campo_descripcion";
+		if (isset($campo_descripcion)) {
+			$sql .= "\nORDER BY $campo_descripcion";
+		}
 		return array($sql, implode(',',$claves), $campo_descripcion);
 	}
 	
@@ -483,15 +485,18 @@ class toba_db
 	 */
 	function get_opciones_sql_campo_externo($campo)
 	{
+		$tablas_analizadas = array();
 		//--- Busca cual es el campo descripcion de la tabla destino
-		while (isset($campo['fk_tabla'])) {
+		while (isset($campo['fk_tabla']) && ! in_array($campo['fk_tabla'], $tablas_analizadas)) {
 			$tabla = $campo['fk_tabla'];
+			$tablas_analizadas[] = $tabla;			
 			$clave = $campo['fk_campo'];
 			$descripcion = $campo['fk_campo'];
 			//-- Busca cual es el campo descripción más 'acorde' en la tabla actual
 			$campos_tabla_externa = $this->get_definicion_columnas($tabla);
 			$encontrado = false;
 			$candidatos_descripcion = array();
+			//ei_arbol($campos_tabla_externa, $tabla);
 			foreach ($campos_tabla_externa as $campo_tabla_ext) {
 				//---Detecta cual es la clave para seguir ejecutando el script
 				if ($campo_tabla_ext['nombre'] == $clave) {
@@ -502,7 +507,7 @@ class toba_db
 				}
 			}
 			$descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
-			$sql = "SELECT $clave, $descripcion FROM $tabla";
+			$sql = "SELECT $clave, $descripcion FROM $tabla ORDER BY $descripcion";
 		}
 		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);
 	}	
@@ -513,7 +518,7 @@ class toba_db
 	 */
 	protected function es_campo_candidato_descripcion($campo)
 	{
-		return !$campo['pk'] && $campo['tipo'] == 'C';
+		return !$campo['pk'] && ($campo['tipo'] == 'C' ||$campo['tipo'] == 'X');
 	}
 	
 	/**
@@ -524,7 +529,7 @@ class toba_db
 	protected function elegir_mejor_campo_descripcion($campos)
 	{
 		$mejor = null;
-		$mejor_puntaje = 100;
+		$mejor_puntaje = 0;
 		$puntajes = array('nombre' => 10, 'descripcion_corta'=> 9, 'descripcion'=> 8);	//Orden de preferencia
 		foreach($campos as $campo) {
 			if (isset($puntajes[$campo]) && $puntajes[$campo] > $mejor_puntaje) {

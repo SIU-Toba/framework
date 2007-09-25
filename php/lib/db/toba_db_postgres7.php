@@ -130,7 +130,8 @@ class toba_db_postgres7 extends toba_db
 							--- Foreign Keys
 							LEFT OUTER JOIN (pg_constraint const 
 												INNER JOIN pg_class fc ON fc.oid = const.confrelid
-												INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]) 
+												INNER JOIN pg_attribute fa ON (fa.attrelid = const.confrelid AND fa.attnum = const.confkey[1]
+																				AND const.confkey[2] IS NULL) 
 											)
 								ON (const.conrelid = a.attrelid
 										AND const.contype='f'

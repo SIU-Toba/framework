@@ -235,8 +235,8 @@ class toba_archivo_php
 	*/
 	static function reemplazar_metodo($codigo, $nombre_metodo_a_extraer, $codigo_a_insertar)
 	{
-		$contenido = explode(salto_linea(),$codigo);
-		$codigo_a_insertar = explode(salto_linea(),$codigo_a_insertar);
+		$contenido = explode("\n",$codigo);
+		$codigo_a_insertar = explode("\n", $codigo_a_insertar);
 		$encontrado = false;
 		$comenzo_cuerpo = false;
 		$balance = 0;
@@ -252,7 +252,7 @@ class toba_archivo_php
 				$encontrado = true;
 				$linea_i = $linea;
 			}
-				if(	!$encontrado && preg_match("/private function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+			if(	!$encontrado && preg_match("/private function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
 				$encontrado = true;
 				$linea_i = $linea;
 			}			
@@ -276,7 +276,7 @@ class toba_archivo_php
 			$recorte = array_splice($contenido, 0, ($linea_f-$linea_i)+1);
 			$fin = $contenido;
 			$contenido = array_merge($inicio, $codigo_a_insertar, $fin);
-			return implode(salto_linea(), $contenido);
+			return implode("\n", $contenido);
 		} else {
 			//Lanzar una excepcion?
 			throw new toba_error("toba_archivo_php: Error reemplazando el metodo '$nombre_metodo_a_extraer': no existe!");	

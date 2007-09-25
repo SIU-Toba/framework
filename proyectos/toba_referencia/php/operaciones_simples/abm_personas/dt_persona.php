@@ -1,24 +1,21 @@
 <?php
-
 class dt_persona extends toba_datos_tabla
 {
-	
-	function get_listados()
-	{
-		$sql = "
-			SELECT 
-				id,
-				nombre
-			FROM
-				ref_persona
-		";
-		return toba::db()->consultar($sql);	
-	}
-	
-
 	function get_descripciones()
 	{
 		$sql = "SELECT id, nombre FROM ref_persona ORDER BY nombre";
+		return consultar_fuente($sql);
+	}
+
+	function get_listado()
+	{
+		$sql = "SELECT
+	rp.id,
+	rp.nombre,
+	rp.fecha_nac
+FROM
+	ref_persona as rp
+ORDER BY nombre";
 		return consultar_fuente($sql);
 	}
 
