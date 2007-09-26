@@ -30,7 +30,32 @@
 	 */	
 	function sql_concatenar_where($sql,$clausulas_where=array())
 	{
-		echo "ACA: $sql";
+		$balance_parentesis = 0; //Para saber si estoy metido en unos parentesis
+		$palabras = preg_split("/[\s,;]+/", $sql);
+		$punto_insercion = null;
+		$posee_where = false;
+		//--- Averiguo el punto de insercion ----------------------------------------
+		foreach($palabras as $posicion => $palabra) {
+			$balance_parentesis += substr_count($palabra, '(');
+			$balance_parentesis -= substr_count($palabra, ')');
+			if( $balance_parentesis == 0) {
+				if( (strtolower($palabra) == 'where')	) {
+					$punto_insercion = $posicion + 1;
+					$posee_where = true;
+					continue;
+				}
+				if( ( (strtolower($palabra) == 'group') && ($palabras[$posicion+1] == 'by') )
+					|| (  (strtolower($palabra) == 'order') && ($palabras[$posicion+1] == 'by') ) ) {
+					$punto_insercion = $posicion - 1;
+					continue;
+				}
+			}
+		}
+		//Llego al final sin encontrar naad
+		if(!isset($punto_insercion)){
+			$punto_insercion = count($palabras)-1;
+		}
+		//--- Concateno la clausula WHERE ----------------------------------------
 		return $sql;
 	}
 
