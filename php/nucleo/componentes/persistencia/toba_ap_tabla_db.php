@@ -15,7 +15,7 @@ define("apex_db_registros_separador","%");
  
 class toba_ap_tabla_db implements toba_ap_tabla
 {
-	protected $_objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
+	protected $objeto_tabla;					// DATOS_TABLA: Referencia al objeto asociado
 	protected $_columnas;						// DATOS_TABLA: Estructura del objeto
 	protected $datos;							// DATOS_TABLA: DATOS que conforman las filas
 	protected $_cambios;							// DATOS_TABLA: Estado de los cambios
@@ -403,9 +403,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function insertar_registro_db($id_registro)
 	{
-		$sql = $this->generar_sql_insert($id_registro);
-		$this->log("registro: $id_registro - " . $sql); 
-		$this->ejecutar_sql( $sql );
+		$this->ejecutar_sql_insert($id_registro);
 		//Actualizo las secuencias
 		if(count($this->_secuencias)>0){
 			foreach($this->_secuencias as $columna => $secuencia){
@@ -424,11 +422,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	protected function modificar_registro_db($id_registro)
 	{
-		$sql = $this->generar_sql_update($id_registro);
-		if(isset($sql)){
-			$this->log("registro: $id_registro - " . $sql); 
-			$this->ejecutar_sql( $sql );
-		}
+		$this->ejecutar_sql_update($id_registro);
 	}
 	
 	/**
@@ -598,7 +592,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		if (!isset($columnas)) {
 			$columnas = array();
 			foreach ($this->_columnas as $col) {
-				if(!$col['externa']) {
+				if(!$col['externa'] && $col['tipo'] != 'B') {
 					$columnas[] = $this->_alias  . "." . $col['columna'];
 				}
 			}
@@ -637,22 +631,39 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		}
 	}
 	
+	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */
-	protected function generar_sql_insert($id_registro)
+	protected function ejecutar_sql_insert($id_registro, $solo_retornar=false)
 	{
 		$a=0;
 		$registro = $this->datos[$id_registro];
+		$binarios = array();
 		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
 			$es_insertable = (trim($columna['secuencia']=="")) && ($columna['externa'] != 1);
-			if( $es_insertable )
-			{
-				if( !isset($registro[$col]) || $registro[$col] === NULL ){
+			$es_binario = ($columna['tipo'] == 'B');
+			if( $es_insertable) {
+				if ($es_binario) {
+					$blob = $this->objeto_tabla->_get_blob_transaccion($id_registro, $col);
+					//-- Si no esta seteado es un blob nulo
+					if ($blob === false) {
+						$valores_sql[$a] = "NULL";
+						$columnas_sql[$a] = $col;						
+					} elseif (is_resource($blob)) {
+						$binarios[] = $blob;
+						$valores_sql[$a] = '?';
+						$columnas_sql[$a] = $col;						
+					} else {
+						//No tocar nada
+					}
+				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ) {
+					//-- Es un campo NULO
 					$valores_sql[$a] = "NULL";
+					$columnas_sql[$a] = $col;
 				}else{
 					if(	toba_tipo_datos::numero($columna['tipo']) ){
 						//-- Los booleanos muchas veces se representan como enteros en la base
@@ -665,35 +676,62 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					}else{
 						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";
 					}
+					$columnas_sql[$a] = $col;
 				}
-				$columnas_sql[$a] = $col;
 				$a++;
 			}
 		}
 		$sql = "INSERT INTO " . $this->_tabla .
-				" ( " . implode(", ", $columnas_sql) . " ) ".
-				"\n VALUES (" . implode(", ", $valores_sql) . ");";
-		return $sql;
-	}
-
+					" ( " . implode(", ", $columnas_sql) . " ) ".
+					"\n VALUES (" . implode(", ", $valores_sql) . ");";
+		if ($solo_retornar) {
+			return $sql;
+		}
+		$this->log("registro: $id_registro - " . $sql); 															
+		if (empty($binarios)) {
+			$this->ejecutar_sql($sql);			
+		} else {
+			$pdo = toba::db($this->_fuente)->get_pdo();
+			$stmt = $pdo->prepare($sql);
+			$i = 1;
+			foreach ($binarios as $binario) {
+				$stmt->bindParam($i, $binario, PDO::PARAM_LOB);
+				$i++;
+			}
+			$stmt->execute();
+		}
+	}	
+	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
 	 */	
-	function generar_sql_update($id_registro)
-	// Modificacion de claves
+	protected function ejecutar_sql_update($id_registro)
 	{
+		$binarios = array();
 		$registro = $this->datos[$id_registro];
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
 		foreach($this->_columnas as $columna){
 			$col = $columna['columna'];
+			$es_binario = ($columna['tipo'] == 'B');
 			//columna modificable: no es secuencia, no es extena, no es PK 
 			//	(excepto que se se declare explicitamente la alteracion de PKs)
 			$es_modificable = ($columna['secuencia']=="") && ($columna['externa'] != 1) 
 							&& ( ($columna['pk'] != 1) || (($columna['pk'] == 1) && $this->_flag_modificacion_clave ) );
 			if( $es_modificable ){
-				if( !isset($registro[$col]) || $registro[$col] === NULL ){
+				if ($es_binario) {
+					$blob = $this->objeto_tabla->_get_blob_transaccion($id_registro, $col);
+					if ($blob === false) {
+						//-- Si no esta seteado es un blob nulo						
+						$set[] = "$col = NULL";
+					} elseif (is_resource($blob)) {
+						$binarios[] = $blob;
+						$set[] = "$col = ?";							
+					} else {
+						//No tocar nada
+					}
+				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$set[] = "$col = NULL";
 				}else{
 					if(	toba_tipo_datos::numero($columna['tipo']) ){
@@ -712,9 +750,21 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$sql = "UPDATE " . $this->_tabla . " SET ".
 				implode(", ",$set) .
 				" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
-		return $sql;		
-	}
-
+		$this->log("registro: $id_registro - " . $sql);		
+		if (empty($binarios)) {
+			$this->ejecutar_sql($sql);			
+		} else {
+			$pdo = toba::db($this->_fuente)->get_pdo();
+			$stmt = $pdo->prepare($sql);
+			$i = 1;
+			foreach ($binarios as $binario) {
+				$stmt->bindParam($i, $binario, PDO::PARAM_LOB);
+				$i++;
+			}
+			$stmt->execute();
+		}		
+	}	
+	
 	/**
 	 * @param mixed $id_registro Clave interna del registro
 	 * @ignore 
@@ -755,10 +805,27 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$this->get_estado_datos_tabla();
 		$sql = array();
 		foreach(array_keys($this->_cambios) as $registro){
-			$sql[] = $this->generar_sql_insert($registro);
+			$sql[] = $this->ejecutar_sql_insert($registro, true);
 		}
 		return $sql;
 	}	
+	
+	//---------------------------------------------------------------------------
+	//---------------  Carga de CAMPOS BLOB   -----------------------------------
+	//---------------------------------------------------------------------------
+
+	function consultar_columna_blob($id_registro, $columna)
+	{
+		$this->get_estado_datos_tabla();
+		$sql = "SELECT $columna FROM " . $this->_tabla .
+					" WHERE " . implode(" AND ",$this->generar_sql_where_registro($id_registro) ) .";";
+			
+		$this->log("Carga BLOB de columna '$columna' de fila '$id_registro':\n ". $sql);
+		$datos = toba::db($this->_fuente)->consultar_fila($sql);
+		if (! empty($datos)) {
+			return $datos[$columna];
+		}
+	}
 	
 	//-------------------------------------------------------------------------------
 	//---------------  Carga de CAMPOS EXTERNOS   -----------------------------------

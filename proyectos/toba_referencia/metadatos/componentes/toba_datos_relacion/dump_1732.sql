@@ -115,7 +115,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'1732', --objeto_consumidor
 	'1734', --objeto_proveedor
 	'juegos', --identificador
-	'1', --parametros_a
+	'0', --parametros_a
 	'2', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar

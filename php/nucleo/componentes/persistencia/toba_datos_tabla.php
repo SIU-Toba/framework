@@ -38,6 +38,12 @@ class toba_datos_tabla extends toba_componente
 	protected $_cargada = false;
 	protected $_from;
 	protected $_where;
+	//Valores de las columnas BLOB
+	protected $_blobs = array();					//Arreglo [$fila][$columna]['fp' => fp, 'path' =>string, 'modificado' => boolean]
+													// Si [$fila][$columna] 
+															//es null quiere decir que no esta cargado en la transaccion
+															//es array(...,'modificado' => true) hay que actualizarlo a la base
+															//es array(...,'modificado' => false) se cargo en la transacion pero no se modifico
 	// Relaciones con el exterior
 	protected $_relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
 	protected $_relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
@@ -50,7 +56,8 @@ class toba_datos_tabla extends toba_componente
 		$propiedades[] = "_datos";
 		$propiedades[] = "_proxima_fila";
 		$propiedades[] = "_cursor";
-		$propiedades[] = "_cargada";		
+		$propiedades[] = "_cargada";
+		$propiedades[] = "_blobs";
 		$this->set_propiedades_sesion($propiedades);		
 		parent::__construct($id);
 		for($a=0; $a<count($this->_info_columnas);$a++){
@@ -65,6 +72,40 @@ class toba_datos_tabla extends toba_componente
 		}
 		$this->activar_cargas_externas();
 		$this->activar_control_valores_unicos();
+	}
+	
+	/**
+	 * Destructor del componente
+	 */	
+	function destruir()
+	{
+		//-- Recorre los blobs modificados que tienen un resource y los convierte a nombre de archivos
+		foreach(array_keys($this->_blobs) as $id_fila) {
+			foreach(array_keys($this->_blobs[$id_fila]) as $id_campo) {
+				//-- Hay blob?
+				if (isset($this->_blobs[$id_fila][$id_campo])) {
+					 //-- Si no se subio a un archivo
+					if ($this->_blobs[$id_fila][$id_campo]['path'] == '') {
+						$fp = $this->_blobs[$id_fila][$id_campo]['fp'];					
+						if (is_resource($fp)) {
+							//-- Lo convierte a archivo
+							rewind($fp);
+						  	$temp_nombre = toba::proyecto()->get_path_temp().'/'.md5(uniqid(time()));
+						  	$fpd = fopen($temp_nombre, 'w');
+						  	stream_copy_to_stream($fp, $fpd);
+		  					fclose($fpd);
+							//-- Guarda el path
+							$this->_blobs[$id_fila][$id_campo]['path'] = $temp_nombre;
+						}
+					}
+					//--Borra la referencia al fp, ya esta subido al Sist.Archv
+					$this->_blobs[$id_fila][$id_campo]['fp'] = null;
+				} else {
+					unset($this->_blobs[$id_fila][$id_campo]);
+				}
+			}
+		}
+		parent::destruir();
 	}
 
 	/**
@@ -510,7 +551,7 @@ class toba_datos_tabla extends toba_componente
 	 * @param array $condiciones Asociativo de campo => valor.
 	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
 	 * 				por ejemplo array(array('id_persona','>=',10),...)
-	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres* 
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres
 	 * @return array Ids. internos de las filas, pueden no estar numerado correlativamente
 	 */	
 	function get_id_fila_condicion($condiciones=null, $usar_cursores=true)
@@ -637,6 +678,20 @@ class toba_datos_tabla extends toba_componente
 			return false;
 		}
 		return true;
+	}
+	
+	/*
+	 * Busca los registros en memoria que cumplen una condicion.
+	 * Solo se chequea la condicion de igualdad. No se chequean tipos
+	 * @param array $condiciones Asociativo de campo => valor.
+	 *  			Para condiciones más complejas (no solo igualdad) puede ser array($columna, $condicion, $valor), 
+	 * 				por ejemplo array(array('id_persona','>=',10),...)
+	 * @param boolean $usar_cursores Este conjunto de filas es afectado por la presencia de cursores en las tablas padres	
+	 */
+	function existe_fila_condicion($condiciones, $usar_cursores = true)
+	{
+		$ids = $this->get_id_fila_condicion($condiciones, $usar_cursores);
+		return !empty($ids);
 	}
 
 	/**
@@ -980,6 +1035,107 @@ class toba_datos_tabla extends toba_componente
 		}
 	}
 
+
+	//---------------------------------------------------------------------------
+	//-- Trabajo con campos BLOBs  ----------------------------------------------
+	//---------------------------------------------------------------------------	
+	
+	/**
+	 * Almacena un 'file pointer' en un campo binario o blob de la tabla. 
+	 * @param string $columna Nombre de la columna binaria-blob
+	 * @param resource $blob file pointer
+	 * @param mixed $id_fila Id. interno de la fila que contiene la columna, en caso de ser vacio se utiliza el cursor
+	 */
+	function set_blob($columna, $blob, $id_fila=null)
+	{
+		if (! is_resource($blob)) {
+			throw new toba_error("Las columnas binarias o BLOB esperan un 'resource', producto generalmente de un 'fopen' del archivo a subir a la base");	
+		}
+		if (! isset($id_fila)) {
+			if ($this->hay_cursor()){
+				$id_fila = $this->get_cursor();
+			} else {
+				throw new toba_error("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");	
+			}
+		}
+		//Borra algún cache previo
+		if (isset($this->_blobs[$id_fila][$columna]['path']) && $this->_blobs[$id_fila][$columna]['path'] != '') {
+			unlink($this->_blobs[$id_fila][$columna]['path']);
+		}
+		
+		$this->_blobs[$id_fila][$columna] = array('fp'=>$blob, 'path'=>'',  'modificado' => true);
+		if($this->_cambios[$id_fila]['estado']!="i"){
+			$this->registrar_cambio($id_fila,"u");
+		}
+	}
+	
+	/**
+	 * Retorna un 'file pointer' apuntando al campo binario o blob de la tabla.
+	 *
+	 * @param string $columna Nombre de la columna binaria-blob
+	 * @param mixed $id_fila Id. interno de la fila que contiene la columna, en caso de ser vacio se utiliza el cursor
+	 * @return resource
+	 */
+	function get_blob($columna, $id_fila=null)
+	{
+		if (! isset($id_fila)) {
+			if ($this->get_cantidad_filas() == 0) {
+				return null;
+			} elseif ($this->hay_cursor()) {
+				$id_fila = $this->get_cursor();
+			} else {
+				throw new toba_error("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");
+			}
+		}
+		if (!isset($this->_blobs[$id_fila][$columna])) {
+			//-- Si no tiene el dato y es una fila nueva, no hay nada 
+			if ($this->_cambios[$id_fila]['estado'] == "i") {
+				return null;
+			}
+			//-- Carga peresoza del file_pointer
+			$fp = $this->get_persistidor()->consultar_columna_blob($id_fila, $columna);
+			$this->_blobs[$id_fila][$columna] = array('fp' => $fp, 'path' => '', 'modificado' => false);
+		}
+		$fp = $this->_blobs[$id_fila][$columna]['fp'];
+		$path = $this->_blobs[$id_fila][$columna]['path'];
+		if (!is_resource($fp) && $path != '') {
+			//Si no es un recurso el $fp, se carga desde el path previamente cargado
+			$fp = fopen($path, 'rb');
+			$this->_blobs[$id_fila][$columna]['fp'] = $fp;
+		}
+		return $fp;
+	}
+	
+	/**
+	 * Permite obtener el fp de un blob que se haya modificado en esta transaccion
+	 * @ignore
+	 */
+	function _get_blob_transaccion($id_registro, $col)
+	{
+		//-- Si no esta seteado es un blob nulo
+		if (!isset($this->_blobs[$id_registro][$col])) {
+			return false;
+		} elseif ($this->_blobs[$id_registro][$col]['modificado']) {
+			//--Hay que actualizar el BLOB
+			$fp = $this->_blobs[$id_registro][$col]['fp'];
+			$path = $this->_blobs[$id_registro][$col]['path'];
+			if (! is_resource($fp) && $path != '') {
+				$fp = fopen($path, 'rb');
+				if (! is_resource($fp)) {
+					throw new toba_error("No fue posible recuperar el campo '$col' de la fila '$id_registro' desde archivo temporal '$fp'");
+				}
+			}
+			return $fp;
+		} else {
+			return null;
+		}		
+	}
+	
+	function get_estructura_blobs()
+	{
+		return $this->_blobs;
+	}
+	
 	//-------------------------------------------------------------------------------
 	//-- VALIDACION en LINEA
 	//-------------------------------------------------------------------------------
@@ -1309,6 +1465,15 @@ class toba_datos_tabla extends toba_componente
 		$this->_proxima_fila = 0;
 		$this->_where = null;
 		$this->_from = null;
+		//-- Borra los temporales creados
+		foreach (array_keys($this->_blobs) as $fila) {
+			foreach (array_keys($this->_blobs[$fila]) as $campo) {
+				if (isset($this->_blobs[$fila][$campo]['path']) && $this->_blobs[$fila][$campo]['path'] != '') {
+					unlink($this->_blobs[$fila][$campo]['path']);
+				}
+			}
+		}
+		$this->_blobs = array();
 		foreach ($this->_relaciones_con_hijos as $rel_hijo) {
 			$rel_hijo->resetear();	
 		}

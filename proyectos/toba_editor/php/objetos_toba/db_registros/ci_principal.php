@@ -91,8 +91,9 @@ class ci_principal extends ci_editores_toba
 
 	//-- Generacion automatica de columnas!!
 	
-	function evt__columnas__leer_db()
+	function evt__columnas__leer_db($datos)
 	{
+		$this->evt__columnas__modificacion($datos);
 		$this->get_entidad()->actualizar_campos();
 	}
 

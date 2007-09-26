@@ -113,7 +113,8 @@ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_juegos_oferta', 
 CREATE TABLE ref_persona (
     id serial NOT NULL,
     nombre character varying(60) NOT NULL,
-    fecha_nac date
+    fecha_nac date,
+    imagen bytea
 );
 
 

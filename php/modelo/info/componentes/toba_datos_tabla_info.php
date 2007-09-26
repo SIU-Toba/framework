@@ -93,7 +93,7 @@ class toba_datos_tabla_info extends toba_componente_info
 				$datos[$a]['identificador'] = $columna['columna'];
 				$datos[$a]['columnas'] = $columna['columna'];
 				$datos[$a]['etiqueta'] = ucfirst(  str_replace("_"," ",$columna['columna']) );
-				if($columna['secuencia']){
+				if(isset($columna['secuencia']) && $columna['secuencia'] != ''){
 					$datos[$a]['elemento_formulario'] = 'ef_fijo';
 				}else{
 					if($columna['no_nulo_db']) $datos[$a]['obligatorio'] = 1;
@@ -104,9 +104,18 @@ class toba_datos_tabla_info extends toba_componente_info
 						case 'N':
 							$datos[$a]['elemento_formulario'] = 'ef_editable_numero';
 							break;
+						case 'L':
+							$datos[$a]['elemento_formulario'] = 'ef_checkbox';
+							break;
 						case 'F':
 							$datos[$a]['elemento_formulario'] = 'ef_editable_fecha';
 							break;
+						case 'B':
+							$datos[$a]['elemento_formulario'] = 'ef_upload';
+							break;
+						case 'X':
+							$datos[$a]['elemento_formulario'] = 'ef_editable_textarea';
+							break;							
 						default:
 							$datos[$a]['elemento_formulario'] = 'ef_editable';
 					}
@@ -122,7 +131,7 @@ class toba_datos_tabla_info extends toba_componente_info
 						}
 					}
 				}
-				$datos[$a]['orden'] = $a;
+				$datos[$a]['orden'] = $a+100;
 				$a++;			
 			}
 		}

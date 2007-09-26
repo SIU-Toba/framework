@@ -435,7 +435,9 @@ class ci_efs extends toba_ci
 			$datos = $dt->exportar_datos_efs($datos['pk']);
 			foreach($datos as $ef){
 				try{
-					$this->get_tabla()->nueva_fila($ef);
+					if (! $this->get_tabla()->existe_fila_condicion(array('identificador' => $ef['identificador']))) {
+						$this->get_tabla()->nueva_fila($ef);						
+					}
 				}catch(toba_error $e){
 					toba::notificacion()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
 				}

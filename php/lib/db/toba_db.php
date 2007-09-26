@@ -58,6 +58,15 @@ class toba_db
 		}
 	}		
 	
+	/**
+	 * Retorna una referencia al objeto PDO interno
+	 * @return PDO
+	 */
+	function get_pdo()
+	{
+		return $this->conexion;
+	}
+	
 	function get_parametros()
 	{
 		$parametros['HOST'] = $this->profile;
@@ -318,6 +327,7 @@ class toba_db
 		'BINARY' => 'B',
 		'VARBINARY' => 'B',
 		'LONGBINARY' => 'B',
+		'BYTEA' => 'B',
 		'B' => 'B',
 		##
 		'YEAR' => 'F', // mysql

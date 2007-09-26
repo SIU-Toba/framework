@@ -72,7 +72,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL  --externa
+	'0'  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_referencia', --objeto_proyecto
@@ -80,24 +80,40 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'344', --col_id
 	'nombre', --columna
 	'C', --tipo
-	NULL, --pk
+	'0', --pk
 	NULL, --secuencia
 	'60', --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL  --externa
+	'0'  --externa
+);
+--- FIN Grupo de desarrollo 0
+
+--- INICIO Grupo de desarrollo 1
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_referencia', --objeto_proyecto
+	'1733', --objeto
+	'1000281', --col_id
+	'fecha_nac', --columna
+	'F', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0'  --externa
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_referencia', --objeto_proyecto
 	'1733', --objeto
-	'345', --col_id
-	'fecha_nac', --columna
-	NULL, --tipo
-	NULL, --pk
-	NULL, --secuencia
+	'1000282', --col_id
+	'imagen', --columna
+	'B', --tipo
+	'0', --pk
+	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
-	NULL, --no_nulo_db
-	NULL  --externa
+	'0', --no_nulo_db
+	'0'  --externa
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 1
