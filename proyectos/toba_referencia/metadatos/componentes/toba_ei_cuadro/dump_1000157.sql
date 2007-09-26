@@ -50,7 +50,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'fecha', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
+	'100%', --ancho
 	'1', --ordenar
 	'1', --paginar
 	'10', --tamano_pagina
@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --estilo_titulo
 	'0', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'8', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
 	NULL, --mostrar_xls
@@ -102,10 +102,10 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --desabilitado
 	'0', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	NULL, --vinculo_popup
+	'0', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL  --vinculo_celda

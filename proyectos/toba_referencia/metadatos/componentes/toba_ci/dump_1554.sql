@@ -80,7 +80,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1554', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'400px', --ancho
+	'300px', --ancho
 	'300px', --alto
 	'abajo', --posicion_botonera
 	'tab_h', --tipo_navegacion

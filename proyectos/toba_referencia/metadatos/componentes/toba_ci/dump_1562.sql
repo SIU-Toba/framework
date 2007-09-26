@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Modificación en ef_upload', --nombre
 	'Ejemplo de modificación sobre ef_upload', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -65,11 +65,11 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1562', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
+	'300px', --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
 	'wizard', --tipo_navegacion
-	NULL, --con_toc
+	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar

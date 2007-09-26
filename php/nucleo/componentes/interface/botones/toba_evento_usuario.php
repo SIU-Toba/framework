@@ -152,10 +152,12 @@ class toba_evento_usuario extends toba_boton
 		$html .= $acceso[0];
 		$tecla = $acceso[1];
 		$estilo_inline = $this->oculto ? 'display: none' : null;
-		$js = 'onclick="'.$this->get_invocacion_js($objeto_js, $id_componente).'"';
-		return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
-										$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
-		
+		$js = $this->get_invocacion_js($objeto_js, $id_componente);
+		if (isset($js)) {
+			$js = 'onclick="'.$js.'"';
+			return toba_form::button_html( $id_submit."_".$this->get_id(), $html, $js, $tab_order, $tecla, 
+											$tip, $tipo_boton, '', $clase, true, $estilo_inline, $this->activado);
+		}
 	}
 
 	/**
@@ -206,7 +208,7 @@ class toba_evento_usuario extends toba_boton
 			// Registro el vinculo en el vinculador
 			$id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo() );
 			if( !isset( $id_vinculo ) ) { //Si no tiene permisos no devuelve un identificador
-				return;
+				return null;
 			}
 			// Escribo la sentencia que invocaria el vinculo
 			$js = "{$objeto_js}.invocar_vinculo('".$this->get_id()."', '$id_vinculo');";

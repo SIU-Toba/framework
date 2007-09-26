@@ -794,7 +794,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	protected function ef_metodo_carga_dt($id_ef, $parametros, $maestros)
 	{
-		$dt = toba_constructor::get_runtime(array('proyecto' => $this->_id[0],'componente' => $parametros['carga_dt']));
+		$dt = toba_constructor::get_runtime(array('proyecto' => $this->_id[0],'componente' => $parametros['carga_dt']), 'toba_datos_tabla');
 		return call_user_func_array(array($dt, $parametros['carga_metodo']), $maestros);
 	}
 	
