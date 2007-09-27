@@ -985,6 +985,7 @@ class toba_info_editores
 			$where_operacion = "WHERE operacion_tipo='$operacion_tipo'";
 		}
 		$sql = "	SELECT	operacion_tipo,
+							clase,
 							descripcion_corta,
 							descripcion,
 							ci,
@@ -1090,16 +1091,20 @@ class toba_info_editores
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
 		if (is_array($consulta_php)) {
-			$archivo = $consulta_php['carga_php_include'];
+			$archivo_nombre = $consulta_php['carga_php_include'];
 		} else {
 			$datos = self::get_consulta_php($consulta_php, $proyecto);
-			$archivo = $datos['archivo'];
+			$archivo_nombre = $datos['archivo'];
 		}
-		$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo;			
-		$metodos = array();
+		$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$archivo_nombre;			
+		if (! file_exists($archivo)) {
+			//-- Puede ser que sea un archivo de toba
+			$archivo = toba_nucleo::toba_dir().'/php/'.$archivo_nombre;
+		}
+		$metodos = array();		
 		if (file_exists($archivo)) {
 			$metodos = toba_archivo_php::codigo_get_nombre_metodos(file_get_contents($archivo), true);
-		}
+		} 
 		$salida = array();
 		foreach ($metodos as $metodo) {
 			$salida[] = array('metodo' => $metodo);

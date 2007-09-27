@@ -27,7 +27,6 @@ class toba_catalogo_items
 		if (! isset($id_item_inicial)) { 
 			$id_item_inicial = '__raiz__';	
 		}
-		
 		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial, $opciones);
 		$filtro_items = "";		
 		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
@@ -96,8 +95,8 @@ class toba_catalogo_items
 				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
 				isset($opciones['menu']) || 
 				isset($opciones['tipo_solicitud']) ||
-				isset($opciones['zona']
-			);
+				isset($opciones['zona']) ||
+				isset($opciones['asistente']);
 	}
 	
 	protected function debe_cargar_en_profundidad($id_item, $opciones)
@@ -156,6 +155,11 @@ class toba_catalogo_items
 		if (isset($opciones['zona'])) {
 			$this->dejar_items_con_zona($opciones['zona']);
 		}				
+		
+		//--- Asistente
+		if (isset($opciones['asistente'])) {
+			$this->dejar_items_con_asistente($opciones['asistente']);
+		}		
 	}
 
 	//------------------------------------PROPIEDADES --------------------------------------------------------			
@@ -312,6 +316,18 @@ class toba_catalogo_items
 		$this->dejar_ramas_con_items($encontrados);			
 	}
 	
+	function dejar_items_con_asistente($asistente)
+	{
+		$encontrados = array();
+		foreach ($this->items as $item) {
+			if ($item->generado_con_wizard()) {
+				if ($item->tipo_asistente_utilizado() == $asistente) {
+					$encontrados[] = $item;
+				}				
+			}
+		}
+		$this->dejar_ramas_con_items($encontrados);			
+	}	
 	/**
 	 * Recorre el arbol de dependencias hasta llegar a objetos que no estan contenidos en otros
 	 */

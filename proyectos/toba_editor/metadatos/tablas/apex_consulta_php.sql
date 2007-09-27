@@ -8,7 +8,7 @@ INSERT INTO apex_consulta_php (proyecto, consulta_php, clase, archivo, descripci
 	'toba_editor', --proyecto
 	'1', --consulta_php
 	'toba_info_editores', --clase
-	'{toba_modelo}/info/toba_info_editores.php', --archivo
+	'modelo/info/toba_info_editores.php', --archivo
 	NULL  --descripcion
 );
 INSERT INTO apex_consulta_php (proyecto, consulta_php, clase, archivo, descripcion) VALUES (

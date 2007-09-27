@@ -90,6 +90,12 @@ class toba_item_info implements toba_nodo_arbol
 	{
 		return isset($this->datos['basica']['molde']);	
 	}
+	
+	function tipo_asistente_utilizado()
+	{
+		$tipo = toba_catalogo_asistentes::get_asistente_molde($this->proyecto, $this->datos['basica']['molde']);
+		return $tipo;
+	}
 
 	function vinculo_editor()
 	{
