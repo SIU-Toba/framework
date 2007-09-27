@@ -28,10 +28,11 @@ class toba_manejador_sesiones
 	{
 		session_name('TOBA_SESSID');
 		session_start();
+		define('TOBA_DIR', toba_nucleo::toba_dir());
 		$this->instancia = toba_instancia::get_id();
 		$this->proyecto = toba_proyecto::get_id();
-		if(!isset($_SESSION['toba']['nucleo'])) { //Primer acceso al sistema
-			$_SESSION['toba']['nucleo']['inicio'] = time();
+		if(!isset($_SESSION[TOBA_DIR]['nucleo'])) { //Primer acceso al sistema
+			$_SESSION[TOBA_DIR]['nucleo']['inicio'] = time();
 		}
 	}
 
@@ -122,7 +123,7 @@ class toba_manejador_sesiones
 	function existe_usuario_activo($instancia=null)
 	{
 		$instancia = isset($instancia) ? $instancia : $this->instancia;
-		return isset($_SESSION['toba']['instancias'][$instancia]['id_usuario']);
+		return isset($_SESSION[TOBA_DIR]['instancias'][$instancia]['id_usuario']);
 	}
 	
 	/**
@@ -131,7 +132,7 @@ class toba_manejador_sesiones
 	function existe_sesion_activa($proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : $this->proyecto;
-		return isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info_sesion']['id']);
+		return isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info_sesion']['id']);
 	}
 
 	/**
@@ -141,7 +142,7 @@ class toba_manejador_sesiones
 	{
 		$proyecto = isset($proyecto) ? $proyecto : $this->proyecto;
 		if ($this->existe_sesion_activa($proyecto)) {
-			return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info_sesion']['id'];
+			return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info_sesion']['id'];
 		}
 	}
 
@@ -151,7 +152,7 @@ class toba_manejador_sesiones
 	function get_id_usuario_instancia()
 	{
 		if ($this->existe_usuario_activo()) {
-			return $_SESSION['toba']['instancias'][$this->instancia]['id_usuario'];
+			return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario'];
 		}
 	}
 
@@ -160,7 +161,7 @@ class toba_manejador_sesiones
 	*/
 	function get_cantidad_instancias_cargadas()
 	{
-		return count($_SESSION['toba']['instancias']);
+		return count($_SESSION[TOBA_DIR]['instancias']);
 	}
 
 	/**
@@ -169,8 +170,8 @@ class toba_manejador_sesiones
 	function get_cantidad_instancias_activas()
 	{
 		$x = 0;
-		if(isset($_SESSION['toba']['instancias']) && is_array($_SESSION['toba']['instancias'])) {
-			foreach( array_keys($_SESSION['toba']['instancias']) as $instancia ) {
+		if(isset($_SESSION[TOBA_DIR]['instancias']) && is_array($_SESSION[TOBA_DIR]['instancias'])) {
+			foreach( array_keys($_SESSION[TOBA_DIR]['instancias']) as $instancia ) {
 				if ($this->existe_usuario_activo($instancia)) $x++;
 			}
 		}
@@ -182,7 +183,7 @@ class toba_manejador_sesiones
 	*/
 	function get_cantidad_proyectos_cargados()
 	{
-		return count($_SESSION['toba']['instancias'][$this->instancia]['proyectos']);
+		return count($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos']);
 	}
 
 	/**
@@ -191,9 +192,9 @@ class toba_manejador_sesiones
 	function get_cantidad_proyectos_activos()
 	{
 		$x = 0;
-		if(isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos']) &&
-			is_array($_SESSION['toba']['instancias'][$this->instancia]['proyectos'])) {
-			foreach( array_keys($_SESSION['toba']['instancias'][$this->instancia]['proyectos']) as $proyecto ) {
+		if(isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos']) &&
+			is_array($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'])) {
+			foreach( array_keys($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos']) as $proyecto ) {
 				if ($this->existe_sesion_activa($proyecto)) $x++;
 			}
 		}
@@ -205,7 +206,7 @@ class toba_manejador_sesiones
 	*/
 	function existe_proyecto_cargado($proyecto)
 	{
-		return isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]);
+		return isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]);
 	}
 
 	/**
@@ -425,8 +426,8 @@ class toba_manejador_sesiones
 
 	private function registar_usuario()
 	{
-		$_SESSION['toba']['instancias'][$this->instancia]['inicio'] = time();
-		$_SESSION['toba']['instancias'][$this->instancia]['id_usuario'] = $this->usuario->get_id();
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['inicio'] = time();
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario'] = $this->usuario->get_id();
 	}
 	
 	private function abrir_sesion($datos_iniciales=null, $tipo='normal')
@@ -434,9 +435,9 @@ class toba_manejador_sesiones
 		$id = toba::instancia()->get_id_sesion();
 		toba::logger()->debug("Crear SESION '$id' en el proyecto '{$this->proyecto}'",'toba');
 		toba::instancia()->abrir_sesion( $id, $this->usuario->get_id(), $this->proyecto );
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['id'] = $id;
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'] = time();
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['tipo'] = $tipo;
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['id'] = $id;
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'] = time();
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['tipo'] = $tipo;
 		toba::logger()->debug('Se creo la SESION [usuario: ' . $this->usuario->get_id() . ' ]', 'toba');
 		$this->sesion = $this->get_sesion_proyecto();
 		$this->sesion->conf__inicial($datos_iniciales);
@@ -446,7 +447,7 @@ class toba_manejador_sesiones
 	private function registrar_activacion_sesion()
 	{
 		toba::logger()->debug('Registro activacion sesion','toba');
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'] = time();
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'] = time();
 		$this->sesion->conf__activacion();
 	}
 
@@ -462,7 +463,7 @@ class toba_manejador_sesiones
 		// Controlo el tiempo de no interaccion
 		$ventana = toba::proyecto()->get_parametro('sesion_tiempo_no_interac_min');
 		if($ventana != 0){ // 0 implica desactivacion
-			$ultimo_acceso = $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
+			$ultimo_acceso = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['ultimo_acceso'];
 			$tiempo_desconectado = ((time()-$ultimo_acceso)/60);//Tiempo desde el ultimo REQUEST
 			if ( $tiempo_desconectado >= $ventana){
 				toba::notificacion("Usted ha permanecido mas de $ventana minutos sin interactuar 
@@ -475,7 +476,7 @@ class toba_manejador_sesiones
 		// Controlo el tiempo maximo de sesion
 		$maximo = toba::proyecto()->get_parametro('sesion_tiempo_maximo_min');
 		if($maximo != 0){ // 0 implica desactivacion
-			$inicio_sesion = $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
+			$inicio_sesion = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['info_sesion']['inicio'];
 			$tiempo_total = ((time()-$inicio_sesion)/60);//Tiempo desde que se inicio la sesion
 			if ( $tiempo_total >= $maximo){
 				toba::notificacion("Se ha superado el tiempo de sesion permitido ($maximo minutos)
@@ -495,10 +496,10 @@ class toba_manejador_sesiones
 
 	private function desregistrar_usuario()
 	{
-		$usuario = $_SESSION['toba']['instancias'][$this->instancia]['id_usuario'];
+		$usuario = $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario'];
 		toba::logger()->debug("Desregistrando el usuario '$usuario' de la instancia '{$this->instancia}'",'toba');
-		unset($_SESSION['toba']['instancias'][$this->instancia]['inicio']);
-		unset($_SESSION['toba']['instancias'][$this->instancia]['id_usuario']);
+		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['inicio']);
+		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['id_usuario']);
 	}
 	
 	/**
@@ -538,14 +539,14 @@ class toba_manejador_sesiones
 		if( !isset($this->usuario) || !isset($this->sesion) ) {
 			throw new toba_error('MANEJADOR de SESIONES: No es posible guardar el contexto.');
 		}
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario'] = serialize($this->usuario);
-		$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario'] = serialize($this->usuario);
+		$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion'] = serialize($this->sesion);
 	}
 	
 	private function cargar_contexto()
 	{
-		if( !isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']) ||
-			!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']) ) {
+		if( !isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']) ||
+			!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']) ) {
 			throw new toba_error('MANEJADOR de SESIONES: Error interno. No es posible cargar la sesion solicitada.');
 		}
 		//Cargo las clases de los archivos serializados
@@ -561,8 +562,8 @@ class toba_manejador_sesiones
 		if( $subclase && $archivo ) {
 			require_once($archivo);
 		}
-		$this->usuario = unserialize($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
-		$this->sesion = unserialize($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
+		$this->usuario = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['usuario']);
+		$this->sesion = unserialize($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['sesion']);
 	}
 
 	//------------------------------------------------------------------
@@ -695,34 +696,34 @@ class toba_manejador_sesiones
 
 	function & segmento_info_instalacion()
 	{
-		if (!isset($_SESSION['toba']['instalacion'])) {
-			$_SESSION['toba']['instalacion'] = array();
+		if (!isset($_SESSION[TOBA_DIR]['instalacion'])) {
+			$_SESSION[TOBA_DIR]['instalacion'] = array();
 		}
-		return $_SESSION['toba']['instalacion'];
+		return $_SESSION[TOBA_DIR]['instalacion'];
 	}
 
 	function & segmento_info_instancia()
 	{
-		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['info'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['info'] = array();
+		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['info'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['info'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['info'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['info'];
 	}
 
 	function & segmento_datos_instancia()
 	{
-		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['datos_globales'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['datos_globales'] = array();
+		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['datos_globales'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['datos_globales'];
 	}
 	
 	function & segmento_editor()
 	{
-		if (!isset($_SESSION['toba']['instancias'][$this->instancia]['editor'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['editor'] = array();
+		if (!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['editor'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor'];
 	}
 
 	function & segmento_info_proyecto($proyecto = null)
@@ -730,54 +731,54 @@ class toba_manejador_sesiones
 		if (! isset($proyecto)) {
 			$proyecto = $this->proyecto;	
 		}
-		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'] = array();
+		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]['info'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]['info'];
 	}
 
 	function & segmento_memoria_proyecto()
 	{
-		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'] = array();
+		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['memoria'];
 	}
 
 	function & segmento_memoria_puntos_control()
 	{
-		if(!isset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'])) {
-			$_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'] = array();
+		if(!isset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'])) {
+			$_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'] = array();
 		}
-		return $_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'];
+		return $_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$this->proyecto]['puntos_control'];
 	}
 
 	//----  Borrado de los espacios de memoria  ---------------------------------------------
 
 	function borrar_segmento_instalacion()
 	{
-		unset($_SESSION['toba']['instalacion']);	
+		unset($_SESSION[TOBA_DIR]['instalacion']);	
 		toba_instalacion::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria INSTALACION','toba');
 	}
 
 	function borrar_segmento_instancia()
 	{
-		unset($_SESSION['toba']['instancias'][$this->instancia]);
+		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]);
 		toba_instancia::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria INSTANCIA: ' . $this->instancia,'toba');
 	}
 
 	function borrar_segmento_editor()
 	{
-		unset($_SESSION['toba']['instancias'][$this->instancia]['editor']);
+		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['editor']);
 		toba::logger()->debug('BORRAR segmento memoria EDITOR','toba');
 	}
 
 	function borrar_segmento_proyecto($proyecto=null)
 	{
 		if(!isset($proyecto)) $proyecto = $this->proyecto;
-		unset($_SESSION['toba']['instancias'][$this->instancia]['proyectos'][$proyecto]);
+		unset($_SESSION[TOBA_DIR]['instancias'][$this->instancia]['proyectos'][$proyecto]);
 		toba_proyecto::eliminar_instancia();
 		toba_memoria::eliminar_instancia();
 		toba::logger()->debug('BORRAR segmento memoria PROYECTO: ' . $proyecto ,'toba');
