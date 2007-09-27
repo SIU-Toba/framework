@@ -4,6 +4,7 @@ class eiform_cuadro_prop_basicas extends toba_ei_formulario
 {
 	function extender_objeto_js() 
 	{
+		echo admin_util::get_js_editor();			
 		//$ef = $this->obtener_nombres_ef();
 		echo "
 		{$this->objeto_js}.evt__clave_dbr__procesar = function (inicial) {
@@ -39,6 +40,27 @@ class eiform_cuadro_prop_basicas extends toba_ei_formulario
 				this.ef('eof_customizado').mostrar();
 			}
 		}
+		
+		
+		//---- Validacion de EFs -----------------------------------
+		
+		{$this->objeto_js}.evt__ancho__validar = function()
+		{
+            if (! toba_editor.medida_css_correcta(this.ef('ancho').get_estado())) {
+                    this.ef('ancho').set_error(toba_editor.mensaje_error_medida_css());
+                    return false;
+            }
+            return true;			
+		}		
+		
+		{$this->objeto_js}.evt__scroll_alto__validar = function()
+		{
+            if (! toba_editor.medida_css_correcta(this.ef('scroll_alto').get_estado())) {
+                    this.ef('scroll_alto').set_error(toba_editor.mensaje_error_medida_css());
+                    return false;
+            }
+            return true;			
+		}			
 		";
 	}
 }

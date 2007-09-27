@@ -82,10 +82,10 @@ class comando_base extends comando_toba
 		//---- Datos	
 		if (!isset($datos)) {
 			$form = $this->consola->get_formulario("Definir una nueva BASE de DATOS");
-			$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR' ) );
-			$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE' ) );
-			$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO' ) );
-			$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE' ) );
+			$form->agregar_campo( array( 'id' => 'motor', 	'nombre' => 'MOTOR (ej. postgres7)' ) );
+			$form->agregar_campo( array( 'id' => 'profile',	'nombre' => 'HOST/PROFILE (ej. localhost)' ) );
+			$form->agregar_campo( array( 'id' => 'usuario', 'nombre' => 'USUARIO (ej. postgres)' ) );
+			$form->agregar_campo( array( 'id' => 'clave', 	'nombre' => 'CLAVE', 'obligatorio' => false ) );
 			$form->agregar_campo( array( 'id' => 'base', 	'nombre' => 'BASE' ) );
 			$datos = $form->procesar();
 		}		

@@ -124,19 +124,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'alto', --identificador
 	'ef_editable', --elemento_formulario
 	'alto', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Alto', --etiqueta
 	NULL, --etiqueta_estilo
 	'Alto mínimo que ocupa el cuerpo del componente, sin contar el titulo y las botoneras superiores o inferiores.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -194,19 +194,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ancho', --identificador
 	'ef_editable', --elemento_formulario
 	'ancho', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Ancho', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Ancho del componentes. Incluir medida (por ejemplo. px, em, %, etc.)', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -264,8 +264,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'con_toc', --identificador
 	'ef_checkbox', --elemento_formulario
 	'con_toc', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Wizard Incluye TOC', --etiqueta
 	NULL, --etiqueta_estilo
@@ -334,8 +334,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'posicion_botonera', --identificador
 	'ef_combo', --elemento_formulario
 	'posicion_botonera', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Posición botonera', --etiqueta
 	NULL, --etiqueta_estilo
@@ -404,8 +404,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'tipo_navegacion', --identificador
 	'ef_combo', --elemento_formulario
 	'tipo_navegacion', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Tipo de Navegacion', --etiqueta
 	NULL, --etiqueta_estilo

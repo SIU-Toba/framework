@@ -8,6 +8,25 @@ define('toba_abrir_archivo_ajax','toba_abrir_archivo_ajax');
 class admin_util
 {
 	
+	static function get_js_editor()
+	{
+		return "
+			toba_editor = new function() {
+			};
+
+			toba_editor.medida_css_correcta = function(texto) {
+				if (texto != '' ) {
+					return /\d+\s*(in|cm|mm|pt|pc|px|em|ex|%)\s*$/i.test(texto);
+				}
+				return true;
+			};
+
+			toba_editor.mensaje_error_medida_css = function() {
+				return \"Debe contener una medida CSS por ejemplo '300px' '50%' '20em' ,etc.\";
+			}
+		";
+	}
+	
 	/**
 	*	Refresca el frame izquierdo del editor
 	*/

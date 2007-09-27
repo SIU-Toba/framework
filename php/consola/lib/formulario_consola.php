@@ -45,7 +45,8 @@ class formulario_consola
 		$this->interface->enter();
 		$this->interface->subtitulo( $this->titulo );
 		foreach( array_keys( $this->campos ) as $campo ) {
-			$valor = $this->interface->dialogo_ingresar_texto( $this->campos[$campo]['nombre'] );
+			$obligatorio = (! isset($this->campos[$campo]['obligatorio']) || $this->campos[$campo]['obligatorio']);
+			$valor = $this->interface->dialogo_ingresar_texto( $this->campos[$campo]['nombre'], $obligatorio);
 			$this->campos[$campo]['valor'] = $valor;
 		}
 	}
