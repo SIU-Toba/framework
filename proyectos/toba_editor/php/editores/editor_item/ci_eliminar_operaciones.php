@@ -44,7 +44,7 @@ class ci_eliminar_operaciones extends toba_ci
 			$opciones[$comp['componente']] = array('eliminar' => $comp['eliminar'], 'eliminar_archivo' => $comp['eliminar_archivo']);
 		}
 		$this->operacion->eliminar($this->eliminar_item, $opciones, true);
-		toba::notificacion()->agregar('Los componentes seleccionados han sido eliminado');
+		toba::notificacion()->agregar('Los componentes seleccionados han sido eliminado', 'info');
 		if ($this->eliminar_item) {
 			toba::zona()->resetear();
 		}

@@ -32,8 +32,10 @@ class toba_asistente_grilla extends toba_asistente_1dt
 		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		//- Eventos del CI ---------------------------------------
 		$evento = $this->ci->agregar_evento('guardar');
+		$evento->set_etiqueta('Guardar');
 		$evento->maneja_datos();
 		$evento->en_botonera();
+		$evento->set_predeterminado();				
 		$evento->set_imagen('guardar.gif');
 		$this->ci->asociar_pantalla_evento(1, $evento);
 	}
@@ -63,7 +65,14 @@ class toba_asistente_grilla extends toba_asistente_1dt
 		$form->set_nombre($this->molde['nombre'] . ' - Form');
 		$form->set_analisis_cambios('LINEA');
 		$form->agregar_filas_js();
-		$this->generar_efs($form, $this->molde_abms_fila);
+		//Creo las filas
+		$filas = array();
+		foreach( $this->molde_abms_fila as $fila ) {
+			if($fila['en_form']) {
+				$filas[] = $fila;
+			}
+		}		
+		$this->generar_efs($form, $filas);
 		$evento = $form->agregar_evento('modificacion');
 		$evento->maneja_datos();
 		$evento->implicito();

@@ -16,8 +16,9 @@ class pant_tipo_operacion extends toba_ei_pantalla
 		$this->dep('form_tipo_operacion')->generar_html();
 		//$this->generar_botones();
 		//$this->generar_boton('siguiente_editar');
-		echo "<div style='display:none; background-color: #808080;padding-bottom: 15px;margin-top: 5px; color: white; text-align:center; font-size:12px; font-weight: bold;'><hr>";
-		echo "<div id='operacion_descripcion'></div>";			
+		echo "<div style='background-color: #808080;padding-bottom: 15px;margin-top: 5px; color: white; text-align:center; font-size:12px; font-weight: bold;'><hr>";
+		echo "<div id='operacion_descripcion'></div>";
+		echo "<div id='operacion_vista_previa' style='display:none; padding-top:10px;'></div>";		
 		echo "</div>";
 	}
 	
@@ -25,7 +26,7 @@ class pant_tipo_operacion extends toba_ei_pantalla
 	{
 		echo "
 		{$this->objeto_js}.evt__show = function() {
-			toggle_nodo($('operacion_descripcion').parentNode);
+			toggle_nodo($('operacion_vista_previa'));
 			return false;
 		}
 		";
