@@ -126,7 +126,7 @@ class toba_cn extends toba_componente
 	function abortar_transaccion()
 	{
 		$this->_transaccion_abierta = false;
-		return toba::db($this->_info['fuente'])->abortar_transaccion($sql);
+		return toba::db($this->_info['fuente'])->abortar_transaccion();
 	}
 
 	/**

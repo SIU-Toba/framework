@@ -76,8 +76,10 @@ class toba_ef_popup extends toba_ef_editable
 	{
 		if ( isset($this->descripcion_estado)) {
 			return $this->descripcion_estado;
+		} elseif (isset($this->estado)) { 
+			return $this->estado;
 		} else {
-			return $this->estado;	
+			return null;
 		}
 	}	
 	
