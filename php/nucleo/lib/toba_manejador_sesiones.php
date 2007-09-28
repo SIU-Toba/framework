@@ -518,7 +518,11 @@ class toba_manejador_sesiones
 	
 	function recargar_info_proyecto($proyecto)
 	{
-		toba_proyecto::instancia($proyecto, true);
+		if ($proyecto == toba_proyecto::get_id()) {
+			toba_proyecto::eliminar_instancia();
+		}
+		$info =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
+		$info = null;
 	}
 	
 	function recargar_info_instalacion()

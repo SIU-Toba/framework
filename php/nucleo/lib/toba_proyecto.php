@@ -16,6 +16,9 @@ class toba_proyecto
 	private $items_excluidos = array();
 	const prefijo_punto_acceso = 'apex_pa_';
 
+	/**
+	 * Retorna el id del proyecto actualmente cargado en el pedido de página
+	 */
 	static function get_id()
 	{
 		if (! isset(self::$id_proyecto)) {
@@ -41,29 +44,27 @@ class toba_proyecto
 	/**
 	 * @return toba_proyecto
 	 */
-	static function instancia($id_proyecto=null, $recargar=false)
+	static function instancia()
 	{
-		if (! isset($id_proyecto)) {
-			$id_proyecto = self::get_id();
-		}
-		if (!isset(self::$instancia[$id_proyecto]) || $recargar) {
+		if (!isset(self::$instancia)) {
+			$id_proyecto = self::get_id();			
 			toba::logger()->debug("TOBA PROYECTO: creando instancia de '$id_proyecto'", 'toba');
-			self::$instancia[$id_proyecto] = new toba_proyecto($id_proyecto, $recargar);	
+			self::$instancia = new toba_proyecto($id_proyecto);
 		}
-		return self::$instancia[$id_proyecto];
+		return self::$instancia;
 	}
 
 	static function eliminar_instancia()
 	{
-		self::$instancia[self::get_id()] = null;
+		self::$instancia = null;
 	}
 	
-	private function __construct($proyecto, $recargar=false)
+	private function __construct($proyecto)
 	{
 		toba_proyecto_db::set_db( toba::instancia()->get_db() );//Las consultas salen de la instancia actual
 		$this->id = $proyecto;
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_proyecto($proyecto);
-		if (!$this->memoria || $recargar) {
+		if (!$this->memoria) {
 			$this->memoria = self::cargar_info_basica();
 			toba::logger()->debug('Inicialización de TOBA_PROYECTO: ' . $this->id,'toba');
 		}
@@ -77,6 +78,7 @@ class toba_proyecto
 			toba::logger()->desactivar();
 		}
 	}
+
 
 	/**
 	 * Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria
@@ -137,7 +139,7 @@ class toba_proyecto
 	 */
 	function get_path()
 	{
-		return toba::instancia()->get_path_proyecto(self::get_id());
+		return toba::instancia()->get_path_proyecto($this->id);
 	}
 
 	/**
@@ -199,7 +201,7 @@ class toba_proyecto
 
 	function get_definicion_dependencia($id_componente, $proyecto=null)
 	{
-		$proyecto = isset($proyecto) ? $proyecto : self::get_id() ;
+		$proyecto = isset($proyecto) ? $proyecto : $this->id ;
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$temp = toba_constructor::get_metadatos_compilados(array('proyecto'=>$proyecto, 'componente'=>$id_componente));
 			$rs = $temp['_info'];
@@ -215,7 +217,7 @@ class toba_proyecto
 
 	function get_info_punto_control($punto_control, $proyecto=null)	
 	{
-		if (! isset($proyecto)) $proyecto = self::get_id();
+		if (! isset($proyecto)) $proyecto = $this->id;
 		$info = array();
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$info = $this->recuperar_datos_compilados('toba_mc_gene__pcontrol_'.$punto_control, 'get_info');
@@ -233,7 +235,7 @@ class toba_proyecto
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_fuente__'.$id_fuente);
 		} else {
-			if (! isset($proyecto)) $proyecto = self::get_id();
+			if (! isset($proyecto)) $proyecto = $this->id;
 			$rs = toba_proyecto_db::get_info_fuente_datos($proyecto, $id_fuente);
 			//-- No se carga aqui la relacion entre tabla y dt por un tema de eficiencia, se hace con un lazyload en toba_fuente_datos
 		}
@@ -263,7 +265,7 @@ class toba_proyecto
 															true,
 															array('padre','orden'));
 		} else {
-			if (!isset($proyecto)) $proyecto = self::get_id();
+			if (!isset($proyecto)) $proyecto = $this->id;
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}
 		// Se quitan los items excluidos de la lista de items que puede acceder el usuario.
@@ -282,7 +284,7 @@ class toba_proyecto
 	/**
 	 * Valida que un grupo de acceso tenga acceso a un item
 	 */
-	function puede_grupo_acceder_item($proyecto, $item)
+	function puede_grupo_acceder_item($item)
 	{
 		$grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
 		//Recupero los items y los formateo en un indice consultable
@@ -294,13 +296,13 @@ class toba_proyecto
 																							'get_items_accesibles',
 																							false);
 			} else {
-				$rs = toba_proyecto_db::get_items_accesibles(self::get_id(), $grupos_acceso);
+				$rs = toba_proyecto_db::get_items_accesibles($this->id, $grupos_acceso);
 				foreach( $rs as $accesible ) {
 					$this->indice_items_accesibles[$accesible['proyecto'].'-'.$accesible['item']] = 1;
 				}
 			}
 		}
-		return isset($this->indice_items_accesibles[$proyecto.'-'.$item]);
+		return isset($this->indice_items_accesibles[$this->id.'-'.$item]);
 	}
 
 	/**
@@ -316,7 +318,7 @@ class toba_proyecto
 															true,
 															array('orden') );
 		} else {
-			$rs = toba_proyecto_db::get_items_zona(self::get_id(), $grupos_acceso, $zona);	
+			$rs = toba_proyecto_db::get_items_zona($this->id, $grupos_acceso, $zona);	
 		}
 		return $rs;
 	}
@@ -339,7 +341,7 @@ class toba_proyecto
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', $grupos_acceso, 'get_lista_permisos');
 		} else {
-			$rs = toba_proyecto_db::get_lista_permisos(self::get_id(), $grupos_acceso);
+			$rs = toba_proyecto_db::get_lista_permisos($this->id, $grupos_acceso);
 		}
 		return $rs;
 	}
@@ -352,7 +354,7 @@ class toba_proyecto
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos', 'info_permiso__'.$permiso);
 		} else {
-			$rs = toba_proyecto_db::get_descripcion_permiso(self::get_id(), $permiso);
+			$rs = toba_proyecto_db::get_descripcion_permiso($this->id, $permiso);
 		}
 		return $rs;
 	}
@@ -386,7 +388,7 @@ class toba_proyecto
 				$rs = array();	
 			}
 		} else {
-			$rs = toba_proyecto_db::get_mensaje_proyecto(self::get_id(), $indice);	
+			$rs = toba_proyecto_db::get_mensaje_proyecto($this->id, $indice);	
 		}
 		return $rs;
 	}
@@ -402,7 +404,7 @@ class toba_proyecto
 				$rs = array();	
 			}
 		} else {
-			$rs = toba_proyecto_db::get_mensaje_objeto(self::get_id(), $objeto, $indice);	
+			$rs = toba_proyecto_db::get_mensaje_objeto($this->id, $objeto, $indice);	
 		}
 		return $rs;
 	}

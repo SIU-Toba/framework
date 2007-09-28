@@ -174,7 +174,11 @@ class toba_nucleo
 	
 	protected function autorizar_acceso_item($item)
 	{
-		if (! toba::proyecto()->puede_grupo_acceder_item($item[0], $item[1]) ) {
+		if (toba::proyecto()->get_id() != $item[0]) {
+			//-- No esta implementado poder entrar a un item de un proyecto distinto de la solicitud
+			throw new toba_error('Imposible determinar proyecto actual');
+		}
+		if (! toba::proyecto()->puede_grupo_acceder_item($item[1]) ) {
 			throw new toba_error_autorizacion('El usuario no posee permisos para acceder al item solicitado.');
 		}
 	}
@@ -272,7 +276,7 @@ class toba_nucleo
 
 	static function get_directorio_compilacion()
 	{
-		if(!self::$dir_compilacion) self::$dir_compilacion = toba_proyecto::get_path() . '/metadatos_compilados';
+		if(!self::$dir_compilacion) self::$dir_compilacion = toba::proyecto()->get_path() . '/metadatos_compilados';
 		return self::$dir_compilacion;
 	}
 

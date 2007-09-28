@@ -80,8 +80,8 @@ class toba_vinculador
 	{
 		$item = $vinculo->get_item();
 		$proyecto = $vinculo->get_proyecto();
-		if ( ! toba::proyecto()->puede_grupo_acceder_item($proyecto, $item) 
-				&& (toba::proyecto()->get_id() == $proyecto) ) { //El control es solo dentro del proyecto actual
+		if (toba::proyecto()->get_id() == $proyecto && !toba::proyecto()->puede_grupo_acceder_item($item)) { 
+			//El control es solo dentro del proyecto actual
 			return null;
 		}
 		$id = count( $this->vinculos );
@@ -130,8 +130,8 @@ class toba_vinculador
 		//Controlo que el usuario posea permisos para acceder al ITEM
 		if ( !$autovinculo ) {
 			//El control es solo dentro del proyecto actual
-			if ( ! toba::proyecto()->puede_grupo_acceder_item($item_proyecto, $item) 
-					&& (toba::proyecto()->get_id() == $item_proyecto) ) {
+			if ( toba::proyecto()->get_id() == $item_proyecto && 
+						!toba::proyecto()->puede_grupo_acceder_item($item)) {
 				toba::logger()->info("VINCULADOR: Fallo la creacion de un vinculo al item '$item' porque el usuario no posee permisos para acceder al mismo.");
 				return null;	
 			}
