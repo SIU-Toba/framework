@@ -51,9 +51,9 @@ class toba_fecha
 		return $aux;		
 	}
 	
-	function get_fecha_desplazada_años($años)
+	function get_fecha_desplazada_años($anios)
 	{
-		$aux = strtotime("$años year", $this->timestamp);
+		$aux = strtotime("$anios year", $this->timestamp);
 		return $aux;		
 	}
 	

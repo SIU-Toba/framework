@@ -1052,7 +1052,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function set_blob($columna, $blob, $id_fila=null)
 	{
-		if (! is_resource($blob)) {
+		if (isset($blob) && ! is_resource($blob)) {
 			throw new toba_error("Las columnas binarias o BLOB esperan un 'resource', producto generalmente de un 'fopen' del archivo a subir a la base");	
 		}
 		if (! isset($id_fila)) {
@@ -1116,20 +1116,26 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function _get_blob_transaccion($id_registro, $col)
 	{
-		//-- Si no esta seteado es un blob nulo
+		//-- Si no esta seteado, no se cargo ni modifico
 		if (!isset($this->_blobs[$id_registro][$col])) {
-			return false;
+			return null;
 		} elseif ($this->_blobs[$id_registro][$col]['modificado']) {
 			//--Hay que actualizar el BLOB
 			$fp = $this->_blobs[$id_registro][$col]['fp'];
 			$path = $this->_blobs[$id_registro][$col]['path'];
-			if (! is_resource($fp) && $path != '') {
-				$fp = fopen($path, 'rb');
-				if (! is_resource($fp)) {
-					throw new toba_error("No fue posible recuperar el campo '$col' de la fila '$id_registro' desde archivo temporal '$fp'");
+			if (! is_resource($fp)) {
+				if ($path != '') {
+					$fp = fopen($path, 'rb');
+					if (! is_resource($fp)) {
+						throw new toba_error("No fue posible recuperar el campo '$col' de la fila '$id_registro' desde archivo temporal '$fp'");
+					}
+				} else {
+					// Quiere decir que explicitamente se lo hizo nulo
+					return false;
 				}
 			}
 			return $fp;
+
 		} else {
 			return null;
 		}		

@@ -1,6 +1,6 @@
 <?php
 
-class toba_referencia extends toba_modelo_proyecto
+class modelo_toba_referencia extends toba_modelo_proyecto
 {
 	function instalar()
 	{

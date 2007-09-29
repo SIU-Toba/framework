@@ -497,8 +497,9 @@ class toba_ei_formulario extends toba_ei
 	 * por defecto, va a mostrar los eventos de modificacion,cancelar y eliminar en lugar del alta
 	 * que solo se muestra cuando el estado interno es 'no_cargado'
 	 * @param array $datos Arreglo columna=>valor/es
+	 * @param boolean $set_cargado Cambia el grupo activo al 'cargado', mostrando los botones de modificacion, eliminar y cancelar por defecto
 	 */
-	function set_datos($datos)
+	function set_datos($datos, $set_cargado=true)
 	{
 		if (isset($datos)){
 			//ei_arbol($datos,"DATOS para llenar el EI_FORM");
@@ -534,7 +535,7 @@ class toba_ei_formulario extends toba_ei
 					$this->_elemento_formulario[$ef]->set_estado($temp);
 				}
 			}
-			if ($this->_grupo_eventos_activo == 'no_cargado') {
+			if ($set_cargado && $this->_grupo_eventos_activo != 'cargado') {
 				$this->set_grupo_eventos_activo('cargado');
 			}
 		}

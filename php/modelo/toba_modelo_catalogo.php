@@ -45,10 +45,11 @@ class toba_modelo_catalogo
 	function get_proyecto( $id_instancia, $id_proyecto, $manejador_interface=null )
 	{
 		$instancia = $this->get_instancia( $id_instancia, $manejador_interface );
-		$archivo_proy = $instancia->get_path_proyecto($id_proyecto)."/php/toba_modelo/$id_proyecto.php";
+		$archivo_proy = $instancia->get_path_proyecto($id_proyecto)."/php/extension_toba/modelo_$id_proyecto.php";
 		if (file_exists($archivo_proy)) {
 			require_once($archivo_proy);
-			$proyecto = new $id_proyecto( $instancia, $id_proyecto );
+			$clase = 'modelo_'.$id_proyecto;
+			$proyecto = new $clase( $instancia, $id_proyecto );
 		} else {
 			$proyecto = new toba_modelo_proyecto( $instancia, $id_proyecto );
 		}
