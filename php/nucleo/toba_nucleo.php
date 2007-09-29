@@ -186,7 +186,7 @@ class toba_nucleo
 	protected function iniciar_contexto_ejecucion()
 	{
 		$this->controlar_requisitos_basicos();
-		agregar_dir_include_path( toba::proyecto()->get_path_php() );
+		agregar_dir_include_path( toba_proyecto::get_path_php() );
 		toba::contexto_ejecucion()->conf__inicial();
 		toba::manejador_sesiones()->iniciar();
 	}
@@ -276,7 +276,7 @@ class toba_nucleo
 
 	static function get_directorio_compilacion()
 	{
-		if(!self::$dir_compilacion) self::$dir_compilacion = toba::proyecto()->get_path() . '/metadatos_compilados';
+		if(!self::$dir_compilacion) self::$dir_compilacion = toba_proyecto::get_path() . '/metadatos_compilados';
 		return self::$dir_compilacion;
 	}
 

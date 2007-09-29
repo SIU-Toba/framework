@@ -137,17 +137,17 @@ class toba_proyecto
 	/**
 	 * Retorna el path base absoluto del proyecto
 	 */
-	function get_path()
+	static function get_path()
 	{
-		return toba::instancia()->get_path_proyecto($this->id);
+		return toba::instancia()->get_path_proyecto(self::get_id());
 	}
 
 	/**
 	 * Retorna el path absoluto de la carpeta 'php' del proyecto
 	 */
-	function get_path_php()
+	static function get_path_php()
 	{
-		return $this->get_path() . '/php';
+		return self::get_path() . '/php';
 	}
 
 	/**
