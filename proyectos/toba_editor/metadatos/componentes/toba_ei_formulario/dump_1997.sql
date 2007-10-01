@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_consultas_php', --subclase
+	'datos/form_consultas_php.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Consulta PHP - pant_inicial - form', --nombre
@@ -97,7 +97,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'clase', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'1', --orden
+	'2', --orden
 	'Clase', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -192,21 +192,21 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'1997', --objeto_ei_formulario
 	'4873', --objeto_ei_formulario_fila
 	'archivo', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_popup', --elemento_formulario
 	'archivo', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'1', --orden
 	'Archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -232,9 +232,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --edit_resaltar
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
-	NULL, --popup_item
-	NULL, --popup_proyecto
-	NULL, --popup_editable
+	'/admin/objetos_toba/selector_archivo', --popup_item
+	'toba_editor', --popup_proyecto
+	'1', --popup_editable
 	NULL, --popup_ventana
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase

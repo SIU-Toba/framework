@@ -34,7 +34,7 @@ class zona_item extends zona_editor
 	{	
 		if( $this->editable_info['molde'] || $this->editable_info['componentes'] == 0 ) 
 		{
-			$vinculo = toba::vinculador()->get-url( toba_editor::get_id(), 1000110, null, array('zona'=>true, 'validar'=>false,'menu'=>1) );
+			$vinculo = toba::vinculador()->get_url( toba_editor::get_id(), 1000110, null, array('zona'=>true, 'validar'=>false,'menu'=>1) );
 			echo "<a href=\"" . $vinculo ."\">". toba_recurso::imagen_toba('wizard.png', true, null, null, 'Asistente para la generación de Operaciones');
 			if( $this->editable_info['molde'] ) {
 				echo $this->editable_info['molde_tipo_operacion_nombre'];
