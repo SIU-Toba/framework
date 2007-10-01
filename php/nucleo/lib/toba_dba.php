@@ -60,6 +60,10 @@ class toba_dba
 		}
 	}
 	
+	/**
+	 * Retorna un arreglo de configuraciones de bases definidas en bases.ini
+	 * @return array()
+	 */
 	static function get_bases_definidas()
 	{
 		return self::$bases_definidas;

@@ -1,6 +1,7 @@
 <?php
 /**
  * Clase estática que contiene shortcuts a las clases centrales del nucleo
+ * Se utiliza como toba::zona()->cargar, toba::logger()->trace() o toba::tabla('mi_tabla')->...
  * @package Centrales
  */
 class toba
@@ -9,6 +10,7 @@ class toba
 	static private $contexto_ejecucion;
 
 	/**
+	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
 	 * @return toba_nucleo
 	 */
 	static function nucleo()
@@ -17,6 +19,7 @@ class toba
 	}
 
 	/**
+	 * El contexto de ejeución permite al proyecto escribir comportamientos generales en las ventanas de inicio/fin de ejecución del pedido de página
 	 * @return toba_contexto_ejecucion
 	 */
 	static function contexto_ejecucion()
@@ -35,6 +38,7 @@ class toba
 	}
 
 	/**
+	 * Una solicitud es la representación de una operación o item accedida por un usuario en runtime Contiene e instancia a los componentes de la operación
 	 * @return toba_solicitud_web
 	 */
 	static function solicitud()
@@ -43,6 +47,7 @@ class toba
 	}
 	
 	/**
+	 * Una zona representa un menu alrededor de un concepto central. Utilizada por ejemplo para mostrar un menú de opciones relacionado con un cliente particular.
 	 * @return toba_zona
 	 */
 	static function zona()
@@ -51,6 +56,7 @@ class toba
 	}
 	
 	/**
+	 * Permite construir links a esta u otras operaciones, ya sea en forma de URL u objetos que la representan
 	 * @return toba_vinculador
 	 */
 	static function vinculador()

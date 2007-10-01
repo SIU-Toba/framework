@@ -9,7 +9,7 @@
 	if (isset($_POST['admin_proyecto'])) {
 		toba_editor::set_proyecto_cargado($_POST['admin_proyecto']);
 		$opciones = array('validar' => false);
-		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), '/admin/acceso', array(), $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), '/admin/acceso', array(), $opciones);
 		
 		//-- Fuerza a recargar los datos de instalacion e instancia
 		toba_manejador_sesiones::recargar_info_instalacion();
@@ -135,8 +135,16 @@ function abrir_toba_instancia(){
 		<td><?php echo gif_nulo(5,1) ?></td>
 
          <td class='listado-tabi'>
-        <a title='Indice de la ayuda disponible' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
-		 <?php echo toba_recurso::imagen_toba("ayuda.png",true) ?></a></td>
+        <a  href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'3357') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
+<?php 
+		$ayuda = '<a target=wiki href='.toba_recurso::url_proyecto().'/doc/wiki/trac/toba/wiki.html title=\\\'Documentación WIKI\\\'>';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/wiki-small.png ></a> ';
+		$ayuda .= '<a target=api href='.toba_recurso::url_proyecto().'/doc/api/index.html title=\\\'Documentación código PHP\\\'>';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/php-small.png></a> ';
+		$ayuda .= '<a target=api_js href='.toba_recurso::url_proyecto().'/doc/api_js/index.html title=\\\'Documentación código Javascript\\\'>';
+		$ayuda .= '<img src='.toba_recurso::url_proyecto().'/doc/api/media/javascript-small.png></a>';
+		echo toba_recurso::imagen_toba("ayuda.png",true, null, null, $ayuda);
+ ?></a></td>
 
 		<td class='listado-tabi'>
 			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>

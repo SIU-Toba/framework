@@ -193,7 +193,7 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Abre el formulario
 		$accion = $this->info['basica']['item_act_accion_script'];
 		if ($accion == '') {
-			echo toba_form::abrir("formulario_toba", toba::vinculador()->crear_autovinculo(), "onsubmit='return false;'");
+			echo toba_form::abrir("formulario_toba", toba::vinculador()->get_url(), "onsubmit='return false;'");
 			foreach ($objetos as $obj) {
 				//-- Librerias JS necesarias
 				toba_js::cargar_consumos_globales($obj->get_consumo_javascript());
@@ -278,7 +278,7 @@ class toba_solicitud_web extends toba_solicitud
 		//--- Se envia el javascript
 		echo "<--toba-->";
 		//Se actualiza el prefijo de los vinculos
-		$autovinculo = toba::vinculador()->crear_autovinculo();
+		$autovinculo = toba::vinculador()->get_url();
 		echo "window.toba_prefijo_vinculo='$autovinculo';\n";
 		//Se actualiza el vinculo del form
 		echo "document.formulario_toba.action='$autovinculo'\n";

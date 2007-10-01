@@ -44,7 +44,7 @@ class pant_ejemplo extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$vinculo = toba::vinculador()->crear_vinculo(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));		
+		$vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));		
 		$arbol = toba_recurso::imagen_proyecto('tutorial/ci-arbol.png');
 		$tabs = toba_recurso::imagen_proyecto('tutorial/ci-tabs.png');
 		echo "
@@ -367,7 +367,7 @@ class pant_navegacion extends pant_tutorial
 		echo "<div class='codigo'>";
 		highlight_string($codigo);
 		echo "</div>";		
-		$vinculo = toba::vinculador()->crear_vinculo(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 1000089, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ver Ejemplo Completo</a></p>";
 	}	

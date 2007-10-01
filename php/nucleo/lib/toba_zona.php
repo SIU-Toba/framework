@@ -183,7 +183,7 @@ class toba_zona
 	function generar_html_barra_vinculos()
 	{
 		foreach($this->items_vecinos as $item){
-			$vinculo = toba::vinculador()->crear_vinculo($item['item_proyecto'], $item['item'], 
+			$vinculo = toba::vinculador()->get_url($item['item_proyecto'], $item['item'], 
 														array(), array('zona' =>true, 'validar'=>false));
 			if (isset($vinculo)) {
 	 			echo "<a href='$vinculo'>";

@@ -1363,7 +1363,7 @@ class toba_ei_cuadro extends toba_ei
 					}
 					$parametros[$clave_columna] = $valor_real;
 					$item = $this->_info_cuadro_columna[$a]['vinculo_item'];
-					$url = toba::vinculador()->crear_vinculo(toba::proyecto()->get_id(),$item,$parametros,$opciones);
+					$url = toba::vinculador()->get_url(toba::proyecto()->get_id(),$item,$parametros,$opciones);
 					// Armo el disparo
 					if ( $this->_info_cuadro_columna[$a]['vinculo_popup'] ) {
 						$popup_parametros = array();

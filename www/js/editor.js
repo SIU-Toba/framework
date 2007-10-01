@@ -15,7 +15,7 @@ var editor =
 								(this._parametros.proyecto === '' );
 		if ( parametros_nulos || parametros_vacios )  {
 			alert('Por favor especifique los parámetros de previsualización');
-			this.abrir_editor('frame_centro', vinculador.crear(['toba_editor', '3287']));
+			this.abrir_editor('frame_centro', vinculador.get_url(['toba_editor', '3287']));
 			
 		} else {
 			url = this._parametros.punto_acceso + '?' + window.toba_hilo_qs + '=' + 

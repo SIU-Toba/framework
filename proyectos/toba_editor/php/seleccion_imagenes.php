@@ -68,7 +68,7 @@ class seleccion_imagenes
 								  'imagen_recurso_origen': this.ef('imagen_recurso_origen')$ir_a_fila.get_estado(),
 								  'recursivo' : recursivo
 								};
-				var vinculo = vinculador.crear_autovinculo('ejecutar', parametros);
+				var vinculo = vinculador.get_url(null, null, 'ejecutar', parametros);
 				conexion.asyncRequest('GET', vinculo, callback, null);
 				return true;
 			}

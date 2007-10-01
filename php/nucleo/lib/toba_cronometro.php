@@ -22,6 +22,9 @@ class toba_cronometro
 		$this->marcar("Inicio medición");
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {
@@ -30,6 +33,9 @@ class toba_cronometro
 		return self::$instancia;
 	}	
 
+	/**
+	 * Guarda una marca en la línea de tiempo
+	 */
 	function marcar($nombre,$nivel="item"){
 		$microtime = explode(' ', microtime());
 		$this->marcas[$this->indice]["t"] =  $microtime[1] . substr($microtime[0], 1);
@@ -38,11 +44,18 @@ class toba_cronometro
 		$this->indice++;
 	}
 
+	/**
+	 * Calcula el tiempo enntre la primer y última marca registrada
+	 * @return float
+	 */
     function tiempo_acumulado() {
 		$ultimo = (count($this->marcas)-1);
 		return (($this->marcas[$ultimo]['t']) - ($this->marcas[0]['t']));
     }
 
+    /**
+     * Retorna la marcas en un arreglo
+     */
 	function get_marcas()
 	{
 		$marcas = array();
@@ -65,8 +78,7 @@ class toba_cronometro
 	{
 		$this->marcar("Fin medición");
 		//dump_arbol($this->marcas);
-		for($f=0;$f<count($this->marcas);$f++)
-		{
+		for($f=0;$f<count($this->marcas);$f++) {
 			toba::instancia()->registrar_marca_cronometro($proyecto, $solicitud, $f, $this->marcas[$f]['niv'], $this->marcas[$f]['n'], $this->marcas[$f]['t']);
 		}
 	}

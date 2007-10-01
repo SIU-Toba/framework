@@ -18,6 +18,9 @@ class toba_datos_relacion extends toba_componente
 	protected $_relaciones_mapeos=array();			//Mapeo entre filas de las tablas
 	static protected $debug_pasadas;				//Mantiene la cantidad de pasadas para generar ids unicos en js
 
+	/**
+	 * @ignore 
+	 */
 	function __construct($id)
 	{
 		$propiedades[] = "_relaciones_mapeos";
@@ -31,6 +34,9 @@ class toba_datos_relacion extends toba_componente
 		}
 	}
 	
+	/**
+	 *  @ignore 
+	 */
 	function destruir()
 	{
 		//Esta clase es la encargada de guardarle los valores en sesion a cada relación
@@ -160,7 +166,7 @@ class toba_datos_relacion extends toba_componente
 		$parametros = array('contenido' => $diagrama, 'formato' => 'svg', 'es_dirigido' => 1);
 		$indice = uniqid();
 		toba::memoria()->set_dato_instancia($indice, $parametros);
-		$url = toba::vinculador()->crear_vinculo(toba_editor::get_id(), '1000045', array('esquema' => $indice), 
+		$url = toba::vinculador()->get_url(toba_editor::get_id(), '1000045', array('esquema' => $indice), 
 						array('validar' => false, 'celda_memoria' => 'debug'));
 		toba_ei_esquema::generar_sentencia_incrustacion($url, 'svg', "100%", "200px");
 	}

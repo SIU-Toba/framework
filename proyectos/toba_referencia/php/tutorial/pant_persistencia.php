@@ -216,7 +216,7 @@ class pant_relaciones extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$vinculo = toba::vinculador()->crear_vinculo(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
 		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-modelo.png');
 		echo "
 			A medida que se van creando operaciones más complejas, trabajar con tablas aisladas
@@ -376,7 +376,7 @@ class pant_api extends pant_tutorial
 {
 	function generar_layout()
 	{
-		$vinculo = toba::vinculador()->crear_vinculo(null, 2658, array(), array('celda_memoria'=>'ejemplo'));		
+		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));		
 		$img = toba_recurso::imagen_proyecto('tutorial/persistencia-api.png');
 		$api = toba_parser_ayuda::parsear_api('Componentes/Persistencia/toba_datos_tabla#sec-method-summary',
 												 'documentación del datos_tabla', 'toba_editor');

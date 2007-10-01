@@ -66,15 +66,15 @@ class pant_vinculacion extends pant_tutorial
 		$api = toba_parser_ayuda::parsear_api('Centrales/toba_vinculador', 'toba_vinculador', 'toba_editor');
 		$codigo = '<?php
 //Forma general
-toba::vinculador()->crear_vinculo($proyecto, $item, $parametros, $opciones);
+$url = toba::vinculador()->get_url($proyecto, $item, $parametros, $opciones);
 
 //Crea un vínculo al item 23421 de este proyecto con un dato como parámetro
-$vinculo = toba::vinculador()->crear_vinculo(null, 23421, array("moneda" => "dolar"));
+$url = toba::vinculador()->get_url(null, 23421, array("moneda" => "dolar"));
 
 //Crea un vínculo al ítem actual
-$vinculo = toba::vinculador()->crear_autovinculo($parametros, $opciones);
+$url = toba::vinculador()->get_url(null, null, $parametros, $opciones);
 
-echo "<a href=\'$vinculo\'>Navegar</a>";
+echo "<a href=\'$url\'>Navegar</a>";
 ?>
 ';
 		echo "
@@ -211,7 +211,7 @@ class pant_mensajes extends pant_tutorial
 		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Mensajes', 
 													'Mensajes y Notificaciones',
 													'toba_editor');
-		$ejemplo = 	toba::vinculador()->crear_vinculo(null, '/mensajes_notificaciones', array(), array('celda_memoria'=>'ejemplo'));
+		$ejemplo = 	toba::vinculador()->get_url(null, '/mensajes_notificaciones', array(), array('celda_memoria'=>'ejemplo'));
 		
 		$codigo1 = '<?php
 //Suponiendo que el mensaje ingresado es: \'Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.\'

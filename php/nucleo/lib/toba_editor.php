@@ -4,6 +4,7 @@
  * Esta es una clase muy particular, su contenido deberia repartirse entre modelo,
  * proyecto editor y nucleo. Por simplicidad se deja todo junto.
  * @package Varios
+ * @ignore 
  */
 class toba_editor
 {
@@ -358,8 +359,8 @@ class toba_editor
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
 		$solicitud = toba::solicitud()->get_id();
-		$link_cronometro = toba::vinculador()->crear_vinculo('toba_editor', '/basicos/cronometro', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
-		$link_logger = toba::vinculador()->crear_vinculo('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$link_cronometro = toba::vinculador()->get_url('toba_editor', '/basicos/cronometro', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
 		echo "<img style='cursor:pointer;_cursor:hand;' title='Ocultar la barra'
@@ -436,7 +437,7 @@ class toba_editor
 		if(!isset($opciones['prefijo'])) $opciones['prefijo'] = self::get_punto_acceso_editor();
 		if(!isset($opciones['validar'])) $opciones['validar'] = false;
 		if(!isset($opciones['menu'])) $opciones['menu'] = true;
-		$url = toba::vinculador()->crear_vinculo(self::get_id(),$item_editor,$parametros,$opciones);
+		$url = toba::vinculador()->get_url(self::get_id(),$item_editor,$parametros,$opciones);
 		$html = "<a href='#' title='Editar' class='div-editor' onclick=\"toba_invocar_editor('$frame','$url')\">";
 		$html .= toba_recurso::imagen_toba($imagen,true);
 		$html .= '</a>';
@@ -455,7 +456,7 @@ class toba_editor
 		if ($accion != '') {
 			$parametros[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $item;
 			$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-			$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "1000058", $parametros, $opciones);
+			$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000058", $parametros, $opciones);
 			$js = "toba.comunicar_vinculo('$vinculo')";
 			$vinculo = array();			
 			$vinculo['js'] = $js;
@@ -473,7 +474,7 @@ class toba_editor
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=> $proyecto . apex_qs_separador . $item);
 		$vinculo = array();
-		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
+		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_centro';
 		$vinculo['imagen'] = 'objetos/editar.gif';
 		$vinculo['tip'] = 'Ir al editor de la operación.';
@@ -485,7 +486,7 @@ class toba_editor
 		$opciones['celda_memoria'] = 'lateral';
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$vinculo = array();		
-		$vinculo['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
+		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
 		$vinculo['tip'] = 'Ver composicion de la operación.';
@@ -493,7 +494,7 @@ class toba_editor
 
 /*		//Consola JS
 		//-- Link a la consola JS
-		$vinculos[2]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),'/admin/objetos/consola_js');
+		$vinculos[2]['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/objetos/consola_js');
 		$vinculos[2]['frame'] = 'frame_lista';
 		$vinculos[2]['imagen'] = 'solic_consola.gif';
 		$vinculos[2]['tip'] = 'Ir al editor de la operación.';
@@ -513,7 +514,7 @@ class toba_editor
 		foreach(array_keys($vinculos) as $id) {
 			$parametros = array(apex_hilo_qs_zona => implode(apex_qs_separador,$componente),
 								'etapa' => $vinculos[$id]['identificador']);
-			$vinculos[$id]['url'] = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+			$vinculos[$id]['url'] = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
 			$vinculos[$id]['frame'] = 'frame_centro';
 		}
 		return $vinculos;
@@ -525,7 +526,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'evento' => $evento);
-		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor'>";		
 		$salida .= "<a href='#' title='Editar propiedades del evento' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
@@ -540,7 +541,7 @@ class toba_editor
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=>implode(apex_qs_separador,$componente), 'pantalla' => $pantalla);
-		$url = toba::vinculador()->crear_vinculo(self::get_id(),$editor,$parametros,$opciones);
+		$url = toba::vinculador()->get_url(self::get_id(),$editor,$parametros,$opciones);
 		$salida = "<span class='div-editor' style='position:absolute'>";		
 		$salida .= "<a href='#' title='Editar propiedades de la pantalla' onclick=\"toba_invocar_editor('frame_centro', '$url')\">";
 		$salida .= toba_recurso::imagen_toba('objetos/editar.gif',true);
@@ -553,7 +554,7 @@ class toba_editor
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "/admin/objetos/php", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "/admin/objetos/php", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
 		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";

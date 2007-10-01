@@ -48,7 +48,9 @@ class toba_datos_tabla extends toba_componente
 	protected $_relaciones_con_padres = array();			// ARRAY con un objeto RELACION por cada PADRE de la tabla
 	protected $_relaciones_con_hijos = array();			// ARRAY con un objeto RELACION por cada HIJO de la tabla
 
-	
+	/**
+	 * @ignore 
+	 */
 	function __construct($id)
 	{
 		$propiedades = array();
@@ -398,6 +400,10 @@ class toba_datos_tabla extends toba_componente
 		$this->_no_duplicado[] = $columnas;
 	}
 
+	/**
+	 * Indica que la tabla maneja un único registro en memoria, habilitando la api get/set
+	 * @param boolean $unico
+	 */
 	function set_es_unico_registro($unico)
 	{
 		$this->_es_unico_registro = $unico;	
@@ -680,7 +686,7 @@ class toba_datos_tabla extends toba_componente
 		return true;
 	}
 	
-	/*
+	/**
 	 * Busca los registros en memoria que cumplen una condicion.
 	 * Solo se chequea la condicion de igualdad. No se chequean tipos
 	 * @param array $condiciones Asociativo de campo => valor.
@@ -1139,11 +1145,6 @@ class toba_datos_tabla extends toba_componente
 		} else {
 			return null;
 		}		
-	}
-	
-	function get_estructura_blobs()
-	{
-		return $this->_blobs;
 	}
 	
 	//-------------------------------------------------------------------------------

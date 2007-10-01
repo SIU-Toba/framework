@@ -48,7 +48,7 @@ class toba_menu_yui extends toba_menu
 		
 		if (!$this->items[$nodo]['carpeta']) {
 			$clase = 'yuimenuitem';	
-			$vinculo = toba::vinculador()->crear_vinculo($this->items[$nodo]['proyecto'],
+			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
 															 $this->items[$nodo]['item'], array(),
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];

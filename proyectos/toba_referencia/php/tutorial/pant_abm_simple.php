@@ -31,7 +31,7 @@ class pant_introduccion extends pant_tutorial
 				</tr>
 			</table>
 		";		
-		$vinculo = toba::vinculador()->crear_vinculo(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";		
 	}
@@ -140,7 +140,7 @@ function evt__formulario__baja()
 					".mostrar_php($cod_abm)."
 			</ul>
 		";
-		$vinculo = toba::vinculador()->crear_vinculo(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 2654, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";				
 	}

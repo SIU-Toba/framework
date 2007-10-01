@@ -8,6 +8,9 @@ class toba_derechos
 	static private $instancia;
 	protected $derechos;
 	
+	/**
+	 * @return toba_derechos
+	 */
 	static function instancia()
 	{
 		if (!isset(self::$instancia)) {

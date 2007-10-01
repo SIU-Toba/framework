@@ -22,7 +22,7 @@ class menu_nodo_proyecto extends toba_nodo_basico
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("info_chico.gif", false),
 			'ayuda' => 'Informacion del proyecto',
-			'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3338, null, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( 'toba_instancia', 3338, null, $opciones ),
 			'target' => $this->target
 		) );*/
 		//----------- HIJOS -----------------------
@@ -33,7 +33,7 @@ class menu_nodo_proyecto extends toba_nodo_basico
 		$usuarios->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Previsualizar el componente',
-			'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3331, $parametros, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( 'toba_instancia', 3331, $parametros, $opciones ),
 			'target' => $this->target ) );
 
 		$sesiones = new toba_nodo_basico('Log de sesiones ['. consultas_instancia::get_cantidad_sesiones_proyecto($this->proyecto) .']',$this);
@@ -42,7 +42,7 @@ class menu_nodo_proyecto extends toba_nodo_basico
 		$sesiones->agregar_utileria( array(
 					'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 					'ayuda' => 'Previsualizar el componente',
-					'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3336, $parametros, $opciones ),
+					'vinculo' => toba::vinculador()->get_url( 'toba_instancia', 3336, $parametros, $opciones ),
 					'target' => $this->target ));
 		$this->set_hijos( array( $usuarios, $sesiones ));
 	}

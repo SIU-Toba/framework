@@ -118,6 +118,9 @@ class toba_constructor
 		return call_user_func( array( $clase, 'get_metadatos' ) );
 	}
 
+	/**
+	 * @ignore 
+	 */
 	static function control_clave_valida( $clave_componente )
 	{
 		if(! is_array($clave_componente) 
@@ -127,6 +130,9 @@ class toba_constructor
 		}
 	}
 	
+	/**
+	 * Fuerza a que todos los componentes requeridos en este pedido de página no surjan de algún cache (util para testeos)
+	 */
 	static function set_refresco_forzado($refrescar)
 	{
 		self::$refresco_forzado = $refrescar;

@@ -72,7 +72,7 @@ class pant_php_plano extends pant_tutorial
 			echo "<div style='text-align: center'>";
 			echo toba_recurso::imagen_proyecto('tutorial/item-php-plano.png', true);
 			echo "</div>";
-			$vinculo = toba::vinculador()->crear_vinculo(null, 1000077);
+			$vinculo = toba::vinculador()->get_url(null, 1000077);
 			echo "<p>
 				El código puede contener referencias a todo el API de toba, exceptuando a los componentes.
 				<a href='$vinculo' target='_blank'>Ver ejemplo</a>

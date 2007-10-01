@@ -283,16 +283,25 @@ class toba_archivo_php
 		}
 	}
 
+	/**
+	 * Determina si una porción de código tiene un método específico
+	 */
 	static function codigo_tiene_metodo($codigo, $nombre)
 	{
 		return preg_match("/function\s+$nombre\s*\(/", $codigo);		
 	}
-	
+
+	/**
+	 * Determina si una porción de código tiene una clase específica definida
+	 */	
 	static function codigo_tiene_clase($codigo, $nombre)
 	{
 		return preg_match("/class\s+$nombre/", $codigo);
 	}
-	
+
+	/**
+	 * Retorna los métodos definidos en una porción de código
+	 */	
 	static function codigo_get_nombre_metodos($codigo, $solo_publicos=true)
 	{
 		$no_publicos = '';
@@ -313,6 +322,9 @@ class toba_archivo_php
 		return $metodos;
 	}
 	
+	/**
+	 * Toma una porción de código y agrega un nuevo método
+	 */	
 	static function codigo_agregar_metodo($codigo_actual, $metodo)
 	{
 		$pos = strrpos($codigo_actual, '}');
@@ -325,6 +337,9 @@ class toba_archivo_php
 
 	}	
 	
+	/**
+	 * Toma una porción de código y le quita los tags php si los tiene
+	 */		
 	static function codigo_sacar_tags_php($codigo)
 	{
 		$pos = strpos($codigo, '<?php');

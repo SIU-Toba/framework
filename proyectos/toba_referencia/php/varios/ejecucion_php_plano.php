@@ -12,7 +12,7 @@ php_referencia::instancia()->agregar(__FILE__);
 		toba::notificacion()->agregar($salida, 'info');
 	}
 
-	echo toba_form::abrir('mi_form', toba::vinculador()->crear_autovinculo());
+	echo toba_form::abrir('mi_form', toba::vinculador()->get_url());
 	echo "<input type='submit' name='notificado' value='Ver Personas' />";
 	echo toba_form::cerrar();
 	

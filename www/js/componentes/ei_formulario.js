@@ -240,7 +240,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			argument: id_ef,
 			scope: this
 		};
-		var vinculo = vinculador.crear_autovinculo('cascadas_efs', parametros, [this._id]);
+		var vinculo = vinculador.get_url(null, null, 'cascadas_efs', parametros, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback, null);
 	};
 	

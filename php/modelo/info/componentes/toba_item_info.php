@@ -114,7 +114,7 @@ class toba_item_info implements toba_nodo_arbol
 	function vinculo_ejecutar()
 	{
 		if( toba_contexto_info::get_proyecto() == toba_editor::get_id() ) {
-			$vinculo = toba::vinculador()->crear_vinculo($this->get_proyecto(), $this->get_id(), 
+			$vinculo = toba::vinculador()->get_url($this->get_proyecto(), $this->get_id(), 
 															null, array('celda_memoria'=>'central',
 																		'validar' => false,
 																		'menu' => true ) );
@@ -451,7 +451,7 @@ class toba_item_info implements toba_nodo_arbol
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(), "1000058", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000058", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		return array(
 			'imagen' => toba_recurso::imagen_proyecto($icono, false),
@@ -468,7 +468,7 @@ class toba_item_info implements toba_nodo_arbol
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
-		$vinculo = toba::vinculador()->crear_vinculo(toba_editor::get_id(),"1000058", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"1000058", $parametros, $opciones);
 		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),
 				'ayuda' => 'Ver el contenido del archivo PHP del ítem',
 				'vinculo' => $vinculo,

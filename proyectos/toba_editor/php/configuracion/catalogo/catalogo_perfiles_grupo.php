@@ -19,21 +19,21 @@ class catalogo_perfiles_grupo  extends toba_nodo_basico
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("usuarios/permisos.gif", false),
 			'ayuda' => 'Editar DERECHOS del grupo de acceso',
-			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3278', $parametros, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '3278', $parametros, $opciones ),
 			'target' => apex_frame_centro
 		) );
 		
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("usuarios/grupo.gif", false),
 			'ayuda' => 'Editar el acceso a ITEMs del grupo de acceso',
-			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '3288', $parametros, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '3288', $parametros, $opciones ),
 			'target' => apex_frame_centro
 		) );
 		
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Editar GRUPO de ACCESO',
-			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/usuarios/grupo', $parametros, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/usuarios/grupo', $parametros, $opciones ),
 			'target' => apex_frame_centro
 		) );
 	}

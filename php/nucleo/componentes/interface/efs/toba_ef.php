@@ -274,6 +274,11 @@ abstract class toba_ef
 		return $this->expandido;
 	}
 
+	/**
+	 * Enter description here...
+	 *
+	 * @return string
+	 */
 	function get_id()
 	{
 		return $this->id;

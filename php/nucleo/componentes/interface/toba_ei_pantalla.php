@@ -68,11 +68,19 @@ class toba_ei_pantalla extends toba_ei
 		}
 	}
 	
+	/**
+	 * Retorna la etiqueta de la pantalla actual
+	 * @return string
+	 */
 	function get_etiqueta()
 	{
 		return $this->_info_pantalla["etiqueta"];
 	}
 	
+	/**
+	 * Cambia la etiqueta de la pantalla actual
+	 * @param string $nueva
+	 */
 	function set_etiqueta($nueva)
 	{
 		$this->_info_pantalla["etiqueta"] = $nueva;

@@ -30,7 +30,27 @@ class toba_vinculador
 	}
 
 	/**
-	 * Crea un vinculo hacia un item
+	 * @deprecated Usar get_url
+	 * @see get_url
+	 */
+	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	{
+		return $this->get_url($proyecto, $item, $parametros, $opciones);
+	}
+	
+	
+	/**
+	 * @deprecated Usar get_url
+	 * @see get_url
+	 **/
+	function crear_autovinculo($parametros=array(), $opciones=array())
+	{
+		return $this->get_url(null, null, $parametros, $opciones);
+	}
+	
+	
+	/**
+	 * Genera una url que apunta a una operación de un proyecto
 	 *
 	 * @param string $proyecto Proyecto destino, por defecto el actual
 	 * @param string $item Item destino, por defecto el actual
@@ -46,10 +66,10 @@ class toba_vinculador
 	 * objetos_destino => array(array(proyecto, id_objeto), ...) Objetos destino del vinculo
 	 * prefijo => Punto de acceso a llamar.</code>
 	 * @return string Una URL o el link html en caso
-	 */
-	function crear_vinculo($proyecto=null, $item=null, $parametros=array(), $opciones=array())
+	 */	
+	function get_url($proyecto=null, $item=null, $parametros=array(), $opciones=array())
 	{
-		if (!isset($opciones['zona'])) $opciones['zona'] = false;
+		if (!isset($opciones['zona'])) $opciones['zona'] = true;
 		if (!isset($opciones['cronometrar'])) $opciones['cronometrar'] = false;
 		if (!isset($opciones['param_html'])) $opciones['param_html'] = null;
 		if (!isset($opciones['menu'])) $opciones['menu'] = null;
@@ -62,20 +82,9 @@ class toba_vinculador
 								 $opciones['cronometrar'], $opciones['param_html'],
 								 $opciones['menu'], $opciones['celda_memoria'], 
 								 $opciones['servicio'], $opciones['objetos_destino'],
-								 $opciones['prefijo'] );
+								 $opciones['prefijo'] );		
 	}
 	
-	/**
-	 * Crea un vinculo al mismo item propagando la zona
-	 */
-	function crear_autovinculo($parametros=array(), $opciones=array())
-	{
-		if (! isset($opciones['zona'])) {
-			$opciones['zona'] = true;	
-		}
-		return $this->crear_vinculo(null, null, $parametros, $opciones);
-	}
-
 	function registrar_vinculo( toba_vinculo $vinculo )
 	{
 		$item = $vinculo->get_item();
@@ -106,7 +115,7 @@ class toba_vinculador
 	 * @param boolean $menu El vinculo esta solicitado por el menu?
 	 * @param string $celda_memoria Namespace de memoria a utilizar, por defecto el actual
 	 * @return string URL hacia el ítem solicitado
-	 * @deprecated Desde 1.0 usar crear_vinculo o crear_autovinculo
+	 * @deprecated Desde 1.0 usar get_url o get_url_
 	 */
 	function generar_solicitud($item_proyecto=null,$item=null,$parametros=null,
 								$zona=false,$cronometrar=false,$param_html=null,
@@ -369,7 +378,7 @@ class toba_vinculador
 				//Accion preventiva para que los popups no se carguen en la celda de la operacion
 				$opciones['celda_memoria'] = 'popup';
 			}
-			$datos['url'] = $this->crear_vinculo( 	$vinculo->get_proyecto(),
+			$datos['url'] = $this->get_url( 	$vinculo->get_proyecto(),
 													$vinculo->get_item(),
 													$vinculo->get_parametros(),
 													$opciones	);

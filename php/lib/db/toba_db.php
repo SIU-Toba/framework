@@ -25,6 +25,13 @@ class toba_db
 	protected $debug = false;
 	protected $debug_sql_id = 0;
 	
+	/**
+	 * @param string $profile Host donde se localiza el servidor
+	 * @param string $usuario Nombre del usuario utilizado para conectar
+	 * @param string $clave
+	 * @param string $base Nombre de la base a conectar
+	 * @param string $puerto (opcional) número de puerto al que se conecta
+	 */
 	function __construct($profile, $usuario, $clave, $base, $puerto=null)
 	{
 		$this->profile  = $profile;
@@ -34,6 +41,9 @@ class toba_db
 		$this->puerto = $puerto;
 	}
 
+	/**
+	 * Libera la conexión a la base
+	 */
 	function destruir()
 	{
 		$this->conexion = null;	
@@ -67,6 +77,10 @@ class toba_db
 		return $this->conexion;
 	}
 	
+	/**
+	 * Retorna los parámetros con los que fue construida la conexión
+	 * @return array
+	 */
 	function get_parametros()
 	{
 		$parametros['HOST'] = $this->profile;
@@ -84,6 +98,9 @@ class toba_db
 		$this->debug = $debug;
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function log_debug($sql)
 	{
 		$id = $this->debug_sql_id++;
@@ -216,18 +233,27 @@ class toba_db
 		}		
 	}
 
+	/**
+	 * Ejecuta un BEGIN TRANSACTION en la conexión
+	 */
 	function abrir_transaccion()
 	{
 		$this->conexion->beginTransaction();
 		toba_logger::instancia()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
-	
+
+	/**
+	 * Ejecuta un ROLLBACK en la conexión
+	 */	
 	function abortar_transaccion()
 	{
 		$this->conexion->rollBack();
 		toba_logger::instancia()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
 	
+	/**
+	 * Ejecuta un COMMIT en la conexión
+	 */		
 	function cerrar_transaccion()
 	{
 		$this->conexion->commit();
@@ -269,16 +295,27 @@ class toba_db
 
 	//------------------------------------------------------------------------
 
+	/**
+	 * Retorna el dsn necesario para conectar con PDO
+	 * @return string
+	 */
 	function get_dsn()
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}
 
+	/**
+	 * Retorna el valor de un campo SERIAL
+	 */
 	function recuperar_secuencia($secuencia)
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");
 	}
 
+	/**
+	 * Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma
+
+	 */
 	function retrazar_constraints()
 	{
 		throw new toba_error("No implementado para el motor: $this->motor");

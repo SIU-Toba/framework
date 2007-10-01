@@ -148,6 +148,10 @@ class toba_ci extends toba_ei
 	//------  Interaccion con un CONTROLADOR de NEGOCIO ------------
 	//--------------------------------------------------------------
 
+	/**
+	 * Retorna el componente de negocio asociado 
+	 * @return toba_cn
+	 */
 	function cn()
 	{
 		return $this->_cn;	
@@ -718,6 +722,9 @@ class toba_ci extends toba_ei
 	//----------------------  SERVICIO AJAX  ---------------------
 	//------------------------------------------------------------
 	
+	/**
+	 * @ignore 
+	 */
 	function servicio__ajax()
 	{
 		$metodo = 'ajax__'.trim(toba::memoria()->get_parametro('ajax-metodo'));

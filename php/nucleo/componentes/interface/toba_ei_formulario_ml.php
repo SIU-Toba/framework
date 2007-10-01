@@ -352,10 +352,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		return $datos;
 	}
 
-	/*
-	*	Retorna la posicion en el arreglo de datos donde se ubica un id interno de fila
-	*   Esta posicion puede ser el mismo id interno en caso de que las diferencias se analizen online
-	*   o puede ser el posicionamiento simple si no hay analisis
+	/**
+	 *	Retorna la posicion en el arreglo de datos donde se ubica un id interno de fila
+	 *   Esta posicion puede ser el mismo id interno en caso de que las diferencias se analizen online
+	 *   o puede ser el posicionamiento simple si no hay analisis
 	*/
 	protected function get_clave_fila($fila)
 	{
@@ -619,6 +619,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "\n</div>";
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	protected function generar_layout($ancho='auto')
 	{
 		//Botonera de agregar y ordenar
@@ -678,6 +681,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 	}
 	
+	/**
+	 * General el html de la etiqueta de un ef especifico
+	 * @param string $ef Id. del ef
+	 */	
 	protected function generar_etiqueta_columna($ef)
 	{
 		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
@@ -800,6 +807,12 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "</tbody>\n";		
 	}
 
+	/**
+	 * Genera el cuerpo del formulario conteniendo la lista de efs
+	 * Por defecto el layout es un ef uno al lado del otro, este método se puede extender
+	 * para incluir algún layout específico
+	 * @ventana Extender para cambiar el layout por defecto
+	 */		
 	protected function generar_layout_fila($clave_fila)
 	{
 		foreach ($this->_lista_ef_post as $ef){
@@ -815,6 +828,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	}
 	
 
+	/**
+	 * Dado una fila, genera el html de los eventos de la misma
+	 * @param integer $fila
+	 */
 	protected function generar_eventos_fila($fila)
 	{
 		foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
@@ -926,6 +943,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 	}
 	
+	/**
+	 * Retorna una referencia al ef en javascript
+	 * @param string $id Id. del ef
+	 * @return string
+	 */	
 	function get_objeto_js_ef($id)
 	{
 		return "{$this->objeto_js}.ef('$id').ir_a_fila('{$this->_id_fila_actual}')";

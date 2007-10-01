@@ -191,7 +191,7 @@ class toba_evento_usuario extends toba_boton
 			$opciones['servicio'] = 'vista_toba_impr_html';
 			$opciones['objetos_destino'] = array( $id_componente );
 			//$opciones['celda_memoria'] = 'popup';
-			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
+			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			if ( $this->datos['accion_imphtml_debug'] == 1 ) {
 				$js = "imprimir_html('$url',true);";
 			} else {
@@ -201,7 +201,7 @@ class toba_evento_usuario extends toba_boton
 			// ---*** VISTA PDF ***---
 			$opciones['servicio'] = 'vista_pdf';
 			$opciones['objetos_destino'] = array( $id_componente );
-			$url = toba::vinculador()->crear_vinculo( null, null, array(), $opciones );
+			$url = toba::vinculador()->get_url( null, null, array(), $opciones );
 			$js = "document.location.href='$url';";
 		} elseif ( $this->posee_accion_vincular() ) {
 			// ---*** VINCULO ***---

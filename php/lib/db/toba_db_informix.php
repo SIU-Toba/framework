@@ -12,6 +12,9 @@ class toba_db_informix extends toba_db
 		parent::__construct($profile, $usuario, $clave, $base, $puerto);
 	}
 	
+	/**
+	 * Ejecuta un BEGIN WORK en la conexión
+	 */	
 	function abrir_transaccion()
 	{
 		$sql = 'BEGIN WORK';
@@ -19,13 +22,19 @@ class toba_db_informix extends toba_db
 		toba::logger()->debug("************ ABRIR transaccion ($this->base@$this->profile) ****************", 'toba');
 	}
 	
+	/**
+	 * Ejecuta un ROLLBACK WORK en la conexión
+	 */		
 	function abortar_transaccion()
 	{
 		$sql = 'ROLLBACK WORK';
 		$this->ejecutar($sql);		
 		toba::logger()->debug("************ ABORTAR transaccion ($this->base@$this->profile) ****************", 'toba'); 
 	}
-	
+
+	/**
+	 * Ejecuta un COMMIT WORK en la conexión
+	 */		
 	function cerrar_transaccion()
 	{
 		$sql = "COMMIT WORK";

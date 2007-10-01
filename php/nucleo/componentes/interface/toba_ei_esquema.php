@@ -65,7 +65,7 @@ class toba_ei_esquema extends toba_ei
 		//Vinculo a un item que hace el passthru y borra el archivo
 		$destino = array($this->_id);
 		$this->_memoria['parametros'] = $parametros;
-		$url = toba::vinculador()->crear_autovinculo(array(), array('servicio' => 'mostrar_esquema', 
+		$url = toba::vinculador()->get_url(null,null,array(), array('servicio' => 'mostrar_esquema', 
 																		'objetos_destino' => $destino));
 		$this->generar_sentencia_incrustacion($url, $formato, $ancho, $alto);
 	}

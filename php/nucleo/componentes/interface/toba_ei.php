@@ -362,20 +362,34 @@ abstract class toba_ei extends toba_componente
 	//--------------------------------------------------------------------
 	//--  PUNTOS DE CONTROL ----------------------------------------------
 	//--------------------------------------------------------------------
-  function tiene_puntos_control($evento)
-  {
-    return (count($this->get_puntos_control($evento)) > 0);
-  }
+	
+	/**
+	 * Determina si el componente tiene algún punto de control asignado para un evento 
+	 * @param strgin $evento Id. del evento
+	 * @see toba_puntos_control
+	 * @return boolean
+	 */
+	function tiene_puntos_control($evento)
+	{
+		return (count($this->get_puntos_control($evento)) > 0);
+	}
 
-  function get_puntos_control($evento)
-  {
-    $ret = array();
-    for ($i=0; $i < count($this->_info_puntos_control); $i++)
-      if ($this->_info_puntos_control[$i]['evento'] == $evento || $evento == '')
-        $ret[] = $this->_info_puntos_control[$i]['pto_control'];
-
-    return $ret;
-  }
+	/**
+	 * Retorna la definición de un punto de contrl para un evento
+	 * @param string $evento
+	 * @see toba_puntos_control
+	 * @return array
+	 */
+	function get_puntos_control($evento)
+	{
+		$ret = array();
+		for ($i=0; $i < count($this->_info_puntos_control); $i++) {
+		  if ($this->_info_puntos_control[$i]['evento'] == $evento || $evento == '') {
+			    $ret[] = $this->_info_puntos_control[$i]['pto_control'];
+			}
+		}
+		return $ret;
+	}
 
 
 	//--------------------------------------------------------------------

@@ -339,7 +339,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 			scope: respuesta
 		};
 		var param = {'ajax-metodo': metodo, 'ajax-modo': 'D', 'ajax-param': serializar(parametros)};
-		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var vinculo = vinculador.get_url(null, null, 'ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};
 	
@@ -361,7 +361,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 			scope: respuesta
 		};
 		var param = {'ajax-metodo': metodo, 'ajax-modo': 'H', 'ajax-param': serializar(parametros)};
-		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var vinculo = vinculador.get_url(null, null, 'ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};		
 	
@@ -386,7 +386,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 			scope: respuesta
 		};
 		var param = {'ajax-metodo': metodo, 'ajax-modo': 'P', 'ajax-param': parametros};
-		var vinculo = vinculador.crear_autovinculo('ajax', param, [this._id]);
+		var vinculo = vinculador.get_url(null, null, 'ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};
 	

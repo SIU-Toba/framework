@@ -137,14 +137,14 @@ class comando_doc extends comando_toba
 		global $_phpDocumentor_setting;
 		$_phpDocumentor_setting['title'] = "API PHP";
 		$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/,'.toba_dir().'/php/lib/';
-		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/lib';
+		//$_phpDocumentor_setting['directory'] = toba_dir().'/php/nucleo/componentes/persistencia';
 		$_phpDocumentor_setting['target'] = $dest;
 		$_phpDocumentor_setting['output'] = "HTML:Smarty:toba_hands";
 		$_phpDocumentor_setting['defaultpackagename'] = 'Centrales';
 		$_phpDocumentor_setting['customtags'] = 'jsdoc,wiki,ventana';
 		//$_phpDocumentor_setting['output'] = "HTML:frames:DOM/toba";
 		$_phpDocumentor_setting['undocumentedelements'] = 1;
-		$_phpDocumentor_setting['ignore'] = 'componente*.php,toba_definicion_componentes.php';
+		$_phpDocumentor_setting['ignore'] = '*_def.php,toba_definicion_componentes.php';
 		require_once("PhpDocumentor/phpDocumentor/phpdoc.inc");
 
 		//-- La clase toba es la clase inicial (como esta un nivel mas adentro hay que bajar un nivel menos)

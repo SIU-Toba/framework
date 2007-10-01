@@ -11,7 +11,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo "Editor ejecutandose en la instancia <strong>" . toba::instancia()->get_id() . "</strong>.<br>";
 		echo "Editando proyecto <strong>" . toba_editor::get_proyecto_cargado()	."</strong> en la instancia <strong>" . toba_editor::get_id_instancia_activa() ."</strong>.<br>";
 		
-		echo toba_form::abrir('toba', toba::vinculador()->crear_autovinculo());
+		echo toba_form::abrir('toba', toba::vinculador()->get_url());
 		echo toba_form::submit('migracion', "Chequear compatibilidad extensiones");
 		echo toba_form::cerrar();
 		
@@ -27,7 +27,7 @@ $url_login = $url_trac.'/trac/toba/login';
 		echo toba_recurso::imagen_proyecto('logo.gif', true);
 		echo "</div>";		
 		echo "<div style='position:fixed;left:10px;bottom:10px;'>";
-		$vinc = toba::vinculador()->crear_autovinculo(array('phpinfo' =>1));
+		$vinc = toba::vinculador()->get_url(null, null, array('phpinfo' =>1));
 		echo "<a style='text-decoration:none' href='$vinc' title='Ver información acerca de la instalación PHP de este servidor'>";
 		echo toba_recurso::imagen_proyecto('php-med-trans.png', true);
 		echo "<br>".phpversion();

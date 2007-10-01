@@ -61,7 +61,7 @@ class toba_menu_css extends toba_menu
 		$clase_base = ($this->prof == 1) ? 'nivel-0' : '';
 		
 		if (!$this->items[$nodo]['carpeta']) {
-			$vinculo = toba::vinculador()->crear_vinculo($this->items[$nodo]['proyecto'],
+			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
 															 $this->items[$nodo]['item'], array(),
 															 array('validar' => false, 'menu' => true));
 			$proyecto = $this->items[$nodo]['proyecto'];

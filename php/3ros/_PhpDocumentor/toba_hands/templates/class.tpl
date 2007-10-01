@@ -9,23 +9,15 @@
 
 		{if $children}
 			<a href="#sec-descendents">Subclases</a>
-			{if $vars || $consts}|{/if}
+			{if $imethods || $methods}|{/if}
 		{/if}
-		{if $ivars || $imethods}
-			<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
+		{if $imethods}
+			<a href="#sec-inherited">Métodos Heredados</a>
 			{if $vars  || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
 		{if $methods || $imethods}
-			<a href="#sec-method-summary">Métodos</a>
-			{if $vars || $children || $consts || $iconsts}|{/if}			
+			<a href="#sec-method-summary">Métodos Propios</a>
 		{/if}		
-		{if $vars}
-			<a href="#sec-vars">Propiedades</a>
-			{if $consts || $iconsts}|{/if}
-		{/if}		
-		{if $consts}
-			<a href="#sec-consts">Constantes</a>
-		{/if}
 	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
@@ -99,43 +91,27 @@
 {if $ivars || $imethods}
 	<a name="sec-inherited"></a>
 	<div class="info-box">
-		<div class="info-box-title">Propiedades y Métodos Heredados</div>
+		<div class="info-box-title">Métodos Heredados</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
-					<th class="class-table-header" width="30%">Propiedades</th>
-					<th class="class-table-header" width="40%">Métodos</th>
-				</tr>
-				<tr>
-					<td width="30%">
-						{section name=ivars loop=$ivars}
-							<p>Heredado de <span class="classname">{$ivars[ivars].parent_class}</span></p>
-							<blockquote>
-								<dl>
-									{section name=ivars2 loop=$ivars[ivars].ivars}
-										<dt>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].link}</span>
-										</dt>
-										<dd>
-											<span class="method-definition">{$ivars[ivars].ivars[ivars2].ivars_sdesc}</span>
-										</dd>
-									{/section}
-								</dl>
-							</blockquote>
-						{/section}
-					</td>
-					<td width="40%">
+					<td width="100%">
 						{section name=imethods loop=$imethods}
-							<p>Heredado de <span class="classname">{$imethods[imethods].parent_class}</span></p>
+							<p>Heredado de <span class="classname"><strong>{$imethods[imethods].parent_class}</strong></span></p>
 							<blockquote>
 								<dl>
 									{section name=im2 loop=$imethods[imethods].imethods}
+										{assign var="met_comienzo" value=$imethods[imethods].imethods[im2].link|strpos:'>'}
+										{assign var="met_fin" value=$imethods[imethods].imethods[im2].link|strpos:'::'}
+										{assign var="nuevo1" value=$imethods[imethods].imethods[im2].link|substr:0:$met_comienzo+1}
+										{assign var="nuevo2" value=$imethods[imethods].imethods[im2].link|substr:$met_fin+2}
 										<dt>
-											<span class="method-definition">{$imethods[imethods].imethods[im2].link}</span>
+											<span class="method-definition">{$nuevo1}{$nuevo2}</span>
 										</dt>
 										<dd>
 											<span class="method-definition">{$imethods[imethods].imethods[im2].sdesc}</span>
 										</dd>
+										
 									{/section}
 								</dl>
 							</blockquote>
@@ -151,7 +127,7 @@
 {if $methods}
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -225,26 +201,6 @@
 
 		<div class="info-box-body">
 			{include file="method.tpl"}
-		</div>
-	</div>
-{/if}
-{if $vars}
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-			{include file="var.tpl"}
-		</div>
-	</div>
-{/if}
-
-
-{if $consts}
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</div>
-		<div class="info-box-body">
-			{include file="const.tpl"}
 		</div>
 	</div>
 {/if}

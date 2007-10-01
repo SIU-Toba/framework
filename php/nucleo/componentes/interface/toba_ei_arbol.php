@@ -80,11 +80,14 @@ class toba_ei_arbol extends toba_ei
 		$this->_todos_abiertos = true;	
 	}
 	
+	/**
+	 * Determina si se muestran o no las utilerias de cada nodo
+	 */
 	function set_mostrar_utilerias($mostrar)
 	{
 		$this->_mostrar_utilerias = $mostrar;	
 	}
-	
+
 	function set_mostrar_propiedades_nodos($mostrar)
 	{
 		$this->_mostrar_propiedades_nodos = $mostrar;	
@@ -379,7 +382,7 @@ class toba_ei_arbol extends toba_ei
 		$identado = toba_js::instancia()->identado();
 		$opciones['servicio'] = 'ejecutar';
 		$opciones['objetos_destino'] = array($this->_id);
-		$autovinculo = toba::vinculador()->crear_autovinculo("", $opciones );
+		$autovinculo = toba::vinculador()->get_url(null, null, "", $opciones );
 		echo $identado."window.{$this->objeto_js} = new ei_arbol('{$this->objeto_js}',
 												 '{$this->_submit}', '$autovinculo');\n";
 	}

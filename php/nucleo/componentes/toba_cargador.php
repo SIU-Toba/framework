@@ -32,6 +32,9 @@ class toba_cargador
 		return self::$instancia;	
 	}
 	
+	/**
+	 * @ignore 
+	 */
 	function destruir()
 	{
 		toba::memoria()->set_dato_sincronizado("toba_catalogo", $this->redefinidos);
@@ -144,6 +147,11 @@ class toba_cargador
 		$this->redefinidos[$clave_ser] = $metadatos;
 	}
 
+	/**
+	 * Retorna el tipo al que pertenece un componente
+	 * @param array $componente array('componente'=>id, 'proyecto'=>proyecto)
+	 * @return string
+	 */
 	static function get_tipo( $componente )
 	{
 		$sql = " 	SELECT clase
@@ -158,6 +166,9 @@ class toba_cargador
 	// CACHES
 	//----------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	function crear_cache_simple( $proyecto, $db = null )
 	{
 		$this->cache_metadatos_simples_proyecto = $proyecto;
@@ -182,6 +193,9 @@ class toba_cargador
 		//print_r( $this->cache_metadatos_simples->info() );
 	}
 
+	/**
+	 * @ignore 
+	 */
 	function generar_cache_extendido( $proyecto, $db =null )
 	{
 	}

@@ -47,7 +47,7 @@ class ci_menu extends toba_ci
 		$nodo_usuarios->agregar_utileria( array(
 							'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 							'ayuda' => 'Administrar USUARIOS',
-							'vinculo' => toba::vinculador()->crear_vinculo( 'toba_instancia', 3344, null, $opciones ),
+							'vinculo' => toba::vinculador()->get_url( 'toba_instancia', 3344, null, $opciones ),
 							'target' => $target	) );
 		// nodo PROYECTOS
 		$nodo_proyectos	= new toba_nodo_basico('<b>PROYECTOS</b>');

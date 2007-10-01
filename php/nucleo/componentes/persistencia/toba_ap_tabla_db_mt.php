@@ -2,6 +2,7 @@
 /**
  * 	@package Componentes
  *  @subpackage Persistencia
+ * 	@ignore
  */
 class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 {
@@ -117,6 +118,9 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 	//-- Preguntas BASICAS
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	function info_definicion()
 	//Informacion del buffer
 	{
@@ -130,11 +134,18 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		return $estado;
 	}
 
+	/**
+	 * @ignore 
+	 */
 	function get_clave()
 	{
 		return $this->clave;
 	}
 
+	
+	/**
+	 * @ignore 
+	 */
 	function get_clave_valor($id_registro)
 	{
 		return $this->get_clave_valor_tabla($id_registro, $this->tabla_maestra);
@@ -183,6 +194,7 @@ class toba_ap_tabla_db_mt extends toba_ap_tabla_db
 		}		
 		return $plan;
 	}
+
 
 	protected function generar_estructura_control_post_carga()
 	{

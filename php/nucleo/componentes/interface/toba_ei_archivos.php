@@ -120,6 +120,10 @@ class toba_ei_archivos extends toba_ei
 		}
 	}
 
+	/**
+	 * Muestra solamente las carpetas y no archivos
+	 * @param boolean $solo
+	 */
 	function set_solo_carpetas($solo)
 	{
 		$this->solo_carpetas = $solo;

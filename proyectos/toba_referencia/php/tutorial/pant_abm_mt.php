@@ -40,7 +40,7 @@ class pant_introduccion extends pant_tutorial
 				Guardar, donde se sincronizan con la base de datos.
 			</p>
 		";
-		$vinculo = toba::vinculador()->crear_vinculo(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 2658, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ejecutar Operación</a></p>";
 	}

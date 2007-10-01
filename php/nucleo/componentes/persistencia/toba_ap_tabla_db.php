@@ -814,6 +814,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//---------------  Carga de CAMPOS BLOB   -----------------------------------
 	//---------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	function consultar_columna_blob($id_registro, $columna)
 	{
 		$this->get_estado_datos_tabla();
@@ -931,10 +934,16 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	//--  Control de VERSIONES  -----------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	private function controlar_alteracion_db()
 	{
 	}
 
+	/**
+	 * @ignore 
+	 */
 	private function controlar_alteracion_db_array()
 	//Soporte al manejo transaccional OPTIMISTA
 	//Indica si los datos iniciales extraidos de la base difieren de
@@ -943,6 +952,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	}
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * @ignore 
+	 */
 	private function controlar_alteracion_db_timestamp()
 	//Esto tiene que basarse en una forma generica de trabajar sobre tablas
 	//(Una columna que posea el timestamp, y triggers que los actualicen)

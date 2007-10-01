@@ -19,7 +19,7 @@ class catalogo_perfiles extends toba_nodo_basico
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("nucleo/agregar.gif", false),
 			'ayuda' => 'Crear un nuevo grupo de acceso',
-			'vinculo' => toba::vinculador()->crear_vinculo( toba_editor::get_id(), '/admin/usuarios/grupo', null, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/usuarios/grupo', null, $opciones ),
 			'target' => apex_frame_centro
 		) );
 	}

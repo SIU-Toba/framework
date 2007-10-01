@@ -128,7 +128,7 @@ toba = new function() {
 			  failure: this.error_comunicacion,
 			  scope: this
 			};
-			var vinculo = vinculador.crear_autovinculo('html_parcial');
+			var vinculo = vinculador.get_url(null, null, 'html_parcial');
 			conexion.setForm('formulario_toba');
 			var con = conexion.asyncRequest('POST', vinculo, callback, null);
 		} else {

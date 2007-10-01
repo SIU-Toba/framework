@@ -10,26 +10,38 @@ vinculador = new function() {
 	this._vinculos = [];	
 };
 	/**
-	 * Crea una URL hacia la operación actual
-	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
-	 * @param {Object} parametros Objeto asociativo parametro=>valor (ej. {'precio': 123} )
-	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)
-	 * @type String
+	 * @deprecated Desde 1.1.0 usar, get_url
+	 * @see #get_url
 	 */
 	vinculador.crear_autovinculo = function(servicio, parametros, objetos) {
-		return this.crear(toba_hilo_item, servicio, parametros, objetos);
+		return this.get_url(null, null, servicio, parametros, objetos);
 	};
 
 	/**
-	 * Crea una URL hacia un item especifico
-	 * @param {Array} destino [proyecto,operacion] destino
+	 * @deprecated Desde 1.1.0 usar, get_url
+	 * @see #get_url	 
+	 */	
+	vinculador.crear = function(destino, servicio, parametros, objetos) {
+		return this.get_url(destino[0], destino[1], servicio, parametros, objetos)
+	};
+	
+	/**
+	 * Retorna una URL hacia un item especifico
+	 * @param {string} proyecto destino, por defecto el actual
+	 * @param {string} operacion destino, por defecto el actual
 	 * @param {string} servicio Servicio a solicitar (opcional) por defecto generar_html
 	 * @param {Object} parametros Objeto asociativo parametro=>valor (ej. {'precio': 123} )
 	 * @param {Array} objetos Ids. de componentes destino del servicio (opcional)
 	 * @type String
-	 */	
-	vinculador.crear = function(destino, servicio, parametros, objetos) {
-		var vinc = toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + destino[0] + toba_hilo_separador + destino[1];
+	 */		
+	vinculador.get_url = function(proyecto, operacion, servicio, parametros, objetos) {
+		if (! isset(proyecto)) {
+			proyecto = toba_hilo_item[0];
+		}
+		if (! isset(operacion)) {
+			operacion = toba_hilo_item[1];
+		}
+		var vinc = toba_prefijo_vinculo + "&" + toba_hilo_qs + "=" + proyecto + toba_hilo_separador + operacion;
 		if (typeof servicio != 'undefined') {
 			vinc += '&' + toba_hilo_qs_servicio + "=" + servicio;
 		}
@@ -43,7 +55,7 @@ vinculador = new function() {
 			}
 		}
 		return vinc;
-	};
+	}
 	
 	/**
 	 * Toma una URL y le agrega parametros
