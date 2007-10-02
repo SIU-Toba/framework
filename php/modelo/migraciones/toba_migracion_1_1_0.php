@@ -11,14 +11,17 @@ class toba_migracion_1_1_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_popup_param	varchar(100)	";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_target		varchar(40)		";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_celda		varchar(40)		";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_dt					int4	";
-		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_consulta_php		int4	";
-		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr_proyecto				varchar(15)	";
-		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr						int4		";
-		$sql[] = "ALTER TABLE apex_clase ADD COLUMN utiliza_fuente_datos			int4		";
-		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos_proyecto			varchar(15)";		
-		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos					varchar(20)";				
-		$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (tabla,fuente_datos_proyecto,fuente_datos)";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN expandir_descripcion		smallint	";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_dt				int4	";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_consulta_php	int4	";
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN carga_no_seteado_ocultar	smallint	";
+		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr_proyecto						varchar(15)	";
+		$sql[] = "ALTER TABLE apex_clase ADD COLUMN objeto_dr								int4		";
+		$sql[] = "ALTER TABLE apex_clase ADD COLUMN utiliza_fuente_datos					int4		";
+		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos_proyecto		varchar(15)";		
+		$sql[] = "ALTER TABLE apex_objeto_db_registros ADD COLUMN fuente_datos				varchar(20)";				
+		$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN pagina_tipo							varchar(20)";				
+		$sql[] = "CREATE UNIQUE INDEX apex_objeto_dbr_uq_tabla ON apex_objeto_db_registros (fuente_datos, tabla)";
 		$sql[] = "	CREATE TABLE apex_objeto_db_registros_uniq
 					(
 						objeto_proyecto    			   	varchar(15)		NOT NULL,
@@ -41,6 +44,7 @@ class toba_migracion_1_1_0 extends toba_migracion
 					  	archivo                 	VARCHAR(255) 	NOT NULL,
 					  	descripcion                	VARCHAR(255) 	NULL
 					);";		
+
 		$this->elemento->get_db()->ejecutar($sql);		
 		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a50_asistentes.sql';
 		if (file_exists($archivo)) {
@@ -101,7 +105,7 @@ class toba_migracion_1_1_0 extends toba_migracion
 	function proyecto__namespace_toba()
 	{
 		$editor = new toba_editor_archivos();
-		$editor->agregar_sustitucion('/separar_texto_lineas(/', 			'toba_texto::separar_texto_lineas(');
+		$editor->agregar_sustitucion('/separar_texto_lineas\(/', 			'toba_texto::separar_texto_lineas(');
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 	}

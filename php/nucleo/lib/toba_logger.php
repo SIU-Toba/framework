@@ -443,7 +443,7 @@ class toba_logger
 	
 	protected function guardar_archivo_log($texto, $archivo)
 	{
-		$permisos = 0770;
+		$permisos = 0774;
 		//--- Asegura que el path esta creado
 		$path = $this->directorio_logs();
 		$path_completo = $path ."/".$archivo;
