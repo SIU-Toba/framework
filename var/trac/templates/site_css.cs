@@ -89,3 +89,8 @@ li * {
 @media print {
  .wiki-toc { display: none }
 }
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
