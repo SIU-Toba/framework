@@ -17,19 +17,7 @@ class ci_php extends toba_ci
 			$archivo =  $path_proyecto . $archivo;
 			$this->toba_archivo_php = new toba_archivo_php($archivo);	
 		} else {				//********* Se accedio a un componente a travez de su ZONA
-			$datos = toba::zona()->get_info();
-			if(!isset($datos)){
-				throw new toba_error('No es posible definir cual es el archivo a editar');	
-			}
-			//- 1 - Obtengo la clase INFO del compomente que se selecciono.
-			$clave_componente = array( 'componente'=>$datos['item'], 'proyecto'=>$datos['proyecto'] );		
-			$meta_clase = toba_constructor::get_info( $clave_componente, 'toba_item');
-			//Si el componente no tiene definida una subclase, no tiene sentido estar aca.
-			if (!$datos['actividad_accion']) {
-				throw new toba_error('La operación no tiene un archivo php definido');	
-			}			
-			//- 3 - Creo el toba_archivo_php y la clase_php que quiero mostrar
-			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $datos['actividad_accion'];
+			$path = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . toba::zona()->get_archivo();
 			$this->toba_archivo_php = new toba_archivo_php($path);
 		}
 	}

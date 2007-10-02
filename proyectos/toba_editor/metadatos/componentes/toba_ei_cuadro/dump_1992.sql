@@ -92,7 +92,7 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'1', --orden
 	'fuente', --columnas_id
 	'fuente', --columnas_descripcion
-	'1', --pie_contar_filas
+	'0', --pie_contar_filas
 	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar

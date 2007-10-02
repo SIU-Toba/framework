@@ -7,7 +7,8 @@ class zona_consulta_php extends zona_editor
 	//Carga el EDITABLE que se va a manejar dentro de la ZONA
 	{
 		$sql = 	"	SELECT	clase,
-							descripcion
+							descripcion,
+							archivo
 					FROM	apex_consulta_php
 					WHERE	proyecto='{$this->editable_id[0]}'
 					AND		consulta_php='{$this->editable_id[1]}';";
@@ -27,6 +28,24 @@ class zona_consulta_php extends zona_editor
 	protected function get_editable_id()
 	{
 		return $this->editable_info['clase'];
-	}	
+	}
+	
+	function get_archivo()
+	{
+		return $this->editable_info['archivo'];
+	}
+
+	function generar_html_barra_vinculos()
+	{	
+		if( $this->get_archivo() != '' && admin_util::existe_archivo_subclase($this->get_archivo()))
+		{
+			echo admin_util::get_acceso_abrir_php( $this->get_editable() );
+			echo admin_util::get_acceso_ver_php( $this->get_editable() );
+		}
+		parent::generar_html_barra_vinculos();
+	}
+
+	
+
 }
 ?>

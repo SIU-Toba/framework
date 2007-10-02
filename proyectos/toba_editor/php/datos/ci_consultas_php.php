@@ -34,6 +34,30 @@ class ci_consultas_php extends toba_ci
 		}
 		$this->carga_ok = true;
 		admin_util::refrescar_barra_lateral();
+		//Si no existe el archivo, lo creo
+		$datos = $this->dependencia('datos')->get();
+		if(! admin_util::existe_archivo_subclase($datos['archivo']) ){
+			$this->crear_archivo( admin_util::get_path_archivo($datos['archivo']) , $datos['clase']);
+		}
+	}
+
+	protected function crear_archivo($archivo, $clase)
+	{
+		$php = "<php?" . salto_linea();
+		$php .= salto_linea();
+		$php .= "class $clase" . salto_linea();
+		$php .= "{" .salto_linea();
+		$php .= salto_linea();
+		$php .= "}" .salto_linea();
+		$php .= salto_linea();
+		$php .= "?>";
+		toba_manejador_archivos::crear_archivo_con_datos($archivo, $php);
+	}
+
+	protected function get_path_archivo($archivo)
+	{
+		$dir = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado());
+		return "$dir/php/$archivo";
 	}
 
 	function evt__eliminar()

@@ -172,6 +172,18 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
+	'959', --dep_id
+	'1989', --objeto_consumidor
+	'2013', --objeto_proveedor
+	'arbol_relaciones', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
 	'927', --dep_id
 	'1989', --objeto_consumidor
 	'1991', --objeto_proveedor
@@ -188,18 +200,6 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'1989', --objeto_consumidor
 	'1990', --objeto_proveedor
 	'fuentes', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_editor', --proyecto
-	'929', --dep_id
-	'1989', --objeto_consumidor
-	'1993', --objeto_proveedor
-	'relaciones', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -261,7 +261,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'fuentes,consultas,tablas,relaciones', --objetos
+	'fuentes,consultas,tablas,relaciones,arbol_relaciones', --objetos
 	'crear_dr,crear_dt,crear_fuente,crear_php', --eventos
 	'pantalla_catalogo', --subclase
 	'datos/ci_catalogo.php'  --subclase_archivo

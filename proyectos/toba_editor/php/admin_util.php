@@ -87,8 +87,13 @@ class admin_util
 
 	static function existe_archivo_subclase($path_relativo)
 	{
-		$path_real = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
+		$path_real = self::get_path_archivo($path_relativo);
 		return file_exists($path_real) && is_file($path_real);
+	}
+	
+	static function get_path_archivo($path_relativo)
+	{
+		return toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . "/php/" . $path_relativo;
 	}
 	
 	/**
@@ -140,5 +145,53 @@ class admin_util
 		}
 	}	
 
+	//--------------------------------------------------------------------------------------
+	//--- Funcionalidad transversal para ZONAs que requieran apertura de archivos
+	//--------------------------------------------------------------------------------------
+
+	static function get_acceso_abrir_php($componente, $item_visualizador=3407, $frame=apex_frame_centro)
+	{
+		$utileria = self::get_utileria_editor_ver_php( $item_visualizador,  array( 'proyecto'=>$componente[0], 'componente' =>$componente[1] ) );			
+		return "<a href='" . $utileria['vinculo'] ."' target='".$frame."' title='".$utileria['ayuda']."'>" .
+				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']). 
+				"</a>\n";
+	}
+	
+	static function get_acceso_ver_php($componente, $item_visualizador=3407)
+	{
+		$utileria = admin_util::get_utileria_editor_abrir_php( $item_visualizador, array(	'proyecto'=>$componente[0],'componente' =>$componente[1] )  );	
+		return "<a href=\"" . $utileria['vinculo'] ."\"". " title='".$utileria['ayuda']. "'>" .
+				toba_recurso::imagen($utileria['imagen'], null, null, $utileria['ayuda']). 
+				"</a>\n";
+	}
+
+	static function get_utileria_editor_abrir_php($item_visualizador, $id_componente, $icono='reflexion/abrir.gif')
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), $item_visualizador, $parametros, $opciones);
+		$js = "toba.comunicar_vinculo('$vinculo')";
+		return array(
+			'imagen' => toba_recurso::imagen_proyecto($icono, false),
+			'ayuda' => 'Abrir el archivo PHP en el editor del escritorio.' .
+					   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]',
+			'vinculo' => "javascript: $js;",
+			'js' => $js,
+			'target' => '',
+			'plegado' => false
+		);
+	}
+	
+	static function get_utileria_editor_ver_php($item_visualizador, $id_componente, $icono = 'nucleo/php.gif')
+	{
+		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
+		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),$item_visualizador, $parametros, $opciones);
+		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),
+				'ayuda' => 'Ver el contenido del archivo PHP',
+				'vinculo' => $vinculo,
+				'plegado' => true
+		);		
+	}
 }
 ?>

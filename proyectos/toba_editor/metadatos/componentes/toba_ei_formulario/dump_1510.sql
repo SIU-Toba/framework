@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --etiqueta_estilo
 	'[wiki:Referencia/FuenteDatos Fuente de datos] a la que se conecta el objeto.', --descripcion
 	'0', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion

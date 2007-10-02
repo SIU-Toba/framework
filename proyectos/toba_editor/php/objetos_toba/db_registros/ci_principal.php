@@ -44,6 +44,8 @@ class ci_principal extends ci_editores_toba
 				$this->dep('prop_basicas')->set_modo_recarga('');
 			}
 		}
+		//En este editor se setea la fuente de datos en un form inferior
+		$this->dep('base')->desactivar_efs('fuente_datos');
 	}
 
 	function get_entidad()
