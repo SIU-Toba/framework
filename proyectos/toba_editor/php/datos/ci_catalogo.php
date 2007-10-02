@@ -65,6 +65,7 @@ class ci_catalogo extends toba_ci
 			$tabla = $tablas[$comp->get_id()];
 			$datos[$tabla]['editar'] = $this->get_string_iconos($comp->get_utilerias());
 			$datos[$tabla]['proyecto'] = $proyecto;
+			$datos[$tabla]['fuente'] = $comp->get_fuente_datos();
 			$datos[$tabla]['objeto'] = $comp->get_id();
 			$datos[$tabla]['tabla'] = $tabla;		
 			$datos[$tabla]['icono'] = $this->get_string_iconos($comp->get_iconos());
@@ -108,34 +109,6 @@ class ci_catalogo extends toba_ci
 		return "<a href='".$url."' target='".apex_frame_centro."' ".$ayuda." >".$contenido."</a>\n";
 	}
 
-	function get_acceso_editores($clase, $proyecto, $componente)
-	{
-		$item_editor_proyecto = $this->datos_editores[$clase]['proyecto'];
-		$item_editor = $this->datos_editores[$clase]['item'];
-		$parametros_editor[apex_hilo_qs_zona] = $proyecto . apex_qs_separador . $componente;
-		// AYUDA
-		$ayuda = null;
-		$metodo = "get_pantallas_$clase";
-		$pantallas = call_user_func(array("toba_datos_editores", $metodo));
-		//-- Se incluye un vinculo a cada pantalla encontrada
-		$ayuda = "<div class='editor-lista-vinculos'>";
-		foreach ($pantallas as $pantalla) {
-			$img = ($pantalla['imagen'] != '') ? $pantalla['imagen'] : "objetos/fantasma.gif";
-			$origen = ($pantalla['imagen'] != '') ? $pantalla['imagen_recurso_origen'] : 'apex';
-			$tag_img = ($origen == 'apex') ? toba_recurso::imagen_toba($img, true) : toba_recurso::imagen_proyecto($img, true);
-			$ayuda .= $this->tag_vinculo_editor(	$item_editor_proyecto, 
-													$item_editor, 
-													array_merge( $parametros_editor, array('etapa' => $pantalla['identificador']) ),
-													$tag_img,
-													$pantalla['etiqueta'] );
-			$ayuda .= '   ';
-		}
-		$ayuda .= "</div>";
-		$ayuda = str_replace("'", "\\'", $ayuda);
-		$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null, $ayuda);
-		return $this->tag_vinculo_editor($item_editor_proyecto, $item_editor, $parametros_editor,$img);
-	}
-	
 	function get_string_iconos($iconos)
 	{
 		$salida = '';

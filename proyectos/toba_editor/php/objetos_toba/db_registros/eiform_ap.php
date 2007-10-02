@@ -3,10 +3,16 @@
 class eiform_ap extends toba_ei_formulario
 {
 	protected $js_abrir='';
+	protected $texto_recarga=null;
 	
 	function set_js_abrir($js)
 	{
 		$this->js_abrir = $js;
+	}
+	
+	function set_modo_recarga($texto)
+	{
+		$this->texto_recarga = $texto;
 	}
 	
 	function extender_objeto_js() 
@@ -29,6 +35,19 @@ class eiform_ap extends toba_ei_formulario
 			return false;
 		}
 		";
+		if ( isset($this->texto_recarga) ) {
+			$usar_confirm = ($this->texto_recarga == '') ? 'true' : 'false';
+			echo "
+				{$this->objeto_js}.evt__tabla__procesar = function(es_inicial)
+				{
+					if (! es_inicial && this.ef('tabla').get_estado() != apex_ef_no_seteado) {
+						if( $usar_confirm || confirm('{$this->texto_recarga}')) {
+							this.set_evento(new evento_ei('cargar_tablas',true,''));
+						}
+					}
+				}		
+			";
+		}
 	}
 }
 ?>

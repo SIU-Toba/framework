@@ -125,7 +125,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable_textarea', --elemento_formulario
 	'descripcion', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
@@ -195,32 +195,32 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'fuente_datos_proyecto, fuente_datos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Fuente de Datos', --etiqueta
 	NULL, --etiqueta_estilo
 	'[wiki:Referencia/FuenteDatos Fuente de datos] a la que se conecta el objeto.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'1', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'get_fuentes_datos', --carga_metodo
 	'toba_info_editores', --carga_clase
 	'modelo/info/toba_info_editores.php', --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
-	NULL, --carga_fuente
+	'instancia', --carga_fuente
 	NULL, --carga_lista
 	'proyecto, fuente_datos', --carga_col_clave
 	'descripcion_corta', --carga_col_desc
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -265,7 +265,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'nombre', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Nombre', --etiqueta
 	NULL, --etiqueta_estilo
@@ -335,7 +335,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_editable', --elemento_formulario
 	'subclase', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Subclase', --etiqueta
 	NULL, --etiqueta_estilo
@@ -405,7 +405,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_popup', --elemento_formulario
 	'subclase_archivo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Subclase - Archivo', --etiqueta
 	NULL, --etiqueta_estilo
@@ -475,7 +475,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'ef_combo', --elemento_formulario
 	'tipo_clase', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Tipo Clase', --etiqueta
 	NULL, --etiqueta_estilo

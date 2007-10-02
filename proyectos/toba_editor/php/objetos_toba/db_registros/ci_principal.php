@@ -25,6 +25,25 @@ class ci_principal extends ci_editores_toba
 				}
 			}
 		}
+		// Se configura el FORM para que dispare el evento de recarga de tablas.
+		$cols = $this->dep('datos')->tabla('columnas')->get_cantidad_filas();
+		$this->pantalla()->tab('2')->set_etiqueta("Columnas [$cols]");
+		if( ($this->get_id_pantalla() == '1') ){
+			if($cols > 0) {
+				$uniq = $this->dep('datos')->tabla('valores_unicos')->get_cantidad_filas();
+				$exts = $this->dep('datos')->tabla('externas')->get_cantidad_filas();
+				$txt_uniq = ($uniq > 0)? " - Valores únicos: $uniq" : '';
+				$txt_exts = ($exts > 0)? " - Cargas externas: $exts": '';
+				$this->dep('prop_basicas')->set_modo_recarga("¿Desea recargar las columnas de la tabla?" .
+																" Se eliminaran los elementos definidos anteriormente. ".
+																" (Columnas: $cols $txt_exts $txt_uniq)." .
+																"Los cambios no seran actualizados hasta presionar el boton \'Guardar\'.".
+																" ATENCION: Si no recarga los valores automaticamente, hágalo a mano para ".
+																" que la definicion de la tabla y las columnas coincida.");
+			}else{
+				$this->dep('prop_basicas')->set_modo_recarga('');
+			}
+		}
 	}
 
 	function get_entidad()
@@ -38,6 +57,7 @@ class ci_principal extends ci_editores_toba
 		parent::evt__procesar();
 		unset($this->s__ap_php_db);
 		unset($this->s__ap_php_archivo);
+		admin_util::refrescar_barra_lateral();
 	}
 
 	//*******************************************************************
@@ -66,13 +86,38 @@ class ci_principal extends ci_editores_toba
 			$form->eliminar_evento('ver_php');	
 			$form->eliminar_evento('abrir_php');
 		}
-		$form->set_datos($this->get_entidad()->tabla("prop_basicas")->get());
+		$datos = $this->get_entidad()->tabla("prop_basicas")->get();
+		if (! isset($datos['fuente_datos'])) {
+			$datos['fuente_datos_proyecto'] = toba_editor::get_proyecto_cargado();
+			$datos['fuente_datos'] = toba_info_editores::get_fuente_datos_defecto(toba_editor::get_proyecto_cargado());
+		}
+		$form->set_datos($datos);
 	}
 
 	function evt__prop_basicas__modificacion($datos)
 	{
-		$this->get_entidad()->tabla("prop_basicas")->set($datos);
+		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos',$datos['fuente_datos']);
+		$this->get_entidad()->tabla('base')->set_columna_valor('fuente_datos_proyecto',$datos['fuente_datos_proyecto']);
+		$this->get_entidad()->tabla('prop_basicas')->set($datos);
 	}
+
+	function get_tablas($fuente)
+	{
+		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas();
+	}
+	
+	/* Evento de generacion de columnas en base a la tabla seleccionada */
+	function evt__prop_basicas__cargar_tablas($datos)
+	{
+		$this->evt__prop_basicas__modificacion($datos);
+		//Borro la informacion previa. Ya avise en JS que se iba a hacer
+		$this->dep('datos')->tabla('valores_unicos')->eliminar_filas();
+		$this->dep('datos')->tabla('externas_col')->eliminar_filas();
+		$this->dep('datos')->tabla('externas')->eliminar_filas();
+		$this->dep('datos')->tabla('columnas')->eliminar_filas();
+		$this->get_entidad()->actualizar_campos();
+	}
+
 
 	//*******************************************************************
 	//**  COLUMNAS  *****************************************************

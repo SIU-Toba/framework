@@ -81,6 +81,11 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		}
 		return null;		
 	}
+
+	function get_fuente_datos()
+	{
+		return $this->datos['_info']['fuente'];
+	}
 	
 	/**
 	 * Duplica un objeto y sus dependencias recursivamente
@@ -254,6 +259,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 				$iconos[] = $this->get_utileria_editor_ver_php(array('proyecto'=>$this->proyecto, 'componente' =>$this->id ), null, 'nucleo/php_inexistente.gif', false);
 			}
 		}
+		/*
 		// Instanciador
 		if ( $this instanceof toba_ei_formulario_info || $this instanceof toba_ei_cuadro_info ) {
 			$iconos[] = array(
@@ -263,6 +269,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 																		false, false, null, true, 'central')
 			);
 		}
+		*/
 		//Editor
 		if (isset($this->datos['_info']['clase_editor_proyecto'])) {
 			$ayuda = null;
