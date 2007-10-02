@@ -10,10 +10,6 @@ SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
 --
 -- Name: log_juegos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -29,7 +25,7 @@ CREATE TABLE log_juegos (
 -- Name: log_juegos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('log_juegos', 'id'), 1, false);
+SELECT pg_catalog.setval('log_juegos_id_seq', 1, false);
 
 
 --
@@ -47,7 +43,7 @@ CREATE TABLE log_persona (
 -- Name: log_persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('log_persona', 'id'), 1, false);
+SELECT pg_catalog.setval('log_persona_id_seq', 1, false);
 
 
 --
@@ -66,7 +62,7 @@ CREATE TABLE ref_deportes (
 -- Name: ref_deportes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_deportes', 'id'), 8, true);
+SELECT pg_catalog.setval('ref_deportes_id_seq', 8, true);
 
 
 --
@@ -84,7 +80,7 @@ CREATE TABLE ref_juegos (
 -- Name: ref_juegos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_juegos', 'id'), 5, true);
+SELECT pg_catalog.setval('ref_juegos_id_seq', 5, true);
 
 
 --
@@ -103,7 +99,7 @@ CREATE TABLE ref_juegos_oferta (
 -- Name: ref_juegos_oferta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_juegos_oferta', 'id'), 1, false);
+SELECT pg_catalog.setval('ref_juegos_oferta_id_seq', 1, false);
 
 
 --
@@ -136,14 +132,14 @@ CREATE TABLE ref_persona_deportes (
 -- Name: ref_persona_deportes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_persona_deportes', 'id'), 3, true);
+SELECT pg_catalog.setval('ref_persona_deportes_id_seq', 3, true);
 
 
 --
 -- Name: ref_persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_persona', 'id'), 2, true);
+SELECT pg_catalog.setval('ref_persona_id_seq', 2, true);
 
 
 --
@@ -164,7 +160,7 @@ CREATE TABLE ref_persona_juegos (
 -- Name: ref_persona_juegos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ref_persona_juegos', 'id'), 3, true);
+SELECT pg_catalog.setval('ref_persona_juegos_id_seq', 3, true);
 
 
 --
