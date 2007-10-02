@@ -11,7 +11,7 @@ require_once('nucleo/toba_nucleo.php');
 */
 class consola implements toba_proceso_gui
 {
-	const display_ancho = 79;
+	static protected $display_ancho = 79;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
 	static protected $indice_archivos;
@@ -20,6 +20,11 @@ class consola implements toba_proceso_gui
 	
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			self::$display_ancho = 79;
+		} else {
+			self::$display_ancho = 1000;
+		}
 		self::$indice_archivos = toba_nucleo::get_indice_archivos();
 		unset(self::$indice_archivos['toba']);	//Para que el logger se de cuenta de que esta en la consola
 		spl_autoload_register(array('consola', 'cargador_clases'));
@@ -116,7 +121,7 @@ class consola implements toba_proceso_gui
 
 	function mensaje( $texto, $bajar_linea=true )
 	{
-		$lineas = toba_texto::separar_texto_lineas( $texto, self::display_ancho );
+		$lineas = toba_texto::separar_texto_lineas( $texto, self::$display_ancho );
 		for ($i=0; $i< count($lineas); $i++) {
 			if ($bajar_linea || $i < count($lineas) - 1) {
 				$extra = "\n";
@@ -148,7 +153,7 @@ class consola implements toba_proceso_gui
 	function error( $texto )
 	{
 		toba_logger::instancia()->error($texto);
-		$lineas = toba_texto::separar_texto_lineas( $texto, self::display_ancho );
+		$lineas = toba_texto::separar_texto_lineas( $texto, self::$display_ancho );
 		foreach( $lineas as $linea ) {
 			fwrite( STDERR, self::display_prefijo_linea . $linea . "\n" );
 		}
@@ -160,7 +165,7 @@ class consola implements toba_proceso_gui
 	*/
 	function coleccion( $coleccion )
 	{
-		$espacio_descripcion = self::display_ancho - self::display_coleccion_espacio_nombre 
+		$espacio_descripcion = self::$display_ancho - self::display_coleccion_espacio_nombre 
 								- strlen( self::display_prefijo_linea );
 		foreach( $coleccion as $nombre => $descripcion ) {
 			$lineas = toba_texto::separar_texto_lineas( $descripcion, $espacio_descripcion );
@@ -186,7 +191,12 @@ class consola implements toba_proceso_gui
 	*/
 	function linea_completa( $base='', $caracter_relleno )
 	{
-		echo str_pad( self::display_prefijo_linea . $base, self::display_ancho, $caracter_relleno );
+		if (self::$display_ancho > 100) {
+			$ancho = 100;
+		} else {
+			$ancho = self::$display_ancho;
+		}
+		echo str_pad( self::display_prefijo_linea . $base, $ancho, $caracter_relleno );
 		echo "\n";
 	}
 
