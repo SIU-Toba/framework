@@ -214,9 +214,11 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$filtro = null;	
 		}
 		if($this->molde_abms['cuadro_carga_origen'] == 'consulta_php' ) {
-			if( !isset($this->molde_abms['cuadro_carga_php_metodo'])
-					|| ($this->molde_abms['cuadro_carga_php_metodo'])) {
-				throw new toba_error_asistentes('El metodo de carga del cuadro no esta definido');	
+			if( !$this->molde_abms['cuadro_carga_php_metodo'] ) {
+				throw new toba_error_asistentes('ASISTENTE ABMS: El metodo de carga del cuadro no esta definido (MODO consulta_php).');	
+			}
+			if( !$this->molde_abms['cuadro_carga_php_clase'] ) {
+				throw new toba_error_asistentes('ASISTENTE ABMS: La clase de carga del cuadro no esta definido (MODO consulta_php).');	
 			}
 			//----> Los datos son provistos por un archivo de consultas php
 			$php_recuperacion = $this->molde_abms['cuadro_carga_php_clase'] . '::' . $this->molde_abms['cuadro_carga_php_metodo'];

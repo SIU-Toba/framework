@@ -435,51 +435,38 @@ abstract class toba_asistente
 
 	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
 	{
-		$archivo = $this->agregar_archivo($include, $clase);
 		$metodo_php = $this->crear_metodo_consulta($metodo, $sql, $parametros);
 		$metodo_php->identar(1);
-		$this->archivos_consultas[$include]['metodos'][] = $metodo_php;
-		/*
-		if( $archivo->existe() && $archivo->contiene_metodo($metodo) ) {
-			//ATENCION: Se va a sobreescribir un metodo.
-			$id_opcion = 'consulta__' . $include . '__' . $clase . '__' . $metodo;
-			$this->agregar_opcion_generacion($id_opcion, "Sobreescribir metodo: '$metodo' en el archivo '$include'");
-		}
-		*/
+		$this->agregar_archivo($include, $clase, $metodo_php);
 	}
 
-	function agregar_archivo($include, $clase)
+	function agregar_archivo($include, $clase, $metodo_php)
 	{
-		if(!isset($this->archivos_consultas[$include]['archivo'])){
-			$archivo = new toba_archivo_php($include);
-			if( $archivo->existe() ) {
-				if( $archivo->contiene_codigo_php() ) {
-					if( ! $archivo->contiene_clase($clase) ) {
-						//Hay codigo PHP que no es de la clase... error bloqueante!
-							
-					}
-				}
-			}
-			$this->archivos_consultas[$include]['archivo'] = $archivo;
-			$this->archivos_consultas[$include]['clase'] = $clase;
+		if(!isset($this->archivos_consultas[$include])){
+			$this->archivos_consultas[$include] = new toba_codigo_clase($clase);
 		}
-		return $this->archivos_consultas[$include]['archivo'];
+		$this->archivos_consultas[$include]->agregar($metodo_php);
 	}
 
 	function generar_archivos_consultas()
 	{
-		foreach($this->archivos_consultas as $id => $contenido) {
-			$php = "<?php\nclass {$contenido['clase']}\n{\n";
-			foreach($contenido['metodos'] as $metodo ) {
-				$php .= $metodo->get_codigo();
+		foreach($this->archivos_consultas as $path_relativo => $clase) {
+			//Control para que no hayan metodos duplicados, se hace aca
+			//porque sino se pierde el acceso al editor. El control se deberia hacer en la carga misma
+			if( count($clase->get_indice_metodos_php()) 
+				!= count(array_unique($clase->get_indice_metodos_php())) ) {
+				throw new toba_error("Existen nombres de metodos duplicados!");
 			}
-			$php .= "\n}\n?>";
-			$path = toba::instancia()->get_path_proyecto( $this->get_proyecto() ) . '/php/' . $id;
-			toba_manejador_archivos::crear_arbol_directorios(dirname($path));
-			toba_manejador_archivos::crear_archivo_con_datos($path, $php);
+			$path = toba::instancia()->get_path_proyecto($this->id_molde_proyecto) . '/php/'. $path_relativo;
+			$existente = null;
+			if( file_exists($path) && is_file($path) ) {
+				$existente = toba_archivo_php::codigo_sacar_tags_php(file_get_contents($path));
+			}			
+			$php = $clase->generar_codigo($existente);
+			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php" . salto_linea() . $php . salto_linea() .  "?>");
 			$this->registrar_elemento_creado(	'Archivo consultas', 
 												$this->get_proyecto(),
-												$path );
+												$this->id_molde_proyecto );
 		}
 	}
 }

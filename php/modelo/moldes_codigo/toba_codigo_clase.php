@@ -20,7 +20,7 @@ class toba_codigo_clase
 	protected $propiedades = array();
 	protected $archivos_requeridos = array();
 
-	function __construct($nombre, $nombre_ancestro)
+	function __construct($nombre, $nombre_ancestro=null)
 	{
 		$this->nombre = $nombre;
 		$this->nombre_ancestro = $nombre_ancestro;
@@ -131,6 +131,20 @@ class toba_codigo_clase
 		$this->archivos_requeridos[] = $require;	
 	}
 
+	function existe_elemento($id)
+	{
+		return isset($this->indices_php[$id]);	
+	}	
+
+	function get_indice_metodos_php()
+	{
+		$indice = array();
+		foreach( $this->elementos_php as $elemento ) {
+			$indice[] = $elemento->get_nombre();
+		}
+		return $indice;
+	}
+	
 	//--------------------------------------------------------------
 	//-- Generacion de codigo --------------------------------------
 	//--------------------------------------------------------------
@@ -226,7 +240,8 @@ class toba_codigo_clase
 		}
 		//--Crea o reemplza la definicion de la clase
 		if (! toba_archivo_php::codigo_tiene_clase($codigo_existente, $this->nombre)) {
-			$this->codigo_php .= "class {$this->nombre} extends {$this->nombre_ancestro}". salto_linea() ."{". salto_linea();
+			$extends = ($this->nombre_ancestro) ? "extends {$this->nombre_ancestro}" : "";
+			$this->codigo_php .= "class {$this->nombre} $extends". salto_linea() ."{". salto_linea();
 			$this->generar_codigo_php();
 			$this->generar_codigo_js();
 			$this->codigo_php .= "}". salto_linea();

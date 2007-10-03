@@ -353,7 +353,7 @@ class toba_archivo_php
 		}
 		$pos = strpos($codigo, '?>');
 		if ($pos !== false) {
-			$codigo = substr($codigo, 0, $pos-1);
+			$codigo = substr($codigo, 0, $pos-2);
 		}
 		return $codigo;
 	}

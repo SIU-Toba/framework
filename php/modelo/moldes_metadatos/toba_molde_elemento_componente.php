@@ -41,7 +41,7 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 			if( file_exists($this->archivo_absoluto()) ) {
 				$txt = "Reemplazar archivo: " . $this->archivo_relativo();
 				$ayuda = "Si no desea reemplazar el archivo, modifique el molde especificando otra carpeta de destino u otro prefijo para la generacion de clases.";
-				$this->asistente->agregar_opcion_generacion( $this->get_id_opcion_archivo(), $txt, $ayuda );
+				//$this->asistente->agregar_opcion_generacion( $this->get_id_opcion_archivo(), $txt, $ayuda );
 			}
 		}
 	}
@@ -63,11 +63,11 @@ class toba_molde_elemento_componente extends toba_molde_elemento
 	function generar_archivo()
 	{
 		if (file_exists($this->archivo_absoluto())) {
-			if( $this->asistente->consultar_opcion_generacion($this->get_id_opcion_archivo()) ) {
+			//if( $this->asistente->consultar_opcion_generacion($this->get_id_opcion_archivo()) ) {
 				return parent::generar_archivo();
-			} else {
-				return false;	
-			}
+			//} else {
+			//	return false;	
+			//}
 		} else {
 			return parent::generar_archivo();
 		}	
