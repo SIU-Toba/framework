@@ -314,7 +314,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	 */	
 	ci.prototype.nodo_pie = function() {
 		return document.getElementById(this._instancia + '_pie');
-	}
+	};
 	
 	//----------------------------------------------------------------  
 	//---Servicios AJAX
@@ -342,8 +342,6 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		var vinculo = vinculador.get_url(null, null, 'ajax', param, [this._id]);
 		var con = conexion.asyncRequest('GET', vinculo, callback_real, null);		
 	};
-	
-	/**
 	
 	/**
 	 * Pide al servidor en forma asincrónica un HTML que actualizara un nodo dado

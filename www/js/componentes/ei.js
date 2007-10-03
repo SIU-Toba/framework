@@ -11,7 +11,7 @@ function evento_ei(id, validar, confirmar, parametros) {
 	this.confirmar = (typeof confirmar == 'undefined') ? false : confirmar;
 	this.parametros = parametros;
 	this._silencioso = false;
-	this._id_dep;
+	this._id_dep = null;
 }
 
 /**
@@ -106,8 +106,9 @@ ei.prototype.constructor = ei;
 				}
 			}		
 			var metodo = "evt__" + this._evento.id;
+			var res;
 			if(existe_funcion(this, metodo)){
-				var res = this[metodo](this._evento.parametros);
+				res = this[metodo](this._evento.parametros);
 				if(typeof res != 'undefined' && !res ){		
 					this.reset_evento();
 					return false;
@@ -115,7 +116,7 @@ ei.prototype.constructor = ei;
 			}
 			metodo = "evt__" + this._id_dep + '__' + this._evento.id;
 			if (this.controlador && existe_funcion( this.controlador, metodo)) {
-				var res = this.controlador[metodo](this._evento.parametros);
+				res = this.controlador[metodo](this._evento.parametros);
 				if(typeof res != 'undefined' && !res ){		
 					this.reset_evento();
 					return false;

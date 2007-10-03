@@ -22,7 +22,7 @@ vinculador = new function() {
 	 * @see #get_url	 
 	 */	
 	vinculador.crear = function(destino, servicio, parametros, objetos) {
-		return this.get_url(destino[0], destino[1], servicio, parametros, objetos)
+		return this.get_url(destino[0], destino[1], servicio, parametros, objetos);
 	};
 	
 	/**
@@ -55,7 +55,7 @@ vinculador = new function() {
 			}
 		}
 		return vinc;
-	}
+	};
 	
 	/**
 	 * Toma una URL y le agrega parametros

@@ -7,7 +7,8 @@ function ajax_respuesta(modo) {
 	this._modo = modo;
 	this._contexto = null;
 	this._respuesta_plana = '';
-};
+}
+
 ajax_respuesta.prototype.constructor = ajax_respuesta;
 
 	/**
@@ -22,25 +23,25 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 		}
 		this._clase = clase;
 		this._funcion = funcion;
-	}
+	};
 	
 	/**
 	 * @private
 	 */		
 	ajax_respuesta.prototype.set_contexto = function(contexto) {
 		this._contexto = contexto;
-	}
+	};
 	
 	/**
 	 * @private
 	 */		
 	ajax_respuesta.prototype.set_nodo_html = function(nodo) {
-		if (nodo != null && typeof nodo == 'object' && isset(nodo['innerHTML'])) {
+		if (nodo !== null && typeof nodo == 'object' && isset(nodo.innerHTML)) {
 			this._nodo_html = nodo;
 		} else {
 			throw 'AJAX HTML: Se requiere que el 3er parámetro sea un nodo html válido';
 		}
-	}
+	};
 	
 	/**
 	 * Retorna parte de una respuesta a un pedido de datos plano (sin encoding)
@@ -58,7 +59,7 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 		} else {
 			return null;
 		}
-	}
+	};
 		
 	/**
 	 * @private
@@ -69,7 +70,7 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 				case 'D': 
 					//-- Comunicación de datos codificados con JSON
 					var parametro = eval('(' + response.responseText + ')');
-					this._funcion.call(this._clase, parametro, this._contexto)
+					this._funcion.call(this._clase, parametro, this._contexto);
 					break;
 				case 'H':
 					//-- Comunicación de HTML
@@ -78,7 +79,7 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 				case 'P': 
 					this._respuesta_plana = response.responseText;
 					//-- Comunicación de información plana
-					this._funcion.call(this._clase, this, this._contexto)
+					this._funcion.call(this._clase, this, this._contexto);
 					break;		
 			}			
 
@@ -89,6 +90,6 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 			notificacion.agregar(error);
 			notificacion.mostrar();
 		}
-	}
+	};
 	
 toba.confirmar_inclusion('basicos/ajax_respuesta');

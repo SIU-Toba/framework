@@ -278,7 +278,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * @ventana
 	 */
 	ei_formulario.prototype.evt__cascadas_inicio = function(ef_maestro)	{
-	}
+	};
 	
 	/**
 	 * Esquema de Cascadas:<br>
@@ -289,7 +289,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	 * @ventana
 	 */
 	ei_formulario.prototype.evt__cascadas_fin = function(ef_esclavo, datos) {
-	}
+	};
 	
 	
 	//----Validación 
@@ -351,7 +351,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		} else {		
 			ef.no_resaltar();
 		}	
-	}
+	};
 	
 	ei_formulario.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {

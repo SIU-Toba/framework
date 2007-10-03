@@ -602,7 +602,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			this._efs[columna].ir_a_fila(this._filas[id_fila]).mostrar(mostrar);
 		}
 
-	}
+	};
 	
 //--------------------------------------------------------------------------------	
 //Utilidades sobre arbol DOM 

@@ -205,7 +205,7 @@ toba = new function() {
 	 */	
 	toba.falta_imagen = function(src) {
 		alert('No se encontro la imagen: ' + src);
-	}
+	};
 	
 	/**
 	 * Muestra un div/imagen contienendo un mensaje de 'Procesando'
