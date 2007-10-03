@@ -6,6 +6,10 @@
  */
 class toba_tp_logon extends toba_tp_basico
 {
+	protected function barra_superior()
+	{
+		echo "<div class='barra-superior-login'>\n";		
+	}	
 
 	function pre_contenido()
 	{
