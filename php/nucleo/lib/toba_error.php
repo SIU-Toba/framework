@@ -19,6 +19,7 @@ class toba_error extends Exception
 class toba_error_db extends toba_error
 {
 	protected $codigo;
+	protected $mensaje_motor ='';
 
 	function __construct($mensaje, $codigo)
 	{
@@ -29,6 +30,16 @@ class toba_error_db extends toba_error
 	function get_sqlstate()
 	{
 		return $this->codigo;	
+	}
+	
+	function set_mensaje_motor($mensaje)
+	{
+		$this->mensaje_motor = $mensaje;
+	}
+	
+	function get_mensaje_motor()
+	{
+		return $this->mensaje_motor;
 	}
 }
 

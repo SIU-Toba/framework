@@ -56,10 +56,19 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__procesar()
 	{
-		parent::evt__procesar();
-		unset($this->s__ap_php_db);
-		unset($this->s__ap_php_archivo);
-		admin_util::refrescar_barra_lateral();
+		try {
+			parent::evt__procesar();
+			unset($this->s__ap_php_db);
+			unset($this->s__ap_php_archivo);
+			admin_util::refrescar_barra_lateral();
+		} catch (toba_error_db $e) {
+			if( $e->get_sqlstate()==23505 ) {
+				$datos = $this->get_entidad()->tabla('prop_basicas')->get();
+				toba::notificacion()->agregar("Ya existe un datos_tabla referenciado a la tabla: '".$datos['tabla']."'. No es posible guardar.");
+			}else{
+				throw $e;
+			}
+		}
 	}
 
 	//*******************************************************************
