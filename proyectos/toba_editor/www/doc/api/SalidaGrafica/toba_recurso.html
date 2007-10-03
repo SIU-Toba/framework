@@ -77,9 +77,6 @@
 	    			<a href="../SalidaGrafica/toba_notificacion.html">					notificacion
 					</a>    		
 	 <br />
-	    			<a href="../SalidaGrafica/toba_pdf.html">					pdf
-					</a>    		
-	 <br />
 	    			<a href="../SalidaGrafica/toba_recurso.html">					recurso
 					</a>    		
 	 <br />
@@ -99,6 +96,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_tp_popup.html">					tp_popup
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_pdf.html">					vista_pdf
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_zona.html">					zona
@@ -132,11 +132,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-						
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -166,7 +164,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -244,7 +242,7 @@
 <a name="methodayuda" id="ayuda"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		    		<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
+		    		<span class="method-title">static method ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
 </div>
 <br />
 
@@ -308,7 +306,7 @@ $delay_ayuda = 1000]&nbsp;
 <a name="methodimagen" id="imagen"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
+		<span class="method-title">static method imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 156]</span>
 </div>
 <br />
 
@@ -385,7 +383,7 @@ $estilo = '']&nbsp;
 <a name="methodimagen_de_origen" id="imagen_de_origen"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+		<span class="method-title">static method imagen_de_origen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 72]</span>
 </div>
 <br />
 
@@ -427,7 +425,7 @@ $origen&nbsp;
 <a name="methodimagen_proyecto" id="imagen_proyecto"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+		<span class="method-title">static method imagen_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -441,7 +439,8 @@ $html = false], [string
 $ancho = null], [string
 $alto = null], [string
 $tooltip = null], [string
-$mapa = null]&nbsp;
+$mapa = null], [
+$proyecto = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -486,6 +485,12 @@ $mapa = null]&nbsp;
 				<span class="var-name">$mapa:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> (no oblig.)</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -497,7 +502,7 @@ $mapa = null]&nbsp;
 <a name="methodimagen_skin" id="imagen_skin"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+		<span class="method-title">static method imagen_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
 </div>
 <br />
 
@@ -567,7 +572,7 @@ $mapa = null]&nbsp;
 <a name="methodimagen_toba" id="imagen_toba"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method imagen_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
+		<span class="method-title">static method imagen_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
 </div>
 <br />
 
@@ -581,7 +586,8 @@ $html = false], [string
 $ancho = null], [string
 $alto = null], [
 $alt = null], [string
-$mapa = null], string
+$mapa = null], [
+$js = null], string
 $tooltip&nbsp;
 )</code>
     </td></tr></table>
@@ -633,6 +639,12 @@ $tooltip&nbsp;
 				<span class="var-name">$alt:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$js:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -644,7 +656,7 @@ $tooltip&nbsp;
 <a name="methodjs" id="js"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 213]</span>
+		<span class="method-title">static method js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -679,7 +691,7 @@ $javascript&nbsp;
 <a name="methodlink_css" id="link_css"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
+		<span class="method-title">static method link_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
 </div>
 <br />
 
@@ -762,7 +774,7 @@ $proyecto = null]&nbsp;
 <a name="methodurl_skin" id="url_skin"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method url_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
+		<span class="method-title">static method url_skin</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -804,7 +816,7 @@ $proyecto = null]&nbsp;
 <a name="methodurl_toba" id="url_toba"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 26]</span>
+		    		<span class="method-title">static method url_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
 </div>
 <br />
 
@@ -819,7 +831,15 @@ $proyecto = null]&nbsp;
 	<div class="description">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos) </div>
 
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td>toba_instalacion::get_url</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -828,15 +848,13 @@ $proyecto = null]&nbsp;
 		</div>
 	</div>
 
-
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

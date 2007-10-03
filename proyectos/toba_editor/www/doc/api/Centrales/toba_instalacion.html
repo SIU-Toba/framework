@@ -65,6 +65,9 @@
 	    			<a href="../Centrales/toba_derechos.html">					derechos
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
 					</a>    		
 	 <br />
@@ -102,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_texto.html">					texto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_usuario.html">					usuario
@@ -209,11 +215,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-						
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -243,7 +247,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -252,7 +256,7 @@
 						</td>
 						<td class="method-definition"><a href="#eliminar_instancia" title="details" class="method-name">eliminar_instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																			<tr><td></td><td class="method-definition" nowrap>static
+																																																																																												<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_instalacion.html">toba_instalacion</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -306,6 +310,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_path_temp" title="details" class="method-name">get_path_temp</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna un path donde incluir archivos temporales, el path no es navegable</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_url" title="details" class="method-name">get_url</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos)</td></tr>
 																						</table>
 			</div>
 			<br />
@@ -355,11 +366,23 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>static <a href="../Centrales/toba_instalacion.html">toba_instalacion</a> instancia(
+[
+$recargar = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$recargar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -537,7 +560,7 @@
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
 </div>
 <br />
 
@@ -557,10 +580,34 @@
 		
 		<br />
 </div>
+<a name="methodget_url" id="get_url"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_url(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna la URL base del runtime toba (donde esta el js, img y demas recursos globales a todos los proyectos) </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
-
-
 
 <br />
 <div class="credit">
@@ -568,7 +615,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Docs For Class toba_ap_tabla</title>
+	<title>Docs For Class toba_ajax_respuesta</title>
 	<link rel="stylesheet" type="text/css" href="../../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 </head>
@@ -361,12 +361,12 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba_ap_tabla</h1>
+<h1>toba_ajax_respuesta</h1>
 
 <a name="sec-description"></a>
 <div class="info-box">
 	<div class="nav-bar">
-					<span class="disabled">Resúmen de la Interface</span> |
+					<span class="disabled">Resúmen de la Clase</span> |
 		
 									<a href="#sec-method-summary">Métodos Propios</a>
 				
@@ -375,7 +375,7 @@
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Interface: Administradorr de persistencia de una estructura de datos tipo tabla, un contenedor de filas de datos </div>
+        		<div class="description">Clase que representa una respuesta AJAX (php =&gt; js) <p>Tiene dos metodos, uno pensado para comportamientos de alto nivel (set) en donde el framework interpreta el tipo de salida  y otro para bajo nivel (agregar) en donde el manejo de la información queda a cargo del consumidor</p></div>
 
 
 
@@ -384,7 +384,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/componentes/persistencia/toba_ap.php [<span class="field">line 8</span>]
+			Ubicada en /nucleo/lib/toba_ajax_respuesta.php [<span class="field">line 11</span>]
 		</p>	
 		<br>
 	
@@ -404,48 +404,20 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																									<tr>
+																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#activar_modificacion_clave" title="details" class="method-name">activar_modificacion_clave</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Permite que las modificaciones puedan cambiar las claves de una fila</td></tr>
+												<td class="method-definition"><a href="#agregar_cadena" title="details" class="method-name">agregar_cadena</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Construye la respuesta gradualmente a partir de pares (clave, valor) cada uno de estos valores no será codificado ni en php ni decodificado en js</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#cargar_por_clave" title="details" class="method-name">cargar_por_clave</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#completar_campos_externos_fila" title="details" class="method-name">completar_campos_externos_fila</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Mecanismo de recuperación de valores para las columnas externas.</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#sincronizar" title="details" class="method-name">sincronizar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Sincroniza los cambios en la tabla con el medio de persistencia</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#sincronizar_actualizados" title="details" class="method-name">sincronizar_actualizados</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Sincroniza los cambios que suponen inserts o updates</td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    								
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#sincronizar_eliminados" title="details" class="method-name">sincronizar_eliminados</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Sincroniza los cambios que suponen eliminaciones</td></tr>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set" title="details" class="method-name">set</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Construye la respuesta en base al contenido pasado.</td></tr>
 													</table>
 			</div>
 			<br />
@@ -463,229 +435,85 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 
-<a name="methodactivar_modificacion_clave" id="activar_modificacion_clave"><!-- --></a>
+<a name="methodagregar_cadena" id="agregar_cadena"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">activar_modificacion_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 21]</span>
+	<span class="method-title">agregar_cadena</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void activar_modificacion_clave(
+		<code>void agregar_cadena(
+
+$clave, 
+$valor&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Permite que las modificaciones puedan cambiar las claves de una fila </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodcargar_por_clave" id="cargar_por_clave"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		    		
-	
-	<span class="method-title">cargar_por_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>boolean cargar_por_clave(
-array
-$clave&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave </div>
+	<div class="description">Construye la respuesta gradualmente a partir de pares (clave, valor) cada uno de estos valores no será codificado ni en php ni decodificado en js <p>En caso de necesitar codificacion/decodificacion queda a cargo del consumidor</p></div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$clave:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Arreglo asociativo campo-valor</span>			</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Falso si no se encontro ninguna fila</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodcompletar_campos_externos_fila" id="completar_campos_externos_fila"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		    		
-	
-	<span class="method-title">completar_campos_externos_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>array completar_campos_externos_fila(
-array
-$fila, [string
-$evento = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Mecanismo de recuperación de valores para las columnas externas. </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
+							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$fila:&nbsp;</span></td>
-				<td>
-				<span class="var-description"> Fila que toma de referencia la carga externa</span>			</td></tr>
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$evento:&nbsp;</span></td>
+				<span class="var-name">$valor:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Se devuelven los valores recuperados del medio de persistencia</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
 </div>
-<a name="methodsincronizar" id="sincronizar"><!-- --></a>
+<a name="methodset" id="set"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
-		    		
-	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 34]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>integer sincronizar(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Sincroniza los cambios en la tabla con el medio de persistencia </div>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Cantidad de registros modificados</td>
-    	
-  </tr>
-</table>
-<br />
-
-
 		
-		<br />
-</div>
-<a name="methodsincronizar_actualizados" id="sincronizar_actualizados"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
 	
-		    		
-	
-	<span class="method-title">sincronizar_actualizados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>integer sincronizar_actualizados(
+		<code>void set(
+mixed
+$contenido&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Sincroniza los cambios que suponen inserts o updates </div>
+	<div class="description">Construye la respuesta en base al contenido pasado. <p>Cuando se comunica este contenido a JS se adecua el formato según como fue el pedido inicialmente (datos o html)</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$contenido:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Cantidad de registros modificados</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
-<a name="methodsincronizar_eliminados" id="sincronizar_eliminados"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
 	
-		    		
-	
-	<span class="method-title">sincronizar_eliminados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>integer sincronizar_eliminados(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Sincroniza los cambios que suponen eliminaciones </div>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Cantidad de registros modificados</td>
-    	
-  </tr>
-</table>
-<br />
-
 
 		
 		<br />

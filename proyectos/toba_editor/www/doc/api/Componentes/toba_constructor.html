@@ -55,6 +55,11 @@
                           <div class="package">
 			Eis<br />
 		    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ajax_respuesta.html">					ajax_respuesta
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_boton.html">					boton
 					</a>    	    		</span>
     		
@@ -138,11 +143,6 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
-    			<a href="../Componentes/Persistencia/toba_ap_tabla_db_mt.html">					ap_tabla_db_mt
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_tabla_db_s.html">					ap_tabla_db_s
 					</a>    	    		</span>
     		
@@ -170,9 +170,6 @@
 	  </div>
   <div class="package">
 		    			<a href="../Componentes/toba_cargador.html">					cargador
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_catalogo.html">					catalogo
 					</a>    		
 	 <br />
 	    			<a href="../Componentes/toba_componente.html">					componente
@@ -371,12 +368,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-					<a href="#sec-vars">Propiedades</a>
-							
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -406,7 +400,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -434,7 +428,7 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#set_refresco_forzado" title="details" class="method-name">set_refresco_forzado</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Fuerza a que todos los componentes requeridos en este pedido de página no surjan de algún cache (util para testeos)</td></tr>
 																																																														</table>
 			</div>
 			<br />
@@ -452,9 +446,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodbuscar_runtime" id="buscar_runtime"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method buscar_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 97]</span>
+		<span class="method-title">static method buscar_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -494,9 +488,9 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodget_info" id="get_info"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+		<span class="method-title">static method get_info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
 </div>
 <br />
 
@@ -571,9 +565,9 @@ $resumumidos&nbsp;
 		<br />
 </div>
 <a name="methodget_metadatos_compilados" id="get_metadatos_compilados"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_metadatos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+		<span class="method-title">static method get_metadatos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
 </div>
 <br />
 
@@ -613,7 +607,7 @@ $item = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_runtime" id="get_runtime"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_runtime</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 20]</span>
 </div>
@@ -625,8 +619,8 @@ $item = false]&nbsp;
 		<code>static objeto get_runtime(
 array
 $id, [string
-$tipo = null], [
-$con_subclase = true]&nbsp;
+$tipo = null], [boolean
+$usar_cache = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -648,29 +642,23 @@ $con_subclase = true]&nbsp;
 				<td>
 				<span class="var-description"> Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas toba_recursos</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$con_subclase:&nbsp;</span></td>
+				<span class="var-name">$usar_cache:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Si el componente fue previamente construido en este pedido de página, retorna su referencia, sino lo crea.</span>			</td></tr>
 				</table>
 
 	<br />
 	
-<strong>Information Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Cuando la arquitectura 1 se acabe sacar el 3er parametro, es para que el ambs pueda crear un ut-form</td>
-  </tr>
-</table>
 
 		
 		<br />
 </div>
 <a name="methodset_refresco_forzado" id="set_refresco_forzado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method set_refresco_forzado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+		<span class="method-title">static method set_refresco_forzado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
 </div>
 <br />
 
@@ -684,7 +672,8 @@ $refrescar&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Fuerza a que todos los componentes requeridos en este pedido de página no surjan de algún cache (util para testeos) </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -704,14 +693,6 @@ $refrescar&nbsp;
 
 		</div>
 	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
-	</div>
-
-
 
 <br />
 <div class="credit">
@@ -719,7 +700,7 @@ $refrescar&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

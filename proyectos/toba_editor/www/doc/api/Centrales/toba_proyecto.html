@@ -65,6 +65,9 @@
 	    			<a href="../Centrales/toba_derechos.html">					derechos
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
 					</a>    		
 	 <br />
@@ -102,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_texto.html">					texto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_usuario.html">					usuario
@@ -209,12 +215,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-					<a href="#sec-consts">Constantes</a>
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -244,7 +247,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -257,13 +260,23 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																																																																																																																																																		<tr><td></td><td class="method-definition" nowrap>static
+						<td class="method-definition">Retorna el id del proyecto actualmente cargado en el pedido de página</td></tr>
+																																																																																																					<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_path" title="details" class="method-name">get_path</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el path base absoluto del proyecto</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_path_php" title="details" class="method-name">get_path_php</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' del proyecto</td></tr>
+																																															<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Centrales/toba_proyecto.html">toba_proyecto</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																			<tr>
+																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -303,7 +316,7 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_grupo_acceso_usuario_anonimo" title="details" class="method-name">get_grupo_acceso_usuario_anonimo</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_grupos_acceso_usuario_anonimo" title="details" class="method-name">get_grupos_acceso_usuario_anonimo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																													<tr>
 						<td nowrap align="right">
@@ -368,21 +381,7 @@
 													<td nowrap class="method-definition"><span class="method-result"><a href="../Centrales/Errores/toba_error.html">toba_error</a></span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_parametro" title="details" class="method-name">get_parametro</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el valor de un parámetro generico del proyecto (ej. descripcion) cacheado en la memoria</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_path" title="details" class="method-name">get_path</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el path base absoluto del proyecto</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_path_php" title="details" class="method-name">get_path_php</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el path absoluto de la carpeta 'php' del proyecto</td></tr>
-																				<tr>
+																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -415,7 +414,21 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#quitar_item_menu" title="details" class="method-name">quitar_item_menu</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#recuperar_datos_compilados" title="details" class="method-name">recuperar_datos_compilados</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#recuperar_datos_compilados_grupo" title="details" class="method-name">recuperar_datos_compilados_grupo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -459,7 +472,7 @@
 <a name="methodeliminar_instancia" id="eliminar_instancia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+		<span class="method-title">static method eliminar_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
 <br />
 
@@ -481,7 +494,7 @@
 <a name="methodget_id" id="get_id"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+		<span class="method-title">static method get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
 </div>
 <br />
 
@@ -493,7 +506,54 @@
     </td></tr></table>
     </td></tr></table><br /></div>
 
+	<div class="description">Retorna el id del proyecto actualmente cargado en el pedido de página </div>
+
+	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodget_path" id="get_path"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_path(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el path base absoluto del proyecto </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_path_php" id="get_path_php"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_path_php(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el path absoluto de la carpeta 'php' del proyecto </div>
+
 	<br />
 	
 
@@ -503,7 +563,7 @@
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
 </div>
 <br />
 
@@ -511,30 +571,11 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>static <a href="../Centrales/toba_proyecto.html">toba_proyecto</a> instancia(
-[
-$id_proyecto = null], [
-$recargar = false]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$id_proyecto:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$recargar:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
 	<br />
 	
 
@@ -548,7 +589,7 @@ $recargar = false]&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
+	<span class="method-title">cargar_info_basica</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
 </div>
 <br />
 
@@ -586,7 +627,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+	<span class="method-title">es_multiproyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -611,7 +652,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 376]</span>
+	<span class="method-title">existe_dato_compilado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 414]</span>
 </div>
 <br />
 
@@ -655,7 +696,7 @@ $metodo&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">get_definicion_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
 </div>
 <br />
 
@@ -699,7 +740,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 314]</span>
+	<span class="method-title">get_descripcion_permiso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 352]</span>
 </div>
 <br />
 
@@ -731,20 +772,20 @@ $permiso&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_grupo_acceso_usuario_anonimo" id="get_grupo_acceso_usuario_anonimo"><!-- --></a>
+<a name="methodget_grupos_acceso_usuario_anonimo" id="get_grupos_acceso_usuario_anonimo"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_grupo_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
+	<span class="method-title">get_grupos_acceso_usuario_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_grupo_acceso_usuario_anonimo(
+		<code>void get_grupos_acceso_usuario_anonimo(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -762,7 +803,7 @@ $permiso&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
+	<span class="method-title">get_info_fuente_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 233]</span>
 </div>
 <br />
 
@@ -806,7 +847,7 @@ $proyecto = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">get_info_punto_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -850,7 +891,7 @@ $proyecto = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 241]</span>
+	<span class="method-title">get_items_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
 </div>
 <br />
 
@@ -860,7 +901,7 @@ $proyecto = null]&nbsp;
 		<code>array get_items_menu(
 [string
 $proyecto = null], [string
-$grupo_acceso = null], unknown_type
+$grupos_acceso = null], unknown_type
 $solo_primer_nivel&nbsp;
 )</code>
     </td></tr></table>
@@ -885,7 +926,7 @@ $solo_primer_nivel&nbsp;
 					<tr><td class="indent">
 				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
+				<span class="var-name">$grupos_acceso:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Por defecto el del usuario actual</span>			</td></tr>
 				</table>
@@ -910,7 +951,7 @@ $solo_primer_nivel&nbsp;
 	
 		
 	
-	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+	<span class="method-title">get_items_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 311]</span>
 </div>
 <br />
 
@@ -919,8 +960,8 @@ $solo_primer_nivel&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_items_zona(
 
-$zona, 
-$grupo_acceso&nbsp;
+$zona, [
+$grupos_acceso = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -938,7 +979,7 @@ $grupo_acceso&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
+				<span class="var-name">$grupos_acceso:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -955,7 +996,7 @@ $grupo_acceso&nbsp;
 	
 		
 	
-	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
+	<span class="method-title">get_lista_permisos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 338]</span>
 </div>
 <br />
 
@@ -964,7 +1005,7 @@ $grupo_acceso&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_lista_permisos(
 [
-$grupo_acceso = null]&nbsp;
+$grupos_acceso = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -976,7 +1017,7 @@ $grupo_acceso = null]&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$grupo_acceso:&nbsp;</span></td>
+				<span class="var-name">$grupos_acceso:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -993,7 +1034,7 @@ $grupo_acceso = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
+	<span class="method-title">get_mensaje_objeto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 396]</span>
 </div>
 <br />
 
@@ -1037,7 +1078,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
+	<span class="method-title">get_mensaje_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 380]</span>
 </div>
 <br />
 
@@ -1074,7 +1115,7 @@ $indice&nbsp;
 	
 		
 	
-	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 326]</span>
+	<span class="method-title">get_mensaje_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 364]</span>
 </div>
 <br />
 
@@ -1111,7 +1152,7 @@ $indice&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 87]</span>
 </div>
 <br />
 
@@ -1151,65 +1192,13 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_path" id="get_path"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 124]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_path(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna el path base absoluto del proyecto </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodget_path_php" id="get_path_php"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_path_php</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_path_php(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna el path absoluto de la carpeta 'php' del proyecto </div>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodget_path_temp" id="get_path_temp"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
+	<span class="method-title">get_path_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
@@ -1235,7 +1224,7 @@ $id&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">get_www</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 171]</span>
 </div>
 <br />
 
@@ -1281,7 +1270,7 @@ $archivo = &quot;&quot;]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
+	<span class="method-title">get_www_temp</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 188]</span>
 </div>
 <br />
 
@@ -1327,7 +1316,7 @@ $archivo = '']&nbsp;
 	
 		
 	
-	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 256]</span>
+	<span class="method-title">puede_grupo_acceder_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
 </div>
 <br />
 
@@ -1336,7 +1325,6 @@ $archivo = '']&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void puede_grupo_acceder_item(
 
-$proyecto, 
 $item&nbsp;
 )</code>
     </td></tr></table>
@@ -1349,9 +1337,40 @@ $item&nbsp;
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<span class="var-name">$item:&nbsp;</span></td>
 				<td>
 							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodquitar_item_menu" id="quitar_item_menu"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">quitar_item_menu</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void quitar_item_menu(
+
+$item&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
@@ -1367,12 +1386,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_datos_compilados" id="recuperar_datos_compilados"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
+	<span class="method-title">recuperar_datos_compilados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 419]</span>
 </div>
 <br />
 
@@ -1410,13 +1429,78 @@ $metodo&nbsp;
 		
 		<br />
 </div>
+<a name="methodrecuperar_datos_compilados_grupo" id="recuperar_datos_compilados_grupo"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recuperar_datos_compilados_grupo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void recuperar_datos_compilados_grupo(
+
+$prefijo_clase, 
+$grupos, 
+$metodo, [
+$reindexar = true], [
+$orden = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$prefijo_clase:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$grupos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$metodo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$reindexar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$orden:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_parametro" id="set_parametro"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	<span class="method-title">set_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
 </div>
 <br />
 
@@ -1458,36 +1542,13 @@ $valor&nbsp;
 		</div>
 	</div>
 
-
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</div>
-		<div class="info-box-body">
-			<a name="constprefijo_punto_acceso" id="prefijo_punto_acceso"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-name">prefijo_punto_acceso</span>
-			 = <span class="var-default"> 'apex_pa_'</span>
-			<span class="smalllinenumber">[line 16]</span>
-		</span>
-	</div>
-
-		
-
-	<br />
-</div>
-		</div>
-	</div>
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

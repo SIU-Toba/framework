@@ -83,12 +83,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-					<a href="#sec-vars">Propiedades</a>
-							
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -118,29 +115,24 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																								<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
-						</td>
-						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																																																			<tr>
+																																																							<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_marcas" title="details" class="method-name">get_marcas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																													<tr>
+						<td class="method-definition">Retorna la marcas en un arreglo</td></tr>
+																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#marcar" title="details" class="method-name">marcar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Guarda una marca en la línea de tiempo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -152,9 +144,9 @@
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">float</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#tiempo_acumulado" title="details" class="method-name">tiempo_acumulado</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Calcula el tiempo enntre la primer y última marca registrada</td></tr>
 													</table>
 			</div>
 			<br />
@@ -171,28 +163,6 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
-<a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void instancia(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
 
 <a name="methodget_marcas" id="get_marcas"><!-- --></a>
 <div class="oddrow">
@@ -200,7 +170,7 @@
 	
 		
 	
-	<span class="method-title">get_marcas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
+	<span class="method-title">get_marcas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
 </div>
 <br />
 
@@ -212,7 +182,8 @@
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna la marcas en un arreglo </div>
+
 	<br />
 	
 
@@ -225,7 +196,7 @@
 	
 		
 	
-	<span class="method-title">marcar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
+	<span class="method-title">marcar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
 </div>
 <br />
 
@@ -240,7 +211,8 @@ $nivel = &quot;item&quot;]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Guarda una marca en la línea de tiempo </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -269,7 +241,7 @@ $nivel = &quot;item&quot;]&nbsp;
 	
 		
 	
-	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
+	<span class="method-title">registrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
 </div>
 <br />
 
@@ -314,19 +286,20 @@ $solicitud&nbsp;
 	
 		
 	
-	<span class="method-title">tiempo_acumulado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+	<span class="method-title">tiempo_acumulado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void tiempo_acumulado(
+		<code>float tiempo_acumulado(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Calcula el tiempo enntre la primer y última marca registrada </div>
+
 	<br />
 	
 
@@ -335,14 +308,6 @@ $solicitud&nbsp;
 </div>
 		</div>
 	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
-	</div>
-
-
 
 <br />
 <div class="credit">
@@ -350,7 +315,7 @@ $solicitud&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

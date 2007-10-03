@@ -65,6 +65,9 @@
 	    			<a href="../Centrales/toba_derechos.html">					derechos
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
 					</a>    		
 	 <br />
@@ -102,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_texto.html">					texto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_usuario.html">					usuario
@@ -209,17 +215,14 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-					<a href="#sec-vars">Propiedades</a>
-							
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		<div class="description">Esta clase maneja la VINCULACION entre ITEMS. Conoce todos los lugares a los que el <p>ITEM actual puede acceder (considerando el USUARIO que lo solicito)  Para navegar hacia estos items puede construir URLs e incluirlos en algún TAG</p></div>
+        		<div class="description">Esta clase maneja la VINCULACION entre operaciones. Conoce todos los lugares a los que la <p>operación actual puede acceder (considerando el USUARIO que lo solicito)  Para navegar hacia ellas puede construir URLs e incluirlos en algún TAG</p></div>
 
 
 
@@ -234,9 +237,9 @@
 			
 					
 		<tr>
-			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/Item.html'>
+			<td colspan="2"><strong><a href='../../wiki/trac/toba/wiki/Referencia/Operacion.html'>
 				<img border='0' style='vertical-align: middle' src="../media/wiki-small.png" />
-													Vincula ítems
+													Vincula operaciones
 									</a></strong></td></tr>
 		
 				
@@ -259,11 +262,11 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																					<tr><td></td><td class="method-definition" nowrap>static
+																																																																														<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -280,18 +283,18 @@
 						<td class="method-definition">Empaqueta una variable compleja (ej. array) para poder ser parte de una URL</td></tr>
 																								<tr>
 						<td nowrap align="right">
-															
+																					    														    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_autovinculo" title="details" class="method-name">crear_autovinculo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Crea un vinculo al mismo item propagando la zona</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    								
+																					    														    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_vinculo" title="details" class="method-name">crear_vinculo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Crea un vinculo hacia un item</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -314,6 +317,13 @@
 													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#generar_solicitud" title="details" class="method-name">generar_solicitud</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Generacion directa de una URL que representa un posible futuro acceso a la infraestructura  No se chequean permisos</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_url" title="details" class="method-name">get_url</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Genera una url que apunta a una operación de un proyecto</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -376,7 +386,7 @@
 <a name="methodurl_a_variable" id="url_a_variable"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		    		<span class="method-title">static method url_a_variable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 242]</span>
+		    		<span class="method-title">static method url_a_variable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 251]</span>
 </div>
 <br />
 
@@ -419,7 +429,7 @@ $url&nbsp;
 <a name="methodvariable_a_url" id="variable_a_url"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		    		<span class="method-title">static method variable_a_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+		    		<span class="method-title">static method variable_a_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 233]</span>
 </div>
 <br />
 
@@ -464,9 +474,9 @@ $variable&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		
+		    		    		
 	
-	<span class="method-title">crear_autovinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
+	<span class="method-title">crear_autovinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 46]</span>
 </div>
 <br />
 
@@ -481,8 +491,7 @@ $opciones = array()]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Crea un vinculo al mismo item propagando la zona </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -500,7 +509,20 @@ $opciones = array()]&nbsp;
 				</table>
 
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../Centrales/toba_vinculador.html#methodget_url">toba_vinculador::get_url()</a></td>
+    	
+  </tr>
+  <tr>
+    <td class="indent">
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Usar get_url</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -509,69 +531,64 @@ $opciones = array()]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		    		
+		    		    		
 	
-	<span class="method-title">crear_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+	<span class="method-title">crear_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>string crear_vinculo(
-[string
-$proyecto = null], [string
-$item = null], [array
-$parametros = array()], [array
+		<code>void crear_vinculo(
+[
+$proyecto = null], [
+$item = null], [
+$parametros = array()], [
 $opciones = array()]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Crea un vinculo hacia un item </div>
-
+	
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$proyecto:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Proyecto destino, por defecto el actual</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$item:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Item destino, por defecto el actual</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Parametros pasados al item, es un arreglo asociativo id_parametro =&gt; valor</span>			</td></tr>
+							</td></tr>
 					<tr><td class="indent">
-				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$opciones:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Arreglo asociativo de opciones ellas son:  <ol><li><div class="src-line">&nbsp;<span class="src-id">zona&nbsp;</span>=&gt;&nbsp;<span class="src-id">Activa&nbsp;la&nbsp;propagación&nbsp;automática&nbsp;del&nbsp;editable&nbsp;en&nbsp;la&nbsp;zona</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">cronometrar&nbsp;</span>=&gt;&nbsp;<span class="src-id">Indica&nbsp;si&nbsp;la&nbsp;solicitud&nbsp;generada&nbsp;por&nbsp;este&nbsp;vinculo&nbsp;debe&nbsp;cronometrarse</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">param_html&nbsp;</span>=&gt;&nbsp;<span class="src-id">Parametros&nbsp;para&nbsp;la&nbsp;construccion&nbsp;de&nbsp;HTML</span>.&nbsp;<span class="src-id">Si&nbsp;esta&nbsp;presente&nbsp;se&nbsp;genera&nbsp;HTML&nbsp;en&nbsp;vez&nbsp;de&nbsp;una&nbsp;URL</span>.&nbsp;<span class="src-id">Las&nbsp;claves&nbsp;asociativas&nbsp;son</span>:&nbsp;<span class="src-id">frame</span><span class="src-sym">,&nbsp;</span><span class="src-id">clase_css</span><span class="src-sym">,&nbsp;</span><span class="src-id">texto</span><span class="src-sym">,&nbsp;</span><span class="src-id">tipo&nbsp;</span><span class="src-sym">[</span><span class="src-id">normal</span><span class="src-sym">,</span><span class="src-id">popup</span><span class="src-sym">]</span><span class="src-sym">,&nbsp;</span><span class="src-id">inicializacion</span><span class="src-sym">,&nbsp;</span><span class="src-id">imagen_recurso_origen</span><span class="src-sym">,&nbsp;</span><span class="src-id">imagen</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">texto&nbsp;</span>=&gt;&nbsp;<span class="src-id">Texto&nbsp;del&nbsp;vínculo</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">menu&nbsp;</span>=&gt;&nbsp;<span class="src-id">El&nbsp;vinculo&nbsp;esta&nbsp;solicitado&nbsp;por&nbsp;una&nbsp;opción&nbsp;menu</span>?</div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">celda_memoria&nbsp;</span>=&gt;&nbsp;<span class="src-id">Namespace&nbsp;de&nbsp;memoria&nbsp;a&nbsp;utilizar</span><span class="src-sym">,&nbsp;</span><span class="src-id">por&nbsp;defecto&nbsp;el&nbsp;actual</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">servicio&nbsp;</span>=&gt;&nbsp;<span class="src-id">Servicio&nbsp;solicitado</span><span class="src-sym">,&nbsp;</span><span class="src-id">por&nbsp;defecto&nbsp;get_html</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id">objetos_destino&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-id">proyecto</span><span class="src-sym">,&nbsp;</span><span class="src-id">id_objeto</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span>...<span class="src-sym">)&nbsp;</span><span class="src-id">Objetos&nbsp;destino&nbsp;del&nbsp;vinculo</span></div></li>
-<li><div class="src-line">&nbsp;<span class="src-id"><a href="../Centrales/toba_vinculador.html#var$prefijo">prefijo</a>&nbsp;</span>=&gt;&nbsp;<span class="src-id">Punto&nbsp;de&nbsp;acceso&nbsp;a&nbsp;llamar</span>.</div></li>
-</ol></span>			</td></tr>
+							</td></tr>
 				</table>
 
 	<br />
 	<table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="indent">
-    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Una URL o el link html en caso</td>
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../Centrales/toba_vinculador.html#methodget_url">toba_vinculador::get_url()</a></td>
+    	
+  </tr>
+  <tr>
+    <td class="indent">
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Usar get_url</td>
     	
   </tr>
 </table>
@@ -588,7 +605,7 @@ $opciones = array()]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 275]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -640,7 +657,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
+	<span class="method-title">generar_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -665,7 +682,7 @@ $parametros&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">generar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">generar_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
 </div>
 <br />
 
@@ -770,7 +787,83 @@ $prefijo = null]&nbsp;
   </tr>
   <tr>
     <td class="indent">
-    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 1.0 usar crear_vinculo o crear_autovinculo</td>
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Desde 1.0 usar get_url o get_url_</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodget_url" id="get_url"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">get_url</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>string get_url(
+[string
+$proyecto = null], [string
+$item = null], [array
+$parametros = array()], [array
+$opciones = array()]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Genera una url que apunta a una operación de un proyecto </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Proyecto destino, por defecto el actual</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$item:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Item destino, por defecto el actual</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parametros:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Parametros pasados al item, es un arreglo asociativo id_parametro =&gt; valor</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$opciones:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo asociativo de opciones ellas son:  <ol><li><div class="src-line">&nbsp;<span class="src-id">zona&nbsp;</span>=&gt;&nbsp;<span class="src-id">Activa&nbsp;la&nbsp;propagación&nbsp;automática&nbsp;del&nbsp;editable&nbsp;en&nbsp;la&nbsp;zona</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">cronometrar&nbsp;</span>=&gt;&nbsp;<span class="src-id">Indica&nbsp;si&nbsp;la&nbsp;solicitud&nbsp;generada&nbsp;por&nbsp;este&nbsp;vinculo&nbsp;debe&nbsp;cronometrarse</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">param_html&nbsp;</span>=&gt;&nbsp;<span class="src-id">Parametros&nbsp;para&nbsp;la&nbsp;construccion&nbsp;de&nbsp;HTML</span>.&nbsp;<span class="src-id">Si&nbsp;esta&nbsp;presente&nbsp;se&nbsp;genera&nbsp;HTML&nbsp;en&nbsp;vez&nbsp;de&nbsp;una&nbsp;URL</span>.&nbsp;<span class="src-id">Las&nbsp;claves&nbsp;asociativas&nbsp;son</span>:&nbsp;<span class="src-id">frame</span><span class="src-sym">,&nbsp;</span><span class="src-id">clase_css</span><span class="src-sym">,&nbsp;</span><span class="src-id">texto</span><span class="src-sym">,&nbsp;</span><span class="src-id">tipo&nbsp;</span><span class="src-sym">[</span><span class="src-id">normal</span><span class="src-sym">,</span><span class="src-id">popup</span><span class="src-sym">]</span><span class="src-sym">,&nbsp;</span><span class="src-id">inicializacion</span><span class="src-sym">,&nbsp;</span><span class="src-id">imagen_recurso_origen</span><span class="src-sym">,&nbsp;</span><span class="src-id">imagen</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">texto&nbsp;</span>=&gt;&nbsp;<span class="src-id">Texto&nbsp;del&nbsp;vínculo</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">menu&nbsp;</span>=&gt;&nbsp;<span class="src-id">El&nbsp;vinculo&nbsp;esta&nbsp;solicitado&nbsp;por&nbsp;una&nbsp;opción&nbsp;menu</span>?</div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">celda_memoria&nbsp;</span>=&gt;&nbsp;<span class="src-id">Namespace&nbsp;de&nbsp;memoria&nbsp;a&nbsp;utilizar</span><span class="src-sym">,&nbsp;</span><span class="src-id">por&nbsp;defecto&nbsp;el&nbsp;actual</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">servicio&nbsp;</span>=&gt;&nbsp;<span class="src-id">Servicio&nbsp;solicitado</span><span class="src-sym">,&nbsp;</span><span class="src-id">por&nbsp;defecto&nbsp;get_html</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id">objetos_destino&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-id">proyecto</span><span class="src-sym">,&nbsp;</span><span class="src-id">id_objeto</span><span class="src-sym">)</span><span class="src-sym">,&nbsp;</span>...<span class="src-sym">)&nbsp;</span><span class="src-id">Objetos&nbsp;destino&nbsp;del&nbsp;vinculo</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-id"><a href="../Centrales/toba_vinculador.html#var$prefijo">prefijo</a>&nbsp;</span>=&gt;&nbsp;<span class="src-id">Punto&nbsp;de&nbsp;acceso&nbsp;a&nbsp;llamar</span>.</div></li>
+</ol></span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Una URL o el link html en caso</td>
     	
   </tr>
 </table>
@@ -781,12 +874,12 @@ $prefijo = null]&nbsp;
 		<br />
 </div>
 <a name="methodinfo" id="info"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 390]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 399]</span>
 </div>
 <br />
 
@@ -807,12 +900,12 @@ $prefijo = null]&nbsp;
 		<br />
 </div>
 <a name="methodnavegar_a" id="navegar_a"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">navegar_a</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 348]</span>
+	<span class="method-title">navegar_a</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 357]</span>
 </div>
 <br />
 
@@ -851,7 +944,7 @@ $cronometrar = false]&nbsp;
 				<td>
 				<span class="var-name">$parametros:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> Parametros pasados al ITEM (Array asociativo de strings)</span>			</td></tr>
+				<span class="var-description"> Parametros pasados a la OPERACION (Array asociativo de strings)</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
 				<td>
@@ -881,12 +974,12 @@ $cronometrar = false]&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_vinculo" id="registrar_vinculo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">registrar_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
+	<span class="method-title">registrar_vinculo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
 </div>
 <br />
 
@@ -919,14 +1012,6 @@ $vinculo&nbsp;
 </div>
 		</div>
 	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
-	</div>
-
-
 
 <br />
 <div class="credit">
@@ -934,7 +1019,7 @@ $vinculo&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

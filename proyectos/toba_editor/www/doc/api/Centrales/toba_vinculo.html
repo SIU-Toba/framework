@@ -65,6 +65,9 @@
 	    			<a href="../Centrales/toba_derechos.html">					derechos
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
 					</a>    		
 	 <br />
@@ -102,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_texto.html">					texto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_usuario.html">					usuario
@@ -209,11 +215,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-						
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -250,11 +254,11 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																					<tr>
+																																																																																																																																																																																														<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -344,14 +348,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_editable_zona" title="details" class="method-name">set_editable_zona</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Agrega a la URL generado un parámetro que carga automáticamente la zona del item destino del vínculo</td></tr>
+						<td class="method-definition">Agrega a la URL generado un parámetro que carga automáticamente la zona de la operación destino del vínculo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_item" title="details" class="method-name">set_item</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Cambia el item destino del vinculo</td></tr>
+						<td class="method-definition">Cambia la operación destino del vinculo</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -373,6 +377,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_popup_parametros" title="details" class="method-name">set_popup_parametros</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_propagar_zona" title="details" class="method-name">set_propagar_zona</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina si el vinculo actual propaga el editable de la zona (si tiene zona y esta cargada)</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -398,7 +409,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -456,12 +467,12 @@ $opciones_popup = null]&nbsp;
 		<br />
 </div>
 <a name="methodactivar_popup" id="activar_popup"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">activar_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
+	<span class="method-title">activar_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 115]</span>
 </div>
 <br />
 
@@ -481,12 +492,12 @@ $opciones_popup = null]&nbsp;
 		<br />
 </div>
 <a name="methodagregar_opcion" id="agregar_opcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+	<span class="method-title">agregar_opcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -525,7 +536,7 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodagregar_parametro" id="agregar_parametro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -570,12 +581,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methoddesactivar_popup" id="desactivar_popup"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">desactivar_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">desactivar_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
 </div>
 <br />
 
@@ -595,12 +606,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodestado_popup" id="estado_popup"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">estado_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 116]</span>
+	<span class="method-title">estado_popup</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
 </div>
 <br />
 
@@ -620,7 +631,7 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_item" id="get_item"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -645,12 +656,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_opciones" id="get_opciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">get_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
 </div>
 <br />
 
@@ -670,12 +681,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros" id="get_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -695,12 +706,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_popup_parametros" id="get_popup_parametros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_popup_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
+	<span class="method-title">get_popup_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 135]</span>
 </div>
 <br />
 
@@ -720,7 +731,7 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_proyecto" id="get_proyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -745,12 +756,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodget_target" id="get_target"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_target</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">get_target</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
 </div>
 <br />
 
@@ -770,7 +781,7 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodset_editable_zona" id="set_editable_zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -789,7 +800,7 @@ $editable&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Agrega a la URL generado un parámetro que carga automáticamente la zona del item destino del vínculo </div>
+	<div class="description">Agrega a la URL generado un parámetro que carga automáticamente la zona de la operación destino del vínculo </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -816,7 +827,7 @@ $editable&nbsp;
 		<br />
 </div>
 <a name="methodset_item" id="set_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -836,7 +847,7 @@ $item&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Cambia el item destino del vinculo </div>
+	<div class="description">Cambia la operación destino del vinculo </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -861,12 +872,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodset_opciones" id="set_opciones"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+	<span class="method-title">set_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
 </div>
 <br />
 
@@ -898,7 +909,7 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodset_parametros" id="set_parametros"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -936,12 +947,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodset_popup_parametros" id="set_popup_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_popup_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
+	<span class="method-title">set_popup_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
 </div>
 <br />
 
@@ -972,13 +983,59 @@ $parametros&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_propagar_zona" id="set_propagar_zona"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">set_propagar_zona</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_propagar_zona(
+[boolean
+$propagar = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina si el vinculo actual propaga el editable de la zona (si tiene zona y esta cargada) </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">boolean</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$propagar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../SalidaGrafica/toba_zona.html">toba_zona</a></td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodset_target" id="set_target"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_target</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 131]</span>
+	<span class="method-title">set_target</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 140]</span>
 </div>
 <br />
 
@@ -1012,15 +1069,13 @@ $id&nbsp;
 		</div>
 	</div>
 
-
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

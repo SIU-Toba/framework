@@ -55,6 +55,11 @@
                           <div class="package">
 			Eis<br />
 		    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_ajax_respuesta.html">					ajax_respuesta
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Eis/toba_boton.html">					boton
 					</a>    	    		</span>
     		
@@ -138,11 +143,6 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
-    			<a href="../../Componentes/Persistencia/toba_ap_tabla_db_mt.html">					ap_tabla_db_mt
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Persistencia/toba_ap_tabla_db_s.html">					ap_tabla_db_s
 					</a>    	    		</span>
     		
@@ -170,9 +170,6 @@
 	  </div>
   <div class="package">
 		    			<a href="../../Componentes/toba_cargador.html">					cargador
-					</a>    		
-	 <br />
-	    			<a href="../../Componentes/toba_catalogo.html">					catalogo
 					</a>    		
 	 <br />
 	    			<a href="../../Componentes/toba_componente.html">					componente
@@ -372,12 +369,9 @@
 					<span class="disabled">Resúmen de la Clase</span> |
 		
 					<a href="#sec-descendents">Subclases</a>
-			|									<a href="#sec-method-summary">Métodos</a>
-			|			
+			|									<a href="#sec-method-summary">Métodos Propios</a>
 				
-					<a href="#sec-vars">Propiedades</a>
-							
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -407,15 +401,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_tab.html">toba_tab</a></td>
-					<td>
-											Representa a un tab o solapa, ya sea vertical u horizontal
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_evento_usuario.html">toba_evento_usuario</a></td>
 					<td>
 											Representa un evento asociado a un EI
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_tab.html">toba_tab</a></td>
+					<td>
+											Representa a un tab o solapa, ya sea vertical u horizontal
 										</td>
 				</tr>
 							</table>
@@ -428,11 +422,11 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																<tr>
+																																																																																																																																																																																																																									<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -445,112 +439,119 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#activar" title="details" class="method-name">activar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón desactivado se muestra pero no se puede clickear</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#anular" title="details" class="method-name">anular</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón anulado no se envia al cliente</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#desactivar" title="details" class="method-name">desactivar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón desactivado se muestra pero no se puede clickear</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#esta_activado" title="details" class="method-name">esta_activado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Un botón desactivado se muestra pero no se puede clickear</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#esta_anulado" title="details" class="method-name">esta_anulado</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón anulado no se envia al cliente</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#esta_desactivado" title="details" class="method-name">esta_desactivado</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#esta_oculto" title="details" class="method-name">esta_oculto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón oculto se envia al cliente pero oculto via css</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">unknown</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_etiqueta" title="details" class="method-name">get_etiqueta</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna la etiqueta asociada al botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_imagen" title="details" class="method-name">get_imagen</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna el tag &lt;img&gt; del botón, si tiene imagen asociada</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_imagen_url_rel" title="details" class="method-name">get_imagen_url_rel</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna la Direccion de la imagen relativa a la carpeta www/img</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_msg_ayuda" title="details" class="method-name">get_msg_ayuda</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna el mensaje de ayuda contextual que tiene el botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_msg_confirmacion" title="details" class="method-name">get_msg_confirmacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna si existe el  mensaje de confirmación cuando el usuario clickea el botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#mostrar" title="details" class="method-name">mostrar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón oculto se envia al cliente pero oculto via css</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ocultar" title="details" class="method-name">ocultar</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Un botón oculto se envia al cliente pero oculto via css</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#posee_confirmacion" title="details" class="method-name">posee_confirmacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Indica si al presionar se muestra o no una confirmación</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#restituir" title="details" class="method-name">restituir</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Deshace la anulación del botón</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_estilo_css" title="details" class="method-name">set_estilo_css</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia la clase CSS del botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_etiqueta" title="details" class="method-name">set_etiqueta</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Etiqueta visible en el botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -564,21 +565,21 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_imagen" title="details" class="method-name">set_imagen</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Cambia la imagen asociada al botón</td></tr>
+						<td class="method-definition">Cambia la imagen asociada al botón, se muestra al lado de la etiqueta si la posee</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_msg_ayuda" title="details" class="method-name">set_msg_ayuda</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Ayuda contextual que brindará el botón</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_msg_confirmacion" title="details" class="method-name">set_msg_confirmacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Muestra un mensaje de confirmación cuando el usuario clickea el botón</td></tr>
 													</table>
 			</div>
 			<br />
@@ -602,7 +603,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 15]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 16]</span>
 </div>
 <br />
 
@@ -611,7 +612,8 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>toba_boton __construct(
 [
-$datos = null]&nbsp;
+$datos = null], [
+$contenedor = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -623,6 +625,12 @@ $datos = null]&nbsp;
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$datos:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$contenedor:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -639,7 +647,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">activar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
+	<span class="method-title">activar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
 </div>
 <br />
 
@@ -651,7 +659,8 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón desactivado se muestra pero no se puede clickear </div>
+
 	<br />
 	
 
@@ -664,7 +673,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">anular</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
+	<span class="method-title">anular</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 225]</span>
 </div>
 <br />
 
@@ -676,7 +685,8 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón anulado no se envia al cliente </div>
+
 	<br />
 	
 
@@ -689,7 +699,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">desactivar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 191]</span>
 </div>
 <br />
 
@@ -701,7 +711,34 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
+	<div class="description">Un botón desactivado se muestra pero no se puede clickear </div>
+
+	<br />
 	
+
+		
+		<br />
+</div>
+<a name="methodesta_activado" id="esta_activado"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">esta_activado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean esta_activado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Un botón desactivado se muestra pero no se puede clickear </div>
+
 	<br />
 	
 
@@ -709,49 +746,25 @@ $datos = null]&nbsp;
 		<br />
 </div>
 <a name="methodesta_anulado" id="esta_anulado"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">esta_anulado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_anulado(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodesta_desactivado" id="esta_desactivado"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">esta_desactivado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">esta_anulado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_desactivado(
+		<code>boolean esta_anulado(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón anulado no se envia al cliente </div>
+
 	<br />
 	
 
@@ -764,19 +777,20 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">esta_oculto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 40]</span>
+	<span class="method-title">esta_oculto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void esta_oculto(
+		<code>boolean esta_oculto(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón oculto se envia al cliente pero oculto via css </div>
+
 	<br />
 	
 
@@ -787,23 +801,32 @@ $datos = null]&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_etiqueta(
+		<code>unknown get_etiqueta(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna la etiqueta asociada al botón </div>
+
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodset_etiqueta">toba_boton::set_etiqueta()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -812,9 +835,9 @@ $datos = null]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
+	<span class="method-title">get_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 102]</span>
 </div>
 <br />
 
@@ -826,9 +849,18 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna el tag &lt;img&gt; del botón, si tiene imagen asociada </div>
+
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodset_imagen">toba_boton::set_imagen()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -839,7 +871,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_imagen_url_rel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
+	<span class="method-title">get_imagen_url_rel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -851,7 +883,8 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna la Direccion de la imagen relativa a la carpeta www/img </div>
+
 	<br />
 	
 
@@ -862,23 +895,32 @@ $datos = null]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_msg_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 62]</span>
+	<span class="method-title">get_msg_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 92]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_msg_ayuda(
+		<code>string get_msg_ayuda(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna el mensaje de ayuda contextual que tiene el botón </div>
+
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodset_msg_ayuda">toba_boton::set_msg_ayuda()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -887,9 +929,9 @@ $datos = null]&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
+	<span class="method-title">get_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 126]</span>
 </div>
 <br />
 
@@ -901,9 +943,18 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna si existe el  mensaje de confirmación cuando el usuario clickea el botón </div>
+
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodset_msg_confirmacion">toba_boton::set_msg_confirmacion()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -914,7 +965,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 142]</span>
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
 </div>
 <br />
 
@@ -926,7 +977,8 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón oculto se envia al cliente pero oculto via css </div>
+
 	<br />
 	
 
@@ -939,7 +991,7 @@ $datos = null]&nbsp;
 	
 		
 	
-	<span class="method-title">ocultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 137]</span>
+	<span class="method-title">ocultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
 </div>
 <br />
 
@@ -951,7 +1003,8 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Un botón oculto se envia al cliente pero oculto via css </div>
+
 	<br />
 	
 
@@ -962,23 +1015,32 @@ $datos = null]&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">posee_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+	<span class="method-title">posee_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void posee_confirmacion(
+		<code>boolean posee_confirmacion(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Indica si al presionar se muestra o no una confirmación </div>
+
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodset_msg_confirmacion">toba_boton::set_msg_confirmacion()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -987,9 +1049,9 @@ $datos = null]&nbsp;
 <div class="evenrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">restituir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 154]</span>
+	<span class="method-title">restituir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 235]</span>
 </div>
 <br />
 
@@ -1001,7 +1063,54 @@ $datos = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
+	<div class="description">Deshace la anulación del botón <p>Un botón anulado no se envia al cliente</p></div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_boton.html#methodanular">toba_boton::anular()</a></td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodset_estilo_css" id="set_estilo_css"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
 	
+		
+	
+	<span class="method-title">set_estilo_css</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 181]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_estilo_css(
+string
+$estilo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia la clase CSS del botón </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$estilo:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -1009,12 +1118,12 @@ $datos = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_etiqueta" id="set_etiqueta"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -1028,7 +1137,8 @@ $texto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Etiqueta visible en el botón </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1046,12 +1156,12 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodset_id" id="set_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+	<span class="method-title">set_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 133]</span>
 </div>
 <br />
 
@@ -1083,12 +1193,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodset_imagen" id="set_imagen"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+	<span class="method-title">set_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -1103,7 +1213,7 @@ $origen = 'apex']&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Cambia la imagen asociada al botón </div>
+	<div class="description">Cambia la imagen asociada al botón, se muestra al lado de la etiqueta si la posee </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1128,12 +1238,12 @@ $origen = 'apex']&nbsp;
 		<br />
 </div>
 <a name="methodset_msg_ayuda" id="set_msg_ayuda"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_msg_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 101]</span>
+	<span class="method-title">set_msg_ayuda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -1147,7 +1257,8 @@ $texto&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Ayuda contextual que brindará el botón </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -1165,12 +1276,12 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodset_msg_confirmacion" id="set_msg_confirmacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 120]</span>
+	<span class="method-title">set_msg_confirmacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 
@@ -1178,21 +1289,22 @@ $texto&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void set_msg_confirmacion(
-
+string
 $texto&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Muestra un mensaje de confirmación cuando el usuario clickea el botón </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$texto:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Mensaje a mostrar</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1203,14 +1315,6 @@ $texto&nbsp;
 </div>
 		</div>
 	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
-	</div>
-
-
 
 <br />
 <div class="credit">
@@ -1218,7 +1322,7 @@ $texto&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

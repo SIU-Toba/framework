@@ -59,9 +59,6 @@
 	    			<a href="../Varios/toba_clase_php.html">					clase_php
 					</a>    		
 	 <br />
-	    			<a href="../Varios/toba_editor.html">					editor
-					</a>    		
-	 <br />
 	    			<a href="../Varios/toba_editor_archivos.html">					editor_archivos
 					</a>    		
 	 <br />
@@ -107,17 +104,16 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-							<a href="#sec-inherited">Propiedades y Métodos Heredados</a>
-			|							<a href="#sec-method-summary">Métodos</a>
-						
+							<a href="#sec-inherited">Métodos Heredados</a>
+			|							<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		
+        		<div class="description">Permite hacer reemplazos masivos en un archivo de texto </div>
+
 
 
 		
@@ -127,7 +123,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /lib/toba_editor_archivos.php [<span class="field">line 30</span>]
+			Ubicada en /lib/toba_editor_archivos.php [<span class="field">line 42</span>]
 		</p>	
 		<br>
 	
@@ -142,49 +138,36 @@
 
 	<a name="sec-inherited"></a>
 	<div class="info-box">
-		<div class="info-box-title">Propiedades y Métodos Heredados</div>
+		<div class="info-box-title">Métodos Heredados</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 				<tr>
-					<th class="class-table-header" width="30%">Propiedades</th>
-					<th class="class-table-header" width="40%">Métodos</th>
-				</tr>
-				<tr>
-					<td width="30%">
-													<p>Heredado de <span class="classname"><a href="../Varios/toba_editor_texto.html">toba_editor_texto</a></span></p>
+					<td width="100%">
+													<p>Heredado de <span class="classname"><strong><a href="../Varios/toba_editor_texto.html">toba_editor_texto</a></strong></span></p>
 							<blockquote>
 								<dl>
-																			<dt>
-											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#var$id_sustitucion">toba_editor_texto::$id_sustitucion</a></span>
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#methodagregar_sustitucion">agregar_sustitucion()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Ingresa criterios de reemplazo</span>
 										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#var$sustituciones">toba_editor_texto::$sustituciones</a></span>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#methodprocesar">procesar()</a></span>
 										</dt>
 										<dd>
-											<span class="method-definition"></span>
+											<span class="method-definition">Procesa todos las sustituciones ingresadas</span>
 										</dd>
-																	</dl>
-							</blockquote>
-											</td>
-					<td width="40%">
-													<p>Heredado de <span class="classname"><a href="../Varios/toba_editor_texto.html">toba_editor_texto</a></span></p>
-							<blockquote>
-								<dl>
-																			<dt>
-											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#methodagregar_sustitucion">toba_editor_texto::agregar_sustitucion()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition"></span>
-										</dd>
-																			<dt>
-											<span class="method-definition"><a href="../Varios/toba_editor_texto.html#methodprocesar">toba_editor_texto::procesar()</a></span>
-										</dt>
-										<dd>
-											<span class="method-definition"></span>
-										</dd>
+										
 																	</dl>
 							</blockquote>
 											</td>
@@ -196,7 +179,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -206,14 +189,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#procesar_archivo" title="details" class="method-name">procesar_archivo</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Procesa todos las sustituciones ingresadas tomando un archivo de entrada y uno de salida</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#procesar_archivos" title="details" class="method-name">procesar_archivos</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Procesa las sustituciones en un conjunto de archivos</td></tr>
 													</table>
 			</div>
 			<br />
@@ -232,12 +215,12 @@
 			<a name='method_detail'></a>
 
 <a name="methodprocesar_archivo" id="procesar_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">procesar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
+	<span class="method-title">procesar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
 </div>
 <br />
 
@@ -245,28 +228,29 @@
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void procesar_archivo(
-
-$archivo, [
+string
+$archivo, [string
 $archivo_resultado = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Procesa todos las sustituciones ingresadas tomando un archivo de entrada y uno de salida </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$archivo:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Path del archivo de entrada</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$archivo_resultado:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Path del archivo resultante</span>			</td></tr>
 				</table>
 
 	<br />
@@ -276,12 +260,12 @@ $archivo_resultado = null]&nbsp;
 		<br />
 </div>
 <a name="methodprocesar_archivos" id="procesar_archivos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">procesar_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
+	<span class="method-title">procesar_archivos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 60]</span>
 </div>
 <br />
 
@@ -289,21 +273,22 @@ $archivo_resultado = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void procesar_archivos(
-
+array
 $archivos&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Procesa las sustituciones en un conjunto de archivos </div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$archivos:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Arreglo de paths de archivos</span>			</td></tr>
 				</table>
 
 	<br />
@@ -315,15 +300,13 @@ $archivos&nbsp;
 		</div>
 	</div>
 
-
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

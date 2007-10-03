@@ -112,12 +112,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-					<a href="#sec-consts">Constantes</a>
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -150,7 +147,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -170,10 +167,10 @@
 						<td class="method-definition"><a href="#existe_conexion" title="details" class="method-name">existe_conexion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">¿Hay una conexión abierta a la base?</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
-													<span class="method-result">void</span>&nbsp;&nbsp;
+													<span class="method-result">array()</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_bases_definidas" title="details" class="method-name">get_bases_definidas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Retorna un arreglo de configuraciones de bases definidas en bases.ini</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">db</span>&nbsp;&nbsp;
 						</td>
@@ -227,7 +224,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcargar_bases_definidas" id="cargar_bases_definidas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method cargar_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
@@ -250,9 +247,9 @@
 		<br />
 </div>
 <a name="methoddesconectar" id="desconectar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
 </div>
 <br />
 
@@ -285,9 +282,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste_conexion" id="existe_conexion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
 </div>
 <br />
 
@@ -320,21 +317,22 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_bases_definidas" id="get_bases_definidas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
+		<span class="method-title">static method get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>static void get_bases_definidas(
+		<code>static array() get_bases_definidas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Retorna un arreglo de configuraciones de bases definidas en bases.ini </div>
+
 	<br />
 	
 
@@ -342,9 +340,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_db" id="get_db"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
+		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
 <br />
 
@@ -377,9 +375,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_db_de_fuente" id="get_db_de_fuente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_db_de_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
+		<span class="method-title">static method get_db_de_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
 </div>
 <br />
 
@@ -425,7 +423,7 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros_base" id="get_parametros_base"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_parametros_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
 </div>
@@ -460,9 +458,9 @@ $id_base&nbsp;
 		<br />
 </div>
 <a name="methodrefrescar" id="refrescar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
+		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
 </div>
 <br />
 
@@ -498,36 +496,13 @@ $nombre&nbsp;
 		</div>
 	</div>
 
-
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</div>
-		<div class="info-box-body">
-			<a name="constpath_archivo_bases" id="path_archivo_bases"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-name">path_archivo_bases</span>
-			 = <span class="var-default"> '/instalacion/bases.ini'</span>
-			<span class="smalllinenumber">[line 13]</span>
-		</span>
-	</div>
-
-		
-
-	<br />
-</div>
-		</div>
-	</div>
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

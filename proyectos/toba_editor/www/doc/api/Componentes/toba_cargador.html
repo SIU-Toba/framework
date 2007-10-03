@@ -55,6 +55,11 @@
                           <div class="package">
 			Eis<br />
 		    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_ajax_respuesta.html">					ajax_respuesta
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Eis/toba_boton.html">					boton
 					</a>    	    		</span>
     		
@@ -138,11 +143,6 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
-    			<a href="../Componentes/Persistencia/toba_ap_tabla_db_mt.html">					ap_tabla_db_mt
-					</a>    	    		</span>
-    		
-	 <br />
-	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Persistencia/toba_ap_tabla_db_s.html">					ap_tabla_db_s
 					</a>    	    		</span>
     		
@@ -170,9 +170,6 @@
 	  </div>
   <div class="package">
 		    			<a href="../Componentes/toba_cargador.html">					cargador
-					</a>    		
-	 <br />
-	    			<a href="../Componentes/toba_catalogo.html">					catalogo
 					</a>    		
 	 <br />
 	    			<a href="../Componentes/toba_componente.html">					componente
@@ -371,12 +368,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-			|			
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-					<a href="#sec-vars">Propiedades</a>
-							
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -406,37 +400,21 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																												<tr><td></td><td class="method-definition" nowrap>static
+																																	<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">string</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#get_tipo" title="details" class="method-name">get_tipo</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el tipo al que pertenece un componente</td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result"><a href="../Componentes/toba_cargador.html">toba_cargador</a></span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																																	<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#crear_cache_simple" title="details" class="method-name">crear_cache_simple</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#destruir" title="details" class="method-name">destruir</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#generar_cache_extendido" title="details" class="method-name">generar_cache_extendido</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -450,7 +428,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_metadatos_simples" title="details" class="method-name">get_metadatos_simples</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna los metadatos de un componente, tal cual existen en las tablas</td></tr>
-																													<tr>
+																																						<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -473,6 +451,41 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodget_tipo" id="get_tipo"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_tipo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static string get_tipo(
+array
+$componente&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el tipo al que pertenece un componente </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$componente:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> array('componente'=&gt;id, 'proyecto'=&gt;proyecto)</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
@@ -496,126 +509,13 @@
 		<br />
 </div>
 
-<a name="methodcrear_cache_simple" id="crear_cache_simple"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">crear_cache_simple</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void crear_cache_simple(
-
-$proyecto, [
-$db = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$proyecto:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$db:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methoddestruir" id="destruir"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void destruir(
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodgenerar_cache_extendido" id="generar_cache_extendido"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">generar_cache_extendido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void generar_cache_extendido(
-
-$proyecto, [
-$db = null]&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$proyecto:&nbsp;</span></td>
-				<td>
-							</td></tr>
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$db:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
 <a name="methodget_metadatos_extendidos" id="get_metadatos_extendidos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">get_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -669,12 +569,12 @@ $resumidos = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_metadatos_simples" id="get_metadatos_simples"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_metadatos_simples</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
+	<span class="method-title">get_metadatos_simples</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
 </div>
 <br />
 
@@ -721,12 +621,12 @@ $db = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_metadatos_extendidos" id="set_metadatos_extendidos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 138]</span>
+	<span class="method-title">set_metadatos_extendidos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -767,14 +667,6 @@ $componente&nbsp;
 </div>
 		</div>
 	</div>
-	<a name="sec-vars"></a>
-	<div class="info-box">
-		<div class="info-box-title">Propiedades</div>
-		<div class="info-box-body">
-					</div>
-	</div>
-
-
 
 <br />
 <div class="credit">
@@ -782,7 +674,7 @@ $componente&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

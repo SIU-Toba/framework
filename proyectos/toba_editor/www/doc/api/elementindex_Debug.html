@@ -13,13 +13,13 @@
 	<td class="header-top-left"><img src="media/logo.png" border="0" alt="phpDocumentor " /></td>
   	<td class="header-top-center">
   		<div class="package">
-              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
+              	<a href="li_Componentes.html">Componentes</a>
         	        		|
         	              	<a href="li_Centrales.html">Centrales</a>
         	        		|
-        	              	<a href="li_Componentes.html">Componentes</a>
-        	        		|
         	              	<a href="li_Varios.html">Varios</a>
+        	        		|
+        	              	<a href="li_SalidaGrafica.html">SalidaGrafica</a>
         	        		|
         	              	<a href="li_Fuentes.html">Fuentes</a>
         	        		|
@@ -80,10 +80,10 @@
 <h1>Element index for package Debug</h1>
 	<h3>Package indexes</h3>
 	<ul>
-				<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
+				<li><a href="elementindex_Componentes.html">Componentes</a></li>
 					<li><a href="elementindex_Centrales.html">Centrales</a></li>
-					<li><a href="elementindex_Componentes.html">Componentes</a></li>
 					<li><a href="elementindex_Varios.html">Varios</a></li>
+					<li><a href="elementindex_SalidaGrafica.html">SalidaGrafica</a></li>
 					<li><a href="elementindex_Fuentes.html">Fuentes</a></li>
 					</ul>
 	[ <a href="elementindex_Debug.html#a">a</a> ]
@@ -236,7 +236,7 @@
 							<dt><b>get_cantidad_mensajes</b></dt>
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodget_cantidad_mensajes">toba_logger::get_cantidad_mensajes()</a></dd>
 							<dt><b>get_marcas</b></dt>
-				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodget_marcas">toba_cronometro::get_marcas()</a></dd>
+				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodget_marcas">toba_cronometro::get_marcas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retorna la marcas en un arreglo</dd>
 							<dt><b>get_niveles</b></dt>
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodget_niveles">toba_logger::get_niveles()</a></dd>
 							<dt><b>get_proyecto_actual</b></dt>
@@ -266,8 +266,6 @@
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodinfo">toba_logger::info()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Registra un suceso netamente informativo, para una inspección posterior</dd>
 							<dt><b>instancia</b></dt>
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodinstancia">toba_logger::instancia()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Este es un singleton por proyecto</dd>
-							<dt><b>instancia</b></dt>
-				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodinstancia">toba_cronometro::instancia()</a></dd>
 					</dl>
 	</div>
 	<a name="l"></a>
@@ -295,7 +293,7 @@
 							<dt><b>$marcas</b></dt>
 				<dd>in file toba_cronometro.php, variable <a href="Debug/toba_cronometro.html#var$marcas">toba_cronometro::$marcas</a></dd>
 							<dt><b>marcar</b></dt>
-				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodmarcar">toba_cronometro::marcar()</a></dd>
+				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodmarcar">toba_cronometro::marcar()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Guarda una marca en la línea de tiempo</dd>
 							<dt><b>mascara</b></dt>
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodmascara">toba_logger::mascara()</a></dd>
 							<dt><b>mascara_hasta</b></dt>
@@ -360,6 +358,8 @@
 				<dd>in file toba_logger.php, class constant <a href="Debug/toba_logger.html#constseparador">toba_logger::separador</a></dd>
 							<dt><b>set_directorio_logs</b></dt>
 				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodset_directorio_logs">toba_logger::set_directorio_logs()</a></dd>
+							<dt><b>set_nivel</b></dt>
+				<dd>in file toba_logger.php, method <a href="Debug/toba_logger.html#methodset_nivel">toba_logger::set_nivel()</a></dd>
 					</dl>
 	</div>
 	<a name="t"></a>
@@ -380,7 +380,7 @@
 							<dt><b>toba_logger.php</b></dt>
 				<dd>procedural page <a href="Debug/_nucleo---lib---toba_logger.php.html">toba_logger.php</a></dd>
 							<dt><b>tiempo_acumulado</b></dt>
-				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodtiempo_acumulado">toba_cronometro::tiempo_acumulado()</a></dd>
+				<dd>in file toba_cronometro.php, method <a href="Debug/toba_cronometro.html#methodtiempo_acumulado">toba_cronometro::tiempo_acumulado()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Calcula el tiempo enntre la primer y última marca registrada</dd>
 							<dt><b>toba_asercion</b></dt>
 				<dd>in file toba_asercion.php, class <a href="Debug/toba_asercion.html">toba_asercion</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Conjunto de aserciones básicas, en caso de fallo lanzan una excepción toba_error</dd>
 							<dt><b>toba_cronometro</b></dt>
@@ -435,7 +435,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>

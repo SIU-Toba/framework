@@ -65,6 +65,9 @@
 	    			<a href="../Centrales/toba_derechos.html">					derechos
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
 					</a>    		
 	 <br />
@@ -102,6 +105,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_solicitud_web.html">					solicitud_web
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_texto.html">					texto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_usuario.html">					usuario
@@ -209,11 +215,9 @@
 	<div class="nav-bar">
 					<span class="disabled">Resúmen de la Clase</span> |
 		
-									<a href="#sec-method-summary">Métodos</a>
-						
+									<a href="#sec-method-summary">Métodos Propios</a>
 				
-				
-			</div>
+	</div>
 	<div class="info-box-body">
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
@@ -243,7 +247,7 @@
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
-		<div class="info-box-title">Métodos</div>
+		<div class="info-box-title">Métodos Propios</div>
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
@@ -252,7 +256,7 @@
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																																													<tr>
+																																																																																																																																																															<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -348,7 +352,7 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_grupo_acceso" title="details" class="method-name">get_grupo_acceso</a>()&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_grupos_acceso" title="details" class="method-name">get_grupos_acceso</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina el grupo de acceso del usuario actual</td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -377,7 +381,7 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#iniciar_sesion_proyecto" title="details" class="method-name">iniciar_sesion_proyecto</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Entrada a un proyecto desde el item de inicializacion de sesion</td></tr>
+						<td class="method-definition">Entrada a un proyecto desde la operación de inicializacion de sesion</td></tr>
 																													<tr>
 						<td nowrap align="right">
 															
@@ -399,6 +403,20 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#logout" title="details" class="method-name">logout</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Salida de la sesion creada desde un proyecto</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#recargar_info_instalacion" title="details" class="method-name">recargar_info_instalacion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#recargar_info_instancia" title="details" class="method-name">recargar_info_instancia</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -486,7 +504,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 19]</span>
 </div>
@@ -509,12 +527,12 @@
 </div>
 
 <a name="methodabortar_sesion_proyecto" id="abortar_sesion_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abortar_sesion_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 495]</span>
+	<span class="method-title">abortar_sesion_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
 </div>
 <br />
 
@@ -554,12 +572,12 @@ $obs = null]&nbsp;
 		<br />
 </div>
 <a name="methodborrar_segmento_editor" id="borrar_segmento_editor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_segmento_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 733]</span>
+	<span class="method-title">borrar_segmento_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 776]</span>
 </div>
 <br />
 
@@ -579,12 +597,12 @@ $obs = null]&nbsp;
 		<br />
 </div>
 <a name="methodborrar_segmento_instalacion" id="borrar_segmento_instalacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_segmento_instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 719]</span>
+	<span class="method-title">borrar_segmento_instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 762]</span>
 </div>
 <br />
 
@@ -604,12 +622,12 @@ $obs = null]&nbsp;
 		<br />
 </div>
 <a name="methodborrar_segmento_instancia" id="borrar_segmento_instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_segmento_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 726]</span>
+	<span class="method-title">borrar_segmento_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 769]</span>
 </div>
 <br />
 
@@ -629,12 +647,12 @@ $obs = null]&nbsp;
 		<br />
 </div>
 <a name="methodborrar_segmento_proyecto" id="borrar_segmento_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_segmento_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 739]</span>
+	<span class="method-title">borrar_segmento_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 782]</span>
 </div>
 <br />
 
@@ -666,12 +684,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_proyecto_cargado" id="existe_proyecto_cargado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">existe_proyecto_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 207]</span>
 </div>
 <br />
 
@@ -704,12 +722,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodexiste_sesion_activa" id="existe_sesion_activa"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_sesion_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">existe_sesion_activa</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -742,12 +760,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_usuario_activo" id="existe_usuario_activo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_usuario_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+	<span class="method-title">existe_usuario_activo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 123]</span>
 </div>
 <br />
 
@@ -780,12 +798,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar" id="finalizar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
+	<span class="method-title">finalizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 336]</span>
 </div>
 <br />
 
@@ -806,12 +824,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_instancias_activas" id="get_cantidad_instancias_activas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_instancias_activas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
+	<span class="method-title">get_cantidad_instancias_activas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
 </div>
 <br />
 
@@ -832,12 +850,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_instancias_cargadas" id="get_cantidad_instancias_cargadas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_instancias_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
+	<span class="method-title">get_cantidad_instancias_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 162]</span>
 </div>
 <br />
 
@@ -858,12 +876,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_proyectos_activos" id="get_cantidad_proyectos_activos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_proyectos_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 187]</span>
+	<span class="method-title">get_cantidad_proyectos_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
 </div>
 <br />
 
@@ -884,12 +902,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_cantidad_proyectos_cargados" id="get_cantidad_proyectos_cargados"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_cantidad_proyectos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+	<span class="method-title">get_cantidad_proyectos_cargados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 184]</span>
 </div>
 <br />
 
@@ -909,20 +927,20 @@ $instancia = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_grupo_acceso" id="get_grupo_acceso"><!-- --></a>
-<div class="evenrow">
+<a name="methodget_grupos_acceso" id="get_grupos_acceso"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_grupo_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 210]</span>
+	<span class="method-title">get_grupos_acceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 215]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_grupo_acceso(
+		<code>void get_grupos_acceso(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -936,12 +954,12 @@ $instancia = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_sesion" id="get_id_sesion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">get_id_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 141]</span>
 </div>
 <br />
 
@@ -974,12 +992,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id_usuario_instancia" id="get_id_usuario_instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_id_usuario_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
+	<span class="method-title">get_id_usuario_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
 </div>
 <br />
 
@@ -1000,12 +1018,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodiniciar" id="iniciar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 264]</span>
+	<span class="method-title">iniciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 269]</span>
 </div>
 <br />
 
@@ -1026,12 +1044,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodiniciar_sesion_proyecto" id="iniciar_sesion_proyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">iniciar_sesion_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+	<span class="method-title">iniciar_sesion_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
 </div>
 <br />
 
@@ -1045,7 +1063,7 @@ $datos_iniciales&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Entrada a un proyecto desde el item de inicializacion de sesion </div>
+	<div class="description">Entrada a un proyecto desde la operación de inicializacion de sesion </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -1064,12 +1082,12 @@ $datos_iniciales&nbsp;
 		<br />
 </div>
 <a name="methodlogin" id="login"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+	<span class="method-title">login</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
 </div>
 <br />
 
@@ -1116,12 +1134,12 @@ $datos_iniciales = null]&nbsp;
 		<br />
 </div>
 <a name="methodlogin_anonimo" id="login_anonimo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">login_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
+	<span class="method-title">login_anonimo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 68]</span>
 </div>
 <br />
 
@@ -1129,11 +1147,23 @@ $datos_iniciales = null]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void login_anonimo(
+[
+$datos_iniciales = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Acceso de un usuario aninimo a la instancia. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$datos_iniciales:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
 
 	<br />
 	
@@ -1142,12 +1172,12 @@ $datos_iniciales = null]&nbsp;
 		<br />
 </div>
 <a name="methodlogout" id="logout"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">logout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+	<span class="method-title">logout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
 </div>
 <br />
 
@@ -1179,13 +1209,63 @@ $observaciones = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodrecargar_info_proyecto" id="recargar_info_proyecto"><!-- --></a>
+<a name="methodrecargar_info_instalacion" id="recargar_info_instalacion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recargar_info_instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void recargar_info_instalacion(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrecargar_info_instancia" id="recargar_info_instancia"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recargar_info_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 504]</span>
+	<span class="method-title">recargar_info_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 533]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void recargar_info_instancia(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrecargar_info_proyecto" id="recargar_info_proyecto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recargar_info_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 519]</span>
 </div>
 <br />
 
@@ -1217,12 +1297,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_datos_instancia" id="segmento_datos_instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 674]</span>
+	<span class="method-title">segmento_datos_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 717]</span>
 </div>
 <br />
 
@@ -1242,12 +1322,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_editor" id="segmento_editor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 682]</span>
+	<span class="method-title">segmento_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 725]</span>
 </div>
 <br />
 
@@ -1267,12 +1347,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_info_instalacion" id="segmento_info_instalacion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_info_instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 658]</span>
+	<span class="method-title">segmento_info_instalacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 701]</span>
 </div>
 <br />
 
@@ -1292,12 +1372,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_info_instancia" id="segmento_info_instancia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_info_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 666]</span>
+	<span class="method-title">segmento_info_instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 709]</span>
 </div>
 <br />
 
@@ -1317,12 +1397,12 @@ $proyecto&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_info_proyecto" id="segmento_info_proyecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_info_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 690]</span>
+	<span class="method-title">segmento_info_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 733]</span>
 </div>
 <br />
 
@@ -1354,12 +1434,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_memoria_proyecto" id="segmento_memoria_proyecto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_memoria_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 701]</span>
+	<span class="method-title">segmento_memoria_proyecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 744]</span>
 </div>
 <br />
 
@@ -1379,12 +1459,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsegmento_memoria_puntos_control" id="segmento_memoria_puntos_control"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">segmento_memoria_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 709]</span>
+	<span class="method-title">segmento_memoria_puntos_control</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 752]</span>
 </div>
 <br />
 
@@ -1404,12 +1484,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodsesion" id="sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
+	<span class="method-title">sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
 </div>
 <br />
 
@@ -1429,12 +1509,12 @@ $proyecto = null]&nbsp;
 		<br />
 </div>
 <a name="methodusuario" id="usuario"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">usuario</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 229]</span>
 </div>
 <br />
 
@@ -1456,15 +1536,13 @@ $proyecto = null]&nbsp;
 		</div>
 	</div>
 
-
-
 <br />
 <div class="credit">
 		    <hr class="separator" />
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a1</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
 	      </div>
       </td></tr></table>
     </td>
