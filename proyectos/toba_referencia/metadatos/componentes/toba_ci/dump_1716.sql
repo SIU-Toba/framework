@@ -48,15 +48,15 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'509', --evento_id
 	'1716', --objeto
 	'sobrefiltrar', --identificador
-	'Filtrar evento eliminar', --etiqueta
+	'Desactivar evento eliminar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
-	NULL, --ayuda
+	'En lugar de anularlos (no mostrarlos), los desactiva (los deja no clickleables)', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	'0', --implicito
@@ -83,7 +83,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
 	NULL, --ayuda

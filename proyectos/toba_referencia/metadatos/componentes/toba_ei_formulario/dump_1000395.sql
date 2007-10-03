@@ -199,7 +199,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'3', --orden
 	'Carga desde Consulta PHP', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'También puede cargarse usando un método de una clase PHP global (conocido como consulta_php)', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -269,7 +269,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'4', --orden
 	'Carga desde CI contenedor', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Si la carga depende de algún valor actual de la operación se puede utilizar un método del CI contenedor.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -339,7 +339,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'5', --orden
 	'Carga desde clase estática', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Finalmente se puede definir un trio <em>archivo, clase, método estático</em>', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -549,7 +549,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'7', --orden
 	'Carga desde SQL', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Se puede incluir directamente la SQL de carga en la definición del componente.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -619,7 +619,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'8', --orden
 	'Carga lista predefinida', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Cuando el conjunto de opciones se conoce previamente y es totalmente estático se puede brindar la lista en la definición del componente.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

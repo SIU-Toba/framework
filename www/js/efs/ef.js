@@ -415,6 +415,9 @@ ef.prototype.constructor = ef;
 	ef.prototype.set_opciones = function(opciones) {
 		this.set_estado(opciones);	
 		this.activar();
+		if (this.input().onblur) {
+			this.input().onblur();
+		}	
 	};
 
 	/**

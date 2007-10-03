@@ -29,10 +29,10 @@ class ci_definicion extends toba_ci
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
 
-	function conf()
+	function ini()
 	{
 		$clave = array('componente' => '1000127', 'proyecto' => 'toba_testing');
-		$metadatos = cargador_toba::instancia()->get_metadatos_extendidos($clave, 'ei_formulario');
+		$metadatos = toba_cargador::instancia()->get_metadatos_extendidos($clave, 'toba_ei_formulario');
 		$nuevo_ef = array(
 			'identificador'  => 'nuevo_ef',
 			'columnas' => 'nuevo_ef',
@@ -41,11 +41,12 @@ class ci_definicion extends toba_ci
 			'etiqueta' => 'NUEVO!!!',
 			'descripcion' => 'Este ef se añadio dinámicamente',
 			'inicializacion' => '',
-			'colapsado' => 0
+			'colapsado' => 0,
+			'oculto_relaja_obligatorio' => 0
 		);
-		$metadatos['info_formulario_ef'] = array();
-		$metadatos['info_formulario_ef'][] = $nuevo_ef;
-		cargador_toba::instancia()->set_metadatos_extendidos($metadatos, $clave);				
+		$metadatos['_info_formulario_ef'] = array();
+		$metadatos['_info_formulario_ef'][] = $nuevo_ef;
+		toba_cargador::instancia()->set_metadatos_extendidos($metadatos, $clave);				
 	}
 	
 	//---- form -------------------------------------------------------
