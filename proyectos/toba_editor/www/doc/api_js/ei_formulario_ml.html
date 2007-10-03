@@ -42,6 +42,11 @@ ei_formulario_ml
       <div class="package">
 	
 		<span style="padding-left: 1em;">		
+		<a href="ajax_respuesta.html">ajax_respuesta</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ci.html">ci</a>    
 		</span>
 	 	<br />
@@ -292,7 +297,7 @@ ei_formulario_ml
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei_formulario.html">ei_formulario</a></div>
-		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#efs">efs</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#get_valores_maestros">get_valores_maestros</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
+		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#efs">efs</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#get_valores_maestros">get_valores_maestros</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#evt__cascadas_inicio">evt__cascadas_inicio</a>, <a href="ei_formulario.html#evt__cascadas_fin">evt__cascadas_fin</a>, <a href="ei_formulario.html#set_ef_valido">set_ef_valido</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
 		</div>
 	</div>
 
@@ -491,6 +496,16 @@ ei_formulario_ml
 					</td>
 
 					<td class="method-definition"> Intercambia de posicion a dos filas dadas</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#mostrar_columna">mostrar_columna</A>(columna, mostrar)
+					</td>
+
+					<td class="method-definition"> Muestra u oculta una columna completa</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -1361,10 +1376,75 @@ ei_formulario_ml
 		   
 		</div>
 		
-   		<A id="refrescar_foco" NAME="refrescar_foco"><!-- --></A>	
+   		<A id="mostrar_columna" NAME="mostrar_columna"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">mostrar_columna</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void mostrar_columna (columna, mostrar)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Muestra u oculta una columna completa</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">id_ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Id. del ef o columna a variar  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">total</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Nuevo total  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="#agregar_total">agregar_total()</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="refrescar_foco" NAME="refrescar_foco"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">refrescar_foco</span>
@@ -1401,8 +1481,8 @@ ei_formulario_ml
 		
    		<A id="refrescar_todo" NAME="refrescar_todo"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">refrescar_todo</span>
@@ -1439,8 +1519,8 @@ ei_formulario_ml
 		
    		<A id="resetear_errores" NAME="resetear_errores"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">resetear_errores</span>
@@ -1477,8 +1557,8 @@ ei_formulario_ml
 		
    		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">seleccionar</span>
@@ -1515,8 +1595,8 @@ ei_formulario_ml
 		
    		<A id="subir_seleccionada" NAME="subir_seleccionada"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">subir_seleccionada</span>
@@ -1553,8 +1633,8 @@ ei_formulario_ml
 		
    		<A id="submit" NAME="submit"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>
@@ -1592,8 +1672,8 @@ ei_formulario_ml
 		
    		<A id="total" NAME="total"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">total</span>
@@ -1630,8 +1710,8 @@ ei_formulario_ml
 		
    		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">validar</span>

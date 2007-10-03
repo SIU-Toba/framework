@@ -1,4 +1,3 @@
-
 /**
  * @class Clase estatica para el manejo de una respuesta AJAX
  * @constructor

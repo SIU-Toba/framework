@@ -42,6 +42,11 @@ ei_formulario
       <div class="package">
 	
 		<span style="padding-left: 1em;">		
+		<a href="ajax_respuesta.html">ajax_respuesta</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ci.html">ci</a>    
 		</span>
 	 	<br />
@@ -327,7 +332,7 @@ ei_formulario
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#cascadas_cambio_maestro">cascadas_cambio_maestro</A>(&lt;string&gt; id_ef)
+						<a class="method-name" href="#cascadas_cambio_maestro">cascadas_cambio_maestro</A>(&lt;string&gt; id_ef, fila)
 					</td>
 
 					<td class="method-definition"> Esquema de Cascadas:<br>
@@ -338,7 +343,7 @@ ei_formulario
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#cascadas_comunicar">cascadas_comunicar</A>(&lt;string&gt; id_ef, valores)
+						<a class="method-name" href="#cascadas_comunicar">cascadas_comunicar</A>(&lt;string&gt; id_ef, valores, fila)
 					</td>
 
 					<td class="method-definition"> Esquema de Cascadas:<br>
@@ -361,7 +366,7 @@ ei_formulario
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#cascadas_preparar_esclavo">cascadas_preparar_esclavo</A>(&lt;string&gt; id_esclavo)
+						<a class="method-name" href="#cascadas_preparar_esclavo">cascadas_preparar_esclavo</A>(&lt;string&gt; id_esclavo, fila)
 					</td>
 
 					<td class="method-definition"> Esquema de Cascadas:<br>
@@ -399,6 +404,29 @@ ei_formulario
 					</td>
 
 					<td class="method-definition"> Retorna un objeto asociativo id_ef => ef, para usarlo en algun ciclo, por ej.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#evt__cascadas_fin">evt__cascadas_fin</A>(&lt;<a href="ef.html">ef</a>&gt; ef_esclavo, &lt;Object&gt; datos)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Ventana de ejecución posterior a la respuesta de una cascada.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#evt__cascadas_inicio">evt__cascadas_inicio</A>(&lt;<a href="ef.html">ef</a>&gt; ef_maestro)
+					</td>
+
+					<td class="method-definition"> Esquema de Cascadas:<br>
+ Ventana de ejecución anterior al pedido de respuesta de la cascada
+ Extender para agregar un comportamiento anterior a la respuesta</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -451,6 +479,16 @@ ei_formulario
 					</td>
 
 					<td class="method-definition"> Limpia el componente de errores producidos anteriormente</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_ef_valido">set_ef_valido</A>(&lt;<a href="ef.html">ef</a>&gt; ef, &lt;boolean&gt; es_valido, &lt;boolean&gt; solo_online)
+					</td>
+
+					<td class="method-definition"> Informa que un ef cumple o no una validación especifica.</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -576,7 +614,7 @@ ei_formulario
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void cascadas_cambio_maestro (&lt;string&gt; id_ef)</code>
+							   <code>void cascadas_cambio_maestro (&lt;string&gt; id_ef, fila)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -629,7 +667,7 @@ ei_formulario
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void cascadas_comunicar (&lt;string&gt; id_ef, valores)</code>
+							   <code>void cascadas_comunicar (&lt;string&gt; id_ef, valores, fila)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -749,7 +787,7 @@ ei_formulario
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void cascadas_preparar_esclavo (&lt;string&gt; id_esclavo)</code>
+							   <code>void cascadas_preparar_esclavo (&lt;string&gt; id_esclavo, fila)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -926,6 +964,123 @@ ei_formulario
 		   <UL>   
 			   <B>See:</B><UL>- <a href="ef.html#">ef</a></UL>
 		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="evt__cascadas_fin" NAME="evt__cascadas_fin"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">evt__cascadas_fin</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void evt__cascadas_fin (&lt;<a href="ef.html">ef</a>&gt; ef_esclavo, &lt;Object&gt; datos)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Ventana de ejecución posterior a la respuesta de una cascada.
+ Extender para agregar un comportamiento post-respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">ef_esclavo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Instancia del ef esclavo destino de la cascada  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">datos</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Datos de respuesta usados en la cascada  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="evt__cascadas_inicio" NAME="evt__cascadas_inicio"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">evt__cascadas_inicio</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void evt__cascadas_inicio (&lt;<a href="ef.html">ef</a>&gt; ef_maestro)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Esquema de Cascadas:<br>
+ Ventana de ejecución anterior al pedido de respuesta de la cascada
+ Extender para agregar un comportamiento anterior a la respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">ef_maestro</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Instancia del ef maestro que inicia la cascada  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   
 		</div>
@@ -1122,10 +1277,82 @@ ei_formulario
 		   
 		</div>
 		
-   		<A id="submit" NAME="submit"><!-- --></A>	
+   		<A id="set_ef_valido" NAME="set_ef_valido"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_ef_valido</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_ef_valido (&lt;<a href="ef.html">ef</a>&gt; ef, &lt;boolean&gt; es_valido, &lt;boolean&gt; solo_online)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Informa que un ef cumple o no una validación especifica. 
+ En caso de que no sea valido el estado del ef se informa al usuario
+ Si es valido se quita el estado de invalido (la cruz al lado del campo).</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">ef</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Ef en cuestión  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">es_valido</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description">   </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">solo_online</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> En caso que no sea valido sólo muestra la cruz al lado del campo y no un mensaje explícito 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="submit" NAME="submit"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">submit</span>
@@ -1163,8 +1390,8 @@ ei_formulario
 		
    		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">validar</span>

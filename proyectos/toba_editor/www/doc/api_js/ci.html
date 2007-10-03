@@ -42,6 +42,11 @@ ci
       <div class="package">
 	
 		<span style="padding-left: 1em;">		
+		<a href="ajax_respuesta.html">ajax_respuesta</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ci.html">ci</a>    
 		</span>
 	 	<br />
@@ -315,6 +320,38 @@ ci
 			
 					<tr><td class="method-definition " nowrap>
 													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#ajax">ajax</A>(&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; clase_js, &lt;function&gt; funcion_js, &lt;mixed&gt; contexto_js)
+					</td>
+
+					<td class="method-definition"> Pide al servidor un conjunto de datos en forma asincrónica
+ Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#ajax_cadenas">ajax_cadenas</A>(&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; clase_js, &lt;function&gt; funcion_js, &lt;mixed&gt; contexto_js)
+					</td>
+
+					<td class="method-definition"> Pide al servidor un conjunto de datos en forma asincrónica
+ Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#ajax_html">ajax_html</A>(&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; nodo_html)
+					</td>
+
+					<td class="method-definition"> Pide al servidor en forma asincrónica un HTML que actualizara un nodo dado</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
@@ -403,6 +440,16 @@ ci
 					</td>
 
 					<td class="method-definition"> Muestra un tab previamente ocultado</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result"><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a></span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#nodo_pie">nodo_pie</A>()
+					</td>
+
+					<td class="method-definition"> Retorna la referencia al tag HTML al pie del cuerpo del CI</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -506,7 +553,7 @@ ci
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>ci (instancia, form, input_submit, id_en_controlador)</code>
+							   <code>ci (id, instancia, form, input_submit, id_en_controlador)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -569,10 +616,262 @@ ci
 		   
 		</div>
 		
-   		<A id="dep" NAME="dep"><!-- --></A>	
+   		<A id="ajax" NAME="ajax"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">ajax</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void ajax (&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; clase_js, &lt;function&gt; funcion_js, &lt;mixed&gt; contexto_js)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Pide al servidor un conjunto de datos en forma asincrónica
+ Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">metodo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">clase_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">funcion_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Metodo de la clase al que se le retornará la respuesta del servidor.  La estructura de datos que retorne el server se utilizará como 1er parámetro en la llamada  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">contexto_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="ajax_cadenas" NAME="ajax_cadenas"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">ajax_cadenas</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void ajax_cadenas (&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; clase_js, &lt;function&gt; funcion_js, &lt;mixed&gt; contexto_js)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Pide al servidor un conjunto de datos en forma asincrónica
+ Al ser un pedido asincronico necesita una clase/metodo aparte para notificar la respuesta</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">metodo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo. En caso de necesitar un tipo más compejo serializar manualmente  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">clase_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Objeto javascript al que se le retornará la respuesta del servidor, usualmente 'this'  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">funcion_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Metodo de la clase al que se le retornará la respuesta del servidor. Un objeto de tipo ajax_respuesta se utilizará como 1er parámetro en la llamada  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">contexto_js</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Opcional. Se puede incluir una variable conteniendo un contexto a recordar cuando se notifique la respuesta. Posteriormente se utiliza como 2do parámetro en la llamada de la callback  </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   <UL>   
+			   <B>See:</B><UL>- <a href="ajax_respuesta.html#">ajax_respuesta</a></UL>
+		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="ajax_html" NAME="ajax_html"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">ajax_html</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void ajax_html (&lt;string&gt; metodo, &lt;mixed&gt; parametros, &lt;object&gt; nodo_html)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Pide al servidor en forma asincrónica un HTML que actualizara un nodo dado</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+			Parámetros:<br />		   
+			<table border="0" cellspacing="0" cellpadding="0">
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">metodo</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Sufijo del método PHP al que se le hara la pregunta (Si el método es 'ajax__mirespuesta' necesita ingresar 'mirespuesta')  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">parametros</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Parametros que se enviaran al servidor. Se recibirán en el primer parámetro del método php. Puede ser un tipo simple, arreglo o arreglo asociativo  </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">nodo_html</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> Nodo HTML que se actualizará con la respuesta del server. Se utiliza la propiedad innerHTML del nodo. 	   </span>
+					</td>
+				</tr>
+				
+			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="dep" NAME="dep"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">dep</span>
@@ -609,8 +908,8 @@ ci
 		
    		<A id="dependencia" NAME="dependencia"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">dependencia</span>
@@ -647,8 +946,8 @@ ci
 		
    		<A id="desactivar_tab" NAME="desactivar_tab"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">desactivar_tab</span>
@@ -703,8 +1002,8 @@ ci
 		
    		<A id="evt__salida_tab" NAME="evt__salida_tab"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">evt__salida_tab</span>
@@ -756,8 +1055,8 @@ ci
 		
    		<A id="get_tab" NAME="get_tab"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_tab</span>
@@ -794,8 +1093,8 @@ ci
 		
    		<A id="ir_a_anterior" NAME="ir_a_anterior"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">ir_a_anterior</span>
@@ -832,8 +1131,8 @@ ci
 		
    		<A id="ir_a_pantalla" NAME="ir_a_pantalla"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">ir_a_pantalla</span>
@@ -884,8 +1183,8 @@ ci
 		
    		<A id="ir_a_siguiente" NAME="ir_a_siguiente"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">ir_a_siguiente</span>
@@ -922,8 +1221,8 @@ ci
 		
    		<A id="mostrar_tab" NAME="mostrar_tab"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">mostrar_tab</span>
@@ -962,6 +1261,44 @@ ci
 				</tr>
 				
 			</table>		   
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="nodo_pie" NAME="nodo_pie"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">nodo_pie</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code><a href=http://developer.mozilla.org/en/docs/DOM:element>element</a> nodo_pie ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Retorna la referencia al tag HTML al pie del cuerpo del CI</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
