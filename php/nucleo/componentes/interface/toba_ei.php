@@ -1,11 +1,5 @@
 <?php
-define('apex_ei_analisis_fila', 'apex_ei_analisis_fila');   //Id de la columna utilizada para el resultado del analisis de una fila
-define("apex_ei_evento","evt");
-define("apex_ei_separador","__");
-define("apex_db_registros_clave","x_dbr_clave");			//Clave interna de los DB_REGISTROS
-define('apex_ei_evt_sin_rpta', 'apex_ei_evt_sin_rpta');
-define('apex_ei_evt_maneja_datos', 1);
-define('apex_ei_evt_no_maneja_datos', -1);
+
 
 /**
  * Clase base de los componentes gráficos o elementos de interface (ei)
