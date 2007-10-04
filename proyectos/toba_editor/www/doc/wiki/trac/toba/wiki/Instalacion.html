@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -157,22 +172,34 @@ li * {
    <div class="wikipage">
     <div id="searchable"><p>
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li class="active"><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Tutorial.html">Tutorial</a></li><li><a href="Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#GuíaRápidaWindows">Guía Rápida Windows</a></li><li>
-<a href="#GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</a></li><li>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#GuíaRápidaWindows">Guía Rápida Windows</a><ol><li><a href="#Alternativa:instalaciónmanualdeApachePHP">Alternativa: instalación manual de Apache-PHP</a></li></ol><li><a href="#GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</a></li><li>
 <a href="#NotassobrePostgreSQL">Notas sobre PostgreSQL</a></li><li>
-<a href="#Alternativa:instalaciónmanual">Alternativa: instalación manual</a></li></ol></li></ol></div>
+<a href="#Alternativa:instalaciónmanualdeToba">Alternativa: instalación manual de Toba</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Instalacion
 </p>
 <h1 id="Pasosdelainstalación">Pasos de la instalación</h1>
 <h2 id="GuíaRápidaWindows">Guía Rápida Windows</h2>
-<ol><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>Apache</a>.
-</li><li>Bajar el zip de <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>PHP</a> versión 5.1.2 o superior y descomprimirlo en <tt>c:\php</tt>
-</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>PostgreSQL</a> <sup>(opcional)</sup>.
-</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>Subversion</a> <sup>(opcional)</sup>.
-</li><li>Agregar al path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
-<ul><li>El path de PHP: <tt>c:\php</tt>
+<ol><li>Instalar <a class="ext-link" href="../../../external.html?link=http://httpd.apache.org/download.cgi"><span class="icon"></span>Apache</a>. <a class="ext-link" href="../../../external.html?link=http://apache.xmundo.com.ar/httpd/httpd-2.2.4-win32-src.zip"><span class="icon"></span>Instalador recomendado</a>.
+</li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://ar.php.net/downloads.php"><span class="icon"></span>PHP</a> versión 5.1.2 o superior. <a class="ext-link" href="../../../external.html?link=http://ar.php.net/get/php-5.2.3-win32-installer.msi/from/a/mirror"><span class="icon"></span>Instalador recomendado</a>:
+<ul><li>Seleccionar el módulo <tt>apache 2.2</tt>
+</li><li>Indicar el directorio de configuración de Apache (generalmente <tt>C:\Archivos de Programa\Apache Software Foundation\Apache2.2\conf</tt>
+</li><li>Seleccionar la extensión <tt>PDO</tt> y <tt>PDO Postgres</tt>
+</li></ul></li><li>Instalar <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/download/"><span class="icon"></span>PostgreSQL</a> versión 7.4 o superior. <a class="ext-link" href="../../../external.html?link=http://wwwmaster.postgresql.org/download/mirrors-ftp?file=%2Fbinary%2Fv8.2.4%2Fwin32%2Fpostgresql-8.2.4-1.zip"><span class="icon"></span>Instalador Recomendado</a> <sup>(opcional)</sup>.
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=91"><span class="icon"></span>Subversion</a> para poder utilizar el cliente de linea de comandos. Destildar la opción de instalar los módulos de apache, sólo son necesarios para instalar un servidor svn, no un cliente como este caso. <sup>(opcional)</sup>.
+</li><li>Instalar la última versión estable de <a class="ext-link" href="../../../external.html?link=http://tortoisesvn.net/downloads"><span class="icon"></span>TortoiseSVN</a> para poder utilizar el cliente integrado al explorador de windows <sup>(opcional)</sup>.
+</li><li>Reiniciar el servidor apache para terminar la instalación de php.
+</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o descargar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
+</li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones.
+</li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
+</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url según el identificador que ha dado al proyecto).
+</li></ol><h3 id="Alternativa:instalaciónmanualdeApachePHP">Alternativa: instalación manual de Apache-PHP</h3>
+<p>
+En caso de instalación manual de Apache y PHP (utilizando el ZIP en lugar del instalador)
+</p>
+<ol><li>Agregar al path del sistema (Propiedades del sistema &gt; Opciones Avanzadas &gt; Variables de Entorno &gt; Variables del Sistema &gt; Path)
+<ul><li>el Path de php, por ej <tt>c:\php</tt>
 </li><li>El path de SVN: <tt>c:\Archivos de Programa\Subversion\bin</tt>
-</li></ul></li><li>Copiar el archivo <tt>c:\php\php.ini.dist</tt> hacia <tt>c:\windows\php.ini</tt>. Agregar o cambiar las siguientes directivas: (en caso que no se tenga acceso al php.ini se puede crear un archivo <tt>.htaccess</tt> conteniendo renglones con <tt>php_flag clave valor</tt>)
+</li></ul></li><li>Verificar la configuración de PHP. En caso de instalación manual copiar el archivo <tt>c:\php\php.ini.dist</tt> hacia <tt>c:\windows\php.ini</tt>. Agregar o cambiar las siguientes directivas: (en caso que no se tenga acceso al php.ini se puede crear un archivo <tt>.htaccess</tt> conteniendo renglones con <tt>php_flag clave valor</tt>)
 <pre class="wiki">#Mínimos
 magic_quotes_gpc  =  Off
 magic_quotes_runtime  =  Off
@@ -182,6 +209,7 @@ extension=php_pdo_pgsql.dll
 
 #Recomendados
 error_reporting  =  E_ALL           #Solo para desarrollo
+display_errors = On                 #Solo para desarrollo
 memory_limit = 64M
 post_max_size = 8 M
 upload_max_filesize = 8 M
@@ -190,24 +218,25 @@ upload_max_filesize = 8 M
 <pre class="wiki">AddType application/x-httpd-php .php
 LoadModule php5_module &#34;c:/php/php5apache2.dll&#34;
 </pre>
-</li><li>Reiniciar el servidor apache para terminar la instalación de php.
-</li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o descargar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>c:\proyectos\toba</tt>
-</li><li>En <tt>c:\proyectos\toba\bin</tt>, ejecutar <tt>instalar.bat</tt> y seguir las instrucciones.
-</li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
-</li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url según el identificador que ha dado al proyecto).
 </li></ol><h2 id="GuíaRápidaGNU/Linux">Guía Rápida GNU/Linux</h2>
 <p>
 Para distribuciones debian o derivados:
 </p>
-<ol><li>Revisar las <a class="wiki" href="Instalacion/FuentesAPT.html">fuentes de los paquetes</a>
+<ol><li>En caso de que los repositorios no tengan una versión actualizada de PHP (5.1.2 o superior) cambiar las <a class="wiki" href="Instalacion/FuentesAPT.html">fuentes de los paquetes</a>.
 </li><li>Ejecutar como superusuario: 
-<pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pdo php5-pdo-pgsql
+<pre class="wiki">apt-get install apache2 libapache2-mod-php5 php5-cli php5-pgsql
 </pre>
-</li><li>En caso de no encontrar los paquetes pdo o pdo_pgsql instalarlos manualmente:
-<pre class="wiki">pecl install pdo
+</li><li>Ejecutar <tt>php -m</tt> . En caso de no encontrar los paquetes pdo y pdo_pgsql en el listado, se necesita instalarlos manualmente:
+<ol><li>Descargar y compilar las extensiones utilizando el comando pecl:
+<pre class="wiki">apt-get install php5-dev php-pear postgresql-server-dev-8.1 build-essential
+pecl install pdo
 pecl install pdo_pgsql
 </pre>
-</li><li>Para instalar servidor y cliente de Postgresql ejecutar <sup>(opcional)</sup>
+</li><li>Agregar a los archivos /etc/php5/cli/php.ini y  /etc/php5/apache2/php.ini:
+<pre class="wiki">extension=pdo.so
+extension=pdo_pgsql.so
+</pre>
+</li></ol></li><li>Para instalar servidor y cliente de Postgresql ejecutar <sup>(opcional)</sup>
 <pre class="wiki">apt-get install postgresql-8.2 postgresql-client-8.2
 </pre>
 </li><li>Para instalar el cliente Subversion ejecutar <sup>(opcional)</sup> 
@@ -220,31 +249,33 @@ pecl install pdo_pgsql
 <pre class="wiki">#Mínimos
 magic_quotes_gpc  =  Off
 magic_quotes_runtime  =  Off
-extension=php_pdo.so           #En caso de que se haya instalado manualmente con PECL
-extension=php_pdo_pgsql.so     #En caso de que se haya instalado manualmente con PECL
 
 #Recomendados
 error_reporting  =  E_ALL      #Solo para desarrollo
-memory_limit = 64M
+memory_limit = 128M
 post_max_size = 8 M
 upload_max_filesize = 8 M
 </pre>
 </li><li><a class="ext-link" href="../../../external.html?link=http://desarrollos2.siu.edu.ar/trac/toba/wiki/Instalacion/ObtenerCodigoFuenteToba"><span class="icon"></span>Descomprimir o bajar</a> el código fuente de SIU-Toba por ejemplo en el path <tt>~/proyectos/toba</tt>
+</li><li>En caso que se haya descargado de un .zip, asignarle permisos de ejecución a los scripts de 'bin':
+<pre class="wiki">chmod +x ~/proyectos/toba/bin/*
+</pre>
 </li><li>Ejecutar y seguir las instrucciones:
 <pre class="wiki">~/proyectos/toba/bin/instalar
 </pre>
-</li><li>Tener en cuenta el esquema de permisos de UNIX. Apache necesita acceso a las carpeta <tt>www</tt> de Toba y del Proyecto. Si se quieren guardar los logs (opción por defecto) también necesita acceso de escritura a la carpeta <tt>instalacion</tt>. Para facilitar esto en las nuevas versiones existe el siguiente comando que acomoda los permisos luego de la instalacion:
-<pre class="wiki">toba instalacion cambiar_permisos
+</li><li>Tener en cuenta el esquema de permisos de UNIX. Apache necesita acceso a las carpeta <tt>www</tt> de Toba y del Proyecto. Si se quieren guardar los logs (opción por defecto) también necesita acceso de escritura a la carpeta <tt>instalacion</tt>. Existe una comando que acomoda los permisos luego de la instalacion y ejecución: (requiere ejecutarse como usuario privilegiado):
+<pre class="wiki">sudo ./bin/toba instalacion cambiar_permisos -u mi_usuario
 </pre>
 </li><li>Para editar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/toba_editor/"><span class="icon"></span>http://localhost/toba_editor/</a>
 </li><li>Para ejecutar el proyecto navegar hacia <a class="ext-link" href="../../../external.html?link=http://localhost/miproyecto"><span class="icon"></span>http://localhost/miproyecto</a> (cambiar la url según el identificador que ha dado al proyecto).
 </li><li>Finalmente ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>
 </li></ol><h2 id="NotassobrePostgreSQL">Notas sobre PostgreSQL</h2>
-<p>
-Si se instala versión 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>.
-Desde la versión 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon"></span>por defecto no permite más joins en forma implícita en los DELETES</a>, para la regeneración y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cláusula <tt>add_missing_from</tt> de la configuración de postgreSQL.
-</p>
-<h2 id="Alternativa:instalaciónmanual">Alternativa: instalación manual</h2>
+<ul><li>Para desarrollo la forma más sencilla de configurar el sistema es dejar el usuario de la base llamado <tt>postgres</tt> y darle permiso irrestricto desde la misma máquina (una verdero suicidio de seguridad). Para esto editar el archivo <tt>/etc/postgresql/8.2/main/pg_hba.conf</tt> (linux) o `c:\Archivos de Programa\PostgreSQL\8.2\datapg_hba.conf' y agregar esta línea al final del archivo (cambiar si ya existe con md5)
+<pre class="wiki">host    all         all         127.0.0.1/32          trust
+</pre>
+</li><li>Si se instala versión 8.1 o superior, ver notas sobre la <a class="wiki" href="Instalacion/Encoding.html">codificación local (encoding)</a>. 
+</li><li>Desde la versión 8.1 postgreSQL <a class="ext-link" href="../../../external.html?link=http://www.postgresql.org/docs/8.1/interactive/sql-delete.html"><span class="icon"></span>por defecto no permite más joins en forma implícita en los DELETES</a>, para la regeneración y el borrado del proyecto esto es necesario. Para permitirlo setear en <tt>true</tt> la cláusula <tt>add_missing_from</tt> de la configuración de postgreSQL.
+</li></ul><h2 id="Alternativa:instalaciónmanualdeToba">Alternativa: instalación manual de Toba</h2>
 <p>
 Una vez descargado o descomprimido el <a class="wiki" href="Instalacion/ObtenerCodigoFuenteToba.html">codigo fuente</a> del toba, se puede ejecutar la instalación automática (instalar.bat) o ejecuta la siguiente lista de pasos equivalentes:
 </p>

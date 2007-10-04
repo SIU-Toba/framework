@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -208,24 +223,24 @@ El núcleo determina la <a class="wiki" href="Instancia.html">instancia</a> y el
 </p>
 <h2 id="EjecucióndelaSolicitud">Ejecución de la Solicitud</h2>
 <p>
-La <a class="missing wiki" href="Memoria.html" rel="nofollow">Memoria?</a> de toba (enmascarando al GET/POST/SESSION) busca que <a class="wiki" href="Item.html">ítem</a> se pidio via la URL.  Para saber cómo ejecutar el ítem se busca en sus metadatos, utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor</a> encargado de buscar en la base de datos de la instancia o en su versión pre-compilada la información asociada al ítem.
+La <a class="missing wiki" href="Memoria.html" rel="nofollow">Memoria?</a> de toba (enmascarando al GET/POST/SESSION) busca que <a class="wiki" href="Operacion.html">operación</a> fue solicitada via la URL.  Para saber cómo ejecutar la operación se busca en sus metadatos, utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor</a> encargado de buscar en la base de datos de la instancia o en su versión pre-compilada la información asociada a la operación.
 </p>
 <p>
-Una vez conocidos los metadatos del ítem toma el controla de la ejecución su <a class="wiki" href="Solicitud.html">Solicitud</a> asociada. El caso general es utilizar la llamada <tt>solicitud_web</tt> que introduce las etapas de:
+Una vez conocidos los metadatos de la operación toma el controlador de la ejecución su <a class="wiki" href="Solicitud.html">Solicitud</a> asociada. El caso general es utilizar la llamada <tt>solicitud_web</tt> que introduce las etapas de:
 </p>
-<ul><li>Creación de la <a class="wiki" href="Zona.html">Zona</a> asociada al ítem, si posee
-</li><li>Crear los <a class="wiki" href="Objetos.html">Componentes</a> asociados directamente al ítem. Antes se les busca su definición en los metadatos utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor de componentes</a>.
+<ul><li>Creación de la <a class="wiki" href="Zona.html">Zona</a> asociada a la operación, si posee
+</li><li>Crear los <a class="wiki" href="Objetos.html">Componentes</a> asociados directamente a la operación. Antes se les busca su definición en los metadatos utilizando el <a href='../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/Componentes/toba_constructor.html#' title='Navega hacia la documentacion PHP'><img style='vertical-align:middle' src='../../../../toba_editor_trunk/doc/api/media/php-small.png' /> Constructor de componentes</a>.
 </li><li>Disparar en estos componentes la atención de <a class="wiki" href="Eventos.html">Eventos</a> producidos en la etapa anterior (Antender el $_POST)
 </li><li>Generación del <a class="wiki" href="Solicitud.html#Tiposdeservicio">Servicio</a> solicitado, generalmente <tt>generar_html</tt>:
 <ul><li>Utilizar el <a class="wiki" href="TipoPagina.html">tipo de página</a> para incluir el encabezado y pie de página e incluir recursos estáticos.
 </li><li>Disparar en los componentes la generación de la interface
 </li><li>Incluir los consumos javascript de estos componentes.
 </li></ul></li></ul><p>
-Generalmente el componente cabecera asociado al ítem es el llamado <a class="wiki" href="Objetos/ci.html">Controlador de interface</a>
+Generalmente el componente cabecera asociado a la operación es el llamado <a class="wiki" href="Objetos/ci.html">Controlador de interface</a>
 </p>
 <h2 id="Componentes">Componentes</h2>
 <p>
-La <tt>solicitud_web</tt> delega la ejecución a los componentes, y en particular al <a class="wiki" href="Objetos/ci.html">Controlador de interface</a> asociado directamente al ítem. Este ci es la raíz de un árbol de componentes donde se van a producir las etapas principales de ejecución en el pedido de página:
+La <tt>solicitud_web</tt> delega la ejecución a los componentes, y en particular al <a class="wiki" href="Objetos/ci.html">Controlador de interface</a> asociado directamente a la operación. Este ci es la raíz de un árbol de componentes donde se van a producir las etapas principales de ejecución en el pedido de página:
 </p>
 <h3 id="Construcción">Construcción</h3>
 <p>

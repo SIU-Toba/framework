@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -157,19 +172,31 @@ li * {
    <div class="wikipage">
     <div id="searchable"><p>
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#DebianStable">Debian Stable</a></li><li>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#PaquetesDebian">Paquetes Debian</a></li><li>
+<a href="#CompilaciondePDOendebianstable">Compilacion de PDO en debian stable</a></li><li>
 <a href="#Ubuntu">*Ubuntu</a></li><li>
 <a href="#NotasVarias">Notas Varias</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Instalacion.html">Instalacion</a> / FuentesAPT
 </p>
 <h1 id="FuentesAPTrecomendadas">Fuentes APT recomendadas</h1>
-<h2 id="DebianStable">Debian Stable</h2>
+<h2 id="PaquetesDebian">Paquetes Debian</h2>
 <p>
 (Tomado de <a class="ext-link" href="../../../../external.html?link=http://dotdeb.org/mirrors"><span class="icon"></span>http://dotdeb.org/mirrors</a>)
 </p>
-<pre class="wiki">deb http://mirror.fulltimehosting.net/dotdeb stable all
-deb-src http://mirror.fulltimehosting.net/dotdeb stable all
+<pre class="wiki">deb http://mirror.fulltimehosting.net/dotdeb etch all
+deb-src http://mirror.fulltimehosting.net/dotdeb etch all
 </pre>
+<h2 id="CompilaciondePDOendebianstable">Compilacion de PDO en debian stable</h2>
+<ol><li><tt>apt-get install build-essential php5-dev php-pear postgresql-server-dev-8.1</tt>
+</li><li><tt>pecl install pdo</tt>
+</li><li><tt>pecl install pdo_pgsql</tt>
+</li><li>Agregar a los archivos /etc/php5/cli/php.ini y  /etc/php5/apache2/php.ini:
+<pre class="wiki">extension=pdo.so
+extension=pdo_pgsql.so
+</pre>
+</li></ol><p>
+ 
+</p>
 <h2 id="Ubuntu">*Ubuntu</h2>
 <p>
 Para feisty la versión 5.2.1 ya se encuentra en los repositorios propios:
@@ -177,7 +204,8 @@ Para feisty la versión 5.2.1 ya se encuentra en los repositorios propios:
 <pre class="wiki"> sudo apt-get install apache2 php5 php5-pgsql php5-cli
 </pre>
 <p>
-(Tomado de <a class="ext-link" href="../../../../external.html?link=http://ubuntuforums.org/showpost.php?p=1194384&amp;postcount=9"><span class="icon"></span>http://ubuntuforums.org/showpost.php?p=1194384&amp;postcount=9</a> )
+Para otras versiones agregar estas fuentes a <tt>/etc/apt/sources.list</tt>
+(Tomado de <a class="ext-link" href="../../../../external.html?link=http://ubuntuforums.org/showpost.php?p=1194384&amp;postcount=9"><span class="icon"></span>http://ubuntuforums.org/showpost.php?p=1194384&amp;postcount=9</a> ):
 </p>
 <pre class="wiki"># PHP5.1 for Ubuntu dapper
 deb http://people.debian.org/~dexter php5.1 dapper
@@ -197,21 +225,6 @@ En algunas versiones, para instalar PDO a través de PECL hay que setear esto an
 </p>
 <pre class="wiki">export PHP_PDO_SHARED=&#34;true&#34;
 </pre>
-<hr />
-<p>
-Para instalarlo en paykin hice esto (a todos los comandos le agregue sudo)
-</p>
-<ol><li><tt>apt-get install php5-dev php-pear</tt>
-</li><li><tt>pecl install pdo</tt>
-</li><li><tt>apt-get install postgresql-server-dev-8.1</tt>
-</li><li><tt>pecl install pdo_pgsql</tt>
-</li><li>Agregar a los archivos /etc/php5/cli/php.ini y  /etc/php5/apache2/php.ini:
-<pre class="wiki">extension=pdo.so
-extension=pdo_pgsql.so
-</pre>
-</li></ol><p>
- 
-</p>
 </div>
    </div>
    

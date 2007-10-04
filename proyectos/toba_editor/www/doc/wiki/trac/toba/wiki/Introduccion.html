@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -157,11 +172,15 @@ li * {
    <div class="wikipage">
     <div id="searchable"><p>
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Tutorial.html">Tutorial</a></li><li><a href="Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#Capturas">Capturas</a><ol><li><a href="#Configuracionesgeneralesdelproyecto">Configuraciones generales del proyecto</a></li><li>
+<a href="#Vistageneraldelasoperaciones">Vista general de las operaciones</a></li><li>
+<a href="#Deficióndeunaoperación">Defición de una operación</a></li><li>
+<a href="#Ejecución">Ejecución</a></li><li>
+<a href="#Edicióncontextualdurantelaejecución">Edición contextual durante la ejecución</a></li></ol></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Introduccion
 </p>
 <h1 id="Características">Características</h1>
-<ul><li>Combinación de tecnologías abiertas (Apache, PHP, Postgres y un buen número de <a class="wiki" href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Consumo3ros">librerías open-source</a> integradas).
+<ul><li>Combinación de tecnologías abiertas (Apache, PHP, Postgres) y aprox. 20 librerías libres integradas.
 </li><li>Separación en capas (~MVC).
 </li><li>Transparencia al problema Request/Response.
 </li><li>Creación de interfaces ricas en forma declarativa (HTML, JS, CSS, AJAX).
@@ -173,9 +192,35 @@ li * {
 </li><li>Manejo de validaciones (cliente y servidor) y errores.
 </li><li>IDE Web pensada para desarrolladores e interfaz de línea de comandos para el deployment-mantenimiento de los sistemas.
 </li><li>Hereda ventajas de PHP5: muy sencillo (cualquier nivel de programación), ágil, fácil deployment, escala barato y sencillo.
-</li></ul></div>
+</li><li><a class="wiki" href="Tecnologia.html">Tecnologías utilizadas</a>.
+</li></ul><h2 id="Capturas">Capturas</h2>
+<h3 id="Configuracionesgeneralesdelproyecto">Configuraciones generales del proyecto</h3>
+<p>
+<a href="../attachment/wiki/Introduccion/edicion-configuraciones.html" style="padding:0; border:none"><img src="../attachment/wiki/Introduccion/edicion-configuraciones41f0.png?format=raw" /></a>
+</p>
+<h3 id="Vistageneraldelasoperaciones">Vista general de las operaciones</h3>
+<p>
+<a href="../attachment/wiki/Introduccion/edicion-operaciones.html" style="padding:0; border:none"><img src="../attachment/wiki/Introduccion/edicion-operaciones41f0.png?format=raw" /></a>
+</p>
+<h3 id="Deficióndeunaoperación">Defición de una operación</h3>
+<p>
+<a href="../attachment/wiki/Introduccion/edicion-definiciones.html" style="padding:0; border:none"><img src="../attachment/wiki/Introduccion/edicion-definiciones41f0.png?format=raw" /></a>
+</p>
+<h3 id="Ejecución">Ejecución</h3>
+<p>
+<a href="../attachment/wiki/Introduccion/ejecucion.html" style="padding:0; border:none"><img src="../attachment/wiki/Introduccion/ejecucion41f0.png?format=raw" /></a>
+</p>
+<h3 id="Edicióncontextualdurantelaejecución">Edición contextual durante la ejecución</h3>
+<p>
+<a href="../attachment/wiki/Introduccion/ejecucion-edicion.html" style="padding:0; border:none"><img src="../attachment/wiki/Introduccion/ejecucion-edicion41f0.png?format=raw" /></a>
+</p>
+</div>
    </div>
    
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../attachment/wiki/Introduccion/edicion-configuraciones.html">edicion-configuraciones.png</a> (30.8 kB) - added by seba on 08/03/07 20:06:10.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Introduccion/edicion-definiciones.html">edicion-definiciones.png</a> (26.9 kB) - added by seba on 08/03/07 20:08:00.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Introduccion/edicion-operaciones.html">edicion-operaciones.png</a> (31.1 kB) - added by seba on 08/03/07 20:08:15.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Introduccion/ejecucion.html">ejecucion.png</a> (32.1 kB) - added by seba on 08/03/07 20:08:40.</li><li class="tkt-chg-change"><a href="../attachment/wiki/Introduccion/ejecucion-edicion.html">ejecucion-edicion.png</a> (61.0 kB) - added by seba on 08/03/07 20:08:59.</li>
+    </ul>
+  
   
   <script type="text/javascript">
    addHeadingLinks(document.getElementById("searchable"));

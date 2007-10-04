@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -157,7 +172,7 @@ li * {
    <div class="wikipage">
     <div id="searchable"><p>
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#ConfiguraciónenDebian">Configuración en Debian</a></li><li>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#CambiarelencodingenDebian">Cambiar el encoding en Debian</a></li><li>
 <a href="#Másinfo">Más info</a></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Instalacion.html">Instalacion</a> / Encoding
 </p>
@@ -166,15 +181,14 @@ li * {
 Para una introducción corta y sencilla acerca de los encoding y en especial sobre Unicode ver <a class="ext-link" href="../../../../external.html?link=http://www.joelonsoftware.com/articles/Unicode.html"><span class="icon"></span>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>
 </p>
 <p>
-Actualmente para que los caracteres clásicos utilizados en nuestro lenguaje que superan la barrera del 128 en ASCII (á, ñ, etc.) no se vean como 'cuadraditos', todo el entorno de desarrollo necesita tener un encoding iso88591, esto requiere que:
+PHP no soporta en forma nativa a Unicode (y al parecer va a ser así hasta la version 6) por lo que requiere que el editor de código que se utilize (ej. Zend Studio, Eclipse, etc.) no cambie el encoding de los archivos ni los cree utilizando utf8 por ejemplo, esto es muy normal que suceda cuando el <tt>locale</tt> del  sistema operativo se encuentra en unicode (utf8), aunque generalmente los editores tienen una opción para leer/escribir los archivos respetando cierto encoding específico (en nuestro caso iso88591)
 </p>
-<ul><li><del>Apache tenga <tt>AddDefaultCharset ISO-8859-1</tt> en su configuración (para probar que con Unicode no funciona, probar cambiar a <tt>AddDefaultCharset UTF-8</tt>, reiniciar el servidor y probar alguna página Toba con acentos). Bajo windows es la configuración por defecto.</del> Esto ya no es necesario desde toba 0.9.1
-</li><li>El cliente svn baje los archivos utilizando iso88591. Esto implica que el sistema general este configurado con este encoding. Ver adjunto de configuración en distribuciones debian
-</li><li>Tanto el cliente como servidor de PostgreSQL necesitan estar configurados para LATIN1 (alias de iso88591). Bajo linux generalmente el servidor toma el encoding del Sistema Operativo, en caso de instalarse linux utilizando Unicode (muy normal actualmente), se necesita explicitar LATIN1 en el comando sql <tt>CREATE TABLE</tt> (los comandos administrativos de toba ya estan adaptados a este encoding). También Existe una configuración que afecta a todo el motor en el archivo postgresql.conf.
-</li><li>PHP no soporta en forma nativa a Unicode (y al parecer va a ser así hasta la version 6)
-</li></ul><h2 id="ConfiguraciónenDebian">Configuración en Debian</h2>
 <p>
-Para cambiar el encoding en distribuciones linux-debian se necesita por un lado <strong>generar</strong> el locale específico (en nuestro caso buscamos el es_AR.iso88591 tambien llamado latin1 o simplemente es_AR) y por otro seleccionarlo como <strong>predeterminado</strong>.
+Tanto el cliente como servidor de PostgreSQL necesitan estar configurados para LATIN1 (alias de iso88591). Bajo linux generalmente el servidor toma el encoding del Sistema Operativo, en caso de instalarse linux utilizando Unicode (muy normal actualmente), se necesita explicitar LATIN1 en el comando sql <tt>CREATE TABLE</tt> (los comandos administrativos de toba ya estan adaptados a este encoding). También existe una configuración que afecta a todo el motor en el archivo postgresql.conf.
+</p>
+<h2 id="CambiarelencodingenDebian">Cambiar el encoding en Debian</h2>
+<p>
+En caso de que el editor de turno no soporte leer/escribir en iso8859 teniendo el ambiente en utf8 es necesario cambiar el locale. Para distribuciones linux-debian se necesita por un lado <strong>generar</strong> el locale específico (en nuestro caso buscamos el es_AR.iso88591 tambien llamado latin1 o simplemente es_AR) y por otro seleccionarlo como <strong>predeterminado</strong>.
 </p>
 <p>
 Para realizar estos pasos se pueden a través de una interface gráfica o manualmente

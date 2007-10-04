@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -157,13 +172,17 @@ li * {
    <div class="wikipage">
     <div id="searchable"><p>
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="Instalacion.html">Instalación</a></li><li><a href="Referencia.html">Conceptos Básicos</a></li><li><a href="Referencia/Objetos.html">Componentes</a></li><li><a href="Referencia/Eventos.html">Eventos</a></li><li><a href="Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="Tutorial.html">Tutorial</a></li><li><a href="Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
-<div class="wiki-toc"><h4>En esta página</h4><ol><li><ol><li><a href="#Documentación">Documentación</a></li><li>
-<a href="#Desarrollo">Desarrollo</a></li></ol></li></ol></li></ol></div>
+<div class="wiki-toc"><h4>En esta página</h4><ol><li><ol><li><a href="#Descargas">Descargas</a></li><li>
+<a href="#Documentación">Documentación</a></li><li>
+<a href="#Desarrollo">Desarrollo</a></li></ol><li><a href="#Contacto">Contacto</a></li></ol></li></ol></div>
 
-<strong>SIU-Toba</strong> es un ambiente de desarrollo Web creado por <a href="../../../external.html?link=http://www.siu.edu.ar/">SIU</a> con el objetivo de brindar una herramienta de desarrollo rápido para construir aplicaciones transaccionales. Posee una arquitectura basada en componentes y una IDE de edición.
+<strong>SIU-Toba</strong> es un ambiente de desarrollo Web que permite construir aplicaciones transaccionales. Esta herramienta de desarrollo rápido posee una arquitectura basada en componentes y una IDE de edición propia. Creado por <a href="../../../external.html?link=http://www.siu.edu.ar/">SIU</a> y actualmente lanzado como <a class="wiki" href="Licencia.html">software libre</a>.
 </p>
-<ul><li><a class="wiki" href="Introduccion.html">Características</a>.
-</li><li><a class="wiki" href="Tecnologia.html">Tecnologías utilizadas</a>.
+<ul><li><a class="wiki" href="Licencia.html">Licencia</a>.
+</li><li><a class="wiki" href="Introduccion.html">Características y Capturas</a>.
+</li></ul><h3 id="Descargas">Descargas</h3>
+<ul><li><a href="../../../external.html?link=https://localhost/downloads/toba_1.0.4.zip">Version 1.0.4</a>.
+</li><li><a href="../../../external.html?link=https://localhost/downloads/toba_1.0.4.pdf">Manual (pdf)</a>.
 </li></ul><h3 id="Documentación">Documentación</h3>
 <ul><li><strong><a class="wiki" href="Instalacion.html">Instalación</a></strong>.
 </li><li><strong><a class="wiki" href="Tutorial.html">Tutorial</a></strong>.
@@ -174,11 +193,11 @@ li * {
 <ul><li><a class="wiki" href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo">Organizacion general</a>. 
 </li><li><a class="wiki" href="Versiones.html">Versiones</a>.
 </li><li><a class="wiki" href="Proyectos.html">Proyectos consumidores</a>.
-</li></ul><hr />
-<p>
-Para soporte, comentarios, inquietudes o mejoras utilizar la lista <a class="ext-link" href="mailto:toba@siu.edu.ar"><span class="icon"></span>toba@siu.edu.ar</a>
-</p>
-</div>
+</li></ul><h2 id="Contacto">Contacto</h2>
+<ul><li><i>toba@siu.edu.ar</i>: Cuenta para feedback inicial
+</li><li><i>toba.usuarios@siu.edu.ar</i>: Lista para soporte, comentarios e inquietudes de usuarios
+</li><li><i>toba.desarrollo@siu.edu.ar</i>: Lista para discutir el desarrollo y mejoras del framework
+</li></ul></div>
    </div>
    
   

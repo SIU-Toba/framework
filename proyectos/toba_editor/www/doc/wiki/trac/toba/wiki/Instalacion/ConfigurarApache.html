@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -205,6 +220,7 @@ El editor de toba es un proyecto más:
 <pre class="wiki">	Alias /editor &#34;/home/usuario/proyectos/toba/proyectos/toba_editor/www&#34;
 	&lt;Directory &#34;/home/usuario/proyectos/toba/proyectos/toba_editor/www/&#34;&gt;
 		SetEnv TOBA_DIR &#34;/home/usuario/proyectos/toba&#34;
+		SetEnv TOBA_INSTANCIA desarrollo
 		SetEnv TOBA_ALIAS toba
 		SetENV TOBA_PROYECTO_ALIAS editor
 		Options MultiViews
@@ -221,6 +237,7 @@ El proyecto necesita un alias, la manera más sencilla es editar el archivo toba
 <pre class="wiki">	Alias /mi_proyecto &#34;/home/usuario/proyectos/toba/proyectos/mi_proyecto/www&#34;
 	&lt;Directory &#34;/home/usuario/proyectos/toba/proyectos/mi_proyecto/www/&#34;&gt;
 		SetEnv TOBA_DIR &#34;/home/usuario/proyectos/toba&#34;
+		SetEnv TOBA_INSTANCIA desarrollo
 		SetEnv TOBA_ALIAS toba
 		SetEnv TOBA_PROYECTO_ALIAS mi_proyecto
 		Options MultiViews
@@ -231,7 +248,10 @@ El proyecto necesita un alias, la manera más sencilla es editar el archivo toba
 	&lt;/Directory&gt;
 </pre>
 <p>
-Si el proyecto consume un toba cuyo alias fue modificado, necesita declarar nuevamente la variable 'TOBA_ALIAS', por ejemplo: <tt>SetEnv TOBA_ALIAS toba_0.9.1</tt>. Lo mismo sucede si el alias del proyecto difiere de su nombre, se debe incluir <tt>SetEnv TOBA_PROYECTO_ALIAS mi_proyecto</tt>
+Si el proyecto consume un toba cuyo alias fue modificado, necesita declarar nuevamente la variable 'TOBA_ALIAS', por ejemplo: <tt>SetEnv TOBA_ALIAS toba_0.9.1</tt>. Lo mismo sucede si el alias del proyecto difiere de su nombre, se debe incluir <tt>SetEnv TOBA_PROYECTO_ALIAS mi_proyecto</tt>.
+</p>
+<p>
+Si existen distintas instancias que corran bajo la misma instalación tener en cuenta que solo puede existir una única directiva <tt>&lt;Directory&gt;</tt> refiriéndose al mismo directorio, con lo cual toda configuración distinta entre proyectos que se encuentran en ambas instancias deben incluirse en los respectivos <a class="wiki" href="../Referencia/PuntosDeAcceso.html">Puntos de Acceso</a> al proyecto.
 </p>
 <h2 id="Reiniciandoelservidor">Reiniciando el servidor</h2>
 <p>

@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -189,12 +204,15 @@ li * {
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/EFs">Desarrollo/EFs</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/E_STRICT">Desarrollo/E_STRICT</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/ElementoToba">Desarrollo/ElementoToba</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/ErroresInentendiblesRuntime">Desarrollo/ErroresInentendiblesRuntime</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/ErroresSql">Desarrollo/ErroresSql</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Eventos">Desarrollo/Eventos</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/FlujoMetadatos">Desarrollo/FlujoMetadatos</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Fuentes">Desarrollo/Fuentes</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/GeneracionAutomatica">Desarrollo/GeneracionAutomatica</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Icono">Desarrollo/Icono</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Impresion">Desarrollo/Impresion</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Juan">Desarrollo/Juan</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Layout">Desarrollo/Layout</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/LenguajeNoTipado">Desarrollo/LenguajeNoTipado</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/LockingOptimista">Desarrollo/LockingOptimista</a></li>
@@ -213,6 +231,7 @@ li * {
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Planificacion/Compatibilidad/0.8.3">Desarrollo/Planificacion/Compatibilidad/0.8.3</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Presentaciones">Desarrollo/Presentaciones</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Presentaciones/2007-05">Desarrollo/Presentaciones/2007-05</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Presentaciones/2007-08">Desarrollo/Presentaciones/2007-08</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Presentaciones/CaFeConf06">Desarrollo/Presentaciones/CaFeConf06</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/ProyectoInstancia">Desarrollo/ProyectoInstancia</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/PuertasNucleo">Desarrollo/PuertasNucleo</a></li>
@@ -230,10 +249,13 @@ li * {
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/RevisionAPI">Desarrollo/RevisionAPI</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/RevisionApiCI">Desarrollo/RevisionApiCI</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/SIU/InquietudesDesarrollo">Desarrollo/SIU/InquietudesDesarrollo</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Seba">Desarrollo/Seba</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/SeccionesToba">Desarrollo/SeccionesToba</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/SolicitudesYServicios">Desarrollo/SolicitudesYServicios</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/TestingJS">Desarrollo/TestingJS</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/TestingPHP">Desarrollo/TestingPHP</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/Tutorial">Desarrollo/Tutorial</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/apiAjax">Desarrollo/apiAjax</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Desarrollo/plan_0.8.3">Desarrollo/plan_0.8.3</a></li>
 <li><a href="Guia.html">Guia</a></li>
 <li><a href="Herramientas.html">Herramientas</a></li>
@@ -249,6 +271,7 @@ li * {
 <li><a href="Instalacion/php-gtk.html">Instalacion/php-gtk</a></li>
 <li><a href="InstalacionVieja.html">InstalacionVieja</a></li>
 <li><a href="Introduccion.html">Introduccion</a></li>
+<li><a href="Licencia.html">Licencia</a></li>
 <li><a href="MesaDeEntradas.html">MesaDeEntradas</a></li>
 <li><a href="Metodologia.html">Metodologia</a></li>
 <li><a href="Proyectos.html">Proyectos</a></li>
@@ -260,6 +283,7 @@ li * {
 <li><a href="RefactorizacionCi_Junio_2005.html">RefactorizacionCi_Junio_2005</a></li>
 <li><a href="Referencia.html">Referencia</a></li>
 <li><a href="Referencia/AbrirPhp.html">Referencia/AbrirPhp</a></li>
+<li><a href="Referencia/Ajax.html">Referencia/Ajax</a></li>
 <li><a href="Referencia/ArbolItems.html">Referencia/ArbolItems</a></li>
 <li><a href="Referencia/Ayuda.html">Referencia/Ayuda</a></li>
 <li><a href="Referencia/Carpetas.html">Referencia/Carpetas</a></li>
@@ -274,6 +298,8 @@ li * {
 <li><a href="Referencia/Ejecucion.html">Referencia/Ejecucion</a></li>
 <li><a href="Referencia/Eventos.html">Referencia/Eventos</a></li>
 <li><a href="Referencia/Eventos/Vinculo.html">Referencia/Eventos/Vinculo</a></li>
+<li><a href="Referencia/ExtensionNucleo.html">Referencia/ExtensionNucleo</a></li>
+<li><a href="Referencia/ExtensionNucleo/Componentes.html">Referencia/ExtensionNucleo/Componentes</a></li>
 <li><a href="Referencia/ExtensionNucleo/Efs.html">Referencia/ExtensionNucleo/Efs</a></li>
 <li><a href="Referencia/ExtensionesJavascript.html">Referencia/ExtensionesJavascript</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Referencia/FormatoWiki">Referencia/FormatoWiki</a></li>
@@ -281,7 +307,7 @@ li * {
 <li><a href="Referencia/GeneracionDocumentacion.html">Referencia/GeneracionDocumentacion</a></li>
 <li><a href="Referencia/Instalacion.html">Referencia/Instalacion</a></li>
 <li><a href="Referencia/Instancia.html">Referencia/Instancia</a></li>
-<li><a href="Referencia/Item.html">Referencia/Item</a></li>
+<li><a href="Referencia/Logs.html">Referencia/Logs</a></li>
 <li><a href="Referencia/Marco.html">Referencia/Marco</a></li>
 <li><a href="Referencia/MarcoTransaccional.html">Referencia/MarcoTransaccional</a></li>
 <li><a href="Referencia/Mensajes.html">Referencia/Mensajes</a></li>
@@ -304,7 +330,8 @@ li * {
 <li><a href="Referencia/Objetos/ei_filtro.html">Referencia/Objetos/ei_filtro</a></li>
 <li><a href="Referencia/Objetos/ei_formulario.html">Referencia/Objetos/ei_formulario</a></li>
 <li><a href="Referencia/Objetos/ei_formulario_ml.html">Referencia/Objetos/ei_formulario_ml</a></li>
-<li><a href="Referencia/Patron.html">Referencia/Patron</a></li>
+<li><a href="Referencia/Operacion.html">Referencia/Operacion</a></li>
+<li><a href="Referencia/Personalizaciones.html">Referencia/Personalizaciones</a></li>
 <li><a href="Referencia/Plantillas.html">Referencia/Plantillas</a></li>
 <li><a href="Referencia/ProcesoDeSubmit.html">Referencia/ProcesoDeSubmit</a></li>
 <li><a href="Referencia/Proyecto.html">Referencia/Proyecto</a></li>
@@ -315,6 +342,7 @@ li * {
 <li><a href="Referencia/Solicitud.html">Referencia/Solicitud</a></li>
 <li><a href="Referencia/Testing.html">Referencia/Testing</a></li>
 <li><a href="Referencia/TipoPagina.html">Referencia/TipoPagina</a></li>
+<li><a href="Referencia/ZendStudio.html">Referencia/ZendStudio</a></li>
 <li><a href="Referencia/Zona.html">Referencia/Zona</a></li>
 <li><a href="Referencia/efs.html">Referencia/efs</a></li>
 <li><a href="Referencia/efs/numero.html">Referencia/efs/numero</a></li>
@@ -330,6 +358,8 @@ li * {
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Reuniones/2006-05-23">Reuniones/2006-05-23</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Reuniones/2006-08">Reuniones/2006-08</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Reuniones/2007-01">Reuniones/2007-01</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Reuniones/2007-05-10">Reuniones/2007-05-10</a></li>
+<li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/Reuniones/2007-08">Reuniones/2007-08</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/SandBox">SandBox</a></li>
 <li><a href="Screenshots.html">Screenshots</a></li>
 <li><a href="Tecnologia.html">Tecnologia</a></li>
@@ -388,10 +418,12 @@ li * {
 <li><a href="Versiones/1.0-3.html">Versiones/1.0.2</a></li>
 <li><a href="Versiones/1.0-4.html">Versiones/1.0.3</a></li>
 <li><a href="Versiones/1.0-5.html">Versiones/1.0.4</a></li>
+<li><a href="Versiones/1.1.html">Versiones/1.1.0</a></li>
 <li><a href="Versiones/Migracion0.8.html">Versiones/Migracion0.8.1</a></li>
 <li><a href="Versiones/Migracion0.8-2.html">Versiones/Migracion0.8.3</a></li>
 <li><a href="Versiones/Migracion0.9.html">Versiones/Migracion0.9.0</a></li>
 <li><a href="Versiones/Migracion1.0.html">Versiones/Migracion1.0.0</a></li>
+<li><a href="Versiones/Migracion_desde_0.9.html">Versiones/Migracion_desde_0.9.1</a></li>
 <li><a href="WikiDeletePage.html">WikiDeletePage</a></li>
 <li><a href="../../../external.html?link=https://localhost/trac/toba/wiki/WikiFormatting">WikiFormatting</a></li>
 <li><a href="WikiHtml.html">WikiHtml</a></li>
@@ -402,6 +434,7 @@ li * {
 <li><a href="WikiRestructuredText.html">WikiRestructuredText</a></li>
 <li><a href="WikiRestructuredTextLinks.html">WikiRestructuredTextLinks</a></li>
 <li><a href="WikiStart.html">WikiStart</a></li>
+<li><a href="downloads.html">downloads</a></li>
 </ul>
 </p>
 </div>

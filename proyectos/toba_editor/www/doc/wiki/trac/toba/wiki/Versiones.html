@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -163,19 +178,23 @@ li * {
 <a href="WikiStart.html">Inicio</a> / Versiones
 </p>
 <h1 id="VersionadoenToba">Versionado en Toba</h1>
+<p>
+<strong><a class="wiki" href="Versiones/Migracion_desde_0.9.html">Migración desde toba 0.9.1 a 1.0.x</a></strong>
+</p>
 <h2 id="ListadeVersiones">Lista de Versiones</h2>
-<ul><li><strong><a class="wiki" href="Versiones/1.0-5.html">Toba 1.0.4</a></strong> (04/05/2007).
-</li><li><a class="wiki" href="Versiones/1.0-4.html">Toba 1.0.3</a> (16/03/2007).
-</li><li><a class="wiki" href="Versiones/1.0-3.html">Toba 1.0.2</a> (28/11/2006).
-</li><li><a class="wiki" href="Versiones/1.0-2.html">Toba 1.0.1</a> (27/10/2006).
-</li><li><a class="wiki" href="Versiones/1.0.html">Toba 1.0.0</a> (15/09/2006).
-</li><li><a class="wiki" href="Versiones/0.9-2.html">Toba 0.9.1</a> (28/04/2006).
-</li><li><a class="wiki" href="Versiones/0.9.html">Toba 0.9.0</a> (10/03/2006).
-</li><li><a class="wiki" href="Versiones/0.8-3.html">Toba 0.8.3</a> (15/10/2005).
-</li><li><a class="wiki" href="Versiones/0.8-2.html">Toba 0.8.2</a> (30/06/2005).
-</li><li><a class="wiki" href="Versiones/0.8.html">Toba 0.8.1</a> (23/05/2005).
+<ul><li><strong><a class="wiki" href="Versiones/1.1.html">1.1.0</a></strong> (04/10/2007).
+</li><li><a class="wiki" href="Versiones/1.0-5.html">1.0.4</a> (04/05/2007).
+</li><li><a class="wiki" href="Versiones/1.0-4.html">1.0.3</a> (16/03/2007).
+</li><li><a class="wiki" href="Versiones/1.0-3.html">1.0.2</a> (28/11/2006).
+</li><li><a class="wiki" href="Versiones/1.0-2.html">1.0.1</a> (27/10/2006).
+</li><li><a class="wiki" href="Versiones/1.0.html">1.0.0</a> (15/09/2006).
+</li></ul><ul><li><a class="wiki" href="Versiones/0.9-2.html">0.9.1</a> (28/04/2006).
+</li><li><a class="wiki" href="Versiones/0.9.html">0.9.0</a> (10/03/2006).
+</li><li><a class="wiki" href="Versiones/0.8-3.html">0.8.3</a> (15/10/2005).
+</li><li><a class="wiki" href="Versiones/0.8-2.html">0.8.2</a> (30/06/2005).
+</li><li><a class="wiki" href="Versiones/0.8.html">0.8.1</a> (23/05/2005).
 </li></ul><p>
-Futuro: <strong><a class="missing wiki" href="Versiones/1.1.html" rel="nofollow">Toba 1.1.0?</a></strong>
+Futuro: <strong><a class="missing wiki" href="Versiones/1.1-2.html" rel="nofollow">1.1.1?</a></strong>
 </p>
 <h2 id="EsquemadeVersionadodeToba">Esquema de Versionado de Toba</h2>
 <p>

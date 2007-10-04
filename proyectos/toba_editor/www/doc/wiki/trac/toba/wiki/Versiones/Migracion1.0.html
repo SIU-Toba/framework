@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -241,7 +256,7 @@ li * {
 </li></ul><h3 id="CambiodeAPIacis">Cambio de API a cis</h3>
 <ul><li>get_etapa_inicial (obsoleto desde 0.8.3) se elimina (usar get_pantalla_inicial)
 </li><li><tt>evt__pre_cargar_datos_dependencias</tt> y  <tt>evt__post_cargar_datos_dependencias</tt> se eliminan.
-</li><li>set_etapa_gi y get_etapa_gi pasan a ser set_id_pantalla() y get_id_pantalla()
+</li><li>set_etapa_gi y get_etapa_gi pasan a ser set_pantalla() y get_id_pantalla()
 </li><li>No hay mas metodos con la palabra 'etapa' son todas 'pantalla'
 </li><li>El paginado del cuadro a cargo del CI no se hace mas con el evento <tt>cant_reg</tt> sino configurandolo explicitamente con el metodo del cuadro <tt>set_total_registros</tt>.
 </li><li>En javascript <tt>this._ci</tt> paso a ser <tt>this.controlador</tt>
@@ -290,7 +305,7 @@ El estilo de una etiqueta en vista_impresion pasa a ser <tt>ef-etiqueta</tt> (el
 </p>
 <h3 id="Inicializaciondelcontextodelproyecto">Inicializacion del contexto del proyecto</h3>
 <p>
-El codigo de inicializacion que se ubicaba en el archivo <strong>inicializacion.php</strong> se traslada a la ventana <strong>iniciar_contexto</strong> de la clase <strong>toba_sesion</strong>. Si el proyecto utilizaba esta funcionalidad, debe extender esta clase del nucleo (crear una clase que extetienda la sesion y definir la extension desde el editor) y trasladar el codigo del archivo a la ventana especificada.
+El codigo de inicializacion que se ubicaba en el archivo <strong>inicializacion.php</strong> se traslada a la ventana <tt>conf__inicial</tt> de la clase <strong>toba_contexto_ejecucion</strong>. Si el proyecto utilizaba esta funcionalidad, debe extender esta clase del nucleo (crear una clase que implemente la interface <strong>toba_interface_contexto_ejecucion</strong> y definir la extension desde el editor) y trasladar el codigo del archivo a la ventana especificada.
 </p>
 <h3 id="CambiodeAPIdelasfuentesdedatos">Cambio de API de las fuentes de datos</h3>
 <ul><li>La función <tt>ejecutar_sql</tt> pasa a ser <tt>ejecutar_fuente</tt> (para hacerle similar a <tt>consultar_fuente</tt>)

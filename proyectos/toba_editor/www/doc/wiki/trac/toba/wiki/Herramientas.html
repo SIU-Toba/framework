@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../external.html?link=https://localhost/trac/toba"><img src="../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -161,7 +176,9 @@ li * {
 <a href="#Profiler">Profiler</a></li><li>
 <a href="#Navegadores">Navegadores</a></li><li>
 <a href="#Utilitarios">Utilitarios</a></li><li>
-<a href="#Recursos">Recursos</a></li></ol></li></ol></div>
+<a href="#Codigo">Codigo</a></li><li>
+<a href="#Diseño">Diseño</a></li><li>
+<a href="#Varios">Varios</a></li></ol></li></ol></div>
 <a href="WikiStart.html">Inicio</a> / Herramientas
 </p>
 <h1 id="Herramientas">Herramientas</h1>
@@ -208,11 +225,20 @@ eaccelerator.compress_level=&#34;9&#34;
 </li><li><a class="ext-link" href="../../../external.html?link=https://addons.mozilla.org/extensions/moreinfo.php?id=1843&amp;application=firefox"><span class="icon"></span>Firebug</a> Extensión de firefox para debug de js y xmlhttprequest.
 </li><li><a class="wiki" href="Herramientas/svn.html">Scripts SVN 'caseros'</a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.orcaware.com/svn/wiki/Svnmerge.py"><span class="icon"></span>SvnMerge</a>: un script para hacer facil la mezcla de branchs.
-</li></ul><h2 id="Recursos">Recursos</h2>
+</li></ul><h2 id="Codigo">Codigo</h2>
+<p>
+<a class="ext-link" href="../../../external.html?link=http://www.phorum.org/development/browser/phorum5/trunk/include/email_functions.php"><span class="icon"></span>Validacion de emails</a>
+</p>
+<h2 id="Diseño">Diseño</h2>
 <ul><li><a class="ext-link" href="../../../external.html?link=http://www.kde-look.org/content/show.php?content=30987"><span class="icon"></span>Iconos Open-Source</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://pgfoundry.org/docman/?group_id=1000089"><span class="icon"></span>Iconos de postgres y base de datos en general</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://www.codehaus.org/~bwalding/eclipse-icons/"><span class="icon"></span>Iconos de eclipse</a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://edevil.wordpress.com/2005/11/14/javascript-libraries-roundup/"><span class="icon"></span>Librerias Javascript</a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://www.lucazappa.com/brilliantMaker/buttonImage.php"><span class="icon"></span>Creacion de botones 80x15</a>
 </li><li><a class="ext-link" href="../../../external.html?link=http://swfupload.mammon.se/"><span class="icon"></span>Upload de archivos usando flash</a>
+</li></ul><h2 id="Varios">Varios</h2>
+<ul><li><a class="ext-link" href="../../../external.html?link=http://www.snook.ca/archives/servers/hosted_subversion/"><span class="icon"></span>Hosting SVN</a>
+</li><li><a class="ext-link" href="../../../external.html?link=http://techmagazine.ws/full-web-20-api-list/"><span class="icon"></span>Full Web 2.0 API List</a>
 </li></ul></div>
    </div>
    

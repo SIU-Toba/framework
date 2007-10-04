@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -169,7 +184,7 @@ En los distintos elementos del proyecto definidos en el editor se permite ingres
 <h2 id="Nivelesenquesemuestra">Niveles en que se muestra</h2>
 <h3 id="Operación">Operación</h3>
 <p>
-En el <a class="wiki" href="Item.html">ítem</a> se muestra un ícono de ayuda <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/ayuda_grande.gif' /> al lado del nombre de la operación, al pasar sobre el icono se le muestra (sin retardo) la descripción asociada.
+En la <a class="wiki" href="Operacion.html">operación</a> se muestra un ícono de ayuda <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/ayuda_grande.gif' /> al lado del nombre de la operación, al pasar sobre el icono se le muestra (sin retardo) la descripción asociada.
 </p>
 <h3 id="Componente">Componente</h3>
 <p>
@@ -180,7 +195,7 @@ Otra opción es forzar a que se muestre como una barra propia, sin tooltip con u
 </p>
 <h3 id="Campoocolumna">Campo o columna</h3>
 <p>
-Cuando en un <a class="wiki" href="Objetos/ei_formulario.html">formulario</a> se tienen <a class="wiki" href="efs.html">Campos o efs</a> es posible a cada uno de estos asociarles una descripción en forma de tootip <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/descripcion.gif' />
+Cuando en un <a class="wiki" href="Objetos/ei_formulario.html">formulario</a> se tienen <a class="wiki" href="efs.html">Campos o efs</a> es posible a cada uno de estos asociarles una descripción en forma de tootip <img onerror='alert("No se encuentra la imagen: " + this.src)' style='vertical-align:middle' border=0 src='../../../../toba_trunk/img/descripcion.gif' />. Lo mismo sucede con la ayuda de las utilerias e iconos del <a class="wiki" href="Objetos/ei_arbol.html">ei_arbol</a>
 </p>
 <h2 id="Formato">Formato</h2>
 <p>

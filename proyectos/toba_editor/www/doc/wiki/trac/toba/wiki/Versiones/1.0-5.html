@@ -88,6 +88,14 @@ li * {
 /*a {
  color: #890C71;
 }*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
 </style>
  <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
 </head>
@@ -122,7 +130,14 @@ li * {
 <div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
 
 <form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
- 
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
 </form>
 
 
@@ -130,7 +145,7 @@ li * {
 <div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a href="../TracGuide.html" accesskey="6">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
 </div>
 
-<div id="mainnav" class="nav"><ul><li class="active first last"><a href="../../wiki.html" accesskey="1">Wiki</a></li></ul></div>
+<div id="mainnav" class="nav"><ul><li class="active first"><a href="../../wiki.html" accesskey="1">Wiki</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/timeline" accesskey="2">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/search" accesskey="4">Search</a></li></ul></div>
 <div id="main">
 
 
@@ -159,14 +174,17 @@ li * {
 <div class="wiki-toc indice-general"><h4>Indice General</h4><ul><li><a href="../Instalacion.html">Instalación</a></li><li><a href="../Referencia.html">Conceptos Básicos</a></li><li><a href="../Referencia/Objetos.html">Componentes</a></li><li><a href="../Referencia/Eventos.html">Eventos</a></li><li><a href="../Referencia/FuenteDatos.html">Fuentes de Datos</a></li><li><a href="../Referencia/Objetos/Persistencia.html">Persistencia</a></li><li><a href="../Tutorial.html">Tutorial</a></li><li><a href="../Proyectos/Referencia.html">Proyecto Referencia</a></li><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/php-small.png" style="vertical-align: middle"/> API PHP</a><li><a href="../../../../external.html?link=https://localhost/toba_editor_trunk/doc/api_js/index.html"><img src="../../../../toba_editor_trunk/doc/api/media/javascript-small.png" style="vertical-align: middle"/> API Javascript</a></ul></div>
 <div class="wiki-toc"><h4>En esta página</h4><ol><li><a href="#ListadeCambios">Lista de Cambios</a><ol><li><a href="#Editor">Editor</a></li><li>
 <a href="#Componentes">Componentes</a></li><li>
-<a href="#Varios">Varios</a></li></ol><li><a href="#MigraciónManual">Migración Manual</a><ol><li><a href="#EventoprocesardelCI">Evento procesar del CI</a></li><li>
-<a href="#Cursorendatos_tabla">Cursor en datos_tabla</a></li></ol></li></ol></li></ol></div>
+<a href="#Varios">Varios</a></li></ol><li><a href="#MigraciónManual">Migración Manual</a></li><li>
+<a href="#Puntodeacceso">Punto de acceso</a><ol><li><a href="#EventoprocesardelCI">Evento procesar del CI</a></li><li>
+<a href="#EventosenJavascript">Eventos en Javascript</a></li><li>
+<a href="#Cursorendatos_tabla">Cursor en datos_tabla</a></li><li>
+<a href="#EstaCargada">Esta Cargada?</a></li></ol></li></ol></li></ol></div>
 <a href="../WikiStart.html">Inicio</a> / <a href="../Versiones.html">Versiones</a> / 1.0.4
 </p>
 <h1 id="Versión1.0.4">Versión 1.0.4</h1>
 <ul><li>Fecha: 04/05/07
-</li><li>Fuente: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/branches/post_1.0.4">source:branches/post_1.0.4</a>
-</li><li>Revisiones involucradas: <a class="changeset" title="Version 1.0.3" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2346">[2346]</a> a ...
+</li><li>Fuente: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/versiones/1.0.4">source:versiones/1.0.4</a>
+</li><li>Revisiones involucradas: <a class="changeset" title="Version 1.0.3" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2346">[2346]</a> a <a class="changeset" title="Version 1.0.4. Branch para mejoras" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2505">[2505]</a>
 </li></ul><h2 id="ListadeCambios">Lista de Cambios</h2>
 <h3 id="Editor">Editor</h3>
 <ul><li>La definición de <tt>bases.ini</tt> se puede modificar desde el editor.
@@ -216,7 +234,30 @@ Los 3 niveles se completan con las primitivas: get_dato*, eliminar_dato*, existe
 </li><li>Solución de bugs en la sesión que hacian por ejemplo que no se pueda refrescar el item inicial o el re-login se tenga que hacer dos veces.
 </li><li>Metodo de inicialización automática de sesiones extendidas cuando ya existe un usuario logueado en la instancia donde se ejecuta el proyecto. Se aplica la modificación en la relacion toba_editor / toba_instancia. La comunicación entre ambos en a través de toba::memoria()-&gt;get_dato_instancia();
 </li></ul><h2 id="MigraciónManual">Migración Manual</h2>
-<h3 id="EventoprocesardelCI">Evento procesar del CI</h3>
+<h2 id="Puntodeacceso">Punto de acceso</h2>
+<p>
+Los puntos de acceso (aplicacion.php, etc) deben invocar a toba de la siguiente forma:
+</p>
+<div class="code"><pre><span class="code-lang">&lt;?php
+
+</span><span class="code-comment">//--------------------------------------------------------------------------
+//------ Invocacion del nucleo del toba ------------------------------------
+//--------------------------------------------------------------------------
+</span><span class="code-keyword">if (isset(</span><span class="code-lang">$_SERVER</span><span class="code-keyword">[</span><span class="code-string">'TOBA_DIR'</span><span class="code-keyword">])) {
+    </span><span class="code-lang">$dir </span><span class="code-keyword">= </span><span class="code-lang">$_SERVER</span><span class="code-keyword">[</span><span class="code-string">'TOBA_DIR'</span><span class="code-keyword">].</span><span class="code-string">"/php"</span><span class="code-keyword">; 
+    </span><span class="code-lang">$separador </span><span class="code-keyword">= (</span><span class="code-lang">substr</span><span class="code-keyword">(</span><span class="code-lang">PHP_OS</span><span class="code-keyword">, </span><span class="code-lang">0</span><span class="code-keyword">, </span><span class="code-lang">3</span><span class="code-keyword">) == </span><span class="code-string">'WIN'</span><span class="code-keyword">) ? </span><span class="code-string">";.;" </span><span class="code-keyword">: </span><span class="code-string">":.:"</span><span class="code-keyword">;
+    </span><span class="code-lang">ini_set</span><span class="code-keyword">(</span><span class="code-string">"include_path"</span><span class="code-keyword">, </span><span class="code-lang">ini_get</span><span class="code-keyword">(</span><span class="code-string">"include_path"</span><span class="code-keyword">). </span><span class="code-lang">$separador </span><span class="code-keyword">. </span><span class="code-lang">$dir</span><span class="code-keyword">);
+    </span><span class="code-lang">define</span><span class="code-keyword">(</span><span class="code-string">"apex_pa_ID"</span><span class="code-keyword">,</span><span class="code-lang">$_SERVER</span><span class="code-keyword">[</span><span class="code-string">'PHP_SELF'</span><span class="code-keyword">]);
+    require_once(</span><span class="code-string">"nucleo/toba_nucleo.php"</span><span class="code-keyword">);
+    </span><span class="code-lang">toba_nucleo</span><span class="code-keyword">::</span><span class="code-lang">instancia</span><span class="code-keyword">()-&gt;</span><span class="code-lang">acceso_web</span><span class="code-keyword">();        
+} else {
+    die(</span><span class="code-string">"Es necesario definir la variable 'TOBA_DIR' en el archivo de configuracion de apache
+            (Utilize la directiva 'SetEnv')"</span><span class="code-keyword">);
+}
+</span><span class="code-comment">//--------------------------------------------------------------------------
+</span><span class="code-lang">?&gt;
+</span></span>
+</pre></div><h3 id="EventoprocesardelCI">Evento procesar del CI</h3>
 <p>
 A partir <a class="changeset" title="Se saca la limpieza de memoria del procesamiento por defecto del CI, para ..." href="../../../../external.html?link=https://localhost/trac/toba/changeset/2472">[2472]</a> el <tt>evt__procesar</tt> del CI no posee más una llamada a la limpieza de la memoria del componente (<a class="closed ticket" href="../../../../external.html?link=https://localhost/trac/toba/ticket/524" title="Problemas con la acción predefinida del procesar (closed)">#524</a>). Aquellos evento procesar que llamaban al padre para realizar la limpieza deberan invocar explícitamente al método `disparar_limpieza_memoria. Por ej:
 </p>
@@ -230,7 +271,14 @@ A partir <a class="changeset" title="Se saca la limpieza de memoria del procesam
  }
 </span><span class="code-lang">?&gt;
 </span></span>
-</pre></div><h3 id="Cursorendatos_tabla">Cursor en datos_tabla</h3>
+</pre></div><h3 id="EventosenJavascript">Eventos en Javascript</h3>
+<p>
+Por error en las versiones anteriores del motor javascript de toba cuando se ejecutaba un listener de un evento javascript se asumía que toda respuesta distinta de <tt>true</tt> era false, inclusive la no-respuesta. A partir de la nueva versión el proceso de submit se paraliza si explícitamente se retorna false en alguno de estos métodos (similar a lo que hace javscript con sus eventos propios <tt>OnTalCosa</tt>).
+</p>
+<p>
+En caso de que se hayan extendido eventos en javascript y se halla querido controlar el proceso de submit se debe asegurar que tenga un <tt>return false</tt> explícito para parar el proceso de submit.
+</p>
+<h3 id="Cursorendatos_tabla">Cursor en datos_tabla</h3>
 <p>
 La API get/set del datos tabla solo trabaja sobre el cursor de la tabla. Anteriormente por más que la tabla manejara muchos registros si casualmente sólo se cargaba uno, el cursor se posicionaba sobre este. Esto cambiaba el comportamiento de la clase según la cantidad de registros que haya en la base, dejando prácticamente inusable el sentido del cursor. En esta versión el cursor sólo se posiciona automáticamente si explícitamente se dice que la tabla maneja un único registro cargado (Max. Filas).
 </p>
@@ -241,6 +289,10 @@ Aquellas tablas que asumían este comportamiento pero no tienen definida en uno 
 </pre>
 <p>
 Para prevenir esto es necesario recorrer los datos_relacion buscando aquellas tablas que se asumen que tienen un único registro y explicitándolo.
+</p>
+<h3 id="EstaCargada">Esta Cargada?</h3>
+<p>
+En el api del datos_relacion se cambio el metodo <i>esta_cargado</i> por <i>esta_cargada</i> (porque la relación esta o no <strong>cargada</strong>)
 </p>
 </div>
    </div>
