@@ -8,11 +8,13 @@ class odr_datos_tabla extends toba_datos_relacion
 	 */
 	function actualizar_campos()
 	{
+		$basicos = $this->tabla('base')->get();
+		$proyecto = $basicos['fuente_datos_proyecto'];
+		$id_fuente = $basicos['fuente_datos'];
+		
 		//-- Obtengo datos
 		$reg = $this->tabla('prop_basicas')->get();
 		$tabla = $reg['tabla'];
-		$proyecto = $reg['fuente_datos_proyecto'];
-		$id_fuente = $reg['fuente_datos'];
 		$fuente = toba::db($id_fuente, toba_editor::get_proyecto_cargado());
 		$columnas = $fuente->get_definicion_columnas($tabla);
 		foreach(array_keys($columnas) as $id){
