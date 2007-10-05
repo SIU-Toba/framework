@@ -16,7 +16,7 @@ class toba_info_editores
 			$where = " AND c.clase IN ('". implode("','", self::get_clases_validas_contenedor($contenedor) ) ."') ";
 		}
 		if($excluir_internos) {
-			$where = " AND ct.clase_tipo <> 10 ";
+			$where .= " AND ct.clase_tipo <> 10 ";
 		}
 		$sql = "SELECT
 					c.proyecto,

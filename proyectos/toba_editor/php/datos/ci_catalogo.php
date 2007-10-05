@@ -28,12 +28,19 @@ class ci_catalogo extends toba_ci
 		$datos = toba_info_editores::get_fuentes_datos();
 		foreach(array_keys($datos) as $id) {
 			$datos[$id]['icono']	= 'fuente.png';
-			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['fuente_datos']);
-			$datos[$id]['editar'] = $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																'/admin/datos/fuente',
+			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
+			$img = toba_recurso::imagen_toba("buscar.png", true, null, null);
+			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
+																3412,
 																$parametros,
 																$img);
+			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
+																	'/admin/datos/fuente',
+																	$parametros,
+																	$img);
+			$datos[$id]['editar'] .= "</span>";
 		}
 		$cuadro->set_datos($datos);
 	}
