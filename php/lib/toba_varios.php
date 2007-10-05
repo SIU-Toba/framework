@@ -233,8 +233,12 @@
 	            	$salida[implode(apex_qs_separador, $valores_clave)][$valor] = $fila[$valor];
 				}
 			} else {
-
-				$salida[implode(apex_qs_separador, $valores_clave)] = $fila;
+				$clave_temp = implode(apex_qs_separador, $valores_clave);
+				if ($clave_temp != '') {
+					$salida[$clave_temp] = $fila;
+				} else {
+					$salida[''] = $fila;
+				}
 			}
 		}
         return $salida;
