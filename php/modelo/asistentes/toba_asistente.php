@@ -436,7 +436,6 @@ abstract class toba_asistente
 	function crear_consulta_php($include, $clase, $metodo, $sql, $parametros=null)
 	{
 		$metodo_php = $this->crear_metodo_consulta($metodo, $sql, $parametros);
-		$metodo_php->identar(1);
 		$this->agregar_archivo($include, $clase, $metodo_php);
 	}
 
@@ -463,7 +462,7 @@ abstract class toba_asistente
 				$existente = toba_archivo_php::codigo_sacar_tags_php(file_get_contents($path));
 			}			
 			$php = $clase->generar_codigo($existente);
-			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php" . salto_linea() . $php . salto_linea() .  "?>");
+			toba_manejador_archivos::crear_archivo_con_datos($path, "<?php" . $php . "?>");
 			$this->registrar_elemento_creado(	'Archivo consultas', 
 												$this->get_proyecto(),
 												$this->id_molde_proyecto );

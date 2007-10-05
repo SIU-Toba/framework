@@ -244,19 +244,7 @@ class toba_archivo_php
 		$linea_f = null;
 		//Busco la region en donde se encuentra el metodo
 		foreach($contenido as $linea => $codigo) {
-			if(	!$encontrado && preg_match("/protected function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
-				$encontrado = true;
-				$linea_i = $linea;
-			}
-			if(	!$encontrado && preg_match("/public function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
-				$encontrado = true;
-				$linea_i = $linea;
-			}
-			if(	!$encontrado && preg_match("/private function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
-				$encontrado = true;
-				$linea_i = $linea;
-			}			
-			if(	!$encontrado && preg_match("/function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
+			if(	!$encontrado && preg_match("/(protected|public|private)*\s*function\s+$nombre_metodo_a_extraer\s*?\(/",$codigo)) {
 				$encontrado = true;
 				$linea_i = $linea;
 			}
