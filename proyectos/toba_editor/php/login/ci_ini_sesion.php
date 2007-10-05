@@ -26,21 +26,9 @@ class ci_ini_sesion extends toba_ci
 
 	//--- COMBOS ----------------------------------------------------------------
 
-	function get_lista_instancias()
+	function get_lista_proyectos()
 	{
-		$instancias = toba_modelo_instancia::get_lista();
-		$datos = array();
-		$a = 0;
-		foreach( $instancias as $x) {
-			$datos[$a]['id'] = $x;
-			$datos[$a]['desc'] = $x;
-			$a++;
-		}
-		return $datos;
-	}
-	
-	function get_lista_proyectos($instancia_id)
-	{
+		$instancia_id = toba::instancia()->get_id();
 		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($instancia_id, new toba_mock_proceso_gui);
 		$proyectos = $instancia->get_lista_proyectos_vinculados();
 		$datos = array();

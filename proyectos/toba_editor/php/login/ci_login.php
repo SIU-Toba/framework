@@ -50,7 +50,6 @@ class ci_login extends toba_ci
 			}
 		}
 		try {
-			$datos_editor['instancia'] = $this->s__datos['instancia'];
 			$datos_editor['proyecto'] = $this->s__datos['proyecto'];
 			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
 		} catch ( toba_error $e ) {
@@ -104,8 +103,9 @@ class ci_login extends toba_ci
 		return $datos;
 	}
 	
-	function get_lista_proyectos($instancia_id)
+	function get_lista_proyectos()
 	{
+		$instancia_id = toba::instancia()->get_id();
 		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($instancia_id, new toba_mock_proceso_gui);
 		$proyectos = $instancia->get_lista_proyectos_vinculados();
 		$datos = array();

@@ -51,7 +51,7 @@ class ci_menu extends toba_ci
 							'target' => $target	) );
 		// nodo PROYECTOS
 		$nodo_proyectos	= new toba_nodo_basico('<b>PROYECTOS</b>');
-		$nodo_proyectos->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba("seleccionar.gif", false),
+		$nodo_proyectos->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_toba('doc.gif', false),
 												'ayuda' => null ) );
 		foreach( admin_instancia::ref()->get_lista_proyectos() as $proyecto ) {
 			$proyectos[] = new menu_nodo_proyecto( $proyecto, $nodo_proyectos, $celda, $target );

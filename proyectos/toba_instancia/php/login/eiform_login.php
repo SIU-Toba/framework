@@ -15,7 +15,7 @@ class eiform_login extends toba_ei_formulario
 		{
 			if( !es_inicial ) {
 				var valor = this.ef('autologin').valor();
-				if( valor != 'nopar' ) {
+				if( valor != apex_ef_no_seteado ) {
 					this.controlador.submit();
 				}
 			}

@@ -8,6 +8,7 @@ class sesion extends toba_sesion
 
 	function conf__inicial($datos=null)
 	{
+		/* Esquema multiinstancia
 		if(!isset($datos)) {
 			$datos = toba::memoria()->get_parametro('instancia');
 			if( !isset($datos) ) {
@@ -15,6 +16,8 @@ class sesion extends toba_sesion
 			}
 		}
 		$this->id_instancia = $datos;
+		*/
+		$this->id_instancia = toba::instancia()->get_id();
 	}
 
 	function conf__final()
