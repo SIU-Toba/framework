@@ -91,7 +91,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	{
 		if (! isset($this->molde_php)) {
 			if (! $this->extendido()) {
-				$clase = $this->get_tabla_nombre();
+				$clase = 'dt_'.$this->get_tabla_nombre();
 				$archivo = $this->carpeta_archivo.'/'.$clase.'.php';
 			} else {
 				//-- Ya estaba extendido previamente, se carga la clase
