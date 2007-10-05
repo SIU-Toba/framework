@@ -77,7 +77,7 @@ class toba_asistente_abms_def extends toba_asistente_def
 		if ( isset($componente) ) {
 			$sql['molde_abms_fila']['sql'] .= "	AND		molde='$componente' ";
 		}
-		$sql['molde_abms_fila']['sql'] .= " ORDER BY fila;";
+		$sql['molde_abms_fila']['sql'] .= " ORDER BY orden;";
 		$sql['molde_abms_fila']['registros']='n';
 		$sql['molde_abms_fila']['obligatorio']=true;
 		return $sql;
