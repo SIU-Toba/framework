@@ -549,11 +549,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		}
 		$clausula = array();
 		foreach($clave as $columna => $valor) {
-			if( toba_tipo_datos::numero( $this->_columnas[$columna]['tipo'] ) ) {
-				$clausula[] = "( $tabla_alias" . "$columna = $valor )";
-			} else {
-				$clausula[] = "( $tabla_alias" . "$columna = '$valor' )";
-			}
+			$valor = toba::db($this->_fuente)->quote($valor);
+			$clausula[] = "( $tabla_alias" . "$columna = $valor )";
 		}
 		return $clausula;
 	}	
@@ -641,6 +638,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$a=0;
 		$registro = $this->datos[$id_registro];
 		$binarios = array();
+		$db = toba::db($this->_fuente);
 		foreach($this->_columnas as $columna)
 		{
 			$col = $columna['columna'];
@@ -672,10 +670,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 						} elseif ($registro[$col] === false) {
 							$registro[$col] = 0;
 						}
-						$valores_sql[$a] = $registro[$col];
-					}else{
-						$valores_sql[$a] = "'" . addslashes(trim($registro[$col])) . "'";
 					}
+					$valores_sql[$a] =  $db->quote(trim($registro[$col]));
 					$columnas_sql[$a] = $col;
 				}
 				$a++;
@@ -712,6 +708,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		$registro = $this->datos[$id_registro];
 		//Genero las sentencias de la clausula SET para cada columna
 		$set = array();
+		$db = toba::db($this->_fuente);
 		foreach($this->_columnas as $columna){
 			$col = $columna['columna'];
 			$es_binario = ($columna['tipo'] == 'B');
@@ -734,11 +731,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$set[] = "$col = NULL";
 				}else{
-					if(	toba_tipo_datos::numero($columna['tipo']) ){
-						$set[] = "$col = " . $registro[$col];
-					}else{
-						$set[] = "$col = '" . addslashes(trim($registro[$col])) . "'";
-					}
+					$set[] = "$col = " . $db->quote(trim($registro[$col]));
 				}
 			}
 		}

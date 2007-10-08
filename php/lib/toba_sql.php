@@ -71,13 +71,13 @@
 		$sql = '';
 		for ($i = 0; $i < count($palabras) ; $i++) {
 			$sql .= $palabras[$i].$separadores[$i].' ';
+			//--- Concateno la clausula WHERE -------------------------------
 			if ($i == $punto_insercion) {
 				$sql .= ($posee_where) ? ' AND ' : ' WHERE ';
 				$sql .= implode(' AND ', $clausulas_where);
 				$sql .= "\n";
 			}
 		}
-		//--- Concateno la clausula WHERE ----------------------------------------
 		return $sql;
 	}
 
