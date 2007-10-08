@@ -106,8 +106,7 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	
 	function crear_metodo_consulta($metodo, $sql, $parametros=null)
 	{
-		$param_metodo = isset($parametros)? array('$filtro=array()') : null;
-		$metodo = $this->asistente->crear_metodo_consulta($metodo, $sql, $param_metodo);
+		$metodo = $this->asistente->crear_metodo_consulta($metodo, $sql, $parametros);
 		$this->php()->agregar($metodo);
 	}
 

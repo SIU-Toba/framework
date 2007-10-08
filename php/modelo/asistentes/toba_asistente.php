@@ -412,10 +412,10 @@ abstract class toba_asistente
 			$php = "\$where = array();" . salto_linea();
 			foreach($parametros as $id => $operador) {
 				$php .= "if(isset(\$filtro['$id'])) {" . salto_linea();
-				if($operador == 'LIKE') {
-					$php .= "\t\$where[] = \"$id $operador '\".\$filtro['$id'].\"%'\";" . salto_linea();
+				if($operador == 'LIKE' || $operador == 'ILIKE') {
+					$php .= "\t\$where[] = \"$id $operador \".quote(\"%{\$filtro['$id']}%\");" . salto_linea();
 				} else {
-					$php .= "\t\$where[] = \"$id $operador '\".\$filtro['$id'].\"'\";" . salto_linea();
+					$php .= "\t\$where[] = \"$id $operador \".quote(\$filtro['$id']);" . salto_linea();
 				}
 				$php .= "}" . salto_linea();
 			}

@@ -66,4 +66,12 @@
 	{
 		toba::db($id_fuente)->cerrar_transaccion();
 	}
+
+	/**
+	*	@see toba_db::quote()
+	*/	
+	function quote($string, $id_fuente=null)
+	{
+		return toba::db($id_fuente)->quote($string);
+	}
 ?>

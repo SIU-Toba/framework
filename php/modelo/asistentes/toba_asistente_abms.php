@@ -185,6 +185,10 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$evento->set_etiqueta('Filtrar');
 		$evento->set_imagen('filtrar.png');
 		$evento->maneja_datos();
+		if ($this->molde_abms['gen_separar_pantallas']) {
+			$evento->set_predeterminado();
+		}
+		$evento->set_grupos(array('cargado','no_cargado'));
 		$metodo = new toba_codigo_metodo_php('evt__filtro__filtrar',array('$datos'));
 		$asignacion = "\$this->s__datos_filtro = \$datos;";
 		if($this->molde_abms['filtro_comprobar_parametros']) {
@@ -203,8 +207,9 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		$evento = $filtro->agregar_evento('cancelar');
 		$evento->en_botonera();
-		$evento->set_etiqueta('Cancelar');
-		$evento->set_imagen('deshacer.png');
+		$evento->set_etiqueta('Limpiar');
+		$evento->set_imagen('limpiar.png');
+		$evento->set_grupos('cargado');		
 		$metodo = new toba_codigo_metodo_php('evt__filtro__cancelar');
 		$metodo->set_contenido("unset(\$this->s__datos_filtro);");
 		$this->ci->php()->agregar($metodo);		

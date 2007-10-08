@@ -31,7 +31,20 @@
 	function sql_concatenar_where($sql,$clausulas_where=array())
 	{
 		$balance_parentesis = 0; //Para saber si estoy metido en unos parentesis
-		$palabras = preg_split("/[\s,;]+/", $sql);
+		$todos = preg_split("/([\s,;]+)/", $sql, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$separadores = array();
+		$palabras = array();
+		$par = false;
+		//Se divide entre palabras y separadores para no perder la union luego
+		foreach ($todos as $candidato) {
+			if ($par) {
+				$separadores[] = $candidato;
+			} else {
+				$palabras[] = $candidato;
+			}
+			$par = !$par;
+		}
+		$separadores[] = ''; 
 		$punto_insercion = null;
 		$posee_where = false;
 		//--- Averiguo el punto de insercion ----------------------------------------
@@ -44,8 +57,8 @@
 					$posee_where = true;
 					continue;
 				}
-				if( ( (strtolower($palabra) == 'group') && ($palabras[$posicion+1] == 'by') )
-					|| (  (strtolower($palabra) == 'order') && ($palabras[$posicion+1] == 'by') ) ) {
+				if( ( (strtolower($palabra) == 'group') && (strtolower($palabras[$posicion+1]) == 'by') )
+					|| (  (strtolower($palabra) == 'order') && (strtolower($palabras[$posicion+1]) == 'by') ) ) {
 					$punto_insercion = $posicion - 1;
 					continue;
 				}
@@ -54,6 +67,15 @@
 		//Llego al final sin encontrar naad
 		if(!isset($punto_insercion)){
 			$punto_insercion = count($palabras)-1;
+		}
+		$sql = '';
+		for ($i = 0; $i < count($palabras) ; $i++) {
+			$sql .= $palabras[$i].$separadores[$i].' ';
+			if ($i == $punto_insercion) {
+				$sql .= ($posee_where) ? ' AND ' : ' WHERE ';
+				$sql .= implode(' AND ', $clausulas_where);
+				$sql .= "\n";
+			}
 		}
 		//--- Concateno la clausula WHERE ----------------------------------------
 		return $sql;
