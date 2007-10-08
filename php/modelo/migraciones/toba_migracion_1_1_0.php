@@ -4,6 +4,16 @@ class toba_migracion_1_1_0 extends toba_migracion
 {
 	function instancia__cambios_estructura()
 	{
+		$sql = array();
+		if (! $this->elemento->get_db()->existe_columna('validacion_bloquear_usuario', 'apex_proyecto')) {
+				$sql[] = "ALTER TABLE apex_proyecto ADD COLUMN validacion_bloquear_usuario			smallint		";
+		}
+		if (! $this->elemento->get_db()->existe_columna('modo_inicio_colapsado', 'apex_objeto_cuadro_cc')) {
+			$sql[] = 'ALTER TABLE apex_objeto_cuadro_cc ADD COLUMN modo_inicio_colapsado smallint';
+		}
+			if (! $this->elemento->get_db()->existe_columna('bloqueado', 'apex_usuario')) {
+			$sql[] = 'ALTER TABLE apex_usuario ADD COLUMN bloqueado smallint';
+		}		
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN usar_vinculo			smallint		";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_carpeta		varchar(60)		";
 		$sql[] = "ALTER TABLE apex_objeto_ei_cuadro_columna ADD COLUMN vinculo_item			varchar(60)		";

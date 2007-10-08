@@ -98,6 +98,29 @@ class toba_db_postgres7 extends toba_db
 		return $this->consultar($sql);
 	}
 	
+	function existe_columna($columna, $tabla)
+	{
+		$sql = "
+				SELECT 	a.attname as nombre
+				FROM 	pg_class c,
+						pg_type t,
+						pg_attribute a 	
+				WHERE c.relkind in ('r','v') 
+				AND c.relname='$tabla'
+				AND a.attname not like '....%%'
+				AND a.attnum > 0 
+				AND a.atttypid = t.oid 
+				AND a.attrelid = c.oid 
+				ORDER BY a.attnum;		
+		";
+		foreach ($this->consultar($sql) as $campo) {
+			if ($campo['nombre'] == $columna) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	*	Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
 	*/

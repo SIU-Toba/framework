@@ -19,7 +19,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'1', --listar_multiproyecto
 	NULL, --orden
 	NULL, --palabra_vinculo_std
-	'1.0.4', --version_toba
+	'1.1.0', --version_toba
 	'1', --requiere_validacion
 	'anonimo', --usuario_anonimo
 	'Usuario Anónimo', --usuario_anonimo_desc

@@ -117,14 +117,14 @@ class toba_proyecto
 	 */
 	function cargar_info_basica($proyecto=null)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		$proyecto = isset($proyecto) ? $proyecto : $this->id ;
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_basica');
 		} else {
-			$proyecto = isset($proyecto) ? $proyecto : $this->id;
 			$rs = toba_proyecto_db::cargar_info_basica($proyecto);
 		}
 		if (!$rs) {
-			throw new toba_error("El proyecto '".$this->id."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
+			throw new toba_error("El proyecto '".$proyecto."' no se encuentra cargado en la instancia ".toba_instancia::get_id());	
 		}
 		return $rs;
 	}
@@ -219,7 +219,7 @@ class toba_proyecto
 	{
 		if (! isset($proyecto)) $proyecto = $this->id;
 		$info = array();
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$info = $this->recuperar_datos_compilados('toba_mc_gene__pcontrol_'.$punto_control, 'get_info');
 		} else {
 			$info['parametros'] = toba_proyecto_db::punto_control_parametros($proyecto, $punto_control);
@@ -232,7 +232,8 @@ class toba_proyecto
 
 	function get_info_fuente_datos($id_fuente, $proyecto=null)
 	{
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if (! isset($proyecto)) $proyecto = $this->id;		
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados('toba_mc_gene__basicos','info_fuente__'.$id_fuente);
 		} else {
 			if (! isset($proyecto)) $proyecto = $this->id;
@@ -257,15 +258,15 @@ class toba_proyecto
 	 */
 	function get_items_menu($proyecto=null, $grupos_acceso=null)
 	{
+		if (!isset($proyecto)) $proyecto = $this->id;		
 		if (!isset($grupos_acceso)) $grupos_acceso = toba::manejador_sesiones()->get_grupos_acceso();
-		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
 			$rs = $this->recuperar_datos_compilados_grupo(	'toba_mc_gene__grupo_', 
 															$grupos_acceso, 
 															'get_items_menu',
 															true,
 															array('padre','orden'));
 		} else {
-			if (!isset($proyecto)) $proyecto = $this->id;
 			$rs = toba_proyecto_db::get_items_menu($proyecto, $grupos_acceso);
 		}
 		// Se quitan los items excluidos de la lista de items que puede acceder el usuario.
@@ -418,6 +419,7 @@ class toba_proyecto
 	
 	function recuperar_datos_compilados($clase, $metodo)
 	{
+		toba::logger()->trace();
 		return call_user_func(array($clase, $metodo));
 	}
 
