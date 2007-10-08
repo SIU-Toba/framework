@@ -45,17 +45,17 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'102', --evento_id
+	'103', --evento_id
 	'1608', --objeto
-	'sacar_foto', --identificador
-	'&Foto', --etiqueta
-	'0', --maneja_datos
-	NULL, --sobre_fila
+	'refrescar', --identificador
+	'&Refrescar', --etiqueta
+	'1', --maneja_datos
+	'0', --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	'foto.gif', --imagen
-	'0', --en_botonera
+	'refrescar.png', --imagen
+	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
@@ -64,41 +64,11 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
-	NULL, --accion_imphtml_debug
+	'0', --accion_imphtml_debug
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'103', --evento_id
-	'1608', --objeto
-	'refrescar', --identificador
-	'&Refrescar', --etiqueta
-	'1', --maneja_datos
-	'0', --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'refrescar.png', --imagen
-	'0', --en_botonera
-	NULL, --ayuda
-	'2', --orden
-	NULL, --ci_predep
-	'0', --implicito
-	'0', --defecto
-	NULL, --display_datos_cargados
-	NULL, --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -111,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1000322', --evento_id
 	'1608', --objeto
 	'actividad_local', --identificador
-	'Log de modificación', --etiqueta
+	'Log', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -120,7 +90,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'actividad_local.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'3', --orden
+	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -150,7 +120,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'objetos/objeto_nuevo.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'4', --orden
+	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -256,7 +226,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'fotos,filtro,listado', --objetos
-	'actividad_local,crear_componente,refrescar,sacar_foto', --eventos
+	'actividad_local,crear_componente,refrescar', --eventos
 	'pant_catalogo_objetos', --subclase
 	'catalogos/pant_catalogo_objetos.php'  --subclase_archivo
 );

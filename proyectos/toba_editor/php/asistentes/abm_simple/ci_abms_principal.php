@@ -216,6 +216,19 @@ class ci_abms_principal extends ci_asistente_base
 		$ml->set_datos($datos);
 	}
 	
+	//---------------------------------------------------	
+	//---- FILTRO ----------------------------------------
+
+	function conf__form_presentacion(toba_ei_formulario $form)
+	{
+		$datos = $this->dep('datos')->tabla('base')->get();				
+		$form->set_datos($datos);
+	}
+	
+	function evt__form_presentacion__modificacion($datos)
+	{
+		$this->dep('datos')->tabla('base')->set($datos);
+	}
 	
 }
 

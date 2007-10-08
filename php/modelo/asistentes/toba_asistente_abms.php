@@ -85,23 +85,64 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$this->ci->asociar_pantalla_dep(1, $form);
 		} else {
 			//Pantallas SELECCION & EDICION
-			$this->ci->agregar_pantalla('seleccion', 'Selección');
-			$this->ci->agregar_pantalla('edicion', 'Edición');
+			$this->ci->agregar_pantalla('pant_seleccion', 'Selección');
+			$this->ci->agregar_pantalla('pant_edicion', 'Edición');
 			if ($this->molde_abms['gen_usa_filtro']) {
-				$this->ci->asociar_pantalla_dep('seleccion', $filtro);
+				$this->ci->asociar_pantalla_dep('pant_seleccion', $filtro);
 			}
-			$this->ci->asociar_pantalla_dep('seleccion', $cuadro);
-			$this->ci->asociar_pantalla_dep('edicion', $form);
+			$this->ci->asociar_pantalla_dep('pant_seleccion', $cuadro);
+			$this->ci->asociar_pantalla_dep('pant_edicion', $form);
 			//----- evt__agregar
 			$this->ci->php()->agregar( new toba_codigo_separador_php('EVENTOS CI') );	
 			$evento = $this->ci->agregar_evento('agregar');
 			$evento->en_botonera();
+			if (! $this->molde_abms['gen_usa_filtro']) {
+				$evento->set_predeterminado();
+			}
 			$evento->set_etiqueta('Agregar');
 			$evento->set_imagen('nucleo/agregar.gif');
 			$metodo = new toba_codigo_metodo_php('evt__agregar');
-			$metodo->set_contenido("\$this->set_pantalla('edicion');");
+			$metodo->set_contenido("\$this->set_pantalla('pant_edicion');");
 			$this->ci->php()->agregar($metodo);
-			$this->ci->asociar_pantalla_evento('seleccion', $evento);
+			$this->ci->asociar_pantalla_evento('pant_seleccion', $evento);
+
+			//----- evt__volver
+			$evento = $this->ci->agregar_evento('volver');
+			$evento->en_botonera();
+			$evento->set_etiqueta('Volver');
+			$evento->set_imagen('deshacer.png');
+			$evento->set_estilo('ei-boton-izq');
+			$metodo = new toba_codigo_metodo_php('evt__volver');
+			$metodo->set_contenido("\$this->resetear();");
+			$this->ci->php()->agregar($metodo);
+			$this->ci->asociar_pantalla_evento('pant_edicion', $evento);		
+
+			//----- evt__eliminar
+			$evento = $this->ci->agregar_evento('eliminar');
+			$evento->en_botonera();
+			$evento->set_etiqueta('Eliminar');
+			$evento->set_imagen('borrar.png');
+			$evento->set_confirmacion($this->confirmacion_eliminar);			
+			$metodo = new toba_codigo_metodo_php('evt__eliminar');
+			$metodo->set_contenido( array("\$this->dep('datos')->eliminar_filas();",
+										"\$this->dep('datos')->sincronizar();",
+										"\$this->resetear();"));			
+			$this->ci->php()->agregar($metodo);
+			$this->ci->asociar_pantalla_evento('pant_edicion', $evento);	
+
+			//----- evt__guardar
+			$evento = $this->ci->agregar_evento('guardar');
+			$evento->en_botonera();
+			$evento->maneja_datos();
+			$evento->set_etiqueta('Guardar');
+			$evento->set_imagen('guardar.gif');
+			$evento->set_predeterminado();
+			$metodo = new toba_codigo_metodo_php('evt__guardar');
+			$metodo->set_contenido( array("\$this->dep('datos')->sincronizar();",
+										"\$this->resetear();"));			
+			$this->ci->php()->agregar($metodo);
+			$this->ci->asociar_pantalla_evento('pant_edicion', $evento);					
+			
 		}
 	}
 
@@ -273,7 +314,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
 		$php = array("\$this->dep('datos')->cargar(\$datos);");
 		if ($this->molde_abms['gen_separar_pantallas']) {
-			$php[] = "\$this->set_pantalla('edicion');";
+			$php[] = "\$this->set_pantalla('pant_edicion');";
 		}
 		$metodo->set_contenido($php);
 		$this->ci->php()->agregar($metodo);		
@@ -315,77 +356,95 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--- conf__formulario  ----------------------------------
 		//--------------------------------------------------------
 		$metodo = new toba_codigo_metodo_php('conf__formulario',array('$form'));
-		$metodo->set_contenido(array(	"if(\$this->dep('datos')->esta_cargada()){",
-										"\t\$form->set_datos(\$this->dep('datos')->get());",
-										"}"));
+		$contenido = array(	"if(\$this->dep('datos')->esta_cargada()){",
+										"\t\$form->set_datos(\$this->dep('datos')->get());");
+		if ($this->molde_abms['gen_separar_pantallas']) {
+			$contenido[] = "} else {";
+			$contenido[] = "\t\$this->pantalla()->eliminar_evento('eliminar');";
+		}
+		$contenido[] = "}";
+		$metodo->set_contenido($contenido);
 		$this->ci->php()->agregar($metodo);
 		//--------------------------------------------------------
 		//--- evt__formulario__alta ------------------------------
 		//--------------------------------------------------------
-		$evento = $form->agregar_evento('alta');
-		$evento->en_botonera();
-		$evento->set_etiqueta('Alta');
-		$evento->set_imagen('nucleo/agregar.gif');
-		$evento->maneja_datos();
-		$evento->set_predeterminado();
-		$evento->set_grupos('no_cargado');
-		$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
-		$metodo->set_contenido( array(	"\$this->dep('datos')->nueva_fila(\$datos);",
-										"\$this->dep('datos')->sincronizar();",
-										"\$this->resetear();"));
-		$this->ci->php()->agregar($metodo);
+		if (! $this->molde_abms['gen_separar_pantallas']) {		
+			$evento = $form->agregar_evento('alta');
+			$evento->en_botonera();
+			$evento->set_etiqueta('Alta');
+			$evento->set_imagen('nucleo/agregar.gif');
+			$evento->maneja_datos();
+			$evento->set_predeterminado();
+			$evento->set_grupos('no_cargado');
+			$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
+			$metodo->set_contenido( array(	"\$this->dep('datos')->nueva_fila(\$datos);",
+											"\$this->dep('datos')->sincronizar();",
+											"\$this->resetear();"));
+			$this->ci->php()->agregar($metodo);
+		}
 		//--------------------------------------------------------
 		//--- evt__formulario__baja ------------------------------
 		//--------------------------------------------------------
-		$evento = $form->agregar_evento('baja');
-		$evento->set_etiqueta('Eliminar');
-		$evento->en_botonera();
-		$evento->set_imagen('borrar.gif');
-		$evento->set_estilo('ei-boton-baja');
-		$evento->set_confirmacion($this->confirmacion_eliminar);
-		$evento->set_grupos('cargado');
-		$metodo = new toba_codigo_metodo_php('evt__formulario__baja');
-		$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_filas();",
-										"\$this->dep('datos')->sincronizar();",
-										"\$this->resetear();"));
-		$this->ci->php()->agregar($metodo);
+		if (! $this->molde_abms['gen_separar_pantallas']) {
+			$evento = $form->agregar_evento('baja');
+			$evento->set_etiqueta('Eliminar');
+			$evento->en_botonera();
+			$evento->set_imagen('borrar.gif');
+			$evento->set_estilo('ei-boton-baja');
+			$evento->set_confirmacion($this->confirmacion_eliminar);
+			$evento->set_grupos('cargado');
+			$metodo = new toba_codigo_metodo_php('evt__formulario__baja');
+			$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_filas();",
+											"\$this->dep('datos')->sincronizar();",
+											"\$this->resetear();"));
+			$this->ci->php()->agregar($metodo);
+		}
+					
 		//--------------------------------------------------------
 		//--- evt__formulario__modificacion ----------------------
 		//--------------------------------------------------------
 		$evento = $form->agregar_evento('modificacion');
-		$evento->set_etiqueta('Modificar');
-		$evento->en_botonera();
 		$evento->maneja_datos();
-		$evento->set_predeterminado();		
-		$evento->set_imagen('refrescar.png');
-		$evento->set_grupos('cargado');
-		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));
-		$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);",
+		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));		
+		if ($this->molde_abms['gen_separar_pantallas']) {
+			$evento->implicito();
+			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);"));
+		} else {
+			$evento->en_botonera();
+			$evento->set_predeterminado();
+			$evento->set_etiqueta('Modificar');
+			$evento->set_imagen('refrescar.png');
+			$evento->set_grupos('cargado');
+			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);",
 										"\$this->dep('datos')->sincronizar();",
 										"\$this->resetear();"));
+			
+		}
 		$this->ci->php()->agregar($metodo);
 		//--------------------------------------------------------
 		//--- evt__formulario__cancelar --------------------------
 		//--------------------------------------------------------
-		$evento = $form->agregar_evento('cancelar');
-		$evento->set_etiqueta('Cancelar');
-		$evento->en_botonera();
-		$evento->set_imagen('deshacer.png');
-		if ($this->molde_abms['gen_separar_pantallas']) {
-			$evento->set_grupos(array('cargado','no_cargado'));
-		} else {
-			$evento->set_grupos('cargado');
+		if (! $this->molde_abms['gen_separar_pantallas']) {		
+			$evento = $form->agregar_evento('cancelar');
+			$evento->set_etiqueta('Cancelar');
+			$evento->en_botonera();
+			$evento->set_imagen('deshacer.png');
+			if ($this->molde_abms['gen_separar_pantallas']) {
+				$evento->set_grupos(array('cargado','no_cargado'));
+			} else {
+				$evento->set_grupos('cargado');
+			}
+			$metodo = new toba_codigo_metodo_php('evt__formulario__cancelar');
+			$metodo->set_contenido( array("\$this->resetear();"));
+			$this->ci->php()->agregar($metodo);
 		}
-		$metodo = new toba_codigo_metodo_php('evt__formulario__cancelar');
-		$metodo->set_contenido( array("\$this->resetear();"));
-		$this->ci->php()->agregar($metodo);
 		//--------------------------------------------------------
 		//--- Metodo para resetear la operacion
 		//--------------------------------------------------------
 		$metodo = new toba_codigo_metodo_php('resetear');
 		$php[] = "\$this->dep('datos')->resetear();";
 		if ($this->molde_abms['gen_separar_pantallas']) {
-			$php[] = "\$this->set_pantalla('seleccion');";
+			$php[] = "\$this->set_pantalla('pant_seleccion');";
 		}
 		$metodo->set_contenido($php);
 		$this->ci->php()->agregar($metodo);

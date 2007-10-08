@@ -151,7 +151,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_path_proyecto($proyecto)
 	{
 		if (isset($this->datos_ini[$proyecto]['path'])) {
-			return $this->datos_ini[$proyecto]['path'];
+			$path = $this->datos_ini[$proyecto]['path'];
+			if (substr($path, 0, 1) == '.') { 
+				return realpath(toba_dir().'/'.$path); 
+			} else { 
+				return $path; 
+			}		
 		} else {
 			return toba_dir() . "/proyectos/" . $proyecto;
 		}		
