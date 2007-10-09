@@ -259,7 +259,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro_form_filas,form_form_fila', --objetos
+	'form_presentacion,cuadro_form_filas,form_form_fila', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -276,22 +276,6 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form_filtro,ml_filtro_filas', --objetos
-	NULL, --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
-);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
-	'toba_editor', --objeto_ci_proyecto
-	'1988', --objeto_ci
-	'1000174', --pantalla
-	'pant_presentacion', --identificador
-	'5', --orden
-	'Presentación', --etiqueta
-	NULL, --descripcion
-	NULL, --tip
-	'apex', --imagen_recurso_origen
-	NULL, --imagen
-	'form_presentacion', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

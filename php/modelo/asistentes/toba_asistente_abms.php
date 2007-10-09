@@ -172,7 +172,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		//--- conf__filtro ---------------------------------------
 		//--------------------------------------------------------
-		$metodo = new toba_codigo_metodo_php('conf__filtro',array('$filtro'));
+		$metodo = new toba_codigo_metodo_php('conf__filtro',array('toba_ei_filtro $filtro'));
 		$metodo->set_contenido(array(	"if(isset(\$this->s__datos_filtro)){",
 										"\t\$filtro->set_datos(\$this->s__datos_filtro);",
 										"}"));
@@ -247,7 +247,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		//--- conf__cuadro  --------------------------------------
 		//--------------------------------------------------------
-		$metodo = new toba_codigo_metodo_php('conf__cuadro',array('$cuadro'));
+		$metodo = new toba_codigo_metodo_php('conf__cuadro',array('toba_ei_cuadro $cuadro'));
 		//Si hay un filtro, armo los parametros
 		if ($this->molde_abms['gen_usa_filtro']) {
 			$filtro = array();
@@ -360,7 +360,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		//--- conf__formulario  ----------------------------------
 		//--------------------------------------------------------
-		$metodo = new toba_codigo_metodo_php('conf__formulario',array('$form'));
+		$metodo = new toba_codigo_metodo_php('conf__formulario',array('toba_ei_formulario $form'));
 		$contenido = array(	"if(\$this->dep('datos')->esta_cargada()){",
 										"\t\$form->set_datos(\$this->dep('datos')->get());");
 		if ($this->molde_abms['gen_separar_pantallas']) {

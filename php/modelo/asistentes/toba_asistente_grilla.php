@@ -55,7 +55,7 @@ class toba_asistente_grilla extends toba_asistente_1dt
 		$metodo = new toba_codigo_metodo_php('evt__formulario__modificacion',array('$datos'));
 		$metodo->set_contenido("\$this->dep('datos')->procesar_filas(\$datos);");
 		$this->ci->php()->agregar($metodo);
-		$metodo = new toba_codigo_metodo_php('conf__formulario',array('$componente'));
+		$metodo = new toba_codigo_metodo_php('conf__formulario',array('toba_ei_formulario_ml $componente'));
 		$metodo->set_contenido("\$componente->set_datos(\$this->dep('datos')->get_filas());");
 		$this->ci->php()->agregar($metodo);
 	}
