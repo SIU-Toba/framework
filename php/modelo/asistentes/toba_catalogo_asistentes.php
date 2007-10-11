@@ -134,6 +134,7 @@ class toba_catalogo_asistentes
 			$fila['columna'] = $nueva['nombre'];
 			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
 			$fila['en_filtro'] = 0;
+			$fila['filtro_operador'] = 'ILIKE';
 			$fila['en_form'] = 1;			
 			if ($nueva['secuencia'] != '') {
 				$fila['en_form'] = 0;

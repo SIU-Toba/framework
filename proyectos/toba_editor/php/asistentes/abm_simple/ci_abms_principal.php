@@ -28,7 +28,6 @@ class ci_abms_principal extends ci_asistente_base
 			$this->pantalla()->tab('pant_cuadro')->ocultar();	
 			$this->pantalla()->tab('pant_form')->ocultar();	
 			$this->pantalla()->tab('pant_filtro')->ocultar();	
-			$this->pantalla()->tab('pant_presentacion')->ocultar();	
 		}
 	}
 	

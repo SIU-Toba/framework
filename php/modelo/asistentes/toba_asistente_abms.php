@@ -310,19 +310,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		}
 		$metodo->set_contenido($php);
 		$this->ci->php()->agregar($metodo);		
-		//--------------------------------------------------------
-		//--- evt__cuadro__seleccion -----------------------------
-		//--------------------------------------------------------
-		$evento = $cuadro->agregar_evento('seleccion');
-		$evento->sobre_fila();
-		$evento->set_imagen('doc.gif');
-		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
-		$php = array("\$this->dep('datos')->cargar(\$datos);");
-		if ($this->molde_abms['gen_separar_pantallas']) {
-			$php[] = "\$this->set_pantalla('pant_edicion');";
-		}
-		$metodo->set_contenido($php);
-		$this->ci->php()->agregar($metodo);		
+	
 		//--------------------------------------------------------
 		//--- evt__cuadro__elimimar ------------------------------
 		//--------------------------------------------------------
@@ -339,6 +327,20 @@ class toba_asistente_abms extends toba_asistente_1dt
 											"\$this->dep('datos')->resetear();"));
 			$this->ci->php()->agregar($metodo);
 		}
+		
+		//--------------------------------------------------------
+		//--- evt__cuadro__seleccion -----------------------------
+		//--------------------------------------------------------
+		$evento = $cuadro->agregar_evento('seleccion');
+		$evento->sobre_fila();
+		$evento->set_imagen('doc.gif');
+		$metodo = new toba_codigo_metodo_php('evt__cuadro__seleccion',array('$datos'));
+		$php = array("\$this->dep('datos')->cargar(\$datos);");
+		if ($this->molde_abms['gen_separar_pantallas']) {
+			$php[] = "\$this->set_pantalla('pant_edicion');";
+		}
+		$metodo->set_contenido($php);
+		$this->ci->php()->agregar($metodo);			
 	}
 
 	#############################################################################

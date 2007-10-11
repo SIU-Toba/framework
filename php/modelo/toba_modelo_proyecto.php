@@ -48,7 +48,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	function get_url()
 	{
-		return $this->instancia->get_url_proyecto($this->get_id());
+		$id = $this->get_id();
+		$url = $this->instancia->get_url_proyecto($id);
+		if ($url == '') {
+			$url = '/'.$id.'/'.$this->get_version_proyecto();
+		}
+		return $url;
 	}
 	
 	function get_dir()
@@ -421,10 +426,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function publicar($url=null)
 	{
 		if (! $this->esta_publicado()) {
-			if ($url != null) {
-				$this->instancia->set_url_proyecto($this->get_id(), $url);
+			if ($url == '') {
+				$url = $this->get_url();
 			}
-			toba_modelo_instalacion::agregar_alias_apache($this->get_url(),
+			$this->instancia->set_url_proyecto($this->get_id(), $url);
+			toba_modelo_instalacion::agregar_alias_apache($url,
 															$this->get_dir(),
 															$this->get_instancia()->get_id(),
 															$this->get_id());
@@ -1071,6 +1077,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		if (file_exists($this->get_dir().'/VERSION')) {
 			return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
+		} else {
+			return toba_modelo_instalacion::get_version_actual();
 		}
 	}
 	
@@ -1210,6 +1218,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			
 			//--- Creo el archivo PROYECTO
 			file_put_contents($dir_proyecto.'/PROYECTO', $nombre);
+			file_put_contents($dir_proyecto.'/VERSION', '0.1.0');
+			
 			// Modifico los archivos
 			$editor = new toba_editor_archivos();
 			$editor->agregar_sustitucion( '|__proyecto__|', $nombre );
