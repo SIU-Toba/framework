@@ -182,14 +182,18 @@ class comando_proyecto extends comando_toba
 		$id_proyecto = $this->get_id_proyecto_actual();
 		if ( $id_proyecto == 'toba' ) {
 			throw new toba_error("No es posible eliminar el proyecto 'toba'");
-		}	
-		$p = $this->get_proyecto();
-		if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
-				.$id_proyecto."' de la instancia '"
-				.$this->get_id_instancia_actual()."'") ) {
-			$p->eliminar_autonomo();
 		}
-		$p->get_instancia()->desvincular_proyecto( $p->get_id() );
+		try {
+			$p = $this->get_proyecto();
+			if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
+					.$id_proyecto."' de la instancia '"
+					.$this->get_id_instancia_actual()."'") ) {
+				$p->eliminar_autonomo();
+			}
+		} catch (toba_error $e) {
+			$this->consola->error($e->__toString());
+		}
+		$this->get_instancia()->desvincular_proyecto( $id_proyecto );
 	}
 	
 	/**

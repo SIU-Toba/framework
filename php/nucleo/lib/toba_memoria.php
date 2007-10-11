@@ -20,13 +20,13 @@ define("apex_hilo_qs_item","ai");								//ITEM de catalogo a solicitar
 define("apex_hilo_qs_parametros","ap");							//zona en la que se va a cargar al ITEM
 //-- Internos
 define("apex_hilo_qs_canal_obj","toba-can");					//Prefijo de los CANALES de OBJETOS (Para comunicarse con ellos por GET)
-define("apex_hilo_qs_zona","toba-zona");						//CANAL de propagacion de ZONAS
+define("apex_hilo_qs_zona","tz");						//CANAL de propagacion de ZONAS
 define("apex_hilo_qs_cronometro","toba-cron");					//CANAL gatillo del cronometro
-define("apex_hilo_qs_menu","toma-menu");						//Indica que el vinculo proviene del MENU
-define("apex_hilo_qs_celda_memoria","toba-celda-memoria");		//Indicador que indica que el vinculo proviene del MENU
-define("apex_hilo_qs_servicio", "toba-servicio");
+define("apex_hilo_qs_menu","tm");						//Indica que el vinculo proviene del MENU
+define("apex_hilo_qs_celda_memoria","tcm");		//Indicador que indica que el vinculo proviene del MENU
+define("apex_hilo_qs_servicio", "ts");
 define("apex_hilo_qs_servicio_defecto", "generar_html");
-define("apex_hilo_qs_objetos_destino", "toba-dest");
+define("apex_hilo_qs_objetos_destino", "tsd");
 
 
 /**

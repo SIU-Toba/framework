@@ -954,7 +954,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no', $previsualizacion=true )
 	{
-		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $previsualizacion );
+		$url = $this->get_url();
+		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $previsualizacion, $url);
 		$this->instancia->get_db()->ejecutar( $sql );
 	}
 
@@ -1280,15 +1281,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $sql;
 	}
 
-	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
+	static function get_sql_vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true, $url=null )
 	{
 		$sql = array();
 		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
 					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
 				// Decide un PA por defecto para el proyecto
-		if($set_previsualizacion) {
+		if($set_previsualizacion && isset($url)) {
 			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
-						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+						VALUES ('$proyecto','$usuario','$perfil_acceso', '$url');";
 		}
 		return $sql;
 	}

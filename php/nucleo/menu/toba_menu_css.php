@@ -63,7 +63,7 @@ class toba_menu_css extends toba_menu
 		if (!$this->items[$nodo]['carpeta']) {
 			$vinculo = toba::vinculador()->get_url($this->items[$nodo]['proyecto'],
 															 $this->items[$nodo]['item'], array(),
-															 array('validar' => false, 'menu' => true));
+															 array('validar' => false, 'menu' => true, 'zona' => false));
 			$proyecto = $this->items[$nodo]['proyecto'];
 			$item = $this->items[$nodo]['item'];
 			$this->arbol .= $inden . "<li><a class='$clase_base' tabindex='32767' href='$vinculo' " .

@@ -33,7 +33,7 @@ class toba_zona
 		$this->items_vecinos = toba::proyecto()->get_items_zona($id);
 		//Se propago algo por el canal utilizado por la zona?
 		$this->editable_id = toba::memoria()->get_parametro(apex_hilo_qs_zona);
-		if ( isset($this->editable_id) ) {
+		if ($this->cargada()) {
 			$this->cargar(toba::vinculador()->url_a_variable($this->editable_id));
 		}
 	}
@@ -53,7 +53,7 @@ class toba_zona
 	 */
 	function cargada()
 	{
-		return isset($this->editable_id);
+		return isset($this->editable_id) && $this->editable_id != '';
 	}
 	
 	/**
