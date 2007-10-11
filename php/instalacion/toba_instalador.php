@@ -67,7 +67,7 @@ class toba_instalador
 	/**
 	 * @return toba_modelo_instancia
 	 */
-	protected function get_instancia($id)
+	function get_instancia($id)
 	{
 		return toba_modelo_catalogo::instanciacion()->get_instancia($id, $this->progreso);
 	}
