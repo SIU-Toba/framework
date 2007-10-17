@@ -261,6 +261,35 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 	}
 
 	//-------------------------------------------------------------------
+	// Conversion de archivos DDL a mysql
+	//-------------------------------------------------------------------
+
+	function migrar_ddl()
+	{
+		$this->manejador_interface->mensaje('Migrar DDL postgresql a la sintaxis de otros motores');
+		$directorio = toba_modelo_nucleo::get_dir_ddl();
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		sort($archivos);
+		$dir = toba_modelo_nucleo::get_dir_ddl() . '/mysql/';
+		foreach( $archivos as $archivo ) {
+			//Mysql
+			$sql = $this->get_ddl_mysql($archivo);
+			toba_manejador_archivos::crear_archivo_con_datos($dir . basename($archivo), $sql);
+		}
+	}
+	
+	private function get_ddl_mysql($archivo)
+	{
+		$renglones = file($archivo);
+		$sql = '';
+		foreach($renglones as $renglon) {
+				
+			
+		}
+		return $sql;
+	}
+
+	//-------------------------------------------------------------------
 	// EXPORTACION de TABLAS con METADATOS del NUCLEO
 	//-------------------------------------------------------------------
 

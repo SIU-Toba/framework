@@ -30,6 +30,15 @@ class comando_nucleo extends comando_toba
 	}
 
 	/**
+	* Migra la DDL de toba a la sintaxis de otros motores.
+	* @gtk_icono exportar.png 
+	*/
+	function opcion__migrar_ddl()
+	{
+		$this->get_nucleo()->migrar_ddl();
+	}
+	
+	/**
 	* Exporta las tablas maestras del sistema. 
 	* @consola_parametros [-i id_instancia] o variable 'toba_instancia'
 	* @gtk_icono exportar.png
