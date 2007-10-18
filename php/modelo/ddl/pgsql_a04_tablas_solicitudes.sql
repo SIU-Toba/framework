@@ -28,7 +28,7 @@ CREATE TABLE apex_solicitud
    	item_id						int4        	NULL, 
 	momento						timestamp(0) 	without time zone	DEFAULT current_timestamp NOT NULL,
 	tiempo_respuesta			float			NULL,
-	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("proyecto", "solicitud")
+	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("solicitud", "proyecto")
 	--CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_log_sol_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_log_sol_fk_tipo" FOREIGN KEY ("solicitud_tipo") REFERENCES "apex_solicitud_tipo" ("solicitud_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE

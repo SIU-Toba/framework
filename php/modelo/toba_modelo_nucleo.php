@@ -270,21 +270,73 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		$directorio = toba_modelo_nucleo::get_dir_ddl();
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
 		sort($archivos);
+		//Migracion a MYSQL
 		$dir = toba_modelo_nucleo::get_dir_ddl() . '/mysql/';
 		foreach( $archivos as $archivo ) {
-			//Mysql
 			$sql = $this->get_ddl_mysql($archivo);
 			toba_manejador_archivos::crear_archivo_con_datos($dir . basename($archivo), $sql);
 		}
 	}
 	
+	/**
+	*	Convierte de la sintaxis de postgres a la de mysql
+	
+			Problemas
+				- No se puede llamar a un campo SQL
+				- El campo item es un varchar de 60 con autoincrement!!
+				- PUede haber solo una auto_increment (apex_item tiene varias)
+
+			Actualizacion inicial de secuencias con INSERT
+			recuperacion de secuencias de tablas con mas de una PK multiple son distintas
+	*/
 	private function get_ddl_mysql($archivo)
 	{
+		$this->manejador_interface->mensaje('Procesando: ' . $archivo);
 		$renglones = file($archivo);
 		$sql = '';
 		foreach($renglones as $renglon) {
-				
+			//Las secuencias
+			if(preg_match("/^create\ssequence/i",$renglon)){
+				continue;
+			}
+			//Elimino los comentarios generales
+			if(preg_match("/^\s*--/",$renglon)){
+				continue;
+			}
+			//Saco comentarios lineas
+			$renglon = preg_replace("/--.*$/",'',$renglon);
+			//Saco comillas dobles
+			$renglon = preg_replace("/\"/",' ',$renglon);
+			//Cambio la declaracion del TIMESTAMP
+			$renglon = preg_replace("/(?<!default)\stimestamp.*zone/i",' timestamp ',$renglon);
+			//Cambio la declaracion del TIME
+			$renglon = preg_replace("/(?<!default)\stime.*zone/i",' time ',$renglon);
+			//Pongo los VARCHAR que no tienen largo definido como text
+			$renglon = preg_replace("/varchar(?!\\s?\()/i",'text',$renglon);
+			//Marco el tipo de tabla como InnoDB
+			$renglon = preg_replace("/^\s*\);\s*$/",") ENGINE=InnoDB;\n",$renglon);
+			//Saco la declaracion de constraints especifica de postgres
+			$renglon = preg_replace("/DEFERRABLE|INITIALLY|IMMEDIATE/","",$renglon);
+			//Tipos de datos
+			$renglon = preg_replace("/\Wint4\W/","integer",$renglon);
+			//Cambio las secuencias
+			$renglon = preg_replace("/default\s*nextval\s*\(.*\)/i"," auto_increment ",$renglon);
+			//Tipos de datos
+			$renglon = preg_replace("/\Wint4\W/"," integer ",$renglon);
+
+
+			//fatan las enumeraciones
+
+			//--- Temporales ---	 SHOW INNODB STATUS
+
+			//No se puede llamar "sql" a una columna
+			$renglon = preg_replace("/\Wsql\W/","nosql",$renglon);
+			$renglon = preg_replace("/item\s*varchar\(60\)/"," item integer ",$renglon);
+
 			
+			
+			
+			$sql .= $renglon;
 		}
 		return $sql;
 	}

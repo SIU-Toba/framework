@@ -53,7 +53,7 @@ CREATE TABLE apex_usuario
 	parametro_a						varchar(255)	NULL,
 	parametro_b						varchar(255)	NULL,
 	parametro_c						varchar(255)	NULL,
-	autentificacion					varchar(10)		NULL DEFAULT('plano'),
+	autentificacion					varchar(10)		NULL DEFAULT 'plano',
 	bloqueado						smallint		DEFAULT 0 NULL,
 	CONSTRAINT	"apex_usuario_pk"	 PRIMARY	KEY ("usuario"),
 	--CONSTRAINT	"apex_usuario_fk_sol_ot" FOREIGN	KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo")	REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,

@@ -5,67 +5,375 @@ class toba_db_tablas_componente
 	static function get_lista()
 	{
 		return array (
-  0 => 'apex_objeto_esquema',
-  1 => 'apex_objeto_cuadro',
-  2 => 'apex_objeto_cuadro_cc',
-  3 => 'apex_objeto_ei_cuadro_columna',
-  4 => 'apex_objeto_ut_formulario',
-  5 => 'apex_objeto_ei_formulario_ef',
-  6 => 'apex_objeto_mt_me',
-  7 => 'apex_objeto_ci_pantalla',
-  8 => 'apex_item',
-  9 => 'apex_item_info',
-  10 => 'apex_objeto',
-  11 => 'apex_objeto_info',
-  12 => 'apex_objeto_dependencias',
-  13 => 'apex_objeto_eventos',
-  14 => 'apex_ptos_control_x_evento',
-  15 => 'apex_item_objeto',
-  16 => 'apex_molde_operacion',
-  17 => 'apex_molde_operacion_log',
-  18 => 'apex_molde_operacion_log_elementos',
-  19 => 'apex_molde_operacion_abms',
-  20 => 'apex_molde_operacion_abms_fila',
-  21 => 'apex_objeto_db_registros',
-  22 => 'apex_objeto_db_registros_col',
-  23 => 'apex_objeto_db_registros_ext',
-  24 => 'apex_objeto_db_registros_ext_col',
-  25 => 'apex_objeto_db_registros_uniq',
-  26 => 'apex_objeto_datos_rel',
-  27 => 'apex_objeto_datos_rel_asoc',
+  0 => 'apex_item',
+  1 => 'apex_item_info',
+  2 => 'apex_objeto',
+  3 => 'apex_objeto_info',
+  4 => 'apex_objeto_dependencias',
+  5 => 'apex_objeto_eventos',
+  6 => 'apex_ptos_control_x_evento',
+  7 => 'apex_item_objeto',
+  8 => 'apex_objeto_mt_me',
+  9 => 'apex_objeto_ci_pantalla',
+  10 => 'apex_objeto_cuadro',
+  11 => 'apex_objeto_cuadro_cc',
+  12 => 'apex_objeto_ei_cuadro_columna',
+  13 => 'apex_objeto_ut_formulario',
+  14 => 'apex_objeto_ei_formulario_ef',
+  15 => 'apex_objeto_esquema',
+  16 => 'apex_objeto_db_registros',
+  17 => 'apex_objeto_db_registros_col',
+  18 => 'apex_objeto_db_registros_ext',
+  19 => 'apex_objeto_db_registros_ext_col',
+  20 => 'apex_objeto_db_registros_uniq',
+  21 => 'apex_objeto_datos_rel',
+  22 => 'apex_objeto_datos_rel_asoc',
+  23 => 'apex_molde_operacion',
+  24 => 'apex_molde_operacion_log',
+  25 => 'apex_molde_operacion_log_elementos',
+  26 => 'apex_molde_operacion_abms',
+  27 => 'apex_molde_operacion_abms_fila',
 );
 	}
 
-	static function apex_objeto_esquema()
+	static function apex_item()
 	{
 		return array (
-  'archivo' => 'pgsql_a13_componente_ei_esquema.sql',
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_esquema_proyecto',
-  'dump_clave_componente' => 'objeto_esquema',
-  'dump_order_by' => 'objeto_esquema',
-  'dump_where' => '( objeto_esquema_proyecto = \\\'%%\\\' )',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'item',
+  'dump_order_by' => 'item',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'item_id',
+    1 => 'proyecto',
+    2 => 'item',
+    3 => 'padre_id',
+    4 => 'padre_proyecto',
+    5 => 'padre',
+    6 => 'carpeta',
+    7 => 'nivel_acceso',
+    8 => 'solicitud_tipo',
+    9 => 'pagina_tipo_proyecto',
+    10 => 'pagina_tipo',
+    11 => 'actividad_buffer_proyecto',
+    12 => 'actividad_buffer',
+    13 => 'actividad_patron_proyecto',
+    14 => 'actividad_patron',
+    15 => 'nombre',
+    16 => 'descripcion',
+    17 => 'actividad_accion',
+    18 => 'menu',
+    19 => 'orden',
+    20 => 'solicitud_registrar',
+    21 => 'solicitud_obs_tipo_proyecto',
+    22 => 'solicitud_obs_tipo',
+    23 => 'solicitud_observacion',
+    24 => 'solicitud_registrar_cron',
+    25 => 'prueba_directorios',
+    26 => 'zona_proyecto',
+    27 => 'zona',
+    28 => 'zona_orden',
+    29 => 'zona_listar',
+    30 => 'imagen_recurso_origen',
+    31 => 'imagen',
+    32 => 'parametro_a',
+    33 => 'parametro_b',
+    34 => 'parametro_c',
+    35 => 'publico',
+    36 => 'redirecciona',
+    37 => 'usuario',
+    38 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_item_info()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'item_proyecto',
+  'dump_clave_componente' => 'item',
+  'dump_order_by' => 'item',
+  'dump_where' => '(	item_proyecto = \\\'%%\\\'	)',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'item_id',
+    1 => 'item_proyecto',
+    2 => 'item',
+    3 => 'descripcion_breve',
+    4 => 'descripcion_larga',
+  ),
+);
+	}
+
+	static function apex_objeto()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'objeto',
+    2 => 'anterior',
+    3 => 'reflexivo',
+    4 => 'clase_proyecto',
+    5 => 'clase',
+    6 => 'subclase',
+    7 => 'subclase_archivo',
+    8 => 'objeto_categoria_proyecto',
+    9 => 'objeto_categoria',
+    10 => 'nombre',
+    11 => 'titulo',
+    12 => 'colapsable',
+    13 => 'descripcion',
+    14 => 'fuente_datos_proyecto',
+    15 => 'fuente_datos',
+    16 => 'solicitud_registrar',
+    17 => 'solicitud_obj_obs_tipo',
+    18 => 'solicitud_obj_observacion',
+    19 => 'parametro_a',
+    20 => 'parametro_b',
+    21 => 'parametro_c',
+    22 => 'parametro_d',
+    23 => 'parametro_e',
+    24 => 'parametro_f',
+    25 => 'usuario',
+    26 => 'creacion',
+  ),
+);
+	}
+
+	static function apex_objeto_info()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto',
+  'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_proyecto',
+    1 => 'objeto',
+    2 => 'descripcion_breve',
+    3 => 'descripcion_larga',
+  ),
+);
+	}
+
+	static function apex_objeto_dependencias()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto_consumidor',
+  'dump_order_by' => 'objeto_consumidor, identificador',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'dep_id',
+    2 => 'objeto_consumidor',
+    3 => 'objeto_proveedor',
+    4 => 'identificador',
+    5 => 'parametros_a',
+    6 => 'parametros_b',
+    7 => 'parametros_c',
+    8 => 'inicializar',
+    9 => 'orden',
+  ),
+);
+	}
+
+	static function apex_objeto_eventos()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, orden, identificador',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'evento_id',
+    2 => 'objeto',
+    3 => 'identificador',
+    4 => 'etiqueta',
+    5 => 'maneja_datos',
+    6 => 'sobre_fila',
+    7 => 'confirmacion',
+    8 => 'estilo',
+    9 => 'imagen_recurso_origen',
+    10 => 'imagen',
+    11 => 'en_botonera',
+    12 => 'ayuda',
+    13 => 'orden',
+    14 => 'ci_predep',
+    15 => 'implicito',
+    16 => 'defecto',
+    17 => 'display_datos_cargados',
+    18 => 'grupo',
+    19 => 'accion',
+    20 => 'accion_imphtml_debug',
+    21 => 'accion_vinculo_carpeta',
+    22 => 'accion_vinculo_item',
+    23 => 'accion_vinculo_objeto',
+    24 => 'accion_vinculo_popup',
+    25 => 'accion_vinculo_popup_param',
+    26 => 'accion_vinculo_target',
+    27 => 'accion_vinculo_celda',
+  ),
+);
+	}
+
+	static function apex_ptos_control_x_evento()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'objeto',
+  'dump_order_by' => 'objeto, evento_id',
+  'zona' => 'nucleo',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'pto_control',
+    2 => 'evento_id',
+    3 => 'objeto',
+  ),
+);
+	}
+
+	static function apex_item_objeto()
+	{
+		return array (
+  'archivo' => 'pgsql_a03_tablas_componentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'item',
+  'dump_order_by' => 'item, objeto',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'item_id',
+    1 => 'proyecto',
+    2 => 'item',
+    3 => 'objeto',
+    4 => 'orden',
+    5 => 'inicializar',
+  ),
+);
+	}
+
+	static function apex_objeto_mt_me()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_mt_me_proyecto',
+  'dump_clave_componente' => 'objeto_mt_me',
+  'dump_order_by' => 'objeto_mt_me',
+  'dump_where' => '(	objeto_mt_me_proyecto =	\\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
   'historica' => '0',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_esquema_proyecto',
-    1 => 'objeto_esquema',
-    2 => 'parser',
-    3 => 'descripcion',
-    4 => 'dot',
-    5 => 'debug',
-    6 => 'formato',
-    7 => 'modelo_ejecucion',
-    8 => 'modelo_ejecucion_cache',
-    9 => 'tipo_incrustacion',
-    10 => 'ancho',
-    11 => 'alto',
-    12 => 'dirigido',
-    13 => 'sql',
+    0 => 'objeto_mt_me_proyecto',
+    1 => 'objeto_mt_me',
+    2 => 'ev_procesar_etiq',
+    3 => 'ev_cancelar_etiq',
+    4 => 'ancho',
+    5 => 'alto',
+    6 => 'posicion_botonera',
+    7 => 'tipo_navegacion',
+    8 => 'con_toc',
+    9 => 'incremental',
+    10 => 'debug_eventos',
+    11 => 'activacion_procesar',
+    12 => 'activacion_cancelar',
+    13 => 'ev_procesar',
+    14 => 'ev_cancelar',
+    15 => 'objetos',
+    16 => 'post_procesar',
+    17 => 'metodo_despachador',
+    18 => 'metodo_opciones',
+  ),
+);
+	}
+
+	static function apex_objeto_ci_pantalla()
+	{
+		return array (
+  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_ci_proyecto',
+  'dump_clave_componente' => 'objeto_ci',
+  'dump_order_by' => 'objeto_ci_proyecto, objeto_ci, pantalla',
+  'dump_where' => '(	objeto_ci_proyecto =	\\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_ci_proyecto',
+    1 => 'objeto_ci',
+    2 => 'pantalla',
+    3 => 'identificador',
+    4 => 'orden',
+    5 => 'etiqueta',
+    6 => 'descripcion',
+    7 => 'tip',
+    8 => 'imagen_recurso_origen',
+    9 => 'imagen',
+    10 => 'objetos',
+    11 => 'eventos',
+    12 => 'subclase',
+    13 => 'subclase_archivo',
   ),
 );
 	}
@@ -341,508 +649,36 @@ class toba_db_tablas_componente
 );
 	}
 
-	static function apex_objeto_mt_me()
+	static function apex_objeto_esquema()
 	{
 		return array (
-  'archivo' => 'pgsql_a10_componente_ci.sql',
+  'archivo' => 'pgsql_a13_componente_ei_esquema.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_mt_me_proyecto',
-  'dump_clave_componente' => 'objeto_mt_me',
-  'dump_order_by' => 'objeto_mt_me',
-  'dump_where' => '(	objeto_mt_me_proyecto =	\\\'%%\\\' )',
+  'dump_clave_proyecto' => 'objeto_esquema_proyecto',
+  'dump_clave_componente' => 'objeto_esquema',
+  'dump_order_by' => 'objeto_esquema',
+  'dump_where' => '( objeto_esquema_proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
   'historica' => '0',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_mt_me_proyecto',
-    1 => 'objeto_mt_me',
-    2 => 'ev_procesar_etiq',
-    3 => 'ev_cancelar_etiq',
-    4 => 'ancho',
-    5 => 'alto',
-    6 => 'posicion_botonera',
-    7 => 'tipo_navegacion',
-    8 => 'con_toc',
-    9 => 'incremental',
-    10 => 'debug_eventos',
-    11 => 'activacion_procesar',
-    12 => 'activacion_cancelar',
-    13 => 'ev_procesar',
-    14 => 'ev_cancelar',
-    15 => 'objetos',
-    16 => 'post_procesar',
-    17 => 'metodo_despachador',
-    18 => 'metodo_opciones',
-  ),
-);
-	}
-
-	static function apex_objeto_ci_pantalla()
-	{
-		return array (
-  'archivo' => 'pgsql_a10_componente_ci.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_ci_proyecto',
-  'dump_clave_componente' => 'objeto_ci',
-  'dump_order_by' => 'objeto_ci_proyecto, objeto_ci, pantalla',
-  'dump_where' => '(	objeto_ci_proyecto =	\\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'objeto_ci_proyecto',
-    1 => 'objeto_ci',
-    2 => 'pantalla',
-    3 => 'identificador',
-    4 => 'orden',
-    5 => 'etiqueta',
-    6 => 'descripcion',
-    7 => 'tip',
-    8 => 'imagen_recurso_origen',
-    9 => 'imagen',
-    10 => 'objetos',
-    11 => 'eventos',
-    12 => 'subclase',
-    13 => 'subclase_archivo',
-  ),
-);
-	}
-
-	static function apex_item()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'item',
-  'dump_order_by' => 'item',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'item_id',
-    1 => 'proyecto',
-    2 => 'item',
-    3 => 'padre_id',
-    4 => 'padre_proyecto',
-    5 => 'padre',
-    6 => 'carpeta',
-    7 => 'nivel_acceso',
-    8 => 'solicitud_tipo',
-    9 => 'pagina_tipo_proyecto',
-    10 => 'pagina_tipo',
-    11 => 'actividad_buffer_proyecto',
-    12 => 'actividad_buffer',
-    13 => 'actividad_patron_proyecto',
-    14 => 'actividad_patron',
-    15 => 'nombre',
-    16 => 'descripcion',
-    17 => 'actividad_accion',
-    18 => 'menu',
-    19 => 'orden',
-    20 => 'solicitud_registrar',
-    21 => 'solicitud_obs_tipo_proyecto',
-    22 => 'solicitud_obs_tipo',
-    23 => 'solicitud_observacion',
-    24 => 'solicitud_registrar_cron',
-    25 => 'prueba_directorios',
-    26 => 'zona_proyecto',
-    27 => 'zona',
-    28 => 'zona_orden',
-    29 => 'zona_listar',
-    30 => 'imagen_recurso_origen',
-    31 => 'imagen',
-    32 => 'parametro_a',
-    33 => 'parametro_b',
-    34 => 'parametro_c',
-    35 => 'publico',
-    36 => 'redirecciona',
-    37 => 'usuario',
-    38 => 'creacion',
-  ),
-);
-	}
-
-	static function apex_item_info()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'item_proyecto',
-  'dump_clave_componente' => 'item',
-  'dump_order_by' => 'item',
-  'dump_where' => '(	item_proyecto = \\\'%%\\\'	)',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'item_id',
-    1 => 'item_proyecto',
-    2 => 'item',
-    3 => 'descripcion_breve',
-    4 => 'descripcion_larga',
-  ),
-);
-	}
-
-	static function apex_objeto()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'objeto',
-  'dump_order_by' => 'objeto',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'objeto',
-    2 => 'anterior',
-    3 => 'reflexivo',
-    4 => 'clase_proyecto',
-    5 => 'clase',
-    6 => 'subclase',
-    7 => 'subclase_archivo',
-    8 => 'objeto_categoria_proyecto',
-    9 => 'objeto_categoria',
-    10 => 'nombre',
-    11 => 'titulo',
-    12 => 'colapsable',
-    13 => 'descripcion',
-    14 => 'fuente_datos_proyecto',
-    15 => 'fuente_datos',
-    16 => 'solicitud_registrar',
-    17 => 'solicitud_obj_obs_tipo',
-    18 => 'solicitud_obj_observacion',
-    19 => 'parametro_a',
-    20 => 'parametro_b',
-    21 => 'parametro_c',
-    22 => 'parametro_d',
-    23 => 'parametro_e',
-    24 => 'parametro_f',
-    25 => 'usuario',
-    26 => 'creacion',
-  ),
-);
-	}
-
-	static function apex_objeto_info()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_proyecto',
-  'dump_clave_componente' => 'objeto',
-  'dump_order_by' => 'objeto',
-  'dump_where' => '( objeto_proyecto = \\\'%%\\\' )',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'objeto_proyecto',
-    1 => 'objeto',
-    2 => 'descripcion_breve',
-    3 => 'descripcion_larga',
-  ),
-);
-	}
-
-	static function apex_objeto_dependencias()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'objeto_consumidor',
-  'dump_order_by' => 'objeto_consumidor, identificador',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'dep_id',
-    2 => 'objeto_consumidor',
-    3 => 'objeto_proveedor',
-    4 => 'identificador',
-    5 => 'parametros_a',
-    6 => 'parametros_b',
-    7 => 'parametros_c',
-    8 => 'inicializar',
-    9 => 'orden',
-  ),
-);
-	}
-
-	static function apex_objeto_eventos()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'objeto',
-  'dump_order_by' => 'objeto, orden, identificador',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'evento_id',
-    2 => 'objeto',
-    3 => 'identificador',
-    4 => 'etiqueta',
-    5 => 'maneja_datos',
-    6 => 'sobre_fila',
-    7 => 'confirmacion',
-    8 => 'estilo',
-    9 => 'imagen_recurso_origen',
-    10 => 'imagen',
-    11 => 'en_botonera',
-    12 => 'ayuda',
-    13 => 'orden',
-    14 => 'ci_predep',
-    15 => 'implicito',
-    16 => 'defecto',
-    17 => 'display_datos_cargados',
-    18 => 'grupo',
-    19 => 'accion',
-    20 => 'accion_imphtml_debug',
-    21 => 'accion_vinculo_carpeta',
-    22 => 'accion_vinculo_item',
-    23 => 'accion_vinculo_objeto',
-    24 => 'accion_vinculo_popup',
-    25 => 'accion_vinculo_popup_param',
-    26 => 'accion_vinculo_target',
-    27 => 'accion_vinculo_celda',
-  ),
-);
-	}
-
-	static function apex_ptos_control_x_evento()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'objeto',
-  'dump_order_by' => 'objeto, evento_id',
-  'zona' => 'nucleo',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'pto_control',
-    2 => 'evento_id',
-    3 => 'objeto',
-  ),
-);
-	}
-
-	static function apex_item_objeto()
-	{
-		return array (
-  'archivo' => 'pgsql_a03_tablas_componentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'item',
-  'dump_order_by' => 'item, objeto',
-  'zona' => 'central',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'item_id',
-    1 => 'proyecto',
-    2 => 'item',
-    3 => 'objeto',
-    4 => 'orden',
-    5 => 'inicializar',
-  ),
-);
-	}
-
-	static function apex_molde_operacion()
-	{
-		return array (
-  'archivo' => 'pgsql_a50_asistentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'molde',
-  'dump_order_by' => 'molde',
-  'dump_where' => '( proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'molde',
-    2 => 'operacion_tipo',
-    3 => 'nombre',
-    4 => 'item',
-    5 => 'carpeta_archivos',
-    6 => 'prefijo_clases',
-    7 => 'fuente',
-  ),
-);
-	}
-
-	static function apex_molde_operacion_log()
-	{
-		return array (
-  'archivo' => 'pgsql_a50_asistentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'molde',
-  'dump_order_by' => 'generacion',
-  'dump_where' => '( proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'molde',
-    2 => 'generacion',
-    3 => 'momento',
-  ),
-);
-	}
-
-	static function apex_molde_operacion_log_elementos()
-	{
-		return array (
-  'archivo' => 'pgsql_a50_asistentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'molde',
-  'dump_order_by' => 'generacion',
-  'dump_where' => '( proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'generacion',
-    1 => 'molde',
-    2 => 'id',
-    3 => 'tipo',
-    4 => 'proyecto',
-    5 => 'clave',
-  ),
-);
-	}
-
-	static function apex_molde_operacion_abms()
-	{
-		return array (
-  'archivo' => 'pgsql_a50_asistentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'molde',
-  'dump_order_by' => 'molde',
-  'dump_where' => '( proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'molde',
-    2 => 'tabla',
-    3 => 'gen_usa_filtro',
-    4 => 'gen_separar_pantallas',
-    5 => 'filtro_comprobar_parametros',
-    6 => 'cuadro_eof',
-    7 => 'cuadro_eliminar_filas',
-    8 => 'cuadro_id',
-    9 => 'cuadro_forzar_filtro',
-    10 => 'cuadro_carga_origen',
-    11 => 'cuadro_carga_sql',
-    12 => 'cuadro_carga_php_include',
-    13 => 'cuadro_carga_php_clase',
-    14 => 'cuadro_carga_php_metodo',
-    15 => 'datos_tabla_validacion',
-    16 => 'apdb_pre',
-  ),
-);
-	}
-
-	static function apex_molde_operacion_abms_fila()
-	{
-		return array (
-  'archivo' => 'pgsql_a50_asistentes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'componente',
-  'dump_clave_proyecto' => 'proyecto',
-  'dump_clave_componente' => 'molde',
-  'dump_order_by' => 'molde, fila',
-  'dump_where' => '( proyecto = \\\'%%\\\' )',
-  'zona' => 'objeto',
-  'desc' => '',
-  'historica' => '0',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'molde',
-    2 => 'fila',
-    3 => 'orden',
-    4 => 'columna',
-    5 => 'asistente_tipo_dato',
-    6 => 'etiqueta',
-    7 => 'en_cuadro',
-    8 => 'en_form',
-    9 => 'en_filtro',
-    10 => 'filtro_operador',
-    11 => 'cuadro_estilo',
-    12 => 'cuadro_formato',
-    13 => 'dt_tipo_dato',
-    14 => 'dt_largo',
-    15 => 'dt_secuencia',
-    16 => 'dt_pk',
-    17 => 'elemento_formulario',
-    18 => 'ef_obligatorio',
-    19 => 'ef_desactivar_modificacion',
-    20 => 'ef_procesar_javascript',
-    21 => 'ef_carga_origen',
-    22 => 'ef_carga_sql',
-    23 => 'ef_carga_php_include',
-    24 => 'ef_carga_php_clase',
-    25 => 'ef_carga_php_metodo',
-    26 => 'ef_carga_tabla',
-    27 => 'ef_carga_col_clave',
-    28 => 'ef_carga_col_desc',
+    0 => 'objeto_esquema_proyecto',
+    1 => 'objeto_esquema',
+    2 => 'parser',
+    3 => 'descripcion',
+    4 => 'dot',
+    5 => 'debug',
+    6 => 'formato',
+    7 => 'modelo_ejecucion',
+    8 => 'modelo_ejecucion_cache',
+    9 => 'tipo_incrustacion',
+    10 => 'ancho',
+    11 => 'alto',
+    12 => 'dirigido',
+    13 => 'sql',
   ),
 );
 	}
@@ -1047,6 +883,170 @@ class toba_db_tablas_componente
     11 => 'hijo_clave',
     12 => 'cascada',
     13 => 'orden',
+  ),
+);
+	}
+
+	static function apex_molde_operacion()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'molde',
+    2 => 'operacion_tipo',
+    3 => 'nombre',
+    4 => 'item',
+    5 => 'carpeta_archivos',
+    6 => 'prefijo_clases',
+    7 => 'fuente',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_log()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'generacion',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'molde',
+    2 => 'generacion',
+    3 => 'momento',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_log_elementos()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'generacion',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'generacion',
+    1 => 'molde',
+    2 => 'id',
+    3 => 'tipo',
+    4 => 'proyecto',
+    5 => 'clave',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_abms()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'molde',
+    2 => 'tabla',
+    3 => 'gen_usa_filtro',
+    4 => 'gen_separar_pantallas',
+    5 => 'filtro_comprobar_parametros',
+    6 => 'cuadro_eof',
+    7 => 'cuadro_eliminar_filas',
+    8 => 'cuadro_id',
+    9 => 'cuadro_forzar_filtro',
+    10 => 'cuadro_carga_origen',
+    11 => 'cuadro_carga_sql',
+    12 => 'cuadro_carga_php_include',
+    13 => 'cuadro_carga_php_clase',
+    14 => 'cuadro_carga_php_metodo',
+    15 => 'datos_tabla_validacion',
+    16 => 'apdb_pre',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_abms_fila()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde, fila',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'molde',
+    2 => 'fila',
+    3 => 'orden',
+    4 => 'columna',
+    5 => 'asistente_tipo_dato',
+    6 => 'etiqueta',
+    7 => 'en_cuadro',
+    8 => 'en_form',
+    9 => 'en_filtro',
+    10 => 'filtro_operador',
+    11 => 'cuadro_estilo',
+    12 => 'cuadro_formato',
+    13 => 'dt_tipo_dato',
+    14 => 'dt_largo',
+    15 => 'dt_secuencia',
+    16 => 'dt_pk',
+    17 => 'elemento_formulario',
+    18 => 'ef_obligatorio',
+    19 => 'ef_desactivar_modificacion',
+    20 => 'ef_procesar_javascript',
+    21 => 'ef_carga_origen',
+    22 => 'ef_carga_sql',
+    23 => 'ef_carga_php_include',
+    24 => 'ef_carga_php_clase',
+    25 => 'ef_carga_php_metodo',
+    26 => 'ef_carga_tabla',
+    27 => 'ef_carga_col_clave',
+    28 => 'ef_carga_col_desc',
   ),
 );
 	}
