@@ -9,6 +9,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	private $dir;
 	private $sincro_archivos;
 	private $db;
+	private $aplicacion_comando;
+	private $aplicacion_modelo;
 	const dump_prefijo_componentes = 'dump_';
 	const dump_prefijo_permisos = 'grupo_acceso__';
 	const compilar_archivo_referencia = 'tabla_tipos';
@@ -34,6 +36,47 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->sincro_archivos = new toba_sincronizador_archivos( $this->get_dir_dump() );
 		}
 		return $this->sincro_archivos;
+	}
+	
+	/**
+	 * @return toba_aplicacion_comando
+	 */
+	function get_aplicacion_comando()
+	{
+		if (! isset($this->aplicacion_comando)) {
+			$id_proyecto = $this->get_id();
+			$archivo_proy = $this->instancia->get_path_proyecto($id_proyecto)."/php/extension_toba/".$id_proyecto."_comando.php";			
+			if (file_exists($archivo_proy)) {
+				require_once($archivo_proy);
+				$clase = $id_proyecto.'_comando';
+				$this->aplicacion_comando = new $clase();
+				$modelo = $this->get_aplicacion_modelo();
+				$this->aplicacion_comando->set_entorno($this->manejador_interface, $modelo);
+			}
+		}
+		if (isset($this->aplicacion_comando)) {
+			return $this->aplicacion_comando;
+		}
+	}
+	
+	/**
+	 * @return toba_aplicacion_modelo
+	 */
+	function get_aplicacion_modelo()
+	{
+		if (! isset($this->aplicacion_modelo)) {
+			$id_proyecto = $this->get_id();
+			$archivo_proy = $this->instancia->get_path_proyecto($id_proyecto)."/php/extension_toba/".$id_proyecto."_modelo.php";			
+			if (file_exists($archivo_proy)) {
+				require_once($archivo_proy);
+				$clase = $id_proyecto.'_modelo';
+				$this->aplicacion_modelo = new $clase();
+				$this->aplicacion_modelo->set_entorno($this->manejador_interface, $this->get_instalacion(), $this->get_instancia(), $this);
+			}
+		}
+		if (isset($this->aplicacion_modelo)) {
+			return $this->aplicacion_modelo;
+		}		
 	}
 
 	//-----------------------------------------------------------
@@ -1119,32 +1162,32 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	/**
 	 * Ejecuta un script de instalación propio del proyecto
-	 * Redefinir para crear el propio entorno
-	 * @ventana
 	 */
 	function instalar()
 	{
-				
+		$aplicacion = $this->get_aplicacion_modelo();
+		if (isset($aplicacion)) {
+			$parametros = $this->instancia->get_parametros_db();
+			if (isset($parametros['base'])) {
+				unset($parametros['base']);
+			}
+			$aplicacion->instalar($parametros);
+		}
 	}
 
 	/**
-	 * Ejecuta un script de carga de datos de negocio en una nueva instancia
-	 * Redefinir para cargar datos propios
-	 * @ventana
-	 */	
-	function crear_instancia_negocio($nombre_instancia)
-	{
-		
-	}	
-	
-	/**
 	 * Ejecuta un script de migracion de datos de negocio entre la version actual y la dada
-	 * Redefinir para migraciones de datos propias
-	 * @ventana
 	 */		
 	function migrar_datos_negocio(toba_version $desde, toba_version $hasta)
 	{
-
+		$aplicacion = $this->get_aplicacion_modelo();
+		if (isset($aplicacion)) {
+			$parametros = $this->instancia->get_parametros_db();
+			if (isset($parametros['base'])) {
+				unset($parametros['base']);
+			}
+			$aplicacion->migrar($desde, $hasta);
+		}
 	}
 	
 	

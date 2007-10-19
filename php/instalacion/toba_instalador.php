@@ -89,6 +89,38 @@ class toba_instalador
 	//--------------------------------------------------------------
 	
 	/**
+	 * Exporta los proyectos-no-propios de todas las instancias de la instalacion
+	 */
+	function instalacion_exportar()
+	{
+		$instalacion = $this->get_instalacion();
+		$excluir = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
+		foreach ($instalacion->get_lista_instancias() as $id_inst) {
+			$instancia = $instalacion->get_instancia($id_inst);
+			$instancia->exportar($excluir);
+		}
+	}
+
+	/**
+	 * Regenera todas las instancias de la instalacion
+	 */
+	function instalacion_regenerar()
+	{
+		$instalacion = $this->get_instalacion();
+		foreach ($instalacion->get_lista_instancias() as $id_inst) {
+			$instancia = $instalacion->get_instancia($id_inst);
+			$instancia->cargar(true);
+		}		
+	}
+	
+	function instalacion_migrar($version)
+	{
+		$version = new toba_version($version);
+		$instalacion = $this->get_instalacion();
+		$instalacion->migrar_version($version, true);
+	}
+	
+	/**
 	 * Retorna el path del archivo de configuración de apache resultante
 	 */
 	function crear_instalacion_e_instancia($nombre_instancia, $datos_motor, $grupo)

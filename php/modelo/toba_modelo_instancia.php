@@ -288,12 +288,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/**
 	* Exportacion de TODO lo que hay en una instancia
 	*/
-	function exportar()
+	function exportar($excluir=array())
 	{
 		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			if ($id_proyecto != 'toba') {
-				$proyecto = $this->get_proyecto($id_proyecto);
-				$proyecto->exportar();
+				if (! in_array($id_proyecto, $excluir)) {
+					$proyecto = $this->get_proyecto($id_proyecto);
+					$proyecto->exportar();
+				}
 			}
 		}	
 		$this->exportar_local();

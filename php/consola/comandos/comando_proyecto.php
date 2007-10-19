@@ -1,5 +1,6 @@
 <?php
 require_once('comando_toba.php');
+
 /**
 *	Publica los servicios de la clase PROYECTO a la consola toba
 *
@@ -22,6 +23,41 @@ class comando_proyecto extends comando_toba
 		$this->consola->enter();
 	}
 
+	function inspeccionar_opciones($clase = null)
+	{
+		$opciones = array();
+		$basicas = parent::inspeccionar_opciones($clase);
+		$id_proyecto = $this->get_id_proyecto_actual(false);
+		$id_instancia = $this->get_id_instancia_actual(false);
+		if (isset($id_proyecto) && isset($id_instancia)) {
+			$proyecto = $this->get_proyecto();
+			$clase = $proyecto->get_aplicacion_comando();
+			if (isset($clase)) {
+				$opciones = parent::inspeccionar_opciones($clase);
+			}
+		}
+		return $basicas + $opciones;	
+	}	
+	
+	protected function ejecutar_opcion($opcion, $argumentos)
+	{
+		$id_proyecto = $this->get_id_proyecto_actual(false);
+		$id_instancia = $this->get_id_instancia_actual(false);
+		$clase = null;
+		if (isset($id_proyecto) && isset($id_instancia)) {
+			$proyecto = $this->get_proyecto();
+			$clase = $proyecto->get_aplicacion_comando();
+		}
+		if(isset($clase) && method_exists( $clase, $opcion ) ) {
+			$clase->$opcion($argumentos);
+		} elseif (method_exists( $this, $opcion)) {
+			$this->$opcion($argumentos);
+		} else {
+			$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+			$this->mostrar_ayuda();
+		}
+	}
+	
 	//-------------------------------------------------------------
 	// Opciones
 	//-------------------------------------------------------------
@@ -142,16 +178,6 @@ class comando_proyecto extends comando_toba
 			$this->consola->coleccion( $subopciones );	
 		}		
 	}
-	
-	/**
-	 * Ejecuta el proceso de instalación propio del proyecto
-	 * @gtk_icono instalacion.png
-	 */
-	function opcion__instalar()
-	{
-		$proyecto = $this->get_proyecto();
-		$proyecto->instalar();		
-	}	
 	
 	/**
 	* Exporta los METADATOS del proyecto.
@@ -278,8 +304,9 @@ class comando_proyecto extends comando_toba
 	 * Migra un proyecto entre dos versiones toba.
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1]
 	 * @gtk_icono convertir.png 
+	 * @consola_separador 1
 	 */
-	function opcion__migrar()
+	function opcion__migrar_toba()
 	{
 		$proyecto = $this->get_proyecto();
 		//--- Parametros
@@ -302,6 +329,6 @@ class comando_proyecto extends comando_toba
 			//Se pidio un método puntual
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
-	}		
+	}
 }
 ?>

@@ -38,18 +38,25 @@ class comando
 	/**
 	*	Ubica el metodo solicitado y los ejecuta
 	*/
-	function procesar()
+	function procesar($opcion=null, $argumentos=null)
 	{
-		if ( count( $this->argumentos ) == 0 ) {
-			$this->mostrar_ayuda();
-		} else {
-			$opcion = 'opcion__' . $this->argumentos[0];
-			if( method_exists( $this, $opcion ) ) {
-				$this->$opcion();
-			} else {
-				$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+		if (! isset($opcion)) {
+			if ( count( $this->argumentos ) == 0 ) {
 				$this->mostrar_ayuda();
+			} else {
+				$opcion = 'opcion__' . $this->argumentos[0];
 			}
+		}
+		$this->ejecutar_opcion($opcion, $argumentos);
+	}
+	
+	protected function ejecutar_opcion($opcion, $argumentos)
+	{
+		if( method_exists( $this, $opcion ) ) {
+			$this->$opcion($argumentos);
+		} else {
+			$this->consola->mensaje("La opcion '".$this->argumentos[0]."' no existe");
+			$this->mostrar_ayuda();
 		}
 	}
 
@@ -60,21 +67,30 @@ class comando
 		$this->consola->subtitulo( 'Lista de opciones' );
 		$opciones = $this->inspeccionar_opciones();
 		$salida = array();
+		$i=0;
 		foreach ($opciones as $id => $opcion) {
 			if (!isset($opcion['tags']['consola_no_mostrar'])) {
 				$salida[$id] = $opcion['ayuda'];
 				if (isset($opcion['tags']['consola_parametros'])) {
 					$salida[$id] .= "\n".$opcion['tags']['consola_parametros'];
 				}
+				if (isset($opcion['tags']['consola_separador']) && $i+1 < count($opciones)) {
+					$salida [$id] .= "\n_________________________________\n";
+				}
+				
 			}
+			$i++;
 		}
 		$this->consola->coleccion($salida);
 	}
 
-	function inspeccionar_opciones()
+	function inspeccionar_opciones($clase = null)
 	{
+		if (!isset($clase)) {
+			$clase = get_class($this);
+		}
 		$opciones = array();
-		$clase = new ReflectionClass(get_class($this));
+		$clase = new ReflectionClass($clase);
 		foreach ($clase->getMethods() as $metodo){
 			if (substr($metodo->getName(), 0, 8) == 'opcion__'){
 				$temp = explode('__', $metodo->getName());

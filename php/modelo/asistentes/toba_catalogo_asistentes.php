@@ -71,13 +71,18 @@ class toba_catalogo_asistentes
 	//---- Consultas
 	//------------------------------------------------
 
-	static function get_lista_tipo_dato()
+	static function get_lista_tipo_dato($mapeo_obligatorio=false)
 	{
-		$sql = 'SELECT 
+		$where = '';
+		if ($mapeo_obligatorio) {
+			$where = 'WHERE dt_tipo_dato IS NOT NULL';
+		}
+		$sql = "SELECT 
 					*
 				FROM apex_molde_operacion_tipo_dato
+				$where
 				ORDER BY descripcion_corta
-		';		
+		";		
 		return consultar_fuente($sql);
 	}
 	
@@ -86,9 +91,36 @@ class toba_catalogo_asistentes
 		return '1000008';
 	}
 	
+	static function tipo_dato_caracter()
+	{
+		return '1000001';
+	}	
+	
 	//------------------------------------------------
 	//---- Reflexión de de las tablas
 	//------------------------------------------------	
+	
+	/**
+	 * Dado un tipo de dato del asistente retorna las opciones asociadas
+	 */
+	static function get_fila_opciones_de_tipo($tipo)
+	{
+		$tipos = self::get_lista_tipo_dato();
+		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(true), array('tipo_dato'));
+		if ($tipo != self::tipo_dato_referencia()) {
+			$fila = $tipo_datos[$tipo];
+			$fila['asistente_tipo_dato'] = $tipo;
+		} else {
+			//-- El tipo referencia es especial
+			$fila['elemento_formulario'] = 'ef_combo';
+			$fila['dt_tipo_datos'] = 'C';
+			$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
+			$fila['cuadro_estilo'] = 4;
+			$fila['cuadro_formato'] = 1;
+			$fila['en_cuadro'] = 1;
+		}
+		return $fila;
+	}
 	
 	/**
 	 * Dada una tabla retorna los valores por defecto de cada fila para utilizar en un abm
@@ -97,38 +129,25 @@ class toba_catalogo_asistentes
 	{
 		$db = toba::db($fuente, toba_editor::get_proyecto_cargado());
 		$nuevas = $db->get_definicion_columnas($tabla);
-		$tipo_datos = rs_convertir_asociativo_matriz(self::get_lista_tipo_dato(), array('dt_tipo_dato'));
+
+		//-- Se busca un mapeo entre el tipo en la base y el tipo en el asistente
+		$mapeo_tipos = rs_convertir_asociativo(self::get_lista_tipo_dato(true), array('dt_tipo_dato'), 'tipo_dato');
 		$salida = array();
 		foreach ($nuevas as $nueva) {
-			$fila = array();			
-			if (! isset($nueva['fk_tabla'])) {	
-				$tipo = isset($tipo_datos[$nueva['tipo']]) ? $nueva['tipo'] : 'C';
-				$fila['asistente_tipo_dato'] = $tipo_datos[$tipo]['tipo_dato'];
-				$fila['cuadro_estilo'] = $tipo_datos[$tipo]['cuadro_estilo'];
-				$fila['cuadro_formato'] = $tipo_datos[$tipo]['cuadro_formato'];
-				$fila['en_cuadro'] = ($tipo_datos[$tipo]['cuadro_estilo'] !== '');
-				$fila['elemento_formulario'] = $tipo_datos[$tipo]['elemento_formulario'];					
-				$fila['dt_tipo_datos'] = $tipo_datos[$tipo]['dt_tipo_dato'];
+			$fila = array();
+			if (! isset($nueva['fk_tabla'])) {				
+				$tipo = isset($mapeo_tipos[$nueva['tipo']]) ? $mapeo_tipos[$nueva['tipo']] : self::tipo_dato_caracter();
+				$fila = self::get_fila_opciones_de_tipo($tipo);
 			} else {
-				//--- Es una referencia
-				$fila['elemento_formulario'] = 'ef_combo';
-				$fila['dt_tipo_datos'] = 'C';
-				$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
-				$fila['cuadro_estilo'] = 4;
-				$fila['cuadro_formato'] = 1;
-				$fila['en_cuadro'] = 1;
-				
+				$tipo = self::tipo_dato_referencia();
+				$fila = self::get_fila_opciones_de_tipo($tipo);
 				$datos_carga_sql = $db->get_opciones_sql_campo_externo($nueva);
 				$fila['ef_carga_col_clave'] = $datos_carga_sql['clave'];
 				$fila['ef_carga_col_desc'] = $datos_carga_sql['descripcion'];
 				$fila['ef_carga_tabla'] = $datos_carga_sql['tabla'];
 				$fila['ef_carga_sql'] = $datos_carga_sql['sql'];
-				$fila['ef_carga_origen'] = 'datos_tabla';
+				$fila['ef_carga_origen'] = 'datos_tabla';				
 			}
-			//Parches temporales!
-			if(isset($tipo) && $tipo == 'C' && $nueva['longitud'] > 0) {
-				$fila['dt_largo'] = $nueva['longitud'];			
-			} 
 			$fila['dt_pk'] = $nueva['pk'];
 			$fila['dt_secuencia'] = $nueva['secuencia'];
 			$fila['columna'] = $nueva['nombre'];

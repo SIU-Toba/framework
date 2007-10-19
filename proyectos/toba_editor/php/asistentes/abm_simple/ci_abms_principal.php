@@ -76,6 +76,11 @@ class ci_abms_principal extends ci_asistente_base
 	{
 		//--- Este ml cuando se cambio el combo de la tabla a usar ya no tiene datos necesarios
 		if (! $this->cambio_tabla) {
+			//--- Se actualizan las opciones que dependen del tipo de dato seleccionado
+			foreach (array_keys($datos) as $id) {
+				$nuevos_seteos = toba_catalogo_asistentes::get_fila_opciones_de_tipo($datos[$id]['asistente_tipo_dato']);
+				$datos[$id] = array_merge($datos[$id], $nuevos_seteos);	
+			}
 			$this->dep('datos')->tabla('filas')->procesar_filas($datos);
 		}
 	}

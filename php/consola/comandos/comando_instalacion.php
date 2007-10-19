@@ -193,7 +193,6 @@ class comando_instalacion extends comando_toba
 		$this->consola->mensaje("");
 	}
 	
-	
 	/**
 	* Crea una instalación básica.
 	* @gtk_icono nucleo/agregar.gif
@@ -324,7 +323,7 @@ class comando_instalacion extends comando_toba
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1].
 	 * @gtk_icono convertir.png
 	 */
-	function opcion__migrar()
+	function opcion__migrar_toba()
 	{
 		$instalacion = $this->get_instalacion();
 		//--- Parametros

@@ -280,8 +280,7 @@ class toba_gtk_admin
 			$info = $objeto_com->get_nombre()." $opcion ".$objeto_com->get_argumentos_string();
 			$this->comp['frame_label']->set_markup("<b>Comando</b>: ".$info);
 			
-			$metodo = 'opcion__'.$opcion;
-			$objeto_com->$metodo($param_extra);
+			$objeto_com->procesar($opcion, $param_extra);
 			if (isset($this->progreso)) {
 				$this->progreso->finalizar();
 			}
