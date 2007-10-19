@@ -1,6 +1,6 @@
 <?php
 
-class test_toba_parser_ayuda extends test_toba
+class test_parser_ayuda extends test_toba
 {
 
 	function get_descripcion()

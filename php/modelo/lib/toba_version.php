@@ -3,19 +3,40 @@
 class toba_version
 {
 	protected $partes;
+	protected $extra;
 	protected $path_migraciones;
+	protected $inestables = array('pre-alpha', 'alpha', 'beta', 'rc');
 	
 	function __construct($numero)
 	{
+		$formato = 'El formato debe ser x.y.z(CODIGO-#). Donde CODIGO es opcional: pre-alpha,alpha,beta o rc (Ver http://web2.siu.edu.ar/isw/recursos/EsquemaVersionado.pdf)';
 		$numero = trim($numero);
+		$this->extra = null;
 		$this->partes = explode('.', $numero);
 		//Validando el numero
-		if (count($this->partes) !== 3) {
-			throw new toba_error("El número de versión $numero es incorrecto. Las versiones constan de tres numeros A.B.C");
+		if (count($this->partes) < 3) {
+			throw new toba_error("El número de versión $numero es incorrecto. Se requiere al menos 3 partes. ".$formato);
+		}
+		if (!is_numeric($this->partes[2])) {
+			$digito = intval($this->partes[2]);
+			if (! is_numeric($digito)) {
+				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas. ".$formato);
+			}
+			$extra = substr($this->partes[2], strlen($digito));
+			$this->partes[2] = $digito;			
+			if ($extra != '') {
+				$this->extra = explode('-', $extra);
+				if (! in_array($this->extra[0], $this->inestables)) {
+					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable no es válido. ".$formato);
+				}
+				if (isset($this->extra[1]) && !is_numeric($this->extra[1])) {
+					throw new toba_error("El número de versión $numero es incorrecto. El numero de versión inestable debe ser entero ".$formato);
+				}
+			}
 		}
 		foreach ($this->partes as $parte) {
 			if (!is_numeric($parte) || !is_int(intval($parte))) {
-				throw new toba_error("El número de versión $numero es incorrecto. El formato es A.B.C siendo estas componentes números enteros");
+				throw new toba_error("El número de versión $numero es incorrecto. Las partes deben ser numéricas ".$formato);
 			}
 		}
 	}
@@ -27,12 +48,20 @@ class toba_version
 
 	function __toString()
 	{
-		return implode('.', $this->partes);
+		$s = implode('.', $this->partes);
+		if (isset($this->extra)) {
+			$s .= $this->extra[0];
+			if (isset($this->extra[1])) {
+				$s .= '-'.$this->extra[1];
+			}
+		}
+		return $s;
 	}
 
 	function get_string_partes($separador = '_')
 	{
-		return implode($separador, $this->partes);
+		$s = $this->__toString();
+		return str_replace($s, '.', '_');
 	}
 
 	function es_igual($version)

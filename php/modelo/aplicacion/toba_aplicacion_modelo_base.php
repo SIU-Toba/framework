@@ -49,7 +49,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	function get_version_nueva()
 	{
 		if (file_exists($this->proyecto->get_dir().'/VERSION')) {
-			return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
+			return new toba_version(file_get_contents($this->proyecto->get_dir().'/VERSION'));
 		} else {
 			return $this->instalacion->get_version_actual();
 		}

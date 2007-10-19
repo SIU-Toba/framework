@@ -1119,10 +1119,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function get_version_proyecto()
 	{
-		if (file_exists($this->get_dir().'/VERSION')) {
-			return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
+		$modelo = $this->get_aplicacion_modelo();
+		if (! isset($modelo)) {
+			if (file_exists($this->get_dir().'/VERSION')) {
+				return new toba_version(file_get_contents($this->get_dir().'/VERSION'));
+			} else {
+				return toba_modelo_instalacion::get_version_actual();
+			}
 		} else {
-			return toba_modelo_instalacion::get_version_actual();
+			return $modelo->get_version_actual();
 		}
 	}
 	

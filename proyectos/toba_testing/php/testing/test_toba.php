@@ -1,7 +1,7 @@
 <?php
 require_once(toba_dir() . '/php/3ros/simpletest/unit_tester.php');
 require_once(toba_dir() . '/php/3ros/simpletest/mock_objects.php');
-require_once('testing/mocks/hilo_version_test.php');
+//require_once('testing/mocks/hilo_version_test.php');
 
 abstract class test_toba extends UnitTestCase
 {

@@ -163,6 +163,7 @@ class comando_proyecto extends comando_toba
 		$p = $this->get_proyecto();
 		$param = $this->get_parametros();
 		$this->consola->titulo( "Informacion sobre el PROYECTO '" . $p->get_id() . "' en la INSTANCIA '" .  $p->get_instancia()->get_id() . "'");
+		$this->consola->mensaje("Version de la aplicación: ".$p->get_version_proyecto()."\n");
 		if ( isset( $param['-c'] ) ) {
 			// COMPONENTES
 			$this->consola->subtitulo('Listado de COMPONENTES');

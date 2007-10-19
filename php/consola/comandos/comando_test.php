@@ -29,13 +29,17 @@ class comando_test extends comando_toba
 	 */
 	function opcion__automaticos()
 	{
-		require_once('acciones/pruebas/testing_automatico/lista_casos.php');
+		require_once('modelo/lib/testing_unitario/toba_test_lista_casos.php');
+		require_once( toba_dir() . '/php/3ros/simpletest/unit_tester.php');
 		require_once( toba_dir() . '/php/3ros/simpletest/reporter.php');
 		
-		$param = $this->get_parametros();		
-		$proyecto = isset($param["-p"]) ? $param["-p"] : "toba";
+		$param = $this->get_parametros();
 		
-		lista_casos::$proyecto = $proyecto;
+		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
+		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
+		
+		toba_test_lista_casos::$proyecto = $proyecto;
+		toba_test_lista_casos::$instancia = $instancia;
 		
 		//Selecciono una categoria
 		if (isset($param["-c"])) {
@@ -43,7 +47,6 @@ class comando_test extends comando_toba
 		} else {
 			$seleccionados = toba_test_lista_casos::get_casos();
 		}
-					
 		if(isset($param["-t"])) {
 			//Seleccion de un test particular
 			if (isset($param["-t"])) {
@@ -59,7 +62,6 @@ class comando_test extends comando_toba
 					$seleccionados = array();
 			}	
 		} 
-		
 		try {
 			$test = new GroupTest('Casos de TEST');
 		    foreach ($seleccionados as $caso) {

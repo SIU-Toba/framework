@@ -3,16 +3,18 @@
 class toba_test_lista_casos
 {
 	static $proyecto;
+	static $instancia;
 	
 	static function get_path()
 	{
-		if (isset(self::$proyecto)) {
-			$proyecto = self::$proyecto;
+		if (isset(self::$proyecto) && isset(self::$instancia)) {
+			$p = toba_modelo_catalogo::instanciacion()->get_proyecto(self::$instancia, self::$proyecto);
+			return $p->get_dir()."/php/testing";
+
 		} else {
 			$proyecto = toba_contexto_info::get_proyecto();
+			return toba::instancia()->get_path_proyecto($proyecto)."/php/testing";
 		}
-		$path = toba::instancia()->get_path_proyecto($proyecto)."/php/testing";
-		return $path;
 	}
 	
 	function comparar($x, $y)
@@ -52,6 +54,9 @@ class toba_test_lista_casos
 	{
 		$casos = array();
 		$path = self::get_path();
+		if (file_exists($path.'/test_toba.php')) {
+			require_once($path.'/test_toba.php');			
+		}
 		if( $handle = @opendir( $path ) ) {
 			while (false !== ($file = readdir($handle))) { 
 				$path_completo = $path . "/" . $file;
@@ -75,7 +80,6 @@ class toba_test_lista_casos
 			}
 			closedir($handle); 
 		}
-		
 		usort($casos, array("toba_test_lista_casos", "comparar"));			
 
 		if ($categoria == 'todas' || $categoria == 'nopar')
