@@ -2,6 +2,11 @@
 
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
+	protected $permitir_exportar_modelo = true;
+	
+	/**
+	 * @var toba_proceso_gui
+	 */
 	protected $manejador_interface;
 	
 	/**
@@ -67,6 +72,67 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		return $parametros;
 	}	
 	
+	
+	function cargar_modelo_datos($base)
+	{
+		$base->abrir_transaccion();		
+		$base->retrazar_constraints();
+		$this->crear_estructura($base);
+		$this->cargar_datos($base);
+		$base->cerrar_transaccion();			
+	}
+	
+	/**
+	 * @todo No esta soportada la exportación de los datos en Windows cuando el usuario de postgres requiere clave
+	 */
+	function regenerar_modelo_datos($base, $id_def_base)
+	{
+		if (! $this->permitir_exportar_modelo) {
+			$this->manejador_interface->mensaje('Ya existe un modelo de datos del proyecto cargado previamente.');
+			return;
+		}
+		$reemplazar = $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos, ".
+							"¿Desea reemplazarlo? (borra la base completa y la vuelva a cargar)", 's');
+		if (! $reemplazar) {
+			return;
+		}
+		$exportar = $this->manejador_interface->dialogo_simple("¿Desea exportar los datos actuales?", 's');
+		if ($exportar) {
+			$parametros = $this->instalacion->get_parametros_base($id_def_base);
+			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';
+			if (toba_manejador_archivos::es_windows()) {
+				$comando = "pg_dump -d -a -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";
+			} else {
+				$clave = '';
+				if ($parametros['clave'] != '') {
+					$clave = "export PGPASSWORD=".$parametros['clave'].';';
+				}					
+				$comando = $clave."pg_dump -d -a -h {$parametros['profile']} -U {$parametros['usuario']} -f '$archivo' {$parametros['base']}";
+			}
+			$this->manejador_interface->mensaje("Ejecutando: $comando");
+			$salida = array();
+			echo exec($comando, $salida, $exito);
+			echo implode("\n", $salida);
+			if ($exito > 0) {
+				throw new toba_error('No se pudo exportar correctamente los datos');
+			}
+		}
+		
+		//--- Borra la base fisicamente
+		$this->manejador_interface->mensaje('Borrando base actual', false);
+		$base->destruir();
+		unset($base);
+		$this->instalacion->borrar_base_datos($id_def_base);
+		$this->instalacion->crear_base_datos($id_def_base);
+		$this->manejador_interface->progreso_avanzar();
+		$this->manejador_interface->progreso_fin();		
+		
+		//--- Carga nuevamente el modelo de datos
+		$base = $this->instalacion->conectar_base($id_def_base);
+		$this->cargar_modelo_datos($base);	
+
+	}
+	
 	/**
 	 * Determina si el modelo de datos se encuentra cargado en una conexión específica
 	 * @param toba_db $base
@@ -81,16 +147,31 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	{
 		$estructura = $this->proyecto->get_dir().'/sql/estructura.sql';
 		if (file_exists($estructura)) {
+			$this->manejador_interface->mensaje('Creando estructura', false);
+			$this->manejador_interface->progreso_avanzar();	
 			$base->ejecutar_archivo($estructura);
+			$this->manejador_interface->progreso_fin();
 		}
 	}
+
 	
-	function cargar_datos_basicos(toba_db $base)
+	function cargar_datos(toba_db $base)
 	{
-		$datos = $this->proyecto->get_dir().'/sql/datos_basicos.sql';
-		if (file_exists($datos)) {
-			$base->ejecutar_archivo($datos);
+		$locales =  $this->proyecto->get_dir().'/sql/datos_locales.sql';
+		if (file_exists($locales)) {
+			$this->manejador_interface->mensaje('Cargando datos locales', false);			
+			$this->manejador_interface->progreso_avanzar();			
+			$base->ejecutar_archivo($locales);			
+			$this->manejador_interface->progreso_fin();
+		} else {
+			$datos = $this->proyecto->get_dir().'/sql/datos_basicos.sql';
+			if (file_exists($datos)) {
+				$this->manejador_interface->mensaje('Cargando datos básicos', false);
+				$base->ejecutar_archivo($datos);
+				$this->manejador_interface->progreso_fin();				
+			}			
 		}		
+	
 	}
 	
 	/**
@@ -103,7 +184,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (empty($fuentes)) {
 			return;
 		}
-		$this->manejador_interface->titulo("Instalando proyecto de Referencia de Toba ".$version->__toString());		
+		$id = $this->proyecto->get_id();
+		$this->manejador_interface->titulo("Instalando $id ".$version->__toString());		
 		//--- Se asume que la base a instalar corresponde a la primer fuente
 		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
 		
@@ -120,26 +202,14 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//--- Chequea si existe fisicamente la base creada
 		if (! $this->instalacion->existe_base_datos($id_def_base)) {
 			$this->instalacion->crear_base_datos($id_def_base);
-		}
-		
+		} 
+		//--- Chequea si hay un modelo cargado y decide que hacer en tal caso
 		$base = $this->instalacion->conectar_base($id_def_base);	
-		$base->abrir_transaccion();		
-		$base->retrazar_constraints();
-		//--- Creación de la estructura
-		if (! $this->estructura_creada($base)) {
-			$this->manejador_interface->mensaje('Creando estructura', false);
-			$this->manejador_interface->progreso_avanzar();			
-			$this->crear_estructura($base);
-			$this->manejador_interface->progreso_fin();
-			
-			$this->manejador_interface->mensaje('Cargando datos básicos', false);
-			$this->manejador_interface->progreso_avanzar();			
-			$this->cargar_datos_basicos($base);
-			$this->manejador_interface->progreso_fin();			
+		if (!$this->estructura_creada($base)) {
+			$this->cargar_modelo_datos($base);			
 		} else {
-			$this->manejador_interface->mensaje('Ya esta creada la estructura de datos.');
+			$this->regenerar_modelo_datos($base, $id_def_base);
 		}
-		$base->cerrar_transaccion();
 	}
 
 

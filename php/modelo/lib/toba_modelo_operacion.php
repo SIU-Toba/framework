@@ -133,7 +133,7 @@ class toba_modelo_operacion
 			$opcion = $opciones[$comp['componente']];			
 			if ($opcion['eliminar'] && $opcion['eliminar_archivo']) {
 				$archivo = $comp['subclase_archivo'];
-				$archivo = toba_instancia::get_path_proyecto($this->id_proyecto).'/php/'.$archivo;
+				$archivo = toba::instancia()->get_path_proyecto($this->id_proyecto).'/php/'.$archivo;
 				unlink($archivo);
 			}			
 		}		

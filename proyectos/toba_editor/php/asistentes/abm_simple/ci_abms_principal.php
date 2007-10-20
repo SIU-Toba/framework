@@ -79,7 +79,10 @@ class ci_abms_principal extends ci_asistente_base
 			//--- Se actualizan las opciones que dependen del tipo de dato seleccionado
 			foreach (array_keys($datos) as $id) {
 				$nuevos_seteos = toba_catalogo_asistentes::get_fila_opciones_de_tipo($datos[$id]['asistente_tipo_dato']);
-				$datos[$id] = array_merge($datos[$id], $nuevos_seteos);	
+				$datos[$id]['dt_tipo_dato'] = $nuevos_seteos['dt_tipo_dato'];
+				$datos[$id]['cuadro_estilo'] = $nuevos_seteos['cuadro_estilo'];
+				$datos[$id]['cuadro_formato'] = $nuevos_seteos['cuadro_formato'];
+				$datos[$id]['elemento_formulario'] = $nuevos_seteos['elemento_formulario'];
 			}
 			$this->dep('datos')->tabla('filas')->procesar_filas($datos);
 		}

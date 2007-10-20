@@ -100,7 +100,7 @@ class comando_proyecto extends comando_toba
 
 	/**
 	* Carga el PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
-	* Opcionalmente crea el alias del proyecto
+	* @consola_parametros Opcional: [-d 'directorio'] Especifica el path en donde se encuentra el proyecto (por ej. ../mi_proyecto ) 
 	* @gtk_icono importar.png
 	* @gtk_no_mostrar 1
 	*/
@@ -113,6 +113,10 @@ class comando_proyecto extends comando_toba
 			if ($id_proyecto == $path) {
 				$path=null;
 			}
+		}
+		$param = $this->get_parametros();
+		if (isset($param['-d'])) {
+			$path = $param['-d'];
 		}
 		$p = $this->get_proyecto($id_proyecto);
 		$i = $p->get_instancia();

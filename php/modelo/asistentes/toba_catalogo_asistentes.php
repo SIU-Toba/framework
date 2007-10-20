@@ -113,11 +113,10 @@ class toba_catalogo_asistentes
 		} else {
 			//-- El tipo referencia es especial
 			$fila['elemento_formulario'] = 'ef_combo';
-			$fila['dt_tipo_datos'] = 'C';
+			$fila['dt_tipo_dato'] = 'C';
 			$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
 			$fila['cuadro_estilo'] = 4;
 			$fila['cuadro_formato'] = 1;
-			$fila['en_cuadro'] = 1;
 		}
 		return $fila;
 	}
@@ -155,6 +154,7 @@ class toba_catalogo_asistentes
 			$fila['en_filtro'] = 0;
 			$fila['filtro_operador'] = 'ILIKE';
 			$fila['en_form'] = 1;			
+			$fila['en_cuadro'] = 1;			
 			if ($nueva['secuencia'] != '') {
 				$fila['en_form'] = 0;
 				$fila['en_cuadro'] = 0;

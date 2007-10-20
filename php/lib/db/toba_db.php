@@ -478,8 +478,10 @@ class toba_db
 				if (in_array($alias_externo, $aliases)) {
 					$alias_externo = $externo['tabla']; //En caso de existir el alias, usa el nombre de la tabla
 				}
-				$aliases[] = $alias_externo;				
-				$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];				
+				$aliases[] = $alias_externo;
+				if (isset($externo['descripcion'])) {				
+					$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];
+				}				
 				$ext_where = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
 				$ext_from = $externo['tabla'].' as '.$alias_externo;
 				if ($columna['not_null']) {
