@@ -70,8 +70,8 @@
 	/**
 	*	@see toba_db::quote()
 	*/	
-	function quote($string, $id_fuente=null)
+	function quote($dato, $id_fuente=null)
 	{
-		return toba::db($id_fuente)->quote($string);
+		return toba::db($id_fuente)->quote($dato);
 	}
 ?>

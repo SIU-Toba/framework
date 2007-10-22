@@ -116,10 +116,19 @@ class toba_db
 	/**
 	 * Convierte un string a una representación segura para el motor. Evita
 	 * la inyección de código malicioso dentro de la sentencia SQL
+	 * @param mixed $dato Puede ser un string o un arreglo
 	 */
-	function quote($texto)
+	function quote($dato)
 	{
-		return $this->conexion->quote($texto);
+		if (! is_array($dato)) {
+			return $this->conexion->quote($dato);
+		} else {
+			$salida = array();
+			foreach (array_keys($dato) as $clave) {
+				$salida[$clave] = $this->quote($dato[$clave]); 
+			}
+			return $salida;
+		}
 	}
 	
 	/**
