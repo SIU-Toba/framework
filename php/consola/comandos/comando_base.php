@@ -98,6 +98,7 @@ class comando_base extends comando_toba
 	/**
 	 * Elimina la definición de la base en bases.ini
 	 * @gtk_icono borrar.gif
+	 * @gtk_separador 1 
 	 */
 	function opcion__desregistrar()
 	{
@@ -119,7 +120,6 @@ class comando_base extends comando_toba
 	
 	/**
 	* Crea físicamente la base de datos
-	* @gtk_separador 1
 	* @gtk_icono nucleo/agregar.gif
 	*/
 	function opcion__crear()

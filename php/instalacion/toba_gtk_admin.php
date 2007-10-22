@@ -192,11 +192,6 @@ class toba_gtk_admin
 		
 		$i=0;
 		foreach ($this->opciones as $opcion => $atributos) {
-			if (isset($atributos['tags']['gtk_separador'])) {
-				$boton = new GtkSeparatorToolItem();
-				$this->comp['caja_opciones']->insert($boton, $i);
-				$i++;
-			}
 			if (!isset($atributos['tags']['gtk_no_mostrar'])) {
 				$nombre = ucwords(str_replace('_', ' ', $opcion));
 				$boton = new GtkToolButton();		
@@ -220,6 +215,11 @@ class toba_gtk_admin
 				//----
 				$i++;
 			}
+			if (isset($atributos['tags']['gtk_separador'])) {
+				$boton = new GtkSeparatorToolItem();
+				$this->comp['caja_opciones']->insert($boton, $i);
+				$i++;
+			}			
 		}
 		$this->comp['caja_opciones']->show_all();
 	}
@@ -280,7 +280,7 @@ class toba_gtk_admin
 			$info = $objeto_com->get_nombre()." $opcion ".$objeto_com->get_argumentos_string();
 			$this->comp['frame_label']->set_markup("<b>Comando</b>: ".$info);
 			
-			$objeto_com->procesar($opcion, $param_extra);
+			$objeto_com->procesar('opcion__'.$opcion, $param_extra);
 			if (isset($this->progreso)) {
 				$this->progreso->finalizar();
 			}

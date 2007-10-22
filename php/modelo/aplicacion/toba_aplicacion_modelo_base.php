@@ -100,6 +100,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if ($exportar) {
 			$parametros = $this->instalacion->get_parametros_base($id_def_base);
 			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';
+			if (file_exists($archivo)) {
+				copy($archivo, $archivo.'.old');
+			}
 			if (toba_manejador_archivos::es_windows()) {
 				$comando = "pg_dump -d -a -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";
 			} else {

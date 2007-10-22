@@ -43,6 +43,7 @@ class comando
 		if (! isset($opcion)) {
 			if ( count( $this->argumentos ) == 0 ) {
 				$this->mostrar_ayuda();
+				return;
 			} else {
 				$opcion = 'opcion__' . $this->argumentos[0];
 			}

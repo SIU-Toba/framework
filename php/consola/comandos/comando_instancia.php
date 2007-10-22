@@ -154,6 +154,7 @@ class comando_instancia extends comando_toba
 	* Crea un nuevo proyecto asociado a la instancia
 	* @consola_no_mostrar 1 
 	* @gtk_icono nucleo/proyecto.gif
+	* @gtk_separador 1 
 	*/	
 	function opcion__cargar_proyecto()
 	{
@@ -167,7 +168,6 @@ class comando_instancia extends comando_toba
 	/**
 	* Exporta la instancia completa incluyendo METADATOS propios y de proyectos contenidos.
 	* @gtk_icono exportar.png 
-	* @gtk_separador 1
 	*/
 	function opcion__exportar()
 	{

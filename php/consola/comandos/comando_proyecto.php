@@ -23,6 +23,21 @@ class comando_proyecto extends comando_toba
 		$this->consola->enter();
 	}
 
+	function get_info_extra()
+	{
+		try {
+			$proyecto = $this->get_proyecto();
+			$salida = "Path: ".$proyecto->get_dir();
+			$version = $proyecto->get_version_proyecto();
+			if (isset($version)) {
+				$salida .= "\nVersión: ".$version->__toString();
+			}
+			return $salida;
+		} catch (toba_error $e) {
+			//El proyecto puede no existir
+		}
+	}	
+
 	function inspeccionar_opciones($clase = null)
 	{
 		$opciones = array();
@@ -30,10 +45,14 @@ class comando_proyecto extends comando_toba
 		$id_proyecto = $this->get_id_proyecto_actual(false);
 		$id_instancia = $this->get_id_instancia_actual(false);
 		if (isset($id_proyecto) && isset($id_instancia)) {
-			$proyecto = $this->get_proyecto();
-			$clase = $proyecto->get_aplicacion_comando();
-			if (isset($clase)) {
-				$opciones = parent::inspeccionar_opciones($clase);
+			try {
+				$proyecto = $this->get_proyecto();
+				$clase = $proyecto->get_aplicacion_comando();
+				if (isset($clase)) {
+					$opciones = parent::inspeccionar_opciones($clase);
+				}
+			} catch (toba_error $e) {
+				
 			}
 		}
 		return $basicas + $opciones;	
@@ -45,8 +64,12 @@ class comando_proyecto extends comando_toba
 		$id_instancia = $this->get_id_instancia_actual(false);
 		$clase = null;
 		if (isset($id_proyecto) && isset($id_instancia)) {
-			$proyecto = $this->get_proyecto();
-			$clase = $proyecto->get_aplicacion_comando();
+			try {
+				$proyecto = $this->get_proyecto();
+				$clase = $proyecto->get_aplicacion_comando();
+			} catch (toba_error $e) {
+				
+			}
 		}
 		if(isset($clase) && method_exists( $clase, $opcion ) ) {
 			$clase->$opcion($argumentos);
@@ -213,7 +236,7 @@ class comando_proyecto extends comando_toba
 		$id_proyecto = $this->get_id_proyecto_actual();
 		if ( $id_proyecto == 'toba' ) {
 			throw new toba_error("No es posible eliminar el proyecto 'toba'");
-		}
+		}	
 		try {
 			$p = $this->get_proyecto();
 			if ( $this->consola->dialogo_simple("Desea ELIMINAR los metadatos y DESVINCULAR el proyecto '"
@@ -310,6 +333,7 @@ class comando_proyecto extends comando_toba
 	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1]
 	 * @gtk_icono convertir.png 
 	 * @consola_separador 1
+	 * @gtk_separador 1
 	 */
 	function opcion__migrar_toba()
 	{

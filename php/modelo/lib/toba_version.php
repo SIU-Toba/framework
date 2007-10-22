@@ -27,7 +27,7 @@ class toba_version
 			if ($extra != '') {
 				$this->extra = explode('-', $extra);
 				if (! in_array($this->extra[0], $this->inestables)) {
-					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable no es válido. ".$formato);
+					throw new toba_error("El número de versión $numero es incorrecto. El codigo de inestable '{$this->extra[0]}' no es válido. ".$formato);
 				}
 				if (isset($this->extra[1]) && !is_numeric($this->extra[1])) {
 					throw new toba_error("El número de versión $numero es incorrecto. El numero de versión inestable debe ser entero ".$formato);
@@ -61,7 +61,7 @@ class toba_version
 	function get_string_partes($separador = '_')
 	{
 		$s = $this->__toString();
-		return str_replace($s, '.', '_');
+		return str_replace('.', '_', $s);
 	}
 
 	function es_igual($version)
@@ -101,6 +101,36 @@ class toba_version
 				return 1;	//Es mayor
 			}
 		}
+		//--- Tienen los mismos numeros, se decide por partes extra
+		if (! isset($this->extra)) {
+			if (isset($otra_version->extra)) {
+				return 1;	//La otra tiene extra, esta es la final por lo que es mayor
+			} else {
+				return 0;	//Ambas no tienen extra, son iguales
+			}
+		} else {
+			if (! isset($otra_version->extra)) {
+				return -1;	//Esta tiene extra, la otra no y es la final
+			}
+		}
+		$indice_actual = array_search($this->extra[0], $this->inestables);
+		$indice_otra = array_search($otra_version->extra[0], $this->inestables);
+		//-- Son otro relase?
+		if ($indice_actual < $indice_otra) {
+			return -1;
+		}
+		if ($indice_actual > $indice_otra) {
+			return 1;
+		}
+		//-- Son el mismo release, se compara por numero de release		
+		$numero_actual = isset($this->extra[1]) ? $this->extra[1] : 1;
+		$numero_otra = isset($otra_version->extra[1]) ? $otra_version->extra[1] : 1;
+		if ($numero_actual < $numero_otra) {
+			return -1;			
+		}
+		if ($numero_actual > $numero_otra) {
+			return 1;
+		}
 		return 0; //Son iguales		
 	}
 
@@ -122,15 +152,15 @@ class toba_version
 		} else {
 			$dir = $path_migraciones;
 		}
-		$exp = "/migracion_([0-9]+)_([0-9]+)_([0-9]+)\\.php/";
+		$exp = "/migracion_(.+)\\.php/";
 		$archivos = toba_manejador_archivos::get_archivos_directorio($dir, $exp, false);
 		sort($archivos);
 		$versiones = array();
 		foreach ($archivos as $archivo) {
 			$partes = array();
 			preg_match($exp, $archivo, $partes);
-			array_shift($partes);
-			$version = new toba_version(implode(".", $partes));
+			$numero = str_replace('_', '.', $partes[1]);
+			$version = new toba_version($numero);
 			if ($this->es_menor($version) && $hasta->es_mayor_igual($version)) {
 				$versiones[] = $version;
 			}

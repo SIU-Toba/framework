@@ -52,6 +52,19 @@ class test_migracion extends test_toba
 		$v = new toba_version("0.1.20");
 		$this->assertTrue($v->es_menor( new toba_version('0.10.0')));
 		$this->assertTrue($v->es_mayor( new toba_version('0.1.19')));
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20rc')));		
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20rc-1')));
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20alpha')));
+		
+		$v = new toba_version("0.1.20rc");		
+		$this->assertTrue($v->es_igual( new toba_version('0.1.20rc-1')));		
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20alpha')));
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20beta-2')));
+		$this->assertTrue($v->es_menor( new toba_version('0.1.20rc-2')));
+		$this->assertTrue($v->es_menor( new toba_version('0.1.20')));
+		
+		$v = new toba_version("0.1.20rc-3");		
+		$this->assertTrue($v->es_mayor( new toba_version('0.1.20rc-2')));		
 	}
 	
 	function test_camino_migraciones()
@@ -59,12 +72,15 @@ class test_migracion extends test_toba
 		$desde = new toba_version("0.0.3");
 		$hasta = new toba_version("1.0.0");
 		$versiones = $desde->get_secuencia_migraciones($hasta, $this->path_migraciones());
-		$this->assertEqual(count($versiones), 5);
+		$this->assertEqual(count($versiones), 8);
 		$this->assertEqual($versiones[0]->__toString(), "0.1.0");
-		$this->assertEqual($versiones[1]->__toString(), "0.1.9");
-		$this->assertEqual($versiones[2]->__toString(), "0.1.10");
-		$this->assertEqual($versiones[3]->__toString(), "0.10.2");
-		$this->assertEqual($versiones[4]->__toString(), "1.0.0");
+		$this->assertEqual($versiones[1]->__toString(), "0.1.9beta");		
+		$this->assertEqual($versiones[2]->__toString(), "0.1.9rc");		
+		$this->assertEqual($versiones[3]->__toString(), "0.1.9rc-2");		
+		$this->assertEqual($versiones[4]->__toString(), "0.1.9");
+		$this->assertEqual($versiones[5]->__toString(), "0.1.10");
+		$this->assertEqual($versiones[6]->__toString(), "0.10.2");
+		$this->assertEqual($versiones[7]->__toString(), "1.0.0");
 	}
 	
 	function test_migracion_misma_version()

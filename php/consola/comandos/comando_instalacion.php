@@ -219,6 +219,7 @@ class comando_instalacion extends comando_toba
 	 * Muestra información de la instalación.
 	 * @gtk_icono info_chico.gif
 	 * @gtk_no_mostrar 1
+	 * @gtk_separador 1 
 	 */
 	function opcion__info()
 	{
@@ -279,7 +280,6 @@ class comando_instalacion extends comando_toba
 	/**
 	 * Cambia los permisos de los archivo para que el usuario Apache cree directorios y pueda crear y leer carpetas navegables 
 	 * @consola_parametros [-g grupo de usuario, se asume www-data] [-u usuario, no se asume ninguno]
-	 * @gtk_separador 1
 	 * @gtk_icono  password.png
 	 */
 	function opcion__cambiar_permisos()
