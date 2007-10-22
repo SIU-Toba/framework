@@ -91,10 +91,14 @@ class toba_instalador
 	/**
 	 * Exporta los proyectos-no-propios de todas las instancias de la instalacion
 	 */
-	function instalacion_exportar()
+	function instalacion_exportar($excluir_internos=true)
 	{
 		$instalacion = $this->get_instalacion();
-		$excluir = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
+		if ($excluir_internos) {
+			$excluir = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
+		} else {
+			$excluir = array();
+		}
 		foreach ($instalacion->get_lista_instancias() as $id_inst) {
 			$instancia = $instalacion->get_instancia($id_inst);
 			$instancia->exportar($excluir);
@@ -210,8 +214,6 @@ class toba_instalador
 		
 		//--- Ventana de instalacion propia del proyecto
 		$proyecto->instalar();
-		//--- Ventana de creacion de datos
-		$proyecto->crear_instancia_negocio($instancia->get_id());
 	}
 
 	/**
@@ -228,6 +230,22 @@ class toba_instalador
 			}
 		}
 	}
+	
+	/**
+	 * Recorre todas las instancias donde se encuentra el proyecto y exporta sus metadatos
+	 * @param string $proy_id
+	 */
+	function proyecto_exportar($proy_id)
+	{
+		$instalacion = $this->get_instalacion();
+		foreach ($instalacion->get_lista_instancias() as $id_instancia) {
+			$instancia = $this->get_instancia($id_instancia);
+			if ($instancia->existe_proyecto_vinculado($proy_id)) {
+				$instancia->get_proyecto($proy_id)->exportar();
+				$instancia->exportar_local();
+			}
+		}
+	}	
 	
 	/**
 	 * Recorre todas las instancias donde se encuentra el proyecto y regenera sus metadatos
