@@ -807,6 +807,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$this->manejador_interface->mensaje('Operaciones resumidas', false);
 		foreach( toba_info_editores::get_lista_items() as $item) {
+			$clases_creadas = array();	//Indice para proteger no crear una dos veces
 			$php = "<?php\n";
 			$directorio = $this->get_dir_componentes_compilados() . '/oper';
 			toba_manejador_archivos::crear_arbol_directorios( $directorio );
@@ -816,12 +817,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$tipo = $componente['tipo'];
 				$prefijo_clase = ( $tipo == 'toba_item') ? 'toba_mc_item__' : 'toba_mc_comp__';
 				$nombre_clase = toba_manejador_archivos::nombre_valido($prefijo_clase . $componente['componente']);
-				$clase = new toba_clase_datos( $nombre_clase );		
-				$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( 	$componente, 
-																					$tipo,
-																					$this->db );
-				$clase->agregar_metodo_datos('get_metadatos',$metadatos);
-				$php .= $clase->get_contenido();
+				if (! in_array($nombre_clase, $clases_creadas)) {
+					$clase = new toba_clase_datos( $nombre_clase );		
+					$metadatos = toba_cargador::instancia()->get_metadatos_extendidos( 	$componente, 
+																						$tipo,
+																						$this->db );
+					$clase->agregar_metodo_datos('get_metadatos',$metadatos);
+					$php .= $clase->get_contenido();
+					$clases_creadas[] = $nombre_clase;
+				}
 			}
 			$php .= "\n?>";
 			file_put_contents($directorio .'/'. $nombre_archivo . '.php', $php);
