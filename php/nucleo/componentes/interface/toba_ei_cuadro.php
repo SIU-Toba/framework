@@ -872,8 +872,8 @@ class toba_ei_cuadro extends toba_ei
 			}
 			$this->generar_fin();
 			if( false && $this->existen_cortes_control() ){
-				ei_arbol($this->_sum_usuario,"\$this->sum_usuario");
-				ei_arbol($this->_cortes_def,"\$this->cortes_def");
+				ei_arbol($this->_sum_usuario,"\$this->_sum_usuario");
+				ei_arbol($this->_cortes_def,"\$this->_cortes_def");
 				ei_arbol($this->_cortes_control,"\$this->_cortes_control");
 			}
 		}else{
@@ -1543,8 +1543,8 @@ class toba_ei_cuadro extends toba_ei
      */
 	function html_acumulador_usuario()
 	{
-		if (isset($this->sum_usuario)) {
-			foreach($this->sum_usuario as $sum) {
+		if (isset($this->_sum_usuario)) {
+			foreach($this->_sum_usuario as $sum) {
 				if($sum['corte'] == 'toba_total') {
 					$metodo = $sum['metodo'];
 					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);

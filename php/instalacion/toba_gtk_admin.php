@@ -23,7 +23,7 @@ class toba_gtk_admin
 		$this->tooltips = new GtkTooltips();
 	}
 
-	function construir_dialogo()
+	function construir_dialogo($id_proyecto=null)
 	{
 		$archivo = dirname(__FILE__).'/toba.glade';
     	$glade = new GladeXML($archivo, 'vbox');
@@ -43,11 +43,15 @@ class toba_gtk_admin
 		$columna->set_attributes($renderer, 'text', 0);
 		$this->comp['arbol_comandos']->append_column($columna);
 
-		$this->cargar_comandos();						
+		$seleccionado = $this->cargar_comandos($id_proyecto);						
 		$selection = $this->comp['arbol_comandos']->get_selection();
 		$selection->set_mode(Gtk::SELECTION_SINGLE);	
-		$selection->connect('changed', array($this, 'evt__seleccionar_comando'));		
+		$selection->connect('changed', array($this, 'evt__seleccionar_comando'));
+		if (isset($seleccionado)) {
+			$selection->select_iter($seleccionado);
+		}
 		//$this->connect('button-release-event', array($this, 'evt__popup'));
+		
 		return $this->comp['vbox'];		
 	}
 	
@@ -55,7 +59,7 @@ class toba_gtk_admin
 	/**
 	 * Retorna un modelo de comandos administrativos disponibles
 	 */
-	function cargar_comandos()
+	function cargar_comandos($seleccionar_proyecto=null)
 	{
 		$instalacion = $this->toba_instalador->get_instalacion();
 		
@@ -68,6 +72,7 @@ class toba_gtk_admin
 		$nodo_instal = $modelo->append($raiz, array('Instalación', $img,'instalacion',
 											"Instalación"));
 
+		$seleccion = null;
 		if ($instalacion->existe_info_basica() ) {
 			//---Agrega las instancias
 			foreach ($instalacion->get_lista_instancias() as $id_instancia) {
@@ -85,6 +90,9 @@ class toba_gtk_admin
 									array($id_proyecto, $img, 'instalacion/'.$id_instancia.'/'.$id_proyecto,
 											"Proyecto $id_proyecto")
 								);
+					if ($id_proyecto == $seleccionar_proyecto) {
+						$seleccion = $nodo_pro;
+					}								
 				}
 			}
 	
@@ -117,7 +125,10 @@ class toba_gtk_admin
 
 		//--- Expansion
 		$this->comp['arbol_comandos']->set_model($modelo);
-		$this->comp['arbol_comandos']->expand_row(0, true);			
+		$this->comp['arbol_comandos']->expand_row(0, true);
+		if (isset($seleccion)) {
+			return $seleccion;
+		}
 	}
 	
 	protected function determinar_comando($comando)

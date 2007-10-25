@@ -32,6 +32,10 @@ class comando_proyecto extends comando_toba
 			if (isset($version)) {
 				$salida .= "\nVersión: ".$version->__toString();
 			}
+			$url = $proyecto->get_url();
+			if (isset($url)) {
+				$salida .= "\nURL: ".$url;
+			}			
 			return $salida;
 		} catch (toba_error $e) {
 			//El proyecto puede no existir

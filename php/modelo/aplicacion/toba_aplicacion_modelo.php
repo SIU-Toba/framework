@@ -33,11 +33,15 @@ interface toba_aplicacion_modelo
 	function migrar(toba_version $desde, toba_version $hasta);	
 	
 	/**
-	 * Crea
-	 *
+	 * Debe crar todo recurso extra necesario para la ejecución de la aplicación (base de negocios por ejemplo) 
 	 * @param array $datos_servidor Asociativo con los parámetros de conexión a la base
 	 */
 	function instalar($datos_servidor);
+	
+	/**
+	 * Eliminar todos los recursos creados por 'instalar'
+	 */
+	function desinstalar();
 
 }
 

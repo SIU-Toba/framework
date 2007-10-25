@@ -96,7 +96,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (! $reemplazar) {
 			return;
 		}
-		$exportar = $this->manejador_interface->dialogo_simple("¿Desea exportar los datos actuales?", 's');
+		$exportar = $this->manejador_interface->dialogo_simple("Antes de borrar la base ¿Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
 		if ($exportar) {
 			$parametros = $this->instalacion->get_parametros_base($id_def_base);
 			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';
@@ -215,7 +215,31 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		}
 	}
 
-
+	function desinstalar()
+	{
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$id = $this->proyecto->get_id();
+		$this->manejador_interface->titulo("Desinstalando $id");		
+		//--- Se asume que la base a desinstalar corresponde a la primer fuente
+		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+		
+		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
+		if ($this->instalacion->existe_base_datos_definida($id_def_base)) {
+			//--- Chequea si existe fisicamente la base creada y la borra
+			if ($this->instalacion->existe_base_datos($id_def_base)) {
+				$this->manejador_interface->mensaje('Borrando base de datos', false);
+				$this->manejador_interface->progreso_avanzar();	
+				$this->instalacion->borrar_base_datos($id_def_base);
+				$this->manejador_interface->progreso_fin();				
+				
+			} 			
+			$this->instalacion->eliminar_db($id_def_base);
+		}	
+	}
+		
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema
 	 * @param toba_version $desde
@@ -224,8 +248,8 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	function migrar(toba_version $desde, toba_version $hasta)
 	{
 		
-	}
-		
+	}	
+	
 }
 
 ?>

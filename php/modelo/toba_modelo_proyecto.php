@@ -1185,6 +1185,17 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	}
 
 	/**
+	 * Ejecuta un script de desinstalación propio del proyecto
+	 */	
+	function desinstalar()
+	{
+		$aplicacion = $this->get_aplicacion_modelo();
+		if (isset($aplicacion)) {
+			$aplicacion->desinstalar();
+		}		
+	}
+	
+	/**
 	 * Ejecuta un script de migracion de datos de negocio entre la version actual y la dada
 	 */		
 	function migrar_datos_negocio(toba_version $desde, toba_version $hasta)

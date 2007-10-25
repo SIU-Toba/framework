@@ -36,6 +36,7 @@ class ci_login extends toba_ci
 	function evt__datos__modificacion($datos)
 	{
 		toba::logger()->desactivar();
+		$datos['instancia'] = toba::instancia()->get_id();
 		$this->s__datos = $datos;
 		if ( ! isset($this->s__datos['instancia']) && isset($this->s__datos['proyecto']) 
 				&& ( isset($this->s__datos['usuario']) || isset($this->s__datos['autologin'])) ) {

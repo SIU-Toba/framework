@@ -77,11 +77,11 @@ class toba_instalador
 	// Métodos comprometidos con GTK
 	//--------------------------------------------------------------
 	
-	function get_comp_administracion()
+	function get_comp_administracion($id_proyecto=null)
 	{
 		require_once('instalacion/toba_gtk_admin.php');
 		$gtk_admin = new toba_gtk_admin($this, $this->progreso);
-		return $gtk_admin->construir_dialogo();
+		return $gtk_admin->construir_dialogo($id_proyecto);
 	}
 	
 	//--------------------------------------------------------------
@@ -117,6 +117,18 @@ class toba_instalador
 		}		
 	}
 	
+	/**
+	 * Elimina todas las instancias de la instalacion
+	 */
+	function instalacion_eliminar_instancias()
+	{
+		$instalacion = $this->get_instalacion();
+		foreach ($instalacion->get_lista_instancias() as $id_inst) {
+			$instancia = $instalacion->get_instancia($id_inst);
+			$instancia->eliminar_base();
+		}		
+	}	
+	
 	function instalacion_migrar($version)
 	{
 		$version = new toba_version($version);
@@ -140,6 +152,17 @@ class toba_instalador
 		//--- Crea el dir instalacion
 		toba_modelo_instalacion::crear($grupo, $alias );
 		
+		//--- Crea la instancia
+		$this->crear_instancia($nombre_instancia, $datos_motor);
+		
+		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
+		return $toba_conf;
+	}
+
+	function crear_instancia($nombre_instancia, $datos_motor)
+	{
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();
+				
 		//--- Agrega la fuente de datos de la instancia
 		$datos_motor['base'] = $nombre_toba.'_'.$nombre_instancia;
 		$confirmado = false;
@@ -156,9 +179,9 @@ class toba_instalador
 			} else {
 				$confirmado = true;
 			}
-		} while ($confirmado === false);
-
-		//--- Crea la instancia
+		} while ($confirmado === false);	
+		
+			//--- Crea la instancia
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
 			//--- Elimina el proyecto toba_testing 
@@ -183,22 +206,32 @@ class toba_instalador
 		//--- Ejecuta instalaciones particulares de cada proyecto
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$instancia->get_proyecto($id_proyecto)->instalar();
-		}
-		$toba_conf = toba_modelo_instalacion::dir_base()."/toba.conf";
-		return $toba_conf;
+		}			
 	}
-
+	
 	/**
 	 * Carga el proyecto en una instancia y ejecuta el proceso de instalacion y creación de 
 	 * la instancia de negocio de ese proyecto
 	 */
-	function proyecto_cargar_e_instalar($proy_id, $proy_path, $nombre_instancia, $datos_motor)
+	function proyecto_cargar_e_instalar($proy_id, $proy_path, $nombre_instancia, $datos_motor, $url=null)
 	{
+		$instalacion = $this->get_instalacion();
+		if (! $this->get_instalacion()->existe_instancia($nombre_instancia)) {
+			$this->crear_instancia($nombre_instancia, $datos_motor);
+		}
 		$instancia = $this->get_instancia($nombre_instancia);
 
+		$existe = false;
+		if ($instancia->existe_proyecto_vinculado($proy_id)) {
+			if (! $this->progreso->dialogo_simple("Ya existe el proyecto $proy_id en la instancia $nombre_instancia. ¿Desea reemplazarlo?")) {
+				return;
+			} else {
+				$instancia->eliminar_proyecto($proy_id);
+			}
+		}
 		//--- Vincula el proyecto y lo carga a la instancia
 		$this->progreso->mensaje("Cargando el proyecto en la instancia $nombre_instancia...");
-		$instancia->vincular_proyecto($proy_id, $proy_path);
+		$instancia->vincular_proyecto($proy_id, $proy_path, $url);
 		$proyecto = $instancia->get_proyecto($proy_id);
 		$proyecto->cargar_autonomo();
 
@@ -210,8 +243,7 @@ class toba_instalador
 			$this->progreso->progreso_avanzar();
 		}
 		$instancia->exportar_local();
-		$proyecto->publicar();
-		
+		$proyecto->publicar();			
 		//--- Ventana de instalacion propia del proyecto
 		$proyecto->instalar();
 	}
@@ -246,6 +278,22 @@ class toba_instalador
 			}
 		}
 	}	
+	
+	/**
+	 * Recorre todas las instancias donde se encuentra el proyecto y elimina sus metadatos y datos de negocio opcionalmente
+	 * @param string $proy_id
+	 */
+	function proyecto_eliminar($proy_id, $desinstalar)
+	{
+		$instalacion = $this->get_instalacion();
+		foreach ($instalacion->get_lista_instancias() as $id_instancia) {
+			$instancia = $this->get_instancia($id_instancia);
+			if ($instancia->existe_proyecto_vinculado($proy_id)) {
+				$instancia->eliminar_proyecto($proy_id, $desinstalar);
+			}
+		}
+	}	
+
 	
 	/**
 	 * Recorre todas las instancias donde se encuentra el proyecto y regenera sus metadatos

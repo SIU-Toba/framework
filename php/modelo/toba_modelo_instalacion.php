@@ -72,6 +72,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return toba_modelo_instancia::get_lista();
 	}
 	
+	function existe_instancia($id)
+	{
+		return toba_modelo_instancia::existe_carpeta_instancia($id);
+	}
+	
+	
 	
 	//-------------------------------------------------------------
 	//-- Informacion general

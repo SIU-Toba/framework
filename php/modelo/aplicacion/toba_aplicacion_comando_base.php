@@ -12,7 +12,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}
 	
 	/**
-	 * Instala el proyecto referencia
+	 * Crea la base de negocios del proyecto
 	 */
 	function opcion__instalar()
 	{

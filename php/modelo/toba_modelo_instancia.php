@@ -259,7 +259,6 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		if ( in_array( $proyecto, $datos ) ) {
 			$datos = array_diff( $datos, array( $proyecto ) );
 			$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
-			$ini->guardar();
 			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
 			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
 			if ( is_dir( $dir_proyecto ) ) {
@@ -267,10 +266,31 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			}
 			toba_logger::instancia()->debug("Desvinculado el proyecto '$proyecto' de la instancia");
 		}
+		if ($ini->existe_entrada($proyecto)) {
+			$ini->eliminar_entrada($proyecto);;
+		}
+		$ini->guardar();		
 		// Recargo la inicializacion de la instancia
 		$this->cargar_info_ini();
 	}
 
+	/**
+	 * Elimina toda relacion del proyecto con la instancia (lo desvicula, quita la config, metadatos, alias)
+	 * @param string $proy_id
+	 * @param boolean $desinstalar Ejecuta el proyecto de desintalacion propio del proyecto (ej. eliminar base de negocios)
+	 */
+	function eliminar_proyecto( $proy_id, $desinstalar=false)
+	{
+		$proyecto = $this->get_proyecto($proy_id);
+		$proyecto->despublicar();
+		if ($desinstalar) {
+			//--- Opcionalmente borra los datos propios
+			$proyecto->desinstalar();
+		}
+		$proyecto->eliminar_autonomo();
+		$this->desvincular_proyecto($proy_id);				
+	}
+	
 	/**
 	 * @return toba_ini
 	 */

@@ -417,7 +417,8 @@ class toba_info_editores
 						objeto
 				FROM 	apex_item_objeto 
 				WHERE 	item = '$item'
-				AND 	proyecto = '$proyecto'";
+				AND 	proyecto = '$proyecto'
+				ORDER BY objeto";
 		$datos = toba_contexto_info::get_db()->consultar($sql);
 		foreach($datos as $componente) {
 			$resultado = array_merge($resultado, self::get_arbol_componentes_componente($componente['proyecto'], $componente['objeto']));
