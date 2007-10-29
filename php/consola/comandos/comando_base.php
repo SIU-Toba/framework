@@ -49,7 +49,7 @@ class comando_base extends comando_toba
 	
 	/**
 	 * Agrega la definición de una base al archivo bases.ini. 
-	 * @consola_parametros Opcional: [-o base_origen] toma los datos de otra base
+	 * @consola_parametros Opcional: [-o base_origen] toma los datos de otra definicion
 	 * @gtk_icono nucleo/agregar.gif  
 	 * @gtk_param_extra registrar_base
 	 */
