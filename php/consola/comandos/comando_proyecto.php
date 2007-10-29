@@ -108,7 +108,7 @@ class comando_proyecto extends comando_toba
 		$this->consola->progreso_fin();
 		
 		// -- Asigno un nuevo item de login
-		$proyecto = $this->get_proyecto();		
+		$proyecto = $this->get_proyecto($id_proyecto);		
 		$proyecto->actualizar_login();
 		
 		// -- Exporto el proyecto creado

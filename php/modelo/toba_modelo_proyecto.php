@@ -1142,8 +1142,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_version_actual()
 	{
 		$sql = "SELECT version_toba FROM apex_proyecto WHERE proyecto='{$this->identificador}'";
+		$rs = $this->db->consultar($sql);		
 		if (! empty($rs)) { 
-			$rs = $this->db->consultar($sql);
 			if (! isset($rs[0]['version_toba'])) {
 				return toba_version::inicial();
 			}
