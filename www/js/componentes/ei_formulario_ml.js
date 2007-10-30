@@ -359,12 +359,17 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 * Dependiendo de la definición del componente en el editor, este método crea la fila directamente en javascript o
 	 * lo hace a través de un evento 'pedido_registro_nuevo' en el servidor
 	 */
-	ei_formulario_ml.prototype.crear_fila = function() {
+	ei_formulario_ml.prototype.crear_fila = function(_refrescar_todos) {
+			//Se refresca el procesamiento de todas las lineas?
+		if (! isset(_refrescar_todos)){
+			_refrescar_todos = true;
+		}	
+				
 		//¿La fila se agrega en el server?
 		if (! this._agregado_en_linea) {
 			this.set_evento( new evento_ei('pedido_registro_nuevo', true, '', null));
 			return;
-		}
+		}		
 			//Crea la fila internamente
 		this._filas.push(this._proximo_id);
 
@@ -379,10 +384,15 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this.iniciar_fila(this._proximo_id, true);
 		this.refrescar_eventos_procesamiento(this._proximo_id);
 		this.refrescar_numeracion_filas();
-		this.refrescar_procesamientos();		
+		if (_refrescar_todos){
+			this.refrescar_procesamientos();
+		}		
+		
 		this.seleccionar(this._proximo_id);
 		this.refrescar_foco();
+		var nuevo_anexado = this._proximo_id; 
 		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
+		return nuevo_anexado;
 	};
 	
 	/**
