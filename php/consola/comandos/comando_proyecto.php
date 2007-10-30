@@ -145,14 +145,14 @@ class comando_proyecto extends comando_toba
 		if (isset($param['-d'])) {
 			$path = $param['-d'];
 		}
-		$p = $this->get_proyecto($id_proyecto);
-		$i = $p->get_instancia();
-		if ( ! $i->existen_metadatos_proyecto( $p->get_id() ) ) {
+		$i = $this->get_instancia();
+		if ( ! $i->existen_metadatos_proyecto( $id_proyecto ) ) {
 
 			//-- 1 -- Cargar proyecto
 			$this->consola->enter();
-			$this->consola->subtitulo("Carga del Proyecto ".$p->get_id());
-			$i->vincular_proyecto( $p->get_id(), $path );
+			$this->consola->subtitulo("Carga del Proyecto ".$id_proyecto);
+			$i->vincular_proyecto( $id_proyecto, $path );
+			$p = $this->get_proyecto($id_proyecto);
 			$p->cargar_autonomo();
 			$this->consola->mensaje("Vinculando usuarios", false);
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
@@ -169,6 +169,7 @@ class comando_proyecto extends comando_toba
 			// Exporto la instancia con la nueva configuracion (por fuera del request)
 			$i->exportar_local();
 		} else {
+			$p = $this->get_proyecto($id_proyecto);
 			$this->consola->mensaje("El proyecto '" . $p->get_id() . "' ya EXISTE en la instancia '".$i->get_id()."'");
 		}
 
