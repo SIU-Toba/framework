@@ -157,14 +157,17 @@ class comando_base extends comando_toba
 	* Ejecuta un archivo sql
 	* @consola_parametros [-a archivo]
 	* @gtk_icono sql.gif
+	* @gtk_param_extra ejecutar_sql
 	*/
-	function opcion__ejecutar_sql()
+	function opcion__ejecutar_sql($archivo=null)
 	{
-		$param = $this->get_parametros();
-		if ( isset($param['-a']) &&  (trim($param['-a']) != '') ) {
-			$archivo = $param['-a'];
-		} else {
-			throw new toba_error("Es necesario indicar el archivo a ejecutar. Utilice el modificador '-a'");
+		if (! isset($archivo)) {
+			$param = $this->get_parametros();
+			if ( isset($param['-a']) &&  (trim($param['-a']) != '') ) {
+				$archivo = $param['-a'];
+			} else {
+				throw new toba_error("Es necesario indicar el archivo a ejecutar. Utilice el modificador '-a'");
+			}
 		}
 		$db = $this->get_instalacion()->conectar_base($this->get_id_base_actual());
 		$db->ejecutar_archivo($archivo);

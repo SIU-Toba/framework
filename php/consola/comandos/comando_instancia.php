@@ -280,18 +280,19 @@ class comando_instancia extends comando_toba
 		if (! isset($usuario)) {
 			throw new toba_error("Es necesario indicar el usuario con '-u'");			
 		}
+		$acceso = array();
 		foreach( $instancia->get_lista_proyectos_vinculados() as $id_proyecto ) {
 			$this->consola->enter();			
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$grupos = $proyecto->get_lista_grupos_acceso();
 			$grupos = rs_convertir_asociativo($grupos, array('id'), 'nombre');
-			$grupos['ninguno'] = 'No vincular al proyecto';
-			$grupo_acceso = $this->consola->dialogo_lista_opciones($grupos, "Proyecto $id_proyecto", false, 'Descripción');
-			$proyecto->desvincular_usuario($usuario);
-			if ($grupo_acceso != 'ninguno') {
-				$proyecto->vincular_usuario( $usuario, $grupo_acceso );
+			$grupos = $this->consola->dialogo_lista_opciones($grupos, "Proyecto $id_proyecto", true, 'Descripción', false);
+			if (! isset($grupos)) {
+				return;
 			}
+			$acceso[$id_proyecto] = $grupos;
 		}
+		$instancia->cambiar_acceso_usuario($usuario, $acceso);
 	}
 	
 	/**

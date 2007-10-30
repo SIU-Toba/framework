@@ -84,7 +84,6 @@ class toba_gtk_crear_instancia
 		$usuario['nombre'] = $this->comp['edit_usuario_nombre']->get_text();
 		$usuario['clave'] = $this->comp['edit_usuario_clave']->get_text();
 		$this->datos[] = $usuario;
-
 		$this->comp['dlg_crear_instancia']->destroy();
 	}
 	

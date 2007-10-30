@@ -870,6 +870,25 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$cant = $this->get_db()->ejecutar($sql);
 		$this->manejador_interface->mensaje("Ips liberadas: $cant");
 	}
+	
+	/**
+	 * Cambia los grupos de acceso de un usuario en los distintos proyectos de la instancia
+	 *
+	 * @param string $usuario
+	 * @param array $accesos Arreglo asociativo proyecto=>array(grupos)
+	 */
+	function cambiar_acceso_usuario($usuario, $accesos)
+	{
+		$this->db->abrir_transaccion();
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			if (isset($accesos[$id_proyecto])) {
+				$proyecto = $this->get_proyecto($id_proyecto);
+				$proyecto->desvincular_usuario($usuario);
+				$proyecto->vincular_usuario($usuario, $accesos[$id_proyecto], 'no', false);
+			}
+		}
+		$this->db->cerrar_transaccion();
+	}
 
 	//-------------------------------------------------------------
 	//-- CREACION de INSTANCIAS

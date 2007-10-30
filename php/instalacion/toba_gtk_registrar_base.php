@@ -66,7 +66,6 @@ class toba_gtk_registrar_base
 		$this->datos[2]['usuario'] = $this->comp['edit_bd_usuario']->get_text();
 		$this->datos[2]['clave'] = $this->comp['edit_bd_clave']->get_text();
 		$this->datos[2]['base'] = $this->comp['edit_base']->get_text();
-		print_r($this->datos);
 		$this->comp['dlg_registrar_base']->destroy();
 	}
 	
