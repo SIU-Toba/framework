@@ -15,6 +15,7 @@ class toba_ef_popup extends toba_ef_editable
     protected $item_destino_proyecto;
     protected $ventana;
 	protected $editable;
+	protected $vinculo;
 	protected $id_vinculo;
 
     static function get_lista_parametros_carga()
@@ -55,13 +56,25 @@ class toba_ef_popup extends toba_ef_editable
 		}
     	$this->item_destino = $parametros['popup_item'];
 		$this->item_destino_proyecto = $parametros['popup_proyecto'];
-		$vinculo = new toba_vinculo(	$this->item_destino_proyecto, 
+		$this->vinculo = new toba_vinculo(	$this->item_destino_proyecto, 
 										$this->item_destino,
 										true,
 										$this->ventana );
-        $vinculo->agregar_opcion('menu',1);
-        $this->id_vinculo = toba::vinculador()->registrar_vinculo( $vinculo );
+		$this->vinculo->agregar_opcion('menu',true);
+		$this->vinculo->set_popup_parametros( array(	'scrollbars'=>true,
+														'resizable'=>true,
+														'height'=>500,
+														'width'=>500 ) );
+        $this->id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo );
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
+	}
+	
+	/**
+	 * Retorna el vinculo asociado al popup
+	 */
+	function vinculo()
+	{
+		return $this->vinculo;	
 	}
 	
 	function carga_depende_de_estado()

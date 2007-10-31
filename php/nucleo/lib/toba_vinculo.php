@@ -132,6 +132,11 @@ class toba_vinculo
 		$this->popup_parametros = $parametros;	
 	}
 
+	function set_popup_parametro($clave, $valor)
+	{
+		$this->popup_parametros[$clave] = $valor;	
+	}
+
 	function get_popup_parametros()
 	{
 		return $this->popup_parametros;	
