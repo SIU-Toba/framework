@@ -126,15 +126,17 @@ class toba_js
 			
 			self::cargar_consumos_globales(self::$consumos_basicos);
 			
-			///---Arreglo PNGs IE
-			$url = toba_recurso::js("utilidades/pngbehavior.htc");			
-			echo "<!--[if lt IE 7]>
-				<style type='text/css'>
-					img {
-						behavior: url('$url');
-					}
-				</style>
-				<![endif]-->\n";
+			if (toba::instalacion()->arreglo_png_ie()) {
+				///---Arreglo PNGs IE
+				$url = toba_recurso::js("utilidades/pngbehavior.htc");			
+				echo "<!--[if lt IE 7]>
+					<style type='text/css'>
+						img {
+							behavior: url('$url');
+						}
+					</style>
+					<![endif]-->\n";
+			}
 			self::$basicos_cargados = true;
 		}
 	}

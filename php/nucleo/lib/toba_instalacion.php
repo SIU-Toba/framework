@@ -83,6 +83,15 @@ class toba_instalacion
 		}
 	}
 	
+	function arreglo_png_ie()
+	{
+		if (isset($this->memoria['arreglo_png_ie'])) {
+			return $this->memoria['arreglo_png_ie'];
+		} else {
+			return true;	
+		}		
+	}
+	
 	/**
 	 * Número de versión de Toba
 	 */
