@@ -32,6 +32,7 @@ class comando_toba extends comando
 
 	/**
 	*	Devuelve una referencia al la INSTALACION
+	* @return toba_modelo_instalacion
 	*/
 	protected function get_instalacion()
 	{
@@ -40,6 +41,7 @@ class comando_toba extends comando
 	
 	/**
 	*	Devuelve una referencia a la INSTANCIA
+	* @return toba_modelo_instancia
 	*/
 	protected function get_instancia($id=null)
 	{
@@ -52,6 +54,7 @@ class comando_toba extends comando
 
 	/**
 	*	Devuelve una referencia al PROYECTO 
+	* @return toba_modelo_proyecto
 	*/
 	protected function get_proyecto($id_proy = null)
 	{

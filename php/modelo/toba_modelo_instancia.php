@@ -107,10 +107,11 @@ class toba_modelo_instancia extends toba_modelo_elemento
 
 	/**
 	*	Creacion de la conexion con la DB donde reside la instancia
+	* @return toba_db
 	*/
-	function get_db()
+	function get_db($forzar_recarga=false)
 	{
-		if ( ! isset( $this->db ) ) {
+		if ($forzar_recarga || ! isset( $this->db ) ) {
 			$this->db = $this->instalacion->conectar_base( $this->ini_base );
 		}
 		return $this->db;
@@ -146,6 +147,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_dir()
 	{
 		return $this->dir;		
+	}
+	
+	/**
+	 * Retorna el id de la base que representa la instancia
+	 */
+	function get_ini_base()
+	{
+ 		return $this->ini_base;
 	}
 	
 	function get_path_proyecto($proyecto)
@@ -249,6 +258,19 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		} else {
 			throw new toba_error("El proyecto '$proyecto' no existe.");
 		}
+	}
+
+	/**
+	 * Brinda una nueva lista de proyectos vinculados a la instancia
+	 * @param array $id_proyectos
+	 */
+	function set_proyectos_vinculados($id_proyectos)
+	{
+		$ini = $this->get_ini();
+		$ini->set_datos_entrada('proyectos', implode(', ', $id_proyectos));		
+		$ini->guardar();		
+		// Recargo la inicializacion de la instancia
+		$this->cargar_info_ini();
 	}
 	
 	function desvincular_proyecto( $proyecto )
@@ -973,13 +995,13 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	//--------------------------  Manejo de Versiones ------------------------
 	//------------------------------------------------------------------------
 
-	function migrar_version($version, $recursivo)
+	function migrar_version($version, $recursivo, $con_transaccion=true)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
 			toba_logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());
-			$this->get_db()->abrir_transaccion();
+			if ($con_transaccion) $this->get_db()->abrir_transaccion();
 			$version->ejecutar_migracion('instancia', $this, null, $this->manejador_interface);
 			
 			//-- Se migran los proyectos incluidos
@@ -996,7 +1018,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				}
 			}
 			$this->set_version($version);			
-			$this->get_db()->cerrar_transaccion();
+			if ($con_transaccion) $this->get_db()->cerrar_transaccion();
 		} else {
 			toba_logger::instancia()->debug("La instancia {$this->identificador} no necesita migrar a la versión ".$version->__toString());
 		}

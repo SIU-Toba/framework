@@ -511,6 +511,95 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	//-------------------------- Manejo de Versiones -------------------------
 	//------------------------------------------------------------------------
 	
+	/**
+	 * Toma un proyecto de una instancia de un toba en un versión anterior e importa el mismo a esta versión
+	 * La instancia origen se debe llamar igual que la destino
+	 * @param string $id_instancia Instancia origen/destino de la migración
+	 * @param string $id_proyecto Proyecto origen/destino de la migración
+	 * @param string $dir_toba_viejo Directorio del toba que contiene la instancia/proyecto a migrar
+	 */
+	function importar_migrar_proyecto($id_instancia, $id_proyecto, $dir_toba_viejo)
+	{
+		$excepcion = null;
+		try {
+			$dir_original = $this->get_dir();
+			$dir_backup = $dir_original.'.'.date('YmdHms');
+			
+			//--- Hacer un backup del directorio actual
+			$this->manejador_interface->titulo("1.- Haciendo backup directorio instalacion del nuevo toba");	
+			if (file_exists($dir_original)) {
+				toba_manejador_archivos::copiar_directorio($dir_original, $dir_backup);
+			}
+			
+			//--- Incluir solo el proyecto a importar en la instancia
+			$this->manejador_interface->titulo("2.- Apuntando la instancia nueva a la de la versión anterior");
+			$instancia = $this->get_instancia($id_instancia);
+			$proyectos_vinculados = $instancia->get_lista_proyectos_vinculados();
+			$instancia->set_proyectos_vinculados(array($id_proyecto));
+		
+			//--- Apuntar la instancia actual a la instancia externa
+			$archivo_ini_bases = $dir_toba_viejo.'/instalacion/bases.ini';
+			if (! file_exists($archivo_ini_bases)) {
+				throw new toba_error("No se encuentra el archivo $archivo_ini_bases");
+			}
+			$archivo_instancia = $dir_toba_viejo."/instalacion/i__$id_instancia/instancia.ini";
+			if (! file_exists($archivo_instancia)) {
+				throw new toba_error("No se encuentra el archivo $archivo_instancia");
+			}
+			$conf_instancia = parse_ini_file($archivo_instancia, true);
+			$id_base_instancia = $instancia->get_ini_base();
+			if (isset($conf_instancia['base'])) {
+				$id_base_instancia = $conf_instancia['base'];
+			}
+			$bases_viejas = parse_ini_file($archivo_ini_bases, true);
+			if (! isset($bases_viejas[$id_base_instancia])) {
+				throw new toba_error("No se encuentra la definición de la instancia $id_base_instancia en el archivo $archivo_ini_bases");
+			} 
+			$this->actualizar_db($instancia->get_ini_base(), $bases_viejas[$id_base_instancia]);
+			$this->cargar_info_ini(true);
+
+			//--- Migrar la instancia vieja
+			$this->manejador_interface->titulo("3.- Migrando el proyecto de versión toba");
+			$instancia->get_db()->destruir();
+			$instancia->get_db(true);	//Refresca la base			
+			$desde = $instancia->get_version_actual();
+			$hasta = toba_modelo_instalacion::get_version_actual();		
+			$instancia->get_db()->abrir_transaccion();	
+			$instancia->migrar_rango_versiones($desde, $hasta, 1, false);
+			$instancia->get_proyecto($id_proyecto)->exportar();
+			$instancia->get_db()->abortar_transaccion();
+			
+			
+			$this->manejador_interface->titulo("4.- Regenerando la instancia actual para tomar los cambios");			
+			//---Restaurar el backup
+			if (file_exists($dir_backup)) {
+				if (file_exists($dir_original)) {
+					toba_manejador_archivos::eliminar_directorio($dir_original);
+				}
+				rename($dir_backup, $dir_original);
+			} else {
+				throw new toba_error('Imposible restaurar el estado previo a la migración');
+			}
+			
+			//--- Agrega el proyecto a la instancia nueva (por si no estaba) y regenera la misma
+			$instancia->get_db()->destruir();
+			$instancia->get_db(true);	//Refresca la base
+			$proyectos_vinculados[] = $id_proyecto;
+			$instancia->set_proyectos_vinculados(array_unique($proyectos_vinculados));
+			$instancia->cargar(true);
+		} catch (Exception  $e) {
+			$excepcion = $e;
+			//---Restaurar el backup
+			if (file_exists($dir_backup)) {
+				if (file_exists($dir_original)) {
+					toba_manejador_archivos::eliminar_directorio($dir_original);
+				}
+				rename($dir_backup, $dir_original);
+			}
+			throw $excepcion;
+		}		
+	}
+	
 	function migrar_version($version, $recursivo)
 	{
 		toba_logger::instancia()->debug("Migrando instalación hacia version ".$version->__toString());

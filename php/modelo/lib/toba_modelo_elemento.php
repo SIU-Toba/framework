@@ -19,13 +19,13 @@ class toba_modelo_elemento
 	}
 	
 
-	function migrar_rango_versiones($desde, $hasta, $recursivo)
+	function migrar_rango_versiones($desde, $hasta, $recursivo, $con_transaccion=true)
 	{
 		$versiones = $desde->get_secuencia_migraciones($hasta);
 		foreach ($versiones as $version) {
 			$this->manejador_interface->enter();
 			$this->manejador_interface->subtitulo("Versión ".$version->__toString());
-			$this->migrar_version($version, $recursivo);
+			$this->migrar_version($version, $recursivo, $con_transaccion);
 		}
 	}	
 }

@@ -224,7 +224,6 @@ class comando_instancia extends comando_toba
 		}
 	}
 	
-	
 	/**
 	* Elimina la instancia.
 	* @gtk_icono borrar.png

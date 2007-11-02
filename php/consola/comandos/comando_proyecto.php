@@ -156,7 +156,7 @@ class comando_proyecto extends comando_toba
 			$p->cargar_autonomo();
 			$this->consola->mensaje("Vinculando usuarios", false);
 			$usuarios = $this->seleccionar_usuarios( $p->get_instancia() );
-			$grupo_acceso = $this->seleccionar_grupo_acceso( $p );
+			$grupo_acceso = $this->seleccionar_grupo_acceso($p);
 			foreach ( $usuarios as $usuario ) {
 				$p->vincular_usuario( $usuario, $grupo_acceso );
 				toba_logger::instancia()->debug("Vinculando USUARIO: $usuario, GRUPO ACCESO: $grupo_acceso");
@@ -223,6 +223,25 @@ class comando_proyecto extends comando_toba
 		$p->get_instancia()->exportar_local();
 	}
 
+	
+
+	/**
+	* Importa y migra un proyecto desde otra instalacion/instancia de toba
+	* @consola_parametros -d 'directorio'. Especifica el path de toba a migrar
+	* @gtk_icono importar.png 
+	*/	
+	function opcion__importar_migrar()
+	{
+		$param = $this->get_parametros();
+		if (isset($param['-d'])) {
+			$dir_toba_viejo = $param['-d'];
+		} else {
+			throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
+		}
+		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $this->get_id_proyecto_actual(true), $dir_toba_viejo);
+	}
+		
+	
 	/**
 	* Elimina los METADATOS del proyecto y los vuelve a cargar.
 	* @gtk_icono importar.png 
@@ -335,7 +354,7 @@ class comando_proyecto extends comando_toba
 	
 	/**
 	 * Migra un proyecto entre dos versiones toba.
-	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1]
+	 * @consola_parametros Opcionales: [-d 'desde']  [-h 'hasta'] [-R 0|1] [-m metodo puntual de migracion]
 	 * @gtk_icono convertir.png 
 	 * @consola_separador 1
 	 * @gtk_separador 1
@@ -364,5 +383,6 @@ class comando_proyecto extends comando_toba
 			$proyecto->ejecutar_migracion_particular($hasta, trim($param['-m']));
 		}
 	}
+
 }
 ?>
