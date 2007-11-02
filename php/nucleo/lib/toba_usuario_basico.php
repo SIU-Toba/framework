@@ -12,14 +12,16 @@ class toba_usuario_basico extends toba_usuario
 	*	Realiza la autentificacion.
 	*	@return $value	Retorna TRUE o FALSE de acuerdo al estado de la autentifiacion
 	*/
-	static function autenticar($id_usuario, $clave, $datos_iniciales=null)
+	static function autenticar($id_usuario, $clave, $datos_iniciales=null, $usar_log=true)
 	{
 		/*if (self::autenticar_ldap($id_usuario, $clave, $datos_iniciales)) {
 			return true;	
 		}*/
 		$datos_usuario = toba::instancia()->get_info_autenticacion($id_usuario);
 		if ( empty($datos_usuario) ) {
-			toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');
+			if ($usar_log) {
+				toba::logger()->error("El usuario '$id_usuario' no existe", 'toba');
+			}
 			return false;
 		} else {
 			//--- Autentificación
@@ -32,7 +34,9 @@ class toba_usuario_basico extends toba_usuario
 				}
 			}
 			if( !($datos_usuario['clave'] === $clave) ) {
-				toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorrecta", 'toba');
+				if ($usar_log) {
+					toba::logger()->error("El usuario '$id_usuario' ingreso una clave incorrecta", 'toba');
+				}
 				return false;
 			}
 		}
