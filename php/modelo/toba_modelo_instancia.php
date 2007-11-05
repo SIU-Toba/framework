@@ -680,13 +680,15 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->mensaje("Cargando datos locales de la instancia", false);
 		toba_logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
 		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
-		foreach ( $archivos as $archivo ) {
-			$cant = $this->get_db()->ejecutar_archivo( $archivo );
-			toba_logger::instancia()->debug($archivo . ". ($cant)");
-			$this->manejador_interface->progreso_avanzar();
+		if (file_exists($directorio)) {
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
+			foreach ( $archivos as $archivo ) {
+				$cant = $this->get_db()->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->progreso_avanzar();
+			}
+			$this->manejador_interface->progreso_fin();
 		}
-		$this->manejador_interface->progreso_fin();
 	}
 
 	/*

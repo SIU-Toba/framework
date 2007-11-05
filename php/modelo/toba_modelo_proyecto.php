@@ -150,9 +150,12 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $this->instancia->get_instalacion();
 	}
 	
-	function get_db()
+	function get_db($refrescar = false)
 	{
-		return $this->instancia->get_db();	
+		if (! isset($this->db) || $refrescar) {
+			$this->db = $this->instancia->get_db();	
+		}
+		return $this->db;
 	}
 	
 	/**

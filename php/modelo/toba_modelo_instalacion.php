@@ -567,9 +567,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$instancia->get_db()->abrir_transaccion();	
 			$instancia->migrar_rango_versiones($desde, $hasta, 1, false);
 			$instancia->get_proyecto($id_proyecto)->exportar();
-			$instancia->get_db()->abortar_transaccion();
-			
-			
+			$instancia->get_db()->abortar_transaccion();	//Aborta la transaccion para que no afecte la instancia vieja
+			$instancia->get_db()->destruir();
+
 			$this->manejador_interface->titulo("4.- Regenerando la instancia actual para tomar los cambios");			
 			//---Restaurar el backup
 			if (file_exists($dir_backup)) {
@@ -582,11 +582,13 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			}
 			
 			//--- Agrega el proyecto a la instancia nueva (por si no estaba) y regenera la misma
-			$instancia->get_db()->destruir();
+			$this->cargar_info_ini(true);
+			$instancia->cargar_info_ini();
 			$instancia->get_db(true);	//Refresca la base
 			$proyectos_vinculados[] = $id_proyecto;
 			$instancia->set_proyectos_vinculados(array_unique($proyectos_vinculados));
-			$instancia->cargar(true);
+			$proyecto = $instancia->get_proyecto($id_proyecto);
+			$proyecto->regenerar();
 		} catch (Exception  $e) {
 			$excepcion = $e;
 			//---Restaurar el backup
