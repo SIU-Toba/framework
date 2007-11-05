@@ -1,6 +1,11 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
+function formato_pesos_sin_coma($valor)
+{
+	return "$&nbsp;".number_format($valor,0,',','.');	
+}
+
 class extension_ci extends toba_ci
 {
 	protected $orden;
@@ -31,8 +36,9 @@ class extension_ci extends toba_ci
 		return $datos;
 	}
 	
-	function conf__cuadro_auto()
+	function conf__cuadro_auto($cuadro)
 	{
+		$cuadro->set_formateo_columna('importe', 'pesos_sin_coma');		
 		return $this->get_datos();	
 	}
 

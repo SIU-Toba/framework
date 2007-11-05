@@ -837,6 +837,16 @@ class toba_ei_cuadro extends toba_ei
 	}    
 
 	/**
+	 * Cambia la forma en que se le da formato a una columna
+	 * @param string $id_columna
+	 * @param string $funcion Nombre de la función de formateo, sin el prefijo 'formato_'
+	 */
+	function set_formateo_columna($id_columna, $funcion)
+	{
+		$this->_columnas[$id_columna]["formateo"] = $funcion;
+	}
+	
+	/**
 	 * Retorna el conjunto de datos que actualmente posee el cuadro
 	 */
     function get_datos()
