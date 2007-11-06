@@ -179,6 +179,17 @@ class toba_gtk_admin
 	//---------- EVENTOS
 	//--------------------------------
 
+	function evt__refrescar()
+	{
+		/*$instalacion = $this->toba_instalador->get_instalacion();
+		$instalacion->cargar_ini(true);
+		foreach ($instalacion->get_lista_instancias() as $id_instancia) {
+			toba_
+		}*/
+		toba_modelo_catalogo::instanciacion(true);
+		$this->cargar_comandos();
+	}
+	
 	function evt__mostrar_opciones()
 	{
 		$objeto_cmd = $this->get_objeto_comando($this->seleccion);
@@ -274,7 +285,8 @@ class toba_gtk_admin
 			if (isset($atributos['tags']['gtk_param_extra'])) {
 				$clase = 'toba_gtk_'.$atributos['tags']['gtk_param_extra'];			
 				require_once("instalacion/$clase.php");
-				$dialogo = new $clase($this->toba_instalador);
+				$parametros_comando = $this->determinar_comando($this->seleccion);
+				$dialogo = new $clase($this->toba_instalador, $parametros_comando);
 				$param_extra = $dialogo->show();
 				if (!isset($param_extra)) {
 					return;			

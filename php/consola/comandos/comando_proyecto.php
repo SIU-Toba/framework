@@ -131,19 +131,24 @@ class comando_proyecto extends comando_toba
 	* @gtk_icono importar.png
 	* @gtk_no_mostrar 1
 	*/
-	function opcion__cargar()
+	function opcion__cargar($datos = null)
 	{
-		$path = null;
-		$id_proyecto = $this->get_id_proyecto_actual(false);
-		if (!isset($id_proyecto)) {
-			list($id_proyecto, $path) = $this->seleccionar_proyectos(false, false);
-			if ($id_proyecto == $path) {
-				$path=null;
+		if (! isset($datos)) {
+			$path = null;
+			$id_proyecto = $this->get_id_proyecto_actual(false);
+			if (!isset($id_proyecto)) {
+				list($id_proyecto, $path) = $this->seleccionar_proyectos(false, false);
+				if ($id_proyecto == $path) {
+					$path=null;
+				}
 			}
-		}
-		$param = $this->get_parametros();
-		if (isset($param['-d'])) {
-			$path = $param['-d'];
+			$param = $this->get_parametros();
+			if (isset($param['-d'])) {
+				$path = $param['-d'];
+			}
+		} else {
+			$id_proyecto = $datos[0];
+			$path = $datos[1];
 		}
 		$i = $this->get_instancia();
 		if ( ! $i->existen_metadatos_proyecto( $id_proyecto ) ) {
@@ -257,7 +262,7 @@ class comando_proyecto extends comando_toba
 	}
 	
 	/**
-	 * Exporta los METADATOS y luego actualiza el proyecto (usando svn)
+	 * Exporta los METADATOS, actualiza el proyecto (usando svn) y regenera el proyecto en la instancia
 	 * @gtk_icono refrescar.png
 	 */
 	function opcion__actualizar()
@@ -268,6 +273,9 @@ class comando_proyecto extends comando_toba
 		$this->consola->titulo("2.- Actualizando el proyecto utilizando SVN");
 		$p = $this->get_proyecto();		
 		$p->actualizar();		
+		
+		$this->consola->titulo("3.- Regenerando el proyecto en la instancia");
+		$p->regenerar();
 	}	
 	
 	/**
@@ -339,16 +347,22 @@ class comando_proyecto extends comando_toba
 	* Importa y migra un proyecto desde otra instalacion de toba
 	* @consola_parametros -d 'directorio'. Especifica el path de toba que contiene el proyecto a migrar
 	* @gtk_icono importar.png 
+	* @gtk_no_mostrar 1
 	*/	
-	function opcion__importar()
+	function opcion__importar($datos = null)
 	{
-		$param = $this->get_parametros();
-		if (isset($param['-d'])) {
-			$dir_toba_viejo = $param['-d'];
+		if (isset($datos)) {
+			list($id_proyecto, $dir_toba_viejo) = $datos;
 		} else {
-			throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
-		}
-		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $this->get_id_proyecto_actual(true), $dir_toba_viejo);
+			$param = $this->get_parametros();
+			$id_proyecto = $this->get_id_proyecto_actual(true);
+ 	        if (isset($param['-d'])) {
+	            $dir_toba_viejo = $param['-d'];
+	        } else {
+	            throw new toba_error("Debe indicar el path del toba desde donde se quiere importar un proyecto con el parámetro -d");
+ 	        }			
+		}		
+		$this->get_instalacion()->importar_migrar_proyecto($this->get_id_instancia_actual(true), $id_proyecto, $dir_toba_viejo);
 	}	
 	
 	/**

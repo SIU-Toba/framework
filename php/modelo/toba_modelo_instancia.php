@@ -167,8 +167,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				return $path; 
 			}		
 		} else {
+			$listado = toba_modelo_proyecto::get_lista();
+			foreach ($listado as $path => $id) {
+				if ($proyecto == $id) {
+					return toba_dir() . "/proyectos/" . $path;
+				}
+			}
 			return toba_dir() . "/proyectos/" . $proyecto;
-		}		
+		}
 	}
 	
 	function get_url_proyecto($proyecto)

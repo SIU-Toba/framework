@@ -76,9 +76,9 @@ class toba_modelo_catalogo
 	/**
 	*	Singleton
 	*/
-	static function instanciacion()
+	static function instanciacion($refrescar=false)
 	{
-		if (!isset(self::$singleton)) {
+		if (!isset(self::$singleton) || $refrescar) {
 			self::$singleton = new toba_modelo_catalogo();	
 		}
 		return self::$singleton;	

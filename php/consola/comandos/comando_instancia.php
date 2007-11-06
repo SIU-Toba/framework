@@ -151,19 +151,35 @@ class comando_instancia extends comando_toba
 	}
 	
 	/**
-	* Crea un nuevo proyecto asociado a la instancia
+	* Carga un PROYECTO en la INSTANCIA (Carga metadatos y crea un vinculo entre ambos elementos).
 	* @consola_no_mostrar 1 
 	* @gtk_icono nucleo/proyecto.gif
-	* @gtk_separador 1 
+	* @gtk_param_extra cargar_proyecto
 	*/	
-	function opcion__cargar_proyecto()
+	function opcion__cargar_proyecto($datos = null)
 	{
 		//------ESTO ES UN ALIAS DE PROYECTO::CARGAR
 		require_once('comando_proyecto.php');
 		$comando = new comando_proyecto($this->consola);
 		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
-		$comando->opcion__cargar();		
+		$comando->opcion__cargar($datos);		
 	}	
+	
+	/**
+	* Importa y migra un proyecto desde otra instalacion de toba. Se asume que el código del proyecto se encuentra en la carpeta PROYECTOS de toba
+	* @consola_no_mostrar 1 
+	* @gtk_icono importar.png 
+	* @gtk_separador 1 
+	* @gtk_param_extra importar_proyecto
+	*/	
+	function opcion__importar_proyecto($datos = null)
+	{
+		//------ESTO ES UN ALIAS DE PROYECTO::IMPORTAR
+		require_once('comando_proyecto.php');
+		$comando = new comando_proyecto($this->consola);
+		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
+		$comando->opcion__importar($datos);
+	}
 	
 	/**
 	* Exporta la instancia completa incluyendo METADATOS propios y de proyectos contenidos.
