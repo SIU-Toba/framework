@@ -696,7 +696,66 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->manejador_interface->progreso_fin();
 		}
 	}
+	
+	/**
+	 * Importa la información perteneciente a la instancia desde otra instalacion/instancia
+	 *
+	 */
+	function importar_informacion_instancia($instancia_origen, $path_origen, $reemplazar_actuales)
+	{
+		if (! isset($path_origen)) {
+			$path_origen = toba_dir();
+		}
+		$path = $path_origen.'/instalacion/'.self::dir_prefijo.$instancia_origen;
+		if (! file_exists($path)) {
+			throw new toba_error("No existe la carpeta $path");
+		}
+		$subdirs = toba_manejador_archivos::get_subdirectorios($path);
+		$proyectos = $this->get_lista_proyectos_vinculados();
+		$nombres_carp = array('global');
+		foreach ($proyectos as $proy) {
+			$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
+		}
+		$this->get_db()->abrir_transaccion();
+		$this->get_db()->retrazar_constraints();
+		if ($reemplazar_actuales) {
+			$this->eliminar_informacion_instancia();
+		}
+		foreach ( $nombres_carp as $carp ) {
+			$dir = $path."/".$carp;
+			if (file_exists($dir)) {
+				$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+				foreach( $archivos as $archivo ) {
+					$cant = $this->get_db()->ejecutar_archivo( $archivo );
+					toba_logger::instancia()->debug($archivo . ". ($cant)");
+					$this->manejador_interface->progreso_avanzar();
+				}
+			}
+		}
+		$this->manejador_interface->progreso_avanzar();		
+		$this->get_db()->abortar_transaccion();
+		$this->manejador_interface->progreso_fin();		
+	}
 
+	/**
+	 * Elimina todos los datos locales de la instancia actual
+	 */
+	private function eliminar_informacion_instancia()
+	{
+		$sql = array();
+		$metodos = get_class_methods('toba_db_tablas_instancia');
+		foreach ($metodos as $metodo) {
+			if (substr($metodo, 0, 10) === 'get_lista_') {
+				foreach ( toba_db_tablas_instancia::$metodo() as $tabla ) {
+					$sql[] = 'DELETE FROM '.$tabla;
+				}
+			}
+		}
+		if (! empty($sql)) {
+			$this->get_db()->ejecutar($sql);
+		}
+	}
+	
 	/*
 	*	Genera informacion descriptiva sobre la instancia creada
 	*/
