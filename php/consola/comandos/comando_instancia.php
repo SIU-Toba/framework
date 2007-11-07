@@ -139,7 +139,7 @@ class comando_instancia extends comando_toba
 	/**
 	* Crea un nuevo proyecto asociado a la instancia
 	* @consola_no_mostrar 1 
-	* @gtk_icono nucleo/agregar.gif
+	* @gtk_icono nucleo/proyecto.gif
 	*/	
 	function opcion__crear_proyecto()
 	{
@@ -168,7 +168,7 @@ class comando_instancia extends comando_toba
 	/**
 	* Importa y migra un proyecto desde otra instalacion de toba. Se asume que el código del proyecto se encuentra en la carpeta PROYECTOS de toba
 	* @consola_no_mostrar 1 
-	* @gtk_icono importar.png 
+	* @gtk_icono nucleo/proyecto.gif
 	* @gtk_separador 1 
 	* @gtk_param_extra importar_proyecto
 	*/	
@@ -180,6 +180,7 @@ class comando_instancia extends comando_toba
 		$comando->set_id_instancia_actual($this->get_id_instancia_actual());
 		$comando->opcion__importar($datos);
 	}
+	
 	
 	/**
 	* Exporta la instancia completa incluyendo METADATOS propios y de proyectos contenidos.
@@ -239,6 +240,35 @@ class comando_instancia extends comando_toba
 			$this->consola->error( $e->getMessage() );
 		}
 	}
+	
+	/**
+	 * Importa los METADATOS locales desde otra instalacion/instancia
+	 * @consola_parametros Opcionales: -o instancia origen [-d 'directorio toba'] [-r 0|1 Reemplazar los metadatos actuales, por defecto 0]
+	 * @gtk_icono importar.png  
+	 * @gtk_param_extra importar_instancia
+	 */
+	function opcion__importar($datos=null)
+	{
+		$path = null;
+		$reemplazar = false;
+		if (! isset($datos)) {
+			$param = $this->get_parametros();
+			if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
+				$origen = $param['-o'];
+			} else {
+				throw new toba_error("Es necesario indicar la instancia origen con '-o'");
+			}
+			if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
+				$path = $param['-d'];
+			}		
+			if ( isset($param['-r']) &&  (trim($param['-r']) != '') ) {
+				$reemplazar = $param['-r'];
+			}				
+		} else {
+			list($origen, $path, $reemplazar) = $datos;
+		}
+		$this->get_instancia()->importar_informacion_instancia($origen, $path, $reemplazar);
+	}	
 	
 	/**
 	* Elimina la instancia.
@@ -350,28 +380,7 @@ class comando_instancia extends comando_toba
 		$instancia->migrar_rango_versiones($desde, $hasta, $recursivo);
 	}
 
-	/**
-	 * Importa los METADATOS locales desde otra instalacion/instancia
-	 * @consola_parametros Opcionales: -o instancia origen [-d 'directorio toba'] [-r 0|1 Reemplazar los metadatos actuales, por defecto 0]
-	 */
-	function opcion__importar()
-	{
-		$path = null;
-		$reemplazar = false;
-		$param = $this->get_parametros();
-		if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
-			$origen = $param['-o'];
-		} else {
-			throw new toba_error("Es necesario indicar la instancia origen con '-o'");
-		}
-		if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
-			$path = $param['-d'];
-		}		
-		if ( isset($param['-r']) &&  (trim($param['-r']) != '') ) {
-			$reemplazar = $param['-r'];
-		}				
-		$this->get_instancia()->importar_informacion_instancia($origen, $path, $reemplazar);
-	}
+
 	
 	function get_tipo_instancia()
 	{
