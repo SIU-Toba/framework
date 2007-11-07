@@ -706,35 +706,40 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		if (! isset($path_origen)) {
 			$path_origen = toba_dir();
 		}
-		$path = $path_origen.'/instalacion/'.self::dir_prefijo.$instancia_origen;
-		if (! file_exists($path)) {
-			throw new toba_error("No existe la carpeta $path");
-		}
-		$subdirs = toba_manejador_archivos::get_subdirectorios($path);
-		$proyectos = $this->get_lista_proyectos_vinculados();
-		$nombres_carp = array('global');
-		foreach ($proyectos as $proy) {
-			$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
-		}
-		$this->get_db()->abrir_transaccion();
-		$this->get_db()->retrazar_constraints();
-		if ($reemplazar_actuales) {
-			$this->eliminar_informacion_instancia();
-		}
-		foreach ( $nombres_carp as $carp ) {
-			$dir = $path."/".$carp;
-			if (file_exists($dir)) {
-				$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
-				foreach( $archivos as $archivo ) {
-					$cant = $this->get_db()->ejecutar_archivo( $archivo );
-					toba_logger::instancia()->debug($archivo . ". ($cant)");
-					$this->manejador_interface->progreso_avanzar();
+		try {
+			$path = $path_origen.'/instalacion/'.self::dir_prefijo.$instancia_origen;
+			if (! file_exists($path)) {
+				throw new toba_error("No existe la carpeta $path");
+			}
+			$subdirs = toba_manejador_archivos::get_subdirectorios($path);
+			$proyectos = $this->get_lista_proyectos_vinculados();
+			$nombres_carp = array('global');
+			foreach ($proyectos as $proy) {
+				$nombres_carp[] = self::prefijo_dir_proyecto.$proy;
+			}
+			$this->get_db()->abrir_transaccion();
+			$this->get_db()->retrazar_constraints();
+			if ($reemplazar_actuales) {
+				$this->eliminar_informacion_instancia();
+			}
+			foreach ( $nombres_carp as $carp ) {
+				$dir = $path."/".$carp;
+				if (file_exists($dir)) {
+					$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+					foreach( $archivos as $archivo ) {
+						$cant = $this->get_db()->ejecutar_archivo( $archivo );
+						toba_logger::instancia()->debug($archivo . ". ($cant)");
+						$this->manejador_interface->progreso_avanzar();
+					}
 				}
 			}
+			$this->manejador_interface->progreso_avanzar();
+			$this->get_db()->cerrar_transaccion();
+			$this->manejador_interface->progreso_fin();		
+		} catch (toba_error_db $error) {
+			$this->get_db()->abortar_transaccion();
+			throw $error;
 		}
-		$this->manejador_interface->progreso_avanzar();		
-		$this->get_db()->abortar_transaccion();
-		$this->manejador_interface->progreso_fin();		
 	}
 
 	/**
@@ -1030,11 +1035,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	/**
 	* Devuelve la lista de las INSTANCIAS
 	*/
-	static function get_lista()
+	static function get_lista($instalacion=null)
 	{
+		if (! isset($instalacion)) {
+			$instalacion = toba_modelo_instalacion::dir_base();
+		}
 		$dirs = array();
 		try {
-			$temp = toba_manejador_archivos::get_subdirectorios( toba_modelo_instalacion::dir_base() , '|^'.self::dir_prefijo.'|' );
+			$temp = toba_manejador_archivos::get_subdirectorios( $instalacion, '|^'.self::dir_prefijo.'|' );
 			foreach ( $temp as $dir ) {
 				$temp_dir = explode( self::dir_prefijo, $dir );
 				if (count($temp_dir) > 1) {

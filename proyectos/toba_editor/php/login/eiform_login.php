@@ -30,7 +30,7 @@ class eiform_login extends toba_ei_formulario
 
 		{$this->objeto_js}.evt__proyecto__procesar = function(es_inicial)
 		{
-			if( !es_inicial ) {
+			if( !es_inicial && this.ef('autologin')) {
 				this.loguearse();
 			}
 		}
