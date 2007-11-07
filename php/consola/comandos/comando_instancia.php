@@ -243,7 +243,7 @@ class comando_instancia extends comando_toba
 	
 	/**
 	 * Importa los METADATOS locales desde otra instalacion/instancia
-	 * @consola_parametros Opcionales: -o instancia origen [-d 'directorio toba'] [-r 0|1 Reemplazar los metadatos actuales, por defecto 0]
+	 * @consola_parametros Opcionales: [-o instancia origen] [-d 'directorio toba'] [-r 0|1 Reemplazar los metadatos actuales, por defecto 0]
 	 * @gtk_icono importar.png  
 	 * @gtk_param_extra importar_instancia
 	 */
@@ -256,7 +256,7 @@ class comando_instancia extends comando_toba
 			if ( isset($param['-o']) &&  (trim($param['-o']) != '') ) {
 				$origen = $param['-o'];
 			} else {
-				throw new toba_error("Es necesario indicar la instancia origen con '-o'");
+				$origen = $this->get_id_instancia_actual(true);
 			}
 			if ( isset($param['-d']) &&  (trim($param['-d']) != '') ) {
 				$path = $param['-d'];
