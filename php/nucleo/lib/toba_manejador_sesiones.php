@@ -26,8 +26,10 @@ class toba_manejador_sesiones
 
 	private function __construct()
 	{
-		session_name('TOBA_SESSID');
-		session_start();
+		if (PHP_SAPI != 'cli') {
+			session_name('TOBA_SESSID');
+			session_start();
+		}
 		define('TOBA_DIR', toba_nucleo::toba_dir());
 		$this->instancia = toba_instancia::get_id();
 		$this->proyecto = toba_proyecto::get_id();
@@ -491,7 +493,9 @@ class toba_manejador_sesiones
 	{
 		$this->sesion->conf__final();
 		toba::instancia()->cerrar_sesion($this->get_id_sesion(), $observaciones);
-		session_regenerate_id();
+		if (PHP_SAPI != 'cli') {
+			session_regenerate_id();
+		}
 	}
 
 	private function desregistrar_usuario()

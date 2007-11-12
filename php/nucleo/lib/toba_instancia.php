@@ -99,6 +99,14 @@ class toba_instancia
 		}
 	}
 
+	function get_directiva_compilacion($proyecto)
+	{
+		if (isset($this->memoria[$proyecto]['metadatos_compilados'])) {
+			return $this->memoria[$proyecto]['metadatos_compilados'];
+		}
+		return null;
+	}
+	
 	//----------------------------------------------------------------
 	// DATOS
 	//----------------------------------------------------------------

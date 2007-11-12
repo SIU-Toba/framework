@@ -14,21 +14,17 @@ class consola implements toba_proceso_gui
 	static protected $display_ancho = 79;
 	const display_coleccion_espacio_nombre = 25;
 	const display_prefijo_linea = ' ';
-	static protected $indice_archivos;
 	protected 	$ubicacion_comandos;
 	protected	$menu;
 	
 	function __construct( $ubicacion_comandos, $clase_menu )
 	{
+		toba_nucleo::instancia();
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			self::$display_ancho = 79;
 		} else {
 			self::$display_ancho = 1000;
 		}
-		self::$indice_archivos = toba_nucleo::get_indice_archivos();
-		unset(self::$indice_archivos['toba']);	//Para que el logger se de cuenta de que esta en la consola
-		spl_autoload_register(array('consola', 'cargador_clases'));
-		self::cargar_includes_basicos();
 		ini_set("error_reporting", E_ALL);
 		if( ! is_dir( $ubicacion_comandos ) ) {
 			throw new toba_error("CONSOLA: El directorio de comandos '$ubicacion_comandos' es invalido");
@@ -326,24 +322,6 @@ class consola implements toba_proceso_gui
 	function get_formulario( $titulo )
 	{
 		return new formulario_consola( $this, $titulo );
-	}
-
-	//--------------------------------------------------------------
-	// Carga de clases
-	//--------------------------------------------------------------
-	
-	static function cargador_clases($clase)
-	{
-		if(isset(self::$indice_archivos[$clase])) {
-			require_once( toba_nucleo::toba_dir() .'/php/'. self::$indice_archivos[$clase]);
-		}
-	}
-	
-	function cargar_includes_basicos()
-	{
-		foreach(toba_nucleo::get_includes_funciones_globales() as $archivo ) {
-			require_once( toba_nucleo::toba_dir() . $archivo);
-		}
 	}
 }
 ?>

@@ -9,7 +9,7 @@ class toba_nucleo
 	static private $dir_compilacion;
 	static private $indice_archivos;
 	static private $path;	
-	private $solicitud;
+	private $solicitud = null;
 	private $medio_acceso;
 	private $solicitud_en_proceso = false;
 	
@@ -18,7 +18,7 @@ class toba_nucleo
 		self::$indice_archivos = self::get_indice_archivos();
 		$this->cargar_includes_basicos();
 		spl_autoload_register(array('toba_nucleo', 'cargador_clases'));
-		toba::cronometro();		
+		toba::cronometro();
 	}
 	
 	static function instancia()
@@ -80,10 +80,8 @@ class toba_nucleo
 	function acceso_consola($instancia, $proyecto, $item, $usuario)
 	{
 		$estado_proceso = null;
+		$this->iniciar_contexto_desde_consola($instancia, $proyecto);
 		try {
-			define('apex_pa_instancia', $instancia);
-			define('apex_pa_proyecto' , $proyecto);
-			$this->iniciar_contexto_ejecucion();			
 			//$this->solicitud = new toba_solicitud_consola($proyecto, $item, $usuario);
 			$this->solicitud = toba_constructor::get_runtime(array('proyecto'=>$proyecto, 'componente'=>$item), 'toba_item');
 			$this->solicitud->procesar();	//Se llama a la ACTIVIDAD del ITEM
@@ -100,7 +98,15 @@ class toba_nucleo
 		toba::logger()->guardar();
 		exit($estado_proceso);
 	}
-		
+	
+	function iniciar_contexto_desde_consola($instancia, $proyecto)
+	{
+		//Seteo el estado del nucleo
+		$_SERVER['TOBA_INSTANCIA'] = $instancia;
+		$_SERVER['TOBA_PROYECTO'] = $proyecto;
+		$this->iniciar_contexto_ejecucion();	
+	}
+	
 	function solicitud_en_proceso()
 	{
 		return $this->solicitud_en_proceso;
@@ -269,9 +275,13 @@ class toba_nucleo
 	function utilizar_metadatos_compilados($proyecto=null)
 	{
 		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id();
-		$flag_compilacion = (defined('apex_pa_metadatos_compilados') && apex_pa_metadatos_compilados);
-		$proyecto_compilado = ($proyecto == apex_pa_proyecto);
-		return ($flag_compilacion && $proyecto_compilado);
+		$flag = toba::instancia()->get_directiva_compilacion($proyecto);
+		if(!isset($flag)) {
+			//Mecanismo obsoleto
+			return (defined('apex_pa_metadatos_compilados') && apex_pa_metadatos_compilados);
+		}else{
+			return $flag;			
+		}
 	}
 
 	static function get_directorio_compilacion()

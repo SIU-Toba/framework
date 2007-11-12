@@ -1036,6 +1036,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->manejador_interface->error($msg);
 			return;
 		}
+		// Contextualizo al nucleo en el proyecto "toba_editor"
+		toba_nucleo::instancia()->iniciar_contexto_desde_consola(	$this->instancia->get_id(), 
+																	toba_editor::get_id() );
 		//--- Averiguo la fuente destino
 		$sql = "SELECT proyecto, fuente_datos, descripcion_corta  
 				FROM apex_fuente_datos
@@ -1049,37 +1052,23 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		
 		//--- Clonando
-		$ejecutable = toba_manejador_archivos::path_a_plataforma(toba_dir().'/bin/toba');
-		$id_instancia = $this->get_instancia()->get_id();
-		$comando = $ejecutable." item ejecutar -p toba_editor -i $id_instancia  -t 1000043 ";
-		$comando .= ' -orig_proy toba_editor';
-		$comando .= ' -orig_item 1000042';
-		$comando .= ' -dest_proy '.$this->identificador;
-		$comando .= ' -dest_padre "__raiz__"';
-		$comando .= ' -dest_fuente '.$fuente['fuente_datos'];
-		$comando .= ' -dest_dir login';	
-		//---- Averiguo un usuario capaz de ejecutar en toba_editor
-		$usuarios = $this->instancia->get_usuarios_administradores('toba_editor');
-		if (! empty($usuarios)) {
-			$comando .= ' -u '.$usuarios[0]['usuario'];	
-		}		
+		$id = array(	'proyecto' => toba_editor::get_id(),
+					 	'componente' =>  1000042 );
+		$info_item = toba_constructor::get_info($id, 'toba_item');
+		$nuevos_datos = array();
+		$nuevos_datos['proyecto'] = $this->identificador;
+		$nuevos_datos['padre_proyecto'] = $this->identificador;
+		$nuevos_datos['padre'] = "__raiz__";
+		$nuevos_datos['fuente_datos'] = $fuente['fuente_datos'];
+		$nuevos_datos['fuente_datos_proyecto'] = $nuevos_datos['proyecto'];
+		$directorio = 'login';
+		$clave = $info_item->clonar($nuevos_datos, $directorio);
 		
-		$this->manejador_interface->mensaje("Clonando item de login...", false);
-		toba_logger::instancia()->debug("Ejecutando el comando: $comando");
-		$id_item = null;
-		$error = null;
-		ejecutar_consola($comando, $id_item, $error);
-		$id_item = trim(implode("\n", $id_item));
-		$error = implode("\n", $error);
-		if (! is_numeric($id_item)) {
-			throw new toba_error("$id_item $error". "\n\nError clonando el item de login. Comando ejecutado:\n\n".
-					 "$comando\n\nPara más información ver el log del proyecto toba_editor");
-		}
 		$this->manejador_interface->progreso_fin();
 		
 		//--- Actualizar el item de login
 		$this->manejador_interface->mensaje("Actualizando el proyecto...", false);		
-		$sql = "UPDATE apex_proyecto SET item_pre_sesion='$id_item'
+		$sql = "UPDATE apex_proyecto SET item_pre_sesion='$clave'
 				WHERE proyecto='{$this->identificador}'";
 		$this->get_db()->ejecutar($sql);
 		$this->manejador_interface->progreso_fin();

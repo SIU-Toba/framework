@@ -141,6 +141,14 @@ class toba_proyecto
 	{
 		return toba::instancia()->get_path_proyecto(self::get_id());
 	}
+	
+	/**
+	 * Retorna el flag de compilacion del proyecto
+	 */
+	function get_directiva_compilacion()
+	{
+		return toba::instancia()->get_directiva_compilacion(self::get_id());
+	}
 
 	/**
 	 * Retorna el path absoluto de la carpeta 'php' del proyecto
