@@ -14,7 +14,7 @@ class toba_cargador
 	
 	private function __construct()
 	{
-		if (class_exists('toba')) {
+		if (PHP_SAPI != 'cli') { 
 			$this->redefinidos = toba::memoria()->get_dato_sincronizado("toba_catalogo");
 			if (!isset($this->redefinidos)) {
 				$this->redefinidos = array();
