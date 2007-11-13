@@ -2,6 +2,9 @@
 
 class toba_aplicacion_comando_base implements toba_aplicacion_comando
 {
+	/**
+	 * toba_aplicacion_modelo_base
+	 */
 	protected $modelo;
 	protected $manejador_interface;
 	

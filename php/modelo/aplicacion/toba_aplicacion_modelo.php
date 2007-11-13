@@ -14,6 +14,21 @@ interface toba_aplicacion_modelo
 	function set_entorno($manejador_interface, toba_modelo_instalacion $instalacion, toba_modelo_instancia $instancia, toba_modelo_proyecto $proyecto);
 	
 	/**
+	 * @return toba_modelo_instalacion
+	 */
+	function get_instalacion();
+
+	/**
+	 * @return toba_modelo_instancia
+	 */
+	function get_instancia();
+
+	/**
+	 * @return toba_modelo_proyecto
+	 */
+	function get_proyecto();
+	
+	/**
 	 * Retorna la versión actualmente instalada de la aplicación (puede no estar migrada)
 	 * @return toba_version
 	 */

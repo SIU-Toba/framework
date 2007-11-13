@@ -39,6 +39,31 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	}
 	
 	/**
+	 * @return toba_modelo_instalacion
+	 */
+	function get_instalacion()
+	{
+		return $this->instalacion;
+	}
+
+	/**
+	 * @return toba_modelo_instancia
+	 */
+	function get_instancia()
+	{
+		return $this->instancia;
+	}
+
+	/**
+	 * @return toba_modelo_proyecto
+	 */
+	function get_proyecto()
+	{
+		return $this->proyecto;
+	}
+	
+	
+	/**
 	 * Retorna la versión actualmente instalada de la aplicación (puede no estar migrada)
 	 * @return toba_version
 	 */
