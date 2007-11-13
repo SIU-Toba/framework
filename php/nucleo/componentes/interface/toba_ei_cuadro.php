@@ -1337,7 +1337,7 @@ class toba_ei_cuadro extends toba_ei
 				$clave_seleccionada = $this->_clave_seleccionada;	
 			}
 			
-			$esta_seleccionada = ($clave_fila == $clave_seleccionada);
+			$esta_seleccionada = ($clave_fila != '') && ($clave_fila == $clave_seleccionada);
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
             echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
