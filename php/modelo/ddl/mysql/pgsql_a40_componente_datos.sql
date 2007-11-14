@@ -30,10 +30,10 @@ CREATE TABLE apex_objeto_db_registros
 	modificar_claves				smallint		NULL,
 	fuente_datos_proyecto			varchar(15)		NULL,	
 	fuente_datos					varchar(20)		NULL,	
-	CONSTRAINT   apex_objeto_dbr_pk  PRIMARY KEY ( objeto_proyecto , objeto ),
+	CONSTRAINT   apex_objeto_dbr_pk  PRIMARY KEY ( objeto ,  objeto_proyecto ),
 	CONSTRAINT	 apex_objeto_dbr_uq_tabla  UNIQUE ( fuente_datos ,  tabla ),
 	CONSTRAINT   apex_objeto_dbr_fk_ap   FOREIGN KEY ( ap ) REFERENCES    apex_admin_persistencia  ( ap ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
-	CONSTRAINT   apex_objeto_dbr_fk_objeto   FOREIGN KEY ( objeto_proyecto , objeto ) REFERENCES    apex_objeto  ( proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
+	CONSTRAINT   apex_objeto_dbr_fk_objeto   FOREIGN KEY ( objeto ,  objeto_proyecto ) REFERENCES    apex_objeto  ( objeto ,  proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_objeto_dbr_fk_fuente   FOREIGN KEY ( fuente_datos_proyecto , fuente_datos ) REFERENCES    apex_fuente_datos  ( proyecto , fuente_datos ) ON DELETE NO ACTION ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
@@ -50,9 +50,9 @@ CREATE TABLE apex_objeto_db_registros_col
 	no_nulo							smallint 		NULL,
 	no_nulo_db						smallint 		NULL,
 	externa							smallint		NULL,
-	CONSTRAINT   apex_obj_dbr_col_pk  PRIMARY KEY ( objeto_proyecto , objeto , col_id ),
+	CONSTRAINT   apex_obj_dbr_col_pk  PRIMARY KEY ( col_id ,  objeto ,  objeto_proyecto ),
 	CONSTRAINT   apex_obj_dbr_col_fk_tipo  FOREIGN KEY ( tipo ) REFERENCES  apex_tipo_datos  ( tipo ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
-	CONSTRAINT   apex_obj_dbr_col_fk_objeto_dbr  FOREIGN KEY ( objeto_proyecto , objeto ) REFERENCES  apex_objeto_db_registros  ( objeto_proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   
+	CONSTRAINT   apex_obj_dbr_col_fk_objeto_dbr  FOREIGN KEY ( objeto ,  objeto_proyecto ) REFERENCES  apex_objeto_db_registros  ( objeto ,  objeto_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 
@@ -67,8 +67,8 @@ CREATE TABLE apex_objeto_db_registros_ext
 	clase							varchar(100)	NULL,
 	include							varchar(255)	NULL,
 nosql							text			NULL,
-	CONSTRAINT   apex_obj_dbr_ext_pk  PRIMARY KEY ( objeto_proyecto , objeto , externa_id ),
-	CONSTRAINT   apex_obj_dbr_ext_fk_objeto_dbr  FOREIGN KEY ( objeto_proyecto , objeto ) REFERENCES  apex_objeto_db_registros  ( objeto_proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   	
+	CONSTRAINT   apex_obj_dbr_ext_pk  PRIMARY KEY ( externa_id ,  objeto ,  objeto_proyecto ),
+	CONSTRAINT   apex_obj_dbr_ext_fk_objeto_dbr  FOREIGN KEY ( objeto ,  objeto_proyecto ) REFERENCES  apex_objeto_db_registros  ( objeto ,  objeto_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   	
 ) ENGINE=InnoDB;
 
 
@@ -79,12 +79,11 @@ CREATE TABLE apex_objeto_db_registros_ext_col
 	externa_id					integer		NOT NULL,
 	col_id						integer		NOT NULL,
 	es_resultado					smallint		NULL,
-	CONSTRAINT   apex_obj_dbr_ext_col_pk  PRIMARY KEY ( objeto_proyecto , objeto , externa_id , col_id ),
-	CONSTRAINT   apex_obj_dbr_ext_col_fk_ext  FOREIGN KEY ( objeto_proyecto , objeto ,  externa_id ) 
-		REFERENCES  apex_objeto_db_registros_ext  ( objeto_proyecto , objeto , externa_id ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
-	CONSTRAINT   apex_obj_dbr_ext_col_fk_col  FOREIGN KEY ( objeto_proyecto , objeto ,  col_id ) 
-		REFERENCES  apex_objeto_db_registros_col  ( objeto_proyecto , objeto , col_id ) ON DELETE CASCADE ON UPDATE NO ACTION   
-		
+	CONSTRAINT   apex_obj_dbr_ext_col_pk  PRIMARY KEY ( externa_id , col_id , objeto , objeto_proyecto ),
+	CONSTRAINT   apex_obj_dbr_ext_col_fk_ext  FOREIGN KEY ( externa_id ,  objeto ,  objeto_proyecto ) 
+		REFERENCES  apex_objeto_db_registros_ext  ( externa_id ,  objeto ,  objeto_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
+	CONSTRAINT   apex_obj_dbr_ext_col_fk_col  FOREIGN KEY ( col_id ,  objeto ,  objeto_proyecto  ) 
+		REFERENCES  apex_objeto_db_registros_col  ( col_id , objeto , objeto_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 
@@ -94,8 +93,8 @@ CREATE TABLE apex_objeto_db_registros_uniq
 	objeto 		                integer      		NOT NULL,
 	uniq_id						integer		 auto_increment  		NOT NULL, 
 	columnas						varchar(255)	NULL,
-	CONSTRAINT   apex_obj_dbr_uniq_pk  PRIMARY KEY ( objeto_proyecto , objeto , uniq_id ),
-	CONSTRAINT   apex_obj_dbr_uniq_fk_objeto_dbr  FOREIGN KEY ( objeto_proyecto , objeto ) REFERENCES  apex_objeto_db_registros  ( objeto_proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   	
+	CONSTRAINT   apex_obj_dbr_uniq_pk  PRIMARY KEY ( uniq_id ,  objeto ,  objeto_proyecto ),
+	CONSTRAINT   apex_obj_dbr_uniq_fk_objeto_dbr  FOREIGN KEY ( objeto ,  objeto_proyecto ) REFERENCES  apex_objeto_db_registros  ( objeto ,  objeto_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   	
 ) ENGINE=InnoDB;
 
 
@@ -103,16 +102,16 @@ CREATE TABLE apex_objeto_datos_rel
 (
 	proyecto 		 				varchar(15)		NOT NULL,
 	objeto      	    	 	integer		NOT NULL,
-	debug							smallint		NULL DEFAULT(0),	
+	debug							smallint		NULL DEFAULT 0,	
 	clave							varchar(60)		NULL,
 	ap							integer		NULL,
 	ap_clase						varchar(60)		NULL,
 	ap_archivo						varchar(120)	NULL,
-	sinc_susp_constraints			smallint		NULL DEFAULT(0),
-	sinc_orden_automatico			smallint		NULL DEFAULT(1),
-	CONSTRAINT   apex_objeto_datos_rel_pk  PRIMARY KEY ( proyecto , objeto ),
+	sinc_susp_constraints			smallint		NULL DEFAULT 0,
+	sinc_orden_automatico			smallint		NULL DEFAULT 1,
+	CONSTRAINT   apex_objeto_datos_rel_pk  PRIMARY KEY ( objeto ,  proyecto ),
 	CONSTRAINT   apex_objeto_datos_rel_fk_ap   FOREIGN KEY ( ap ) REFERENCES    apex_admin_persistencia  ( ap ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
-	CONSTRAINT   apex_objeto_datos_rel_fk_objeto   FOREIGN KEY ( proyecto , objeto ) REFERENCES    apex_objeto  ( proyecto , objeto ) ON DELETE NO ACTION ON UPDATE NO ACTION   
+	CONSTRAINT   apex_objeto_datos_rel_fk_objeto   FOREIGN KEY ( objeto ,  proyecto ) REFERENCES    apex_objeto  ( objeto ,  proyecto ) ON DELETE NO ACTION ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_objeto_datos_rel_asoc
@@ -131,8 +130,8 @@ CREATE TABLE apex_objeto_datos_rel_asoc
 	hijo_clave		    			varchar(255)			NULL, 
 	cascada							smallint			NULL,
 	orden							float				NULL,
-	CONSTRAINT   apex_obj_datos_rel_asoc_pk  PRIMARY KEY ( proyecto , objeto , asoc_id ),
-	CONSTRAINT   apex_obj_datos_rel_asoc_fk_objeto  FOREIGN KEY ( proyecto , objeto ) REFERENCES  apex_objeto_datos_rel  ( proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
+	CONSTRAINT   apex_obj_datos_rel_asoc_pk  PRIMARY KEY ( asoc_id , objeto , proyecto ),
+	CONSTRAINT   apex_obj_datos_rel_asoc_fk_objeto  FOREIGN KEY ( objeto , proyecto ) REFERENCES  apex_objeto_datos_rel  ( objeto , proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_obj_datos_rel_asoc_fk_padre  FOREIGN KEY ( proyecto , objeto , padre_id ) REFERENCES  apex_objeto_dependencias  ( proyecto , objeto_consumidor , identificador ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_obj_datos_rel_asoc_fk_hijo  FOREIGN KEY ( proyecto , objeto , hijo_id ) REFERENCES  apex_objeto_dependencias  ( proyecto , objeto_consumidor , identificador ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;

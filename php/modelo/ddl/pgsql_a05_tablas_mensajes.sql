@@ -33,15 +33,15 @@ CREATE TABLE apex_msg
 ---------------------------------------------------------------------------------------------------
 (  
 	msg 			    					int4           DEFAULT nextval('"apex_msg_seq"'::text) NOT NULL, 
-	indice          					varchar(20)    NOT NULL,
 	proyecto  							varchar(15)    NOT NULL,
+	indice          					varchar(20)    NOT NULL,
    msg_tipo       					varchar(20)    NOT NULL,
    descripcion_corta            	varchar(50)    NULL,
    mensaje_a	                  varchar        NULL,
    mensaje_b	                  varchar        NULL,
    mensaje_c	                  varchar        NULL,
    mensaje_customizable          varchar        NULL,
-   CONSTRAINT  "apex_msg_pk" PRIMARY KEY ("proyecto","msg"),
+   CONSTRAINT  "apex_msg_pk" PRIMARY KEY ("msg", "proyecto"),
 --   CONSTRAINT  "apex_msg_msg_uk" UNIQUE ("indice"),
    CONSTRAINT  "apex_msg_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
@@ -74,7 +74,7 @@ CREATE TABLE apex_item_msg
 	parametro_patron					varchar(100)	NULL,
    CONSTRAINT  "apex_item_msg_pk"   PRIMARY KEY ("item_msg","item_proyecto"),
    CONSTRAINT  "apex_item_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item", "item_proyecto") REFERENCES "apex_item" ("item", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_item_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
@@ -91,20 +91,20 @@ CREATE TABLE apex_objeto_msg
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-   objeto_msg        	     		int4           DEFAULT nextval('"apex_objeto_msg_seq"'::text) NOT NULL, 
-   msg_tipo       	        		varchar(20)    NOT NULL,
-	indice          					varchar(20)    NOT NULL,
-   objeto_proyecto         		varchar(15)    NOT NULL,
-   objeto                  		varchar(60)    NOT NULL,
-   descripcion_corta            	varchar(50)    NULL,
-   mensaje_a	                  varchar        NULL,
-   mensaje_b	                  varchar        NULL,
-   mensaje_c	                  varchar        NULL,
-   mensaje_customizable          varchar        NULL,
+   	objeto_msg        	     		int4           	DEFAULT nextval('"apex_objeto_msg_seq"'::text) NOT NULL, 
+   	msg_tipo       	        		varchar(20)    	NOT NULL,
+	indice          				varchar(20)    	NOT NULL,
+   	objeto                  		int4	    	NOT NULL,
+   	objeto_proyecto         		varchar(15)    	NOT NULL,
+   	descripcion_corta            	varchar(50)    	NULL,
+   	mensaje_a	             	    varchar        	NULL,
+   	mensaje_b	             	    varchar        	NULL,
+   	mensaje_c	             	    varchar        	NULL,
+   	mensaje_customizable     	    varchar        	NULL,
 	parametro_clase					varchar(100)	NULL,
-   CONSTRAINT  "apex_objeto_msg_pk" PRIMARY KEY ("objeto_msg", "objeto_proyecto"),
+   	CONSTRAINT  "apex_objeto_msg_pk" PRIMARY KEY ("objeto_msg", "objeto_proyecto"),
 --   CONSTRAINT  "apex_objeto_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_objeto_msg_fk_objeto" FOREIGN KEY ("objeto_proyecto","objeto") REFERENCES "apex_objeto" ("proyecto","objeto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-   CONSTRAINT  "apex_objeto_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+   	CONSTRAINT  "apex_objeto_msg_fk_objeto" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto" ("objeto", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_objeto_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

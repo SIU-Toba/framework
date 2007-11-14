@@ -46,14 +46,14 @@ CREATE TABLE apex_molde_operacion
 	molde					integer		 auto_increment  		NOT NULL, 
 	operacion_tipo			integer		NOT NULL,
 	nombre                  	varchar(255) 	NULL,
-	 item integer 		NOT NULL,
+ item varchar(60) NOT NULL ,
 	carpeta_archivos           	varchar(255) 	NOT NULL,
 	prefijo_clases				varchar(30)		NOT NULL,
 	fuente						varchar(20)		NOT NULL,
-	CONSTRAINT   apex_molde_operacion_pk  PRIMARY KEY ( proyecto , molde ),
+	CONSTRAINT   apex_molde_operacion_pk  PRIMARY KEY ( molde ,  proyecto ),
 	CONSTRAINT 	 apex_molde_operacion_item  UNIQUE ( item ),
 	CONSTRAINT	 apex_molde_operacion_proy  FOREIGN	KEY ( proyecto ) REFERENCES  apex_proyecto  ( proyecto )	ON	DELETE NO ACTION ON UPDATE	NO	ACTION   ,
-	CONSTRAINT	 apex_molde_operacion_fk_item  FOREIGN	KEY ( proyecto , item ) REFERENCES	 apex_item 	( proyecto , item ) ON DELETE CASCADE ON UPDATE NO ACTION		 ,
+	CONSTRAINT	 apex_molde_operacion_fk_item  FOREIGN	KEY ( item ,  proyecto ) REFERENCES	 apex_item 	( item ,  proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION		 ,
 	CONSTRAINT   apex_molde_operacion_fk_tipo   FOREIGN KEY ( operacion_tipo ) REFERENCES    apex_molde_operacion_tipo  ( operacion_tipo ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT	 apex_molde_operacion_abms_fk_fuente  FOREIGN KEY	( proyecto , fuente ) REFERENCES  apex_fuente_datos 	( proyecto , fuente_datos ) ON DELETE NO ACTION	ON	UPDATE NO ACTION   
 ) ENGINE=InnoDB;
@@ -65,7 +65,7 @@ CREATE TABLE apex_molde_operacion_log
 	generacion				integer		 auto_increment  		NOT NULL, 
 	momento					 timestamp 	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT   apex_molde_operacion_log_pk  PRIMARY KEY ( generacion ),
-	CONSTRAINT   apex_molde_operacion_log_fk  FOREIGN KEY ( proyecto , molde ) REFERENCES  apex_molde_operacion  ( proyecto , molde ) ON DELETE CASCADE ON UPDATE NO ACTION   
+	CONSTRAINT   apex_molde_operacion_log_fk  FOREIGN KEY ( molde ,  proyecto ) REFERENCES  apex_molde_operacion  ( molde ,  proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_molde_operacion_log_elementos
@@ -101,7 +101,7 @@ CREATE TABLE apex_molde_operacion_abms
 	datos_tabla_validacion				smallint		NULL,
 	apdb_pre							smallint		NULL,	
 	CONSTRAINT   apex_molde_operacion_abms_pk  PRIMARY KEY ( proyecto , molde ),
-	CONSTRAINT   apex_molde_operacion_abms_fk_molde  FOREIGN KEY ( proyecto , molde ) REFERENCES  apex_molde_operacion  ( proyecto , molde ) ON DELETE CASCADE ON UPDATE NO ACTION   
+	CONSTRAINT   apex_molde_operacion_abms_fk_molde  FOREIGN KEY ( molde ,  proyecto ) REFERENCES  apex_molde_operacion  ( molde ,  proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_molde_operacion_abms_fila
@@ -135,9 +135,9 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	ef_carga_tabla						varchar(255)	NULL,
 	ef_carga_col_clave					varchar(255)	NULL,
 	ef_carga_col_desc					varchar(255)	NULL,
-	CONSTRAINT   apex_molde_operacion_abms_fila_pk  PRIMARY KEY ( proyecto , molde , fila ),
+	CONSTRAINT   apex_molde_operacion_abms_fila_pk  PRIMARY KEY ( fila , molde , proyecto ),
 	CONSTRAINT	 apex_molde_operacion_abms_fila_uq  UNIQUE 	( proyecto , molde , columna ),
-	CONSTRAINT   apex_molde_operacion_abms_fila_fk_molde  FOREIGN KEY ( proyecto , molde ) REFERENCES  apex_molde_operacion  ( proyecto , molde ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
+	CONSTRAINT   apex_molde_operacion_abms_fila_fk_molde  FOREIGN KEY ( molde , proyecto ) REFERENCES  apex_molde_operacion  ( molde , proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_molde_operacion_abms_fila  FOREIGN KEY ( asistente_tipo_dato ) REFERENCES  apex_molde_operacion_tipo_dato  ( tipo_dato ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_molde_operacion_abms_fila_fk_ef  FOREIGN KEY ( elemento_formulario ) REFERENCES  apex_elemento_formulario  ( elemento_formulario ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_molde_operacion_abms_fila_fk_estilo  FOREIGN KEY ( cuadro_estilo ) REFERENCES  apex_columna_estilo  ( columna_estilo ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,

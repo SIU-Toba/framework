@@ -7,8 +7,8 @@ CREATE TABLE apex_solicitud
 	solicitud	 			integer		 auto_increment  NOT NULL, 
 	solicitud_tipo				varchar(20)		NOT NULL,
 	item_proyecto				varchar(15)		NOT NULL,
-	 item integer 		NOT NULL,
-   	item_id					integer       	NULL, 
+ item varchar(60) NOT NULL ,
+    item_id integer NULL, 
 	momento					 timestamp 	DEFAULT current_timestamp NOT NULL,
 	tiempo_respuesta			float			NULL,
 	CONSTRAINT	 apex_log_sol_pk  PRIMARY KEY ( solicitud ,  proyecto )
@@ -36,8 +36,8 @@ CREATE TABLE apex_solicitud_browser
 	solicitud_browser		integer		NOT NULL, 
 	ip							varchar(20)		NULL,
 	CONSTRAINT	 apex_sol_brw_pk  PRIMARY KEY ( solicitud_proyecto ,  solicitud_browser ),
-	CONSTRAINT	 apex_sol_brw_fk_sol  FOREIGN KEY ( solicitud_proyecto ,  solicitud_browser ) REFERENCES  apex_solicitud  ( proyecto ,  solicitud ) ON DELETE CASCADE ON UPDATE CASCADE    ,
-	CONSTRAINT	 apex_sol_brw_fk_sesion  FOREIGN KEY ( proyecto , sesion_browser ) REFERENCES  apex_sesion_browser  ( proyecto , sesion_browser ) ON DELETE CASCADE ON UPDATE CASCADE   
+	CONSTRAINT	 apex_sol_brw_fk_sol  FOREIGN KEY ( solicitud_browser ,  solicitud_proyecto ) REFERENCES  apex_solicitud  ( solicitud ,  proyecto ) ON DELETE CASCADE ON UPDATE CASCADE    ,
+	CONSTRAINT	 apex_sol_brw_fk_sesion  FOREIGN KEY ( sesion_browser , proyecto ) REFERENCES  apex_sesion_browser  ( sesion_browser , proyecto ) ON DELETE CASCADE ON UPDATE CASCADE   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_solicitud_consola
@@ -48,8 +48,8 @@ CREATE TABLE apex_solicitud_consola
 	ip							varchar(20)			NULL,
 	llamada						text				NULL,
 	entorno						text				NULL,
-	CONSTRAINT	 apex_sol_consola_pk  PRIMARY KEY ( proyecto ,  solicitud_consola ),
-	CONSTRAINT	 apex_sol_consola_fk_sol  FOREIGN KEY ( proyecto ,  solicitud_consola ) REFERENCES  apex_solicitud  ( proyecto ,  solicitud ) ON DELETE CASCADE ON UPDATE CASCADE    
+	CONSTRAINT	 apex_sol_consola_pk  PRIMARY KEY ( solicitud_consola ,  proyecto ),
+	CONSTRAINT	 apex_sol_consola_fk_sol  FOREIGN KEY ( solicitud_consola ,  proyecto ) REFERENCES  apex_solicitud  ( solicitud ,  proyecto ) ON DELETE CASCADE ON UPDATE CASCADE    
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_solicitud_cronometro
@@ -60,8 +60,8 @@ CREATE TABLE apex_solicitud_cronometro
 	nivel_ejecucion				varchar(15)			NOT NULL,
 	texto						varchar(120)		NULL,
 	tiempo						float				NULL,
-	CONSTRAINT	 apex_sol_cron_pk  PRIMARY KEY ( proyecto ,  solicitud , marca ),
-	CONSTRAINT	 apex_sol_cron_fk_sol  FOREIGN KEY ( proyecto ,  solicitud ) REFERENCES  apex_solicitud  ( proyecto ,  solicitud ) ON DELETE CASCADE ON UPDATE CASCADE    
+	CONSTRAINT	 apex_sol_cron_pk  PRIMARY KEY ( solicitud ,  proyecto , marca ),
+	CONSTRAINT	 apex_sol_cron_fk_sol  FOREIGN KEY ( solicitud ,  proyecto ) REFERENCES  apex_solicitud  ( solicitud ,  proyecto ) ON DELETE CASCADE ON UPDATE CASCADE    
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_solicitud_observacion
@@ -73,7 +73,7 @@ CREATE TABLE apex_solicitud_observacion
 	solicitud_obs_tipo				varchar(20)			NULL,
 	observacion						text				NULL,
 	CONSTRAINT	 apex_sol_obs_pk  PRIMARY KEY ( solicitud_observacion ),
-	CONSTRAINT	 apex_sol_obs_fk_sol  FOREIGN KEY ( proyecto ,  solicitud ) REFERENCES  apex_solicitud  ( proyecto ,  solicitud ) ON DELETE CASCADE ON UPDATE CASCADE    
+	CONSTRAINT	 apex_sol_obs_fk_sol  FOREIGN KEY ( solicitud ,  proyecto ) REFERENCES  apex_solicitud  ( solicitud ,  proyecto ) ON DELETE CASCADE ON UPDATE CASCADE    
 ) ENGINE=InnoDB;
 
 
@@ -93,7 +93,7 @@ CREATE TABLE apex_log_error_login
 	momento					 timestamp 	DEFAULT current_timestamp NOT NULL,
 	usuario						text 			NULL,
 	clave						text		 		NULL,
-	ip							text				NULL,
+	ip							varchar(100)				NULL,
 	gravedad					smallint			NULL,
 	mensaje						text				NULL,
 	punto_acceso				text		 		NULL,
@@ -102,7 +102,7 @@ CREATE TABLE apex_log_error_login
 
 CREATE TABLE apex_log_ip_rechazada
 (
-	ip							text													NOT NULL,
+	ip							varchar(255)											NOT NULL,
 	momento					 timestamp 	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT	 apex_ip_rechazada_pk  PRIMARY KEY ( ip )
 ) ENGINE=InnoDB;

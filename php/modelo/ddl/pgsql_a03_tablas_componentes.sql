@@ -224,8 +224,8 @@ CREATE TABLE apex_objeto
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	proyecto							varchar(15)		NOT NULL,
 	objeto								int4			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 
+	proyecto							varchar(15)		NOT NULL,
 	anterior							varchar(20)		NULL,
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,
@@ -377,9 +377,9 @@ CREATE TABLE apex_ptos_control_x_evento
   evento_id                	INTEGER     NOT NULL,
   objeto					int4		NOT NULL,
   CONSTRAINT "apex_ptos_ctrl_x_evt__pk" PRIMARY KEY("proyecto", "pto_control", "evento_id"),
-  CONSTRAINT "apex_proyecto_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "public"."apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "public"."apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE, 
-  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_evento" FOREIGN KEY ("proyecto", "evento_id") REFERENCES "public"."apex_objeto_eventos"("proyecto", "evento_id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT "apex_proyecto_fk_ptos_ctrl" FOREIGN KEY ("proyecto", "pto_control") REFERENCES "apex_ptos_control"("proyecto", "pto_control") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_proyecto" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto"("proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE, 
+  CONSTRAINT "apex_ptos_ctrl_x_evt_fk_evento" FOREIGN KEY ("evento_id", "proyecto") REFERENCES "apex_objeto_eventos"("evento_id", "proyecto") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################

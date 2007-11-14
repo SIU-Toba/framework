@@ -76,8 +76,8 @@ CREATE TABLE apex_solicitud_browser
 	solicitud_browser			int4			NOT NULL, 
 	ip							varchar(20)		NULL,
 	CONSTRAINT	"apex_sol_brw_pk" PRIMARY KEY ("solicitud_proyecto", "solicitud_browser"),
-	CONSTRAINT	"apex_sol_brw_fk_sol" FOREIGN KEY ("solicitud_proyecto", "solicitud_browser") REFERENCES "apex_solicitud" ("proyecto", "solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_sol_brw_fk_sesion" FOREIGN KEY ("proyecto","sesion_browser") REFERENCES "apex_sesion_browser" ("proyecto","sesion_browser") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_brw_fk_sol" FOREIGN KEY ("solicitud_browser", "solicitud_proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_sol_brw_fk_sesion" FOREIGN KEY ("sesion_browser","proyecto") REFERENCES "apex_sesion_browser" ("sesion_browser","proyecto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -98,8 +98,8 @@ CREATE TABLE apex_solicitud_consola
 	ip							varchar(20)			NULL,
 	llamada						varchar				NULL,
 	entorno						text				NULL,
-	CONSTRAINT	"apex_sol_consola_pk" PRIMARY KEY ("proyecto", "solicitud_consola"),
-	CONSTRAINT	"apex_sol_consola_fk_sol" FOREIGN KEY ("proyecto", "solicitud_consola") REFERENCES "apex_solicitud" ("proyecto", "solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_consola_pk" PRIMARY KEY ("solicitud_consola", "proyecto"),
+	CONSTRAINT	"apex_sol_consola_fk_sol" FOREIGN KEY ("solicitud_consola", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -120,8 +120,8 @@ CREATE TABLE apex_solicitud_cronometro
 	nivel_ejecucion				varchar(15)			NOT NULL,
 	texto						varchar(120)		NULL,
 	tiempo						float				NULL,
-	CONSTRAINT	"apex_sol_cron_pk" PRIMARY KEY ("proyecto", "solicitud","marca"),
-	CONSTRAINT	"apex_sol_cron_fk_sol" FOREIGN KEY ("proyecto", "solicitud") REFERENCES "apex_solicitud" ("proyecto", "solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_cron_pk" PRIMARY KEY ("solicitud", "proyecto","marca"),
+	CONSTRAINT	"apex_sol_cron_fk_sol" FOREIGN KEY ("solicitud", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
 
@@ -145,7 +145,7 @@ CREATE TABLE apex_solicitud_observacion
 	observacion						varchar				NULL,
 	CONSTRAINT	"apex_sol_obs_pk" PRIMARY KEY ("solicitud_observacion"),
 	--CONSTRAINT	"apex_sol_obs_fk_sol_ot" FOREIGN KEY ("solicitud_obs_tipo_proyecto","solicitud_obs_tipo") REFERENCES "apex_solicitud_obs_tipo" ("proyecto","solicitud_obs_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_sol_obs_fk_sol" FOREIGN KEY ("proyecto", "solicitud") REFERENCES "apex_solicitud" ("proyecto", "solicitud") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_sol_obs_fk_sol" FOREIGN KEY ("solicitud", "proyecto") REFERENCES "apex_solicitud" ("solicitud", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --##################################################################################################
@@ -192,7 +192,7 @@ CREATE TABLE apex_log_error_login
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	usuario						varchar 			NULL,
 	clave						varchar		 		NULL,
-	ip							varchar				NULL,
+	ip							varchar(100)				NULL,
 	gravedad					smallint			NULL,
 	mensaje						text				NULL,
 	punto_acceso				varchar		 		NULL,
@@ -211,7 +211,7 @@ CREATE TABLE apex_log_ip_rechazada
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	ip							varchar													NOT NULL,
+	ip							varchar(255)											NOT NULL,
 	momento						timestamp(0) without time zone	DEFAULT current_timestamp NOT NULL,
 	CONSTRAINT	"apex_ip_rechazada_pk" PRIMARY KEY ("ip")
 );

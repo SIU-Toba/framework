@@ -35,8 +35,8 @@ nosql                    	text     	NULL,
 	cc_modo_anidado_colap		smallint		NULL,		
 	cc_modo_anidado_totcol		smallint		NULL,		
 	cc_modo_anidado_totcua		smallint		NULL,		
-	CONSTRAINT   apex_objeto_cuadro_pk  PRIMARY KEY ( objeto_cuadro_proyecto , objeto_cuadro ),
-	CONSTRAINT   apex_objeto_cuadro_fk_objeto   FOREIGN KEY ( objeto_cuadro_proyecto , objeto_cuadro ) REFERENCES    apex_objeto  ( proyecto , objeto ) ON DELETE CASCADE ON UPDATE NO ACTION   
+	CONSTRAINT   apex_objeto_cuadro_pk  PRIMARY KEY ( objeto_cuadro ,  objeto_cuadro_proyecto ),
+	CONSTRAINT   apex_objeto_cuadro_fk_objeto   FOREIGN KEY ( objeto_cuadro ,  objeto_cuadro_proyecto ) REFERENCES    apex_objeto  ( objeto ,  proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_objeto_cuadro_cc
@@ -54,9 +54,9 @@ CREATE TABLE apex_objeto_cuadro_cc
 	pie_mostrar_titulos				smallint		NULL,			
 	imp_paginar						smallint		NULL,		
 	modo_inicio_colapsado			smallint		NULL DEFAULT 0,			
-	CONSTRAINT   apex_obj_cuadro_cc_pk  PRIMARY KEY ( objeto_cuadro_proyecto , objeto_cuadro , objeto_cuadro_cc ),
+	CONSTRAINT   apex_obj_cuadro_cc_pk  PRIMARY KEY ( objeto_cuadro_cc ,  objeto_cuadro_proyecto , objeto_cuadro ),
 	CONSTRAINT   apex_obj_cuadro_cc_uq  UNIQUE ( objeto_cuadro_proyecto , objeto_cuadro , identificador ),
-	CONSTRAINT   apex_obj_cuadro_cc_fk_objeto_cuadro  FOREIGN KEY ( objeto_cuadro_proyecto , objeto_cuadro ) REFERENCES  apex_objeto_cuadro  ( objeto_cuadro_proyecto , objeto_cuadro ) ON DELETE CASCADE ON UPDATE NO ACTION   
+	CONSTRAINT   apex_obj_cuadro_cc_fk_objeto_cuadro  FOREIGN KEY ( objeto_cuadro ,  objeto_cuadro_proyecto ) REFERENCES  apex_objeto_cuadro  ( objeto_cuadro ,  objeto_cuadro_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 CREATE TABLE apex_objeto_ei_cuadro_columna
@@ -81,13 +81,13 @@ CREATE TABLE apex_objeto_ei_cuadro_columna
 	total_cc						varchar(100)	NULL,			
 	usar_vinculo					smallint			NULL,
 	vinculo_carpeta					varchar(60)			NULL,
-	vinculo_ item integer 			NULL,
+	vinculo_item					varchar(60)			NULL,
 	vinculo_popup					smallint			NULL,
 	vinculo_popup_param				varchar(100)		NULL,
 	vinculo_target					varchar(40)			NULL,
 	vinculo_celda					varchar(40)			NULL,
-	CONSTRAINT   apex_obj_ei_cuadro_pk  PRIMARY KEY ( objeto_cuadro_proyecto , objeto_cuadro , objeto_cuadro_col ),
-	CONSTRAINT   apex_obj_ei_cuadro_fk_objeto_cuadro  FOREIGN KEY ( objeto_cuadro_proyecto , objeto_cuadro ) REFERENCES  apex_objeto_cuadro  ( objeto_cuadro_proyecto , objeto_cuadro ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
+	CONSTRAINT   apex_obj_ei_cuadro_pk  PRIMARY KEY ( objeto_cuadro_col ,  objeto_cuadro ,  objeto_cuadro_proyecto ),
+	CONSTRAINT   apex_obj_ei_cuadro_fk_objeto_cuadro  FOREIGN KEY ( objeto_cuadro ,  objeto_cuadro_proyecto ) REFERENCES  apex_objeto_cuadro  ( objeto_cuadro ,  objeto_cuadro_proyecto ) ON DELETE CASCADE ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_obj_ei_cuadro_fk_formato  FOREIGN KEY ( formateo ) REFERENCES  apex_columna_formato  ( columna_formato ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
 	CONSTRAINT   apex_obj_ei_cuadro_fk_estilo  FOREIGN KEY ( estilo ) REFERENCES  apex_columna_estilo  ( columna_estilo ) ON DELETE NO ACTION ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;

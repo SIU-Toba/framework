@@ -76,8 +76,8 @@ CREATE TABLE apex_usuario_grupo_acc_item
 (
 	proyecto								varchar(15)		NOT NULL,
 	usuario_grupo_acc					varchar(30)		NOT NULL,
-	item_id							integer			NULL,	
-	 item integer 		NOT NULL,
+ item_id integer NULL,	
+ item varchar(60) NOT NULL ,
 	CONSTRAINT	 apex_usu_item_pk  PRIMARY	KEY ( proyecto , usuario_grupo_acc , item ),
 	CONSTRAINT	 apex_usu_item_fk_us_gru_acc 	FOREIGN KEY	( proyecto , usuario_grupo_acc )	REFERENCES  apex_usuario_grupo_acc 	( proyecto , usuario_grupo_acc )	ON	DELETE CASCADE ON UPDATE CASCADE   
 ) ENGINE=InnoDB;

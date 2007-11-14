@@ -30,9 +30,9 @@ CREATE TABLE apex_item_nota
 (  
 	item_nota           		  integer           auto_increment  NOT NULL, 
    	nota_tipo           		   varchar(20)    NOT NULL,
-   	item_id   					integer       	NULL, 
+    item_id integer NULL, 
    	item_proyecto       		   varchar(15)    NOT NULL,
-   	 item integer     NOT NULL,
+    item varchar(60) NOT NULL ,
    	usuario_origen      		   varchar(20)    NULL,
    	usuario_destino     		   varchar(20)    NULL, 
    	titulo              		   varchar(50)    NULL,

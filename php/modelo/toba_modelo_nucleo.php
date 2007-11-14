@@ -321,8 +321,6 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$renglon = preg_replace("/\Wint4\W/","integer",$renglon);
 			//Cambio las secuencias
 			$renglon = preg_replace("/default\s*nextval\s*\(.*\)/i"," auto_increment ",$renglon);
-			//Tipos de datos
-			$renglon = preg_replace("/\Wint4\W/"," integer ",$renglon);
 
 
 			//fatan las enumeraciones
@@ -331,11 +329,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 
 			//No se puede llamar "sql" a una columna
 			$renglon = preg_replace("/\Wsql\W/","nosql",$renglon);
-			$renglon = preg_replace("/item\s*varchar\(60\)/"," item integer ",$renglon);
-
-			
-			
-			
+			$renglon = preg_replace("/\Witem\s*varchar\(60\).*NOT NULL/"," item varchar(60) NOT NULL ",$renglon);
+			$renglon = preg_replace("/\Witem_id\s*integer.*NULL/"," item_id integer NULL",$renglon);
 			$sql .= $renglon;
 		}
 		return $sql;

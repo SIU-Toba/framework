@@ -16,8 +16,9 @@ CREATE TABLE apex_item_zona
 
 CREATE TABLE apex_item
 (	
+ item_id integer NULL,
 	proyecto						varchar(15)		NOT NULL,
-	 item integer 		 auto_increment  NOT NULL,
+ item varchar(60) NOT NULL ,
 	padre_id					integer		NULL,	
 	padre_proyecto					varchar(15)		NOT NULL,
 	padre							varchar(60)		NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE apex_item
 	creacion					 timestamp 	DEFAULT current_timestamp NULL,
 	CONSTRAINT	 apex_item_pk 	PRIMARY KEY	( item ,  proyecto ),
 	CONSTRAINT	 apex_item_fk_proyecto 	FOREIGN KEY	( proyecto ) REFERENCES	 apex_proyecto  ( proyecto ) ON DELETE	NO	ACTION ON UPDATE NO ACTION		 ,
-	CONSTRAINT	 apex_item_fk_padre 	FOREIGN KEY	( padre_proyecto , padre )	REFERENCES  apex_item  ( item, proyecto ) ON DELETE NO ACTION	ON	UPDATE NO ACTION  	,
+	CONSTRAINT	 apex_item_fk_padre 	FOREIGN KEY	( padre_proyecto , padre )	REFERENCES  apex_item  ( proyecto , item ) ON DELETE NO ACTION	ON	UPDATE NO ACTION  	,
 	CONSTRAINT	 apex_item_fk_solic_tipo  FOREIGN KEY ( solicitud_tipo )	REFERENCES  apex_solicitud_tipo 	( solicitud_tipo ) ON DELETE NO ACTION	ON	UPDATE NO ACTION  	,
 	CONSTRAINT	 apex_item_fk_solic_ot 	FOREIGN KEY	( solicitud_obs_tipo_proyecto , solicitud_obs_tipo ) REFERENCES  apex_solicitud_obs_tipo 	( proyecto , solicitud_obs_tipo ) ON DELETE NO ACTION	ON	UPDATE NO ACTION  	,
 	CONSTRAINT	 apex_item_fk_niv_acc  FOREIGN KEY ( nivel_acceso ) REFERENCES	 apex_nivel_acceso  ( nivel_acceso ) ON DELETE NO ACTION	ON	UPDATE NO ACTION  	,
@@ -68,9 +69,9 @@ CREATE TABLE apex_item
 
 CREATE TABLE apex_item_info
 (	
-	item_id						integer			NULL,	
+ item_id integer NULL,	
 	item_proyecto					varchar(15)		NOT NULL,
-	 item integer 		NOT NULL,
+ item varchar(60) NOT NULL ,
 	descripcion_breve				varchar(255)	NULL,
 	descripcion_larga				text				NULL,
 	CONSTRAINT	 apex_item_info_pk 	 PRIMARY	KEY ( item_proyecto , item ),
@@ -98,7 +99,7 @@ CREATE TABLE apex_clase
 	icono							varchar(60)		NOT NULL, 		
 	descripcion_corta				varchar(40)		NULL,			
 	editor_proyecto					varchar(15)		NOT NULL,
-	editor_ item integer 		NOT NULL,			
+	editor_item						varchar(60)		NOT NULL,			
 	objeto_dr_proyecto				varchar(15)		NOT NULL,		
 	objeto_dr					integer		NOT NULL,		
 	utiliza_fuente_datos		integer		NULL,
@@ -107,7 +108,7 @@ CREATE TABLE apex_clase
 	ancestro						varchar(60)		NULL,
 	instanciador_id				integer		NULL,	
 	instanciador_proyecto			varchar(15)		NULL,
-	instanciador_ item integer 		NULL,			
+	instanciador_item				varchar(60)		NULL,			
 	editor_id					integer		NULL,	
 	editor_ancestro_proyecto		varchar(15)		NULL,			
 	editor_ancestro					varchar(60)		NULL,
@@ -141,8 +142,8 @@ CREATE TABLE apex_clase_relacion
 
 CREATE TABLE apex_objeto
 (
-	proyecto							varchar(15)		NOT NULL,
 	objeto							integer		 auto_increment  NOT NULL, 
+	proyecto							varchar(15)		NOT NULL,
 	anterior							varchar(20)		NULL,
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,
@@ -226,7 +227,7 @@ CREATE TABLE apex_objeto_eventos
 	accion								varchar(1)			NULL,
 	accion_imphtml_debug				smallint			NULL,
 	accion_vinculo_carpeta				varchar(60)			NULL,
-	accion_vinculo_ item integer 			NULL,
+	accion_vinculo_item					varchar(60)			NULL,
 	accion_vinculo_objeto			integer			NULL,
 	accion_vinculo_popup				smallint			NULL,
 	accion_vinculo_popup_param			varchar(100)		NULL,
@@ -245,17 +246,17 @@ CREATE TABLE apex_ptos_control_x_evento
   evento_id                	INTEGER     NOT NULL,
   objeto				integer	NOT NULL,
   CONSTRAINT  apex_ptos_ctrl_x_evt__pk  PRIMARY KEY( proyecto ,  pto_control ,  evento_id ),
-  CONSTRAINT  apex_proyecto_fk_ptos_ctrl  FOREIGN KEY ( proyecto ,  pto_control ) REFERENCES  public . apex_ptos_control ( proyecto ,  pto_control ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
-  CONSTRAINT  apex_ptos_ctrl_x_evt_fk_proyecto  FOREIGN KEY ( proyecto ) REFERENCES  public . apex_proyecto ( proyecto ) ON DELETE NO ACTION ON UPDATE NO ACTION   , 
-  CONSTRAINT  apex_ptos_ctrl_x_evt_fk_evento  FOREIGN KEY ( proyecto ,  evento_id ) REFERENCES  public . apex_objeto_eventos ( proyecto ,  evento_id ) ON DELETE NO ACTION ON UPDATE NO ACTION   
+  CONSTRAINT  apex_proyecto_fk_ptos_ctrl  FOREIGN KEY ( proyecto ,  pto_control ) REFERENCES  apex_ptos_control ( proyecto ,  pto_control ) ON DELETE NO ACTION ON UPDATE NO ACTION   ,
+  CONSTRAINT  apex_ptos_ctrl_x_evt_fk_proyecto  FOREIGN KEY ( proyecto ) REFERENCES  apex_proyecto ( proyecto ) ON DELETE NO ACTION ON UPDATE NO ACTION   , 
+  CONSTRAINT  apex_ptos_ctrl_x_evt_fk_evento  FOREIGN KEY ( evento_id ,  proyecto ) REFERENCES  apex_objeto_eventos ( evento_id ,  proyecto ) ON DELETE NO ACTION ON UPDATE NO ACTION   
 ) ENGINE=InnoDB;
 
 
 CREATE TABLE apex_item_objeto
 (
-	item_id							integer		NULL,	
+ item_id integer NULL,	
 	proyecto							varchar(15)		NOT NULL,
-	 item integer 		NOT NULL,
+ item varchar(60) NOT NULL ,
 	objeto							integer		NOT NULL,
 	orden								smallint		NOT NULL,
 	inicializar							smallint		NULL,
@@ -271,7 +272,7 @@ CREATE TABLE apex_log_objeto
 	usuario								varchar(60) 	NULL,
 	objeto_proyecto          			varchar(15)  	NOT NULL,
 	objeto							integer		NULL,
-	 item integer 		NULL,
+	item								varchar(60)		NULL,
 	observacion							text			NULL,
 	CONSTRAINT	 apex_log_objeto_pk  PRIMARY KEY ( log_objeto )
 ) ENGINE=InnoDB;
