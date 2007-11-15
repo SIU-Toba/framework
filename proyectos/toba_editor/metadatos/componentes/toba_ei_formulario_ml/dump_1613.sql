@@ -340,13 +340,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'Contar filas', --etiqueta
 	NULL, --etiqueta_estilo
 	'Agrega una cuenta de filas al final del grupo.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -382,8 +382,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --fieldset_fin
 	'1', --check_valor_si
 	'0', --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -409,14 +409,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'6', --orden
 	'Tit. Col.', --etiqueta
 	NULL, --etiqueta_estilo
-	'Cenera una cabecera del grupo para el PIE.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Agrega los títulos de las columnas a los pies que contienen los totales.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -452,8 +452,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --fieldset_fin
 	'1', --check_valor_si
 	'0', --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -619,14 +619,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	'7', --orden
 	'Cab. Pie', --etiqueta
 	NULL, --etiqueta_estilo
-	'Agrega los titulos de las columnas a los totales.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Cenera una cabecera del grupo para el PIE.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -661,9 +661,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_proyecto, objeto_
 	NULL, --popup_carga_desc_include
 	NULL, --fieldset_fin
 	'1', --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
+	'0', --check_valor_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto

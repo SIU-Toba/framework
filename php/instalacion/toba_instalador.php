@@ -125,6 +125,14 @@ class toba_instalador
 		$instalacion = $this->get_instalacion();
 		foreach ($instalacion->get_lista_instancias() as $id_inst) {
 			$instancia = $instalacion->get_instancia($id_inst);
+			//-- Aprovecha a desinstalar los proyectos propios de toba de las instancias
+			$instancia = $this->get_instancia($id_inst);
+			foreach ($instancia->get_lista_proyectos_vinculados() as $id_proy) {
+				$proy_propios = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
+				if (in_array($id_proy, $proy_propios)) {
+					$instancia->get_proyecto($id_proy)->desinstalar();
+				}
+			}
 			$instancia->eliminar_base();
 		}		
 	}	
@@ -289,6 +297,7 @@ class toba_instalador
 		foreach ($instalacion->get_lista_instancias() as $id_instancia) {
 			$instancia = $this->get_instancia($id_instancia);
 			if ($instancia->existe_proyecto_vinculado($proy_id)) {
+				$instancia->get_proyecto($proy_id)->despublicar();
 				$instancia->eliminar_proyecto($proy_id, $desinstalar);
 			}
 		}
