@@ -369,6 +369,10 @@ padding-left:4px;
 .ei-cuadro-pag {
 	 text-align: center;
 }
+.ei-cuadro-pag-total {
+	display:none;
+	font-size:8px;
+}
 .ei-cuadro-orden {
 	float: right;
 }
