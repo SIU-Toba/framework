@@ -23,6 +23,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_eventos_granulares=false;		//¿Se lanzan eventos a-b-m o uno solo modificacion?
 	protected $_ordenes = array();				//Ordenes de las claves de los datos recibidos
 	protected $_ordenar_en_linea = false;
+	protected $_borrar_en_linea = false;	
+	protected $_modo_agregar = array(false, null);
 	protected $_registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
 	protected $_id_fila_actual;					//¿Que fila se esta procesando actualmente?
 	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
@@ -93,6 +95,25 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$this->_ordenar_en_linea = $en_linea;
 	}
+	
+	/**
+	 * Cambia la forma gráfica de la eliminación de una fila, se situa al lado de la misma o en la parte superior
+	 * @param boolean $en_linea
+	 */	
+	function set_borrar_en_linea($en_linea)
+	{
+		$this->_borrar_en_linea = $en_linea;
+	}
+	
+	/**
+	 * Cambia la forma gráfica de la creación de una fila, se situa en la parte inferior o en la superior
+	 * @param boolean $es_inferior Muestra el botón de agregar bajo el conjunto de filas
+	 * @param string $texto_a_mostrar Cadena a mostrar al lado del icono de agregar
+	 */
+	function set_modo_agregar($es_inferior, $texto_a_mostrar=null)
+	{
+		$this->_modo_agregar = array($es_inferior, $texto_a_mostrar);
+	}	
 	
 	/**
 	 * Deja al formulario sin selección alguna de fila
@@ -676,6 +697,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		            echo "</th>\n";
 				}
 			}		
+			if ($this->_info_formulario['filas_agregar'] && $this->_borrar_en_linea) {
+				echo "<th class='ei-ml-columna'>\n";
+				echo "</th>\n";				
+			}
 			echo "</tr>\n";
 			echo "</thead>\n";
 		}
@@ -738,6 +763,21 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			echo "</tr>\n";
 		}		
 		echo "<tr><td colspan='$colspan'>\n";
+		
+		//--- Botón agregar
+		$agregar = $this->_info_formulario['filas_agregar'];
+		$ordenar = $this->_info_formulario['filas_ordenar'];
+		if ($this->_info_formulario['filas_agregar'] && $this->_modo_agregar[0]) {
+			$img = toba_recurso::imagen_toba('nucleo/agregar.gif', false);
+			$texto = "<img src='$img' style='vertical-align: middle;' />";
+			if ($this->_modo_agregar[1] != '') {
+				$texto .= ' '.$this->_modo_agregar[1];
+			}
+			echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
+											"onclick='{$this->objeto_js}.crear_fila();'", 
+											$this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
+		}		
+		
 		$this->generar_botones();
 		echo "</td></tr>\n";
 		echo "</tfoot>\n";			
@@ -801,6 +841,16 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}			
 			//--Creo los EVENTOS de la FILA
 			$this->generar_eventos_fila($fila);			
+
+			//-- Borrar a nivel de fila
+			if ($this->_info_formulario['filas_agregar'] && $this->_borrar_en_linea) {
+				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-borrar'>";
+				echo toba_form::button_html("{$this->objeto_js}_eliminar$fila", toba_recurso::imagen_toba('borrar.gif', true), 
+										"onclick='{$this->objeto_js}.seleccionar($fila);{$this->objeto_js}.eliminar_seleccionada();'", 
+										$this->_rango_tabs[0]++, null, 'Elimina la fila');
+				echo "</td>\n";									
+			}
+			
 			echo "</tr>\n";
 			$a++;
 		}
@@ -862,7 +912,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 			}
         	echo "</td>\n";
-		}		
+		}	
 	}
 	
 	/**
@@ -870,19 +920,30 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_botonera_manejo_filas()
 	{
-		$agregar = $this->_info_formulario['filas_agregar'];
+		$agregar = $this->_info_formulario['filas_agregar'] && (!$this->_modo_agregar[0] || !$this->_borrar_en_linea);
 		$ordenar = $this->_info_formulario['filas_ordenar'];
 		if ($agregar || ($ordenar && !$this->_ordenar_en_linea)) {
 			echo "<div class='ei-ml-botonera'>";
 			if ($agregar) {
-				echo toba_form::button_html("{$this->objeto_js}_agregar", toba_recurso::imagen_toba('nucleo/agregar.gif', true), 
-										"onclick='{$this->objeto_js}.crear_fila();'", $this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
-				echo toba_form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_toba('nucleo/borrar.gif', true), 
-										"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->_rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
-				$html = toba_recurso::imagen_toba('nucleo/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
-				echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
-										" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');
+				if (! $this->_modo_agregar[0]) {
+					$img = toba_recurso::imagen_toba('nucleo/agregar.gif', false);
+					if ($this->_modo_agregar[1] != '') {
+						$texto = "<img src='$img' style='vertical-align: middle;' /> ".$this->_modo_agregar[1];
+					} else {
+						$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
+					}
+					echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
+											"onclick='{$this->objeto_js}.crear_fila();'", $this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
+				}
+				if (! $this->_borrar_en_linea) {
+					echo toba_form::button_html("{$this->objeto_js}_eliminar", toba_recurso::imagen_toba('nucleo/borrar.gif', true), 
+											"onclick='{$this->objeto_js}.eliminar_seleccionada();' disabled", $this->_rango_tabs[0]++, '-', 'Elimina la fila seleccionada');
+					$html = toba_recurso::imagen_toba('nucleo/deshacer.gif', true)."<span id='{$this->objeto_js}_deshacer_cant'  style='font-size: 8px;'></span>";
+					echo toba_form::button_html("{$this->objeto_js}_deshacer", $html, 
+											" onclick='{$this->objeto_js}.deshacer();' disabled", $this->_rango_tabs[0]++, 'z', 'Deshace la última eliminación');
+				}
 				echo "&nbsp;";
+				
 			}
 			if ($ordenar && !$this->_ordenar_en_linea) {
 				echo toba_form::button_html("{$this->objeto_js}_subir", toba_recurso::imagen_toba('nucleo/orden_subir.gif', true), 
