@@ -74,7 +74,7 @@ CREATE TABLE apex_item_msg
 	parametro_patron					varchar(100)	NULL,
    CONSTRAINT  "apex_item_msg_pk"   PRIMARY KEY ("item_msg","item_proyecto"),
    CONSTRAINT  "apex_item_msg_uk" UNIQUE ("indice"),
-   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item", "item_proyecto") REFERENCES "apex_item" ("item", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   CONSTRAINT  "apex_item_msg_fk_item" FOREIGN KEY ("item", "item_proyecto") REFERENCES "apex_item" ("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
    CONSTRAINT  "apex_item_msg_fk_tipo" FOREIGN KEY ("msg_tipo") REFERENCES "apex_msg_tipo" ("msg_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################

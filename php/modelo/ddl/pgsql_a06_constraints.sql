@@ -13,7 +13,7 @@
 	FOREIGN KEY	("proyecto","item") 
 	REFERENCES "apex_item" ("proyecto","item")	
 	ON	DELETE CASCADE 
-	ON UPDATE	NO	ACTION 
+	ON UPDATE	CASCADE 
 	DEFERRABLE 
 	INITIALLY 
 	IMMEDIATE;

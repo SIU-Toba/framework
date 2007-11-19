@@ -30,7 +30,7 @@ CREATE TABLE apex_solicitud
 	tiempo_respuesta			float			NULL,
 	CONSTRAINT	"apex_log_sol_pk" PRIMARY KEY ("solicitud", "proyecto")
 	--CONSTRAINT	"apex_log_sol_fk_proy" FOREIGN KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-	--CONSTRAINT	"apex_log_sol_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	--CONSTRAINT	"apex_log_sol_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
 	--CONSTRAINT	"apex_log_sol_fk_tipo" FOREIGN KEY ("solicitud_tipo") REFERENCES "apex_solicitud_tipo" ("solicitud_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

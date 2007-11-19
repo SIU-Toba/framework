@@ -79,7 +79,7 @@ CREATE TABLE apex_item_nota
    	CONSTRAINT  "apex_item_nota_pk"   PRIMARY KEY ("item_nota"),
    	CONSTRAINT  "apex_item_nota_fk_usuo" FOREIGN KEY ("usuario_origen") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
    	CONSTRAINT  "apex_item_nota_fk_usud" FOREIGN KEY ("usuario_destino") REFERENCES "apex_usuario" ("usuario") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
-   	CONSTRAINT  "apex_item_nota_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+   	CONSTRAINT  "apex_item_nota_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE,
    	CONSTRAINT  "apex_item_nota_fk_tipo" FOREIGN KEY ("nota_tipo") REFERENCES "apex_nota_tipo" ("nota_tipo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
