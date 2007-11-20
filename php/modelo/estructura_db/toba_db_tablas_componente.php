@@ -369,8 +369,8 @@ class toba_db_tablas_componente
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto',
-    1 => 'proyecto',
+    0 => 'proyecto',
+    1 => 'objeto',
     2 => 'anterior',
     3 => 'reflexivo',
     4 => 'clase_proyecto',

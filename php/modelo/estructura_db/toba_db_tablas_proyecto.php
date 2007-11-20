@@ -643,8 +643,8 @@ class toba_db_tablas_proyecto
   'columnas' => 
   array (
     0 => 'msg',
-    1 => 'proyecto',
-    2 => 'indice',
+    1 => 'indice',
+    2 => 'proyecto',
     3 => 'msg_tipo',
     4 => 'descripcion_corta',
     5 => 'mensaje_a',
@@ -700,8 +700,8 @@ class toba_db_tablas_proyecto
     0 => 'objeto_msg',
     1 => 'msg_tipo',
     2 => 'indice',
-    3 => 'objeto',
-    4 => 'objeto_proyecto',
+    3 => 'objeto_proyecto',
+    4 => 'objeto',
     5 => 'descripcion_corta',
     6 => 'mensaje_a',
     7 => 'mensaje_b',

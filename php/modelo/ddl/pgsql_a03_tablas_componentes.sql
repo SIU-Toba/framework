@@ -224,8 +224,8 @@ CREATE TABLE apex_objeto
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (
-	objeto								int4			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 
 	proyecto							varchar(15)		NOT NULL,
+	objeto								int4			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 	
 	anterior							varchar(20)		NULL,
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,

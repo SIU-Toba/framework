@@ -648,8 +648,8 @@ class toba_db_tablas_nucleo
   'columnas' => 
   array (
     0 => 'msg',
-    1 => 'proyecto',
-    2 => 'indice',
+    1 => 'indice',
+    2 => 'proyecto',
     3 => 'msg_tipo',
     4 => 'descripcion_corta',
     5 => 'mensaje_a',
