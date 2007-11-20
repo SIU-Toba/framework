@@ -209,6 +209,8 @@ class toba
 	
 	/**
 	 * Retorna un componente datos_tabla de una tabla específica del sistema
+	 * @param string $nombre_tabla
+	 * @param string $fuente Fuente a la que pertenece la tabla, si no se especifica se utiliza la por defecto del proyecto
 	 * @return toba_datos_tabla
 	 */
 	static function tabla($nombre_tabla, $fuente = null)

@@ -8,17 +8,17 @@ class form_prop_basicas extends toba_ei_formulario
 		echo admin_util::get_js_editor();			
 		echo "
 			{$this->objeto_js}.evt__filas_ordenar__procesar = function () {
-				if (this.ef('filas_ordenar').chequeado())
-					this.ef('columna_orden').mostrar();
-				else
-					this.ef('columna_orden').ocultar();
+				var mostrar = this.ef('filas_ordenar').chequeado();
+				this.ef('columna_orden').mostrar(mostrar);
+				this.ef('filas_ordenar_en_linea').mostrar(mostrar);
 			}
 			
 			{$this->objeto_js}.evt__filas_agregar__procesar = function() {
-				if (this.ef('filas_agregar').chequeado())
-					this.ef('filas_agregar_online').mostrar();
-				else
-					this.ef('filas_agregar_online').ocultar();				
+				var mostrar = this.ef('filas_agregar').chequeado();
+				this.ef('filas_agregar_online').mostrar(mostrar);
+				this.ef('filas_agregar_abajo').mostrar(mostrar);
+				this.ef('filas_agregar_texto').mostrar(mostrar);
+				this.ef('filas_borrar_en_linea').mostrar(mostrar);
 			}
 
 			{$this->objeto_js}.evt__scroll__procesar = function() {

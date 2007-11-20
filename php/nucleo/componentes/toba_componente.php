@@ -63,8 +63,8 @@ abstract class toba_componente
 		//Recibi datos por el CANAL?
 		$this->_canal = apex_hilo_qs_canal_obj . $this->_id[1];
 		$this->_canal_recibidos = toba::memoria()->get_parametro($this->_canal);
-		$this->_id_ses_g = "obj_" . $this->_id[1];
-		$this->_id_ses_grec = "obj_" . $this->_id[1] . "_rec";
+		$this->_id_ses_g = "obj_" . $this->_id[1].$definicion['_const_instancia_numero'];
+		$this->_id_ses_grec = "obj_" . $this->_id[1] . "_rec".$definicion['_const_instancia_numero'];
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada

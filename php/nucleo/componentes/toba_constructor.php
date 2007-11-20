@@ -32,6 +32,7 @@ class toba_constructor
 		}
 		//--- INSTANCIACION	---
 		if ($tipo != 'toba_item') {		//**** Creacion de OBJETOS
+			$instancia_nro = 0;
 			if (!$usar_cache || !isset(self::$objetos_runtime_instanciados[ $id['componente'] ])) {
 				$clase = $tipo;
 				//Posee una subclase asociada?
@@ -41,11 +42,19 @@ class toba_constructor
 					}
 					$clase = $datos['_info']['subclase'];
 				}
+				//Averiguo cuantas instancias previas de este componente fueron creadas
+				if (! isset(self::$objetos_runtime_instanciados[ $id['componente'] ])) {
+					$instancia_nro = 0;
+					self::$objetos_runtime_instanciados[ $id['componente'] ] = array();
+				} else {
+					$instancia_nro = count(self::$objetos_runtime_instanciados[$id['componente']]);
+				}				
+				$datos['_const_instancia_numero'] = $instancia_nro;
 				//Instancio el objeto
 				$objeto = new $clase( $datos );
-				self::$objetos_runtime_instanciados[ $id['componente'] ] = $objeto;
+				self::$objetos_runtime_instanciados[ $id['componente'] ][] = $objeto;
 			}
-			return self::$objetos_runtime_instanciados[ $id['componente'] ];
+			return self::$objetos_runtime_instanciados[ $id['componente'] ][$instancia_nro];
 		} else {					//**** Creacion de ITEMS
 			$clase = "toba_solicitud_".$datos['basica']['item_solic_tipo'];
 			return new $clase($datos);
@@ -96,10 +105,10 @@ class toba_constructor
 	 * @param string $tipo Tipo de componente. Si no se brinda se busca automáticamente, aunque requiere mas toba_recursos
 	 * @return objeto
 	 */
-	static function buscar_runtime( $id ) 
+	static function buscar_runtime($id, $numero_instancia=0) 
 	{
 		if ( isset( self::$objetos_runtime_instanciados[ $id['componente'] ] ) ) {
-			return self::$objetos_runtime_instanciados[ $id['componente'] ];
+			return self::$objetos_runtime_instanciados[$id['componente']][$numero_instancia];
 		} else {
 			throw new toba_error("El objeto '{$id['componente']}' no fue instanciado");	
 		}

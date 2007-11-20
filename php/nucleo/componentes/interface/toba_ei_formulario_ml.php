@@ -59,6 +59,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		//Se determina el metodo de analisis de cambios
 		$this->set_metodo_analisis($this->_info_formulario['analisis_cambios']);
+		$this->set_borrar_en_linea($this->_info_formulario['filas_borrar_en_linea']);
+		$this->set_ordenar_en_linea($this->_info_formulario['filas_ordenar_en_linea']);
+		$this->_modo_agregar = array($this->_info_formulario['filas_agregar_abajo'],
+										$this->_info_formulario['filas_agregar_texto']);
 	}
 
 	/**

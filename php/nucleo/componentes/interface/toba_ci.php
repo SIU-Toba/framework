@@ -640,7 +640,7 @@ class toba_ci extends toba_ei
 						 '_info_eventos' => $this->_info_eventos,
 						 '_info_ci_me_pantalla' => $this->_info_ci_me_pantalla);
 			$info['_info_pantalla'] = $info_pantalla;
-			
+			$info['_const_instancia_numero'] = 0;
 			if (isset($info_pantalla['subclase_archivo'])) {
 				require_once($info_pantalla['subclase_archivo']);
 			}
