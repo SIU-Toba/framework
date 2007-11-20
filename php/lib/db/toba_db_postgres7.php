@@ -121,6 +121,25 @@ class toba_db_postgres7 extends toba_db
 		return false;
 	}
 	
+	function get_lista_secuencias()
+	{
+		$sql = "
+			SELECT 
+				c.relname as tabla,
+				a.attname as campo,
+				replace( substring(adef.adsrc,'\'[^\']*\''), '\'', '' ) as nombre
+			FROM
+				pg_catalog.pg_attribute a LEFT JOIN pg_catalog.pg_attrdef adef ON a.attrelid=adef.adrelid AND a.attnum=adef.adnum
+					 LEFT JOIN pg_catalog.pg_type t ON a.atttypid=t.oid
+					 LEFT JOIN pg_catalog.pg_class c ON a.attrelid=c.oid
+			WHERE
+			 	adsrc like '%nextval%'
+			 	AND a.attnum > 0 AND NOT a.attisdropped
+			ORDER BY a.attname
+		";
+		return $this->consultar($sql);
+	}
+	
 	/**
 	*	Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
 	*/
