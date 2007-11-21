@@ -37,6 +37,31 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		return in_array($dep, $this->dependencias, true);
 	}
 
+	function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
+	{
+		if (isset($this->datos['subclase_archivo'])) {
+			$filas = $dr->tabla('pantallas')->get_id_fila_condicion(array('pantalla' => $this->datos['pantalla']), false);
+			if (count($filas) != 1) {
+				throw new toba_error_modelo("Imposible clonar subclase de pantalla {$this->datos['pantalla']}");
+			}
+			$fila = current($filas);
+			$archivo = $this->datos['subclase_archivo'];
+			$nuevo_archivo = $dir_subclases."/".basename($archivo);
+			$path_origen = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto())."/php/";
+			if (isset($proyecto_dest)) {
+				$path_destino = toba::instancia()->get_path_proyecto($proyecto_dest)."/php/";
+			} else {
+				$path_destino = $path_origen;	
+			}
+			//--- Si el dir. destino no existe, se lo crea
+			if (!file_exists($path_destino.$dir_subclases)) {
+				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
+			}
+			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);		
+			$dr->tabla('pantallas')->set_fila_columna_valor($fila, 'subclase_archivo', $nuevo_archivo);						
+		}
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------

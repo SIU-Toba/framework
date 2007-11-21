@@ -175,12 +175,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Pant1', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form1', --objetos
 	'cancelar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'subclase_pantalla', --subclase
+	'p_acciones/clonador/subclase_pantalla.php'  --subclase_archivo
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_testing', --objeto_ci_proyecto
@@ -191,7 +191,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Pant2', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'cuadro', --objetos
 	'procesar,cancelar', --eventos

@@ -20,6 +20,17 @@ class toba_ci_info extends toba_ei_info
 		throw new toba_error("No se encuentra la pantalla '$id'");
 	}
 	
+	/**
+	 * Se redefine para clonar la subclase de la pantalla
+	 */
+	protected function clonar_subclase($dr, $dir_subclases, $proyecto_dest)
+	{
+		parent::clonar_subclase($dr, $dir_subclases, $proyecto_dest);
+		foreach ($this->get_hijos(true) as $pantalla) {
+			$pantalla->clonar_subclase($dr, $dir_subclases, $proyecto_dest);
+		}
+	}	
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------
@@ -54,7 +65,7 @@ class toba_ci_info extends toba_ei_info
 		}
 	}
 	
-	function get_hijos()
+	function get_hijos($solo_pantallas=false)
 	{
 		//Las dependencias son sus hijos
 		//Hay una responsabilidad no bien limitada
@@ -81,7 +92,11 @@ class toba_ci_info extends toba_ei_info
 				$dependencias_libres[] = $dependencia;
 			}
 		}
-		return array_merge($pantallas, $dependencias_libres);
+		if ($solo_pantallas) {
+			return $pantallas;
+		} else {
+			return array_merge($pantallas, $dependencias_libres);
+		}
 	}	
 
 	function get_utilerias()

@@ -74,14 +74,6 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 															false, false, null, true, 'central');
 	}
 
-	function get_archivo_subclase()
-	{
-		if (isset($this->datos['_info']['subclase_archivo'])) {
-			return $this->datos['_info']['subclase_archivo'];
-		}
-		return null;		
-	}
-
 	function get_fuente_datos()
 	{
 		return $this->datos['_info']['fuente'];
