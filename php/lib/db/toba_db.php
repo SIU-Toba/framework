@@ -252,6 +252,21 @@ class toba_db
 		}		
 	}
 
+	
+	/**
+	*	Ejecuta una consulta sql y retorna true si existen datos
+	* 	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base
+	* 	
+	*	@param string $sql Consulta SQL
+	*	@return boolean Verdadero si la consulta retorna al menos una registro
+	*	@throws toba_error_db en caso de error
+	*/	
+	function hay_datos($sql)
+	{
+		$datos = $this->consultar($sql);
+		return !empty($datos);
+	}
+	
 	/**
 	 * Ejecuta un BEGIN TRANSACTION en la conexión
 	 */
