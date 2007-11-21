@@ -30,6 +30,9 @@
 	 */	
 	function sql_concatenar_where($sql,$clausulas_where=array())
 	{
+		if (empty($clausulas_where)) {
+			return $sql;
+		}
 		$balance_parentesis = 0; //Para saber si estoy metido en unos parentesis
 		$todos = preg_split("/([\s,;]+)/", $sql, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$separadores = array();
@@ -53,7 +56,6 @@
 			$balance_parentesis -= substr_count($palabra, ')');
 			if( $balance_parentesis == 0) {
 				if( (strtolower($palabra) == 'where')	) {
-					$punto_insercion = $posicion + 1;
 					$posee_where = true;
 					continue;
 				}
