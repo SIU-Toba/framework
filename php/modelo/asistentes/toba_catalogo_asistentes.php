@@ -117,6 +117,7 @@ class toba_catalogo_asistentes
 			$fila['asistente_tipo_dato'] = self::tipo_dato_referencia();
 			$fila['cuadro_estilo'] = 4;
 			$fila['cuadro_formato'] = 1;
+			$fila['filtro_operador'] = '=';
 		}
 		return $fila;
 	}
@@ -152,7 +153,6 @@ class toba_catalogo_asistentes
 			$fila['columna'] = $nueva['nombre'];
 			$fila['etiqueta'] = ucwords(str_replace(array('_', '_'), ' ', $nueva['nombre']));
 			$fila['en_filtro'] = 0;
-			$fila['filtro_operador'] = 'ILIKE';
 			$fila['en_form'] = 1;			
 			$fila['en_cuadro'] = 1;			
 			if ($nueva['secuencia'] != '') {
@@ -168,7 +168,6 @@ class toba_catalogo_asistentes
 			}
 			$salida[] = $fila;
 		}
-		//ei_arbol($salida);
 		return $salida;
 	}
 	

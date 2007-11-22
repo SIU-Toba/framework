@@ -298,6 +298,7 @@ class toba_db_tablas_nucleo
     5 => 'cuadro_estilo',
     6 => 'cuadro_formato',
     7 => 'orden',
+    8 => 'filtro_operador',
   ),
 );
 	}
