@@ -340,6 +340,7 @@ class toba_db
 
 	/**
 	 * Retorna el valor de un campo SERIAL
+	 * @return string
 	 */
 	function recuperar_secuencia($secuencia)
 	{

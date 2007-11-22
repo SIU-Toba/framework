@@ -405,9 +405,10 @@ abstract class toba_asistente
 	{
 		$param_metodo = isset($parametros)? array('$filtro=array()') : array();
 		$metodo = new toba_codigo_metodo_php($nombre, $param_metodo);
+		$fuente = $this->get_fuente();
+		$sentencia_consulta = "return toba::db('$fuente')->consultar(\$sql);";
 		if(!isset($parametros)){
-			$php = 	"\$sql = \"$sql\";" . salto_linea() .
-					"return consultar_fuente(\$sql);";
+			$php = 	"\$sql = \"$sql\";" . salto_linea() . $sentencia_consulta;
 		}else{
 			$php = "\$where = array();" . salto_linea();
 			foreach($parametros as $id => $operador) {
@@ -423,7 +424,7 @@ abstract class toba_asistente
 			$php .= "if(count(\$where)>0) {" . salto_linea();
 			$php .= "\t\$sql = sql_concatenar_where(\$sql, \$where);" . salto_linea();
 			$php .= "}" . salto_linea();
-			$php .= "return consultar_fuente(\$sql);";
+			$php .= $sentencia_consulta;
 		}
 		$metodo->set_contenido($php);
 		return $metodo;	
