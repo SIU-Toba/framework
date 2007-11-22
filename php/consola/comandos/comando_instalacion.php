@@ -317,6 +317,14 @@ class comando_instalacion extends comando_toba
 		}
 	}
 
+	/**
+	 * Elimina los logs locales de la instalacion, instancias y proyectos contenidos
+	 */
+	function opcion__eliminar_logs()
+	{
+		$this->get_instalacion()->eliminar_logs();
+	}
+	
 
 	/**
 	 * Migra la instalación de versión. 

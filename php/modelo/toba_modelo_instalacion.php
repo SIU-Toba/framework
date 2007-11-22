@@ -370,6 +370,26 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			toba_logger::instancia()->debug("Borrado directorio ".self::dir_base());			
 		}		
 	}
+	
+	function eliminar_logs()
+	{
+		$dir = self::dir_base().'/logs_comandos';
+		$this->manejador_interface->mensaje('Eliminando logs', false);
+		if (file_exists($dir)) {
+			toba_manejador_archivos::eliminar_directorio($dir);
+			$this->manejador_interface->progreso_avanzar();
+		}
+		foreach ($this->get_lista_instancias() as $id_inst) {
+			$instancia = $this->get_instancia($id_inst);
+			$instancia->eliminar_logs();
+		}
+		$this->manejador_interface->progreso_fin();		
+		foreach ($this->get_lista_instancias() as $id_inst) {
+			$instancia = $this->get_instancia($id_inst);
+			$instancia->exportar_local();
+		}		
+	}
+	
 
 	/**
 	* Crea el directorio de proyectos

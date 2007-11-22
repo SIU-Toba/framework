@@ -82,6 +82,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 		$directorio = $this->get_dir_ddl();
 		$patron = '|pgsql_a.*\.sql|';
 		$this->archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, $patron );
+		sort($this->archivos);
 	}
 
 	/**

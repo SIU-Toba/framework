@@ -896,6 +896,28 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		toba_manejador_archivos::eliminar_directorio($this->dir);		
 	}
 	
+	function eliminar_logs()
+	{
+
+		//--- Borra logs en las tablas
+		$tablas = toba_db_tablas_instancia::get_lista_proyecto_log();
+		$tablas = array_merge($tablas, toba_db_tablas_instancia::get_lista_global_log());
+		foreach($tablas as $tabla) {
+			$sql = 'DELETE FROM '.$tabla;			
+			$this->get_db()->ejecutar($sql);
+			$this->manejador_interface->progreso_avanzar();
+		}
+		//--- Borra logs en los proyecto
+		foreach($this->get_lista_proyectos_vinculados() as $proyecto) {
+			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto.'/logs';
+			if (file_exists( $dir_proyecto )) {
+				toba_manejador_archivos::eliminar_directorio($dir_proyecto);
+			}
+			$this->manejador_interface->progreso_avanzar();
+		}
+		
+	}
+	
 	//-----------------------------------------------------------
 	//	Informacion sobre METADATOS
 	//-----------------------------------------------------------
