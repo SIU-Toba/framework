@@ -504,7 +504,8 @@ class toba_db
 				}
 				$aliases[] = $alias_externo;
 				if (isset($externo['descripcion'])) {				
-					$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna['nombre'];
+					$columna_nombre = $columna['nombre'].'_nombre';
+					$select[] = $alias_externo.'.'.$externo['descripcion'].' as '.$columna_nombre;
 				}				
 				$ext_where = $alias.'.'.$columna['nombre'].' = '.$alias_externo.'.'.$externo['clave'];
 				$ext_from = $externo['tabla'].' as '.$alias_externo;

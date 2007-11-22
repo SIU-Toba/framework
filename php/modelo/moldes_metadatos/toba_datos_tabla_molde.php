@@ -16,6 +16,8 @@ class toba_datos_tabla_molde extends toba_molde_elemento_componente_datos
 	
 	function crear($tabla)
 	{
+		$datos = array('nombre' => $tabla);
+		$this->datos->tabla('base')->set($datos);		
 		$this->datos->tabla('prop_basicas')->set(array('ap'=>1));	//Admin persistencia por defecto
 		$this->datos->tabla('prop_basicas')->set_fila_columna_valor(0,'tabla',$tabla);		
 	}

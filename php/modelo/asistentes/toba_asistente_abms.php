@@ -236,8 +236,13 @@ class toba_asistente_abms extends toba_asistente_1dt
 		}
 		//Construyo las filas
 		foreach( $this->molde_abms_fila as $fila ) {
-			if($fila['en_cuadro']) {
-				$columna = $cuadro->agregar_columna($fila['columna'], 4);
+			if ($fila['en_cuadro']) {
+				$columna = $fila['columna'];
+				//-- Si es una FK la columna no esta en la tabla y requiere carga, por lo que es mejor no nombrarla como la clave ya que trae problemas de reuso en la SQL
+				if ($fila['ef_carga_origen']) {
+					$columna .= '_nombre';
+				}
+				$columna = $cuadro->agregar_columna($columna, 4);				
 				$columna->set_etiqueta($fila['etiqueta']);
 				$columna->set_estilo($fila['cuadro_estilo']);
 				$columna->set_formato($fila['cuadro_formato']);
