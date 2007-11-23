@@ -77,6 +77,11 @@ class ci_cascadas extends toba_ci
 			);
 	}	
 	
+	function get_fijo($clave)
+	{
+		return "Se selecciono la clave $clave";
+	}
+	
 	function evt__debug()
 	{
 		if (isset($this->form_simple)) 

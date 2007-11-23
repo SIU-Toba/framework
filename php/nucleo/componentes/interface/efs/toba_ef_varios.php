@@ -21,6 +21,7 @@ class toba_ef_checkbox extends toba_ef
     					'check_desc_no'
     	);
     }
+ 
     
     function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
@@ -155,6 +156,16 @@ class toba_ef_fijo extends toba_ef_oculto
 		return $parametros;
 	}
 	
+    
+    static function get_lista_parametros_carga()
+    {
+    	$parametros = toba_ef::get_lista_parametros_carga_basico();    
+		array_borrar_valor($parametros, 'carga_lista');
+		array_borrar_valor($parametros, 'carga_col_clave');
+		array_borrar_valor($parametros, 'carga_col_desc');
+		return $parametros;
+    }  	
+	
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
@@ -181,6 +192,11 @@ class toba_ef_fijo extends toba_ef_oculto
 		}
 	}
 
+	function set_opciones($descripcion, $maestros_cargados=true)
+	{
+		$this->set_estado($descripcion);
+	}	
+	
 	function get_input()
     {
 		$estado = (isset($this->estado)) ? $this->estado : null;

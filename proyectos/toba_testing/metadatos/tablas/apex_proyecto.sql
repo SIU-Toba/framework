@@ -42,8 +42,8 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'1000010', --item_inicio_sesion
 	NULL, --item_pre_sesion
 	NULL, --item_set_sesion
-	'0', --log_archivo
-	'1', --log_archivo_nivel
+	'1', --log_archivo
+	'7', --log_archivo_nivel
 	'instancia', --fuente_datos
 	NULL, --pagina_tipo
 	NULL, --version
