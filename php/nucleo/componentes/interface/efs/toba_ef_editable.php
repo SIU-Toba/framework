@@ -12,6 +12,7 @@ class toba_ef_editable extends toba_ef
 	protected $maximo;
 	protected $estilo="ef-input";
 	protected $mascara;
+	protected $expreg;
 	protected $unidad;
 	
 	
@@ -30,6 +31,7 @@ class toba_ef_editable extends toba_ef
     	$param[] = 'edit_maximo';
     	$param[] = 'edit_mascara';
     	$param[] = 'edit_unidad';
+    	$param[] = 'edit_expreg';
     	return $param;    	
     }
     	
@@ -62,6 +64,10 @@ class toba_ef_editable extends toba_ef
 			$this->unidad = $parametros['edit_unidad'];
 			unset($parametros['edit_unidad']);	
 		}		
+		if (isset($parametros['edit_expreg'])) {
+			$this->expreg = $parametros['edit_expreg'];
+			unset($parametros['expreg']);	
+		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
 	
@@ -105,7 +111,21 @@ class toba_ef_editable extends toba_ef
 			return false;
 		}
 	}
-    
+
+	function validar_estado()
+	{
+		$padre = parent::validar_estado();
+		if ($padre !== true) {
+			return $padre;	
+		}		
+		if ($this->estado != '' && isset($this->expreg)) {
+			if (! preg_match($this->expreg, $this->estado)) {
+				return 'No es válido';
+			}
+		}
+		return true;
+	}	
+	
 	function get_input()
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
@@ -124,8 +144,9 @@ class toba_ef_editable extends toba_ef
 
 	function parametros_js()
 	{
-		return parent::parametros_js().", '{$this->mascara}'";
-	}	
+		$exp = isset($this->expreg) ? addslashes($this->expreg) : '';
+		return parent::parametros_js().", '{$this->mascara}', '$exp'";
+	}
 	
 	function crear_objeto_js()
 	{

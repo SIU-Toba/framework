@@ -123,6 +123,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	edit_resaltar						smallint		NULL,
 	edit_ajustable						smallint		NULL,
 	edit_confirmar_clave				smallint		NULL,
+	edit_expreg							varchar(255)	NULL,	
 	popup_item							varchar(60)		NULL,
 	popup_proyecto						varchar(15)		NULL,
 	popup_editable						smallint		NULL,

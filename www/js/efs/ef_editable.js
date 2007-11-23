@@ -7,9 +7,10 @@ ef_editable.prototype.constructor = ef_editable;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable toba_ef_editable
 	 */
-	function ef_editable(id_form, etiqueta, obligatorio, colapsado, masc) {
+	function ef_editable(id_form, etiqueta, obligatorio, colapsado, masc, expreg) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
 		this._forma_mascara = (masc && masc.trim().toLowerCase() != 'no') ? masc : null;
+		this._expreg = expreg;
 		this._mascara = null;
 	}
 	
@@ -59,6 +60,13 @@ ef_editable.prototype.constructor = ef_editable;
 		if (this._obligatorio && ereg_nulo.test(this.get_estado())) {
 			this._error = 'es obligatorio.';
 		    return false;
+		}
+		if (isset(this._expreg) && this._expreg != '') {
+			var temp = this._expreg + '.test("' + this.get_estado() + '")';
+			if (! eval(temp)) {
+				this._error = 'no es válido';
+				return false;
+			}
 		}
 		return true;
 	};
