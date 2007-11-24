@@ -128,8 +128,8 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero toba_ef_editable_numero
 	 */
-	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje) {
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+	function ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje) {
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, expreg);
 		if (masc) {
 			this._forma_mascara = (masc.trim().toLowerCase() != 'no') ? masc : null;
 		} else {
@@ -198,8 +198,8 @@ ef_editable_moneda.prototype = new ef_editable_numero();
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_moneda toba_ef_editable_moneda
 	 */
-	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje);
+	function ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje);
 		this._forma_mascara = (masc) ? masc : '$ ###.###,00';
 	}
 
@@ -213,8 +213,8 @@ ef_editable_porcentaje.prototype = new ef_editable_numero();
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero_porcentaje toba_ef_editable_numero_porcentaje	 
 	 */
-	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)	{
-		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje);
+	function ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, rango, mensaje)	{
+		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, rango, mensaje);
 	}
 	
 	ef_editable_porcentaje.prototype.formatear_valor = function(valor) {
@@ -295,8 +295,8 @@ ef_editable_fecha.prototype = new ef_editable();
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
 	 */
-	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc)	{
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable);
+	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, expreg)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);
 		this._forma_mascara = (masc) ? masc : 'dd/mm/yyyy';
 	}	
 	
@@ -362,8 +362,8 @@ ef_textarea.prototype.constructor = ef_textarea;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_textarea toba_ef_editable_textarea
 	 */
-	function ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)	{
-		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+	function ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, maximo, ajustable)	{
+		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, exp_reg);
 		this._maximo = maximo;
 		this._ajustable = ajustable;
 	}	
