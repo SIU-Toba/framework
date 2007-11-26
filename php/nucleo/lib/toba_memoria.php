@@ -86,6 +86,7 @@ class toba_memoria
             //Esto tiene sentido solo para la pagina de logon (?) para el resto 
             //del sistema implica que las cosas funcionen mal!
         }
+        
 		//-[2]- Que ITEM se solicito?
 		$this->item_solicitado = self::get_item_solicitado_original();
 		//-[3]- Recupero los parametros
@@ -116,6 +117,7 @@ class toba_memoria
 		} else {
 			$this->celda_memoria_actual_id = 'central';
 		}
+		
 		// Apunto las referencias a session
 		$this->memoria_celdas =& toba::manejador_sesiones()->segmento_memoria_proyecto();
 		// Celda ACTUAL
@@ -155,6 +157,25 @@ class toba_memoria
 		}
 
 		$this->inicializar_memoria();
+		
+		if (isset($this->celda_memoria_actual['hilo'])) {
+			//Si la página requerida es una que ya se genero, se descartan los siguientes pedidos
+			//Esto permite manejar el caso del refresh y el back, aunque se pierde la posibilidad de re-hacer con forward
+			//ya que cada back que se ingresa genera un nuevo estado (porque se realiza una nueva ejecución)
+			$claves = array_keys($this->celda_memoria_actual['hilo']);
+			if (in_array($this->hilo_referencia, $claves) 			//Desde donde provengo aun se encuentra en el cache
+					&& $this->hilo_referencia != end($claves)) {	//No provengo desde la ultima generacion (seria el caso normal)
+				$encontrado = false;
+				foreach ($claves as $clave) {
+					if ($encontrado) {
+						unset($this->celda_memoria_actual['hilo'][$clave]);	//Borro aquellos que quedan en 'sandwich'
+					}
+					if ($clave == $this->hilo_referencia) {
+						$encontrado = true;
+					}
+				}
+			}
+		}
  	}
 
  	/**
