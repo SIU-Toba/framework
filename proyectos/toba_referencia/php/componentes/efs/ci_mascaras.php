@@ -4,6 +4,7 @@ php_referencia::instancia()->agregar(__FILE__);
 class ci_mascaras extends toba_ci
 {
 	protected $s__datos;
+	protected $s__datos_expreg;
 
 	function ini()
 	{
@@ -31,6 +32,18 @@ class ci_mascaras extends toba_ci
 	function evt__form__modificacion($datos)
 	{
 		$this->s__datos = $datos;	
+	}
+	
+	function conf__form_expreg(toba_ei_formulario $form)
+	{
+		if (isset($this->s__datos_expreg)) {
+			$form->set_datos($this->s__datos_expreg);
+		}
+	}
+	
+	function evt__form_expreg__modificacion($datos)
+	{
+		$this->s__datos_expreg = $datos;
 	}
 }
 

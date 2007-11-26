@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000203]--  Máscaras 
+--[1000203]--  Validaciones y Máscaras 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,7 +18,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'componentes/efs/ci_mascaras.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Máscaras', --nombre
+	'Validaciones y Máscaras', --nombre
 	'Ejemplos de Máscaras', --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -92,6 +92,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_referencia', --proyecto
+	'1000345', --dep_id
+	'1000203', --objeto_consumidor
+	'1000499', --objeto_proveedor
+	'form_expreg', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -105,7 +117,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
-	NULL, --tipo_navegacion
+	'tab_h', --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -130,12 +142,28 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1000052', --pantalla
 	'pant_inicial', --identificador
 	'1', --orden
-	'Pantalla Inicial', --etiqueta
+	'Máscaras', --etiqueta
 	'Probar tipear sobre los distintos efs', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'form', --objetos
+	'procesar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_referencia', --objeto_ci_proyecto
+	'1000203', --objeto_ci
+	'1000336', --pantalla
+	'pant_expreg', --identificador
+	'2', --orden
+	'Validaciones con Exp.Reg.', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_expreg', --objetos
 	'procesar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

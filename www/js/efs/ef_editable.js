@@ -57,12 +57,13 @@ ef_editable.prototype.constructor = ef_editable;
 		if (! ef.prototype.validar.call(this)) {
 			return false;
 		}
-		if (this._obligatorio && ereg_nulo.test(this.get_estado())) {
+		var estado = this.get_estado();
+		if (this._obligatorio && ereg_nulo.test(estado)) {
 			this._error = 'es obligatorio.';
 		    return false;
 		}
-		if (isset(this._expreg) && this._expreg != '') {
-			var temp = this._expreg + '.test("' + this.get_estado() + '")';
+		if (estado != '' && isset(this._expreg) && this._expreg != '') {
+			var temp = this._expreg + '.test("' + estado + '")';
 			if (! eval(temp)) {
 				this._error = 'no es válido';
 				return false;

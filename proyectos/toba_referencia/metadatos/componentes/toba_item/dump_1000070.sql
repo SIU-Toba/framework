@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000070]--  Máscaras 
+--[1000070]--  Máscaras y Validaciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Máscaras', --nombre
+	'Máscaras y Validaciones', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
