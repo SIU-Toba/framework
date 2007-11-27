@@ -158,8 +158,7 @@ class toba_db
 				if (strlen($sql) > 10000) {
 					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
 				}
-				$ee = new toba_error_db($e);
-				$ee->set_sql_ejecutado($sql);
+				$ee = new toba_error_db($e, $sql);
 				throw $ee;
 			}
 		}

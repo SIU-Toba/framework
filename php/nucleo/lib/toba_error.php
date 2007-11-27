@@ -23,8 +23,9 @@ class toba_error_db extends toba_error
 	protected $sql;
 	protected $mensaje_motor ='';
 
-	function __construct($info)
+	function __construct($info, $sql=null)
 	{
+		$this->set_sql_ejecutado($sql);
 		//- No se crea un arreglo cuando falla la conexion a la base ya que son propiedades del objeto conexion.
 		if (is_array($info->errorInfo)){
 			$this->set_info_error($info->errorInfo);
@@ -103,10 +104,21 @@ class toba_error_db extends toba_error
 						"<p><b>MENSAJE:</b> {$this->get_mensaje_motor()}</p>" .
 						"<p><b>SQL:</b> {$this->get_sql_ejecutado()}</p>";
 		}else{
-			$mensaje = "\nERROR ejecutando SQL:\n" .
-					   "-- CODIGO: [{$this->get_codigo_motor()}]\n" .
-					   "-- MENSAJE: [{$this->get_mensaje_motor()}] \n" .
-					   "-- SQL: [{$this->get_sql_ejecutado()}] \n";
+			$sep = '------------------------------------------------------';
+			$mensaje = "
+ERROR ejecutando SQL. CODIGO: {$this->get_codigo_motor()}
+$sep
+     MENSAJE
+$sep
+{$this->get_mensaje_motor()}
+
+$sep
+     SQL EJECUTADA
+$sep
+{$this->get_sql_ejecutado()}
+
+";
+	
 		}
 		return $mensaje;
 	}
