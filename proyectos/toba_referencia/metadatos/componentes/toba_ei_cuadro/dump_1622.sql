@@ -57,8 +57,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --eof_invisible
 	NULL, --eof_customizado
-	'0', --exportar
-	NULL, --exportar_rtf
+	'1', --exportar
+	'1', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

@@ -7,7 +7,8 @@ ei_cuadro.prototype.constructor = ei_cuadro;
  * @constructor
  * @phpdoc Componentes/Eis/toba_ei_cuadro toba_ei_cuadro
  */
-function ei_cuadro(instancia, input_submit) {
+function ei_cuadro(id, instancia, input_submit) {
+	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 }
@@ -42,5 +43,17 @@ function ei_cuadro(instancia, input_submit) {
 		var objeto = document.getElementById(corte);
 		toggle_nodo(objeto);
 	};
+	
+	ei_cuadro.prototype.exportar_pdf = function()
+	{
+		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id]);
+		document.location.href = url;
+	};
+
+	ei_cuadro.prototype.exportar_excel = function()
+	{
+		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id]);
+		document.location.href = url;
+	};	
 	
 toba.confirmar_inclusion('componentes/ei_cuadro');

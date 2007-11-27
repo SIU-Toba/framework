@@ -316,7 +316,7 @@ class toba_nucleo
 			'/php/lib/toba_sql.php',
 			'/php/nucleo/lib/toba_db.php',
 			'/php/nucleo/lib/interface/toba_ei.php',
-			'/php/nucleo/lib/interface/toba_formateo.php');
+		);
 	}
 
 	/**
@@ -349,6 +349,7 @@ class toba_nucleo
 			'toba_error_ini_sesion'					=> 'nucleo/lib/toba_error.php',
 			'toba_reset_nucleo'		 				=> 'nucleo/lib/toba_error.php',
 			'toba_fuente_datos'						=> 'nucleo/lib/toba_fuente_datos.php',
+			'toba_formateo'							=> 'nucleo/lib/interface/toba_formateo.php',
 			'toba_http'								=> 'nucleo/lib/toba_http.php',
 			'toba_instalacion'						=> 'nucleo/lib/toba_instalacion.php',
 			'toba_instancia'						=> 'nucleo/lib/toba_instancia.php',

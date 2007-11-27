@@ -1096,20 +1096,21 @@ class toba_ei_formulario extends toba_ei
 	{
 		$ef = $this->_elemento_formulario[$id_ef];
 		$valor = $ef->get_descripcion_estado();
+		$formato = new toba_formateo('html');
 		if ( $ef instanceof toba_ef_editable_moneda ) {
-			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_moneda($valor) );
+			$temp = array( 'css' => 'col-num-p1', 'valor'=> $formato->formato_moneda($valor) );
 		} elseif ( $ef instanceof toba_ef_editable_numero_porcentaje ){
-			$temp = array( 'css' => 'col-num-p1', 'valor'=> formato_porcentaje($valor) );
+			$temp = array( 'css' => 'col-num-p1', 'valor'=> $formato->formato_porcentaje($valor) );
 		} elseif ( $ef instanceof toba_ef_editable_numero ) {
 			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
 		} elseif ( $ef instanceof toba_ef_editable_fecha ) {
 			if ($valor!='') {
-				$temp = array( 'css' => 'col-tex-p1', 'valor'=> formato_fecha($valor) );
+				$temp = array( 'css' => 'col-tex-p1', 'valor'=> $formato->formato_fecha($valor) );
 			} else {
 				$temp = array( 'css' => 'col-tex-p1', 'valor'=> '' );
 			}
 		} elseif ($ef instanceof toba_ef_cuit ) {
-			$temp = array( 'css' => 'col-num-p1', 'valor' => formato_cuit($valor) );
+			$temp = array( 'css' => 'col-num-p1', 'valor' => $formato->formato_cuit($valor) );
 		} else {
 			$temp = array( 'css' => 'col-tex-p1', 'valor'=> $valor );
 		}

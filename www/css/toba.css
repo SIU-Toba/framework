@@ -358,6 +358,10 @@ padding-left:4px;
 .ei-cuadro-cabecera, .ei-cuadro-pie {
 	 empty-cells: hide
 }
+.ei-cuadro-cabecera img {
+	float: right;
+	padding: 2px;
+}
 .ei-cuadro-fila {
 	padding: 2px;
 	margin: 0px;

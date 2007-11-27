@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Cuadro Cortes Estandar (redef. estetica 2)', --nombre
 	'Localidades de Santa Fe', --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
 	NULL, --fuente_datos
@@ -48,17 +48,17 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --subtitulo
 	NULL, --sql
 	'zona_id, dep_id, loc_id', --columnas_clave
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	NULL, --ordenar
-	NULL, --paginar
+	'0', --ordenar
+	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
-	NULL, --eof_invisible
+	'P', --tipo_paginado
+	'0', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar
-	NULL, --exportar_rtf
+	'1', --exportar
+	'1', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -70,7 +70,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	NULL, --scroll
+	'0', --scroll
 	NULL, --scroll_alto
 	't', --cc_modo
 	'0', --cc_modo_anidado_colap

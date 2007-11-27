@@ -123,6 +123,7 @@ class toba_vista_pdf
 	
 	/**
 	 * Devuelve el objeto pdf para manipular a gusto y piachere.
+	 * @return Cezpdf
 	 */
 	function get_pdf()
 	{
@@ -229,7 +230,6 @@ class toba_vista_pdf
 		$ver_tit_col = $ver_titulos_col? 1 : 0;
 		$texto_tit_col = isset($datos['titulos_columnas'])? $datos['titulos_columnas'] : array('clave' => '', 'valor' => '');
 		$texto_titulo_tabla = isset($datos['titulo_tabla'])? $datos['titulo_tabla'] : '';
-		
 		if (!isset($opciones)) {
 			$opciones = array(
 						'splitRows'=>0,

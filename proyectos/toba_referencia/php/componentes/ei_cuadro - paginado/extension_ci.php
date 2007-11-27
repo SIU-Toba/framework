@@ -1,9 +1,12 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
-function formato_pesos_sin_coma($valor)
+class formateo_referencia extends toba_formateo 
 {
-	return "$&nbsp;".number_format($valor,0,',','.');	
+	function formato_pesos_sin_coma($valor)
+	{
+		return "$&nbsp;".number_format($valor,0,',','.');	
+	}
 }
 
 class extension_ci extends toba_ci
@@ -23,7 +26,7 @@ class extension_ci extends toba_ci
 		$inicio = 1;
 		$fin = 31;
 		for ($i = $inicio ; $i <= $fin; $i++) {
-			$datos[] = array('fecha' => "$i-03-2006", 'importe' => 100-$i);
+			$datos[] = array('fecha' => "2006-03-$i", 'importe' => 100-$i);
 		}
 		if (isset($this->orden)) {
 			$ordenamiento = array();
@@ -38,7 +41,7 @@ class extension_ci extends toba_ci
 	
 	function conf__cuadro_auto($cuadro)
 	{
-		$cuadro->set_formateo_columna('importe', 'pesos_sin_coma');		
+		$cuadro->set_formateo_columna('importe', 'pesos_sin_coma', 'formateo_referencia');		
 		return $this->get_datos();	
 	}
 
