@@ -791,12 +791,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
 		$clase = new toba_clase_datos( $nombre_clase );
 		foreach ($this->get_lista_tipo_componentes() as $tipo) {
-			foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
-				$objeto = $id_componente['componente'];
-				foreach( $this->get_indice_mensajes_objeto($objeto) as $mensaje ) {
-					$datos = toba_proyecto_db::get_mensaje_objeto( $this->get_id(), $objeto, $mensaje );
-					$clase->agregar_metodo_datos('get__'.$objeto.'__'.$mensaje, $datos );
-				}		
+			if ($tipo != 'toba_item') {	//Los items no tienen mensajes
+				foreach ( $this->get_lista_componentes( $tipo ) as $id_componente) {
+					$objeto = $id_componente['componente'];
+					foreach( $this->get_indice_mensajes_objeto($objeto) as $mensaje ) {
+						$datos = toba_proyecto_db::get_mensaje_objeto( $this->get_id(), $objeto, $mensaje );
+						$clase->agregar_metodo_datos('get__'.$objeto.'__'.$mensaje, $datos );
+					}		
+				}
 			}
 		}
 		$clase->guardar( $archivo );
