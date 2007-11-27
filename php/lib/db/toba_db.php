@@ -145,8 +145,8 @@ class toba_db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
-					$ee = new toba_error_db($e);
-					$ee->set_sql_ejecutado($sql);
+					$ee = new toba_error_db($e, $this->cortar_sql($sql));
+					toba::logger()->error( $ee->get_mensaje() );
 					throw $ee;
 				}
 			}
@@ -155,10 +155,8 @@ class toba_db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
-				if (strlen($sql) > 10000) {
-					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
-				}
-				$ee = new toba_error_db($e, $sql);
+				$ee = new toba_error_db($e, $this->cortar_sql($sql));
+				toba::logger()->error( $ee->get_mensaje() );
 				throw $ee;
 			}
 		}
@@ -182,11 +180,8 @@ class toba_db
 			$afectados += $stm->rowCount();
 			if ($this->debug) $this->log_debug($sql);
 		} catch (PDOException $e) {
-			if (strlen($sql) > 10000) {
-				$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
-			}
-			$ee = new toba_error_db($e);
-			$ee->set_sql_ejecutado($sql);
+			$ee = new toba_error_db($e, $this->cortar_sql($sql));
+			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
 		return $afectados;
@@ -210,8 +205,8 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e);
-			$ee->set_sql_ejecutado($sql);
+			$ee = new toba_error_db($e, $this->cortar_sql($sql));
+			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
 	}
@@ -235,8 +230,8 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e);
-			$ee->set_sql_ejecutado($sql);
+			$ee = new toba_error_db($e, $this->cortar_sql($sql));
+			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}		
 	}
@@ -616,6 +611,14 @@ class toba_db
 			}
 		}
 		return $mejor;
+	}
+	
+	protected function cortar_sql($sql)
+	{
+		if (strlen($sql) > 10000) {
+			$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
+		}
+		return $sql;
 	}
 	
 	//-----------------------------------------------------------------------------------
