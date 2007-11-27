@@ -21,9 +21,9 @@ notificacion = new function() {
 	 * @param {string} mensaje Mensaje a mostrar
 	 * @param {string} gravedad Puede ser 'error' o 'info', esto va a influir en la forma grafica de la notificacion
 	 */
-	notificacion.agregar = function(mensaje, gravedad, sujeto) {
+	notificacion.agregar = function(mensaje, gravedad, sujeto, mensaje_debug) {
 		if (!gravedad) {gravedad = 'error';}
-		this._mensajes.push([mensaje, gravedad, sujeto]);
+		this._mensajes.push([mensaje, gravedad, sujeto, mensaje_debug]);
 	};
 
 	/**
@@ -74,6 +74,12 @@ notificacion = new function() {
 			if (typeof this._mensajes[i][2] != 'undefined') {
 				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
 			}
+			if (typeof this._mensajes[i][3] != 'undefined') {
+				var botonera = "<a onclick='overlay_debug()' href='#'>Más info...</a>";
+				var titulo_debug = "<hr>";
+				var texto_debug = this._mensajes[i][3];
+				texto += botonera + "<div id='overlay_debug' style='display:none;'>" + titulo_debug + texto_debug + "</div>";
+			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
 		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
@@ -97,7 +103,7 @@ notificacion = new function() {
 		}
 
 		var img = '<img class="overlay-cerrar" title="Cerrar ventana" src="' + toba.imagen('cerrar') + '" onclick="'	+ accion_cerrar + '" />';
-		contenedor.innerHTML = '<div class="overlay-titulo">' + img + titulo+'</div>' + mensaje;
+		contenedor.innerHTML = '<div class="overlay-titulo">' + img + titulo + '</div>' + mensaje;
 		overlay();
 	};
 	
@@ -149,6 +155,12 @@ function overlay(limpiar) {
 	if (isset(limpiar) && limpiar) {
 		$('overlay_contenido').innerHTML = '';
 	}
+}
+
+function overlay_debug() {
+	el = document.getElementById("overlay_debug");
+	var oculto = (el.style.display == "none");
+	el.style.display = (oculto) ? "block" : "none";
 }
 
 toba.confirmar_inclusion('basicos/notificacion');

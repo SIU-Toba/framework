@@ -872,13 +872,14 @@ a.ci-tabs-boton-desact:hover {
      height:100%;
      z-index: 1000;
 }
-
 #overlay_contenido {
      width:300px;
      margin: 100px auto;
      padding:15px;
 }
-
+.overlay-debug{
+	 display: none;
+}
 .overlay-titulo {
 	padding-bottom: 10px;
 	margin-bottom: 10px;

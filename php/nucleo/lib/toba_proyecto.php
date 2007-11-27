@@ -397,7 +397,7 @@ class toba_proyecto
 				$rs = array();	
 			}
 		} else {
-			$rs = toba_proyecto_db::get_mensaje_proyecto($this->id, $indice);	
+			$rs = toba_proyecto_db::get_mensaje_proyecto($this->id, $indice);
 		}
 		return $rs;
 	}

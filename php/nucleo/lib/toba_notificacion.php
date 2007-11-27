@@ -29,10 +29,30 @@ class toba_notificacion
 	 * @param string $mensaje Mensaje completo a mostrar
 	 * @param string $nivel Determina el estilo del mensaje, 'error' o 'info' 
 	 */
-	function agregar($mensaje, $nivel='error')
+	function agregar($mensaje, $nivel='error',$extras=null)
 	{
-		$this->mensajes[] = array($mensaje, $nivel);
+		$this->mensajes[] = array($mensaje, $nivel, $extras);
 		toba::logger()->debug("Mensaje a usuario: ".$mensaje, 'toba');
+	}
+	
+	/**
+	 * Agrega un mensaje de error para mostrar al usuario
+	 *
+	 * @param string $mensaje Mensaje completo a mostrar
+	 */
+	function error($mensaje, $extras=null)
+	{
+		$this->agregar($mensaje, 'error', $extras);
+	}
+	
+	/**
+	 * Agrega un mensaje informativo para mostrar al usuario
+	 *
+	 * @param string $mensaje Mensaje completo a mostrar
+	 */	
+	function info($mensaje, $extras=null)
+	{
+		$this->agregar($mensaje, 'info', $extras);
 	}
 
 	/**
@@ -71,7 +91,15 @@ class toba_notificacion
 			$texto = toba_parser_ayuda::parsear($mensaje[0]);
 			$texto = str_replace("'", '"', $texto);
 			$texto = toba_js::string($texto);
-			echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";
+			//Mensaje para debug
+			if (isset($mensaje[2])) {
+				$texto_debug = toba_parser_ayuda::parsear($mensaje[2]);
+				$texto_debug = str_replace("'", '"', $texto_debug);
+				$texto_debug = toba_js::string($texto_debug);	
+				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}', undefined, '$texto_debug');\n";
+			}else{
+				echo "notificacion.agregar('$texto' + '\\n', '{$mensaje[1]}');\n";	
+			}			
 		}
 		echo "notificacion.mostrar()\n";
 		echo toba_js::cerrar();

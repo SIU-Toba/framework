@@ -128,6 +128,16 @@ class toba_logger
 		$this->nivel_maximo = $nivel;
 	}
 	
+	function get_nivel()
+	{
+		return $this->nivel_maximo;
+	}
+	
+	function modo_debug()
+	{
+		return ($this->get_nivel() == TOBA_LOG_DEBUG);
+	}
+	
 	/**
 	 * @ignore 
 	 */

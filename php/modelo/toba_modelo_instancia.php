@@ -509,7 +509,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->actualizar_secuencias();
 			$this->set_version(toba_modelo_instalacion::get_version_actual());
 			$this->get_db()->cerrar_transaccion();
-		} catch ( toba_error $e ) {
+		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
 			throw $e;
 		}
@@ -542,7 +542,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			// Cargo la informacion de la instancia
 			$this->cargar_informacion_instancia();
 			$this->get_db()->cerrar_transaccion();
-		} catch ( toba_error $e ) {
+		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
 			throw $e;
 		}		
@@ -857,10 +857,12 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->manejador_interface->mensaje("Eliminando base '{$this->ini_base}'...", false);
 			$this->instalacion->borrar_base_datos( $this->ini_base );
 			$this->manejador_interface->progreso_fin();
-		} catch ( toba_error $e ) {
-			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n".
-												$e->getMessage());
-			
+		} catch ( toba_error_db $e ) {
+			$this->manejador_interface->error( "Ha ocurrido un error durante la eliminacion de la BASE:\n" . $e->get_mensaje_motor());	
+			//- Fallo de conexion, no deberia continuar, o si?
+			if (($e->get_sqlstate() == 'db_08006') || ($e->get_sqlstate() == 'db_96669')) {
+				exit(-1);	
+			}
 		}
 	}
 
@@ -882,7 +884,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->get_db()->cerrar_transaccion();
 			$this->manejador_interface->progreso_fin();
 			toba_logger::instancia()->debug("Modelo de la instancia {$this->identificador} creado");
-		} catch ( toba_error $e ) {
+		} catch ( toba_error_db $e ) {
 			$this->get_db()->abortar_transaccion();
 			throw $e;
 		}

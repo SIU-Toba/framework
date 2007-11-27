@@ -63,9 +63,9 @@ class toba_db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-	   			$ee = new toba_error_db("No es posible realizar la conexión a la base: ". $e->getMessage(), $e->getCode());
-				$ee->set_mensaje_motor($e->getMessage());
-				throw $ee;
+				$ee = new toba_error_db($e);
+				toba::logger()->error("No es posible realizar la conexión a la base. Mensaje: " . $ee->getMessage() );
+				throw $ee;				
 			}
 		}
 	}		
@@ -145,10 +145,8 @@ class toba_db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
-					$ee = new toba_error_db("ERROR ejecutando SQL. ".
-											"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-											"-- SQL ejecutado: [" . $sql[$id] . "].", $e->getCode() );
-					$ee->set_mensaje_motor($e->getMessage());
+					$ee = new toba_error_db($e);
+					$ee->set_sql_ejecutado($sql);
 					throw $ee;
 				}
 			}
@@ -160,10 +158,8 @@ class toba_db
 				if (strlen($sql) > 10000) {
 					$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
 				}
-				$ee = new toba_error_db("ERROR ejecutando SQL. ".
-										"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-										"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-				$ee->set_mensaje_motor($e->getMessage());
+				$ee = new toba_error_db($e);
+				$ee->set_sql_ejecutado($sql);
 				throw $ee;
 			}
 		}
@@ -190,10 +186,8 @@ class toba_db
 			if (strlen($sql) > 10000) {
 				$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
 			}
-			$ee = new toba_error_db("ERROR ejecutando SQL. ".
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-			$ee->set_mensaje_motor($e->getMessage());
+			$ee = new toba_error_db($e);
+			$ee->set_sql_ejecutado($sql);
 			throw $ee;
 		}
 		return $afectados;
@@ -217,10 +211,8 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db("ERROR ejecutando SQL. " .
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-			$ee->set_mensaje_motor($e->getMessage());
+			$ee = new toba_error_db($e);
+			$ee->set_sql_ejecutado($sql);
 			throw $ee;
 		}
 	}
@@ -244,10 +236,8 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db("ERROR ejecutando SQL. " .
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-			$ee->set_mensaje_motor($e->getMessage());
+			$ee = new toba_error_db($e);
+			$ee->set_sql_ejecutado($sql);
 			throw $ee;
 		}		
 	}

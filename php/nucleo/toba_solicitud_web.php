@@ -41,9 +41,18 @@ class toba_solicitud_web extends toba_solicitud
 			}
 			toba::cronometro()->marcar('Procesando Servicio');
 			$this->procesar_servicios();
-		} catch(toba_error $e) {
+		}catch(toba_error_db $e) {
 			toba::logger()->error($e, 'toba');
-			toba::notificacion()->agregar($e->getMessage(), "error");
+			$mensaje = $e->getMessage();
+			$mensaje_debug = null;
+			if (toba::logger()->modo_debug()) {
+				$mensaje_debug = $e->get_mensaje();
+			}
+			toba::notificacion()->error($mensaje, $mensaje_debug);
+			toba::notificacion()->mostrar();
+		}catch(toba_error $e) {
+			toba::logger()->error($e, 'toba');
+			toba::notificacion()->error($e->getMessage());
 			toba::notificacion()->mostrar();
 		}
 	}
@@ -106,9 +115,17 @@ class toba_solicitud_web extends toba_solicitud
 			$this->objetos[$ci]->inicializar();
 			try {
 				$this->objetos[$ci]->disparar_eventos();
-			} catch(toba_error $e) {
-				$this->log->info($e, 'toba');			
-				toba::notificacion()->agregar($e->getMessage());
+			}catch(toba_error_db $e) {
+				$this->log->error($e, 'toba');			
+				$mensaje = $e->getMessage();
+				$mensaje_debug = null;
+				if (toba::logger()->modo_debug()) {
+					$mensaje_debug = $e->get_mensaje();
+				}
+				toba::notificacion()->error($mensaje, $mensaje_debug);
+			}catch(toba_error $e) {
+				$this->log->error($e, 'toba');			
+				toba::notificacion()->error($e->getMessage());
 			}
 		}
 	}

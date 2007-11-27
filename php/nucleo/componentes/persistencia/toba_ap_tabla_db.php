@@ -242,12 +242,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	{
 		$this->log("SQL de carga: \n" . $sql."\n"); 
 		try{
-			$db = toba::db($this->_fuente);			
+			$db = toba::db($this->_fuente);
 			$datos = $db->consultar($sql);
 		}catch(toba_error $e){
 			toba::logger()->error( get_class($this). ' - '.
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new toba_error('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
+			throw $e;
 		}
 		return $this->cargar_con_datos($datos, $anexar_datos, $usar_cursores);
 	}
@@ -326,7 +327,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				abortar_transaccion($this->_fuente);
 			}
 			toba::logger()->debug("Relanzando excepción. ".$e, 'toba');
-			throw new toba_error($e->getMessage());
+			throw $e;
 		}		
 	}		
 	

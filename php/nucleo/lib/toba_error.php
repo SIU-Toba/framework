@@ -19,28 +19,107 @@ class toba_error extends Exception
 class toba_error_db extends toba_error
 {
 	protected $codigo;
+	protected $info_error;				//Arreglo que mantiene SQLSTATE, codigo especifico del motor, mensaje especifico del motor.
+	protected $sql;
 	protected $mensaje_motor ='';
 
-	function __construct($mensaje, $codigo)
+	function __construct($info)
 	{
-		$this->codigo = $codigo;
-		parent::__construct($mensaje);			
+		//- No se crea un arreglo cuando falla la conexion a la base ya que son propiedades del objeto conexion.
+		if (is_array($info->errorInfo)){
+			$this->set_info_error($info->errorInfo);
+			$this->set_mensaje_motor($this->info_error[2]);	
+		}else{
+			 //- No va a funcionar si se cambia de motor porque se parsea el mensaje de postgres 
+			$cadena = substr($info->getMessage(),0,16);
+			if (strpos($cadena, 'SQLSTATE') !== false) {
+				$codigo = $this->parsear_mensaje($cadena, '[', ']');
+				$this->set_info_error( array($codigo, $info->getCode(), $info->getMessage()) );	
+			}else{
+				//- No se pudo parsear el mensaje de error, se arma uno generico.
+				$this->set_info_error( array('96669', $info->getCode(), $info->getMessage()) );	
+			}
+		}
+		if (PHP_SAPI != 'cli') {
+			if (($this->get_sqlstate() == 'db_08006') || ($this->get_sqlstate() == 'db_96669')) {
+				$mensaje = "No es posible realizar la conexión a la base.";
+			}else{
+				$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
+				if (!$datos_error) {
+					$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
+				}
+				if (empty($datos_error)) {
+					$mensaje = $info->getMessage();	
+				}else{
+					$mensaje = $datos_error['m'];					
+				}				
+			}				
+		}else{
+			$mensaje = $this->get_mensaje();
+		}
+		parent::__construct($mensaje);
 	}
-	
-	function get_sqlstate()
+
+	function set_info_error($error)
 	{
-		return $this->codigo;	
+		$this->info_error = $error;	
 	}
-	
+
 	function set_mensaje_motor($mensaje)
 	{
 		$this->mensaje_motor = $mensaje;
 	}
 	
+	function set_sql_ejecutado($sql)
+	{
+		$this->sql = $sql;
+	}
+	
 	function get_mensaje_motor()
 	{
-		return $this->mensaje_motor;
+		return $this->info_error[2];
 	}
+	
+	function get_sql_ejecutado()
+	{
+		return $this->sql;
+	}
+	
+	function get_sqlstate()
+	{
+		return 'db_'.$this->info_error[0];
+	}
+
+	function get_codigo_motor()
+	{
+		return $this->info_error[1];
+	}
+	
+	function get_mensaje()
+	{
+		if (PHP_SAPI != 'cli') {
+			$mensaje  = "<p><b>SQLSTATE:</b> {$this->get_sqlstate()}</p>" .
+						"<p><b>CODIGO:</b> {$this->get_codigo_motor()}</p>" .
+						"<p><b>MENSAJE:</b> {$this->get_mensaje_motor()}</p>" .
+						"<p><b>SQL:</b> {$this->get_sql_ejecutado()}</p>";
+		}else{
+			$mensaje = "\nERROR ejecutando SQL:\n" .
+					   "-- CODIGO: [{$this->get_codigo_motor()}]\n" .
+					   "-- MENSAJE: [{$this->get_mensaje_motor()}] \n" .
+					   "-- SQL: [{$this->get_sql_ejecutado()}] \n";
+		}
+		return $mensaje;
+	}
+	
+	protected function parsear_mensaje($cadena, $inicio, $final){
+        $cadena = " ".$cadena;
+        $i = strpos($cadena, $inicio);
+        if ($i == 0) return "";
+        $i += strlen($inicio);   
+        $l = strpos($cadena, $final, $i) - $i;
+        return substr($cadena, $i, $l);
+	}
+	
 }
 
 /**
