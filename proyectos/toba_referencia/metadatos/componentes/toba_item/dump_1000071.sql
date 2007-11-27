@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000071]--  Impresión HTML y PDF 
+--[1000071]--  Impresión HTML, Excel y PDF 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Impresión HTML y PDF', --nombre
+	'Impresión HTML, Excel y PDF', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu

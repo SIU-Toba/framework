@@ -237,6 +237,15 @@ class toba_solicitud_web extends toba_solicitud
 		$salida->asignar_objetos( $objetos );
 		$salida->generar_salida();
 	}
+	
+	
+	protected function servicio__vista_excel($objetos)
+	{
+		$salida = new toba_vista_excel();
+		$salida->asignar_objetos( $objetos );
+		$salida->generar_salida();
+	}
+	
 
 	/**
 	 * Genera una salida html pensada para impresión

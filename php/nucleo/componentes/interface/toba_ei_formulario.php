@@ -1116,20 +1116,6 @@ class toba_ei_formulario extends toba_ei
 		return $temp;
 	}
 	
-	function vista_pdf( $salida )
-	{
-		$this->cargar_opciones_efs();
-		$a = array();
-		foreach ( $this->_lista_ef_post as $ef ){
-			if ( $this->_elemento_formulario[$ef]->tiene_estado() ) {
-				$a[] = $this->get_valores_pdf($ef);
-			}
-		}
-		$datos['titulo_tabla'] = $this->get_titulo();
-		$datos['datos_tabla'] = $a;
-		$salida->tabla( $datos );
-	}
-	
 	function get_valores_pdf( $id_ef ){
 		$obj = $this->_elemento_formulario[$id_ef];
 		if ( $obj instanceof toba_ef_multi_seleccion ) {
@@ -1143,6 +1129,33 @@ class toba_ei_formulario extends toba_ei
 		$v = str_replace(array( "&nbsp;" ), ' ', $valor['valor'] );
 		$a = array('clave' => $k, 'valor' => $v);
 		return $a;
+	}
+	
+	
+	function vista_pdf( $salida )
+	{
+		$this->cargar_opciones_efs();
+		$a = array();
+		foreach ( $this->_lista_ef_post as $ef ){
+			if ( $this->_elemento_formulario[$ef]->tiene_estado() ) {
+				$a[] = $this->get_valores_pdf($ef);
+			}
+		}
+		$datos['titulo_tabla'] = $this->get_titulo();
+		$datos['datos_tabla'] = $a;
+		$salida->tabla( $datos );
+	}
+
+	function vista_excel(toba_vista_excel $salida)
+	{
+		$this->cargar_opciones_efs();		
+		$datos = array();
+		foreach ( $this->_lista_ef_post as $ef ){
+			if ( $this->_elemento_formulario[$ef]->tiene_estado() ) {
+				$datos[] = $this->get_valores_pdf($ef);
+			}
+		}		
+		$salida->tabla($datos);
 	}
 	
 }

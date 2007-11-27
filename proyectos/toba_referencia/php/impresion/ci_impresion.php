@@ -39,6 +39,36 @@ class ci_impresion extends toba_ci
 		$this->dependencia('ml')->vista_pdf( $salida );
 	}
 	
+	function vista_excel(toba_vista_excel $salida)
+	{
+		$excel = $salida->get_excel();
+		$excel->setActiveSheetIndex(0);
+		$excel->getActiveSheet()->setTitle('Principal');
+		$salida->titulo('Filtro');
+		$this->dependencia('filtro')->vista_excel($salida);
+		$salida->separacion(1);
+		$salida->titulo('Copia del filtro');
+		$this->dependencia('filtro')->vista_excel($salida);
+		
+		$salida->crear_hoja('Copia');
+		$salida->titulo('Copia del filtro en hoja 2');
+		$this->dependencia('filtro')->vista_excel($salida);
+		
+		/*		$salida->titulo( $this->get_nombre() );
+		
+		$salida->mensaje('Nota: Este es el Principal');
+		$this->dependencia('filtro')->vista_pdf( $salida );
+		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$salida->salto_pagina();
+		$salida->mensaje('Nota: Esta es una copia');
+		$this->dependencia('filtro')->vista_pdf( $salida );
+		$this->dependencia('cuadro')->vista_pdf( $salida );
+		$salida->salto_pagina();
+		$salida->mensaje('Este es un formulario ML que esta en otra pagina');
+		$salida->separacion();
+		$this->dependencia('ml')->vista_pdf( $salida );*/
+	}	
+	
 	function get_popup($clave)
 	{
 		return 'Nombre';
