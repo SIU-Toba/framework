@@ -248,7 +248,6 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			toba::logger()->error( get_class($this). ' - '.
 									'Error cargando datos. ' .$e->getMessage() );
 			throw new toba_error('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
-			throw $e;
 		}
 		return $this->cargar_con_datos($datos, $anexar_datos, $usar_cursores);
 	}

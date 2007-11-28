@@ -21,14 +21,15 @@ class toba_vista_pdf
 	
 	function __construct()
 	{
-		$this->pdf = new Cezpdf($this->configuracion['hoja_tamanio'], $this->configuracion['hoja_orientacion']);
 		$this->inicializar();
 	}
 	
 	/**
 	 * @ventana Lugar donde se puede cambiar alguna configuracion del objeto Cezpdf
 	 */
-	function inicializar(){
+	function inicializar()
+	{
+		$this->pdf = new Cezpdf($this->configuracion['hoja_tamanio'], $this->configuracion['hoja_orientacion']);
 		$this->set_pdf_fuente();
 	}
 	
@@ -78,19 +79,23 @@ class toba_vista_pdf
 	}
 	
 	/**
+	 * Cambia el tamaño del papel, se debe llamar a un inicializar 
+	 * para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)
 	 * @param string $tamanio Tipo de página (por defecto a4)
 	 */
 	function set_papel_tamanio( $tamanio )
 	{
-		$this->configuracion['papel_tamanio'] = $tamanio;
+		$this->configuracion['hoja_tamanio'] = $tamanio;
 	}
 
 	/**
+	 * Cambia la orientacion del papel, se debe llamar a un inicializar 
+	 * para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)
 	 * @param string $orientacion portrait o landscape
 	 */
-	function set_papel_orientacion( $orientacion )
+	function set_papel_orientacion($orientacion)
 	{
-		$this->configuracion['papel_orientacion'] = $orientacion;
+		$this->configuracion['hoja_orientacion'] = $orientacion;
 	}
 	
 	/**
@@ -167,6 +172,16 @@ class toba_vista_pdf
 	//------------------------------------------------------------------------
 	//-- Primitivas graficas
 	//------------------------------------------------------------------------
+	
+	/**
+	 * Dado un porcentaje, retorna el valor absoluto del ancho de la pagina segun sus medidas actuales
+	 * @param int $porcentaje
+	 */
+	function get_ancho($porcentaje)
+	{
+		$ancho_visible = ($this->pdf->ez['pageWidth'] - $this->pdf->ez['rightMargin']) - $this->pdf->ez['leftMargin'];
+		return $ancho_visible * $porcentaje / 100;
+	}
 	
 	function salto_linea() 
 	{

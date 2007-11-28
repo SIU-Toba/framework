@@ -12,5 +12,13 @@ class extendion_cuadro_estetica_a extends toba_ei_cuadro
 			<strong>Departamentos</strong>: $deps - 
 			<strong>Localidades</strong>: $locs";
 	}
+	
+	function pdf_cabecera_cc_contenido__zona(&$nodo)
+	{
+		$zona = $nodo['descripcion']['zona'];
+		$locs = count($nodo['filas']);
+		$deps = count($nodo['hijos']);
+		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</strong>: $deps - <b>Localidades</b>: $locs");
+	}	
 }
 ?>

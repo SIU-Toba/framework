@@ -89,5 +89,41 @@ class extension_cuadro_full extends toba_ei_cuadro
 	}
 
 	//----------------------------------------
+	
+	// ZONA
+
+	function pdf_cabecera_cc_contenido__zona(&$nodo)
+	{
+		$zona = $nodo['descripcion']['zona'];
+		$locs = count($nodo['filas']);
+		$deps = count($nodo['hijos']);
+		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</b>: $deps - <b>Localidades</b>: $locs");
+	}	
+	
+	function pdf_pie_cc_contenido__zona(&$nodo)
+	{
+		//Preparo una descripcion
+		$zona = $nodo['descripcion']['zona'];
+		$locs = count($nodo['filas']);
+		$deps = count($nodo['hijos']);
+		$this->salida->texto("La Zona <b>$zona</b> tiene <b>$deps</b> departamentos y <b>$locs</b> localidades.");
+		//Hago unos calculos
+		$habitantes = 0;
+		foreach($nodo['filas'] as $fila){
+			$habitantes += $this->datos[$fila]['hab_total'];
+		}
+		$promedio = $habitantes / count($nodo['filas']);
+		$resultado = number_format($promedio,2,',','.') ;
+		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.");
+	}	
+	// DEPARTAMENTO
+
+	function pdf_pie_cc_cabecera__departamento(&$nodo)
+	{
+		$hab = $nodo['acumulador']['hab_total'];
+		$sup = $nodo['acumulador']['superficie'];
+		$desc = $nodo['descripcion']['departamento'];
+		return "Resumen: <b>$desc</b> (hab: $hab - sup: $sup)";
+	}	
 }
 ?>

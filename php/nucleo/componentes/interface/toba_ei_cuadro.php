@@ -975,7 +975,8 @@ class toba_ei_cuadro extends toba_ei
 		}
 		$this->generar_cabecera_corte_control($nodo, $id_unico);
 		//Genero el corte
-		if ($this->_cortes_anidado_colap) {
+		if ($this->_cortes_anidado_colap && ($this->_tipo_salida == 'html' ||
+											$this->_tipo_salida == 'impresion_html')) {
 			$estilo = $this->get_estilo_inicio_colapsado($nodo);
 			echo "<table class='tabla-0' id='$id_unico' width='100%' border='1' $estilo><tr><td>\n";
 		}
@@ -991,7 +992,8 @@ class toba_ei_cuadro extends toba_ei
 			//Disparo la construccion del ultimo nivel
 			$this->generar_cuadro( $nodo['filas']); //, $nodo['acumulador']
 		}
-		if ($this->_cortes_anidado_colap) {
+		if ($this->_cortes_anidado_colap && ($this->_tipo_salida == 'html' ||
+											$this->_tipo_salida == 'impresion_html')) {
 			echo "</td></tr></table>\n";
 		}
 		$this->generar_pie_corte_control($nodo);
@@ -1817,16 +1819,12 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * @ignore 
 	 */
-	protected function pdf_inicio()
-	{
-	}
+	protected function pdf_inicio(){}
 	
 	/**
 	 * @ignore 
 	 */
-	protected function pdf_fin()
-	{
-	}
+	protected function pdf_fin() {}
 
 	/**
 	 * @ignore 
@@ -1835,8 +1833,8 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->salida->separacion(5);
 		$formateo = new $this->_clase_formateo('pdf');
-		$datos = array();
-		$titulos = array();
+		//-- Valores de la tabla
+		$datos = array();		
         foreach($filas as $f) {
 			$clave_fila = $this->get_clave_fila($f);
 			$fila = array();
@@ -1865,19 +1863,63 @@ class toba_ei_cuadro extends toba_ei
             }
             $datos[] = $fila;
         }
-        $titulos = array();
-        for ($a=0;$a< $this->_cantidad_columnas;$a++) {        
-        	$titulos[$this->_info_cuadro_columna[$a]['clave']] = $this->_info_cuadro_columna[$a]['titulo'];
-        	toba::logger()->var_dump($this->_info_cuadro_columna[$a]);
-        }
-        $opciones = array('fontSize' => 10);
+        list($titulos, $estilos) = $this->pdf_get_titulos();
+        
+        //-- Genera la tablas
+        $ancho = $this->salida->get_ancho(100);
+        $opciones = array('fontSize' => 10, 'width' => $ancho, 'cols' => $estilos);
         $this->salida->get_pdf()->ezTable($datos, $titulos, null, $opciones);
 		/*if( ! $this->tabla_datos_es_general() ){
 			$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();
 		}*/
-		$this->salida->separacion(5);
+		$this->salida->separacion(2);
 
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function pdf_get_estilo($estilo)
+	{
+    	switch($estilo) {
+    		case 'col-num-p1':
+    		case 'col-num-p2':
+    		case 'col-num-p3':
+    		case 'col-num-p4':
+    			return array('justification' => 'right');
+    			break;
+    		case 'col-tex-p1':
+    		case 'col-tex-p2':
+    		case 'col-tex-p3':
+    		case 'col-tex-p4':  
+    		    return array('justification' => 'left');
+    			break;
+    		case 'col-cen-s1':
+    		case 'col-cen-s2':
+    		case 'col-cen-s3':
+    		case 'col-cen-s4':  
+    		    return array('justification' => 'left');
+    			break;
+    	}		
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function pdf_get_titulos()
+	{
+        $titulos = array();
+        $estilos = array();
+        for ($a=0;$a< $this->_cantidad_columnas;$a++) {        
+        	$id = $this->_info_cuadro_columna[$a]['clave'];
+        	$titulos[$id] = $this->_info_cuadro_columna[$a]['titulo'];
+        	$estilo = $this->pdf_get_estilo($this->_info_cuadro_columna[$a]['estilo']);
+        	if (isset($estilo)) {
+        		$estilos[$id] = $estilo;
+        	}
+        }		
+        return array($titulos, $estilos);
 	}
 
 	protected function pdf_mensaje_cuadro_vacio($texto)
@@ -1900,22 +1942,24 @@ class toba_ei_cuadro extends toba_ei
 	
 	protected function pdf_cabecera_cc_contenido(&$nodo)
 	{
-		$this->salida->separacion(5);
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		if ($nodo['profundidad'] > 0) {
-			$opciones = array('justification'=>'center');
-			$size = 10;
-		} else {
 			$opciones = array('justification'=>'left');
+			$size = 10;
+			$separacion = 2;
+		} else {
+			$opciones = array('justification'=>'center');
 			$size = 12;
+			$separacion = 5;
 		}
+		$this->salida->separacion(8);		
 		if (trim($descripcion) != '') {
-			$this->salida->texto($descripcion . ': <b>' . $valor . '</b>', $size, $opciones);
+			$this->salida->texto("<b>$descripcion " . $valor . '</b>', $size, $opciones);
 		} else {
 			$this->salida->texto('<b>' . $valor . '</b>', $size, $opciones);
 		}
-		$this->salida->separacion(5);
+		$this->salida->separacion($separacion);
 	}	
 	
 
@@ -1930,6 +1974,59 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 	
+    /**
+     * @ignore 
+     */
+	protected function pdf_cuadro_totales_columnas($totales,$nivel=null,$agregar_titulos=false, $estilo_linea=null)
+	{
+		$formateo = new $this->_clase_formateo('pdf');
+		list($titulos, $estilos) = $this->pdf_get_titulos();
+		$datos = array();
+		for ($a=0;$a<$this->_cantidad_columnas;$a++){
+			$clave = $this->_info_cuadro_columna[$a]["clave"];
+			//Defino el valor de la columna
+		    if(isset($totales[$clave])){
+				$valor = $totales[$clave];
+				if(!isset($estilo)){
+					$estilo = $this->_info_cuadro_columna[$a]["estilo"];
+				}
+				//La columna lleva un formateo?
+				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
+					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+					$valor = $formateo->$metodo($valor);
+				}
+				$datos[$clave] = $valor;
+			}else{
+				unset($titulos[$clave]);
+			}
+		}
+		$datos = array($datos);
+		$this->salida->separacion(2);
+		if ($nivel > 0) {
+			$opciones = array('xPos' => 'right', 'xOrientation' => 'left');
+		} else {
+			$opciones = array('xPos' => 'center', 'xOrientation' => 'center');
+		}
+		$opciones['cols'] = $estilos;
+		$opciones['fontSize'] = 8;
+		
+		$this->salida->get_pdf()->ezTable($datos, $titulos, null, $opciones);
+		$this->salida->separacion(2);
+
+	}	
+	
+	protected function pdf_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
+	{
+		//Titulo
+		if(isset($titulo)){
+			$this->salida->subtitulo($titulo);
+		}
+		//Datos
+		foreach($datos as $desc => $valor){
+			$this->salida->texto($desc.': '.$valor);
+		}
+	}	
+	
 
 	protected function pdf_pie_corte_control( &$nodo )
 	{
@@ -1941,48 +2038,39 @@ class toba_ei_cuadro extends toba_ei
 			}else{
 			 	$descripcion = $this->pdf_cabecera_pie_cc_contenido($nodo);
 			}
-			$this->salida->texto($descripcion, 10, array('justification' => 'right'));
-			/*//----- Totales de columna -------
-			if (isset($nodo['acumulador'])) {
-				$titulos = false;
-				if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
-					$titulos = true;	
-				}
-				$this->html_cuadro_totales_columnas($nodo['acumulador'], 
-													'ei-cuadro-cc-sum-nivel-'.$nivel_css, 
-													$titulos,
-													$css_pie);
+			$this->salida->texto($descripcion, 10, array('justification' => 'center'));
+		}
+		//----- Totales de columna -------
+		if (isset($nodo['acumulador'])) {
+			$titulos = false;
+			if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
+				$titulos = true;	
 			}
-			//------ Sumarizacion AD-HOC del usuario --------
-			if(isset($nodo['sum_usuario'])){
-				$nivel_css = $this->get_nivel_css($nodo['profundidad']);
-				$css = 'ei-cuadro-cc-sum-nivel-'.$nivel_css;
-				foreach($nodo['sum_usuario'] as $id => $valor){
-					$desc = $this->_sum_usuario[$id]['descripcion'];
-					$datos[$desc] = $valor;
-				}
-				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
-				$this->html_cuadro_sumarizacion($datos,null,300,$css);
-				echo "</td></tr>\n";
+			$this->pdf_cuadro_totales_columnas($nodo['acumulador'], 
+												$nodo['profundidad'], 
+												$titulos,
+												null);
+		}
+		//------ Sumarizacion AD-HOC del usuario --------
+		if(isset($nodo['sum_usuario'])){
+			foreach($nodo['sum_usuario'] as $id => $valor){
+				$desc = $this->_sum_usuario[$id]['descripcion'];
+				$datos[$desc] = $valor;
 			}
-			//----- Contar Filas
-			if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
-				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
-				echo "<em>" . $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']) . "<em>";
-				echo "</td></tr>\n";
-			}
-			//----- Contenido del usuario al final del PIE
-			$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
-			if(method_exists($this, $metodo)){
-				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
-				$this->$metodo($nodo);
-				echo "</td></tr>\n";
-			}
-			if( ! $this->tabla_datos_es_general() ) {
-				echo "</table>";
-			}*/
+			$this->pdf_cuadro_sumarizacion($datos,null,300,$nodo['profundidad']);
+		}
+		//----- Contar Filas
+		if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
+			$etiqueta = $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
+			$this->salida->texto("    <i>".$etiqueta.'</i>');
 		}
 		
+		//----- Contenido del usuario al final del PIE
+		$metodo = 'pdf_pie_cc_contenido__' . $nodo['corte'];
+		if(method_exists($this, $metodo)){
+			$this->$metodo($nodo);
+		}
+	
 	}
 
 	protected function pdf_cc_inicio_nivel()
