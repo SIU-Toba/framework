@@ -1084,6 +1084,7 @@ class toba_ei_cuadro extends toba_ei
 		echo "\n<table class='ei-base ei-cuadro-base' $ancho>\n";
 		echo"<tr><td style='padding:0;'>\n";
 		echo $this->get_html_barra_editor();
+		
 		if($mostrar_cabecera){
 			$this->generar_html_barra_sup(null, true,"ei-cuadro-barra-sup");
 		}
@@ -1144,14 +1145,14 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function html_cabecera()
 	{
-        if ($this->_info_cuadro['exportar_xls'] == 1) {
+        if (isset($this->_info_cuadro) && $this->_info_cuadro['exportar_pdf'] == 1) {
+        	$img = toba_recurso::imagen_toba('extension_pdf.png', true);
+        	echo "<a href='javascript: {$this->objeto_js}.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
+        }    		
+        if (isset($this->_info_cuadro) && $this->_info_cuadro['exportar_xls'] == 1) {
         	$img = toba_recurso::imagen_toba('exp_xls.gif', true);
         	echo "<a href='javascript: {$this->objeto_js}.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
         }
-        if ($this->_info_cuadro['exportar_pdf'] == 1) {
-        	$img = toba_recurso::imagen_toba('exp_pdf.gif', true);
-        	echo "<a href='javascript: {$this->objeto_js}.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
-        }       		
         if(trim($this->_info_cuadro["subtitulo"])<>""){
             echo $this->_info_cuadro["subtitulo"];
         }

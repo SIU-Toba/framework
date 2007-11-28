@@ -359,7 +359,7 @@ padding-left:4px;
 	 empty-cells: hide
 }
 .ei-cuadro-cabecera img {
-	float: right;
+	float: left;
 	padding: 2px;
 }
 .ei-cuadro-fila {
