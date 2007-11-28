@@ -3,6 +3,11 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extension_cuadro_sumarizacion_a extends toba_ei_cuadro
 {
+	function ini()
+	{
+		$this->_pdf_cortar_hoja_cc_0 = 1;
+	}
+		
 	/**
 		Cantidad de Localidades
 	*/

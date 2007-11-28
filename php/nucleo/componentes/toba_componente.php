@@ -80,7 +80,15 @@ abstract class toba_componente
 	function inicializar($parametros=array())
 	{
 		$this->_parametros = $parametros;
+		$this->ini();
 	}
+	
+	/**
+	 * Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+	 * Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente
+	 * @ventana
+	 */
+	function ini() {}
 
 	/**
 	 * Destructor del componente

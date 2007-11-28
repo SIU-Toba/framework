@@ -3,6 +3,8 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extendion_cuadro_estetica_a extends toba_ei_cuadro
 {
+	
+		
 	function html_cabecera_cc_contenido__zona(&$nodo)
 	{
 		$zona = $nodo['descripcion']['zona'];
@@ -18,7 +20,8 @@ class extendion_cuadro_estetica_a extends toba_ei_cuadro
 		$zona = $nodo['descripcion']['zona'];
 		$locs = count($nodo['filas']);
 		$deps = count($nodo['hijos']);
-		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</strong>: $deps - <b>Localidades</b>: $locs");
+		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</b>: $deps - <b>Localidades</b>: $locs",
+								10, array('justification' => 'center'));
 	}	
 }
 ?>

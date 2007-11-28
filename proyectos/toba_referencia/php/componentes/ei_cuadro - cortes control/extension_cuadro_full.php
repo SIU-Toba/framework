@@ -4,6 +4,11 @@ php_referencia::instancia()->agregar(__FILE__);
 class extension_cuadro_full extends toba_ei_cuadro
 {
 	
+	function ini()
+	{
+		$this->_pdf_cortar_hoja_cc_0 = 1;
+	}
+	
 	//----------------------------------------
 	//--------- SUMARIZACIONES --------------
 	//----------------------------------------
@@ -97,7 +102,8 @@ class extension_cuadro_full extends toba_ei_cuadro
 		$zona = $nodo['descripcion']['zona'];
 		$locs = count($nodo['filas']);
 		$deps = count($nodo['hijos']);
-		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</b>: $deps - <b>Localidades</b>: $locs");
+		$this->salida->texto("<b>Zona</b>: $zona - <b>Departamentos</b>: $deps - <b>Localidades</b>: $locs",
+						9, array('justification' => 'left'));
 	}	
 	
 	function pdf_pie_cc_contenido__zona(&$nodo)
@@ -114,7 +120,7 @@ class extension_cuadro_full extends toba_ei_cuadro
 		}
 		$promedio = $habitantes / count($nodo['filas']);
 		$resultado = number_format($promedio,2,',','.') ;
-		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.");
+		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.", 8, array('justification' => 'right'));
 	}	
 	// DEPARTAMENTO
 

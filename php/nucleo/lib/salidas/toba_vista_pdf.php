@@ -241,12 +241,11 @@ class toba_vista_pdf
 	 * @param integer $tamanio tamaño de la letra de la tabla
 	 * @param array $opciones arreglo asociativo con estilos de la tabla
 	 */
-	function tabla( $datos, $ver_titulos_col=false, $tamanio=8, $opciones=null ){
+	function tabla( $datos, $ver_titulos_col=false, $tamanio=8, $opciones=array() ){
 		$ver_tit_col = $ver_titulos_col? 1 : 0;
 		$texto_tit_col = isset($datos['titulos_columnas'])? $datos['titulos_columnas'] : array('clave' => '', 'valor' => '');
 		$texto_titulo_tabla = isset($datos['titulo_tabla'])? $datos['titulo_tabla'] : '';
-		if (!isset($opciones)) {
-			$opciones = array(
+		$opciones_def = array(
 						'splitRows'=>0,
 						'rowGap' => 1,
 						'showHeadings' => $ver_tit_col,	
@@ -256,10 +255,8 @@ class toba_vista_pdf
 						'outerLineThickness' => 0.7,
 						'innerLineThickness' => 0.7,
 	                	'xOrientation' => 'center',
-	                	'width' => 500
 		            );
-		}
-
+		$opciones = array_merge($opciones_def, $opciones);
 		$this->pdf->ezTable($datos['datos_tabla'], $texto_tit_col, $texto_titulo_tabla, $opciones);
 	}
 

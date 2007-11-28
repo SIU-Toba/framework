@@ -3,6 +3,7 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extension_cuadro_estetica_b extends toba_ei_cuadro
 {
+	
 	function html_pie_cc_contenido__zona(&$nodo)
 	{
 		//Preparo una descripcion
