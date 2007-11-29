@@ -166,11 +166,10 @@ class toba_vista_excel
  		}
 		$hoja = $this->excel->getActiveSheet();
 		$y = 0;
-		toba::logger()->var_dump($opciones);
 		foreach($datos as $filas) {
 			$x = 0;
 			foreach($filas as $clave => $valor) {
-				$hoja->setCellValueExplicitByColumnAndRow($origen[0] + $x, $origen[1] + $y, $valor, PHPExcel_Cell_DataType::TYPE_STRING);
+				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, $valor);
 				if (isset($opciones[$clave]['estilo'])) {
 					$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
 				}

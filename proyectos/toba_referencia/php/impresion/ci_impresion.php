@@ -47,12 +47,12 @@ class ci_impresion extends toba_ci
 		$salida->titulo('Filtro');
 		$this->dependencia('filtro')->vista_excel($salida);
 		$salida->separacion(1);
-		$salida->titulo('Copia del filtro');
-		$this->dependencia('filtro')->vista_excel($salida);
+		$salida->titulo('Este es un formulario ML que esta en otra pagina');		
+		$this->dependencia('ml')->vista_excel($salida);
 		
-		$salida->crear_hoja('Copia');
+		/*$salida->crear_hoja('Copia');
 		$salida->titulo('Copia del filtro en hoja 2');
-		$this->dependencia('filtro')->vista_excel($salida);
+		$this->dependencia('filtro')->vista_excel($salida);*/
 		
 		/*		$salida->titulo( $this->get_nombre() );
 		

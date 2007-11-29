@@ -1070,6 +1070,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		echo "\n</table>\n";
 	}
 	
+	//---------------------------------------------------------------
+	//----------------------  SALIDA PDF   --------------------------
+	//---------------------------------------------------------------
+			
+	
 	function vista_pdf( $salida )
 	{
 		//-- Encabezado
@@ -1101,5 +1106,36 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$datos['titulos_columnas'] = $tit_col;
 		$salida->tabla( $datos, true );
 	}
+	
+	//---------------------------------------------------------------
+	//----------------------  SALIDA EXCEL --------------------------
+	//---------------------------------------------------------------
+		
+	function vista_excel(toba_vista_excel $salida)
+	{
+		$opciones = array();
+		$datos = array();
+		if( isset( $this->_ordenes ) ) {
+			foreach ($this->_ordenes as $fila) {
+				$dato = $this->_datos[$fila];
+				$this->cargar_registro_a_ef($fila, $dato);
+				$this->cargar_opciones_efs();
+				
+				$datos_temp = array();
+				foreach ($this->_lista_ef_post as $ef){
+					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
+					list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+					if (isset($estilo)) {
+						$opciones[$ef]['estilo'] = $estilo;
+					}
+					$opciones[$ef]['ancho'] = 'auto';
+					$datos_temp[$ef] = $valor;
+				}
+				$datos[] = $datos_temp;
+			}
+			$salida->tabla($datos, array(), $opciones);
+		}
+
+	}	
 }
 ?>
