@@ -509,6 +509,7 @@ class toba_nucleo
 			'toba_ef_editable_clave'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 			'toba_ef_editable_fecha'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
 			'toba_ef_editable_textarea'				=> 'nucleo/componentes/interface/efs/toba_ef_editable.php',
+			'toba_ef_editable_captcha'				=> 'nucleo/componentes/interface/efs/toba_ef_editable_captcha.php',
 			'toba_ef_multi_seleccion_lista'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
 			'toba_ef_multi_seleccion_check'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',
 			'toba_ef_multi_seleccion_doble'			=> 'nucleo/componentes/interface/efs/toba_ef_multi_seleccion.php',

@@ -802,6 +802,20 @@ class toba_ei_formulario extends toba_ei
 	//-------------------------------------------------------------------------------
 	//------------------------------	  SALIDA	  -------------------------------
 	//-------------------------------------------------------------------------------
+	
+	/**
+	 * Método que se utiliza en la respuesta a los efs_captcha
+	 * @todo Este esquema solo se banca un solo ef_captcha. Para poder bancarse mas habria que 
+	 * pensar por ejemplo, pasarle al GET "id_ef + text-captcha" para identificar que texto se 
+	 * quiere recuperar. De todas maneras para que mas de un captcha???.
+	 */	
+	function servicio__mostrar_captchas_efs()
+	{
+		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_antispam.php');
+		$texto = toba::memoria()->get_dato_sincronizado('texto-captcha');
+		$antispam = new AntiSpam($texto);
+		$antispam->Stroke();
+	}
 
 	/**
 	 * Método que se utiliza en la respuesta de las cascadas usando AJAX

@@ -28,6 +28,7 @@ maximo: Maxima cantidad de caracteres soportada (Si no se especifica es igual al
 estado: Cargar el elemento con un estado: opcional;
 sql: SQL que devuelve el valor a cargar: opcional;
 solo_lectura: Hacer el campo solo lectura (setarlo a 1): opcional;', 'toba', NULL, '0');
+INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_captcha', 'ef_editable', 'Campo para ingresar un codigo generado al azar.', NULL, 'toba', NULL, '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_clave', 'ef_editable', 'Campo para ingresar contraseñas', NULL, 'toba', NULL, '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_fecha', 'ef_editable', 'Campo para ingresar fechas', NULL, 'toba', NULL, '0');
 INSERT INTO apex_elemento_formulario (elemento_formulario, padre, descripcion, parametros, proyecto, exclusivo_toba, obsoleto) VALUES ('ef_editable_moneda', 'ef_editable_numero', 'Representa un importe monetario', 'mascara: Formateo del valor (por defecto $ ###.###,00): opcional;
