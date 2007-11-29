@@ -11,6 +11,7 @@ class toba_ef_checkbox extends toba_ef
     protected $valor_no_seteado;
     protected $valor_info = 'Sí';
     protected $valor_info_no_seteado = 'No';
+    protected $clase_css = 'ef-checkbox';
     
     static function get_lista_parametros()
     {
@@ -72,7 +73,7 @@ class toba_ef_checkbox extends toba_ef
          {
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";		
-            return toba_form::checkbox($this->id_form, $this->estado, $this->valor,null, $extra.' '.$this->javascript);
+            return toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$this->javascript);
          }            
     }
 
@@ -127,13 +128,21 @@ class toba_ef_checkbox extends toba_ef
 		return "new ef_checkbox({$this->parametros_js()})";
 	}	
 
-	function get_descripcion_estado()
+	function get_descripcion_estado($tipo_salida)
 	{
 		if ( !isset($this->estado) || $this->estado == $this->valor_no_seteado ) {
-			return $this->valor_info_no_seteado;
+			$valor = $this->valor_info_no_seteado;
 		} else {
-			return $this->valor_info;
+			$valor = $this->valor_info;
 		}
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$valor</div>";
+			break;
+			case 'pdf':
+				return $valor;
+		}		
 	}
 	
 }
@@ -147,7 +156,7 @@ class toba_ef_checkbox extends toba_ef
  */
 class toba_ef_fijo extends toba_ef_oculto
 {
-	private $estilo;
+	protected $clase_css = 'ef-fijo';
 	private $maneja_datos;
 	
 	static function get_lista_parametros()
@@ -169,7 +178,6 @@ class toba_ef_fijo extends toba_ef_oculto
 	function __construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros)
     {
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
-		$this->estilo = "ef-fijo";
 		if(isset($parametros['fijo_sin_estado']) && $parametros['fijo_sin_estado'] == 1){
 			$this->maneja_datos = false;
 		}else{
@@ -200,7 +208,7 @@ class toba_ef_fijo extends toba_ef_oculto
 	function get_input()
     {
 		$estado = (isset($this->estado)) ? $this->estado : null;
-		$html = "<div class='{$this->estilo}' id='{$this->id_form}'>".$estado."</div>";
+		$html = "<div class='{$this->clase_css}' id='{$this->id_form}'>".$estado."</div>";
 		return $html;
 	}
 	

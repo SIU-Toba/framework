@@ -81,13 +81,22 @@ abstract class toba_ef_seleccion extends toba_ef
 	/**
 	 * Retorna la descripción asociada a la opción actualmente seleccionada
 	 */
-	function get_descripcion_estado()
+	function get_descripcion_estado($tipo_salida)
 	{
 		if ( isset( $this->estado ) && isset( $this->opciones[ $this->estado ] ) ) {
-			return $this->opciones[ $this->estado ];
+			$valor = $this->opciones[ $this->estado ];
 		} else {
-			return null;	
+			$valor = null;	
 		}
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$valor</div>";
+			break;
+			case 'pdf':
+				return $valor;	
+			break;
+		}				
 	}
 
 	protected function es_estado_nulo($estado)
@@ -202,6 +211,7 @@ abstract class toba_ef_seleccion extends toba_ef
  */
 class toba_ef_combo extends toba_ef_seleccion
 {
+	protected $clase_css = 'ef-combo';	
 
 	function get_input()
 	{
@@ -210,7 +220,7 @@ class toba_ef_combo extends toba_ef_seleccion
 		//El estado que puede contener muchos datos debe ir en un unico string
 		$estado = $this->get_estado_para_input();
         if ($this->solo_lectura) {
-        	$input = toba_form::select("",$estado, $this->opciones, "ef-combo", "disabled");	
+        	$input = toba_form::select("",$estado, $this->opciones, $this->clase_css, "disabled");	
 			$input .= toba_form::hidden($this->id_form, $estado);
             return $input;
 		} else {
@@ -244,6 +254,7 @@ class toba_ef_combo extends toba_ef_seleccion
  */
 class toba_ef_radio extends toba_ef_seleccion 
 {
+	protected $clase_css = 'ef-radio';	
 	protected $cantidad_columnas = 1;	
 	
     static function get_lista_parametros()
@@ -289,7 +300,7 @@ class toba_ef_radio extends toba_ef_seleccion
     			$html .= "<tr>\n";	
     		}
 	    	$id = $this->id_form . $i;    		
-	    	$html .= "\t<td><label class='ef-radio' for='$id'>";
+	    	$html .= "\t<td><label class='{$this->clase_css}' for='$id'>";
 	    	$es_actual = (strval($estado) == strval($clave));
 			if (! $this->solo_lectura) {
 	    		$sel = ($es_actual) ? "checked" : "";

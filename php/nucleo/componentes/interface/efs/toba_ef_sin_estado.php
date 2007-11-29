@@ -67,9 +67,11 @@ abstract class toba_ef_sin_estado extends toba_ef
  */
 class toba_ef_barra_divisora extends toba_ef_sin_estado
 {
+	protected $clase_css = 'ef-barra-divisora';
+	
 	function get_input()
 	{
-		echo "<div class='ef-barra-divisora' id='{$this->id_form}'>{$this->etiqueta}</div>\n";
+		echo "<div class='{$this->clase_css}' id='{$this->id_form}'>{$this->etiqueta}</div>\n";
 	}
 }
 

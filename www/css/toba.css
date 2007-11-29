@@ -311,6 +311,13 @@ padding-left:4px;
 	font-size: 9px;
 	white-space: nowrap;
 }
+.ef-multi-sel-lista {
+}
+.ef-multi-sel-check {
+}
+.ef-multi-sel-doble {
+	font-weight:normal;
+}
 .ef-multi-doble-boton {
 	cursor: pointer;
 	cursor: hand;	
@@ -341,6 +348,7 @@ padding-left:4px;
 .ef-cuit {
 	white-space:nowrap;
 }
+
 
 /*************************
 		EI - CUADRO

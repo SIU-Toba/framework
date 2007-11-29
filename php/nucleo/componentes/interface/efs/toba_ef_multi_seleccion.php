@@ -234,21 +234,25 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 		return $consumos;
 	}
 		
-	function get_descripcion_estado( $solo_datos=false )
+	function get_descripcion_estado($tipo_salida)
 	{
-		if ( $solo_datos ) {
-			$desc = array();
-			foreach ($this->get_estado_para_input() as $estado) {
-				$desc[] = $this->opciones[$estado];
-			}
-			return $desc;	
-		}else{
-			$desc = "<ul>\n";
-			foreach ($this->get_estado_para_input() as $estado) {
-				$desc .= "<li>{$this->opciones[$estado]}</li>\n";
-			}
-			$desc .= "</ul>\n";
-			return $desc;	
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				$desc = "<ul class='{$this->clase_css}'>\n";
+				foreach ($this->get_estado_para_input() as $estado) {
+					$desc .= "<li>{$this->opciones[$estado]}</li>\n";
+				}
+				$desc .= "</ul>\n";
+				return $desc;	
+			break;
+			case 'pdf':
+				$desc = array();
+				foreach ($this->get_estado_para_input() as $estado) {
+					$desc[] = $this->opciones[$estado];
+				}
+				return implode("\n", $desc);
+			break;
 		}
 	}
 	
@@ -303,6 +307,8 @@ abstract class toba_ef_multi_seleccion extends toba_ef
  */
 class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 {
+	protected $clase_css = 'ef-multi-sel-lista';
+	
     static function get_lista_parametros()
     {
     	$param = parent::get_lista_parametros();
@@ -334,7 +340,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
 		if (isset($this->ancho)) {
 			$extra .= " style='width: {$this->ancho}'";
 		}
-		$html .= toba_form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, 'ef-combo', $extra);
+		$html .= toba_form::multi_select($this->id_form, $estado, $this->opciones, $tamanio, $this->clase_css, $extra);
 		return $html;
 	}
 	
@@ -355,6 +361,7 @@ class toba_ef_multi_seleccion_lista extends toba_ef_multi_seleccion
  */
 class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 {
+	protected $clase_css = 'ef-multi-sel-check';
 	protected $cantidad_columnas = 1;	
 	
     static function get_lista_parametros()
@@ -402,7 +409,7 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
 					<a href=\"javascript:{$this->objeto_js()}.seleccionar_todo(false)\">Ninguno</a></div>
 			";
 		}
-		$html .= "<div id='{$this->id_form}_opciones'><table>\n";
+		$html .= "<div id='{$this->id_form}_opciones' class='{$this->clase_css}'><table>\n";
 		foreach ($this->opciones as $clave => $descripcion) {
 			if ($i % $this->cantidad_columnas == 0) {
     			$html .= "<tr>\n";	
@@ -456,6 +463,8 @@ class toba_ef_multi_seleccion_check extends toba_ef_multi_seleccion
  */
 class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 {
+	protected $clase_css = 'ef-multi-sel-check';	
+	
     static function get_lista_parametros()
     {
     	$param = parent::get_lista_parametros();
@@ -507,7 +516,7 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$boton_izq = "<img src='$img_izq' id='{$this->id_form}_img_der' onclick=\"$ef_js.pasar_a_izquierda()\" class='ef-multi-doble-boton'>";
 		
 		$disabled = ($this->solo_lectura) ? "disabled" : "";
-		$html .= "<table style='font-weight:normal;'>";
+		$html .= "<table class='{$this->clase_css}'>";
 		$html .= "<tr><td>$etiq_izq</td><td></td><td>$etiq_der</td></tr>";
 		$html .= "<tr><td>";
 

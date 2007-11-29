@@ -17,6 +17,7 @@ class toba_ef_popup extends toba_ef_editable
 	protected $editable;
 	protected $vinculo;
 	protected $id_vinculo;
+	protected $clase_css = 'ef-popup';
 
     static function get_lista_parametros_carga()
     {
@@ -85,15 +86,24 @@ class toba_ef_popup extends toba_ef_editable
 	/**
 	 * Retorna la descripción asociada a la opción actualmente seleccionada
 	 */
-	function get_descripcion_estado()
+	function get_descripcion_estado($tipo_salida)
 	{
 		if ( isset($this->descripcion_estado)) {
-			return $this->descripcion_estado;
+			$valor = $this->descripcion_estado;
 		} elseif (isset($this->estado)) { 
-			return $this->estado;
+			$valor = $this->estado;
 		} else {
-			return null;
+			$valor = null;
 		}
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$valor</div>";
+			break;
+			case 'pdf':
+				return $valor;	
+			break;
+		}		
 	}	
 	
 	function set_opciones($descripcion, $maestros_cargados=true)
@@ -120,7 +130,7 @@ class toba_ef_popup extends toba_ef_editable
 		if ($this->cuando_cambia_valor != '') {
 			$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
 		}
-		$r .= "<span class='ef-popup'>";
+		$r .= "<span class='{$this->clase_css}'>";
 		if ($this->editable) {
 			$r .= toba_form::hidden($this->id_form."_desc", $this->estado);
 			$disabled = ($this->solo_lectura) ? "disabled" : "";

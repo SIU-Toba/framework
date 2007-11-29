@@ -41,14 +41,10 @@ class toba_ei_filtro extends toba_ei_formulario
 	
 	function vista_impresion_html( $salida )
 	{
-		//--- La carga de efs se realiza aqui para que sea contextual al servicio
-		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();		
-			
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='ei-base ei-form-base' width='{$this->_info_formulario['ancho']}'>";
-		foreach ( $this->_lista_ef_post as $ef ){
-			$temp = $this->get_valor_imprimible_ef( $ef );
+		foreach ( $this->_lista_ef_post as $ef){
 			//Los combos que no tienen valor establecido no se imprimen
 			if( $this->_elemento_formulario[$ef] instanceof toba_ef_combo ) {
 				if ( $this->_elemento_formulario[$ef]->es_estado_no_seleccionado() ) continue;	
@@ -56,15 +52,16 @@ class toba_ei_filtro extends toba_ei_formulario
 			//Los editables vacios no se imprimen
 			if( $this->_elemento_formulario[$ef] instanceof toba_ef_editable ) {
 				if ( ! $this->_elemento_formulario[$ef]->get_estado() ) continue;	
-			}
+			}			
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();
-			$temp = $this->get_valor_imprimible_ef( $ef );
-			echo "</td><td class='ei-form-valor ". $temp['css'] ."'>\n";
-			echo $temp['valor'];
-			echo "</td></tr>\n";			
+			echo "</td><td class='ei-form-valor'>\n";
+			echo $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+			echo "</td></tr>\n";
 		}
 		echo "</table>\n";
 	}	
+	
+	
 }
 ?>

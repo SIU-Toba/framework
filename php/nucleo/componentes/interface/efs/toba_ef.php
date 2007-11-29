@@ -34,6 +34,7 @@ abstract class toba_ef
 	protected $ancho_etiqueta = 150;
 	protected $estilo_etiqueta = '';
 	protected $agregado_form;			//Número de linea en un form multilinea	
+	protected $clase_css = 'ef';
 	protected $permitir_html = false;		//Hace un htmlentities para evitar ataques XSS
 	
 	//--- DEPENDENCIAS ---
@@ -343,11 +344,20 @@ abstract class toba_ef
 	 * pero para otros el estado es una clave interna distinta a su descripción
 	 * @return string
 	 */
-	function get_descripcion_estado()
+	function get_descripcion_estado($tipo_salida)
 	{
-		return $this->get_estado();
+		$estado = $this->get_estado();
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$estado</div>";
+			break;
+			case 'pdf':
+				return $estado;
+		}
+		
 	}
-
+	
 	/**
 	 * Retorna true si el ef tiene un valor o estado distinto al nulo
 	 */

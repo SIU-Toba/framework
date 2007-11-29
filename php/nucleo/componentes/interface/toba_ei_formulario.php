@@ -1079,74 +1079,38 @@ class toba_ei_formulario extends toba_ei
 		foreach ( $this->_lista_ef_post as $ef){
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();
-			$temp = $this->get_valor_imprimible_ef( $ef );
-			echo "</td><td class='". $temp['css'] ."'>\n";
-			echo $temp['valor'];
+			echo "</td><td class='ei-form-valor'>\n";
+			echo $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
 			echo "</td></tr>\n";
 		}
 		echo "</table>\n";
 	}
 	
-	/**
-	 * Retorna un formato legible del estado actual de un ef
-	 * @param string $id_ef 
-	 * @return string
-	 */
-	protected function get_valor_imprimible_ef( $id_ef ) 
-	{
-		$ef = $this->_elemento_formulario[$id_ef];
-		$valor = $ef->get_descripcion_estado();
-		$formato = new toba_formateo('html');
-		if ( $ef instanceof toba_ef_editable_moneda ) {
-			$temp = array( 'css' => 'col-num-p1', 'valor'=> $formato->formato_moneda($valor) );
-		} elseif ( $ef instanceof toba_ef_editable_numero_porcentaje ){
-			$temp = array( 'css' => 'col-num-p1', 'valor'=> $formato->formato_porcentaje($valor) );
-		} elseif ( $ef instanceof toba_ef_editable_numero ) {
-			$temp = array( 'css' => 'col-num-p1', 'valor'=> $valor );
-		} elseif ( $ef instanceof toba_ef_editable_fecha ) {
-			if ($valor!='') {
-				$temp = array( 'css' => 'col-tex-p1', 'valor'=> $formato->formato_fecha($valor) );
-			} else {
-				$temp = array( 'css' => 'col-tex-p1', 'valor'=> '' );
-			}
-		} elseif ($ef instanceof toba_ef_cuit ) {
-			$temp = array( 'css' => 'col-num-p1', 'valor' => $formato->formato_cuit($valor) );
-		} else {
-			$temp = array( 'css' => 'col-tex-p1', 'valor'=> $valor );
-		}
-		return $temp;
-	}
 	
-	function get_valores_pdf( $id_ef ){
-		$obj = $this->_elemento_formulario[$id_ef];
-		if ( $obj instanceof toba_ef_multi_seleccion ) {
-			//-- Solo valores del multi_seleccion
-			$valores = $obj->get_descripcion_estado(true);
-			$valor['valor'] = implode("\n", $valores);
-		}else{
-			$valor = $this->get_valor_imprimible_ef( $id_ef );	
-		}
-		$k = $this->_elemento_formulario[$id_ef]->get_etiqueta();
-		$v = str_replace(array( "&nbsp;" ), ' ', $valor['valor'] );
-		$a = array('clave' => $k, 'valor' => $v);
-		return $a;
-	}
-	
+	//---------------------------------------------------------------
+	//----------------------  SALIDA PDF  ---------------------------
+	//---------------------------------------------------------------
 	
 	function vista_pdf( $salida )
 	{
 		$this->cargar_opciones_efs();
-		$a = array();
+		$datos = array();
+		$a['datos_tabla'] = array();
 		foreach ( $this->_lista_ef_post as $ef ){
-			if ( $this->_elemento_formulario[$ef]->tiene_estado() ) {
-				$a[] = $this->get_valores_pdf($ef);
+			if ($this->_elemento_formulario[$ef]->tiene_estado()) {
+				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
+				$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+				$datos['datos_tabla'][] = array('clave' => $etiqueta, 'valor'=>$valor);
 			}
 		}
 		$datos['titulo_tabla'] = $this->get_titulo();
-		$datos['datos_tabla'] = $a;
-		$salida->tabla( $datos );
-	}
+		$salida->tabla($datos);
+	}	
 
+	//---------------------------------------------------------------
+	//----------------------  SALIDA EXCEL --------------------------
+	//---------------------------------------------------------------
+		
 	function vista_excel(toba_vista_excel $salida)
 	{
 		$this->cargar_opciones_efs();		

@@ -8,6 +8,8 @@
  */
 class toba_ef_cuit extends toba_ef
 {
+	protected $clase_css = 'ef-cuit';
+		
     static function get_lista_parametros_carga()
     {
 		return array();
@@ -88,7 +90,7 @@ class toba_ef_cuit extends toba_ef
 			$this->estado="";
 		}
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';		
-		$html = '<div class="ef-cuit">';
+		$html = "<div class='{$this->clase_css}'>";
 		$html .= toba_form::text($this->id_form . "_1", substr($this->estado,0,2),$this->solo_lectura, 2, 2, 'ef-input', $this->javascript.$this->input_extra.$tab); 
 		$html .= ' - ';
 		$html .= toba_form::text($this->id_form . "_2", substr($this->estado,2,8),$this->solo_lectura, 8, 8, 'ef-input', $this->javascript.$this->input_extra.$tab); 
@@ -97,6 +99,22 @@ class toba_ef_cuit extends toba_ef
 		$html .= '</div>';
 		return $html;
 	}
+	
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$estado = $this->get_estado();
+		$desc = ($estado != '') ? $formato->formato_cuit($estado) : '';
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+			break;
+			case 'pdf':
+				return $desc;	
+			break;
+		}
+	}		
 	
 	function crear_objeto_js()
 	{

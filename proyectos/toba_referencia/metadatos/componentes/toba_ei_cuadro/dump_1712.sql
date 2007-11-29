@@ -203,8 +203,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	'1', --total
-	'zona', --total_cc
+	'0', --total
+	'', --total_cc
 	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item

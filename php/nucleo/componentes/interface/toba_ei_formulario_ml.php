@@ -1057,14 +1057,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->cargar_opciones_efs();
 				echo "<tr class='ei-ml-fila'>";
 				if ($this->_info_formulario['filas_numerar']) {
-					echo "<td class='col-tex-p1'>\n".($a + 1)."</td>\n";
+					echo "<td class='ef-numero'>\n".($a + 1)."</td>\n";
 				}
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					$temp = $this->get_valor_imprimible_ef( $ef );
-					echo "<td class='". $temp['css'] ."'>\n";
-					echo $temp['valor'];
-					echo "</td>\n";
+					echo "<td>".$this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html').'</td>';
 				}
 				echo "</tr>\n";
 				$a++;
@@ -1084,8 +1081,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		}
 		
 		//-- Cuerpo
+		$datos['datos_tabla'] = array();		
 		if( isset( $this->_ordenes ) ) {
-			$a = array();
 			foreach ($this->_ordenes as $fila) {
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
@@ -1094,18 +1091,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					$k = $ef;
-					$v = $this->get_valor_imprimible_ef( $ef );
-					$datos_temp[$k] = str_replace(array( "&nbsp;" ), ' ', $v['valor'] );
+					$datos_temp[$ef] = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
 				}
-				$a[] = $datos_temp;
+				$datos['datos_tabla'][] = $datos_temp;
 			}
 		}
 		//-- Salida a pdf
 		$datos['titulo_tabla'] = $this->get_titulo();
 		$datos['titulos_columnas'] = $tit_col;
-		$datos['datos_tabla'] = $a;
-		
 		$salida->tabla( $datos, true );
 	}
 }

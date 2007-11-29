@@ -10,10 +10,10 @@ class toba_ef_editable extends toba_ef
 {
 	protected $tamano = 20;
 	protected $maximo;
-	protected $estilo="ef-input";
 	protected $mascara;
 	protected $expreg;
 	protected $unidad;
+	protected $clase_css = 'ef-input';
 	
 	
     static function get_lista_parametros_carga()
@@ -129,7 +129,7 @@ class toba_ef_editable extends toba_ef
 	function get_input()
 	{
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
-		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano,$this->estilo, $this->javascript.' '.$this->input_extra.$tab);
+		$input = toba_form::text($this->id_form, $this->estado,$this->solo_lectura,$this->maximo,$this->tamano, $this->clase_css, $this->javascript.' '.$this->input_extra.$tab);
 		if (isset($this->unidad)) {
 			$input = "<div style='white-space:nowrap'>".$input .' '.$this->unidad.'</div>';
 		}
@@ -170,6 +170,7 @@ class toba_ef_editable_numero extends toba_ef_editable
 	protected $cambio_rango = false;
 	protected $tamano = 10;
 	protected $mensaje_defecto;
+	protected $clase_css = 'ef-numero';
 
     static function get_lista_parametros()
     {
@@ -181,7 +182,6 @@ class toba_ef_editable_numero extends toba_ef_editable
   	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
-		$this->estilo = "ef-numero";
 		if (isset($parametros['edit_rango'])) {
 			$this->cambiar_rango($parametros['edit_rango']);
 		}
@@ -271,6 +271,19 @@ class toba_ef_editable_numero extends toba_ef_editable
 		return true;
 	}
 	
+	function get_descripcion_estado($tipo_salida)
+	{
+		$desc =  $this->get_estado();
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+			break;
+			case 'pdf':
+				return $desc;	
+			break;
+		}
+	}		
 
 	function parametros_js()
 	{
@@ -310,6 +323,21 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 		}
 		return parent::mensaje_validacion_rango();
 	}	
+	
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$desc =  $formato->formato_moneda($this->get_estado());
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+			break;
+			case 'pdf':
+				return $desc;	
+			break;
+		}
+	}
 }
 
 //########################################################################################################
@@ -326,7 +354,6 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 	protected $rango_inferior = array('limite' => '0', 'incluido' => 1);
 	protected $rango_superior = array('limite' => '100', 'incluido' => 1);
 	
-
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if (! isset($parametros['edit_tamano']))
@@ -349,6 +376,21 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 		}
 		return parent::mensaje_validacion_rango();
 	}		
+	
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$desc =  $formato->formato_porcentaje($this->get_estado());
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+			break;
+			case 'pdf':
+				return $desc;	
+			break;
+		}
+	}	
 }
 
 //########################################################################################################
@@ -454,7 +496,7 @@ class toba_ef_editable_fecha extends toba_ef_editable
 		$tab = ' tabindex="'.$this->padre->get_tab_index().'"';
 		$html = "<span class='ef-fecha'>";
 		$html .= toba_form::text($this->id_form,$this->estado, $this->solo_lectura,$this->tamano,
-								$this->tamano, $this->estilo, $this->input_extra.$tab);
+								$this->tamano, $this->clase_css, $this->input_extra.$tab);
 		if (! $this->solo_lectura) {
 			$html .= "<a id='link_". $this->id_form . "' ";
 			$html .= " onclick='calendario.select(document.getElementById(\"{$this->id_form}\"),\"link_".$this->id_form."\",\"dd/MM/yyyy\");return false;' ";
@@ -492,6 +534,22 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	{
 		return "new ef_editable_fecha({$this->parametros_js()})";
 	}		   
+	
+	function get_descripcion_estado($tipo_salida)
+	{
+		$formato = new toba_formateo($tipo_salida);
+		$estado = $this->get_estado();
+		$desc = ($estado != '') ? $formato->formato_fecha($estado) : '';
+		switch ($tipo_salida) {
+			case 'html':
+			case 'impresion_html':
+				return "<div class='{$this->clase_css}'>$desc</div>";
+			break;
+			case 'pdf':
+				return $desc;	
+			break;
+		}
+	}	
 }
 //########################################################################################################
 //########################################################################################################
