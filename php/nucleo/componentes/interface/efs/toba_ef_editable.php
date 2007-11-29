@@ -273,7 +273,8 @@ class toba_ef_editable_numero extends toba_ef_editable
 	
 	function get_descripcion_estado($tipo_salida)
 	{
-		$desc =  $this->get_estado();
+		$formato = new toba_formateo($tipo_salida);
+		$desc =  $formato->formato_numero($this->get_estado());		
 		switch ($tipo_salida) {
 			case 'html':
 			case 'impresion_html':
@@ -281,6 +282,11 @@ class toba_ef_editable_numero extends toba_ef_editable
 			break;
 			case 'pdf':
 				return $desc;	
+			case 'excel':
+				$estilo = array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
+					);			
+				return array($this->get_estado(), $estilo);				
 			break;
 		}
 	}		
@@ -336,6 +342,11 @@ class toba_ef_editable_moneda extends toba_ef_editable_numero
 			case 'pdf':
 				return $desc;	
 			break;
+			case 'excel':
+				$estilo = array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE
+				));
+				return array($this->get_estado(), $estilo);
 		}
 	}
 }
@@ -388,6 +399,11 @@ class toba_ef_editable_numero_porcentaje extends toba_ef_editable_numero
 			break;
 			case 'pdf':
 				return $desc;	
+			case 'excel':
+				$estilo = array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00)
+					);			
+				return array($this->get_estado(), $estilo);
 			break;
 		}
 	}	
@@ -546,7 +562,12 @@ class toba_ef_editable_fecha extends toba_ef_editable
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
 			case 'pdf':
-				return $desc;	
+				return $desc;
+			case 'excel':
+				$estilo = array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD)
+					);				
+				return array($desc, $estilo);	
 			break;
 		}
 	}	

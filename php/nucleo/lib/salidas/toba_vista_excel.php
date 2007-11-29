@@ -141,11 +141,24 @@ class toba_vista_excel
 	}
 	
 	/**
-	 * @param unknown_type $datos
-	 * @param unknown_type $titulos
-	 * @param array $origen Arreglon [columna,fila], sino se toma el cursor actual
+	 * 
+	 * @param array $datos
+	 * @param array $titulos
+	 * @param array opciones => array(
+	 * 'columna' => 
+	 * 	 'ancho' => (auto|numero)
+	 * 	 'estilo' => array( 
+	 *		'font' => array('name' => 'Arial', 'bold' => true, 'italic' => false, 'underline' => PHPExcel_Style_Font::UNDERLINE_DOUBLE, 'strike' => false, 'color' => array('rgb' => '808080')),
+	 *		'borders' => array(
+	 *			'bottom' => array('style' => PHPExcel_Style_Border::BORDER_DASHDOT,'color' => array('rgb' => '808080')), 
+	 *			'top' => array( 'style' => PHPExcel_Style_Border::BORDER_DASHDOT, 'color' => array('rgb' => '808080'))
+	 *			)
+	 *		)
+	 * 	)		
+	 * @param array $origen Arreglo [columna,fila], sino se toma el cursor actual
+	 * 
 	 */
-	function tabla($datos, $titulos=array(), $origen=null)
+	function tabla($datos, $titulos=array(), $opciones=array(), $origen=null)
 	{
 		if (! isset($origen)) {
 			$origen = $this->cursor;
@@ -153,10 +166,21 @@ class toba_vista_excel
  		}
 		$hoja = $this->excel->getActiveSheet();
 		$y = 0;
-		foreach($datos as $fila) {
+		toba::logger()->var_dump($opciones);
+		foreach($datos as $filas) {
 			$x = 0;
-			foreach($fila as $valor) {
-				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1] + $y, $valor);
+			foreach($filas as $clave => $valor) {
+				$hoja->setCellValueExplicitByColumnAndRow($origen[0] + $x, $origen[1] + $y, $valor, PHPExcel_Cell_DataType::TYPE_STRING);
+				if (isset($opciones[$clave]['estilo'])) {
+					$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
+				}
+				if (isset($opciones[$clave]['ancho'])) {
+					if ($opciones[$clave]['ancho'] == 'auto') {
+						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setAutoSize(true);
+					} else {
+						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setWidth($opciones[$clave]['ancho']);
+					}
+				}
 				$x++;
 			}
 			$y++;

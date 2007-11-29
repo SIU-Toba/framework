@@ -354,6 +354,9 @@ abstract class toba_ef
 			break;
 			case 'pdf':
 				return $estado;
+			case 'excel':
+				return array($estado, null);
+			break;
 		}
 		
 	}

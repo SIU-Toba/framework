@@ -142,6 +142,8 @@ class toba_ef_checkbox extends toba_ef
 			break;
 			case 'pdf':
 				return $valor;
+			case 'excel':
+				return array($valor, null);
 		}		
 	}
 	

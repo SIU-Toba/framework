@@ -1116,11 +1116,18 @@ class toba_ei_formulario extends toba_ei
 		$this->cargar_opciones_efs();		
 		$datos = array();
 		foreach ( $this->_lista_ef_post as $ef ){
-			if ( $this->_elemento_formulario[$ef]->tiene_estado() ) {
-				$datos[] = $this->get_valores_pdf($ef);
+			$opciones = array();
+			$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
+			list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+			if (isset($estilo)) {
+				$opciones['valor']['estilo'] = $estilo;
 			}
+			$opciones['etiqueta']['estilo']['font']['bold'] = true;
+			$opciones['etiqueta']['ancho'] = 'auto';
+			$opciones['valor']['ancho'] = 'auto';
+			$datos = array(array('etiqueta' => $etiqueta, 'valor' => $valor));
+			$salida->tabla($datos, array(), $opciones);
 		}		
-		$salida->tabla($datos);
 	}
 	
 }

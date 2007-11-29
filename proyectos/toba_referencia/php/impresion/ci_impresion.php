@@ -103,6 +103,7 @@ class ci_impresion extends toba_ci
 		$datos['combo'] = 'P';
 		$datos['checkbox'] = '1';
 		$datos['precio'] = '227';
+		$datos['numero'] = '11241512';
 		$datos['lista'] = array('a', 'c');
 		$datos['popup'] = '1';
 		$datos['fecha'] = '2007-7-7';

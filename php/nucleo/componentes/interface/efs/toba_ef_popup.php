@@ -101,7 +101,9 @@ class toba_ef_popup extends toba_ef_editable
 				return "<div class='{$this->clase_css}'>$valor</div>";
 			break;
 			case 'pdf':
-				return $valor;	
+				return $valor;
+			case 'excel':
+				return array($valor, null);	
 			break;
 		}		
 	}	

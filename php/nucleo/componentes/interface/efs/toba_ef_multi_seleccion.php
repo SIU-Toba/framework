@@ -252,6 +252,12 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 					$desc[] = $this->opciones[$estado];
 				}
 				return implode("\n", $desc);
+			case 'excel';
+				$desc = array();
+				foreach ($this->get_estado_para_input() as $estado) {
+					$desc[] = $this->opciones[$estado];
+				}
+				return array(implode(", ", $desc), null);					
 			break;
 		}
 	}

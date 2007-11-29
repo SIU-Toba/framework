@@ -111,7 +111,9 @@ class toba_ef_cuit extends toba_ef
 				return "<div class='{$this->clase_css}'>$desc</div>";
 			break;
 			case 'pdf':
-				return $desc;	
+				return $desc;
+			case 'excel':
+				return array($desc, null);	
 			break;
 		}
 	}		
