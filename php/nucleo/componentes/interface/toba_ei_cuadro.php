@@ -52,6 +52,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_salida;
 	protected $_total_registros; 
 	//Salida PDF
+	protected $_pdf_total_generado = false;
 	protected $_pdf_letra_tabla = 8;
 	protected $_pdf_sep_titulo = 5;
 	protected $_pdf_sep_tabla = 5;
@@ -945,9 +946,9 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * @ignore 
 	 */
-	protected function generar_cuadro(&$filas, &$totales=null){
+	protected function generar_cuadro(&$filas, &$totales=null, &$nodo=null){
 		$metodo = $this->_tipo_salida . '_cuadro';
-		$this->$metodo($filas, $totales);
+		$this->$metodo($filas, $totales, $nodo);
 	}
 
 	/**
@@ -1014,7 +1015,8 @@ class toba_ei_cuadro extends toba_ei
 			$this->generar_cc_fin_nivel();
 		}else{	
 			//Disparo la construccion del ultimo nivel
-			$this->generar_cuadro( $nodo['filas']); //, $nodo['acumulador']
+			$temp = null;
+			$this->generar_cuadro( $nodo['filas'], $temp, $nodo); //Se pasa el nodo para las salidas no-html
 		}
 		if ($this->_cortes_anidado_colap && ($this->_tipo_salida == 'html' ||
 											$this->_tipo_salida == 'impresion_html')) {
@@ -1827,7 +1829,7 @@ class toba_ei_cuadro extends toba_ei
 	}
 	
 	//---------------------------------------------------------------
-	//----------------------  SALIDA PDF  ---------------------
+	//----------------------  SALIDA PDF  ---------------------------
 	//---------------------------------------------------------------
 	
 	function vista_pdf(toba_vista_pdf $salida )
@@ -1852,8 +1854,9 @@ class toba_ei_cuadro extends toba_ei
 	protected function pdf_fin() 
 	{
 		if( $this->tabla_datos_es_general() ){
-			if (isset($this->_acumulador)) {
-				//$this->pdf_cuadro_totales_columnas($this->_acumulador);
+			if (isset($this->_acumulador) && ! $this->_pdf_total_generado) {
+				$this->salida->separacion($this->_pdf_sep_titulo);
+				$this->pdf_cuadro_totales_columnas($this->_acumulador, 0, true);
 			}
 			/*$this->html_acumulador_usuario();
 			$this->html_cuadro_fin();					*/
@@ -1862,8 +1865,9 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * @ignore 
+	 * $nodo se pasa para poder mostrar los totales aqui mismo en caso de cortes con nivel > 0
 	 */
-	protected function pdf_cuadro(&$filas, &$totales)
+	protected function pdf_cuadro(&$filas, &$totales, &$nodo)
 	{
 		$this->salida->separacion($this->_pdf_sep_tabla);
 		$formateo = new $this->_clase_formateo('pdf');
@@ -1898,12 +1902,21 @@ class toba_ei_cuadro extends toba_ei
 		list($titulos, $estilos) = $this->pdf_get_titulos();
         
         //-- Para la tabla simple se sacan los totales como parte de la tabla
-		if( $this->tabla_datos_es_general() ){
-			if (isset($this->_acumulador)) {
-				//$datos[] = array();
+		if (isset($totales) || isset($nodo['acumulador'])) {
+			/* Como el pdf no admite continuar una tabla luego de construirla (pdf_cuadro)
+			   Se opta por generar aquí los totales de niveles > 0
+			   'rompiendo' la separación establecida por el proceso general en pos de una mejor visualización
+			*/
+			if (! isset($totales)) {
+				$totales = $nodo['acumulador'];
+				$nodo['pdf_acumulador_generado'] = 1; //Esto evita que se muestre la tabla con totales ya que se va a mostrar en esta misma tabla
+			} else {
+				$this->_pdf_total_generado = true;
 			}
-		}        
-        
+			$temp = null;
+			$datos[] = $this->pdf_get_fila_totales($totales, $temp, true);
+		}
+		
         //-- Genera la tablas
         $ancho = null;
         if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
@@ -1915,10 +1928,6 @@ class toba_ei_cuadro extends toba_ei
         $opciones['width'] = $ancho;
         $opciones['cols'] = $estilos;
         $this->salida->tabla(array('datos_tabla'=>$datos, 'titulos_columnas'=>$titulos), true, $this->_pdf_letra_tabla, $opciones);
-		if( ! $this->tabla_datos_es_general() ){
-			/*$this->html_acumulador_usuario();
-			$this->html_cuadro_fin();*/
-		}
 		$this->salida->separacion($this->_pdf_sep_tabla);
 
 	}
@@ -2023,6 +2032,11 @@ class toba_ei_cuadro extends toba_ei
      */
 	protected function pdf_cuadro_totales_columnas($totales,$nivel=null,$agregar_titulos=false, $estilo_linea=null)
 	{
+		/* Como el pdf no admite continuar una tabla luego de construirla (pdf_cuadro)
+		   Se opta por sacar los totales del mayor nivel dentro de la generación misma del cuadro general
+		   'rompiendo' la separación establecida por el proceso general en pos de una mejor visualización
+		   Ese nivel nNo entra por aqui porque se le hizo un $nodo['pdf_acumulador_generado'] = 1;
+		*/
 		list($titulos, $estilos) = $this->pdf_get_titulos();
 		$datos = $this->pdf_get_fila_totales($totales, $titulos);
 		$datos = array($datos);
@@ -2040,7 +2054,7 @@ class toba_ei_cuadro extends toba_ei
 	/**
 	 * @ignore 
 	 */
-	protected function pdf_get_fila_totales($totales, &$titulos)
+	protected function pdf_get_fila_totales($totales, &$titulos=null, $resaltar=false)
 	{
 		$formateo = new $this->_clase_formateo('pdf');		
 		$datos = array();		
@@ -2057,9 +2071,13 @@ class toba_ei_cuadro extends toba_ei
 					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
 					$valor = $formateo->$metodo($valor);
 				}
+				if ($resaltar) {
+					$valor = '<b>'.$valor.'</b>';
+				}
 				$datos[$clave] = $valor;
 			}else{
 				unset($titulos[$clave]);
+				$datos[$clave] = null;
 			}
 		}
 		return $datos;
@@ -2096,7 +2114,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->salida->texto($descripcion, $this->_pdf_letra_tabla, $opciones);
 		}
 		//----- Totales de columna -------
-		if (isset($nodo['acumulador'])) {
+		if (isset($nodo['acumulador']) && ! isset($nodo['pdf_acumulador_generado'])) {
 			/*$titulos = false;
 			if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titulos']){
 				$titulos = true;	

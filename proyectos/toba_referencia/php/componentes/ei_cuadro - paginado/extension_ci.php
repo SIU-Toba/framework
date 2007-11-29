@@ -5,7 +5,7 @@ class formateo_referencia extends toba_formateo
 {
 	function formato_pesos_sin_coma($valor)
 	{
-		return "$&nbsp;".number_format($valor,0,',','.');	
+		return "$ ".number_format($valor,0,',','.');	
 	}
 }
 
