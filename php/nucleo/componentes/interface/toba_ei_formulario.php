@@ -813,6 +813,7 @@ class toba_ei_formulario extends toba_ei
 	{
 		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_antispam.php');
 		$texto = toba::memoria()->get_dato_sincronizado('texto-captcha');
+		toba::logger()->info('Texto CAPTCHA: ' . $texto);
 		$antispam = new AntiSpam($texto);
 		$antispam->Stroke();
 	}
