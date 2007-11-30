@@ -35,6 +35,9 @@ class toba_ef_editable_captcha extends toba_ef_editable
 	
 	function __construct($padre,$nombre_formulario,$id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
+		if (!extension_loaded('gd')) {
+			throw new toba_error('<b>toba_ef_editable_captcha:</b> Necesita instalar en PHP el soporte para la extensión GD.');
+		}
 		$this->antispam = new AntiSpam();
 		$this->generar_texto_aleatorio();
 		$parametros['estado_defecto'] = false;
