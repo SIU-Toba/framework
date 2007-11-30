@@ -7,7 +7,6 @@ class ci_antispam extends toba_ci
 
 	function evt__form_antispam__modificacion($datos)
 	{
-		//var_dump($datos);
 		if ($datos['ef_antispam']) {
 			toba::notificacion()->info('El código ingresado es correcto. Felicitaciones, has superado la prueba!.');			
 		}else{
