@@ -142,6 +142,11 @@ class toba_vista_excel
 		$this->cursor = array($columna, $fila);
 	}
 	
+	function get_cursor()
+	{
+		return $this->cursor;
+	}
+	
 	/**
 	 * 
 	 * @param array $datos
@@ -229,23 +234,9 @@ class toba_vista_excel
 			unset($opciones[$clave]['estilo']['borders']);
 			$estilo->applyFromArray($opciones[$clave]['estilo']);			
 			$estilo->getFont()->setBold(true);
-			//$estilo->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
-			//$estilo->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
+			$estilo->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
+			$estilo->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
 		}
-	}
-	
-	function sumar_columna($cant_filas, $origen=null)
-	{
-		if (! isset($origen)) {
-			$origen = $this->cursor;
-			$this->cursor[1]++;
- 		}
- 		$hoja = $this->excel->getActiveSheet();
- 		$celda_desde = $origen[0]-($cant_filas+1);
- 		$celda_hasta = $origen[1]-1;
- 		$valor = "=SUM($celda_desde:$celda_hasta)";
- 		$valor = 'epa';
- 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1], $valor);
 	}
 	
 	function separacion($cant_filas, $cant_columnas=0)
@@ -256,28 +247,50 @@ class toba_vista_excel
 	
 	function titulo($titulo, $celdas_ancho=1, $origen=null)
 	{
+		$estilos = array(
+			'font' => array('
+				bold' => true, 
+				'size' => 14, 
+				'color' => array('argb' => PHPExcel_Style_Color::COLOR_WHITE)),
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+			),
+			'fill' => array(
+				'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+				'startcolor' => array('argb' => 'FF808080')
+			),
+			'borders' => array(
+				'top' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+				'bottom' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+				'left' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+				'right' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
+			)
+		);
+		$altura = 20;
+		$this->texto($titulo, $estilos, $celdas_ancho, $altura, $origen);
+
+	}
+	
+	function texto($texto, $estilos=array(), $celdas_ancho=1, $altura=null, $origen=null)
+	{
 		if (! isset($origen)) {
 			$origen = $this->cursor;
 			$this->cursor[1]++;
  		}
 		$hoja = $this->excel->getActiveSheet();		
- 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1], $titulo);
+ 		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1], $texto);
  		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
- 		$estilo->getFont()->setBold(true);
- 		$estilo->getFont()->setSize(14);
- 		$estilo->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
- 		$estilo->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
- 		$estilo->getFill()->getStartColor()->setARGB('FF808080'); 		
- 		$estilo->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
- 		$estilo->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
- 		$estilo->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
- 		$estilo->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
- 		$estilo->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+ 		$estilo->applyFromArray($estilos);
+ 		if (isset($altura)) {
+ 			$hoja->getRowDimension($origen[1])->setRowHeight($altura);
+ 		}
 		if ($celdas_ancho > 1) {
 			$fin = ($origen[0] + $celdas_ancho) -1;
 			$hoja->mergeCellsByColumnAndRow($origen[0], $origen[1], $fin, $origen[1]);
-			$estilo = $hoja->getStyleByColumnAndRow($fin, $origen[1]);
-			$estilo->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+	 		for($i=$origen[0]+1; $i<=$fin; $i++) {
+	 			$estilo = $hoja->getStyleByColumnAndRow($i, $origen[1]);
+	 			$estilo->applyFromArray($estilos);		
+	 		}
 		}
 	}
 	

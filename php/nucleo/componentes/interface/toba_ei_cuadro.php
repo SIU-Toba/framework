@@ -70,7 +70,16 @@ class toba_ei_cuadro extends toba_ei
 	protected $_pdf_contar_filas_op = array('justification' => 'right');
 	protected $_pdf_cortar_hoja_cc_0 = false;										//Corta la hoja a la finalizacion de un corte de nivel 0
 	protected $_pdf_cortar_hoja_cc_1 = false;										//Corta la hoja a la finalizacion de un corte de nivel 1
-    
+	//Salida PDF	
+	protected $_excel_total_generado = false;
+	protected $_excel_cabecera_cc_0_opciones = array('font' => array('bold'=>true, 'size' => '12'), 'alignment'=> array('horizontal' => 'center', 'vertical'=>'bottom'));
+	protected $_excel_cabecera_cc_0_altura = 20;
+	protected $_excel_cabecera_cc_1_opciones = array('font' => array('bold'=>true, 'size' => '11'), 'alignment'=> array('horizontal' => 'left', 'vertical'=>'bottom'));
+	protected $_excel_cabecera_cc_1_altura = 20;
+	protected $_excel_cabecera_pie_cc_0_op = array();
+	protected $_excel_cabecera_pie_cc_1_op = array();
+    protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
+	
     function __construct($id)
     {
     	$propiedades = array();
@@ -2313,7 +2322,6 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function excel_cabecera_corte_control(&$nodo )
 	{
-		/*
 		//Dedusco el metodo que tengo que utilizar para generar el contenido
 		$metodo = 'excel_cabecera_cc_contenido';
 		$metodo_redeclarado = $metodo . '__' . $nodo['corte'];
@@ -2321,29 +2329,25 @@ class toba_ei_cuadro extends toba_ei
 			$metodo = $metodo_redeclarado;
 		}		
 		$this->$metodo($nodo);
-		*/
 	}		
 	
 	protected function excel_cabecera_cc_contenido(&$nodo)
 	{
-		/*
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		if ($nodo['profundidad'] > 0) {
 			$opciones = $this->_excel_cabecera_cc_1_opciones;
-			$size = $this->_excel_cabecera_cc_1_letra;
+			$altura = $this->_excel_cabecera_cc_1_altura;			
 		} else {
 			$opciones = $this->_excel_cabecera_cc_0_opciones;
-			$size = $this->_excel_cabecera_cc_0_letra;
+			$altura = $this->_excel_cabecera_cc_0_altura;			
 		}
-		$this->salida->separacion($this->_excel_sep_cc);		
+		$span = count($this->_info_cuadro_columna);
 		if (trim($descripcion) != '') {
-			$this->salida->texto("<b>$descripcion " . $valor . '</b>', $size, $opciones);
+			$this->salida->texto("$descripcion " . $valor, $opciones, $span, $altura);
 		} else {
-			$this->salida->texto('<b>' . $valor . '</b>', $size, $opciones);
+			$this->salida->texto($valor, $opciones, $span, $altura);
 		}
-		$this->salida->separacion($this->_excel_sep_cc);
-		*/
 	}	
 	
 
@@ -2437,7 +2441,7 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function excel_pie_corte_control( &$nodo, $es_ultimo )
 	{
-		/*
+		$span = count($this->_info_cuadro_columna);		
 		//-----  Cabecera del PIE --------
 		if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
 			$metodo_redeclarado = 'excel_pie_cc_cabecera__' . $nodo['corte'];
@@ -2451,8 +2455,9 @@ class toba_ei_cuadro extends toba_ei
 			} else {
 				$opciones = $this->_excel_cabecera_pie_cc_0_op;
 			}
-			$this->salida->texto($descripcion, $this->_excel_letra_tabla, $opciones);
+			$this->salida->texto($descripcion, $opciones, $span);
 		}
+		/*
 		//----- Totales de columna -------
 		if (isset($nodo['acumulador']) && ! isset($nodo['excel_acumulador_generado'])) {
 			/*$titulos = false;
@@ -2471,13 +2476,20 @@ class toba_ei_cuadro extends toba_ei
 				$datos[$desc] = $valor;
 			}
 			$this->excel_cuadro_sumarizacion($datos,null,300,$nodo['profundidad']);
-		}
+		}*/
 		//----- Contar Filas
-		if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
-			$etiqueta = $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
-			$this->salida->texto("<i>".$etiqueta.'</i>', $this->_excel_letra_tabla, $this->_excel_contar_filas_op);
+		if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']) {
+			$etiqueta = $this->etiqueta_cantidad_filas($nodo['profundidad']);
+			$cursor = $this->salida->get_cursor();
+			
+			$this->salida->texto($etiqueta, $this->_excel_contar_filas_op, $span-1);
+			$cursor[0] = $cursor[0] + ($span-1);
+			$letra = PHPExcel_Cell::stringFromColumnIndex($cursor[0]);
+			$hasta = $cursor[1]-1;
+			$desde = $hasta - (count($nodo['filas'])-1);
+			$this->salida->texto('=ROWS('.$letra.$desde.':'.$letra.$hasta.')', $this->_excel_contar_filas_op, 1, null, $cursor);
 		}
-		
+		/*
 		//----- Contenido del usuario al final del PIE
 		$metodo = 'excel_pie_cc_contenido__' . $nodo['corte'];
 		if(method_exists($this, $metodo)){
