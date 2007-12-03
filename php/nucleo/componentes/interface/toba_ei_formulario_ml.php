@@ -1116,13 +1116,19 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$opciones = array();
 		$datos = array();
 		if( isset( $this->_ordenes ) ) {
+			//--Titulos
+			$titulos = array();
+			foreach ($this->_lista_ef_post as $ef){
+				$titulos[$ef] = $this->ef($ef)->get_etiqueta();
+			}
+			//--Datos
 			foreach ($this->_ordenes as $fila) {
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
 				$this->cargar_opciones_efs();
-				
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
+					
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
 					list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
 					if (isset($estilo)) {
@@ -1133,7 +1139,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				$datos[] = $datos_temp;
 			}
-			$salida->tabla($datos, array(), $opciones);
+			$salida->tabla($datos, $titulos, $opciones);
 		}
 
 	}	

@@ -157,7 +157,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -207,15 +207,16 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'SELECT columna_formato, descripcion_corta 
-FROM apex_columna_formato', --carga_sql
+FROM apex_columna_formato
+ORDER BY descripcion_corta', --carga_sql
 	'instancia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
+	'columna_formato', --carga_col_clave
+	'descripcion_corta', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
-	'Sin formato', --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'--- Sin formato ---', --carga_no_seteado
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

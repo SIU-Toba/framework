@@ -25,96 +25,170 @@ class toba_formateo
 
 	function formato_escapar($valor)
 	{
-		return stripslashes($valor);
+		$salida = stripslashes($valor);		
+		if ($this->tipo_salida != 'excel') {
+			return $salida;
+		} else {
+			return array($salida, null);
+		}
 	}
 
 	function formato_NULO($valor)
 	{
-		return $valor;
+		if ($this->tipo_salida != 'excel') {
+			return $valor;
+		} else {
+			return array($valor, null);
+		}
 	}
 
 	function formato_decimal($valor)
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return number_format($valor,2,',','.');
+		if ($this->tipo_salida != 'excel') {
+			return number_format($valor,2,',','.');
+		} else {
+			return array($valor, array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
+					));	
+		}		
 	}	
 
 	function formato_porcentaje($valor)
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return number_format($valor,2,',','.') . $this->get_separador()."%";
+		if ($this->tipo_salida != 'excel') {
+			return number_format($valor,2,',','.') . $this->get_separador()."%";
+		} else {
+			return array($valor, array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00)
+					));			
+		}
 	}	
 	
 	function formato_moneda($valor)
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return '$'.$this->get_separador(). number_format($valor,2,',','.');
+		if ($this->tipo_salida != 'excel') {
+			return '$'.$this->get_separador(). number_format($valor,2,',','.');
+		} else {
+			return array($valor, array('numberformat' => 
+						array('code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
+				));
+		}
 	}
 
 	function formato_tiempo($valor)
 	{
-		return "<b>" . number_format($valor,2,',','.') . '</b>'.
+		if ($this->tipo_salida != 'excel') {
+			return "<b>" . number_format($valor,2,',','.') . '</b>'.
 				$this->get_separador().'seg.';
+
+		} else {
+			return array($valor, null);
+		}				
 	}
 
 	function formato_millares($valor)
 	{
-		return number_format($valor,0,',','.');
+		if ($this->tipo_salida != 'excel') {
+			return number_format($valor,0,',','.');
+		} else {
+			return array($valor, array('numberformat' => 
+							array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER)
+					));	
+		}
 	}
 	
 	function formato_numero($valor)
 	{	
-		return number_format($valor,2,',','.');
-	}
-	
-	function formato_persona($valor)
-	{
-		return $valor . $this->get_separador()."p.";
+		return $this->formato_decimal($valor);
 	}
 
 	function formato_mayusculas($valor)
 	{
-		return strtoupper($valor);
+		$salida = strtoupper($valor);
+		if ($this->tipo_salida != 'excel') {
+			return $salida;
+		} else {
+			return array($salida, null);
+		}
 	}
 
 	function formato_indivisible($valor)
 	{
 		if ($this->tipo_salida == 'html') {
 			return "<span style='white-space:nowrap'>$valor</span>";
-		} else {
+		} elseif ($this->tipo_salida == 'pdf') {
 			return $valor;
+		} else {
+			return array($valor, null);
 		}
 	}
 	
 	function formato_may_ind($valor)
 	{
-		return str_replace (" ",$this->get_separador(),strtoupper(trim($valor)));
+		$salida = str_replace (" ",$this->get_separador(),strtoupper(trim($valor)));		
+		if ($this->tipo_salida != 'excel') {
+			return $salida;
+		} else {
+			return array($salida, null);
+		}		
+		
 	}
 	
 	function formato_salto_linea_html($valor)
 	{
-		return  str_replace ("\n","<br />",$valor);
+		if ($this->tipo_salida == 'html') {
+			return  str_replace ("\n","<br />",$valor);
+		} elseif ($this->tipo_salida == 'pdf') {
+			return $valor;
+		} else {
+			return array($valor, null);
+		}		
 	}
 
 	function formato_fecha($fecha){
-	    if(isset($fecha)&&($fecha!='')){return cambiar_fecha($fecha,'-','/');} else {return '';};
+		if (isset($fecha) && ($fecha!='')) {
+			$desc = cambiar_fecha($fecha,'-','/');
+		} else {
+			$desc = '';
+		};
+		if ($this->tipo_salida != 'excel') {
+	    	return $desc;
+		} else {
+			return array($desc, array('numberformat' => 
+					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY)
+				));							
+		}
 	}
    
     function formato_checkbox($valor)
     {
-        if ($valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's')
+    	
+        if ($valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's') {
             $html = "SI";
-        else
+        } else {
             $html = "NO";
-        return $html;
+        }
+        if ($this->tipo_salida != 'excel') {
+        	return $html;
+        } else {
+        	return array($html, null);
+        }
     }
 
 	function formato_html_br($valor)
 	{
-		return ereg_replace("\n","<br>",$valor);
+		$html = ereg_replace("\n","<br>",$valor);
+        if ($this->tipo_salida != 'excel') {
+        	return $html;
+        } else {
+        	return array($html, null);
+        }
 	}
 
 	function formato_imagen_toba($valor)
@@ -131,16 +205,27 @@ class toba_formateo
 	{
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
-		return number_format($valor,2,',','.') . $this->get_separador() . "Km²";
+		$salida =number_format($valor,2,',','.') . $this->get_separador() . "Km²";
+		if ($this->tipo_salida != 'excel') {
+			return $salida;
+		} else {
+			return array($salida, null);
+		}
 	}	
 
 	function formato_cuit($valor)
 	{
 		if (isset($valor) && $valor!='') {
 			$length = strlen($valor);
-			return substr($valor, 0, 2) . '-' . substr($valor, 2, $length - 3) . '-' . substr($valor, $length - 1, $length);
-		} else
-			return '';
+			$salida = substr($valor, 0, 2) . '-' . substr($valor, 2, $length - 3) . '-' . substr($valor, $length - 1, $length);
+		} else {
+			$salida = '';
+		}
+		if ($this->tipo_salida != 'excel') {
+			return $salida;
+		} else {
+			return array($salida, null);
+		}
 	}
 }
 ?>
