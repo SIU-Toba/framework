@@ -209,7 +209,9 @@ class toba_formateo
 		if ($this->tipo_salida != 'excel') {
 			return $salida;
 		} else {
-			return array($salida, null);
+			return array($valor, array('numberformat' => 
+							array('code' => '0.00 k\m')
+					));	
 		}
 	}	
 

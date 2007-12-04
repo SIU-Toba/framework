@@ -237,6 +237,7 @@ class toba_vista_excel
 			$estilo->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
 			$estilo->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THICK );
 		}
+		return array($origen, array($origen[0]+($x-1), $origen[1]+($y-1)));
 	}
 	
 	function separacion($cant_filas, $cant_columnas=0)
