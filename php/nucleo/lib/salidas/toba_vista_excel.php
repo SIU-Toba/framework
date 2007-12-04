@@ -124,13 +124,21 @@ class toba_vista_excel
 	{
 	}
 	
-	function crear_hoja($nombre)
+	function crear_hoja($nombre=null)
 	{
 		$hoja = $this->excel->createSheet();
-		$hoja->setTitle($nombre);
+		if (isset($nombre)) {
+			$hoja->setTitle($nombre);
+		}
 		$this->excel->setActiveSheetIndex($this->excel->getSheetCount()-1);
 		$this->cursor = $this->cursor_base;
 	}
+	
+	function set_hoja_nombre($nombre)
+	{
+		$this->excel->getActiveSheet()->setTitle($nombre);
+	}
+	
 	
 	/**
 	 * Cambia el cursor de inserción en el flujo del excel generado
@@ -209,6 +217,10 @@ class toba_vista_excel
 				if (! isset($opciones[$clave]['estilo']['borders'])) {
 					$opciones[$clave]['estilo']['borders']= array('bottom' => $borde, 'top' => $borde, 'left' => $borde, 'right' => $borde);
 				}
+				//--- Se borran los estilos si no tiene valor (opcional)				
+				if (!isset($valor) && isset($opciones[$clave]['borrar_estilos_nulos'])) {
+					$opciones[$clave]['estilo'] = array();
+				}				
 				$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
 				if (isset($opciones[$clave]['ancho'])) {
 					if ($opciones[$clave]['ancho'] == 'auto') {
@@ -217,6 +229,7 @@ class toba_vista_excel
 						$hoja->getColumnDimensionByColumn($origen[0] + $x)->setWidth($opciones[$clave]['ancho']);
 					}
 				}
+
 				$x++;
 			}
 			$y++;
@@ -280,6 +293,7 @@ class toba_vista_excel
  		}
 		$hoja = $this->excel->getActiveSheet();		
  		$hoja->setCellValueByColumnAndRow($origen[0], $origen[1], $texto);
+ 		$hoja->setBreak('A1', PHPExcel_Worksheet::BREAK_COLUMN   );
  		$estilo = $hoja->getStyleByColumnAndRow($origen[0], $origen[1]);
  		$estilo->applyFromArray($estilos);
  		if (isset($altura)) {

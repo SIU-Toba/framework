@@ -71,6 +71,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_pdf_cortar_hoja_cc_0 = false;										//Corta la hoja a la finalizacion de un corte de nivel 0
 	protected $_pdf_cortar_hoja_cc_1 = false;										//Corta la hoja a la finalizacion de un corte de nivel 1
 	//Salida Excel
+	protected $_excel_total_generado = false;
 	protected $_excel_cabecera_cc_0_opciones = array('font' => array('bold'=>true, 'size' => '12'), 'alignment'=> array('horizontal' => 'center', 'vertical'=>'bottom'));
 	protected $_excel_cabecera_cc_0_altura = 20;
 	protected $_excel_cabecera_cc_1_opciones = array('font' => array('bold'=>true, 'size' => '11'), 'alignment'=> array('horizontal' => 'left', 'vertical'=>'bottom'));
@@ -81,6 +82,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_excel_cabecera_pie_cc_0_op =  array();
 	protected $_excel_cabecera_pie_cc_1_op = array();
     protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
+	protected $_excel_cortar_hoja_cc_0 = true;										//Crea una hoja (worksheet) por corte 
 	
     function __construct($id)
     {
@@ -2202,8 +2204,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function excel_fin() 
 	{
 		if( $this->tabla_datos_es_general() ){
-			if (isset($this->_acumulador)) {
-				$this->excel_cuadro_totales_columnas($this->_acumulador, 0, true);
+			if (isset($this->_acumulador) && !$this->_excel_total_generado) {
+				$this->excel_cuadro_totales_columnas(array('acumulador'=>$this->_acumulador), 0, false, true);
 			}
 			//$this->html_acumulador_usuario();
 		}		
@@ -2255,8 +2257,14 @@ class toba_ei_cuadro extends toba_ei
         }
 		$titulos = $this->excel_get_titulos();
 
+		//-- Para la tabla simple se sacan los totales como parte de la tabla
+		$col_totales = array();
+		if (isset($totales)) {
+			$col_totales = array_keys($totales);
+		}
+  		
         //-- Genera la tabla
-       $coordenadas = $this->salida->tabla($datos, $titulos, $estilos);
+       $coordenadas = $this->salida->tabla($datos, $titulos, $estilos, $col_totales);
        $nodo['excel_rango'] = $coordenadas;
 	}
 	
@@ -2329,9 +2337,13 @@ class toba_ei_cuadro extends toba_ei
 		}
 		$span = count($this->_info_cuadro_columna);
 		if (trim($descripcion) != '') {
-			$this->salida->texto("$descripcion " . $valor, $opciones, $span, $altura);
+			$contenido = "$descripcion " . $valor;
 		} else {
-			$this->salida->texto($valor, $opciones, $span, $altura);
+			$contenido = $valor;
+		}
+		$this->salida->texto($contenido, $opciones, $span, $altura);		
+		if ($nodo['profundidad'] == 0 && $this->_excel_cortar_hoja_cc_0) {
+			$this->salida->set_hoja_nombre($contenido);
 		}
 	}	
 	
@@ -2352,7 +2364,7 @@ class toba_ei_cuadro extends toba_ei
     /**
      * @ignore 
      */
-	protected function excel_cuadro_totales_columnas($nodo, $nivel=null,$agregar_titulos=false, $estilo_linea=null)
+	protected function excel_cuadro_totales_columnas($nodo, $nivel=null,$agregar_titulos=false, $es_total_general = false)
 	{
 		$titulos = $this->excel_get_titulos();
 		if ($nivel > 0) {
@@ -2363,14 +2375,24 @@ class toba_ei_cuadro extends toba_ei
 		$formateo = new $this->_clase_formateo('excel');		
 		$datos = array();		
 		$estilos = array();
+		if ($es_total_general) {
+			$this->salida->separacion(1);
+		}
 		for ($a=0;$a<$this->_cantidad_columnas;$a++){
 			$clave = $this->_info_cuadro_columna[$a]["clave"];
 			$estilos[$clave]['estilo'] = $estilo_base;
-		    if (isset($nodo['acumulador'][$clave])){
-		    	//-- Calculo de la formula
-		    	$rangos = $this->excel_get_rangos($nodo, $a);
-		    	$formula = '=SUM'.implode(' + SUM', $rangos);
-		    	
+			$estilos[$clave]['borrar_estilos_nulos'] = 1;
+		    if (isset($nodo['acumulador'][$clave])){			
+				if ($es_total_general) {
+					$rangos = array();
+					foreach ($this->_cortes_control as $nodo) {
+			    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo, $a));
+					}
+			    	$formula = '=SUM'.implode(' + SUM', $rangos);	
+				} else {
+			    	$rangos = $this->excel_get_rangos($nodo, $a);
+			    	$formula = '=SUM'.implode(' + SUM', $rangos);
+				}
 				//La columna lleva un formateo?
                 $estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($this->_info_cuadro_columna[$a]['estilo']));
 				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
@@ -2381,8 +2403,6 @@ class toba_ei_cuadro extends toba_ei
 					}
 				}		    	
 				$datos[$clave] = $formula;
-			}elseif (isset($nodo[$clave])) {
-				//--- Es el acumulador común
 			} else {
 				unset($titulos[$clave]);
 				$datos[$clave] = null;
@@ -2434,7 +2454,7 @@ class toba_ei_cuadro extends toba_ei
 			$this->excel_cuadro_totales_columnas($nodo, 
 												$nodo['profundidad'], 
 												$titulos,
-												null);
+												false);
 		}
 		/*
 		//------ Sumarizacion AD-HOC del usuario --------
@@ -2464,12 +2484,10 @@ class toba_ei_cuadro extends toba_ei
 		if(method_exists($this, $metodo)){
 			$this->$metodo($nodo);
 		}
-		if (!$es_ultimo && $nodo['profundidad'] == 0 && $this->_excel_cortar_hoja_cc_0) {
-			$this->salida->salto_pagina();
-		} elseif (!$es_ultimo && $nodo['profundidad'] > 0 && $this->_excel_cortar_hoja_cc_1) {
-			$this->salida->salto_pagina();
-		}
 		*/
+		if (!$es_ultimo && $nodo['profundidad'] == 0 && $this->_excel_cortar_hoja_cc_0) {
+			$this->salida->crear_hoja();
+		}
 	}
 	
 	protected function excel_get_rangos($nodo, $columna=null)
