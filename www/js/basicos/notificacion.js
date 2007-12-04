@@ -75,10 +75,10 @@ notificacion = new function() {
 				texto = "<strong>" + this._mensajes[i][2] + "</strong> " + texto;
 			}
 			if (typeof this._mensajes[i][3] != 'undefined') {
-				var botonera = "<a onclick='overlay_debug()' href='#'>Más info...</a>";
+				var botonera = "<a onclick='overlay_debug("+i+")' href='#'>Más info...</a>";
 				var titulo_debug = "<hr>";
 				var texto_debug = this._mensajes[i][3];
-				texto += botonera + "<div id='overlay_debug' style='display:none;'>" + titulo_debug + texto_debug + "</div>";
+				texto += botonera + "<div id='overlay_debug_"+ i +"' style='display:none;'>" + titulo_debug + texto_debug + "</div>";
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
@@ -157,8 +157,8 @@ function overlay(limpiar) {
 	}
 }
 
-function overlay_debug() {
-	el = document.getElementById("overlay_debug");
+function overlay_debug(i) {
+	el = document.getElementById("overlay_debug_"+i);
 	var oculto = (el.style.display == "none");
 	el.style.display = (oculto) ? "block" : "none";
 }
