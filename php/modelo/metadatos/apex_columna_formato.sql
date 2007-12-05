@@ -1,4 +1,4 @@
-INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('1', 'NULO', NULL, 'No realizar cambios', 'Sin cambios', NULL, '4');
+INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('1', 'NULO', NULL, 'No realizar cambios', '-- Sin cambios --', NULL, '4');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('2', 'moneda', NULL, 'Convertir en MONEDA', 'Moneda ($ 1.000,00)', NULL, '0');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('4', 'mayusculas', NULL, 'Convertir a MAYUSCULAS', 'Todas Mayusculas', NULL, '4');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('5', 'indivisible', NULL, 'No cortar el texto', 'No cortar el texto', NULL, '4');
