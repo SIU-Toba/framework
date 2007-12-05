@@ -382,7 +382,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
-	NULL, --estado_defecto
+	'0', --estado_defecto
 	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -398,7 +398,7 @@ ORDER BY descripcion_corta', --carga_sql
 	'descripcion_corta', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
-	'--- Sin formato ---', --carga_no_seteado
+	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
