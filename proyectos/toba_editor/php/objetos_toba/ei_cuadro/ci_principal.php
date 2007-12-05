@@ -138,10 +138,7 @@ class ci_principal extends ci_editores_toba
 	
 	function conf__columnas_lista()
 	{
-
-		
-		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() )
-		{
+		if($datos_dbr = $this->get_entidad()->tabla('columnas')->get_filas() ) {
 			//Ordeno los registros segun la 'posicion'
 			//ei_arbol($datos_dbr,"Datos para el ML: PRE proceso");
 			for($a=0;$a<count($datos_dbr);$a++){

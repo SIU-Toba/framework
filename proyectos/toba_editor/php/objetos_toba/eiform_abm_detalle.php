@@ -88,13 +88,7 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 				}
 			}
 		";
-		echo "
-			{$this->objeto_js}.evt__estilo__procesar = function(inicial, fila_actual) {
-				var estado = this.ef('estilo').ir_a_fila(fila_actual).get_estado();	
-				var input = this.ef('prueba_estilo').ir_a_fila(fila_actual).input();
-				input.className = editor_col_css[estado] + ' columna-preview';
-			}
-		";		
+	
 
 		//------------------------------------------------------------------------
 		//-------------------------- PREVIEW DE IMAGENES --------------------------
