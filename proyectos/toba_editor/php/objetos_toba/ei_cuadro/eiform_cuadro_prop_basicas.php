@@ -27,9 +27,11 @@ class eiform_cuadro_prop_basicas extends toba_ei_formulario
 			if( this.ef('paginar').chequeado() ){
 				this.ef('tamano_pagina').mostrar();
 				this.ef('tipo_paginado').mostrar();
+				this.ef('exportar_paginado').mostrar();
 			}else{
 				this.ef('tamano_pagina').ocultar();
 				this.ef('tipo_paginado').ocultar();
+				this.ef('exportar_paginado').ocultar();
 			}
 		}
 		

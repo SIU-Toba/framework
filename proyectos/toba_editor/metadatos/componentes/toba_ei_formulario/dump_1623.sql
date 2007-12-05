@@ -15,12 +15,12 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	NULL, --subclase
-	'/admin/objetos_toba/ei_cuadro/eiform_cuadro_prop_cortes.php', --subclase_archivo
+	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'OBJETO - Editor CUADRO - Prop. Cortes', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	'Editor del cuadro', --descripcion
 	'toba_editor', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -96,8 +96,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --clase
 	NULL, --auto_reset
 	NULL, --ancho
-	NULL, --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'150px', --ancho_etiqueta
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas

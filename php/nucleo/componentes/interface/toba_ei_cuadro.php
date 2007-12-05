@@ -591,6 +591,11 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function existe_paginado()
 	{
+		//-- Se busca el tipo de salida antes de producirse la etapa de servicios porque el paginado no es reversible
+		$servicio = toba::memoria()->get_servicio_solicitado();
+		if (($servicio == 'vista_excel' || $servicio == 'vista_pdf') && !$this->_info_cuadro['exportar_paginado']) {
+			return false;
+		}
 		return $this->_info_cuadro["paginar"];
 	}
 	

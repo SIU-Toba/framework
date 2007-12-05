@@ -33,6 +33,7 @@ CREATE TABLE apex_objeto_cuadro
 	tipo_paginado				varchar(1)  	NULL,
 	eof_invisible           	smallint    	NULL,   
 	eof_customizado       		varchar			NULL,
+	exportar_paginado	      	smallint    	NULL,		-- Limita el paginado a la salida html	
 	exportar		           	smallint       	NULL,		-- Exportar XLS
 	exportar_rtf            	smallint       	NULL,		-- Exportar PDF
 	pdf_propiedades         	varchar			NULL,
