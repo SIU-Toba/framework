@@ -396,6 +396,7 @@ class toba_db_tablas_nucleo
     3 => 'descripcion',
     4 => 'descripcion_corta',
     5 => 'parametros',
+    6 => 'estilo_defecto',
   ),
 );
 	}

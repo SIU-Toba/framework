@@ -903,6 +903,13 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
+	function get_estilo_defecto_formateo_columna($formateo)
+	{
+		$sql = "SELECT estilo_defecto FROM apex_columna_formato WHERE columna_formato='$formateo'";
+		$rs = toba_contexto_info::get_db()->consultar_fila($sql);
+		return $rs['estilo_defecto'];
+	}
+	
 	function get_mensajes($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();

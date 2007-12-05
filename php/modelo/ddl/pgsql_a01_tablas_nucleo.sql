@@ -283,7 +283,9 @@ CREATE TABLE apex_columna_formato
 	descripcion							varchar(255)	NULL,
 	descripcion_corta					varchar(40)		NULL,
 	parametros							varchar(255)	NULL,
-	CONSTRAINT	"apex_columna_formato_pk" PRIMARY KEY ("columna_formato") 
+	estilo_defecto						int4			NOT NULL,
+	CONSTRAINT	"apex_columna_formato_pk" PRIMARY KEY ("columna_formato"),
+	CONSTRAINT "apex_columna_formato_fk_estilo" FOREIGN KEY ("estilo_defecto") REFERENCES "apex_columna_estilo"("columna_estilo") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 
 --#################################################################################################

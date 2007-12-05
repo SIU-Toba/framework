@@ -121,6 +121,15 @@ class ci_principal extends ci_editores_toba
 			$registros[$id]['orden'] = $orden;
 			$orden++;
 			$accion = $registros[$id][apex_ei_analisis_fila];
+			if (isset($registros[$id]['formateo'])) {
+				$estilo = toba_info_editores::get_estilo_defecto_formateo_columna($registros[$id]['formateo']);
+			} else {
+				$estilo = 4;
+			}
+			$fila = $dbr->get_fila($id);
+			if (! isset($fila) || !isset($fila['estilo'])) {
+				$registros[$id]['estilo'] = $estilo;
+			}
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
