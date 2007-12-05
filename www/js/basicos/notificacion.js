@@ -60,7 +60,7 @@ notificacion = new function() {
 			this.ventana_alert();
 			return;	
 		}
-		var mensaje = '';
+		var mensaje = '<div class="overlay-mensaje">';
 		var titulo = 'Información';		
 		for (var i=0; i < this._mensajes.length; i++) {
 			var gravedad = '';
@@ -82,7 +82,7 @@ notificacion = new function() {
 			}
 			mensaje += '<div>' + gravedad + texto + '</div>';
 		}
-		mensaje += "<div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
+		mensaje += "</div><div class='overlay-botonera'><input id='boton_overlay' type='button' value='Aceptar' onclick='overlay()'/></div>";
 		this.mostrar_ventana_modal(titulo, mensaje);
 	};
 	
@@ -151,6 +151,11 @@ function overlay(limpiar) {
 	if (! visible) {
 		scroll(0,0);
 		window.firstFocus = function() {};
+		var boton = $('boton_overlay');
+		if (boton) {
+			boton.focus();
+		}
+		
 	} 
 	if (isset(limpiar) && limpiar) {
 		$('overlay_contenido').innerHTML = '';
