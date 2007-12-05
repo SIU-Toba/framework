@@ -73,16 +73,27 @@ class toba_ei_cuadro extends toba_ei
 	//Salida Excel
 	protected $_excel_total_generado = false;
 	protected $_excel_cabecera_cc_0_opciones = array('font' => array('bold'=>true, 'size' => '12'), 'alignment'=> array('horizontal' => 'center', 'vertical'=>'bottom'));
-	protected $_excel_cabecera_cc_0_altura = 20;
+	protected $_excel_cabecera_cc_0_altura = 30;
 	protected $_excel_cabecera_cc_1_opciones = array('font' => array('bold'=>true, 'size' => '11'), 'alignment'=> array('horizontal' => 'left', 'vertical'=>'bottom'));
 	protected $_excel_cabecera_cc_1_altura = 20;
 	protected $_excel_totales_cc_0_opciones = array('font' => array('bold'=>true), 'borders' => array(
 																				'top' => array('style'=>'thick')));
 	protected $_excel_totales_cc_1_opciones = array('font' => array('bold'=>true), 'borders' => array());
+	protected $_excel_totales_opciones = array('font' => array('bold'=>true, 'size' => 12),
+									 			'fill' => array(
+								             		'type' => 'solid' ,
+										            'rotation'   => 0,
+										            'startcolor' => array('rgb' => 'E6E6E6')),
+													 'borders' => array(
+														'top' => array('style'=>'thin'),
+														'bottom' => array('style'=>'thin'),
+														'left' => array('style'=>'thin'),
+														'right' => array('style'=>'thin')),
+											);
 	protected $_excel_cabecera_pie_cc_0_op =  array();
 	protected $_excel_cabecera_pie_cc_1_op = array();
     protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
-	protected $_excel_cortar_hoja_cc_0 = true;										//Crea una hoja (worksheet) por corte 
+	protected $_excel_cortar_hoja_cc_0 = false;										//Crea una hoja (worksheet) por corte 
 	
     function __construct($id)
     {
@@ -2183,6 +2194,7 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->salida = $salida;		
 		$titulo = $this->get_titulo();
+		$this->salida->set_hoja_nombre($titulo);
 		$cant_col = count($this->_info_cuadro_columna);		
 		if ($titulo != '') {
 			$this->salida->titulo($titulo, $cant_col);
@@ -2260,12 +2272,14 @@ class toba_ei_cuadro extends toba_ei
 		//-- Para la tabla simple se sacan los totales como parte de la tabla
 		$col_totales = array();
 		if (isset($totales)) {
+			$this->_excel_total_generado = true;
 			$col_totales = array_keys($totales);
 		}
   		
         //-- Genera la tabla
        $coordenadas = $this->salida->tabla($datos, $titulos, $estilos, $col_totales);
        $nodo['excel_rango'] = $coordenadas;
+       $nodo['excel_rango_hoja'] = $this->salida->get_hoja_nombre();
 	}
 	
 	
@@ -2350,15 +2364,13 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function excel_cabecera_pie_cc_contenido(&$nodo)
 	{
-		/*
 		$descripcion = $this->_cortes_indice[$nodo['corte']]['descripcion'];
 		$valor = implode(", ",$nodo['descripcion']);
 		if (trim($descripcion) != '') {
-			return 'Resumen ' . $descripcion . ': <b>' . $valor . '</b>';			
+			return 'Resumen ' . $descripcion . ': '.$valor;			
 		} else {
-			return 'Resumen <b>' . $valor . '</b>';
+			return 'Resumen ' . $valor;
 		}
-		*/
 	}
 	
     /**
@@ -2367,7 +2379,9 @@ class toba_ei_cuadro extends toba_ei
 	protected function excel_cuadro_totales_columnas($nodo, $nivel=null,$agregar_titulos=false, $es_total_general = false)
 	{
 		$titulos = $this->excel_get_titulos();
-		if ($nivel > 0) {
+		if ($es_total_general) {
+			$estilo_base = $this->_excel_totales_opciones;
+		} elseif ($nivel > 0) {
 			$estilo_base = $this->_excel_totales_cc_1_opciones;
 		} else {
 			$estilo_base = $this->_excel_totales_cc_0_opciones;
@@ -2404,16 +2418,22 @@ class toba_ei_cuadro extends toba_ei
 				}		    	
 				$datos[$clave] = $formula;
 			} else {
-				unset($titulos[$clave]);
+				$titulos[$clave] = null;
 				$datos[$clave] = null;
 			}
 		}
-		$this->salida->tabla(array($datos), $agregar_titulos ? $titulos : null, $estilos);		
+		if ($es_total_general && $this->_excel_cortar_hoja_cc_0) {
+			$this->salida->crear_hoja('Totales');
+			$agregar_titulos = true;
+		}
+		if (! $agregar_titulos) {
+			$titulos = null;
+		}		
+		$this->salida->tabla(array($datos), $titulos, $estilos);	
 	}
 	
 	protected function excel_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
 	{
-		/*
 		//Titulo
 		if(isset($titulo)){
 			$this->salida->subtitulo($titulo);
@@ -2422,7 +2442,6 @@ class toba_ei_cuadro extends toba_ei
 		foreach($datos as $desc => $valor){
 			$this->salida->texto($desc.': '.$valor);
 		}
-		*/
 	}	
 	
 
@@ -2456,7 +2475,6 @@ class toba_ei_cuadro extends toba_ei
 												$titulos,
 												false);
 		}
-		/*
 		//------ Sumarizacion AD-HOC del usuario --------
 		if(isset($nodo['sum_usuario'])){
 			foreach($nodo['sum_usuario'] as $id => $valor){
@@ -2465,7 +2483,6 @@ class toba_ei_cuadro extends toba_ei
 			}
 			$this->excel_cuadro_sumarizacion($datos,null,300,$nodo['profundidad']);
 		}
-		*/
 		//----- Contar Filas
 		if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']) {
 			$rangos = $this->excel_get_rangos($nodo);
@@ -2478,13 +2495,11 @@ class toba_ei_cuadro extends toba_ei
 			$formula = '=ROWS'.implode(' + ROWS', $rangos);
 			$this->salida->texto($formula, $this->_excel_contar_filas_op, 1, null, $cursor);
 		}
-		/*
 		//----- Contenido del usuario al final del PIE
 		$metodo = 'excel_pie_cc_contenido__' . $nodo['corte'];
 		if(method_exists($this, $metodo)){
 			$this->$metodo($nodo);
 		}
-		*/
 		if (!$es_ultimo && $nodo['profundidad'] == 0 && $this->_excel_cortar_hoja_cc_0) {
 			$this->salida->crear_hoja();
 		}
@@ -2492,6 +2507,7 @@ class toba_ei_cuadro extends toba_ei
 	
 	protected function excel_get_rangos($nodo, $columna=null)
 	{
+		$hoja_actual = $this->salida->get_hoja_nombre();
 		$rangos = array();
 		if (isset($nodo['excel_rango'])) {
 			if (! isset($columna)) {
@@ -2503,7 +2519,11 @@ class toba_ei_cuadro extends toba_ei
 			}
 			$col_ini = PHPExcel_Cell::stringFromColumnIndex($col_ini_ref);
 			$col_fin = PHPExcel_Cell::stringFromColumnIndex($col_fin_ref);
-			$rangos[] = '('.$col_ini.$nodo['excel_rango'][0][1].
+			$hoja = '';
+			if ($hoja_actual != $nodo['excel_rango_hoja']) {
+				$hoja = "'".$nodo['excel_rango_hoja']."'!";
+			} 
+			$rangos[] = '('.$hoja.$col_ini.$nodo['excel_rango'][0][1].
 							':'.$col_fin.$nodo['excel_rango'][1][1].')';
 		}		
 		if (isset($nodo['hijos'])) {

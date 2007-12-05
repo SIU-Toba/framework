@@ -38,5 +38,23 @@ class extension_cuadro_estetica_b extends toba_ei_cuadro
 		$resultado = number_format($promedio,2,',','.') ;
 		$this->salida->texto("El promedio de habitantes por localidad es: <b>$promedio</b>.");
 	}	
+	
+	function excel_pie_cc_contenido__zona(&$nodo)
+	{
+		$estilos = array('font' => array('size'=> '8'));
+		//Preparo una descripcion
+		$zona = $nodo['descripcion']['zona'];
+		$locs = count($nodo['filas']);
+		$deps = count($nodo['hijos']);
+		$this->salida->texto("La Zona $zona tiene $deps departamentos y $locs localidades.", $estilos);
+		//Hago unos calculos
+		$habitantes = 0;
+		foreach($nodo['filas'] as $fila){
+			$habitantes += $this->datos[$fila]['hab_total'];
+		}
+		$promedio = $habitantes / count($nodo['filas']);
+		$resultado = number_format($promedio,2,',','.') ;
+		$this->salida->texto("El promedio de habitantes por localidad es: $promedio.", $estilos);
+	}
 }
 ?>

@@ -120,9 +120,6 @@ class toba_vista_excel
 	//------------------------------------------------------------------------
 	//-- API de Creación
 	//------------------------------------------------------------------------	
-	protected function col_numero_a_letra()
-	{
-	}
 	
 	function crear_hoja($nombre=null)
 	{
@@ -137,6 +134,11 @@ class toba_vista_excel
 	function set_hoja_nombre($nombre)
 	{
 		$this->excel->getActiveSheet()->setTitle($nombre);
+	}
+	
+	function get_hoja_nombre()
+	{
+		return $this->excel->getActiveSheet()->getTitle();
 	}
 	
 	
@@ -200,15 +202,19 @@ class toba_vista_excel
 		if (! empty($titulos)) {
 			$x=0;
 			foreach($titulos as $clave => $valor) {
-				$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1], $valor);
-				$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1])->applyFromArray($estilo_titulos);
+				if (isset($valor) || !isset($opciones[$clave]['borrar_estilos_nulos'])) {
+					$hoja->setCellValueByColumnAndRow($origen[0] + $x, $origen[1], $valor);
+					$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1])->applyFromArray($estilo_titulos);
+				}
 				$x++;
+
 			}
 			$origen[1]++;
 		}
 		//--- Datos
 		$columnas = array();
 		$y = 0;		
+		$x = 0;
 		foreach($datos as $filas) {
 			$x = 0;
 			foreach($filas as $clave => $valor) {
@@ -220,7 +226,7 @@ class toba_vista_excel
 				//--- Se borran los estilos si no tiene valor (opcional)				
 				if (!isset($valor) && isset($opciones[$clave]['borrar_estilos_nulos'])) {
 					$opciones[$clave]['estilo'] = array();
-				}				
+				}
 				$hoja->getStyleByColumnAndRow($origen[0] + $x, $origen[1] + $y)->applyFromArray($opciones[$clave]['estilo']);
 				if (isset($opciones[$clave]['ancho'])) {
 					if ($opciones[$clave]['ancho'] == 'auto') {
