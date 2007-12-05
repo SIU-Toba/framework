@@ -46,14 +46,14 @@ class toba_error_db extends toba_error
 				$mensaje = "No es posible realizar la conexión a la base.";
 			}else{
 				$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
-				if (!$datos_error) {
+				if (!$datos_error || !is_array($datos_error)) {
 					$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
 				}
-				if (empty($datos_error)) {
+				if (!is_array($datos_error) || empty($datos_error)) {
 					$mensaje = $info->getMessage();	
 				}else{
 					$mensaje = $datos_error['m'];					
-				}				
+				}
 			}				
 		}else{
 			$mensaje = $this->get_mensaje();

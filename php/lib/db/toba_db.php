@@ -220,7 +220,7 @@ class toba_db
 	*	@return array Arreglo asociativo columna=>valor, falso en caso de resultado vacio
 	*	@throws toba_error_db en caso de error
 	*/		
-	function consultar_fila($sql, $tipo_fetch=toba_db_fetch_asoc)
+	function consultar_fila($sql, $tipo_fetch=toba_db_fetch_asoc, $lanzar_excepcion=true)
 	{
 		if (! isset($tipo_fetch)) {
 			$tipo_fetch=toba_db_fetch_asoc;	
@@ -230,9 +230,14 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, $this->cortar_sql($sql));
-			toba::logger()->error( $ee->get_mensaje() );
-			throw $ee;
+			if ($lanzar_excepcion) {
+				$ee = new toba_error_db($e, $this->cortar_sql($sql));
+				toba::logger()->error( $ee->get_mensaje() );
+				throw $ee;
+			} else {
+				toba::logger()->error( $e->getMessage() );
+				return $e->getMessage();
+			}
 		}		
 	}
 

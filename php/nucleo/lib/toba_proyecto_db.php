@@ -237,7 +237,7 @@ class toba_proyecto_db
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = 'toba';";
-		return self::get_db()->consultar_fila($sql);	
+		return self::get_db()->consultar_fila($sql, toba_db_fetch_asoc, false);	
 	}
 	
 	static function get_mensaje_proyecto($proyecto, $indice)
@@ -247,7 +247,7 @@ class toba_proyecto_db
 				FROM apex_msg 
 				WHERE indice = '$indice'
 				AND proyecto = '$proyecto';";
-		return self::get_db()->consultar_fila($sql);	
+		return self::get_db()->consultar_fila($sql, toba_db_fetch_asoc, false);	
 	}
 
 	static function get_mensaje_objeto($proyecto, $objeto, $indice)
