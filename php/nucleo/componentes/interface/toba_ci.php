@@ -123,8 +123,10 @@ class toba_ci extends toba_ei
 	{
 		$this->_log->debug( $this->get_txt() . "[ disparar_limpieza_memoria ]", 'toba');
 		//Itero los CIs instanciados durante la operacion para limpiarles la memoria
-		foreach($this->_dependencias_ci as $dep){
-			$this->dependencia($dep)->disparar_limpieza_memoria();
+		if (isset($this->_dependencias_ci)) {
+			foreach($this->_dependencias_ci as $dep){
+				$this->dependencia($dep)->disparar_limpieza_memoria();
+			}
 		}
 		$this->limpiar_memoria(array('_ini_operacion'));
 		unset($this->_pantalla_id_eventos);		
