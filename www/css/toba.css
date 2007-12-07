@@ -134,6 +134,11 @@ legend {
 	text-align: center;
 	margin-top: 100px;
 }
+.menu-link-nueva-ventana {
+	float:right;
+	_float: none;
+	padding: 2px 0 2px 2px;
+}
 
 /*************************************
 		Elementos de Interface

@@ -23,7 +23,8 @@ define("apex_hilo_qs_canal_obj","toba-can");					//Prefijo de los CANALES de OBJ
 define("apex_hilo_qs_zona","tz");						//CANAL de propagacion de ZONAS
 define("apex_hilo_qs_cronometro","toba-cron");					//CANAL gatillo del cronometro
 define("apex_hilo_qs_menu","tm");						//Indica que el vinculo proviene del MENU
-define("apex_hilo_qs_celda_memoria","tcm");		//Indicador que indica que el vinculo proviene del MENU
+define("apex_hilo_qs_celda_memoria","tcm");				//Indicador que indica que el vinculo proviene del MENU
+define("apex_hilo_qs_celda_memoria_defecto","central");	//Nombre de la celda de memoria predeterminada
 define("apex_hilo_qs_servicio", "ts");
 define("apex_hilo_qs_servicio_defecto", "generar_html");
 define("apex_hilo_qs_objetos_destino", "tsd");
@@ -115,7 +116,7 @@ class toba_memoria
 			$this->celda_memoria_actual_id = $this->parametros[apex_hilo_qs_celda_memoria];
 			unset($this->parametros[apex_hilo_qs_celda_memoria]);
 		} else {
-			$this->celda_memoria_actual_id = 'central';
+			$this->celda_memoria_actual_id = apex_hilo_qs_celda_memoria_defecto;
 		}
 		
 		// Apunto las referencias a session
@@ -610,6 +611,7 @@ class toba_memoria
 		}else{
 			$this->celda_memoria_actual['item'] = 'inicio';
 		}
+		toba::logger()->debug('Item de celda de memoria: '.$this->celda_memoria_actual['item']);
 		//-- Inicializo reciclaje por acceso.
 		//		Vacio los reciclables activos para que se registren ellos.
 		$this->celda_memoria_actual['reciclables_activos'] = array();

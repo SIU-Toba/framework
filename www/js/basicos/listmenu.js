@@ -140,6 +140,7 @@ simpleMenu.prototype.init = function(trigger, isie, isoldsaf, iskde, navid, isho
 		trigger.contains = function(node)
 		{
 			if (node === null) { return false; }
+			if (typeof node == 'undefined') { return false; }
 			if (node == this) { return true; }
 			else { return this.contains(node.parentNode); }
 		};

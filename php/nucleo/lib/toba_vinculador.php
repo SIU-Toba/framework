@@ -170,11 +170,16 @@ class toba_vinculador
 			$parametros_formateados .= $separador.apex_hilo_qs_objetos_destino ."=". $qs_objetos;
 		}
 		//Cual es la celda de memoria del proximo request?
-		if(!isset($celda_memoria)){
-			//Por defecto propago la celda actual del HILO
-			$celda_memoria = toba::memoria()->get_celda_memoria_actual_id();
+		if(!isset($celda_memoria)) {
+			$celda_actual = toba::memoria()->get_celda_memoria_actual_id();
+			//Si es la celda por defecto, no explicitar ya que se asume
+			if ($celda_actual != apex_hilo_qs_celda_memoria_defecto) {
+				$celda_memoria = toba::memoria()->get_celda_memoria_actual_id();
+			}
 		}		
-		$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=". $celda_memoria;
+		if (isset($celda_memoria)) {
+			$parametros_formateados .= $separador. apex_hilo_qs_celda_memoria ."=". $celda_memoria;
+		}
 		//La proxima pagina va a CRONOMETRARSE?
 		if($cronometrar){
 			$parametros_formateados .= $separador. apex_hilo_qs_cronometro ."=1";
