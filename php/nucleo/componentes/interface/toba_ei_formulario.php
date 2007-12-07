@@ -348,7 +348,7 @@ class toba_ei_formulario extends toba_ei
 	 */
 	function existe_ef($id)
 	{
-		return isset($this->_elemento_formulario[$id]);
+		return in_array($id, $this->get_efs_activos());
 	}
 
 	
