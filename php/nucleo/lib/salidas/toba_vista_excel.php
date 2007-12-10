@@ -112,7 +112,7 @@ class toba_vista_excel
 		header("Cache-Control: private");
   		header('Content-type: application/vnd.ms-excel');
   		header("Content-Length: $longitud");	
-   		header("Content-Disposition: {$this->tipo_descarga}; filename={$this->nombre_archivo}");
+   		header("Content-Disposition: {$this->tipo_descarga}; filename=\"{$this->nombre_archivo}\"");
   		header("Pragma: no-cache");
 		header("Expires: 0");
 	}
