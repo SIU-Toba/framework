@@ -56,6 +56,10 @@ class toba
 		return toba_nucleo::instancia()->get_solicitud()->zona();
 	}
 	
+	/**
+	 * Clase que se encarga de mostrar el menú de operaciones del proyecto
+	 * @return toba_menu_css
+	 */
 	static function menu()
 	{
 		if (! isset(self::$menu)) {

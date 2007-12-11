@@ -32,7 +32,7 @@ class toba_menu_css extends toba_menu
 	
 	//-----------------------------------------------------------
 	
-	function preparar_arbol()
+	protected function preparar_arbol()
 	{
 
 		$this->arbol .= '<style type="text/css">
@@ -62,7 +62,7 @@ class toba_menu_css extends toba_menu
 		$this->arbol .= "</ul>";	
 	}
 	
-	function get_padres($nodo)
+	protected function get_padres($nodo)
 	{
 		$inden = str_repeat("\t",$this->prof );
 		$clase_base = ($this->prof == 1) ? 'nivel-0' : '';
@@ -100,7 +100,7 @@ class toba_menu_css extends toba_menu
 		}
 	}
 	
-	function get_imagen($nodo)
+	protected function get_imagen($nodo)
 	{
 		$img = '';
 		if (isset($this->items[$nodo]['imagen'])) {
@@ -114,7 +114,7 @@ class toba_menu_css extends toba_menu
 		return $img;
 	}
 	
-	function get_hijos($nodo)
+	protected function get_hijos($nodo)
 	{
 		$hijos = array();
 		for ($i=0;$i<count($this->items);$i++) {

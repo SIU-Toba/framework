@@ -581,6 +581,9 @@ class toba_db
 				}
 			}
 			$descripcion = $this->elegir_mejor_campo_descripcion($candidatos_descripcion);
+			if (! isset($descripcion)) {
+				$descripcion = $clave;
+			}
 			$sql = "SELECT $clave, $descripcion FROM $tabla ORDER BY $descripcion";
 		}
 		return array('sql'=>$sql, 'tabla'=>$tabla, 'clave'=>$clave, 'descripcion'=>$descripcion);

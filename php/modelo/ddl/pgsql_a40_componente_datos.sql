@@ -108,6 +108,7 @@ CREATE TABLE apex_objeto_db_registros_col
 	no_nulo_db						smallint 		NULL,
 	externa							smallint		NULL,
 	CONSTRAINT  "apex_obj_dbr_col_pk" PRIMARY KEY ("col_id", "objeto", "objeto_proyecto"),
+	CONSTRAINT	"apex_obj_dbr_uq_col" UNIQUE ("objeto_proyecto", "objeto", "columna"),
 	CONSTRAINT  "apex_obj_dbr_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_obj_dbr_col_fk_objeto_dbr" FOREIGN KEY ("objeto", "objeto_proyecto") REFERENCES "apex_objeto_db_registros" ("objeto", "objeto_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
