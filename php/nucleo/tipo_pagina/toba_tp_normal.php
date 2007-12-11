@@ -16,15 +16,13 @@ class toba_tp_normal extends toba_tp_basico_titulo
 
 	function __construct()
 	{
-		$archivo_menu = toba::proyecto()->get_parametro('menu_archivo');
-		$clase = basename($archivo_menu, ".php");
-		$this->menu = new $clase();
+		$this->menu = toba::menu();
 	}
 	
 	protected function comienzo_cuerpo()
 	{
 		parent::comienzo_cuerpo();
-		$this->menu();					
+		$this->menu();	
 		$this->cabecera_aplicacion();			
 	}
 

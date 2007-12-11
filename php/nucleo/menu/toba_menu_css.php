@@ -17,11 +17,11 @@ class toba_menu_css extends toba_menu
 	function __construct()
 	{
 		$this->imagen_nodo = toba_recurso::imagen_toba('nucleo/menu_nodo_css.gif', false);
-		$this->set_abrir_nueva_ventana();
 	}
 	
 	function set_abrir_nueva_ventana($imagen='nucleo/abrir_nueva_ventana.gif')
 	{
+		$this->abrir_nueva_ventana = true;
 		$this->imagen_nueva_ventana = toba_recurso::imagen_toba($imagen, false);		
 	}
 	

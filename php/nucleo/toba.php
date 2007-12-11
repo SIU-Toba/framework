@@ -7,6 +7,7 @@
 class toba
 {
 	static private $mensajes;
+	static private $menu;
 	static private $contexto_ejecucion;
 
 	/**
@@ -53,6 +54,16 @@ class toba
 	static function zona()
 	{
 		return toba_nucleo::instancia()->get_solicitud()->zona();
+	}
+	
+	static function menu()
+	{
+		if (! isset(self::$menu)) {
+			$archivo_menu = toba::proyecto()->get_parametro('menu_archivo');
+			$clase = basename($archivo_menu, ".php");
+			self::$menu = new $clase();
+		}
+		return self::$menu;
 	}
 	
 	/**
