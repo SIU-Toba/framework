@@ -37,10 +37,22 @@ class catalogo_general extends toba_nodo_basico
 										'ayuda' => null ) );
 		$hijos[3]->agregar_utileria(  array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
-				'ayuda' => 'Editar Mensajes del sistema',
+				'ayuda' => 'Editar Tipos de página disponibles',
 				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(),'/admin/apex/elementos/pagina_tipo', $opciones ),
 				'target' => apex_frame_centro
 				) );
+				
+		//----------------------------------------------------------------------
+		$hijos[4] = new toba_nodo_basico('Skins', $this);
+		$hijos[4]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("css.gif", false),
+										'ayuda' => null ) );
+		$hijos[4]->agregar_utileria(  array(
+				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
+				'ayuda' => 'Editar Skins propios del proyecto',
+				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(),'3419', $opciones ),
+				'target' => apex_frame_centro
+				) );
+								
 		//----------------------------------------------------------------------
 		$hijos[5] = new toba_nodo_basico('Zona', $this);
 		$hijos[5]->agregar_icono( array( 'imagen' => 	toba_recurso::imagen_proyecto("zona.gif", false),

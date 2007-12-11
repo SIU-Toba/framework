@@ -888,7 +888,9 @@ class toba_info_editores
 	function get_lista_skins()
 	{
 		$sql = "SELECT
-					estilo, descripcion
+					estilo, 
+					proyecto,
+					descripcion
 				FROM apex_estilo
 				WHERE
 						proyecto = '".toba_contexto_info::get_proyecto()."' 

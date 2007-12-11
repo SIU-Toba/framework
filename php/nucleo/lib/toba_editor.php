@@ -39,7 +39,9 @@ class toba_editor
 	{
 		self::$memoria =& toba::manejador_sesiones()->segmento_editor();
 		if (toba::memoria()->get_parametro('skin') != '') {
-			toba::proyecto()->set_parametro('estilo', toba::memoria()->get_parametro('skin'));
+			$skin = explode(apex_qs_separador, toba::memoria()->get_parametro('skin'));
+			toba::proyecto()->set_parametro('estilo', $skin[0]);
+			toba::proyecto()->set_parametro('estilo_proyecto', $skin[1]);
 		}
 		//Acceso a la informacion del modelo
 		toba_contexto_info::set_proyecto( toba_editor::get_proyecto_cargado() );
@@ -368,9 +370,10 @@ class toba_editor
 				onclick='toggle_nodo(\$(\"editor_previsualizacion_cont\"))'/>";		
 		echo "<span id='editor_previsualizacion_cont'>";
 		//Skin
-		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo'), 'descripcion');
+		$skins = rs_convertir_asociativo(toba_info_editores::get_lista_skins(), array('estilo','proyecto'), 'descripcion');
 		$js = "onchange=\"location.href = toba_prefijo_vinculo + '&skin=' + this.value\"";
-		echo toba_form::select('cambiar_skin', toba::proyecto()->get_parametro('estilo'), $skins, 'ef-combo', $js);
+		$defecto = toba::proyecto()->get_parametro('estilo').apex_qs_separador.toba::proyecto()->get_parametro('estilo_proyecto');
+		echo toba_form::select('cambiar_skin', $defecto, $skins, 'ef-combo', $js);
 		
 				//Logger
 		echo "<a href='$link_logger' target='logger' $html_ayuda_logger >".
