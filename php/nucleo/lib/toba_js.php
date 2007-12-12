@@ -20,6 +20,9 @@ class toba_js
 						'basicos/comunicacion_server', 'basicos/notificacion',
 						'basicos/vinculador');
 	
+	/**
+	 * @return toba_js
+	 */
 	static function instancia() 
 	{
 		if (! isset(self::$instancia)) {

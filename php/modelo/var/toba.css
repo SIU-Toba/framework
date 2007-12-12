@@ -1,5 +1,5 @@
 body {
-	background-color: #e3e3e3;
+	background-color: {$fondo_principal};
 }
 .encabezado {
  color:black;
@@ -7,30 +7,30 @@ body {
 .enc-version {
 }
 ul.horizontal a, ul.horizontal a:visited {
-	background: #fafbfe;
-	border:1px solid #8d8e90;
+	background: {$fondo_menu};
+	border:1px solid {$borde_menu};
 	margin-right:2px;
 }
 a.nivel-0, a.nivel-0:visited {
-	background-color: #e3e3e3 !important;
+	background-color: {$fondo_principal} !important;
 	border:none !important;
 }
 ul.horizontal a:hover, ul.horizontal a:focus, ul.horizontal a.rollover, ul.horizontal a.rollover:visited {
-	background:#7176b0;
-	color: #ffffff;
+	background:{$fondo_menu_seleccionado};
+	color: {$frente_menu_seleccionado};
 }
 a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited {
-	background-color: #e3e3e3 !important;
-	border:1px solid #8d8e90 !important;
-	color: #000000 !important;
+	background-color: {$fondo_principal} !important;
+	border:1px solid {$borde_menu} !important;
+	color: {$frente_principal} !important;
 }
 .ei-boton {
  margin-right: 3px;
 }
 .barra-superior {
-	color: #ffffff;
-	border-top: 1px solid #000000;
-	border-bottom: 1px solid #5c5f9e;
+	color: {$frente_barra_sup};
+	border-top: 1px solid {$borde_principal};
+	border-bottom: 1px solid {$borde_barra_sup};
 }
 .barra-superior-tit {
 	_height: 30px;
@@ -42,24 +42,24 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 
 .zona-barra-id {
-	color:#ffffff;
+	color:{$frente_barra_sup};
 }
 .zona-items {
-	background-color:#eeeff2;
+	background-color:{$fondo_componentes};
 }
 .zona-items a {
-	color:#eeeeee;
+	color:{$frente_componentes};
 }
 .zona-items a:hover, .zona-items a:focus, .zona-items a.rollover, .zona-items a.rollover:visited {
-	color: #ffffff;
+	color: {$frente_barra_sup};
 }
 
 .ci-tabs-h-lista {
-	background-color: #e3e3e3;
+	background-color: {$fondo_principal};
 }
 .ei-base {
-	background-color: #eeeff2;
-	border: 1px solid #868789;
+	background-color: {$fondo_componentes};
+	border: 1px solid {$borde_componentes};
 	padding:0;
 }
 .ei-base .ei-base {
@@ -69,7 +69,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 
 .ei-barra-sup {
-	border: 1px solid #5c5f9e;
+	border: 1px solid {$borde_barra_sup};
 }
 .ei-barra-sup-sin-botonera {
 	min-height: 0;
@@ -79,7 +79,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 
 .ei-barra-sup-tit {
  padding-left: 5px;
- color: #ffffff;
+ color: {$frente_barra_sup};
 }
 /*************************
 		CUADRO
@@ -94,22 +94,22 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	padding:2px;
 }
 .ei-cuadro-fila,  .ei-cuadro-total { 
-	border-left: 1px solid #eeeeee;
-	border-right: 1px solid #eeeeee;
+	border-left: 1px solid {$borde_tabular};
+	border-right: 1px solid {$borde_tabular};
 }
 .ei-cuadro-totales {
-	border-top: 1px solid #868789;
+	border-top: 1px solid {$borde_componentes};
 	padding:4px;
 }
 .ei-cuadro-cc-fondo, .ei-ml-grilla {
-	border:1px solid #868789;
+	border:1px solid {$borde_componentes};
 	padding-left:1px;
 }
 .ei-cuadro-col-tit, .ei-ml-columna {
 	padding-top: 2px;
 	padding-bottom:2px;
 	padding-left: 6px;
-	border: 1px solid #949495;
+	border: 1px solid {$borde_titulo};
 	font-weight: normal;
 	font-family: Tahoma;
 	text-align:left;
@@ -117,25 +117,25 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-fila-sel, .ei-ml-fila-selec {
 	padding-top:2px;
 	padding-bottom:2px;
-	background-color: #7579BA !important;
-	border-top: 1px solid #eeeeee;
-	border-bottom: 1px solid #eeeeee;
+	background-color: {$fondo_seleccion} !important;
+	border-top: 1px solid {$borde_tabular};
+	border-bottom: 1px solid {$borde_tabular};
 	color:white !important;
 }
 .ei-cuadro-celda-impar {
-	background-color:#ffffff;
+	background-color:{$fondo_impar};
 }
 .ei-cuadro-celda-par, .ei-ml-fila {
-	background-color: f6f6ff;
+	background-color: {$fondo_par};
 }
 .ei-ml-fila {
-	border-top: 1px solid #eeeeee;
+	border-top: 1px solid {$borde_tabular};
 	padding-top:2px;
 	padding-bottom:2px;	
 }
 
 .col-num-p2,.col-num-p4,.col-tex-p2,.col-tex-p4, .col-cen-s2, .col-cen-s4 {
-	color: #aa0000;
+	color: {$frente_resaltado};
 	font-weight: bold;
 }
 .ei-cuadro-celda-impar .col-num-p3, 
@@ -144,7 +144,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-impar .col-tex-p4, 
 .ei-cuadro-celda-impar .col-cen-s3, 
 .ei-cuadro-celda-impar .col-cen-s4 {
-	background-color: #f5f5f5;
+	background-color: {$fondo_resaltado_par};
 }
 .ei-cuadro-celda-par .col-num-p3, 
 .ei-cuadro-celda-par .col-num-p4, 
@@ -152,14 +152,14 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-par .col-tex-p4, 
 .ei-cuadro-celda-par .col-cen-s3, 
 .ei-cuadro-celda-par .col-cen-s4 {
-	background-color: #ececf5;
+	background-color: {$fondo_resaltado_impar};
 }
 
 /*************************
 		Forms
 **************************/
 .ei-form-fila-oculta, .ei-form-fila-filtrada {
-	background-color: #fafbfe;
+	background-color: {$fondo_menu};
 }
 .ei-ml-columna-extra {
 	border-left: none;
@@ -167,10 +167,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 
 .ef-barra-divisora {
-	border-bottom: #eeeeee 1px solid;
+	border-bottom: {$borde_tabular} 1px solid;
 }
 .ei-ml-fila-total {
-	border-top: #eeeeee 1px solid;
+	border-top: {$borde_tabular} 1px solid;
 }
 /*************************
 		CI
@@ -178,21 +178,21 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ci-barra-sup {
 }
 .ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
-	color: #000000;
-	background-color: #ffffff;
-	border: 1px dotted #eeeeee;
-	_border: 1px solid #eeeeee;
+	color: {$frente_principal};
+	background-color: {$fondo_contraste};
+	border: 1px dotted {$borde_tabular};
+	_border: 1px solid {$borde_tabular};
 }
 .ci-pant-sep {
 	display:none;
 }
 .ci-simple-cont {
 /*	border: 1px solid gray;
-	background-color: #eeeff2;*/
+	background-color: {$fondo_componentes};*/
 	padding: 2px;
 }
 .ci-botonera {
-	background-color: #5a5e9d;	
+	background-color: {$fondo_botonera};	
 }
 .ci-tabs-h-lista ul {
 	margin:0;
@@ -201,30 +201,30 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 
 .ci-tabs-h-cont {
-	border-left: 1px solid #868789;
-	border-right: 1px solid #868789;
-	border-bottom: 1px solid #868789;
+	border-left: 1px solid {$borde_componentes};
+	border-right: 1px solid {$borde_componentes};
+	border-bottom: 1px solid {$borde_componentes};
 }
 .ci-tabs-h-lista a {
-	color:#000000;
+	color:{$frente_principal};
 	font-weight:normal;	
 	font-family: Tahoma;
 	font-size: 11px;
 }
 .ci-tabs-h-lista a:hover {
-	color:#000000;
+	color:{$frente_principal};
 
 }
 .ci-tabs-h-solapa-sel a {
-	color:#000000;
+	color:{$frente_principal};
 }
 
 .ci-tabs-v-lista {
-	border: 1px solid #868789;
-	background-color:#ffffff;
+	border: 1px solid {$borde_componentes};
+	background-color:{$fondo_contraste};
 }
 .ci-tabs-v-cont {
-	border: 1px solid #868789;
+	border: 1px solid {$borde_componentes};
 }
 .ci-tabs-v-margen-sup {
 	height: 5px;
@@ -233,35 +233,35 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	font-weight: normal;
 	font-size: 11px;
 	font-family: Tahoma;	
-	color: #000000;
+	color: {$frente_principal};
 	padding-left:3px;
 }
 .ci-tabs-v-solapa-sel {
 	padding-top:2px;
 	padding-bottom:2px;
-	background-color: #7579BA !important;
-	border-top: 1px solid #eeeeee;
-	border-bottom: 1px solid #eeeeee;
+	background-color: {$fondo_seleccion} !important;
+	border-top: 1px solid {$borde_tabular};
+	border-bottom: 1px solid {$borde_tabular};
 	color:white !important;
 
 }
 
 .ci-tabs-v-boton {
-	color:#000000;
+	color:{$frente_principal};
 	text-decoration:none;
 }
 .ci-wiz-cont  {
 }
 
 #overlay_contenido {
-     background-color: #fafbfe;
-     border:1px solid #868789;     
+     background-color: {$fondo_menu};
+     border:1px solid {$borde_componentes};     
 }
 .overlay-titulo {
-	border-bottom: 1px solid #868789;	
+	border-bottom: 1px solid {$borde_componentes};	
 }
 .overlay-botonera {
-	border-top: 1px solid #868789;
+	border-top: 1px solid {$borde_componentes};
 }
 
 

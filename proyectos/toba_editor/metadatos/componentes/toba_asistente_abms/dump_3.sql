@@ -27,10 +27,10 @@ INSERT INTO apex_molde_operacion_abms (proyecto, molde, tabla, gen_usa_filtro, g
 	'3', --molde
 	'apex_estilo', --tabla
 	'0', --gen_usa_filtro
-	NULL, --gen_separar_pantallas
+	'1', --gen_separar_pantallas
 	NULL, --filtro_comprobar_parametros
-	NULL, --cuadro_eof
-	NULL, --cuadro_eliminar_filas
+	'<center>El proyecto no tiene definidos skins propios</center>', --cuadro_eof
+	'0', --cuadro_eliminar_filas
 	'estilo', --cuadro_id
 	NULL, --cuadro_forzar_filtro
 	'datos_tabla', --cuadro_carga_origen

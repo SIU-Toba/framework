@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[2164]--  Skins - Cuadro. 
+--[2167]--  Skins - Cuadro. 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,7 +9,7 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_editor', --proyecto
-	'2164', --objeto
+	'2167', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
@@ -34,7 +34,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2007-12-11 14:36:12'  --creacion
+	'2007-12-11 17:48:46'  --creacion
 );
 --- FIN Grupo de desarrollo 0
 
@@ -45,8 +45,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'928', --evento_id
-	'2164', --objeto
+	'933', --evento_id
+	'2167', --objeto
 	'seleccion', --identificador
 	NULL, --etiqueta
 	NULL, --maneja_datos
@@ -80,7 +80,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 ------------------------------------------------------------
 INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, subtitulo, sql, columnas_clave, clave_dbr, archivos_callbacks, ancho, ordenar, paginar, tamano_pagina, tipo_paginado, eof_invisible, eof_customizado, exportar_paginado, exportar, exportar_rtf, pdf_propiedades, pdf_respetar_paginacion, asociacion_columnas, ev_seleccion, ev_eliminar, dao_nucleo_proyecto, dao_nucleo, dao_metodo, dao_parametros, desplegable, desplegable_activo, scroll, scroll_alto, cc_modo, cc_modo_anidado_colap, cc_modo_anidado_totcol, cc_modo_anidado_totcua) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2164', --objeto_cuadro
+	'2167', --objeto_cuadro
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
@@ -92,8 +92,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --paginar
 	NULL, --tamano_pagina
 	NULL, --tipo_paginado
-	'1', --eof_invisible
-	NULL, --eof_customizado
+	NULL, --eof_invisible
+	'<center>El proyecto no tiene definidos skins propios</center>', --eof_customizado
 	NULL, --exportar_paginado
 	NULL, --exportar
 	NULL, --exportar_rtf
@@ -108,8 +108,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	'1', --scroll
-	'250px', --scroll_alto
+	NULL, --scroll
+	NULL, --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
@@ -123,37 +123,37 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2164', --objeto_cuadro
-	'752', --objeto_cuadro_col
+	'2167', --objeto_cuadro
+	'754', --objeto_cuadro_col
 	'estilo', --clave
-	'1', --orden
-	'Id. Skin', --titulo
+	'0', --orden
+	'Identificador', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	NULL, --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	'0', --total
+	NULL, --total
 	NULL, --total_cc
-	'0', --usar_vinculo
+	NULL, --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	'0', --vinculo_popup
+	NULL, --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL  --vinculo_celda
 );
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2164', --objeto_cuadro
-	'753', --objeto_cuadro_col
+	'2167', --objeto_cuadro
+	'755', --objeto_cuadro_col
 	'descripcion', --clave
-	'2', --orden
+	'1', --orden
 	'Descripción', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo

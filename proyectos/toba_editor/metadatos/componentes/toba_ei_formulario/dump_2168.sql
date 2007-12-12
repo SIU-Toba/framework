@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[2165]--  Skins - Form 
+--[2168]--  Skins - Form 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,7 +9,7 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_editor', --proyecto
-	'2165', --objeto
+	'2168', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
@@ -34,7 +34,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2007-12-11 14:36:12'  --creacion
+	'2007-12-11 17:48:46'  --creacion
 );
 --- FIN Grupo de desarrollo 0
 
@@ -45,114 +45,24 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'929', --evento_id
-	'2165', --objeto
-	'alta', --identificador
-	'Alta', --etiqueta
+	'934', --evento_id
+	'2168', --objeto
+	'modificacion', --identificador
+	NULL, --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'nucleo/agregar.gif', --imagen
-	'1', --en_botonera
+	NULL, --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --en_botonera
 	NULL, --ayuda
 	'0', --orden
 	NULL, --ci_predep
-	NULL, --implicito
-	'1', --defecto
-	NULL, --display_datos_cargados
-	'no_cargado', --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'930', --evento_id
-	'2165', --objeto
-	'baja', --identificador
-	'Eliminar', --etiqueta
-	NULL, --maneja_datos
-	NULL, --sobre_fila
-	'¿Desea eliminar el registro?', --confirmacion
-	'ei-boton-baja', --estilo
-	'apex', --imagen_recurso_origen
-	'borrar.gif', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'1', --orden
-	NULL, --ci_predep
-	NULL, --implicito
+	'1', --implicito
 	NULL, --defecto
 	NULL, --display_datos_cargados
-	'cargado', --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'931', --evento_id
-	'2165', --objeto
-	'modificacion', --identificador
-	'Modificar', --etiqueta
-	'1', --maneja_datos
-	NULL, --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'refrescar.png', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'2', --orden
-	NULL, --ci_predep
-	NULL, --implicito
-	'1', --defecto
-	NULL, --display_datos_cargados
-	'cargado', --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_editor', --proyecto
-	'932', --evento_id
-	'2165', --objeto
-	'cancelar', --identificador
-	'Cancelar', --etiqueta
-	NULL, --maneja_datos
-	NULL, --sobre_fila
-	NULL, --confirmacion
-	NULL, --estilo
-	'apex', --imagen_recurso_origen
-	'deshacer.png', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'3', --orden
-	NULL, --ci_predep
-	NULL, --implicito
-	NULL, --defecto
-	NULL, --display_datos_cargados
-	'cargado', --grupo
+	NULL, --grupo
 	NULL, --accion
 	NULL, --accion_imphtml_debug
 	NULL, --accion_vinculo_carpeta
@@ -170,7 +80,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 ------------------------------------------------------------
 INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_formulario, tabla, titulo, ev_agregar, ev_agregar_etiq, ev_mod_modificar, ev_mod_modificar_etiq, ev_mod_eliminar, ev_mod_eliminar_etiq, ev_mod_limpiar, ev_mod_limpiar_etiq, ev_mod_clave, clase_proyecto, clase, auto_reset, ancho, ancho_etiqueta, expandir_descripcion, campo_bl, scroll, filas, filas_agregar, filas_agregar_online, filas_agregar_abajo, filas_agregar_texto, filas_borrar_en_linea, filas_undo, filas_ordenar, filas_ordenar_en_linea, columna_orden, filas_numerar, ev_seleccion, alto, analisis_cambios) VALUES (
 	'toba_editor', --objeto_ut_formulario_proyecto
-	'2165', --objeto_ut_formulario
+	'2168', --objeto_ut_formulario
 	NULL, --tabla
 	NULL, --titulo
 	NULL, --ev_agregar
@@ -212,25 +122,25 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
-	'5136', --objeto_ei_formulario_fila
-	'2165', --objeto_ei_formulario
+	'5138', --objeto_ei_formulario_fila
+	'2168', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
 	'estilo', --identificador
 	'ef_editable', --elemento_formulario
 	'estilo', --columnas
 	'1', --obligatorio
-	'0', --oculto_relaja_obligatorio
-	'1', --orden
-	'Id. Skin', --etiqueta
+	NULL, --oculto_relaja_obligatorio
+	'0', --orden
+	'Identificador', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	'0', --colapsado
-	'0', --desactivado
+	NULL, --colapsado
+	NULL, --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	'0', --solo_lectura
+	NULL, --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -283,15 +193,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL  --upload_extensiones
 );
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
-	'5137', --objeto_ei_formulario_fila
-	'2165', --objeto_ei_formulario
+	'5139', --objeto_ei_formulario_fila
+	'2168', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
 	'descripcion', --identificador
 	'ef_editable', --elemento_formulario
 	'descripcion', --columnas
 	'1', --obligatorio
-	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	NULL, --oculto_relaja_obligatorio
+	'1', --orden
 	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion

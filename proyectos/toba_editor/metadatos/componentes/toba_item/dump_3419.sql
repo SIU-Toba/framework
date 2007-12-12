@@ -57,7 +57,7 @@ INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializa
 	NULL, --item_id
 	'toba_editor', --proyecto
 	'3419', --item
-	'2166', --objeto
+	'2169', --objeto
 	'0', --orden
 	NULL  --inicializar
 );
