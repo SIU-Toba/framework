@@ -123,10 +123,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	color:white !important;
 }
 .ei-cuadro-celda-impar {
-	background-color:{$fondo_impar};
+	background-color:{$fondo_contraste};
 }
 .ei-cuadro-celda-par, .ei-ml-fila {
-	background-color: {$fondo_par};
+	background-color: {$fondo_componentes};
 }
 .ei-ml-fila {
 	border-top: 1px solid {$borde_tabular};

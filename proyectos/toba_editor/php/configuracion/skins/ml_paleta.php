@@ -3,6 +3,10 @@ class ml_paleta extends toba_ei_formulario_ml
 {
 	protected $colores = array('fondo', 'frente', 'borde');
 
+	function ini()
+	{
+		toba_js::instancia()->cargar_consumos_globales(array('utilidades/colorselector'));
+	}
 	
 	function generar_input_ef($ef)
 	{

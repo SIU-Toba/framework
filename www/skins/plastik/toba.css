@@ -126,7 +126,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	background-color:#ffffff;
 }
 .ei-cuadro-celda-par, .ei-ml-fila {
-	background-color: f6f6ff;
+	background-color: #eeeff2;
 }
 .ei-ml-fila {
 	border-top: 1px solid #eeeeee;
