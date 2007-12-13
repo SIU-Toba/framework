@@ -66,11 +66,12 @@ class tp_tutorial extends tp_referencia
 
 function mostrar_video($video, $ancho=992, $alto=487, $controlador_propio=false)
 {
-	$url_base = toba_recurso::url_proyecto().'/videos/';	
+	$url_base = get_url_desarrollos(true).'/toba_referencia_trunk/videos/';
+	$url_js = toba_recurso::url_proyecto().'/videos/';	
 	$url_controller = ($controlador_propio) ? $url_base.$video.'-cont.swf'  : $url_base.'controller.swf';
 	return '
-      <script type="text/javascript" src="'.$url_base.'swfobject.js"></script>
-  	  <script type="text/javascript" src="'.$url_base.'cam_embed.js"></script>		
+      <script type="text/javascript" src="'.$url_js.'swfobject.js"></script>
+  	  <script type="text/javascript" src="'.$url_js.'cam_embed.js"></script>		
       <div id="flashcontent">	   		
 			<div id="cs_noexpressUpdate">
 			  <p>The Camtasia Studio video content presented here requires JavaScript to be enabled and the  latest version of the Macromedia Flash Player. If you are you using a browser with JavaScript disabled please enable it now. Otherwise, please update your version of the free Flash Player by <a href="http://www.macromedia.com/go/getflashplayer">downloading here</a>. </p>

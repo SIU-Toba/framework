@@ -451,9 +451,9 @@
 		}
 	}
 	
-	function get_url_desarrollos()
+	function get_url_desarrollos($forzar_alternativo=false)
 	{
-		$host = (toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
+		$host = ($forzar_alternativo || toba::instalacion()->get_id_grupo_desarrollo() != 0) ? "desarrollos2" : "desarrollos";
 		return "http://$host.siu.edu.ar";
 	}	
 	
