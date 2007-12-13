@@ -18,6 +18,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	this._proximo_id = proximo_id;
 	this._pila_deshacer = [];		//Pila de acciones a deshacer
 	this._ef_con_totales = {};		//Lisa de efs que quieren sumarizar
+	this._ef_con_toggle = {};
 	this._seleccionada = seleccionada;
 	this._agregado_en_linea = en_linea;
 }
@@ -31,6 +32,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (var id_ef in this._ef_con_totales) {
 			this.agregar_procesamiento(id_ef);
 		}
+		for (var id_ef in this._ef_con_toggle) {
+			this.agregar_procesamiento(id_ef);
+		}		
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
 		this.reset_evento();
@@ -104,6 +108,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		if (es_particular && id_ef in this._ef_con_totales) {
 			return this.cambiar_total(id_ef, this.total(id_ef)); //Procesamiento por defecto
 		}
+		if (!es_inicial && es_particular && id_ef in this._ef_con_toggle) {
+			return this._comprobar_toggle(fila, id_ef); //Procesamiento por defecto
+		}
 	};
 
 	/**
@@ -121,6 +128,31 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}
 		return total;
 	};
+	
+	/**
+	 * Dado un id de un ef checkbox cambia el chequeo de todas las filas
+	 */
+	ei_formulario_ml.prototype.toggle_checkbox = function (id_ef) {
+		var ef = this.ef(id_ef);
+		var toggle = $('toggle_' + ef._id_form_orig)
+		for (id_fila in this._filas) {
+			ef.ir_a_fila(this._filas[id_fila]).chequear(toggle.checked);
+		}
+	};	
+	
+	ei_formulario_ml.prototype._comprobar_toggle = function (fila, id_ef) {
+		var ef = this.ef(id_ef);
+		var toggle = $('toggle_' + ef._id_form_orig)		
+		if (!ef.ir_a_fila(fila).chequeado() && toggle.checked) {
+			 toggle.checked = false;
+		}
+	};		
+	
+	ei_formulario_ml.prototype.set_toggle = function (id_ef) {
+		this._ef_con_toggle[id_ef] = true;
+	};			
+	
+
 	
 	//----Validación 
 	ei_formulario_ml.prototype.validar = function() {

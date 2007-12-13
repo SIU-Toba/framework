@@ -136,6 +136,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	check_valor_no						varchar(40)		NULL,
 	check_desc_si						varchar(100)	NULL,
 	check_desc_no						varchar(100)	NULL,
+	check_ml_toggle						smallint		NULL,
 	fijo_sin_estado						smallint		NULL,
 	editor_ancho						varchar(10)		NULL,
 	editor_alto							varchar(10)		NULL,

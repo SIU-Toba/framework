@@ -19,7 +19,8 @@ class toba_ef_checkbox extends toba_ef
     					'check_valor_si',
     					'check_valor_no',
     					'check_desc_si',
-    					'check_desc_no'
+    					'check_desc_no',
+    					'check_ml_toggle'
     	);
     }
  
@@ -47,6 +48,9 @@ class toba_ef_checkbox extends toba_ef
 		if (isset($parametros["check_desc_no"])){
 		    $this->valor_info_no_seteado = $parametros["check_desc_no"];
 		}		
+		if (isset($parametros["check_ml_toggle"])){
+		    $this->check_ml_toggle = $parametros["check_ml_toggle"];
+		}			
 		parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio,$parametros);
     }
     

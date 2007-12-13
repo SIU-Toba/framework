@@ -30,6 +30,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
 	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
 	protected $_colspan;
+	protected $_hay_toggle = false;
 	
 	function __construct($id)
 	{
@@ -683,6 +684,11 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					$extra = 'colspan="'.($this->_colspan + 1).'"';
 				}
 				echo "<th $extra id='nodo_$id_form' class='ei-ml-columna'>\n";
+				if ($this->_elemento_formulario[$ef]->get_toggle()) {
+					$this->_hay_toggle = true;
+					$id_form_toggle = 'toggle_'.$id_form;
+					echo "<input id='$id_form_toggle' type='checkbox' class='ef-checkbox' onclick='{$this->objeto_js}.toggle_checkbox(\"$ef\")' />";
+				}
 				$this->generar_etiqueta_columna($ef);
 				echo "</th>\n";
 				$primera = false;
@@ -1003,6 +1009,13 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach ($this->_lista_ef_post as $ef) {
 				if(in_array($ef, $this->_lista_ef_totales)) {
 					echo $identado."{$this->objeto_js}.agregar_total('$ef');\n";
+				}
+			}
+		}
+		if ($this->_hay_toggle) {
+			foreach ($this->_lista_ef_post	as	$ef){
+				if ($this->_elemento_formulario[$ef]->get_toggle()) {
+					echo $identado."{$this->objeto_js}.set_toggle('$ef');\n";
 				}
 			}
 		}

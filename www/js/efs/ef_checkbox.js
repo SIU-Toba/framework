@@ -53,7 +53,7 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 	 * @param {boolean} disparar_eventos Luego del cambio se disparan los eventos que escuchan la modificacion (onclick). Predeterminado true.
 	 */
 	ef_checkbox.prototype.chequear = function(valor, disparar_eventos) {
-		if (typeof eventos != 'boolean') {
+		if (typeof disparar_eventos != 'boolean') {
 			disparar_eventos = true;
 		}
 		if (typeof valor != 'boolean') {
@@ -66,6 +66,17 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 		}
 	};
 
+	/**
+	 * Si esta tildado destilda y viseversa
+	 */
+	ef_checkbox.prototype.toggle = function(disparar_eventos) {
+		if (typeof disparar_eventos != 'boolean') {
+			disparar_eventos = true;
+		}		
+		this.chequear(! this.chequeado(), disparar_eventos)
+	};
+
+	
 	ef_checkbox.prototype.cuando_cambia_valor = function(callback) {
 		addEvent(this.input(), 'onclick', callback);
 	};

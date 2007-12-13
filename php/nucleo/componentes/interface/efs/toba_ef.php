@@ -36,6 +36,7 @@ abstract class toba_ef
 	protected $agregado_form;			//Número de linea en un form multilinea	
 	protected $clase_css = 'ef';
 	protected $permitir_html = false;		//Hace un htmlentities para evitar ataques XSS
+	protected $check_ml_toggle = false;
 	
 	//--- DEPENDENCIAS ---
 	protected $cascada_relajada = false;
@@ -264,6 +265,15 @@ abstract class toba_ef
     	return $this->estilo_etiqueta;	
     }
 
+    /**
+     * El checkbox esta configurado en los ML para tener un tilde sel/des todos?
+     * @return boolean
+     */
+    function get_toggle()
+    {
+    	return $this->check_ml_toggle;
+    }
+    
     /**
      * Un ef no expandido se muestra oculto en el layout del formulario.
      * Para verlo el usuario explícitamente debe apretar un icono o vínculo.

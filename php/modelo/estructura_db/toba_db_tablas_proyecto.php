@@ -118,6 +118,7 @@ class toba_db_tablas_proyecto
     0 => 'estilo',
     1 => 'descripcion',
     2 => 'proyecto',
+    3 => 'paleta',
   ),
 );
 	}
