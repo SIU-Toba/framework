@@ -13,6 +13,7 @@ class toba_menu_css extends toba_menu
 	protected $hay_algun_item = false;
 	protected $abrir_nueva_ventana = false;
 	protected $imagen_nueva_ventana;
+	protected $celda_memoria = 'popup';
 	
 	function __construct()
 	{
@@ -21,8 +22,10 @@ class toba_menu_css extends toba_menu
 	
 	function set_abrir_nueva_ventana($imagen='nucleo/abrir_nueva_ventana.gif')
 	{
-		$this->abrir_nueva_ventana = true;
-		$this->imagen_nueva_ventana = toba_recurso::imagen_toba($imagen, false);		
+		if (toba::memoria()->get_celda_memoria_actual_id() != $this->celda_memoria) {
+			$this->abrir_nueva_ventana = true;
+			$this->imagen_nueva_ventana = toba_recurso::imagen_toba($imagen, false);		
+		}
 	}
 	
 	function plantilla_css()
@@ -78,7 +81,7 @@ class toba_menu_css extends toba_menu
 			if ($this->abrir_nueva_ventana) {
 				$this->arbol .= '<img title="Abrir la operación en paralelo a la actual" class="menu-link-nueva-ventana" src="'. $this->imagen_nueva_ventana. '" ';
 				$opciones = "{'resizable':1, 'scrollbars' : '1'}";
-				$this->arbol .= " onclick=\"return abrir_popup('popup', '$vinculo&tcm=popup', $opciones);\" />";
+				$this->arbol .= " onclick=\"return abrir_popup('".$this->celda_memoria."', '$vinculo&tcm=".$this->celda_memoria."', $opciones);\" />";
 			}											
 			$this->arbol .= $this->get_imagen($nodo).$this->items[$nodo]['nombre'];
 			$this->arbol .= "</a>";
