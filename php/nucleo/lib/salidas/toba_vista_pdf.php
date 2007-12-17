@@ -14,6 +14,9 @@ class toba_vista_pdf
 {
 	protected $objetos = array();
 	protected $configuracion = array('hoja_tamanio' => 'a4', 'hoja_orientacion' => 'portrait');
+	/**
+	 * @var Cezpdf
+	 */
 	protected $pdf;	
 	protected $texto_pie;
 	protected $nombre_archivo = 'archivo.pdf';
@@ -255,6 +258,7 @@ class toba_vista_pdf
 						'outerLineThickness' => 0.7,
 						'innerLineThickness' => 0.7,
 	                	'xOrientation' => 'center',
+	                	'maxWidth' => $this->get_ancho(100)
 		            );
 		$opciones = array_merge($opciones_def, $opciones);
 		$this->pdf->ezTable($datos['datos_tabla'], $texto_tit_col, $texto_titulo_tabla, $opciones);
