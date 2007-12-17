@@ -20,7 +20,6 @@ var apex_ef_total = 's';
 function ef(id_form, etiqueta, obligatorio, colapsable) {
 
 	this._id = null;
-	this._oculto = false;
 	this._solo_lectura = false;
 	this._id_form = id_form;
 	this._id_form_orig = this._id_form;
@@ -159,7 +158,7 @@ ef.prototype.constructor = ef;
 			}
 			if (this._obligatorio_oculto_relaj) {
 				//--- Relaja la validacion si es oculto o esta solo_lectura
-				if (this._oculto || this._solo_lectura) {
+				if (this.es_oculto() || this._solo_lectura) {
 					this._obligatorio = false;
 				}
 			}
@@ -258,6 +257,19 @@ ef.prototype.constructor = ef;
 		}
 	};
 
+	
+	/**
+	 * El ef esta oculto?
+	 * @return boolean
+	 */
+	ef.prototype.es_oculto = function() {
+		var nodo = this.nodo();
+		if (! nodo) {
+			nodo = this.input();	
+		}	
+		return nodo.style.display == 'none';		
+		return false;		
+	};	
 	/**
 	 * Oculta temporalmente el elemento y su etiqueta
 	 * @param {boolean} resetar Además de ocultar el elemento borra su estado o valor actual, por defecto false
@@ -272,7 +284,6 @@ ef.prototype.constructor = ef;
 			nodo = this.input();	
 		}		
 		nodo.style.display = 'none';	
-		this._oculto = true;
 		if (resetear) {
 			this.resetear_estado();
 		}
@@ -293,7 +304,6 @@ ef.prototype.constructor = ef;
 				nodo = this.input();	
 			}
 			nodo.style.display = '';	
-			this._oculto = false;
 		} else {
 			this.ocultar(resetear);	
 		}
