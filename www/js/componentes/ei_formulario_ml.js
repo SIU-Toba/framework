@@ -21,6 +21,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	this._ef_con_toggle = {};
 	this._seleccionada = seleccionada;
 	this._agregado_en_linea = en_linea;
+	this._cabecera_visible_sin_datos = true;
 }
 
 	ei_formulario_ml.prototype.iniciar = function() {
@@ -37,6 +38,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		}		
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
+		this.refrescar_sin_filas();
 		this.reset_evento();
 	};
 
@@ -152,6 +154,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this._ef_con_toggle[id_ef] = true;
 	};			
 	
+	/**
+	 * Se muestra la cabecera/pie en caso de que no tenga datos el formulario
+	 */
+	ei_formulario_ml.prototype.set_cabecera_visible_sin_datos = function (visible) {
+		this._cabecera_visible_sin_datos = visible;
+	};				
 
 	
 	//----Validación 
@@ -422,6 +430,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		
 		this.seleccionar(this._proximo_id);
 		this.refrescar_foco();
+		this.refrescar_sin_filas();
 		var nuevo_anexado = this._proximo_id; 
 		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
 		return nuevo_anexado;
@@ -525,7 +534,24 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this.refrescar_numeracion_filas();
 		this.refrescar_deshacer();
 		this.refrescar_seleccion();
+		this.refrescar_sin_filas();
 	};
+
+	/**
+	 * @private
+	 */
+	ei_formulario_ml.prototype.refrescar_sin_filas = function () {
+		if (!this._cabecera_visible_sin_datos) {
+			var cabecera = $('cabecera_' + this._instancia);
+			var pie = $('pie_' + this._instancia);
+			if (cabecera) {
+				cabecera.style.display = (this._filas.length) ? '' : 'none';
+			}
+			if (pie) {
+				pie.style.display = (this._filas.length) ? '' : 'none';
+			}		
+		}
+	};	
 	
 	/**
 	 * @private

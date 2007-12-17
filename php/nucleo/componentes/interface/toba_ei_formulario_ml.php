@@ -31,6 +31,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
 	protected $_colspan;
 	protected $_hay_toggle = false;
+	protected $_mostrar_cabecera_sin_datos = true;
 	
 	function __construct($id)
 	{
@@ -119,6 +120,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	{
 		$this->_modo_agregar = array($es_inferior, $texto_a_mostrar);
 	}	
+	
+	/**
+	 * Se muestra la cabecera/pie en caso de que no tenga datos el formulario (por defecto true)
+	 */
+	function set_mostrar_cabecera_sin_datos($mostrar)
+	{
+		$this->_mostrar_cabecera_sin_datos = $mostrar;
+	}
 	
 	/**
 	 * Deja al formulario sin selección alguna de fila
@@ -656,7 +665,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_pie();
 		$this->generar_formulario_cuerpo();
-		echo "\n</table>";		
+		echo "\n</table>";
+		$this->generar_botones();
 	}
 	
 	/**
@@ -673,7 +683,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 		}
 		if ($alguno_tiene_etiqueta) {
-			echo "<thead>\n";		
+			echo "<thead id='cabecera_{$this->objeto_js}'>\n";		
 			//------ TITULOS -----	
 			echo "<tr>\n";
 			$primera = true;
@@ -747,7 +757,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_formulario_pie()
 	{
-		echo "<tfoot>\n";		
+		echo "<tfoot id='pie_{$this->objeto_js}'>\n";		
 		//Defino la cantidad de columnas
 		$colspan = count($this->_lista_ef_post);
 		$colspan += $this->_colspan;
@@ -772,26 +782,34 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 			echo "</tr>\n";
 		}		
-		echo "<tr><td colspan='$colspan'>\n";
-		
-		//--- Botón agregar
-		$agregar = $this->_info_formulario['filas_agregar'];
-		$ordenar = $this->_info_formulario['filas_ordenar'];
-		if ($this->_info_formulario['filas_agregar'] && $this->_modo_agregar[0]) {
-			$img = toba_recurso::imagen_toba('nucleo/agregar.gif', false);
-			$texto = "<img src='$img' style='vertical-align: middle;' />";
-			if ($this->_modo_agregar[1] != '') {
-				$texto .= ' '.$this->_modo_agregar[1];
-			}
-			echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
-											"onclick='{$this->objeto_js}.crear_fila();'", 
-											$this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
-		}		
-		
-		$this->generar_botones();
-		echo "</td></tr>\n";
-		echo "</tfoot>\n";			
+		echo "</tfoot>\n";
 	}
+	
+	/**
+	 * Genera la botonera del componente
+	 * @param string $clase Clase css con el que se muestra la botonera
+	 */
+	function generar_botones($clase = '')
+	{
+		$agregar_abajo = ($this->_info_formulario['filas_agregar'] && $this->_modo_agregar[0]);
+		if ($this->hay_botones() || $agregar_abajo) {
+			echo "<div class='ei-botonera $clase'>";
+			$agregar = $this->_info_formulario['filas_agregar'];
+			$ordenar = $this->_info_formulario['filas_ordenar'];
+			if ($agregar_abajo) {
+				$img = toba_recurso::imagen_toba('nucleo/agregar.gif', false);
+				$texto = "<img src='$img' style='vertical-align: middle;' />";
+				if ($this->_modo_agregar[1] != '') {
+					$texto .= ' '.$this->_modo_agregar[1];
+				}
+				echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
+												"onclick='{$this->objeto_js}.crear_fila();'", 
+												$this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
+			}		
+			$this->generar_botones_eventos();
+			echo "</div>";
+		}
+	}		
 	
 	/**
 	 * @ignore 
@@ -1018,6 +1036,9 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 					echo $identado."{$this->objeto_js}.set_toggle('$ef');\n";
 				}
 			}
+		}
+		if (! $this->_mostrar_cabecera_sin_datos) {
+			echo $identado."{$this->objeto_js}.set_cabecera_visible_sin_datos(false);\n";
 		}
 	}
 	
