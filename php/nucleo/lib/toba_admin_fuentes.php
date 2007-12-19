@@ -44,13 +44,16 @@ class toba_admin_fuentes
 	 */
 	function get_fuente($id, $proyecto=null)
 	{
+		if (!isset($proyecto)) {
+			$proyecto = toba::proyecto()->get_id();
+		}
 		if(!isset($id)) {
 			$id = $this->get_fuente_predeterminada(true);	
 		}
 		if ( !isset($this->fuentes[$id]) ) {
 			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);
 			if (isset($parametros['subclase_archivo'])) {
-				$archivo = $parametros['subclase_archivo'];
+				$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$parametros['subclase_archivo'];
 			} else {
 				$archivo = "nucleo/lib/toba_fuente_datos.php";
 			}

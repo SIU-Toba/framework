@@ -86,13 +86,18 @@ class toba_db_postgres7 extends toba_db
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------
 
-	function get_lista_tablas()
+	function get_lista_tablas($esquema=null)
 	{
-	   $sql = "	SELECT tablename as nombre
+		$sql_esquema = '';
+		if (isset($esquema)) {
+			$sql_esquema .= " AND schemaname='$esquema'";
+		}
+		$sql = "SELECT tablename as nombre
 				FROM pg_tables
 				WHERE 
 						tablename NOT LIKE 'pg_%'
 					AND tablename NOT LIKE 'sql_%' 
+					$sql_esquema
 				ORDER BY nombre
 		";
 		return $this->consultar($sql);
@@ -143,8 +148,12 @@ class toba_db_postgres7 extends toba_db
 	/**
 	*	Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina
 	*/
-	function get_definicion_columnas($tabla)
+	function get_definicion_columnas($tabla, $esquema=null)
 	{
+		$where = '';
+		if (isset($esquema)) {
+			$where .= " AND n.nspname = '$esquema'";
+		}
 		if (isset($this->cache_metadatos[$tabla])) {
 			return $this->cache_metadatos[$tabla];
 		}
@@ -166,6 +175,7 @@ class toba_db_postgres7 extends toba_db
 						a.attnum as 			orden
 				FROM 	pg_class c,
 						pg_type t,
+						pg_namespace as n,						
 						pg_attribute a 	
 							LEFT OUTER JOIN pg_attrdef d
 								ON ( d.adrelid = a.attrelid AND d.adnum = a.attnum)
@@ -190,12 +200,14 @@ class toba_db_postgres7 extends toba_db
 										OR i.indkey[5] = a.attnum 
 										OR i.indkey[6] = a.attnum 
 										OR i.indkey[7] = a.attnum) )
-				WHERE c.relkind in ('r','v') 
-				AND c.relname='$tabla'
-				AND a.attname not like '....%%'
-				AND a.attnum > 0 
-				AND a.atttypid = t.oid 
-				AND a.attrelid = c.oid 
+				WHERE 
+						c.relkind in ('r','v') 
+					AND c.relname='$tabla'
+					AND a.attname not like '....%%'
+					AND a.attnum > 0 
+					AND a.atttypid = t.oid 
+					AND a.attrelid = c.oid 
+						$where
 				ORDER BY a.attnum;";
 		$columnas = $this->consultar($sql);
 		if(!$columnas){

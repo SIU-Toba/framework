@@ -165,6 +165,21 @@ class toba_formateo
 				));							
 		}
 	}
+	
+	function formato_fecha_hora($fecha){
+		if (isset($fecha) && ($fecha!='')) {
+			$desc = cambiar_fecha($fecha,'-','/', true);
+		} else {
+			$desc = '';
+		};
+		if ($this->tipo_salida != 'excel') {
+	    	return $desc;
+		} else {
+			return array($desc, array('numberformat' => 
+					array('code' => PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY )
+				));							
+		}
+	}	
    
     function formato_checkbox($valor)
     {

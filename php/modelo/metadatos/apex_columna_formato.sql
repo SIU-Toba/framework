@@ -14,3 +14,4 @@ INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('15', 'imagen_toba', NULL, 'Imagen de Toba', 'Imagen de Toba', NULL, '7');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('16', 'imagen_proyecto', NULL, 'Imagen del proyecto', 'Imagen del proyecto', NULL, '7');
 INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('17', 'superficie', NULL, NULL, 'Superficie', NULL, '0');
+INSERT INTO apex_columna_formato (columna_formato, funcion, archivo, descripcion, descripcion_corta, parametros, estilo_defecto) VALUES ('18', 'fecha_hora', NULL, 'Formato fecha-hora', 'Fecha y Hora (dd/mm/aaaa H:M:S)', NULL, '7');

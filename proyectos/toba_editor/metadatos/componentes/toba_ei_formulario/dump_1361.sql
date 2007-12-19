@@ -492,9 +492,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
-	'Exportar a PDF', --etiqueta
+	'Exportar a Excel', --etiqueta
 	NULL, --etiqueta_estilo
-	'Genera un pdf con el contenido del cuadro. Utiliza la <em>vista_pdf</em> del cuadro.', --descripcion
+	'Genera un excel con el contenido del cuadro. Utiliza la <em>vista_excel</em> del cuadro.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -540,7 +540,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --check_valor_no
 	'Sí', --check_desc_si
 	'No', --check_desc_no
-	NULL, --check_ml_toggle
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -1071,9 +1071,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
-	'Exportar a Excel', --etiqueta
+	'Exportar a PDF', --etiqueta
 	NULL, --etiqueta_estilo
-	'Genera un excel con el contenido del cuadro. Utiliza la <em>vista_excel</em> del cuadro.', --descripcion
+	'Genera un pdf con el contenido del cuadro. Utiliza la <em>vista_pdf</em> del cuadro.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -1119,7 +1119,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --check_valor_no
 	'Sí', --check_desc_si
 	'No', --check_desc_no
-	NULL, --check_ml_toggle
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto

@@ -241,10 +241,47 @@ class toba_auditoria_tablas_postgres
 		$this->conexion->ejecutar($sql);
 	}
 
+	//-------- CONSULTAS 
 	
+	function get_datos($tabla, $filtro = array())
+	{
+		$where = 'true';
+		if (isset($filtro['desde_fecha'])) {
+			$where .= " AND aud.auditoria_fecha::date >= '{$filtro['fecha_desde']}'";
+		}
+		if (isset($filtro['hasta_fecha'])) {
+			$where .= " AND aud.auditoria_fecha::date <= '{$filtro['fecha_hasta']}'";
+		}
+		if (isset($filtro['usuario'])) {
+			$where .= " AND aud.auditoria_usuario = '{$filtro['usuario']}'";
+		}
+		if (isset($filtro['operacion'])) {
+			$where .= " AND aud.auditoria_operacion = '{$filtro['operacion']}'";
+		}
+	
+		$sql = "SELECT 
+					aud.*,
+					CASE 
+						WHEN aud.auditoria_operacion = 'U' THEN 'Modificación'
+						WHEN aud.auditoria_operacion = 'I' THEN 'Alta'
+						WHEN aud.auditoria_operacion = 'D' THEN 'Baja'
+					END as operacion_nombre
+				FROM
+					{$this->schema_logs}.$tabla as aud
+				WHERE
+					$where
+				ORDER BY aud.auditoria_fecha
+		";
+		$datos = $this->conexion->consultar($sql);
+		/*foreach ($datos as $clave => $valor) {
+			$datos[$clave]['log_fecha'] = procesar_timestamp($valor['log_fecha']);
+			$datos[$clave]['log_operacion'] = procesar_operacion($valor['log_operacion']);
+		}*/
+		return $datos;
+	}
+		
 
 		
 }
-
 
 ?>

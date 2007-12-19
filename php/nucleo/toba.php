@@ -137,7 +137,7 @@ class toba
 	/**
 	 * Retorna una referencia a una base de datos
 	 * @param string $id_fuente
-	 * @return toba_db
+	 * @return toba_db_postgres7
 	 */
 	static function db($id_fuente=null, $proyecto=null)
 	{

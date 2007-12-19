@@ -83,7 +83,7 @@ class toba_catalogo_asistentes
 				$where
 				ORDER BY descripcion_corta
 		";		
-		return consultar_fuente($sql);
+		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
 	static function tipo_dato_referencia()
@@ -99,6 +99,17 @@ class toba_catalogo_asistentes
 	//------------------------------------------------
 	//---- Reflexión de de las tablas
 	//------------------------------------------------	
+	
+	static function get_campo_opciones_para_cuadro($tipo)
+	{
+		$mapeo_tipos = rs_convertir_asociativo(self::get_lista_tipo_dato(true), array('dt_tipo_dato'), 'tipo_dato');
+		$tipo_base = isset($mapeo_tipos[$tipo]) ? $mapeo_tipos[$tipo] : self::tipo_dato_caracter();
+		$datos = self::get_fila_opciones_de_tipo($tipo_base);
+		$salida = array();
+		$salida['estilo'] = $datos['cuadro_estilo'];
+		$salida['formato'] = $datos['cuadro_formato'];
+		return $salida;
+	}
 	
 	/**
 	 * Dado un tipo de dato del asistente retorna las opciones asociadas
