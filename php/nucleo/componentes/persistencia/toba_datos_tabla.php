@@ -1399,6 +1399,7 @@ class toba_datos_tabla extends toba_componente
 	 * 
 	 * @param array $datos en formato RecordSet
 	 * @param boolean $usar_cursores Los datos cargados se marcan como hijos de los cursores actuales en las tablas padre, sino son hijos del padre que tenia en la base 
+	 * @return array Ids. internos de los datos anexados
 	 */
 	function anexar_datos($datos, $usar_cursores=true)
 	{
@@ -1428,6 +1429,7 @@ class toba_datos_tabla extends toba_componente
 			//Disparo la actulizacion de los mapeos con las tablas padres
 			$this->notificar_padres_carga($hijos);
 		}
+		return $hijos;
 	}
 		
 	/**
