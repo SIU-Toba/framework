@@ -1636,7 +1636,7 @@ class toba_ei_cuadro extends toba_ei
 		}
 		if (isset($sumarizacion)) {
 			$css = 'cuadro-cc-sum-nivel-1';
-			echo "<tr><td colspan='$this->cantidad_columnas_total'>\n";
+			echo "<tr><td colspan='$this->_cantidad_columnas_total'>\n";
 			$this->html_cuadro_sumarizacion($sumarizacion,null,300,$css);
 			echo "</td></tr>\n";
 		}
