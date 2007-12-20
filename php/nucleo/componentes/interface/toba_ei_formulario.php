@@ -30,6 +30,8 @@ class toba_ei_formulario extends toba_ei
 	protected $_js_eliminar;
 	protected $_js_agregar;
 	protected $_lista_efs_servicio;
+	//Salida
+	protected $_clase_formateo = 'toba_formateo';
 	
 	protected $_eventos_ext = null;			// Eventos seteados desde afuera
 	protected $_observadores;
@@ -1092,14 +1094,23 @@ class toba_ei_formulario extends toba_ei
 		
 	function vista_impresion_html( $salida )
 	{
-		$this->cargar_opciones_efs();		
+		$this->cargar_opciones_efs();
+		$formateo = new $this->_clase_formateo('impresion_html');		
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='ei-base ei-form-base' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef){
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();
 			echo "</td><td class='ei-form-valor'>\n";
-			echo $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+			//Hay que formatear?
+			if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+               	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+               	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+               	$valor = $formateo->$funcion($valor_real);
+            }else{
+		        $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+		    }	
+			echo $valor;
 			echo "</td></tr>\n";
 		}
 		echo "</table>\n";
@@ -1141,12 +1152,20 @@ class toba_ei_formulario extends toba_ei
 	function vista_pdf( $salida )
 	{
 		$this->cargar_opciones_efs();
+		$formateo = new $this->_clase_formateo('pdf');
 		$datos = array();
 		$a['datos_tabla'] = array();
 		foreach ( $this->_lista_ef_post as $ef ){
 			if ($this->_elemento_formulario[$ef]->tiene_estado()) {
 				$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
-				$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+				//Hay que formatear? Le meto pa'delante...
+            	if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                	$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+                	$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                	$valor = $formateo->$funcion($valor_real);
+            	}else{
+		            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+		        }	
 				$datos['datos_tabla'][] = array('clave' => $etiqueta, 'valor'=>$valor);
 			}
 		}
@@ -1172,20 +1191,47 @@ class toba_ei_formulario extends toba_ei
 	function vista_excel(toba_vista_excel $salida)
 	{
 		$this->cargar_opciones_efs();		
+		$formateo = new $this->_clase_formateo('excel');
 		$datos = array();
 		foreach ( $this->_lista_ef_post as $ef ){
 			$opciones = array();
 			$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
-			list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+			//Hay que formatear?
+			$estilo = array();
+            if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                $funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+                $valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                list($valor, $estilo) = $formateo->$funcion($valor_real);
+            }else{
+	            list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+	        }	
 			if (isset($estilo)) {
 				$opciones['valor']['estilo'] = $estilo;
-			}
+			}	
 			$opciones['etiqueta']['estilo']['font']['bold'] = true;
 			$opciones['etiqueta']['ancho'] = 'auto';
 			$opciones['valor']['ancho'] = 'auto';
 			$datos = array(array('etiqueta' => $etiqueta, 'valor' => $valor));
 			$salida->tabla($datos, array(), $opciones);
 		}		
+	}
+	
+	//---------------------------------------------------------------
+	//----------------------  API BASICA ----------------------------
+	//---------------------------------------------------------------
+
+	/**
+	 * Cambia la forma en que se le da formato a un ef en las salidas pdf, excel y html
+	 * @param string $id_ef
+	 * @param string $funcion Nombre de la función de formateo, sin el prefijo 'formato_'
+	 * @param string $clase Nombre de la clase que contiene la funcion, por defecto toba_formateo
+	 */
+	function set_formateo_ef($id_ef, $funcion, $clase=null)
+	{
+		$this->_info_formulario_ef[$id_ef]["formateo"] = $funcion;
+		if (isset($clase)) {
+			$this->_clase_formateo = $clase;
+		}
 	}
 	
 }
