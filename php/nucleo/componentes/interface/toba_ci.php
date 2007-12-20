@@ -455,6 +455,15 @@ class toba_ci extends toba_ei
 		//Memoria sobre dependencias que fueron a la interface
 		if( isset($this->_memoria['pantalla_dep']) ){
 			$dependencias = $this->_memoria['pantalla_dep'];
+			foreach (array_keys($dependencias) as $id) {
+				if(!isset($this->_indice_dependencias[$dependencias[$id]])){
+					//--- Cuando la dependencia se agregó dinámicamente en un pedido de página es posible que no se tenga registro en este pedido
+					toba::logger()->warning("No se encuentra la dependencia {$dependencias[$id]}, no es posible atender sus eventos.");
+					unset($dependencias[$id]);
+				}
+			}
+
+			
 			//Necesito cargar los daos dinamicos?
 			//Esto es posible si los EF chequean que su valor se encuentre entre los posibles
 			$this->inicializar_dependencias( $dependencias );

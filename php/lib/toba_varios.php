@@ -546,7 +546,8 @@
 			$mes = str_pad($f[1],2,0,STR_PAD_LEFT);
 			$salida = $extra[0] . $sep_nuevo . $mes . $sep_nuevo .$dia;
 			if ($buscar_hora && isset($extra[1])) {
-				$salida .= ' '.$extra[1];
+				$hora = explode('.', $extra[1]);
+				$salida .= ' '.$hora[0];
 			}
 			return $salida;
 		}

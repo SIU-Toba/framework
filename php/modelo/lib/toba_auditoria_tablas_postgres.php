@@ -273,6 +273,10 @@ class toba_auditoria_tablas_postgres
 		if (isset($filtro['operacion'])) {
 			$where .= " AND aud.auditoria_operacion = '{$filtro['operacion']}'";
 		}
+		if (isset($filtro['campo']) && isset($filtro['valor'])) {
+			$filtro['valor'] = quote($filtro['valor']);
+			$where .= " AND aud.{$filtro['campo']} = {$filtro['valor']}";
+		}		
 	
 		$sql = "SELECT 
 					aud.*,
@@ -285,7 +289,7 @@ class toba_auditoria_tablas_postgres
 					{$this->schema_logs}.$tabla as aud
 				WHERE
 					$where
-				ORDER BY aud.auditoria_fecha
+				ORDER BY aud.auditoria_fecha DESC
 		";
 		$datos = $this->conexion->consultar($sql);
 		/*foreach ($datos as $clave => $valor) {
@@ -294,7 +298,6 @@ class toba_auditoria_tablas_postgres
 		}*/
 		return $datos;
 	}
-		
 
 		
 }
