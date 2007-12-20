@@ -47,7 +47,11 @@ class toba_formateo
 		//Es trucho forzar desde aca, los datos tienen que esta bien
 		//if($valor<0)$valor=0;
 		if ($this->tipo_salida != 'excel') {
-			return number_format($valor,2,',','.');
+			if (strpos($valor,'.') === false) {
+				return number_format($valor,0,',','.');	
+			}else{
+				return number_format($valor,2,',','.');
+			}			
 		} else {
 			return array($valor, array('numberformat' => 
 						array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00)
