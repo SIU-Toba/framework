@@ -65,7 +65,7 @@ class toba_ef_popup extends toba_ef_editable
 		$this->vinculo->set_popup_parametros( array(	'scrollbars'=>true,
 														'resizable'=>true,
 														'height'=>500,
-														'width'=>500 ) );
+														'width'=>500 ), true );
         $this->id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo );
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}

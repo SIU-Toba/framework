@@ -68,7 +68,11 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 			switch (this._modo) {
 				case 'D': 
 					//-- Comunicación de datos codificados con JSON
-					var parametro = eval('(' + response.responseText + ')');
+					if (response.responseText != '') {
+						var parametro = eval('(' + response.responseText + ')');
+					} else{
+						var parametro = '';
+					}
 					this._funcion.call(this._clase, parametro, this._contexto);
 					break;
 				case 'H':

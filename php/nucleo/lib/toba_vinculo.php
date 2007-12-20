@@ -127,9 +127,13 @@ class toba_vinculo
 		return $this->popup;
 	}
 
-	function set_popup_parametros($parametros)
+	function set_popup_parametros($parametros, $anexar=false)
 	{
-		$this->popup_parametros = $parametros;	
+		if (! $anexar) {
+			$this->popup_parametros = $parametros;	
+		} else {
+			$this->popup_parametros = array_merge($parametros, $this->popup_parametros);
+		}
 	}
 
 	function set_popup_parametro($clave, $valor)
