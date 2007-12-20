@@ -271,7 +271,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.deseleccionar_actual = function() {
 		if (isset(this._seleccionada)) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
-			cambiar_clase(fila.cells, 'ei-ml-fila');			
+			cambiar_clase(fila.cells, 'ei-ml-fila', 'ei-ml-fila-selec');			
 			var subir_fila = document.getElementById(this._instancia + '_subir' + this._seleccionada);
 			var bajar_fila = document.getElementById(this._instancia + '_bajar' + this._seleccionada);
 			if (subir_fila) {
@@ -377,7 +377,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			//'Elimina' la fila en el DOM
 		var id_fila = this._instancia + '_fila' + fila;
 		var id_deshacer = this._instancia + '_deshacer';
-		cambiar_clase(document.getElementById(id_fila).cells, 'ei-ml-fila');
+		cambiar_clase(document.getElementById(id_fila).cells, 'ei-ml-fila', 'ei-ml-fila-selec');
 		document.getElementById(id_fila).style.display = 'none';
 			//Elimina la fila en la lista interna
 		for (i in this._filas) { 
@@ -591,7 +591,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.refrescar_seleccion = function () {
 		if (isset(this._seleccionada)) {
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec');
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-ml-fila-selec', 'ei-ml-fila');
 			var subir_fila = document.getElementById(this._instancia + '_subir' + this._seleccionada);
 			var bajar_fila = document.getElementById(this._instancia + '_bajar' + this._seleccionada);
 			if (subir_fila) {
@@ -706,9 +706,19 @@ function intercambiar_nodos(nodo1, nodo2) {
 }
 
 //Cambia la clase a un conjunto de nodos
-function cambiar_clase(nodos, nueva_clase) {
+function cambiar_clase(nodos, nueva_clase, vieja_clase) {
 	for (nodo in nodos) {
-		nodos[nodo].className = nueva_clase;
+		if (nodos[nodo].className) {
+			var arrList = nodos[nodo].className.split(' ');
+         	for ( var i = 0; i < arrList.length; i++ ) {
+         		if ( arrList[i] == vieja_clase ) {
+         			arrList[i] = nueva_clase;
+         		}
+         	}
+         	nodos[nodo].className = arrList.join(' ');
+		} else {
+			nodos[nodo].className = nueva_clase;
+		}
 	}
 }
 

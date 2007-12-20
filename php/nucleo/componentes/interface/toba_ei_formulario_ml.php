@@ -704,7 +704,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$primera = false;
 			}
 			if ($this->_info_formulario['filas_ordenar'] && $this->_ordenar_en_linea) {
-				echo "<th class='ei-ml-columna'>\n";
+				echo "<th class='ei-ml-columna'>&nbsp;\n";
 				echo "</th>\n";
 			}		
 	        //-- Eventos sobre fila
@@ -718,7 +718,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 			}		
 			if ($this->_info_formulario['filas_agregar'] && $this->_borrar_en_linea) {
-				echo "<th class='ei-ml-columna'>\n";
+				echo "<th class='ei-ml-columna'>&nbsp;\n";
 				echo "</th>\n";				
 			}
 			echo "</tr>\n";
@@ -872,7 +872,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 
 			//-- Borrar a nivel de fila
 			if ($this->_info_formulario['filas_agregar'] && $this->_borrar_en_linea) {
-				echo "<td class='{$this->estilo_celda_actual} ei-ml-fila-borrar'>";
+				echo "<td class='{$this->estilo_celda_actual} ei-ml-columna-evt ei-ml-fila-borrar'>";
 				echo toba_form::button_html("{$this->objeto_js}_eliminar$fila", toba_recurso::imagen_toba('borrar.gif', true), 
 										"onclick='{$this->objeto_js}.seleccionar($fila);{$this->objeto_js}.eliminar_seleccionada();'", 
 										$this->_rango_tabs[0]++, null, 'Elimina la fila');
@@ -913,7 +913,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected function generar_eventos_fila($fila)
 	{
 		foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
-			echo "<td class='{$this->estilo_celda_actual}'>\n";
+			echo "<td class='{$this->estilo_celda_actual} ei-ml-columna-evt'>\n";
 			if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
 				//1: Posiciono al evento en la fila
 				$evento->set_parametros($fila);

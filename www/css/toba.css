@@ -276,7 +276,9 @@ padding-left:4px;
 	text-align: center;
 	font-weight: normal;
 }
-
+.ei-ml-columna-evt {
+	text-align: right;
+}
 .ei-ml-fila, .ei-ml-fila-selec {
 	padding: 0px 3px 0px 3px;
 	margin: 0px;
