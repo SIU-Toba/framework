@@ -15,15 +15,19 @@ class toba_auditoria_tablas_postgres
 		$this->conexion = $conexion;
 	}
 	
-	function agregar_tablas($prefijo) 
+	function agregar_tablas($prefijo=null) 
 	{
+		$where = '';
+		if (isset($prefijo)) {
+			$where .= "	AND (tablename LIKE '$prefijo%')";
+		}
 		$sql = "	
 				SELECT tablename FROM pg_tables 
 		        WHERE 
-		        	tablename NOT LIKE 'pg_%'
+		        		tablename NOT LIKE 'pg_%'
 		        	AND tablename NOT LIKE 'sql_%'
-					AND (tablename LIKE '$prefijo%')
 					AND schemaname = '{$this->schema_origen}'
+					$where
 				ORDER BY UPPER(tablename);
 		";
 		 $aux = $this->conexion->consultar($sql);
@@ -49,6 +53,7 @@ class toba_auditoria_tablas_postgres
 	
 	function crear() 
 	{ 
+		$this->crear_lenguaje();
 		$this->crear_funciones();
 		$this->crear_schema();
 		$this->crear_tablas();
@@ -84,6 +89,16 @@ class toba_auditoria_tablas_postgres
 	
 	
 	//------- FUNCIONES DE CREACION DE LOGS -------------------------------------
+	
+	protected function crear_lenguaje()
+	{
+		$sql = "SELECT lanname FROM pg_language WHERE lanname='plpgsql'";
+		$rs = $this->conexion->consultar($sql);
+		if (empty($rs)) {
+			$sql = 'CREATE LANGUAGE plpgsql';
+			$this->conexion->ejecutar($sql);
+		}
+	}
 	
 	protected function crear_funciones() 
 	{
@@ -230,7 +245,7 @@ class toba_auditoria_tablas_postgres
 	{
 		$sql = "";
 		foreach ($this->tablas as $t) {
-	       $sql .= "DROP TRIGGER tauditoria_$t ON {$this->schema_origen}.$t;\n\n";
+	       $sql .= "DROP TRIGGER IF EXISTS tauditoria_$t ON {$this->schema_origen}.$t;\n\n";
 		}
 		$this->conexion->ejecutar($sql);
 	}

@@ -7,17 +7,6 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 
--- Name: log_juegos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('log_juegos_id_seq', 1, false);
-
-
---
--- Name: log_persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('log_persona_id_seq', 1, false);
 
 
 --
@@ -59,17 +48,6 @@ SELECT pg_catalog.setval('ref_persona_id_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('ref_persona_juegos_id_seq', 3, true);
-
-
---
--- Data for Name: log_juegos; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: log_persona; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 
 

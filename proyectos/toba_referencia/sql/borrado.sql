@@ -10,7 +10,3 @@ DROP SEQUENCE ref_juegos_id_seq CASCADE;
 DROP TABLE ref_juegos CASCADE;
 DROP SEQUENCE ref_deportes_id_seq CASCADE;
 DROP TABLE ref_deportes CASCADE;
-DROP SEQUENCE log_persona_id_seq CASCADE;
-DROP TABLE log_persona CASCADE;
-DROP SEQUENCE log_juegos_id_seq CASCADE;
-DROP TABLE log_juegos CASCADE;

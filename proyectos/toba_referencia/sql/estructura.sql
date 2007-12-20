@@ -1,25 +1,4 @@
 
---
--- Name: log_juegos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE log_juegos (
-    id serial NOT NULL,
-    juego integer NOT NULL,
-    observaciones character varying(255)
-);
-
-
---
--- Name: log_persona; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE log_persona (
-    id serial NOT NULL,
-    persona integer,
-    observaciones character varying(255)
-);
-
 
 --
 -- Name: ref_deportes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -94,22 +73,6 @@ CREATE TABLE ref_persona_juegos (
     hora_fin integer
 );
 
-
-
---
--- Name: log_cambios_persona_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY log_persona
-    ADD CONSTRAINT log_cambios_persona_pkey PRIMARY KEY (id);
-
-
---
--- Name: log_juegos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY log_juegos
-    ADD CONSTRAINT log_juegos_pkey PRIMARY KEY (id);
 
 
 --
@@ -193,17 +156,6 @@ ALTER TABLE ONLY ref_persona_deportes
 --
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
-
-ALTER TABLE ONLY log_juegos
-    ADD CONSTRAINT "$1" FOREIGN KEY (juego) REFERENCES ref_juegos(id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE;
-
-
---
--- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY log_persona
-    ADD CONSTRAINT "$1" FOREIGN KEY (persona) REFERENCES ref_persona(id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE;
 
 
 --

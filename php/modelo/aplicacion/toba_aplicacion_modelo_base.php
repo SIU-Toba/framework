@@ -3,6 +3,7 @@
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;
+	protected $schema_modelo = 'public';
 	
 	/**
 	 * @var toba_proceso_gui
@@ -129,7 +130,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				copy($archivo, $archivo.'.old');
 			}
 			if (toba_manejador_archivos::es_windows()) {
-				$comando = "pg_dump -d -a -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";
+				$comando = "pg_dump -d -a -N auditoria -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";
 			} else {
 				$clave = '';
 				if ($parametros['clave'] != '') {
@@ -264,6 +265,42 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$this->instalacion->eliminar_db($id_def_base);
 		}	
 	}
+	
+	/**
+	 * Crea los triggers, store_procedures y esquema para la auditoría de tablas del sistema
+	 * @param array $tablas Tablas especificas a auditar
+	 * @param string $prefijo_tablas Tomar todas las tablas que tienen este prefijo, si es null se toman todas
+	 * @param boolean $con_transaccion Crea el esquema dentro de una transaccion
+	 */
+	function crear_auditoria($tablas=array(), $prefijo_tablas=null, $con_transaccion=true)
+	{
+		$fuentes = $this->proyecto->get_indice_fuentes();
+		if (empty($fuentes)) {
+			return;
+		}
+		$id_def_base = $this->proyecto->construir_id_def_base(current($fuentes));
+		$base = $this->instalacion->conectar_base($id_def_base);		
+		if ($con_transaccion) {
+			$base->abrir_transaccion();
+		}
+		//--- Tablas de auditoría
+		$auditoria = new toba_auditoria_tablas_postgres($base);
+		if (empty($tablas)) {
+			$auditoria->agregar_tablas($prefijo_tablas);
+		} else {
+			foreach($tablas as $tabla) {
+				$auditoria->agregar_tabla($tabla);
+			}
+		}
+		if ($auditoria->existe()) {
+			$auditoria->eliminar();
+		}
+		$auditoria->crear();		
+		if ($con_transaccion) {
+			$base->cerrar_transaccion();
+		}		
+	}
+			
 		
 	/**
 	 * Ejecuta los scripts de migración entre dos versiones específicas del sistema

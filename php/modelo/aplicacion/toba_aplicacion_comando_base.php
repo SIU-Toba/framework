@@ -6,6 +6,10 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 * toba_aplicacion_modelo_base
 	 */
 	protected $modelo;
+	
+	/**
+	 * @var toba_mock_proceso_gui
+	 */
 	protected $manejador_interface;
 	
 	function set_entorno($manejador_interface, toba_aplicacion_modelo $modelo)
@@ -24,7 +28,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	}
 
 	/**
-	 * Migra una instalación previa del proyecto
+	 * Migra una instalacion previa del proyecto
 	 */	
 	function opcion__migrar()
 	{
@@ -32,6 +36,17 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 		$hasta = $this->modelo->get_version_nueva();
 		$this->modelo->migrar($desde, $hasta);
 	}
+
+	/**
+	 * Crea un esquema de auditoria sobre las tablas de negocio
+	 */
+	function opcion__crear_auditoria()
+	{
+		$this->manejador_interface->mensaje('Creando esquema de auditoria', false);
+		$this->manejador_interface->progreso_avanzar();
+		$this->modelo->crear_auditoria();
+		$this->manejador_interface->progreso_fin();
+	}	
 		
 }
 
