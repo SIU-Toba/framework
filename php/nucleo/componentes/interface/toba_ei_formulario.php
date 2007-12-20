@@ -34,6 +34,10 @@ class toba_ei_formulario extends toba_ei
 	protected $_eventos_ext = null;			// Eventos seteados desde afuera
 	protected $_observadores;
 	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario';
+	//Salida PDF
+	protected $_pdf_letra_tabla = 8;
+	protected $_pdf_tabla_ancho;
+	protected $_pdf_tabla_opciones = array();
 		
 	//---Cascadas
 	protected $_cascadas_maestros = array();		//Arreglo de maestros indexados por esclavo
@@ -1106,6 +1110,34 @@ class toba_ei_formulario extends toba_ei
 	//----------------------  SALIDA PDF  ---------------------------
 	//---------------------------------------------------------------
 	
+	/**
+	 * Permite setear el ancho del formulario.
+	 * @param unknown_type $ancho Es posible pasarle valores enteros o porcentajes (por ejemplo 85%).
+	 */
+	function set_pdf_tabla_ancho($ancho)
+	{
+		$this->_pdf_tabla_ancho = $ancho;
+	}
+	
+	/**
+	 * Permite setear el tamaño de la tabla que representa el formulario.
+	 * @param integer $tamanio Tamaño de la letra.
+	 */
+	function set_pdf_letra_tabla($tamanio)
+	{
+		$this->_pdf_letra_tabla = $tamanio;
+	}
+	
+	/**
+	 * Permite setear el estilo que llevara la tabla en la salida pdf.
+	 * @param array $opciones Arreglo asociativo con las opciones para la tabla de salida.
+	 * @see toba_vista_pdf::tabla, ezpdf::ezTable
+	 */
+	function set_pdf_tabla_opciones($opciones)
+	{
+		$this->_pdf_tabla_opciones = $opciones;
+	}
+	
 	function vista_pdf( $salida )
 	{
 		$this->cargar_opciones_efs();
@@ -1118,9 +1150,20 @@ class toba_ei_formulario extends toba_ei
 				$datos['datos_tabla'][] = array('clave' => $etiqueta, 'valor'=>$valor);
 			}
 		}
+		//-- Genera la tabla
+        $ancho = null;
+        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+        } elseif (isset($this->_pdf_tabla_ancho)) {
+        		$ancho = $this->_pdf_tabla_ancho;
+        }
+        $opciones = $this->_pdf_tabla_opciones;
+        if (isset($ancho)) {
+        	$opciones['width'] = $ancho;		
+        }        
 		$datos['titulo_tabla'] = $this->get_titulo();
-		$salida->tabla($datos);
-	}	
+		$salida->tabla($datos, false, $this->_pdf_letra_tabla, $opciones);
+	}
 
 	//---------------------------------------------------------------
 	//----------------------  SALIDA EXCEL --------------------------

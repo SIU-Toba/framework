@@ -1108,7 +1108,6 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	//----------------------  SALIDA PDF   --------------------------
 	//---------------------------------------------------------------
 			
-	
 	function vista_pdf( $salida )
 	{
 		//-- Encabezado
@@ -1135,10 +1134,22 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$datos['datos_tabla'][] = $datos_temp;
 			}
 		}
+		
+		//-- Genera la tabla
+        $ancho = null;
+        if (strpos($this->_pdf_tabla_ancho, '%') !== false) {
+        	$ancho = $salida->get_ancho(str_replace('%', '', $this->_pdf_tabla_ancho));	
+        } elseif (isset($this->_pdf_tabla_ancho)) {
+        		$ancho = $this->_pdf_tabla_ancho;
+        }
+        $opciones = $this->_pdf_tabla_opciones;
+        if (isset($ancho)) {
+        	$opciones['width'] = $ancho;		
+        }        
 		//-- Salida a pdf
 		$datos['titulo_tabla'] = $this->get_titulo();
 		$datos['titulos_columnas'] = $tit_col;
-		$salida->tabla( $datos, true );
+		$salida->tabla($datos, true, $this->_pdf_letra_tabla, $opciones);
 	}
 	
 	//---------------------------------------------------------------
