@@ -78,10 +78,40 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
+	'1000949', --evento_id
+	'1381', --objeto
+	'importar', --identificador
+	'Importar', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'rehacer.png', --imagen
+	'1', --en_botonera
+	'Importa una operación desde otro proyecto.', --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	'V', --accion
+	'0', --accion_imphtml_debug
+	'/items', --accion_vinculo_carpeta
+	'1000187', --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	'frame_centro', --accion_vinculo_target
+	'central'  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
 	'1000389', --evento_id
 	'1381', --objeto
 	'asistente', --identificador
-	'Crear Operación', --etiqueta
+	'Crear', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -90,7 +120,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'wizard.png', --imagen
 	'1', --en_botonera
 	'Ejecuta un aisistente que lo guiará en la creación de una nueva operación a partir de un catálogo de tipos de operación.', --ayuda
-	'2', --orden
+	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -193,7 +223,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen_recurso_origen
 	NULL, --imagen
 	'fotos,filtro,items', --objetos
-	'refrescar,asistente', --eventos
+	'refrescar,asistente,importar', --eventos
 	'pant_catalogo_items', --subclase
 	NULL  --subclase_archivo
 );
