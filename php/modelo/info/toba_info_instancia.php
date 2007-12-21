@@ -11,6 +11,11 @@ class toba_info_instancia
 		$sql = "SELECT proyecto FROM apex_proyecto WHERE estilo='$estilo'";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	function get_usuarios()
+	{
+		
+	}
 		
 	
 }

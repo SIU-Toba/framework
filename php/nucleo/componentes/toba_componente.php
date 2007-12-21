@@ -148,7 +148,7 @@ abstract class toba_componente
 
 	/**
 	 * Retorna el identificador del componente
-	 * @return integer
+	 * @return array
 	 */
 	function get_id()
 	{

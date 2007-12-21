@@ -53,6 +53,18 @@ class toba_info_permisos
 		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	static function get_lista_usuarios($proyecto=null)
+	{
+		if (!isset($proyecto)) {
+			$proyecto = toba_contexto_info::get_proyecto();	
+		}
+		$sql = "SELECT u.usuario as usuario, u.nombre as nombre
+				FROM apex_usuario u, apex_usuario_proyecto up
+				WHERE u.usuario = up.usuario
+				AND up.proyecto = '$proyecto';";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
 
 }
 

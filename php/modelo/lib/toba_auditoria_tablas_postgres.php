@@ -15,6 +15,11 @@ class toba_auditoria_tablas_postgres
 		$this->conexion = $conexion;
 	}
 	
+	static function get_campos_propios()
+	{
+		return array('auditoria_fecha', 'auditoria_usuario', 'auditoria_operacion', 'operacion_nombre');	
+	}
+	
 	function agregar_tablas($prefijo=null) 
 	{
 		$where = '';
@@ -261,6 +266,7 @@ class toba_auditoria_tablas_postgres
 	function get_datos($tabla, $filtro = array())
 	{
 		$where = 'true';
+		$order = '';
 		if (isset($filtro['desde_fecha'])) {
 			$where .= " AND aud.auditoria_fecha::date >= '{$filtro['fecha_desde']}'";
 		}
@@ -277,6 +283,10 @@ class toba_auditoria_tablas_postgres
 			$filtro['valor'] = quote($filtro['valor']);
 			$where .= " AND aud.{$filtro['campo']} = {$filtro['valor']}";
 		}		
+		if (isset($filtro['ordenar']) && $filtro['ordenar'] == 'clave') {
+			$claves = $this->get_campos_claves($tabla);
+			$order = implode(', ', $claves).', ';
+		}		
 	
 		$sql = "SELECT 
 					aud.*,
@@ -289,7 +299,7 @@ class toba_auditoria_tablas_postgres
 					{$this->schema_logs}.$tabla as aud
 				WHERE
 					$where
-				ORDER BY aud.auditoria_fecha DESC
+				ORDER BY $order aud.auditoria_fecha
 		";
 		$datos = $this->conexion->consultar($sql);
 		/*foreach ($datos as $clave => $valor) {
@@ -297,6 +307,18 @@ class toba_auditoria_tablas_postgres
 			$datos[$clave]['log_operacion'] = procesar_operacion($valor['log_operacion']);
 		}*/
 		return $datos;
+	}
+	
+	function get_campos_claves($tabla)
+	{
+		$cols = toba::db()->get_definicion_columnas($tabla, $this->schema_origen);
+		$pks = array();
+		foreach ($cols as $col) {
+			if ($col['pk']) {
+				$pks[] = $col['nombre'];
+			}
+		}
+		return $pks;		
 	}
 
 		

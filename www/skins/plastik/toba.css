@@ -264,4 +264,6 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-top: 1px solid #868789;
 }
 
-
+.auditoria-cambio-valor {
+	font-weight: bold;
+}
