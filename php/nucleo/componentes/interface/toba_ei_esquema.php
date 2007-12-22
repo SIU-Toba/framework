@@ -113,7 +113,7 @@ class toba_ei_esquema extends toba_ei
 		}
 		
 		$comando  = ($es_dirigido) ? "dot" : "neato";
-		$llamada = $comando . " -T". $formato . " -o$salida $grafico";
+		$llamada = $comando . " -Gcharset=latin1 -T". $formato . " -o$salida $grafico";
 		
 		//Se analiza la salida
 		$salida = array();

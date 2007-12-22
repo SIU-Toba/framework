@@ -567,9 +567,9 @@ class toba_datos_tabla extends toba_componente
 		//Si hay condiciones, se filtran estas filas
 		if(isset($condiciones)){
 			//Controlo que todas los campos que se utilizan para el filtrado existan
-			foreach( array_keys($condiciones) as $columna){
+			/*foreach( array_keys($condiciones) as $columna){
 
-			}
+			}*/
 			foreach($coincidencias as $pos => $id_fila){
 				//Verifico las condiciones
 				foreach( array_keys($condiciones) as $campo){
@@ -964,8 +964,10 @@ class toba_datos_tabla extends toba_componente
 	 *  - 'M': Modificacion
 	 *
 	 * @param array $filas Filas en formato RecordSet, cada registro debe contener un valor para la constante apex_ei_analisis_fila
+	 * @param mixed $ids_padres Asociativo padre =>id de las filas padres de esta nueva fila, 
+	 * 						  en caso de que no se brinde, se utilizan los cursores actuales en estas tablas padres
 	 */
-	function procesar_filas($filas)
+	function procesar_filas($filas, $ids_padres=null)
 	{
 		toba_asercion::es_array($filas,"toba_datos_tabla - El parametro no es un array.");
 		//--- Controlo estructura
@@ -989,7 +991,7 @@ class toba_datos_tabla extends toba_componente
 				case "A":
 					//--- Si el ML notifico explicitamente el id, este es el id de la nueva fila, sino usa el mecanismo interno
 					$nuevo_id = ($id_explicito) ? $id : null;
-					$this->nueva_fila($fila,null, $nuevo_id);
+					$this->nueva_fila($fila, $ids_padres, $nuevo_id);
 					break;	
 				case "B":
 					$this->eliminar_fila($id);
