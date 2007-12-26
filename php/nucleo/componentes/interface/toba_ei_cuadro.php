@@ -1753,11 +1753,13 @@ class toba_ei_cuadro extends toba_ei
 			echo "<div class='ei-cuadro-pag'>";
 			echo "$primero $anterior Página <strong>{$this->_pagina_actual}</strong> de ";
 			echo "<strong>{$this->_cantidad_paginas}</strong> $siguiente $ultimo";
-			echo "<div class='ei-cuadro-pag-total'>Encontrados {$this->_total_registros} registros</div>";
+			$plural = ($this->_total_registros == 1) ? '' : 's';
+			echo "<div class='ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
 			echo "</div>";
 		} else {
+			$plural = ($this->_total_registros == 1) ? '' : 's';
 			echo "<div class='ei-cuadro-pag'>";
-			echo "<div class='ei-cuadro-pag-total'>Encontrados {$this->_total_registros} registros</div>";			
+			echo "<div class='ei-cuadro-pag-total'>Encontrado$plural {$this->_total_registros} registro$plural</div>";
 			echo "</div>";			
 		}
 	}
