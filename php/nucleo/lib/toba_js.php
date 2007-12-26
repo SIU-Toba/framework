@@ -146,7 +146,7 @@ class toba_js
 	
 	/**
 	 * Incluye una serie de librerías o consumos javascript
-	 * @param array $consumos Lista de consumos, un consumo es el path relativo a www, sin la ext. js
+	 * @param array $consumos Lista de consumos, un consumo es el path relativo a www/js, sin la ext. js
 	 */
 	static function cargar_consumos_globales($consumos)
 	{

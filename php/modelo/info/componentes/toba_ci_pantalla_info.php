@@ -47,7 +47,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 			$fila = current($filas);
 			$archivo = $this->datos['subclase_archivo'];
 			$nuevo_archivo = $dir_subclases."/".basename($archivo);
-			$path_origen = toba::instancia()->get_path_proyecto(toba_contexto_info::get_proyecto())."/php/";
+			$path_origen = toba::instancia()->get_path_proyecto($this->proyecto)."/php/";
 			if (isset($proyecto_dest)) {
 				$path_destino = toba::instancia()->get_path_proyecto($proyecto_dest)."/php/";
 			} else {
@@ -57,7 +57,9 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 			if (!file_exists($path_destino.$dir_subclases)) {
 				toba_manejador_archivos::crear_arbol_directorios($path_destino.$dir_subclases);
 			}
-			copy($path_origen.$archivo, $path_destino.$nuevo_archivo);		
+			if (! copy($path_origen.$archivo, $path_destino.$nuevo_archivo)) {
+				throw new toba_error('No es posible copiar el archivo desde '.$path_origen.$archivo.' hacia '.$path_destino.$nuevo_archivo);
+			}
 			$dr->tabla('pantallas')->set_fila_columna_valor($fila, 'subclase_archivo', $nuevo_archivo);						
 		}
 	}
