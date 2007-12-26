@@ -136,7 +136,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				if ($parametros['clave'] != '') {
 					$clave = "export PGPASSWORD=".$parametros['clave'].';';
 				}					
-				$comando = $clave."pg_dump -d -a -h {$parametros['profile']} -U {$parametros['usuario']} -f '$archivo' {$parametros['base']}";
+				$comando = $clave."pg_dump -d -a -N auditoria -h {$parametros['profile']} -U {$parametros['usuario']} -f '$archivo' {$parametros['base']}";
 			}
 			$this->manejador_interface->mensaje("Ejecutando: $comando");
 			$salida = array();
