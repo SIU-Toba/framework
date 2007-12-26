@@ -9,7 +9,7 @@ class ci_importar_operacion extends toba_ci
 		$salida[] = array(
 			'proyecto' => 'toba_referencia',
 			'item' => '1000182',
-			'nombre' => 'Consulta de Auditoría'
+			'nombre' => 'Consulta de Auditoría (toba_referencia)'
 		);
 		return $salida;
 	}

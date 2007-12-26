@@ -4,6 +4,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 {
 	protected $permitir_exportar_modelo = true;
 	protected $schema_modelo = 'public';
+	protected $schema_auditoria = 'auditoria';
 	
 	/**
 	 * @var toba_proceso_gui
@@ -118,33 +119,18 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			return;
 		}
 		$reemplazar = $this->manejador_interface->dialogo_simple("Ya existe el modelo de datos, ".
-							"¿Desea reemplazarlo? (borra la base completa y la vuelva a cargar)", 's');
+							"Desea reemplazarlo? (borra la base completa y la vuelva a cargar)", 's');
 		if (! $reemplazar) {
 			return;
 		}
-		$exportar = $this->manejador_interface->dialogo_simple("Antes de borrar la base ¿Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
+		$exportar = $this->manejador_interface->dialogo_simple("Antes de borrar la base. Desea exportar y utilizar su contenido actual en la nueva carga?", 's');
 		if ($exportar) {
-			$parametros = $this->instalacion->get_parametros_base($id_def_base);
-			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';
-			if (file_exists($archivo)) {
-				copy($archivo, $archivo.'.old');
-			}
-			if (toba_manejador_archivos::es_windows()) {
-				$comando = "pg_dump -d -a -N auditoria -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";
-			} else {
-				$clave = '';
-				if ($parametros['clave'] != '') {
-					$clave = "export PGPASSWORD=".$parametros['clave'].';';
-				}					
-				$comando = $clave."pg_dump -d -a -N auditoria -h {$parametros['profile']} -U {$parametros['usuario']} -f '$archivo' {$parametros['base']}";
-			}
-			$this->manejador_interface->mensaje("Ejecutando: $comando");
-			$salida = array();
-			echo exec($comando, $salida, $exito);
-			echo implode("\n", $salida);
-			if ($exito > 0) {
-				throw new toba_error('No se pudo exportar correctamente los datos');
-			}
+			//-- Esquema principal
+			$archivo = $this->proyecto->get_dir().'/sql/datos_locales.sql';			
+			$this->exportar_esquema_base($id_def_base, $this->schema_modelo, $archivo, true);
+			//-- Esquema auditoria
+			$archivo = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';			
+			$this->exportar_esquema_base($id_def_base, $this->schema_auditoria, $archivo, false);			
 		}
 		
 		//--- Borra la base fisicamente
@@ -159,8 +145,28 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//--- Carga nuevamente el modelo de datos
 		$base = $this->instalacion->conectar_base($id_def_base);
 		$this->cargar_modelo_datos($base);	
-
 	}
+	
+	protected function exportar_esquema_base($id_def_base, $esquema, $archivo, $obligatorio)
+	{
+		$parametros = $this->instalacion->get_parametros_base($id_def_base);
+		if (file_exists($archivo)) {
+			copy($archivo, $archivo.'.old');
+		}
+		$comando = "pg_dump -d -a -n $esquema -h {$parametros['profile']} -U {$parametros['usuario']} -f \"$archivo\" {$parametros['base']}";			
+		if (! toba_manejador_archivos::es_windows() && $parametros['clave'] != '') {
+			$clave = "export PGPASSWORD=".$parametros['clave'].';';
+			$comando = $clave.$comando;
+		}
+		$this->manejador_interface->mensaje("Ejecutando: $comando");
+		$salida = array();
+		echo exec($comando, $salida, $exito);
+		echo implode("\n", $salida);
+		if ($obligatorio && $exito > 0) {
+			throw new toba_error('No se pudo exportar correctamente los datos');
+		}
+	}
+	
 	
 	/**
 	 * Determina si el modelo de datos se encuentra cargado en una conexión específica
@@ -292,10 +298,22 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 				$auditoria->agregar_tabla($tabla);
 			}
 		}
+		$this->manejador_interface->mensaje('Creando esquema de auditoria', false);
+		$this->manejador_interface->progreso_avanzar();		
 		if ($auditoria->existe()) {
 			$auditoria->eliminar();
 		}
-		$auditoria->crear();		
+		$auditoria->crear();
+		$this->manejador_interface->progreso_fin();
+
+		//--- Datos anteriores
+		$archivo_datos = $this->proyecto->get_dir().'/sql/datos_auditoria.sql';
+		if (file_exists($archivo_datos)) {
+			$this->manejador_interface->mensaje('Cargando datos de auditoria', false);			
+			$this->manejador_interface->progreso_avanzar();
+			$base->ejecutar_archivo($archivo_datos);
+			$this->manejador_interface->progreso_fin();
+		}
 		if ($con_transaccion) {
 			$base->cerrar_transaccion();
 		}		

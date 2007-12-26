@@ -42,10 +42,7 @@ class toba_aplicacion_comando_base implements toba_aplicacion_comando
 	 */
 	function opcion__crear_auditoria()
 	{
-		$this->manejador_interface->mensaje('Creando esquema de auditoria', false);
-		$this->manejador_interface->progreso_avanzar();
 		$this->modelo->crear_auditoria();
-		$this->manejador_interface->progreso_fin();
 	}	
 		
 }

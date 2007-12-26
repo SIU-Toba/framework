@@ -144,15 +144,17 @@ class toba_auditoria_tablas_postgres
 	    foreach ($this->tablas as $t) {
 		   $campos = $conexion->get_definicion_columnas($t, $this->schema_origen);
 		   $sql .= "CREATE TABLE {$this->schema_logs}.{$t}(\n";
-		   foreach ($campos as $campo => $def) {
-		   	  if ($def['tipo_sql'] != 'bytea') {
-	  		    $sql .= $def['nombre'] .  " " . $def['tipo_sql'] . ",\n";
-		   	  }
-		   }
 		   $sql .= "auditoria_usuario varchar(30), 
 		   			auditoria_fecha timestamp, 
-		   			auditoria_operacion char(1));
-		   	"; 
+		   			auditoria_operacion char(1),
+		   	"; 		   
+			foreach ($campos as $campo => $def) {
+				if ($def['tipo_sql'] != 'bytea') {
+					$sql .= $def['nombre'] .  " " . $def['tipo_sql'] . ",\n";
+				}
+			}
+			$sql = substr($sql, 0, -2);
+			$sql .= ");\n";
 	    }
 		$this->conexion->ejecutar($sql);
 	}
