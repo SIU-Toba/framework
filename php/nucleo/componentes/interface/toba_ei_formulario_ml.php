@@ -1068,6 +1068,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	function vista_impresion_html( $salida )
 	{
+		$formateo = new $this->_clase_formateo('impresion_html');		
 		$salida->subtitulo( $this->get_titulo() );
 		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
 		echo "<table class='tabla-0 ei-base ei-ml-base' style='width: $ancho'>\n";
@@ -1095,7 +1096,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				}
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					echo "<td>".$this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html').'</td>';
+					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+               			$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+               			$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+               			$valor = $formateo->$funcion($valor_real);
+            		}else{
+		        		$valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('impresion_html');
+		    		}	
+					echo "<td>".$valor."</td>";
 				}
 				echo "</tr>\n";
 				$a++;
@@ -1110,6 +1118,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			
 	function vista_pdf( $salida )
 	{
+		$formateo = new $this->_clase_formateo('pdf');
 		//-- Encabezado
 		$tit_col = array();
 		foreach ($this->_lista_ef_post	as	$ef){
@@ -1129,7 +1138,15 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					$datos_temp[$ef] = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+					//Hay que formatear? Le meto pa'delante...
+            		if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+                		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                		$valor = $formateo->$funcion($valor_real);
+            		}else{
+			            $valor = $this->_elemento_formulario[$ef]->get_descripcion_estado('pdf');
+		        	}	
+		        	$datos_temp[$ef] = $valor;
 				}
 				$datos['datos_tabla'][] = $datos_temp;
 			}
@@ -1158,6 +1175,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	function vista_excel(toba_vista_excel $salida)
 	{
+		$formateo = new $this->_clase_formateo('excel');
 		$opciones = array();
 		$datos = array();
 		if( isset( $this->_ordenes ) ) {
@@ -1173,9 +1191,14 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->cargar_opciones_efs();
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
-					
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);
-					list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+					if(isset($this->_info_formulario_ef[$ef]["formateo"])){
+                		$funcion = "formato_" . $this->_info_formulario_ef[$ef]["formateo"];
+                		$valor_real = $this->_elemento_formulario[$ef]->get_estado();
+                		list($valor, $estilo) = $formateo->$funcion($valor_real);
+            		}else{
+	            		list($valor, $estilo) = $this->_elemento_formulario[$ef]->get_descripcion_estado('excel');
+	        		}	
 					if (isset($estilo)) {
 						$opciones[$ef]['estilo'] = $estilo;
 					}
