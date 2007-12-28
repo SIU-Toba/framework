@@ -156,10 +156,20 @@ class toba_ei_formulario extends toba_ei
 	*	Setea el tamaño minimo para la etiqueta del ef. El tamaño debe incluir la medida utilizada.
 	*	@param string $ancho Tamaño de la etiqueta ej: '150px'
 	*/
-	protected function set_ancho_etiqueta($ancho)
+	function set_ancho_etiqueta($ancho)
 	{
 		$this->_ancho_etiqueta = $ancho;
 	}
+	
+	/**
+	 * Cambia el ancho total del formulario
+	 *	@param string $ancho Tamaño de la etiqueta ej: '150px'
+	 */
+	function set_ancho($ancho)
+	{
+		$this->_info_formulario["ancho"] = $ancho;
+	}
+	
 	
 	//-------------------------------------------------------------------------------
 	//--------------------------------	EVENTOS  -----------------------------------

@@ -13,7 +13,7 @@ class toba_menu_css extends toba_menu
 	protected $hay_algun_item = false;
 	protected $abrir_nueva_ventana = false;
 	protected $imagen_nueva_ventana;
-	protected $celda_memoria = 'popup';
+	protected $celda_memoria = 'paralela';
 	
 	function __construct()
 	{

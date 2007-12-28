@@ -537,7 +537,7 @@
 	function cambiar_fecha($fecha,$sep_actual,$sep_nuevo, $buscar_hora=false){
 		if (isset($fecha) && trim($fecha)!='') {
 			$f = explode($sep_actual,$fecha);
-			if(count($f)!==3){
+			if(count($f) < 3){
 				toba::logger()->notice("Formateador: se recibio una fecha invalida. [$fecha]");
 				return '';	
 			}
