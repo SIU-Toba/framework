@@ -1414,8 +1414,7 @@ class toba_ei_cuadro extends toba_ei
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
             echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
-            for ($a=0;$a< $this->_cantidad_columnas;$a++)
-            {
+ 			foreach (array_keys($this->_info_cuadro_columna) as $a) {
                 //*** 1) Recupero el VALOR
 				$valor = "";
                 if(isset($this->_info_cuadro_columna[$a]["clave"])){
@@ -1546,8 +1545,7 @@ class toba_ei_cuadro extends toba_ei
         }
         if ($alguna_tiene_titulo) {
 	        echo "<tr>\n";
-	        for ($a=0;$a<$this->_cantidad_columnas;$a++)
-	        {
+	        foreach (array_keys($this->_info_cuadro_columna) as $a) {
 	            if(isset($this->_info_cuadro_columna[$a]["ancho"])){
 	                $ancho = " width='". $this->_info_cuadro_columna[$a]["ancho"] . "'";
 	            }else{

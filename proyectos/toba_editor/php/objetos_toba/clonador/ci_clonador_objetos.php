@@ -43,7 +43,7 @@ class ci_clonador_objetos extends toba_ci
 	{
 		if (isset($clase)) {
 			switch ($clase) {
-				case 'item':
+				case 'toba_item':
 					return toba_info_editores::get_lista_items();
 					break;
 				default:

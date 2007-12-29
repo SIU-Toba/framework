@@ -14,6 +14,11 @@
  */
 class toba_ei_pantalla extends toba_ei
 {
+	const NAVEGACION_TAB_HORIZONTAL		= 'tab_h';
+	const NAVEGACION_TAB_VERTICAL		= 'tab_v';
+	const NAVEGACION_WIZARD				= 'wizard';
+	const NAVEGACION_BASICA				= 'basica';
+	
 	// Navegacion
 	protected $_info_ci = array();
 	protected $_info_ci_me_pantalla = array();
@@ -102,6 +107,16 @@ class toba_ei_pantalla extends toba_ei
 	function set_descripcion($descr)
 	{
 		$this->_info_pantalla["descripcion"] = $descr;
+	}
+	
+	/**
+	 * Cambia el tipo de navegación de la pantalla
+	 *
+	 * @param mixed $tipo Por ejemplo toba_ei_pantalla::NAVEGACION_TAB_VERTICAL
+	 */
+	function set_tipo_navegacion($tipo)
+	{
+		$this->_info_ci['tipo_navegacion'] = $tipo;
 	}
 
 	//------------------------------------------------------
@@ -266,13 +281,13 @@ class toba_ei_pantalla extends toba_ei
 		
 		//-- Agrega los eventos internos relacionados con la navegacion tabs
 		switch($this->_info_ci['tipo_navegacion']) {
-			case "tab_h":
-			case "tab_v":
+			case self::NAVEGACION_TAB_HORIZONTAL:
+			case self::NAVEGACION_TAB_VERTICAL:
 				foreach ($this->_lista_tabs as $id => $tab) {
 					$this->registrar_evento_cambio_tab($id);
 				}
 				break;
-			case "wizard":
+			case self::NAVEGACION_WIZARD:
 				list($anterior, $siguiente) = array_elem_limitrofes(array_keys($this->_lista_tabs),
 																	$this->_info_pantalla['identificador']);
 				if ($anterior !== false) {
@@ -387,7 +402,7 @@ class toba_ei_pantalla extends toba_ei
 	{
 		switch($this->_info_ci['tipo_navegacion'])
 		{
-			case "tab_h":									//*** TABs horizontales
+			case self::NAVEGACION_TAB_HORIZONTAL:									//*** TABs horizontales
 				echo "<table class='tabla-0' width='100%'>\n";
 				//Tabs
 				$estilo = 'background: url("'.toba_recurso::imagen_skin('tabs/bg.gif').'") repeat-x bottom;';
@@ -400,7 +415,7 @@ class toba_ei_pantalla extends toba_ei
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
-			case "tab_v": 									//*** TABs verticales
+			case self::NAVEGACION_TAB_VERTICAL: 									//*** TABs verticales
 				echo "<table class='tabla-0' width='100%'>\n";
 				echo "<tr><td class='ci-tabs-v-lista'>";
 				$this->generar_tabs_verticales();
@@ -410,7 +425,7 @@ class toba_ei_pantalla extends toba_ei
 				echo "</td></tr>\n";
 				echo "</table>\n";
 				break;				
-			case "wizard": 									//*** Wizard (secuencia estricta hacia adelante)
+			case self::NAVEGACION_WIZARD: 									//*** Wizard (secuencia estricta hacia adelante)
 				echo "<table class='tabla-0'>\n";
 				echo "<tr><td class='ci-wiz-toc'>";
 				if ($this->_info_ci['con_toc']) {
