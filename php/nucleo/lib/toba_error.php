@@ -44,10 +44,13 @@ class toba_error_db extends toba_error
 		if (PHP_SAPI != 'cli') {
 			if (($this->get_sqlstate() == 'db_08006') || ($this->get_sqlstate() == 'db_96669')) {
 				$mensaje = "No es posible realizar la conexión a la base.";
-			}else{
-				$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
-				if (!$datos_error || !is_array($datos_error)) {
-					$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
+			} else {
+				$datos_error = array();
+				if (toba_proyecto::hay_instancia()) {	//El error pudo haber surgido desde la misma creacion de la instancia del proyecto (ciclo infinito)
+					$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
+					if (!$datos_error || !is_array($datos_error)) {
+						$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
+					}
 				}
 				if (!is_array($datos_error) || empty($datos_error)) {
 					$mensaje = $info->getMessage();	

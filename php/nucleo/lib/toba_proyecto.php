@@ -53,6 +53,11 @@ class toba_proyecto
 		}
 		return self::$instancia;
 	}
+	
+	static function hay_instancia()
+	{
+		return isset(self::$instancia);
+	}
 
 	static function eliminar_instancia()
 	{
@@ -374,7 +379,7 @@ class toba_proyecto
 	{
 		if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
 			$clase = 'toba_mc_gene__msj_toba';
-			$metodo = 'get__'.$objeto;
+			$metodo = 'get__'.$indice;
 			if ( $this->existe_dato_compilado($clase, $metodo) ) {
 				$rs = $this->recuperar_datos_compilados($clase, $metodo);
 			} else {
