@@ -67,7 +67,7 @@ class ci_principal extends ci_editores_toba
 		return false;
 	}
 	
-	function evt__2__entrada()
+	function conf__2($pantalla)
 	{
 		//--- Armo la lista de DEPENDENCIAS disponibles
 		$this->s__cortes_control = array();
@@ -77,10 +77,7 @@ class ci_principal extends ci_editores_toba
 				$this->s__cortes_control[ $reg['identificador'] ] = $reg['identificador'];
 			}
 		}
-	}
-
-	function conf__2($pantalla)
-	{
+		//--- Configuro la pantalla
 		if( $this->mostrar_columna_detalle() ){
 			$pantalla->eliminar_dep('columnas_importar');
 			$existen_cortes = count($this->s__cortes_control) > 0;
