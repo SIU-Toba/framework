@@ -46,6 +46,9 @@ class toba_db_secuencias
 		$datos['apex_molde_operacion_log_seq'] = array('campo' => 'generacion', 'tabla' => 'apex_molde_operacion_log');
 		$datos['apex_molde_operacion_log_elementos_seq'] = array('campo' => 'id', 'tabla' => 'apex_molde_operacion_log_elementos');
 		$datos['apex_consulta_php_seq'] = array('campo' => 'consulta_php', 'tabla' => 'apex_consulta_php');
+		$datos['apex_dimension_seq'] = array('campo' => 'dimension', 'tabla' => 'apex_dimension');
+		$datos['apex_usuario_perfil_datos_dims_elemento_seq'] = array('campo' => 'elemento', 'tabla' => 'apex_usuario_perfil_datos_dims_elemento');
+		$datos['apex_perfil_funcional_seq'] = array('campo' => 'perfil_funcional', 'tabla' => 'apex_perfil_funcional');
 		return $datos;
 	}
 

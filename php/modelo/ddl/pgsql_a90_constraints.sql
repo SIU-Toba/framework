@@ -9,15 +9,6 @@
 	INITIALLY 
 	IMMEDIATE;
 
-	ALTER TABLE apex_usuario_grupo_acc_item ADD CONSTRAINT	"apex_usu_item_fk_item"	
-	FOREIGN KEY	("proyecto","item") 
-	REFERENCES "apex_item" ("proyecto","item")	
-	ON	DELETE CASCADE 
-	ON UPDATE	CASCADE 
-	DEFERRABLE 
-	INITIALLY 
-	IMMEDIATE;
-
 	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu" 
 	FOREIGN KEY ("menu") 
 	REFERENCES	"apex_menu" ("menu") 
