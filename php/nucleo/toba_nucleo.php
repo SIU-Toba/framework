@@ -390,6 +390,7 @@ class toba_nucleo
 			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
 			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
 			'toba_texto'							=> 'lib/toba_texto.php',
+			'toba_validaciones'						=> 'lib/toba_validaciones.php',
  			//-----------------------------------------------------------------------------------------------
 			//--------- COMPONENTES -------------------------------------------------------------------------
  			//-----------------------------------------------------------------------------------------------
