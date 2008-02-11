@@ -2405,11 +2405,11 @@ class toba_ei_cuadro extends toba_ei
 			$clave = $this->_info_cuadro_columna[$a]["clave"];
 			$estilos[$clave]['estilo'] = $estilo_base;
 			$estilos[$clave]['borrar_estilos_nulos'] = 1;
-		    if (isset($nodo['acumulador'][$clave])){			
+			if (isset($nodo['acumulador'][$clave])){
 				if ($es_total_general) {
 					$rangos = array();
-					foreach ($this->_cortes_control as $nodo) {
-			    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo, $a));
+					foreach ($this->_cortes_control as $nodo_corte) {
+			    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo_corte, $a));
 					}
 			    	$formula = '=SUM'.implode(' + SUM', $rangos);	
 				} else {
