@@ -97,7 +97,7 @@ ef_popup.prototype.constructor = ef_popup;
 	/**
 	 * Cambia las opciones disponibles de selección 
 	 */
-	ef.prototype.set_opciones = function(opciones) {
+	ef_popup.prototype.set_opciones = function(opciones) {
 		if (typeof opciones == 'object') {
 			this.set_estado(opciones[0], opciones[1]);	
 		} else {
@@ -105,6 +105,7 @@ ef_popup.prototype.constructor = ef_popup;
 		}
 		this.activar();
 	};
+	
 		
 	/**
 	 * Cambia el estado actual del elemento

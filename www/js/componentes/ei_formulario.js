@@ -25,6 +25,8 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	this._maestros = maestros;
 	this._esclavos = esclavos;
 	this._invalidos = invalidos;
+	this._estado_inicial = {};
+	this._con_examen_cambios = false;
 }
 
 	/**
@@ -39,10 +41,16 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	ei_formulario.prototype.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
+			if (this._con_examen_cambios) {
+				this._estado_inicial[id_ef] = this._efs[id_ef].get_estado();
+			}
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
 			if (this._invalidos[id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[id_ef]);
 			}
+		}
+		if (this._con_examen_cambios) {
+			this._examinar_cambios();
 		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
@@ -328,8 +336,50 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			ok = this[validacion_particular]() && ok;
 		}
 		this.set_ef_valido(ef, ok, es_online);
+		var estado = this._efs[id_ef].get_estado();
+		if (es_online && this._con_examen_cambios) {
+			this._examinar_cambios(id_ef);
+		}
 		return ok;
 	};
+	
+	ei_formulario.prototype._examinar_cambios = function (ef_actual) {
+		var hay_cambio = false;
+		for (id_ef in this._efs) {
+			if (! in_array(id_ef, this._cambios_excluir_efs)) {
+				if (this._estado_inicial[id_ef] !== this._efs[id_ef].get_estado()) {
+					hay_cambio = true;
+					if (id_ef == ef_actual) {
+						this._efs[id_ef].resaltar_cambio(true);
+					}
+				} else {
+					if (id_ef == ef_actual) {
+						this._efs[id_ef].resaltar_cambio(false);
+					}
+				}
+			}
+		}		
+		if (this.evt__procesar_cambios) {
+			this.evt__procesar_cambios(hay_cambio);
+		}
+	}
+	
+	ei_formulario.prototype.set_procesar_cambios = function(examinar, boton_destino, excluir_efs) {
+		this._con_examen_cambios = examinar;
+		this._cambios_excluir_efs = excluir_efs;
+		if (boton_destino) {
+			this._boton_procesar_cambios = boton_destino;
+			this.evt__procesar_cambios = this._procesar_cambios;	//Se brinda una implementacion por defecto
+		}
+	};
+	
+	ei_formulario.prototype._procesar_cambios = function(existen_cambios) {
+		if (existen_cambios) {
+			this.activar_boton(this._boton_procesar_cambios);
+		} else {
+			this.desactivar_boton(this._boton_procesar_cambios);
+		}
+	}	
 	
 	/**
 	 * Informa que un ef cumple o no una validación especifica. 

@@ -470,6 +470,11 @@ abstract class toba_ef
 	{
         $this->solo_lectura = $solo_lectura;
     }
+    
+    function es_solo_lectura()
+    {
+    	return $this->solo_lectura;
+    }
 	
     /**
      * Cambia la obligatoriedad de un ef

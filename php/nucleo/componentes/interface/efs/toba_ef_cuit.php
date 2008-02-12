@@ -9,8 +9,9 @@
 class toba_ef_cuit extends toba_ef
 {
 	protected $clase_css = 'ef-cuit';
-		
-    static function get_lista_parametros_carga()
+	protected $_desactivar_validacion = false;
+
+	static function get_lista_parametros_carga()
     {
 		return array();
     }
@@ -50,13 +51,18 @@ class toba_ef_cuit extends toba_ef
 		}
 	}
 	
+	function desactivar_validacion($desactivar)
+	{
+		$this->_desactivar_validacion = $desactivar;
+	}	
+	
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();
 		if ($padre !== true) {
 			return $padre;	
 		}		
-		if ($this->estado == '') {
+		if ($this->estado == '' || $this->_desactivar_validacion) {
 			return true;
 		}
 		$cuit_rearmado = $this->estado;
@@ -120,7 +126,8 @@ class toba_ef_cuit extends toba_ef
 	
 	function crear_objeto_js()
 	{
-		return "new ef_cuit({$this->parametros_js()})";
+		$desactivar_validacion = $this->_desactivar_validacion ? '1' : '0';
+		return "new ef_cuit({$this->parametros_js()}, $desactivar_validacion)";
 	}
 		
 	function get_consumo_javascript()

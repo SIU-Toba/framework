@@ -1,6 +1,7 @@
 
 //--- Creacion dinamica del div de error
 var html = "<img id='ef_warning' src='" + toba.imagen('error') + "' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
+html += "<img id='ef_cambio' src='" + toba.imagen('cambio') + "' style='left: 0px;margin: 0px 0px 0px 0px; display:none; position: absolute;'>";
 if (pagina_cargada) {
 	document.body.innerHTML += html;
 } else {
@@ -97,7 +98,11 @@ ef.prototype.constructor = ef;
 	 * @type <a href=http://developer.mozilla.org/en/docs/DOM:element>element</a>	 
 	 */
 	ef.prototype.nodo = function() {
-		return document.getElementById('nodo_' + this._id_form);			
+		var nodo = document.getElementById('nodo_' + this._id_form);			
+		if (! nodo) {
+			nodo = this.get_contenedor();
+		}
+		return nodo;
 	};	
 
 	/**
@@ -106,7 +111,7 @@ ef.prototype.constructor = ef;
 	 * @see #nodo 
 	 */
 	ef.prototype.get_contenedor = function() {
-		var cont = document.getElementById('cont_' + this._id_form);		
+		var cont = document.getElementById('cont_' + this._id_form);	
 		if (! cont) {
 			var input = this.input();
 			if (input) {
@@ -160,6 +165,8 @@ ef.prototype.constructor = ef;
 				//--- Relaja la validacion si es oculto o esta solo_lectura
 				if (this.es_oculto() || this._solo_lectura) {
 					this._obligatorio = false;
+				} else {
+					this._obligatorio = true;
 				}
 			}
 		}
@@ -256,6 +263,17 @@ ef.prototype.constructor = ef;
 			window.status = '';
 		}
 	};
+	
+	ef.prototype.resaltar_cambio = function(hay_cambio) {
+		var contenedor = this.nodo();
+		if (contenedor) {
+			if (hay_cambio) {
+				agregar_clase_css(contenedor, 'ef-con-cambio');
+			} else {
+				quitar_clase_css(contenedor, 'ef-con-cambio');
+			}
+		}
+	};	
 
 	
 	/**

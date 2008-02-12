@@ -24,14 +24,15 @@ class toba_ei_formulario extends toba_ei
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $_objeto_js;	
 	protected $_ancho_etiqueta = '150px';
+	protected $_ancho_etiqueta_temp;		//Ancho de la etiqueta anterior a un cambio de la misma
 	protected $_efs_invalidos = array();
 	protected $_info_formulario = array();
 	protected $_info_formulario_ef = array();
 	protected $_js_eliminar;
 	protected $_js_agregar;
 	protected $_lista_efs_servicio;
-	//Salida
 	protected $_clase_formateo = 'toba_formateo';
+	protected $_detectar_cambios;			//La clase en javascript escucha si algun ef cambio y habilita/deshabilita el boton por defecto
 	
 	protected $_eventos_ext = null;			// Eventos seteados desde afuera
 	protected $_observadores;
@@ -151,25 +152,37 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->set_grupo_eventos_activo('no_cargado');
 	}
-
-	/*
-	*	Setea el tamaño minimo para la etiqueta del ef. El tamaño debe incluir la medida utilizada.
-	*	@param string $ancho Tamaño de la etiqueta ej: '150px'
-	*/
-	function set_ancho_etiqueta($ancho)
-	{
-		$this->_ancho_etiqueta = $ancho;
-	}
 	
 	/**
 	 * Cambia el ancho total del formulario
-	 *	@param string $ancho Tamaño de la etiqueta ej: '150px'
+	 *	@param string $ancho Tamaño del formulario ej: '600px'
 	 */
 	function set_ancho($ancho)
 	{
 		$this->_info_formulario["ancho"] = $ancho;
 	}
+		
+
+	/*
+	*	Setea el tamaño minimo para la etiqueta del ef. El tamaño debe incluir la medida utilizada.
+	*	@param string $ancho Tamaño de la etiqueta ej: '150px'
+	*	@see restaurar_ancho_etiqueta
+	*/
+	function set_ancho_etiqueta($ancho)
+	{
+		$this->_ancho_etiqueta_temp = $this->_ancho_etiqueta;
+		$this->_ancho_etiqueta = $ancho;
+	}
 	
+
+	/**
+	 * Restaura el valor previo a un cambio del ancho de la etiqueta
+	 * @see set_ancho_etiqueta
+	 */
+	protected function restaurar_ancho_etiqueta()
+	{
+		$this->_ancho_etiqueta = $this->_ancho_etiqueta_temp;
+	}
 	
 	//-------------------------------------------------------------------------------
 	//--------------------------------	EVENTOS  -----------------------------------
@@ -189,6 +202,9 @@ class toba_ei_formulario extends toba_ei
 				if (isset($this->_memoria['efs'][$id_ef]['obligatorio'])) {
 					$this->_elemento_formulario[$id_ef]->set_obligatorio($this->_memoria['efs'][$id_ef]['obligatorio']);
 				}
+				if (isset($this->_memoria['efs'][$id_ef]['desactivar_validacion'])) {
+					$this->_elemento_formulario[$id_ef]->desactivar_validacion($this->_memoria['efs'][$id_ef]['desactivar_validacion']);
+				}
 			}
 		}
 	}
@@ -205,6 +221,9 @@ class toba_ei_formulario extends toba_ei
 				$id_ef = $def_ef['identificador'];
 				if (isset($this->_memoria['efs'][$id_ef])) {
 					$this->_elemento_formulario[$id_ef]->set_obligatorio($def_ef['obligatorio']);
+					if (isset($this->_memoria['efs'][$id_ef]['desactivar_validacion'])) {
+						$this->_elemento_formulario[$id_ef]->desactivar_validacion(false);
+					}				
 				}
 			}
 			unset($this->_memoria['efs']);
@@ -305,6 +324,16 @@ class toba_ei_formulario extends toba_ei
 	{
 		$this->_info_formulario['expandir_descripcion'] = $mostrar;
 	}
+	
+	/**
+	 * Detecta los cambios producidos en los distintos campos en el cliente, cambia los estilos de los mismos y habilita-deshabilita el botón por defecto
+	 * en caso de que se hallan producido cambios
+	 */
+	function set_detectar_cambios($detectar = true)
+	{
+		$this->_detectar_cambios = $detectar;
+	}
+	
 	
 	/**
 	 * Borra los datos actuales y resetea el estado de los efs
@@ -412,6 +441,21 @@ class toba_ei_formulario extends toba_ei
 			} else {
 				throw new toba_error("El ef '$ef' no existe");
 			}
+		}
+	}
+	
+	
+	/**
+	 * Desactiva la validación particular de un ef tanto en php como en javascript
+	 * Este estado perdura durante una interacción
+	 */
+	function desactivar_validacion_ef($ef) 
+	{
+		if (isset($this->_elemento_formulario[$ef])) {
+			$this->_elemento_formulario[$ef]->desactivar_validacion(true);
+			$this->_memoria['efs'][$ef]['desactivar_validacion'] = 1;		
+		} else {
+			throw new toba_error("El ef '$ef' no existe");			
 		}
 	}
 	
@@ -1069,6 +1113,20 @@ class toba_ei_formulario extends toba_ei
 		echo $identado."window.{$this->objeto_js} = new ei_formulario($id, '{$this->objeto_js}', $rango_tabs, '{$this->_submit}', $maestros, $esclavos, $invalidos);\n";
 		foreach ($this->_lista_ef_post as $ef) {
 			echo $identado."{$this->objeto_js}.agregar_ef({$this->_elemento_formulario[$ef]->crear_objeto_js()}, '$ef');\n";
+		}
+		if ($this->_detectar_cambios) {
+			foreach (array_keys($this->_eventos_usuario_utilizados) as $id_evento) {
+				if ($this->evento($id_evento)->es_predeterminado()) {
+					$excluidos = array();
+					foreach ($this->_lista_ef_post as $ef) {
+						if ($this->ef($ef)->es_solo_lectura()) {
+							$excluidos[] = $ef;
+						}
+					}					
+					$excluidos = toba_js::arreglo($excluidos);
+					echo $identado."{$this->objeto_js}.set_procesar_cambios(true, '$id_evento', $excluidos);\n";					
+				}
+			}
 		}
 	}
 

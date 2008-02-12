@@ -6,8 +6,9 @@ ef_cuit.prototype.constructor = ef_cuit;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_cuit toba_ef_cuit
 	 */
-	function ef_cuit(id_form, etiqueta, obligatorio, colapsado) {
+	function ef_cuit(id_form, etiqueta, obligatorio, colapsado, desactivar_validacion) {
 		ef.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado);
+		this._desactivar_validacion = desactivar_validacion;
 	}
 
 	ef_cuit.prototype.input = function(posicion) {
@@ -24,7 +25,7 @@ ef_cuit.prototype.constructor = ef_cuit;
 			this._error = ' tiene que ser numérico.';
 		    return false;
 		}
-		if (valor !== '' && ! es_cuit(valor)) {
+		if (valor !== '' && ! this._desactivar_validacion && ! es_cuit(valor)) {
 			this._error = ' no es una clave válida.';
 		    return false;			
 		}
@@ -90,9 +91,7 @@ function es_cuit(nro) {
 	}
 	
 	while (true) {
-		suma = (pos[0] * 5 + pos[1] * 4 + pos[2] * 3 +
-			pos[3] * 2 + pos[4] * 7 + pos[5] * 6 +
-			pos[6] * 5 + pos[7] * 4 + pos[8] * 3 + pos[9] * 2);
+		suma = (pos[0] * 5 + pos[1] * 4 + pos[2] * 3 +	pos[3] * 2 + pos[4] * 7 + pos[5] * 6 +	pos[6] * 5 + pos[7] * 4 + pos[8] * 3 + pos[9] * 2);
 		resto = suma % 11;
 		if (resto === 0) {
 			verif = 0;

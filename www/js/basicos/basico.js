@@ -365,6 +365,32 @@ function getElementsByClass(searchClass,node,tag) {
 	return classElements;
 }
 
+function reemplazar_clase_css(nodo, vieja, nueva) {
+	if (nodo.className.indexOf(vieja)>0) {
+		nodo.className = nodo.className.replace(vieja, nueva); 
+	} else { 
+		if (nodo.className.indexOf(nueva)<0) {
+			nodo.className += ' ' + nueva;
+		}
+	}		
+}
+
+function agregar_clase_css(nodo, clase) {
+	if (nodo.className.indexOf(clase) == -1) {
+		nodo.className += ' ' + clase;
+	}
+}
+
+function quitar_clase_css(nodo, clase) {
+	if (nodo.className.indexOf(clase) != -1) {
+		if (nodo.className.length == clase.length) {
+			nodo.className = '';
+		} else {
+			nodo.className = nodo.className.replace(clase, '');
+		}
+	}
+}
+
 function $() {
 	var elements = [];
 	for (var i = 0; i < arguments.length; i++) {

@@ -18,6 +18,7 @@ class toba_ef_popup extends toba_ef_editable
 	protected $vinculo;
 	protected $id_vinculo;
 	protected $clase_css = 'ef-popup';
+	protected $no_oblig_puede_borrar = false;
 
     static function get_lista_parametros_carga()
     {
@@ -119,6 +120,12 @@ class toba_ef_popup extends toba_ef_editable
 		$this->descripcion_estado = $descripcion;		
 	}
 	
+	function set_puede_borrar_estado($puede=true) 
+	{
+		$this->no_oblig_puede_borrar = $puede;
+	}
+	
+	
 	function get_input()
 	{
 		$tab = $this->padre->get_tab_index();
@@ -147,8 +154,14 @@ class toba_ef_popup extends toba_ef_editable
 			$r .= "<a id='{$this->id_form}_vinculo' style='$display' $extra";
 			$r .= " onclick=\"{$this->objeto_js()}.abrir_vinculo();\"";
 	        $r .= " href='#'>".toba_recurso::imagen_toba('editar.gif',true,16,16,"Seleccionar un elemento")."</a>";
-	        $r .= "</span>\n";
 		}
+		if ($this->no_oblig_puede_borrar) {
+			$display = ($this->solo_lectura) ? "visibility:hidden" : "";
+			$r .= "<a id='{$this->id_form}_borrar' style='$display' $extra";
+			$r .= " onclick=\"{$this->objeto_js()}.set_estado(null, null);\"";
+	        $r .= " href='#'>".toba_recurso::imagen_toba('limpiar.png',true,null,null,"Limpia la selección actual")."</a>";
+		}		
+		$r .= "</span>\n";
 		return $r;
 	}
     

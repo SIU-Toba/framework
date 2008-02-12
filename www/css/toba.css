@@ -357,7 +357,9 @@ padding-left:4px;
 	margin-bottom: 5px;
 	margin-left: 4px;
 }
-
+.ef-popup a {
+	margin-right:5px;
+}
 
 /*************************
 		EI - CUADRO

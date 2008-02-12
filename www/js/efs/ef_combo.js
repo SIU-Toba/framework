@@ -278,6 +278,15 @@ ef_radio.prototype.constructor = ef_radio;
 			elem[0].tabIndex = tab_index;
 		}
 	};
+	
+	ef_radio.prototype.get_contenedor = function() {
+		var cont = document.getElementById('cont_' + this._id_form);	
+		if (! cont) {
+			return this.get_contenedor_opciones();
+		}
+		return cont;
+	};
+	
 
 
 	
