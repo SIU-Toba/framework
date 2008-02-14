@@ -31,6 +31,13 @@ class toba_db_postgres7 extends toba_db
 		$datos = $this->consultar($sql);
 		return $datos[0]['seq'];
 	}
+
+	function recuperar_nuevo_valor_secuencia($secuencia)
+	{
+		$sql = "SELECT nextval('$secuencia') as seq;";
+		$datos = $this->consultar($sql);
+		return $datos[0]['seq'];
+	}
 		
 	function retrazar_constraints()
 	{

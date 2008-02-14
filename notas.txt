@@ -1,0 +1,23 @@
+
+--- GENERAL ---------------------------------
+
+	* Exportacion de PERFILES
+		- No es a INSERTS sino a datos
+			- Carga alternativa de datos de la implementacion o del proyecto
+			- Es posible que haya que evitar cargar registros (elementos eliminados)
+
+--- Restriccion funcional -------------------
+
+	* Cosas que no se pueden desactivar:
+		- El primer CI de la jerarquia (el que esta asociado al item)
+		- Los EFs que estan marcado como obligatorios y no se pueden relajar
+		- Las columnas que forman parte de los cortes de control
+	* Carga, aplicacion (y compilacion?)
+		
+--- Dimensiones -----------------------------
+
+	* Dimensiones
+		- Editor de dimensiones
+		- Administracion de la estructura del modelo de datos
+		- Editor de perfiles
+	* Carga, aplicacion y complilacion
