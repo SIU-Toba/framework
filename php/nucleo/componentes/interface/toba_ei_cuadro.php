@@ -1664,30 +1664,33 @@ class toba_ei_cuadro extends toba_ei
 			}		
 			echo "</tr>\n";
 		}
-		echo "<tr class='ei-cuadro-totales'>\n";
-		for ($a=0;$a<$this->_cantidad_columnas;$a++){
-			$clave = $this->_info_cuadro_columna[$a]["clave"];
-			//Defino el valor de la columna
-		    if(isset($totales[$clave])){
-				$valor = $totales[$clave];
-				if(!isset($estilo)){
-					$estilo = $this->_info_cuadro_columna[$a]["estilo"];
+
+		if ($totales !== null){ 				
+			echo "<tr class='ei-cuadro-totales'>\n";
+			for ($a=0;$a<$this->_cantidad_columnas;$a++){
+				$clave = $this->_info_cuadro_columna[$a]["clave"];
+				//Defino el valor de la columna
+			    if(isset($totales[$clave])){
+					$valor = $totales[$clave];
+					if(!isset($estilo)){
+						$estilo = $this->_info_cuadro_columna[$a]["estilo"];
+					}
+					//La columna lleva un formateo?
+					if(isset($this->_info_cuadro_columna[$a]["formateo"])){
+						$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+						$valor = $formateo->$metodo($valor);
+					}
+					echo "<td class='ei-cuadro-total $estilo'><strong>$valor</strong></td>\n";
+				}else{
+					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
-				//La columna lleva un formateo?
-				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
-					$valor = $formateo->$metodo($valor);
-				}
-				echo "<td class='ei-cuadro-total $estilo'><strong>$valor</strong></td>\n";
-			}else{
-				echo "<td $clase_linea>&nbsp;</td>\n";
 			}
-		}
-        //-- Eventos sobre fila
-		if($this->_cantidad_columnas_extra > 0){
-			echo "<td colspan='$this->_cantidad_columnas_extra'>&nbsp;</td>\n";
-		}		
-		echo "</tr>\n";
+	        //-- Eventos sobre fila
+			if($this->_cantidad_columnas_extra > 0){
+				echo "<td colspan='$this->_cantidad_columnas_extra'>&nbsp;</td>\n";
+			}		
+			echo "</tr>\n";
+		}//if totales
 	}
 
 	//-------------------------------------------------------------------------------
