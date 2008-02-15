@@ -26,7 +26,12 @@ var supported = /MSIE ((5\.5)|[6789])/.test(navigator.userAgent) &&
 				navigator.platform == "Win32";
 
 var realSrc;
-var blankSrc = toba_alias + "/img/nulo.gif";
+var blankSrc;
+if (typeof toba_alias == 'undefined') {
+	blankSrc = '';
+} else {
+	blankSrc = toba_alias + "/img/nulo.gif";
+}
 var isPrinting = false;
 
 if (supported) fixImage();
