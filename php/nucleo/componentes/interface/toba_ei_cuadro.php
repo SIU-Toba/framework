@@ -1331,7 +1331,7 @@ class toba_ei_cuadro extends toba_ei
 			//----- Contar Filas
 			if($this->_cortes_indice[$nodo['corte']]['pie_contar_filas']){
 				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
-				echo "<em>" . $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']) . "<em>";
+				echo $this->etiqueta_cantidad_filas($nodo['profundidad']) . count($nodo['filas']);
 				echo "</td></tr>\n";
 			}
 			//----- Contenido del usuario al final del PIE
