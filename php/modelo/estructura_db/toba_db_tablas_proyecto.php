@@ -25,9 +25,9 @@ class toba_db_tablas_proyecto
   17 => 'apex_nota',
   18 => 'apex_item_nota',
   19 => 'apex_objeto_nota',
-  20 => 'apex_molde_opciones_generacion',
-  21 => 'apex_permiso',
-  22 => 'apex_dimension',
+  20 => 'apex_dimension',
+  21 => 'apex_molde_opciones_generacion',
+  22 => 'apex_permiso',
   23 => 'apex_usuario_perfil_datos',
   24 => 'apex_usuario_perfil_datos_dims',
   25 => 'apex_usuario_perfil_datos_dims_elemento',
@@ -35,6 +35,8 @@ class toba_db_tablas_proyecto
   27 => 'apex_perfil_funcional_ef',
   28 => 'apex_perfil_funcional_pantalla',
   29 => 'apex_perfil_funcional_evt',
+  30 => 'apex_perfil_funcional_ei',
+  31 => 'apex_perfil_funcional_cols',
 );
 	}
 
@@ -591,6 +593,35 @@ class toba_db_tablas_proyecto
 );
 	}
 
+	static function apex_dimension()
+	{
+		return array (
+  'archivo' => 'pgsql_a06_tablas_dimensiones.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'dimension',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'dimension',
+    2 => 'nombre',
+    3 => 'descripcion',
+    4 => 'schema',
+    5 => 'tabla',
+    6 => 'col_id',
+    7 => 'col_desc',
+    8 => 'col_desc_separador',
+    9 => 'multitabla_col_tabla',
+    10 => 'multitabla_id_tabla',
+    11 => 'subclase',
+    12 => 'subclase_archivo',
+  ),
+);
+	}
+
 	static function apex_molde_opciones_generacion()
 	{
 		return array (
@@ -628,102 +659,6 @@ class toba_db_tablas_proyecto
     2 => 'nombre',
     3 => 'descripcion',
     4 => 'mensaje_particular',
-  ),
-);
-	}
-
-	static function apex_usuario_grupo_acc()
-	{
-		return array (
-  'archivo' => 'pgsql_a60_tablas_perfil_acceso.sql',
-  'proyecto' => 'toba',
-  'dump' => 'permisos',
-  'dump_order_by' => 'usuario_grupo_acc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'nombre',
-    3 => 'nivel_acceso',
-    4 => 'descripcion',
-    5 => 'vencimiento',
-    6 => 'dias',
-    7 => 'hora_entrada',
-    8 => 'hora_salida',
-    9 => 'listar',
-  ),
-);
-	}
-
-	static function apex_usuario_grupo_acc_item()
-	{
-		return array (
-  'archivo' => 'pgsql_a60_tablas_perfil_acceso.sql',
-  'proyecto' => 'toba',
-  'dump' => 'permisos',
-  'dump_order_by' => 'usuario_grupo_acc, item',
-  'zona' => 'usuario, item',
-  'desc' => '',
-  'columna_grupo_desarrollo' => 'item',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'item_id',
-    3 => 'item',
-  ),
-);
-	}
-
-	static function apex_permiso_grupo_acc()
-	{
-		return array (
-  'archivo' => 'pgsql_a60_tablas_perfil_acceso.sql',
-  'proyecto' => 'toba',
-  'dump' => 'permisos',
-  'dump_order_by' => 'permiso, usuario_grupo_acc',
-  'zona' => 'usuario',
-  'desc' => '',
-  'columna_grupo_desarrollo' => 'permiso',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_grupo_acc',
-    2 => 'permiso',
-  ),
-);
-	}
-
-	static function apex_dimension()
-	{
-		return array (
-  'archivo' => 'pgsql_a60_tablas_perfil_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'dimension',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'dimension',
-    2 => 'nombre',
-    3 => 'descripcion',
-    4 => 'schema',
-    5 => 'tabla',
-    6 => 'col_id',
-    7 => 'col_desc',
-    8 => 'col_desc_separador',
-    9 => 'multitabla_col_tabla',
-    10 => 'multitabla_id_tabla',
-    11 => 'subclase',
-    12 => 'subclase_archivo',
   ),
 );
 	}
@@ -789,6 +724,73 @@ class toba_db_tablas_proyecto
 );
 	}
 
+	static function apex_usuario_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'nombre',
+    3 => 'nivel_acceso',
+    4 => 'descripcion',
+    5 => 'vencimiento',
+    6 => 'dias',
+    7 => 'hora_entrada',
+    8 => 'hora_salida',
+    9 => 'listar',
+  ),
+);
+	}
+
+	static function apex_usuario_grupo_acc_item()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'usuario_grupo_acc, item',
+  'zona' => 'usuario, item',
+  'desc' => '',
+  'columna_grupo_desarrollo' => 'item',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'item_id',
+    3 => 'item',
+  ),
+);
+	}
+
+	static function apex_permiso_grupo_acc()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'permiso, usuario_grupo_acc',
+  'zona' => 'usuario',
+  'desc' => '',
+  'columna_grupo_desarrollo' => 'permiso',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'permiso',
+  ),
+);
+	}
+
 	static function apex_perfil_funcional()
 	{
 		return array (
@@ -803,8 +805,7 @@ class toba_db_tablas_proyecto
   array (
     0 => 'proyecto',
     1 => 'perfil_funcional',
-    2 => 'item',
-    3 => 'descripcion',
+    2 => 'descripcion',
   ),
 );
 	}
@@ -823,10 +824,11 @@ class toba_db_tablas_proyecto
   array (
     0 => 'proyecto',
     1 => 'perfil_funcional',
-    2 => 'objeto_ei_formulario_fila',
-    3 => 'objeto_ei_formulario',
-    4 => 'no_visible',
-    5 => 'no_editable',
+    2 => 'item',
+    3 => 'objeto_ei_formulario_fila',
+    4 => 'objeto_ei_formulario',
+    5 => 'no_visible',
+    6 => 'no_editable',
   ),
 );
 	}
@@ -845,9 +847,10 @@ class toba_db_tablas_proyecto
   array (
     0 => 'proyecto',
     1 => 'perfil_funcional',
-    2 => 'pantalla',
-    3 => 'objeto_ci',
-    4 => 'no_visible',
+    2 => 'item',
+    3 => 'pantalla',
+    4 => 'objeto_ci',
+    5 => 'no_visible',
   ),
 );
 	}
@@ -866,8 +869,52 @@ class toba_db_tablas_proyecto
   array (
     0 => 'proyecto',
     1 => 'perfil_funcional',
-    2 => 'evento_id',
-    3 => 'no_visible',
+    2 => 'item',
+    3 => 'evento_id',
+    4 => 'no_visible',
+  ),
+);
+	}
+
+	static function apex_perfil_funcional_ei()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'perfil_funcional, objeto',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'perfil_funcional',
+    2 => 'item',
+    3 => 'objeto',
+    4 => 'no_visible',
+  ),
+);
+	}
+
+	static function apex_perfil_funcional_cols()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'perfil_funcional, objeto_cuadro_col',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'perfil_funcional',
+    2 => 'item',
+    3 => 'objeto_cuadro',
+    4 => 'objeto_cuadro_col',
+    5 => 'no_visible',
   ),
 );
 	}

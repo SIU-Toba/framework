@@ -440,7 +440,7 @@ class toba_db_tablas_instancia
 	static function apex_usuario_proyecto()
 	{
 		return array (
-  'archivo' => 'pgsql_a70_tablas_perfil_usuario.sql',
+  'archivo' => 'pgsql_a70_tablas_relacion_usuario_perfil.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
   'dump_order_by' => 'usuario',
