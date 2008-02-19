@@ -286,7 +286,7 @@ class toba_item_info implements toba_nodo_arbol
 			if ($this->datos['basica']['item_imagen_recurso_origen'] == 'apex') {
 				$img_item = toba_recurso::imagen_toba($this->datos['basica']['item_imagen']);	
 			} else {
-				$img_item = toba_recurso::url_proyecto(toba_editor::get_proyecto_cargado()).'/img/'.
+				$img_item = toba_recurso::url_proyecto($this->datos['basica']['item_proyecto']).'/img/'.
 								$this->datos['basica']['item_imagen'];
 			}
 		}
@@ -297,7 +297,7 @@ class toba_item_info implements toba_nodo_arbol
 				);
 		} else {
 			$iconos[] = array(
-				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_proyecto("item.gif", false),
+				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("item.gif", false),
 				'ayuda' => "Una [wiki:Referencia/Operacion Operación] representa la unidad accesible por el usuario.",
 				);
 				
