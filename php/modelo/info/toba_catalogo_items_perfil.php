@@ -12,9 +12,9 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 		if (! isset($id_item_inicial)) { 
 			$id_item_inicial = '__raiz__';	
 		}
-		$en_profundidad = false; //$this->debe_cargar_en_profundidad($id_item_inicial, $opciones);
+		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial, $opciones);
 		$filtro_items = "";		
-		if (false){ //!$this->debe_cargar_todo($opciones) || $en_profundidad) {
+		if (!$this->debe_cargar_todo($opciones) || $en_profundidad) {
 			//--- Se dejan solo los items del primer nivel, excepto que este en las excepciones
 			if (isset($id_item_inicial)) {
 				$filtro_padre = "(i.padre = '$id_item_inicial' OR i.item= '$id_item_inicial')";
@@ -57,12 +57,10 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 				$id['componente'] = $fila['item'];
 				$id['proyecto'] = $fila['item_proyecto'];
 				$datos = array('basica' => $fila);
-				if ($en_profundidad) {
-					$info = toba_constructor::get_info($id, 'toba_item', true, null, true, true);
-				} else {
-					$info = toba_constructor::get_info($id, 'toba_item', false, $datos);
-				}
-				$this->items[$fila['item']] = $info;
+				
+				$obj = new toba_item_perfil( $datos, $en_profundidad);
+				
+				$this->items[$fila['item']] = $obj;
 			}
 			$this->carpeta_inicial = $id_item_inicial;
 			$this->mensaje = "";
@@ -70,6 +68,7 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 			$this->filtrar($opciones);
 		}
 	}
+	
 }
 
 ?>

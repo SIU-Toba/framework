@@ -39,6 +39,34 @@ class toba_catalogo_items_base
 	
 	function cargar(){}
 	
+	protected function debe_cargar_en_profundidad($id_item, $opciones)
+	{
+		if (isset($opciones['sin_componentes'])) {
+			return false;
+		}
+		$sql = "SELECT carpeta FROM apex_item i WHERE 
+					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
+		$rs = toba_contexto_info::get_db()->consultar($sql);
+		if (!empty($rs)) {
+			return $rs[0]['carpeta'] == 0;
+		} else {
+			return false;
+		}	
+	}
+	
+	function debe_cargar_todo($opciones)
+	{
+		return $this->cargar_todo || (isset($opciones['id']) && $opciones['id'] != '') ||
+				(isset($opciones['nombre']) && $opciones['nombre'] != '') ||
+				isset($opciones['inaccesibles']) ||
+				isset($opciones['sin_objetos']) ||
+				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
+				isset($opciones['menu']) || 
+				isset($opciones['tipo_solicitud']) ||
+				isset($opciones['zona']) ||
+				isset($opciones['asistente']);
+	}
+	
 	function buscar_carpeta_inicial()
 	{
 		foreach ($this->items as $item) {

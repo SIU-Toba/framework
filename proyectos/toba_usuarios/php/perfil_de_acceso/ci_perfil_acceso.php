@@ -7,6 +7,12 @@ class ci_perfil_acceso extends toba_ci
 
 	function ini()
 	{
+		/**
+		 * Aca hay que ver la manera en que se le va a pasar el proyecto que se esta editando.
+		 * Quizas modificando toba_editor::get_proyecto_cargado.
+		 * @todo 
+		 */
+		
 		$this->catalogador = new toba_catalogo_items_perfil('toba_referencia');		
 	}
 
@@ -93,7 +99,6 @@ class ci_perfil_acceso extends toba_ci
 	//
 	function conf__arbol_perfiles(toba_ei_arbol $arbol)
 	{
-		$arbol->set_mostrar_utilerias(false);
 		if (isset($this->s__opciones['inicial'])) {
 			return $this->get_nodo_raiz($this->s__opciones['inicial']);
 		} else {

@@ -36,14 +36,14 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --contexto_ejecucion_subclase_archivo
 	NULL, --usuario_subclase
 	NULL, --usuario_subclase_archivo
-	NULL, --encriptar_qs
-	NULL, --registrar_solicitud
+	'0', --encriptar_qs
+	'0', --registrar_solicitud
 	NULL, --registrar_cronometro
 	'/inicio', --item_inicio_sesion
 	'Array', --item_pre_sesion
 	NULL, --item_set_sesion
-	NULL, --log_archivo
-	NULL, --log_archivo_nivel
+	'1', --log_archivo
+	'7', --log_archivo_nivel
 	'toba_usuarios', --fuente_datos
 	NULL, --pagina_tipo
 	NULL, --version

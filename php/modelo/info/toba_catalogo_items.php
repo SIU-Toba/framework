@@ -91,21 +91,6 @@ class toba_catalogo_items extends toba_catalogo_items_base
 				isset($opciones['asistente']);
 	}
 	
-	protected function debe_cargar_en_profundidad($id_item, $opciones)
-	{
-		if (isset($opciones['sin_componentes'])) {
-			return false;
-		}
-		$sql = "SELECT carpeta FROM apex_item i WHERE 
-					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
-		$rs = toba_contexto_info::get_db()->consultar($sql);
-		if (!empty($rs)) {
-			return $rs[0]['carpeta'] == 0;
-		} else {
-			return false;
-		}	
-	}
-	
 	//------------------------------------TRABAJOS sobre el arbol --------------------------------------------------------			
 
 	/**

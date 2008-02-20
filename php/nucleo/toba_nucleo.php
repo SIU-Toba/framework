@@ -402,6 +402,8 @@ class toba_nucleo
 			'toba_ei'								=> 'nucleo/componentes/interface/toba_ei.php',
 			'toba_ei_def'							=> 'nucleo/componentes/definicion/toba_ei_def.php',
 			'toba_ei_info'							=> 'modelo/info/componentes/toba_ei_info.php',
+			//- Perfiles -
+			'toba_item_perfil'						=> 'modelo/info/componentes_perfil/toba_item_perfil.php',
 			//- CI -
 			'toba_ci'								=> 'nucleo/componentes/interface/toba_ci.php',
 			'toba_ci_def'							=> 'nucleo/componentes/definicion/toba_ci_def.php',
