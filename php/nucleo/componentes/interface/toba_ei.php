@@ -122,6 +122,21 @@ abstract class toba_ei extends toba_componente
 	}
 
 	/**
+	 * Verifica si un evento esta definido en la lista de eventos a utilizar en el servicio actual
+	 */
+	function existe_evento($id)
+	{
+		$existe = false;
+		if (isset($this->_eventos_usuario[ $id ])){							//Si existe el evento
+			if (isset($this->_eventos_usuario_utilizados[ $id ])){			//Si esta entre los que se usaran en esta pantalla.
+				$existe = true;
+			}//if
+		}//if
+		
+		return $existe;
+	}
+
+	/**
 	 * Elimina un evento definido de la lista de eventos a utilizar en el servicio actual
 	 */
 	function eliminar_evento($id)
