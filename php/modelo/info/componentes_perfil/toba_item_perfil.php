@@ -260,6 +260,11 @@ class toba_item_perfil extends toba_nodo_basico
 		}
 		return $iconos;
 	}
+	
+	function get_inputs()
+	{
+		return toba_form::checkbox('','','');
+	}
 
 }
 

@@ -99,6 +99,7 @@ class ci_perfil_acceso extends toba_ci
 	//
 	function conf__arbol_perfiles(toba_ei_arbol $arbol)
 	{
+		$arbol->set_mostrar_utilerias(false);
 		if (isset($this->s__opciones['inicial'])) {
 			return $this->get_nodo_raiz($this->s__opciones['inicial']);
 		} else {

@@ -709,6 +709,7 @@ a.ci-tabs-boton-desact:hover {
 	text-decoration: underline;
 }
 .ei-arbol-nodo {
+	border-top: 1px dotted #BBBBBB;
 	vertical-align: middle;
 	clear: right;
 }
