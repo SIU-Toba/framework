@@ -1,9 +1,11 @@
 <?php 
+require_once('lib/consultas_instancia.php');
+
 class ci_perfil_acceso extends toba_ci
 {
-	//-----------------------------------------------------------------------------------
-	//---- Inicializacion ---------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
+	protected $s__catalogador;
+	protected $s__proyecto;
+	protected $s__grupo_acceso;
 
 	function ini()
 	{
@@ -12,28 +14,17 @@ class ci_perfil_acceso extends toba_ci
 		 * Quizas modificando toba_editor::get_proyecto_cargado.
 		 * @todo 
 		 */
-		
-		$this->catalogador = new toba_catalogo_items_perfil('toba_referencia');		
-	}
-
-	function ini__operacion()
-	{
-	}
-
-	//-----------------------------------------------------------------------------------
-	//---- Config. ----------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf()
-	{
-	}
-
-	//---- Configuracion de Pantallas ---------------------------------------------------
-
-	function conf__pant_perfil_acceso($pantalla)
-	{
 	}
 	
+	 function evt__grupos_acceso__seleccion($seleccion)
+	 {
+	 	$this->s__grupo_acceso = $seleccion['usuario_grupo_acc'];
+	 	$this->s__proyecto = $seleccion['proyecto'];
+	 	$this->s__catalogador = new toba_catalogo_items_perfil($this->s__proyecto);		
+	 	$this->s__catalogador->set_grupo_acceso($this->s__grupo_acceso);
+	 	$this->set_pantalla('edicion_acceso');
+	 }
+
 	//-------------------------------
 	//---- Listado de items ----
 	//-------------------------------
@@ -53,7 +44,8 @@ class ci_perfil_acceso extends toba_ci
 		}
 
 		$opciones = isset($this->s__opciones) ? $this->s__opciones : array();
-		$this->catalogador->cargar($opciones, $inicial, $excepciones);
+		
+		$this->s__catalogador->cargar($opciones, $inicial, $excepciones);
 		
 		//$this->dependencia('arbol_perfiles')->set_frame_destino(apex_frame_centro);
 
@@ -65,7 +57,7 @@ class ci_perfil_acceso extends toba_ci
 			}
 		}
 		
-		$nodo = $this->catalogador->buscar_carpeta_inicial();
+		$nodo = $this->s__catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
 			$nodo->cargar_rama();
 			//--- Cuando es un item directo y no una carpeta se aumenta la apertura
@@ -106,6 +98,18 @@ class ci_perfil_acceso extends toba_ci
 			return $this->get_nodo_raiz();	
 		}
 	}
+	
+	function conf__grupos_acceso($cuadro)
+	{
+		return consultas_instancia::get_lista_grupos_acceso_proyecto();
+	}
+	
+	function evt__volver()
+	{
+		unset($this->s__catalogador);
+		$this->set_pantalla('seleccion_acceso');
+	}
+	
 }
 
 ?>

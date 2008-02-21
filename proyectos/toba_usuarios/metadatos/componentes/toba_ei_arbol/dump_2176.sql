@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Perfil de Acceso - pant_perfil_acceso - arbol_perfiles', --nombre
-	NULL, --titulo
+	'Perfil de Acceso', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto

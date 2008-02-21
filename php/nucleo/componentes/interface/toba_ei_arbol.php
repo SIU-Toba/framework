@@ -318,11 +318,10 @@ class toba_ei_arbol extends toba_ei
 	protected function mostrar_utilerias($nodo)
 	{
 		$salida = "";
-		if (! $this->_mostrar_utilerias) {
+		if( method_exists($nodo, 'get_inputs') ) {
 			$salida .= "<span style='float:right;'>";	
 			$salida .= $nodo->get_inputs();
 			$salida .= "</span>";
-			return $salida;	
 		}
 		$utilerias = $nodo->get_utilerias();
 		if (count($utilerias) > 0) {
@@ -357,8 +356,8 @@ class toba_ei_arbol extends toba_ei
 			}
 			$salida .= $despl;
 			$salida .= "</span>";
-			return $salida;
 		}
+		return $salida;
 	}
 	
 	/**
