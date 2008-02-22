@@ -8,26 +8,23 @@ class toba_item_perfil extends toba_nodo_basico
 	protected $id;
 	protected $datos;
 	protected $nivel;					//Nivel del item en el arbol de items
-	protected $grupos_acceso;			//Grupos que pueden acceder al item
 	protected $camino;					//Arreglo de carpetas que componen la rama en donde pertenece el item
 	protected $items_hijos=array();		//Arreglo de hijos 
 	protected $padre=null;				//Objeto item padre
 	protected $info_extra = '';
 	protected $carga_profundidad;
-	protected $datos_resumidos;
 	protected $solo_items = true;
 	
-	function __construct( $datos, $carga_profundidad=true, $datos_resumidos=false)
+	function __construct( $datos, $carga_profundidad=true)
 	{
 		$this->datos = $datos;	
 		$this->id = $this->datos['basica']['item'];
 		$this->proyecto = $this->datos['basica']['item_proyecto'];
 		$this->carga_profundidad = $carga_profundidad;
-		$this->datos_resumidos = $datos_resumidos;
 		if ($this->carga_profundidad) {
 			//TODO: hay que ver el tema de cargar los componentes junto con que operacion se esta ejecutando.
 			//Si es editar el perfil de acceso solo tiene que mostrar hasta los ITEMS.
-			//$this->cargar_dependencias();
+			$this->cargar_dependencias();
 		}
 	}
 	
@@ -41,12 +38,56 @@ class toba_item_perfil extends toba_nodo_basico
 		$item_ancestro = $this;
 		while (! $item_ancestro->es_raiz()) {
 			$id = array('componente' => $item_ancestro->get_id_padre(), 
-						'proyecto' => $item_ancestro->get_proyecto());
-			//$nodo = toba_constructor::get_info($id, 'toba_item', false);
-			$datos = toba_cargador::instancia()->get_metadatos_extendidos( $id, 'toba_item', null, false  );
+						'proyecto' => $item_ancestro->get_proyecto(),
+						'grupo_acceso' => $item_ancestro->get_grupo_acceso());
+			
+			$datos = $this->get_metadatos_extendidos($id);
+			
 			$nodo = new toba_item_perfil($datos, false);
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
+		}
+	}
+
+	function get_metadatos_extendidos($id)
+	{
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = toba::instancia()->get_db();	
+		}
+		//----TODO: HACK para evitar bug en php 5.2.1 y 5.2.3
+		new toba_item_perfil_def();
+		
+		$estructura = call_user_func_array( array(	'toba_item_perfil_def',
+														'get_vista_item' ),
+														array( $id['proyecto'], $id['grupo_acceso'], $id['componente'] ) );
+
+		foreach ( $estructura as $seccion => $contenido ) {
+			$temp = $db->consultar( $contenido['sql'] );
+			if ( $contenido['obligatorio'] && count($temp) == 0 ) {
+				throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
+			}
+			if ($contenido['registros']!=='1') {
+				$metadatos[$seccion] = $temp;
+			} else {
+				$metadatos[$seccion] = $temp[0];
+			}
+		}
+		
+		return $metadatos;
+	}
+	
+	function cargar_dependencias()
+	{
+		//Si hay objetos asociados...
+		if (isset($this->datos['objetos']) && count($this->datos['objetos'])>0)	{
+			var_dump($this->datos);
+			for ($a=0; $a<count($this->datos['objetos']); $a++) {
+				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
+				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
+				$tipo = $this->datos['objetos'][$a]['clase'];
+				$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos );
+			}
 		}
 	}
 	
@@ -55,53 +96,34 @@ class toba_item_perfil extends toba_nodo_basico
 		$this->solo_items = $mostrar_items;
 	}
 	
-	function tiene_items_hijos()
+	function es_hoja()
 	{
-		return ($this->datos['basica']['cant_item_hijos'] > 0);
+		return $this->datos['basica']['cant_items_hijos'] == 0 && $this->cant_objetos() == 0;	
+		if ($this->solo_items) {
+			return $this->datos['basica']['cant_items_hijos'] == 0;
+		}else{
+			return $this->datos['basica']['cant_items_hijos'] == 0 && $this->cant_objetos() == 0;	
+		}
 	}
 	
-	function get_id_padre() 
-	{	
-		return $this->datos['basica']['item_padre']; 
-	}
-
-	function set_padre($carpeta)
-	{
-		$this->padre = $carpeta;
-	}
-	
-	function agregar_hijo($item)
-	{
-		$this->items_hijos[$item->get_id()] = $item;
-	}
-	
-	function set_nivel($nivel) 
-	{ 
-		$this->nivel = $nivel; 
-	}
-
 	function es_carpeta() 
 	{ 
 		return $this->datos['basica']['carpeta']; 
 	}
 	
-	function get_hijos()
-	{
-		if ($this->es_carpeta()) {
-			return $this->items_hijos;
-		} else {
-			return $this->subelementos;
-		}
-	}	
-	
-	function set_camino($camino) 
-	{
-		$this->camino = $camino;
-	}
-	
 	function es_raiz()
 	{
 		return $this->id == '__raiz__';	
+	}
+	
+	function es_de_consola()
+	{
+		return $this->get_tipo_solicitud() == 'consola';	
+	}
+	
+	function es_publico() 
+	{ 
+		return $this->datos['basica']['publico']; 
 	}
 	
 	function get_nombre_corto()
@@ -117,73 +139,6 @@ class toba_item_perfil extends toba_nodo_basico
 	function get_nombre() 
 	{ 
 		return $this->datos['basica']['item_nombre']; 
-	}
-	
-	function es_hoja()
-	{
-		if ($this->solo_items) {
-			return $this->datos['basica']['cant_items_hijos'] == 0;
-		}else{
-			return $this->datos['basica']['cant_items_hijos'] == 0 && $this->cant_objetos() == 0;	
-		}
-	}
-	
-	function tiene_hijos_cargados()
-	{
-		if ($this->es_carpeta() && ! $this->es_hoja()) {
-		 	return count($this->items_hijos) == $this->datos['basica']['cant_items_hijos'];
-		}
-		if (!$this->es_carpeta() && ! $this->carga_profundidad) {
-			return false;
-		}
-		return true;
-	}
-	
-	function cant_objetos() 
-	{ 
-		return $this->datos['basica']['cant_dependencias']; 
-	}
-	
-	function get_proyecto() 
-	{ 
-		return $this->datos['basica']['item_proyecto']; 
-	}
-	
-	function get_tipo_solicitud() 
-	{ 
-		return $this->datos['basica']['solicitud_tipo']; 
-	}
-	
-	function crono() 
-	{ 
-		if (isset($this->datos['crono']))
-			return $this->datos['crono'] == 1; 
-	}
-	
-	function es_de_consola()
-	{
-		return $this->get_tipo_solicitud() == 'consola';	
-	}
-	
-	function es_publico() 
-	{ 
-		return $this->datos['basica']['publico']; 
-	}
-
-	function puede_redireccionar() 
-	{ 
-		return $this->datos['basica']['redirecciona']; 
-	}
-
-	function registra_solicitud()
-	{ 
-		if (isset($this->datos['basica']['registrar']))
-			return $this->datos['basica']["registrar"]; 
-	}
-	
-	function generado_con_wizard()
-	{
-		return isset($this->datos['basica']['molde']);	
 	}
 	
 	function get_iconos()
@@ -212,12 +167,12 @@ class toba_item_perfil extends toba_nodo_basico
 				
 			if ($this->es_de_consola()) {
 				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_proyecto("solic_consola.gif",false),
+								'imagen' => toba_recurso::imagen_toba("solic_consola.gif",false),
 								'ayuda' => 'Solicitud de Consola'
 							);
 			} elseif($this->get_tipo_solicitud()=="wddx") {
 				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_proyecto("solic_wddx.gif",false),
+								'imagen' => toba_recurso::imagen_toba("solic_wddx.gif",false),
 								'ayuda' => 'Solicitud WDDX'
 							);
 			}
@@ -265,6 +220,94 @@ class toba_item_perfil extends toba_nodo_basico
 	{
 		return toba_form::checkbox('','','');
 	}
+	
+	function get_hijos()
+	{
+		if ($this->es_carpeta()) {
+			return $this->items_hijos;
+		} else {
+			return $this->subelementos;
+		}
+	}
+	
+	function get_id_padre() 
+	{	
+		return $this->datos['basica']['item_padre']; 
+	}
+	
+	function get_proyecto() 
+	{ 
+		return $this->datos['basica']['item_proyecto']; 
+	}
+	
+	function get_tipo_solicitud() 
+	{ 
+		return $this->datos['basica']['solicitud_tipo']; 
+	}
+	
+	function get_grupo_acceso() 
+	{ 
+		return $this->datos['basica']['grupo_acceso']; 
+	}
+	
+	function set_padre($carpeta)
+	{
+		$this->padre = $carpeta;
+	}
+
+	function set_nivel($nivel) 
+	{ 
+		$this->nivel = $nivel; 
+	}
+	
+	function set_camino($camino) 
+	{
+		$this->camino = $camino;
+	}
+	
+	function agregar_hijo($item)
+	{
+		$this->items_hijos[$item->get_id()] = $item;
+	}
+	
+	function tiene_hijos_cargados()
+	{
+		if ($this->es_carpeta() && ! $this->es_hoja()) {
+		 	return count($this->items_hijos) == $this->datos['basica']['cant_items_hijos'];
+		}
+		if (!$this->es_carpeta() && ! $this->carga_profundidad) {
+			return false;
+		}
+		return true;
+	}
+	
+	function cant_objetos() 
+	{ 
+		return $this->datos['basica']['cant_dependencias']; 
+	}
+	
+	function crono() 
+	{ 
+		if (isset($this->datos['crono']))
+			return $this->datos['crono'] == 1; 
+	}
+	
+	function puede_redireccionar() 
+	{ 
+		return $this->datos['basica']['redirecciona']; 
+	}
+
+	function registra_solicitud()
+	{ 
+		if (isset($this->datos['basica']['registrar']))
+			return $this->datos['basica']["registrar"]; 
+	}
+	
+	function generado_con_wizard()
+	{
+		return isset($this->datos['basica']['molde']);	
+	}
+
 
 }
 
