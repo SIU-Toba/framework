@@ -15,7 +15,7 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --administrador
 	'1', --link_instancia
 	'toba_usuarios', --instancia_id
-	NULL, --subclase_archivo
-	NULL, --subclase_nombre
+	'customizacion_toba/fuente.php', --subclase_archivo
+	'fuente', --subclase_nombre
 	NULL  --orden
 );

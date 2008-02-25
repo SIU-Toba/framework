@@ -48,7 +48,7 @@ class toba_catalogo_items_base
 		$sql = "SELECT carpeta FROM apex_item i WHERE 
 					i.item='$id_item' AND i.proyecto='{$this->proyecto}'";	
 		$rs = toba_contexto_info::get_db()->consultar($sql);
-		
+
 		if (!empty($rs)) {
 			return $rs[0]['carpeta'] == 0;
 		} else {

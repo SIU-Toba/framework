@@ -3,7 +3,7 @@ require_once('lib/consultas_instancia.php');
 
 class ci_perfil_acceso extends toba_ci
 {
-	protected $catalogador;
+	protected $s__catalogador;
 	protected $s__proyecto;
 	protected $s__grupo_acceso;
 
@@ -11,6 +11,9 @@ class ci_perfil_acceso extends toba_ci
 	 {
 	 	$this->s__grupo_acceso = $seleccion['usuario_grupo_acc'];
 	 	$this->s__proyecto = $seleccion['proyecto'];
+	 	$this->s__catalogador = new toba_catalogo_items_perfil($this->s__proyecto);		
+	 	$this->s__catalogador->set_grupo_acceso($this->s__grupo_acceso);
+
 	 	$this->set_pantalla('edicion_acceso');
 	 }
 
@@ -34,17 +37,17 @@ class ci_perfil_acceso extends toba_ci
 
 		$opciones = isset($this->s__opciones) ? $this->s__opciones : array();
 
-		$this->catalogador->cargar($opciones, $inicial, $excepciones);
+		$this->s__catalogador->cargar($opciones, $inicial, $excepciones);
 
 		if (isset($this->s__opciones)) {
 			//Cuando el catalogo carga todo los items es porque va a filtrar algo
 			//entonces el resultado se debe mostrar completo, sin colapsados
-			if ($this->catalogador->debe_cargar_todo($this->s__opciones)) {
+			if ($this->s__catalogador->debe_cargar_todo($this->s__opciones)) {
 				$this->dependencia('arbol_perfiles')->set_todos_abiertos();
 			}
 		}
 		
-		$nodo = $this->catalogador->buscar_carpeta_inicial();
+		$nodo = $this->s__catalogador->buscar_carpeta_inicial();
 		if ($nodo !== false) {
 			$nodo->cargar_rama();
 			//--- Cuando es un item directo y no una carpeta se aumenta la apertura
@@ -77,9 +80,6 @@ class ci_perfil_acceso extends toba_ci
 
 	function conf__arbol_perfiles(toba_ei_arbol $arbol)
 	{
-		$this->catalogador = new toba_catalogo_items_perfil($this->s__proyecto);		
-	 	$this->catalogador->set_grupo_acceso($this->s__grupo_acceso);
-	 	
 		$arbol->set_mostrar_utilerias(false);
 		if (isset($this->s__opciones['inicial'])) {
 			return $this->get_nodo_raiz($this->s__opciones['inicial']);

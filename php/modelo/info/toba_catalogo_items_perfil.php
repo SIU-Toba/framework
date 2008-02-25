@@ -59,9 +59,15 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 				$id = array();
 				$id['componente'] = $fila['item'];
 				$id['proyecto'] = $fila['item_proyecto'];
+				$id['grupo_acceso'] = $fila['grupo_acceso'];
 				$datos = array('basica' => $fila);
 				
-				$obj = new toba_item_perfil( $datos, $en_profundidad );
+				if ($en_profundidad) {
+					$datos = toba_cargador::get_metadatos_perfil($id);
+					$obj = new toba_item_perfil( $datos );	
+				}else{
+					$obj = new toba_item_perfil( $datos, false );	
+				}				
 				
 				$this->items[$fila['item']] = $obj;
 			}

@@ -40,53 +40,27 @@ class toba_item_perfil extends toba_nodo_basico
 			$id = array('componente' => $item_ancestro->get_id_padre(), 
 						'proyecto' => $item_ancestro->get_proyecto(),
 						'grupo_acceso' => $item_ancestro->get_grupo_acceso());
-			
-			$datos = $this->get_metadatos_extendidos($id);
-			
+			//$datos = $this->get_metadatos_extendidos($id);
+			$datos = toba_cargador::get_metadatos_perfil($id);
 			$nodo = new toba_item_perfil($datos, false);
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
 		}
 	}
 
-	function get_metadatos_extendidos($id)
-	{
-		if (!isset($db)) {
-			//Estoy entrando por el nucleo
-			$db = toba::instancia()->get_db();	
-		}
-		//----TODO: HACK para evitar bug en php 5.2.1 y 5.2.3
-		new toba_item_perfil_def();
-		
-		$estructura = call_user_func_array( array(	'toba_item_perfil_def',
-														'get_vista_item' ),
-														array( $id['proyecto'], $id['grupo_acceso'], $id['componente'] ) );
-
-		foreach ( $estructura as $seccion => $contenido ) {
-			$temp = $db->consultar( $contenido['sql'] );
-			if ( $contenido['obligatorio'] && count($temp) == 0 ) {
-				throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
-			}
-			if ($contenido['registros']!=='1') {
-				$metadatos[$seccion] = $temp;
-			} else {
-				$metadatos[$seccion] = $temp[0];
-			}
-		}
-		
-		return $metadatos;
-	}
-	
 	function cargar_dependencias()
 	{
 		//Si hay objetos asociados...
 		if (isset($this->datos['objetos']) && count($this->datos['objetos'])>0)	{
-			var_dump($this->datos);
 			for ($a=0; $a<count($this->datos['objetos']); $a++) {
 				$clave['proyecto'] = $this->datos['objetos'][$a]['objeto_proyecto'];
 				$clave['componente'] = $this->datos['objetos'][$a]['objeto'];
+				//$clave['grupo_acceso'] = $this->datos['objetos'][$a]['objeto_grupo_acceso'];
 				$tipo = $this->datos['objetos'][$a]['clase'];
-				$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos );
+				//$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos );
+				$datos = toba_cargador::get_metadatos_perfil($clave);
+				$obj = new toba_item_perfil( $datos, $this->carga_profundidad );	
+				$this->subelementos[$a] = $obj;
 			}
 		}
 	}

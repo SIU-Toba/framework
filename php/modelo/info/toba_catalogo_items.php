@@ -78,19 +78,6 @@ class toba_catalogo_items extends toba_catalogo_items_base
 		}
 	}
 
-	function debe_cargar_todo($opciones)
-	{
-		return $this->cargar_todo || (isset($opciones['id']) && $opciones['id'] != '') ||
-				(isset($opciones['nombre']) && $opciones['nombre'] != '') ||
-				isset($opciones['inaccesibles']) ||
-				isset($opciones['sin_objetos']) ||
-				(isset($opciones['con_objeto']) && $opciones['con_objeto'] == 1) ||
-				isset($opciones['menu']) || 
-				isset($opciones['tipo_solicitud']) ||
-				isset($opciones['zona']) ||
-				isset($opciones['asistente']);
-	}
-	
 	//------------------------------------TRABAJOS sobre el arbol --------------------------------------------------------			
 
 	/**

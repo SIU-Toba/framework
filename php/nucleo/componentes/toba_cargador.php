@@ -137,6 +137,34 @@ class toba_cargador
 		}
 		return $metadatos;
 	}
+	
+	function get_metadatos_perfil($componente, $db=null)
+	{
+		if (!isset($db)) {
+			//Estoy entrando por el nucleo
+			$db = toba::instancia()->get_db();	
+		}
+		//----TODO: HACK para evitar bug en php 5.2.1 y 5.2.3
+		new toba_item_perfil_def();
+		
+		$estructura = call_user_func_array( array(	'toba_item_perfil_def',
+														'get_vista_item' ),
+														array( $componente['proyecto'], $componente['grupo_acceso'], $componente['componente'] ) );
+
+		foreach ( $estructura as $seccion => $contenido ) {
+			$temp = $db->consultar( $contenido['sql'] );
+			if ( $contenido['obligatorio'] && count($temp) == 0 ) {
+				throw new toba_error("Error en la carga del componente '{$componente['componente']}' (TIPO 'toba_item_perfil_def'). No existe el la seccion de datos '$seccion'");
+			}
+			if ($contenido['registros']!=='1') {
+				$metadatos[$seccion] = $temp;
+			} else {
+				$metadatos[$seccion] = $temp[0];
+			}
+		}
+		
+		return $metadatos;
+	}
 
 	/**
 	 * Permite definir los metadatos de un componente existente o no en la instancia actual
