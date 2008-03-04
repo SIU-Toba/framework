@@ -242,7 +242,7 @@ class consultas_instancia
 	}
 	
 	//---------------------------------------------------------------------
-	//------ Grupos de Acceso ---------------------------------------------
+	//------ Perfil Funcional ---------------------------------------------
 	//---------------------------------------------------------------------
 
 	static function get_lista_grupos_acceso_proyecto($proyecto)
@@ -262,6 +262,20 @@ class consultas_instancia
 				FROM 	apex_usuario_grupo_acc
 				WHERE 	proyecto = '$proyecto'
 				AND 	usuario_grupo_acc = '$grupo';";
+		return toba::db()->consultar($sql);
+	}
+	
+	//---------------------------------------------------------------------
+	//------ Perfil de Datos ----------------------------------------------
+	//---------------------------------------------------------------------
+	
+	static function get_lista_perfil_datos($proyecto)
+	{
+		$sql = "SELECT 	usuario_perfil_datos,
+						nombre,
+						descripcion						
+				FROM 	apex_usuario_perfil_datos 
+				WHERE	proyecto = '$proyecto'";
 		return toba::db()->consultar($sql);
 	}
 }
