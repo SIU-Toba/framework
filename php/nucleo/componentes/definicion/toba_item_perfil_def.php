@@ -1,6 +1,6 @@
 <?php
 
-class toba_item_perfil_def
+class toba_item_perfil_def extends  toba_item_perfil 
 {
 	
 	function get_vista_item($proyecto, $grupo_acceso, $componente=null)

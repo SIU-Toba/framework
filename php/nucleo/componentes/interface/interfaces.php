@@ -70,4 +70,23 @@ interface toba_nodo_arbol
 									
 }
 
+interface toba_nodo_arbol_form extends toba_nodo_arbol 
+{
+
+	function get_input($id);
+	
+	function cargar_estado_post($id);
+
+	function set_apertura($abierto);
+	
+	function get_apertura();
+	
+}
+
+
+//-----------------------------------------------------------
+
+
+
+
 ?>

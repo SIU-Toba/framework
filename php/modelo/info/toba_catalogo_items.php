@@ -8,12 +8,6 @@ class toba_catalogo_items extends toba_catalogo_items_base
 		parent::__construct($proyecto);
 	}
 
-	function cargar_todo($opciones=array())
-	{
-		$this->cargar_todo = true;
-		$this->cargar($opciones);
-	}
-	
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
 		if (! isset($id_item_inicial)) { 

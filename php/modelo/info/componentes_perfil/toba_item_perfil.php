@@ -1,7 +1,7 @@
 <?php
 require_once('contrib/lib/toba_nodo_basico.php');
 
-class toba_item_perfil extends toba_nodo_basico 
+class toba_item_perfil extends toba_nodo_form_basico 
 {
 	protected $subelementos = array();
 	protected $proyecto;
@@ -26,6 +26,7 @@ class toba_item_perfil extends toba_nodo_basico
 			//Si es editar el perfil de acceso solo tiene que mostrar hasta los ITEMS.
 			$this->cargar_dependencias();
 		}
+		$this->abierto = true;
 	}
 	
 	/**
@@ -60,16 +61,13 @@ class toba_item_perfil extends toba_nodo_basico
 				$tipo = $this->datos['objetos'][$a]['clase'];
 				//$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos );
 				//$datos = toba_cargador::get_metadatos_perfil($clave);
+				/*
 				$datos = toba_cargador::get_metadatos_simples($clave, 'toba_item_perfil');
 				$obj = new toba_item_perfil( $datos, $this->carga_profundidad );	
 				$this->subelementos[$a] = $obj;
+				*/
 			}
 		}
-	}
-	
-	function set_solo_items($mostrar_items)
-	{
-		$this->solo_items = $mostrar_items;
 	}
 	
 	function es_hoja()
@@ -90,16 +88,6 @@ class toba_item_perfil extends toba_nodo_basico
 	function es_raiz()
 	{
 		return $this->id == '__raiz__';	
-	}
-	
-	function es_de_consola()
-	{
-		return $this->get_tipo_solicitud() == 'consola';	
-	}
-	
-	function es_publico() 
-	{ 
-		return $this->datos['basica']['publico']; 
 	}
 	
 	function get_nombre_corto()
@@ -140,61 +128,8 @@ class toba_item_perfil extends toba_nodo_basico
 				'imagen' => isset($img_item) ? $img_item : toba_recurso::imagen_toba("item.gif", false),
 				'ayuda' => "Una [wiki:Referencia/Operacion Operación] representa la unidad accesible por el usuario.",
 				);
-				
-			if ($this->es_de_consola()) {
-				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_toba("solic_consola.gif",false),
-								'ayuda' => 'Solicitud de Consola'
-							);
-			} elseif($this->get_tipo_solicitud()=="wddx") {
-				$iconos[] = array(
-								'imagen' => toba_recurso::imagen_toba("solic_wddx.gif",false),
-								'ayuda' => 'Solicitud WDDX'
-							);
-			}
-			if($this->crono()){		
-				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("cronometro.gif", false),
-					'ayuda'=> "La operación se cronometra"
-				);			
-			}
-			if($this->es_publico()){
-				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("usuarios/usuario.gif", false),
-					'ayuda'=> "Operación pública"
-				);				
-			}
-			if($this->puede_redireccionar()){
-				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("refrescar.png", false),
-					'ayuda'=> "La operación puede redireccionar hacia otra."
-				);				
-			}
-			if($this->registra_solicitud() == 1){
-				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("solicitudes.gif", false),
-					'ayuda'=> "La operación se registra en el log"
-				);				
-			}			
-			if($this->generado_con_wizard()){
-				$iconos[] = array(
-					'imagen' => toba_recurso::imagen_toba("wizard.png", false),
-					'ayuda'=> "La operación fue generada con un ASISTENTE",
-					'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000110", 
-									array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id(),
-											apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id)
-									,false,false,null,true, "central" ),
-					'plegado' => false								
-				);						
-		
-			}
 		}
 		return $iconos;
-	}
-	
-	function get_inputs()
-	{
-		return toba_form::checkbox('','','');
 	}
 	
 	function get_hijos()
@@ -262,27 +197,9 @@ class toba_item_perfil extends toba_nodo_basico
 		return $this->datos['basica']['cant_dependencias']; 
 	}
 	
-	function crono() 
-	{ 
-		if (isset($this->datos['crono']))
-			return $this->datos['crono'] == 1; 
-	}
+	//------------------------------------------------
+	//----------- Interface FORM
 	
-	function puede_redireccionar() 
-	{ 
-		return $this->datos['basica']['redirecciona']; 
-	}
-
-	function registra_solicitud()
-	{ 
-		if (isset($this->datos['basica']['registrar']))
-			return $this->datos['basica']["registrar"]; 
-	}
-	
-	function generado_con_wizard()
-	{
-		return isset($this->datos['basica']['molde']);	
-	}
 
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
 * Muestra un Arbol donde el usuario puede colapsar/descolapsar niveles
 * Estos niveles se pueden cargar por adelantado o hacer una cargar AJAX
@@ -14,6 +15,7 @@ class toba_ei_arbol extends toba_ei
 {
 	protected $_prefijo = 'arbol';	
 	protected $_nodos_inicial;
+	protected $s__nodos_inicial;
 	protected $_item_propiedades = array();
 	protected $_nivel_apertura = 1;
 	protected $_datos_apertura;
@@ -25,6 +27,9 @@ class toba_ei_arbol extends toba_ei
 	function __construct($datos)
 	{
 		parent::__construct($datos);
+		if (isset($this->s__nodos_inicial)) {
+			$this->_nodos_inicial = $this->s__nodos_inicial;
+		}
 	}
 	
 	/**
@@ -106,9 +111,17 @@ class toba_ei_arbol extends toba_ei
 	 * Cambia los nodos del arbol, suministrandole nuevos nodo/s raiz
 	 * @param array $nodos Arreglo de nodos raiz del arbol
 	 */
-    function set_datos($nodos)
+    function set_datos($nodos, $mantener_en_sesion=false)
     {
 		$this->_nodos_inicial = $nodos;
+		if ($mantener_en_sesion) {
+			$this->s__nodos_inicial = $nodos;
+		}
+	}
+	
+	function get_datos()
+	{
+		return $this->_nodos_inicial;
 	}
 	
 	/**
@@ -153,6 +166,25 @@ class toba_ei_arbol extends toba_ei
 					$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
 				}
 			}
+		}
+		if (isset($this->_nodos_inicial)) {
+			foreach ($this->_nodos_inicial as $nodo) {
+				$this->disparar_eventos_nodo($nodo);
+			}
+		}
+	}
+	
+	protected function disparar_eventos_nodo($nodo) 
+	{
+		$id = $this->_submit.'_'.$nodo->get_id();		
+		// Se le pide al nodo que cargue su estado a partir del post
+		$nodo->cargar_estado_post($id);
+		// Se le comunica al nodo si esta abierto o no
+		if (isset($this->_datos_apertura) && isset($this->_datos_apertura[$nodo->get_id()])) {
+			$nodo->set_apertura($this->_datos_apertura[$nodo->get_id()]);
+		}
+		foreach ($nodo->get_hijos() as $hijo) {
+			$this->disparar_eventos_nodo($hijo);
 		}
 	}
 	
@@ -283,6 +315,10 @@ class toba_ei_arbol extends toba_ei
 	 */	
 	protected function nodo_es_visible($nodo, $nivel)
 	{
+		if ($nodo instanceof toba_nodo_arbol_form) {
+			return $nodo->get_apertura();
+		}
+		
 		$cargado_parcial = !$nodo->es_hoja() && $nodo->tiene_hijos_cargados();
 		if ($this->_todos_abiertos) {
 			return $cargado_parcial;
@@ -318,9 +354,10 @@ class toba_ei_arbol extends toba_ei
 	protected function mostrar_utilerias($nodo)
 	{
 		$salida = "";
-		if( method_exists($nodo, 'get_inputs') ) {
-			$salida .= "<span style='float:right;'>";	
-			$salida .= $nodo->get_inputs();
+		if($nodo instanceof toba_nodo_arbol_form) {
+			$salida .= "<span style='float:right;'>";
+			$id = $this->_submit.'_'.$nodo->get_id();
+			$salida .= $nodo->get_input($id);
 			$salida .= "</span>";
 		}
 		$utilerias = $nodo->get_utilerias();

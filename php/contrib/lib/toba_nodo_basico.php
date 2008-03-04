@@ -110,4 +110,47 @@ class toba_nodo_basico implements toba_nodo_arbol
 		return $this->propiedades;
 	}
 }
+
+class toba_nodo_form_basico extends toba_nodo_basico  implements toba_nodo_arbol_form 
+{
+	protected $oculto;
+	protected $solo_lectura;
+	protected $abierto = false;	
+	
+	function get_input($id)
+	{
+		$check_solo_lectura = $this->solo_lectura ? 'checked' : '';		
+		$check_oculto = $this->oculto ? 'checked' : '';
+		$html = '';
+		$html .= "<input type='checkbox' $check_solo_lectura value='1' name='".$id."_solo_lectura' />";
+		$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
+		return $html;
+	}
+	
+	function cargar_estado_post($id)
+	{
+		if (isset($_POST[$id.'_solo_lectura'])) {
+			$this->solo_lectura = $_POST[$id.'_solo_lectura'];
+		} else {
+			$this->solo_lectura = false;
+		}
+		
+		if (isset($_POST[$id.'_oculto'])) {
+			$this->oculto = $_POST[$id.'_oculto'];
+		} else {
+			$this->oculto = false;
+		}		
+	}
+	
+	function set_apertura($abierto) 
+	{
+		$this->abierto = $abierto;
+	}
+	
+	function get_apertura() 
+	{
+		return $this->abierto;
+	}	
+}
+
 ?>

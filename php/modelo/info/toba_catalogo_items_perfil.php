@@ -45,7 +45,8 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 		}
 		
 		//-- Se utiliza como sql básica aquella que brinda la definición de un componente
-		$sql_base = toba_item_perfil_def::get_vista_item($this->proyecto, $this->grupo_acceso);
+		//$sql_base = toba_item_perfil_def::get_vista_item($this->proyecto, $this->grupo_acceso);
+		$sql_base = toba_item_def::get_vista_extendida($this->proyecto);
 		$sql = $sql_base['basica']['sql'];
 		$sql .=	$filtro_items;
 		$sql .= "	AND		(i.solicitud_tipo IS NULL OR i.solicitud_tipo <> 'fantasma')";
@@ -59,12 +60,11 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 				$id = array();
 				$id['componente'] = $fila['item'];
 				$id['proyecto'] = $fila['item_proyecto'];
-				$id['grupo_acceso'] = $fila['grupo_acceso'];
+				//$id['grupo_acceso'] = $fila['grupo_acceso'];
 				$datos = array('basica' => $fila);
-				
 				if ($en_profundidad) {
 					//$datos = toba_cargador::get_metadatos_perfil($id);
-					$datos = toba_cargador::get_metadatos_simples($id, 'toba_item_perfil');
+					$datos = toba_cargador::get_metadatos_extendidos($id, 'toba_item');
 					$obj = new toba_item_perfil( $datos );	
 				}else{
 					$obj = new toba_item_perfil( $datos, false );	

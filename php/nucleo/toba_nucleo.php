@@ -527,6 +527,7 @@ class toba_nucleo
 			'toba_ef_fijo'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
 			'toba_ef_html'							=> 'nucleo/componentes/interface/efs/toba_ef_varios.php',
 			'toba_nodo_arbol'						=> 'nucleo/componentes/interface/interfaces.php',
+			'toba_nodo_arbol_form'					=> 'nucleo/componentes/interface/interfaces.php',
 			'toba_relacion_entre_tablas'			=> 'nucleo/componentes/persistencia/toba_relacion_entre_tablas.php',
 			'toba_tipo_datos'						=> 'nucleo/componentes/persistencia/toba_tipo_datos.php',
 			'toba_datos_busqueda'					=> 'nucleo/componentes/persistencia/toba_datos_busqueda.php',
