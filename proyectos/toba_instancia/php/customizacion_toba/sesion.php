@@ -2,7 +2,7 @@
 
 class sesion extends toba_sesion
 {
-	private $id_intancia;
+	private $id_instancia;
 
 	//-- Ventanas toba -------------------------------------
 

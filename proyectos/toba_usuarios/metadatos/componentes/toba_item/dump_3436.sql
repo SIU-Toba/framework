@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3422]--  Autentificación de Usuarios 
+--[3436]--  Login 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -8,9 +8,9 @@
 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron, nombre, descripcion, actividad_accion, menu, orden, solicitud_registrar, solicitud_obs_tipo_proyecto, solicitud_obs_tipo, solicitud_observacion, solicitud_registrar_cron, prueba_directorios, zona_proyecto, zona, zona_orden, zona_listar, imagen_recurso_origen, imagen, parametro_a, parametro_b, parametro_c, publico, redirecciona, usuario, creacion) VALUES (
-	'3421', --item_id
+	'3435', --item_id
 	'toba_usuarios', --proyecto
-	'3422', --item
+	'3436', --item
 	NULL, --padre_id
 	'toba_usuarios', --padre_proyecto
 	'__raiz__', --padre
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cd_c', --actividad_patron
-	'Autentificación de Usuarios', --nombre
+	'Login', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'0', --menu
-	NULL, --orden
+	'5', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
@@ -56,8 +56,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
 	NULL, --item_id
 	'toba_usuarios', --proyecto
-	'3422', --item
-	'2174', --objeto
+	'3436', --item
+	'2195', --objeto
 	'0', --orden
 	NULL  --inicializar
 );

@@ -1,44 +1,32 @@
 <?php 
 
+class pantalla_login extends toba_ei_pantalla  
+{
+	function generar_html()
+	{
+		// si se da un timeout, esta pagina puede cargarse en un frame...
+		// esta funcion detecta este caso y lo soluciona
+		$codigo_js = "
+			if(self.name!=top.name)	{
+				top.location.href='{$_SERVER['PHP_SELF']}';
+			}
+		";
+		echo toba_js::ejecutar($codigo_js);
+		parent::generar_html();	
+	}	
+}
+
 class ci_login extends toba_ci
 {
-	protected $s__datos;
-	
-	/**
-	 * Guarda el id de la operación original así se hace una redirección una vez logueado
-	 */
-	function ini__operacion()
-	{
-		//--- Si el usuario pidio originalmente algún item distinto al de login, se fuerza como item de inicio de sesión
-		$item_original = toba::memoria()->get_item_solicitado_original();
-		$item_actual = toba::memoria()->get_item_solicitado();
-		if (isset($item_original) && isset($item_actual) &&
-				$item_actual[1] != $item_original[1]) {
-			toba::proyecto()->set_parametro('item_inicio_sesion', $item_original[1]);
-		}		
-	}	
-	
-	function post_eventos()
-	{
-		if (isset($this->s__datos['usuario']) ) {
-			if (!isset($this->s__datos['clave'])) {
-				$this->s__datos['clave'] = null;
-			}			
-			try {
-				toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave']);
-			} catch ( toba_error_autenticacion $e ) {
-				toba::notificacion()->agregar( $e->getMessage() );
-			}
-		}
-	}
+	protected $s__datos = array();
 
 	function conf()
 	{
-		if ( ! toba::proyecto()->get_parametro('validacion_debug') ) {
-			$this->pantalla()->eliminar_dep('seleccion_usuario');
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
+			$this->pantalla()->eliminar_evento('ingresar');
 		}
-	}	
-	
+	}
+
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------
@@ -48,32 +36,88 @@ class ci_login extends toba_ci
 	function evt__datos__modificacion($datos)
 	{
 		toba::logger()->desactivar();
+		$datos['instancia'] = toba::instancia()->get_id();
 		$this->s__datos = $datos;
-	}
-
-	function conf__datos()
-	{
-		if (isset($this->s__datos)) {
-			if (isset($this->s__datos['clave'])) {
-				unset($this->s__datos['clave']);
+		if ( ! isset($this->s__datos['instancia']) && isset($this->s__datos['proyecto']) 
+				&& ( isset($this->s__datos['usuario']) || isset($this->s__datos['autologin'])) ) {
+			toba::notificacion()->agregar('Es necesario completar todos los parametros.');
+		}
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
+			$this->s__datos['usuario'] = $this->s__datos['autologin'];
+			$this->s__datos['clave'] = null;
+		}else{
+			if (!isset($this->s__datos['clave'])) {
+				throw new toba_error('Es necesario ingresar la clave');
 			}
-			return $this->s__datos;	
+		}
+		try {
+			$datos_editor['proyecto'] = $this->s__datos['proyecto'];
+			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
+		} catch ( toba_error $e ) {
+			//toba_editor::finalizar();
+			toba::notificacion()->agregar( $e->getMessage() );
 		}
 	}
 
-	//---- seleccion_usuario -------------------------------------------------------
-
-	function evt__seleccion_usuario__seleccion($seleccion)
-	{
-		$this->s__datos['usuario'] = $seleccion['usuario'];
-		$this->s__datos['clave'] = null;
+	function conf__datos()
+	{	
+		if ( toba::proyecto()->get_parametro('validacion_debug') ) {
+			$this->dependencia('datos')->desactivar_efs( array('usuario','clave') );
+		} else {
+			$this->dependencia('datos')->desactivar_efs('autologin');
+		}
+		if (isset($this->s__datos['clave'])) {
+			unset($this->s__datos['clave']);
+		}
+		if(!isset($this->s__datos['instancia'])) {
+			$this->s__datos['instancia'] = toba::instancia()->get_id();
+		}
+		return $this->s__datos;	
 	}
 
-	function conf__seleccion_usuario()
+	//--- COMBOS ----------------------------------------------------------------
+
+	function get_lista_usuarios()
 	{
-		return toba::instancia()->get_lista_usuarios();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia(toba::instancia()->get_id(), new toba_mock_proceso_gui);
+		$usuarios = $instancia->get_lista_usuarios('toba_editor');
+		$datos = array();
+		$a = 0;
+		foreach( $usuarios as $x => $desc) {
+			$datos[$a]['id'] = $desc['usuario'];
+			$datos[$a]['nombre'] = $desc['usuario'] . ' - ' . $desc['nombre'];
+			$a++;
+		}
+		return $datos;
 	}
 	
+	function get_lista_instancias()
+	{
+		$instancias = toba_modelo_instancia::get_lista();
+		$datos = array();
+		$a = 0;
+		foreach( $instancias as $x) {
+			$datos[$a]['id'] = $x;
+			$datos[$a]['desc'] = $x;
+			$a++;
+		}
+		return $datos;
+	}
+	
+	function get_lista_proyectos()
+	{
+		$instancia_id = toba::instancia()->get_id();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($instancia_id, new toba_mock_proceso_gui);
+		$proyectos = $instancia->get_lista_proyectos_vinculados();
+		$datos = array();
+		$a = 0;
+		foreach( $proyectos as $x) {
+			$datos[$a]['id'] = $x;
+			$datos[$a]['desc'] = $x;
+			$a++;
+		}
+		return $datos;
+	}
 	//-------------------------------------------------------------------
 }
 ?>

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3424]--  Perfiles de Acceso 
+--[3424]--  Perfiles 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Perfiles de Acceso', --nombre
+	'Perfiles', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
-	'1', --orden
+	'3', --orden
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

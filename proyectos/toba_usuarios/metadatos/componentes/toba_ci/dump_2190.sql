@@ -184,9 +184,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_usuarios', --proyecto
-	'1094', --dep_id
+	'1100', --dep_id
 	'2190', --objeto_consumidor
-	'2184', --objeto_proveedor
+	'2191', --objeto_proveedor
 	'datos', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b

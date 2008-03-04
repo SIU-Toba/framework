@@ -7,7 +7,7 @@ class admin_instancia
 	protected $base;
 	protected $proyectos;
 	
-	private function __construct()
+	function __construct()
 	{
 		$this->id_instancia = toba::sesion()->get_id_instancia();
 		$datos = toba_instancia::get_datos_instancia($this->id_instancia);

@@ -205,18 +205,13 @@ class consultas_instancia
 	//------ Grupos de Acceso ---------------------------------------------
 	//---------------------------------------------------------------------
 
-	static function get_lista_grupos_acceso_proyecto($proyecto=null)
+	static function get_lista_grupos_acceso_proyecto($proyecto)
 	{
-		$where = '';
-		if (isset($proyecto)) {
-			$where = "WHERE 	proyecto = '$proyecto'";
-		}
 		$sql = "SELECT 	usuario_grupo_acc,
-						proyecto,
 						nombre,
 						descripcion
 				FROM 	apex_usuario_grupo_acc
-				$where;";
+				WHERE 	proyecto = '$proyecto';";
 		return toba::db()->consultar($sql);
 	}
 	
