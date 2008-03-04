@@ -41,7 +41,8 @@ class toba_item_perfil extends toba_nodo_basico
 						'proyecto' => $item_ancestro->get_proyecto(),
 						'grupo_acceso' => $item_ancestro->get_grupo_acceso());
 			//$datos = $this->get_metadatos_extendidos($id);
-			$datos = toba_cargador::get_metadatos_perfil($id);
+			//$datos = toba_cargador::get_metadatos_perfil($id);
+			$datos = toba_cargador::get_metadatos_simples($clave, 'toba_item_perfil');
 			$nodo = new toba_item_perfil($datos, false);
 			$item_ancestro->set_padre($nodo);
 			$item_ancestro = $nodo;
@@ -58,7 +59,8 @@ class toba_item_perfil extends toba_nodo_basico
 				//$clave['grupo_acceso'] = $this->datos['objetos'][$a]['objeto_grupo_acceso'];
 				$tipo = $this->datos['objetos'][$a]['clase'];
 				//$this->subelementos[$a] = toba_constructor::get_info( $clave, $tipo, $this->carga_profundidad, null, true, $this->datos_resumidos );
-				$datos = toba_cargador::get_metadatos_perfil($clave);
+				//$datos = toba_cargador::get_metadatos_perfil($clave);
+				$datos = toba_cargador::get_metadatos_simples($clave, 'toba_item_perfil');
 				$obj = new toba_item_perfil( $datos, $this->carga_profundidad );	
 				$this->subelementos[$a] = $obj;
 			}

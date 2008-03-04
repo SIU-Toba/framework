@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3438]--  Editor de Perfiles Funcionales 
+--[3438]--  Editor de Perfiles de Datos 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Editor de Perfiles Funcionales', --nombre
+	'Editor de Perfiles de Datos', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

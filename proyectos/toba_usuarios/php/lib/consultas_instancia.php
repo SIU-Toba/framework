@@ -148,6 +148,30 @@ class consultas_instancia
 				$where;";
 		return toba::db()->consultar($sql);		
 	}
+	
+	static function get_usuarios_no_vinculados($filtro=null)
+	{
+		$where = "WHERE		up.proyecto IS NULL";
+		if(isset($filtro)){
+			if(isset($filtro['nombre'])){
+				$where .= " AND (u.nombre ILIKE '%{$filtro['nombre']}%')";
+			}
+			if(isset($filtro['usuario'])){
+				$where .= " AND (u.usuario ILIKE '%{$filtro['usuario']}%')";
+			}
+		}
+
+		$sql = "SELECT 	u.usuario as usuario, 
+						u.nombre as nombre,
+						up.proyecto as proyecto
+				FROM 	apex_usuario u 
+							LEFT OUTER JOIN apex_usuario_proyecto up 
+							ON u.usuario = up.usuario 
+						$where
+				;";
+		
+		return toba::db()->consultar($sql);
+	}
 
 	static function get_cantidad_usuarios()
 	{
@@ -165,6 +189,20 @@ class consultas_instancia
 
 	static function get_usuarios_vinculados_proyecto($proyecto, $filtro=null)
 	{
+		$where = "WHERE 	g.usuario_grupo_acc = up.usuario_grupo_acc
+					AND		g.proyecto = up.proyecto
+					AND		u.usuario = up.usuario
+					AND		up.proyecto = '$proyecto'";
+		
+		if(isset($filtro)){
+			if(isset($filtro['nombre'])){
+				$where .= " AND (u.nombre ILIKE '%{$filtro['nombre']}%')";
+			}
+			if(isset($filtro['usuario'])){
+				$where .= " AND (u.usuario ILIKE '%{$filtro['usuario']}%')";
+			}
+		}
+
 		$sql = "SELECT 	up.proyecto as proyecto,
 						up.usuario as usuario, 
 						u.nombre as nombre,
@@ -172,10 +210,9 @@ class consultas_instancia
 				FROM 	apex_usuario u,
 						apex_usuario_proyecto up,
 						apex_usuario_grupo_acc g
-				WHERE 	g.usuario_grupo_acc = up.usuario_grupo_acc
-				AND		g.proyecto = up.proyecto
-				AND		u.usuario = up.usuario
-				AND		up.proyecto = '$proyecto';";
+						$where
+				";
+		toba::logger()->debug($sql);
 		$datos = toba::db()->consultar($sql);
 		$temp = array();
 		foreach( $datos as $dato ) {

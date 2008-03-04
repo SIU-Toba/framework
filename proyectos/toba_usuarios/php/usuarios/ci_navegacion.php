@@ -71,7 +71,12 @@ class ci_navegacion extends toba_ci
 	function conf__cuadro($componente)
 	{
 		if (isset($this->s__filtro)) {
-			$componente->set_datos( consultas_instancia::get_lista_usuarios($this->s__filtro) );
+			if (isset($this->s__filtro['proyecto'])) {
+				$proyecto = $this->s__filtro['proyecto'];
+				$componente->set_datos( consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro) );	
+			}else{
+				$componente->set_datos( consultas_instancia::get_usuarios_no_vinculados($this->s__filtro) );
+			}
 		}else{
 			$filtro_obligatorio = consultas_instancia::get_cantidad_usuarios() > self::umbral_registros_filtro_obligatorio;
 			if ( ! $filtro_obligatorio ) {
