@@ -135,6 +135,9 @@ class consultas_instancia
 			if(isset($filtro['nombre'])){
 				$condiciones[] = "(nombre ILIKE '%{$filtro['nombre']}%')";
 			}
+			if(isset($filtro['usuario'])){
+				$condiciones[] = "(usuario ILIKE '%{$filtro['usuario']}%')";
+			}
 		}
 		if($condiciones) {
 			$where = ' WHERE ' . implode(' AND ',$condiciones);	
