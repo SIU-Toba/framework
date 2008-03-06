@@ -81,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Eliminar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
-	'¿Desea ELIMINAR el registro?', --confirmacion
+	'¿Desea ELIMINAR el USUARIO?', --confirmacion
 	'ei-boton-baja', --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen
@@ -98,7 +98,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -108,13 +108,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'956', --evento_id
 	'2187', --objeto
 	'modificacion', --identificador
-	'Modificar', --etiqueta
+	'Aplicar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-mod', --estilo
 	'apex', --imagen_recurso_origen
-	NULL, --imagen
+	'tilde.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'3', --orden
@@ -128,7 +128,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -144,7 +144,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	'ei-boton-canc', --estilo
 	'apex', --imagen_recurso_origen
-	'deshacer.gif', --imagen
+	'prohibido.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'4', --orden
@@ -187,7 +187,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -212,78 +212,6 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, check_ml_toggle, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
-	'5160', --objeto_ei_formulario_fila
-	'2187', --objeto_ei_formulario
-	'toba_usuarios', --objeto_ei_formulario_proyecto
-	'proyecto', --identificador
-	'ef_combo', --elemento_formulario
-	'proyecto', --columnas
-	'1', --obligatorio
-	'0', --oculto_relaja_obligatorio
-	'1', --orden
-	'Proyecto', --etiqueta
-	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	'0', --colapsado
-	'0', --desactivado
-	NULL, --estilo
-	NULL, --total
-	NULL, --inicializacion
-	NULL, --estado_defecto
-	'0', --solo_lectura
-	'get_lista_proyectos', --carga_metodo
-	'consultas_instancia', --carga_clase
-	'lib/consultas_instancia.php', --carga_include
-	NULL, --carga_dt
-	NULL, --carga_consulta_php
-	NULL, --carga_sql
-	'toba_usuarios', --carga_fuente
-	NULL, --carga_lista
-	'proyecto', --carga_col_clave
-	'proyecto', --carga_col_desc
-	NULL, --carga_maestros
-	'0', --carga_cascada_relaj
-	'-- SELECCIONAR --', --carga_no_seteado
-	'0', --carga_no_seteado_ocultar
-	NULL, --edit_tamano
-	NULL, --edit_maximo
-	NULL, --edit_mascara
-	NULL, --edit_unidad
-	NULL, --edit_rango
-	NULL, --edit_filas
-	NULL, --edit_columnas
-	NULL, --edit_wrap
-	NULL, --edit_resaltar
-	NULL, --edit_ajustable
-	NULL, --edit_confirmar_clave
-	NULL, --edit_expreg
-	NULL, --popup_item
-	NULL, --popup_proyecto
-	NULL, --popup_editable
-	NULL, --popup_ventana
-	NULL, --popup_carga_desc_metodo
-	NULL, --popup_carga_desc_clase
-	NULL, --popup_carga_desc_include
-	NULL, --fieldset_fin
-	NULL, --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
-	NULL, --check_ml_toggle
-	NULL, --fijo_sin_estado
-	NULL, --editor_ancho
-	NULL, --editor_alto
-	NULL, --editor_botonera
-	NULL, --selec_cant_minima
-	NULL, --selec_cant_maxima
-	NULL, --selec_utilidades
-	NULL, --selec_tamano
-	NULL, --selec_ancho
-	NULL, --selec_serializar
-	NULL, --selec_cant_columnas
-	NULL  --upload_extensiones
-);
-INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, check_ml_toggle, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
 	'5175', --objeto_ei_formulario_fila
 	'2187', --objeto_ei_formulario
 	'toba_usuarios', --objeto_ei_formulario_proyecto
@@ -292,7 +220,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario_grupo_acc', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'1', --orden
 	'Perfil Funcional', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -304,8 +232,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_lista_grupos_acceso_proyecto', --carga_metodo
-	'consultas_instancia', --carga_clase
-	'lib/consultas_instancia.php', --carga_include
+	NULL, --carga_clase
+	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
@@ -313,7 +241,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_lista
 	'usuario_grupo_acc', --carga_col_clave
 	'nombre', --carga_col_desc
-	'proyecto', --carga_maestros
+	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
@@ -362,9 +290,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario_perfil_datos', --identificador
 	'ef_combo', --elemento_formulario
 	'usuario_perfil_datos', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'3', --orden
+	'2', --orden
 	'Perfil de Datos', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -384,11 +312,83 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'toba_usuarios', --carga_fuente
 	NULL, --carga_lista
 	'usuario_perfil_datos', --carga_col_clave
-	'descripcion', --carga_col_desc
+	'nombre', --carga_col_desc
 	'proyecto', --carga_maestros
 	'0', --carga_cascada_relaj
-	'-- SELECCIONAR --', --carga_no_seteado
+	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --edit_expreg
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --fieldset_fin
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --check_ml_toggle
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, check_ml_toggle, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'5180', --objeto_ei_formulario_fila
+	'2187', --objeto_ei_formulario
+	'toba_usuarios', --objeto_ei_formulario_proyecto
+	'proyecto', --identificador
+	'ef_oculto', --elemento_formulario
+	'proyecto', --columnas
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'3', --orden
+	NULL, --etiqueta
+	NULL, --etiqueta_estilo
+	NULL, --descripcion
+	'0', --colapsado
+	'0', --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	NULL, --estado_defecto
+	'0', --solo_lectura
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_sql
+	NULL, --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_maestros
+	NULL, --carga_cascada_relaj
+	NULL, --carga_no_seteado
+	NULL, --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

@@ -77,17 +77,19 @@ class ci_navegacion extends toba_ci
 			}else{
 				$componente->set_datos( consultas_instancia::get_usuarios_no_vinculados($this->s__filtro) );
 			}
-		}else{
+		}
+		/*else{
 			$filtro_obligatorio = consultas_instancia::get_cantidad_usuarios() > self::umbral_registros_filtro_obligatorio;
 			if ( ! $filtro_obligatorio ) {
 				$componente->set_datos( consultas_instancia::get_lista_usuarios() );
 			}
-		}
+		}*/
 	}
 	
 	function evt__cuadro__seleccion($id)
 	{
 		$this->dep('datos')->cargar($id);
+		$this->dep('editor')->evt__filtro_proyectos__cancelar();
 		$this->set_pantalla('editar');
 	}
 

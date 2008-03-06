@@ -22,8 +22,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'toba_usuarios', --fuente_datos_proyecto
-	'toba_usuarios', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -81,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --etiqueta
 	NULL, --maneja_datos
 	'1', --sobre_fila
-	'¿Desea borrar el usuario seleccionado?', --confirmacion
+	'¿Desea eliminar el USUARIO seleccionado?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen
@@ -118,15 +118,15 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	'1', --ordenar
+	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'1', --eof_invisible
 	NULL, --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

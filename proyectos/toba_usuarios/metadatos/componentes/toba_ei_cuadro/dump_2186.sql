@@ -22,8 +22,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'toba_usuarios', --fuente_datos_proyecto
-	'toba_usuarios', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -47,14 +47,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_usuarios', --proyecto
 	'952', --evento_id
 	'2186', --objeto
-	'seleccion', --identificador
+	'eliminar', --identificador
 	'', --etiqueta
 	NULL, --maneja_datos
 	'1', --sobre_fila
-	NULL, --confirmacion
+	'¿Esta seguro que desea eliminar el PERFIL FUNCIONAL?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'doc.gif', --imagen
+	'borrar.png', --imagen
 	'0', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -68,7 +68,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -94,9 +94,9 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --eof_invisible
 	'El usuario no esta asociado a ningun proyecto.', --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

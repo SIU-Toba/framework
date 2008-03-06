@@ -69,6 +69,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_usuarios', --proyecto
+	'1103', --dep_id
+	'2188', --objeto_consumidor
+	'2196', --objeto_proveedor
+	'filtro_proyectos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
 	'1092', --dep_id
 	'2188', --objeto_consumidor
 	'2187', --objeto_proveedor
@@ -117,12 +129,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1133', --pantalla
 	'proyecto', --identificador
 	'2', --orden
-	'Grupos de Acceso en Proyectos', --etiqueta
+	'Perfiles de Acceso en Proyectos', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'nucleo/proyecto.gif', --imagen
-	'cuadro_proyectos,form_proyectos', --objetos
+	'cuadro_proyectos,filtro_proyectos,form_proyectos,form_datos_perfil', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

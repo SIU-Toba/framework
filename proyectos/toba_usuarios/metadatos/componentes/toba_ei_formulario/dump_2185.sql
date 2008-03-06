@@ -422,13 +422,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Vencimiento', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'1', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
