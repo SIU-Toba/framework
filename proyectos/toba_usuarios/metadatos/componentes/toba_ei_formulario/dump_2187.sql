@@ -81,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'Eliminar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
-	'¿Desea ELIMINAR el USUARIO?', --confirmacion
+	'¿Desea ELIMINAR el acceso del USUARIO al proyecto?', --confirmacion
 	'ei-boton-baja', --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.gif', --imagen

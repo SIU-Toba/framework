@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_filtro', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'ei_form_filtro_proyectos', --subclase
+	'usuarios/ei_form_filtro_proyectos.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Usuario - editar - editor - proyecto - filtro_proyectos', --nombre
@@ -45,7 +45,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_usuarios', --proyecto
-	'967', --evento_id
+	'969', --evento_id
 	'2196', --objeto
 	'filtrar', --identificador
 	'&Filtrar', --etiqueta
@@ -55,7 +55,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'ei-boton-filtrar', --estilo
 	'apex', --imagen_recurso_origen
 	'filtrar.png', --imagen
-	'1', --en_botonera
+	'0', --en_botonera
 	NULL, --ayuda
 	'1', --orden
 	NULL, --ci_predep
@@ -85,7 +85,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'ei-boton-limpiar', --estilo
 	'apex', --imagen_recurso_origen
 	'limpiar.png', --imagen
-	'1', --en_botonera
+	'0', --en_botonera
 	NULL, --ayuda
 	'2', --orden
 	NULL, --ci_predep
@@ -98,7 +98,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda

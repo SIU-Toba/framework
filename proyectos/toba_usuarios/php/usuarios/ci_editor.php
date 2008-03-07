@@ -53,11 +53,6 @@ class ci_editor extends toba_ci
 		$this->datos('proyecto')->resetear_cursor();		
 	}
 
-	function evt__cuadro_proyectos__seleccion($seleccion)
-	{
-		$this->datos('proyecto')->set_cursor($seleccion);
-	}
-	
 	function evt__cuadro_proyectos__eliminar($seleccion)
 	{
 		$this->datos('proyecto')->eliminar_fila($seleccion);
@@ -66,17 +61,6 @@ class ci_editor extends toba_ci
 	function conf__cuadro_proyectos($componente)
 	{
 		$componente->set_datos($this->datos('proyecto')->get_filas());
-	}
-
-	function evt__form_proyectos__alta($datos)
-	{
-		$fila = array();
-		$fila['proyecto'] = $datos['proyecto'];
-		$fila['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
-		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso){
-			$fila['usuario_grupo_acc'] = $grupo_acceso;
-			$this->datos('proyecto')->nueva_fila($fila);
-		}
 	}
 
 	function evt__form_proyectos__modificacion($datos)
@@ -106,6 +90,7 @@ class ci_editor extends toba_ci
 		foreach ($id as $clave){
 			$this->datos('proyecto')->eliminar_fila($clave);
 		}
+		$this->evt__filtro_proyectos__cancelar();
 	}
 	
 	function evt__form_proyectos__cancelar()
@@ -116,17 +101,15 @@ class ci_editor extends toba_ci
 	function conf__form_proyectos($componente)
 	{
 		if (isset($this->s__filtro)) {
-			//$usuario = $this->datos('basica')->get();
-			
 			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__filtro['proyecto']));
-			//$grupo_acc = consultas_instancia::get_lista_grupos_acceso_usuario_proyecto($usuario['usuario'], $this->s__filtro['proyecto']);
-			
+		
 			$seleccionados = array();
 			foreach ($grupo_acc as $id=>$ga){
 				$seleccionados[] = $ga['usuario_grupo_acc'];
 			}
 			$datos['proyecto'] = $this->s__filtro['proyecto'];
 			$datos['usuario_grupo_acc'] = $seleccionados;
+			$datos['usuario_perfil_datos'] = $ga['usuario_perfil_datos'];
 			$datos['clave'] = self::clave_falsa;
 			$componente->set_datos($datos);
 		}
