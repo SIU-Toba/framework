@@ -547,6 +547,7 @@ class toba_nucleo
 			'toba_catalogo_items_base'				=> 'modelo/info/toba_catalogo_items_base.php',
 			'toba_catalogo_items'					=> 'modelo/info/toba_catalogo_items.php',
 			'toba_catalogo_items_perfil'			=> 'modelo/info/toba_catalogo_items_perfil.php',
+			'toba_catalogo_restricciones_funcionales'=>'modelo/info/toba_catalogo_restricciones_funcionales.php',
 			'toba_catalogo_objetos'					=> 'modelo/info/toba_catalogo_objetos.php',
 			'toba_modelo_catalogo'					=> 'modelo/toba_modelo_catalogo.php',
 			'toba_modelo_instalacion'				=> 'modelo/toba_modelo_instalacion.php',
@@ -588,7 +589,20 @@ class toba_nucleo
 			'toba_clase_datos'						=> 'lib/reflexion/toba_clase_datos.php',
  			'toba_clase_php' 						=> 'lib/reflexion/toba_clase_php.php',
  			'toba_fecha' 							=> 'lib/toba_fecha.php',
- 			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php'
+ 			'toba_ajax_respuesta'					=> 'nucleo/lib/toba_ajax_respuesta.php',
+ 			//------------- Editor de restricciones funcionales -----------------------------
+			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               
+			'toba_rf_ci'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ci.php',               
+			'toba_rf_columna'                		=>  '/modelo/info/componentes_perfil/toba_rf_columna.php',          
+			'toba_rf_componente'             		=>  '/modelo/info/componentes_perfil/toba_rf_componente.php',       
+			'toba_rf_ef'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ef.php',               
+			'toba_rf_evento'                 		=>  '/modelo/info/componentes_perfil/toba_rf_evento.php',           
+			'toba_rf_grupo'                  		=>  '/modelo/info/componentes_perfil/toba_rf_grupo.php',            
+			'toba_rf_grupo_columnas'         		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_columnas.php',   
+			'toba_rf_grupo_efs'              		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_efs.php',        
+			'toba_rf_grupo_eventos'          		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_eventos.php',    
+			'toba_rf_item'                   		=>  '/modelo/info/componentes_perfil/toba_rf_item.php',             
+			'toba_rf_pantalla'               		=>  '/modelo/info/componentes_perfil/toba_rf_pantalla.php'          			
 		);
 	}
 

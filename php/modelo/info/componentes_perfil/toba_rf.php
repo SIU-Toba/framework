@@ -1,10 +1,6 @@
 <?php
-require_once('nucleo/componentes/interface/interfaces.php');
 
-/**
-*	Implemantacion basica de la interface toba_nodo_arbol.
-*/
-class toba_nodo_basico implements toba_nodo_arbol
+class toba_rf implements toba_nodo_arbol_form 
 {
 	protected $padre;
 	protected $nombre_corto;
@@ -17,6 +13,11 @@ class toba_nodo_basico implements toba_nodo_arbol
 	protected $es_hoja = true;
 	protected $hijos = null;
 	protected $propiedades = null;
+
+	protected $oculto;
+	protected $solo_lectura;
+	protected $abierto = false;	
+
 
 	function __construct($nombre, $padre=null)
 	{
@@ -114,14 +115,7 @@ class toba_nodo_basico implements toba_nodo_arbol
 	{
 		return $this->propiedades;
 	}
-}
 
-class toba_nodo_form_basico extends toba_nodo_basico  implements toba_nodo_arbol_form 
-{
-	protected $oculto;
-	protected $solo_lectura;
-	protected $abierto = false;	
-	
 	function get_input($id)
 	{
 		$check_solo_lectura = $this->solo_lectura ? 'checked' : '';		

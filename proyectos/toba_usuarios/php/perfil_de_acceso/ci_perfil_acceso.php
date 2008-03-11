@@ -7,15 +7,34 @@ class ci_perfil_acceso extends toba_ci
 	protected $s__proyecto;
 	protected $s__grupo_acceso;
 
-	 function evt__grupos_acceso__seleccion($seleccion)
-	 {
-	 	$this->s__grupo_acceso = $seleccion['usuario_grupo_acc'];
+	protected $s__arbol_cargado;
+
+	function ini()
+	{
+	 	$this->s__catalogador = new toba_catalogo_items_perfil('toba_referencia');		
+	}
+
+	function conf__arbol_perfiles($arbol) 
+	{
+		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
+			$catalogador = new toba_catalogo_items_perfil('toba_referencia');
+			$catalogador->cargar_todo();
+			$raiz = $catalogador->buscar_carpeta_inicial();
+			$arbol->set_datos(array($raiz), true);
+			$this->s__arbol_cargado = true;
+		}
+	}
+
+/*
+	function evt__grupos_acceso__seleccion($seleccion)
+	{
+		$this->s__grupo_acceso = $seleccion['usuario_grupo_acc'];
 	 	$this->s__proyecto = $seleccion['proyecto'];
 	 	$this->s__catalogador = new toba_catalogo_items_perfil($this->s__proyecto);		
 	 	$this->s__catalogador->set_grupo_acceso($this->s__grupo_acceso);
 
 	 	$this->set_pantalla('edicion_acceso');
-	 }
+	}
 
 	//-------------------------------
 	//---- Listado de items ----
@@ -87,16 +106,18 @@ class ci_perfil_acceso extends toba_ci
 			return $this->get_nodo_raiz();	
 		}
 	}
+
 	
 	function conf__grupos_acceso($cuadro)
 	{
-		return consultas_instancia::get_lista_grupos_acceso_proyecto();
+		//return consultas_instancia::get_lista_grupos_acceso_proyecto();
 	}
 	
 	function evt__volver()
 	{
 		$this->set_pantalla('seleccion_acceso');
 	}
+*/
 	
 }
 

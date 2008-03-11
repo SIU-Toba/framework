@@ -31,12 +31,12 @@ class toba_db_tablas_proyecto
   23 => 'apex_usuario_perfil_datos',
   24 => 'apex_usuario_perfil_datos_dims',
   25 => 'apex_usuario_perfil_datos_dims_elemento',
-  26 => 'apex_perfil_funcional',
-  27 => 'apex_perfil_funcional_ef',
-  28 => 'apex_perfil_funcional_pantalla',
-  29 => 'apex_perfil_funcional_evt',
-  30 => 'apex_perfil_funcional_ei',
-  31 => 'apex_perfil_funcional_cols',
+  26 => 'apex_restriccion_funcional',
+  27 => 'apex_restriccion_funcional_ef',
+  28 => 'apex_restriccion_funcional_pantalla',
+  29 => 'apex_restriccion_funcional_evt',
+  30 => 'apex_restriccion_funcional_ei',
+  31 => 'apex_restriccion_funcional_cols',
 );
 	}
 
@@ -46,6 +46,7 @@ class toba_db_tablas_proyecto
   0 => 'apex_usuario_grupo_acc',
   1 => 'apex_usuario_grupo_acc_item',
   2 => 'apex_permiso_grupo_acc',
+  3 => 'apex_grupo_acc_restriccion_funcional',
 );
 	}
 
@@ -791,39 +792,59 @@ class toba_db_tablas_proyecto
 );
 	}
 
-	static function apex_perfil_funcional()
+	static function apex_restriccion_funcional()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional',
+  'dump_order_by' => 'restriccion_funcional',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'descripcion',
   ),
 );
 	}
 
-	static function apex_perfil_funcional_ef()
+	static function apex_grupo_acc_restriccion_funcional()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'permisos',
+  'dump_order_by' => 'usuario_grupo_acc, restriccion_funcional',
+  'zona' => 'usuario',
+  'desc' => '',
+  'columna_grupo_desarrollo' => 'permiso',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_grupo_acc',
+    2 => 'restriccion_funcional',
+  ),
+);
+	}
+
+	static function apex_restriccion_funcional_ef()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional, objeto_ei_formulario_fila',
+  'dump_order_by' => 'restriccion_funcional, objeto_ei_formulario_fila',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'item',
     3 => 'objeto_ei_formulario_fila',
     4 => 'objeto_ei_formulario',
@@ -833,20 +854,20 @@ class toba_db_tablas_proyecto
 );
 	}
 
-	static function apex_perfil_funcional_pantalla()
+	static function apex_restriccion_funcional_pantalla()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional, pantalla',
+  'dump_order_by' => 'restriccion_funcional, pantalla',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'item',
     3 => 'pantalla',
     4 => 'objeto_ci',
@@ -855,20 +876,20 @@ class toba_db_tablas_proyecto
 );
 	}
 
-	static function apex_perfil_funcional_evt()
+	static function apex_restriccion_funcional_evt()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional, evento_id',
+  'dump_order_by' => 'restriccion_funcional, evento_id',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'item',
     3 => 'evento_id',
     4 => 'no_visible',
@@ -876,20 +897,20 @@ class toba_db_tablas_proyecto
 );
 	}
 
-	static function apex_perfil_funcional_ei()
+	static function apex_restriccion_funcional_ei()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional, objeto',
+  'dump_order_by' => 'restriccion_funcional, objeto',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'item',
     3 => 'objeto',
     4 => 'no_visible',
@@ -897,20 +918,20 @@ class toba_db_tablas_proyecto
 );
 	}
 
-	static function apex_perfil_funcional_cols()
+	static function apex_restriccion_funcional_cols()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
   'proyecto' => 'toba',
   'dump' => 'multiproyecto',
-  'dump_order_by' => 'perfil_funcional, objeto_cuadro_col',
+  'dump_order_by' => 'restriccion_funcional, objeto_cuadro_col',
   'zona' => 'usuario',
   'desc' => '',
   'version' => '1.0',
   'columnas' => 
   array (
     0 => 'proyecto',
-    1 => 'perfil_funcional',
+    1 => 'restriccion_funcional',
     2 => 'item',
     3 => 'objeto_cuadro',
     4 => 'objeto_cuadro_col',

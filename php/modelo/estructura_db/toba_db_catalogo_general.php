@@ -96,13 +96,14 @@ class toba_db_catalogo_general
   88 => 'apex_usuario_grupo_acc',
   89 => 'apex_usuario_grupo_acc_item',
   90 => 'apex_permiso_grupo_acc',
-  91 => 'apex_perfil_funcional',
-  92 => 'apex_perfil_funcional_ef',
-  93 => 'apex_perfil_funcional_pantalla',
-  94 => 'apex_perfil_funcional_evt',
-  95 => 'apex_perfil_funcional_ei',
-  96 => 'apex_perfil_funcional_cols',
-  97 => 'apex_usuario_proyecto',
+  91 => 'apex_restriccion_funcional',
+  92 => 'apex_grupo_acc_restriccion_funcional',
+  93 => 'apex_restriccion_funcional_ef',
+  94 => 'apex_restriccion_funcional_pantalla',
+  95 => 'apex_restriccion_funcional_evt',
+  96 => 'apex_restriccion_funcional_ei',
+  97 => 'apex_restriccion_funcional_cols',
+  98 => 'apex_usuario_proyecto',
 );
 	}
 
