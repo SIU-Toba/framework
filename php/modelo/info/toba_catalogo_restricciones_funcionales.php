@@ -15,8 +15,9 @@ class toba_catalogo_restricciones_funcionales
 	{
 		$nodos = array();
 		$items = $this->get_lista_items();
+		$a = 0;
 		foreach($items as $item) {
-			$nodos[] = new toba_rf_item($this->restriccion, $item['proyecto'], $item['item']);
+			$nodos[$a] = new toba_rf_item($this->restriccion, $this->$item['proyecto'], $item['item']);
 		}
 		return $nodos;
 	}

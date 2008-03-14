@@ -1,14 +1,5 @@
 -- Creacion de constraints que no son necesarios en el esquema de instancia minima
 
-	ALTER TABLE apex_permiso_grupo_acc ADD CONSTRAINT  "apex_per_grupo_acc_per_fk"
-	FOREIGN KEY ("permiso","proyecto") 
-	REFERENCES "apex_permiso" ("permiso","proyecto") 
-	ON	DELETE NO ACTION 
-	ON UPDATE	NO	ACTION 
-	DEFERRABLE 
-	INITIALLY 
-	IMMEDIATE;
-
 	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu" 
 	FOREIGN KEY ("menu") 
 	REFERENCES	"apex_menu" ("menu") 

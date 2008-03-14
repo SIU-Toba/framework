@@ -25,7 +25,8 @@ class toba_rf_componente extends toba_rf
 	{
 		$sql = "SELECT 	o.nombre as 			nombre,
 						c.icono as				icono,
-						rfei.no_visible as		no_visible
+						rfei.no_visible as		no_visible,
+						(SELECT COUNT(*) FROM apex_evento e WHERE e.objeto = o.objeto AND e.proyecto = o.proyecto) as eventos
 				FROM 	apex_clase c,
 						apex_objeto o
 							LEFT OUTER JOIN apex_restriccion_funcional_ei rfei

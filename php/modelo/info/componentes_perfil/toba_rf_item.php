@@ -18,7 +18,7 @@ class toba_rf_item extends toba_rf
 
 	function cargar_datos()
 	{
-		$sql = "SELECT nombre, descripcion 
+		$sql = "SELECT nombre, descripcion, padre
 				FROM apex_item 
 				WHERE item = '$this->item' 
 				AND proyecto = '$this->proyecto'";
