@@ -1,10 +1,13 @@
 <?php 
 class toba_rf_grupo_efs extends toba_rf_grupo
 {
-	function __construct($padre=null) 
+	function inicializar()
 	{
-		//parent::__construct($nombre, $padre=null)
-	}
+/*		$this->iconos[] = array(
+				'imagen' => toba_recurso::imagen_toba( 'objetos/efs.gif', false),
+				'ayuda' => "Carpeta que contiene operaciones.",
+				);		
+*/	}
 
 	
 }

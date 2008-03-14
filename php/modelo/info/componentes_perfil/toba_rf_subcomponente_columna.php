@@ -1,10 +1,10 @@
 <?php 
-class toba_rf_pantalla extends toba_rf
+class toba_rf_subcomponente_columna extends toba_rf_subcomponente
 {
 	function inicializar()
 	{
 		$this->iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba( 'objetos/pantalla.gif', false),
+				'imagen' => toba_recurso::imagen_toba( 'objetos/columna.gif', false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);		
 	}

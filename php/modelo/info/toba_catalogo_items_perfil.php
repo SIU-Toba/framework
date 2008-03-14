@@ -14,6 +14,8 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 	{
 		$sql = "	SELECT 	i.item as item,
 							i.proyecto as proyecto,
+							i.imagen_recurso_origen,
+							i.imagen,
 							nombre,
 							carpeta,
 							padre,

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000195]--  Restricciones Funcionales 
+--[1000195]--  Perfiles Funcionales - Restricciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Restricciones Funcionales', --nombre
+	'Perfiles Funcionales - Restricciones', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
-	NULL, --orden
+	'2', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

@@ -141,6 +141,12 @@ class toba_ei_arbol extends toba_ei
 	 */
 	function disparar_eventos()
 	{
+		//Actualiza el estado de los nodos
+		if (isset($this->_nodos_inicial)) {
+			foreach ($this->_nodos_inicial as $nodo) {
+				$this->disparar_eventos_nodo($nodo);
+			}
+		}
 		//Se guarda el layout del arbol actual				
 		if (isset($_POST[$this->_submit."__apertura_datos"])) {
 			$datos_apertura = $_POST[$this->_submit."__apertura_datos"];
@@ -165,11 +171,6 @@ class toba_ei_arbol extends toba_ei
 				if ($evento == 'ver_propiedades' && isset($_POST[$this->_submit."__seleccion"])) {
 					$this->reportar_evento( $evento, $_POST[$this->_submit."__seleccion"] );
 				}
-			}
-		}
-		if (isset($this->_nodos_inicial)) {
-			foreach ($this->_nodos_inicial as $nodo) {
-				$this->disparar_eventos_nodo($nodo);
 			}
 		}
 	}

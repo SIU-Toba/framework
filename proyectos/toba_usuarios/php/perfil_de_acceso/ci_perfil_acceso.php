@@ -7,22 +7,35 @@ class ci_perfil_acceso extends toba_ci
 	protected $s__proyecto;
 	protected $s__grupo_acceso;
 
-	protected $s__arbol_cargado;
-
-	function ini()
-	{
-	 	$this->s__catalogador = new toba_catalogo_items_perfil('toba_referencia');		
-	}
+	protected $s__arbol_cargado = false;
 
 	function conf__arbol_perfiles($arbol) 
 	{
 		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
-			$catalogador = new toba_catalogo_items_perfil('toba_referencia');
+			$catalogador = new toba_catalogo_items_perfil('toba_referencia', 'Usuario');
 			$catalogador->cargar_todo();
 			$raiz = $catalogador->buscar_carpeta_inicial();
 			$arbol->set_datos(array($raiz), true);
 			$this->s__arbol_cargado = true;
 		}
+	}
+	
+	function evt__guardar($datos)
+	{
+		$raices = $this->dep('arbol_perfiles')->get_datos();
+		toba::db()->abrir_transaccion();
+		/*
+			$this->dep('datos')->sincronizar();
+		
+			Alta: se lepide el grupo de acceso al DT principal y se le pasa a los nodos
+				$raiz->set_grupo_acceso( X );	
+		*/
+		
+		foreach($raices as $raiz) {
+			$raiz->sincronizar();	
+		}
+		unset($this->s__arbol_cargado);
+		toba::db()->cerrar_transaccion();
 	}
 
 /*

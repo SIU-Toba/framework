@@ -403,7 +403,9 @@ class toba_nucleo
 			'toba_ei_def'							=> 'nucleo/componentes/definicion/toba_ei_def.php',
 			'toba_ei_info'							=> 'modelo/info/componentes/toba_ei_info.php',
 			//- Perfiles -
+			'toba_elemento_perfil'					=> 'modelo/info/componentes_perfil/toba_elemento_perfil.php',
 			'toba_item_perfil'						=> 'modelo/info/componentes_perfil/toba_item_perfil.php',
+			'toba_carpeta_perfil'					=> 'modelo/info/componentes_perfil/toba_carpeta_perfil.php',
 			'toba_item_perfil_def'					=> 'nucleo/componentes/definicion/toba_item_perfil_def.php',
 			//- CI -
 			'toba_ci'								=> 'nucleo/componentes/interface/toba_ci.php',
@@ -593,11 +595,15 @@ class toba_nucleo
  			//------------- Editor de restricciones funcionales -----------------------------
 			'toba_rf'        	             		=>  '/modelo/info/componentes_perfil/toba_rf.php',               
 			'toba_rf_ci'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ci.php',               
-			'toba_rf_columna'                		=>  '/modelo/info/componentes_perfil/toba_rf_columna.php',          
 			'toba_rf_componente'             		=>  '/modelo/info/componentes_perfil/toba_rf_componente.php',       
-			'toba_rf_ef'                     		=>  '/modelo/info/componentes_perfil/toba_rf_ef.php',               
-			'toba_rf_evento'                 		=>  '/modelo/info/componentes_perfil/toba_rf_evento.php',           
+			'toba_rf_componente_cuadro'        		=>  '/modelo/info/componentes_perfil/toba_rf_componente_cuadro.php',       
+			'toba_rf_componente_formulario'    		=>  '/modelo/info/componentes_perfil/toba_rf_componente_formulario.php',       
+			'toba_rf_subcomponente'            		=>  '/modelo/info/componentes_perfil/toba_rf_subcomponente.php',          
+			'toba_rf_subcomponente_columna'    		=>  '/modelo/info/componentes_perfil/toba_rf_subcomponente_columna.php',          
+			'toba_rf_subcomponente_ef'         		=>  '/modelo/info/componentes_perfil/toba_rf_subcomponente_ef.php',               
+			'toba_rf_subcomponente_evento'     		=>  '/modelo/info/componentes_perfil/toba_rf_subcomponente_evento.php',           
 			'toba_rf_grupo'                  		=>  '/modelo/info/componentes_perfil/toba_rf_grupo.php',            
+			'toba_rf_grupo_pantallas'         		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_pantallas.php',   
 			'toba_rf_grupo_columnas'         		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_columnas.php',   
 			'toba_rf_grupo_efs'              		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_efs.php',        
 			'toba_rf_grupo_eventos'          		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_eventos.php',    

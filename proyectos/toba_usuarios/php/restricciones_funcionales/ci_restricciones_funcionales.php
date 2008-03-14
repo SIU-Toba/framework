@@ -3,10 +3,6 @@ class ci_restricciones_funcionales extends toba_ci
 {
 	protected $s__arbol_cargado;
 	
-	function ini__operacion() 
-	{
-		
-	}
 
 	function conf__arbol(arbol_restricciones_funcionales $arbol) 
 	{
@@ -16,6 +12,12 @@ class ci_restricciones_funcionales extends toba_ci
 			$arbol->set_datos($raiz, true);
 			$this->s__arbol_cargado = true;
 		}
+	}
+
+	function evt__guardar()
+	{
+		//En el alta...
+		//Por cada raiz $raiz->set_restriccion('...');	
 	}
 }
 

@@ -11,21 +11,35 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $info_extra = null;
 	protected $tiene_hijos_cargados = false;
 	protected $es_hoja = true;
-	protected $hijos = null;
+	protected $hijos = array();
 	protected $propiedades = null;
 
 	protected $oculto;
 	protected $solo_lectura;
-	protected $abierto = false;	
+	protected $abierto = true;	
 
+	protected $restriccion = '';
+	protected $item;
 
-	function __construct($nombre, $padre=null)
+	function __construct($nombre, $padre=null, $id=null)
 	{
 		$this->nombre_corto = $nombre;
 		$this->padre = $padre;
+		$this->id = $id;
+		$this->inicializar();
 	}
 
+	function inicializar(){}
+
 	//-- Setters -------------------------------------------------------
+
+	function set_restriccion($restriccion)
+	{
+		$this->restriccion = $restriccion;	
+		foreach($this->hijos as $hijo) {
+			$hijo->set_restriccion($this->restriccion);	
+		}
+	}
 
 	function agregar_utileria($utileria)
 	{
@@ -37,6 +51,13 @@ class toba_rf implements toba_nodo_arbol_form
 		$this->iconos[] = $icono;	
 	}
 
+	function agregar_hijo($hijo)
+	{
+		$this->hijos[] = $hijo;
+		$this->tiene_hijos_cargados = true;
+		$this->es_hoja = false;
+	}
+	
 	function set_hijos($hijos)
 	{
 		$this->hijos = $hijos;
@@ -118,27 +139,10 @@ class toba_rf implements toba_nodo_arbol_form
 
 	function get_input($id)
 	{
-		$check_solo_lectura = $this->solo_lectura ? 'checked' : '';		
-		$check_oculto = $this->oculto ? 'checked' : '';
-		$html = '';
-		$html .= "<input type='checkbox' $check_solo_lectura value='1' name='".$id."_solo_lectura' />";
-		$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
-		return $html;
 	}
 	
 	function cargar_estado_post($id)
 	{
-		if (isset($_POST[$id.'_solo_lectura'])) {
-			$this->solo_lectura = $_POST[$id.'_solo_lectura'];
-		} else {
-			$this->solo_lectura = false;
-		}
-		
-		if (isset($_POST[$id.'_oculto'])) {
-			$this->oculto = $_POST[$id.'_oculto'];
-		} else {
-			$this->oculto = false;
-		}		
 	}
 	
 	function set_apertura($abierto) 

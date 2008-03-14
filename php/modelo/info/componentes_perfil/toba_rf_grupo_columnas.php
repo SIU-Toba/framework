@@ -1,10 +1,13 @@
 <?php 
 class toba_rf_grupo_columnas extends toba_rf_grupo
 {
-	function __construct($padre=null) 
+	function inicializar()
 	{
-		//parent::__construct($nombre, $padre=null)
-	}
+/*		$this->iconos[] = array(
+				'imagen' => toba_recurso::imagen_toba( 'objetos/columna.gif', false),
+				'ayuda' => "Carpeta que contiene operaciones.",
+			);		
+*/	}
 
 	
 }

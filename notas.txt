@@ -8,11 +8,19 @@
 
 --- Restriccion funcional -------------------
 
+	* Casos extraños (hacen que haya que grabar mas informacion relacionada con las cosas desabilitadas
+						esta informacion complejiza el comportamiento del nucleo en el momento de deshabilitar un poco...)
+		- Una dependencia de un CI en dos pantallas: puede estar habilitado en una y en otra no?
+			- Idem para eventos (en este caso parece mas sensato que la deshabilitacion sea global)
+		- Una operacion tiene dos CIs y ambos comparte
+
+		- desicion temporal: No se guarda la pantalla en la que un EI fue deshabilitado...
+
+
 	* Cosas que no se pueden desactivar:
 		- El primer CI de la jerarquia (el que esta asociado al item)
 		- Los EFs que estan marcado como obligatorios y no se pueden relajar
 		- Las columnas que forman parte de los cortes de control
-	* Carga, aplicacion (y compilacion?)
 		
 --- Dimensiones -----------------------------
 

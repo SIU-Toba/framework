@@ -72,7 +72,7 @@ CREATE TABLE apex_permiso_grupo_acc
 	usuario_grupo_acc					varchar(30)		NOT NULL,
 	permiso								int4			NOT NULL,
 	CONSTRAINT	"apex_per_grupo_acc_pk" 		PRIMARY	KEY ("usuario_grupo_acc","permiso","proyecto"),
-	CONSTRAINT  "apex_per_grupo_acc_per_fk" 	FOREIGN KEY ("permiso","proyecto") 	REFERENCES "apex_permiso" ("permiso","proyecto") 	ON	DELETE NO ACTION 	ON UPDATE	NO	ACTION 	DEFERRABLE 	INITIALLY 	IMMEDIATE;
+	CONSTRAINT  "apex_per_grupo_acc_per_fk" 	FOREIGN KEY ("permiso","proyecto") 	REFERENCES "apex_permiso" ("permiso","proyecto") 	ON	DELETE NO ACTION 	ON UPDATE	NO	ACTION 	DEFERRABLE 	INITIALLY 	IMMEDIATE,
 	CONSTRAINT	"apex_per_grupo_acc_grupo_fk"	FOREIGN KEY	("proyecto","usuario_grupo_acc")	REFERENCES "apex_usuario_grupo_acc"	("proyecto","usuario_grupo_acc")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -132,7 +132,7 @@ CREATE TABLE apex_restriccion_funcional_ef
 (
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional				int4				NOT NULL,
-	item							int4				NOT NULL,
+	item							varchar(60)		NOT NULL,
 	objeto_ei_formulario_fila		int4				NOT NULL,
 	objeto_ei_formulario			int4				NOT NULL,
 	no_visible						smallint			NULL,
@@ -163,7 +163,7 @@ CREATE TABLE apex_restriccion_funcional_pantalla
 (
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional				int4				NOT NULL,
-	item							int4				NOT NULL,
+	item							varchar(60)		NOT NULL,
 	pantalla						int4				NOT NULL,
 	objeto_ci						int4				NOT NULL,
 	no_visible						smallint			NULL,
@@ -193,7 +193,7 @@ CREATE TABLE apex_restriccion_funcional_evt
 (
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional				int4				NOT NULL,
-	item							int4				NOT NULL,
+	item							varchar(60)		NOT NULL,
 	evento_id						int4				NOT NULL,
 	no_visible						smallint			NULL,
 	CONSTRAINT	"apex_restriccion_funcional_evt_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","evento_id"),
@@ -221,7 +221,7 @@ CREATE TABLE apex_restriccion_funcional_ei
 (
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional				int4				NOT NULL,
-	item							int4				NOT NULL,
+	item							varchar(60)		NOT NULL,
 	objeto							int4				NOT NULL,
 	no_visible						smallint			NULL,
 	CONSTRAINT	"apex_restriccion_funcional_ei_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto"),
@@ -249,7 +249,7 @@ CREATE TABLE apex_restriccion_funcional_cols
 (
 	proyecto						varchar(15)			NOT NULL,
 	restriccion_funcional				int4				NOT NULL,
-	item							int4				NOT NULL,
+	item							varchar(60)		NOT NULL,
 	objeto_cuadro					int4				NOT NULL,
 	objeto_cuadro_col				int4				NOT NULL,
 	no_visible						smallint			NULL,

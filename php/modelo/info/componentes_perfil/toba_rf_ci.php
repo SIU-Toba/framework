@@ -1,49 +1,97 @@
 <?php 
 class toba_rf_ci extends toba_rf_componente
 {
-	/*
-	function __construct($padre=null) 
+	protected $primer_nivel;
+	
+	function __construct($restriccion, $proyecto, $item, $componente, $padre, $primer_nivel= false) 
 	{
-		//parent::__construct($nombre, $padre=null)
-	}*/
+		parent::__construct($restriccion, $proyecto, $item, $componente, $padre);
+		$this->primer_nivel = $primer_nivel;
+		$grupo = new toba_rf_grupo_pantallas('PANTALLAS', $this);
+		$this->agregar_hijo($grupo);
+		$deps = $this->cargar_datos_dependencias();
+		$pantallas = $this->cargar_datos_pantallas();
+		foreach($pantallas as $pantalla) {
+			//Creo la pantalla
+			$p = new toba_rf_pantalla($pantalla['etiqueta'], $grupo, $this->id . '_' . $pantalla['pantalla']);
+			$grupo->agregar_hijo($p);
+			//Cargo las dependencias
+			$deps_pantalla = array_map('trim',explode(',',$pantalla['objetos']));
+			foreach( $deps as $dep ) {
+				if( in_array($dep['rol'], $deps_pantalla) ){
+					switch ($dep['clase']) {
+						case 'toba_ci'	:
+							$o = new toba_rf_ci($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+							break;
+						case 'toba_ei_cuadro'	:
+							$o = new toba_rf_componente_cuadro($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+							break;
+						case 'toba_ei_formulario'	:
+						case 'toba_ei_formulario_ml'	:
+						case 'toba_ei_filtro'	:
+							$o = new toba_rf_componente_formulario($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+							break;
+						default:
+						$o = new toba_rf_componente($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+					}
+					$p->agregar_hijo($o);
+				}
+			}
+		}
+	}
 
 	function cargar_datos_pantallas()
 	{
 		$sql = "SELECT 	pantalla,
 						identificador,
 						orden,
-						etiqueta
+						etiqueta,
+						eventos,
+						objetos
 				FROM 	apex_objeto_ci_pantalla p
-				WHERE 	";
+				WHERE 	objeto_ci_proyecto = '$this->proyecto' 
+					AND objeto_ci = '$this->componente'
+				ORDER BY orden";
+		return toba::db()->consultar($sql);
 	}
 
 	function cargar_datos_dependencias()
 	{
-		$sql = "SELECT 	d.objeto_proveedor as 			objeto,
-					o.nombre as 			nombre,
-					o.clase as 				clase,
-					o.subclase as			subclase,
-					o.subclase_archivo as	subclase_archivo,
-					c.icono as				icono,
-					(SELECT COUNT(*) 
-						FROM apex_objeto_dependencias dd
-						WHERE dd.objeto_proveedor = o.objeto
-						AND dd.proyecto = '$proyecto' $excluir_padre ) as consumidores_externos,
-					d.objeto_proveedor as 	dep
-			FROM 	apex_objeto o,
-					apex_objeto_dependencias d
-					apex_clase c
-			WHERE 	
-					o.objeto = '$componente' 
-				AND o.proyecto = '$proyecto'
-				AND o.clase = c.clase
-				AND o.objeto = d.objeto_consumidor 
-				AND o.proyecto = d.proyecto,
-				
-				";
+		$sql = "SELECT 	o.objeto as 			objeto,
+						o.clase as 				clase,
+						d.identificador as		rol
+				FROM 	apex_objeto_dependencias d,
+						apex_objeto o,
+						apex_clase c
+				WHERE	d.objeto_consumidor = '$this->componente' 
+					AND d.proyecto = '$this->proyecto'
+					AND o.objeto = d.objeto_proveedor 
+					AND o.proyecto = d.proyecto
+					AND o.clase = c.clase
+					AND c.clase_tipo IN (7,8)";
+		return toba::db()->consultar($sql);
 	}
 	
+	function get_input($id)
+	{
+		if(!$this->primer_nivel) {
+			$check_oculto = $this->oculto ? 'checked' : '';
+			$html = '';
+			$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
+			return $html;
+		}
+	}
 	
+	function cargar_estado_post($id)
+	{
+		if(!$this->primer_nivel) {
+			if (isset($_POST[$id.'_oculto'])) {
+				$this->oculto = $_POST[$id.'_oculto'];
+			} else {
+				$this->oculto = false;
+			}		
+		}
+	}
 	
 }
 ?>
