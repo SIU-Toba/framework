@@ -257,7 +257,8 @@ class consultas_instancia
 
 	static function get_lista_grupos_acceso_proyecto($proyecto)
 	{
-		$sql = "SELECT 	usuario_grupo_acc,
+		$sql = "SELECT 	proyecto,
+						usuario_grupo_acc,
 						nombre,
 						descripcion
 				FROM 	apex_usuario_grupo_acc
