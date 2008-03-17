@@ -52,4 +52,3 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 }
 
 ?>
-	

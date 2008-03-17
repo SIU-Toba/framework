@@ -4,16 +4,13 @@ require_once('lib/consultas_instancia.php');
 class ci_perfil_acceso extends toba_ci
 {
 	protected $s__filtro = null;
-	protected $s__arbol_cargado = false;
-	protected $s__proyecto;
-	protected $s__perfil_funcional = '';
+	protected $s__modo_edicion = false;
+	protected $s__perfil_funcional;
 	
 	function conf__seleccion_perfil()
 	{
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion_perfil')->eliminar_evento('agregar');
-		}else{
-			$this->s__proyecto = $this->s__filtro['proyecto'];
 		}
 	}
 	
@@ -37,6 +34,7 @@ class ci_perfil_acceso extends toba_ci
 	
 	function evt__volver()
 	{
+		$this->s__modo_edicion = false;
 		$this->set_pantalla('seleccion_perfil');
 	}
 	
@@ -47,6 +45,8 @@ class ci_perfil_acceso extends toba_ci
 	
 	function evt__agregar()
 	{
+		$this->s__modo_edicion = true;
+		$this->dep('editor_perfiles')->set_proyecto($this->s__filtro['proyecto']);
 		$this->set_pantalla('edicion_perfil');
 	}
 	
@@ -60,9 +60,23 @@ class ci_perfil_acceso extends toba_ci
 	
 	function evt__cuadro_grupos_acceso__seleccion($seleccion)
 	{
-		$this->s__proyecto = $seleccion['proyecto'];
+		$this->s__modo_edicion = true;
 		$this->s__perfil_funcional = $seleccion['usuario_grupo_acc'];
+		$this->dep('editor_perfiles')->set_proyecto($seleccion['proyecto']);
+		$this->dep('editor_perfiles')->set_perfil_funcional($seleccion['usuario_grupo_acc']);
 		$this->set_pantalla('edicion_perfil');
+	}
+	
+	function conf__form_datos_perfil($componente)
+	{
+		$datos = array();
+		if ($this->s__modo_edicion) {
+			$datos['proyecto'] = $this->s__filtro['proyecto'];
+		}
+		if (isset($this->s__perfil_funcional)) {
+			$datos['usuario_grupo_acc'] = $this->s__perfil_funcional;
+		}
+		$componente->set_datos($datos);
 	}
 	
 	function evt__filtro_proyectos__filtrar($datos)
@@ -81,7 +95,7 @@ class ci_perfil_acceso extends toba_ci
 			$componente->set_datos($this->s__filtro);
 		}		
 	}
-
+	
 }
 
 ?>
