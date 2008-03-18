@@ -14,11 +14,6 @@ class ci_catalogo extends toba_ci
 		}
 	}
 	
-	function conf()
-	{
-		
-	}
-	
 	//-----------------------------------------------------------------------------------
 	//---- DEPENDENCIAS ------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -89,6 +84,21 @@ class ci_catalogo extends toba_ci
 			$salida[] = $datos[$tabla];
 		}
 		$cuadro->set_datos($salida);
+	}
+
+	function conf__dimensiones($cuadro)
+	{
+		$datos = toba_info_editores::get_dimensiones();
+		foreach(array_keys($datos) as $id) {
+			$datos[$id]['icono']	= 'filtrar.png';
+			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
+			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['dimension']);
+			$datos[$id]['editar'] = $this->tag_vinculo_editor( 	toba_editor::get_id(),
+																'3441',
+																$parametros,
+																$img);
+		}
+		$cuadro->set_datos($datos);
 	}
 
 	function conf__arbol_relaciones($componente)

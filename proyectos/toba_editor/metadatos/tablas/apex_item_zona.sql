@@ -26,6 +26,17 @@ INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, des
 );
 INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
 	'toba_editor', --proyecto
+	'zona_dimension', --zona
+	'Dimensiones', --nombre
+	NULL, --clave_editable
+	'zona/zona_dimension.php', --archivo
+	NULL, --descripcion
+	NULL, --consulta_archivo
+	NULL, --consulta_clase
+	NULL  --consulta_metodo
+);
+INSERT INTO apex_item_zona (proyecto, zona, nombre, clave_editable, archivo, descripcion, consulta_archivo, consulta_clase, consulta_metodo) VALUES (
+	'toba_editor', --proyecto
 	'zona_fuente', --zona
 	'Editor de fuente', --nombre
 	NULL, --clave_editable

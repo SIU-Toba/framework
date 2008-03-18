@@ -1122,5 +1122,25 @@ class toba_info_editores
 		return $salida;
 	}
 
+	//------------------------------------------------------------------------------
+	//----------  DIMENSIONES
+	//------------------------------------------------------------------------------
+
+	function get_dimensiones($proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT		proyecto,
+							dimension,
+							nombre,
+							tabla,
+							descripcion
+					FROM	apex_dimension
+					WHERE	proyecto = '$proyecto'
+					ORDER BY nombre
+		";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}
+
+
 }
 ?>

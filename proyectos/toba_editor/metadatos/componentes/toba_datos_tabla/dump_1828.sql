@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'dt_apex_proyecto', --subclase
+	'datos/dt_apex_proyecto.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Parametros Basicos - datos', --nombre

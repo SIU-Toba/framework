@@ -8,7 +8,6 @@ class ci_consultas_php extends toba_ci
 		if ($editable = toba::zona()->get_editable()) {
 			$clave['proyecto'] = toba_editor::get_proyecto_cargado();
 			$clave['consulta_php'] = $editable[1];
-			$this->dependencia('datos')->cargar($clave);
 			$this->carga_ok = $this->dependencia('datos')->cargar($clave);
 		}	
 	}
