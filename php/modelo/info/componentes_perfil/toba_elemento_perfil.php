@@ -44,16 +44,19 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	{	
 		if($this->acceso_original != $this->acceso_actual) {
 			if ($this->acceso_actual == 1) {
-				$sql = "INSERT INTO apex_usuario_grupo_acc_item ('proyecto','usuario_grupo_acc','item') VALUES (
-						'$this->proyecto','$this->grupo_acceso','$this->id')";
+				$sql = "INSERT INTO 
+							apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item) 
+						VALUES 
+							('$this->proyecto','$this->grupo_acceso','$this->id');";
 			} else {
-				$sql = "DELETE FROM apex_usuario_grupo_acc_item 
-						WHERE item = '$this->id'
+				$sql = "DELETE FROM 
+							apex_usuario_grupo_acc_item 
+						WHERE 
+							item = '$this->id'
 						AND usuario_grupo_acc = '$this->grupo_acceso'
-						AND proyecto = '$this->proyecto'";
+						AND proyecto = '$this->proyecto';";
 			}
-			//toba::db()->ejecutar($sql);
-			echo "$sql<br>";
+			toba::db()->ejecutar($sql);
 		}
 		return $this->acceso_actual;
 	}

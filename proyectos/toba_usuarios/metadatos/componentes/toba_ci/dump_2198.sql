@@ -55,6 +55,30 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1116', --dep_id
+	'2198', --objeto_consumidor
+	'2208', --objeto_proveedor
+	'form_permisos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1115', --dep_id
+	'2198', --objeto_consumidor
+	'2207', --objeto_proveedor
+	'form_restricciones', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -114,7 +138,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	NULL, --objetos
+	'form_restricciones', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
@@ -130,7 +154,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	NULL, --objetos
+	'form_permisos', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

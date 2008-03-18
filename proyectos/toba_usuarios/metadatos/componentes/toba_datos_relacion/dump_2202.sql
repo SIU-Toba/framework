@@ -52,3 +52,85 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, ap_clase,
 	'0', --sinc_susp_constraints
 	'1'  --sinc_orden_automatico
 );
+
+------------------------------------------------------------
+-- apex_objeto_datos_rel_asoc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'2202', --objeto
+	'38', --asoc_id
+	NULL, --identificador
+	'toba_usuarios', --padre_proyecto
+	'2206', --padre_objeto
+	'accesos', --padre_id
+	'proyecto,usuario_grupo_acc', --padre_clave
+	'toba_usuarios', --hijo_proyecto
+	'2205', --hijo_objeto
+	'permisos', --hijo_id
+	'proyecto,usuario_grupo_acc', --hijo_clave
+	NULL, --cascada
+	'1'  --orden
+);
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'2202', --objeto
+	'39', --asoc_id
+	NULL, --identificador
+	'toba_usuarios', --padre_proyecto
+	'2206', --padre_objeto
+	'accesos', --padre_id
+	'proyecto,usuario_grupo_acc', --padre_clave
+	'toba_usuarios', --hijo_proyecto
+	'2204', --hijo_objeto
+	'restricciones', --hijo_id
+	'proyecto,usuario_grupo_acc', --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_objeto_dependencias
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1114', --dep_id
+	'2202', --objeto_consumidor
+	'2206', --objeto_proveedor
+	'accesos', --identificador
+	'1', --parametros_a
+	'1', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'1'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1113', --dep_id
+	'2202', --objeto_consumidor
+	'2205', --objeto_proveedor
+	'permisos', --identificador
+	'', --parametros_a
+	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'2'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1112', --dep_id
+	'2202', --objeto_consumidor
+	'2204', --objeto_proveedor
+	'restricciones', --identificador
+	'', --parametros_a
+	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	'3'  --orden
+);
+--- FIN Grupo de desarrollo 0
