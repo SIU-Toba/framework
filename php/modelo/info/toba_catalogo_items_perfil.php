@@ -43,6 +43,8 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 			$this->carpeta_inicial = '__raiz__';
 			$this->mensaje = "";
 			$this->ordenar();
+			/* Deberia mostrar nodos abiertos para aquellas 
+			carpetas en las que se aplica una restriccion*/
 			//$this->filtrar();
 		}
 	}

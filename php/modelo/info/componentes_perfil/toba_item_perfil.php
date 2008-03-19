@@ -3,7 +3,7 @@
 class toba_item_perfil extends toba_elemento_perfil
 {
 	protected $icono = "item.gif";
-
+	
 	function permiso_activo()
 	{
 		return $this->acceso_actual == 1;	

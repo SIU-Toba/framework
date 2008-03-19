@@ -18,6 +18,9 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	protected $nivel;
 	protected $camino;
 	protected $carpeta = false;
+	protected $imagen;
+	protected $imagen_origen;
+	protected $proyecto;
 
 	protected $oculto;
 	protected $solo_lectura;
@@ -29,11 +32,18 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	function __construct($datos, $grupo_acceso)
 	{
 		$this->id = $datos['item'];
+		$this->proyecto = $datos['proyecto'];
 		$this->grupo_acceso = $grupo_acceso;
 		$this->proyecto = $datos['proyecto'];
 		$this->nombre_corto = $datos['nombre'];
-		$this->nombre_largo = $datos['descripcion'];
+		if (!isset($datos['descripcion'])) {
+			$this->nombre_largo = $this->nombre_corto;	
+		}else{
+			$this->nombre_largo = $datos['descripcion'];
+		}		
 		$this->id_padre = $datos['padre'];
+		$this->imagen = $datos['imagen'];
+		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		$this->acceso_original = ($datos['acceso']!='') ? 1 : 0;
 		$this->acceso_actual = $this->acceso_original;
 	}
@@ -151,10 +161,19 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 	
 	function get_iconos()
 	{
-		$iconos[] = array(
-			'imagen' => toba_recurso::imagen_toba($this->icono, false),
-			'ayuda' => "Carpeta que contiene operaciones.",
-			);
+		if (isset($this->imagen) && ($this->imagen != '') && ($this->imagen_origen != '')) {
+			if ($this->imagen_origen == 'apex') {
+				$imagen = toba_recurso::imagen_toba($this->imagen, false);	
+			} else {
+				$imagen = toba_recurso::url_proyecto($this->proyecto).'/img/'.$this->imagen;
+			}
+		}
+		if (!isset($imagen)) {
+			$imagen = toba_recurso::imagen_toba($this->icono, false);
+		}
+		$iconos = array();
+		$iconos[] = array('imagen' => $imagen, 'ayuda' => $this->nombre_corto);
+		
 		return $iconos;
 	}
 	

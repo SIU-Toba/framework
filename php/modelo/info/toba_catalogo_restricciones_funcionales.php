@@ -46,8 +46,6 @@ class toba_catalogo_restricciones_funcionales
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario' );
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario_ml' );
 		
-		
-		
 		return $items;
 	}
 }
