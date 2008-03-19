@@ -5,7 +5,8 @@
 		- No es a INSERTS sino a datos
 			- Carga alternativa de datos de la implementacion o del proyecto
 			- Es posible que haya que evitar cargar registros (elementos eliminados)
-
+	* Error en ajax en una zona despues de borrar un elemento y ejecutando la cascada
+	
 --- Restriccion funcional -------------------
 
 	* Casos extraños (hacen que haya que grabar mas informacion relacionada con las cosas desabilitadas

@@ -200,7 +200,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1144', --pantalla
 	'pant_elementos', --identificador
 	'2', --orden
-	'Lista de elementos de la dimensión', --etiqueta
+	'Elementos', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

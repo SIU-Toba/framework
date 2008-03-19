@@ -50,7 +50,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
+	'100%', --ancho
 	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
@@ -92,7 +92,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1', --orden
 	'Clave', --titulo
 	NULL, --estilo_titulo
-	'0', --estilo
+	'5', --estilo
 	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice

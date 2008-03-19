@@ -573,6 +573,16 @@ class toba_editor
 		}
 	}
 	
+	//--------------------------------------------------------------------------
+	// Abrir una fuente de datos del proyecto editado
+	//--------------------------------------------------------------------------
+	
+	function db_proyecto_cargado($id_fuente)
+	{
+		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente( $id_fuente,
+																	 toba_editor::get_proyecto_cargado() );
+		return $fuente_datos->get_db();		
+	}
 	
 }
 ?>

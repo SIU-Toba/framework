@@ -27,9 +27,11 @@ class ci_dimensiones extends toba_ci
 	{
 		$this->dependencia('datos')->sincronizar();
 		$clave = $this->dependencia('datos')->tabla('dimension')->get_clave_valor(0);
+		$clave_carga[0] = $clave['proyecto'];
+		$clave_carga[1] = $clave['dimension'];
 		$zona = toba::solicitud()->zona();
 		if (! $zona->cargada()) {
-			$zona->cargar(array_values($clave));
+			$zona->cargar(array_values($clave_carga));
 		}
 		$this->carga_ok = true;
 		admin_util::refrescar_barra_lateral();
@@ -75,7 +77,7 @@ class ci_dimensiones extends toba_ci
 						. implode(' || ',$desc) . " as descripcion
 				FROM {$datos['tabla']}
 				ORDER BY descripcion";
-		$datos = toba::db($datos['fuente_datos'])->consultar($sql);
+		$datos = toba_editor::db_proyecto_cargado($datos['fuente_datos'])->consultar($sql);
 		return $datos;
 	}
 

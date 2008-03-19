@@ -128,7 +128,7 @@ function abrir_toba_instancia(){
 		<td><?php echo gif_nulo(3,1) ?></td>
 
 		<td class='listado-tabi'>
-		<a title="Administración de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><?php echo toba_recurso::imagen_toba("instancia.gif",true) ?></a>
+		<a title="Administración de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><?php echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
 		</td>
 
 
