@@ -31,21 +31,29 @@ class toba_catalogo_restricciones_funcionales
 	function get_lista_items()
 	{
 		$items = array();
-		$sql = "SELECT item FROM apex_perfil_funcional_ef WHERE restriccion_funcional = '$this->restriccion'
+		$sql = "SELECT proyecto, item FROM apex_perfil_funcional_ef 
+				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
 				UNION
-				SELECT item apex_perfil_funcional_pantalla WHERE restriccion_funcional = '$this->restriccion'
+				SELECT proyecto, item FROM apex_perfil_funcional_pantalla 
+				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
 				UNION
-				SELECT item apex_perfil_funcional_evt WHERE restriccion_funcional = '$this->restriccion'
+				SELECT proyecto, item FROM apex_perfil_funcional_evt 
+				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
 				UNION
-				SELECT item apex_perfil_funcional_ei WHERE restriccion_funcional = '$this->restriccion'
+				SELECT proyecto, item FROM apex_perfil_funcional_ei 
+				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'
 				UNION
-				SELECT item apex_perfil_funcional_cols WHERE restriccion_funcional = '$this->restriccion'";
+				SELECT proyecto, item FROM apex_perfil_funcional_cols 
+				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'";
 		
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => 2656 );
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => 2654 );
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario' );
 		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario_ml' );
 		
+		$sql = "SELECT proyecto, item FROM apex_item
+				WHERE proyecto = '$this->proyecto';";
+		$items = toba::db()->consultar($sql);
 		return $items;
 	}
 }

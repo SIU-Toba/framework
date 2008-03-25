@@ -276,6 +276,15 @@ class consultas_instancia
 		return toba::db()->consultar($sql);
 	}
 	
+	function get_restricciones_proyecto($proyecto)
+	{
+		$sql = "SELECT 	restriccion_funcional,
+						descripcion
+				FROM 	apex_restriccion_funcional
+				WHERE 	proyecto = '$proyecto';";
+		return toba::db()->consultar($sql);
+	}
+	
 	//---------------------------------------------------------------------
 	//------ Perfil de Datos ----------------------------------------------
 	//---------------------------------------------------------------------

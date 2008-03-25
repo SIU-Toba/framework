@@ -82,6 +82,13 @@ class toba_rf_ci extends toba_rf_componente
 		}
 	}
 	
+	function sincronizar()
+	{
+		if (!$this->primer_nivel) {
+			
+		}
+	}
+	
 	function cargar_estado_post($id)
 	{
 		if(!$this->primer_nivel) {

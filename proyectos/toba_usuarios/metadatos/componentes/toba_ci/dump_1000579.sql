@@ -39,6 +39,133 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
+-- apex_objeto_eventos
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'990', --evento_id
+	'1000579', --objeto
+	'agregar', --identificador
+	'&Agregar', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'nucleo/agregar.gif', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'991', --evento_id
+	'1000579', --objeto
+	'cancelar', --identificador
+	'&Volver', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'deshacer.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'992', --evento_id
+	'1000579', --objeto
+	'eliminar', --identificador
+	'&Eliminar', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'borrar.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'3', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'993', --evento_id
+	'1000579', --objeto
+	'guardar', --identificador
+	'&Guardar', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'guardar.gif', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'4', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'1', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+--- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
 -- apex_objeto_dependencias
 ------------------------------------------------------------
 
@@ -57,6 +184,57 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 --- FIN Grupo de desarrollo 1
 
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1119', --dep_id
+	'1000579', --objeto_consumidor
+	'2210', --objeto_proveedor
+	'cuadro_restricciones', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1118', --dep_id
+	'1000579', --objeto_consumidor
+	'2209', --objeto_proveedor
+	'filtro_proyectos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1120', --dep_id
+	'1000579', --objeto_consumidor
+	'2211', --objeto_proveedor
+	'form_restriccion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1121', --dep_id
+	'1000579', --objeto_consumidor
+	'2212', --objeto_proveedor
+	'restricciones', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+--- FIN Grupo de desarrollo 0
+
 ------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
@@ -65,10 +243,10 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1000579', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'600px', --ancho
+	NULL, --ancho
 	NULL, --alto
 	'abajo', --posicion_botonera
-	'tab_h', --tipo_navegacion
+	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
@@ -86,52 +264,39 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 -- apex_objeto_ci_pantalla
 ------------------------------------------------------------
 
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
+	'toba_usuarios', --objeto_ci_proyecto
+	'1000579', --objeto_ci
+	'1145', --pantalla
+	'edicion', --identificador
+	'2', --orden
+	'Edición', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'form_restriccion,arbol', --objetos
+	'cancelar,eliminar,guardar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
+);
+--- FIN Grupo de desarrollo 0
+
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_usuarios', --objeto_ci_proyecto
 	'1000579', --objeto_ci
 	'1000384', --pantalla
-	'pant_inicial', --identificador
+	'seleccion', --identificador
 	'1', --orden
-	'Pantalla Inicial', --etiqueta
+	'Selección', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'arbol', --objetos
-	NULL, --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
-);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
-	'toba_usuarios', --objeto_ci_proyecto
-	'1000579', --objeto_ci
-	'1000385', --pantalla
-	'pant_dos', --identificador
-	'2', --orden
-	'Pantalla Dos', --etiqueta
-	NULL, --descripcion
-	NULL, --tip
-	'apex', --imagen_recurso_origen
-	NULL, --imagen
-	NULL, --objetos
-	NULL, --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
-);
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
-	'toba_usuarios', --objeto_ci_proyecto
-	'1000579', --objeto_ci
-	'1000386', --pantalla
-	'pant_tres', --identificador
-	'3', --orden
-	'Pantalla Tres', --etiqueta
-	NULL, --descripcion
-	NULL, --tip
-	'apex', --imagen_recurso_origen
-	NULL, --imagen
-	NULL, --objetos
-	NULL, --eventos
+	'filtro_proyectos,cuadro_restricciones', --objetos
+	'agregar', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );
