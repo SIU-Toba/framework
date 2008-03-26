@@ -4,8 +4,6 @@ class toba_rf_componente extends toba_rf
 {
 	protected $proyecto;
 	protected $componente;
-	protected $no_visible_original;
-	protected $no_visible;
 	
 	function __construct($restriccion, $proyecto, $item, $componente, $padre) 
 	{
@@ -15,8 +13,8 @@ class toba_rf_componente extends toba_rf
 		$this->componente = $componente;
 		$datos = $this->cargar_datos();
 		parent::__construct($datos['nombre'], $padre, $this->item .'-'. $this->componente);
-		$this->no_visible_original = $datos['no_visible'];
-		$this->no_visible = $this->no_visible_original;
+		$this->no_visible_original = ($datos['no_visible'] !='') ? 1 : 0;
+		$this->no_visible_actual = $this->no_visible_original;
 		$this->iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba( $datos['icono'], false),
 				'ayuda' => "Carpeta que contiene operaciones.",
@@ -41,6 +39,7 @@ class toba_rf_componente extends toba_rf
 				WHERE 	o.objeto = '$this->componente' 
 					AND o.proyecto = '$this->proyecto'
 					AND o.clase = c.clase";
+		toba::logger()->debug($sql);
 		return toba::db()->consultar_fila($sql);
 	}
 
@@ -53,7 +52,7 @@ class toba_rf_componente extends toba_rf
 			foreach($eventos as $evento) {
 				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta']);
 				$nombre = isset($evento['etiqueta']) ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
-				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'] , $this->item, $this->restriccion, $evento['estado_original']);		
+				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'] , $this->item, $this->restriccion, $evento['no_visible']);		
 			}
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
@@ -65,7 +64,7 @@ class toba_rf_componente extends toba_rf
 		$sql = "SELECT 	e.etiqueta as		etiqueta, 
 						e.identificador as 	identificador,
 						e.evento_id as		evento_id,
-						re.no_visible as	estado_original,
+						re.no_visible as	no_visible,
 						imagen_recurso_origen,
 						imagen		
 				FROM 	apex_objeto_eventos e
@@ -83,7 +82,7 @@ class toba_rf_componente extends toba_rf
 	function get_input($id)
 	{
 		$id_input = $id.'_oculto';
-		$check_oculto = $this->oculto ? 'checked' : '';
+		$check_oculto = $this->no_visible_actual ? 'checked' : '';
 		$html = '';
 		$html .= "<LABEL for='$id_input'>Ocultar</LABEL>";
 		$html .= "<input type='checkbox' $check_oculto value='1' id='$id_input' name='$id_input' />";
@@ -93,9 +92,9 @@ class toba_rf_componente extends toba_rf
 	function cargar_estado_post($id)
 	{
 		if (isset($_POST[$id.'_oculto'])) {
-			$this->oculto = $_POST[$id.'_oculto'];
+			$this->no_visible_actual = $_POST[$id.'_oculto'];
 		} else {
-			$this->oculto = false;
+			$this->no_visible_actual = '';
 		}		
 	}
 }

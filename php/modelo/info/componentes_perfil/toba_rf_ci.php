@@ -42,16 +42,23 @@ class toba_rf_ci extends toba_rf_componente
 
 	function cargar_datos_pantallas()
 	{
-		$sql = "SELECT 	pantalla,
-						identificador,
-						orden,
-						etiqueta,
-						eventos,
-						objetos
+		$sql = "SELECT 	p.pantalla,
+						p.identificador,
+						p.orden,
+						p.etiqueta,
+						p.eventos,
+						p.objetos,
+						rfp.no_visible as no_visible
 				FROM 	apex_objeto_ci_pantalla p
-				WHERE 	objeto_ci_proyecto = '$this->proyecto' 
-					AND objeto_ci = '$this->componente'
+					LEFT OUTER JOIN apex_restriccion_funcional_pantalla rfp
+							ON 	p.objeto_ci_proyecto = rfp.proyecto
+							AND p.objeto_ci = rfp.objeto_ci
+							AND rfp.item = '$this->item'
+							AND rfp.restriccion_funcional = '$this->restriccion'
+				WHERE 	p.objeto_ci_proyecto = '$this->proyecto' 
+					AND p.objeto_ci = '$this->componente'
 				ORDER BY orden";
+		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);
 	}
 
@@ -75,7 +82,7 @@ class toba_rf_ci extends toba_rf_componente
 	function get_input($id)
 	{
 		if(!$this->primer_nivel) {
-			$check_oculto = $this->oculto ? 'checked' : '';
+			$check_oculto = $this->no_visible_actual ? 'checked' : '';
 			$html = '';
 			$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
 			return $html;
@@ -93,9 +100,9 @@ class toba_rf_ci extends toba_rf_componente
 	{
 		if(!$this->primer_nivel) {
 			if (isset($_POST[$id.'_oculto'])) {
-				$this->oculto = $_POST[$id.'_oculto'];
+				$this->no_visible_actual = $_POST[$id.'_oculto'];
 			} else {
-				$this->oculto = false;
+				$this->no_visible_actual = '';
 			}		
 		}
 	}

@@ -15,8 +15,8 @@ class toba_rf_componente_formulario extends toba_rf_componente
 			foreach($efs as $ef) {
 				$e[] = new toba_rf_subcomponente_ef($ef['etiqueta'], $grupo, $ef['id'] , $this->item, 
 														$this->restriccion,
-														$ef['estado_original_visible'],
-														$ef['estado_original_editable']);		
+														$ef['no_visible'],
+														$ef['no_editable']);		
 			}
 			$grupo->set_hijos($e);
 			$this->agregar_hijo($grupo);
@@ -27,8 +27,8 @@ class toba_rf_componente_formulario extends toba_rf_componente
 	{
 		$sql = "SELECT 	ef.objeto_ei_formulario_fila as		id,
 						ef.etiqueta as						etiqueta, 
-						ref.no_visible as					estado_original_visible,
-						ref.no_editable as					estado_original_editable
+						ref.no_visible as					no_visible,
+						ref.no_editable as					no_editable
 				FROM 	apex_objeto_ei_formulario_ef ef
 						LEFT OUTER JOIN apex_restriccion_funcional_ef ref
 							ON ef.objeto_ei_formulario_fila = ref.objeto_ei_formulario_fila 

@@ -15,7 +15,7 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 			foreach($cols as $col) {
 				$c[] = new toba_rf_subcomponente_columna($col['etiqueta'], $grupo, $col['id'] , $this->item, 
 														$this->restriccion,
-														$col['estado_original_visible']);		
+														$col['no_visible']);		
 			}
 			$grupo->set_hijos($c);
 			$this->agregar_hijo($grupo);
@@ -26,7 +26,7 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 	{
 		$sql = "SELECT 	col.objeto_cuadro_col as			id,
 						col.titulo as						etiqueta, 
-						rcol.no_visible as					estado_original_visible
+						rcol.no_visible as					no_visible
 				FROM 	apex_objeto_ei_cuadro_columna col
 						LEFT OUTER JOIN apex_restriccion_funcional_cols rcol
 							ON col.objeto_cuadro_col = rcol.objeto_cuadro_col 
