@@ -13,6 +13,8 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $es_hoja = true;
 	protected $hijos = array();
 	protected $propiedades = null;
+	protected $imagen;
+	protected $imagen_origen;
 
 	protected $no_visible_original;
 	protected $no_visible_actual;

@@ -42,6 +42,12 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		} else {
 			$this->no_visible_actual = '';
 		}		
-	}	
+	}
+
+	function sincronizar()
+	{
+		
+	}
+	
 }
 ?>

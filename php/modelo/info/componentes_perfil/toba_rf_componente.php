@@ -13,6 +13,11 @@ class toba_rf_componente extends toba_rf
 		$this->componente = $componente;
 		$datos = $this->cargar_datos();
 		parent::__construct($datos['nombre'], $padre, $this->item .'-'. $this->componente);
+		if (!isset($datos['descripcion'])) {
+			$this->nombre_largo = $this->nombre_corto;
+		}else{
+			$this->nombre_largo = $datos['descripcion'];
+		}
 		$this->no_visible_original = ($datos['no_visible'] !='') ? 1 : 0;
 		$this->no_visible_actual = $this->no_visible_original;
 		$this->iconos[] = array(
@@ -51,8 +56,8 @@ class toba_rf_componente extends toba_rf
 			$evt = array();
 			foreach($eventos as $evento) {
 				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta']);
-				$nombre = isset($evento['etiqueta']) ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
-				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'] , $this->item, $this->restriccion, $evento['no_visible']);		
+				$nombre = (isset($evento['etiqueta']) && $evento['etiqueta'] != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
+				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'] , $this->item, $this->restriccion, $evento['no_visible']);
 			}
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
@@ -97,5 +102,33 @@ class toba_rf_componente extends toba_rf
 			$this->no_visible_actual = '';
 		}		
 	}
+	
+	function agregar_restriccion()
+	{
+		$sql = "INSERT INTO 
+					apex_restriccion_funcional_ei (proyecto, restriccion_funcional, item, objeto, no_visible) 
+				VALUES 
+					('$this->proyecto','$this->restriccion','$this->item','$this->componente', $this->no_visible_actual);";
+		echo $sql."<br>";
+		//toba::db()->ejecutar($sql);
+	}
+	
+	function eliminar_restriccion()
+	{
+		$sql = "DELETE FROM 
+					apex_restriccion_funcional_ei
+				WHERE
+					proyecto = '$this->proyecto'
+				AND restriccion_funcional = '$this->restriccion'
+				AND objeto = '$this->componente';";
+		echo $sql."<br>";		
+		//toba::db()->ejecutar($sql);
+	}
+	
+	function sincronizar()
+	{
+		
+	}
+	
 }
 ?>

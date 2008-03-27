@@ -28,5 +28,10 @@ class toba_rf_subcomponente_columna extends toba_rf_subcomponente
 			$this->no_visible_actual = '';
 		}		
 	}
+	
+	function sincronizar()
+	{
+		
+	}
 }
 ?>

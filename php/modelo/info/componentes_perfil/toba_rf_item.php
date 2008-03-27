@@ -17,6 +17,15 @@ class toba_rf_item extends toba_rf
 				);
 		parent::__construct($datos['nombre'], $padre, $this->item);
 	}
+	
+	function sincronizar()
+	{
+		if ($this->tiene_hijos_cargados()) {
+			foreach ($this->get_hijos() as $hijo) {
+				$hijo->sincronizar();
+			}
+		}
+	}
 
 	function cargar_datos()
 	{

@@ -26,6 +26,12 @@ class toba_rf_subcomponente_evento extends toba_rf_subcomponente
 		} else {
 			$this->no_visible_actual = '';
 		}		
-	}	
+	}
+
+	function sincronizar()
+	{
+		
+	}
+	
 }
 ?>

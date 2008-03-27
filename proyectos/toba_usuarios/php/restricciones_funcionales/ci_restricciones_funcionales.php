@@ -26,6 +26,18 @@ class ci_restricciones_funcionales extends toba_ci
 	{
 		//En el alta...
 		//Por cada raiz $raiz->set_restriccion('...');	
+		$raices = $this->dep('arbol')->get_datos();
+		
+		foreach($raices as $raiz) {
+			/*
+			if ($alta) {
+				$datos = $this->datos('accesos')->get();
+				$raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
+			}
+			*/
+			$raiz->sincronizar();	
+		}
+		//unset($this->s__arbol_cargado);
 	}
 	
 	function evt__agregar()

@@ -13,7 +13,12 @@ class toba_rf_ci extends toba_rf_componente
 		$pantallas = $this->cargar_datos_pantallas();
 		foreach($pantallas as $pantalla) {
 			//Creo la pantalla
-			$p = new toba_rf_pantalla($pantalla['etiqueta'], $grupo, $this->id . '_' . $pantalla['pantalla']);
+			if ($pantalla['orden']=='' || $pantalla['orden']=='1') {
+				$primera = true;
+			}else{
+				$primera = false;
+			}
+			$p = new toba_rf_pantalla($this->restriccion, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla'], $primera);
 			$grupo->agregar_hijo($p);
 			//Cargo las dependencias
 			$deps_pantalla = array_map('trim',explode(',',$pantalla['objetos']));
@@ -32,7 +37,7 @@ class toba_rf_ci extends toba_rf_componente
 							$o = new toba_rf_componente_formulario($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
 							break;
 						default:
-						$o = new toba_rf_componente($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
+							$o = new toba_rf_componente($this->restriccion, $this->proyecto, $this->item, $dep['objeto'], $p);
 					}
 					$p->agregar_hijo($o);
 				}
@@ -42,17 +47,22 @@ class toba_rf_ci extends toba_rf_componente
 
 	function cargar_datos_pantallas()
 	{
-		$sql = "SELECT 	p.pantalla,
+		$sql = "SELECT 	p.objeto_ci_proyecto as proyecto,
+						p.pantalla,
 						p.identificador,
 						p.orden,
 						p.etiqueta,
 						p.eventos,
 						p.objetos,
+						p.objeto_ci,
+						p.imagen,
+						p.imagen_recurso_origen,
 						rfp.no_visible as no_visible
 				FROM 	apex_objeto_ci_pantalla p
 					LEFT OUTER JOIN apex_restriccion_funcional_pantalla rfp
 							ON 	p.objeto_ci_proyecto = rfp.proyecto
 							AND p.objeto_ci = rfp.objeto_ci
+							AND p.pantalla = rfp.pantalla
 							AND rfp.item = '$this->item'
 							AND rfp.restriccion_funcional = '$this->restriccion'
 				WHERE 	p.objeto_ci_proyecto = '$this->proyecto' 
@@ -91,8 +101,17 @@ class toba_rf_ci extends toba_rf_componente
 	
 	function sincronizar()
 	{
-		if (!$this->primer_nivel) {
-			
+		foreach ($this->get_hijos() as $hijo){
+			if (!$this->primer_nivel) {
+				if($this->no_visible_original != $this->no_visible_actual) {
+					if ($this->no_visible_actual == 1) {
+						$this->agregar_restriccion();
+					}else{
+						$this->eliminar_restriccion();
+					}
+				}
+			}
+			$hijo->sincronizar();
 		}
 	}
 	
