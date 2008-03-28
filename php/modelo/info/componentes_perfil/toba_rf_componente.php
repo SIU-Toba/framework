@@ -57,7 +57,7 @@ class toba_rf_componente extends toba_rf
 			foreach($eventos as $evento) {
 				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta']);
 				$nombre = (isset($evento['etiqueta']) && $evento['etiqueta'] != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
-				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'] , $this->item, $this->restriccion, $evento['no_visible']);
+				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'], $evento['proyecto'], $this->item, $this->restriccion, $evento['no_visible']);
 			}
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
@@ -66,7 +66,8 @@ class toba_rf_componente extends toba_rf
 
 	function cargar_datos_eventos()
 	{
-		$sql = "SELECT 	e.etiqueta as		etiqueta, 
+		$sql = "SELECT 	e.proyecto as 		proyecto,
+						e.etiqueta as		etiqueta, 
 						e.identificador as 	identificador,
 						e.evento_id as		evento_id,
 						re.no_visible as	no_visible,
@@ -81,6 +82,7 @@ class toba_rf_componente extends toba_rf
 				AND		e.objeto = '$this->componente' 
 				AND		e.proyecto = '$this->proyecto'
 				ORDER BY e.orden";
+		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);
 	}
 

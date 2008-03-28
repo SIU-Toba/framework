@@ -1,12 +1,17 @@
 <?php 
 class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 {
-	protected $estado_original_editable = null;
+	protected $formulario;
+	protected $solo_lectura_original;
+	protected $solo_lectura_actual;
 
-	function __construct($nombre, $padre, $id, $item, $restriccion, $estado_original_visible, $estado_original_editable) 
+
+	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario) 
 	{
-		parent::__construct($nombre, $padre, $id, $item, $restriccion, $estado_original_visible) ;
-		$this->estado_original_editable = $estado_original_editable;
+		parent::__construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible) ;
+		$this->formulario = $formulario;
+		$this->solo_lectura_original = $no_editable;
+		$this->solo_lectura_actual = $this->solo_lectura_original;
 	}	
 	
 	function inicializar()
@@ -46,6 +51,84 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 
 	function sincronizar()
 	{
+		//ERA VIERNES Y ME TENIA QUE IR...
+		if (($this->no_visible_actual != $this->no_visible_original) || 
+			($this->solo_lectura_actual != $this->solo_lectura_original)) {
+			if (($this->no_visible_actual == '') && ($this->solo_lectura_actual == '')) { //DELETE
+				$sql = "DELETE FROM
+							apex_restriccion_funcional_ef
+						WHERE
+								proyecto = '$this->proyecto'
+							AND	restriccion_funcional = '$this->restriccion'
+							AND objeto_ei_formulario_fila = '$this->id';";
+			}elseif ((($this->no_visible_actual == 1) && ($this->solo_lectura_actual == 1)) || //UPDATE
+					 (($this->no_visible_actual != 1) && ($this->solo_lectura_actual == 1)) ||
+					 (($this->no_visible_actual = 1) && ($this->solo_lectura_actual == 1))){
+				$sql = "UPDATE 
+							apex_restriccion_funcional_ef 
+						SET
+							no_visible = '$this->no_visible_actual', no_editable = '$this->solo_lectura_actual'
+						WHERE
+								proyecto = '$this->proyecto'
+							AND	restriccion_funcional = '$this->restriccion'
+							AND objeto_ei_formulario_fila = '$this->id';";
+				
+			}else{//INSERT
+				$sql = "INSERT INTO 
+							apex_restriccion_funcional_ef 	(proyecto, 
+															 restriccion_funcional, 
+															 item, 
+															 objeto_ei_formulario_fila, 
+															 objeto_ei_formulario, 
+															 no_visible, no_editable)
+						VALUES
+							('$this->proyecto', 
+							 '$this->restriccion', 
+							 '$this->item', 
+							 '$this->id', 
+							 '$this->formulario', 
+							 '$this->no_visible_actual', '$this->solo_lectura_actual');";
+			}
+			echo $sql."<br>";
+			//toba::db()->ejecutar($sql);
+		}
+	}
+	
+	
+	function sincro()
+	{
+		//ERA VIERNES Y ME TENIA QUE IR...
+		if (($this->no_visible_actual != $this->no_visible_original) && 
+			($this->solo_lectura_actual != $this->solo_lectura_original)) {	
+				if ($this->no_visible_actual == 1) {
+					if ($this->solo_lectura_actual == 1) {
+						//INSERT
+					}else{
+						//UPDATE
+					}
+				}else{
+					if ($this->solo_lectura_actual == 1) {
+						//INSERT
+					}else{
+						//DELETE
+					}
+				}	
+		}elseif (($this->no_visible_actual != $this->no_visible_original) || 
+			($this->solo_lectura_actual != $this->solo_lectura_original)){
+			if ($this->no_visible_actual == 1) {
+					if ($this->solo_lectura_actual != 1) {
+						//INSERT
+					}else{
+						//UPDATE
+					}
+				}else{
+					if ($this->solo_lectura_actual == 1) {
+						//INSERT
+					}else{
+						//DELETE
+					}
+				}
+		}
 		
 	}
 	

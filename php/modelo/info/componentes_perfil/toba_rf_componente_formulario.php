@@ -13,10 +13,10 @@ class toba_rf_componente_formulario extends toba_rf_componente
 			$grupo = new toba_rf_grupo_efs('CAMPOS',$this);
 			$e = array();
 			foreach($efs as $ef) {
-				$e[] = new toba_rf_subcomponente_ef($ef['etiqueta'], $grupo, $ef['id'] , $this->item, 
+				$e[] = new toba_rf_subcomponente_ef($ef['etiqueta'], $grupo, $ef['id'] , $ef['proyecto'], $this->item, 
 														$this->restriccion,
 														$ef['no_visible'],
-														$ef['no_editable']);		
+														$ef['no_editable'], $ef['formulario']);		
 			}
 			$grupo->set_hijos($e);
 			$this->agregar_hijo($grupo);
@@ -25,7 +25,9 @@ class toba_rf_componente_formulario extends toba_rf_componente
 
 	function cargar_datos_efs()
 	{
-		$sql = "SELECT 	ef.objeto_ei_formulario_fila as		id,
+		$sql = "SELECT 	ef.objeto_ei_formulario as			formulario,
+						ef.objeto_ei_formulario_fila as		id,
+						ef.objeto_ei_formulario_proyecto as	proyecto,
 						ef.etiqueta as						etiqueta, 
 						ref.no_visible as					no_visible,
 						ref.no_editable as					no_editable
@@ -47,14 +49,15 @@ class toba_rf_componente_formulario extends toba_rf_componente
 	
 	function sincronizar()
 	{
-		foreach ($this->get_hijos() as $hijo){
-			if($this->no_visible_original != $this->no_visible_actual) {
-				if ($this->no_visible_actual == 1) {
-					$this->agregar_restriccion();
-				}else{
-					$this->eliminar_restriccion();
-				}
+		if($this->no_visible_original != $this->no_visible_actual) {
+			if ($this->no_visible_actual == 1) {
+				$this->agregar_restriccion();
+			}else{
+				$this->eliminar_restriccion();
 			}
+		}
+		//ei_arbol($this->get_hijos());
+		foreach ($this->get_hijos() as $hijo){
 			$hijo->sincronizar();
 		}
 	}

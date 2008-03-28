@@ -24,26 +24,26 @@ class toba_rf_pantalla extends toba_rf
 	
 	function sincronizar()
 	{
-		foreach ($this->get_hijos() as $hijos){
-			if (!$this->primer_pantalla) {
-				if($this->no_visible_original != $this->no_visible_actual) {
-					if ($this->no_visible_actual == 1) {
-						$sql = "INSERT INTO 
-									apex_restriccion_funcional_pantalla (proyecto, restriccion_funcional, item, pantalla, objeto_ci, no_visible) 
-								VALUES 
-									('$this->proyecto','$this->restriccion','$this->item','$this->pantalla', '$this->ci', $this->no_visible_actual);";
-					} else {
-						$sql = "DELETE FROM 
-									apex_restriccion_funcional_pantalla
-								WHERE
-									proyecto = '$this->proyecto'
-								AND restriccion_funcional = '$this->restriccion'
-								AND pantalla = '$this->pantalla';";
-					}
-					echo $sql."<br>";
-					//toba::db()->ejecutar($sql);
-				}				
-			}			
+		if (!$this->primer_pantalla) {
+			if($this->no_visible_original != $this->no_visible_actual) {
+				if ($this->no_visible_actual == 1) {
+					$sql = "INSERT INTO 
+								apex_restriccion_funcional_pantalla (proyecto, restriccion_funcional, item, pantalla, objeto_ci, no_visible) 
+							VALUES 
+								('$this->proyecto','$this->restriccion','$this->item','$this->pantalla', '$this->ci', $this->no_visible_actual);";
+				} else {
+					$sql = "DELETE FROM 
+								apex_restriccion_funcional_pantalla
+							WHERE
+								proyecto = '$this->proyecto'
+							AND restriccion_funcional = '$this->restriccion'
+							AND pantalla = '$this->pantalla';";
+				}
+				echo $sql."<br>";
+				//toba::db()->ejecutar($sql);
+			}				
+		}
+		foreach ($this->get_hijos() as $hijos){			
 			$hijos->sincronizar();
 		}
 	}

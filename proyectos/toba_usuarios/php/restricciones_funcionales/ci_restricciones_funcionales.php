@@ -37,7 +37,8 @@ class ci_restricciones_funcionales extends toba_ci
 			*/
 			$raiz->sincronizar();	
 		}
-		//unset($this->s__arbol_cargado);
+		$this->cortar_arbol();
+		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__agregar()
@@ -47,14 +48,19 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function evt__cancelar()
 	{
-		unset($this->s__arbol_cargado);
-		$this->restriccion = -1;
+		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__eliminar()
 	{
-		
+		$raices = $this->dep('arbol')->get_datos();
+		foreach ($raices as $raiz) {
+			ei_arbol($raiz->get_hijos());
+			foreach ($raiz->get_hijos() as $hijo) {
+				ei_arbol($hijo->get_hijos());
+			}
+		}
 	}
 	
 	function evt__cuadro_restricciones__seleccion($seleccion)
@@ -88,6 +94,13 @@ class ci_restricciones_funcionales extends toba_ci
 			$componente->set_datos($this->s__filtro);
 		}		
 	}
+	
+	function cortar_arbol()
+	{
+		unset($this->s__arbol_cargado);
+		$this->restriccion = -1;	
+	}
+	
 }
 
 ?>

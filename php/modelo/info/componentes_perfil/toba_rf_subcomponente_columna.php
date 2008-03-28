@@ -1,6 +1,15 @@
 <?php 
 class toba_rf_subcomponente_columna extends toba_rf_subcomponente
 {
+	protected $cuadro;
+	
+	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $estado_original, $cuadro) 
+	{
+		$this->cuadro = $cuadro;
+		parent::__construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $estado_original);
+		
+	}
+	
 	function inicializar()
 	{
 		$this->iconos[] = array(
@@ -31,6 +40,23 @@ class toba_rf_subcomponente_columna extends toba_rf_subcomponente
 	
 	function sincronizar()
 	{
+		if ($this->no_visible_actual != $this->no_visible_original) {
+			if ($this->no_visible_actual == 1) {
+				$sql = "INSERT INTO 
+							apex_restriccion_funcional_cols (proyecto, restriccion_funcional, item, objeto_cuadro, objeto_cuadro_col, no_visible)
+						VALUES
+							('$this->proyecto', '$this->restriccion', '$this->item', '$this->cuadro', '$this->id', '$this->no_visible_actual');";
+			}else{
+				$sql = "DELETE FROM
+							apex_restriccion_funcional_cols
+						WHERE
+								proyecto = '$this->proyecto'
+							AND	restriccion_funcional = '$this->restriccion'
+							AND objeto_cuadro_col = '$this->id';";
+			}
+			echo $sql."<br>";
+			//toba::db()->ejecutar($sql);
+		}
 		
 	}
 }

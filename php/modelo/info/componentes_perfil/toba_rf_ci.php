@@ -101,16 +101,16 @@ class toba_rf_ci extends toba_rf_componente
 	
 	function sincronizar()
 	{
-		foreach ($this->get_hijos() as $hijo){
-			if (!$this->primer_nivel) {
-				if($this->no_visible_original != $this->no_visible_actual) {
-					if ($this->no_visible_actual == 1) {
-						$this->agregar_restriccion();
-					}else{
-						$this->eliminar_restriccion();
-					}
+		if (!$this->primer_nivel) {
+			if($this->no_visible_original != $this->no_visible_actual) {
+				if ($this->no_visible_actual == 1) {
+					$this->agregar_restriccion();
+				}else{
+					$this->eliminar_restriccion();
 				}
 			}
+		}
+		foreach ($this->get_hijos() as $hijo){
 			$hijo->sincronizar();
 		}
 	}
