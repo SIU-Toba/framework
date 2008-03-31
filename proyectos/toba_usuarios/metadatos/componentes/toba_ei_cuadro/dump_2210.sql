@@ -84,7 +84,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'restriccion_funcional', --columnas_clave
+	'proyecto, restriccion_funcional', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'400px', --ancho

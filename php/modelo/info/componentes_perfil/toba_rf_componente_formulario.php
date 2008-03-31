@@ -18,6 +18,7 @@ class toba_rf_componente_formulario extends toba_rf_componente
 														$ef['no_visible'],
 														$ef['no_editable'], $ef['formulario']);		
 			}
+			$grupo->set_apertura(false);
 			$grupo->set_hijos($e);
 			$this->agregar_hijo($grupo);
 		}

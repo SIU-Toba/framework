@@ -29,12 +29,9 @@ class ci_editor_perfiles extends toba_ci
 	function guardar_arbol_items($alta)
 	{
 		$raices = $this->dep('arbol_perfiles')->get_datos();
-
+		$datos = $this->datos('accesos')->get();
 		foreach($raices as $raiz) {
-			if ($alta) {
-				$datos = $this->datos('accesos')->get();
-				$raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
-			}
+			if ($alta) $raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
 			$raiz->sincronizar();	
 		}
 		unset($this->s__arbol_cargado);

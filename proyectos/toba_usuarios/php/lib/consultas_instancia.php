@@ -278,7 +278,8 @@ class consultas_instancia
 	
 	function get_restricciones_proyecto($proyecto)
 	{
-		$sql = "SELECT 	restriccion_funcional,
+		$sql = "SELECT 	proyecto,
+						restriccion_funcional,
 						descripcion
 				FROM 	apex_restriccion_funcional
 				WHERE 	proyecto = '$proyecto';";

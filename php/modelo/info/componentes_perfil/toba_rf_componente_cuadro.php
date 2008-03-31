@@ -17,6 +17,7 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 														$this->restriccion,
 														$col['no_visible'], $col['cuadro']);		
 			}
+			$grupo->set_apertura(false);
 			$grupo->set_hijos($c);
 			$this->agregar_hijo($grupo);
 		}

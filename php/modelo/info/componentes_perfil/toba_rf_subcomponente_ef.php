@@ -48,33 +48,60 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 			$this->no_visible_actual = '';
 		}		
 	}
-
+	
 	function sincronizar()
 	{
-		//ERA VIERNES Y ME TENIA QUE IR...
-		if (($this->no_visible_actual != $this->no_visible_original) || 
-			($this->solo_lectura_actual != $this->solo_lectura_original)) {
-			if (($this->no_visible_actual == '') && ($this->solo_lectura_actual == '')) { //DELETE
-				$sql = "DELETE FROM
-							apex_restriccion_funcional_ef
-						WHERE
-								proyecto = '$this->proyecto'
-							AND	restriccion_funcional = '$this->restriccion'
-							AND objeto_ei_formulario_fila = '$this->id';";
-			}elseif ((($this->no_visible_actual == 1) && ($this->solo_lectura_actual == 1)) || //UPDATE
-					 (($this->no_visible_actual != 1) && ($this->solo_lectura_actual == 1)) ||
-					 (($this->no_visible_actual = 1) && ($this->solo_lectura_actual == 1))){
-				$sql = "UPDATE 
-							apex_restriccion_funcional_ef 
-						SET
-							no_visible = '$this->no_visible_actual', no_editable = '$this->solo_lectura_actual'
-						WHERE
-								proyecto = '$this->proyecto'
-							AND	restriccion_funcional = '$this->restriccion'
-							AND objeto_ei_formulario_fila = '$this->id';";
-				
-			}else{//INSERT
-				$sql = "INSERT INTO 
+		if (($this->no_visible_actual != $this->no_visible_original) && 
+			($this->solo_lectura_actual != $this->solo_lectura_original)) {	
+				if ($this->no_visible_actual == 1) {
+					if ($this->solo_lectura_actual == 1) {
+						$op = 'I';
+					}else{
+						$op = 'U';
+					}
+				}else{
+					if ($this->solo_lectura_actual == 1) {
+						$op = 'I';
+					}else{
+						$op = 'D';
+					}
+				}	
+		}elseif ($this->no_visible_actual != $this->no_visible_original) {
+			if ($this->no_visible_actual == 1) {
+					if ($this->solo_lectura_original == 1) {
+						$op = 'U';
+					}else{
+						$op = 'I';
+					}
+				}else{
+					if ($this->solo_lectura_original == 1) {
+						$op = 'U';
+					}else{
+						$op = 'D';
+					}
+				}
+		}elseif ($this->solo_lectura_actual != $this->solo_lectura_original) {
+			if ($this->solo_lectura_actual == 1) {
+					if ($this->no_visible_original == 1) {
+						$op = 'U';
+					}else{
+						$op = 'I';
+					}
+				}else{
+					if ($this->no_visible_original == 1) {
+						$op = 'U';
+					}else{
+						$op = 'D';
+					}
+				}
+		}
+		
+		if (isset($op)) {
+			$solo_lectura = $this->solo_lectura_actual == '' ? 0 : 1;
+			$no_visible = $this->no_visible_actual == '' ? 0 : 1;
+ 			switch ($op) {
+				case 'I':
+					$sql = "INSERT INTO 
 							apex_restriccion_funcional_ef 	(proyecto, 
 															 restriccion_funcional, 
 															 item, 
@@ -87,47 +114,29 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 							 '$this->item', 
 							 '$this->id', 
 							 '$this->formulario', 
-							 '$this->no_visible_actual', '$this->solo_lectura_actual');";
+							 '$no_visible', '$solo_lectura');";
+					break;
+				case 'U':
+					$sql = "UPDATE 
+							apex_restriccion_funcional_ef 
+						SET
+							no_visible = '$no_visible', no_editable = '$solo_lectura'
+						WHERE
+								proyecto = '$this->proyecto'
+							AND	restriccion_funcional = '$this->restriccion'
+							AND objeto_ei_formulario_fila = '$this->id';";					
+					break;
+				case 'D':
+					$sql = "DELETE FROM
+							apex_restriccion_funcional_ef
+						WHERE
+								proyecto = '$this->proyecto'
+							AND	restriccion_funcional = '$this->restriccion'
+							AND objeto_ei_formulario_fila = '$this->id';";					
+					break;					
 			}
 			echo $sql."<br>";
 			//toba::db()->ejecutar($sql);
-		}
-	}
-	
-	
-	function sincro()
-	{
-		//ERA VIERNES Y ME TENIA QUE IR...
-		if (($this->no_visible_actual != $this->no_visible_original) && 
-			($this->solo_lectura_actual != $this->solo_lectura_original)) {	
-				if ($this->no_visible_actual == 1) {
-					if ($this->solo_lectura_actual == 1) {
-						//INSERT
-					}else{
-						//UPDATE
-					}
-				}else{
-					if ($this->solo_lectura_actual == 1) {
-						//INSERT
-					}else{
-						//DELETE
-					}
-				}	
-		}elseif (($this->no_visible_actual != $this->no_visible_original) || 
-			($this->solo_lectura_actual != $this->solo_lectura_original)){
-			if ($this->no_visible_actual == 1) {
-					if ($this->solo_lectura_actual != 1) {
-						//INSERT
-					}else{
-						//UPDATE
-					}
-				}else{
-					if ($this->solo_lectura_actual == 1) {
-						//INSERT
-					}else{
-						//DELETE
-					}
-				}
 		}
 		
 	}

@@ -59,6 +59,7 @@ class toba_rf_componente extends toba_rf
 				$nombre = (isset($evento['etiqueta']) && $evento['etiqueta'] != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
 				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'], $evento['proyecto'], $this->item, $this->restriccion, $evento['no_visible']);
 			}
+			$grupo->set_apertura(false);
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
 		}
@@ -110,7 +111,7 @@ class toba_rf_componente extends toba_rf
 		$sql = "INSERT INTO 
 					apex_restriccion_funcional_ei (proyecto, restriccion_funcional, item, objeto, no_visible) 
 				VALUES 
-					('$this->proyecto','$this->restriccion','$this->item','$this->componente', $this->no_visible_actual);";
+					('$this->proyecto','$this->restriccion','$this->item','$this->componente', '$this->no_visible_actual');";
 		echo $sql."<br>";
 		//toba::db()->ejecutar($sql);
 	}

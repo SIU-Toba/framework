@@ -19,8 +19,6 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $no_visible_original;
 	protected $no_visible_actual;
 
-	//protected $oculto;
-	//protected $solo_lectura;
 	protected $abierto = true;	
 
 	protected $restriccion = '';

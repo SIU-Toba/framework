@@ -21,22 +21,27 @@ class ci_restricciones_funcionales extends toba_ci
 			$this->s__arbol_cargado = true;
 		}
 	}
-
+	
 	function evt__guardar()
 	{
-		//En el alta...
-		//Por cada raiz $raiz->set_restriccion('...');	
 		$raices = $this->dep('arbol')->get_datos();
-		
+		if ($this->dep('restricciones')->esta_cargada()) {
+			$alta = false;
+		}else{
+			$restriccion = toba::db()->recuperar_secuencia('apex_restriccion_funcional_seq');
+			$alta = true;
+		}
+		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
+		toba::db()->abrir_transaccion();
+		$this->dep('restricciones')->sincronizar();
 		foreach($raices as $raiz) {
-			/*
 			if ($alta) {
-				$datos = $this->datos('accesos')->get();
-				$raiz->set_grupo_acceso($datos['usuario_grupo_acc']);
+				$raiz->set_restriccion($restriccion);
 			}
-			*/
 			$raiz->sincronizar();	
 		}
+		toba::db()->cerrar_transaccion();
+		
 		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');
 	}
@@ -54,19 +59,12 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function evt__eliminar()
 	{
-		$raices = $this->dep('arbol')->get_datos();
-		foreach ($raices as $raiz) {
-			ei_arbol($raiz->get_hijos());
-			foreach ($raiz->get_hijos() as $hijo) {
-				ei_arbol($hijo->get_hijos());
-			}
-		}
 	}
 	
 	function evt__cuadro_restricciones__seleccion($seleccion)
 	{
 		$this->restriccion = $seleccion['restriccion_funcional'];
-		$this->dep('restricciones')->cargar();
+		$this->dep('restricciones')->cargar($seleccion);
 		$this->set_pantalla('edicion');	
 	}
 	
@@ -75,6 +73,25 @@ class ci_restricciones_funcionales extends toba_ci
 		if (isset($this->s__filtro)) {
 			$datos = consultas_instancia::get_restricciones_proyecto($this->s__filtro['proyecto']);
 			$componente->set_datos($datos);
+		}
+	}
+	
+	function conf__form_restriccion($componente)
+	{
+		if ($this->dep('restricciones')->esta_cargada()) {
+			$datos = $this->dep('restricciones')->get();	
+		}else{
+			$datos['proyecto'] = $this->s__filtro['proyecto'];
+		}
+		$componente->set_datos($datos);
+	}
+	
+	function evt__form_restriccion__modificacion($datos)
+	{
+		if ($this->dep('restricciones')->esta_cargada()) {
+			$this->dep('restricciones')->set($datos);	
+		}else{
+			$this->dep('restricciones')->nueva_fila($datos);	
 		}
 	}
 	
