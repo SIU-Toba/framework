@@ -193,7 +193,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			dormir(1000);	//Para esperar que el script se desconecte			
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
-			$sql = "CREATE DATABASE \"$base_a_crear\" ENCODING '" . self::db_encoding_estandar . "';";
+			$encoding = isset($info_db['encoding']) ? $info_db['encoding'] : self::db_encoding_estandar;
+			$sql = "CREATE DATABASE \"$base_a_crear\" ENCODING '$encoding';";
 			$db->ejecutar( $sql );
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
