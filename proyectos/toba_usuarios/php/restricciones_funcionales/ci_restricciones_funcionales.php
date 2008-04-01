@@ -28,12 +28,14 @@ class ci_restricciones_funcionales extends toba_ci
 		if ($this->dep('restricciones')->esta_cargada()) {
 			$alta = false;
 		}else{
-			$restriccion = toba::db()->recuperar_secuencia('apex_restriccion_funcional_seq');
 			$alta = true;
 		}
 		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		$this->dep('restricciones')->sincronizar();
+		if ($alta) {
+			$restriccion = toba::db()->recuperar_secuencia('apex_restriccion_funcional_seq');	
+		}		
 		foreach($raices as $raiz) {
 			if ($alta) {
 				$raiz->set_restriccion($restriccion);
