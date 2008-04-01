@@ -12,7 +12,6 @@ class toba_rf_grupo extends toba_rf
 	
 	function sincronizar()
 	{
-		//ei_arbol($this->get_hijos());
 		foreach ($this->get_hijos() as $hijo) {
 			$hijo->sincronizar();
 		}

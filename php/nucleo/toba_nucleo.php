@@ -608,6 +608,7 @@ class toba_nucleo
 			'toba_rf_grupo_efs'              		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_efs.php',        
 			'toba_rf_grupo_eventos'          		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_eventos.php',    
 			'toba_rf_item'                   		=>  '/modelo/info/componentes_perfil/toba_rf_item.php',             
+			'toba_rf_carpeta'                  		=>  '/modelo/info/componentes_perfil/toba_rf_carpeta.php',             
 			'toba_rf_pantalla'               		=>  '/modelo/info/componentes_perfil/toba_rf_pantalla.php'          			
 		);
 	}

@@ -54,8 +54,7 @@ class toba_rf_subcomponente_columna extends toba_rf_subcomponente
 							AND	restriccion_funcional = '$this->restriccion'
 							AND objeto_cuadro_col = '$this->id';";
 			}
-			echo $sql."<br>";
-			//toba::db()->ejecutar($sql);
+			toba::db()->ejecutar($sql);
 		}
 		
 	}

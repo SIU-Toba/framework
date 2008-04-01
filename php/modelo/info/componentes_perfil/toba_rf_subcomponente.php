@@ -1,7 +1,6 @@
 <?php 
 class toba_rf_subcomponente extends toba_rf
 {
-	protected $proyecto;
 	
 	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $estado_original) 
 	{

@@ -2,7 +2,7 @@
 
 class toba_rf_item extends toba_rf
 {
-	protected $proyecto;
+	protected $icono = "item.gif";
 	
 	function __construct($restriccion, $proyecto, $item, $padre) 
 	{
@@ -11,8 +11,9 @@ class toba_rf_item extends toba_rf
 		$this->item = $item;
 		$datos = $this->cargar_datos();
 		$this->cargar_hijos();
+		//FALTA: recuperar la imagen asociada al item
 		$this->iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba('item.gif', false),
+				'imagen' => toba_recurso::imagen_toba($this->icono, false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
 		parent::__construct($datos['nombre'], $padre, $this->item);

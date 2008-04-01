@@ -57,7 +57,6 @@ class toba_rf_componente_formulario extends toba_rf_componente
 				$this->eliminar_restriccion();
 			}
 		}
-		//ei_arbol($this->get_hijos());
 		foreach ($this->get_hijos() as $hijo){
 			$hijo->sincronizar();
 		}

@@ -111,7 +111,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'&Eliminar', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
-	NULL, --confirmacion
+	'¿Seguro desea eliminar la RESTRICCIÓN?', --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	'borrar.png', --imagen

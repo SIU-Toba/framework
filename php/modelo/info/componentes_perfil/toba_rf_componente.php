@@ -2,7 +2,6 @@
 
 class toba_rf_componente extends toba_rf
 {
-	protected $proyecto;
 	protected $componente;
 	
 	function __construct($restriccion, $proyecto, $item, $componente, $padre) 
@@ -112,8 +111,7 @@ class toba_rf_componente extends toba_rf
 					apex_restriccion_funcional_ei (proyecto, restriccion_funcional, item, objeto, no_visible) 
 				VALUES 
 					('$this->proyecto','$this->restriccion','$this->item','$this->componente', '$this->no_visible_actual');";
-		echo $sql."<br>";
-		//toba::db()->ejecutar($sql);
+		toba::db()->ejecutar($sql);
 	}
 	
 	function eliminar_restriccion()
@@ -124,13 +122,18 @@ class toba_rf_componente extends toba_rf
 					proyecto = '$this->proyecto'
 				AND restriccion_funcional = '$this->restriccion'
 				AND objeto = '$this->componente';";
-		echo $sql."<br>";		
-		//toba::db()->ejecutar($sql);
+		toba::db()->ejecutar($sql);
 	}
 	
 	function sincronizar()
 	{
-		
+		if($this->no_visible_original != $this->no_visible_actual) {
+			if ($this->no_visible_actual == 1) {
+				$this->agregar_restriccion();
+			}else{
+				$this->eliminar_restriccion();
+			}
+		}
 	}
 	
 }

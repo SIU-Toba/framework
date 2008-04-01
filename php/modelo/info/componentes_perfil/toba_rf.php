@@ -3,6 +3,7 @@
 class toba_rf implements toba_nodo_arbol_form 
 {
 	protected $padre;
+	protected $id_padre;
 	protected $nombre_corto;
 	protected $nombre_largo = null;
 	protected $id = null;
@@ -15,6 +16,10 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $propiedades = null;
 	protected $imagen;
 	protected $imagen_origen;
+	protected $nivel;
+	protected $carpeta = false;
+	protected $camino;
+	protected $proyecto;
 
 	protected $no_visible_original;
 	protected $no_visible_actual;
@@ -27,7 +32,7 @@ class toba_rf implements toba_nodo_arbol_form
 	function __construct($nombre, $padre=null, $id=null)
 	{
 		$this->nombre_corto = $nombre;
-		$this->padre = $padre;
+		$this->id_padre = $padre;
 		$this->id = $id;
 		$this->inicializar();
 	}
@@ -83,6 +88,16 @@ class toba_rf implements toba_nodo_arbol_form
 		$this->padre = $padre;
 	}
 	
+	function set_nivel($nivel)
+	{
+		$this->nivel = $nivel;
+	}
+	
+	function set_camino($camino)
+	{
+		$this->camino = $camino;
+	}
+	
 	//-- Interface -----------------------------------------------------
 	
 	function get_id()
@@ -118,6 +133,11 @@ class toba_rf implements toba_nodo_arbol_form
 	function get_padre()
 	{
 		return $this->padre;	
+	}
+	
+	function get_id_padre()
+	{
+		return $this->id_padre;	
 	}
 	
 	function tiene_hijos_cargados()
@@ -156,7 +176,12 @@ class toba_rf implements toba_nodo_arbol_form
 	function get_apertura() 
 	{
 		return $this->abierto;
-	}	
+	}
+
+	function es_carpeta()
+	{
+		return $this->carpeta;
+	}
 }
 
 ?>

@@ -44,8 +44,7 @@ class toba_rf_subcomponente_evento extends toba_rf_subcomponente
 							AND	restriccion_funcional = '$this->restriccion'
 							AND evento_id = '$this->id';";
 			}
-			echo $sql."<br>";
-			//toba::db()->ejecutar($sql);
+			toba::db()->ejecutar($sql);
 		}
 	}
 	

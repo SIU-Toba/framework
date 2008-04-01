@@ -18,7 +18,7 @@ class toba_rf_ci extends toba_rf_componente
 			}else{
 				$primera = false;
 			}
-			$p = new toba_rf_pantalla($this->restriccion, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla'], $primera);
+			$p = new toba_rf_pantalla($this->restriccion, $this->item, $pantalla, $grupo, $this->id . '_' . $pantalla['pantalla'], $primera);
 			$grupo->agregar_hijo($p);
 			//Cargo las dependencias
 			$deps_pantalla = array_map('trim',explode(',',$pantalla['objetos']));

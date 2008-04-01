@@ -5,7 +5,6 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	protected $solo_lectura_original;
 	protected $solo_lectura_actual;
 
-
 	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario) 
 	{
 		parent::__construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible) ;
@@ -135,8 +134,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 							AND objeto_ei_formulario_fila = '$this->id';";					
 					break;					
 			}
-			echo $sql."<br>";
-			//toba::db()->ejecutar($sql);
+			toba::db()->ejecutar($sql);
 		}
 		
 	}

@@ -3,7 +3,7 @@ class ci_restricciones_funcionales extends toba_ci
 {
 	protected $s__arbol_cargado = false;	
 	protected $s__filtro;
-	protected $restriccion = -1;
+	protected $s__restriccion = -1;
 	
 	function conf__seleccion()
 	{
@@ -15,9 +15,10 @@ class ci_restricciones_funcionales extends toba_ci
 	function conf__arbol(arbol_restricciones_funcionales $arbol) 
 	{
 		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
-			$catalogador = new toba_catalogo_restricciones_funcionales( $this->s__filtro['proyecto'], $this->restriccion );
-			$raiz = $catalogador->cargar();
-			$arbol->set_datos($raiz, true);
+			$catalogador = new toba_catalogo_restricciones_funcionales( $this->s__filtro['proyecto'], $this->s__restriccion );
+			$catalogador->cargar();
+			$raiz = $catalogador->buscar_carpeta_inicial();
+			$arbol->set_datos(array($raiz), true);
 			$this->s__arbol_cargado = true;
 		}
 	}
@@ -61,11 +62,32 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function evt__eliminar()
 	{
+		$proyecto = $this->s__filtro['proyecto'];
+		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
+		toba::db()->abrir_transaccion();
+		$sql = array();
+		$sql[] = "DELETE FROM apex_restriccion_funcional_ef 
+				  WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
+		$sql[] = "DELETE FROM apex_restriccion_funcional_pantalla
+				  WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
+		$sql[] = "DELETE FROM apex_restriccion_funcional_evt
+				  WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
+		$sql[] = "DELETE FROM apex_restriccion_funcional_ei
+				  WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
+		$sql[] = "DELETE FROM apex_restriccion_funcional_cols 
+				  WHERE restriccion_funcional = '$this->s__restriccion' and proyecto = '$proyecto';";
+		toba::db()->ejecutar($sql);
+		$this->dep('restricciones')->eliminar_fila($this->dep('restricciones')->get_cursor());
+		$this->dep('restricciones')->sincronizar();
+		toba::db()->cerrar_transaccion();
+		
+		$this->cortar_arbol();
+		$this->set_pantalla('seleccion');
 	}
 	
 	function evt__cuadro_restricciones__seleccion($seleccion)
 	{
-		$this->restriccion = $seleccion['restriccion_funcional'];
+		$this->s__restriccion = $seleccion['restriccion_funcional'];
 		$this->dep('restricciones')->cargar($seleccion);
 		$this->set_pantalla('edicion');	
 	}
@@ -117,7 +139,7 @@ class ci_restricciones_funcionales extends toba_ci
 	function cortar_arbol()
 	{
 		unset($this->s__arbol_cargado);
-		$this->restriccion = -1;	
+		$this->s__restriccion = -1;	
 	}
 	
 }

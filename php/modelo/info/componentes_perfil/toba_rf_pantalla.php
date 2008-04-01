@@ -2,12 +2,11 @@
 class toba_rf_pantalla extends toba_rf
 {
 	protected $icono = 'objetos/pantalla.gif';
-	protected $proyecto;
 	protected $pantalla;
 	protected $ci;
 	protected $primer_pantalla;
 
-	function __construct($restriccion, $datos, $padre=null, $id=null, $primer_pantalla)
+	function __construct($restriccion, $item, $datos, $padre=null, $id=null, $primer_pantalla)
 	{
 		$this->no_visible_original = ($datos['no_visible'] !='') ? 1 : 0;
 		$this->no_visible_actual = $this->no_visible_original;
@@ -19,6 +18,7 @@ class toba_rf_pantalla extends toba_rf
 		$this->imagen = $datos['imagen'];
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		$this->primer_pantalla = $primer_pantalla;
+		$this->item = $item;
 		parent::__construct($datos['etiqueta'], $padre, $id);
 	}
 	
@@ -30,7 +30,7 @@ class toba_rf_pantalla extends toba_rf
 					$sql = "INSERT INTO 
 								apex_restriccion_funcional_pantalla (proyecto, restriccion_funcional, item, pantalla, objeto_ci, no_visible) 
 							VALUES 
-								('$this->proyecto','$this->restriccion','$this->item','$this->pantalla', '$this->ci', $this->no_visible_actual);";
+								('$this->proyecto','$this->restriccion','$this->item','$this->pantalla', '$this->ci', '$this->no_visible_actual');";
 				} else {
 					$sql = "DELETE FROM 
 								apex_restriccion_funcional_pantalla
@@ -39,8 +39,7 @@ class toba_rf_pantalla extends toba_rf
 							AND restriccion_funcional = '$this->restriccion'
 							AND pantalla = '$this->pantalla';";
 				}
-				echo $sql."<br>";
-				//toba::db()->ejecutar($sql);
+				toba::db()->ejecutar($sql);
 			}				
 		}
 		foreach ($this->get_hijos() as $hijos){			
