@@ -7,7 +7,7 @@ class toba_rf_ci extends toba_rf_componente
 	{
 		parent::__construct($restriccion, $proyecto, $item, $componente, $padre);
 		$this->primer_nivel = $primer_nivel;
-		$grupo = new toba_rf_grupo_pantallas('PANTALLAS', $this);
+		$grupo = new toba_rf_grupo_pantallas('<b>PANTALLAS</b>', $this);
 		$this->agregar_hijo($grupo);
 		$deps = $this->cargar_datos_dependencias();
 		$pantallas = $this->cargar_datos_pantallas();

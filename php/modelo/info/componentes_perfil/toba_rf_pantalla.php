@@ -1,7 +1,7 @@
 <?php 
 class toba_rf_pantalla extends toba_rf
 {
-	protected $icono = 'objetos/pantalla.gif';
+	protected $icono = 'solic_consola.gif';
 	protected $pantalla;
 	protected $ci;
 	protected $primer_pantalla;
@@ -20,6 +20,9 @@ class toba_rf_pantalla extends toba_rf
 		$this->primer_pantalla = $primer_pantalla;
 		$this->item = $item;
 		parent::__construct($datos['etiqueta'], $padre, $id);
+		if ($this->no_visible_original) {
+			$this->marcar_abiertos();
+		}
 	}
 	
 	function sincronizar()

@@ -26,6 +26,9 @@ class toba_rf_componente extends toba_rf
 		if($datos['eventos']>0) {
 			$this->cargar_eventos();	
 		}
+		if ($this->no_visible_original) {
+			$this->marcar_abiertos();	
+		}		
 	}
 
 	function cargar_datos()
@@ -51,14 +54,14 @@ class toba_rf_componente extends toba_rf
 	{
 		$eventos = $this->cargar_datos_eventos();
 		if(count($eventos) > 0) {
-			$grupo = new toba_rf_grupo_eventos('EVENTOS',$this);
+			$grupo = new toba_rf_grupo_eventos('<b>EVENTOS</b>',$this);
 			$evt = array();
 			foreach($eventos as $evento) {
 				$evento['etiqueta'] = str_replace('&','', $evento['etiqueta']);
 				$nombre = (isset($evento['etiqueta']) && $evento['etiqueta'] != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
 				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'], $evento['proyecto'], $this->item, $this->restriccion, $evento['no_visible']);
 			}
-			$grupo->set_apertura(false);
+			//$grupo->set_apertura(false);
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
 		}

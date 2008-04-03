@@ -10,14 +10,14 @@ class toba_rf_componente_cuadro extends toba_rf_componente
 	{
 		$cols = $this->cargar_datos_columnas();
 		if(count($cols) > 0) {
-			$grupo = new toba_rf_grupo_columnas('COLUMNAS',$this);
+			$grupo = new toba_rf_grupo_columnas('<b>COLUMNAS</b>',$this);
 			$c = array();
 			foreach($cols as $col) {
 				$c[] = new toba_rf_subcomponente_columna($col['etiqueta'], $grupo, $col['id'], $col['proyecto'], $this->item, 
 														$this->restriccion,
 														$col['no_visible'], $col['cuadro']);		
 			}
-			$grupo->set_apertura(false);
+			//$grupo->set_apertura(false);
 			$grupo->set_hijos($c);
 			$this->agregar_hijo($grupo);
 		}

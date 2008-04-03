@@ -7,7 +7,6 @@ class toba_rf_grupo extends toba_rf
 	{
 		parent::__construct($nombre, $padre);	
 		$this->id = uniqid();
-		$this->inicializar();
 	}
 	
 	function sincronizar()

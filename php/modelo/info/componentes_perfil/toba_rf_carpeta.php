@@ -5,7 +5,7 @@ class toba_rf_carpeta extends toba_rf
 	protected $icono = "nucleo/carpeta.gif";
 	protected $carpeta = true;
 	
-	function __construct($restriccion, $proyecto, $item, $padre) 
+	function __construct($restriccion, $proyecto, $item, $id_padre) 
 	{
 		$this->restriccion = $restriccion;
 		$this->proyecto = $proyecto;
@@ -15,7 +15,8 @@ class toba_rf_carpeta extends toba_rf
 				'imagen' => toba_recurso::imagen_toba($this->icono, false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
-		parent::__construct($datos['nombre'], $padre, $this->item);
+		$this->id_padre = $id_padre;
+		parent::__construct($datos['nombre'], null, $this->item);
 	}
 	
 	function sincronizar()

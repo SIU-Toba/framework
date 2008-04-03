@@ -24,7 +24,8 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $no_visible_original;
 	protected $no_visible_actual;
 
-	protected $abierto = true;	
+	protected $abierto = false;
+	protected $padre_loco;	
 
 	protected $restriccion = '';
 	protected $item;
@@ -32,7 +33,7 @@ class toba_rf implements toba_nodo_arbol_form
 	function __construct($nombre, $padre=null, $id=null)
 	{
 		$this->nombre_corto = $nombre;
-		$this->id_padre = $padre;
+		$this->padre = $padre;
 		$this->id = $id;
 		$this->inicializar();
 	}
@@ -99,6 +100,20 @@ class toba_rf implements toba_nodo_arbol_form
 	}
 	
 	//-- Interface -----------------------------------------------------
+	
+	function marcar_abiertos()
+	{
+		$nodo = $this->get_padre();
+		while ( ($nodo != null) && ($nodo->get_id() != '__raiz__') && (!$nodo->get_apertura()) ) {
+			$nodo->set_apertura(true);
+			$nodo = $nodo->get_padre();				
+		}
+	}
+	
+	function get_padre_loco()
+	{
+		return $this->padre_loco;
+	}
 	
 	function get_id()
 	{

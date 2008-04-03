@@ -12,6 +12,9 @@ class toba_rf_subcomponente extends toba_rf
 		$this->item = $item;
 		$this->no_visible_original = ($estado_original != '') ? 1 : 0;
 		$this->no_visible_actual = $this->no_visible_original;
+		if ($this->no_visible_original) {
+			$this->marcar_abiertos();
+		}
 	}
 
 	

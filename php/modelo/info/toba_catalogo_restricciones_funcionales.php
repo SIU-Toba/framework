@@ -34,6 +34,32 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 		//filtrar???
 	}
 	
+	function ordenar()
+	{
+		//--- Se conocen entre padres e hijos
+		foreach (array_keys($this->items) as $id) {
+			$item = $this->items[$id];
+			if (isset($this->items[$item->get_id_padre()])) {
+				$padre = $this->items[$item->get_id_padre()];
+	 			if ($padre !== $item) {			
+					$item->set_padre($padre);
+					$padre->agregar_hijo($item);
+					//Truchada para que las carpetas se abran
+					if ($item->get_apertura()) {
+						$padre->set_apertura(true);
+					}
+				}
+			}			
+		}
+		
+		//---Se recorre el arbol para poner los niveles
+		$raiz = $this->buscar_carpeta_inicial();
+		$this->items_ordenados = array();
+		$this->camino = array();
+		$this->ordenar_recursivo($raiz, 0);
+		$this->items = $this->items_ordenados;
+		unset($this->item_ordenados);
+	}	
 	
 	function get_lista_items()
 	{
