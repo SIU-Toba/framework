@@ -10,14 +10,12 @@ class toba_rf_item extends toba_rf
 		$this->proyecto = $proyecto;
 		$this->item = $item;
 		$datos = $this->cargar_datos();
+		$this->imagen = $datos['imagen'];
+		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		$this->cargar_hijos();
-		//FALTA: recuperar la imagen asociada al item
-		$this->iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba($this->icono, false),
-				'ayuda' => "Carpeta que contiene operaciones.",
-				);
 		$this->id_padre = $id_padre;
 		parent::__construct($datos['nombre'], null, $this->item);
+		$this->get_imagen();
 	}
 	
 	function sincronizar()
@@ -28,7 +26,7 @@ class toba_rf_item extends toba_rf
 			}
 		}
 	}
-
+	
 	function cargar_datos()
 	{
 		$sql = "SELECT 		nombre,

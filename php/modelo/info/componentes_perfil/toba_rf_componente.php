@@ -19,10 +19,11 @@ class toba_rf_componente extends toba_rf
 		}
 		$this->no_visible_original = ($datos['no_visible'] !='') ? 1 : 0;
 		$this->no_visible_actual = $this->no_visible_original;
-		$this->iconos[] = array(
+		$icono = array(
 				'imagen' => toba_recurso::imagen_toba( $datos['icono'], false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);
+		$this->agregar_icono($icono);
 		if($datos['eventos']>0) {
 			$this->cargar_eventos();	
 		}
@@ -61,7 +62,6 @@ class toba_rf_componente extends toba_rf
 				$nombre = (isset($evento['etiqueta']) && $evento['etiqueta'] != '') ? $evento['etiqueta'] : '[' . $evento['identificador'] . ']';
 				$evt[] = new toba_rf_subcomponente_evento($nombre, $grupo, $evento['evento_id'], $evento['proyecto'], $this->item, $this->restriccion, $evento['no_visible']);
 			}
-			//$grupo->set_apertura(false);
 			$grupo->set_hijos($evt);
 			$this->agregar_hijo($grupo);
 		}

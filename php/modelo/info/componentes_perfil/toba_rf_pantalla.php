@@ -23,6 +23,7 @@ class toba_rf_pantalla extends toba_rf
 		if ($this->no_visible_original) {
 			$this->marcar_abiertos();
 		}
+		$this->get_imagen();
 	}
 	
 	function sincronizar()
@@ -50,22 +51,6 @@ class toba_rf_pantalla extends toba_rf
 		}
 	}
 	
-	function inicializar()
-	{
-		if (isset($this->imagen) && ($this->imagen != '') && ($this->imagen_origen != '')) {
-			if ($this->imagen_origen == 'apex') {
-				$imagen = toba_recurso::imagen_toba($this->imagen, false);	
-			} else {
-				$imagen = toba_recurso::url_proyecto($this->proyecto).'/img/'.$this->imagen;
-			}
-		}
-		if (!isset($imagen)) {
-			$imagen = toba_recurso::imagen_toba($this->icono, false);
-		}
-		$iconos = array('imagen' => $imagen, 'ayuda' => $this->nombre_corto);
-		$this->agregar_icono($iconos);
-	}
-
 	function get_input($id)
 	{
 		if (!$this->primer_pantalla) {

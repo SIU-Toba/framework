@@ -140,6 +140,22 @@ class toba_rf implements toba_nodo_arbol_form
 		return $this->iconos;
 	}
 	
+	function get_imagen()
+	{
+		if (isset($this->imagen) && ($this->imagen != '') && ($this->imagen_origen != '')) {
+			if ($this->imagen_origen == 'apex') {
+				$imagen = toba_recurso::imagen_toba($this->imagen, false);	
+			} else {
+				$imagen = toba_recurso::url_proyecto($this->proyecto).'/img/'.$this->imagen;
+			}
+		}
+		if (!isset($imagen)) {
+			$imagen = toba_recurso::imagen_toba($this->icono, false);
+		}
+		$icono = array('imagen' => $imagen, 'ayuda' => $this->nombre_corto);
+		$this->agregar_icono($icono);	
+	}
+	
 	function get_utilerias()
 	{
 		return $this->utilerias;

@@ -44,7 +44,7 @@ class ci_restricciones_funcionales extends toba_ci
 			$raiz->sincronizar();	
 		}
 		toba::db()->cerrar_transaccion();
-		
+		$this->dep('restricciones')->resetear();
 		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');
 	}
@@ -56,6 +56,7 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function evt__cancelar()
 	{
+		$this->dep('restricciones')->resetear();
 		$this->cortar_arbol();
 		$this->set_pantalla('seleccion');
 	}
