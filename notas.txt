@@ -22,6 +22,7 @@
 		- El primer CI de la jerarquia (el que esta asociado al item)
 		- Los EFs que estan marcado como obligatorios y no se pueden relajar
 		- Las columnas que forman parte de los cortes de control
+		- La primer pantalla de la jerarquia (un ci debe tener al menos una pantalla).
 		
 --- Dimensiones -----------------------------
 
