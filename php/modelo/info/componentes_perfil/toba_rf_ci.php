@@ -92,9 +92,12 @@ class toba_rf_ci extends toba_rf_componente
 	function get_input($id)
 	{
 		if(!$this->primer_nivel) {
-			$check_oculto = $this->no_visible_actual ? 'checked' : '';
-			$html = '';
-			$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
+			$id_input = $id.'_oculto';
+			$valor_inicial = $this->no_visible_actual ? 1 : 0;
+			$img_inicial = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;		
+			$html = '';		
+			$html .= "<img src='$img_inicial' id='".$id_input."_img' onclick='cambiar_oculto(\"$id_input\")' />";
+			$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";		
 			return $html;
 		}
 	}
@@ -119,9 +122,11 @@ class toba_rf_ci extends toba_rf_componente
 	{
 		if(!$this->primer_nivel) {
 			if (isset($_POST[$id.'_oculto'])) {
-				$this->no_visible_actual = $_POST[$id.'_oculto'];
-			} else {
-				$this->no_visible_actual = '';
+				if ($_POST[$id.'_oculto']) {
+					$this->no_visible_actual = $_POST[$id.'_oculto'];	
+				} else {
+					$this->no_visible_actual = 0;
+				}
 			}		
 		}
 	}

@@ -21,6 +21,8 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $camino;
 	protected $proyecto;
 
+	protected $img_oculto;
+	protected $img_visible;
 	protected $no_visible_original;
 	protected $no_visible_actual;
 
@@ -36,9 +38,16 @@ class toba_rf implements toba_nodo_arbol_form
 		$this->padre = $padre;
 		$this->id = $id;
 		$this->inicializar();
+		$this->get_imagenes_estado();
 	}
 
 	function inicializar(){}
+	
+	function get_imagenes_estado()
+	{
+		$this->img_oculto = toba_recurso::imagen_toba('error.png', false);
+		$this->img_visible = toba_recurso::imagen_toba('vacio.png', false);
+	}
 
 	//-- Setters -------------------------------------------------------
 

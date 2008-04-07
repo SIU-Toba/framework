@@ -10,7 +10,18 @@ class ci_restricciones_funcionales extends toba_ci
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion')->eliminar_evento('agregar');
 		}
-	}	
+	}
+
+	function conf__edicion(){
+		$img_oculto = toba_recurso::imagen_toba('error.png', true);
+		$img_visible = toba_recurso::imagen_toba('vacio.png', true);
+		$img_solo_lectura = toba_recurso::imagen_toba('editar.gif', true);
+		$img_editable = toba_recurso::imagen_toba('no_editar.gif', true);
+		$titulo = 'Ayuda: ';
+		$titulo .= $img_visible.": Visible ".$img_oculto.": Oculto ";
+		$titulo .= $img_solo_lectura.": No Editable ".$img_editable.": Editable";
+		$this->pantalla('edicion')->set_descripcion($titulo);
+	}
 
 	function conf__arbol(arbol_restricciones_funcionales $arbol) 
 	{

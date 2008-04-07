@@ -4,6 +4,8 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	protected $formulario;
 	protected $solo_lectura_original;
 	protected $solo_lectura_actual;
+	protected $img_solo_lectura;
+	protected $img_editable;
 
 	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario) 
 	{
@@ -11,6 +13,9 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		$this->formulario = $formulario;
 		$this->solo_lectura_original = $no_editable;
 		$this->solo_lectura_actual = $this->solo_lectura_original;
+		if ($this->solo_lectura_original) {
+			$this->marcar_abiertos();
+		}
 	}	
 	
 	function inicializar()
@@ -20,31 +25,47 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);		
 	}
+	
+	function get_imagenes_estado()
+	{
+		$this->img_solo_lectura = toba_recurso::imagen_toba('editar.gif', false);
+		$this->img_editable = toba_recurso::imagen_toba('no_editar.gif', false);
+		parent::get_imagenes_estado();
+	}
 
 	function get_input($id)
 	{
-		$check_solo_lectura = $this->solo_lectura_actual ? 'checked' : '';		
-		$check_oculto = $this->no_visible_actual ? 'checked' : '';
+		$check_solo_lectura = $this->solo_lectura_actual ? 1 : 0;		
+		$check_oculto = $this->no_visible_actual ? 1 : 0;
+		$id_solo_lectura = $id.'_solo_lectura';
+		$id_oculto = $id.'_oculto';
+		$img_solo_lectura = $this->solo_lectura_actual ? $this->img_solo_lectura : $this->img_editable;		
+		$img_oculto = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;		
+		
 		$html = '';
-		$html .= "<LABEL for='".$id."_solo_lectura'>Solo lectura</LABEL>";
-		$html .= "<input type='checkbox' $check_solo_lectura value='1' name='".$id."_solo_lectura' />";
-		$html .= "<LABEL for='".$id."_oculto'>Ocultar</LABEL>";
-		$html .= "<input type='checkbox' $check_oculto value='1' name='".$id."_oculto' />";
+		$html .= "<img src='$img_solo_lectura' id='".$id_solo_lectura."_img' onclick='cambiar_editable(\"$id_solo_lectura\")' />";
+		$html .= "<input type='hidden' value='$check_solo_lectura' id='$id_solo_lectura' name='$id_solo_lectura' />";
+		$html .= "<img src='$img_oculto' id='".$id_oculto."_img' onclick='cambiar_oculto(\"$id_oculto\")' />";
+		$html .= "<input type='hidden' value='$check_oculto' id='$id_oculto' name='$id_oculto' />";
 		return $html;
 	}
 	
 	function cargar_estado_post($id)
 	{
 		if (isset($_POST[$id.'_solo_lectura'])) {
-			$this->solo_lectura_actual = $_POST[$id.'_solo_lectura'];
-		} else {
-			$this->solo_lectura_actual = '';
+			if ($_POST[$id.'_solo_lectura']) {
+				$this->solo_lectura_actual = $_POST[$id.'_solo_lectura'];	
+			} else {
+				$this->solo_lectura_actual = 0;
+			}
 		}
 		
 		if (isset($_POST[$id.'_oculto'])) {
-			$this->no_visible_actual = $_POST[$id.'_oculto'];
-		} else {
-			$this->no_visible_actual = '';
+			if ($_POST[$id.'_oculto']) {
+				$this->no_visible_actual = $_POST[$id.'_oculto'];	
+			} else {
+				$this->no_visible_actual = 0;
+			}
 		}		
 	}
 	
@@ -96,8 +117,8 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		}
 		
 		if (isset($op)) {
-			$solo_lectura = $this->solo_lectura_actual == '' ? 0 : 1;
-			$no_visible = $this->no_visible_actual == '' ? 0 : 1;
+			$solo_lectura = $this->solo_lectura_actual;
+			$no_visible = $this->no_visible_actual;
  			switch ($op) {
 				case 'I':
 					$sql = "INSERT INTO 

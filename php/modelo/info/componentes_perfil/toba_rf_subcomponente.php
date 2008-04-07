@@ -16,7 +16,6 @@ class toba_rf_subcomponente extends toba_rf
 			$this->marcar_abiertos();
 		}
 	}
-
 	
 }
 ?>
