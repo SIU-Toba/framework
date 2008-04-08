@@ -214,7 +214,7 @@ class consultas_instancia
 						$where
 				ORDER BY usuario
 				";
-		toba::logger()->debug($sql);
+		$datos = toba::db()->consultar($sql);
 		$temp = array();
 		foreach( $datos as $dato ) {
 			$temp[$dato['usuario']]['proyecto'] = $dato['proyecto'];
