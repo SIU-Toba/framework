@@ -213,7 +213,6 @@ class consultas_instancia
 						$where
 				";
 		toba::logger()->debug($sql);
-		$datos = toba::db()->consultar($sql);
 		$temp = array();
 		foreach( $datos as $dato ) {
 			$temp[$dato['usuario']]['proyecto'] = $dato['proyecto'];
@@ -230,13 +229,17 @@ class consultas_instancia
 
 	static function get_usuarios_no_vinculados_proyecto($proyecto, $filtro=null)
 	{
+		$filtro = '';
+		if (isset($proyecto)) {
+			$filtro = " AND up.proyecto = '$proyecto'";
+		}
 		$sql = "SELECT 	u.usuario as usuario, 
 						u.nombre as nombre,
 						up.proyecto as proyecto
 				FROM 	apex_usuario u 
 							LEFT OUTER JOIN apex_usuario_proyecto up 
 							ON u.usuario = up.usuario 
-							AND up.proyecto = '$proyecto'
+							$filtro
 				WHERE	up.proyecto IS NULL;";
 		return toba::db()->consultar($sql);
 	}
@@ -273,6 +276,16 @@ class consultas_instancia
 				FROM 	apex_usuario_grupo_acc
 				WHERE 	proyecto = '$proyecto'
 				AND 	usuario_grupo_acc = '$grupo';";
+		return toba::db()->consultar($sql);
+	}
+	
+	function get_descripcion_perfil_datos($proyecto, $perfil)
+	{
+		$sql = "SELECT 	nombre as 			perfil_datos_nombre,
+						descripcion as 		perfil_datos_descripcion
+				FROM 	apex_usuario_perfil_datos
+				WHERE 	proyecto = '$proyecto'
+				AND 	usuario_perfil_datos = '$perfil';";
 		return toba::db()->consultar($sql);
 	}
 	

@@ -24,6 +24,7 @@ class ci_navegacion extends toba_ci
 
 	function evt__agregar()
 	{
+		$this->dep('editor')->limpiar_datos();
 		$this->set_pantalla('editar');
 	}
 	
@@ -54,7 +55,6 @@ class ci_navegacion extends toba_ci
 	{
 		if(isset($this->s__filtro)) {
 			$componente->set_datos($this->s__filtro);
-			$componente->colapsar();
 		}
 	}
 	
@@ -71,25 +71,29 @@ class ci_navegacion extends toba_ci
 	function conf__cuadro($componente)
 	{
 		if (isset($this->s__filtro)) {
-			if (isset($this->s__filtro['proyecto'])) {
-				$proyecto = $this->s__filtro['proyecto'];
-				$componente->set_datos( consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro) );	
-			}else{
-				$componente->set_datos( consultas_instancia::get_usuarios_no_vinculados($this->s__filtro) );
+			$proyecto = $this->s__filtro['proyecto'];
+			switch ($this->s__filtro['pertenencia']){
+				case 'P' : 
+					$datos = consultas_instancia::get_usuarios_vinculados_proyecto($proyecto, $this->s__filtro);
+				break;
+				case 'N' : 
+					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto($proyecto, $this->s__filtro);
+				break;
+				case 'T':
+					$datos = consultas_instancia::get_lista_usuarios($this->s__filtro);
+				break;
+				case 'S' :
+					$datos = consultas_instancia::get_usuarios_no_vinculados_proyecto(null, $this->s__filtro);
+				break;
 			}
+			$componente->set_datos($datos);
 		}
-		/*else{
-			$filtro_obligatorio = consultas_instancia::get_cantidad_usuarios() > self::umbral_registros_filtro_obligatorio;
-			if ( ! $filtro_obligatorio ) {
-				$componente->set_datos( consultas_instancia::get_lista_usuarios() );
-			}
-		}*/
 	}
 	
 	function evt__cuadro__seleccion($id)
 	{
+		$this->dep('editor')->limpiar_datos();
 		$this->dep('datos')->cargar($id);
-		$this->dep('editor')->evt__filtro_proyectos__cancelar();
 		$this->set_pantalla('editar');
 	}
 

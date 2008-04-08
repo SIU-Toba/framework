@@ -47,14 +47,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_usuarios', --proyecto
 	'952', --evento_id
 	'2186', --objeto
-	'eliminar', --identificador
+	'seleccion', --identificador
 	'', --etiqueta
 	NULL, --maneja_datos
 	'1', --sobre_fila
-	'¿Esta seguro que desea eliminar el PERFIL FUNCIONAL?', --confirmacion
+	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'borrar.png', --imagen
+	'doc.gif', --imagen
 	'0', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -84,8 +84,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	NULL, --columnas_clave
-	'1', --clave_dbr
+	'proyecto', --columnas_clave
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
 	'0', --ordenar
@@ -117,28 +117,6 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 );
 
 ------------------------------------------------------------
--- apex_objeto_cuadro_cc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'toba_usuarios', --objeto_cuadro_proyecto
-	'2186', --objeto_cuadro
-	'29', --objeto_cuadro_cc
-	'proyecto', --identificador
-	'Proyecto', --descripcion
-	'1', --orden
-	'proyecto', --columnas_id
-	'proyecto', --columnas_descripcion
-	'0', --pie_contar_filas
-	'0', --pie_mostrar_titular
-	'1', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
-);
---- FIN Grupo de desarrollo 0
-
-------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna
 ------------------------------------------------------------
 
@@ -147,13 +125,13 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'toba_usuarios', --objeto_cuadro_proyecto
 	'2186', --objeto_cuadro
 	'763', --objeto_cuadro_col
-	'grupo_acceso', --clave
+	'proyecto', --clave
 	'1', --orden
-	'Grupo de Acceso', --titulo
+	'Proyecto', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
 	NULL, --vinculo_indice
 	'0', --no_ordenar
 	NULL, --mostrar_xls
@@ -174,13 +152,40 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'toba_usuarios', --objeto_cuadro_proyecto
 	'2186', --objeto_cuadro
 	'764', --objeto_cuadro_col
-	'grupo_acceso_desc', --clave
+	'grupos_acceso', --clave
 	'2', --orden
-	'Descripcion', --titulo
+	'Grupos de Acceso', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-	NULL, --formateo
+	'1', --formateo
+	NULL, --vinculo_indice
+	'0', --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	'0', --total
+	'', --total_cc
+	'0', --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	'0', --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL  --vinculo_celda
+);
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
+	'toba_usuarios', --objeto_cuadro_proyecto
+	'2186', --objeto_cuadro
+	'785', --objeto_cuadro_col
+	'perfil_datos', --clave
+	'3', --orden
+	'Perfil de Datos', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
+	NULL, --ancho
+	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls

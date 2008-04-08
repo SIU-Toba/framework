@@ -152,6 +152,32 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'1', --no_nulo_db
 	'0'  --externa
 );
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'760', --col_id
+	'perfil_datos_descripcion', --columna
+	'C', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'1'  --externa
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'761', --col_id
+	'perfil_datos_nombre', --columna
+	'C', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'1'  --externa
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -166,6 +192,17 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'dao', --tipo
 	'1', --sincro_continua
 	'get_descripcion_grupo_acceso', --metodo
+	'consultas_instancia', --clase
+	'lib/consultas_instancia.php', --include
+	NULL  --sql
+);
+INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, tipo, sincro_continua, metodo, clase, include, sql) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'6', --externa_id
+	'dao', --tipo
+	'1', --sincro_continua
+	'get_descripcion_perfil_datos', --metodo
 	'consultas_instancia', --clase
 	'lib/consultas_instancia.php', --include
 	NULL  --sql
@@ -202,6 +239,34 @@ INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_i
 	'5', --externa_id
 	'728', --col_id
 	'0'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'6', --externa_id
+	'725', --col_id
+	'0'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'6', --externa_id
+	'729', --col_id
+	'0'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'6', --externa_id
+	'760', --col_id
+	'1'  --es_resultado
+);
+INSERT INTO apex_objeto_db_registros_ext_col (objeto_proyecto, objeto, externa_id, col_id, es_resultado) VALUES (
+	'toba_usuarios', --objeto_proyecto
+	'2183', --objeto
+	'6', --externa_id
+	'761', --col_id
+	'1'  --es_resultado
 );
 
 ------------------------------------------------------------

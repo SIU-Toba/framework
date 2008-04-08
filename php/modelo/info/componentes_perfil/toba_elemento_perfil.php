@@ -28,6 +28,8 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 
 	protected $acceso_original;
 	protected $acceso_actual;
+	protected $img_acceso;
+	protected $img_sin_acceso;
 
 	function __construct($datos, $grupo_acceso)
 	{
@@ -46,6 +48,10 @@ abstract class toba_elemento_perfil implements toba_nodo_arbol_form
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		$this->acceso_original = ($datos['acceso']!='') ? 1 : 0;
 		$this->acceso_actual = $this->acceso_original;
+		if (!$this->es_carpeta()) {
+			$this->img_acceso = toba_recurso::imagen_toba('vacio.png', false);
+			$this->img_sin_acceso = toba_recurso::imagen_toba('error.png', false);
+		}
 	}
 
 	//-- Sincronizacion ------------------------------------------------
