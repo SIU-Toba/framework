@@ -145,7 +145,8 @@ class consultas_instancia
 		$sql = "SELECT 	usuario,
 						nombre
 				FROM apex_usuario
-				$where;";
+				$where
+				ORDER BY usuario;";
 		return toba::db()->consultar($sql);		
 	}
 	
@@ -211,6 +212,7 @@ class consultas_instancia
 						apex_usuario_proyecto up,
 						apex_usuario_grupo_acc g
 						$where
+				ORDER BY usuario
 				";
 		toba::logger()->debug($sql);
 		$temp = array();
@@ -240,7 +242,8 @@ class consultas_instancia
 							LEFT OUTER JOIN apex_usuario_proyecto up 
 							ON u.usuario = up.usuario 
 							$filtro
-				WHERE	up.proyecto IS NULL;";
+				WHERE	up.proyecto IS NULL
+				ORDER BY usuario;";
 		return toba::db()->consultar($sql);
 	}
 	
