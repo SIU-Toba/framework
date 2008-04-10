@@ -308,12 +308,14 @@ class consultas_instancia
 	
 	static function get_lista_perfil_datos($proyecto)
 	{
-		$sql = "SELECT 	usuario_perfil_datos,
+		$sql = "SELECT 	proyecto,
+						usuario_perfil_datos,
 						nombre,
 						descripcion						
 				FROM 	apex_usuario_perfil_datos 
 				WHERE	proyecto = '$proyecto'";
-		return toba::db()->consultar($sql);
+		$datos = toba::db()->consultar($sql);
+		return $datos;
 	}
 }
 ?>

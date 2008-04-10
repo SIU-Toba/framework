@@ -30,13 +30,12 @@ class toba_db_tablas_proyecto
   22 => 'apex_permiso',
   23 => 'apex_usuario_perfil_datos',
   24 => 'apex_usuario_perfil_datos_dims',
-  25 => 'apex_usuario_perfil_datos_dims_elemento',
-  26 => 'apex_restriccion_funcional',
-  27 => 'apex_restriccion_funcional_ef',
-  28 => 'apex_restriccion_funcional_pantalla',
-  29 => 'apex_restriccion_funcional_evt',
-  30 => 'apex_restriccion_funcional_ei',
-  31 => 'apex_restriccion_funcional_cols',
+  25 => 'apex_restriccion_funcional',
+  26 => 'apex_restriccion_funcional_ef',
+  27 => 'apex_restriccion_funcional_pantalla',
+  28 => 'apex_restriccion_funcional_evt',
+  29 => 'apex_restriccion_funcional_ei',
+  30 => 'apex_restriccion_funcional_cols',
 );
 	}
 
@@ -683,30 +682,12 @@ class toba_db_tablas_proyecto
     2 => 'nombre',
     3 => 'descripcion',
     4 => 'listar',
+    5 => 'usuario_perfil_datos_id',
   ),
 );
 	}
 
 	static function apex_usuario_perfil_datos_dims()
-	{
-		return array (
-  'archivo' => 'pgsql_a60_tablas_perfil_datos.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'usuario_perfil_datos, dimension',
-  'zona' => 'usuario',
-  'desc' => '',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'usuario_perfil_datos',
-    2 => 'dimension',
-  ),
-);
-	}
-
-	static function apex_usuario_perfil_datos_dims_elemento()
 	{
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_datos.sql',
