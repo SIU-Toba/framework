@@ -33,13 +33,6 @@ class toba_item_perfil extends toba_elemento_perfil
 		$html .= "<img src='$img_inicial' id='".$id_input."_img' onclick='cambiar_acceso(\"$id_input\")' />";
 		$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";		
 		return $html;
-		
-		/*
-		$check_acceso = $this->acceso_actual ? 'checked' : '';		
-		$html = '';
-		$html .= "<input type='checkbox' $check_acceso value='1' name='".$id."_acceso' />";
-		return $html;
-		*/
 	}
 
 }
