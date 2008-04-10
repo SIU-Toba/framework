@@ -39,13 +39,15 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 		parent::set_grupo_acceso($acceso);
 	}
 	
-	function cargar_estado_post($id)
-	{}
+	function cargar_estado_post($id){}
 	
 	function get_input($id)
 	{
-		$html = '';
-		$html .= "click!";
+		$id_input = $id.'_carpeta';
+		//$img_marcar = toba_recurso::imagen_toba('aplicar.png', false);
+		$html = '';		
+		//$html .= "<img src='$img_marcar' id='".$id_input."_img' onclick='marcar(\"$id_input\")' />";
+		$html .= "<input type='checkbox' value='1' id='$id_input' name='$id_input' onclick='marcar(\"$id_input\", this.value)' />";		
 		return $html;
 	}
 
