@@ -45,6 +45,20 @@ class ci_editor extends toba_ci
 	function conf__dimensiones(toba_ei_cuadro $cuadro)
 	{
 		$datos = toba_info_editores::get_dimensiones($this->s__proyecto);
+		foreach(array_keys($datos) as $id ) {
+			$elementos = $this->datos()->tabla('dims')->get_id_fila_condicion( array('dimension'=> $datos[$id]['dimension']) );
+			switch( count($elementos) ) {
+				case 0:
+					$txt = 'No hay restricciones.';
+					break;
+				case 1:
+					$txt = '1 elemento seleccionado.';
+					break;
+				default:
+					$txt = count($elementos) . ' elementos seleccionados.';
+			}
+			$datos[$id]['estado'] = $txt;
+		}
 		$cuadro->set_datos($datos);
 	}
 
