@@ -3,6 +3,7 @@ class ci_editor extends toba_ci
 {
 	protected $s__proyecto;
 	protected $s__dimension;
+	protected $s__elementos = array();
 	protected $datos_dimension;
 	
 	function datos()
@@ -80,13 +81,40 @@ class ci_editor extends toba_ci
 
 	function conf__elementos(toba_ei_formulario_ml $form_ml)
 	{
+		//Lista completa de elementos de la dimension
 		$datos = $this->get_elementos_dimension();
+		//Tomo los elementos de la dimension seleccionada
+		$datos_habilitados = $this->datos()->tabla('dims')->get_filas(array('dimension'=>$this->s__dimension));
+		//Los guardo para comparar
+		$this->s__elementos = array();
+		//ei_arbol($datos_habilitados,'contenido Dt');
+		foreach($datos_habilitados as $elemento) {
+			$this->s__elementos[$elemento['clave']] = $elemento[apex_datos_clave_fila];
+		}
+		foreach(array_keys($datos) as $id) {
+			if(isset($this->s__elementos[$datos[$id]['clave']])) {
+				$datos[$id]['habilitar'] = 1;
+			} else {
+				$datos[$id]['habilitar'] = 0;
+			}
+		}
 		$form_ml->set_datos($datos);
 	}
 
 	function evt__elementos__modificacion($datos)
 	{
-		ei_arbol($datos);
+		foreach(array_keys($datos) as $id) {
+			if(isset($this->s__elementos[$datos[$id]['clave']])) {
+				if( !($datos[$id]['habilitar'] == 1)) {
+					$this->datos()->tabla('dims')->eliminar_fila( $this->s__elementos[$datos[$id]['clave']] );
+				}
+			} else {
+				if( ($datos[$id]['habilitar'] == 1)) {
+					$datos[$id]['dimension'] = $this->s__dimension;
+					$this->datos()->tabla('dims')->nueva_fila($datos[$id]);
+				}
+			}
+		}
 	}
 
 	//---- Buscar data de la dimension --------------------------------------------------------------------
