@@ -28,7 +28,7 @@ class toba_item_perfil extends toba_elemento_perfil
 	{
 		$id_input = $id.'_acceso';
 		$valor_inicial = $this->acceso_actual ? 1 : 0;
-		$img_inicial = $this->acceso_actual ? $this->img_sin_acceso : $this->img_acceso;		
+		$img_inicial = $this->acceso_actual ? $this->img_acceso : $this->img_sin_acceso;		
 		$html = '';		
 		$html .= "<img src='$img_inicial' id='".$id_input."_img' onclick='cambiar_acceso(\"$id_input\")' />";
 		$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";		
