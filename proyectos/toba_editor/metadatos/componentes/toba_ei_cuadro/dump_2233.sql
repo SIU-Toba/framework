@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[2204]--  Editor de Dimensiones - Cuadro. 
+--[2233]--  Editor de relaciones - Cuadro. 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,7 +9,7 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
 	'toba_editor', --proyecto
-	'2204', --objeto
+	'2233', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
@@ -18,12 +18,12 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Editor de Dimensiones - Cuadro.', --nombre
-	'Dimensiones', --titulo
-	'1', --colapsable
+	'Editor de relaciones - Cuadro.', --nombre
+	NULL, --titulo
+	NULL, --colapsable
 	NULL, --descripcion
-	NULL, --fuente_datos_proyecto
-	NULL, --fuente_datos
+	'toba_editor', --fuente_datos_proyecto
+	'instancia', --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -34,7 +34,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2008-03-18 16:06:42'  --creacion
+	'2008-04-14 19:53:28'  --creacion
 );
 --- FIN Grupo de desarrollo 0
 
@@ -45,33 +45,33 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'1013', --evento_id
-	'2204', --objeto
-	'relaciones', --identificador
-	'Relaciones entre tablas', --etiqueta
+	'1008', --evento_id
+	'2233', --objeto
+	'seleccion', --identificador
+	NULL, --etiqueta
 	NULL, --maneja_datos
-	'0', --sobre_fila
+	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'solic_wddx.gif', --imagen
-	'1', --en_botonera
+	'doc.gif', --imagen
+	NULL, --en_botonera
 	NULL, --ayuda
-	'1', --orden
+	'0', --orden
 	NULL, --ci_predep
 	NULL, --implicito
 	NULL, --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
-	'V', --accion
+	NULL, --accion
 	NULL, --accion_imphtml_debug
-	'3439', --accion_vinculo_carpeta
-	'3442', --accion_vinculo_item
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
-	'frame_centro', --accion_vinculo_target
-	'central'  --accion_vinculo_celda
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
 );
 --- FIN Grupo de desarrollo 0
 
@@ -80,23 +80,23 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 ------------------------------------------------------------
 INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, subtitulo, sql, columnas_clave, clave_dbr, archivos_callbacks, ancho, ordenar, paginar, tamano_pagina, tipo_paginado, eof_invisible, eof_customizado, exportar_paginado, exportar, exportar_rtf, pdf_propiedades, pdf_respetar_paginacion, asociacion_columnas, ev_seleccion, ev_eliminar, dao_nucleo_proyecto, dao_nucleo, dao_metodo, dao_parametros, desplegable, desplegable_activo, scroll, scroll_alto, cc_modo, cc_modo_anidado_colap, cc_modo_anidado_totcol, cc_modo_anidado_totcua) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2204', --objeto_cuadro
+	'2233', --objeto_cuadro
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'proyecto,dimension', --columnas_clave
-	'0', --clave_dbr
+	'relacion_tablas', --columnas_clave
+	NULL, --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	'0', --ordenar
-	'0', --paginar
+	NULL, --ordenar
+	NULL, --paginar
 	NULL, --tamano_pagina
-	'P', --tipo_paginado
+	NULL, --tipo_paginado
 	'1', --eof_invisible
 	NULL, --eof_customizado
-	'0', --exportar_paginado
-	'0', --exportar
-	'0', --exportar_rtf
+	NULL, --exportar_paginado
+	NULL, --exportar
+	NULL, --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -108,8 +108,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	'0', --scroll
-	NULL, --scroll_alto
+	'1', --scroll
+	'250px', --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
@@ -123,14 +123,14 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2204', --objeto_cuadro
-	'774', --objeto_cuadro_col
-	'nombre', --clave
-	'2', --orden
-	'Nombre', --titulo
+	'2233', --objeto_cuadro
+	'790', --objeto_cuadro_col
+	'tabla_2', --clave
+	'0', --orden
+	'Tabla 2', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	'50%', --ancho
+	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
@@ -150,68 +150,68 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 );
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2204', --objeto_cuadro
-	'777', --objeto_cuadro_col
-	'tabla', --clave
-	'3', --orden
-	'Tabla', --titulo
-	NULL, --estilo_titulo
-	'4', --estilo
-	'50%', --ancho
-	'1', --formateo
-	NULL, --vinculo_indice
-	NULL, --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	NULL, --total
-	NULL, --total_cc
-	NULL, --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL  --vinculo_celda
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
-	'toba_editor', --objeto_cuadro_proyecto
-	'2204', --objeto_cuadro
-	'781', --objeto_cuadro_col
-	'icono', --clave
+	'2233', --objeto_cuadro
+	'791', --objeto_cuadro_col
+	'tabla_2_cols', --clave
 	'1', --orden
-	NULL, --titulo
+	'Tabla 2 Cols', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	'1%', --ancho
-	'15', --formateo
+	NULL, --ancho
+	'1', --formateo
 	NULL, --vinculo_indice
-	'0', --no_ordenar
+	NULL, --no_ordenar
 	NULL, --mostrar_xls
 	NULL, --mostrar_pdf
 	NULL, --pdf_propiedades
 	NULL, --desabilitado
-	'0', --total
+	NULL, --total
 	NULL, --total_cc
-	'0', --usar_vinculo
+	NULL, --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	'0', --vinculo_popup
+	NULL, --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL  --vinculo_celda
 );
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
 	'toba_editor', --objeto_cuadro_proyecto
-	'2204', --objeto_cuadro
-	'782', --objeto_cuadro_col
-	'editar', --clave
-	'4', --orden
-	NULL, --titulo
+	'2233', --objeto_cuadro
+	'792', --objeto_cuadro_col
+	'tabla_1_cols', --clave
+	'2', --orden
+	'Tabla 1 Cols', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
-	'1%', --ancho
+	NULL, --ancho
+	'1', --formateo
+	NULL, --vinculo_indice
+	NULL, --no_ordenar
+	NULL, --mostrar_xls
+	NULL, --mostrar_pdf
+	NULL, --pdf_propiedades
+	NULL, --desabilitado
+	NULL, --total
+	NULL, --total_cc
+	NULL, --usar_vinculo
+	NULL, --vinculo_carpeta
+	NULL, --vinculo_item
+	NULL, --vinculo_popup
+	NULL, --vinculo_popup_param
+	NULL, --vinculo_target
+	NULL  --vinculo_celda
+);
+INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
+	'toba_editor', --objeto_cuadro_proyecto
+	'2233', --objeto_cuadro
+	'793', --objeto_cuadro_col
+	'tabla_1', --clave
+	'3', --orden
+	'Tabla 1', --titulo
+	NULL, --estilo_titulo
+	'4', --estilo
+	NULL, --ancho
 	'1', --formateo
 	NULL, --vinculo_indice
 	NULL, --no_ordenar

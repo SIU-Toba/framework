@@ -25,17 +25,19 @@ class toba_db_tablas_proyecto
   17 => 'apex_nota',
   18 => 'apex_item_nota',
   19 => 'apex_objeto_nota',
-  20 => 'apex_dimension',
-  21 => 'apex_molde_opciones_generacion',
-  22 => 'apex_permiso',
-  23 => 'apex_usuario_perfil_datos',
-  24 => 'apex_usuario_perfil_datos_dims',
-  25 => 'apex_restriccion_funcional',
-  26 => 'apex_restriccion_funcional_ef',
-  27 => 'apex_restriccion_funcional_pantalla',
-  28 => 'apex_restriccion_funcional_evt',
-  29 => 'apex_restriccion_funcional_ei',
-  30 => 'apex_restriccion_funcional_cols',
+  20 => 'apex_relacion_tablas',
+  21 => 'apex_dimension',
+  22 => 'apex_dimension_gatillo',
+  23 => 'apex_molde_opciones_generacion',
+  24 => 'apex_permiso',
+  25 => 'apex_usuario_perfil_datos',
+  26 => 'apex_usuario_perfil_datos_dims',
+  27 => 'apex_restriccion_funcional',
+  28 => 'apex_restriccion_funcional_ef',
+  29 => 'apex_restriccion_funcional_pantalla',
+  30 => 'apex_restriccion_funcional_evt',
+  31 => 'apex_restriccion_funcional_ei',
+  32 => 'apex_restriccion_funcional_cols',
 );
 	}
 
@@ -593,6 +595,30 @@ class toba_db_tablas_proyecto
 );
 	}
 
+	static function apex_relacion_tablas()
+	{
+		return array (
+  'archivo' => 'pgsql_a06_tablas_dimensiones.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'relacion_tablas',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'fuente_datos_proyecto',
+    1 => 'fuente_datos',
+    2 => 'proyecto',
+    3 => 'relacion_tablas',
+    4 => 'tabla_1',
+    5 => 'tabla_1_cols',
+    6 => 'tabla_2',
+    7 => 'tabla_2_cols',
+  ),
+);
+	}
+
 	static function apex_dimension()
 	{
 		return array (
@@ -620,6 +646,31 @@ class toba_db_tablas_proyecto
     12 => 'subclase_archivo',
     13 => 'fuente_datos_proyecto',
     14 => 'fuente_datos',
+  ),
+);
+	}
+
+	static function apex_dimension_gatillo()
+	{
+		return array (
+  'archivo' => 'pgsql_a06_tablas_dimensiones.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'gatillo',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'dimension',
+    2 => 'gatillo',
+    3 => 'tipo',
+    4 => 'orden',
+    5 => 'tabla_rel_dim',
+    6 => 'columnas_rel_dim',
+    7 => 'tabla_gatillo',
+    8 => 'ruta_tabla_rel_dim',
   ),
 );
 	}
@@ -677,12 +728,12 @@ class toba_db_tablas_proyecto
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'proyecto',
-    1 => 'usuario_perfil_datos',
-    2 => 'nombre',
-    3 => 'descripcion',
-    4 => 'listar',
-    5 => 'usuario_perfil_datos_id',
+    0 => 'usuario_perfil_datos_id',
+    1 => 'proyecto',
+    2 => 'usuario_perfil_datos',
+    3 => 'nombre',
+    4 => 'descripcion',
+    5 => 'listar',
   ),
 );
 	}
