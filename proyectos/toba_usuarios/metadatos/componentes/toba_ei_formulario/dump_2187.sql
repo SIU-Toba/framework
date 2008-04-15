@@ -285,7 +285,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nombre', --carga_col_desc
 	'proyecto', --carga_maestros
 	'0', --carga_cascada_relaj
-	NULL, --carga_no_seteado
+	'-- SELECCION --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo

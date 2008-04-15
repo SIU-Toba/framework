@@ -72,7 +72,9 @@ class ci_editor extends toba_ci
 			$perfil = '';
 			foreach ($grupos_acceso as $ga){
 				$grupos[] = $ga['grupo_acceso'];
-				$perfil = $ga['perfil_datos_nombre'];
+				if (isset($ga['perfil_datos_nombre'])) {
+					$perfil = $ga['perfil_datos_nombre'];	
+				}
 			}
 			//truchada... capaz la forma de cargar el cuadro ya es una truchada :S
 			$proyectos[$id]['grupos_acceso'] = empty($grupos) ? 'Sin Acceso' : implode(', ', $grupos);
@@ -94,7 +96,7 @@ class ci_editor extends toba_ci
 		$fila = array();
 		$fila['proyecto'] = $this->s__proyecto;
 		$fila['usuario'] = $this->s__usuario;
-		$fila['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
+		$fila['usuario_perfil_datos'] = isset($datos['usuario_perfil_datos']) ? $datos['usuario_perfil_datos'] : '';	
 		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso){
 			$fila['usuario_grupo_acc'] = $grupo_acceso;
 			$this->datos('proyecto')->nueva_fila($fila);
