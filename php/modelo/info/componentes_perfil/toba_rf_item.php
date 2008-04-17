@@ -15,6 +15,11 @@ class toba_rf_item extends toba_rf
 		$this->cargar_hijos();
 		$this->id_padre = $id_padre;
 		parent::__construct($datos['nombre'], null, $this->item);
+		if (!isset($datos['descripcion']) || empty($datos['descripcion'])) {
+			$this->nombre_largo = $this->nombre_corto;
+		}else{
+			$this->nombre_largo = $datos['descripcion'];
+		}
 		$this->get_imagen();
 	}
 	
@@ -62,7 +67,6 @@ class toba_rf_item extends toba_rf
 					io.objeto = o.objeto AND
 					io.proyecto = o.proyecto AND
 					o.clase = 'toba_ci'";
-		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);
 	}
 }

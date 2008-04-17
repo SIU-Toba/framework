@@ -15,6 +15,11 @@ class toba_rf_carpeta extends toba_rf
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		$this->id_padre = $id_padre;
 		parent::__construct($datos['nombre'], null, $this->item);
+		if (!isset($datos['descripcion']) || empty($datos['descripcion'])) {
+			$this->nombre_largo = $this->nombre_corto;
+		}else{
+			$this->nombre_largo = $datos['descripcion'];
+		}
 		$this->get_imagen();
 	}
 	
@@ -37,7 +42,6 @@ class toba_rf_carpeta extends toba_rf
 				FROM apex_item 
 				WHERE item = '$this->item' 
 				AND proyecto = '$this->proyecto'";
-		toba::logger()->debug($sql);
 		return toba::db()->consultar_fila($sql);
 	}
 	

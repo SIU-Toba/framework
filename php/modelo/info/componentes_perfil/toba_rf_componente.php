@@ -47,7 +47,6 @@ class toba_rf_componente extends toba_rf
 				WHERE 	o.objeto = '$this->componente' 
 					AND o.proyecto = '$this->proyecto'
 					AND o.clase = c.clase";
-		toba::logger()->debug($sql);
 		return toba::db()->consultar_fila($sql);
 	}
 
@@ -85,7 +84,6 @@ class toba_rf_componente extends toba_rf
 				AND		e.objeto = '$this->componente' 
 				AND		e.proyecto = '$this->proyecto'
 				ORDER BY e.orden";
-		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);
 	}
 

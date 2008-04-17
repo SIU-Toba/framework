@@ -68,7 +68,6 @@ class toba_rf_ci extends toba_rf_componente
 				WHERE 	p.objeto_ci_proyecto = '$this->proyecto' 
 					AND p.objeto_ci = '$this->componente'
 				ORDER BY orden";
-		toba::logger()->debug($sql);
 		return toba::db()->consultar($sql);
 	}
 
