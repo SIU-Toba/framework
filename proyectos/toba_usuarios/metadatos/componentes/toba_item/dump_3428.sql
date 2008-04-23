@@ -43,8 +43,8 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	'0', --publico
-	'0', --redirecciona
+	'1', --publico
+	'1', --redirecciona
 	NULL, --usuario
 	NULL  --creacion
 );

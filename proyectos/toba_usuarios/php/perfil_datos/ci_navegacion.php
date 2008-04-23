@@ -1,10 +1,18 @@
 <?php 
 class ci_navegacion extends toba_ci
 {
-	protected $s__filtro = array('proyecto'=>'toba_referencia');
+	protected $s__filtro;
+	
+	function ini__operacion()
+	{
+		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto();
+	}
 		
 	function conf__seleccion($pantalla)
 	{
+		if( toba::sesion()->proyecto_esta_predefinido() ) {
+			$this->pantalla()->eliminar_dep('filtro');
+		}
 		if (!isset($this->s__filtro)) {
 			$pantalla->eliminar_evento('agregar');
 		}

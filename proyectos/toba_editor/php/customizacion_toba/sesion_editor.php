@@ -10,6 +10,7 @@ class sesion_editor extends toba_sesion
 		//Seteo el valor en la memoria global para toba_instancia
 		//toba::memoria()->set_dato_instancia('instancia', $datos['instancia']);
 		toba::memoria()->set_dato_instancia('instancia', $instancia);
+		toba::memoria()->set_dato_instancia('proyecto', $datos['proyecto']);
 	}
 
 	function conf__activacion()

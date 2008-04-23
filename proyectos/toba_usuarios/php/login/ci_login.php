@@ -51,10 +51,10 @@ class ci_login extends toba_ci
 			}
 		}
 		try {
-			$datos_editor['proyecto'] = $this->s__datos['proyecto'];
-			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_editor);
+			$datos_login['proyecto'] = $this->s__datos['proyecto'];
+			$datos_login['instancia'] = $this->s__datos['instancia'];
+			toba::manejador_sesiones()->login($this->s__datos['usuario'], $this->s__datos['clave'], $datos_login);
 		} catch ( toba_error $e ) {
-			//toba_editor::finalizar();
 			toba::notificacion()->agregar( $e->getMessage() );
 		}
 	}

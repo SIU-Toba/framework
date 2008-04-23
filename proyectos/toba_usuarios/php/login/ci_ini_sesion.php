@@ -6,7 +6,8 @@ class ci_ini_sesion extends toba_ci
 	{
 		if ( isset($datos)) {
 			try {
-				toba::manejador_sesiones()->iniciar_sesion_proyecto($datos['instancia']);
+				$datos['instancia'] = toba::instancia()->get_id();
+				toba::manejador_sesiones()->iniciar_sesion_proyecto( $datos );
 			} catch ( toba_error_login $e ) {
 				toba::notificacion()->agregar( $e->getMessage() );
 			}
@@ -37,5 +38,21 @@ class ci_ini_sesion extends toba_ci
 		}
 		return $datos;
 	}
+	
+	function get_lista_proyectos()
+	{
+		$instancia_id = toba::instancia()->get_id();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($instancia_id, new toba_mock_proceso_gui);
+		$proyectos = $instancia->get_lista_proyectos_vinculados();
+		$datos = array();
+		$a = 0;
+		foreach( $proyectos as $x) {
+			$datos[$a]['id'] = $x;
+			$datos[$a]['desc'] = $x;
+			$a++;
+		}
+		return $datos;
+	}	
+	
 }
 ?>

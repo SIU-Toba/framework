@@ -155,13 +155,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5150', --objeto_ei_formulario_fila
 	'2180', --objeto_ei_formulario
 	'toba_usuarios', --objeto_ei_formulario_proyecto
-	'instancia', --identificador
+	'proyecto', --identificador
 	'ef_combo', --elemento_formulario
-	'instancia', --columnas
+	'proyecto', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Instancia', --etiqueta
+	'Proyecto', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -171,7 +171,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'desarrollo', --estado_defecto
 	'0', --solo_lectura
-	'get_lista_instancias', --carga_metodo
+	'get_lista_proyectos', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
