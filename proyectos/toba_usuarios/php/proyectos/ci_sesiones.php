@@ -9,20 +9,11 @@ class ci_sesiones extends toba_ci
 	//---- Inicializacion ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 	
-	function ini__operacion()
+	function conf()
 	{
-		if (toba::memoria()->existe_dato_instancia('instancia')) {
-			//$this->s__proyecto = toba_contexto_info::get_proyecto();
-			$this->s__proyecto = toba::memoria()->get_dato_instancia('proyecto');
-		}else{
-			
-		}
-	}
-
-	function ini()
-	{
-		$proyecto = toba::memoria()->get_parametro('proyecto');
-		if(isset($proyecto)) $this->s__proyecto = $proyecto;
+		if (isset($this->s__filtro)) {
+			$this->s__proyecto = $this->s__filtro['proyecto'];
+		}		
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -39,13 +30,13 @@ class ci_sesiones extends toba_ci
 	function evt__filtro__cancelar()
 	{
 		unset($this->s__filtro);
+		unset($this->s__proyecto);
 	}
 
 	function conf__filtro($componente)
 	{
 		if(isset($this->s__filtro)) {
 			$componente->set_datos($this->s__filtro);
-			$componente->colapsar();
 		}
 	}
 
@@ -53,8 +44,10 @@ class ci_sesiones extends toba_ci
 
 	function conf__listar_sesiones()
 	{
-		$desc = 'Sesiones del proyecto <strong>'.$this->s__proyecto.'</strong>';
-		$this->pantalla()->set_descripcion($desc);	
+		if (isset($this->s__proyecto)) {
+			$desc = 'Sesiones del proyecto <strong>'.$this->s__proyecto.'</strong>';	
+			$this->pantalla()->set_descripcion($desc);	
+		}
 	}
 
 	function evt__sesiones__seleccion($seleccion)

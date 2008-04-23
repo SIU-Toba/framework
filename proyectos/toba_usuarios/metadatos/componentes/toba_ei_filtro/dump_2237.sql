@@ -302,7 +302,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'proyecto', --identificador
 	'ef_combo', --elemento_formulario
 	'proyecto', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Proyecto', --etiqueta
