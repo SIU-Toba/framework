@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_bloqueo_ip', --subclase
-	'auditoria/ci_bloqueo_ip.php', --subclase_archivo
+	'auditoria/bloqueo_ip/ci_bloqueo_ip.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'IPs Bloqueadas', --nombre
