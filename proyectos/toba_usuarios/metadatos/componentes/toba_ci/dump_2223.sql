@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_editor', --subclase
-	'perfil_datos/ci_editor.php', --subclase_archivo
+	'perfiles/perfil_datos/ci_editor.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Perfiles de Datos - edicion - editor', --nombre

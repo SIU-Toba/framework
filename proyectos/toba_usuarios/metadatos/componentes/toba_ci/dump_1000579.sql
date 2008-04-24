@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_restricciones_funcionales', --subclase
-	'restricciones_funcionales/ci_restricciones_funcionales.php', --subclase_archivo
+	'perfiles/restricciones_funcionales/ci_restricciones_funcionales.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Restricciones Funcionales', --nombre

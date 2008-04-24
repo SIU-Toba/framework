@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_perfil_acceso', --subclase
-	'perfil_funcional/ci_navegacion_perfiles.php', --subclase_archivo
+	'ci_navegacion_perfiles', --subclase
+	'perfiles/perfil_funcional/ci_navegacion_perfiles.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Mantenimiento de Perfiles Funcionales', --nombre
