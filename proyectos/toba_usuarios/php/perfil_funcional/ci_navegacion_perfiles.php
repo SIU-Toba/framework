@@ -1,9 +1,14 @@
 <?php 
 require_once('lib/consultas_instancia.php');
 
-class ci_perfil_acceso extends toba_ci
+class ci_navegacion_perfiles extends toba_ci
 {
-	protected $s__filtro = null;
+	protected $s__filtro;
+	
+	function ini__operacion() 
+ 	{ 
+ 		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto(); 
+ 	} 
 	
 	function datos($tabla)
 	{
@@ -12,6 +17,9 @@ class ci_perfil_acceso extends toba_ci
 	
 	function conf__seleccion_perfil()
 	{
+		if( toba::sesion()->proyecto_esta_predefinido() ) { 
+ 			$this->pantalla('seleccion_perfil')->eliminar_dep('filtro_proyectos'); 
+ 		} 
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion_perfil')->eliminar_evento('agregar');
 		}

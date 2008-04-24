@@ -5,8 +5,16 @@ class ci_restricciones_funcionales extends toba_ci
 	protected $s__filtro;
 	protected $s__restriccion = -1;
 	
+	function ini__operacion() 
+ 	{ 
+ 		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto(); 
+ 	} 
+	
 	function conf__seleccion()
 	{
+		if( toba::sesion()->proyecto_esta_predefinido() ) { 
+ 			$this->pantalla('seleccion')->eliminar_dep('filtro_proyectos'); 
+ 		} 
 		if (!isset($this->s__filtro)) {
 			$this->pantalla('seleccion')->eliminar_evento('agregar');
 		}
