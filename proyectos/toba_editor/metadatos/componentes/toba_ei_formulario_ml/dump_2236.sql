@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Editor de relaciones - CI - 1 - form_columnas', --nombre
-	NULL, --titulo
+	'Seleccione las columnas que establecen la relación', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto
@@ -134,27 +134,27 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Columna tabla 1', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
-	NULL, --carga_metodo
+	'0', --solo_lectura
+	'get_columnas_tabla_1', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
-	NULL, --carga_fuente
+	'instancia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
+	'nombre', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -206,27 +206,27 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Columna tabla 2', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
-	NULL, --carga_metodo
+	'0', --solo_lectura
+	'get_columnas_tabla_2', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
-	NULL, --carga_fuente
+	'instancia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
+	'nombre', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_maestros
-	NULL, --carga_cascada_relaj
+	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

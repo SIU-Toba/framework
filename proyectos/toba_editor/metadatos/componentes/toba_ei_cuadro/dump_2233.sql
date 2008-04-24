@@ -20,10 +20,10 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Editor de relaciones - Cuadro.', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
-	'toba_editor', --fuente_datos_proyecto
-	'instancia', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -85,18 +85,18 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --subtitulo
 	NULL, --sql
 	'relacion_tablas', --columnas_clave
-	NULL, --clave_dbr
+	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	NULL, --ordenar
-	NULL, --paginar
+	'0', --ordenar
+	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
-	'1', --eof_invisible
-	NULL, --eof_customizado
-	NULL, --exportar_paginado
-	NULL, --exportar
-	NULL, --exportar_rtf
+	'P', --tipo_paginado
+	'0', --eof_invisible
+	'No hay relaciones cargadas', --eof_customizado
+	'0', --exportar_paginado
+	'0', --exportar
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
