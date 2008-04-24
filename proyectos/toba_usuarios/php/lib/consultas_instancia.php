@@ -22,6 +22,13 @@ class consultas_instancia
 		return $rs[0]['cantidad'];
 	}
 	
+	static function get_cantidad_usuarios_bloqueados()
+	{
+		$sql = "SELECT count(*) as cantidad FROM apex_usuario WHERE bloqueado = 1;";
+		$rs = toba::db()->consultar($sql);
+		return $rs[0]['cantidad'];
+	}
+	
 	//---------------------------------------------------------------------
 	//------ SESIONES -----------------------------------------------------
 	//---------------------------------------------------------------------

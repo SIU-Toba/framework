@@ -54,6 +54,12 @@ class admin_instancia
 		return toba::db()->consultar($sql);
 	}
 	
+	function get_lista_usuarios_bloqueados()
+	{
+		$sql = "SELECT usuario, nombre FROM apex_usuario WHERE bloqueado = 1;";
+		return toba::db()->consultar($sql);
+	}
+	
 	function eliminar_bloqueo($ip)
 	{
 		$sql = "DELETE FROM apex_log_ip_rechazada WHERE ip = '$ip';";
@@ -65,5 +71,18 @@ class admin_instancia
 		$sql = "DELETE FROM apex_log_ip_rechazada;";
 		toba::db()->ejecutar($sql);
 	}
+	
+	function eliminar_bloqueo_usuario($usuario)
+	{
+		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario';";
+		toba::db()->ejecutar($sql);
+	}
+	
+	function eliminar_bloqueo_usuarios()
+	{
+		$sql = "UPDATE apex_usuario SET bloqueado = 0;";
+		toba::db()->ejecutar($sql);	
+	}
+	
 }
 ?>
