@@ -48,6 +48,12 @@ class ci_bloqueo_usuarios extends toba_ci
 	function conf__cuadro_usuarios($componente)
 	{
 		if (isset($this->s__filtro)) {
+			if ($this->s__filtro['estado']) {
+				$titulo = 'Listado de Usuarios Bloqueados';
+			}else{
+				$titulo = 'Listado de Usuarios Desbloqueados';
+			}
+			$componente->set_titulo($titulo);
 			$componente->set_datos( admin_instancia::get_lista_usuarios_bloqueados($this->s__filtro['estado']) );	
 		}		
 	}

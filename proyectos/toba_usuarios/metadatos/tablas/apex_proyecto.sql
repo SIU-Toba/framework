@@ -16,7 +16,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --path_includes
 	NULL, --path_browser
 	NULL, --administrador
-	'1', --listar_multiproyecto
+	'0', --listar_multiproyecto
 	NULL, --orden
 	NULL, --palabra_vinculo_std
 	'1.2.0alpha', --version_toba
