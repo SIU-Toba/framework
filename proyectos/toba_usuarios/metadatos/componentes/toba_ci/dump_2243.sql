@@ -49,15 +49,45 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2243', --objeto
 	'desbloquear', --identificador
 	'Desbloquear TODOS', --etiqueta
-	'0', --maneja_datos
+	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'desbloquear.png', --imagen
+	'monitor.png', --imagen
 	'1', --en_botonera
-	NULL, --ayuda
+	'¿Está seguro que desea DESBLOQUEAR TODOS los usuarios?', --ayuda
 	'1', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	'0', --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'1032', --evento_id
+	'2243', --objeto
+	'bloquear', --identificador
+	'Bloquear TODOS', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'sistema_bloqueado.png', --imagen
+	'1', --en_botonera
+	'¿Está seguro que desea BLOQUEAR TODOS los usuarios?', --ayuda
+	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -86,6 +116,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2243', --objeto_consumidor
 	'2244', --objeto_proveedor
 	'cuadro_usuarios', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_usuarios', --proyecto
+	'1143', --dep_id
+	'2243', --objeto_consumidor
+	'2245', --objeto_proveedor
+	'filtro', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -129,14 +171,14 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2243', --objeto_ci
 	'1157', --pantalla
 	'pant_inicial', --identificador
-	NULL, --orden
+	'1', --orden
 	'Pantalla Inicial', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'cuadro_usuarios', --objetos
-	'desbloquear', --eventos
+	'filtro,cuadro_usuarios', --objetos
+	'desbloquear,bloquear', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo
 );

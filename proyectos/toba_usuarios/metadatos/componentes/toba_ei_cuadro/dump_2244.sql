@@ -54,9 +54,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'desbloquear.png', --imagen
+	'monitor.png', --imagen
 	'0', --en_botonera
-	NULL, --ayuda
+	'Desbloquear Usuario', --ayuda
 	'1', --orden
 	NULL, --ci_predep
 	NULL, --implicito
@@ -68,7 +68,37 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_usuarios', --proyecto
+	'1031', --evento_id
+	'2244', --objeto
+	'bloquear', --identificador
+	NULL, --etiqueta
+	NULL, --maneja_datos
+	'1', --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'sistema_bloqueado.png', --imagen
+	'0', --en_botonera
+	'Bloquear Usuario', --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	NULL, --implicito
+	NULL, --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -93,7 +123,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'15', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	'No existen usuarios bloqueados.', --eof_customizado
+	'No existen usuarios para el filtro seleccionado.', --eof_customizado
 	'0', --exportar_paginado
 	'0', --exportar
 	'0', --exportar_rtf

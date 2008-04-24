@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3448]--  Usuarios Bloqueados 
+--[3448]--  Bloqueo de Usuarios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Usuarios Bloqueados', --nombre
+	'Bloqueo de Usuarios', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

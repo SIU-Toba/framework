@@ -53,10 +53,18 @@ class admin_instancia
 		$sql = "SELECT momento, ip FROM apex_log_ip_rechazada;";
 		return toba::db()->consultar($sql);
 	}
-	
-	function get_lista_usuarios_bloqueados()
+
+	function get_lista_usuarios_bloqueados($estado)
 	{
-		$sql = "SELECT usuario, nombre FROM apex_usuario WHERE bloqueado = 1;";
+		/*No se bloquea el usuario toba pero que pasa si se modifica 
+		el id del mismo en el ABM de usuarios??*/
+		$sql = "SELECT 
+					usuario, nombre 
+				FROM 
+					apex_usuario 
+				WHERE 
+						bloqueado = '$estado'
+					AND	usuario <> 'toba';";
 		return toba::db()->consultar($sql);
 	}
 	
@@ -80,7 +88,13 @@ class admin_instancia
 	
 	function eliminar_bloqueo_usuarios()
 	{
-		$sql = "UPDATE apex_usuario SET bloqueado = 0;";
+		$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE bloqueado = 1;";
+		toba::db()->ejecutar($sql);	
+	}
+	
+	function agregar_bloqueo_usuarios()
+	{
+		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0;";
 		toba::db()->ejecutar($sql);	
 	}
 	
