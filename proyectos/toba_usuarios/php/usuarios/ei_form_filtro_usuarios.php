@@ -1,6 +1,27 @@
 <?php 
 class ei_form_filtro_usuarios extends toba_ei_filtro
 {
+	
+	function generar_layout()
+	{
+		foreach ($this->_lista_ef_post as $ef) {
+			if ($ef == 'pertenencia') {
+				$id_ef = $this->_elemento_formulario[$ef]->get_id_form();
+				echo "<div id='nodo_$id_ef' class='ei-form-fila' style=''>";
+				$this->generar_etiqueta_ef('pertenencia');
+				echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};'>";
+				//echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
+				$this->generar_input_ef('pertenencia');
+				$this->generar_input_ef('proyecto');
+				echo "</div>";
+				echo "</div>";
+			}else{
+				if ($ef <> 'proyecto') {
+					$this->generar_html_ef($ef);	
+				}				
+			}
+		}
+	}
 
 	function extender_objeto_js()
 	{
@@ -10,10 +31,12 @@ class ei_form_filtro_usuarios extends toba_ei_filtro
 		{$this->objeto_js}.evt__pertenencia__procesar = function(es_inicial)
 		{
 			var opcion = this.ef('pertenencia').valor();
+			
 			if (opcion == 'T' || opcion == 'S') {
-				this.ef('proyecto').ocultar();
+				//this.ef('proyecto').ocultar();
+				$('ef_form_2189_filtroproyecto').style.display = 'none';
 			}else{
-				this.ef('proyecto').mostrar();
+				$('ef_form_2189_filtroproyecto').style.display = '';
 			}
 		}
 		";
