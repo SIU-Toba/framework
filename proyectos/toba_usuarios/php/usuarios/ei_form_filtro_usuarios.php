@@ -31,9 +31,7 @@ class ei_form_filtro_usuarios extends toba_ei_filtro
 		{$this->objeto_js}.evt__pertenencia__procesar = function(es_inicial)
 		{
 			var opcion = this.ef('pertenencia').valor();
-			
 			if (opcion == 'T' || opcion == 'S') {
-				//this.ef('proyecto').ocultar();
 				$('ef_form_2189_filtroproyecto').style.display = 'none';
 			}else{
 				$('ef_form_2189_filtroproyecto').style.display = '';
