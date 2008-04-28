@@ -17,6 +17,9 @@ class ci_editor_simple extends toba_ci
 		if( toba::sesion()->proyecto_esta_predefinido() ) {
 			$this->s__proyecto = toba::sesion()->get_id_proyecto();
 		}
+		if ($this->controlador->dep('datos')->esta_cargada()) {
+			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
+		}
 		$usuario = $this->datos('basica')->get();
 		$this->s__usuario = $usuario['usuario'];
 		$desc = 'Usuario: <strong>' . $usuario['nombre'] . '</strong><br>';

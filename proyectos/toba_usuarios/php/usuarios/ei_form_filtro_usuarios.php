@@ -10,7 +10,6 @@ class ei_form_filtro_usuarios extends toba_ei_filtro
 				echo "<div id='nodo_$id_ef' class='ei-form-fila' style=''>";
 				$this->generar_etiqueta_ef('pertenencia');
 				echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};'>";
-				//echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
 				$this->generar_input_ef('pertenencia');
 				$this->generar_input_ef('proyecto');
 				echo "</div>";
