@@ -422,6 +422,22 @@ class toba_proyecto
 		}
 		return $rs;
 	}
+	
+	//-- DIMENSIONES ----------------------------------
+
+	function get_info_dimension()
+	{
+	}
+
+	function get_info_dimension_gatillos()
+	{
+		
+	}
+	
+	function get_info_relacion_tablas()
+	{
+		
+	}
 
 	//-- Soporte a la compilacion ----------------------
 	

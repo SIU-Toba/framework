@@ -228,6 +228,69 @@ class toba_proyecto_db
 		return self::get_db()->consultar($sql);
 	}
 
+	//------------------------  DIMENSIONES -----------------------
+/*
+	static function get_info_dimension($proyecto, $dimension)
+	{
+		$sql = " 
+			SELECT
+				proyecto					
+				dimension					
+				nombre						
+				descripcion					
+				schema						
+				tabla						
+				col_id						
+				col_desc					
+				col_desc_separador			
+				multitabla_col_tabla		
+				multitabla_id_tabla			
+				fuente_datos_proyecto			
+				fuente_datos					
+
+
+				per.nombre as nombre
+			FROM
+				apex_permiso_grupo_acc per_grupo,
+				apex_permiso per
+			WHERE
+				per_grupo.proyecto = '$proyecto'
+			AND	per_grupo.usuario_grupo_acc IN ($grupos_acceso)
+			AND	per_grupo.permiso = per.permiso
+			AND	per_grupo.proyecto = per.proyecto
+		";
+		return self::get_db()->consultar($sql);
+	}
+
+
+
+apex_dimension
+
+	proyecto					
+	dimension					
+	gatillo						
+	tipo						
+	orden						
+	tabla_rel_dim				
+	columnas_rel_dim			
+	tabla_gatillo				
+	ruta_tabla_rel_dim			
+
+apex_dimension_gatillo
+
+
+	fuente_datos_proyecto			
+	fuente_datos					
+	proyecto						
+	relacion_tablas					
+	tabla_1							
+	tabla_1_cols					
+	tabla_2							
+	tabla_2_cols					
+	
+	apex_relacion_tablas
+*/	
+
 	//------------------------  MENSAJES  -------------------------
 	
 	static function get_mensaje_toba($indice)
@@ -260,7 +323,5 @@ class toba_proyecto_db
 				AND objeto = '$objeto';";
 		return self::get_db()->consultar_fila($sql);	
 	}
-	
-	
 }
 ?>

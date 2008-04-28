@@ -642,10 +642,8 @@ class toba_db_tablas_proyecto
     8 => 'col_desc_separador',
     9 => 'multitabla_col_tabla',
     10 => 'multitabla_id_tabla',
-    11 => 'subclase',
-    12 => 'subclase_archivo',
-    13 => 'fuente_datos_proyecto',
-    14 => 'fuente_datos',
+    11 => 'fuente_datos_proyecto',
+    12 => 'fuente_datos',
   ),
 );
 	}

@@ -56,8 +56,6 @@ CREATE TABLE apex_dimension
 	col_desc_separador				varchar(40)		NULL,
 	multitabla_col_tabla			varchar(80)		NULL,
 	multitabla_id_tabla				varchar(40)		NULL,
-	subclase						varchar(80)		NULL,
-	subclase_archivo				varchar(120)	NULL,
 	fuente_datos_proyecto			varchar(15)		NOT NULL,
 	fuente_datos					varchar(20)		NOT NULL,
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,

@@ -9,7 +9,9 @@ class toba
 	static private $mensajes;
 	static private $menu;
 	static private $contexto_ejecucion;
-
+	static private $perfil_de_datos;
+	static private $perfil_funcional;
+	
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
 	 * @return toba_nucleo
@@ -238,6 +240,28 @@ class toba
 		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
 		//Se pide el dt con el cache activado asi evita duplicar las instancias
 		return toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+	}
+
+	/**
+	 * @return toba_perfil_datos
+	 */
+	static function perfil_de_datos()
+	{
+		if (! isset(self::$perfil_de_datos)) {
+			self::$perfil_de_datos = new toba_perfil_datos();
+		}
+		return self::$perfil_de_datos;
+	}
+
+	/**
+	 * @return toba_perfil_funcional
+	 */
+	static function perfil_funcional()
+	{
+		if (! isset(self::$perfil_funcional)) {
+			self::$perfil_funcional = new toba_funcional();
+		}
+		return self::$perfil_funcional;
 	}
 
 }
