@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ei_arbol', --clase
 	'arbol_perfiles_funcionales', --subclase
-	'perfil_funcional/arbol_perfiles_funcionales.php', --subclase_archivo
+	'perfiles/perfil_funcional/arbol_perfiles_funcionales.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Perfil de Acceso - pant_perfil_acceso - arbol_perfiles', --nombre

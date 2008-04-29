@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	'ei_form_datos_perfil', --subclase
-	'perfil_funcional/ei_form_datos_perfil.php', --subclase_archivo
+	'perfiles/perfil_funcional/ei_form_datos_perfil.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Mantenimiento de Perfiles Funcionales - edicion_perfil - form_datos_perfil', --nombre
