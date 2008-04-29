@@ -17,11 +17,11 @@ class ci_editor_simple extends toba_ci
 		if( toba::sesion()->proyecto_esta_predefinido() ) {
 			$this->s__proyecto = toba::sesion()->get_id_proyecto();
 		}
+		$usuario = $this->datos('basica')->get();
+		$this->s__usuario = $usuario['usuario'];
 		if ($this->controlador->dep('datos')->esta_cargada()) {
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
 		}
-		$usuario = $this->datos('basica')->get();
-		$this->s__usuario = $usuario['usuario'];
 		$desc = 'Usuario: <strong>' . $usuario['nombre'] . '</strong><br>';
 		$desc .= 'Proyecto: <strong>' . $this->s__proyecto . '</strong>';
 		$this->pantalla()->set_descripcion($desc);
@@ -55,18 +55,19 @@ class ci_editor_simple extends toba_ci
 		$datos = $this->datos('basica')->get();
 		if (isset($datos)) {
 			$datos['clave'] = self::clave_falsa;
+			
+			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+		
+			$perfil_datos = '';
+			$ga_seleccionados = array();
+			foreach ($grupo_acc as $i=>$ga){
+				$ga_seleccionados[] = $ga['usuario_grupo_acc'];
+				$perfil_datos = $ga['usuario_perfil_datos'];
+			}
+			$datos['usuario_grupo_acc'] = $ga_seleccionados;
+			$datos['usuario_perfil_datos'] = $perfil_datos;
 		}
 		
-		$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
-		
-		$perfil_datos = '';
-		$ga_seleccionados = array();
-		foreach ($grupo_acc as $i=>$ga){
-			$ga_seleccionados[] = $ga['usuario_grupo_acc'];
-			$perfil_datos = $ga['usuario_perfil_datos'];
-		}
-		$datos['usuario_grupo_acc'] = $ga_seleccionados;
-		$datos['usuario_perfil_datos'] = $perfil_datos;
 		$datos['proyecto'] = $this->s__proyecto;
 		$componente->set_datos($datos);
 	}
