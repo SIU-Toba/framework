@@ -8,7 +8,7 @@ INSERT INTO apex_usuario_perfil_datos (usuario_perfil_datos_id, proyecto, usuari
 	'5', --usuario_perfil_datos_id
 	'toba_referencia', --proyecto
 	'6', --usuario_perfil_datos
-	'adegad', --nombre
+	'Test', --nombre
 	'adgagadgad', --descripcion
 	NULL  --listar
 );

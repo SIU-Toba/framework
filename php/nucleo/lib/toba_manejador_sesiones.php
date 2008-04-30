@@ -223,6 +223,18 @@ class toba_manejador_sesiones
 		}
 	}
 
+	/**
+	*	Determina el perfil de datos del usuario actual
+	*/
+	function get_perfil_datos()
+	{
+		if( (toba_editor::modo_prueba() && ( ! toba_editor::acceso_recursivo() ) ) ) {
+			return toba_editor::get_perfil_datos_previsualizacion();
+		} else {
+			return $this->usuario()->get_perfil_datos();
+		}
+	}
+
 	//-----------  Acceso a los objetos USUARIO y SESION  ------------------
 
 	/**

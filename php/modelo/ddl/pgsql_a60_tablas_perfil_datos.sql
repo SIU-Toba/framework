@@ -45,6 +45,6 @@ CREATE TABLE apex_usuario_perfil_datos_dims
 	elemento						int4			DEFAULT nextval('"apex_usuario_perfil_datos_dims_seq"'::text) NOT NULL,
 	clave							varchar			NULL,
 	CONSTRAINT	"apex_usuario_perfil_datos_dims_pk" PRIMARY	KEY ("elemento"),
-	CONSTRAINT	"apex_usuario_perfil_datos_dims_fk_perfda"	FOREIGN KEY	("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
-	CONSTRAINT	"apex_usuario_perfil_datos_dims_fk_dim"	FOREIGN KEY	("proyecto","dimension") REFERENCES	"apex_dimension" ("proyecto","dimension") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
+	CONSTRAINT	"apex_usuario_perfil_datos_dims_fk_perfda"	FOREIGN KEY	("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE	CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_usuario_perfil_datos_dims_fk_dim"	FOREIGN KEY	("proyecto","dimension") REFERENCES	"apex_dimension" ("proyecto","dimension") ON DELETE	CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE
 );

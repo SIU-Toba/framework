@@ -494,8 +494,9 @@ CREATE TABLE apex_admin_param_previsualizazion
 (
 	proyecto							varchar(15)		NOT NULL, 
 	usuario								varchar(60)		NOT NULL,
-	grupo_acceso						varchar(255)		NOT NULL,
+	grupo_acceso						varchar(255)	NOT NULL,
 	punto_acceso						varchar(100)	NOT NULL,
+	perfil_datos						varchar(255)	NULL,
   CONSTRAINT "apex_admin_param_prev_pk" PRIMARY KEY("proyecto", "usuario")
   --CONSTRAINT "apex_admin_param_prev_fk_proy" 	FOREIGN KEY ("proyecto", "usuario")	REFERENCES "apex_usuario_proyecto" ("proyecto", "usuario") ON	DELETE CASCADE ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE
 );

@@ -26,6 +26,8 @@
 		
 --- Dimensiones -----------------------------
 
+	* BOrrar el perfil de datos "no posee"
+
 	* Dimensiones
 		- Editor de dimensiones
 		- Administracion de la estructura del modelo de datos

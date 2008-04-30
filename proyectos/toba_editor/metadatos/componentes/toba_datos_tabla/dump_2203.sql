@@ -103,32 +103,6 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
 	'toba_editor', --objeto_proyecto
 	'2203', --objeto
-	'733', --col_id
-	'subclase', --columna
-	'C', --tipo
-	'0', --pk
-	NULL, --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0'  --externa
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
-	'toba_editor', --objeto_proyecto
-	'2203', --objeto
-	'734', --col_id
-	'subclase_archivo', --columna
-	'C', --tipo
-	'0', --pk
-	NULL, --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0'  --externa
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa) VALUES (
-	'toba_editor', --objeto_proyecto
-	'2203', --objeto
 	'735', --col_id
 	'col_desc', --columna
 	'C', --tipo

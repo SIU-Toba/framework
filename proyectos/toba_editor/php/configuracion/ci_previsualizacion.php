@@ -16,6 +16,11 @@ class ci_previsualizacion extends toba_ci
 		return toba_info_permisos::get_grupos_acceso();
 	}
 
+	function get_perfiles_datos()
+	{
+		return toba_info_permisos::get_perfiles_datos();
+	}
+
 	//-------------------------------------------------------------------
 	//--- DEPENDENCIAS
 	//-------------------------------------------------------------------

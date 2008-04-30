@@ -228,6 +228,7 @@ class toba_db_tablas_instancia
     1 => 'usuario',
     2 => 'grupo_acceso',
     3 => 'punto_acceso',
+    4 => 'perfil_datos',
   ),
 );
 	}

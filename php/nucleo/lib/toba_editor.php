@@ -195,7 +195,15 @@ class toba_editor
 			throw new toba_error("No esta definido el parametro 'grupo de acceso' del editor.");	
 		}
 	}
-	
+
+	static function get_perfil_datos_previsualizacion()
+	{
+		$param_prev = self::get_parametros_previsualizacion();
+		if(isset($param_prev['perfil_datos'])) {
+			return $param_prev['perfil_datos'];
+		}
+	}
+		
 	/**
 	 * Retorna la URL base del proyecto editado, basandose en la URL del PA (puede no ser la real..)
 	 * @return unknown
@@ -240,6 +248,7 @@ class toba_editor
 		}
 		self::$memoria['previsualizacion']['punto_acceso'] = $datos['punto_acceso'];
 		self::$memoria['previsualizacion']['grupo_acceso'] = $datos['grupo_acceso'];
+		self::$memoria['previsualizacion']['perfil_datos'] = $datos['perfil_datos'];
 		if (self::get_id_instancia_activa() == toba::instancia()->get_id() ) {
 			//Si estoy editando un proyecto en otra instancia, no tengo certeza de como guardar estos datos.
 			self::set_parametros_previsualizacion_db($datos);
@@ -248,7 +257,7 @@ class toba_editor
 
 	static function get_parametros_previsualizacion_db()
 	{
-		$sql = "SELECT grupo_acceso, punto_acceso 
+		$sql = "SELECT perfil_datos, grupo_acceso, punto_acceso 
 				FROM apex_admin_param_previsualizazion
 				WHERE proyecto = '" . self::get_proyecto_cargado() . "'
 				AND usuario = '".toba::usuario()->get_id()."';";
@@ -264,12 +273,13 @@ class toba_editor
 	{
 		$rs = self::get_parametros_previsualizacion_db();
 		if (!$rs) {
-			$sql = "INSERT INTO apex_admin_param_previsualizazion (grupo_acceso, punto_acceso, proyecto, usuario) 
-					VALUES ('{$datos['grupo_acceso']}', '{$datos['punto_acceso']}', 
+			$sql = "INSERT INTO apex_admin_param_previsualizazion (perfil_datos, grupo_acceso, punto_acceso, proyecto, usuario) 
+					VALUES ('{$datos['perfil_datos']}','{$datos['grupo_acceso']}', '{$datos['punto_acceso']}', 
 							'" . self::get_proyecto_cargado() . "', '".toba::usuario()->get_id()."');";
 		} else {
 			$sql = "UPDATE apex_admin_param_previsualizazion
 					SET grupo_acceso = '{$datos['grupo_acceso']}', 
+						perfil_datos = '{$datos['perfil_datos']}', 
 						punto_acceso = '{$datos['punto_acceso']}'
 					WHERE proyecto = '" . self::get_proyecto_cargado() . "'
 					AND usuario = '".toba::usuario()->get_id()."';";
