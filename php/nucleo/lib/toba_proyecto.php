@@ -226,6 +226,14 @@ class toba_proyecto
 		return $rs;
 	}
 
+	//--------------------  Dimensiones  ------------------------
+	
+	function get_info_dimension($dimension, $proyecto=null)
+	{
+		if (! isset($proyecto)) $proyecto = $this->id;
+		return toba_proyecto_db::get_info_dimension($proyecto, $dimension);
+	}
+
 	//--------------------  Puntos de Control  ------------------------
 
 	function get_info_punto_control($punto_control, $proyecto=null)	
@@ -423,22 +431,6 @@ class toba_proyecto
 		return $rs;
 	}
 	
-	//-- DIMENSIONES ----------------------------------
-
-	function get_info_dimension()
-	{
-	}
-
-	function get_info_dimension_gatillos()
-	{
-		
-	}
-	
-	function get_info_relacion_tablas()
-	{
-		
-	}
-
 	//-- Soporte a la compilacion ----------------------
 	
 	function existe_dato_compilado($clase, $metodo)

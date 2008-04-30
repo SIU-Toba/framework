@@ -13,6 +13,11 @@
 		- Gatillos
 		- Relaciones entre tablas
 
+	- No se deberian tener dos gatillos iguales en la misma dimension
+	- que pasa cuando una tabla se consume dos veces?
+		que pasa si hay dos gatillos de distintas dimensiones apuntando a esa tabla?
+
+
 --- GENERAL ---------------------------------
 
 	* Exportacion de PERFILES

@@ -229,67 +229,59 @@ class toba_proyecto_db
 	}
 
 	//------------------------  DIMENSIONES -----------------------
-/*
+
 	static function get_info_dimension($proyecto, $dimension)
 	{
-		$sql = " 
-			SELECT
-				proyecto					
-				dimension					
-				nombre						
-				descripcion					
-				schema						
-				tabla						
-				col_id						
-				col_desc					
-				col_desc_separador			
-				multitabla_col_tabla		
-				multitabla_id_tabla			
-				fuente_datos_proyecto			
-				fuente_datos					
-
-
-				per.nombre as nombre
-			FROM
-				apex_permiso_grupo_acc per_grupo,
-				apex_permiso per
-			WHERE
-				per_grupo.proyecto = '$proyecto'
-			AND	per_grupo.usuario_grupo_acc IN ($grupos_acceso)
-			AND	per_grupo.permiso = per.permiso
-			AND	per_grupo.proyecto = per.proyecto
-		";
-		return self::get_db()->consultar($sql);
+		$datos_dim = array();
+		$sql = " 	SELECT	proyecto,
+							dimension,					
+							nombre,						
+							descripcion,					
+							schema,						
+							tabla,						
+							col_id,						
+							col_desc,					
+							col_desc_separador,			
+							multitabla_col_tabla,		
+							multitabla_id_tabla,			
+							fuente_datos_proyecto,			
+							fuente_datos					
+					FROM apex_dimension
+					WHERE proyecto = '$proyecto'
+					AND	dimension = '$dimension'";
+		$datos_dim = self::get_db()->consultar_fila($sql);
+		if($datos_dim) {
+			$sql = " 	SELECT	proyecto,					
+								dimension,					
+								gatillo,						
+								tipo,						
+								orden,						
+								tabla_rel_dim,				
+								columnas_rel_dim,			
+								tabla_gatillo,				
+								ruta_tabla_rel_dim			
+						FROM apex_dimension_gatillo
+						WHERE proyecto = '$proyecto'
+						AND	dimension = '$dimension'";
+			$datos_dim['gatillos'] = self::get_db()->consultar($sql);
+		}
+		return $datos_dim;
 	}
 
-
-
-apex_dimension
-
-	proyecto					
-	dimension					
-	gatillo						
-	tipo						
-	orden						
-	tabla_rel_dim				
-	columnas_rel_dim			
-	tabla_gatillo				
-	ruta_tabla_rel_dim			
-
-apex_dimension_gatillo
-
-
-	fuente_datos_proyecto			
-	fuente_datos					
-	proyecto						
-	relacion_tablas					
-	tabla_1							
-	tabla_1_cols					
-	tabla_2							
-	tabla_2_cols					
-	
-	apex_relacion_tablas
-*/	
+	static function get_relaciones_entre_tablas($proyecto)
+	{
+		$sql = " 	SELECT	proyecto,
+							fuente_datos_proyecto,
+							fuente_datos,					
+							relacion_tablas,					
+							tabla_1,							
+							tabla_1_cols,					
+							tabla_2,							
+							tabla_2_cols					
+					FROM	apex_relacion_tablas
+					WHERE proyecto = '$proyecto'";
+		return self::get_db()->consultar($sql);
+	}
 
 	//------------------------  MENSAJES  -------------------------
 	

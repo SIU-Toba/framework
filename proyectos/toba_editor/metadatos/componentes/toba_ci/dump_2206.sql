@@ -244,7 +244,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
-	'seleccionar.gif', --imagen
+	'importar.png', --imagen
 	'form_gatillos_dir', --objetos
 	'eliminar,guardar', --eventos
 	NULL, --subclase
@@ -260,7 +260,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
-	'seleccionar.gif', --imagen
+	'importar.png', --imagen
 	'form_gatillos_indir', --objetos
 	'eliminar,guardar', --eventos
 	NULL, --subclase

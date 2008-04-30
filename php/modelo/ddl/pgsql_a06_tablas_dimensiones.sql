@@ -81,8 +81,8 @@ CREATE TABLE apex_dimension_gatillo
 	tipo							varchar(20)		NOT NULL, 	-- directo, indirecto
 	orden							int4			NOT NULL,
 	tabla_rel_dim					varchar(80)		NOT NULL,	
-	columnas_rel_dim				varchar			NULL,		-- Si tiene mas de una columna, expresada en el mismo orden que la definicion de la dim
-	tabla_gatillo					varchar(80)		NOT NULL,
+	columnas_rel_dim				varchar			NOT NULL,		-- Si tiene mas de una columna, expresada en el mismo orden que la definicion de la dim
+	tabla_gatillo					varchar(80)		NULL,			-- Si es indirecto, referencia a uno directo
 	ruta_tabla_rel_dim				varchar			NULL,
 	CONSTRAINT	"apex_dimension_gatillo_pk" PRIMARY	KEY ("gatillo"),
 	CONSTRAINT	"apex_dimension_gatillo_fk_dim"	FOREIGN KEY	("proyecto","dimension") REFERENCES	"apex_dimension" ("proyecto","dimension") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE

@@ -4,7 +4,7 @@ class ci_dimensiones extends toba_ci
 {
 	protected $carga_ok;
 
-	function ini()
+	function ini__operacion()
 	{
 		if ($editable = toba::zona()->get_editable()) {
 			$clave['proyecto'] = toba_editor::get_proyecto_cargado();
@@ -46,7 +46,7 @@ class ci_dimensiones extends toba_ci
 	}
 	
 	//-------------------------------------------------------------------
-	//--- DEPENDENCIAS
+	//--- Propiedades basicas
 	//-------------------------------------------------------------------
 
 	function evt__formulario__modificacion($datos)
@@ -66,7 +66,33 @@ class ci_dimensiones extends toba_ci
 		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas();
 	}
 
-	//--- Muestra los elementos de la dimension
+	//-------------------------------------------------------------------
+	//--- Gatillos simples
+	//-------------------------------------------------------------------
+
+
+	function evt__form_gatillos_dir__modificacion($datos)
+	{
+		foreach(array_keys($datos) as $id) {
+			$datos[$id]['tipo'] = 'directo';
+		}	
+		$this->dependencia('datos')->tabla('gatillos')->procesar_filas($datos);
+	}
+
+	function conf__form_gatillos_dir()
+	{
+		return $this->dependencia('datos')->tabla('gatillos')->get_filas();
+	}
+
+	function get_tablas_gatillos()
+	{
+		$datos = $this->dependencia('datos')->tabla('dimension')->get();
+		return toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas();
+	}
+
+	//-------------------------------------------------------------------
+	//--- Previsualizacion de elementos
+	//-------------------------------------------------------------------
 
 	function conf__elementos()
 	{
