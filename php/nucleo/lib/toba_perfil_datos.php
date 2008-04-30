@@ -6,20 +6,32 @@ class toba_perfil_datos
 
 	function __construct()
 	{
-		$this->cargar_info_dimension();
-		$this->indexar_gatillos();	
+		if( $this->get_id() ) { //Si el usuario tiene un perfil de datos
+			$this->cargar_info_restricciones();
+			$this->cargar_info_dimensiones();
+			$this->cargar_info_relaciones_entre_tablas();
+			$this->indexar_gatillos();	
+		}
 	}
 	
-	function cargar_info_dimension()
+	function cargar_info_restricciones()
 	{
-		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->get_perfil_datos() );
+		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->get_id() );
 		if($restricciones) {
 			foreach( $restricciones as $restriccion ) {
 					$this->restricciones[$restriccion['dimension']][] = explode(',',$restriccion['clave']);
 			}
 		}		
 	}
-	
+
+	function cargar_info_dimensiones()
+	{
+	}
+
+	function cargar_info_relaciones_entre_tablas()
+	{
+	}
+
 	function indexar_gatillos()
 	{
 		
@@ -38,7 +50,7 @@ class toba_perfil_datos
 	*	retorna el perfil de datos del usuario
 	*	@return $value string. Si el usuario no posee un perfil devuelve NULL
 	*/
-	function get_perfil_datos()
+	function get_id()
 	{
 		return toba_manejador_sesiones::get_perfil_datos();		
 	}
@@ -47,16 +59,16 @@ class toba_perfil_datos
 	*	Indica si el perfil de datos del usuario
 	*	@return $value	boolean
 	*/
-	function perfil_datos_posee_restricciones()
+	function posee_restricciones()
 	{
-		return (count($this->restricciones) > 0);
+		return $this->get_id() && (count($this->restricciones) > 0);
 	}
 
 	/**
 	*	Retorna un array con las restricciones aplicadas sobre las dimensiones
 	*	@return $value	Retorna un array de dimensiones con un subarray de restricciones
 	*/
-	function get_perfil_datos_restricciones()
+	function get_restricciones()
 	{
 		return $this->restricciones;
 	}
@@ -65,9 +77,9 @@ class toba_perfil_datos
 	*	Retorna un array con las dimensiones sobre las que se establecieron restricciones
 	*	@return $value	Retorna un array de dimensiones
 	*/
-	function get_perfil_datos_dimensiones_restringidas()
+	function get_lista_dimensiones_restringidas()
 	{
-		return array_keys($this->restricciones);
+		if( $this->restricciones) return array_keys($this->restricciones);
 	}
 
 	function get_where_dimension_gatillo($dimension, $gatillo)

@@ -1,3 +1,17 @@
+	
+--- Bugs
+
+	* Error en ajax en una zona despues de borrar un elemento y ejecutando la cascada
+
+--- Dimensiones -----------------------------
+
+	* BOrrar el perfil de datos "no posee"
+	* CAche sesion
+	* Precompilacion
+
+	* Editor
+		- Gatillos
+		- Relaciones entre tablas
 
 --- GENERAL ---------------------------------
 
@@ -5,7 +19,7 @@
 		- No es a INSERTS sino a datos
 			- Carga alternativa de datos de la implementacion o del proyecto
 			- Es posible que haya que evitar cargar registros (elementos eliminados)
-	* Error en ajax en una zona despues de borrar un elemento y ejecutando la cascada
+	* Migracion 1.2
 	
 --- Restriccion funcional -------------------
 
@@ -24,12 +38,3 @@
 		- Las columnas que forman parte de los cortes de control
 		- La primer pantalla de la jerarquia (un ci debe tener al menos una pantalla).
 		
---- Dimensiones -----------------------------
-
-	* BOrrar el perfil de datos "no posee"
-
-	* Dimensiones
-		- Editor de dimensiones
-		- Administracion de la estructura del modelo de datos
-		- Editor de perfiles
-	* Carga, aplicacion y complilacion

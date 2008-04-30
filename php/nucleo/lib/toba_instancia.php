@@ -202,6 +202,30 @@ class toba_instancia
 		}
 		return $rs[0];
 	}
+
+	/**
+	*	Devuelve los grupos de acceso de un usuario para un proyecto
+	*/
+	function get_grupos_acceso($usuario, $proyecto)
+	{
+		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
+				FROM 	apex_usuario_proyecto up,
+						apex_usuario_grupo_acc ga
+				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
+				AND		up.proyecto = ga.proyecto
+				AND		up.usuario = '$usuario'
+				AND		up.proyecto = '$proyecto';";
+		$datos = toba::instancia()->get_db()->consultar($sql);
+		if($datos){
+			$grupos = array();
+			foreach($datos as $dato) {
+				$grupos[] = $dato['grupo_acceso'];
+			}
+			return $grupos;
+		} else {
+			return array();
+		}
+	}
 	
 	/**
 	*	Utilizada en el login automatico

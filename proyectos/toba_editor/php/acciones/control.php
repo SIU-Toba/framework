@@ -8,6 +8,7 @@
                       
 	if (isset($_POST['admin_proyecto'])) {
 		toba_editor::set_proyecto_cargado($_POST['admin_proyecto']);
+		toba::memoria()->set_dato_instancia('proyecto', $_POST['admin_proyecto']);
 		$opciones = array('validar' => false);
 		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), '/admin/acceso', array(), $opciones);
 		

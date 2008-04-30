@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3451]--  Datos Usuario 
+--[3451]--  Estado 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Datos Usuario', --nombre
+	'Estado', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
-	'0', --menu
-	NULL, --orden
+	'1', --menu
+	'1', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
