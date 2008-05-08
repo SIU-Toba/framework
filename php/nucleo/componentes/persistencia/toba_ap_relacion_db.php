@@ -17,7 +17,14 @@ class toba_ap_relacion_db implements toba_ap_relacion
 	{
 		$this->objeto_relacion = $objeto_relacion;
 		$this->activar_transaccion();
+		$this->ini();
 	}
+
+	/**
+	 * Ventana para agregar configuraciones particulares despues de la construccion
+	 * @ventana
+	 */
+	protected function ini(){}
 
 	/**
 	 * Método de debug que retorna las propiedades internas

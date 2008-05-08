@@ -5,7 +5,6 @@
 class toba_modelo_instalacion extends toba_modelo_elemento
 {
 	const db_encoding_estandar = 'LATIN1';
-	const directorio_base = 'instalacion';
 	const info_basica = 'instalacion.ini';
 	const info_basica_titulo = 'Configuracion de la INSTALACION';
 	const info_bases = 'bases.ini';
@@ -350,7 +349,13 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 
 	static function dir_base()
 	{
-		return toba_dir() . '/' . self::directorio_base;
+		if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {
+			return $_SERVER['TOBA_INSTALACION_DIR'];
+		} elseif (isset($_SERVER['toba_instalacion_dir'])) {
+			return $_SERVER['toba_instalacion_dir'];
+		} else {
+			return toba_dir().'/instalacion';
+		}
 	}
 
 	/**
@@ -591,7 +596,8 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$instancia->get_db()->abortar_transaccion();	//Aborta la transaccion para que no afecte la instancia vieja
 			$instancia->get_db()->destruir();
 
-			$this->manejador_interface->titulo("4.- Regenerando la instancia actual para tomar los cambios");			
+			$this->manejador_interface->titulo("4.- Regenerando la instancia actual para tomar los cambios");
+				
 			//---Restaurar el backup
 			if (file_exists($dir_backup)) {
 				if (file_exists($dir_original)) {

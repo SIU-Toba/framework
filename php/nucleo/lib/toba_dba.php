@@ -10,7 +10,6 @@
 */
 class toba_dba
 {
-	const path_archivo_bases = '/instalacion/bases.ini';
 	private static $dba;						// Implementacion del singleton.
 	private static $info_bases;					// Parametros de las conexiones ABIERTAS
 	private static $bases_definidas = null;		// Bases declaradas en BASES.INI
@@ -22,13 +21,18 @@ class toba_dba
 		self::cargar_bases_definidas();		
 	}
 	
+	static function get_path_archivo_bases()
+	{
+		return toba::nucleo()->toba_instalacion_dir().'/bases.ini';
+	}
+	
 	/**
 	*	Levanta la lista de bases definidas
 	*/
 	static function cargar_bases_definidas()
 	{
 		$bases_definidas = array();
-		self::$bases_definidas = parse_ini_file( toba_dir() . self::path_archivo_bases, true );
+		self::$bases_definidas = parse_ini_file( self::get_path_archivo_bases(), true );
 		$pendientes = array();
 		foreach (self::$bases_definidas as $id_base => $parametros) {
 			if (empty($parametros)) {
@@ -56,7 +60,7 @@ class toba_dba
 		if ( isset( self::$bases_definidas[ $id_base ] ) ) {
 			return self::$bases_definidas[ $id_base ];
 		} else {
-			throw new toba_error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::path_archivo_bases . "'" );
+			throw new toba_error("DBA: La BASE [$id_base] no esta definida en el archivo de definicion de BASES: '" . self::get_path_archivo_bases() . "'" );
 		}
 	}
 	
@@ -154,13 +158,15 @@ class toba_dba
 			throw new toba_error("DBA: La BASE '$id_base' no esta definida correctamente." );
 		}
 		$puerto = isset($parametros['puerto']) ? $parametros['puerto'] : '';
+		$server = isset($parametros['server']) ? $parametros['server'] : '';
 		$archivo = "lib/db/toba_db_" . $parametros['motor'] . ".php";
 		$clase = "toba_db_" . $parametros['motor'];
 		$objeto_db = new $clase(	$parametros['profile'],
 									$parametros['usuario'],
 									$parametros['clave'],
 									$parametros['base'],
-									$puerto );
+									$puerto,
+									$server );
 		$objeto_db->conectar();
 		return $objeto_db;
 	}

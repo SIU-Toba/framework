@@ -12,6 +12,8 @@ class toba
 	static private $perfil_de_datos;
 	static private $perfil_funcional;
 	
+	static private $cn = array();
+
 	/**
 	 * El núcleo es la raiz de ejecución, no tiene mayor utilidad para los proyectos consumidores
 	 * @return toba_nucleo
@@ -240,6 +242,27 @@ class toba
 		$id['componente'] = toba_admin_fuentes::instancia()->get_fuente($fuente)->get_id_datos_tabla($nombre_tabla);
 		//Se pide el dt con el cache activado asi evita duplicar las instancias
 		return toba_constructor::get_runtime($id, 'toba_datos_tabla', true);
+	}
+
+	/**
+	 * Retorna un componente de tipo Controlador de Negocios
+	 * @param string $nombre_cn
+	 * @return toba_cn
+	 */
+	static function cn($nombre)
+	{
+		$proyecto = toba_proyecto::get_id();
+		if(! self::$cn ) {
+			self::$cn = toba_proyecto_db::get_mapeo_cn($proyecto);
+		}
+		if( isset(self::$cn[$nombre] ) ) {
+			$id = array();
+			$id['proyecto'] = $proyecto;
+			$id['componente'] = self::$cn[$nombre];
+			return toba_constructor::get_runtime($id, 'toba_cn', true);
+		} else {
+			throw new toba_error('El cn [$nombre] no puede ser encontrado.');
+		}
 	}
 
 	/**

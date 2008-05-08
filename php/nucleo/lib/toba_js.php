@@ -164,6 +164,13 @@ class toba_js
 					case 'fck_editor':
 						echo toba_js::incluir(toba_recurso::js("fckeditor/fckeditor.js"));
 						break;
+					///--> Excepciones a la validacion del cuit, al ser dinamicas no se pueden meter en un .js
+					case 'ef_cuit_excepciones':
+						$excepciones = toba_ef_cuit::get_excepciones();
+						echo toba_js::abrir();
+						echo 'var ef_cuit_excepciones ='.toba_js::arreglo($excepciones, false);
+						echo toba_js::cerrar();						
+						break;
 					//--> Por defecto carga el archivo del consumo
 					default:
 						$instalacion = toba_instalacion::instancia();

@@ -6,10 +6,20 @@
  */
 class toba_db_informix extends toba_db
 {
-	function __construct($profile, $usuario, $clave, $base, $puerto)
+	protected $id_instancia_server;
+	
+	function __construct($profile, $usuario, $clave, $base, $puerto, $server)
 	{
 		$this->motor = "informix";
+		$this->id_instancia_server = $server;
 		parent::__construct($profile, $usuario, $clave, $base, $puerto);
+	}
+
+	function get_dsn()
+	{
+		$puerto = ($this->puerto != '') ? $this->puerto : '1526';
+		$str_conexion ="informix:host=$this->profile;service=$puerto;database=$this->base;server={$this->id_instancia_server}; protocol=olsoctcp;EnableScrollableCursors=1";
+		return $str_conexion;
 	}
 	
 	/**

@@ -15,7 +15,13 @@ class toba_ap_relacion_db_info implements toba_meta_clase
 
 	function get_molde_subclase()
 	{
-		return new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+		$molde = new toba_codigo_clase( $this->get_subclase_nombre(), $this->get_clase_nombre() );	
+		$molde->agregar( new toba_codigo_metodo_php('ini') );
+		$molde->agregar( new toba_codigo_metodo_php('evt__pre_sincronizacion') );
+		$molde->agregar( new toba_codigo_metodo_php('evt__post_sincronizacion') );
+		$molde->agregar( new toba_codigo_metodo_php('evt__pre_eliminacion') );
+		$molde->agregar( new toba_codigo_metodo_php('evt__post_eliminacion') );
+		return $molde;
 	}
 	
 	function get_clase_nombre()

@@ -29,6 +29,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (fila in this._filas) {
 			this.iniciar_fila(this._filas[fila], false);
 		}
+		//Examen de cambios
+		if (this._con_examen_cambios) {
+			this._examinar_cambios();
+		}			
 		//Agregar totales
 		for (var id_ef in this._ef_con_totales) {
 			this.agregar_procesamiento(id_ef);

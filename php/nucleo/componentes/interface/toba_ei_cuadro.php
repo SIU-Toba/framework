@@ -181,10 +181,8 @@ class toba_ei_cuadro extends toba_ei
 	{
 		foreach($columnas as $clave) {
 			$id = $this->_info_cuadro_columna_indices[$clave];
-			unset($this->_info_cuadro_columna[$id]);
-			unset($this->_columnas[$clave]);
-			unset($this->_acumulador[$clave]);
-			unset($this->_info_cuadro_columna_indices[$clave]);
+			array_splice($this->_info_cuadro_columna, $id, 1);
+			$this->procesar_definicion();	//Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
 		}		
 	}
 	
@@ -1474,7 +1472,11 @@ class toba_ei_cuadro extends toba_ei
 	                $ancho = "";
 	            }                
                 echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."' $ancho>\n";
-                echo $valor;
+                if ($valor !== '' || $valor !== null) {
+                	echo $valor;
+                } else {
+                	echo '&nbsp;';
+                }
                 echo "</td>\n";
                 //Termino la CELDA
             }

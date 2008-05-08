@@ -80,7 +80,7 @@ class toba_solicitud_web extends toba_solicitud
 			$i = 0;
 			//Construye los objetos ci y el cn
 			foreach ($this->info['objetos'] as $objeto) {
-				if ($objeto['clase'] != 'objeto_cn') {
+				if ($objeto['clase'] != 'toba_cn') {
 					$this->cis[] = $this->cargar_objeto($objeto['clase'],$i); 
 					$i++;
 				} else {

@@ -8,6 +8,7 @@
  */
 class toba_ef_cuit extends toba_ef
 {
+	static protected $_excepciones;	
 	protected $clase_css = 'ef-cuit';
 	protected $_desactivar_validacion = false;
 
@@ -20,7 +21,21 @@ class toba_ef_cuit extends toba_ef
     {
     	return array();
     }	
+
+    /**
+     * Permite agregar excepciones al algoritmo de validacion de CUIT
+     * @param array $excepciones
+     */
+	static function set_excepciones($excepciones)
+	{
+		self::$_excepciones = $excepciones;
+	}
 	
+	static function get_excepciones() 
+	{
+		return self::$_excepciones;
+	}
+    
 	function cargar_estado_post()
 	{
 	    if(isset($_POST[$this->id_form . '_1']) || isset($_POST[$this->id_form . '_2']) || isset($_POST[$this->id_form . '_3'])){
@@ -56,6 +71,12 @@ class toba_ef_cuit extends toba_ef
 		$this->_desactivar_validacion = $desactivar;
 	}	
 	
+	function get_desactivar_validacion()
+	{
+		return $this->_desactivar_validacion;
+	}
+	
+	
 	function validar_estado()
 	{
 		$padre = parent::validar_estado();
@@ -65,29 +86,13 @@ class toba_ef_cuit extends toba_ef
 		if ($this->estado == '' || $this->_desactivar_validacion) {
 			return true;
 		}
-		$cuit_rearmado = $this->estado;
-		$coeficiente = array(5, 4, 3, 2, 7, 6, 5, 4, 3, 2);
-		$resultado=1;
-		if (strlen($cuit_rearmado) != 11) {  // si to estan todos los digitos
-			return "Un CUIT/CUIL consta de 11 digitos (encontrados ".strlen($cuit_rearmado)." )";
-		} else {
-			$sumador = 0;
-			$verificador = intval(substr($cuit_rearmado, 10, 1)); //tomo el digito verificador
-			//--- separo cada digito y lo multiplico por el coeficiente			
-			for ($i=0; $i <=9; $i++) { 
-				$sumador = $sumador + (substr($cuit_rearmado, $i, 1)) * $coeficiente[$i];
+		if (isset(self::$_excepciones)) {
+			// Busca el cuit en las excepciones
+			if (in_array($this->estado, self::$_excepciones)) {
+				return true;
 			}
-			$resultado = 11 - ($sumador % 11); //saco el digito verificador
-			if ($resultado == 11) {
-				$resultado = 0;
-			} elseif ($resultado == 10) {
-				$resultado = 9;	
-			}
-			if ($verificador != $resultado) {
-				return "clave incorrecta";
-			} 
 		}
-		return true;
+		return self::validar_cuit($this->estado);
 	}
 
 	function get_input()
@@ -133,9 +138,44 @@ class toba_ef_cuit extends toba_ef
 	function get_consumo_javascript()
 	{
 		$consumos = array('efs/mascaras', 'efs/ef', 'efs/ef_cuit');
+		if (isset(self::$_excepciones)) {
+			$consumos[] = 'ef_cuit_excepciones';
+		}
 		return $consumos;
 	}	
 	
+	
+	static function validar_cuit($cuit_rearmado)
+	{
+		if (isset(self::$_excepciones)) {
+			// Busca el cuit en las excepciones
+			if (in_array($cuit_rearmado, self::$_excepciones)) {
+				return true;
+			}
+		}
+		$coeficiente = array(5, 4, 3, 2, 7, 6, 5, 4, 3, 2);
+		$resultado=1;
+		if (strlen($cuit_rearmado) != 11) {  // si to estan todos los digitos
+			return "Un CUIT/CUIL consta de 11 digitos (encontrados ".strlen($cuit_rearmado)." )";
+		} else {
+			$sumador = 0;
+			$verificador = intval(substr($cuit_rearmado, 10, 1)); //tomo el digito verificador
+			//--- separo cada digito y lo multiplico por el coeficiente			
+			for ($i=0; $i <=9; $i++) { 
+				$sumador = $sumador + (substr($cuit_rearmado, $i, 1)) * $coeficiente[$i];
+			}
+			$resultado = 11 - ($sumador % 11); //saco el digito verificador
+			if ($resultado == 11) {
+				$resultado = 0;
+			} elseif ($resultado == 10) {
+				$resultado = 9;	
+			}
+			if ($verificador != $resultado) {
+				return "clave incorrecta";
+			} 
+		}
+		return true;		
+	}
 }
    
 ?>

@@ -98,7 +98,7 @@ CREATE TABLE apex_molde_operacion
 	prefijo_clases				varchar(30)		NOT NULL,
 	fuente						varchar(20)		NOT NULL,
 	CONSTRAINT  "apex_molde_operacion_pk" PRIMARY KEY ("molde", "proyecto"),
-	CONSTRAINT 	"apex_molde_operacion_item" UNIQUE ("item"),
+	CONSTRAINT 	"apex_molde_operacion_item" UNIQUE ("proyecto","item"),
 	CONSTRAINT	"apex_molde_operacion_proy" FOREIGN	KEY ("proyecto") REFERENCES "apex_proyecto" ("proyecto")	ON	DELETE NO ACTION ON UPDATE	NO	ACTION DEFERRABLE INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_molde_operacion_fk_item" FOREIGN	KEY ("item", "proyecto") REFERENCES	"apex_item"	("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT  "apex_molde_operacion_fk_tipo"  FOREIGN KEY ("operacion_tipo") REFERENCES   "apex_molde_operacion_tipo" ("operacion_tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,

@@ -183,6 +183,13 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border: 1px dotted #eeeeee;
 	_border: 1px solid #eeeeee;
 }
+.ci-pant-desc-warning {
+	background-color: #FFFFE1;
+	border: 1px solid #B7C8F6;
+}
+.ci-pant-desc-warning td {
+	padding-left: 5px;
+}
 .ci-pant-sep {
 	display:none;
 }
@@ -193,6 +200,15 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 .ci-botonera {
 	background-color: #5a5e9d;	
+}
+.ci-tabs-h-solapa .ci-tabs-boton-desact {
+	color:gray !important;
+	cursor: default;
+}
+.ci-tabs-v-solapa  .ci-tabs-boton-desact {
+	color:gray;
+	text-decoration:none;
+	cursor: default;
 }
 .ci-tabs-h-lista ul {
 	margin:0;

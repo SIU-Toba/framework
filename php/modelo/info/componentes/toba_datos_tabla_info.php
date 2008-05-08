@@ -176,8 +176,9 @@ class toba_datos_tabla_info extends toba_componente_info
 	function get_molde_subclase()
 	{
 		$molde = $this->get_molde_vacio();
-		$molde->agregar( new toba_codigo_metodo_php('evt__validar_fila', array('$fila') ) );
-		$molde->agregar( new toba_codigo_metodo_php('validar_fila', array('$fila','$id=null') ) );
+		$molde->agregar( new toba_codigo_metodo_php('ini') );
+		$molde->agregar( new toba_codigo_metodo_php('evt__validar_ingreso', array('$fila','$id=null') ) );
+		$molde->agregar( new toba_codigo_metodo_php('evt__validar_fila', array('$datos_fila') ) );
 		return $molde;
 	}
 }

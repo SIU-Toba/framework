@@ -128,16 +128,7 @@ class toba_logger
 		$this->nivel_maximo = $nivel;
 	}
 	
-	function get_nivel()
-	{
-		return $this->nivel_maximo;
-	}
-	
-	function modo_debug()
-	{
-		return ($this->get_nivel() == TOBA_LOG_DEBUG);
-	}
-	
+
 	/**
 	 * @ignore 
 	 */
@@ -260,6 +251,16 @@ class toba_logger
 	{
 		return $this->ref_niveles;	
 	}
+	
+	function get_nivel()
+	{
+		return $this->nivel_maximo;
+	}	
+	
+	function modo_debug()
+	{
+		return ($this->get_nivel() == TOBA_LOG_DEBUG);
+	}	
 
 	//------------------------------------------------------------------
 	//------ Entradas para los distintos tipos de error
@@ -396,7 +397,7 @@ class toba_logger
 	{
 		if (! isset($this->dir_logs)) {
 			$id_instancia = toba_instancia::get_id();
-			$this->dir_logs = toba_dir()."/instalacion/i__".$id_instancia."/p__{$this->proyecto_actual}/logs";
+			$this->dir_logs = toba_nucleo::toba_instalacion_dir()."/i__$id_instancia/p__{$this->proyecto_actual}/logs";
 		}
 		return $this->dir_logs;
 	}	

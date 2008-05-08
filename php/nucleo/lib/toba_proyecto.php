@@ -117,6 +117,17 @@ class toba_proyecto
 	//----------------------------------------------------------------	
 
 	/**
+	 * Retorna el número de versión propio del proyecto
+	 * @return toba_version
+	 */
+	function get_version()
+	{
+		if (file_exists(self::get_path().'/VERSION')) {
+			return new toba_version(file_get_contents(self::get_path().'/VERSION'));
+		}
+	}	
+	
+	/**
 	 * Retorna la base de datos de la instancia a la que pertenece este proyecto
 	 * @return toba_db
 	 */

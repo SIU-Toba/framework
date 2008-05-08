@@ -336,7 +336,6 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 			ok = this[validacion_particular]() && ok;
 		}
 		this.set_ef_valido(ef, ok, es_online);
-		var estado = this._efs[id_ef].get_estado();
 		if (es_online && this._con_examen_cambios) {
 			this._examinar_cambios(id_ef);
 		}
@@ -366,6 +365,9 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 	
 	ei_formulario.prototype.set_procesar_cambios = function(examinar, boton_destino, excluir_efs) {
 		this._con_examen_cambios = examinar;
+		if (! isset(excluir_efs)) {
+			excluir_efs = [];
+		}
 		this._cambios_excluir_efs = excluir_efs;
 		if (boton_destino) {
 			this._boton_procesar_cambios = boton_destino;

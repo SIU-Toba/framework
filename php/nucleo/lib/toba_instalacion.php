@@ -31,7 +31,7 @@ class toba_instalacion
 	{
 		$this->memoria =& toba::manejador_sesiones()->segmento_info_instalacion();
 		if(!$this->memoria || $recargar) {
-			$this->memoria = parse_ini_file( toba_dir() . '/instalacion/instalacion.ini');
+			$this->memoria = parse_ini_file( toba::nucleo()->toba_instalacion_dir() . '/instalacion.ini');
 		}
 	}
 	

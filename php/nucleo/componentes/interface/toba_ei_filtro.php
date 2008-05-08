@@ -9,6 +9,7 @@
 class toba_ei_filtro extends toba_ei_formulario
 {
 	protected $_item_editor = '/admin/objetos_toba/editores/ei_filtro';
+	protected $_estilos = 'ei-base ei-form-base ei-filtro-base';
 	
 	/**
 	 * Genera la etiqueta y el componente HTML de un ef
@@ -41,9 +42,12 @@ class toba_ei_filtro extends toba_ei_formulario
 	
 	function vista_impresion_html( $salida )
 	{
+		//--- La carga de efs se realiza aqui para que sea contextual al servicio
+		//--- ya que hay algunos que no lo necesitan (ej. cascadas)
 		$this->cargar_opciones_efs();		
+		
 		$salida->subtitulo( $this->get_titulo() );
-		echo "<table class='ei-base ei-form-base' width='{$this->_info_formulario['ancho']}'>";
+		echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef){
 			//Los combos que no tienen valor establecido no se imprimen
 			if( $this->_elemento_formulario[$ef] instanceof toba_ef_combo ) {

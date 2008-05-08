@@ -33,6 +33,7 @@ class toba_ei_formulario extends toba_ei
 	protected $_lista_efs_servicio;
 	protected $_clase_formateo = 'toba_formateo';
 	protected $_detectar_cambios;			//La clase en javascript escucha si algun ef cambio y habilita/deshabilita el boton por defecto
+	protected $_estilos = 'ei-base ei-form-base';
 	
 	protected $_eventos_ext = null;			// Eventos seteados desde afuera
 	protected $_observadores;
@@ -954,7 +955,7 @@ class toba_ei_formulario extends toba_ei
 		if (isset($this->_info_formulario["ancho"])) {
 			$ancho = convertir_a_medida_tabla($this->_info_formulario["ancho"]);
 		}
-		echo "<table class='ei-base ei-form-base' $ancho>";
+		echo "<table class='{$this->_estilos}' $ancho>";
 		echo "<tr><td style='padding:0'>";
 		echo $this->get_html_barra_editor();
 		$this->generar_html_barra_sup(null, true,"ei-form-barra-sup");
@@ -1165,7 +1166,7 @@ class toba_ei_formulario extends toba_ei
 		$this->cargar_opciones_efs();
 		$formateo = new $this->_clase_formateo('impresion_html');		
 		$salida->subtitulo( $this->get_titulo() );
-		echo "<table class='ei-base ei-form-base' width='{$this->_info_formulario['ancho']}'>";
+		echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef){
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();

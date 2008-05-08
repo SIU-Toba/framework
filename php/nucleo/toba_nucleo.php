@@ -224,6 +224,15 @@ class toba_nucleo
 		return self::$path;
 	}
 
+	static function toba_instalacion_dir()
+	{
+		if (isset($_SERVER['TOBA_INSTALACION_DIR'])) {
+			return $_SERVER['TOBA_INSTALACION_DIR'];
+		} else {
+			return self::toba_dir().'/instalacion';
+		}
+	}	
+	
 	/**
 	*	Carga de includes basicos
 	*/
@@ -613,7 +622,10 @@ class toba_nucleo
 			'toba_rf_grupo_eventos'          		=>  '/modelo/info/componentes_perfil/toba_rf_grupo_eventos.php',    
 			'toba_rf_item'                   		=>  '/modelo/info/componentes_perfil/toba_rf_item.php',             
 			'toba_rf_carpeta'                  		=>  '/modelo/info/componentes_perfil/toba_rf_carpeta.php',             
-			'toba_rf_pantalla'               		=>  '/modelo/info/componentes_perfil/toba_rf_pantalla.php'          			
+			'toba_rf_pantalla'               		=>  '/modelo/info/componentes_perfil/toba_rf_pantalla.php',     			
+ 			//------------------------- 3ros --------------------------------------
+ 			'Numbers_Words_es_Ar'					=> '3ros/Numbers_Words/Words/lang.es_AR.php'
+ 			
 		);
 	}
 

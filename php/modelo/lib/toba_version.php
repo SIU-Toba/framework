@@ -61,7 +61,7 @@ class toba_version
 	function get_string_partes($separador = '_')
 	{
 		$s = $this->__toString();
-		return str_replace('.', '_', $s);
+		return str_replace('.', $separador, $s);
 	}
 
 	function es_igual($version)

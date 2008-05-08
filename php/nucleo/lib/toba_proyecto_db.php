@@ -104,6 +104,18 @@ class toba_proyecto_db
 		$rs = self::get_db()->consultar($sql);
 		return rs_convertir_asociativo($rs, array('tabla'), 'objeto');
 	}
+
+	static function get_mapeo_cn($proyecto)
+	{
+		$sql = "
+			SELECT objeto, nombre
+			FROM apex_objeto
+			WHERE proyecto = '$proyecto'
+			AND clase = 'toba_cn'";
+		$rs = self::get_db()->consultar($sql);
+		return rs_convertir_asociativo($rs, array('nombre'), 'objeto');
+	}
+
 	
 	static function get_descripcion_permiso($proyecto, $permiso)
 	{

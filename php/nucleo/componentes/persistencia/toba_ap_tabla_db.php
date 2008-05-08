@@ -26,6 +26,7 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	protected $_secuencias;
 	protected $_columnas_predeterminadas_db;		// Manejo de datos generados por el motor (autonumericos, predeterninados, etc)
 	protected $_sql_carga;						// Partes de la SQL utilizado en la carga de la tabla
+	protected $_schema;
 	//-------------------------------
 	protected $_baja_logica = false;				// Baja logica. (delete = update de una columna a un valor)
 	protected $_baja_logica_columna;				// Columna de la baja logica
@@ -57,13 +58,23 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			}
 		}
 		$this->inicializar();
+		$this->ini();
 	}
 	
 	/**
 	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * @deprecated 
+	 * @see ini
 	 * @ventana
 	 */
 	protected function inicializar(){}
+
+	/**
+	 * Ventana para agregar configuraciones particulares despues de la construccion
+	 * @ventana
+	 */
+	protected function ini(){}
+
 
 	/**
 	 * @ignore 
@@ -178,6 +189,11 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	function activar_modificacion_clave()
 	{
 		$this->_flag_modificacion_clave = true;
+	}
+	
+	function set_schema($schema) 
+	{
+		$this->_tabla = $schema.'.'.$this->objeto_tabla->get_tabla();
 	}
 
 	//-------------------------------------------------------------------------------
@@ -849,14 +865,18 @@ class toba_ap_tabla_db implements toba_ap_tabla
 				//Si la columna no solicito sincro continua, paso a la siguiente.
 				if(isset($evento)&& !($parametros["sincro_continua"])) continue;
 				//Controlo que los parametros del cargador me alcanzan para recuperar datos de la DB
+				$estan_todos = true;
 				foreach( $parametros['col_parametro'] as $col_llave ){
 					if(isset($evento) && isset($this->_secuencias[$col_llave])){
 						throw new toba_error('AP_TABLA_DB: No puede actualizarse en linea un valor que dependende de una secuencia');
 					}
-//					if(!isset($fila[$col_llave])){
-//						toba::logger()->error("AP_TABLA_DB: Falta el parametro '$col_llave' en fila $fila", 'toba');
-//						throw new toba_error('AP_TABLA_DB: ERROR en la carga de una columna externa.');
-//					}
+					if(!isset($fila[$col_llave])){
+						$estan_todos = false;
+					}
+				}
+				//Si algun valor requerido no esta seteado, no ejecutar la carga				
+				if (! $estan_todos) {
+					continue;
 				}
 				//-[ 1 ]- Recupero valores correspondientes al registro
 				if($parametros['tipo']=="sql")											//--- carga SQL!!

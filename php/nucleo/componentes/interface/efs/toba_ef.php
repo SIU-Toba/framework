@@ -418,6 +418,14 @@ abstract class toba_ef
         }
         return true;
     }
+    
+    /**
+     * Cambia el valor que toma el ef cuando no se lo carga con un estado
+     */
+    function set_estado_defecto($estado)
+    {
+    	$this->estado_defecto = $estado;
+    }
 	
 	//-----------------------------------------------------
 	//-------------- CAMBIO DE PROPIEDADES -----------------

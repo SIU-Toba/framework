@@ -32,7 +32,14 @@ class toba_datos_relacion extends toba_componente
 		if ($this->_info_estructura['debug']) {
 			$this->dump_esquema("INICIO: ".$this->_info['nombre']);	
 		}
+		$this->ini();
 	}
+
+	/**
+	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * @ventana
+	 */
+	function ini(){}
 	
 	/**
 	 *  @ignore 
@@ -488,6 +495,21 @@ class toba_datos_relacion extends toba_componente
 	function get_fuente()
 	{
 		return $this->_info["fuente"];
+	}
+	
+	/**
+	 * Determina si los datos cargados difieren de los datos existentes en el medio de persistencia
+	 * @return boolean
+	 */
+	function hay_cambios()
+	{
+		$hay_cambios = false;
+		foreach ($this->_dependencias as $dependencia) {
+			if (!$hay_cambios && $dependencia->hay_cambios()) {
+				$hay_cambios = true;
+			}
+		}
+		return $hay_cambios;
 	}
 	
 }

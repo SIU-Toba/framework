@@ -24,6 +24,9 @@ class asignador_objetos
 			case 'toba_ci':
 				$this->asignar_a_ci();
 				break;
+			case 'toba_cn':
+				$this->asignar_a_cn();
+				break;
 			case 'toba_ci_pantalla':
 				$this->asignar_a_pantalla_ci();
 				break;
@@ -66,7 +69,20 @@ class asignador_objetos
 		  		";
 		ejecutar_fuente($sql,'instancia');
 	}
-	
+
+	protected function asignar_a_cn()
+	{
+		$sql = "INSERT INTO apex_objeto_dependencias
+		  			(proyecto, objeto_consumidor, objeto_proveedor,  identificador)	VALUES (
+		  				'{$this->destino['proyecto']}',
+		  				'{$this->destino['objeto']}', 
+			  			'{$this->origen['objeto']}', 
+			  			'{$this->destino['id_dependencia']}'
+		  			) 
+		  		";
+		ejecutar_fuente($sql,'instancia');
+	}
+		
 	protected function asignar_a_pantalla_ci()
 	{
 		$this->asignar_a_ci();

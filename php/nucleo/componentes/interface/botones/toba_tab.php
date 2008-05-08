@@ -38,16 +38,17 @@ class toba_tab extends toba_boton
 		$tip = str_replace("'", "\\'",$tip);			
 		$acceso = toba_recurso::ayuda($tecla, $tip);
 		$id = $id_submit.'_cambiar_tab_'.$evento;
-		
 		if ( $this->activado ) {
 			$js = "onclick=\"{$id_componente}.ir_a_pantalla('$evento');return false;\"";
 			$js_extra = '';
+			$clase_boton = '';			
 		} else {
 			// Si el tab esta desactivado, le tengo que dejar en onclick en una propiedad para que el codigo JS la pueda usar.
 			$js = '';
 			$js_extra = toba_js::abrir();
 			$js_extra .= "document.getElementById('$id').onclick_viejo = function(event) { {$id_componente}.ir_a_pantalla('$evento');return false;}";
 			$js_extra .= toba_js::cerrar();
+			$clase_boton = 'ci-tabs-boton-desact';
 		}
 		if( $tipo == 'H' ) {	//********************* TABs HORIZONTALES **********************
 			if( $seleccionado ) {// -- Tab ACTUAL --
@@ -61,7 +62,7 @@ class toba_tab extends toba_boton
   				$estilo_li = 'background:url("'.toba_recurso::imagen_skin('tabs/left.gif').'") no-repeat left top;';
   				$estilo_a = 'background:url("'.toba_recurso::imagen_skin('tabs/right.gif').'") no-repeat right top;';
 				$html = "<li  class='ci-tabs-h-solapa' style='$estilo_li $oculto'>$editor";
-				$html .= "<a href='#' id='$id' style='$estilo_a' $acceso $js>$contenido</a>";
+				$html .= "<a href='#' id='$id' style='$estilo_a' class='$clase_boton' $acceso $js>$contenido</a>";
 				$html .= "</li>";
 				$html .= $js_extra;
 			}
@@ -72,8 +73,8 @@ class toba_tab extends toba_boton
 				$html .= "</div></div>";
 			} else {
 				$oculto = $this->oculto ? "style='display: none'" : '';
-				$html = "<div class='ci-tabs-v-solapa' $oculto >$editor ";
-				$html .= "<a href='#' id='$id' $acceso $js>$contenido</a>";
+				$html = "<div class='ci-tabs-v-solapa ' $oculto >$editor ";
+				$html .= "<a href='#' id='$id' class='$clase_boton' $acceso $js>$contenido</a>";
 				$html .= "</div>";
 				$html .= $js_extra;
 			}

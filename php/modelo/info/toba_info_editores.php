@@ -117,6 +117,11 @@ class toba_info_editores
 		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_ci'));
 	}	
 	
+	static function get_lista_clases_validas_en_cn()
+	{
+		return self::get_lista_clases_toba(false, self::get_clases_validas_contenedor('toba_cn'));
+	}	
+
 	/*
 		Lista de tipos de componponentes en COMBOS
 		Las clases usan un ID concatenado para que las cascadas

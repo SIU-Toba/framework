@@ -457,17 +457,31 @@ class toba_ef_editable_clave extends toba_ef_editable
  */
 class toba_ef_editable_fecha extends toba_ef_editable
 {
+	static protected $rango_fechas_global;
+	protected $rango_fechas;
+	
     static function get_lista_parametros()
     {
     	$param = toba_ef_editable::get_lista_parametros();
     	array_borrar_valor($param, 'edit_unidad');
     	return $param;
     }	
+    
+    /**
+     * Cambia el rango de fechas aceptado por todas las instancias del ef_fecha
+     */
+    static function set_rango_valido_global($desde, $hasta)
+    {
+    	self::$rango_fechas_global = array($desde, $hasta);
+    }
 	
 	function __construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros)
 	{
 		if (! isset($parametros['edit_tamano'])) {
 			$parametros['edit_tamano'] = "10";//Esto deberia depender del tipo de fecha
+		}
+		if (isset(self::$rango_fechas_global)) {
+			$this->rango_fechas = self::$rango_fechas_global;
 		}
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio,$parametros);
 	}
@@ -479,6 +493,17 @@ class toba_ef_editable_fecha extends toba_ef_editable
 	    } else {
 	    	$this->estado = null;	
 	    }
+	}
+	
+	/**
+	 * Valida que las fechas ingresadas estén dentro del rango de fechas
+	 *
+	 * @param string $desde aaaa-mm-dd
+	 * @param string $hasta aaaa-mm-dd
+	 */
+	function set_rango_valido($desde, $hasta)
+	{
+		$this->rango_fechas = array($desde, $hasta);
 	}
 
 	function get_estado()
@@ -533,9 +558,26 @@ class toba_ef_editable_fecha extends toba_ef_editable
             if (! checkdate($fecha[1],$fecha[0],$fecha[2])) {
 				return "El campo no es una fecha valida (1).";
 			}
+			if (isset($this->rango_fechas)) {
+				//TODO: Falta validación en el servidor
+			}
 		}
 		return true;
-   }
+	}
+	
+	function parametros_js()
+	{
+		if (isset($this->rango_fechas)) {
+			$desde = explode('-', $this->rango_fechas[0]);
+			$hasta = explode('-', $this->rango_fechas[1]);
+			$desde[1]--;
+			$hasta[1]--;
+			$rango = "[new Date('{$desde[0]}','{$desde[1]}','{$desde[2]}'), new Date('{$hasta[0]}','{$hasta[1]}','{$hasta[2]}')]";
+		} else {
+			$rango = 'null';
+		}
+		return parent::parametros_js().", $rango";
+	}	   
    
 	function crear_objeto_js()
 	{
@@ -636,7 +678,8 @@ class toba_ef_editable_textarea extends toba_ef_editable
 		}
 		$html = "";
 		if($this->solo_lectura){
-			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $this->clase, $this->wrap, " readonly");
+			$clase = $this->clase.' ef-input-solo-lectura';
+			$html .= toba_form::textarea( $this->id_form, $this->estado, $this->lineas, $this->tamano, $clase, $this->wrap, " readonly");
 		}else{
 			if($this->resaltar){
 				$javascript = " onclick='javascript: document.getElementById('{$this->id_form}').select()'";

@@ -242,6 +242,13 @@ class toba_recurso
 				$url = toba_recurso::url_proyecto($proyecto) . "/css/$archivo.css";
 				$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n";			
 			}
+			$path = toba::instancia()->get_path_proyecto($proyecto)."/www/css/".$archivo."_hack_ie.css";
+			if (file_exists($path)) {
+				$url = toba_recurso::url_proyecto($proyecto) . "/css/".$archivo."_hack_ie.css";
+				$link .= "<!--[if lt IE 8]>\n";
+				$link .= "<link href='$url' rel='stylesheet' type='text/css' media='$rol'/>\n\n";			
+				$link .= "<![endif]-->\n";
+			}			
 		}
 		return $link;		
 	}

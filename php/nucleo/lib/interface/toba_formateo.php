@@ -99,12 +99,17 @@ class toba_formateo
 	function formato_millares($valor)
 	{
 		if ($this->tipo_salida != 'excel') {
-			return number_format($valor,0,',','.');
+			if (is_numeric($valor)) {
+				return number_format($valor,0,',','.');
+			} else {
+				return $valor;
+			}			
 		} else {
 			return array($valor, array('numberformat' => 
 							array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER)
 					));	
 		}
+
 	}
 	
 	function formato_numero($valor)

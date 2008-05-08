@@ -40,7 +40,7 @@ class toba_instancia
 	 */
 	static function get_datos_instancia($id_instancia)
 	{
-		$archivo = toba_dir() . '/instalacion/i__' . $id_instancia . '/instancia.ini';
+		$archivo = toba::nucleo()->toba_instalacion_dir().'/i__' . $id_instancia . '/instancia.ini';
 		if ( is_file( $archivo ) ) {
 			return parse_ini_file( $archivo, true );
 		} else {

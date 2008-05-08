@@ -79,9 +79,22 @@ ef_cuit.prototype.constructor = ef_cuit;
 		}
 	};		
 	
+	ef_cuit.prototype.desactivar_validacion = function(desactivar) {
+		this._desactivar_validacion = desactivar;
+	};			
+	
+	
+	ef_cuit.prototype.get_desactivar_validacion = function() {
+		return this._desactivar_validacion;
+	};				
 	
 //--------------------------------------------	
 function es_cuit(nro) {
+	if (typeof ef_cuit_excepciones == 'array') {
+		if (in_array(nro, ef_cuit_excepciones)) {
+			return true;
+		}
+	}
 	var suma;
 	var resto;
 	var verif;

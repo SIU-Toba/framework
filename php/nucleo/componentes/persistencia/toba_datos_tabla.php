@@ -74,7 +74,15 @@ class toba_datos_tabla extends toba_componente
 		}
 		$this->activar_cargas_externas();
 		$this->activar_control_valores_unicos();
+		$this->ini();
 	}
+
+	/**
+	 * Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+	 * @ventana
+	 */
+	function ini(){}
+
 	
 	/**
 	 * Destructor del componente
@@ -802,10 +810,10 @@ class toba_datos_tabla extends toba_componente
 		foreach(array_keys($fila) as $clave){
 			if (isset($this->_datos[$id][$clave])) {
 				//--- Comparacion por igualdad estricta con un cast a string
-				$modificar = ((string) $this->_datos[$id][$clave] !== (string) $fila[$clave]);
+				$modificar = (trim((string) $this->_datos[$id][$clave]) !== trim((string) $fila[$clave]));
 			} else {
-				//--- Si antes era null, se modifica si ahora no es null!
-				$modificar = isset($fila[$clave]);
+				//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)
+				$modificar = isset($this->_columnas[$clave]) && isset($fila[$clave]);
 			}
 			if ($modificar) {
 				$alguno_modificado = true;
@@ -1055,7 +1063,7 @@ class toba_datos_tabla extends toba_componente
 	/**
 	 * Almacena un 'file pointer' en un campo binario o blob de la tabla. 
 	 * @param string $columna Nombre de la columna binaria-blob
-	 * @param resource $blob file pointer
+	 * @param resource $blob file pointer o null en caso de querer borrar el valor
 	 * @param mixed $id_fila Id. interno de la fila que contiene la columna, en caso de ser vacio se utiliza el cursor
 	 */
 	function set_blob($columna, $blob, $id_fila=null)
@@ -1070,7 +1078,7 @@ class toba_datos_tabla extends toba_componente
 				throw new toba_error("No hay posicionado un cursor en la tabla, no es posible determinar la fila actual");	
 			}
 		}
-		//Borra algún cache previo
+		//Borra algïñun cache previo
 		if (isset($this->_blobs[$id_fila][$columna]['path']) && $this->_blobs[$id_fila][$columna]['path'] != '') {
 			unlink($this->_blobs[$id_fila][$columna]['path']);
 		}
@@ -1502,7 +1510,7 @@ class toba_datos_tabla extends toba_componente
 	/*--- Del AP a mi ---*/
 
 	/**
-	 * El AP avisa que terminóla sincronización
+	 * El AP avisa que terminó la sincronización
 	 * @ignore 
 	 */
 	function notificar_fin_sincronizacion()
@@ -1572,7 +1580,7 @@ class toba_datos_tabla extends toba_componente
 
 	/**
 	 * La tabla posee alguna columna marcada como de 'carga externa'
-	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas
+	 * Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estáticas
 	 * necesitan mantenerse junto al conjunto de datos.
 	 * @return boolean
 	 */
@@ -1630,6 +1638,15 @@ class toba_datos_tabla extends toba_componente
 	protected function registrar_cambio($fila, $estado)
 	{
 		$this->_cambios[$fila]['estado'] = $estado;
+	}
+	
+	/**
+	 * Determina si los datos cargados en la tabla difieren de los datos existentes en la base
+	 * @return boolean
+	 */	
+	function hay_cambios()
+	{
+		return $this->get_cantidad_filas_a_sincronizar() > 0;
 	}
 }
 

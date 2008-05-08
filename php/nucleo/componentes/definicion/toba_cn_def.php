@@ -26,5 +26,12 @@ class toba_cn_def extends toba_componente_def
 		$sql['_info_dependencias'] = parent::get_vista_dependencias($proyecto, $componente);
 		return $sql;
 	}
+
+	static function get_vista_extendida_resumida($proyecto, $componente)
+	{
+		$estructura = self::get_vista_extendida($proyecto, $componente);
+		unset($estructura['_info_relaciones']);
+		return $estructura;
+	}
 }
 ?>

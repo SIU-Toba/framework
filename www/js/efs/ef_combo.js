@@ -107,7 +107,7 @@ ef_combo.prototype.constructor = ef_combo;
 			input.options[input.options.length - 1].innerHTML = valores[id];
 		}
 		if (hay_datos) {
-			input.disabled = false;
+			this.set_solo_lectura(false);
 			this.seleccionar();
 			if (input.onchange) {
 				input.onchange();

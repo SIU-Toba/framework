@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'1', --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'eiform_prop_base', --subclase
+	'objetos_toba/eiform_prop_base.php', --subclase_archivo
 	'toba', --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'OBJETO - General - Propiedades BASE DATOS', --nombre
@@ -97,7 +97,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	'100%', --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
