@@ -21,6 +21,9 @@ class ci_editor extends toba_ci
 	{
 		if ($this->controlador()->dep('datos')->esta_cargada()) {
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
+			$desc .= 'Usuario:&nbsp;&nbsp; <strong>' . $usuario['nombre'] . '</strong><br>';			
+		} else {
+			$this->controlador->pantalla()->eliminar_evento('eliminar');
 		}
 		$usuario = $this->datos('basica')->get();
 		$this->s__usuario = $usuario['usuario'];

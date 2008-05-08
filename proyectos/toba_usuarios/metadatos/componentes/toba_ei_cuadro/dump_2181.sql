@@ -119,8 +119,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --archivos_callbacks
 	'100%', --ancho
 	'0', --ordenar
-	'0', --paginar
-	NULL, --tamano_pagina
+	'1', --paginar
+	'10', --tamano_pagina
 	'P', --tipo_paginado
 	'1', --eof_invisible
 	NULL, --eof_customizado
@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --dao_parametros
 	NULL, --desplegable
 	NULL, --desplegable_activo
-	'1', --scroll
+	'0', --scroll
 	'350px', --scroll_alto
 	NULL, --cc_modo
 	NULL, --cc_modo_anidado_colap

@@ -92,6 +92,12 @@ class admin_instancia
 		toba::db()->ejecutar($sql);	
 	}
 	
+	function agregar_bloqueo_usuario($usuario)
+	{
+		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = '$usuario';";
+		toba::db()->ejecutar($sql);
+	}	
+	
 	function agregar_bloqueo_usuarios()
 	{
 		$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE bloqueado = 0;";

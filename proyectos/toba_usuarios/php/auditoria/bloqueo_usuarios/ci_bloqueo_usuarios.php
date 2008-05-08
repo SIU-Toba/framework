@@ -44,6 +44,11 @@ class ci_bloqueo_usuarios extends toba_ci
 	{
 		admin_instancia::eliminar_bloqueo_usuario($seleccion['usuario']);
 	}
+	
+	function evt__cuadro_usuarios__bloquear($seleccion)
+	{
+		admin_instancia::agregar_bloqueo_usuario($seleccion['usuario']);
+	}	
 
 	function conf__cuadro_usuarios($componente)
 	{
