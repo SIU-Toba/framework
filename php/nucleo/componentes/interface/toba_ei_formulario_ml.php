@@ -918,7 +918,10 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				//1: Posiciono al evento en la fila
 				$evento->set_parametros($fila);
 				if($evento->posee_accion_vincular()){
-					$evento->vinculo()->set_parametros($fila);	
+					$parametros = array();
+					$parametros[apex_ei_evento] = $id;
+					$parametros['fila'] = $fila;
+					$evento->vinculo(true)->set_parametros($parametros);	
 				}
 				//2: Ventana de modificacion del evento por fila
 				//- a - ¿Existe una callback de modificacion en el CONTROLADOR?
