@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Log de sesiones - pant_inicial - filtro', --nombre
-	'Filtrar Sesiones', --titulo
+	NULL, --titulo
 	'1', --colapsable
 	NULL, --descripcion
 	'toba_usuarios', --fuente_datos_proyecto
@@ -48,7 +48,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'1021', --evento_id
 	'2237', --objeto
 	'filtrar', --identificador
-	'&Filtrar', --etiqueta
+	'&Buscar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion

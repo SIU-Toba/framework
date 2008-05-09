@@ -27,7 +27,6 @@ class toba_rf implements toba_nodo_arbol_form
 	protected $no_visible_actual;
 
 	protected $abierto = false;
-	protected $padre_loco;	
 
 	protected $restriccion = '';
 	protected $item;
@@ -117,11 +116,6 @@ class toba_rf implements toba_nodo_arbol_form
 			$nodo->set_apertura(true);
 			$nodo = $nodo->get_padre();				
 		}
-	}
-	
-	function get_padre_loco()
-	{
-		return $this->padre_loco;
 	}
 	
 	function get_id()

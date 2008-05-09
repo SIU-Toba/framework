@@ -48,7 +48,7 @@ function mostrar_ocultar_frame() {
 }
 
 function abrir_toba_instancia(){
-	var url = '<?php echo toba::vinculador()->generar_solicitud('toba_usuarios','/inicio',array(),false,false,null,true) ?>';
+	var url = '<?php echo toba::vinculador()->generar_solicitud('toba_usuarios','3432',array(),false,false,null,true) ?>';
 	if ( url == '') {
 		alert('No posee permisos para acceder al proyecto "toba_usuarios"!');	
 		return;
@@ -129,7 +129,7 @@ function abrir_toba_instancia(){
 		<td><?php echo gif_nulo(3,1) ?></td>
 
 		<td class='listado-tabi'>
-		<a title="Administración de la INSTANCIA" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><?php echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
+		<a title="Administración de Usuarios" href="#" class="list-obj" onclick='javascript:abrir_toba_instancia();return false;'><?php echo toba_recurso::imagen_toba("usuarios/usuario.gif",true) ?></a>
 		</td>
 
 

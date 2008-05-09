@@ -48,7 +48,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'971', --evento_id
 	'2199', --objeto
 	'filtrar', --identificador
-	'&Filtrar', --etiqueta
+	'&Buscar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion

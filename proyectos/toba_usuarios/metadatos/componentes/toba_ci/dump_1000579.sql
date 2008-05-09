@@ -19,7 +19,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Restricciones Funcionales', --nombre
-	NULL, --titulo
+	'Restricciones Funcionales', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -82,9 +82,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	'deshacer.png', --imagen
+	'volver.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
@@ -243,9 +243,9 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'1000579', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	NULL, --ancho
-	NULL, --alto
-	'abajo', --posicion_botonera
+	'450px', --ancho
+	'300px', --alto
+	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
@@ -278,8 +278,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --imagen
 	'form_restriccion,arbol', --objetos
 	'cancelar,eliminar,guardar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_restricciones_funcionales', --subclase
+	'perfiles/restricciones_funcionales/pant_restricciones_funcionales.php'  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0
 

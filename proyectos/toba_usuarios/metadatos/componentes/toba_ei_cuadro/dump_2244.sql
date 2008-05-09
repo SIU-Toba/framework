@@ -123,7 +123,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'15', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	'No existen usuarios para el filtro seleccionado.', --eof_customizado
+	'<center>No existen usuarios para el filtro seleccionado.</center>', --eof_customizado
 	'0', --exportar_paginado
 	'0', --exportar
 	'0', --exportar_rtf

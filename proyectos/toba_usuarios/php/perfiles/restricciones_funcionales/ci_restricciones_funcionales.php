@@ -23,28 +23,6 @@ class ci_restricciones_funcionales extends toba_ci
 		}
 	}
 
-	function conf__edicion(){
-		$img_oculto = toba_recurso::imagen_toba('error.png', true);
-		$img_visible = toba_recurso::imagen_toba('vacio.png', true);
-		$img_solo_lectura = toba_recurso::imagen_toba('editar.gif', true);
-		$img_editable = toba_recurso::imagen_toba('no_editar.gif', true);
-		$titulo = 'Ayuda: ';
-		$titulo .= $img_visible.": Visible ".$img_oculto.": Oculto ";
-		$titulo .= $img_solo_lectura.": No Editable ".$img_editable.": Editable";
-		$this->pantalla('edicion')->set_descripcion($titulo);
-	}
-
-	function conf__arbol(arbol_restricciones_funcionales $arbol) 
-	{
-		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
-			$catalogador = new toba_catalogo_restricciones_funcionales( $this->s__filtro['proyecto'], $this->s__restriccion );
-			$catalogador->cargar();
-			$raiz = $catalogador->buscar_carpeta_inicial();
-			$arbol->set_datos(array($raiz), true);
-			$this->s__arbol_cargado = true;
-		}
-	}
-	
 	function evt__guardar()
 	{
 		$raices = $this->dep('arbol')->get_datos();
@@ -108,6 +86,33 @@ class ci_restricciones_funcionales extends toba_ci
 		$this->set_pantalla('seleccion');
 	}
 	
+	
+	//---------------------------------------------------------------------
+	//------  FILTRO
+	//---------------------------------------------------------------------
+	
+	function evt__filtro_proyectos__filtrar($datos)
+	{
+		$this->s__filtro = $datos;
+	}
+	
+	function evt__filtro_proyectos__cancelar()
+	{
+		unset($this->s__filtro);
+	}
+	
+	function conf__filtro_proyectos($componente)
+	{
+		if (isset($this->s__filtro)) {
+			$componente->set_datos($this->s__filtro);
+		}		
+	}		
+	
+	
+	//---------------------------------------------------------------------
+	//------  CUADRO
+	//---------------------------------------------------------------------
+	
 	function evt__cuadro_restricciones__seleccion($seleccion)
 	{
 		$this->s__restriccion = $seleccion['restriccion_funcional'];
@@ -122,7 +127,11 @@ class ci_restricciones_funcionales extends toba_ci
 			$componente->set_datos($datos);
 		}
 	}
-	
+
+	//---------------------------------------------------------------------
+	//------  FORM
+	//---------------------------------------------------------------------
+		
 	function conf__form_restriccion($componente)
 	{
 		if ($this->dep('restricciones')->esta_cargada()) {
@@ -140,23 +149,48 @@ class ci_restricciones_funcionales extends toba_ci
 		}else{
 			$this->dep('restricciones')->nueva_fila($datos);	
 		}
+	}	
+
+	
+	//---------------------------------------------------------------------
+	//------  ARBOL
+	//---------------------------------------------------------------------
+	
+	function conf__arbol(arbol_restricciones_funcionales $arbol) 
+	{
+		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
+			$catalogador = new toba_catalogo_restricciones_funcionales( $this->s__filtro['proyecto'], $this->s__restriccion );
+			$catalogador->cargar();
+			$raiz = $catalogador->buscar_carpeta_inicial();
+			$arbol->set_datos(array($raiz), true);
+			$this->s__arbol_cargado = true;
+		}
 	}
 	
-	function evt__filtro_proyectos__filtrar($datos)
+	/**
+	 * Método que se invoca en el pedido AJAX, se busca el nodo en cuestión, se lo carga en profundidad y se lo retorna
+	 */
+	function evt__arbol__cargar_nodo($id)
 	{
-		$this->s__filtro = $datos;
-	}
+		$raiz = $this->dep('arbol')->get_datos();
+		$nodo = $this->buscar_nodo($id, current($raiz));
+		if (isset($nodo)) {
+			$nodo->cargar_hijos();
+			return array($nodo);
+		}
+	}	
 	
-	function evt__filtro_proyectos__cancelar()
+	function buscar_nodo($id_nodo, $padre)
 	{
-		unset($this->s__filtro);
-	}
-	
-	function conf__filtro_proyectos($componente)
-	{
-		if (isset($this->s__filtro)) {
-			$componente->set_datos($this->s__filtro);
-		}		
+		if ($padre->get_id() == $id_nodo) {
+			return $padre;
+		}
+		foreach ($padre->get_hijos() as $hijo) {
+			$encontrado = $this->buscar_nodo($id_nodo, $hijo);
+			if (isset($encontrado)) {
+				return $encontrado;
+			}
+		}
 	}
 	
 	function cortar_arbol()

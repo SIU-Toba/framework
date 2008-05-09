@@ -32,22 +32,6 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 	
-	/**
-	 * Respuesta al pedido AJAX de apertura de un nodo no cargado anteriormente
-	 * Dispara el evento cargar_nodo($id) para que se retorne el toba_nodo_arbol asociado
-	 */
-	function servicio__ejecutar()
-	{
-		toba::memoria()->desactivar_reciclado();		
-		$id_nodo = toba::memoria()->get_parametro('id_nodo');
-		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
-		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
-			$html = $this->recorrer_hijos(current($nodo), 0);
-			echo $html;
-		} else {
-			toba::logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
-		}
-	}
 	
 	/**
 	 * @ignore 
@@ -414,6 +398,24 @@ class toba_ei_arbol extends toba_ei
 	//---- JAVASCRIPT ---------------------------------------------------------------
 	//-------------------------------------------------------------------------------
 
+	/**
+	 * Respuesta al pedido AJAX de apertura de un nodo no cargado anteriormente
+	 * Dispara el evento cargar_nodo($id) para que se retorne el toba_nodo_arbol asociado
+	 */
+	function servicio__ejecutar()
+	{
+		toba::memoria()->desactivar_reciclado();		
+		$id_nodo = toba::memoria()->get_parametro('id_nodo');
+		$nodo = $this->reportar_evento('cargar_nodo', $id_nodo);
+		if (isset($nodo) && $nodo !== apex_ei_evt_sin_rpta) {
+			$html = $this->recorrer_hijos(current($nodo), 0);
+			echo $html;
+		} else {
+			toba::logger()->warning("toba_ei_arbol: No se pudo obtener el nodo que representa al ID $id_nodo");
+		}
+	}
+	
+	
 	/**
 	 * @ignore 
 	 */

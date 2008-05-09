@@ -21,6 +21,9 @@ class toba_rf_carpeta extends toba_rf
 			$this->nombre_largo = $datos['descripcion'];
 		}
 		$this->get_imagen();
+		if ($this->id == '__raiz__') {
+			$this->abierto = true;
+		}
 	}
 	
 	function sincronizar()
