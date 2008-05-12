@@ -282,7 +282,7 @@ class toba
 	static function perfil_funcional()
 	{
 		if (! isset(self::$perfil_funcional)) {
-			self::$perfil_funcional = new toba_funcional();
+			self::$perfil_funcional = new toba_perfil_funcional();
 		}
 		return self::$perfil_funcional;
 	}

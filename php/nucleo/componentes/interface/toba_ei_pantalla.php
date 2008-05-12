@@ -67,9 +67,18 @@ class toba_ei_pantalla extends toba_ei
 	function post_configurar()
 	{
 		parent::post_configurar();
+		
+		$no_visibles = toba::perfil_funcional()->get_rf_eis_no_visibles();
+
 		$this->_dependencias = array();
 		foreach ($this->_lista_dependencias as $id) {
-			$this->_dependencias[$id] = $this->controlador->dependencia($id);	
+			$dep = $this->controlador->dependencia($id);
+			$id_dep = $dep->get_id();
+			//-- Restricción funcional eis no-visible ------
+			if (! in_array($id_dep[1], $no_visibles)) {
+				$this->_dependencias[$id] = $this->controlador->dependencia($id);	
+			}
+			//-----------------------------
 		}
 	}
 	
@@ -255,9 +264,15 @@ class toba_ei_pantalla extends toba_ei
 	 */
 	protected function cargar_lista_tabs()
 	{
+		$no_visibles = toba::perfil_funcional()->get_rf_pantallas_no_visibles($this->_id[1]);
 		$this->_lista_tabs = array();
 		for($a = 0; $a<count($this->_info_ci_me_pantalla);$a++)
 		{
+			//-- Restricción funcional pantalla no-visible ------
+			if (in_array($this->_info_ci_me_pantalla[$a]['pantalla'], $no_visibles)) {
+				continue;
+			}
+			//-----------------------------
 			$id = $this->_info_ci_me_pantalla[$a]["identificador"];
 			$datos['identificador'] = $id;
 			$datos['etiqueta'] = $this->_info_ci_me_pantalla[$a]["etiqueta"];

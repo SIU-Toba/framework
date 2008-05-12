@@ -7,8 +7,8 @@ class pant_restricciones_funcionales extends toba_ei_pantalla
 		
 		$img_oculto = toba_recurso::imagen_toba('error.png', true);
 		$img_visible = toba_recurso::imagen_toba('vacio.png', true);
-		$img_solo_lectura = toba_recurso::imagen_toba('editar.gif', true);
-		$img_editable = toba_recurso::imagen_toba('no_editar.gif', true);
+		$img_solo_lectura = toba_recurso::imagen_toba('prohibido.png', true);
+		$img_editable = toba_recurso::imagen_toba('editar.gif', true);
 		$titulo = '<div style="text-align:center; background-color: white; 
 								border: 1px solid gray; padding: 2px; margin-top: 10px; margin-bottom: 5px">';
 		$titulo .= "<table width=100%><tr><td>$img_visible Visible</td>";

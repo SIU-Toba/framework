@@ -48,5 +48,10 @@ class toba_usuario implements toba_interface_usuario
 	{
 		return null;
 	}
+	
+	function get_restricciones_funcionales()
+	{
+		return array();
+	}
 }
 ?>
