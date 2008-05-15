@@ -88,8 +88,38 @@ class toba_proyecto_implementacion
 		return toba::instancia()->get_db()->consultar($sql);
 	}
 	
-	
+	function get_rf_eventos($proyecto, $item, $rf)
+	{
+		$sql_rf = implode(', ', $rf);
+		$sql = "SELECT 
+					evento_id, 
+					no_visible
+				FROM apex_restriccion_funcional_evt
+				WHERE
+						proyecto = '$proyecto'
+					AND	restriccion_funcional IN ($sql_rf)
+					AND	item = '$item'
+		";
+		return toba::instancia()->get_db()->consultar($sql);
+	}
 
+	
+	function get_rf_cuadro_col($proyecto, $item, $rf)
+	{
+		$sql_rf = implode(', ', $rf);
+		$sql = "SELECT 
+					objeto_cuadro,
+					objeto_cuadro_col,
+					no_visible
+				FROM apex_restriccion_funcional_evt
+				WHERE
+						proyecto = '$proyecto'
+					AND	restriccion_funcional IN ($sql_rf)
+					AND	item = '$item'
+		";
+		return toba::instancia()->get_db()->consultar($sql);
+	}	
+	
 }
 
 ?>

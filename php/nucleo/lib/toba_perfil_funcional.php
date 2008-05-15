@@ -7,6 +7,7 @@ class toba_perfil_funcional
 	protected $id_restricciones = array();
 	protected $rf_pantallas = array();
 	protected $rf_eis		= array();
+	protected $rf_eventos	= array();
 	
 	function __construct()
 	{
@@ -26,6 +27,7 @@ class toba_perfil_funcional
 	{
 		$this->rf_pantallas = toba_proyecto_implementacion::get_rf_pantallas($this->item[0], $this->item[1], $this->id_restricciones);
 		$this->rf_eis		= toba_proyecto_implementacion::get_rf_eis($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_eventos	= toba_proyecto_implementacion::get_rf_eventos($this->item[0], $this->item[1], $this->id_restricciones);
 	}
 	
 	
@@ -60,6 +62,17 @@ class toba_perfil_funcional
 		return $eis;
 	}
 	
+	function get_rf_eventos_no_visibles()
+	{
+		$eventos = array();
+		foreach ($this->rf_eventos as $rf) {
+			if ($rf['no_visible']) {
+				$eventos[] = $rf['evento_id'];
+			}
+		}
+		return $eventos;		
+	}
+
 
 }
 

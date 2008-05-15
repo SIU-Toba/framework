@@ -112,6 +112,14 @@ class toba_evento_usuario extends toba_boton
 		return $this->datos['identificador'];	
 	}
 	
+	/**
+	 * Retorna el evento_id de la base
+	 */
+	function get_id_metadato()
+	{
+		return isset($this->datos['evento_id']) ? $this->datos['evento_id'] : null;
+	}
+	
 	function get_grupos()
 	{
 		if ( $this->posee_grupo_asociado() ) {

@@ -258,12 +258,13 @@ abstract class toba_ei extends toba_componente
 	}
 
 	/**
-	 * Dispara el filtrado de eventos en base a grupos
+	 * Dispara el filtrado de eventos en base a grupos y a restricciones funcionales
 	 * @ignore 
 	 */
 	protected function filtrar_eventos()
 	{
 		$grupo = $this->get_grupo_eventos_activo();
+		
 		foreach($this->_eventos_usuario_utilizados as $id => $evento){
 			if( $evento->posee_grupo_asociado() ){
 				if(!isset($grupo)){ 
@@ -279,6 +280,16 @@ abstract class toba_ei extends toba_componente
 				}
 			}
 		}
+		
+		//-- Restricción funcional eventos no-visibles ------
+		$no_visibles = toba::perfil_funcional()->get_rf_eventos_no_visibles();
+		foreach($this->_eventos_usuario_utilizados as $id => $evento){
+			if (in_array($evento->get_id_metadato(), $no_visibles)) {
+				unset($this->_eventos_usuario_utilizados[$id]);
+				toba::logger()->debug("Restricción funcional. Se filtro el evento: $id", 'toba');
+			}
+		}
+		//--------------------------------------------------
 	}
 
 	//--- BOTONES -------------------------------------------------

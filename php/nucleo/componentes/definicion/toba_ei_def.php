@@ -17,7 +17,8 @@ class toba_ei_def extends toba_componente_def
 	static function get_vista_extendida($proyecto, $componente=null)
 	{
 		$sql = parent::get_vista_extendida($proyecto, $componente);
-		$sql['_info_eventos']['sql'] = "SELECT	identificador			as identificador,
+		$sql['_info_eventos']['sql'] = "SELECT	evento_id				as evento_id,
+												identificador			as identificador,
 												etiqueta				as etiqueta,
 												maneja_datos			as maneja_datos,
 												sobre_fila				as sobre_fila,
