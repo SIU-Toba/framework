@@ -60,7 +60,8 @@ class toba_ei_cuadro_def extends toba_ei_def
 		$sql['_info_cuadro']['registros']='1';
 		$sql['_info_cuadro']['obligatorio']=true;
 		//------------ Columnas ----------------
-		$sql['_info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,		
+		$sql['_info_cuadro_columna']['sql'] = "SELECT	c.orden	as orden,	
+												c.objeto_cuadro_col				as objeto_cuadro_col,
 												c.titulo						as titulo,
 												c.estilo_titulo					as estilo_titulo,		
 												e.css							as estilo,	 

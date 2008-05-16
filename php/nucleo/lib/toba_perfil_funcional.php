@@ -5,9 +5,10 @@ class toba_perfil_funcional
 	
 	protected $item;
 	protected $id_restricciones = array();
-	protected $rf_pantallas = array();
-	protected $rf_eis		= array();
-	protected $rf_eventos	= array();
+	protected $rf_pantallas 	= array();
+	protected $rf_eis			= array();
+	protected $rf_eventos		= array();
+	protected $rf_cuadro_cols	= array();
 	
 	function __construct()
 	{
@@ -25,9 +26,10 @@ class toba_perfil_funcional
 	 */
 	function cargar_info_restricciones()
 	{
-		$this->rf_pantallas = toba_proyecto_implementacion::get_rf_pantallas($this->item[0], $this->item[1], $this->id_restricciones);
-		$this->rf_eis		= toba_proyecto_implementacion::get_rf_eis($this->item[0], $this->item[1], $this->id_restricciones);
-		$this->rf_eventos	= toba_proyecto_implementacion::get_rf_eventos($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_pantallas 	= toba_proyecto_implementacion::get_rf_pantallas($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_eis			= toba_proyecto_implementacion::get_rf_eis($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_eventos		= toba_proyecto_implementacion::get_rf_eventos($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_cuadro_cols 	= toba_proyecto_implementacion::get_rf_cuadro_cols($this->item[0], $this->item[1], $this->id_restricciones);
 	}
 	
 	
@@ -71,6 +73,17 @@ class toba_perfil_funcional
 			}
 		}
 		return $eventos;		
+	}
+	
+	function get_rf_cuadro_cols_no_visibles($id_cuadro)
+	{
+		$columnas = array();
+		foreach ($this->rf_cuadro_cols as $rf) {
+			if ($rf['objeto_cuadro'] == $id_cuadro && $rf['no_visible']) {
+				$columnas[] = $rf['objeto_cuadro_col'];
+			}
+		}
+		return $columnas;
 	}
 
 

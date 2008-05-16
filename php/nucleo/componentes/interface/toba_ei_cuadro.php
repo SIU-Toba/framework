@@ -150,20 +150,19 @@ class toba_ei_cuadro extends toba_ei
 			$this->_cortes_anidado_colap = $this->_info_cuadro['cc_modo_anidado_colap'];
 		}
 		//Procesamiento de columnas
+		$this->_columnas = array();
 		for($a=0;$a<count($this->_info_cuadro_columna);$a++){
 			// Indice de columnas
 			$clave = $this->_info_cuadro_columna[$a]['clave'];
 			$this->_info_cuadro_columna_indices[$clave] = $a;
 			$this->_columnas[ $clave ] =& $this->_info_cuadro_columna[$a];
 			//Sumarizacion general
-			if ($this->_info_cuadro_columna[$a]['total'] == 1) {
+			if ($this->_columnas[ $clave ]['total'] == 1 && ! isset($this->_acumulador[$clave])) {
 				$this->_acumulador[$clave]=0;
 			}
-			//Estructura de datos
-			//$estructura_datos[] = $clave;
 			// Sumarizacion de columnas por corte
-			if(trim($this->_info_cuadro_columna[$a]['total_cc'])!=''){
-				$cortes = explode(',',$this->_info_cuadro_columna[$a]['total_cc']);
+			if(trim($this->_columnas[ $clave ]['total_cc'])!=''){
+				$cortes = explode(',',$this->_columnas[ $clave ]['total_cc']);
 				$cortes = array_map('trim',$cortes);
 				foreach($cortes as $corte){
 					$this->_cortes_def[$corte]['total'][] = $clave;	
@@ -192,6 +191,7 @@ class toba_ei_cuadro extends toba_ei
 	function limpiar_columnas()
 	{
 		$this->_info_cuadro_columna = array();
+		$this->procesar_definicion(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
 	}
 
 	/**
@@ -209,6 +209,7 @@ class toba_ei_cuadro extends toba_ei
 				$columnas[$clave]['total_cc'] = '';
 		}
 		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
+		$this->procesar_definicion(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
 	}	
 	
 	/**
@@ -282,6 +283,27 @@ class toba_ei_cuadro extends toba_ei
 		$this->finalizar_paginado();
 		parent::destruir();
 	}
+	
+	/**
+	 * Espacio donde el componente cierra su configuración
+	 * @ignore 
+	 */
+	function post_configurar()
+	{
+		//-- Restricción funcional Columnas no-visibles ------
+		$no_visibles = toba::perfil_funcional()->get_rf_cuadro_cols_no_visibles($this->_id[1]);
+		$alguno_eliminado = false;
+		for($a=0; $a<count($this->_info_cuadro_columna); $a++){
+			if (in_array($this->_info_cuadro_columna[$a]['objeto_cuadro_col'], $no_visibles)) {
+				array_splice($this->_info_cuadro_columna, $a, 1);
+				$alguno_eliminado = true;
+				toba::logger()->debug("Restricción funcional. Se filtro la columna: ".$this->_info_cuadro_columna[$a]['clave'], 'toba');
+			}
+		}
+		if ($alguno_eliminado) {
+			$this->procesar_definicion();
+		}
+	}	
 
 //################################################################################
 //############################        EVENTOS        #############################
@@ -955,7 +977,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function inicializar_generacion()
 	{
-		$this->_cantidad_columnas = count($this->_info_cuadro_columna);
+		$this->_cantidad_columnas = count($this->_columnas);
 		if ( $this->_tipo_salida == 'html' ) {
 			$this->_cantidad_columnas_extra = $this->cant_eventos_sobre_fila();
 		}
@@ -1412,19 +1434,19 @@ class toba_ei_cuadro extends toba_ei
 			$estilo_seleccion = ($esta_seleccionada) ? "ei-cuadro-fila-sel" : "ei-cuadro-fila";
             echo "<tr class='$estilo_fila' >\n";
  			//---> Creo las CELDAS de una FILA <----
- 			foreach (array_keys($this->_info_cuadro_columna) as $a) {
+ 			foreach (array_keys($this->_columnas) as $a) {
                 //*** 1) Recupero el VALOR
 				$valor = "";
-                if(isset($this->_info_cuadro_columna[$a]["clave"])){
-					if(isset($this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
-						$valor_real = $this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
+                if(isset($this->_columnas[$a]["clave"])){
+					if(isset($this->datos[$f][$this->_columnas[$a]["clave"]])){
+						$valor_real = $this->datos[$f][$this->_columnas[$a]["clave"]];
 					}else{
 						$valor_real = '&nbsp;';
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
-	                if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-	                    $funcion = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+	                if(isset($this->_columnas[$a]["formateo"])){
+	                    $funcion = "formato_" . $this->_columnas[$a]["formateo"];
 	                    //Formateo el valor
 	                    $valor = $formateo->$funcion($valor_real);
 	                } else {
@@ -1432,24 +1454,24 @@ class toba_ei_cuadro extends toba_ei
 	                }
 	            }
 	            //*** 2) La celda posee un vinculo??
-				if ( ($this->_tipo_salida == 'html') && ( $this->_info_cuadro_columna[$a]['usar_vinculo'] ) ) {
+				if ( ($this->_tipo_salida == 'html') && ( $this->_columnas[$a]['usar_vinculo'] ) ) {
 					// Armo el vinculo.
-					$clave_columna = isset($this->_info_cuadro_columna[$a]['vinculo_indice']) ? $this->_info_cuadro_columna[$a]['vinculo_indice'] : $this->_info_cuadro_columna[$a]['clave'];
+					$clave_columna = isset($this->_columnas[$a]['vinculo_indice']) ? $this->_columnas[$a]['vinculo_indice'] : $this->_columnas[$a]['clave'];
 					$opciones = array(); $parametros = array();
-					if($this->_info_cuadro_columna[$a]['vinculo_celda']) {
-						$opciones['celda_memoria'] = $this->_info_cuadro_columna[$a]['vinculo_celda'];
+					if($this->_columnas[$a]['vinculo_celda']) {
+						$opciones['celda_memoria'] = $this->_columnas[$a]['vinculo_celda'];
 					} else {
 						$opciones['celda_memoria'] = $clave_columna;
 					}
 					$parametros[$clave_columna] = $valor_real;
-					$item = $this->_info_cuadro_columna[$a]['vinculo_item'];
+					$item = $this->_columnas[$a]['vinculo_item'];
 					$url = toba::vinculador()->get_url(toba::proyecto()->get_id(),$item,$parametros,$opciones);
 					// Armo el disparo
-					if ( $this->_info_cuadro_columna[$a]['vinculo_popup'] ) {
+					if ( $this->_columnas[$a]['vinculo_popup'] ) {
 						$popup_parametros = array();
-						if($this->_info_cuadro_columna[$a]['vinculo_popup_param']) {
+						if($this->_columnas[$a]['vinculo_popup_param']) {
 							//Esto se puede optimizar (1 por columna en vez de columna/fila)!
-							$temp = explode(',',$this->_info_cuadro_columna[$a]['vinculo_popup_param']);
+							$temp = explode(',',$this->_columnas[$a]['vinculo_popup_param']);
 							$temp = array_map('trim',$temp);
 							foreach($temp as $opcion) {
 								$o = explode(':',$opcion);
@@ -1461,17 +1483,17 @@ class toba_ei_cuadro extends toba_ei
 						$js = "abrir_popup('$clave_columna','$url',$opciones);";
 						$valor = "<a href='#' onclick=\"$js\">$valor</a>";
 					} else {
-						$target = ($this->_info_cuadro_columna[$a]['target']) ? "target='".$this->_info_cuadro_columna[$a]['target']."'" : '';
+						$target = ($this->_columnas[$a]['target']) ? "target='".$this->_columnas[$a]['target']."'" : '';
 						$valor = "<a href='$url' $target>$valor</a>";
 					}
 				}
                 //*** 3) Genero el HTML
-            	if(isset($this->_info_cuadro_columna[$a]["ancho"])){
-	                $ancho = " width='". $this->_info_cuadro_columna[$a]["ancho"] . "'";
+            	if(isset($this->_columnas[$a]["ancho"])){
+	                $ancho = " width='". $this->_columnas[$a]["ancho"] . "'";
 	            }else{
 	                $ancho = "";
 	            }                
-                echo "<td class='$estilo_seleccion ".$this->_info_cuadro_columna[$a]["estilo"]."' $ancho>\n";
+                echo "<td class='$estilo_seleccion ".$this->_columnas[$a]["estilo"]."' $ancho>\n";
                 if ($valor !== '' || $valor !== null) {
                 	echo $valor;
                 } else {
@@ -1539,27 +1561,27 @@ class toba_ei_cuadro extends toba_ei
 	{
 		//¿Alguna columna tiene título?
 		$alguna_tiene_titulo = false;
-        for ($a=0;$a<$this->_cantidad_columnas;$a++) {		
-        	if (trim($this->_info_cuadro_columna[$a]["titulo"]) != '') {
+		foreach(array_keys($this->_columnas) as $clave) {
+        	if (trim($this->_columnas[$clave]["titulo"]) != '') {
         		$alguna_tiene_titulo = true;
         		break;
-        	}
-        }
+        	}			
+		}
         if ($alguna_tiene_titulo) {
 	        echo "<tr>\n";
-	        foreach (array_keys($this->_info_cuadro_columna) as $a) {
-	            if(isset($this->_info_cuadro_columna[$a]["ancho"])){
-	                $ancho = " width='". $this->_info_cuadro_columna[$a]["ancho"] . "'";
+	        foreach (array_keys($this->_columnas) as $a) {
+	            if(isset($this->_columnas[$a]["ancho"])){
+	                $ancho = " width='". $this->_columnas[$a]["ancho"] . "'";
 	            }else{
 	                $ancho = "";
 	            }
-	            $estilo_columna = $this->_info_cuadro_columna[$a]["estilo_titulo"];
+	            $estilo_columna = $this->_columnas[$a]["estilo_titulo"];
 	            if(!$estilo_columna){
 	            	$estilo_columna = 'ei-cuadro-col-tit';
 	            }
 	            echo "<td class='$estilo_columna' $ancho>\n";
-	            $this->html_cuadro_cabecera_columna(    $this->_info_cuadro_columna[$a]["titulo"],
-	                                        $this->_info_cuadro_columna[$a]["clave"],
+	            $this->html_cuadro_cabecera_columna(    $this->_columnas[$a]["titulo"],
+	                                        $this->_columnas[$a]["clave"],
 	                                        $a );
 	            echo "</td>\n";
 	        }
@@ -1585,7 +1607,7 @@ class toba_ei_cuadro extends toba_ei
     {
         //--- ¿Es ordenable?
 		if (	isset($this->_eventos['ordenar']) 
-				&& $this->_info_cuadro_columna[$indice]["no_ordenar"] != 1
+				&& $this->_columnas[$indice]["no_ordenar"] != 1
 				&& $this->_tipo_salida == 'html' ) {
 			$sentido = array();
 			$sentido[] = array('asc', 'Ordenar ascendente');
@@ -1607,7 +1629,7 @@ class toba_ei_cuadro extends toba_ei
 			echo "</span>";			
 		}    	
 		//--- Nombre de la columna
-		if (trim($columna) != '' || trim($this->_info_cuadro_columna[$indice]["vinculo_indice"])!="") {           
+		if (trim($columna) != '' || trim($this->_columnas[$indice]["vinculo_indice"])!="") {           
             echo $titulo;
         }	
 		//---Editor de la columna
@@ -1651,11 +1673,10 @@ class toba_ei_cuadro extends toba_ei
 		$clase_linea = isset($estilo_linea) ? "class='$estilo_linea'" : "";
 		if($agregar_titulos || (! $this->tabla_datos_es_general()) ){
 			echo "<tr>\n";
-			for ($a=0;$a<$this->_cantidad_columnas;$a++){
-				$clave = $this->_info_cuadro_columna[$a]["clave"];
+			foreach (array_keys($this->_columnas) as $clave) {
 			    if(isset($totales[$clave])){
-					$valor = $this->_info_cuadro_columna[$a]["titulo"];
-					echo "<td class='".$this->_info_cuadro_columna[$a]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
+					$valor = $this->_columnas[$clave]["titulo"];
+					echo "<td class='".$this->_columnas[$clave]["estilo_titulo"]."'><strong>$valor</strong></td>\n";
 				}else{
 					echo "<td $clase_linea>&nbsp;</td>\n";
 				}
@@ -1666,20 +1687,18 @@ class toba_ei_cuadro extends toba_ei
 			}		
 			echo "</tr>\n";
 		}
-
 		if ($totales !== null){ 				
 			echo "<tr class='ei-cuadro-totales'>\n";
-			for ($a=0;$a<$this->_cantidad_columnas;$a++){
-				$clave = $this->_info_cuadro_columna[$a]["clave"];
+			foreach (array_keys($this->_columnas) as $clave) {
 				//Defino el valor de la columna
 			    if(isset($totales[$clave])){
 					$valor = $totales[$clave];
 					if(!isset($estilo)){
-						$estilo = $this->_info_cuadro_columna[$a]["estilo"];
+						$estilo = $this->_columnas[$clave]["estilo"];
 					}
 					//La columna lleva un formateo?
-					if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-						$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+					if(isset($this->_columnas[$clave]["formateo"])){
+						$metodo = "formato_" . $this->_columnas[$clave]["formateo"];
 						$valor = $formateo->$metodo($valor);
 					}
 					echo "<td class='ei-cuadro-total $estilo'><strong>$valor</strong></td>\n";
@@ -1918,25 +1937,24 @@ class toba_ei_cuadro extends toba_ei
 			$clave_fila = $this->get_clave_fila($f);
 			$fila = array();
  			//---> Creo las CELDAS de una FILA <----
-            for ($a=0; $a<$this->_cantidad_columnas; $a++) {
-                //*** 1) Recupero el VALOR
+ 			foreach (array_keys($this->_columnas) as $a) {
 				$valor = "";
-                if(isset($this->_info_cuadro_columna[$a]["clave"])){
-					if(isset($this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]])){
-						$valor_real = $this->datos[$f][$this->_info_cuadro_columna[$a]["clave"]];
+                if(isset($this->_columnas[$a]["clave"])){
+					if(isset($this->datos[$f][$this->_columnas[$a]["clave"]])){
+						$valor_real = $this->datos[$f][$this->_columnas[$a]["clave"]];
 					}else{
 						$valor_real = '';
 					}
 	                //Hay que formatear?
-	                if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-	                    $funcion = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+	                if(isset($this->_columnas[$a]["formateo"])){
+	                    $funcion = "formato_" . $this->_columnas[$a]["formateo"];
 	                    //Formateo el valor
 	                    $valor = $formateo->$funcion($valor_real);
 	                } else {
 	                	$valor = $valor_real;	
 	                }
 	            }
-	            $fila[$this->_info_cuadro_columna[$a]["clave"]] = $valor;
+	            $fila[$this->_columnas[$a]["clave"]] = $valor;
             }
             $datos[] = $fila;
         }
@@ -2007,10 +2025,9 @@ class toba_ei_cuadro extends toba_ei
 	{
         $titulos = array();
         $estilos = array();
-        for ($a=0;$a< $this->_cantidad_columnas;$a++) {        
-        	$id = $this->_info_cuadro_columna[$a]['clave'];
-        	$titulos[$id] = $this->_info_cuadro_columna[$a]['titulo'];
-        	$estilo = $this->pdf_get_estilo($this->_info_cuadro_columna[$a]['estilo']);
+        foreach(array_keys($this->_columnas) as $id) {
+        	$titulos[$id] = $this->_columnas[$id]['titulo'];
+        	$estilo = $this->pdf_get_estilo($this->_columnas[$id]['estilo']);
         	if (isset($estilo)) {
         		$estilos[$id] = $estilo;
         	}
@@ -2099,17 +2116,16 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$formateo = new $this->_clase_formateo('pdf');		
 		$datos = array();		
-		for ($a=0;$a<$this->_cantidad_columnas;$a++){
-			$clave = $this->_info_cuadro_columna[$a]["clave"];
+		foreach (array_keys($this->_columnas) as $clave) {
 			//Defino el valor de la columna
 		    if(isset($totales[$clave])){
 				$valor = $totales[$clave];
 				if(!isset($estilo)){
-					$estilo = $this->_info_cuadro_columna[$a]["estilo"];
+					$estilo = $this->_columnas[$clave]["estilo"];
 				}
 				//La columna lleva un formateo?
-				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+				if(isset($this->_columnas[$clave]["formateo"])){
+					$metodo = "formato_" . $this->_columnas[$clave]["formateo"];
 					$valor = $formateo->$metodo($valor);
 				}
 				if ($resaltar) {
@@ -2209,12 +2225,12 @@ class toba_ei_cuadro extends toba_ei
 		$this->salida = $salida;		
 		$titulo = $this->get_titulo();
 		$this->salida->set_hoja_nombre($titulo);
-		$cant_col = count($this->_info_cuadro_columna);		
+		$cant_columnas = count($this->_columnas);
 		if ($titulo != '') {
-			$this->salida->titulo($titulo, $cant_col);
+			$this->salida->titulo($titulo, $cant_columnas);
 		}
 		if ($this->_info_cuadro["subtitulo"] != '') {
-			$this->salida->titulo($this->_info_cuadro["subtitulo"], $cant_col);
+			$this->salida->titulo($this->_info_cuadro["subtitulo"], $cant_columnas);
 		}
 		$this->generar_salida("excel");
 	}		
@@ -2251,11 +2267,9 @@ class toba_ei_cuadro extends toba_ei
 			$clave_fila = $this->get_clave_fila($f);
 			$fila = array();
  			//---> Creo las CELDAS de una FILA <----
-            for ($a=0; $a<$this->_cantidad_columnas; $a++) {
-                //*** 1) Recupero el VALOR
+ 			foreach (array_keys($this->_columnas) as $clave) {
 				$valor = "";
-                if(isset($this->_info_cuadro_columna[$a]["clave"])){
-					$clave = $this->_info_cuadro_columna[$a]["clave"];                	
+                if(isset($this->_columnas[$clave]["clave"])){
 					if(isset($this->datos[$f][$clave])){
 						$valor_real = $this->datos[$f][$clave];
 					}else{
@@ -2263,8 +2277,8 @@ class toba_ei_cuadro extends toba_ei
 					}
 	                //Hay que formatear?
 	                $estilo = array();
-	                if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-	                    $funcion = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+	                if(isset($this->_columnas[$clave]["formateo"])){
+	                    $funcion = "formato_" . $this->_columnas[$clave]["formateo"];
 	                    //Formateo el valor
 	                    list($valor, $estilo) = $formateo->$funcion($valor_real);
 	                    if (! isset($estilo)) {
@@ -2273,7 +2287,7 @@ class toba_ei_cuadro extends toba_ei
 	                } else {
 	                	$valor = $valor_real;	
 	                }
-	                $estilos[$clave]['estilo'] = $this->excel_get_estilo($this->_info_cuadro_columna[$a]['estilo']);
+	                $estilos[$clave]['estilo'] = $this->excel_get_estilo($this->_columnas[$clave]['estilo']);
 	                $estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);
 	                $estilos[$clave]['ancho'] = 'auto';
 	            }
@@ -2303,9 +2317,8 @@ class toba_ei_cuadro extends toba_ei
 	protected function excel_get_titulos()
 	{
         $titulos = array();
-        for ($a=0;$a< $this->_cantidad_columnas;$a++) {        
-        	$id = $this->_info_cuadro_columna[$a]['clave'];
-        	$titulos[$id] = $this->_info_cuadro_columna[$a]['titulo'];
+        foreach(array_keys($this->_columnas) as $id) {
+        	$titulos[$id] = $this->_columnas[$id]['titulo'];
         }		
         return $titulos;
 	}
@@ -2363,7 +2376,7 @@ class toba_ei_cuadro extends toba_ei
 			$opciones = $this->_excel_cabecera_cc_0_opciones;
 			$altura = $this->_excel_cabecera_cc_0_altura;			
 		}
-		$span = count($this->_info_cuadro_columna);
+		$span = $this->_cantidad_columnas;
 		if (trim($descripcion) != '') {
 			$contenido = "$descripcion " . $valor;
 		} else {
@@ -2406,8 +2419,8 @@ class toba_ei_cuadro extends toba_ei
 		if ($es_total_general) {
 			$this->salida->separacion(1);
 		}
-		for ($a=0;$a<$this->_cantidad_columnas;$a++){
-			$clave = $this->_info_cuadro_columna[$a]["clave"];
+		$a = 0;
+		foreach(array_keys($this->_columnas) as $clave) {
 			$estilos[$clave]['estilo'] = $estilo_base;
 			$estilos[$clave]['borrar_estilos_nulos'] = 1;
 			if (isset($nodo['acumulador'][$clave])){
@@ -2422,9 +2435,9 @@ class toba_ei_cuadro extends toba_ei
 			    	$formula = '=SUM'.implode(' + SUM', $rangos);
 				}
 				//La columna lleva un formateo?
-                $estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($this->_info_cuadro_columna[$a]['estilo']));
-				if(isset($this->_info_cuadro_columna[$a]["formateo"])){
-					$metodo = "formato_" . $this->_info_cuadro_columna[$a]["formateo"];
+                $estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($this->_columnas[$clave]['estilo']));
+				if(isset($this->_columnas[$clave]["formateo"])){
+					$metodo = "formato_" . $this->_columnas[$clave]["formateo"];
 					list($temp, $estilo) = $formateo->$metodo($formula);
 					if (isset($estilo)) {
 	                	$estilos[$clave]['estilo'] = array_merge($estilo, $estilos[$clave]['estilo']);					
@@ -2435,6 +2448,7 @@ class toba_ei_cuadro extends toba_ei
 				$titulos[$clave] = null;
 				$datos[$clave] = null;
 			}
+			$a++;
 		}
 		if ($es_total_general && $this->_excel_cortar_hoja_cc_0) {
 			$this->salida->crear_hoja('Totales');
@@ -2461,7 +2475,7 @@ class toba_ei_cuadro extends toba_ei
 
 	protected function excel_pie_corte_control( &$nodo, $es_ultimo )
 	{
-		$span = count($this->_info_cuadro_columna);		
+		$span = $this->_cantidad_columnas;
 		//-----  Cabecera del PIE --------
 		if($this->_cortes_indice[$nodo['corte']]['pie_mostrar_titular']){
 			$metodo_redeclarado = 'excel_pie_cc_cabecera__' . $nodo['corte'];

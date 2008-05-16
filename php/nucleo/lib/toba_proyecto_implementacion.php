@@ -104,14 +104,14 @@ class toba_proyecto_implementacion
 	}
 
 	
-	function get_rf_cuadro_col($proyecto, $item, $rf)
+	function get_rf_cuadro_cols($proyecto, $item, $rf)
 	{
 		$sql_rf = implode(', ', $rf);
 		$sql = "SELECT 
 					objeto_cuadro,
 					objeto_cuadro_col,
 					no_visible
-				FROM apex_restriccion_funcional_evt
+				FROM apex_restriccion_funcional_cols
 				WHERE
 						proyecto = '$proyecto'
 					AND	restriccion_funcional IN ($sql_rf)
