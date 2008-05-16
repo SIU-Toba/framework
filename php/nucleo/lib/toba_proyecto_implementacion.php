@@ -120,6 +120,23 @@ class toba_proyecto_implementacion
 		return toba::instancia()->get_db()->consultar($sql);
 	}	
 	
+	function get_rf_form_efs($proyecto, $item, $rf)
+	{
+		$sql_rf = implode(', ', $rf);
+		$sql = "SELECT 
+					objeto_ei_formulario,
+					objeto_ei_formulario_fila,
+					no_visible,
+					no_editable
+				FROM apex_restriccion_funcional_ef
+				WHERE
+						proyecto = '$proyecto'
+					AND	restriccion_funcional IN ($sql_rf)
+					AND	item = '$item'
+		";
+		return toba::instancia()->get_db()->consultar($sql);		
+	}
+	
 }
 
 ?>

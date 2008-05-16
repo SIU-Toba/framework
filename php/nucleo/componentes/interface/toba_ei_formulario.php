@@ -63,6 +63,30 @@ class toba_ei_formulario extends toba_ei
 		parent::destruir();
 	}
 	
+	function aplicar_restricciones_funcionales()
+	{
+		parent::aplicar_restricciones_funcionales();
+
+		//-- Restricción funcional efs no-visibles y no-editables ------
+		$no_visibles = toba::perfil_funcional()->get_rf_form_efs_no_visibles($this->_id[1]);
+		$no_editables = toba::perfil_funcional()->get_rf_form_efs_no_editables($this->_id[1]);
+		for($a=0;$a<count($this->_info_formulario_ef);$a++) {
+			$id_ef = $this->_info_formulario_ef[$a]['identificador'];
+			//Existe el ef luego de la configuración?
+			if (isset($this->_elemento_formulario[$id_ef])) {
+				$id_metadato = $this->_info_formulario_ef[$a]['objeto_ei_formulario_fila'];
+				if (in_array($id_metadato, $no_editables)) {
+					$this->ef($id_ef)->set_solo_lectura(true);
+				}
+				if (in_array($id_metadato, $no_visibles)) {
+					$this->desactivar_efs(array($id_ef));
+				}
+			}
+		}
+		//----------------
+
+	}
+	
 	/**
 	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 

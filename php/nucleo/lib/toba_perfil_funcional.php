@@ -9,6 +9,7 @@ class toba_perfil_funcional
 	protected $rf_eis			= array();
 	protected $rf_eventos		= array();
 	protected $rf_cuadro_cols	= array();
+	protected $rf_form_efs		= array();
 	
 	function __construct()
 	{
@@ -30,6 +31,7 @@ class toba_perfil_funcional
 		$this->rf_eis			= toba_proyecto_implementacion::get_rf_eis($this->item[0], $this->item[1], $this->id_restricciones);
 		$this->rf_eventos		= toba_proyecto_implementacion::get_rf_eventos($this->item[0], $this->item[1], $this->id_restricciones);
 		$this->rf_cuadro_cols 	= toba_proyecto_implementacion::get_rf_cuadro_cols($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_form_efs		= toba_proyecto_implementacion::get_rf_form_efs($this->item[0], $this->item[1], $this->id_restricciones);
 	}
 	
 	
@@ -86,6 +88,29 @@ class toba_perfil_funcional
 		return $columnas;
 	}
 
+	
+	function get_rf_form_efs_no_visibles($id_form)
+	{
+		$efs = array();
+		foreach ($this->rf_form_efs as $rf) {
+			if ($rf['objeto_ei_formulario'] == $id_form && $rf['no_visible']) {
+				$efs[] = $rf['objeto_ei_formulario_fila'];
+			}
+		}
+		return $efs;
+	}
+	
+	function get_rf_form_efs_no_editables($id_form)
+	{
+		$efs = array();
+		foreach ($this->rf_form_efs as $rf) {
+			if ($rf['objeto_ei_formulario'] == $id_form && $rf['no_editable']) {
+				$efs[] = $rf['objeto_ei_formulario_fila'];
+			}
+		}
+		return $efs;
+	}	
+	
 
 }
 
