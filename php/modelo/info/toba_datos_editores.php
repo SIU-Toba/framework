@@ -290,7 +290,33 @@ class toba_datos_editores
   ),
 );
 	}
-
+	
+	static function get_pantallas_toba_ei_filtro_ml()
+	{
+		return array (
+  0 => 
+  array (
+    'identificador' => '1',
+    'etiqueta' => 'Propiedades basicas',
+    'imagen' => 'objetos/ut_formulario.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  1 => 
+  array (
+    'identificador' => '2',
+    'etiqueta' => 'Elementos de Formulario',
+    'imagen' => 'objetos/efs.gif',
+    'imagen_recurso_origen' => 'apex',
+  ),
+  2 => 
+  array (
+    'identificador' => '3',
+    'etiqueta' => 'Eventos',
+    'imagen' => 'evento.png',
+    'imagen_recurso_origen' => 'apex',
+  ),
+);	
+	}
 }
 
 ?>

@@ -709,22 +709,6 @@ function intercambiar_nodos(nodo1, nodo2) {
 	}
 }
 
-//Cambia la clase a un conjunto de nodos
-function cambiar_clase(nodos, nueva_clase, vieja_clase) {
-	for (nodo in nodos) {
-		if (nodos[nodo].className) {
-			var arrList = nodos[nodo].className.split(' ');
-         	for ( var i = 0; i < arrList.length; i++ ) {
-         		if ( arrList[i] == vieja_clase ) {
-         			arrList[i] = nueva_clase;
-         		}
-         	}
-         	nodos[nodo].className = arrList.join(' ');
-		} else {
-			nodos[nodo].className = nueva_clase;
-		}
-	}
-}
 
 //Determina si un atributo es un evento
 //ATENCION: Buscar algo de mejor calidad

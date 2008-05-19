@@ -59,6 +59,7 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 	etiqueta							varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
 	inicial								smallint		NOT NULL DEFAULT 0,		
+	orden								smallint		NOT NULL DEFAULT 0,
 	
 	carga_metodo						varchar(100)	NULL,	-- carga ci
 	carga_clase							varchar(100)	NULL,	-- carga estatico

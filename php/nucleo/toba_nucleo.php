@@ -438,6 +438,11 @@ class toba_nucleo
 			'toba_ei_filtro'						=> 'nucleo/componentes/interface/toba_ei_filtro.php',
 			'toba_ei_filtro_def'					=> 'nucleo/componentes/definicion/toba_ei_filtro_def.php',
 			'toba_ei_filtro_info'					=> 'modelo/info/componentes/toba_ei_filtro_info.php',
+			//- FILTRO_ML -
+			'toba_ei_filtro_ml'						=> 'nucleo/componentes/interface/toba_ei_filtro_ml.php',
+			'toba_ei_filtro_ml_def'					=> 'nucleo/componentes/definicion/toba_ei_filtro_ml_def.php',
+			'toba_ei_filtro_ml_info'				=> 'modelo/info/componentes/toba_ei_filtro_ml_info.php',
+			
 			//- CUADRO -
 			'toba_ei_cuadro'						=> 'nucleo/componentes/interface/toba_ei_cuadro.php',
 			'toba_ei_cuadro_def'					=> 'nucleo/componentes/definicion/toba_ei_cuadro_def.php',
@@ -554,6 +559,8 @@ class toba_nucleo
  			'toba_componente_definicion'			=> 'nucleo/componentes/definicion/_interfaces.php',
 			'toba_meta_clase'						=> 'modelo/info/componentes/toba_interface_meta_clase.php',
 			'toba_datos_editores'					=> 'modelo/info/toba_datos_editores.php',
+			'toba_filtro_columna'					=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna.php',
+			'toba_filtro_columna_cadena'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_cadena.php',
  			//-----------------------------------------------------------------------------------------------
 			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
 			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',
