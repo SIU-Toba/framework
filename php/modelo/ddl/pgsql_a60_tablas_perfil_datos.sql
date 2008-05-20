@@ -15,10 +15,8 @@ CREATE TABLE apex_usuario_perfil_datos
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	
-	-- Solo para que se actualize la secuencia, se preserva el campo varchar por compatibilidad hacia atras...
-	usuario_perfil_datos_id			int4		NOT NULL DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL, 
 	proyecto						varchar(15)		NOT NULL,
-	usuario_perfil_datos			varchar(20)		NOT NULL DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
+	usuario_perfil_datos			int4			NOT NULL DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	descripcion						varchar			NULL,
 	listar							smallint		NULL,
@@ -40,7 +38,7 @@ CREATE TABLE apex_usuario_perfil_datos_dims
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_perfil_datos			varchar(20)		NOT NULL,
+	usuario_perfil_datos			int4			NOT NULL,
 	dimension						int4			NOT NULL,
 	elemento						int4			DEFAULT nextval('"apex_usuario_perfil_datos_dims_seq"'::text) NOT NULL,
 	clave							varchar			NULL,

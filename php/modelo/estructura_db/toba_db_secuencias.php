@@ -49,7 +49,7 @@ class toba_db_secuencias
 		$datos['apex_relacion_tablas_seq'] = array('campo' => 'relacion_tablas', 'tabla' => 'apex_relacion_tablas');
 		$datos['apex_dimension_seq'] = array('campo' => 'dimension', 'tabla' => 'apex_dimension');
 		$datos['apex_dimension_gatillo_seq'] = array('campo' => 'gatillo', 'tabla' => 'apex_dimension_gatillo');
-		$datos['apex_usuario_perfil_datos_seq'] = array('campo' => 'usuario_perfil_datos_id', 'tabla' => 'apex_usuario_perfil_datos');
+		$datos['apex_usuario_perfil_datos_seq'] = array('campo' => 'usuario_perfil_datos', 'tabla' => 'apex_usuario_perfil_datos');
 		$datos['apex_usuario_perfil_datos_dims_seq'] = array('campo' => 'elemento', 'tabla' => 'apex_usuario_perfil_datos_dims');
 		$datos['apex_restriccion_funcional_seq'] = array('campo' => 'restriccion_funcional', 'tabla' => 'apex_restriccion_funcional');
 		return $datos;

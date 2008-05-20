@@ -52,6 +52,7 @@ class toba_db_tablas_instancia
 	{
 		return array (
   0 => 'apex_usuario_proyecto',
+  1 => 'apex_usuario_proyecto_perfil_datos',
 );
 	}
 
@@ -455,7 +456,27 @@ class toba_db_tablas_instancia
     0 => 'proyecto',
     1 => 'usuario_grupo_acc',
     2 => 'usuario',
-    3 => 'usuario_perfil_datos',
+  ),
+);
+	}
+
+	static function apex_usuario_proyecto_perfil_datos()
+	{
+		return array (
+  'archivo' => 'pgsql_a70_tablas_relacion_usuario_perfil.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'usuario',
+  'zona' => 'usuario',
+  'instancia' => '1',
+  'usuario' => '1',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'usuario_perfil_datos',
+    2 => 'usuario',
   ),
 );
 	}

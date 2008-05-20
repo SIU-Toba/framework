@@ -726,12 +726,11 @@ class toba_db_tablas_proyecto
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'usuario_perfil_datos_id',
-    1 => 'proyecto',
-    2 => 'usuario_perfil_datos',
-    3 => 'nombre',
-    4 => 'descripcion',
-    5 => 'listar',
+    0 => 'proyecto',
+    1 => 'usuario_perfil_datos',
+    2 => 'nombre',
+    3 => 'descripcion',
+    4 => 'listar',
   ),
 );
 	}

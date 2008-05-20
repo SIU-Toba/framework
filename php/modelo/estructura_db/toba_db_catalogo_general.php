@@ -105,6 +105,7 @@ class toba_db_catalogo_general
   97 => 'apex_restriccion_funcional_ei',
   98 => 'apex_restriccion_funcional_cols',
   99 => 'apex_usuario_proyecto',
+  100 => 'apex_usuario_proyecto_perfil_datos',
 );
 	}
 
