@@ -28,16 +28,17 @@ class toba_db_tablas_proyecto
   20 => 'apex_relacion_tablas',
   21 => 'apex_dimension',
   22 => 'apex_dimension_gatillo',
-  23 => 'apex_molde_opciones_generacion',
-  24 => 'apex_permiso',
-  25 => 'apex_usuario_perfil_datos',
-  26 => 'apex_usuario_perfil_datos_dims',
-  27 => 'apex_restriccion_funcional',
-  28 => 'apex_restriccion_funcional_ef',
-  29 => 'apex_restriccion_funcional_pantalla',
-  30 => 'apex_restriccion_funcional_evt',
-  31 => 'apex_restriccion_funcional_ei',
-  32 => 'apex_restriccion_funcional_cols',
+  23 => 'apex_objeto_ei_filtro_ml_tipo_col',
+  24 => 'apex_molde_opciones_generacion',
+  25 => 'apex_permiso',
+  26 => 'apex_usuario_perfil_datos',
+  27 => 'apex_usuario_perfil_datos_dims',
+  28 => 'apex_restriccion_funcional',
+  29 => 'apex_restriccion_funcional_ef',
+  30 => 'apex_restriccion_funcional_pantalla',
+  31 => 'apex_restriccion_funcional_evt',
+  32 => 'apex_restriccion_funcional_ei',
+  33 => 'apex_restriccion_funcional_cols',
 );
 	}
 
@@ -669,6 +670,25 @@ class toba_db_tablas_proyecto
     6 => 'columnas_rel_dim',
     7 => 'tabla_gatillo',
     8 => 'ruta_tabla_rel_dim',
+  ),
+);
+	}
+
+	static function apex_objeto_ei_filtro_ml_tipo_col()
+	{
+		return array (
+  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'proyecto' => 'toba',
+  'dump' => 'nucleo_multiproyecto',
+  'dump_order_by' => 'tipo_col',
+  'zona' => 'central',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'tipo_col',
+    1 => 'descripcion',
+    2 => 'proyecto',
   ),
 );
 	}

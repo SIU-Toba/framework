@@ -254,7 +254,7 @@ padding-left:4px;
 **************************/
 
 .ei-ml-base {}
-.ei-ml-grilla {
+.ei-ml-grilla, .ei-filtro-ml-grilla {
 	padding: 0;
 	margin: 0;		
 	BORDER-COLLAPSE: collapse;
@@ -270,7 +270,7 @@ padding-left:4px;
 	padding:0;
 	margin:1px;
 }
-.ei-ml-columna {
+.ei-ml-columna, .ei-filtro-ml-columna {
 	padding: 2px 2px 4px 2px;
 	vertical-align: bottom;
 	text-align: center;
@@ -279,7 +279,7 @@ padding-left:4px;
 .ei-ml-columna-evt {
 	text-align: right;
 }
-.ei-ml-fila, .ei-ml-fila-selec {
+.ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-ml-fila, .ei-filtro-ml-fila-selec {
 	padding: 0px 3px 0px 3px;
 	margin: 0px;
 }
@@ -520,6 +520,14 @@ padding-left:4px;
 	padding: 2px;
 }
 
+
+/*************************
+		filtro-ml
+***************************/
+.ei-filtro-ml-botonera {
+	text-align:left;
+	padding-top: 15px;
+}
 
 /*************************
 	 Formateo de Columnas

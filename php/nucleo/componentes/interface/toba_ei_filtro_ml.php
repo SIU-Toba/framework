@@ -9,10 +9,11 @@
 class toba_ei_filtro_ml extends toba_ei
 {
 	protected $_columnas;
+	protected $_columnas_datos;
 	protected $_estilos = 'ei-base ei-filtro-ml-base';	
 	protected $_colspan;
 	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
-	
+	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	
 	/**
 	 * Método interno para iniciar el componente una vez construido
@@ -31,8 +32,126 @@ class toba_ei_filtro_ml extends toba_ei
 	{
 		$this->_columnas = array();
 		foreach ($this->_info_filtro_col as $fila) {
-			$this->_columnas[$fila['nombre']] = new toba_filtro_columna_cadena($fila);
+			$this->_columnas[$fila['nombre']] = new toba_filtro_columna_cadena($fila, $this);
 		}
+	}
+	
+	/**
+	 * Consume un tabindex html del componente y lo retorna
+	 * @return integer
+	 */	
+	function get_tab_index()
+	{
+		if (isset($this->_rango_tabs)) {
+			return $this->_rango_tabs[0]++;
+		}	
+	}
+
+	//---------------------------------------------------------------------------------
+	//-------------------------- EVENTOS ----------------------------------------------
+	//---------------------------------------------------------------------------------
+	
+	
+	/**
+	 * @ignore 
+	 */
+	function disparar_eventos()
+	{
+		$this->_log->debug( $this->get_txt() . " disparar_eventos", 'toba');		
+		$validado = false;
+		//Veo si se devolvio algun evento!
+		if (isset($_POST[$this->_submit]) && $_POST[$this->_submit]!="") {
+			$evento = $_POST[$this->_submit];
+			//La opcion seleccionada estaba entre las ofrecidas?
+			if (isset($this->_memoria['eventos'][$evento])) {
+				//Me fijo si el evento requiere validacion
+				$maneja_datos = ($this->_memoria['eventos'][$evento] == apex_ei_evt_maneja_datos);
+				if($maneja_datos) {
+					$this->cargar_post();	
+					$parametros = $this->get_datos();
+				} else {
+					$parametros = null;
+				}
+				//El evento es valido, lo reporto al contenedor
+				$this->reportar_evento( $evento, $parametros );
+			}
+		}
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function cargar_post()
+	{
+		if (! isset($_POST[$this->objeto_js.'_listafilas'])) {
+			return false;
+		}
+		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
+		$filas_post = array();
+		if ($lista_filas != '') {
+			$filas_post = explode('_', $lista_filas);
+			$this->_columnas_datos = array();
+			//Por cada fila
+			foreach ($filas_post as $fila) {
+				if (! isset($this->_columnas[$fila])) {
+					throw new toba_error("Columna $fila inválida");
+				}
+				$this->_columnas[$fila]->resetear_estado();
+				$this->_columnas[$fila]->cargar_estado_post();
+				$validacion = $this->_columnas[$fila]->validar_estado();
+				if ($validacion !== true) {
+					$etiqueta = $columna->get_etiqueta();
+					throw new toba_error_validacion($etiqueta.': '.$validacion, $columna);
+				}
+				$this->_columnas_datos[$fila] = $this->_columnas[$fila];
+			}
+		}
+		return true;
+	}
+	
+	function get_datos()
+	{
+		$datos = array();
+		foreach ($this->_columnas_datos as $fila => $columna) {
+			$datos[$fila] = $columna->get_estado();
+		}
+		return $datos;
+	}
+	
+	
+	/**
+	 * Borra los datos actuales y resetea el estado de los efs
+	 */
+	function limpiar_interface()
+	{
+		foreach ($this->_lista_ef as $ef) {
+			$this->_elemento_formulario[$ef]->resetear_estado();
+		}
+	}	
+	
+	
+	//-------------------------------------------------------------------------------
+	//----------------------------	  MANEJO DE DATOS -------------------------------
+	//-------------------------------------------------------------------------------
+	
+	
+	/**
+	 * Carga el filtro con un conjunto de datos
+	 * @param array $datos Arreglo columna=>valor/es
+	 * @param boolean $set_cargado Cambia el grupo activo al 'cargado', mostrando los botones de modificacion, eliminar y cancelar por defecto
+	 */
+	function set_datos($datos, $set_cargado=true)
+	{
+		if (isset($datos)){
+			foreach ($this->_columnas as $id => $columna) {
+				if (isset($datos[$id])) {
+					$columna->set_estado($datos[$id]);
+				}
+			}
+			if ($set_cargado && $this->_grupo_eventos_activo != 'cargado') {
+				$this->set_grupo_eventos_activo('cargado');
+			}
+		}	
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -68,10 +187,6 @@ class toba_ei_filtro_ml extends toba_ei
 	protected function generar_formulario()
 	{
 		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(100);		
-		//--- Si no se cargaron datos, se cargan ahora
-		/*if (!isset($this->_datos)) {		
-			$this->carga_inicial();
-		}*/
 		$this->_colspan = 0;
 	
 		//Ancho y Scroll
@@ -92,11 +207,11 @@ class toba_ei_filtro_ml extends toba_ei
 	protected function generar_layout($ancho)
 	{
 		//Botonera de agregar y ordenar
-		$this->generar_botonera_manejo_filas();
-		echo "<table class='ei-filtro-ml-grilla' style='width: $ancho' >\n";
+		echo "<table id='{$this->objeto_js}_grilla' class='ei-filtro-ml-grilla' style='width: $ancho' >\n";
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
+		$this->generar_botonera_manejo_filas();		
 		$this->generar_botones();
 	}
 	
@@ -107,9 +222,13 @@ class toba_ei_filtro_ml extends toba_ei
 	{
 		echo "<div class='ei-filtro-ml-botonera'>";
 		$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
-		echo toba_form::select("{$this->objeto_js}_nuevo", null, array());
-		echo toba_form::button_html("{$this->objeto_js}_agregar", $texto, 
-								"onclick='{$this->objeto_js}.crear_fila();'", $this->_rango_tabs[0]++, '+', 'Crea una nueva fila');
+		$opciones = array(apex_ef_no_seteado => '');
+		foreach ($this->_columnas as $columna) {
+			$opciones[$columna->get_nombre()] = $columna->get_etiqueta();
+		}
+		echo 'Agregar filtro ';
+		$onchange = "onchange='{$this->objeto_js}.crear_fila()'";
+		echo toba_form::select("{$this->objeto_js}_nuevo", null, $opciones, 'ef-combo', $onchange);
 		echo "</div>\n";
 	}	
 	
@@ -121,15 +240,17 @@ class toba_ei_filtro_ml extends toba_ei
 		echo "<thead id='cabecera_{$this->objeto_js}'>\n";		
 		//------ TITULOS -----	
 		echo "<tr>\n";
-		$primera = true;
+		$i = 1;
 		foreach ($this->_etiquetas as $etiqueta){
-			echo "<th class='ei-filtro-ml-columna'>\n";
+			$colspan = '';
+			if ($i == count($this->_etiquetas)) {
+				$colspan = 'colspan=2';
+			}
+			echo "<th class='ei-filtro-ml-columna' $colspan>\n";
 			echo $etiqueta;
 			echo "</th>\n";
+			$i++;
 		}
-		//-- Columna para borrar en línea
-		echo "<th class='ei-filtro-ml-columna'>&nbsp;\n";
-		echo "</th>\n";				
 		echo "</tr>\n";
 		echo "</thead>\n";
 	}
@@ -146,22 +267,21 @@ class toba_ei_filtro_ml extends toba_ei
 				$estilo_fila = "";
 			} else {
 				$estilo_fila = "style='display:none;'";
-				$estilo_fila = "";
 			}
 			echo "\n<!-- FILA $nombre_col -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$nombre_col' onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\")'>";
-			echo "<td class='ei-filtro-ml-col'>";
+			echo "<td class='$estilo_celda ei-filtro-ml-col'>";
 			echo $columna->get_etiqueta();
 			echo "</td>\n";
 			
 			//-- Condición
 			if ($columna->tiene_condicion()) {
-				echo "<td class='ei-filtro-ml-cond'>";
+				echo "<td class='$estilo_celda ei-filtro-ml-cond'>";
 				echo $columna->get_html_condicion();
 				echo "</td>\n";
-				echo "<td class='ei-filtro-ml-valor'>";
+				echo "<td class='$estilo_celda ei-filtro-ml-valor'>";
 			} else {
-				echo "<td class='ei-filtro-ml-valor' colspan=2>";
+				echo "<td class='$estilo_celda ei-filtro-ml-valor' colspan=2>";
 			}
 			//-- Valor
 			$columna->get_html_valor();
@@ -170,7 +290,7 @@ class toba_ei_filtro_ml extends toba_ei
 			//-- Borrar a nivel de fila
 			echo "<td class='$estilo_celda ei-filtro-ml-borrar'>";
 			echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
-									"onclick='{$this->objeto_js}.seleccionar($nombre_col);{$this->objeto_js}.eliminar_seleccionada();'", 
+									"onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();'", 
 									$this->_rango_tabs[0]++, null, 'Elimina la fila');
 			echo "</td>\n";
 			echo "</tr>\n";
@@ -191,7 +311,8 @@ class toba_ei_filtro_ml extends toba_ei
 		$id = toba_js::arreglo($this->_id, false);
 		echo $identado."window.{$this->objeto_js} = new ei_filtro_ml($id, '{$this->objeto_js}', '{$this->_submit}');\n";
 		foreach ($this->_columnas as $columna) {
-			echo $identado."{$this->objeto_js}.agregar_ef({$columna->crear_objeto_js()}, '{$columna->get_nombre()}');\n";
+			$visible = $columna->es_visible() ? 'true' : 'false';
+			echo $identado."{$this->objeto_js}.agregar_ef({$columna->crear_objeto_js()}, '{$columna->get_nombre()}', $visible);\n";
 		}
 	}
 	

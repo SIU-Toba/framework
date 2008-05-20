@@ -21,18 +21,20 @@ class toba_db_tablas_componente
   13 => 'apex_objeto_ut_formulario',
   14 => 'apex_objeto_ei_formulario_ef',
   15 => 'apex_objeto_esquema',
-  16 => 'apex_objeto_db_registros',
-  17 => 'apex_objeto_db_registros_col',
-  18 => 'apex_objeto_db_registros_ext',
-  19 => 'apex_objeto_db_registros_ext_col',
-  20 => 'apex_objeto_db_registros_uniq',
-  21 => 'apex_objeto_datos_rel',
-  22 => 'apex_objeto_datos_rel_asoc',
-  23 => 'apex_molde_operacion',
-  24 => 'apex_molde_operacion_log',
-  25 => 'apex_molde_operacion_log_elementos',
-  26 => 'apex_molde_operacion_abms',
-  27 => 'apex_molde_operacion_abms_fila',
+  16 => 'apex_objeto_ei_filtro_ml',
+  17 => 'apex_objeto_ei_filtro_ml_col',
+  18 => 'apex_objeto_db_registros',
+  19 => 'apex_objeto_db_registros_col',
+  20 => 'apex_objeto_db_registros_ext',
+  21 => 'apex_objeto_db_registros_ext_col',
+  22 => 'apex_objeto_db_registros_uniq',
+  23 => 'apex_objeto_datos_rel',
+  24 => 'apex_objeto_datos_rel_asoc',
+  25 => 'apex_molde_operacion',
+  26 => 'apex_molde_operacion_log',
+  27 => 'apex_molde_operacion_log_elementos',
+  28 => 'apex_molde_operacion_abms',
+  29 => 'apex_molde_operacion_abms_fila',
 );
 	}
 
@@ -686,6 +688,75 @@ class toba_db_tablas_componente
     11 => 'alto',
     12 => 'dirigido',
     13 => 'sql',
+  ),
+);
+	}
+
+	static function apex_objeto_ei_filtro_ml()
+	{
+		return array (
+  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_ei_filtro_ml_proyecto',
+  'dump_clave_componente' => 'objeto_ei_filtro_ml',
+  'dump_order_by' => 'objeto_ei_filtro_ml',
+  'dump_where' => '( objeto_ei_filtro_ml_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_ei_filtro_ml_proyecto',
+    1 => 'objeto_ei_filtro_ml',
+    2 => 'ancho',
+  ),
+);
+	}
+
+	static function apex_objeto_ei_filtro_ml_col()
+	{
+		return array (
+  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'objeto_ei_filtro_ml_proyecto',
+  'dump_clave_componente' => 'objeto_ei_filtro_ml',
+  'dump_order_by' => 'objeto_ei_filtro_ml_col',
+  'dump_where' => '( objeto_ei_filtro_ml_proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'objeto_ei_filtro_ml_col',
+    1 => 'objeto_ei_filtro_ml',
+    2 => 'objeto_ei_filtro_ml_proyecto',
+    3 => 'tipo',
+    4 => 'nombre',
+    5 => 'etiqueta',
+    6 => 'descripcion',
+    7 => 'inicial',
+    8 => 'orden',
+    9 => 'carga_metodo',
+    10 => 'carga_clase',
+    11 => 'carga_include',
+    12 => 'carga_dt',
+    13 => 'carga_consulta_php',
+    14 => 'carga_lista',
+    15 => 'carga_col_clave',
+    16 => 'carga_col_desc',
+    17 => 'carga_no_seteado',
+    18 => 'edit_maximo',
+    19 => 'popup_item',
+    20 => 'popup_proyecto',
+    21 => 'popup_editable',
+    22 => 'popup_ventana',
+    23 => 'popup_carga_desc_metodo',
+    24 => 'popup_carga_desc_clase',
+    25 => 'popup_carga_desc_include',
   ),
 );
 	}

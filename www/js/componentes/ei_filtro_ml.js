@@ -16,14 +16,18 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	this._efs_procesar = {};					//ID de los ef's que poseen procesamiento						
 	this._evento_implicito = null;				//No hay evento prefijado
 	this._seleccionada = null;
+	this._filas = [];
 }
 
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.agregar_ef  = function (ef, identificador) {
+	ei_filtro_ml.prototype.agregar_ef  = function (ef, identificador, visible) {
 		if (ef) {
 			this._efs[identificador] = ef;
+			if (visible) {
+				this._filas.push(visible);
+			}
 		}
 	};
 	
@@ -59,6 +63,9 @@ function ei_filtro_ml(id, instancia, input_submit) {
 			for (id_ef in this._efs) {
 				this._efs[id_ef].submit();
 			}
+			//Lista de filas a filtrar			
+			var lista_filas = this._filas.join('_');
+			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
 		}
@@ -79,6 +86,55 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}
 		return true;
 	};
+	
+	
+	//---ABM 
+	/**
+	 * Elimina del formulario la fila actualmente seleccionada
+	 * El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual
+	 */
+	ei_filtro_ml.prototype.eliminar_seleccionada = function() {
+		var fila = this._seleccionada;
+		anterior = this.eliminar_fila(fila);
+		delete(this._seleccionada);
+	};
+	
+	ei_filtro_ml.prototype.eliminar_fila = function(fila) {
+			//'Elimina' la fila en el DOM
+		var id_fila = this._instancia + '_fila' + fila;
+		cambiar_clase(document.getElementById(id_fila).cells, 'ei-fitro-ml-fila', 'ei-filtro-ml-fila-selec');
+		$(id_fila).style.display = 'none';
+		
+		//Elimina la fila en la lista interna
+		for (i in this._filas) { 
+			if (this._filas[i] == fila) {
+				this._filas.splice(i, 1); 
+				break;
+			}
+			var anterior = this._filas[i];		
+		}
+		
+		//if (this._filas.empty()) {
+			//_grilla
+		//}
+	};
+	
+
+	ei_filtro_ml.prototype.crear_fila = function() {
+		var input = $(this._instancia + '_nuevo');
+		var id = input.value;
+		input.selectedIndex = 0;
+		if (in_array(id, this._filas)) {
+			//Ya se agrego antes
+			return;
+		}
+		$(this._instancia + '_fila' + id).style.display = '';		
+		this._filas.push(id);
+		this.seleccionar(id);
+		this.refrescar_foco();
+	};
+		
+		
 
 	
 	//----Validación 
@@ -196,11 +252,16 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	//---Refresco Grafico
 	
 	/**
-	 * Fuerza un refuerzo grafico del componente
+	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
 	 */
-	ei_filtro_ml.prototype.refrescar_todo = function () {
-		this.refrescar_procesamientos();
-	};		
+	ei_filtro_ml.prototype.refrescar_foco = function () {
+		for (id_ef in this._efs) {
+			if (this._efs[id_ef].seleccionar()) {
+				break;
+			}
+		}
+	};
+	
 	
 	/**
 	 *	@private
@@ -213,6 +274,16 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}
 	};	
 	
+	/**
+	 * Resalta la línea seleccionada 
+	 * @private
+	 */
+	ei_filtro_ml.prototype.refrescar_seleccion = function () {
+		if (isset(this._seleccionada)) {
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-filtro-ml-fila-selec', 'ei-filtro-ml-fila');
+		}
+	};	
+	
 	//----Selección 
 	/**
 	 * Marca una fila como seleccionada, cambiando su color de fondo 
@@ -221,6 +292,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		if  (fila != this._seleccionada) {
 			this.deseleccionar_actual();
 			this._seleccionada = fila;
+			this.refrescar_seleccion();
 		}
 	};	
 	

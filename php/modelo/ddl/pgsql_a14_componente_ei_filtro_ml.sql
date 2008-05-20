@@ -3,6 +3,14 @@
 --********************************************************************************************
 
 CREATE TABLE apex_objeto_ei_filtro_ml_tipo_col
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: nucleo_multiproyecto
+--: dump_order_by: tipo_col
+--: zona: central
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
 (	
 	tipo_col						varchar(30)		NOT NULL,
 	descripcion						varchar(50)		NOT NULL,
@@ -41,10 +49,10 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
 --: dump: componente
---: dump_clave_proyecto: objeto_ut_formulario_proyecto
---: dump_clave_componente: objeto_ut_formulario
---: dump_order_by: objeto_ut_formulario
---: dump_where: ( objeto_ut_formulario_proyecto = '%%' )
+--: dump_clave_proyecto: objeto_ei_filtro_ml_proyecto
+--: dump_clave_componente: objeto_ei_filtro_ml
+--: dump_order_by: objeto_ei_filtro_ml_col
+--: dump_where: ( objeto_ei_filtro_ml_proyecto = '%%' )
 --: zona: objeto
 --: desc:
 --: historica: 0
