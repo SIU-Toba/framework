@@ -9,7 +9,13 @@ class admin_instancia
 	
 	function __construct()
 	{
-		$this->id_instancia = toba::sesion()->get_id_instancia();
+		if ( toba_editor::activado() && toba_editor::get_proyecto_cargado() == 'toba_usuarios' ) {
+			//Si la fuente del proyecto se utiliza desde el editor (levantar metadatos, etc) tengo que cargar
+			// la instancia editada de otra manera...
+			$this->id_instancia = toba_editor::get_id_instancia_activa();
+		} else {
+			$this->id_instancia = toba::sesion()->get_id_instancia();
+		}
 		$datos = toba_instancia::get_datos_instancia($this->id_instancia);
 		$this->base = $datos['base'];
 		$this->proyectos = explode(',', $datos['proyectos']);

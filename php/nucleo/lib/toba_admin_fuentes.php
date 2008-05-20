@@ -53,6 +53,10 @@ class toba_admin_fuentes
 		if ( !isset($this->fuentes[$id]) ) {
 			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);
 			if (isset($parametros['subclase_archivo'])) {
+				if ( toba_editor::activado() ) {
+					//Si la fuente esta extendida, puede necesitar otros archivos del proyecto
+					toba_editor::iniciar_contexto_proyecto_cargado();					
+				}
 				$archivo = toba::instancia()->get_path_proyecto($proyecto).'/php/'.$parametros['subclase_archivo'];
 			} else {
 				$archivo = "nucleo/lib/toba_fuente_datos.php";
