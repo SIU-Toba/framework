@@ -20,15 +20,14 @@ class ci_editor extends toba_ci
 	function conf()
 	{
 		if ($this->controlador()->dep('datos')->esta_cargada()) {
+			$usuario = $this->datos('basica')->get();
+			$this->s__usuario = $usuario['usuario'];
+			$desc = 'Usuario: <strong>' . $usuario['nombre'] . '</strong>';
+			$this->pantalla()->set_descripcion($desc);
 			$this->dep('basica')->ef('usuario')->set_solo_lectura(true);
-			$desc .= 'Usuario:&nbsp;&nbsp; <strong>' . $usuario['nombre'] . '</strong><br>';			
 		} else {
 			$this->controlador->pantalla()->eliminar_evento('eliminar');
 		}
-		$usuario = $this->datos('basica')->get();
-		$this->s__usuario = $usuario['usuario'];
-		$desc = 'Usuario: <strong>' . $usuario['nombre'] . '</strong>';
-		$this->pantalla()->set_descripcion($desc);
 	}
 	
 	function conf__proyecto()
@@ -75,16 +74,18 @@ class ci_editor extends toba_ci
 		foreach ($proyectos as $id => $proyecto){
 			$grupos_acceso = $this->datos('proyecto')->get_filas(array('proyecto' => $proyecto['proyecto']));
 			$grupos = array();
-			$perfil = '';
+			//-- Perfil funcional -------------------------
 			foreach ($grupos_acceso as $ga){
 				$grupos[] = $ga['grupo_acceso'];
-				if (isset($ga['perfil_datos_nombre'])) {
-					$perfil = $ga['perfil_datos_nombre'];	
-				}
 			}
-			//truchada... capaz la forma de cargar el cuadro ya es una truchada :S
 			$proyectos[$id]['grupos_acceso'] = empty($grupos) ? 'Sin Acceso' : implode(', ', $grupos);
-			$proyectos[$id]['perfil_datos'] = empty($perfil) ? '&nbsp;' : $perfil;
+			//-- Perfil datos -----------------------------
+			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('proyecto' => $proyecto['proyecto']));
+			if($perfil_datos){
+				$proyectos[$id]['perfil_datos'] = $perfil_datos[0]['perfil_datos_nombre'];
+			} else {
+				$proyectos[$id]['perfil_datos'] = '&nbsp;';
+			}
 		}
 		$componente->set_datos($proyectos);
 	}
@@ -94,27 +95,45 @@ class ci_editor extends toba_ci
 		if (isset($datos['clave']) && $datos['clave'] == self::clave_falsa ) {
 			unset($datos['clave']);	
 		}
+		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		foreach ($id as $clave){
 			$this->datos('proyecto')->eliminar_fila($clave);
 		}
-		
 		$fila = array();
 		$fila['proyecto'] = $this->s__proyecto;
 		$fila['usuario'] = $this->s__usuario;
-		$fila['usuario_perfil_datos'] = isset($datos['usuario_perfil_datos']) ? $datos['usuario_perfil_datos'] : '';	
 		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso){
 			$fila['usuario_grupo_acc'] = $grupo_acceso;
 			$this->datos('proyecto')->nueva_fila($fila);
+		}
+		//-- Perfil datos -----------------------------
+		if ( isset($datos['usuario_perfil_datos']) ) {
+			$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
+			$fila = array();
+			$fila['proyecto'] = $this->s__proyecto;
+			$fila['usuario'] = $this->s__usuario;
+			$fila['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
+			if(empty($id)) {
+				$this->datos('proyecto_pd')->nueva_fila($fila);
+			}else{
+				$this->datos('proyecto_pd')->modificar_fila($id[0], $fila);
+			}
 		}
 		$this->limpiar_datos();
 	}
 
 	function evt__form_proyectos__baja()
 	{
+		//-- Perfil funcional -------------------------
 		$id = $this->datos('proyecto')->get_id_fila_condicion( array('proyecto' => $this->s__proyecto) );
 		foreach ($id as $clave){
 			$this->datos('proyecto')->eliminar_fila($clave);
+		}
+		//-- Perfil datos -----------------------------
+		$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
+		if(!empty($id)) {
+			$this->datos('proyecto_pd')->eliminar_fila($id[0]);
 		}
 		$this->limpiar_datos();
 	}
@@ -127,18 +146,20 @@ class ci_editor extends toba_ci
 	function conf__form_proyectos($componente)
 	{
 		if (isset($this->s__proyecto)) {
+			$datos['proyecto'] = $this->s__proyecto;
+			$datos['clave'] = self::clave_falsa;
+			//-- Perfil funcional -------------------------
 			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
-		
-			$perfil_datos = '';
 			$ga_seleccionados = array();
 			foreach ($grupo_acc as $i=>$ga){
 				$ga_seleccionados[] = $ga['usuario_grupo_acc'];
-				$perfil_datos = $ga['usuario_perfil_datos'];
 			}
-			$datos['proyecto'] = $this->s__proyecto;
 			$datos['usuario_grupo_acc'] = $ga_seleccionados;
-			$datos['usuario_perfil_datos'] = $perfil_datos;
-			$datos['clave'] = self::clave_falsa;
+			//-- Perfil datos -----------------------------
+			$perfil_datos = $this->datos('proyecto_pd')->get_filas(array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+			if($perfil_datos){
+				$datos['usuario_perfil_datos'] = $perfil_datos[0]['usuario_perfil_datos'];
+			}
 			$componente->set_datos($datos);
 		}
 	}

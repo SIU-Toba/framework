@@ -13,7 +13,7 @@ class toba_proyecto_implementacion
 	function get_perfil_datos($usuario, $proyecto)
 	{
 		$sql = "SELECT up.usuario_perfil_datos as 		perfil_datos
-					FROM apex_usuario_proyecto up
+					FROM apex_usuario_proyecto_perfil_datos up
 					WHERE up.usuario = '$usuario'
 					AND up.proyecto = '$proyecto';";
 		$datos = toba::instancia()->get_db()->consultar_fila($sql);

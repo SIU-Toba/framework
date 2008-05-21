@@ -16,7 +16,7 @@ CREATE TABLE apex_usuario_perfil_datos
 ---------------------------------------------------------------------------------------------------
 (	
 	proyecto						varchar(15)		NOT NULL,
-	usuario_perfil_datos			int4			NOT NULL DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
+	usuario_perfil_datos			int4			DEFAULT nextval('"apex_usuario_perfil_datos_seq"'::text) NOT NULL,
 	nombre							varchar(80)		NOT NULL,
 	descripcion						varchar			NULL,
 	listar							smallint		NULL,

@@ -47,10 +47,19 @@ class ci_editor_simple extends toba_ci
 		$fila = array();
 		$fila['proyecto'] = $this->s__proyecto;
 		$fila['usuario'] = $this->s__usuario;
-		$fila['usuario_perfil_datos'] = isset($datos['usuario_perfil_datos']) ? $datos['usuario_perfil_datos'] : '';	
+
+		// Perfil Funcional		
 		foreach ($datos['usuario_grupo_acc'] as $id=>$grupo_acceso){
 			$fila['usuario_grupo_acc'] = $grupo_acceso;
 			$this->datos('proyecto')->nueva_fila($fila);
+		}
+
+		// Perfil de datos
+		if ( isset($datos['usuario_perfil_datos']) ) {
+			$fila_pd['usuario'] = $this->s__usuario;
+			$fila_pd['proyecto'] = $this->s__proyecto;
+			$fila_pd['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
+			$this->datos('proyecto_pd')->set($fila_pd);
 		}
 	}
 
@@ -59,17 +68,18 @@ class ci_editor_simple extends toba_ci
 		$datos = $this->datos('basica')->get();
 		if (isset($datos)) {
 			$datos['clave'] = self::clave_falsa;
-			
+	
+			// Perfil Funcional		
 			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
-		
-			$perfil_datos = '';
 			$ga_seleccionados = array();
 			foreach ($grupo_acc as $i=>$ga){
 				$ga_seleccionados[] = $ga['usuario_grupo_acc'];
-				$perfil_datos = $ga['usuario_perfil_datos'];
 			}
 			$datos['usuario_grupo_acc'] = $ga_seleccionados;
-			$datos['usuario_perfil_datos'] = $perfil_datos;
+
+			// Perfil de datos
+			$datos_pd = $this->datos('proyecto_pd')->get();
+			$datos['usuario_perfil_datos'] = $datos_pd['usuario_perfil_datos'];
 		}
 		
 		$datos['proyecto'] = $this->s__proyecto;
