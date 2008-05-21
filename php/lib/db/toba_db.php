@@ -623,6 +623,9 @@ class toba_db
 	
 	protected function cortar_sql($sql)
 	{
+		if (is_array($sql)){
+			$sql = implode("\n", $sql);
+		}
 		if (strlen($sql) > 10000) {
 			$sql = substr($sql, 0, 10000)."\n\n.... CORTADO POR EXCEDER EL LIMITE";
 		}
