@@ -6,6 +6,8 @@ class ci_ei_filtro_ml extends toba_ci
 	function evt__filtro__actualizar($datos)
 	{
 		$this->s__datos = $datos;
+		$where = $this->dep('filtro')->get_where();
+		$this->pantalla()->set_descripcion('Cláusula where generada: <pre>'.$where.'</pre>');
 	}
 	
 

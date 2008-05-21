@@ -101,7 +101,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-top: 1px solid #868789;
 	padding:4px;
 }
-.ei-cuadro-cc-fondo, .ei-ml-grilla {
+.ei-cuadro-cc-fondo, .ei-ml-grilla, .ei-filtro-ml-grilla {
 	border:1px solid #868789;
 	padding-left:1px;
 }

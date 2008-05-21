@@ -32,7 +32,8 @@ class toba_ei_filtro_ml extends toba_ei
 	{
 		$this->_columnas = array();
 		foreach ($this->_info_filtro_col as $fila) {
-			$this->_columnas[$fila['nombre']] = new toba_filtro_columna_cadena($fila, $this);
+			$clase = 'toba_filtro_columna_'.$fila['tipo'];
+			$this->_columnas[$fila['nombre']] = new $clase($fila, $this);
 		}
 	}
 	
@@ -89,7 +90,7 @@ class toba_ei_filtro_ml extends toba_ei
 		$lista_filas = $_POST[$this->objeto_js.'_listafilas'];
 		$filas_post = array();
 		if ($lista_filas != '') {
-			$filas_post = explode('_', $lista_filas);
+			$filas_post = explode(apex_qs_separador, $lista_filas);
 			$this->_columnas_datos = array();
 			//Por cada fila
 			foreach ($filas_post as $fila) {
@@ -144,14 +145,30 @@ class toba_ei_filtro_ml extends toba_ei
 	{
 		if (isset($datos)){
 			foreach ($this->_columnas as $id => $columna) {
+				$columna->resetear_estado();
 				if (isset($datos[$id])) {
 					$columna->set_estado($datos[$id]);
+					$columna->set_visible(true);
+				} else {
+					$columna->set_visible(false);
 				}
 			}
 			if ($set_cargado && $this->_grupo_eventos_activo != 'cargado') {
 				$this->set_grupo_eventos_activo('cargado');
 			}
 		}	
+	}
+	
+	/**
+	 * Retorna la clausula a incluir en el where de una sql, basada en el estado actual del filtro
+	 */
+	function get_where()
+	{
+		$where = array();
+		foreach ($this->_columnas_datos as $columna) {
+			$where[] = $columna->get_where();
+		}
+		return "\t\t".implode("\n\tAND\t", $where);
 	}
 	
 	//-------------------------------------------------------------------------------
@@ -241,7 +258,7 @@ class toba_ei_filtro_ml extends toba_ei
 		//------ TITULOS -----	
 		echo "<tr>\n";
 		$i = 1;
-		foreach ($this->_etiquetas as $etiqueta){
+		foreach ($this->_etiquetas as $id => $etiqueta){
 			$colspan = '';
 			if ($i == count($this->_etiquetas)) {
 				$colspan = 'colspan=2';
@@ -275,15 +292,17 @@ class toba_ei_filtro_ml extends toba_ei
 			echo "</td>\n";
 			
 			//-- Condición
-			if ($columna->tiene_condicion()) {
-				echo "<td class='$estilo_celda ei-filtro-ml-cond'>";
+			echo "<td class='$estilo_celda ei-filtro-ml-cond'>";
+			if ($columna->tiene_condicion()) {				
 				echo $columna->get_html_condicion();
-				echo "</td>\n";
-				echo "<td class='$estilo_celda ei-filtro-ml-valor'>";
 			} else {
-				echo "<td class='$estilo_celda ei-filtro-ml-valor' colspan=2>";
+				echo '&nbsp;';
 			}
-			//-- Valor
+			
+			echo "</td>\n";
+			
+			//-- Valor			
+			echo "<td class='$estilo_celda ei-filtro-ml-valor'>";
 			$columna->get_html_valor();
 			echo "</td>\n";
 
@@ -312,9 +331,26 @@ class toba_ei_filtro_ml extends toba_ei
 		echo $identado."window.{$this->objeto_js} = new ei_filtro_ml($id, '{$this->objeto_js}', '{$this->_submit}');\n";
 		foreach ($this->_columnas as $columna) {
 			$visible = $columna->es_visible() ? 'true' : 'false';
-			echo $identado."{$this->objeto_js}.agregar_ef({$columna->crear_objeto_js()}, '{$columna->get_nombre()}', $visible);\n";
+			$compuesto = $columna->es_compuesto() ? 'true' : 'false';
+			echo $identado."{$this->objeto_js}.agregar_ef({$columna->crear_objeto_js()}, '{$columna->get_nombre()}', $visible, $compuesto);\n";
 		}
 	}
+	
+	/**
+	 * Retorna una referencia al ef en javascript
+	 * @param string $id Id. del ef
+	 * @return string
+	 */
+	function get_objeto_js_ef($id)
+	{
+		return "{$this->objeto_js}.ef('$id')";
+	}	
+	
+	function get_objeto_js()
+	{
+		return $this->objeto_js;
+	}
+	
 	
 	/**
 	 * @ignore 

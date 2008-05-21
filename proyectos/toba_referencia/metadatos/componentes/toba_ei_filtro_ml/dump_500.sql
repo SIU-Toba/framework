@@ -81,7 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 INSERT INTO apex_objeto_ei_filtro_ml (objeto_ei_filtro_ml_proyecto, objeto_ei_filtro_ml, ancho) VALUES (
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'500', --objeto_ei_filtro_ml
-	NULL  --ancho
+	'100%'  --ancho
 );
 
 ------------------------------------------------------------
@@ -92,11 +92,11 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'booleano', --tipo
-	'Booleano', --nombre
-	'Campo1', --etiqueta
+	'campo_booleano', --nombre
+	'Booleano', --etiqueta
 	NULL, --descripcion
-	'0', --inicial
-	'0', --orden
+	'1', --inicial
+	'4', --orden
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -120,11 +120,11 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'cadena', --tipo
-	'Cadena', --nombre
-	'Campo2', --etiqueta
+	'campo_cadena', --nombre
+	'Cadena', --etiqueta
 	NULL, --descripcion
-	'0', --inicial
-	'0', --orden
+	'2', --inicial
+	'1', --orden
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -148,11 +148,11 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'fecha', --tipo
-	'Fecha', --nombre
-	'Campo3', --etiqueta
+	'campo_fecha', --nombre
+	'Fecha', --etiqueta
 	NULL, --descripcion
-	'0', --inicial
-	'0', --orden
+	'3', --inicial
+	'3', --orden
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -176,11 +176,11 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'numero', --tipo
-	'Número', --nombre
-	'Campo4', --etiqueta
+	'campo_numero', --nombre
+	'Número', --etiqueta
 	NULL, --descripcion
-	'0', --inicial
-	'0', --orden
+	'4', --inicial
+	'2', --orden
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include

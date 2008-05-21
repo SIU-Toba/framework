@@ -297,6 +297,22 @@ padding-left:4px;
 }
 
 /*****************
+	Filtro ML
+******************/
+.ei-filtro-ml-valor {
+}
+.ei-filtro-ml-cond {
+	text-align: right;
+}
+.ei-filtro-ml-col {
+	white-space: nowrap;
+}
+.ei-filtro-ml-borrar {
+	text-align: right;
+}
+
+
+/*****************
 		EFS
 ******************/
 .ef-input, .ef-upload {

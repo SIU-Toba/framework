@@ -3,11 +3,11 @@
 class toba_filtro_columna_cadena extends toba_filtro_columna
 {
 	protected $_condiciones = array(
-			'es_igual_a' 	=> array('etiqueta' => 'es igual a',		'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),	
-			'comienza_con' 	=> array('etiqueta' => 'comienza con',		'operador_sql' => 'ILIKE',		'pre' => '', 	'post' => '%',	'casting' => '::varchar'),
-			'termina_con' 	=> array('etiqueta' => 'termina con',		'operador_sql' => 'ILIKE',		'pre' => '%', 	'post' => '', 	'casting' => '::varchar'),
 			'contiene' 		=> array('etiqueta' => 'contiene',			'operador_sql' => 'ILIKE',		'pre' => '%', 	'post' => '%', 	'casting' => '::varchar'),
 			'no_contiene' 	=> array('etiqueta' => 'no contiene',		'operador_sql' => 'NOT ILIKE',	'pre' => '', 	'post' => '%', 	'casting' => '::varchar'),
+			'comienza_con' 	=> array('etiqueta' => 'comienza con',		'operador_sql' => 'ILIKE',		'pre' => '', 	'post' => '%',	'casting' => '::varchar'),
+			'termina_con' 	=> array('etiqueta' => 'termina con',		'operador_sql' => 'ILIKE',		'pre' => '%', 	'post' => '', 	'casting' => '::varchar'),
+			'es_igual_a' 	=> array('etiqueta' => 'es igual a',		'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),	
 			'es_distinto_de' => array('etiqueta' => 'es distinto de',	'operador_sql' => '!=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
 	);
 	
@@ -24,8 +24,16 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 	
 	function get_condicion()
 	{
-		
+		if (isset($this->_estado)) {
+			return $this->_estado['condicion'];
+		}
 	}
+	
+	function set_estado($estado)
+	{
+		$this->estado = $estado;
+		$this->_ef->set_estado($estado['valor']);
+	}	
 	
 	function cargar_estado_post()
 	{
@@ -40,21 +48,7 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 			$this->_estado['valor'] = $this->_ef->get_estado();
 		}
 	}
-		
-	
-	function get_html_condicion()
-	{
-		$html = "<select id='{$this->_id_form_cond}' name='{$this->_id_form_cond}'>";
-		foreach ($this->_condiciones as $id => $condicion) {
-			$html .= "<option value='$id'>{$condicion['etiqueta']}</option>\n";
-		}
-		return $html;
-	}
-	
-	function get_html_valor()
-	{
-		echo $this->_ef->get_input();
-	}
+
 }
 
 ?>

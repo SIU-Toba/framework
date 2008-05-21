@@ -17,16 +17,20 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	this._evento_implicito = null;				//No hay evento prefijado
 	this._seleccionada = null;
 	this._filas = [];
+	this._compuestos = [];
 }
 
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.agregar_ef  = function (ef, identificador, visible) {
+	ei_filtro_ml.prototype.agregar_ef  = function (ef, identificador, visible, compuesto) {
 		if (ef) {
 			this._efs[identificador] = ef;
 			if (visible) {
-				this._filas.push(visible);
+				this._filas.push(identificador);
+			}
+			if (compuesto) {
+				this._compuestos.push(identificador);
 			}
 		}
 	};
@@ -35,6 +39,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
+			this.cambio_condicion(id_ef);
 		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
@@ -60,11 +65,17 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}
 		if (this._evento) {
 			//Enviar la noticia del submit a los efs
-			for (id_ef in this._efs) {
-				this._efs[id_ef].submit();
+			var filas_con_datos = [];
+			for (id_fila in this._filas) {
+				var id_ef = this._filas[id_fila];
+				//Si el ef no tiene valor, no se envia al server
+				if (this._efs[id_ef].tiene_estado()) {
+					this._efs[id_ef].submit();
+					filas_con_datos.push(id_ef);
+				}
 			}
-			//Lista de filas a filtrar			
-			var lista_filas = this._filas.join('_');
+			//Lista de filas a filtrar
+			var lista_filas = filas_con_datos.join(toba_hilo_separador);
 			document.getElementById(this._instancia + '_listafilas').value = lista_filas;
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca
 			document.getElementById(this._input_submit).value = this._evento.id;
@@ -209,6 +220,20 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	};
 
 	//---Procesamiento 
+	
+	ei_filtro_ml.prototype.cambio_condicion = function (columna) {
+		var id_combo = 'col_' + this._input_submit + columna;
+		var combo = $(id_combo);
+		if (combo && in_array(columna, this._compuestos)) {
+			if (combo.value == 'entre') {
+				$(id_combo + '_ef_extra').style.display = '';
+				$(id_combo + '_label_extra').style.display = '';
+			} else {
+				$(id_combo + '_ef_extra').style.display = 'none';
+				$(id_combo + '_label_extra').style.display = 'none';
+			}
+		}
+	}
 	
 	/**
 	 *	@private
