@@ -31,7 +31,7 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 	
 	function set_estado($estado)
 	{
-		$this->estado = $estado;
+		$this->_estado = $estado;
 		$this->_ef->set_estado($estado['valor']);
 	}	
 	

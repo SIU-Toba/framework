@@ -36,8 +36,13 @@ class toba_filtro_columna_fecha extends toba_filtro_columna
 	
 	function set_estado($estado)
 	{
-		$this->estado = $estado;
-		$this->_ef->set_estado($estado['valor']);
+		$this->_estado = $estado;
+		if ($estado['condicion'] != 'entre') {
+			$this->_ef->set_estado($estado['valor']);
+		} else {
+			//-- La fila extra se carga cuando sale el html
+			$this->_ef->set_estado($estado['valor']['desde']);
+		}
 	}	
 	
 	function cargar_estado_post()
@@ -48,21 +53,53 @@ class toba_filtro_columna_fecha extends toba_filtro_columna
 				throw new toba_error("La condicion '$condicion' no es una condicion válida");
 			}
 			//Cargo el estado del ef original
-			$this->_ef->ir_a_fila(1);
-			$this->_ef->cargar_estado_post();
-						
+			$this->_ef->cargar_estado_post();						
 			$this->_estado = array();
 			$this->_estado['condicion'] = $condicion;
-			$this->_estado['valor'] = $this->_ef->get_estado();
+			if ($condicion != 'entre') {
+				$this->_estado['valor'] = $this->_ef->get_estado();
+			} else {
+				//-- Fila Normal
+				$this->_estado['valor'] = array();
+				$this->_estado['valor']['desde'] = $this->_ef->get_estado();
+				
+				//-- Fila Extra
+				$this->_ef->ir_a_fila('extra');
+				$this->_ef->cargar_estado_post();
+				$this->_estado['valor']['hasta'] = $this->_ef->get_estado();
+			}
+			ei_arbol($this->_estado);
+
 		}
 	}
 	
+	function get_where()
+	{
+		if (isset($this->_estado)) {
+			if ($this->_estado['condicion'] != 'entre') {
+				return parent::get_where();
+			} else {
+				$desde = $this->_estado['valor']['desde'];
+				$hasta = $this->_estado['valor']['hasta'];
+				return '('.$this->get_schema().
+						$this->get_nombre().' BETWEEN'.
+						" '$desde'::date AND '$hasta'::date)";
+			}
+		}
+	}	
+	
 	function get_html_valor()
 	{
+		//-- Fila normal
+		echo $this->_ef->ir_a_fila();	
 		echo $this->_ef->get_input();
-		echo "<div id='{$this->_id_form_cond}_ef_extra' style='display:none'>";
-		//Se fuerza a que el ef genere un nuevo id para que sean dos campos fecha distintos
-		$this->_ef->ir_a_fila(1);
+		
+		//--Fila Extra
+		$this->_ef->ir_a_fila('extra');		
+		if (isset($this->_estado) && $this->_estado['condicion'] == 'entre') {
+			$this->_ef->set_estado($this->_estado['valor']['hasta']);
+		}
+		echo "<div id='{$this->_id_form_cond}_ef_extra' style='display:none'>";		
 		echo $this->_ef->get_input();
 		//Se retorna al id original
 		echo $this->_ef->ir_a_fila();

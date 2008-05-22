@@ -7,7 +7,8 @@ abstract class toba_filtro_columna
 	protected $_padre;
 	protected $_id_form_cond;
 	protected $_estado = null;	
-
+	protected $_schema;
+	
 	function __construct($datos, $padre) 
 	{
 		$this->_datos = $datos;
@@ -51,6 +52,18 @@ abstract class toba_filtro_columna
 		return $this->_datos['nombre'];
 	}
 	
+	function get_schema()
+	{
+		if (isset($this->_schema)) {
+			return $this->_schema.'.';
+		}
+	}
+	
+	function set_schema($schema)
+	{
+		$this->_schema = $schema;
+	}
+	
 	function get_etiqueta()
 	{
 		return $this->_datos['etiqueta'];
@@ -74,7 +87,7 @@ abstract class toba_filtro_columna
 	function resetear_estado()
 	{
 		$this->_ef->resetear_estado();
-		$this->estado = null;
+		$this->_estado = null;
 	}
 	
 	function get_estado()
@@ -96,7 +109,7 @@ abstract class toba_filtro_columna
 				$post = $this->_condiciones[$id]['post'];
 				$casting = $this->_condiciones[$id]['casting'];
 			}
-			return $this->get_nombre().$casting.' '.$operador_sql
+			return $this->get_schema().$this->get_nombre().$casting.' '.$operador_sql
 						." '".$pre.$this->_estado['valor'].$post."'".$casting;
 		}
 	}
