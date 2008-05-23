@@ -70,7 +70,7 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 	 * Retorna verdadero si el ef tiene algún valor cargado
 	 * @type boolean
 	 */	
-	ef.prototype.tiene_estado = function() {
+	ef_multi_seleccion.prototype.tiene_estado = function() {
 		return this.get_estado().length;	
 	};
 	

@@ -104,18 +104,21 @@ class toba_ei_filtro_ml extends toba_ei
 			$filas_post = explode(apex_qs_separador, $lista_filas);
 			$this->_columnas_datos = array();
 			//Por cada fila
-			foreach ($filas_post as $fila) {
-				if (! isset($this->_columnas[$fila])) {
-					throw new toba_error("Columna $fila inválida");
+			foreach ($this->_columnas as $id => $columna) {
+				if (in_array($id, $filas_post)) {
+					$this->_columnas[$id]->resetear_estado();
+					$this->_columnas[$id]->cargar_estado_post();
+					$validacion = $this->_columnas[$id]->validar_estado();
+					if ($validacion !== true) {
+						$etiqueta = $this->_columnas[$id]->get_etiqueta();
+						throw new toba_error_validacion($etiqueta.': '.$validacion, $this->_columnas[$id]);
+					}
+					$this->_columnas_datos[$id] = $this->_columnas[$id];
+				} else {
+					if ($columna->es_obligatorio()) {
+						throw new toba_error_validacion("La columna $id es obligatoria");
+					}
 				}
-				$this->_columnas[$fila]->resetear_estado();
-				$this->_columnas[$fila]->cargar_estado_post();
-				$validacion = $this->_columnas[$fila]->validar_estado();
-				if ($validacion !== true) {
-					$etiqueta = $this->_columnas[$fila]->get_etiqueta();
-					throw new toba_error_validacion($etiqueta.': '.$validacion, $this->_columnas[$fila]);
-				}
-				$this->_columnas_datos[$fila] = $this->_columnas[$fila];
 			}
 		}
 		return true;
@@ -300,7 +303,7 @@ class toba_ei_filtro_ml extends toba_ei
 			echo "\n<!-- FILA $nombre_col -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$nombre_col' onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\")'>";
 			echo "<td class='$estilo_celda ei-filtro-ml-col'>";
-			echo $columna->get_etiqueta();
+			echo $columna->get_html_etiqueta();
 			echo "</td>\n";
 			
 			//-- Condición
@@ -320,9 +323,14 @@ class toba_ei_filtro_ml extends toba_ei
 
 			//-- Borrar a nivel de fila
 			echo "<td class='$estilo_celda ei-filtro-ml-borrar'>";
-			echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
+			//Si es obligatoria no se puede borrar
+			if (! $columna->es_obligatorio()) {
+				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
 									"onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();'", 
 									$this->_rango_tabs[0]++, null, 'Elimina la fila');
+			} else {
+				echo '&nbsp;';
+			}
 			echo "</td>\n";
 			echo "</tr>\n";
 		}

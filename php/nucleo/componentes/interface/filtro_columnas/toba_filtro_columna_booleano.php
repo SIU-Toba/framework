@@ -6,8 +6,13 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 	function ini()
 	{
 		$parametros = $this->_datos;
-		$parametros['selec_cant_columnas'] = 2;	
-		$parametros['estado_defecto'] = 1;
+		if (! isset($parametros['selec_cant_columnas'])) {
+			$parametros['selec_cant_columnas'] = 2;	
+		}
+		if (! isset($parametros['estado_defecto'])) {		
+			$parametros['estado_defecto'] = 1;
+		}
+		$obligatorio = array($this->_datos['obligatorio'], false);
 		$this->_ef = new toba_ef_radio($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
 											null, null, false, $parametros);
 								

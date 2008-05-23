@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Contiene una condicion y un ef. Se trata de reutilizar al maximo la logica de los efs sin heredarlos, es por eso que muchas llamadas pasan directo
+ * 
+ **/
 abstract class toba_filtro_columna
 {
 	protected $_datos;
@@ -18,8 +22,52 @@ abstract class toba_filtro_columna
 		$this->ini();
 	}
 	
+	/**
+	 * Método para construir el ef adecuado según el tipo de columna
+	 */
 	abstract function ini();
 
+	//-----------------------------------------------
+	//--- COMANDOS ---------------------------------
+	//-----------------------------------------------	
+	
+	function set_estado($estado)
+	{
+		$this->_estado = $estado;
+		$this->_ef->set_estado($estado['valor']);
+	}	
+	
+	function set_visible($visible)
+	{
+		$this->_datos['inicial'] = $visible;
+	}	
+	
+	function set_schema($schema)
+	{
+		$this->_schema = $schema;
+	}
+	
+	function cargar_estado_post()
+	{
+		$this->_estado = array();		
+		if ($this->tiene_condicion()) {
+			if (isset($_POST[$this->_id_form_cond])) {
+				$condicion = $_POST[$this->_id_form_cond];
+				if (! isset($this->_condiciones[$condicion])) {
+					throw new toba_error("La condicion '$condicion' no es una condicion válida");
+				}
+				$this->_estado['condicion'] = $condicion;
+			}
+		}
+		$this->_ef->cargar_estado_post();			
+		$this->_estado['valor'] = $this->_ef->get_estado();
+		
+	}	
+	
+	//-----------------------------------------------
+	//--- CONSULTAS ---------------------------------
+	//-----------------------------------------------
+	
 	function get_id_form()
 	{
 		return $this->_padre->get_id_form();
@@ -30,10 +78,11 @@ abstract class toba_filtro_columna
 		return $this->_padre->get_tab_index();
 	}
 	
-	function set_visible($visible)
+	function es_obligatorio()
 	{
-		$this->_datos['inicial'] = $visible;
+		return $this->_ef->es_obligatorio();
 	}
+	
 	
 	function es_visible()
 	{
@@ -61,27 +110,13 @@ abstract class toba_filtro_columna
 			return $this->_schema.'.';
 		}
 	}
-	
-	function set_schema($schema)
-	{
-		$this->_schema = $schema;
-	}
-	
+
 	function get_etiqueta()
 	{
 		return $this->_datos['etiqueta'];
 	}
 
-	function get_consumo_javascript()
-	{
-		return $this->_ef->get_consumo_javascript();
-	}
-	
-	function crear_objeto_js()
-	{
-		return $this->_ef->crear_objeto_js();
-	}
-	
+
 	function validar_estado()
 	{
 		return $this->_ef->validar_estado();
@@ -110,29 +145,6 @@ abstract class toba_filtro_columna
 		}
 	}
 	
-	function set_estado($estado)
-	{
-		$this->_estado = $estado;
-		$this->_ef->set_estado($estado['valor']);
-	}	
-	
-	function cargar_estado_post()
-	{
-		$this->_estado = array();		
-		if ($this->tiene_condicion()) {
-			if (isset($_POST[$this->_id_form_cond])) {
-				$condicion = $_POST[$this->_id_form_cond];
-				if (! isset($this->_condiciones[$condicion])) {
-					throw new toba_error("La condicion '$condicion' no es una condicion válida");
-				}
-				$this->_estado['condicion'] = $condicion;
-			}
-		}
-		$this->_ef->cargar_estado_post();			
-		$this->_estado['valor'] = $this->_ef->get_estado();
-		
-	}	
-	
 	function get_where()
 	{
 		if (isset($this->_estado)) {
@@ -153,20 +165,10 @@ abstract class toba_filtro_columna
 		}
 	}
 	
-	function get_html_valor()
-	{
-		echo $this->_ef->get_input();
-	}	
-	
-	function get_objeto_js_ef($id)
-	{
-		return $this->_padre->get_objeto_js_ef($id);
-	}
-	
-	function get_objeto_js()
-	{
-		return $this->_padre->get_objeto_js();
-	}
+
+	//-----------------------------------------------
+	//--- SALIDA HTML  ------------------------------
+	//-----------------------------------------------
 	
 	function get_html_condicion()
 	{
@@ -183,6 +185,59 @@ abstract class toba_filtro_columna
 		return $html;
 	}	
 	
+	function get_html_valor()
+	{
+		echo $this->_ef->get_input();
+	}
+
+	function get_html_etiqueta()
+	{
+		$html = '';
+		$marca ='';		
+        if ($this->_ef->es_obligatorio()) {
+    	        $estilo = 'ei-filtro-ml-etiq-oblig';
+				$marca = '(*)';
+    	} else {
+            $estilo = 'ei-filtro-ml-etiq';
+	    }
+		$desc='';
+		$desc = $this->_datos['descripcion'];
+		if ($desc !=""){
+			$desc = toba_parser_ayuda::parsear($desc);
+			$desc = toba_recurso::imagen_toba("descripcion.gif",true,null,null,$desc);
+		}
+		$id_ef = $this->_ef->get_id_form();					
+		$editor = '';		
+		//$editor = $this->generar_vinculo_editor($ef);
+		$etiqueta = $this->get_etiqueta();
+		$html .= "<label for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		return $html;
+	}
+		
+	
+	//-----------------------------------------------
+	//--- JAVASCRIPT   ------------------------------
+	//-----------------------------------------------
+
+	function get_objeto_js_ef($id)
+	{
+		return $this->_padre->get_objeto_js_ef($id);
+	}
+	
+	function get_objeto_js()
+	{
+		return $this->_padre->get_objeto_js();
+	}
+		
+	function get_consumo_javascript()
+	{
+		return $this->_ef->get_consumo_javascript();
+	}
+	
+	function crear_objeto_js()
+	{
+		return $this->_ef->crear_objeto_js();
+	}	
 }
 
 ?>

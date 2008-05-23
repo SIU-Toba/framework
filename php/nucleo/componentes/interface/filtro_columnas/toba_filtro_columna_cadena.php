@@ -14,10 +14,15 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 	function ini()
 	{
 		$parametros = $this->_datos;
-		$parametros['edit_tamano'] = 18;
-		$parametros['edit_maximo'] = 255;
+		if (! isset($parametros['edit_tamano'])) {
+			$parametros['edit_tamano'] = 18;
+		}
+		if (! isset($parametros['edit_maximo'])) {
+			$parametros['edit_maximo'] = 255;
+		}
+		$obligatorio = array($this->_datos['obligatorio'], false);		
 		$this->_ef = new toba_ef_editable($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
-											null, null, false, $parametros);
+											null, null, $obligatorio, $parametros);
 	}
 
 

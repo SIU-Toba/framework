@@ -1,4 +1,6 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
+
 class ci_ei_filtro_ml extends toba_ci
 {
 	protected $s__datos;

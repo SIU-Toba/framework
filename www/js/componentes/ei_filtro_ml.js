@@ -66,6 +66,10 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		return this._efs[id];
 	};
 	
+	ei_filtro_ml.prototype.get_valores_maestros = function(id_ef) {
+		return [];
+	}
+	
 
 	//---Submit 
 	ei_filtro_ml.prototype.submit = function() {
@@ -86,7 +90,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 						}
 						this._efs[id_ef].submit();
 						this._efs[id_ef].sin_fila();
-					}					
+					}
 					this._efs[id_ef].submit();
 					filas_con_datos.push(id_ef);
 				}

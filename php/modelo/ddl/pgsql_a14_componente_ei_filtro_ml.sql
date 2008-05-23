@@ -66,11 +66,13 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 	nombre								varchar(255)	NOT NULL,
 	etiqueta							varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
+	obligatorio             			smallint       	NOT NULL DEFAULT 0,
 	inicial								smallint		NOT NULL DEFAULT 0,		
 	orden								smallint		NOT NULL DEFAULT 0,
-	
 	opciones_es_multiple				smallint		NULL,
-	opciones_ef						varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
+	opciones_ef							varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
+	
+	-- Parametros de los efs
 	carga_metodo						varchar(100)	NULL,	-- carga ci
 	carga_clase							varchar(100)	NULL,	-- carga estatico
 	carga_include						varchar(255)	NULL,

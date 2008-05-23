@@ -245,7 +245,7 @@ padding-left:4px;
 	margin-right: 4px;
 	margin-top: 3px;	
 }
-.ei-form-etiq-oblig {
+.ei-form-etiq-oblig, .ei-filtro-ml-etiq-oblig {
 	font-weight: bold;
 }
 
