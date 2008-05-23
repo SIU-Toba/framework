@@ -76,7 +76,7 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 				}
 				$desde = toba::db()->quote($desde);
 				$hasta = toba::db()->quote($hasta);
-				return '('.$this->get_schema().
+				return '('.$this->get_alias_tabla().
 						$this->get_nombre().' BETWEEN '.
 						$desde.$casting." AND ".$hasta.$casting.')';
 			}

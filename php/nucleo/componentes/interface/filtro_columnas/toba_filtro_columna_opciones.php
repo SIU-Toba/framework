@@ -33,7 +33,7 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 		} elseif (isset($this->_estado['valor']) && is_array($this->_estado['valor'])) {
 			$opciones = toba::db()->quote($this->_estado['valor']);
 			$valor = '('.implode(", ", $opciones).')';
-			return $this->get_schema().$this->get_nombre(). ' IN '.$valor;
+			return $this->get_alias_tabla().$this->get_nombre(). ' IN '.$valor;
 		}
 	}
 	

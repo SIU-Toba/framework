@@ -45,7 +45,7 @@ ef.prototype.constructor = ef;
 	};
 	
 	/**
-	 * Retorna el id de este elemento definido en el editor
+	 * Retorna verdadero si el ef tiene algún valor cargado
 	 * @type boolean
 	 */	
 	ef.prototype.tiene_estado = function() {

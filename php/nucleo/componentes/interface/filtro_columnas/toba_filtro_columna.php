@@ -11,7 +11,6 @@ abstract class toba_filtro_columna
 	protected $_padre;
 	protected $_id_form_cond;
 	protected $_estado = null;	
-	protected $_schema;
 	protected $_condiciones = array();
 	
 	function __construct($datos, $padre) 
@@ -42,9 +41,9 @@ abstract class toba_filtro_columna
 		$this->_datos['inicial'] = $visible;
 	}	
 	
-	function set_schema($schema)
+	function set_alias_tabla($alias_tabla)
 	{
-		$this->_schema = $schema;
+		$this->_datos['alias_tabla'] = $alias_tabla;
 	}
 	
 	function cargar_estado_post()
@@ -104,10 +103,10 @@ abstract class toba_filtro_columna
 		return $this->_ef;
 	}
 	
-	function get_schema()
+	function get_alias_tabla()
 	{
-		if (isset($this->_schema)) {
-			return $this->_schema.'.';
+		if (isset($this->_datos['alias_tabla'])) {
+			return $this->_datos['alias_tabla'].'.';
 		}
 	}
 
@@ -160,7 +159,7 @@ abstract class toba_filtro_columna
 				$casting = $this->_condiciones[$id]['casting'];
 			}
 			$valor = toba::db()->quote($pre.trim($this->_estado['valor']).$post);
-			return $this->get_schema().$this->get_nombre().$casting.' '.$operador_sql.' '.
+			return $this->get_alias_tabla().$this->get_nombre().$casting.' '.$operador_sql.' '.
 						$valor.$casting;
 		}
 	}
