@@ -533,6 +533,45 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		return self::dir_base() . '/' . self::info_bases;
 	}
 	
+	//-- Archivo de configuracion de alias
+
+	function publicar()
+	{
+		if (! $this->esta_publicado()) {
+			$this->cargar_info_ini();
+			if (isset($this->ini_instalacion['url'])) {
+				$url = $this->ini_instalacion['url'];
+			} else {
+				$url = 'toba_'.self::get_version_actual()->get_string_partes();
+			}
+			self::crear_archivo_apache($url);
+			foreach ($this->get_lista_instancias() as $instancia) {
+				$this->get_instancia($instancia)->crear_alias_proyectos();
+			}			
+		}
+	}
+	
+	function despublicar()
+	{
+		if ($this->esta_publicado()) {
+			$archivo = $this->get_archivo_alias_apache();
+			file_put_contents($archivo, '');
+		}
+	}
+	
+	function esta_publicado()
+	{
+		$archivo = $this->get_archivo_alias_apache();
+		if (! file_exists($archivo)) {
+			return false;
+		}
+		if (trim(file_get_contents($archivo)) == '') {
+			return false;
+		}
+		return true;
+	}	
+	
+	
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones -------------------------
 	//------------------------------------------------------------------------

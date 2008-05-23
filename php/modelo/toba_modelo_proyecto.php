@@ -1345,8 +1345,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$sql = array();
 		foreach ($perfil_acceso as $id_grupo) {
-			$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+			//TODO: Cambiar		
+			/*
+				Comentado porque no funcionaba la instalacion, cambió la forma en que se guarda el perfil de datos en relacion al usuario
+				$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
 						VALUES ('$proyecto','$usuario','$id_grupo','$perfil_datos');";
+				
+			*/
+				$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
+						VALUES ('$proyecto','$usuario','$id_grupo');";
+			
 		}
 				// Decide un PA por defecto para el proyecto
 		if(isset($id_grupo) && $set_previsualizacion && isset($url)) {

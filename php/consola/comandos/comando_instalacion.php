@@ -62,13 +62,9 @@ class comando_instalacion extends comando_toba
 		}
 
 		//--- Borra la instalacion anterior??
-		if ( ! toba_modelo_instalacion::existe_info_basica() ) {
-			$forzar_instalacion = true;
-		} else {
-			$forzar_instalacion = ! $this->consola->dialogo_simple("Ya existe una instalación anterior desea conservarla ?");
-			if ($forzar_instalacion) {
-				toba_modelo_instalacion::borrar_directorio();
-			}
+		$forzar_instalacion = true;		
+		if (toba_modelo_instalacion::existe_info_basica() ) {
+			toba_modelo_instalacion::borrar_directorio();
 		}
 		//--- Crea la INSTALACION		
 		if ($forzar_instalacion) {
@@ -357,6 +353,32 @@ class comando_instalacion extends comando_toba
 		//$this->consola->lista($versiones, "Migraciones disponibles");
 		//$this->consola->dialogo_simple("");		
 		$instalacion->migrar_rango_versiones($desde, $hasta, $recursivo);
+	}		
+	
+	/**
+	* Incluye en el archivo toba.conf las configuraciones de alias definidas en instalacion.ini e instancia.ini
+	*/
+	function opcion__publicar()
+	{
+		if (! $this->get_instalacion()->esta_publicado()) {
+			$this->get_instalacion()->publicar();
+			$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
+		} else {
+			throw new toba_error("La instalación ya se encuentra publicada. Debe despublicarla primero");
+		}
+	}	
+	
+	/**
+	* Quita del archivo toba.conf los alias de la instalacion y de los proyectos
+	*/
+	function opcion__despublicar()
+	{
+		if ($this->get_instalacion()->esta_publicado()) {
+			$this->get_instalacion()->despublicar();
+			$this->consola->mensaje('OK. Debe reiniciar el servidor web para que los cambios tengan efecto');
+		} else {
+			throw new toba_error("La instalación no se encuentra actualmente publicada.");
+		}
 	}		
 	
 	//-------------------------------------------------------------
