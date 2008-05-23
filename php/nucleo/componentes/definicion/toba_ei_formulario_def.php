@@ -21,7 +21,9 @@ class toba_ei_formulario_def extends toba_ei_def
 		$sql["_info_formulario"]['sql'] = "SELECT	auto_reset as	auto_reset,						
 										ancho 						as ancho,
 										ancho_etiqueta				as ancho_etiqueta,
-										expandir_descripcion		as expandir_descripcion
+										expandir_descripcion		as expandir_descripcion,
+										no_imprimir_efs_sin_estado	as no_imprimir_efs_sin_estado,
+										resaltar_efs_con_estado		as resaltar_efs_con_estado
 								FROM	apex_objeto_ut_formulario
 								WHERE	objeto_ut_formulario_proyecto='$proyecto'";
 		if ( isset($componente) ) {

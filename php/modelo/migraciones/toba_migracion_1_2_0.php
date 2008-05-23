@@ -66,6 +66,29 @@ class toba_migracion_1_2_0 extends toba_migracion
 		}
 		//throw new toba_error('no');
 	}
+	
+	/**
+	 * El ei_filtro pasa a ser un formulario con un par de campos seteados
+	 */
+	function proyecto__migrar_filtro_viejo()
+	{
+		//-- Todos los actuales filtros, se les pone un par de flags en el form.
+		$sql = "
+			UPDATE apex_objeto_ut_formulario SET no_imprimir_efs_sin_estado = 1, resaltar_efs_con_estado = 1
+			FROM  apex_objeto
+			WHERE 
+					apex_objeto_ut_formulario.objeto_ut_formulario			= apex_objeto.objeto
+				AND apex_objeto_ut_formulario.objeto_ut_formulario_proyecto = apex_objeto.proyecto
+				AND apex_objeto.clase='toba_ei_filtro' 
+				AND apex_objeto_ut_formulario.objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'
+		";
+		$this->elemento->get_db()->ejecutar($sql);
+		
+		//-- Se cambia la clase
+		$sql = "UPDATE apex_objeto SET clase='toba_ei_formulario' WHERE clase='toba_ei_filtro' AND proyecto = '{$this->elemento->get_id()}'";
+		$this->elemento->get_db()->ejecutar($sql);
+		
+	}
 }
 
 ?>
