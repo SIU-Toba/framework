@@ -3,6 +3,15 @@ class ci_ei_filtro_ml extends toba_ci
 {
 	protected $s__datos;
 	
+	function get_opciones()
+	{
+		return array(
+			array('clave' => 'opcion_a', 'valor'=> 'Opción A'),
+			array('clave' => 'opcion_b', 'valor'=> 'Opción B'),
+			array('clave' => 'opcion_c', 'valor'=> 'Opción C')
+		);
+	}
+	
 	function evt__filtro__actualizar($datos)
 	{
 		$this->s__datos = $datos;

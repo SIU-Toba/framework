@@ -636,6 +636,11 @@ abstract class toba_ei extends toba_componente
 	 */
 	protected function extender_objeto_js()
 	{}
+	
+	function get_objeto_js()
+	{
+		return $this->objeto_js;
+	}	
 
 	/**
 	 * Termina la construcción del objeto javscript asociado al componente

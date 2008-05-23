@@ -39,7 +39,16 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
+			this._efs[id_ef].validar();
 			this.cambio_condicion(id_ef);
+			//-- Si es compuesto 
+			if (in_array(id_ef, this._compuestos)) {
+				//Inicia la fila extra
+				this._efs[id_ef].ir_a_fila('extra');
+				this._efs[id_ef].iniciar(id_ef, this);
+				//this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true, true)');
+				this._efs[id_ef].sin_fila();
+			}
 		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
@@ -70,6 +79,14 @@ function ei_filtro_ml(id, instancia, input_submit) {
 				var id_ef = this._filas[id_fila];
 				//Si el ef no tiene valor, no se envia al server
 				if (this._efs[id_ef].tiene_estado()) {
+					//Si la columna es compuesta, chequear que ambos efs tengan estado y uno sea menor que el otro
+					if (in_array(id_ef, this._compuestos) && this.get_condicion(id_ef) == 'entre') {				
+						if (! this._efs[id_ef].ir_a_fila('extra').tiene_estado()) {
+							continue;	//Si el segundo ef no tiene estado, no seguir
+						}
+						this._efs[id_ef].submit();
+						this._efs[id_ef].sin_fila();
+					}					
 					this._efs[id_ef].submit();
 					filas_con_datos.push(id_ef);
 				}
@@ -161,8 +178,8 @@ function ei_filtro_ml(id, instancia, input_submit) {
 			if (existe_funcion(this, validacion_particular)) {
 				ok = this[validacion_particular]();		
 			}
-			for (id_ef in this._cols) {
-				ok = this.validar_ef(id_ef) && ok;
+			for (id_fila in this._filas) {
+				ok = this.validar_ef(this._filas[id_fila]) && ok;
 			}
 		} else {
 			this.resetear_errores();
@@ -176,14 +193,23 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.validar_ef = function(id_ef, es_online) {
+	ei_filtro_ml.prototype.validar_ef = function(id_ef, es_online, es_extra) {
+		if (! isset(es_extra)) {
+			es_extra = false;
+		}
 		var ef = this._efs[id_ef];
+		if (es_extra) {
+			ef.ir_a_fila('extra');
+		}
 		var validacion_particular = 'evt__' + id_ef + '__validar';
 		var ok = ef.validar();
 		if (existe_funcion(this, validacion_particular)) {
 			ok = this[validacion_particular]() && ok;
 		}
 		this.set_ef_valido(ef, ok, es_online);
+		if (es_extra) {
+			ef.sin_fila();
+		}
 		return ok;
 	};
 	
@@ -222,10 +248,10 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	//---Procesamiento 
 	
 	ei_filtro_ml.prototype.cambio_condicion = function (columna) {
-		var id_combo = 'col_' + this._input_submit + columna;
-		var combo = $(id_combo);
-		if (combo && in_array(columna, this._compuestos)) {
-			if (combo.value == 'entre') {
+		if (in_array(columna, this._compuestos)) {
+			var id_combo = 'col_' + this._input_submit + columna;			
+			var condicion = this.get_condicion(columna);
+			if (condicion == 'entre') {
 				$(id_combo + '_ef_extra').style.display = '';
 				$(id_combo + '_label_extra').style.display = '';
 			} else {
@@ -234,6 +260,11 @@ function ei_filtro_ml(id, instancia, input_submit) {
 			}
 		}
 	}
+	
+	ei_filtro_ml.prototype.get_condicion = function (columna) {
+		var id_combo = 'col_' + this._input_submit + columna;
+		return $(id_combo).value;
+	}	
 	
 	/**
 	 *	@private

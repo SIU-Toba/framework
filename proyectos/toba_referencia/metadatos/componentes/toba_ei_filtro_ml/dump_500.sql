@@ -87,16 +87,18 @@ INSERT INTO apex_objeto_ei_filtro_ml (objeto_ei_filtro_ml_proyecto, objeto_ei_fi
 ------------------------------------------------------------
 -- apex_objeto_ei_filtro_ml_col
 ------------------------------------------------------------
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, edit_maximo, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'0', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'booleano', --tipo
 	'campo_booleano', --nombre
 	'Booleano', --etiqueta
-	NULL, --descripcion
+	'Ayuda del booleano', --descripcion
 	'1', --inicial
 	'4', --orden
+	NULL, --opciones_es_multiple
+	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -106,7 +108,6 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_no_seteado
-	NULL, --edit_maximo
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -115,7 +116,7 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, edit_maximo, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'1', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
@@ -123,8 +124,10 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'campo_cadena', --nombre
 	'Cadena', --etiqueta
 	NULL, --descripcion
-	'2', --inicial
+	'1', --inicial
 	'1', --orden
+	NULL, --opciones_es_multiple
+	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -134,7 +137,6 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_no_seteado
-	NULL, --edit_maximo
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -143,16 +145,18 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, edit_maximo, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'2', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'fecha', --tipo
 	'campo_fecha', --nombre
 	'Fecha', --etiqueta
-	NULL, --descripcion
-	'3', --inicial
+	'Ayuda de la fecha', --descripcion
+	'1', --inicial
 	'3', --orden
+	NULL, --opciones_es_multiple
+	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -162,7 +166,6 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_no_seteado
-	NULL, --edit_maximo
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable
@@ -171,7 +174,7 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, edit_maximo, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'3', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
@@ -179,8 +182,10 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'campo_numero', --nombre
 	'Número', --etiqueta
 	NULL, --descripcion
-	'4', --inicial
+	'1', --inicial
 	'2', --orden
+	NULL, --opciones_es_multiple
+	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -190,7 +195,123 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_no_seteado
-	NULL, --edit_maximo
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL  --popup_carga_desc_include
+);
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+	'4', --objeto_ei_filtro_ml_col
+	'500', --objeto_ei_filtro_ml
+	'toba_referencia', --objeto_ei_filtro_ml_proyecto
+	'opciones', --tipo
+	'campo_combo', --nombre
+	'Opcion - Combo', --etiqueta
+	NULL, --descripcion
+	'1', --inicial
+	'5', --orden
+	'0', --opciones_es_multiple
+	'ef_combo', --opciones_ef
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	'a/A,b/B,c/C', --carga_lista
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_no_seteado
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL  --popup_carga_desc_include
+);
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+	'5', --objeto_ei_filtro_ml_col
+	'500', --objeto_ei_filtro_ml
+	'toba_referencia', --objeto_ei_filtro_ml_proyecto
+	'opciones', --tipo
+	'campo_radio', --nombre
+	'Opcion - Radio', --etiqueta
+	'Opciones con radio', --descripcion
+	'1', --inicial
+	'6', --orden
+	'0', --opciones_es_multiple
+	'ef_radio', --opciones_ef
+	'get_opciones', --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_lista
+	'clave', --carga_col_clave
+	'valor', --carga_col_desc
+	NULL, --carga_no_seteado
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	'
+'  --popup_carga_desc_include
+);
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+	'6', --objeto_ei_filtro_ml_col
+	'500', --objeto_ei_filtro_ml
+	'toba_referencia', --objeto_ei_filtro_ml_proyecto
+	'opciones', --tipo
+	'campo_popup', --nombre
+	'Opcion - Popup', --etiqueta
+	'Opciones con popup', --descripcion
+	'1', --inicial
+	'7', --orden
+	'0', --opciones_es_multiple
+	'ef_popup', --opciones_ef
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_lista
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_no_seteado
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL  --popup_carga_desc_include
+);
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+	'7', --objeto_ei_filtro_ml_col
+	'500', --objeto_ei_filtro_ml
+	'toba_referencia', --objeto_ei_filtro_ml_proyecto
+	'opciones', --tipo
+	'campo_multi_check', --nombre
+	'Opciones - Check', --etiqueta
+	NULL, --descripcion
+	'1', --inicial
+	'8', --orden
+	'1', --opciones_es_multiple
+	'ef_multi_seleccion_check', --opciones_ef
+	'get_opciones', --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_lista
+	'clave', --carga_col_clave
+	'valor', --carga_col_desc
+	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
 	NULL, --popup_editable

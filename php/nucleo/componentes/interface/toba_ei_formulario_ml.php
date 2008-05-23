@@ -849,7 +849,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 			$this->cargar_registro_a_ef($fila, $dato);
 			//--- Se cargan las opciones de los efs de esta fila
-			$this->cargar_opciones_efs();
+			$this->_carga_opciones_ef->cargar();
 			echo "\n<!-- FILA $fila -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$fila' onclick='{$this->objeto_js}.seleccionar($fila)'>";
 			if ($this->_info_formulario['filas_numerar']) {
@@ -1016,8 +1016,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$filas = toba_js::arreglo($this->_filas_enviadas);
 		$en_linea = toba_js::bool($this->_info_formulario['filas_agregar_online']);
 		$seleccionada = (isset($this->_clave_seleccionada)) ? $this->_clave_seleccionada : "null";
-		$esclavos = toba_js::arreglo($this->_cascadas_esclavos, true, false);
-		$maestros = toba_js::arreglo($this->_cascadas_maestros, true, false);		
+		$esclavos = toba_js::arreglo($this->_carga_opciones_ef->get_cascadas_esclavos(), true, false);
+		$maestros = toba_js::arreglo($this->_carga_opciones_ef->get_cascadas_maestros(), true, false);		
 		$id = toba_js::arreglo($this->_id, false);
 		$invalidos = toba_js::arreglo($this->_efs_invalidos, true);
 		echo $identado."window.{$this->objeto_js} = new ei_formulario_ml";
@@ -1092,7 +1092,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach ($this->_ordenes as $fila) {
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
-				$this->cargar_opciones_efs();
+				$this->_carga_opciones_ef->cargar();
 				echo "<tr class='ei-ml-fila'>";
 				if ($this->_info_formulario['filas_numerar']) {
 					echo "<td class='ef-numero'>\n".($a + 1)."</td>\n";
@@ -1136,7 +1136,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach ($this->_ordenes as $fila) {
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
-				$this->cargar_opciones_efs();
+				$this->_carga_opciones_ef->cargar();
 				
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
@@ -1191,7 +1191,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			foreach ($this->_ordenes as $fila) {
 				$dato = $this->_datos[$fila];
 				$this->cargar_registro_a_ef($fila, $dato);
-				$this->cargar_opciones_efs();
+				$this->_carga_opciones_ef->cargar();
 				$datos_temp = array();
 				foreach ($this->_lista_ef_post as $ef){
 					$this->_elemento_formulario[$ef]->ir_a_fila($fila);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Clase que brinda las puertas de acceso al núcleo de toba
  * @package Centrales
@@ -522,6 +523,7 @@ class toba_nucleo
 			'toba_boton'							=> 'nucleo/componentes/interface/botones/toba_boton.php',
 			'toba_evento_usuario'					=> 'nucleo/componentes/interface/botones/toba_evento_usuario.php',
 			'toba_tab'								=> 'nucleo/componentes/interface/botones/toba_tab.php',
+			'toba_carga_opciones_ef'				=> 'nucleo/componentes/interface/efs/toba_carga_opciones_ef.php',
 			'toba_ef'								=> 'nucleo/componentes/interface/efs/toba_ef.php',
 			'toba_ef_combo'							=> 'nucleo/componentes/interface/efs/toba_ef_combo.php',
 			'toba_ef_radio'							=> 'nucleo/componentes/interface/efs/toba_ef_combo.php',
@@ -562,8 +564,10 @@ class toba_nucleo
 			'toba_filtro_columna'					=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna.php',
 			'toba_filtro_columna_cadena'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_cadena.php',
 			'toba_filtro_columna_booleano'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_booleano.php',
+			'toba_filtro_columna_compuesta'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_compuesta.php',			
 			'toba_filtro_columna_fecha'				=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_fecha.php',
 			'toba_filtro_columna_numero'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_numero.php',
+			'toba_filtro_columna_opciones'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_opciones.php',
  			//-----------------------------------------------------------------------------------------------
 			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
 			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',

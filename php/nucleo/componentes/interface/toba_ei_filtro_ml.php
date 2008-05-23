@@ -14,6 +14,7 @@ class toba_ei_filtro_ml extends toba_ei
 	protected $_colspan;
 	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
+	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
 	
 	/**
 	 * Método interno para iniciar el componente una vez construido
@@ -31,10 +32,20 @@ class toba_ei_filtro_ml extends toba_ei
 	protected function crear_columnas()
 	{
 		$this->_columnas = array();
+		$efs = array();
+		$parametros_efs = array();
 		foreach ($this->_info_filtro_col as $fila) {
 			$clase = 'toba_filtro_columna_'.$fila['tipo'];
 			$this->_columnas[$fila['nombre']] = new $clase($fila, $this);
+			$efs[$fila['nombre']] = $this->_columnas[$fila['nombre']]->get_ef();
+			$parametros = $fila;
+			if (isset($parametros['carga_sql']) && !isset($parametros['carga_fuente'])) {
+				$parametros['carga_fuente']=$this->_info['fuente'];
+			}			
+			$parametros_efs[$fila['nombre']] = $parametros;
 		}
+		//--- Se registran las cascadas porque la validacion de efs puede hacer uso de la relacion maestro-esclavo
+		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $efs, $parametros_efs);
 	}
 	
 	/**
@@ -101,8 +112,8 @@ class toba_ei_filtro_ml extends toba_ei
 				$this->_columnas[$fila]->cargar_estado_post();
 				$validacion = $this->_columnas[$fila]->validar_estado();
 				if ($validacion !== true) {
-					$etiqueta = $columna->get_etiqueta();
-					throw new toba_error_validacion($etiqueta.': '.$validacion, $columna);
+					$etiqueta = $this->_columnas[$fila]->get_etiqueta();
+					throw new toba_error_validacion($etiqueta.': '.$validacion, $this->_columnas[$fila]);
 				}
 				$this->_columnas_datos[$fila] = $this->_columnas[$fila];
 			}
@@ -203,6 +214,7 @@ class toba_ei_filtro_ml extends toba_ei
 	 */
 	protected function generar_formulario()
 	{
+		$this->_carga_opciones_ef->cargar();		
 		$this->_rango_tabs = toba_manejador_tabs::instancia()->reservar(100);		
 		$this->_colspan = 0;
 	

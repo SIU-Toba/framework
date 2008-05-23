@@ -5,7 +5,7 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 	
 	function ini()
 	{
-		$parametros = array();
+		$parametros = $this->_datos;
 		$parametros['selec_cant_columnas'] = 2;	
 		$parametros['estado_defecto'] = 1;
 		$this->_ef = new toba_ef_radio($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
@@ -22,12 +22,6 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 		return false;
 	}
 
-	function set_estado($estado)
-	{
-		$this->_estado = $estado;
-		$this->_ef->set_estado($estado['valor']);
-	}	
-	
 	function cargar_estado_post()
 	{
 		$this->_ef->cargar_estado_post();			

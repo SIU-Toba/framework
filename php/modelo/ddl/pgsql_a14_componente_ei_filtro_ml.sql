@@ -69,6 +69,8 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 	inicial								smallint		NOT NULL DEFAULT 0,		
 	orden								smallint		NOT NULL DEFAULT 0,
 	
+	opciones_es_multiple				smallint		NULL,
+	opciones_ef						varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
 	carga_metodo						varchar(100)	NULL,	-- carga ci
 	carga_clase							varchar(100)	NULL,	-- carga estatico
 	carga_include						varchar(255)	NULL,
@@ -78,7 +80,6 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 	carga_col_clave						varchar(100)	NULL,
 	carga_col_desc						varchar(100)	NULL,
 	carga_no_seteado					varchar(100)	NULL,	
-	edit_maximo							smallint		NULL,
 	popup_item							varchar(60)		NULL,
 	popup_proyecto						varchar(15)		NULL,
 	popup_editable						smallint		NULL,
@@ -87,6 +88,8 @@ CREATE TABLE apex_objeto_ei_filtro_ml_col
 	popup_carga_desc_clase				varchar(100)	NULL,
 	popup_carga_desc_include			varchar(255)	NULL,
 	CONSTRAINT  "apex_ei_filtro_ml_col_pk" PRIMARY KEY ("objeto_ei_filtro_ml_col", "objeto_ei_filtro_ml", "objeto_ei_filtro_ml_proyecto"),
-	CONSTRAINT  "apex_ei_filtro_ml_col_fk_padre" FOREIGN KEY ("objeto_ei_filtro_ml", "objeto_ei_filtro_ml_proyecto") REFERENCES "apex_objeto_ei_filtro_ml" ("objeto_ei_filtro_ml", "objeto_ei_filtro_ml_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT  "apex_ei_filtro_ml_col_fk_padre" FOREIGN KEY ("objeto_ei_filtro_ml", "objeto_ei_filtro_ml_proyecto") REFERENCES "apex_objeto_ei_filtro_ml" ("objeto_ei_filtro_ml", "objeto_ei_filtro_ml_proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_filtro_ml_col_fk_tipo" FOREIGN KEY ("tipo") REFERENCES "apex_objeto_ei_filtro_ml_tipo_col" ("tipo_col") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE,
+	CONSTRAINT  "apex_ei_filtro_ml_col_fk_ef" FOREIGN KEY ("opciones_ef") REFERENCES "apex_elemento_formulario" ("elemento_formulario") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################

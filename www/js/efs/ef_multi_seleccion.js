@@ -66,6 +66,15 @@ ef_multi_seleccion.prototype.constructor = ef_multi_seleccion;
 		this.seleccionar_todo(false);
 	};	
 	
+	/**
+	 * Retorna verdadero si el ef tiene algún valor cargado
+	 * @type boolean
+	 */	
+	ef.prototype.tiene_estado = function() {
+		return this.get_estado().length;	
+	};
+	
+	
 // ########################################################################################################
 // ########################################################################################################
 
