@@ -100,7 +100,7 @@ class toba_componente_def implements toba_componente_definicion
 		if ( isset($componente) ) {
 			$sql['sql'] .= "	AND		d.objeto_consumidor='$componente' ";	
 		}
-		$sql['sql'] .= "			ORDER BY identificador;";
+		$sql['sql'] .= "			ORDER BY d.orden;";
 		$sql['registros']='n';
 		$sql['obligatorio']=false;
 		return $sql;

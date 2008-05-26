@@ -229,20 +229,26 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function orden_sincronizacion()
 	{
-		$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
-		$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
-		$parciales = $sorter->sort($grafo);
-		$ordenes = array();
-		for ($i =0; $i<count($parciales) ; $i++) {
-			for ($j=0; $j<count($parciales[$i]); $j++) {
-				$ordenes[] = $parciales[$i][$j]->getData();
+		if ($this->_info_estructura['sinc_orden_automatico']) {
+			//-- Se construye el orden topológico
+			$sorter = new Structures_Graph_Manipulator_TopologicalSorter();
+			$grafo = self::grafo_relaciones($this->_info_dependencias, $this->_info_relaciones);
+			$parciales = $sorter->sort($grafo);
+			$ordenes = array();
+			for ($i =0; $i<count($parciales) ; $i++) {
+				for ($j=0; $j<count($parciales[$i]); $j++) {
+					$ordenes[] = $parciales[$i][$j]->getData();
+				}
 			}
+			$tablas = array();
+			foreach ($ordenes as $orden) {
+				$tablas[$orden['identificador']] = $this->_dependencias[$orden['identificador']];
+			}
+			return $tablas;
+		} else {
+			//-- Se toma el orden natural en el cual se definieron las tablas
+			return $this->_dependencias;
 		}
-		$tablas = array();
-		foreach ($ordenes as $orden) {
-			$tablas[$orden['identificador']] = $this->_dependencias[$orden['identificador']];
-		}
-		return $tablas;
 	}
 
 	/**
@@ -390,6 +396,9 @@ class toba_datos_relacion extends toba_componente
 				$clase = "toba_ap_relacion_db";
 			}
 			$this->_persistidor = new $clase( $this );
+			if ($this->_info_estructura['sinc_susp_constraints']) {
+				$this->_persistidor->retrasar_constraints();
+			}
 		}
 		return $this->_persistidor;
 	}
