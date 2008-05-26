@@ -26,7 +26,9 @@ class toba_datos_relacion_def extends toba_componente_def
 													debug		,	
 													ap			,	
 													ap_clase	,	
-													ap_archivo		
+													ap_archivo	,
+													sinc_susp_constraints,
+													sinc_orden_automatico	
 										 FROM		apex_objeto_datos_rel
 										 WHERE		proyecto='$proyecto' ";	
 		if ( isset($componente) ) {
