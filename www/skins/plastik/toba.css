@@ -101,11 +101,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-top: 1px solid #868789;
 	padding:4px;
 }
-.ei-cuadro-cc-fondo, .ei-ml-grilla, .ei-filtro-ml-grilla {
+.ei-cuadro-cc-fondo, .ei-ml-grilla, .ei-filtro-grilla {
 	border:1px solid #868789;
 	padding-left:1px;
 }
-.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-ml-columna {
+.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
 	padding-top: 2px;
 	padding-bottom:2px;
 	padding-left: 6px;
@@ -114,7 +114,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	font-family: Tahoma;
 	text-align:left;
 }
-.ei-cuadro-fila-sel, .ei-ml-fila-selec, .ei-filtro-ml-fila-selec {
+.ei-cuadro-fila-sel, .ei-ml-fila-selec, .ei-filtro-fila-selec {
 	padding-top:2px;
 	padding-bottom:2px;
 	background-color: #7579BA !important;
@@ -125,10 +125,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-impar {
 	background-color:#ffffff;
 }
-.ei-cuadro-celda-par, .ei-ml-fila, .ei-filtro-ml-fila {
+.ei-cuadro-celda-par, .ei-ml-fila, .ei-filtro-fila {
 	background-color: #eeeff2;
 }
-.ei-ml-fila, .ei-filtro-ml-fila {
+.ei-ml-fila, .ei-filtro-fila {
 	border-top: 1px solid #eeeeee;
 	padding-top:2px;
 	padding-bottom:2px;	

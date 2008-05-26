@@ -55,7 +55,7 @@ body {
 .ei-form-base td {
 	border: 1px solid #000000;
 }
-.ei-form-etiq, .ei-filtro-ml-etiq {
+.ei-form-etiq, .ei-filtro-etiq {
 	font-weight: bold;
 	vertical-align: middle;
 	color: #000000;

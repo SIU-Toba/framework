@@ -435,14 +435,10 @@ class toba_nucleo
 			'toba_ei_formulario_ml'					=> 'nucleo/componentes/interface/toba_ei_formulario_ml.php',
 			'toba_ei_formulario_ml_def'				=> 'nucleo/componentes/definicion/toba_ei_formulario_ml_def.php',
 			'toba_ei_formulario_ml_info'			=> 'modelo/info/componentes/toba_ei_formulario_ml_info.php',
-			//- FILTRO -
+			//- filtro -
 			'toba_ei_filtro'						=> 'nucleo/componentes/interface/toba_ei_filtro.php',
 			'toba_ei_filtro_def'					=> 'nucleo/componentes/definicion/toba_ei_filtro_def.php',
-			'toba_ei_filtro_info'					=> 'modelo/info/componentes/toba_ei_filtro_info.php',
-			//- FILTRO_ML -
-			'toba_ei_filtro_ml'						=> 'nucleo/componentes/interface/toba_ei_filtro_ml.php',
-			'toba_ei_filtro_ml_def'					=> 'nucleo/componentes/definicion/toba_ei_filtro_ml_def.php',
-			'toba_ei_filtro_ml_info'				=> 'modelo/info/componentes/toba_ei_filtro_ml_info.php',
+			'toba_ei_filtro_info'				=> 'modelo/info/componentes/toba_ei_filtro_info.php',
 			
 			//- CUADRO -
 			'toba_ei_cuadro'						=> 'nucleo/componentes/interface/toba_ei_cuadro.php',

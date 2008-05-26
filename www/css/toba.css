@@ -245,7 +245,7 @@ padding-left:4px;
 	margin-right: 4px;
 	margin-top: 3px;	
 }
-.ei-form-etiq-oblig, .ei-filtro-ml-etiq-oblig {
+.ei-form-etiq-oblig, .ei-filtro-etiq-oblig {
 	font-weight: bold;
 }
 
@@ -254,7 +254,7 @@ padding-left:4px;
 **************************/
 
 .ei-ml-base {}
-.ei-ml-grilla, .ei-filtro-ml-grilla {
+.ei-ml-grilla, .ei-filtro-grilla {
 	padding: 0;
 	margin: 0;		
 	BORDER-COLLAPSE: collapse;
@@ -270,7 +270,7 @@ padding-left:4px;
 	padding:0;
 	margin:1px;
 }
-.ei-ml-columna, .ei-filtro-ml-columna {
+.ei-ml-columna, .ei-filtro-columna {
 	padding: 2px 2px 4px 2px;
 	vertical-align: bottom;
 	text-align: center;
@@ -279,7 +279,7 @@ padding-left:4px;
 .ei-ml-columna-evt {
 	text-align: right;
 }
-.ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-ml-fila, .ei-filtro-ml-fila-selec {
+.ei-ml-fila, .ei-ml-fila-selec, .ei-filtro-fila, .ei-filtro-fila-selec {
 	padding: 0px 3px 0px 3px;
 	margin: 0px;
 }
@@ -297,17 +297,17 @@ padding-left:4px;
 }
 
 /*****************
-	Filtro ML
+	filtro
 ******************/
-.ei-filtro-ml-valor {
+.ei-filtro-valor {
 }
-.ei-filtro-ml-cond {
+.ei-filtro-cond {
 	text-align: right;
 }
-.ei-filtro-ml-col {
+.ei-filtro-col {
 	white-space: nowrap;
 }
-.ei-filtro-ml-borrar {
+.ei-filtro-borrar {
 	text-align: right;
 }
 
@@ -538,9 +538,9 @@ padding-left:4px;
 
 
 /*************************
-		filtro-ml
+		filtro
 ***************************/
-.ei-filtro-ml-botonera {
+.ei-filtro-botonera {
 	text-align:left;
 	padding-top: 15px;
 }

@@ -12,4 +12,4 @@ INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, cl
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '12', 'toba_datos_relacion', 'toba_datos_tabla');
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '13', 'toba_cn', 'toba_datos_relacion');
 INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '14', 'toba_cn', 'toba_datos_tabla');
-INSERT INTO apex_clase_relacion (proyecto, clase_relacion, clase_contenedora, clase_contenida) VALUES ('toba', '1000001', 'toba_ci', 'toba_ei_filtro_ml');
+

@@ -1,14 +1,14 @@
 <?php
-class toba_ei_filtro_ml_info extends toba_ei_info
+class toba_ei_filtro_info extends toba_ei_info
 {
 	static function get_tipo_abreviado()
 	{
-		return "Filtro ML";		
+		return "filtro";		
 	}
 
 	function get_nombre_instancia_abreviado()
 	{
-		return "filtro_ml";	
+		return "filtro";	
 	}	
 
 	//---------------------------------------------------------------------	

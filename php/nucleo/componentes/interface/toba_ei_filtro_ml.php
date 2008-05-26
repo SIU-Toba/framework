@@ -3,14 +3,14 @@
 /**
  * @package Componentes
  * @subpackage Eis
- * @jsdoc ei_formulario ei_filtro_ml
- * @wiki Referencia/Objetos/ei_filtro_ml
+ * @jsdoc ei_formulario ei_filtro
+ * @wiki Referencia/Objetos/ei_filtro
  */
-class toba_ei_filtro_ml extends toba_ei
+class toba_ei_filtro extends toba_ei
 {
 	protected $_columnas;
 	protected $_columnas_datos;
-	protected $_estilos = 'ei-base ei-filtro-ml-base';	
+	protected $_estilos = 'ei-base ei-filtro-base';	
 	protected $_colspan;
 	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
 	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
@@ -193,7 +193,7 @@ class toba_ei_filtro_ml extends toba_ei
 	function generar_html()
 	{
 		//Genero la interface
-		echo "\n\n<!-- ***************** Inicio EI FILTRO ML (	".	$this->_id[1] ." )	***********	-->\n\n";
+		echo "\n\n<!-- ***************** Inicio EI filtro (	".	$this->_id[1] ." )	***********	-->\n\n";
 		//Campo de sincroniacion con JS
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit.'_implicito', '');
@@ -204,7 +204,7 @@ class toba_ei_filtro_ml extends toba_ei
 		echo "<table class='{$this->_estilos}' $ancho>";
 		echo "<tr><td style='padding:0'>";
 		echo $this->get_html_barra_editor();
-		$this->generar_html_barra_sup(null, true,"ei-filtro-ml-barra-sup");
+		$this->generar_html_barra_sup(null, true,"ei-filtro-barra-sup");
 		$this->generar_formulario();
 		echo "</td></tr>\n";
 		echo "</table>\n";
@@ -231,7 +231,7 @@ class toba_ei_filtro_ml extends toba_ei
 		//Campo de comunicacion con JS
 		echo toba_form::hidden("{$this->objeto_js}_listafilas",'');
 		echo toba_form::hidden("{$this->objeto_js}__parametros", '');		
-		echo "<div class='ei-cuerpo ei-filtro-ml-base' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
+		echo "<div class='ei-cuerpo ei-filtro-base' id='cuerpo_{$this->objeto_js}' style='$estilo'>";
 		$this->generar_layout($ancho);
 		echo "\n</div>";
 	}	
@@ -239,7 +239,7 @@ class toba_ei_filtro_ml extends toba_ei
 	protected function generar_layout($ancho)
 	{
 		//Botonera de agregar y ordenar
-		echo "<table id='{$this->objeto_js}_grilla' class='ei-filtro-ml-grilla' style='width: $ancho' >\n";
+		echo "<table id='{$this->objeto_js}_grilla' class='ei-filtro-grilla' style='width: $ancho' >\n";
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
@@ -252,7 +252,7 @@ class toba_ei_filtro_ml extends toba_ei
 	 */
 	protected function generar_botonera_manejo_filas()
 	{
-		echo "<div class='ei-filtro-ml-botonera'>";
+		echo "<div class='ei-filtro-botonera'>";
 		$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
 		$opciones = array(apex_ef_no_seteado => '');
 		foreach ($this->_columnas as $columna) {
@@ -278,7 +278,7 @@ class toba_ei_filtro_ml extends toba_ei
 			if ($i == count($this->_etiquetas)) {
 				$colspan = 'colspan=2';
 			}
-			echo "<th class='ei-filtro-ml-columna' $colspan>\n";
+			echo "<th class='ei-filtro-columna' $colspan>\n";
 			echo $etiqueta;
 			echo "</th>\n";
 			$i++;
@@ -293,7 +293,7 @@ class toba_ei_filtro_ml extends toba_ei
 	protected function generar_formulario_cuerpo()
 	{
 		echo "<tbody>";			
-		$estilo_celda = "ei-filtro-ml-fila";
+		$estilo_celda = "ei-filtro-fila";
 		foreach ($this->_columnas as $nombre_col => $columna) {
 			if ($columna->es_visible()) {
 				$estilo_fila = "";
@@ -302,12 +302,12 @@ class toba_ei_filtro_ml extends toba_ei
 			}
 			echo "\n<!-- FILA $nombre_col -->\n\n";			
 			echo "<tr $estilo_fila id='{$this->objeto_js}_fila$nombre_col' onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\")'>";
-			echo "<td class='$estilo_celda ei-filtro-ml-col'>";
+			echo "<td class='$estilo_celda ei-filtro-col'>";
 			echo $columna->get_html_etiqueta();
 			echo "</td>\n";
 			
 			//-- Condición
-			echo "<td class='$estilo_celda ei-filtro-ml-cond'>";
+			echo "<td class='$estilo_celda ei-filtro-cond'>";
 			if ($columna->tiene_condicion()) {				
 				echo $columna->get_html_condicion();
 			} else {
@@ -317,12 +317,12 @@ class toba_ei_filtro_ml extends toba_ei
 			echo "</td>\n";
 			
 			//-- Valor			
-			echo "<td class='$estilo_celda ei-filtro-ml-valor'>";
+			echo "<td class='$estilo_celda ei-filtro-valor'>";
 			$columna->get_html_valor();
 			echo "</td>\n";
 
 			//-- Borrar a nivel de fila
-			echo "<td class='$estilo_celda ei-filtro-ml-borrar'>";
+			echo "<td class='$estilo_celda ei-filtro-borrar'>";
 			//Si es obligatoria no se puede borrar
 			if (! $columna->es_obligatorio()) {
 				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
@@ -348,7 +348,7 @@ class toba_ei_filtro_ml extends toba_ei
 	{
 		$identado = toba_js::instancia()->identado();
 		$id = toba_js::arreglo($this->_id, false);
-		echo $identado."window.{$this->objeto_js} = new ei_filtro_ml($id, '{$this->objeto_js}', '{$this->_submit}');\n";
+		echo $identado."window.{$this->objeto_js} = new ei_filtro($id, '{$this->objeto_js}', '{$this->_submit}');\n";
 		foreach ($this->_columnas as $columna) {
 			$visible = $columna->es_visible() ? 'true' : 'false';
 			$compuesto = $columna->es_compuesto() ? 'true' : 'false';
@@ -378,7 +378,7 @@ class toba_ei_filtro_ml extends toba_ei
 	function get_consumo_javascript()
 	{
 		$consumo = parent::get_consumo_javascript();
-		$consumo[] = 'componentes/ei_filtro_ml';
+		$consumo[] = 'componentes/ei_filtro';
 		//Busco las	dependencias
 		foreach ($this->_columnas as $columna){
 			$temp	= $columna->get_consumo_javascript();

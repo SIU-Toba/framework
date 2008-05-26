@@ -14,7 +14,7 @@ class toba_db_tablas_nucleo
   6 => 'apex_clase',
   7 => 'apex_clase_relacion',
   8 => 'apex_msg',
-  9 => 'apex_objeto_ei_filtro_ml_tipo_col',
+  9 => 'apex_objeto_ei_filtro_tipo_col',
 );
 	}
 
@@ -593,10 +593,10 @@ class toba_db_tablas_nucleo
 );
 	}
 
-	static function apex_objeto_ei_filtro_ml_tipo_col()
+	static function apex_objeto_ei_filtro_tipo_col()
 	{
 		return array (
-  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'archivo' => 'pgsql_a14_componente_ei_filtro.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'tipo_col',

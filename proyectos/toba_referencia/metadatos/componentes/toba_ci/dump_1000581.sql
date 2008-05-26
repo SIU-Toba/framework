@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
-	'ci_ei_filtro_ml', --subclase
-	'componentes/ei_filtro_ml/ci_ei_filtro_ml.php', --subclase_archivo
+	'ci_ei_filtro', --subclase
+	'componentes/ei_filtro/ci_ei_filtro.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Nuevo Filtro', --nombre

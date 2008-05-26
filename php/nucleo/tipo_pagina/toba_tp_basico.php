@@ -75,7 +75,7 @@ class toba_tp_basico extends toba_tipo_pagina
 			.barra-superior {
 				background: url(". toba_recurso::imagen_skin('barra-sup.gif') .") repeat-x top;
 			}
-			.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-ml-columna {
+			.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
 				background: url(". toba_recurso::imagen_skin('cuadro-col-titulo.gif') .") repeat-x top;
 			}
 			.ei-barra-sup, .ci-botonera {

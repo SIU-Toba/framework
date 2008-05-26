@@ -21,8 +21,8 @@ class toba_db_tablas_componente
   13 => 'apex_objeto_ut_formulario',
   14 => 'apex_objeto_ei_formulario_ef',
   15 => 'apex_objeto_esquema',
-  16 => 'apex_objeto_ei_filtro_ml',
-  17 => 'apex_objeto_ei_filtro_ml_col',
+  16 => 'apex_objeto_ei_filtro',
+  17 => 'apex_objeto_ei_filtro_col',
   18 => 'apex_objeto_db_registros',
   19 => 'apex_objeto_db_registros_col',
   20 => 'apex_objeto_db_registros_ext',
@@ -694,48 +694,48 @@ class toba_db_tablas_componente
 );
 	}
 
-	static function apex_objeto_ei_filtro_ml()
+	static function apex_objeto_ei_filtro()
 	{
 		return array (
-  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'archivo' => 'pgsql_a14_componente_ei_filtro.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_ei_filtro_ml_proyecto',
-  'dump_clave_componente' => 'objeto_ei_filtro_ml',
-  'dump_order_by' => 'objeto_ei_filtro_ml',
-  'dump_where' => '( objeto_ei_filtro_ml_proyecto = \\\'%%\\\' )',
+  'dump_clave_proyecto' => 'objeto_ei_filtro_proyecto',
+  'dump_clave_componente' => 'objeto_ei_filtro',
+  'dump_order_by' => 'objeto_ei_filtro',
+  'dump_where' => '( objeto_ei_filtro_proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
   'historica' => '0',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_ei_filtro_ml_proyecto',
-    1 => 'objeto_ei_filtro_ml',
+    0 => 'objeto_ei_filtro_proyecto',
+    1 => 'objeto_ei_filtro',
     2 => 'ancho',
   ),
 );
 	}
 
-	static function apex_objeto_ei_filtro_ml_col()
+	static function apex_objeto_ei_filtro_col()
 	{
 		return array (
-  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'archivo' => 'pgsql_a14_componente_ei_filtro.sql',
   'proyecto' => 'toba',
   'dump' => 'componente',
-  'dump_clave_proyecto' => 'objeto_ei_filtro_ml_proyecto',
-  'dump_clave_componente' => 'objeto_ei_filtro_ml',
-  'dump_order_by' => 'objeto_ei_filtro_ml_col',
-  'dump_where' => '( objeto_ei_filtro_ml_proyecto = \\\'%%\\\' )',
+  'dump_clave_proyecto' => 'objeto_ei_filtro_proyecto',
+  'dump_clave_componente' => 'objeto_ei_filtro',
+  'dump_order_by' => 'objeto_ei_filtro_col',
+  'dump_where' => '( objeto_ei_filtro_proyecto = \\\'%%\\\' )',
   'zona' => 'objeto',
   'desc' => '',
   'historica' => '0',
   'version' => '1.0',
   'columnas' => 
   array (
-    0 => 'objeto_ei_filtro_ml_col',
-    1 => 'objeto_ei_filtro_ml',
-    2 => 'objeto_ei_filtro_ml_proyecto',
+    0 => 'objeto_ei_filtro_col',
+    1 => 'objeto_ei_filtro',
+    2 => 'objeto_ei_filtro_proyecto',
     3 => 'tipo',
     4 => 'nombre',
     5 => 'alias_tabla',

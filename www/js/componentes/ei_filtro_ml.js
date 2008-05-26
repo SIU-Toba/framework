@@ -1,11 +1,11 @@
-ei_filtro_ml.prototype = new ei();
-ei_filtro_ml.prototype.constructor = ei_filtro_ml;
+ei_filtro.prototype = new ei();
+ei_filtro.prototype.constructor = ei_filtro;
 
 /**
  * @constructor
- * @phpdoc Componentes/Eis/toba_ei_filtro_ml toba_ei_filtro_ml
+ * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
  */
-function ei_filtro_ml(id, instancia, input_submit) {
+function ei_filtro(id, instancia, input_submit) {
 	this._id = id;
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
@@ -23,7 +23,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.agregar_ef  = function (ef, identificador, visible, compuesto) {
+	ei_filtro.prototype.agregar_ef  = function (ef, identificador, visible, compuesto) {
 		if (ef) {
 			this._efs[identificador] = ef;
 			if (visible) {
@@ -35,7 +35,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}
 	};
 	
-	ei_filtro_ml.prototype.iniciar = function () {
+	ei_filtro.prototype.iniciar = function () {
 		for (id_ef in this._efs) {
 			this._efs[id_ef].iniciar(id_ef, this);
 			this._efs[id_ef].cuando_cambia_valor(this._instancia + '.validar_ef("' + id_ef + '", true)');
@@ -62,17 +62,17 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 * Accede a la instancia de un ef especifico
 	 */
-	ei_filtro_ml.prototype.ef = function(id) {
+	ei_filtro.prototype.ef = function(id) {
 		return this._efs[id];
 	};
 	
-	ei_filtro_ml.prototype.get_valores_maestros = function(id_ef) {
+	ei_filtro.prototype.get_valores_maestros = function(id_ef) {
 		return [];
 	}
 	
 
 	//---Submit 
-	ei_filtro_ml.prototype.submit = function() {
+	ei_filtro.prototype.submit = function() {
 		if (this.controlador && !this.controlador.en_submit()) {
 			return this.controlador.submit();
 		}
@@ -104,7 +104,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	};
 
 	//Chequea si es posible realiza el submit de todos los objetos asociados	
-	ei_filtro_ml.prototype.puede_submit = function() {
+	ei_filtro.prototype.puede_submit = function() {
 		if(this._evento) //Si hay un evento seteado...
 		{
 			//- 1 - Hay que realizar las validaciones
@@ -125,16 +125,16 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * Elimina del formulario la fila actualmente seleccionada
 	 * El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual
 	 */
-	ei_filtro_ml.prototype.eliminar_seleccionada = function() {
+	ei_filtro.prototype.eliminar_seleccionada = function() {
 		var fila = this._seleccionada;
 		anterior = this.eliminar_fila(fila);
 		delete(this._seleccionada);
 	};
 	
-	ei_filtro_ml.prototype.eliminar_fila = function(fila) {
+	ei_filtro.prototype.eliminar_fila = function(fila) {
 			//'Elimina' la fila en el DOM
 		var id_fila = this._instancia + '_fila' + fila;
-		cambiar_clase(document.getElementById(id_fila).cells, 'ei-fitro-ml-fila', 'ei-filtro-ml-fila-selec');
+		cambiar_clase(document.getElementById(id_fila).cells, 'ei-fitro-ml-fila', 'ei-filtro-fila-selec');
 		$(id_fila).style.display = 'none';
 		
 		//Elimina la fila en la lista interna
@@ -152,7 +152,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	};
 	
 
-	ei_filtro_ml.prototype.crear_fila = function() {
+	ei_filtro.prototype.crear_fila = function() {
 		var input = $(this._instancia + '_nuevo');
 		var id = input.value;
 		input.selectedIndex = 0;
@@ -175,7 +175,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
 	 * Para validar efs especificos, definir el método <em>evt__idef__validar</em>
 	 */	
-	ei_filtro_ml.prototype.validar = function() {
+	ei_filtro.prototype.validar = function() {
 		var ok = true;
 		var validacion_particular = 'evt__validar_datos';
 		if(this._evento && this._evento.validar) {
@@ -197,7 +197,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.validar_ef = function(id_ef, es_online, es_extra) {
+	ei_filtro.prototype.validar_ef = function(id_ef, es_online, es_extra) {
 		if (! isset(es_extra)) {
 			es_extra = false;
 		}
@@ -225,7 +225,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * @param {boolean} es_valido 
 	 * @param {boolean} solo_online En caso que no sea valido sólo muestra la cruz al lado del campo y no un mensaje explícito
 	 */	
-	ei_filtro_ml.prototype.set_ef_valido = function(ef, es_valido, solo_online) {
+	ei_filtro.prototype.set_ef_valido = function(ef, es_valido, solo_online) {
 		if (!es_valido) {
 			if (! this._silencioso) {
 				ef.resaltar(ef.get_error());
@@ -239,7 +239,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}	
 	};
 	
-	ei_filtro_ml.prototype.resetear_errores = function() {
+	ei_filtro.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {
 			for (var id_ef in this._efs) {
 				if (! this._silencioso) {
@@ -251,7 +251,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 
 	//---Procesamiento 
 	
-	ei_filtro_ml.prototype.cambio_condicion = function (columna) {
+	ei_filtro.prototype.cambio_condicion = function (columna) {
 		if (in_array(columna, this._compuestos)) {
 			var id_combo = 'col_' + this._input_submit + columna;			
 			var condicion = this.get_condicion(columna);
@@ -265,7 +265,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 		}
 	}
 	
-	ei_filtro_ml.prototype.get_condicion = function (columna) {
+	ei_filtro.prototype.get_condicion = function (columna) {
 		var id_combo = 'col_' + this._input_submit + columna;
 		return $(id_combo).value;
 	}	
@@ -273,7 +273,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.procesar = function (id_ef, es_inicial) {
+	ei_filtro.prototype.procesar = function (id_ef, es_inicial) {
 		if (this.hay_procesamiento_particular_ef(id_ef)) {
 			return this['evt__' + id_ef + '__procesar'](es_inicial);	//Procesamiento particular, no hay proceso por defecto
 		}
@@ -283,7 +283,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * Hace reflexion sobre la clase en busqueda de extensiones	
 	 * @private
 	 */
-	ei_filtro_ml.prototype.agregar_procesamientos = function() {
+	ei_filtro.prototype.agregar_procesamientos = function() {
 		for (id_ef in this._efs) {
 			if (this.hay_procesamiento_particular_ef(id_ef)) {
 				this.agregar_procesamiento(id_ef);
@@ -294,7 +294,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 * @private
 	 */
-	ei_filtro_ml.prototype.agregar_procesamiento = function (id_ef) {
+	ei_filtro.prototype.agregar_procesamiento = function (id_ef) {
 		if (this._efs[id_ef]) {
 			this._efs_procesar[id_ef] = true;
 			var callback = this._instancia + '.procesar("' + id_ef + '")';
@@ -305,7 +305,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 * @private
 	 */
-	ei_filtro_ml.prototype.hay_procesamiento_particular_ef = function(id_ef) {
+	ei_filtro.prototype.hay_procesamiento_particular_ef = function(id_ef) {
 		return existe_funcion(this, 'evt__' + id_ef + '__procesar');
 	};	
 
@@ -314,7 +314,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 * Toma la fila seleccionada y le pone foco al primer ef que lo acepte
 	 */
-	ei_filtro_ml.prototype.refrescar_foco = function () {
+	ei_filtro.prototype.refrescar_foco = function () {
 		for (id_ef in this._efs) {
 			if (this._efs[id_ef].seleccionar()) {
 				break;
@@ -326,7 +326,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 *	@private
 	 */
-	ei_filtro_ml.prototype.refrescar_procesamientos = function (es_inicial) {
+	ei_filtro.prototype.refrescar_procesamientos = function (es_inicial) {
 		for (var id_ef in this._efs) {
 			if (this._efs_procesar[id_ef]) {
 				this.procesar(id_ef, es_inicial);
@@ -338,9 +338,9 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * Resalta la línea seleccionada 
 	 * @private
 	 */
-	ei_filtro_ml.prototype.refrescar_seleccion = function () {
+	ei_filtro.prototype.refrescar_seleccion = function () {
 		if (isset(this._seleccionada)) {
-			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-filtro-ml-fila-selec', 'ei-filtro-ml-fila');
+			cambiar_clase(document.getElementById(this._instancia + '_fila' + this._seleccionada).cells, 'ei-filtro-fila-selec', 'ei-filtro-fila');
 		}
 	};	
 	
@@ -348,7 +348,7 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	/**
 	 * Marca una fila como seleccionada, cambiando su color de fondo 
 	 */
-	ei_filtro_ml.prototype.seleccionar = function(fila) {
+	ei_filtro.prototype.seleccionar = function(fila) {
 		if  (fila != this._seleccionada) {
 			this.deseleccionar_actual();
 			this._seleccionada = fila;
@@ -360,12 +360,12 @@ function ei_filtro_ml(id, instancia, input_submit) {
 	 * Deselecciona cualquier seleccion anterior de fila
 	 * @see #seleccionar
 	 */
-	ei_filtro_ml.prototype.deseleccionar_actual = function() {
+	ei_filtro.prototype.deseleccionar_actual = function() {
 		if (isset(this._seleccionada)) {	//Deselecciona el anterior
 			var fila = document.getElementById(this._instancia + '_fila' + this._seleccionada);
-			cambiar_clase(fila.cells, 'ei-filtro-ml-fila', 'ei-filtro-ml-fila-selec');			
+			cambiar_clase(fila.cells, 'ei-filtro-fila', 'ei-filtro-fila-selec');			
 			delete(this._seleccionada);
 		}
 	};	
 
-toba.confirmar_inclusion('componentes/ei_filtro_ml');
+toba.confirmar_inclusion('componentes/ei_filtro');

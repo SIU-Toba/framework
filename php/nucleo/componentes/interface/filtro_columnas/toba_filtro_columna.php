@@ -194,10 +194,10 @@ abstract class toba_filtro_columna
 		$html = '';
 		$marca ='';		
         if ($this->_ef->es_obligatorio()) {
-    	        $estilo = 'ei-filtro-ml-etiq-oblig';
+    	        $estilo = 'ei-filtro-etiq-oblig';
 				$marca = '(*)';
     	} else {
-            $estilo = 'ei-filtro-ml-etiq';
+            $estilo = 'ei-filtro-etiq';
 	    }
 		$desc='';
 		$desc = $this->_datos['descripcion'];
