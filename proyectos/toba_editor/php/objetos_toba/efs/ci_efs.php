@@ -13,7 +13,8 @@ class ci_efs extends toba_ci
 	private $id_intermedio_efs;
 	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
 	protected $modificado = false;
-
+	protected $campo_clave = 'identificador';
+	
 	function get_tabla()
 	{
 		if (! isset($this->tabla)) {
@@ -35,7 +36,7 @@ class ci_efs extends toba_ci
 	*/	
 	function seleccionar_ef($id)
 	{
-		$id_interno = $this->get_tabla()->get_id_fila_condicion(array('identificador'=>$id));
+		$id_interno = $this->get_tabla()->get_id_fila_condicion(array($this->campo_clave=>$id));
 		if (count($id_interno) == 1) {
 			$this->evt__efs_lista__seleccion(current($id_interno));
 		} else {
@@ -62,8 +63,10 @@ class ci_efs extends toba_ci
 		} else {
 			$this->pantalla()->eliminar_evento('cancelar');
 			$this->pantalla()->eliminar_evento('aceptar');
-			$this->pantalla()->agregar_dep('efs_importar');
-			$this->dependencia('efs_importar')->colapsar();
+			if ($this->existe_dependencia('efs_importar')) {
+				$this->pantalla()->agregar_dep('efs_importar');
+				$this->dependencia('efs_importar')->colapsar();
+			}
 		}
 		if (! $this->hay_cascadas()) {
 			$this->dep('efs_lista')->eliminar_evento('mostrar_esquema');
@@ -108,8 +111,8 @@ class ci_efs extends toba_ci
 			unset($registros[$id][apex_ei_analisis_fila]);
 			switch($accion){
 				case "A":
-					//Por defecto el campo 'columnas' es igual a 'identificador'
-					$registros[$id]['columnas'] = $registros[$id]['identificador'];
+					//Por defecto el campo 'columnas' es igual a $this->campo_clave
+					$registros[$id]['columnas'] = $registros[$id][$this->campo_clave];
 					$this->id_intermedio_efs[$id] = $this->get_tabla()->nueva_fila($registros[$id]);
 					break;	
 				case "B":
@@ -117,11 +120,11 @@ class ci_efs extends toba_ci
 					break;	
 				case "M":
 					//---Si se cambia un identificador que estaba ligado con us columna se cambia tambien el valor de la columna
-					$anterior_id = $this->get_tabla()->get_fila_columna($id, 'identificador');
+					$anterior_id = $this->get_tabla()->get_fila_columna($id, $this->campo_clave);
 					$anterior_col = $this->get_tabla()->get_fila_columna($id, 'columnas');
-					if ($anterior_id != $registros[$id]['identificador']) {
+					if ($anterior_id != $registros[$id][$this->campo_clave]) {
 						if ($anterior_id == $anterior_col) {
-							$registros[$id]['columnas'] = $registros[$id]['identificador'];
+							$registros[$id]['columnas'] = $registros[$id][$this->campo_clave];
 						}
 					}
 					$this->get_tabla()->modificar_fila($id, $registros[$id]);
@@ -173,12 +176,12 @@ class ci_efs extends toba_ci
 	function conf__efs($form)
 	{
 		//--- Solo el ML tiene la propiedad totalizar
-		if ($this->controlador->get_clase_actual() != 'toba_ei_formulario_ml') {
+		if ($this->controlador->get_clase_actual() == 'toba_ei_formulario') {
 			$form->desactivar_efs(array('total'));
 		}
 		$this->s__seleccion_efs_anterior = $this->s__seleccion_efs;
 		$fila = $this->get_tabla()->get_fila($this->s__seleccion_efs_anterior);
-		$form->set_titulo('Propiedades del ef <em>'.$fila['identificador'].'</em>');		
+		$form->set_titulo('Propiedades del ef <em>'.$fila[$this->campo_clave].'</em>');		
 		return $fila;
 		
 	}
@@ -225,7 +228,7 @@ class ci_efs extends toba_ci
 		$posibles = array();
 		foreach ($filas as $clave => $datos) {
 			if ($clave != $this->s__seleccion_efs) {
-				$posibles[] = array($datos['identificador'], $datos['identificador']);
+				$posibles[] = array($datos[$this->campo_clave], $datos[$this->campo_clave]);
 			}
 		}
 		return $posibles;
@@ -454,11 +457,11 @@ class ci_efs extends toba_ci
 			$datos = $dt->exportar_datos_efs($datos['pk']);
 			foreach($datos as $ef){
 				try{
-					if (! $this->get_tabla()->existe_fila_condicion(array('identificador' => $ef['identificador']))) {
+					if (! $this->get_tabla()->existe_fila_condicion(array($this->campo_clave => $ef[$this->campo_clave]))) {
 						$this->get_tabla()->nueva_fila($ef);						
 					}
 				}catch(toba_error $e){
-					toba::notificacion()->agregar("Error agregando el EF '{$ef['identificador']}'. " . $e->getMessage());
+					toba::notificacion()->agregar("Error agregando el EF '{$ef[$this->campo_clave]}'. " . $e->getMessage());
 				}
 			}
 		}
@@ -483,7 +486,7 @@ class ci_efs extends toba_ci
 			$maestros = isset($ef['carga_maestros']) ? trim($ef['carga_maestros']) : '';
 			if ($maestros != '') {
 				foreach (explode(',', $maestros) as $dep) {
-					$diagrama .= $dep.'->'.$ef['identificador'].";\n";
+					$diagrama .= $dep.'->'.$ef[$this->campo_clave].";\n";
 				}
 			}
 		}

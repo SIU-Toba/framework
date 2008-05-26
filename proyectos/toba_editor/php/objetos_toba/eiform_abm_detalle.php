@@ -44,10 +44,12 @@ class eiform_abm_detalle extends toba_ei_formulario_ml
 		//Si cambia el obligatorio muestra el relajado por oculto
 		echo "
 			{$this->objeto_js}.evt__obligatorio__procesar = function(inicial, fila_actual) {
-				if (this.ef('obligatorio').ir_a_fila(fila_actual).chequeado()) {
-					this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).activar();
-				} else {
-					this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).desactivar();
+				if (isset(this.ef('oculto_relaja_obligatorio'))) {
+					if (this.ef('obligatorio').ir_a_fila(fila_actual).chequeado()) {
+						this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).activar();
+					} else {
+						this.ef('oculto_relaja_obligatorio').ir_a_fila(fila_actual).desactivar();
+					}
 				}
 			}
 		";		

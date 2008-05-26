@@ -10,6 +10,11 @@ class toba_filtro_columna_fecha extends toba_filtro_columna_compuesta
 			'entre' 		=> array('etiqueta' => 'entre',			'operador_sql' => 'BETWEEN',	'pre' => '', 	'post' => '', 	'casting' => '::date'),
 	);
 
+	static function get_clase_ef()
+	{
+		return 'ef_editable_fecha';
+	}		
+	
 	function ini()
 	{
 		$parametros = $this->_datos;

@@ -1,5 +1,5 @@
 --********************************************************************************************
---**************************************  FILTRO ML  *****************************************
+--**************************************  FILTRO *****************************************
 --********************************************************************************************
 
 CREATE TABLE apex_objeto_ei_filtro_tipo_col
@@ -61,7 +61,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 (
 	objeto_ei_filtro_col				int4			DEFAULT nextval('"apex_objeto_ei_filtro_col_seq"'::text) NOT NULL, 
 	objeto_ei_filtro            		int4			NOT NULL,
-	objeto_ei_filtro_proyecto    	varchar(15)		NOT NULL,
+	objeto_ei_filtro_proyecto    		varchar(15)		NOT NULL,
 	tipo								varchar(30)		NOT NULL,
 	nombre								varchar(255)	NOT NULL,
 	alias_tabla							varchar(255)	NULL,
@@ -70,6 +70,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	obligatorio             			smallint       	NOT NULL DEFAULT 0,
 	inicial								smallint		NOT NULL DEFAULT 0,		
 	orden								smallint		NOT NULL DEFAULT 0,
+	estado_defecto						varchar(255)	NULL,
 	opciones_es_multiple				smallint		NULL,
 	opciones_ef							varchar(50)		NULL,	--ef de tipo combo,radio,muti_seleccion_check, etc
 	

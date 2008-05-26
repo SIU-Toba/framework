@@ -11,6 +11,11 @@ class toba_filtro_columna_cadena extends toba_filtro_columna
 			'es_distinto_de' => array('etiqueta' => 'es distinto de',	'operador_sql' => '!=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
 	);
 	
+	static function get_clase_ef()
+	{
+		return 'ef_editable';
+	}	
+	
 	function ini()
 	{
 		$parametros = $this->_datos;

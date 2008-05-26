@@ -3,6 +3,11 @@
 class toba_filtro_columna_booleano extends toba_filtro_columna
 {
 	
+	static function get_clase_ef()
+	{
+		return 'ef_radio';
+	}
+	
 	function ini()
 	{
 		$parametros = $this->_datos;

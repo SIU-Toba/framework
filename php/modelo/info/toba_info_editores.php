@@ -947,6 +947,18 @@ class toba_info_editores
 	      ";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	function get_filtro_tipo_columnas()
+	{
+		$proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT tipo_col, descripcion
+					FROM apex_objeto_ei_filtro_tipo_col
+					WHERE 
+							proyecto = 'toba'
+						OR	proyecto = '$proyecto'
+	    ";
+	    return toba_contexto_info::get_db()->consultar($sql);
+	}
 
 	//-------------------------------------------------
 	//---------------- LOGS ---------------------------

@@ -13,6 +13,11 @@ class toba_filtro_columna_numero extends toba_filtro_columna_compuesta
 			'entre'				=> array('etiqueta' => 'entre',					'operador_sql' => '<=',			'pre' => '', 	'post' => '', 	'casting' => ''),
 	);
 	
+	static function get_clase_ef()
+	{
+		return 'ef_editable_numero';
+	}		
+	
 	function ini()
 	{
 		$parametros = $this->_datos;

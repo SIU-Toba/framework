@@ -7,7 +7,7 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 			'es_igual_a' 	=> array('etiqueta' => 'es igual a',		'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
 			'es_distinto_de' => array('etiqueta' => 'es distinto de',	'operador_sql' => '!=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
 	);
-
+	
 	function ini()
 	{
 		$parametros = $this->_datos;
