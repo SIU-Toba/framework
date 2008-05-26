@@ -677,7 +677,7 @@ class toba_db_tablas_proyecto
 	static function apex_objeto_ei_filtro_tipo_col()
 	{
 		return array (
-  'archivo' => 'pgsql_a14_componente_ei_filtro.sql',
+  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'tipo_col',
