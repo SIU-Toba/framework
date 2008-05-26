@@ -788,6 +788,9 @@ class toba_ei_formulario extends toba_ei
 			$clase .= ' ei-form-fila-oculta';
 			$estilo_nodo = "display:none";
 		}
+		if ($this->_info_formulario['resaltar_efs_con_estado'] && $this->_elemento_formulario[$ef]->seleccionado()) {
+			$clase .= ' ei-form-fila-filtrada';
+		}			
 		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
 		if ($this->_elemento_formulario[$ef]->tiene_etiqueta()) {
 			$this->generar_etiqueta_ef($ef);
@@ -931,6 +934,22 @@ class toba_ei_formulario extends toba_ei
 		$salida->subtitulo( $this->get_titulo() );
 		echo "<table class='{$this->_estilos}' width='{$this->_info_formulario['ancho']}'>";
 		foreach ( $this->_lista_ef_post as $ef){
+			
+			if ($this->_info_formulario['no_imprimir_efs_sin_estado']) {
+				//Los combos que no tienen valor establecido no se imprimen
+				if( $this->_elemento_formulario[$ef] instanceof toba_ef_combo ) {
+					if ( $this->_elemento_formulario[$ef]->es_estado_no_seleccionado()) {
+						continue;	
+					}
+				}
+				//Los editables vacios no se imprimen
+				if( $this->_elemento_formulario[$ef] instanceof toba_ef_editable ) {
+					if (strlen(trim($this->_elemento_formulario[$ef]->get_estado()) == '')) {
+						continue;	
+					}
+				}			
+			}				
+			
 			echo "<tr><td class='ei-form-etiq'>\n";
 			echo $this->_elemento_formulario[$ef]->get_etiqueta();
 			echo "</td><td class='ei-form-valor'>\n";

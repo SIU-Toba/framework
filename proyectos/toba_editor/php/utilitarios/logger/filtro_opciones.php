@@ -1,6 +1,6 @@
 <?php
 
-class filtro_opciones extends toba_ei_filtro
+class filtro_opciones extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

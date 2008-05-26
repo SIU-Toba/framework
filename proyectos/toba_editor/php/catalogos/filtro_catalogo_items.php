@@ -1,6 +1,6 @@
 <?php
 
-class filtro_catalogo_items extends toba_ei_filtro
+class filtro_catalogo_items extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{

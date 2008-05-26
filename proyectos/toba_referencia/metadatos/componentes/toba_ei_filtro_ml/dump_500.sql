@@ -87,12 +87,13 @@ INSERT INTO apex_objeto_ei_filtro_ml (objeto_ei_filtro_ml_proyecto, objeto_ei_fi
 ------------------------------------------------------------
 -- apex_objeto_ei_filtro_ml_col
 ------------------------------------------------------------
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'0', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'booleano', --tipo
 	'campo_booleano', --nombre
+	NULL, --alias_tabla
 	'Booleano', --etiqueta
 	'Ayuda del booleano', --descripcion
 	'0', --obligatorio
@@ -117,12 +118,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'1', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'cadena', --tipo
 	'campo_cadena', --nombre
+	NULL, --alias_tabla
 	'Cadena', --etiqueta
 	NULL, --descripcion
 	'1', --obligatorio
@@ -147,12 +149,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'2', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'fecha', --tipo
 	'campo_fecha', --nombre
+	NULL, --alias_tabla
 	'Fecha', --etiqueta
 	'Ayuda de la fecha', --descripcion
 	'0', --obligatorio
@@ -177,12 +180,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'3', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'numero', --tipo
 	'campo_numero', --nombre
+	NULL, --alias_tabla
 	'Número', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -207,12 +211,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'4', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_combo', --nombre
+	NULL, --alias_tabla
 	'Opcion - Combo', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -237,12 +242,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'5', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_radio', --nombre
+	NULL, --alias_tabla
 	'Opcion - Radio', --etiqueta
 	'Opciones con radio', --descripcion
 	'0', --obligatorio
@@ -268,12 +274,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	'
 '  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'6', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_popup', --nombre
+	NULL, --alias_tabla
 	'Opcion - Popup', --etiqueta
 	'Opciones con popup', --descripcion
 	'0', --obligatorio
@@ -298,12 +305,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'7', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_multi_check', --nombre
+	NULL, --alias_tabla
 	'Opciones - Check', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -328,12 +336,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'8', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_multi_lista', --nombre
+	NULL, --alias_tabla
 	'Opciones - Lista', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
@@ -358,12 +367,13 @@ INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_fil
 	NULL, --popup_carga_desc_clase
 	NULL  --popup_carga_desc_include
 );
-INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
+INSERT INTO apex_objeto_ei_filtro_ml_col (objeto_ei_filtro_ml_col, objeto_ei_filtro_ml, objeto_ei_filtro_ml_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'9', --objeto_ei_filtro_ml_col
 	'500', --objeto_ei_filtro_ml
 	'toba_referencia', --objeto_ei_filtro_ml_proyecto
 	'opciones', --tipo
 	'campo_multi_doble', --nombre
+	NULL, --alias_tabla
 	'Opciones - Doble', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio

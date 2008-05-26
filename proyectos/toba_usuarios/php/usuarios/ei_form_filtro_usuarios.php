@@ -1,5 +1,5 @@
 <?php 
-class ei_form_filtro_usuarios extends toba_ei_filtro
+class ei_form_filtro_usuarios extends toba_ei_formulario
 {
 	
 	function generar_layout()

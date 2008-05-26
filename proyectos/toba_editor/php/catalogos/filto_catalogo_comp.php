@@ -1,5 +1,5 @@
 <?php 
-class filto_catalogo_comp extends toba_ei_filtro
+class filto_catalogo_comp extends toba_ei_formulario
 {
 
 	//-----------------------------------------------------------------------------------

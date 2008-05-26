@@ -1,5 +1,5 @@
 <?php 
-class filtro_auditoria extends toba_ei_filtro
+class filtro_auditoria extends toba_ei_formulario
 {
 	function generar_layout()
 	{

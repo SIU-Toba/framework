@@ -82,13 +82,21 @@ class toba_migracion_1_2_0 extends toba_migracion
 				AND apex_objeto.clase='toba_ei_filtro' 
 				AND apex_objeto_ut_formulario.objeto_ut_formulario_proyecto = '{$this->elemento->get_id()}'
 		";
-		$this->elemento->get_db()->ejecutar($sql);
+		$cant = $this->elemento->get_db()->ejecutar($sql);
 		
 		//-- Se cambia la clase
 		$sql = "UPDATE apex_objeto SET clase='toba_ei_formulario' WHERE clase='toba_ei_filtro' AND proyecto = '{$this->elemento->get_id()}'";
-		$this->elemento->get_db()->ejecutar($sql);
+		$cant += $this->elemento->get_db()->ejecutar($sql);
+
+		//-- Se cambian las extensiones de código
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion("|extends\s*toba_ei_filtro|" ,"extends toba_ei_formulario");          
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
+		$editor->procesar_archivos($archivos);		
 		
+		return $cant;
 	}
+	
 }
 
 ?>

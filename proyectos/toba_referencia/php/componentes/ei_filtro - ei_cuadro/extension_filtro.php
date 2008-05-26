@@ -1,7 +1,7 @@
 <?php
 php_referencia::instancia()->agregar(__FILE__);
 
-class extension_filtro extends toba_ei_filtro
+class extension_filtro extends toba_ei_formulario
 {
 	function extender_objeto_js()
 	{
