@@ -366,6 +366,6 @@ function ei_filtro(id, instancia, input_submit) {
 			cambiar_clase(fila.cells, 'ei-filtro-fila', 'ei-filtro-fila-selec');			
 			delete(this._seleccionada);
 		}
-	};	
+	};
 
 toba.confirmar_inclusion('componentes/ei_filtro');
