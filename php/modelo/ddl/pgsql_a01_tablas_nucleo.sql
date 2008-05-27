@@ -196,7 +196,9 @@ CREATE TABLE apex_elemento_formulario
 	parametros						varchar			NULL,	--	Lista de los parametros	que recibe este EF
 	proyecto						varchar(15)		NOT NULL,
 	exclusivo_toba					smallint		NULL,
-	obsoleto						smallint		NULL,
+	obsoleto						smallint		NULL DEFAULT 0,
+	es_seleccion					smallint		NULL DEFAULT 0,
+	es_seleccion_multiple			smallint		NULL DEFAULT 0,
 	CONSTRAINT	"apex_elform_pk" PRIMARY KEY ("elemento_formulario"),
 	CONSTRAINT	"apex_elform_fk_padre" FOREIGN KEY ("padre") REFERENCES "apex_elemento_formulario"	("elemento_formulario") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_elform_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

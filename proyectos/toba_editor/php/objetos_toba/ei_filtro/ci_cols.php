@@ -12,8 +12,13 @@ class ci_cols extends ci_efs
 	function get_tipo_ef()
 	{
 		$tipo = $this->get_tabla()->get_fila_columna( $this->s__seleccion_efs, "tipo");
+		$datos = $this->get_tabla()->get_fila($this->s__seleccion_efs);
 		$metodo = "get_clase_ef";
-		return call_user_func(array('toba_filtro_columna_'.$tipo, $metodo));		
+		if ($tipo !== 'opciones') {
+			return call_user_func(array('toba_filtro_columna_'.$datos['tipo'], $metodo));
+		} else {
+			return $datos['opciones_ef'];
+		}
 	}	
 	
 	

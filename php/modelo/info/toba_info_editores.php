@@ -948,6 +948,11 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
+	
+	//-------------------------------------------------
+	//---------------- ABM de ei_filtro ---------------------------
+	//-------------------------------------------------
+	
 	function get_filtro_tipo_columnas()
 	{
 		$proyecto = toba_contexto_info::get_proyecto();
@@ -960,6 +965,26 @@ class toba_info_editores
 	    return toba_contexto_info::get_db()->consultar($sql);
 	}
 
+	
+	function get_filtro_efs($tipo_col, $es_multiple)
+	{
+		if ($tipo_col == 'opciones') {
+			$multiple = ($es_multiple == '1')? ' 1' : '0';
+			$sql = "
+				SELECT elemento_formulario, descripcion
+				FROM apex_elemento_formulario
+				WHERE 
+						obsoleto=0
+					AND es_seleccion = 1
+					AND es_seleccion_multiple = $multiple
+				ORDER BY 2
+			";
+			toba::logger()->debug($sql);
+			toba::logger()->var_dump($es_multiple);
+			return toba_contexto_info::get_db()->consultar($sql);
+		}
+	}
+	
 	//-------------------------------------------------
 	//---------------- LOGS ---------------------------
 	//-------------------------------------------------

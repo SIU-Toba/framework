@@ -132,7 +132,7 @@ class toba_ef_popup extends toba_ef_editable
 		$extra = " tabindex='$tab'";		
 		if(!isset($this->estado)) $this->estado="";	
 		if ($this->descripcion_estado == '') {
-			$this->descripcion_estado = $this->estado;			
+			$this->descripcion_estado = $this->estado;		
 		}
 		$js = '';	
 		$r = '';

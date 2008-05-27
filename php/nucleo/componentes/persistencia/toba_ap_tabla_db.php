@@ -706,8 +706,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 			$pdo = toba::db($this->_fuente)->get_pdo();
 			$stmt = $pdo->prepare($sql);
 			$i = 1;
-			foreach ($binarios as $binario) {
-				$stmt->bindParam($i, $binario, PDO::PARAM_LOB);
+			foreach (array_keys($binarios) as $clave) {
+				$stmt->bindParam($i, $binarios[$clave], PDO::PARAM_LOB);
 				$i++;
 			}
 			$stmt->execute();

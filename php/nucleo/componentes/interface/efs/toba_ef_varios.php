@@ -73,11 +73,14 @@ class toba_ef_checkbox extends toba_ef
                 $html_devuelto .= toba_recurso::imagen_toba('nucleo/efcheck_off.gif',true,16,16);            
             }
             return $html_devuelto;   
-         }else
-         {
+         } else {
+         	$js = '';
+			if ($this->cuando_cambia_valor != '') {
+				$js = "onchange=\"{$this->get_cuando_cambia_valor()}\"";
+			}         	
 			$tab = $this->padre->get_tab_index();
 			$extra = " tabindex='$tab'";		
-            return toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$this->javascript);
+            return toba_form::checkbox($this->id_form, $this->estado, $this->valor, $this->clase_css, $extra.' '.$js);
          }            
     }
 

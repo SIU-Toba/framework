@@ -37,7 +37,7 @@ class ci_principal extends ci_editores_toba
 	
 	function evt__2__salida()
 	{
-		$this->limpiar_seleccion();
+		$this->dependencia('cols')->limpiar_seleccion();
 	}
 	
 	function get_dbr_efs()

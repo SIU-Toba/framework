@@ -309,6 +309,8 @@ class toba_db_tablas_nucleo
     4 => 'proyecto',
     5 => 'exclusivo_toba',
     6 => 'obsoleto',
+    7 => 'es_seleccion',
+    8 => 'es_seleccion_multiple',
   ),
 );
 	}
@@ -596,7 +598,7 @@ class toba_db_tablas_nucleo
 	static function apex_objeto_ei_filtro_tipo_col()
 	{
 		return array (
-  'archivo' => 'pgsql_a14_componente_ei_filtro_ml.sql',
+  'archivo' => 'pgsql_a14_componente_ei_filtro.sql',
   'proyecto' => 'toba',
   'dump' => 'nucleo_multiproyecto',
   'dump_order_by' => 'tipo_col',
