@@ -52,6 +52,7 @@ function ei_filtro(id, instancia, input_submit) {
 		}
 		this.agregar_procesamientos();
 		this.refrescar_procesamientos(true);
+		this.refrescar_botonera();
 		this.reset_evento();
 		if (this.configurar) {
 			this.configurar();
@@ -145,10 +146,7 @@ function ei_filtro(id, instancia, input_submit) {
 			}
 			var anterior = this._filas[i];		
 		}
-		
-		//if (this._filas.empty()) {
-			//_grilla
-		//}
+		this.refrescar_botonera();
 	};
 	
 
@@ -164,6 +162,7 @@ function ei_filtro(id, instancia, input_submit) {
 		this._filas.push(id);
 		this.seleccionar(id);
 		this.refrescar_foco();
+		this.refrescar_botonera();
 	};
 		
 		
@@ -333,6 +332,29 @@ function ei_filtro(id, instancia, input_submit) {
 			}
 		}
 	};	
+	
+	
+	/**
+	 * @private
+	 */
+	ei_filtro.prototype.refrescar_botonera = function () {
+		var combo = $(this._instancia + '_nuevo');
+		var hay_faltantes = false;
+		for (var i=0; i<combo.length; i++) {
+			var id = combo.options[i].value;
+			if (id != 'nopar') {
+				//-- Esta seleccionada la fila?
+				if (in_array(id, this._filas)) {
+					combo.options[i].disabled = true;
+				} else {
+					hay_faltantes = true;
+					combo.options[i].disabled = false;
+				}
+			}
+		}
+		var display = (! hay_faltantes) ? 'none' : '';
+		$('botonera_' + this._instancia).style.display = display;
+	}
 	
 	/**
 	 * Resalta la línea seleccionada 

@@ -252,7 +252,7 @@ class toba_ei_filtro extends toba_ei
 	 */
 	protected function generar_botonera_manejo_filas()
 	{
-		echo "<div class='ei-filtro-botonera'>";
+		echo "<div class='ei-filtro-botonera' id='botonera_{$this->objeto_js}'>";
 		$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
 		$opciones = array(apex_ef_no_seteado => '');
 		foreach ($this->_columnas as $columna) {
