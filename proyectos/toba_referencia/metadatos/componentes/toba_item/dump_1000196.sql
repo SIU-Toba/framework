@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000196]--  Nuevo Filtro 
+--[1000196]--  Filtro 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Nuevo Filtro', --nombre
+	'Filtro', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

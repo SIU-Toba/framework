@@ -61,12 +61,11 @@ abstract class toba_filtro_columna_compuesta extends toba_filtro_columna
 	}
 	
 	
-	
-	function get_where()
+	function get_sql_where()
 	{
 		if (isset($this->_estado)) {
 			if ($this->_estado['condicion'] != 'entre') {
-				return parent::get_where();
+				return parent::get_sql_where();
 			} else {
 				$casting = $this->_condiciones['entre']['casting'];
 				$desde = trim($this->_estado['valor']['desde']);

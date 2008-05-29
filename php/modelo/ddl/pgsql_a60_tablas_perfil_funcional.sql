@@ -265,3 +265,33 @@ CREATE TABLE apex_restriccion_funcional_cols
 			CASCADE  DEFERRABLE INITIALLY IMMEDIATE
 );
 --#################################################################################################
+
+CREATE TABLE apex_restriccion_funcional_filtro_cols
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: multiproyecto
+--: dump_order_by: restriccion_funcional, objeto_ei_filtro_col
+--: zona: usuario
+--: desc:
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto						varchar(15)			NOT NULL,
+	restriccion_funcional			int4				NOT NULL,
+	item							varchar(60)			NOT NULL,
+	objeto_ei_filtro_col			int4				NOT NULL,
+	objeto_ei_filtro				int4				NOT NULL,
+	no_visible						smallint			NULL,
+	CONSTRAINT	"apex_restriccion_funcional_filtro_col_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_ei_filtro_col"),
+	CONSTRAINT	"apex_restriccion_funcional_filtro_col_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
+			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
+			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"apex_restriccion_funcional_filtro_col_fk_col"	FOREIGN KEY	("proyecto","objeto_ei_filtro","objeto_ei_filtro_col") 
+			REFERENCES	"apex_objeto_ei_filtro_col" ("objeto_ei_filtro_proyecto","objeto_ei_filtro","objeto_ei_filtro_col") 
+			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
+	CONSTRAINT	"restriccion_funcional_filtro_col_fk_item"	 FOREIGN KEY	("proyecto","item")
+			REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE
+			CASCADE  DEFERRABLE INITIALLY IMMEDIATE
+	
+);
+--#################################################################################################

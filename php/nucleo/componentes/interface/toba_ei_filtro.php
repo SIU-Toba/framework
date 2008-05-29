@@ -48,6 +48,23 @@ class toba_ei_filtro extends toba_ei
 		$this->_carga_opciones_ef = new toba_carga_opciones_ef($this, $efs, $parametros_efs);
 	}
 	
+	function aplicar_restricciones_funcionales()
+	{
+		parent::aplicar_restricciones_funcionales();
+
+		//-- Restricción funcional columnas no-visibles ------
+		$no_visibles = toba::perfil_funcional()->get_rf_filtro_cols_no_visibles($this->_id[1]);
+		if (! empty($no_visibles)) {
+			foreach ($this->_columnas as $id => $columna) {
+				if (in_array($columna->get_id_metadato(), $no_visibles)) {
+					unset($this->_columnas[$id]);
+				}
+			}
+		}
+		//----------------
+
+	}	
+	
 	/**
 	 * Consume un tabindex html del componente y lo retorna
 	 * @return integer
@@ -174,16 +191,28 @@ class toba_ei_filtro extends toba_ei
 	}
 	
 	/**
-	 * Retorna la clausula a incluir en el where de una sql, basada en el estado actual del filtro
+	 * Retorna la clausula a incluir en el where de una sql, basada en el estado actual del filtro o las condiciones que se le pasen
+	 * @param string $separador Separador a utilizar para separar las clausulas
+	 * @param array $clausulas Clausulas a utilizar, por defecto se toman las del estado actual del filtro
 	 */
-	function get_where()
+	function get_sql_where($separador = 'AND', $clausulas=null)
+	{
+		if (! isset($clausulas)) {
+			$clausulas = $this->get_sql_clausulas();
+		}
+		return "\t\t".implode("\n\t$separador\t", $clausulas);
+	}
+	
+	function get_sql_clausulas()
 	{
 		$where = array();
 		foreach ($this->_columnas_datos as $columna) {
-			$where[] = $columna->get_where();
+			$where[$columna->get_nombre()] = $columna->get_sql_where();
 		}
-		return "\t\t".implode("\n\tAND\t", $where);
+		return $where;		
 	}
+	
+
 	
 	//-------------------------------------------------------------------------------
 	//----------------------------	  SALIDA	  -----------------------------------

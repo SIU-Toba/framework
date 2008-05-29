@@ -93,7 +93,7 @@ class toba_rf_componente extends toba_rf
 		$valor_inicial = $this->no_visible_actual ? 1 : 0;
 		$img_inicial = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;		
 		$html = '';		
-		$html .= "<img src='$img_inicial' id='".$id_input."_img' onclick='cambiar_oculto(\"$id_input\")' />";
+		$html .= "<img src='$img_inicial' id='".$id_input."_img' title='Visible / Oculto' onclick='cambiar_oculto(\"$id_input\")' />";
 		$html .= "<input type='hidden' value='$valor_inicial' id='$id_input' name='$id_input' />";		
 		return $html;
 	}

@@ -4,10 +4,10 @@ class arbol_restricciones_funcionales extends toba_ei_arbol
 
 	function extender_objeto_js()
 	{
-		$img_oculto = toba_recurso::imagen_toba('error.png', false);
-		$img_visible = toba_recurso::imagen_toba('vacio.png', false);
-		$img_solo_lectura = toba_recurso::imagen_toba('prohibido.png', false);
-		$img_editable = toba_recurso::imagen_toba('no_editar.gif', false);
+		$img_oculto = toba_recurso::imagen_proyecto('no-visible.png', false);
+		$img_visible = toba_recurso::imagen_proyecto('visible.png', false);
+		$img_solo_lectura = toba_recurso::imagen_proyecto('no-editable.gif', false);
+		$img_editable = toba_recurso::imagen_proyecto('editable.gif', false);
 		echo "
 			function cambiar_oculto(id_input) {
 				var valor_actual = $(id_input).value;

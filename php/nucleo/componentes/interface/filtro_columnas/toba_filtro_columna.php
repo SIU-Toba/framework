@@ -67,6 +67,11 @@ abstract class toba_filtro_columna
 	//--- CONSULTAS ---------------------------------
 	//-----------------------------------------------
 	
+	function get_id_metadato()
+	{
+		return $this->_datos['objeto_ei_filtro_col'];
+	}
+	
 	function get_id_form()
 	{
 		return $this->_padre->get_id_form();
@@ -144,7 +149,7 @@ abstract class toba_filtro_columna
 		}
 	}
 	
-	function get_where()
+	function get_sql_where()
 	{
 		if (isset($this->_estado)) {
 			$operador_sql = '=';
@@ -162,6 +167,11 @@ abstract class toba_filtro_columna
 			return $this->get_alias_tabla().$this->get_nombre().$casting.' '.$operador_sql.' '.
 						$valor.$casting;
 		}
+	}
+	
+	function get_sql_valor()
+	{
+		toba::db()->quote(trim($this->_estado['valor']));
 	}
 	
 

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[500]--  Filtro ML 
+--[500]--  Filtro 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,12 +18,12 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Filtro ML', --nombre
+	'Filtro', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
-	NULL, --fuente_datos_proyecto
-	NULL, --fuente_datos
+	'toba_referencia', --fuente_datos_proyecto
+	'toba_referencia', --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -47,20 +47,20 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'toba_referencia', --proyecto
 	'1000952', --evento_id
 	'500', --objeto
-	'actualizar', --identificador
-	'Actualizar', --etiqueta
+	'where', --identificador
+	'get_sql_where', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'1', --en_botonera
-	NULL, --ayuda
-	NULL, --orden
+	'Retorna una cadena con todas las clausulas a insertar en el where', --ayuda
+	'1', --orden
 	NULL, --ci_predep
-	NULL, --implicito
-	NULL, --defecto
+	'0', --implicito
+	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -68,7 +68,37 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_carpeta
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
+	'1000960', --evento_id
+	'500', --objeto
+	'clausulas', --identificador
+	'get_sql_clausulas', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'1', --en_botonera
+	'Retorna por separado la clausula que genera cada columna del filtro.', --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -97,10 +127,10 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Booleano', --etiqueta
 	'Ayuda del booleano', --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'4', --orden
 	NULL, --estado_defecto
-	NULL, --opciones_es_multiple
+	'0', --opciones_es_multiple
 	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -132,7 +162,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'1', --inicial
 	'1', --orden
 	NULL, --estado_defecto
-	NULL, --opciones_es_multiple
+	'0', --opciones_es_multiple
 	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -161,10 +191,10 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Fecha', --etiqueta
 	'Ayuda de la fecha', --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'3', --orden
 	NULL, --estado_defecto
-	NULL, --opciones_es_multiple
+	'0', --opciones_es_multiple
 	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -196,7 +226,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'1', --inicial
 	'2', --orden
 	NULL, --estado_defecto
-	NULL, --opciones_es_multiple
+	'0', --opciones_es_multiple
 	NULL, --opciones_ef
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -225,7 +255,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opcion - Combo', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'5', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -257,7 +287,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opcion - Radio', --etiqueta
 	'Opciones con radio', --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'6', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -277,8 +307,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --popup_ventana
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
-	'
-'  --popup_carga_desc_include
+	''  --popup_carga_desc_include
 );
 INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, objeto_ei_filtro_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, estado_defecto, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'6', --objeto_ei_filtro_col
@@ -290,7 +319,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opcion - Popup', --etiqueta
 	'Opciones con popup', --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'7', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -322,7 +351,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opciones - Check', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'8', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
@@ -354,7 +383,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opciones - Lista', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'9', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
@@ -386,7 +415,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Opciones - Doble', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'10', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple

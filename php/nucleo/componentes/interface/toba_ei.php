@@ -96,10 +96,12 @@ abstract class toba_ei extends toba_componente
 	{
 		//-- Restricción funcional eventos no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_eventos_no_visibles();
-		foreach($this->_eventos_usuario_utilizados as $id => $evento){
-			if (in_array($evento->get_id_metadato(), $no_visibles)) {
-				unset($this->_eventos_usuario_utilizados[$id]);
-				toba::logger()->debug("Restricción funcional. Se filtro el evento: $id", 'toba');
+		if (! empty($no_visibles)) {
+			foreach($this->_eventos_usuario_utilizados as $id => $evento){
+				if (in_array($evento->get_id_metadato(), $no_visibles)) {
+					unset($this->_eventos_usuario_utilizados[$id]);
+					toba::logger()->debug("Restricción funcional. Se filtro el evento: $id", 'toba');
+				}
 			}
 		}
 		//--------------------------------------------------		

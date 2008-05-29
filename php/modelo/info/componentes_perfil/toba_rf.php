@@ -44,8 +44,8 @@ class toba_rf implements toba_nodo_arbol_form
 	
 	function get_imagenes_estado()
 	{
-		$this->img_oculto = toba_recurso::imagen_toba('error.png', false);
-		$this->img_visible = toba_recurso::imagen_toba('vacio.png', false);
+		$this->img_oculto = toba_recurso::imagen_proyecto('no-visible.png', false);
+		$this->img_visible = toba_recurso::imagen_proyecto('visible.png', false);
 	}
 
 	//-- Setters -------------------------------------------------------

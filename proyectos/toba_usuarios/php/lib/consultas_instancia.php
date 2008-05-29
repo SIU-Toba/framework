@@ -310,8 +310,15 @@ class consultas_instancia
 	{
 		$sql = "SELECT 	proyecto,
 						restriccion_funcional,
-						descripcion
-				FROM 	apex_restriccion_funcional
+						descripcion,
+						((SELECT COUNT(*) FROM apex_restriccion_funcional_ef		WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_pantalla	WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_evt		WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_ei		 	WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE restriccion_funcional = rf.restriccion_funcional)) as cant_resticciones
+						
+				FROM 	apex_restriccion_funcional as rf
 				WHERE 	proyecto = '$proyecto';";
 		return toba::db()->consultar($sql);
 	}

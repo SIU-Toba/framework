@@ -284,25 +284,28 @@ class toba_ei_cuadro extends toba_ei
 		parent::destruir();
 	}
 	
-	/**
-	 * Espacio donde el componente cierra su configuración
-	 * @ignore 
-	 */
-	function post_configurar()
+	
+	function aplicar_restricciones_funcionales()
 	{
+		parent::aplicar_restricciones_funcionales();
+
 		//-- Restricción funcional Columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_cuadro_cols_no_visibles($this->_id[1]);
-		$alguno_eliminado = false;
-		for($a=0; $a<count($this->_info_cuadro_columna); $a++){
-			if (in_array($this->_info_cuadro_columna[$a]['objeto_cuadro_col'], $no_visibles)) {
-				array_splice($this->_info_cuadro_columna, $a, 1);
-				$alguno_eliminado = true;
-				toba::logger()->debug("Restricción funcional. Se filtro la columna: ".$this->_info_cuadro_columna[$a]['clave'], 'toba');
+		if (! empty($no_visibles)) {
+			$alguno_eliminado = false;			
+			for($a=0; $a<count($this->_info_cuadro_columna); $a++){
+				if (in_array($this->_info_cuadro_columna[$a]['objeto_cuadro_col'], $no_visibles)) {
+					array_splice($this->_info_cuadro_columna, $a, 1);
+					$alguno_eliminado = true;
+					toba::logger()->debug("Restricción funcional. Se filtro la columna: ".$this->_info_cuadro_columna[$a]['clave'], 'toba');
+				}
+			}
+			if ($alguno_eliminado) {
+				$this->procesar_definicion();
 			}
 		}
-		if ($alguno_eliminado) {
-			$this->procesar_definicion();
-		}
+		//----------------
+
 	}	
 
 //################################################################################

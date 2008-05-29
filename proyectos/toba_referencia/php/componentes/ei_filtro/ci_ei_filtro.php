@@ -14,14 +14,28 @@ class ci_ei_filtro extends toba_ci
 		);
 	}
 	
-	function evt__filtro__actualizar($datos)
+	function evt__filtro__where($datos)
 	{
 		$this->s__datos = $datos;
-		$where = $this->dep('filtro')->get_where();
+		$where = $this->dep('filtro')->get_sql_where();
 		$this->pantalla()->set_descripcion('Cláusula where generada: <pre>'.$where.'</pre>');
 	}
 	
+	function evt__filtro__clausulas($datos)
+	{
+		$this->s__datos = $datos;
+		$clausulas = $this->dep('filtro')->get_sql_clausulas();
+		$this->pantalla()->set_descripcion('Cláusulas: <pre>'.print_r($clausulas, true).'</pre>');
+	}
 
+	function evt__filtro__datos($datos)
+	{
+	$this->pantalla()->set_descripcion('Datos: <pre>'.print_r($datos, true).'</pre>');		
+		$this->s__datos = $datos;
+	}
+	
+	
+	
 	function conf__filtro(toba_ei_filtro $filtro)
 	{
 		if (isset($this->s__datos)) {

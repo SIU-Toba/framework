@@ -137,6 +137,22 @@ class toba_proyecto_implementacion
 		return toba::instancia()->get_db()->consultar($sql);		
 	}
 	
+	function get_rf_filtro_cols($proyecto, $item, $rf)
+	{
+		$sql_rf = implode(', ', $rf);
+		$sql = "SELECT 
+					objeto_ei_filtro,
+					objeto_ei_filtro_col,
+					no_visible
+				FROM apex_restriccion_funcional_filtro_cols
+				WHERE
+						proyecto = '$proyecto'
+					AND	restriccion_funcional IN ($sql_rf)
+					AND	item = '$item'
+		";
+		return toba::instancia()->get_db()->consultar($sql);		
+	}	
+	
 }
 
 ?>

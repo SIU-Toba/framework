@@ -39,6 +39,7 @@ class toba_db_tablas_proyecto
   31 => 'apex_restriccion_funcional_evt',
   32 => 'apex_restriccion_funcional_ei',
   33 => 'apex_restriccion_funcional_cols',
+  34 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
@@ -988,6 +989,28 @@ class toba_db_tablas_proyecto
     2 => 'item',
     3 => 'objeto_cuadro',
     4 => 'objeto_cuadro_col',
+    5 => 'no_visible',
+  ),
+);
+	}
+
+	static function apex_restriccion_funcional_filtro_cols()
+	{
+		return array (
+  'archivo' => 'pgsql_a60_tablas_perfil_funcional.sql',
+  'proyecto' => 'toba',
+  'dump' => 'multiproyecto',
+  'dump_order_by' => 'restriccion_funcional, objeto_ei_filtro_col',
+  'zona' => 'usuario',
+  'desc' => '',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'restriccion_funcional',
+    2 => 'item',
+    3 => 'objeto_ei_filtro_col',
+    4 => 'objeto_ei_filtro',
     5 => 'no_visible',
   ),
 );

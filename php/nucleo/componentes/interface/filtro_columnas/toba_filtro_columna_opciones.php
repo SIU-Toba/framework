@@ -26,10 +26,10 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 		return !$this->es_seleccion_multiple() && !empty($this->_condiciones);
 	}	
 	
-	function get_where()
+	function get_sql_where()
 	{
 		if (! $this->es_seleccion_multiple()) {
-			return parent::get_where();
+			return parent::get_sql_where();
 		} elseif (isset($this->_estado['valor']) && is_array($this->_estado['valor'])) {
 			$opciones = toba::db()->quote($this->_estado['valor']);
 			$valor = '('.implode(", ", $opciones).')';

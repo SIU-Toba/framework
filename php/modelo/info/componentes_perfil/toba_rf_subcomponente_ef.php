@@ -28,8 +28,8 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	
 	function get_imagenes_estado()
 	{
-		$this->img_solo_lectura = toba_recurso::imagen_toba('prohibido.png', false);
-		$this->img_editable = toba_recurso::imagen_toba('no_editar.gif', false);
+		$this->img_solo_lectura = toba_recurso::imagen_proyecto('no-editable.gif', false);
+		$this->img_editable = toba_recurso::imagen_proyecto('editable.gif', false);
 		parent::get_imagenes_estado();
 	}
 
@@ -43,9 +43,9 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 		$img_oculto = $this->no_visible_actual ? $this->img_oculto : $this->img_visible;		
 		
 		$html = '';
-		$html .= "<img src='$img_solo_lectura' id='".$id_solo_lectura."_img' onclick='cambiar_editable(\"$id_solo_lectura\")' />";
+		$html .= "<img src='$img_solo_lectura' id='".$id_solo_lectura."_img' title='Editable / Solo Lectura' onclick='cambiar_editable(\"$id_solo_lectura\")' />";
 		$html .= "<input type='hidden' value='$check_solo_lectura' id='$id_solo_lectura' name='$id_solo_lectura' />";
-		$html .= "<img src='$img_oculto' id='".$id_oculto."_img' onclick='cambiar_oculto(\"$id_oculto\")' />";
+		$html .= "<img src='$img_oculto' id='".$id_oculto."_img' title='Visible / Oculto' onclick='cambiar_oculto(\"$id_oculto\")' />";
 		$html .= "<input type='hidden' value='$check_oculto' id='$id_oculto' name='$id_oculto' />";
 		return $html;
 	}

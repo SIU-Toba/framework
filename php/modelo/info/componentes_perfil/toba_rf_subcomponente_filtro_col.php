@@ -1,10 +1,19 @@
 <?php 
-class toba_rf_subcomponente_evento extends toba_rf_subcomponente
+class toba_rf_subcomponente_filtro_col extends toba_rf_subcomponente
 {
+	protected $filtro;
+	
+	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $estado_original, $filtro) 
+	{
+		$this->filtro = $filtro;
+		parent::__construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $estado_original);
+		
+	}
+	
 	function inicializar()
 	{
 		$this->iconos[] = array(
-				'imagen' => toba_recurso::imagen_toba( 'enter.png', false),
+				'imagen' => toba_recurso::imagen_toba( 'objetos/columna.gif', false),
 				'ayuda' => "Carpeta que contiene operaciones.",
 				);		
 	}
@@ -30,26 +39,26 @@ class toba_rf_subcomponente_evento extends toba_rf_subcomponente
 			}
 		}		
 	}
-
+	
 	function sincronizar()
 	{
 		if ($this->no_visible_actual != $this->no_visible_original) {
 			if ($this->no_visible_actual == 1) {
 				$sql = "INSERT INTO 
-							apex_restriccion_funcional_evt (proyecto, restriccion_funcional, item, evento_id, no_visible)
+							apex_restriccion_funcional_filtro_cols (proyecto, restriccion_funcional, item, objeto_ei_filtro, objeto_ei_filtro_col, no_visible)
 						VALUES
-							('$this->proyecto', '$this->restriccion', '$this->item', '$this->id', '$this->no_visible_actual');";
+							('$this->proyecto', '$this->restriccion', '$this->item', '$this->filtro', '$this->id', '$this->no_visible_actual');";
 			}else{
 				$sql = "DELETE FROM
-							apex_restriccion_funcional_evt
+							apex_restriccion_funcional_filtro_cols
 						WHERE
 								proyecto = '$this->proyecto'
 							AND	restriccion_funcional = '$this->restriccion'
-							AND evento_id = '$this->id';";
+							AND objeto_ei_filtro_col = '$this->id';";
 			}
 			toba::db()->ejecutar($sql);
 		}
+		
 	}
-	
 }
 ?>

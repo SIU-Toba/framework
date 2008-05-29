@@ -10,6 +10,7 @@ class toba_perfil_funcional
 	protected $rf_eventos		= array();
 	protected $rf_cuadro_cols	= array();
 	protected $rf_form_efs		= array();
+	protected $rf_filtro_cols	= array();
 	
 	function __construct()
 	{
@@ -32,6 +33,7 @@ class toba_perfil_funcional
 		$this->rf_eventos		= toba_proyecto_implementacion::get_rf_eventos($this->item[0], $this->item[1], $this->id_restricciones);
 		$this->rf_cuadro_cols 	= toba_proyecto_implementacion::get_rf_cuadro_cols($this->item[0], $this->item[1], $this->id_restricciones);
 		$this->rf_form_efs		= toba_proyecto_implementacion::get_rf_form_efs($this->item[0], $this->item[1], $this->id_restricciones);
+		$this->rf_filtro_cols 	= toba_proyecto_implementacion::get_rf_filtro_cols($this->item[0], $this->item[1], $this->id_restricciones);
 	}
 	
 	
@@ -88,7 +90,6 @@ class toba_perfil_funcional
 		return $columnas;
 	}
 
-	
 	function get_rf_form_efs_no_visibles($id_form)
 	{
 		$efs = array();
@@ -110,6 +111,17 @@ class toba_perfil_funcional
 		}
 		return $efs;
 	}	
+	
+	function get_rf_filtro_cols_no_visibles($id_filtro)
+	{
+		$columnas = array();
+		foreach ($this->rf_filtro_cols as $rf) {
+			if ($rf['objeto_ei_filtro'] == $id_filtro && $rf['no_visible']) {
+				$columnas[] = $rf['objeto_ei_filtro_col'];
+			}
+		}
+		return $columnas;		
+	}
 	
 
 }
