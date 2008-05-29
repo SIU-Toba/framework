@@ -1,5 +1,10 @@
 <?php
+/*
+	Limitaciones parser:
+		- todo subquery tiene que estar entre parentesis
+		- no sepermiten subquerys en el FROM (extraños)
 
+*/
 class toba_perfil_datos
 {
 	protected $restricciones = array();
@@ -53,30 +58,13 @@ class toba_perfil_datos
 	
 	function dump()
 	{
-		ei_arbol($this->info_dimensiones,'Dimensiones');	
-		ei_arbol($this->indice_gatillos,'Indice gatillos');	
+		ei_arbol($this->info_dimensiones,'info_dimensiones');	
+		ei_arbol($this->indice_gatillos,'indice_gatilloss');	
 	}
 	
 	//-----------------------------------------------
-	//------ API para el usuario
+	//------ API Informacion
 	//-----------------------------------------------
-
-	function fitrar($sql)
-	{
-		if( $this->posee_restricciones ) {
-			$where = array();
-			$gatillos_encontrados = $this->buscar_gatillos_en_sql( $sql );
-			foreach( $gatillos_encontrados as $gatillo ) {
-				$dimensiones = array_keys($this->indice_gatillos[$gatillo]);
-				foreach( $this->dimensiones as $dimension ) {
-					$where[] = $this->get_where_dimension_gatillo( $dimension, $gatillo );
-				}
-				//Agrego el WHERE en el SQL
-			}
-		} else {
-			return $sql;	
-		}
-	}
 
 	/**
 	*	retorna el perfil de datos del usuario
@@ -122,25 +110,123 @@ class toba_perfil_datos
 		return $this->gatillos_activos;	
 	}
 
+	//--------------------------------------------------------------------
+	//----- API Filtrado -------------
+	//--------------------------------------------------------------------
+
+	function filtrar($sql)
+	{
+		if( $this->posee_restricciones() ) {
+			$where = array();
+			//-- 1 -- Busco las dimensiones implicadas
+			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql( $sql );
+			foreach( $tablas_gatillo as $tabla => $alias_tabla ) {
+				foreach( $this->indice_gatillos[$tabla] as $dimension => $indice_gatillo) {
+					$where[] = $this->get_where_dimension_gatillo( $dimension, $indice_gatillo, $alias_tabla );
+				}
+				//-- 3 -- Agrego el WHERE en el SQL
+			}
+			ei_arbol($where,"WHERE");
+		} else {
+			return $sql;	
+		}
+	}
+
+
 	/**
 	*	Devuelve el WHERE correspondiente a un gatillo de una dimension
 	*/
-	function get_where_dimension_gatillo($dimension, $gatillo)
+	function get_where_dimension_gatillo($dimension, $indice_gatillo, $alias_tabla)
 	{
-		//saco la comparacion del gatillo y el IN de las restricciones
+		$where = '';
+		//Busco la definicion del gatillo
+		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
+		//ei_arbol($def);
+		if ($def['tipo'] == 'directo') {
+			$where .= $alias_tabla . '.' . $def['columnas_rel_dim'] . ' IN ';
+		}
+		return $where;
+	}
+	
+	//--------------------------------------------------------------------
+	//----- API PARSER -------------
+	//--------------------------------------------------------------------
+
+	/*
+	* 	Devuelve la lista de tablas gatillo (tablas que indican la presencia de una dimension)
+	*		encontradas en el query
+	*/
+	function buscar_tablas_gatillo_en_sql($sql)
+	{
+		//falta Controlar si hay algun gatillo en el SQL antes de hacer todo
+		$sql_from = $this->get_clausula_from( $sql );
+		$gatillos = $this->buscar_gatillos_from( $sql_from );
+		return $gatillos;
 	}
 	
 	/*
-	* Devuelve la lista de gatillo encontrados en el query
-	*/
-	function buscar_gatillos_en_sql($sql)
+	*	Recorta el la clausula FROM de nivel CERO de un SQL
+	*/	
+	function get_clausula_from($sql)
 	{
-		//Reconocer FROM de nivel 0 y recuperar tablas
-		//buscar gatillos entre las tablas
-		
+		//-- 1: Preparo el SQL
+		// Le saco el ';' de atras
+		$sql = trim($sql);
+		if(  substr($sql, -1, 1) ==';') {
+			$sql = substr($sql, 0, (strlen($sql)-1) );
+		}		
+		//-- 2: Recorto la porciond de FROM ---
+		$balance = 0;
+		$en_from = false;	//Se esta procesando el FROM
+		$sql_from = '';
+		$tokens = preg_split("/\s+/",$sql);		//ei_arbol($tokens);
+		foreach($tokens as $token) {
+			//No considero los subquerys
+			$balance += substr_count($token, '(');
+			$balance -= substr_count($token, ')');
+			//No considero las cosas entre comillas
+			$balance += substr_count($token, '"');
+			$balance -= substr_count($token, '"');
+			//Sali del FROM?
+			if($en_from && ( ( $balance == 0 && ( stripos($token,'where') !== false ) )
+						 		|| ( $balance == 0 && ( stripos($token,'order') !== false ) )
+						 		|| ( $balance == 0 && ( stripos($token,'group') !== false ) ) 
+						 	) ) {	
+				break;
+			} 
+			//Dentro del FROM...
+			if($en_from) {
+				$sql_from .= $token . ' ';
+			}
+			//Entre en el FROM?
+			if ($balance == 0 && ( stripos($token,'from') !== false ) ) {
+				$en_from = true;
+			}
+		}
+		return $sql_from;
 	}
-	
 
+	/*
+		A partir del FROM del SQL recupera las tablas que corresponden a dimensiones ACTIVAS
+		@return Array() asociativo con el nombre de la tabla y el alias
+	*/
+	function buscar_gatillos_from($sql_from)
+	{
+		$gatillos = $this->get_gatillos_activos();
+		$tablas = array();
+		$clausulas = explode(",",$sql_from);
+		foreach($clausulas as $clausula) {
+			$temp = preg_split("/\s+/", trim($clausula) );
+			if(isset($temp[0])) {
+				$tabla = $temp[0];
+				if ( in_array($tabla, $gatillos) ) {	
+					//La tabla pertenece a una dimension
+					$alias = isset($temp[1]) ? $temp[1] : $temp[0];
+					$tablas[$tabla] = $alias;
+				}
+			}
+		}
+		return $tablas;
+	}
 }
-
 ?>
