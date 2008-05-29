@@ -174,7 +174,7 @@ class toba
 	}
 
 	/**
-	 * @return toba_usuario
+	 * @return toba_usuario_basico
 	 */
 	static function usuario()
 	{
