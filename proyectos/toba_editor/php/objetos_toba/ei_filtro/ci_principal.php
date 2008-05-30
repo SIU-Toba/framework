@@ -10,8 +10,8 @@ class ci_principal extends ci_editores_toba
 		parent::ini();
 		$col = toba::memoria()->get_parametro('col');
 		//¿Se selecciono una columna desde afuera?
-		if (isset($ef)) {
-			$this->dependencia('cols')->seleccionar_ef($ef);
+		if (isset($col)) {
+			$this->dependencia('cols')->seleccionar_ef($col);
 			$this->set_pantalla(2);
 		}
 	}

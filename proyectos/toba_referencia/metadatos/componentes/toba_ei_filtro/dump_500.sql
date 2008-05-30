@@ -103,6 +103,36 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_referencia', --proyecto
+	'1000961', --evento_id
+	'500', --objeto
+	'datos', --identificador
+	'get_datos', --etiqueta
+	'1', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	'1', --en_botonera
+	'Retorna las condiciones de filtrado sin procesamiento.', --ayuda
+	'3', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
 --- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
@@ -122,9 +152,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'booleano', --tipo
-	'campo_booleano', --nombre
+	'activo', --nombre
 	NULL, --alias_tabla
-	'Booleano', --etiqueta
+	'Activo', --etiqueta
 	'Ayuda del booleano', --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -154,9 +184,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
-	'campo_cadena', --nombre
+	'nombre', --nombre
 	NULL, --alias_tabla
-	'Cadena', --etiqueta
+	'Nombre', --etiqueta
 	NULL, --descripcion
 	'1', --obligatorio
 	'1', --inicial
@@ -186,9 +216,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'fecha', --tipo
-	'campo_fecha', --nombre
+	'nacimiento', --nombre
 	NULL, --alias_tabla
-	'Fecha', --etiqueta
+	'Nacimiento', --etiqueta
 	'Ayuda de la fecha', --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -218,9 +248,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'numero', --tipo
-	'campo_numero', --nombre
+	'importe', --nombre
 	NULL, --alias_tabla
-	'Número', --etiqueta
+	'Importe', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'1', --inicial
@@ -250,9 +280,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_combo', --nombre
+	'juego', --nombre
 	NULL, --alias_tabla
-	'Opcion - Combo', --etiqueta
+	'Juego', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -260,14 +290,14 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	'ef_combo', --opciones_ef
-	NULL, --carga_metodo
+	'get_juegos', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
-	'a/A,b/B,c/C', --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
+	'1000001', --carga_consulta_php
+	NULL, --carga_lista
+	'id', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
@@ -282,24 +312,24 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_radio', --nombre
+	'deporte', --nombre
 	NULL, --alias_tabla
-	'Opcion - Radio', --etiqueta
-	'Opciones con radio', --descripcion
+	'Deporte', --etiqueta
+	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
 	'6', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	'ef_radio', --opciones_ef
-	'get_opciones', --carga_metodo
+	'get_deportes', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
+	'1000001', --carga_consulta_php
 	NULL, --carga_lista
-	'clave', --carga_col_clave
-	'valor', --carga_col_desc
+	'id', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
@@ -314,10 +344,10 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_popup', --nombre
+	'persona', --nombre
 	NULL, --alias_tabla
-	'Opcion - Popup', --etiqueta
-	'Opciones con popup', --descripcion
+	'Persona', --etiqueta
+	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
 	'7', --orden
@@ -333,22 +363,22 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_no_seteado
-	NULL, --popup_item
-	NULL, --popup_proyecto
-	NULL, --popup_editable
+	'3273', --popup_item
+	'toba_referencia', --popup_proyecto
+	'0', --popup_editable
 	NULL, --popup_ventana
-	NULL, --popup_carga_desc_metodo
-	NULL, --popup_carga_desc_clase
-	NULL  --popup_carga_desc_include
+	'get_persona_nombre', --popup_carga_desc_metodo
+	'consultas', --popup_carga_desc_clase
+	'operaciones_simples/consultas.php'  --popup_carga_desc_include
 );
 INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, objeto_ei_filtro_proyecto, tipo, nombre, alias_tabla, etiqueta, descripcion, obligatorio, inicial, orden, estado_defecto, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_lista, carga_col_clave, carga_col_desc, carga_no_seteado, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include) VALUES (
 	'7', --objeto_ei_filtro_col
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_multi_check', --nombre
+	'dias', --nombre
 	NULL, --alias_tabla
-	'Opciones - Check', --etiqueta
+	'Dias', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -356,14 +386,14 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_check', --opciones_ef
-	'get_opciones', --carga_metodo
+	'get_dias_semana', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
+	'1000001', --carga_consulta_php
 	NULL, --carga_lista
-	'clave', --carga_col_clave
-	'valor', --carga_col_desc
+	'id', --carga_col_clave
+	'desc', --carga_col_desc
 	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
@@ -378,9 +408,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_multi_lista', --nombre
+	'personas', --nombre
 	NULL, --alias_tabla
-	'Opciones - Lista', --etiqueta
+	'Personas', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -388,14 +418,14 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_lista', --opciones_ef
-	'get_opciones', --carga_metodo
+	'get_personas', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
+	'1000001', --carga_consulta_php
 	NULL, --carga_lista
-	'clave', --carga_col_clave
-	'valor', --carga_col_desc
+	'id', --carga_col_clave
+	'nombre', --carga_col_desc
 	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
@@ -410,9 +440,9 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'500', --objeto_ei_filtro
 	'toba_referencia', --objeto_ei_filtro_proyecto
 	'opciones', --tipo
-	'campo_multi_doble', --nombre
+	'horas', --nombre
 	NULL, --alias_tabla
-	'Opciones - Doble', --etiqueta
+	'Horas', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
@@ -420,14 +450,14 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple
 	'ef_multi_seleccion_doble', --opciones_ef
-	'get_opciones', --carga_metodo
+	'get_horas_dia', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
-	NULL, --carga_consulta_php
+	'1000001', --carga_consulta_php
 	NULL, --carga_lista
-	'clave', --carga_col_clave
-	'valor', --carga_col_desc
+	'id', --carga_col_clave
+	'desc', --carga_col_desc
 	NULL, --carga_no_seteado
 	NULL, --popup_item
 	NULL, --popup_proyecto
