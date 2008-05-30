@@ -2,11 +2,7 @@
 
 class toba_filtro_columna_opciones extends toba_filtro_columna
 {
-	
-	protected $_condiciones = array(
-			'es_igual_a' 	=> array('etiqueta' => 'es igual a',		'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
-			'es_distinto_de' => array('etiqueta' => 'es distinto de',	'operador_sql' => '!=',			'pre' => '', 	'post' => '', 	'casting' => '::varchar'),
-	);
+
 	
 	function ini()
 	{
@@ -14,28 +10,22 @@ class toba_filtro_columna_opciones extends toba_filtro_columna
 		$clase_ef = 'toba_'.$this->_datos['opciones_ef'];
 		$this->_ef = new $clase_ef($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
 											null, null, false, $parametros);
+
+		//--- Condiciones											
+		if (! $this->es_seleccion_multiple()) {
+			$this->agregar_condicion('es_igual_a', 			new toba_filtro_condicion('es igual a',	 			'=', 	'', 	'', 	'', 	''));
+			$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion('es distinto de', 		'!=',	'', 	'', 	'', 	''));
+		} else {
+			$this->agregar_condicion('en_conjunto', 		new toba_filtro_condicion_multi('', 	''));
+		}
+											
 	}
 	
 	function es_seleccion_multiple()
 	{
 		return $this->_datos['opciones_es_multiple'];
 	}
-	
-	function tiene_condicion()
-	{
-		return !$this->es_seleccion_multiple() && !empty($this->_condiciones);
-	}	
-	
-	function get_sql_where()
-	{
-		if (! $this->es_seleccion_multiple()) {
-			return parent::get_sql_where();
-		} elseif (isset($this->_estado['valor']) && is_array($this->_estado['valor'])) {
-			$opciones = toba::db()->quote($this->_estado['valor']);
-			$valor = '('.implode(", ", $opciones).')';
-			return $this->get_alias_tabla().$this->get_nombre(). ' IN '.$valor;
-		}
-	}
+
 	
 }
 

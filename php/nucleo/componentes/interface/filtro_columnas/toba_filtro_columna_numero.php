@@ -2,17 +2,6 @@
 
 class toba_filtro_columna_numero extends toba_filtro_columna_compuesta 
 {
-	protected $_condiciones = array(
-			'es_igual_a' 		=> array('etiqueta' => 'es igual a',			'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => ''),		
-			'es_distinto_de'	=> array('etiqueta' => 'es distinto de',		'operador_sql' => '!=',			'pre' => '', 	'post' => '', 	'casting' => ''),
-			'es_mayor_que' 		=> array('etiqueta' => 'es mayor que',			'operador_sql' => '>',			'pre' => '', 	'post' => '', 	'casting' => ''),
-			'es_mayor_igual_que'=> array('etiqueta' => 'es mayor o igual que',	'operador_sql' => '>=',			'pre' => '', 	'post' => '', 	'casting' => ''),
-			'es_menor_que' 		=> array('etiqueta' => 'es menor que',			'operador_sql' => '<',			'pre' => '', 	'post' => '', 	'casting' => ''),			
-			'es_menor_igual_que'=> array('etiqueta' => 'es menor o igual que',	'operador_sql' => '<=',			'pre' => '', 	'post' => '', 	'casting' => ''),
-			'es_menor_igual_que'=> array('etiqueta' => 'es menor o igual que',	'operador_sql' => '<=',			'pre' => '', 	'post' => '', 	'casting' => ''),
-			'entre'				=> array('etiqueta' => 'entre',					'operador_sql' => '<=',			'pre' => '', 	'post' => '', 	'casting' => ''),
-	);
-	
 	static function get_clase_ef()
 	{
 		return 'ef_editable_numero';
@@ -20,12 +9,26 @@ class toba_filtro_columna_numero extends toba_filtro_columna_compuesta
 	
 	function ini()
 	{
+		
+		//--- Parámetros efs
 		$parametros = $this->_datos;
 		if (! isset($parametros['edit_tamano'])) {
 			$parametros['edit_tamano'] = 18;
 		}
 		$this->_ef = new toba_ef_editable_numero($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
 											null, null, false, $parametros);
+											
+
+		//--- Condiciones
+		$this->agregar_condicion('es_igual_a', 			new toba_filtro_condicion('es igual a',	 			'=', 	'', 	'', 	'', 	''));
+		$this->agregar_condicion('es_distinto_de', 		new toba_filtro_condicion('es distinto de', 		'!=',	'', 	'', 	'', 	''));
+		$this->agregar_condicion('es_mayor_que', 		new toba_filtro_condicion('es mayor que', 			'>','', '', 	'', 	'',		''));
+		$this->agregar_condicion('es_mayor_igual_que', 	new toba_filtro_condicion('es mayor o igual que', 	'>=', 	'', 	'', 	'', 	''));
+		$this->agregar_condicion('es_menor_que', 		new toba_filtro_condicion('es menor que',			'<', 	'', 	'', 	'', 	''));
+		$this->agregar_condicion('es_menor_igual_que', 	new toba_filtro_condicion('es menor o igual que', 	'<=', 	'', 	'', 	'', 	''));
+		
+		// Condicion entre
+		$this->agregar_condicion('entre',			 	new toba_filtro_condicion_entre('', ''));
 	}
 
 }

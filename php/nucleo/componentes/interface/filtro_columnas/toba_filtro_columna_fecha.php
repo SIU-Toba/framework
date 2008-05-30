@@ -2,14 +2,6 @@
 
 class toba_filtro_columna_fecha extends toba_filtro_columna_compuesta
 {
-	protected $_condiciones = array(
-			'es_igual_a' 	=> array('etiqueta' => 'es igual a',	'operador_sql' => '=',			'pre' => '', 	'post' => '', 	'casting' => '::date'),
-			'es_distinto_de' => array('etiqueta' => 'es distinto de',	'operador_sql' => '!=',		'pre' => '', 	'post' => '', 	'casting' => '::date'),
-			'desde' 		=> array('etiqueta' => 'desde',			'operador_sql' => '<',			'pre' => '', 	'post' => '', 	'casting' => '::date'),
-			'hasta' 		=> array('etiqueta' => 'hasta',			'operador_sql' => '>',			'pre' => '', 	'post' => '', 	'casting' => '::date'),
-			'entre' 		=> array('etiqueta' => 'entre',			'operador_sql' => 'BETWEEN',	'pre' => '', 	'post' => '', 	'casting' => '::date'),
-	);
-
 	static function get_clase_ef()
 	{
 		return 'ef_editable_fecha';
@@ -17,9 +9,19 @@ class toba_filtro_columna_fecha extends toba_filtro_columna_compuesta
 	
 	function ini()
 	{
+		//--- Parámetros efs		
 		$parametros = $this->_datos;
 		$this->_ef = new toba_ef_editable_fecha($this, null, $this->_datos['nombre'], $this->_datos['etiqueta'],
 											null, null, false, $parametros);
+
+		//--- Condiciones
+		$this->agregar_condicion('es_igual_a', 		new toba_filtro_condicion('es igual a',	 	'=', 	'', 	'', 	'::date', 	'::date'));
+		$this->agregar_condicion('es_distinto_de', 	new toba_filtro_condicion('es distinto de', '!=',	'', 	'', 	'::date', 	'::date'));
+		$this->agregar_condicion('desde', 			new toba_filtro_condicion('desde', 			'>', 	'', 	'', 	'::date', 	'::date'));
+		$this->agregar_condicion('hasta', 			new toba_filtro_condicion('hasta', 			'<', 	'', 	'', 	'::date', 	'::date'));
+		
+		//Condicion entre
+		$this->agregar_condicion('entre', 			new toba_filtro_condicion_entre('::date', 	'::date'));
 	}
 
 	

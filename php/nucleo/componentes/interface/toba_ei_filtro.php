@@ -212,7 +212,15 @@ class toba_ei_filtro extends toba_ei
 		return $where;		
 	}
 	
-
+	/**
+	 * Retorna la referencia a un objeto columna perteneciente al filtro
+	 * @return toba_filtro_columna
+	 */
+	function columna($nombre)
+	{
+		return $this->_columnas[$nombre];
+	}
+	
 	
 	//-------------------------------------------------------------------------------
 	//----------------------------	  SALIDA	  -----------------------------------
@@ -338,12 +346,7 @@ class toba_ei_filtro extends toba_ei
 			
 			//-- Condición
 			echo "<td class='$estilo_celda ei-filtro-cond'>";
-			if ($columna->tiene_condicion()) {				
-				echo $columna->get_html_condicion();
-			} else {
-				echo '&nbsp;';
-			}
-			
+			echo $columna->get_html_condicion();
 			echo "</td>\n";
 			
 			//-- Valor			

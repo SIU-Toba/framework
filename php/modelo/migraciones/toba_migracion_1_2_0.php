@@ -100,12 +100,17 @@ class toba_migracion_1_2_0 extends toba_migracion
 	/**
 	 * Los campos sinc_orden_automatico y sinc_susp_constraints no se estaban leyendo desde los metadatos
 	 * Por lo tanto por si algun proyecto destildo/tildo alguno de estos campos, se va a cambiar el estado actual
-	 * al comportamiento que tenian ls versiones anteriores (el primero en '1' y el segundo en '0')
-	 *
+	 * al comportamiento que tenian las versiones anteriores (el primero en '1' y el segundo en '0')
 	 */
 	function proyecto__datos_relacion_bug_campos()
 	{
-		
+		$sql = "UPDATE apex_objeto_datos_rel 
+				SET sinc_orden_automatico=1
+					sinc_susp_constraints=0
+				WHERE
+					proyecto = '{$this->elemento->get_id()}'
+		";
+		return $this->elemento->get_db()->ejecutar($sql);
 	}
 	
 }

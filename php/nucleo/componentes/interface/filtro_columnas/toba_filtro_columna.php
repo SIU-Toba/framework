@@ -48,24 +48,38 @@ abstract class toba_filtro_columna
 	
 	function cargar_estado_post()
 	{
-		$this->_estado = array();		
-		if ($this->tiene_condicion()) {
-			if (isset($_POST[$this->_id_form_cond])) {
-				$condicion = $_POST[$this->_id_form_cond];
-				if (! isset($this->_condiciones[$condicion])) {
-					throw new toba_error("La condicion '$condicion' no es una condicion válida");
-				}
-				$this->_estado['condicion'] = $condicion;
+		$this->_estado = array();	
+		if (isset($_POST[$this->_id_form_cond])) {
+			$condicion = $_POST[$this->_id_form_cond];
+			if (! isset($this->_condiciones[$condicion])) {
+				throw new toba_error("La condicion '$condicion' no es una condicion válida");
 			}
+			$this->_estado['condicion'] = $condicion;
+		} else {
+			throw new toba_error("No hay una condición valida");
 		}
+
 		$this->_ef->cargar_estado_post();			
 		$this->_estado['valor'] = $this->_ef->get_estado();
 		
 	}	
 	
+	function agregar_condicion($id, toba_filtro_condicion $condicion)
+	{
+		$this->_condiciones[$id] = $condicion;
+	}
+	
+	function borrar_condicion($id)
+	{
+		unset($this->_condiciones[$id]);
+	}
+	
+	
 	//-----------------------------------------------
 	//--- CONSULTAS ---------------------------------
 	//-----------------------------------------------
+	
+	
 	
 	function get_id_metadato()
 	{
@@ -137,43 +151,50 @@ abstract class toba_filtro_columna
 		return $this->_estado;
 	}
 	
-	function tiene_condicion()
+	function get_cant_condiciones()
 	{
-		return ! empty($this->_condiciones);
+		return count($this->_condiciones);
 	}
 	
-	function get_condicion()
+	/**
+	 * Retorna una condición asociada a la columna, por defecto la que actualmente selecciono el usuario
+	 * @return toba_filtro_condicion
+	 */
+	function condicion($nombre = null)
 	{
-		if (isset($this->_estado)) {
-			return $this->_estado['condicion'];
+		if (! isset($nombre)) {
+			if (isset($this->_estado)) {
+				return $this->_condiciones[$this->_estado['condicion']];
+			} else {
+				throw new toba_error_def("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+			}
+		} else {
+			return $this->_condiciones[$nombre];
 		}
+	}
+	
+	function set_condicion(toba_filtro_condicion $condicion, $nombre=null)
+	{
+		if (! isset($nombre)) {
+			if (isset($this->_estado)) {
+				$this->_condiciones[$this->_estado['condicion']] = $condicion;
+			} else {
+				throw new toba_error_def("No hay una condicion actualmente seleccionada para la columna '".$this->get_nombre()."'");
+			}
+		} else {
+			$this->_condiciones[$nombre] = $condicion;
+		}		
 	}
 	
 	function get_sql_where()
 	{
 		if (isset($this->_estado)) {
-			$operador_sql = '=';
-			$casting = '';
-			$pre = '';
-			$post = '';
-			if (isset($this->_estado['condicion'])) {
-				$id = $this->_estado['condicion'];
-				$operador_sql = $this->_condiciones[$id]['operador_sql'];
-				$pre = $this->_condiciones[$id]['pre'];
-				$post = $this->_condiciones[$id]['post'];
-				$casting = $this->_condiciones[$id]['casting'];
-			}
-			$valor = toba::db()->quote($pre.trim($this->_estado['valor']).$post);
-			return $this->get_alias_tabla().$this->get_nombre().$casting.' '.$operador_sql.' '.
-						$valor.$casting;
+			$id = $this->_estado['condicion'];				
+			$campo = $this->get_alias_tabla().$this->get_nombre();
+			return $this->_condiciones[$id]->get_sql($campo, $this->_estado['valor']);
 		}
 	}
-	
-	function get_sql_valor()
-	{
-		toba::db()->quote(trim($this->_estado['valor']));
-	}
-	
+
 
 	//-----------------------------------------------
 	//--- SALIDA HTML  ------------------------------
@@ -181,17 +202,24 @@ abstract class toba_filtro_columna
 	
 	function get_html_condicion()
 	{
-		$onchange = "{$this->get_objeto_js()}.cambio_condicion(\"{$this->get_nombre()}\");";
-		$html = "<select id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' onchange='$onchange'>";
-		foreach ($this->_condiciones as $id => $condicion) {
-			$selected = '';
-			if (isset($this->_estado) && $this->_estado['condicion'] == $id) {
-				$selected = 'selected';	
+		if (count($this->_condiciones) > 1) {
+			//-- Si tiene mas de una condicion se muestran con un combo
+			$onchange = "{$this->get_objeto_js()}.cambio_condicion(\"{$this->get_nombre()}\");";
+			$html = "<select id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' onchange='$onchange'>";
+			foreach ($this->_condiciones as $id => $condicion) {
+				$selected = '';
+				if (isset($this->_estado) && $this->_estado['condicion'] == $id) {
+					$selected = 'selected';	
+				}
+				$html .= "<option value='$id' $selected>".$condicion->get_etiqueta()."</option>\n";
 			}
-			$html .= "<option value='$id' $selected>{$condicion['etiqueta']}</option>\n";
+			$html .= '</select>';
+			return $html;
+		} else {
+			$condicion = key($this->_condiciones);
+			//-- Si tiene una unica, seria redundante mostrarle la unica opción, se pone un hidden
+			return "<input type='hidden' id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' value='$condicion'/>&nbsp;";
 		}
-		$html .= '</select>';
-		return $html;
 	}	
 	
 	function get_html_valor()

@@ -10,6 +10,7 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 	
 	function ini()
 	{
+		//-- Parámetros del ef
 		$parametros = $this->_datos;
 		if (! isset($parametros['selec_cant_columnas'])) {
 			$parametros['selec_cant_columnas'] = 2;	
@@ -25,21 +26,12 @@ class toba_filtro_columna_booleano extends toba_filtro_columna
 		$opciones['1'] = 'Sí';
 		$opciones['0'] = 'No';
 		$this->_ef->set_opciones($opciones);
-	}
-
-	function tiene_condicion()
-	{
-		return false;
-	}
-
-	function cargar_estado_post()
-	{
-		$this->_ef->cargar_estado_post();			
-		$this->_estado = array();
-		$this->_estado['condicion'] = null;
-		$this->_estado['valor'] = $this->_ef->get_estado();
-	}
 		
+			//--- Condiciones
+		$this->agregar_condicion('es_igual_a', 		new toba_filtro_condicion('es igual a',	 	'=', 	'', 	'', 	'', 	''));
+	}
+
+	
 }
 
 ?>

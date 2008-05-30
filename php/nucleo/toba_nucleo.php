@@ -564,6 +564,9 @@ class toba_nucleo
 			'toba_filtro_columna_fecha'				=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_fecha.php',
 			'toba_filtro_columna_numero'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_numero.php',
 			'toba_filtro_columna_opciones'			=> 'nucleo/componentes/interface/filtro_columnas/toba_filtro_columna_opciones.php',
+			'toba_filtro_condicion'					=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion.php',
+			'toba_filtro_condicion_entre'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_entre.php',
+			'toba_filtro_condicion_multi'			=> 'nucleo/componentes/interface/filtro_condiciones/toba_filtro_condicion_multi.php',
  			//-----------------------------------------------------------------------------------------------
 			'toba_info_editores'					=> 'modelo/info/toba_info_editores.php',
 			'toba_info_permisos'					=> 'modelo/info/toba_info_permisos.php',
