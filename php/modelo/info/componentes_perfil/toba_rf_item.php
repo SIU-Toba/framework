@@ -51,7 +51,8 @@ class toba_rf_item extends toba_rf
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_pantalla	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_pant,
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_evt		WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_evt,
 							(SELECT COUNT(*) FROM apex_restriccion_funcional_ei		 	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_ei,
-							(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_cols
+							(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_cols,
+							(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols WHERE item = i.item AND proyecto = i.proyecto) as cant_rest_filtro_cols
 				FROM 
 					apex_item i
 				WHERE item = '$this->item' 
@@ -75,7 +76,8 @@ class toba_rf_item extends toba_rf
 				$datos['cant_rest_pant'] > 0 ||
 				$datos['cant_rest_evt'] > 0 ||
 				$datos['cant_rest_ei'] > 0 ||
-				$datos['cant_rest_cols'] > 0;
+				$datos['cant_rest_cols'] > 0 ||
+				$datos['cant_rest_filtro_cols'] > 0;
 	}
 	
 	function buscar_hijos()

@@ -252,12 +252,12 @@ abstract class toba_asistente
 	//-- Primitivas para la construccion de elementos
 	//----------------------------------------------------------------------
 
-	function generar_efs($form, $filas)
+	function generar_efs($form, $filas, $es_filtro=false)
 	{
 		foreach( $filas as $fila ) {
 			$ef = $form->agregar_ef($fila['columna'], $fila['elemento_formulario']);
 			$ef->set_etiqueta($fila['etiqueta']);
-			if ($form->get_clase() != 'toba_ei_filtro') {
+			if (! $es_filtro) {
 				//-- Solo se tiene en cuenta lo obligatorio para los form
 				$ef->set_propiedad('obligatorio', $fila['ef_obligatorio']);
 			}			

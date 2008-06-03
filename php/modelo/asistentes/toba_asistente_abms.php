@@ -68,7 +68,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		$form = $this->ci->agregar_dep('toba_ei_formulario', 'formulario');
 		$this->generar_datos_tabla($tabla, $this->molde_abms['tabla'], $this->molde_abms_fila);
 		if ($this->molde_abms['gen_usa_filtro']) {
-			$filtro = $this->ci->agregar_dep('toba_ei_filtro', 'filtro');			
+			$filtro = $this->ci->agregar_dep('toba_ei_formulario', 'filtro');			
 			$this->generar_filtro($filtro);
 		}
 		$this->generar_cuadro($cuadro);
@@ -152,6 +152,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 	
 	protected function generar_filtro($filtro)
 	{
+		$filtro->set_comportamiento_filtro();
 		$filtro->set_nombre($this->molde['nombre'] . ' - Filtro');
 		//Creo las filas
 		$filas = array();
@@ -163,7 +164,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		if(count($filas)==0) {
 			throw new toba_error_asistentes('ASISTENTE ABMS: Se especifico un filtro pero no se definio que filas participan del mismo');	
 		}
-		$this->generar_efs($filtro, $filas);
+		$this->generar_efs($filtro, $filas, true);
 		$this->ci->php()->agregar( new toba_codigo_separador_php('Filtro') );	
 		//--------------------------------------------------------
 		//Varible que maneja los datos
@@ -172,7 +173,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//--------------------------------------------------------
 		//--- conf__filtro ---------------------------------------
 		//--------------------------------------------------------
-		$metodo = new toba_codigo_metodo_php('conf__filtro',array('toba_ei_filtro $filtro'));
+		$metodo = new toba_codigo_metodo_php('conf__filtro',array('toba_ei_formulario $filtro'));
 		$metodo->set_contenido(array(	"if(isset(\$this->s__datos_filtro)){",
 										"\t\$filtro->set_datos(\$this->s__datos_filtro);",
 										"}"));

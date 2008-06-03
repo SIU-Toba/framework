@@ -35,6 +35,7 @@ class toba_db_tablas_componente
   27 => 'apex_molde_operacion_log_elementos',
   28 => 'apex_molde_operacion_abms',
   29 => 'apex_molde_operacion_abms_fila',
+  30 => 'apex_molde_operacion_importacion',
 );
 	}
 
@@ -90,7 +91,8 @@ class toba_db_tablas_componente
     35 => 'publico',
     36 => 'redirecciona',
     37 => 'usuario',
-    38 => 'creacion',
+    38 => 'exportable',
+    39 => 'creacion',
   ),
 );
 	}
@@ -1150,6 +1152,30 @@ class toba_db_tablas_componente
     26 => 'ef_carga_tabla',
     27 => 'ef_carga_col_clave',
     28 => 'ef_carga_col_desc',
+  ),
+);
+	}
+
+	static function apex_molde_operacion_importacion()
+	{
+		return array (
+  'archivo' => 'pgsql_a50_asistentes.sql',
+  'proyecto' => 'toba',
+  'dump' => 'componente',
+  'dump_clave_proyecto' => 'proyecto',
+  'dump_clave_componente' => 'molde',
+  'dump_order_by' => 'molde',
+  'dump_where' => '( proyecto = \\\'%%\\\' )',
+  'zona' => 'objeto',
+  'desc' => '',
+  'historica' => '0',
+  'version' => '1.0',
+  'columnas' => 
+  array (
+    0 => 'proyecto',
+    1 => 'molde',
+    2 => 'origen_item',
+    3 => 'origen_proyecto',
   ),
 );
 	}

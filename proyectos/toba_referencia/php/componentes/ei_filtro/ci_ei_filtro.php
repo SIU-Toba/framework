@@ -5,7 +5,7 @@ class ci_ei_filtro extends toba_ci
 {
 	protected $s__datos;
 
-	function conf__filtro(toba_ei_filtro $filtro)
+	function conf__filtro($filtro)
 	{
 		if (isset($this->s__datos)) {
 			$filtro->set_datos($this->s__datos);

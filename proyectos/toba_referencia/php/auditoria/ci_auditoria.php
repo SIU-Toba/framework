@@ -24,7 +24,7 @@ class ci_auditoria extends toba_ci
 		$this->s__filtrar = false;
 	}
 
-	function conf__filtro(toba_ei_filtro $filtro)
+	function conf__filtro($filtro)
 	{
 		if (isset($this->s__filtro)) {
 			$filtro->set_datos($this->s__filtro);

@@ -19,6 +19,14 @@ class toba_ei_formulario_molde extends toba_molde_elemento_componente_ei
 	//-- API de construccion
 	//---------------------------------------------------	
 
+	function set_comportamiento_filtro()
+	{
+		$datos = array();
+		$datos['no_imprimir_efs_sin_estado'] = 1;
+		$datos['resaltar_efs_con_estado'] = 1;
+		$this->datos->tabla('prop_basicas')->set($datos);
+	}
+	
 	function agregar_ef($identificador, $tipo)
 	{
 		$this->efs[$identificador] = new toba_molde_ef($identificador, $tipo);

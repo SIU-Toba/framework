@@ -79,6 +79,7 @@ CREATE TABLE apex_item
 	publico							smallint		NULL,
 	redirecciona					smallint		NULL,
 	usuario							varchar(60)		NULL,
+	exportable						smallint		NULL,
 	creacion						timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_item_pk"	PRIMARY KEY	("item", "proyecto"),
 	CONSTRAINT	"apex_item_fk_proyecto"	FOREIGN KEY	("proyecto") REFERENCES	"apex_proyecto" ("proyecto") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,

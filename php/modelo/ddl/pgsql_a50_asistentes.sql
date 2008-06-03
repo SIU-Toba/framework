@@ -251,3 +251,26 @@ CREATE TABLE apex_molde_operacion_abms_fila
 	CONSTRAINT  "apex_molde_operacion_abms_fila_fk_tipo_datos" FOREIGN KEY ("dt_tipo_dato") REFERENCES "apex_tipo_datos" ("tipo") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
 );
 --###################################################################################################
+
+
+CREATE TABLE apex_molde_operacion_importacion
+---------------------------------------------------------------------------------------------------
+--: proyecto: toba
+--: dump: componente
+--: dump_clave_proyecto: proyecto
+--: dump_clave_componente: molde
+--: dump_order_by: molde
+--: dump_where: ( proyecto = '%%' )
+--: zona: objeto
+--: desc:
+--: historica: 0
+--: version: 1.0
+---------------------------------------------------------------------------------------------------
+(
+	proyecto  							varchar(255)	NOT NULL,
+	molde								int4			NOT NULL, 
+	origen_item							varchar(60)		NOT NULL,
+	origen_proyecto						varchar(30)		NULL,
+	CONSTRAINT  "apex_molde_operacion_imp_pk" 		PRIMARY KEY ("proyecto","molde"),
+	CONSTRAINT  "apex_molde_operacion_imp_fk_molde" FOREIGN KEY ("molde", "proyecto") REFERENCES "apex_molde_operacion" ("molde", "proyecto") ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY IMMEDIATE
+);

@@ -93,7 +93,7 @@ class ci_admin_asistentes extends toba_ci
 	
 	function conf__pant_edicion()
 	{
-		$this->pantalla()->set_descripcion('Edición de un '.$this->s__datos_asistente['descripcion_corta']);
+		$this->pantalla()->set_descripcion($this->s__datos_asistente['descripcion_corta']);
 		$this->pantalla()->agregar_dep('asistente');		
 		if( $this->s__molde_preexistente ) {
 			$this->pantalla()->eliminar_evento('volver_editar');	

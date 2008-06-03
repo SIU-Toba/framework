@@ -244,6 +244,50 @@ class toba_info_editores
 		$sql = "SELECT descripcion || ' [' || proyecto || ']' as proyecto_nombre FROM apex_proyecto WHERE proyecto = '$id_proyecto'";
 		return  toba_contexto_info::get_db()->consultar($sql);
 	}
+	
+	
+	/**
+	*	Retorna la lista de proyectos que contiene items exportables
+	*/
+	static function get_proyectos_con_items_exportables()
+	{
+		$sql = "
+			SELECT 	
+				p.proyecto, 
+				p.descripcion_corta
+			FROM
+			 	apex_proyecto p,
+				apex_usuario_proyecto up
+			WHERE 	
+				p.proyecto = up.proyecto
+			AND	up.usuario = '".toba::usuario()->get_id()."'
+			AND (SELECT COUNT(*) FROM apex_item 
+					WHERE proyecto = p.proyecto AND exportable=1) > 0
+			ORDER BY orden;";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}		
+	
+	
+	/**
+	*	Retorna la lista de items exportables de un proyecto dado
+	*/
+	static function get_items_exportables($proyecto=null)
+	{
+		$proyecto = isset($proyecto) ? $proyecto : toba_contexto_info::get_proyecto();
+		$sql = "
+			SELECT 
+				proyecto, 
+				item,
+				nombre
+			FROM apex_item 
+			WHERE 
+					(carpeta <> '1' OR carpeta IS NULL) 
+				AND proyecto = '$proyecto'
+				AND exportable = 1
+			ORDER BY nombre;
+		";
+		return toba_contexto_info::get_db()->consultar($sql);	
+	}	
 
 	//-------------------------------------------------
 	//---------------- ITEMS --------------------------
