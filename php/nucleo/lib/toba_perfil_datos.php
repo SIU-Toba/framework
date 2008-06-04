@@ -128,16 +128,14 @@ class toba_perfil_datos
 			$where = array();
 			//-- 1 -- Busco GATILLOS en el SQL
 			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql( $sql );
-			//ei_arbol($tablas_gatillo, "GATILLOS");
 			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo) );
 			foreach( $dimensiones_implicadas as $dimension => $tabla ) {
 				//-- 2 -- Obtengo la porcion de WHERE perteneciente a cada gatillo
 				$alias_tabla = $tablas_gatillo[$tabla];
-				$where = array_merge( $where, $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla) );
+				$where[] = $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
 			}
 			if($where) {
-				//ei_arbol($where, "WHERE");
-				//$sql = sql_concatenar_where($sql, $where);				
+				$sql = sql_concatenar_where($sql, $where);				
 			}
 		}
 		$this->ejecucion_filtro++;
@@ -194,6 +192,8 @@ class toba_perfil_datos
 			} else {								//-- JOIN multicolumna
 				
 			}
+		} else {
+			
 		}
 		return $where;
 	}
