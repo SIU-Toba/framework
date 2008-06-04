@@ -274,7 +274,8 @@ class toba_proyecto_db
 								ruta_tabla_rel_dim			
 						FROM apex_dimension_gatillo
 						WHERE proyecto = '$proyecto'
-						AND	dimension = '$dimension'";
+						AND	dimension = '$dimension'
+						ORDER BY orden";
 			$datos_dim['gatillos'] = self::get_db()->consultar($sql);
 		}
 		return $datos_dim;

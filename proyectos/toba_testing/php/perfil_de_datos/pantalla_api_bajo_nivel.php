@@ -1,28 +1,29 @@
 <?php 
-class pantalla_api_bajo_nivel extends toba_ei_pantalla
+require_once('pantalla_perfil_datos.php');
+
+class pantalla_api_bajo_nivel extends pantalla_perfil_datos
 {
 	function generar_layout()
 	{
-		$sql[] = "SELECT * FROM ref_deportes;";
-		$sql[] = "SELECT * FROM ref_deportes WHERE id < 5;";
-		$sql[] = "SELECT * FROM ref_deportes d, ref_persona_deportes p WHERE p.deporte = d.id;";
-		$sql[] = "SELECT * FROM ref_deportes d, ref_persona_deportes WHERE ref_persona_deportes.deporte = d.id;";
-		$sql[] = "SELECT * FROM ref_juegos ORDER BY id;";
-		$sql[] = "SELECT * FROM ref_deportes WHERE id > 2;";
-		$sql[] = "SELECT * FROM ref_persona_deportes GROUP BY *;";
-		$sql[] = "SELECT * FROM ref_persona_deportes WHERE persona = 1;";
-		$sql[] = "SELECT * FROM ref_persona_juegos;";
-		$sql[] = "SELECT * FROM ref_persona_juegos WHERE persona = 1;";
-
 		echo "<pre>";
-		foreach($sql as $s) {
+		foreach($this->sql as $s) {
 			echo "SQL: $s<br>";
-			$tablas = toba::perfil_de_datos()->buscar_tablas_gatillo_en_sql($s);
-			ei_arbol($tablas);
+			$tablas_gatillo = toba::perfil_de_datos()->buscar_tablas_gatillo_en_sql($s);
+			ei_arbol($tablas_gatillo,'Gatillos encontrados');
+			$dimensiones = toba::perfil_de_datos()->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo) );
+			ei_arbol($dimensiones,'Dimensiones implicadas');
+
+			$where = array();
+			foreach( $dimensiones as $dimension => $tabla ) {
+				//-- 2 -- Obtengo la porcion de WHERE perteneciente a cada gatillo
+				$alias_tabla = $tablas_gatillo[$tabla];
+				$where[] = toba::perfil_de_datos()->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
+			}
+			ei_arbol($where,'WHERE dim: '.$tabla);
+
 			echo "<br>";
 		}
 		echo "</pre>";
-
 	}
 }
 

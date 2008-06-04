@@ -3,7 +3,10 @@
 	Limitaciones parser:
 		- todo subquery tiene que estar entre parentesis
 		- no sepermiten subquerys en el FROM (extraños)
-
+		
+	Features perfiles
+		- Una tabla puede implicar dos dimensiones
+		
 */
 class toba_perfil_datos
 {
@@ -43,13 +46,15 @@ class toba_perfil_datos
 
 	function indexar_gatillos()
 	{
+		$gatillos = array();
 		foreach($this->info_dimensiones as $d => $dim) {
 			foreach($dim['gatillos'] as $g => $gatillo) {
 				//El indice es por tablas a detectar, se deja la posicion del gatillo en la dim correspondiente
-				$this->indice_gatillos[$gatillo['tabla_rel_dim']][$d] = $g;
+				$this->indice_gatillos[$d][$gatillo['tabla_rel_dim']] = $g;
+				$gatillos[] = $gatillo['tabla_rel_dim'];
 			}	
 		}
-		$this->gatillos_activos = array_keys($this->indice_gatillos);
+		$this->gatillos_activos = array_unique($gatillos);
 	}
 
 	function cargar_info_relaciones_entre_tablas()
@@ -114,36 +119,81 @@ class toba_perfil_datos
 	//----- API Filtrado -------------
 	//--------------------------------------------------------------------
 
+	/**
+	*	Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual
+	*/
 	function filtrar($sql)
 	{
 		if( $this->posee_restricciones() ) {
 			$where = array();
-			//-- 1 -- Busco las dimensiones implicadas
+			//-- 1 -- Busco GATILLOS en el SQL
 			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql( $sql );
-			foreach( $tablas_gatillo as $tabla => $alias_tabla ) {
-				foreach( $this->indice_gatillos[$tabla] as $dimension => $indice_gatillo) {
-					$where[] = $this->get_where_dimension_gatillo( $dimension, $indice_gatillo, $alias_tabla );
-				}
-				//-- 3 -- Agrego el WHERE en el SQL
+			//ei_arbol($tablas_gatillo, "GATILLOS");
+			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo) );
+			foreach( $dimensiones_implicadas as $dimension => $tabla ) {
+				//-- 2 -- Obtengo la porcion de WHERE perteneciente a cada gatillo
+				$alias_tabla = $tablas_gatillo[$tabla];
+				$where = array_merge( $where, $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla) );
 			}
-			ei_arbol($where,"WHERE");
-		} else {
-			return $sql;	
+			if($where) {
+				//ei_arbol($where, "WHERE");
+				//$sql = sql_concatenar_where($sql, $where);				
+			}
 		}
+		$this->ejecucion_filtro++;
+		return $sql;
+	}
+	
+	/**
+	*	Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una
+	*		(Los gatillos tienen un orden de preferencia -el orden viene del sql de gatillos-,
+				y no debe utilizarse mas de uno por dimension)
+	*		(Un gatillo puede pertenecer a mas de una dimension)
+	*/
+	function reconocer_dimensiones_implicadas($tablas_encontradas)
+	{
+		$dimensiones = array();
+		$dimensiones_posicion = array();
+		foreach($tablas_encontradas as $tabla_encontrada) {
+			foreach($this->indice_gatillos as $dim => $gatillo) {
+				foreach($gatillo as $tabla => $posicion) {
+					if($tabla_encontrada == $tabla ) {
+						if(isset($dimensiones[$dim]) ) {
+							if ($dimensiones_posicion[$dim] > $posicion ) {
+								$dimensiones[$dim] = $tabla;
+								$dimensiones_posicion[$dim] = $posicion;
+							}
+						}else{
+							$dimensiones[$dim] = $tabla;
+							$dimensiones_posicion[$dim] = $posicion;
+						}
+					}
+				}
+			}
+		}
+		return $dimensiones;
 	}
 
-
 	/**
-	*	Devuelve el WHERE correspondiente a un gatillo de una dimension
+	*	Devuelve el WHERE correspondiente a un gatillo para una dimension particular
 	*/
-	function get_where_dimension_gatillo($dimension, $indice_gatillo, $alias_tabla)
+	function get_where_dimension_gatillo($dimension, $tabla, $alias_tabla)
 	{
 		$where = '';
 		//Busco la definicion del gatillo
+		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
-		//ei_arbol($def);
-		if ($def['tipo'] == 'directo') {
-			$where .= $alias_tabla . '.' . $def['columnas_rel_dim'] . ' IN ';
+		$restric =& $this->restricciones[$dimension];
+		if ($def['tipo'] == 'directo') {										// gatillo DIRECTO!
+			$columnas_gatillo = explode( ',', $def['columnas_rel_dim'] );
+			if(count($columnas_gatillo) == 1) {		//-- JOIN simple
+				foreach($restric as $clave) {
+					$claves[] = $clave[0];
+				}
+				$where .= $alias_tabla . '.' . $columnas_gatillo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
+			} else {								//-- JOIN multicolumna
+				
+			}
 		}
 		return $where;
 	}
