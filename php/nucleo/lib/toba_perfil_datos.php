@@ -127,25 +127,26 @@ class toba_perfil_datos
 		if( $this->posee_restricciones() ) {
 			$where = array();
 			//-- 1 -- Busco GATILLOS en el SQL
-			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql( $sql );
-			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo) );
+			$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql );
+			//-- 2 -- Busco las dimensiones implicadas
+			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas) );
+			//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
 			foreach( $dimensiones_implicadas as $dimension => $tabla ) {
-				//-- 2 -- Obtengo la porcion de WHERE perteneciente a cada gatillo
-				$alias_tabla = $tablas_gatillo[$tabla];
+				$alias_tabla = $tablas_gatillo_encontradas[$tabla];
 				$where[] = $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
 			}
+			//-- 4 -- Altero el SQL
 			if($where) {
 				$sql = sql_concatenar_where($sql, $where);				
 			}
 		}
-		$this->ejecucion_filtro++;
 		return $sql;
 	}
 	
 	/**
 	*	Arma la lista de dimensiones implicadas y el gatillo a utilizar por cada una
 	*		(Los gatillos tienen un orden de preferencia -el orden viene del sql de gatillos-,
-				y no debe utilizarse mas de uno por dimension)
+	*			y no debe utilizarse mas de uno por dimension)
 	*		(Un gatillo puede pertenecer a mas de una dimension)
 	*/
 	function reconocer_dimensiones_implicadas($tablas_encontradas)
@@ -175,24 +176,24 @@ class toba_perfil_datos
 	/**
 	*	Devuelve el WHERE correspondiente a un gatillo para una dimension particular
 	*/
-	function get_where_dimension_gatillo($dimension, $tabla, $alias_tabla)
+	function get_where_dimension_gatillo($dimension, $tabla_gatillo, $alias_tabla)
 	{
 		$where = '';
 		//Busco la definicion del gatillo
-		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla];
+		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
 		$restric =& $this->restricciones[$dimension];
 		if ($def['tipo'] == 'directo') {										// gatillo DIRECTO!
 			$columnas_gatillo = explode( ',', $def['columnas_rel_dim'] );
-			if(count($columnas_gatillo) == 1) {		//-- JOIN simple
+			if(count($columnas_gatillo) == 1) {		//-- COMPARACION simple
 				foreach($restric as $clave) {
 					$claves[] = $clave[0];
 				}
 				$where .= $alias_tabla . '.' . $columnas_gatillo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
-			} else {								//-- JOIN multicolumna
+			} else {								//-- COMPARACION multicolumna
 				
 			}
-		} else {
+		} else {																// gatillo INDIRECTO!
 			
 		}
 		return $where;
