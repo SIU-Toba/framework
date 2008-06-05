@@ -170,7 +170,7 @@ class toba_manejador_archivos
 	*	Copia el contenido de un directorio a otro.
 	*	No copia las carpetas SVN
 	*/
-	static function copiar_directorio( $origen, $destino )
+	static function copiar_directorio( $origen, $destino, $excepciones=array(), $manejador_interface = null )
 	{
 		if( ! is_dir( $origen ) ) {
 			throw new toba_error("COPIAR DIRECTORIO: El directorio de origen '$origen' es INVALIDO");
@@ -192,10 +192,16 @@ class toba_manejador_archivos
 		foreach ( $lista_archivos as $archivo ) {
 			$x_origen = $origen . '/' . $archivo;
 			$x_destino = $destino . '/' . $archivo;
-			if ( is_dir( $x_origen ) ) {
-				self::copiar_directorio( $x_origen, $x_destino );
-			} else {
-				copy( $x_origen, $x_destino );	
+			//Evito excepciones			
+			if (! in_array($x_origen, $excepciones)) {			
+				if ( is_dir( $x_origen )) {
+					if (isset($manejador_interface)) {
+						$manejador_interface->progreso_avanzar();
+					}
+					self::copiar_directorio( $x_origen, $x_destino, $excepciones, $manejador_interface );
+				} else {
+					copy( $x_origen, $x_destino );	
+				}
 			}
 		}
 	}
@@ -279,5 +285,21 @@ class toba_manejador_archivos
 	    }
 	    return false;
 	 }	
+	 
+	function es_directorio_vacio($dir)
+	{
+	    if ($dh = @opendir($dir)) {
+	        while ($file = readdir($dh)) {
+	            if ($file != '.' && $file != '..') {
+	                closedir($dh);
+	                return false;
+	            }
+	        }
+	        closedir($dh);
+	        return true;
+	    } else {
+	    	return false;
+	    }
+	}	 
 }
 ?>

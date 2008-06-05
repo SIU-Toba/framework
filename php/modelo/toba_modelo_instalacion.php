@@ -572,6 +572,46 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	}	
 	
 	
+	function empaquetar_en_carpeta($destino, $librerias_en_uso = array(), $proyectos_en_uso = array())
+	{
+		$path_base = toba_dir();
+		$excepciones = array();
+		$excepciones[] = $path_base.'/doc';
+		$excepciones[] = $path_base.'/instalacion';
+		$excepciones[] = $path_base.'/var';
+		
+		//Excepciones de php/3eros
+		foreach (toba_manejador_archivos::get_subdirectorios($path_base.'/php/3ros') as $libreria) {
+			if (! in_array(basename($libreria), $librerias_en_uso)) {
+				$excepciones[] = $libreria;
+			}
+		}
+		//Excepciones de www/js
+		$candidatas = array('fckeditor', 'junit', 'yui');
+		foreach (toba_manejador_archivos::get_subdirectorios($path_base.'/www/js') as $libreria) {
+			$nombre = basename($libreria);
+			if (in_array($nombre, $candidatas) && !in_array($nombre, $librerias_en_uso)) {
+				$excepciones[] = $libreria;
+			}
+		}		
+		
+		//Excepciones de proyectos
+		foreach (toba_manejador_archivos::get_subdirectorios($path_base.'/proyectos') as $proyecto) {
+			$nombre = basename($proyecto);
+			if (!in_array($nombre, $proyectos_en_uso)) {
+				$excepciones[] = $proyecto;
+			}
+		}		
+		
+		//Carpeta php
+		toba_manejador_archivos::crear_arbol_directorios( $destino);
+		toba_manejador_archivos::copiar_directorio($path_base, $destino, 
+													$excepciones, $this->manejador_interface);
+
+		//Crea un archivo revision con la actual de toba
+		file_put_contents($destino.'/REVISION', revision_svn(toba_dir(), true));
+	}
+	
 	//------------------------------------------------------------------------
 	//-------------------------- Manejo de Versiones -------------------------
 	//------------------------------------------------------------------------

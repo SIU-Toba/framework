@@ -573,6 +573,20 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 	
+	function get_sql_crear_tablas()
+	{
+		$directorio = toba_modelo_nucleo::get_dir_ddl();
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		sort($archivos);
+		$salida = "--------------------------------\n";
+		$salida .= "-- CREACION DE TABLAS\n";
+		$salida .= "--------------------------------\n\n";
+		foreach( $archivos as $archivo ) {
+			$salida .= file_get_contents($archivo)."\n\n";
+		}		
+		return $salida;
+	}
+	
 	private function crear_tablas_minimas()
 	{
 		$this->manejador_interface->mensaje('Creando las tablas del sistema (version reducida)', false);
@@ -633,6 +647,19 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		$this->manejador_interface->progreso_fin();		
 	}
+	
+	function get_sql_carga_datos_nucleo()
+	{
+		$directorio = toba_modelo_nucleo::get_dir_metadatos();
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio, '|.*\.sql|' );
+		$salida = "--------------------------------------------------\n";
+		$salida .= "-- CARGA DATOS DEL NUCLEO\n";
+		$salida .= "--------------------------------------------------\n\n";
+		foreach( $archivos as $archivo ) {
+			$salida .= file_get_contents($archivo)."\n\n";
+		}		
+		return $salida;		
+	}
 
 	/*
 	*	Importa los proyectos asociados
@@ -651,6 +678,20 @@ class toba_modelo_instancia extends toba_modelo_elemento
 				}
 			}
 		}	
+	}
+	
+	function get_sql_carga_proyectos($proyectos)
+	{
+		$salida = "--------------------------------------------------\n";
+		$salida .= "-- CARGA DATOS DE PROYECTOS \n";
+		$salida .= "--------------------------------------------------\n\n";
+		foreach( $this->get_lista_proyectos_vinculados() as $id_proyecto ) {
+			if ($id_proyecto != 'toba' && in_array($id_proyecto, $proyectos)) {
+				$proyecto = $this->get_proyecto($id_proyecto);
+				$salida .= $proyecto->get_sql_cargar()."\n\n";
+			}
+		}			
+		return $salida;
 	}
 	
 	
@@ -806,6 +847,17 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->manejador_interface->progreso_avanzar();			
 		}
 		$this->manejador_interface->progreso_fin();
+	}
+	
+	function get_sql_actualizar_secuencias()
+	{
+		$salida = "--------------------------------------------------\n";
+		$salida .= "-- ACTUALIZACION DE SECUENCIAS \n";
+		$salida .= "--------------------------------------------------\n\n";		
+		foreach ( toba_db_secuencias::get_lista() as $seq => $datos ) {
+			$salida .= "SELECT setval('$seq', max({$datos['campo']})) as nuevo FROM {$datos['tabla']};\n"; 
+		}
+		return $salida;
 	}
 	
 	/**

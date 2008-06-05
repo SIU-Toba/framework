@@ -1,6 +1,7 @@
 <?php
 # PROYECTO
 define("apex_pa_proyecto","toba_instancia");
+define("apex_pa_validacion_debug",0);
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

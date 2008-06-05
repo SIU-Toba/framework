@@ -320,6 +320,14 @@ class comando_proyecto extends comando_toba
 			throw new toba_error("El proyecto no se encuentra actualmente publicado.");
 		}
 	}		
+
+	/**
+	* Crea un instalador del proyeto/framework para produccion
+	*/
+	function opcion__empaquetar()
+	{
+		$this->get_proyecto()->empaquetar();
+	}		
 	
 	
 	/**

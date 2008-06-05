@@ -407,6 +407,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->cargar_permisos();
 	}
 	
+	function get_sql_cargar()
+	{
+		$salida = '';
+		$salida .= $this->get_sql_cargar_tablas()."\n\n";
+		$salida .= $this->get_sql_cargar_componentes()."\n\n";
+		$salida .= $this->get_sql_cargar_permisos()."\n\n";
+		return $salida;
+	}
+	
 	
 	private function cargar_tablas()
 	{
@@ -420,6 +429,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$cant_total++;
 		}
 		$this->manejador_interface->progreso_fin();
+	}
+	
+	private function get_sql_cargar_tablas()
+	{
+		$salida = '';
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_tablas(), '|.*\.sql|' );		
+		foreach( $archivos as $archivo ) {
+			$salida .= file_get_contents($archivo)."\n\n";
+		}		
+		return $salida;
 	}
 	
 	private function cargar_permisos()
@@ -440,6 +459,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 	}
 
+	private function get_sql_cargar_permisos()
+	{
+		$salida = '';
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );		
+		foreach( $archivos as $archivo ) {
+			$salida .= file_get_contents($archivo)."\n\n";
+		}		
+		return $salida;
+	}	
+	
 	private function cargar_componentes()
 	{
 		$this->manejador_interface->mensaje('Cargando componentes', false);		
@@ -454,6 +483,19 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$this->manejador_interface->progreso_fin();
 	}
+	
+	private function get_sql_cargar_componentes()
+	{
+		$salida = '';
+		$subdirs = toba_manejador_archivos::get_subdirectorios( $this->get_dir_componentes() );
+		foreach ( $subdirs as $dir ) {
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $dir , '|.*\.sql|' );
+			foreach( $archivos as $archivo ) {
+				$salida .= file_get_contents($archivo)."\n\n";
+			}
+		}
+		return $salida;
+	}		
 
 	/*
 	*	Carga el conjunto de metadatos minimo
@@ -1159,6 +1201,148 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $sql;
 	}	
 
+	//------------------------------------------------------
+	//------- Empaquetar -----------------------------------
+	//------------------------------------------------------
+	
+	/**
+	 * Genera y copia los archivos necesarios para el instalador
+	 */
+	function empaquetar()
+	{
+		$nombre_ini = 'instalador.ini';
+		$path_ini = $this->get_dir().'/'.$nombre_ini;
+		if (! file_exists($path_ini)) {
+			throw new toba_error("Para crear el paquete de instalación debe existe el archivo '$nombre_ini' en la raiz del proyecto");
+		}
+		$ini = new toba_ini($path_ini);
+		
+		//--- Crea la carpeta destino
+		$crear_carpeta = false;
+		$empaquetado = $ini->get_datos_entrada('EMPAQUETADO');
+		if (! isset($empaquetado['path_destino'])) {
+			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion 'EMPAQUETADO'");
+		}
+		if (file_exists($empaquetado['path_destino'])) {
+			if (! is_dir($empaquetado['path_destino'])) {
+				throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_destino']}' no es un directorio valido");
+			}
+			if (! toba_manejador_archivos::es_directorio_vacio($empaquetado['path_destino'])) {
+				//-- Existe la carpeta y no está vacia, se borra?
+				if ($this->manejador_interface->dialogo_simple("La carpeta destino '{$empaquetado['path_destino']}' no esta vacia. Desea borrarla?", 's')) {
+					toba_manejador_archivos::eliminar_directorio($empaquetado['path_destino']);
+					$crear_carpeta = true;
+				}
+			}
+		} else {
+			$crear_carpeta = true;
+		}
+		if ($crear_carpeta) {
+			toba_manejador_archivos::crear_arbol_directorios($empaquetado['path_destino']);
+		}
+		
+		//-- Borra de la instancia todo proyecto ajeno a la exportacion
+		
+		//--- Compila metadatos del proyecto
+		$this->compilar();
+		
+		//--- Incluye el instalador base
+		$this->manejador_interface->titulo("Copiando archivos");		
+		if (! isset($empaquetado['path_instalador'])) {
+			throw new toba_error("'$nombre_ini': Debe indicar 'path_instalador' en seccion 'EMPAQUETADO'");
+		}
+		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
+			throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_instalador']}' no es un directorio valido");
+		}
+		$this->manejador_interface->mensaje("Copiando instalador..", false);		
+		toba_manejador_archivos::copiar_directorio($empaquetado['path_instalador'], $empaquetado['path_destino'], 
+														array(), $this->manejador_interface);
+		$this->manejador_interface->progreso_fin();
+		
+		//--- Empaqueta el núcleo de toba y lo deja en destino
+		$this->manejador_interface->mensaje("Copiando framework", false);	
+		$librerias = array();
+		$proyectos = array();
+		if (isset($empaquetado['librerias'])) {
+			$librerias = explode(',', $empaquetado['librerias']);
+			foreach (array_keys($librerias) as $i) {
+				$librerias[$i] = trim($librerias[$i]);
+			}
+		}
+		if (isset($empaquetado['proyectos_extra'])) {
+			$proyectos = explode(',', $empaquetado['proyectos_extra']);
+			foreach (array_keys($proyectos) as $i) {
+				$proyectos[$i] = trim($proyectos[$i]);
+			}
+		}		
+		$instalacion = $this->instancia->get_instalacion();
+		$destino_instalacion = $empaquetado['path_destino'].'/toba_'.$this->get_id().'/framework';
+		$instalacion->empaquetar_en_carpeta($destino_instalacion, $librerias, $proyectos);
+		$this->manejador_interface->progreso_fin();
+		
+		//--- Empaqueta el proyecto actual
+		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
+		$destino_aplicacion = $empaquetado['path_destino'].'/toba_'.$this->get_id().'/aplicacion';		
+		$excepciones = array();
+		if (isset($empaquetado['excepciones_proyecto'])) {
+			$excepciones = explode(',', $empaquetado['proyectos_extra']);
+			$origen = $this->get_dir();
+			foreach (array_keys($excepciones) as $i) {
+				$excepciones[$i] = $origen.'/'.trim($excepciones[$i]);
+			}			
+		}
+
+		$this->empaquetar_proyecto($destino_aplicacion, $excepciones);
+		$this->manejador_interface->progreso_fin();
+		
+		//--- Generar un GRAN archivo .sql con los metadatos
+		$this->manejador_interface->mensaje("Copiando base de metadatos", false);	
+		$this->empaquetar_metadatos($empaquetado['path_destino'], $proyectos);
+		$this->manejador_interface->progreso_fin();
+
+	}
+	
+	protected function empaquetar_proyecto($destino, $excepciones)
+	{
+		$origen = $this->get_dir();		
+		//-- Los metadatos no se envian ya que son incluidos en la distribución del framework
+		$excepciones[] = $origen.'/metadatos';
+		
+		toba_manejador_archivos::crear_arbol_directorios($destino);
+		toba_manejador_archivos::copiar_directorio($origen, $destino, 
+													$excepciones, $this->manejador_interface);
+
+		//-- Crea un archivo revision con la actual de toba
+		file_put_contents($destino.'/REVISION', revision_svn($origen, true));		
+		
+		//-- Modifica aplicacion.php
+		$dir_template = toba_dir().self::template_proyecto;
+		copy( $dir_template.'/www/aplicacion.produccion.php', $destino.'/www/aplicacion.php');
+		$editor = new toba_editor_archivos();
+		$editor->agregar_sustitucion( '|__proyecto__|', $this->get_id() );
+		$editor->procesar_archivo( $destino . '/www/aplicacion.php' );
+	}
+	
+	protected function empaquetar_metadatos($destino, $proyectos_extra)
+	{
+		$proyectos_a_exportar = $proyectos_extra;
+		$proyectos_a_exportar[] = $this->get_id();				
+		toba_manejador_archivos::crear_arbol_directorios($destino.'/base/ambiente/');		
+		$destino_metadatos = $destino.'/base/ambiente/base_ambiente.sql';
+		$fp = fopen($destino_metadatos, 'w');
+		fwrite($fp, "BEGIN TRANSACTION;\n");
+		fwrite($fp, "SET CONSTRAINTS ALL DEFERRED;\n");		
+		fwrite($fp, $this->instancia->get_sql_crear_tablas());
+		$this->manejador_interface->progreso_avanzar();		
+		fwrite($fp, $this->instancia->get_sql_carga_datos_nucleo());
+		$this->manejador_interface->progreso_avanzar();	
+		fwrite($fp, $this->instancia->get_sql_carga_proyectos($proyectos_a_exportar));
+		$this->manejador_interface->progreso_avanzar();
+		fwrite($fp, $this->instancia->get_sql_actualizar_secuencias());		
+		fwrite($fp, "COMMIT TRANSACTION;\n");			
+		fclose($fp);		
+	}
+	
 	//-----------------------------------------------------------
 	//	VENTANAS
 	//-----------------------------------------------------------	
@@ -1272,6 +1456,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$url_proyecto = $instancia->get_url_proyecto($nombre);
 			
 			// Creo la CARPETA del PROYECTO
+			$excepciones = array();
+			$excepciones[] = $dir_template.'/www/aplicacion.produccion.php';
 			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
 			
 			//--- Creo el archivo PROYECTO

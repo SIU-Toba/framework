@@ -311,24 +311,34 @@
 	}
 	//-----------------------------------------------------------------
 
-	function revision_svn($dir)
+	function revision_svn($dir, $usar_comando=false)
 	//Busca la revision de a la que corresponde el TOBA
 	{
-		$archivo = "$dir/.svn/entries";
-		if(file_exists($archivo))
-		{
-			//$fd = fopen($archivo, "r");
-	   		//$contenido = fread($fd, filesize($archivo));
-			$contenido = file_get_contents ( $archivo );
-			$captura = array();
-			if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
-				//ei_arbol($captura);	
-				return $captura[1];
+		if (! $usar_comando) {
+			$archivo = "$dir/.svn/entries";
+			if(file_exists($archivo))
+			{
+				//$fd = fopen($archivo, "r");
+		   		//$contenido = fread($fd, filesize($archivo));
+				$contenido = file_get_contents ( $archivo );
+				$captura = array();
+				if(preg_match("/revision=\"(.*)\"/", $contenido, $captura)){
+					//ei_arbol($captura);	
+					return $captura[1];
+				}else{
+					return "DESCONOCIDA";	
+				}
 			}else{
 				return "DESCONOCIDA";	
 			}
-		}else{
-			return "DESCONOCIDA";	
+		} else {
+			$cmd = "svn info \"$dir\" --xml";
+			$xml = simplexml_load_string(`$cmd`);
+			if (isset($xml->entry)) {
+				return (string) $xml->entry['revision'];
+			} else {
+				return "DESCONOCIDA";
+			}
 		}
 	}
 
