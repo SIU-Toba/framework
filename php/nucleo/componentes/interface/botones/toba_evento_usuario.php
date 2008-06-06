@@ -139,6 +139,11 @@ class toba_evento_usuario extends toba_boton
 		$this->parametros = $parametros;
 	}
 
+	function set_vista_previa_impresion($estado=true)
+	{
+		$this->datos['accion_imphtml_debug'] = $estado;
+	}
+
 	//--------- Consumo interno ------------
 	
 	/**

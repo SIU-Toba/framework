@@ -63,10 +63,12 @@ class toba_ef_popup extends toba_ef_editable
 										true,
 										$this->ventana );
 		$this->vinculo->agregar_opcion('menu',true);
-		$this->vinculo->set_popup_parametros( array(	'scrollbars'=>true,
-														'resizable'=>true,
-														'height'=>500,
-														'width'=>500 ), true );
+		if (is_null($this->ventana)) {
+			$this->vinculo->set_popup_parametros( array(	'scrollbars'=>true,
+															'resizable'=>true,
+															'height'=>500,
+															'width'=>500 ), true );
+		}
         $this->id_vinculo = toba::vinculador()->registrar_vinculo( $this->vinculo );
 		parent::__construct($padre,$nombre_formulario, $id,$etiqueta,$descripcion,$dato,$obligatorio, $parametros);
 	}

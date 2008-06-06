@@ -48,6 +48,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_cortes_anidado_colap;
 	//Salida
 	protected $_clase_formateo = 'toba_formateo';
+	protected $_mostrar_titulo_antes_cc = false;
 	protected $_tipo_salida;
 	protected $_salida;
 	protected $_total_registros; 
@@ -463,7 +464,15 @@ class toba_ei_cuadro extends toba_ei
 	function set_eof_mostrar($mostrar=true)
 	{
 		$valor = ($mostrar) ? 1 : 0;
-		$this->info_cuadro["eof_invisible"] = $valor;
+		$this->_info_cuadro["eof_invisible"] = $valor;
+	}
+	
+	/**
+	 * El cuadro muestra su título una única vez antes de los cortes de control
+	 */
+	function set_mostrar_titulo_antes_cc($unico=true)
+	{
+		$this->_mostrar_titulo_antes_cc = $unico;
 	}
 	
 
@@ -885,16 +894,34 @@ class toba_ei_cuadro extends toba_ei
 	{
 		if (! $this->_ordenado) {
 			$ordenamiento = array();
-	        foreach ($this->datos as $fila) { 
-	            $ordenamiento[] = $fila[$this->_orden_columna]; 
-	        }
-	        //Ordeno segun el sentido
-	        if($this->_orden_sentido == "asc"){
-	            array_multisort($ordenamiento, SORT_ASC , $this->datos);
-	        } elseif ($this->_orden_sentido == "des"){
-	            array_multisort($ordenamiento, SORT_DESC , $this->datos);
-	        }
-		}
+
+			switch( $this->_columnas[$this->_orden_columna]['formateo'] )
+			{		
+				case "fecha":
+					// Paso los valores de la columna a timestamp para ordenar por fecha	
+			    	foreach ($this->datos as $fila) {
+			   			$ordenamiento[] = strtotime($fila[$this->_orden_columna])  ;
+					}
+					//Ordeno segun el sentido
+			        if($this->_orden_sentido == "asc"){
+			            array_multisort($ordenamiento, SORT_ASC , SORT_NUMERIC, $this->datos);
+			        } elseif ($this->_orden_sentido == "des"){
+			            array_multisort($ordenamiento, SORT_DESC , SORT_NUMERIC, $this->datos);
+			        }
+			    break;
+		        
+		    	default:
+					foreach ($this->datos as $fila){
+						$ordenamiento[] = $fila[$this->_orden_columna];
+			        }
+			        //Ordeno segun el sentido
+			        if($this->_orden_sentido == "asc"){
+			            array_multisort($ordenamiento, SORT_ASC , $this->datos);
+			        } elseif ($this->_orden_sentido == "des"){
+			            array_multisort($ordenamiento, SORT_DESC , $this->datos);
+			        }
+		    } //SWITCH
+		} //IF
     }
 
 //################################################################################
@@ -1155,6 +1182,10 @@ class toba_ei_cuadro extends toba_ei
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
+		}
+		//-- Se puede por api cambiar a que los titulos de las columnas se muestren antes que los cortes
+		if ($this->_mostrar_titulo_antes_cc) {
+			$this->html_cuadro_cabecera_columnas();
 		}
 	}
 	
@@ -1420,7 +1451,10 @@ class toba_ei_cuadro extends toba_ei
 		if( ! $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
 		}
-		$this->html_cuadro_cabecera_columnas();
+		//-- Se puede por api cambiar a que los titulos de las columnas se muestren antes que los cortes, en ese caso se evita hacerlo aqui		
+		if (! $this->_mostrar_titulo_antes_cc) {
+			$this->html_cuadro_cabecera_columnas();
+		}
 		$par = false;
 		$formateo = new $this->_clase_formateo('html');
         foreach($filas as $f)
@@ -1667,6 +1701,22 @@ class toba_ei_cuadro extends toba_ei
 		}
 	}
 
+	function pdf_acumulador_usuario()
+	{
+		if (isset($this->_sum_usuario)) {
+			foreach($this->_sum_usuario as $sum) {
+				if($sum['corte'] == 'toba_total') {
+					$metodo = $sum['metodo'];
+					$sumarizacion[$sum['descripcion']] = $this->$metodo($this->datos);
+				}
+			}
+		}
+		if (isset($sumarizacion)) {
+			$css = 'cuadro-cc-sum-nivel-1';
+			$this->pdf_cuadro_sumarizacion($sumarizacion,null,300,$css);
+		}		
+	}
+	
     /**
      * @ignore 
      */
@@ -1832,13 +1882,20 @@ class toba_ei_cuadro extends toba_ei
         echo "<TABLE width='$ancho' class='ei-base ei-cuadro-base'>";
 		// Cabecera
 		echo"<tr><td class='ei-cuadro-cabecera'>";
-		$this->html_cabecera();		
+		$this->impresion_html_cabecera();		
 		echo "</td></tr>\n";
 		//--- INICIO CONTENIDO  -----
 		echo "<tr><td class='ei-cuadro-cc-fondo'>\n";
 		// Si el layout es cortes/tabular se genera una sola tabla, que empieza aca
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_inicio();
+		}
+	}
+	
+	private function impresion_html_cabecera()
+	{
+		if(trim($this->_info_cuadro["subtitulo"])<>""){
+			echo $this->_info_cuadro["subtitulo"];
 		}
 	}
 
@@ -1921,8 +1978,8 @@ class toba_ei_cuadro extends toba_ei
 				$this->salida->separacion($this->_pdf_sep_titulo);
 				$this->pdf_cuadro_totales_columnas($this->_acumulador, 0, true);
 			}
-			/*$this->html_acumulador_usuario();
-			$this->html_cuadro_fin();					*/
+			$this->pdf_acumulador_usuario();
+			/*$this->html_cuadro_fin();					*/
 		}		
 	}
 

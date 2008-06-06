@@ -17,8 +17,9 @@ class ci_cuadro_cc extends toba_ci
 		return $this->get_info_localidades();
 	}
 
-	function conf__cuadro_tab_2()
+	function conf__cuadro_tab_2(toba_ei_cuadro $cuadro)
 	{
+		$cuadro->set_mostrar_titulo_antes_cc(true);
 		return $this->get_info_localidades();
 	}
 	

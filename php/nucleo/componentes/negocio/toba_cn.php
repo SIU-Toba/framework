@@ -62,21 +62,21 @@ class toba_cn extends toba_componente
 	 * 
 	 * @todo Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales
 	 */
-	function procesar($parametros=null)
+	function procesar($parametros=null, $transaccionar=true, $limpiar_memoria=true)
 	{
 		$resultado = null;
-		$this->_log->debug( $this->get_txt() . "[ procesar ]", 'toba');
+		$this->_log->debug( $this->get_txt() . "[ toba_cn: procesar ]", 'toba');
 		try {
 			//ignore_user_abort();				//------> ?????
-			$this->iniciar_transaccion();
+			if($transaccionar) $this->iniciar_transaccion();
 			$this->evt__validar_datos();
 			$resultado = $this->evt__procesar_especifico($parametros);
-			$this->finalizar_transaccion();
-			$this->evt__limpieza_memoria();
+			if($transaccionar) $this->finalizar_transaccion();
+			if($limpiar_memoria) $this->evt__limpieza_memoria();
 			return $resultado;
 		}
 		catch(toba_error $e){
-			$this->abortar_transaccion();
+			if($transaccionar) $this->abortar_transaccion();
 			$this->_log->debug($e, 'toba');	
 			throw new toba_error( $e->getMessage() );
 		}
@@ -97,6 +97,21 @@ class toba_cn extends toba_componente
 	 */
 	function evt__procesar_especifico()
 	{}
+
+	/**
+	 *	Procesamiento para esquemas de CNs anidados
+	 * 
+	 * @todo Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales
+	 */
+	function procesar_anidado($parametros=null)
+	{
+		$resultado = null;
+		$this->_log->debug( $this->get_txt() . "[ toba_cn: procesar_anidado ]", 'toba');
+		$this->evt__validar_datos();
+		$resultado = $this->evt__procesar_especifico($parametros);
+		$this->evt__limpieza_memoria();
+		return $resultado;
+	}
 
 	//-------------------------------------------------------------------------------
 	//------------------  Manejo de TRANSACCIONES  ----------------------------------

@@ -228,9 +228,9 @@ class toba_vista_pdf
 	 * @param string $archivo full path de la imagen
 	 * @param string $alineacion left, right, center
 	 */
-	function insertar_imagen($archivo,$alineacion='left')
+	function insertar_imagen($archivo,$pad=5,$width=0,$alineacion='left')
 	{
-		$this->pdf->ezImage("$archivo",5,0,'none',$alineacion); 	
+		$this->pdf->ezImage("$archivo",$pad,$width,'none',$alineacion); 	
 	}
 	
 	/**
@@ -246,7 +246,7 @@ class toba_vista_pdf
 	 */
 	function tabla( $datos, $ver_titulos_col=false, $tamanio=8, $opciones=array() ){
 		$ver_tit_col = $ver_titulos_col? 1 : 0;
-		$texto_tit_col = isset($datos['titulos_columnas'])? $datos['titulos_columnas'] : array('clave' => '', 'valor' => '');
+		$texto_tit_col = isset($datos['titulos_columnas'])? $datos['titulos_columnas'] : '';
 		$texto_titulo_tabla = isset($datos['titulo_tabla'])? $datos['titulo_tabla'] : '';
 		$opciones_def = array(
 						'splitRows'=>0,

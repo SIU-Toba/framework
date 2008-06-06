@@ -44,8 +44,6 @@ class toba_formateo
 
 	function formato_decimal($valor)
 	{
-		//Es trucho forzar desde aca, los datos tienen que esta bien
-		//if($valor<0)$valor=0;
 		if ($this->tipo_salida != 'excel') {
 			if (strpos($valor,'.') === false) {
 				return number_format($valor,0,',','.');	

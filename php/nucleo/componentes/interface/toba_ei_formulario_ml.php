@@ -1071,6 +1071,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	function vista_impresion_html( $salida )
 	{
+		$this->totalizar_columnas_impresion();		
 		$formateo = new $this->_clase_formateo('impresion_html');		
 		$salida->subtitulo( $this->get_titulo() );
 		$ancho = isset($this->_info_formulario["ancho"]) ? $this->_info_formulario["ancho"] : "auto";
@@ -1121,6 +1122,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			
 	function vista_pdf( $salida )
 	{
+		$this->totalizar_columnas_impresion();		
 		$formateo = new $this->_clase_formateo('pdf');
 		//-- Encabezado
 		$tit_col = array();
@@ -1178,6 +1180,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		
 	function vista_excel(toba_vista_excel $salida)
 	{
+		$this->totalizar_columnas_impresion();
 		$formateo = new $this->_clase_formateo('excel');
 		$opciones = array();
 		$datos = array();
@@ -1213,6 +1216,27 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			$salida->tabla($datos, $titulos, $opciones);
 		}
 
+	}
+	
+	function totalizar_columnas_impresion()
+	{
+		//Totalizo por columnas y agrego a la fila 'S' como en el pedido de pagina comun.
+		if(count($this->_lista_ef_totales)>0){
+			$fila_totales = array();
+			foreach($this->_lista_ef_totales as $total_col){
+				if($this->_datos) {
+					foreach($this->_datos as $fila){
+						if(isset($fila_totales[$total_col])){
+							$fila_totales[$total_col] += $fila[$total_col];
+						}else{
+							$fila_totales[$total_col] = $fila[$total_col];
+						}//if					
+					}//fe _datos
+				}
+			}//fe _lista_ef_totales
+			$this->_datos['s'] = $fila_totales;
+			$this->_ordenes[] = 's';
+		}//if count
 	}	
 }
 ?>

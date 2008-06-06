@@ -1370,7 +1370,7 @@ function ezImage($image,$pad = 5,$width = 0,$resize = 'full',$just = 'center',$b
 		//center if justification=center
 		if ($just == 'center')
 		{
-			$offset = ($bigwidth - $width) / 2;
+			$offset = ($bigwidth - $width - $this->ez['leftMargin'] - $this->ez['rightMargin']) / 2;
 		}
 		//move to right if justification=right
 		if ($just == 'right')

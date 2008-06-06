@@ -564,7 +564,8 @@ abstract class toba_ei extends toba_componente
 	function get_html_barra_editor()
 	{
 		$salida = '';
-		if( toba_editor::modo_prueba() ){ 
+		$servicio = toba::memoria()->get_servicio_solicitado();
+		if( toba_editor::modo_prueba() && ($servicio == 'generar_html') ){ 
 			$salida .= "<div class='div-editor'>";
 			$salida .= toba_editor::generar_zona_vinculos_componente($this->_id, $this->_info['clase_editor_item'], $this->_info['clase'],
 										$this->_info['subclase'] != '');

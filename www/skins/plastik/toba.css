@@ -283,3 +283,14 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .auditoria-cambio-valor {
 	font-weight: bold;
 }
+
+/*************************
+		CALENDARIO
+**************************/
+.selectedday, .selecteddayevents {
+	border: 1px solid #000000;
+	background-color: #D4D0C8;
+}
+.today, .todayevents {
+	border: 1px solid #000000;
+}

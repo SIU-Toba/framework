@@ -507,7 +507,7 @@ class calendario extends activecalendar
 		$js = "{$objeto_js}.set_evento($evento_js);";
 		$day = $this->mkActiveTime(0,0,1,$this->actmonth,$var,$this->actyear);
 		if ($this->compare_date($day) == 1)
-			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";		
+			$out="<td class=\"".$this->cssSunday."\">".$var.$content."</td>";		
 		elseif (($this->dayLinks) && ((!$this->enableSatSelection && ($this->getWeekday($var) == 0)) || ((!$this->enableSunSelection && $this->getWeekday($var) == 6))))
 			$out="<td class=\"".$this->cssSunday."\">".$var."</td>";
 		elseif ($var==$this->getSelectedDay() && $this->actmonth==$this->getSelectedMonth() && $this->actyear==$this->getSelectedYear()) {
