@@ -91,28 +91,40 @@ class consola implements toba_proceso_gui
 	// Primitivas de display
 	//-------------------------------------------------------------------------
 
+	/**
+	 * Wrap para cambiar el encoding del texto
+	 */
+	protected function imprimir($texto)
+	{
+		if (toba_manejador_archivos::es_windows() && function_exists('iconv')) {
+			echo iconv('latin1', 'IBM850', $texto);
+		} else {
+			echo $texto;
+		}
+	}
+	
 	function separador( $texto='', $caracter='-' )
 	{
 		if($texto!='') $texto = "--  $texto  ";
-		echo "\n";
+		$this->imprimir("\n");
 		$this->linea_completa( $texto, $caracter );
-		echo "\n";
+		$this->imprimir("\n");
 	}
 
 	function titulo( $texto )
 	{
-		echo "\n";
+		$this->imprimir("\n");
 		$this->linea_completa( null, '-' );
 		$this->linea_completa( " $texto  ", ' ' );
 		$this->linea_completa( null, '-' );
-		echo "\n";
+		$this->imprimir("\n");
 	}
 	
 	function subtitulo( $texto )
 	{
-		echo self::display_prefijo_linea . $texto . "\n";
-		echo self::display_prefijo_linea . str_repeat('-', strlen( $texto ) ) ;
-		echo "\n\n";
+		$this->imprimir(self::display_prefijo_linea . $texto . "\n");
+		$this->imprimir(self::display_prefijo_linea . str_repeat('-', strlen( $texto ) ) );
+		$this->imprimir("\n\n");
 	}
 
 	function mensaje( $texto, $bajar_linea=true )
@@ -124,23 +136,23 @@ class consola implements toba_proceso_gui
 			} else {
 				$extra = '';
 			}
-			echo self::display_prefijo_linea . $lineas[$i] . $extra;
+			$this->imprimir(self::display_prefijo_linea . $lineas[$i] . $extra);
 		}
 	}
 	
 	function progreso_avanzar()
 	{
-		echo '.';	
+		$this->imprimir('.');	
 	}
 	
 	function progreso_fin()
 	{
-		echo "OK\n";	
+		$this->imprimir("OK\n");	
 	}	
 	
 	function enter()
 	{
-		echo "\n";	
+		$this->imprimir("\n");	
 	}
 
 	/*
@@ -192,8 +204,8 @@ class consola implements toba_proceso_gui
 		} else {
 			$ancho = self::$display_ancho;
 		}
-		echo str_pad( self::display_prefijo_linea . $base, $ancho, $caracter_relleno );
-		echo "\n";
+		$this->imprimir(str_pad( self::display_prefijo_linea . $base, $ancho, $caracter_relleno ));
+		$this->imprimir("\n");
 	}
 
 	function lista( $lista, $titulo )
@@ -204,7 +216,7 @@ class consola implements toba_proceso_gui
 				$datos[$i][0] = $l;
 				$i++;
 			}
-			echo Console_Table::fromArray( array( $titulo ), $datos );	
+			$this->imprimir(Console_Table::fromArray( array( $titulo ), $datos ));	
 		}
 	}
 	
@@ -222,14 +234,14 @@ class consola implements toba_proceso_gui
 			} else {
 				if ( ! is_array( $titulo ) ) $titulo = array( $titulo );
 			}
-			echo Console_Table::fromArray( $titulo, $datos );	
+			$this->imprimir(Console_Table::fromArray( $titulo, $datos ));	
 		}
 	}
 
 	function tabla( $tabla, $titulos )
 	{
 		if ( count( $tabla ) > 0 ) {
-			echo Console_Table::fromArray( $titulos, $tabla );
+			$this->imprimir(Console_Table::fromArray( $titulos, $tabla ));
 		} else {
 			self::mensaje('...No hay DATOS!');	
 		}
@@ -241,9 +253,9 @@ class consola implements toba_proceso_gui
 
 	function dialogo_simple( $texto, $defecto = null )
 	{
-		echo "$texto (Si o No)\n";
+		$this->imprimir("$texto (Si o No)\n");
 		do {
-			echo "(s/n):";
+			$this->imprimir("(s/n):");
 			$respuesta = trim( fgets( STDIN ) );
 			if (isset($defecto) && $respuesta == '') {
 				$respuesta = ($defecto) ? 's' : 'n';
@@ -257,7 +269,7 @@ class consola implements toba_proceso_gui
 	function dialogo_ingresar_texto( $categoria, $obligatorio = true )
 	{
 		do {
-			echo "$categoria: ";
+			$this->imprimir("$categoria: ");
 			$respuesta = trim( fgets( STDIN ) );
 			$ok = ( ( trim($respuesta != '') && ( $obligatorio ) ) ||  ( ! $obligatorio  ) );
 		} while ( ! $ok );
@@ -289,9 +301,9 @@ class consola implements toba_proceso_gui
 		$valores_posibles = implode( ',', array_keys( $opciones ) );
 		do {
 			if (isset($defecto)) {
-				echo "$txt (ENTER selecciona ".$defecto_texto."): ";
+				$this->imprimir("$txt (ENTER selecciona ".$defecto_texto."): ");
 			} else {
-				echo "($txt): ";
+				$this->imprimir("($txt): ");
 			}
 			$respuesta = trim( fgets( STDIN ) );
 			if (isset($defecto) && $respuesta == '') {

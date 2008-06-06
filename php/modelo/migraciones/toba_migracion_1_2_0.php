@@ -9,6 +9,151 @@ class toba_migracion_1_2_0 extends toba_migracion
 	
 	*/
 	
+	
+	function instancia__cambios_estructura()
+	{
+		//-- Dimensiones
+		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a06_tablas_dimensiones.sql';
+		if (file_exists($archivo)) {
+			$this->elemento->get_db()->ejecutar_archivo($archivo);
+		}		
+		
+		//-- Nuevo ei-filtro
+		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a14_componente_ei_filtro.sql';
+		if (file_exists($archivo)) {
+			$this->elemento->get_db()->ejecutar_archivo($archivo);
+		}				
+		
+		//-- Cosas sueltas		
+		$sql = array();
+		$sql[] = "ALTER TABLE apex_estilo 				ADD COLUMN paleta						varchar";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN no_imprimir_efs_sin_estado	smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN resaltar_efs_con_estado		smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN filas_agregar_abajo			smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN filas_agregar_texto			varchar(100)";
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN filas_borrar_en_linea		smallint DEFAULT 0";	
+		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN filas_ordenar_en_linea		smallint DEFAULT 0";	
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN edit_expreg				varchar(255)";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN check_ml_toggle			smallint DEFAULT 0";		
+		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion					smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion_multiple		smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_item					ADD COLUMN exportable					smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_objeto_cuadro		ADD COLUMN exportar_paginado			smallint DEFAULT 0";
+		
+		//-- Perfil de Datos (no se puede ejecutar el archivo completo porque ya existia una tabla en la 1.1.0)
+		$sql[] = '
+				CREATE SEQUENCE apex_usuario_perfil_datos_dims_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+				CREATE TABLE apex_usuario_perfil_datos_dims
+				(	
+					proyecto						varchar(15)		NOT NULL,
+					usuario_perfil_datos			int4			NOT NULL,
+					dimension						int4			NOT NULL,
+					elemento						int4			DEFAULT nextval(\'"apex_usuario_perfil_datos_dims_seq"\'::text) NOT NULL,
+					clave							varchar			NULL,
+					CONSTRAINT	"apex_usuario_perfil_datos_dims_pk" PRIMARY	KEY ("elemento")
+				);
+		';
+		
+		//-- Restricciones funcionales (no se puede ejecutar el archivo completo porque ya existia una tabla en la 1.1.0)
+		$sql[] ='
+				CREATE SEQUENCE apex_restriccion_funcional_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1;
+				CREATE TABLE apex_restriccion_funcional
+				(	
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional			int4				DEFAULT nextval(\'"apex_restriccion_funcional_seq"\'::text) NOT NULL,
+					descripcion						varchar(255)		NULL,
+					CONSTRAINT	"restriccion_funcional_pk" PRIMARY	KEY ("proyecto", "restriccion_funcional")
+				);
+				
+				CREATE TABLE apex_grupo_acc_restriccion_funcional
+				(	
+					proyecto							varchar(15)		NOT NULL,
+					usuario_grupo_acc					varchar(30)		NOT NULL,
+					restriccion_funcional				int4			NOT NULL,
+					CONSTRAINT	"apex_grupo_acc_restriccion_funcional_pk" 		PRIMARY	KEY ("usuario_grupo_acc","restriccion_funcional","proyecto")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_ef
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional				int4				NOT NULL,
+					item							varchar(60)		NOT NULL,
+					objeto_ei_formulario_fila		int4				NOT NULL,
+					objeto_ei_formulario			int4				NOT NULL,
+					no_visible						smallint			NULL,
+					no_editable						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_ef_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_ei_formulario_fila")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_pantalla
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional				int4				NOT NULL,
+					item							varchar(60)		NOT NULL,
+					pantalla						int4				NOT NULL,
+					objeto_ci						int4				NOT NULL,
+					no_visible						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_pantalla_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","pantalla")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_evt
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional				int4				NOT NULL,
+					item							varchar(60)		NOT NULL,
+					evento_id						int4				NOT NULL,
+					no_visible						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_evt_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","evento_id")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_ei
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional				int4				NOT NULL,
+					item							varchar(60)		NOT NULL,
+					objeto							int4				NOT NULL,
+					no_visible						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_ei_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_cols
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional				int4				NOT NULL,
+					item							varchar(60)		NOT NULL,
+					objeto_cuadro					int4				NOT NULL,
+					objeto_cuadro_col				int4				NOT NULL,
+					no_visible						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_cols_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_cuadro_col")
+				);
+				
+				CREATE TABLE apex_restriccion_funcional_filtro_cols
+				(
+					proyecto						varchar(15)			NOT NULL,
+					restriccion_funcional			int4				NOT NULL,
+					item							varchar(60)			NOT NULL,
+					objeto_ei_filtro_col			int4				NOT NULL,
+					objeto_ei_filtro				int4				NOT NULL,
+					no_visible						smallint			NULL,
+					CONSTRAINT	"apex_restriccion_funcional_filtro_col_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_ei_filtro_col")
+				);
+		';
+
+		// Nuevo asistente para importar una operación
+		$sql[] = '
+			CREATE TABLE apex_molde_operacion_importacion
+			(
+				proyecto  							varchar(255)	NOT NULL,
+				molde								int4			NOT NULL, 
+				origen_item							varchar(60)		NOT NULL,
+				origen_proyecto						varchar(30)		NULL,
+				CONSTRAINT  "apex_molde_operacion_imp_pk" 		PRIMARY KEY ("proyecto","molde")
+			);
+		';
+		
+		$this->elemento->get_db()->ejecutar($sql);			
+	}	
+	
 	function instancia__preparar_modelo_para_mysql()
 	{
 		//1- Cambio los constraints para que la migracion de datos se ejecute en cascada
@@ -26,8 +171,9 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = 'ALTER  TABLE apex_item_info 			ADD CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_item_objeto 		ADD CONSTRAINT	"apex_item_consumo_obj_fk_item" FOREIGN KEY ("proyecto","item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_usuario_grupo_acc_item ADD CONSTRAINT	"apex_usu_item_fk_item"		FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
-		$this->elemento->get_db()->ejecutar($sql);
 		//2- Elimino la columna 'sql', no permitida como nombre de columna
+		
+		$this->elemento->get_db()->ejecutar($sql);		
 	}
 
 	function proyecto__migrar_datos_para_mysql()
@@ -67,6 +213,16 @@ class toba_migracion_1_2_0 extends toba_migracion
 		//throw new toba_error('no');
 	}
 	
+	
+	/**
+	 * En los toba anteriores existia un registro vacio en apex_usuario_perfil_datos por proyecto. Ahora esa tabla se va a usar realmente
+	 */
+	function proyecto__borrar_perfiles_datos_actuales()
+	{
+		$sql = "DELETE FROM apex_usuario_perfil_datos WHERE proyecto = '{$this->elemento->get_id()}'";
+		return $this->elemento->get_db()->ejecutar($sql);
+	}
+	
 	/**
 	 * El ei_filtro pasa a ser un formulario con un par de campos seteados
 	 */
@@ -88,12 +244,11 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql = "UPDATE apex_objeto SET clase='toba_ei_formulario' WHERE clase='toba_ei_filtro' AND proyecto = '{$this->elemento->get_id()}'";
 		$cant += $this->elemento->get_db()->ejecutar($sql);
 
-		//-- Se cambian las extensiones de código
+		//-- Se cambian las extensiones de código y los hint de tipos 
 		$editor = new toba_editor_archivos();
-		$editor->agregar_sustitucion("|extends\s*toba_ei_filtro|" ,"extends toba_ei_formulario");          
+		$editor->agregar_sustitucion("|toba_ei_filtro|" ,"toba_ei_formulario");          
 		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->elemento->get_dir(), '|.php|', true);
 		$editor->procesar_archivos($archivos);		
-		
 		return $cant;
 	}
 	
@@ -105,7 +260,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 	function proyecto__datos_relacion_bug_campos()
 	{
 		$sql = "UPDATE apex_objeto_datos_rel 
-				SET sinc_orden_automatico=1
+				SET sinc_orden_automatico=1,
 					sinc_susp_constraints=0
 				WHERE
 					proyecto = '{$this->elemento->get_id()}'

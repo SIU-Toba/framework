@@ -243,21 +243,21 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$ini = $this->get_ini();
 			$datos = explode(',',$ini->get_datos_entrada( 'proyectos'));
 			$datos = array_map('trim',$datos);
-			$datos_ini = array();
 			if ( ! in_array( $proyecto, $datos ) ) {
 				$datos[] = $proyecto;
 				$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
-				if (isset($path)) {
-					 $datos_ini['path'] = $path;
-				}
-				if (isset($url)) {
-					 $datos_ini['url'] = $url;
-				}				
-				if (! empty($datos_ini)) {
-					$ini->agregar_entrada($proyecto, $datos_ini);
-				}
-				$ini->guardar();
 			}
+			$datos_ini = array();
+			if (isset($path)) {
+				 $datos_ini['path'] = $path;
+			}
+			if (isset($url)) {
+				 $datos_ini['url'] = $url;
+			}				
+			if (! empty($datos_ini)) {
+				$ini->agregar_entrada($proyecto, $datos_ini);
+			}
+			$ini->guardar();			
 			toba_logger::instancia()->debug("Vinculado el proyecto '$proyecto' a la instancia");
 			// Recargo la inicializacion de la instancia
 			$this->cargar_info_ini();
@@ -1149,6 +1149,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function migrar_version($version, $recursivo, $con_transaccion=true)
 	{
 		if ($version->es_mayor($this->get_version_actual())) {
+			$this->get_db()->retrazar_constraints();
 			$this->manejador_interface->enter();		
 			$this->manejador_interface->subtitulo("Migrando instancia '{$this->identificador}'");
 			toba_logger::instancia()->debug("Migrando instancia {$this->identificador} a la versión ".$version->__toString());

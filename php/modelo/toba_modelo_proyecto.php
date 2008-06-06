@@ -195,7 +195,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->exportar_grupos_acceso();
 			$this->sincronizar_archivos();
 		} catch ( toba_error $e ) {
-			$this->manejador_interface->error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
+			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
 												$e->getMessage() );
 		}
 	}
