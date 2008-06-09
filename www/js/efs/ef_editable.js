@@ -203,6 +203,15 @@ ef_editable_moneda.prototype = new ef_editable_numero();
 		ef_editable_numero.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, masc, expreg, rango, mensaje);
 		this._forma_mascara = (masc) ? masc : '$ ###.###,00';
 	}
+	
+	ef_editable_moneda.prototype.formatear_valor = function(valor) {
+		if (this._mascara) {
+			valor = parseFloat(valor).toFixed(6);
+			return this._mascara.format(valor, false, true);
+		} else {
+			return valor;
+		}
+	};	
 
 // ########################################################################################################
 // ########################################################################################################
@@ -219,8 +228,13 @@ ef_editable_porcentaje.prototype = new ef_editable_numero();
 	}
 	
 	ef_editable_porcentaje.prototype.formatear_valor = function(valor) {
-		return (ef_editable_numero.prototype.formatear_valor.call(this, valor) + ' %');
-	};
+		if (this._mascara) {
+			valor = parseFloat(valor).toFixed(6);
+			return this._mascara.format(valor, false, true) + ' %';
+		} else {
+			return valor;
+		}
+	};		
 	
 // ########################################################################################################
 // ########################################################################################################
