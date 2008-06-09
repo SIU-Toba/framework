@@ -13,6 +13,8 @@ class toba_error extends Exception
 
 }
 
+
+
 /**
 * Excepción ejecutando SQL contra la DB
 */
@@ -22,9 +24,13 @@ class toba_error_db extends toba_error
 	protected $info_error;				//Arreglo que mantiene SQLSTATE, codigo especifico del motor, mensaje especifico del motor.
 	protected $sql;
 	protected $mensaje_motor ='';
+	protected $parser_errores;
+	protected $es_comando;
 
-	function __construct($info, $sql=null)
+	function __construct($info, $sql=null, $parser_errores=null, $es_comando=false)
 	{
+		$this->es_comando = $es_comando;
+		$this->parser_errores = $parser_errores;
 		$this->set_sql_ejecutado($sql);
 		//- No se crea un arreglo cuando falla la conexion a la base ya que son propiedades del objeto conexion.
 		if (is_array($info->errorInfo)){
@@ -45,17 +51,24 @@ class toba_error_db extends toba_error
 			if (($this->get_sqlstate() == 'db_08006') || ($this->get_sqlstate() == 'db_96669')) {
 				$mensaje = "No es posible realizar la conexión a la base.";
 			} else {
-				$datos_error = array();
-				if (toba_proyecto::hay_instancia()) {	//El error pudo haber surgido desde la misma creacion de la instancia del proyecto (ciclo infinito)
-					$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
-					if (!$datos_error || !is_array($datos_error)) {
-						$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
-					}
+				//-- Primero se intenta parsear el mensaje para mostrar un mensaje más contextual
+				if ($this->es_comando && isset($this->parser_errores)) {
+					$mensaje = $this->parser_errores->parsear($sql, $this->info_error[0], $info->getMessage());
 				}
-				if (!is_array($datos_error) || empty($datos_error)) {
-					$mensaje = $info->getMessage();	
-				}else{
-					$mensaje = $datos_error['m'];					
+				//-- Si no hay parser, o el mismo no puede deducir nada se intenta mostrar un mensaje generico
+				if (! isset($mensaje)) {
+					$datos_error = array();
+					if (toba_proyecto::hay_instancia()) {	//El error pudo haber surgido desde la misma creacion de la instancia del proyecto (ciclo infinito)
+						$datos_error = toba::proyecto()->get_mensaje_proyecto($this->get_sqlstate());
+						if (!$datos_error || !is_array($datos_error)) {
+							$datos_error = toba::proyecto()->get_mensaje_toba($this->get_sqlstate());
+						}
+					}
+					if (!is_array($datos_error) || empty($datos_error)) {
+						$mensaje = $info->getMessage();	
+					}else{
+						$mensaje = $datos_error['m'];					
+					}
 				}
 			}				
 		}else{

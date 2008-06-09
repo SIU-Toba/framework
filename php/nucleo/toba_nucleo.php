@@ -403,6 +403,8 @@ class toba_nucleo
 			'toba_db_mysql'							=> 'lib/db/toba_db_mysql.php',
 			'toba_db_odbc'							=> 'lib/db/toba_db_odbc.php',
 			'toba_db_informix'						=> 'lib/db/toba_db_informix.php',
+			'toba_parser_error_db'					=> 'lib/db/toba_parser_error_db.php',
+			'toba_parser_error_db_postgres7'		=> 'lib/db/toba_parser_error_db_postgres7.php',
 			'toba_texto'							=> 'lib/toba_texto.php',
 			'toba_validaciones'						=> 'lib/toba_validaciones.php',
  			//-----------------------------------------------------------------------------------------------

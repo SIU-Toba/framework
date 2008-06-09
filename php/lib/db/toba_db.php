@@ -8,6 +8,7 @@ define("apex_sql_separador","%%");			//Separador utilizado para diferenciar camp
 define("apex_sql_where","%w%");
 define("apex_sql_from","%f%");
 
+
 /**
 * Representa una conexión a la base de datos. Permite ejecutar comandos y consultas SQL
 * En forma predeterminada utiliza los drivers PDO que tiene php desde la versión 5.1
@@ -24,6 +25,7 @@ class toba_db
 	protected $puerto;
 	protected $debug = false;
 	protected $debug_sql_id = 0;
+	protected $parser_errores = null;
 	
 	/**
 	 * @param string $profile Host donde se localiza el servidor
@@ -39,6 +41,12 @@ class toba_db
 		$this->clave    = $clave;
 		$this->base     = $base;
 		$this->puerto = $puerto;
+	}
+	
+	
+	function set_parser_errores(toba_parser_error_db $parser)
+	{
+		$this->parser_errores = $parser;
 	}
 
 	/**
@@ -63,7 +71,7 @@ class toba_db
 				$this->conexion = new PDO($this->get_dsn(), $this->usuario, $this->clave, $opciones);
 				$this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-				$ee = new toba_error_db($e);
+				$ee = new toba_error_db($e, null, $this->parser_errores, false);
 				toba::logger()->error("No es posible realizar la conexión a la base. Mensaje: " . $ee->getMessage() );
 				throw $ee;				
 			}
@@ -145,7 +153,7 @@ class toba_db
 					$afectados += $this->conexion->exec($sql[$id]);
 					if ($this->debug) $this->log_debug($sql[$id]);
 				} catch (PDOException $e) {
-					$ee = new toba_error_db($e, $this->cortar_sql($sql));
+					$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 					toba::logger()->error( $ee->get_mensaje() );
 					throw $ee;
 				}
@@ -155,7 +163,7 @@ class toba_db
 				$afectados += $this->conexion->exec($sql);
 				if ($this->debug) $this->log_debug($sql);
 			} catch (PDOException $e) {
-				$ee = new toba_error_db($e, $this->cortar_sql($sql));
+				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 				toba::logger()->error( $ee->get_mensaje() );
 				throw $ee;
 			}
@@ -180,7 +188,7 @@ class toba_db
 			$afectados += $stm->rowCount();
 			if ($this->debug) $this->log_debug($sql);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, $this->cortar_sql($sql));
+			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, true);
 			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
@@ -205,7 +213,7 @@ class toba_db
 			if ($this->debug) $this->log_debug($sql);
 			return $statement->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db($e, $this->cortar_sql($sql));
+			$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
 			toba::logger()->error( $ee->get_mensaje() );
 			throw $ee;
 		}
@@ -231,7 +239,7 @@ class toba_db
 			return $statement->fetch($tipo_fetch);
 		} catch (PDOException $e) {
 			if ($lanzar_excepcion) {
-				$ee = new toba_error_db($e, $this->cortar_sql($sql));
+				$ee = new toba_error_db($e, $this->cortar_sql($sql), $this->parser_errores, false);
 				toba::logger()->error( $ee->get_mensaje() );
 				throw $ee;
 			} else {

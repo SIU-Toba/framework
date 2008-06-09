@@ -82,9 +82,9 @@ class toba_dba
 	*	@param string $nombre Por defecto toma la constante fuente_datos_defecto o la misma base de toba
 	*	@return db
 	*/
-	static function get_db( $nombre )
+	static function get_db( $nombre, $reusar=true )
 	{
-		return self::get_instancia()->get_conexion( $nombre );
+		return self::get_instancia()->get_conexion( $nombre, $reusar );
 	}
 	
 	static function get_db_de_fuente($instancia, $proyecto, $fuente )
@@ -136,13 +136,17 @@ class toba_dba
 	/**
 	*	Administracion interna de CONEXIONES.
 	*/
-	private function get_conexion( $nombre )
+	private function get_conexion( $nombre, $reusar = true )
 	{
 		$nombre = $this->get_alias_base($nombre);
-		if( ! isset( $this->bases_conectadas[$nombre] ) ) {
-			$this->bases_conectadas[$nombre] = self::conectar_db($nombre);
+		if ($reusar) {
+			if( ! isset( $this->bases_conectadas[$nombre] ) ) {
+				$this->bases_conectadas[$nombre] = self::conectar_db($nombre);
+			}
+			return $this->bases_conectadas[$nombre];
+		} else {
+			return self::conectar_db($nombre);
 		}
-		return $this->bases_conectadas[$nombre];
 	}
 	
 	/**

@@ -21,16 +21,24 @@ class toba_fuente_datos
 	 * Accede al objeto db que tiene el API para consultas/comandos sobre la fuente
 	 * @return toba_db
 	 */
-	function get_db()
+	function get_db($reusar = true)
 	{
-		if (!isset($this->db)) {
-			$this->pre_conectar();
-			$this->db = toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
-														$this->definicion['proyecto'],
-														$this->definicion['fuente_datos']);
-			$this->post_conectar();
+		if ($reusar) {
+			if (!isset($this->db)) {
+				$this->pre_conectar();
+				$this->db = toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
+															$this->definicion['proyecto'],
+															$this->definicion['fuente_datos'],
+															$reusar);
+				$this->post_conectar();
+			}
+			return $this->db;
+		} else {
+			return toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
+															$this->definicion['proyecto'],
+															$this->definicion['fuente_datos'],
+															$reusar);
 		}
-		return $this->db;
 	}
 	
 	/**
