@@ -5,31 +5,17 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $id_db_original;
 	protected $proyecto_original;
 	protected $conexion_extra;
-	
+	protected $sep_ini = '"'; //Para lc_messages = 'C' poner el caracter '«';
+	protected $sep_fin = '"'; //Para lc_messages = 'C' poner el caracter '»';
 
 	function parsear($sql, $sqlstate, $mensaje)
 	{
 		$accion = $this->get_accion($sql);
 		$mensaje = str_replace("\n", '', $mensaje);
-		switch ($sqlstate) {
-			
-			//Clave Duplicada
-			case '23505':
-				if(preg_match("/[^\"]*\"(.*)\".*/", $mensaje, $partes)){
-					return $this->get_mensaje_pk($accion, $partes[1]);
-				}
-				break;
-			
-				
-			//FK
-			case '23503':
-				if(preg_match("/.*\"(.*)\".*\"(.*)\".*\"(.*)\".*/", $mensaje, $partes)){
-					return $this->get_mensaje_fk($accion, $partes[1], $partes[2]);
-				}
-				break;
-				
-			default:
-				break;
+		$metodos = reflexion_buscar_metodos($this, 'parsear_sqlstate_');
+		$metodo = "parsear_sqlstate_$sqlstate";
+		if (in_array($metodo, $metodos)) {
+			return $this->$metodo($accion, $sql, $mensaje);
 		}
 	}
 	
@@ -73,6 +59,13 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	//----- PRIMARY KEY
 	//-------------------------------------------------------------------------------------
 	
+	function parsear_sqlstate_23505($accion, $sql, $mensaje)
+	{
+		if (preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
+			return $this->get_mensaje_pk($accion, $partes[1]);
+		}		
+	}
+	
 	function get_mensaje_pk($accion, $pk)
 	{
 		$datos = $this->get_datos_pk($pk);
@@ -104,12 +97,11 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		           WHERE
 		           	   c.oid = t.conrelid
 		           AND t.conname = '$pk'
-		           AND t.contype = 'p'";
-      
+		 ";
 		$rs = $db->consultar_fila($sql);
 		if (! empty($rs)) {
 			if (! is_null($rs['clave'])) {
-				$claves = explode(',', substr($rs['clave'], 1, strlen($rs['clave']) - 2));
+					$claves = explode(',', substr($rs['clave'], 1, strlen($rs['clave']) - 2));
 				$rs['campos'] = $this->get_comentario_campos($rs['tabla'], $claves);
 			}
 			return $rs;
@@ -120,33 +112,84 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	//----- FOREIGN KEY
 	//-------------------------------------------------------------------------------------	
 	
-	
-	function get_mensaje_fk($accion, $tabla, $fk)
+	function parsear_sqlstate_23503($accion, $sql, $mensaje)
 	{
-		$datos = $this->get_datos_fk($tabla, $fk);
+		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
+			//delete y updates envian mas datos		
+			return $this->get_mensaje_fk(false, $accion, $partes[1], $partes[2], $partes[3]);
+		} elseif (preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)) {
+			//inserts envian menos, y es un 'not present'
+			return $this->get_mensaje_fk(true, $accion, $partes[1], $partes[2]);
+		}		
+	}	
+	
+	function get_mensaje_fk($es_alta, $accion, $tabla_local, $fk, $tabla_foranea=null)
+	{
+		$datos = $this->get_datos_fk($tabla_local, $fk, $tabla_foranea);
 		if (! isset($datos['nombre_tabla'])) {
 			$mensaje = "Error $accion. ";				
 		} else {
 			$mensaje = "Error $accion en <strong>{$datos['nombre_tabla']}</strong>. ";				
 		}		
 		if (! isset($datos['campos_locales']) || empty($datos['campos_locales'])) {
-			$mensaje .= 'Al menos un registro continúa siendo utilizado por otra tabla.';
+			if ($es_alta) {
+				$mensaje .= 'El registro tiene valores que no están presentes en las tablas referenciadas.';
+			} else {
+				$mensaje .= 'Al menos un registro continúa siendo utilizado por otra tabla.';
+			}
 		} else {
 			$mensaje .= (count($datos['campos_locales']) == 1 ) ?
 							"El valor del campo " :
 							"Los valores de los campos ";
 			$mensaje .= '<em>'.implode('</em>, <em>', $datos['campos_locales']).'</em> ';
-			$mensaje .= (count($datos['campos_locales']) == 1 ) ?
-							"aún sigue siendo utilizado en " :
-							"aún siguen siendo utilizados en ";		
+			if ($es_alta) {
+				$mensaje .= (count($datos['campos_locales']) == 1 ) ?
+								"no está presente en " :
+								"no están presentes en ";		
+			} else {
+				$mensaje .= (count($datos['campos_locales']) == 1 ) ?
+								"aún sigue siendo utilizado en " :
+								"aún siguen siendo utilizados en ";					
+			}
 			$mensaje .= '<strong>'.$datos['nombre_tabla_foranea'].'</strong>';
 		}
 		return $mensaje;
 	}	
 	
-	function get_datos_fk($tabla, $fk)
+	function get_datos_fk($tabla_local, $fk, $tabla_foranea)
 	{
-		$db = $this->get_conexion_extra();
+		//-- La foreing key que falla es de la tabla local?
+		$rs = $this->get_datos_consulta_fk($tabla_local, $fk);
+		if (! empty($rs)) {
+			if (! is_null($rs['clave_local']) && ! is_null($rs['clave_foranea'])) {
+				$clave_local = explode(',', substr($rs['clave_local'], 1, strlen($rs['clave_local']) - 2));
+				$clave_foranea = explode(',', substr($rs['clave_foranea'], 1, strlen($rs['clave_foranea']) - 2));
+				$rs['campos_locales'] = $this->get_comentario_campos($tabla_local, $clave_local);
+				$rs['campos_foraneos'] = $this->get_comentario_campos($rs['ftabla'], $clave_foranea);
+			}
+			return $rs;
+		}
+		
+		//-- La foreing key que falla es de la tabla foranea? Si es así hay que dar vuelta todo
+		$rs = $this->get_datos_consulta_fk($tabla_foranea, $fk);
+		if (! empty($rs)) {
+			if (! is_null($rs['clave_local']) && ! is_null($rs['clave_foranea'])) {
+				//-- Se intercambian los nombres de tablas y  claves entre locales y foraneas
+				$temp = $rs['nombre_tabla'];
+				$rs['nombre_tabla'] = $rs['nombre_tabla_foranea'];
+				$rs['nombre_tabla_foranea'] = $temp;
+				$clave_local = explode(',', substr($rs['clave_foranea'], 1, strlen($rs['clave_foranea']) - 2));
+				$clave_foranea = explode(',', substr($rs['clave_local'], 1, strlen($rs['clave_local']) - 2));
+				$rs['campos_locales'] = $this->get_comentario_campos($tabla_local, $clave_local);
+				$rs['campos_foraneos'] = $this->get_comentario_campos($tabla_foranea, $clave_foranea);
+			}
+			return $rs;
+		}
+	}	
+	
+	protected function get_datos_consulta_fk($tabla, $fk)
+	{
+		$db = $this->get_conexion_extra();		
 		$sql = "SELECT 
 					COALESCE(obj_description(c.oid, 'pg_class'), c.relname) as nombre_tabla,
 					COALESCE(obj_description(t.oid, 'pg_constraint'), t.conname) as com_fk,
@@ -159,22 +202,31 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 					pg_constraint t, 
 					pg_class r
 				WHERE
-						(c.relname='$tabla' OR  c.relname = lower('$tabla'))
+						lower(c.relname) = lower('$tabla')
 					AND c.oid = t.conrelid
 					AND t.conname = '$fk'
 					AND r.oid = t.confrelid
 		";	
-		$rs = $db->consultar_fila($sql);
-		if (! empty($rs)) {
-			if (! is_null($rs['clave_local']) && ! is_null($rs['clave_foranea'])) {
-				$clave_local = explode(',', substr($rs['clave_local'], 1, strlen($rs['clave_local']) - 2));
-				$clave_foranea = explode(',', substr($rs['clave_foranea'], 1, strlen($rs['clave_foranea']) - 2));
-				$rs['campos_locales'] = $this->get_comentario_campos($tabla, $clave_local);
-				$rs['campos_foraneos'] = $this->get_comentario_campos($rs['ftabla'], $clave_foranea);
-			}
-			return $rs;
-		}
-	}	
+		return $db->consultar_fila($sql);		
+	}
+	
+	//-------------------------------------------------------------------------------------
+	//----- NOT NULL
+	//-------------------------------------------------------------------------------------		
+	
+	function parsear_sqlstate_23502($accion, $sql, $mensaje)
+	{
+		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
+			return $this->get_mensaje_not_null($accion, $partes[1]);
+		}		
+	}		
+	
+	function get_mensaje_not_null($accion, $campo)
+	{
+		$mensaje = "Error $accion. ";
+		$mensaje .= "El campo <em>$campo</em> no debe quedar vacío.";
+		return $mensaje;
+	}
 	
 }
 
