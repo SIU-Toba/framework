@@ -193,7 +193,6 @@ class toba_migracion_1_2_0 extends toba_migracion
 				$id_nuevo = $this->elemento->get_db()->recuperar_nuevo_valor_secuencia('apex_item_seq');
 				$id_nuevo++;
 				$sql = "UPDATE apex_item SET item = '$id_nuevo' WHERE item = '$id_viejo' AND proyecto='{$this->elemento->get_id()}';";
-				echo "$sql \n";
 				$this->elemento->get_db()->ejecutar($sql);
 				
 				//-- Cambio el ID del item en el codigo
@@ -204,10 +203,15 @@ class toba_migracion_1_2_0 extends toba_migracion
 		//Renombrar los .php que consumieron estos ids
 		$editor = new toba_editor_archivos();
 		foreach ($renombrar as $viejo => $nuevo) {
+			$msg = "El id del item '$viejo' pasa a ser '$nuevo'.";
+			toba_logger::instancia()->warning($msg);
+			$this->manejador_interface->mensaje($msg);				
+			
 			$viejo = str_replace('/', '\/', $viejo);
 			$editor->agregar_sustitucion("/\\'$viejo\\'/", $nuevo);
 			$editor->agregar_sustitucion("/\\\"$viejo\\\"/", $nuevo);
 		}
+		
 		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
 		$editor->procesar_archivos($archivos);
 		
@@ -216,14 +220,14 @@ class toba_migracion_1_2_0 extends toba_migracion
 			* completar las que no tienen registros con un registro fantasma
 				o hacer que las secuencias comiencen si o si desde 1...
 		*/
-		foreach( toba_db_secuencias::get_lista() as $secuencia => $tabla) {
+		/*foreach( toba_db_secuencias::get_lista() as $secuencia => $tabla) {
 			$sql = "SELECT '$secuencia' as seq, min({$tabla['campo']}) as minimo FROM {$tabla['tabla']}\n";
 			//echo $sql;
 			$datos = $this->elemento->get_db()->consultar_fila($sql);
 			if($datos['minimo'] === 0){
 				echo "TABLA: {$tabla['tabla']} CAMPO {$tabla['campo']}\n";
 			}
-		}
+		}*/
 		//throw new toba_error('no');
 	}
 	

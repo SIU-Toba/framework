@@ -157,9 +157,7 @@ class toba_editor
 	function iniciar_contexto_proyecto_cargado()
 	{
 		if(!self::acceso_recursivo()){
-			//La subclase puede incluir archivos del proyecto
-			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
-			agregar_dir_include_path($path_proyecto);
+			self::incluir_path_proyecto_cargado();
 			$info = toba::proyecto()->cargar_info_basica(self::get_proyecto_cargado());
 			if($info['contexto_ejecucion_subclase_archivo']&&$info['contexto_ejecucion_subclase_archivo']) {
 				require_once($info['contexto_ejecucion_subclase_archivo']);
@@ -167,6 +165,15 @@ class toba_editor
 				$contexto->conf__inicial();
 			}
 		}
+	}
+	
+	function incluir_path_proyecto_cargado()
+	{
+		if(!self::acceso_recursivo()){
+			//La subclase puede incluir archivos del proyecto
+			$path_proyecto = toba::instancia()->get_path_proyecto(toba_editor::get_proyecto_cargado()) . '/php';
+			agregar_dir_include_path($path_proyecto);
+		}		
 	}
 
 	//---------------------------------------------------------------------------

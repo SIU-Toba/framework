@@ -66,7 +66,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'V', --accion
 	'0', --accion_imphtml_debug
 	'3395', --accion_vinculo_carpeta
-	'/admin/datos/fuente', --accion_vinculo_item
+	'1000237', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
@@ -125,8 +125,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	'0', --accion_imphtml_debug
-	'/admin/objetos_toba/editores', --accion_vinculo_carpeta
-	'/admin/objetos_toba/editores/db_registros', --accion_vinculo_item
+	'1000248', --accion_vinculo_carpeta
+	'1000250', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
@@ -155,8 +155,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	'0', --accion_imphtml_debug
-	'/admin/objetos_toba/editores', --accion_vinculo_carpeta
-	'/admin/objetos_toba/editores/db_tablas', --accion_vinculo_item
+	'1000248', --accion_vinculo_carpeta
+	'1000251', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param

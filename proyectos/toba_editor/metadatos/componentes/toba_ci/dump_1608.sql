@@ -98,7 +98,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	'0', --accion_imphtml_debug
-	'/admin/utilidades', --accion_vinculo_carpeta
+	'1000262', --accion_vinculo_carpeta
 	'3280', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
@@ -128,8 +128,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	'0', --accion_imphtml_debug
-	'/admin/objetos_toba', --accion_vinculo_carpeta
-	'/admin/objetos_toba/crear', --accion_vinculo_item
+	'1000246', --accion_vinculo_carpeta
+	'1000247', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param

@@ -125,8 +125,8 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	NULL, --accion_imphtml_debug
-	'/admin/objetos_toba', --accion_vinculo_carpeta
-	'/admin/objetos/php', --accion_vinculo_item
+	'1000246', --accion_vinculo_carpeta
+	'1000245', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param

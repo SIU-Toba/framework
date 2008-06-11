@@ -65,7 +65,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	NULL, --accion_imphtml_debug
-	'/mensajes/vinculos', --accion_vinculo_carpeta
+	'1000205', --accion_vinculo_carpeta
 	'3310', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'1', --accion_vinculo_popup
@@ -95,7 +95,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	NULL, --accion_imphtml_debug
-	'/mensajes/vinculos', --accion_vinculo_carpeta
+	'1000205', --accion_vinculo_carpeta
 	'3310', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'1', --accion_vinculo_popup
@@ -125,7 +125,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --grupo
 	'V', --accion
 	NULL, --accion_imphtml_debug
-	'/mensajes/vinculos', --accion_vinculo_carpeta
+	'1000205', --accion_vinculo_carpeta
 	'3310', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	'1', --accion_vinculo_popup

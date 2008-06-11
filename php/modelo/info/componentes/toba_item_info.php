@@ -100,7 +100,7 @@ class toba_item_info implements toba_nodo_arbol
 	function vinculo_editor()
 	{
 		if ($this->es_carpeta())
-			$item_editor = "/admin/items/carpeta_propiedades";
+			$item_editor = "1000238";
 		else
 			$item_editor = "1000240";		
 		return toba::vinculador()->generar_solicitud(toba_editor::get_id(), $item_editor,
