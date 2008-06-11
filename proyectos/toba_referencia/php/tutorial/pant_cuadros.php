@@ -146,7 +146,7 @@ class pant_filtros extends pant_tutorial
 		highlight_string($codigo);
 		echo "</div>";	
 		
-		$vinculo = toba::vinculador()->get_url(null, '/objetos/ei_filtro', array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 1000214, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";			
 	}
@@ -190,7 +190,7 @@ class pant_paginado extends pant_tutorial
 				</ul>
 		";
 		
-		$vinculo = toba::vinculador()->get_url(null, '/objetos/ei_cuadro', array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 1000213, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 			<a target='_blank' href='$vinculo'>Ver Ejemplo</a></p>";			
 	}

@@ -10,7 +10,7 @@
 		toba_editor::set_proyecto_cargado($_POST['admin_proyecto']);
 		toba::memoria()->set_dato_instancia('proyecto', $_POST['admin_proyecto']);
 		$opciones = array('validar' => false);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), '/admin/acceso', array(), $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), 1000231, array(), $opciones);
 		
 		//-- Fuerza a recargar los datos de instalacion e instancia
 		toba_manejador_sesiones::recargar_info_instalacion();
@@ -98,7 +98,7 @@ function abrir_toba_instancia(){
 	<tr> 
 		<td class='listado-vacia' width='1%' nowrap valign='middle'>
         <a title='Oculta el frame izq. del editor' href="javascript: mostrar_ocultar_frame();"><img src="<?php echo toba_recurso::imagen_toba("nucleo/expandir_izq.gif",false); ?>" id='imagen_manejo_frame' border='0' style='margin: 0px 0px 0px 0px;' alt='' /></a>		
-        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),'/inicio') ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
+        <a title='Página inicial del editor' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000265) ?>" class="list-obj"  target="<?php echo  apex_frame_centro ?>">
 		 <?php echo toba_recurso::imagen_toba('icono_24.png',true)?></a>
 		 </td>
 		<td width='100%'><?php echo gif_nulo(3,1) ?></td>
@@ -148,7 +148,7 @@ function abrir_toba_instancia(){
  ?></a></td>
 
 		<td class='listado-tabi'>
-			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/pruebas/testing_automatico_web",null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
+			<a title='Testing Automático' href="<?php echo toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000270,null,false,false,null,true) ?>" class="list-obj" target="<?php echo apex_frame_centro ?>"><?php echo toba_recurso::imagen_toba("testing.gif",true) ?></a>
 		</td>
 
 <?php
@@ -179,7 +179,7 @@ function abrir_toba_instancia(){
 		array(
 			'nombre' => 'Operaciones',
 			'imagen' => toba_recurso::imagen_proyecto("item.gif",true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/catalogo_unificado",null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000239,null,false,false,null,true,'lateral'),
 			'ayuda' => 'Operaciones disponibles en el Proyecto',
 		),
 		array(
@@ -197,7 +197,7 @@ function abrir_toba_instancia(){
 		array(
 			'nombre' => '',
 			'imagen' => toba_recurso::imagen_toba('configurar.png',true),
-			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/proyectos/organizador",null,false,false,null,true,'lateral'),
+			'url' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),1000258,null,false,false,null,true,'lateral'),
 			'ayuda' => 'Configuración general del proyecto',
 		),				
 	);

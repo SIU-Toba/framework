@@ -19,27 +19,6 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 -- apex_usuario_grupo_acc_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_testing', --proyecto
-	'plano', --usuario_grupo_acc
-	NULL, --item_id
-	'/componentes'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_testing', --proyecto
-	'plano', --usuario_grupo_acc
-	NULL, --item_id
-	'/pruebas_item'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_testing', --proyecto
-	'plano', --usuario_grupo_acc
-	NULL, --item_id
-	'/pruebas_objetos'  --item
-);
---- FIN Grupo de desarrollo 
-
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
@@ -47,13 +26,28 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	NULL, --item_id
 	'1000022'  --item
 );
---- FIN Grupo de desarrollo 1
-
---- INICIO Grupo de desarrollo 
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'plano', --usuario_grupo_acc
 	NULL, --item_id
-	'__raiz__'  --item
+	'1000201'  --item
 );
---- FIN Grupo de desarrollo 
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_testing', --proyecto
+	'plano', --usuario_grupo_acc
+	NULL, --item_id
+	'1000214'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_testing', --proyecto
+	'plano', --usuario_grupo_acc
+	NULL, --item_id
+	'1000222'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_testing', --proyecto
+	'plano', --usuario_grupo_acc
+	NULL, --item_id
+	'1000227'  --item
+);
+--- FIN Grupo de desarrollo 1

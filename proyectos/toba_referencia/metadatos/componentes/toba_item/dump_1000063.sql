@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'1000063', --item
 	NULL, --padre_id
 	'toba_referencia', --padre_proyecto
-	'/mensajes', --padre
+	'1000203', --padre
 	'1', --carpeta
 	'0', --nivel_acceso
 	NULL, --solicitud_tipo

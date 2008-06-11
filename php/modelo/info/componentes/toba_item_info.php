@@ -79,7 +79,7 @@ class toba_item_info implements toba_nodo_arbol
 	
 	function es_raiz()
 	{
-		return $this->id == '__raiz__';	
+		return $this->id == $this->get_id_padre();
 	}
 	
 	function es_publico() { return $this->datos['basica']['publico']; } 

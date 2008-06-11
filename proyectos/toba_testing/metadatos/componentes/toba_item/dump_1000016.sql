@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'1000016', --item
 	NULL, --padre_id
 	'toba_testing', --padre_proyecto
-	'/prueba_efs', --padre
+	'1000225', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo

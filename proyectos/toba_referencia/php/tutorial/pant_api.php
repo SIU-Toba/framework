@@ -211,7 +211,7 @@ class pant_mensajes extends pant_tutorial
 		$wiki = toba_parser_ayuda::parsear_wiki('Referencia/Mensajes', 
 													'Mensajes y Notificaciones',
 													'toba_editor');
-		$ejemplo = 	toba::vinculador()->get_url(null, '/mensajes_notificaciones', array(), array('celda_memoria'=>'ejemplo'));
+		$ejemplo = 	toba::vinculador()->get_url(null, 1000204, array(), array('celda_memoria'=>'ejemplo'));
 		
 		$codigo1 = '<?php
 //Suponiendo que el mensaje ingresado es: \'Esta es la %1% instancia de un mensaje global de Toba. Fecha de hoy: %2%.\'

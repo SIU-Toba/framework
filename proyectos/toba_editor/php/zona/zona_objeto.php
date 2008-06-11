@@ -118,7 +118,7 @@ class zona_objeto extends zona_editor
 
 				echo "<td  class='barra-obj-link' width='5'>";
 				echo "<a href='" . toba::vinculador()->generar_solicitud(
-											toba_editor::get_id(),"/admin/items/editor_items",
+											toba_editor::get_id(),1000240,
 											array(apex_hilo_qs_zona=>$rs["proyecto"]
 												.apex_qs_separador. $rs["item"]) ) ."'>".
 					toba_recurso::imagen_toba("objetos/editar.gif",true,null,null,"Editar propiedades de la operación"). "</a>";

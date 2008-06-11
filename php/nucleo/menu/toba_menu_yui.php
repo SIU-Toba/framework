@@ -35,7 +35,7 @@ class toba_menu_yui extends toba_menu
 		$this->arbol .= "\t\t<ul>\n";		
 		for ($i=0;$i<count($this->items);$i++) {
 			//--- Se recorre el primer nivel
-			if ($this->items[ $i ]['padre'] == '__raiz__') {
+			if ($this->items[ $i ]['es_primer_nivel']) {
 				$this->get_padres($i);
 			}
 		}

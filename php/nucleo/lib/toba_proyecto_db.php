@@ -159,6 +159,7 @@ class toba_proyecto_db
 		
 	static function get_items_menu($proyecto, $grupos_acceso)
 	{
+		$raiz = toba_info_editores::get_item_raiz($proyecto);
 		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
 		$sql = "SELECT DISTINCT
 						i.padre as 		padre,
@@ -168,14 +169,15 @@ class toba_proyecto_db
 						i.nombre as 	nombre,
 						i.orden as 		orden,
 						i.imagen,
-						i.imagen_recurso_origen
+						i.imagen_recurso_origen,
+						i.padre = '$raiz' as es_primer_nivel
 				FROM 	apex_item i 
 							LEFT OUTER JOIN	apex_usuario_grupo_acc_item u 
 								ON	(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE
 					(i.menu = 1)
+				AND i.item != i.padre
 				AND	(u.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)
-				AND (i.item <> '__raiz__')
 				AND		(i.proyecto = '$proyecto')
 				ORDER BY i.padre,i.orden;";
 		return self::get_db()->consultar($sql);

@@ -32,7 +32,7 @@ class ci_catalogo extends toba_ci
 																$img);
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
-																	'/admin/datos/fuente',
+																	1000237,
 																	$parametros,
 																	$img);
 			$datos[$id]['editar'] .= "</span>";

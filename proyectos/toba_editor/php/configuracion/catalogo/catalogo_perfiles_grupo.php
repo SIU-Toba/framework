@@ -33,7 +33,7 @@ class catalogo_perfiles_grupo  extends toba_nodo_basico
 		$this->agregar_utileria( array(
 			'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 			'ayuda' => 'Editar GRUPO de ACCESO',
-			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/usuarios/grupo', $parametros, $opciones ),
+			'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), 1000261, $parametros, $opciones ),
 			'target' => apex_frame_centro
 		) );
 	}

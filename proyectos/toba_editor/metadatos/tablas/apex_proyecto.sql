@@ -39,7 +39,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'0', --encriptar_qs
 	'0', --registrar_solicitud
 	NULL, --registrar_cronometro
-	'/admin/acceso', --item_inicio_sesion
+	'1000231', --item_inicio_sesion
 	'3286', --item_pre_sesion
 	'3359', --item_set_sesion
 	'1', --log_archivo

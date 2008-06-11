@@ -78,7 +78,7 @@ class admin_util
 	{
 		$parametros = array('archivo' => $archivo);
 		$opciones = array('servicio' => 'ejecutar', 'celda_memoria' => 'ajax', 'validar' => false, 'menu' => true );
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),1000245, $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = toba_recurso::ayuda(null, 'Abrir la [wiki:Referencia/Objetos/Extension extensión PHP] en el editor del escritorio.' .
 						   '<br>Ver [wiki:Referencia/AbrirPhp Configuración]');

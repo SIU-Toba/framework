@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'3316', --item
 	NULL, --padre_id
 	'toba_editor', --padre_proyecto
-	'/admin/objetos_toba', --padre
+	'1000246', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo

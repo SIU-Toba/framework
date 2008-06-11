@@ -19,35 +19,35 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 -- apex_usuario_grupo_acc_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'documentacion', --usuario_grupo_acc
 	NULL, --item_id
-	'/componentes'  --item
+	'1000201'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'documentacion', --usuario_grupo_acc
 	NULL, --item_id
-	'/pruebas_item'  --item
+	'1000214'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'documentacion', --usuario_grupo_acc
 	NULL, --item_id
-	'/pruebas_item/item_con_dos_grupos'  --item
+	'1000219'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'documentacion', --usuario_grupo_acc
 	NULL, --item_id
-	'/pruebas_objetos'  --item
+	'1000222'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_testing', --proyecto
 	'documentacion', --usuario_grupo_acc
 	NULL, --item_id
-	'__raiz__'  --item
+	'1000227'  --item
 );
---- FIN Grupo de desarrollo 
+--- FIN Grupo de desarrollo 1

@@ -125,7 +125,7 @@ function cascada(item_padre, estado)
 		if(formulario.elements[x].type=="checkbox")
 		{
 			var camino = formulario.elements[x].getAttribute('camino');
-			if (camino.indexOf(regex_item_padre) != -1 || (item_padre == '__raiz__' && camino == '__raiz__'))
+			if (camino.indexOf(regex_item_padre) != -1 || (item_padre == 1000271 && camino == 1000271))
 			{
 				formulario.elements[x].checked = estado;
 			}

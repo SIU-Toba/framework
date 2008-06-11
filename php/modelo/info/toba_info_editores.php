@@ -293,6 +293,21 @@ class toba_info_editores
 	//---------------- ITEMS --------------------------
 	//-------------------------------------------------
 
+	static function get_item_raiz($proyecto=null)
+	{
+		$proyecto = isset($proyecto) ? $proyecto : toba_contexto_info::get_proyecto();
+		$sql = "
+			SELECT 
+				item
+			FROM apex_item 
+			WHERE 
+					proyecto = '$proyecto'
+				AND item = padre
+		";
+		$datos = toba_contexto_info::get_db()->consultar_fila($sql);
+		return $datos['item'];
+	}
+	
 	/**
 	*	Retorna la lista de todos los items del proyecto actual (no carpetas)
 	*/

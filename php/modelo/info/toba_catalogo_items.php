@@ -11,7 +11,7 @@ class toba_catalogo_items extends toba_catalogo_items_base
 	function cargar($opciones, $id_item_inicial=null, $incluidos_forzados=array())
 	{
 		if (! isset($id_item_inicial)) { 
-			$id_item_inicial = '__raiz__';	
+			$id_item_inicial = toba_info_editores::get_item_raiz($this->proyecto);
 		}
 		$en_profundidad = $this->debe_cargar_en_profundidad($id_item_inicial, $opciones);
 		$filtro_items = "";		

@@ -19,183 +19,6 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 -- apex_usuario_grupo_acc_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/acceso'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/apex/elementos/ef'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/apex/elementos/error'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/apex/elementos/observaciones_solicitud'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/apex/elementos/pagina_tipo'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/apex/elementos/zona'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/crear'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ci'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/db_registros'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/db_tablas'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ei_archivos'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ei_cuadro'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ei_filtro'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ei_formulario'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/editores/ei_formulario_ml'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/objetos_toba/selector_archivo'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/proyectos/organizador'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/proyectos/propiedades'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/usuarios'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/usuarios/grupo'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/admin/utilidades'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/basicos/cronometro'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/configuracion'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/inicio'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/items'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/pruebas'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/pruebas/testing_automatico_consola'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_editor', --proyecto
-	'documentador', --usuario_grupo_acc
-	NULL, --item_id
-	'/pruebas/testing_automatico_web'  --item
-);
---- FIN Grupo de desarrollo 
-
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_editor', --proyecto
@@ -314,13 +137,184 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	NULL, --item_id
 	'1000058'  --item
 );
---- FIN Grupo de desarrollo 1
-
---- INICIO Grupo de desarrollo 
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_editor', --proyecto
 	'documentador', --usuario_grupo_acc
 	NULL, --item_id
-	'__raiz__'  --item
+	'1000231'  --item
 );
---- FIN Grupo de desarrollo 
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000232'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000233'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000234'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000235'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000236'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000247'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000248'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000249'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000250'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000251'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000252'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000253'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000254'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000255'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000256'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000257'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000258'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000259'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000260'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000261'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000262'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000263'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000264'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000265'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000266'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000267'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000268'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000270'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_editor', --proyecto
+	'documentador', --usuario_grupo_acc
+	NULL, --item_id
+	'1000271'  --item
+);
+--- FIN Grupo de desarrollo 1

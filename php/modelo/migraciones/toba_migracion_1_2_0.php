@@ -3,8 +3,10 @@
 class toba_migracion_1_2_0 extends toba_migracion
 {
 	/*
+		Migración pendiente:
+			En apex_proyecto hay referencias a item sin FK, cuando se migra los ids a numericos estos quedan sin actualizar
+	
 		Cambios en el codigo del nucleo:
-			__raiz__
 			uso de los valores de las secuencias.
 	
 	*/
@@ -183,19 +185,31 @@ class toba_migracion_1_2_0 extends toba_migracion
 		*/
 		$sql = "SELECT item FROM apex_item WHERE proyecto = '{$this->elemento->get_id()}'";
 		$datos = $this->elemento->get_db()->consultar($sql);
+		$renombrar = array();
 		foreach($datos as $dato) {
 			if( (string)(int)$dato['item'] != $dato['item'] ) {
 				//-- Cambio en ID del item en la base --
 				$id_viejo = $dato['item'];
 				$id_nuevo = $this->elemento->get_db()->recuperar_nuevo_valor_secuencia('apex_item_seq');
 				$id_nuevo++;
-				$sql = "UPDATE apex_item SET item = '$id_nuevo' WHERE item = '$id_viejo';";
+				$sql = "UPDATE apex_item SET item = '$id_nuevo' WHERE item = '$id_viejo' AND proyecto='{$this->elemento->get_id()}';";
 				echo "$sql \n";
 				$this->elemento->get_db()->ejecutar($sql);
-				//-- Cambio el ID del item en el codigo
 				
+				//-- Cambio el ID del item en el codigo
+				$renombrar[$id_viejo] = $id_nuevo;
 			}
 		}
+		
+		//Renombrar los .php que consumieron estos ids
+		$editor = new toba_editor_archivos();
+		foreach ($renombrar as $viejo => $nuevo) {
+			$viejo = str_replace('/', '\/', $viejo);
+			$editor->agregar_sustitucion("/\\'$viejo\\'/", $nuevo);
+			$editor->agregar_sustitucion("/\\\"$viejo\\\"/", $nuevo);
+		}
+		$archivos = toba_manejador_archivos::get_archivos_directorio($this->elemento->get_dir(), '/.php$/', true);
+		$editor->procesar_archivos($archivos);
 		
 		/*
 			Renumerar las que poseen 0
@@ -215,7 +229,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 	
 	
 	/**
-	 * En los toba anteriores existia un registro vacio en apex_usuario_perfil_datos por proyecto. Ahora esa tabla se va a usar realmente
+	 * En los toba anteriores existia un registro vacio en apex_usuario_perfil_datos por proyecto. Ahora esa tabla se va a usar realmente, los datos viejos no sirven
 	 */
 	function proyecto__borrar_perfiles_datos_actuales()
 	{

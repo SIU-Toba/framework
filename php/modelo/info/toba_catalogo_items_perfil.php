@@ -40,7 +40,7 @@ class toba_catalogo_items_perfil extends toba_catalogo_items_base
 				
 				$this->items[$fila['item']] = $obj;
 			}
-			$this->carpeta_inicial = '__raiz__';
+			$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
 			$this->mensaje = "";
 			$this->ordenar();
 			/* Deberia mostrar nodos abiertos para aquellas 

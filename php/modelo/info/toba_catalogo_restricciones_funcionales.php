@@ -28,7 +28,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 			}
 			$this->items[$item['item']] = $obj;
 		}
-		$this->carpeta_inicial = '__raiz__';
+		$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
 		$this->mensaje = "";
 		$this->ordenar();
 		//filtrar???

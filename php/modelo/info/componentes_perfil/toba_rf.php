@@ -39,6 +39,11 @@ class toba_rf implements toba_nodo_arbol_form
 		$this->inicializar();
 		$this->get_imagenes_estado();
 	}
+	
+	function es_raiz()
+	{
+		return $this->id_padre == $this->id;
+	}
 
 	function inicializar(){}
 	
@@ -112,7 +117,7 @@ class toba_rf implements toba_nodo_arbol_form
 	function marcar_abiertos()
 	{
 		$nodo = $this->get_padre();
-		while ( ($nodo != null) && ($nodo->get_id() != '__raiz__') && (!$nodo->get_apertura()) ) {
+		while ( ($nodo != null) && !$nodo->es_raiz() && (!$nodo->get_apertura()) ) {
 			$nodo->set_apertura(true);
 			$nodo = $nodo->get_padre();				
 		}

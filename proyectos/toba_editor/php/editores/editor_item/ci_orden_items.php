@@ -51,7 +51,7 @@ class ci_orden_items extends toba_ci
 				$img = "<img src='$url' />";
 			}
 			$filas[$id]['imagen'] = "<div style='text-align:right'>$img</div>";
-			if ($fila['item'] == '__raiz__') {
+			if ($fila['item'] == $fila['padre']) {
 				unset($filas[$id]);	
 			}
 		}

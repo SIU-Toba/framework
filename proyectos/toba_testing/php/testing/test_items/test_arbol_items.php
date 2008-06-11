@@ -46,7 +46,7 @@ class test_arbol_items extends test_toba
 	*/
 	{
 		$arbol = new toba_catalogo_items(false, 'toba_testing');
-		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_vacia');
+		$arbol->set_carpeta_inicial(1000213);
 		$arbol->ordenar();
 		$this->assertEqual($arbol->cantidad_items(), 1 ,'La rama no tiene hijos (%s)');
 		$this->asegurar_unicidad($arbol->items());		
@@ -62,20 +62,20 @@ class test_arbol_items extends test_toba
 
 		$cant_niveles = 5;
 		$niveles = array(
-					array('/pruebas_arbol_items/rama_profunda', 0),
-					array('/pruebas_arbol_items/rama_profunda/ia', 1),
-					array('/pruebas_arbol_items/rama_profunda/r0', 1),
-					array('identificador_no_jerarquico', 2),
-					array('/pruebas_arbol_items/rama_profunda/r0/i0b', 2),
-					array('/pruebas_arbol_items/rama_profunda/r0/r01', 2),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02', 2),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021', 3),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02/r022', 3),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a', 4),
-					array('/pruebas_arbol_items/rama_profunda/r1', 1)
+					array(1000203, 0),
+					array(1000204, 1),
+					array(1000205, 1),
+					array(1000200, 2),
+					array(1000206, 2),
+					array(1000207, 2),
+					array(1000208, 2),
+					array(1000209, 3),
+					array(1000211, 3),
+					array(1000210, 4),
+					array(1000212, 1)
 			);
 		$arbol = new toba_catalogo_items(false, 'toba_testing');
-		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_profunda');
+		$arbol->set_carpeta_inicial(1000203);
 		$arbol->ordenar();
 		foreach ($niveles as $nivel) {
 			$encontrado = false;
@@ -101,14 +101,14 @@ class test_arbol_items extends test_toba
 	{
 		$cant_niveles = 5;
 		$niveles = array(
-					array('/pruebas_arbol_items/rama_profunda/ia', 1),
-					array('/pruebas_arbol_items/rama_profunda/r0/r01', 2),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021', 3),
-					array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a', 4),
+					array(1000204, 1),
+					array(1000207, 2),
+					array(1000209, 3),
+					array(1000210, 4),
 			);
 		$arbol = new toba_catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
-		$arbol->set_carpeta_inicial('/pruebas_arbol_items/rama_profunda');
+		$arbol->set_carpeta_inicial(1000203);
 		$arbol->ordenar();
 		$arbol->dejar_grupo_acceso('admin');
 		foreach ($niveles as $nivel) {
@@ -157,17 +157,17 @@ class test_arbol_items extends test_toba
 	{
 		$arbol = new toba_catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();
-		$arbol->cambiar_permisos(array('/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a'), 'prueba_asignacion');
+		$arbol->cambiar_permisos(array(1000210), 'prueba_asignacion');
 		
 		//Chequeo
 		$items_buscados = array(
 					'',
-					'/pruebas_arbol_items',
-					'/pruebas_arbol_items/rama_profunda',
-					'/pruebas_arbol_items/rama_profunda/r0',
-					'/pruebas_arbol_items/rama_profunda/r0/r02',
-					'/pruebas_arbol_items/rama_profunda/r0/r02/r021',
-					'/pruebas_arbol_items/rama_profunda/r0/r02/r021/i021a'
+					1000202,
+					1000203,
+					1000205,
+					1000208,
+					1000209,
+					1000210
 			);
 		$arbol = new toba_catalogo_items(false, 'toba_testing');
 		$arbol->sacar_publicos();

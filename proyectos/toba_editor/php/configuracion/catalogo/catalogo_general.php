@@ -18,7 +18,7 @@ class catalogo_general extends toba_nodo_basico
 		$hijos[0]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar parametros basicos',
-				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/proyectos/propiedades', $opciones ),
+				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), 1000259, $opciones ),
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
@@ -38,7 +38,7 @@ class catalogo_general extends toba_nodo_basico
 		$hijos[3]->agregar_utileria(  array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar Tipos de página disponibles',
-				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(),'/admin/apex/elementos/pagina_tipo', $opciones ),
+				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(),1000235, $opciones ),
 				'target' => apex_frame_centro
 				) );
 				
@@ -60,7 +60,7 @@ class catalogo_general extends toba_nodo_basico
 		$hijos[5]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar ZONA',
-				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/apex/elementos/zona', $opciones ),
+				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), 1000236, $opciones ),
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------
@@ -70,7 +70,7 @@ class catalogo_general extends toba_nodo_basico
 		$hijos[8]->agregar_utileria( array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => 'Editar Mensajes del sistema',
-				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), '/admin/apex/elementos/error', $opciones ),
+				'vinculo' => toba::vinculador()->get_url( toba_editor::get_id(), 1000233, $opciones ),
 				'target' => apex_frame_centro
 		) );
 		//----------------------------------------------------------------------

@@ -1102,7 +1102,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$nuevos_datos = array();
 		$nuevos_datos['proyecto'] = $this->identificador;
 		$nuevos_datos['padre_proyecto'] = $this->identificador;
-		$nuevos_datos['padre'] = "__raiz__";
+		$nuevos_datos['padre'] = toba_info_editores::get_item_raiz($this->identificador);
 		$nuevos_datos['fuente_datos'] = $fuente['fuente_datos'];
 		$nuevos_datos['fuente_datos_proyecto'] = $nuevos_datos['proyecto'];
 		$directorio = 'login';
@@ -1508,13 +1508,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		// Creo el proyecto
 		$sql[] = "INSERT INTO apex_proyecto (proyecto, estilo,descripcion,descripcion_corta,listar_multiproyecto, item_inicio_sesion, menu, requiere_validacion) 
-									VALUES ('$id_proyecto','plastik','".strtoupper($id_proyecto)."','".ucwords($id_proyecto)."',1, '/inicio','css', 1);";
+									VALUES ('$id_proyecto','plastik','".strtoupper($id_proyecto)."','".ucwords($id_proyecto)."',1, '2','css', 1);";
 		//Le agrego los items basicos
-		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','__raiz__','$id_proyecto','__raiz__','1','0',NULL,'toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');";
-		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron,actividad_accion,menu,orden) VALUES ('$id_proyecto','/inicio','$id_proyecto','__raiz__','0','0','web','toba','normal','Inicio','','toba','0','toba','especifico','item_inicial.php',1,'0');";
+		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron) VALUES ('$id_proyecto','1','$id_proyecto','1','1','0',NULL,'toba','NO','Raiz PROYECTO','','toba','0','toba','especifico');";
+		$sql[] = "INSERT INTO apex_item (proyecto, item, padre_proyecto, padre, carpeta, nivel_acceso, solicitud_tipo, pagina_tipo_proyecto, pagina_tipo, nombre, descripcion, actividad_buffer_proyecto, actividad_buffer, actividad_patron_proyecto, actividad_patron,actividad_accion,menu,orden) VALUES ('$id_proyecto','2','$id_proyecto','1','0','0','web','toba','normal','Inicio','','toba','0','toba','especifico','item_inicial.php',1,'0');";
 		// Creo un grupo de acceso
 		$sql[] = "INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion) VALUES ('$id_proyecto','admin','Administrador','0','Accede a toda la funcionalidad');";
-		$sql[] = "INSERT INTO apex_usuario_grupo_acc_item ( proyecto, usuario_grupo_acc, item ) VALUES ('$id_proyecto', 'admin', '/inicio');";
+		$sql[] = "INSERT INTO apex_usuario_grupo_acc_item ( proyecto, usuario_grupo_acc, item ) VALUES ('$id_proyecto', 'admin', '2');";
 		// Creo un perfil de datos
 		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
 		// Crea una fuente de datos 

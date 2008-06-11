@@ -126,7 +126,7 @@ class pantalla_seleccion  extends toba_ei_pantalla
 	function generar_layout()
 	{
 		$opciones = array('param_html' => array('texto' => 'Testing JS'));
-		$test_js = toba::vinculador()->get_url('toba_editor', '/pruebas/testing_automatico_js', null, $opciones);
+		$test_js = toba::vinculador()->get_url('toba_editor', 1000269, null, $opciones);
 		parent::generar_layout();
 		echo "<br>".$test_js;
 	}

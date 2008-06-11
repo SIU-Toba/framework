@@ -180,7 +180,7 @@ class pant_tipos extends pant_tutorial
 				<tr>
 					<td class='img-ef'>".toba_recurso::imagen_proyecto('tutorial/efs/upload.png',true)."</td>
 					<td><strong>ef_upload</strong>: El usuario selecciona un archivo de su sistema para que esté disponible en el servidor.
-						<a target='_blank' href='".toba::vinculador()->get_url(null, '/efs/ef_upload', array(), array('celda_memoria'=>'ejemplo'))."
+						<a target='_blank' href='".toba::vinculador()->get_url(null, 1000202, array(), array('celda_memoria'=>'ejemplo'))."
 						'>Ver Ejemplo.</a>
 					</td>
 				</tr>
@@ -321,7 +321,7 @@ int(1534)
 		highlight_string($codigo);
 		echo "</div>";
 		
-		$vinculo = toba::vinculador()->get_url(null, '/objetos/ei_formulario_ml', array(), array('celda_memoria'=>'ejemplo'));
+		$vinculo = toba::vinculador()->get_url(null, 1000216, array(), array('celda_memoria'=>'ejemplo'));
 		echo "<p style='font-size:150%;text-align:center;'>
 				<a target='_blank' href='$vinculo'>Ver Ejemplo de Formulario ML</a></p>";
 	}

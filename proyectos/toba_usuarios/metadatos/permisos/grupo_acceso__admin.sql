@@ -19,15 +19,6 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 -- apex_usuario_grupo_acc_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'toba_usuarios', --proyecto
-	'admin', --usuario_grupo_acc
-	NULL, --item_id
-	'/inicio'  --item
-);
---- FIN Grupo de desarrollo 
-
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'toba_usuarios', --proyecto
@@ -97,6 +88,12 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
 	'1000195'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'toba_usuarios', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'1000228'  --item
 );
 --- FIN Grupo de desarrollo 1
 
