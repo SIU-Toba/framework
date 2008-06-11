@@ -371,7 +371,7 @@ class toba_editor
 		$html_ayuda_cronometro = toba_recurso::ayuda(null, 'Ver los tiempos de ejecución en la generación de esta página');
 		$html_ayuda_logger = toba_recurso::ayuda(null, 'Visor de logs');
 		$solicitud = toba::solicitud()->get_id();
-		$link_cronometro = toba::vinculador()->get_url('toba_editor', '/basicos/cronometro', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
+		$link_cronometro = toba::vinculador()->get_url('toba_editor', '1000263', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$link_logger = toba::vinculador()->get_url('toba_editor', '1000003', null, array('prefijo'=>toba_editor::get_punto_acceso_editor()));
 		$estilo = toba::proyecto()->get_parametro('estilo');
 		echo "<div id='editor_previsualizacion'>";
@@ -487,7 +487,7 @@ class toba_editor
 		$opciones['validar'] = false;
 		$parametros = array(apex_hilo_qs_zona=> $proyecto . apex_qs_separador . $item);
 		$vinculo = array();
-		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/items/editor_items',$parametros,$opciones);
+		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000240',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_centro';
 		$vinculo['imagen'] = 'objetos/editar.gif';
 		$vinculo['tip'] = 'Ir al editor de la operación.';
@@ -499,7 +499,7 @@ class toba_editor
 		$opciones['celda_memoria'] = 'lateral';
 		$opciones['prefijo'] = self::get_punto_acceso_editor();
 		$vinculo = array();		
-		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'/admin/items/catalogo_unificado',$parametros,$opciones);
+		$vinculo['url'] = toba::vinculador()->get_url(self::get_id(),'1000239',$parametros,$opciones);
 		$vinculo['frame'] = 'frame_lista';
 		$vinculo['imagen'] = 'objetos/arbol.gif';
 		$vinculo['tip'] = 'Ver composicion de la operación.';
@@ -567,7 +567,7 @@ class toba_editor
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "/admin/objetos/php", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000245", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
 		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";

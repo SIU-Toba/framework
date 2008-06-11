@@ -1672,7 +1672,7 @@ class toba_ei_cuadro extends toba_ei
 		//---Editor de la columna
 		$editor = '';
 		if ( toba_editor::modo_prueba() && $this->_tipo_salida == 'html' ){
-			$item_editor = "/admin/objetos_toba/editores/ei_cuadro";
+			$item_editor = "1000253";
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_id),
 									'columna' => $columna );
 			$editor = toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);

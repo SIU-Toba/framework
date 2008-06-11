@@ -1061,7 +1061,7 @@ class toba_info_editores
 						l.objeto_proyecto as componente_proyecto,
 						coalesce(CAST(l.objeto as text), l.item) as componente_id,
 						coalesce(c.editor_proyecto,'toba_editor') as editor_proyecto, 
-						coalesce(c.editor_item,'/admin/items/editor_items') as editor_item,
+						coalesce(c.editor_item,'1000240') as editor_item,
 						coalesce(c.icono,'item.gif') as icono_tipo_componente, 
 						l.observacion as observacion
 					FROM apex_log_objeto l

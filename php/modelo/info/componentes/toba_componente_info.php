@@ -338,7 +338,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	{
 		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
 		$opciones = array('servicio' => 'ejecutar', 'zona' => true, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"1000245", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		return array(
 			'imagen' => toba_recurso::imagen_proyecto($icono, false),
@@ -355,7 +355,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 	{
 		$parametros = self::get_utileria_editor_parametros($id_componente, $subcomponente);
 		$opciones = array('zona' => true, 'celda_memoria' => 'central', 'menu' => true);//validar' => false,
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"/admin/objetos/php", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(),"1000245", $parametros, $opciones);
 		return array( 'imagen' => toba_recurso::imagen_toba($icono, false),
 				'ayuda' => 'Ver detalles de la [wiki:Referencia/Objetos/Extension extensión PHP]',
 				'vinculo' => $vinculo,

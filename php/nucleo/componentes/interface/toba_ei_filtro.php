@@ -378,7 +378,7 @@ class toba_ei_filtro extends toba_ei
 		if (toba_editor::modo_prueba()) {
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_id),
 									'col' => $id_ef );
-			$item_editor = '/admin/objetos_toba/editores/ei_filtro';
+			$item_editor = '1000254';
 			return toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);			
 		}
 		return null;

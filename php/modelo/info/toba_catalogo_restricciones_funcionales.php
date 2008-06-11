@@ -24,7 +24,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 			if ($item['carpeta']) {
 				$obj = new toba_rf_carpeta($this->restriccion, $item['proyecto'], $item['item'], $item['padre']);
 			}else{
-				$obj = new toba_rf_item($this->restriccion, $item['proyecto'], $item['item'], $item['padre']);	
+				$obj = new toba_rf_item($this->restriccion, $item['proyecto'], $item['item'], $item['padre']);
 			}
 			$this->items[$item['item']] = $obj;
 		}

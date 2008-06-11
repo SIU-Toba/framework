@@ -37,7 +37,7 @@ class toba_ei_formulario extends toba_ei
 	
 	protected $_eventos_ext = null;			// Eventos seteados desde afuera
 	protected $_observadores;
-	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario';
+	protected $_item_editor = '1000255';
 	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
 	
 	//Salida PDF

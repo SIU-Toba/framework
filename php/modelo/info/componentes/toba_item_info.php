@@ -102,7 +102,7 @@ class toba_item_info implements toba_nodo_arbol
 		if ($this->es_carpeta())
 			$item_editor = "/admin/items/carpeta_propiedades";
 		else
-			$item_editor = "/admin/items/editor_items";		
+			$item_editor = "1000240";		
 		return toba::vinculador()->generar_solicitud(toba_editor::get_id(), $item_editor,
 						array( apex_hilo_qs_zona => $this->proyecto .apex_qs_separador. $this->id),
 						false, false, null, true, "central");
@@ -382,7 +382,7 @@ class toba_item_info implements toba_nodo_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_proyecto("item_nuevo.gif", false),
 				'ayuda'=> "Crear una nueva operación vacía en esta carpeta",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/editor_items", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000240", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => false								
 			);

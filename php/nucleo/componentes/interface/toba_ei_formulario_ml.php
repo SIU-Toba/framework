@@ -27,7 +27,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	protected $_modo_agregar = array(false, null);
 	protected $_registro_nuevo=false;			//¿La proxima pantalla muestra una linea en blanco?
 	protected $_id_fila_actual;					//¿Que fila se esta procesando actualmente?
-	protected $_item_editor = '/admin/objetos_toba/editores/ei_formulario_ml';
+	protected $_item_editor = '1000256';
 	protected $estilo_celda_actual;					//Estilo actual de las celdas a graficas
 	protected $_colspan;
 	protected $_hay_toggle = false;

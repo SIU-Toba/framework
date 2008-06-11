@@ -151,7 +151,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/editar.gif", false),
 				'ayuda' => "Editar esta pantalla",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(), "/admin/objetos_toba/editores/ci", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(), "1000249", 
 																	$param_editores, false, false, null, true, "central"),
 				'plegado' => false
 		);
