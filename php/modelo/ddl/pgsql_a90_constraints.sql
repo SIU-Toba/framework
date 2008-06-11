@@ -7,7 +7,7 @@
 	ON UPDATE CASCADE	
 	DEFERRABLE	
 	INITIALLY 
-	IMMEDIATE,
+	IMMEDIATE;
 	
 	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_ps" 
 	FOREIGN	KEY ("proyecto","item_pre_sesion")	
@@ -16,7 +16,7 @@
 	ON	UPDATE CASCADE 
 	DEFERRABLE 
 	INITIALLY	
-	IMMEDIATE,
+	IMMEDIATE;
 
 
 	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu" 
