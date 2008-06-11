@@ -979,7 +979,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'3273', --popup_item
+	'1000017', --popup_item
 	'toba_testing', --popup_proyecto
 	NULL, --popup_editable
 	NULL, --popup_ventana

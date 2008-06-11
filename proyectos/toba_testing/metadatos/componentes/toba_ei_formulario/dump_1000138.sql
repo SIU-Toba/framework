@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --objeto_categoria
 	'Formulario prueba solo-lectura', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
 	'toba_testing', --fuente_datos_proyecto
 	'instancia', --fuente_datos
@@ -187,7 +187,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --auto_reset
 	NULL, --ancho
 	'150px', --ancho_etiqueta
-	NULL, --expandir_descripcion
+	'0', --expandir_descripcion
 	NULL, --campo_bl
 	NULL, --scroll
 	NULL, --filas
@@ -204,8 +204,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -220,8 +220,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'combo_dao', --identificador
 	'ef_combo', --elemento_formulario
 	'combo_dao', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Combo DAO', --etiqueta
 	NULL, --etiqueta_estilo
@@ -292,8 +292,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'combo_db', --identificador
 	'ef_combo', --elemento_formulario
 	'combo_db', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Combo DB', --etiqueta
 	NULL, --etiqueta_estilo
@@ -364,8 +364,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'checkbox', --identificador
 	'ef_checkbox', --elemento_formulario
 	'checkbox', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Checkbox', --etiqueta
 	NULL, --etiqueta_estilo
@@ -436,8 +436,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'editable', --identificador
 	'ef_editable', --elemento_formulario
 	'editable', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Editable', --etiqueta
 	NULL, --etiqueta_estilo
@@ -508,8 +508,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha', --identificador
 	'ef_editable_fecha', --elemento_formulario
 	'fecha', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Fecha', --etiqueta
 	NULL, --etiqueta_estilo
@@ -580,8 +580,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'moneda', --identificador
 	'ef_editable_moneda', --elemento_formulario
 	'moneda', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Moneda', --etiqueta
 	NULL, --etiqueta_estilo
@@ -652,8 +652,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'multilinea', --identificador
 	'ef_editable_textarea', --elemento_formulario
 	'multilinea', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Multilínea', --etiqueta
 	NULL, --etiqueta_estilo
@@ -724,8 +724,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'numero', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'numero', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'8', --orden
 	'Número', --etiqueta
 	NULL, --etiqueta_estilo
@@ -796,8 +796,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'porcentaje', --identificador
 	'ef_editable_numero_porcentaje', --elemento_formulario
 	'porcentaje', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Porcentaje', --etiqueta
 	NULL, --etiqueta_estilo
@@ -868,8 +868,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'multi_seleccion', --identificador
 	'ef_multi_seleccion_lista', --elemento_formulario
 	'multi_seleccion', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'10', --orden
 	'Multi-Selección', --etiqueta
 	NULL, --etiqueta_estilo
@@ -940,19 +940,19 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'popup', --identificador
 	'ef_popup', --elemento_formulario
 	'popup', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'13', --orden
 	'Popup', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -979,11 +979,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'3273', --popup_item
+	'1000017', --popup_item
 	'toba_testing', --popup_proyecto
-	NULL, --popup_editable
+	'0', --popup_editable
 	NULL, --popup_ventana
-	NULL, --popup_carga_desc_metodo
+	'get_descripcion', --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
 	NULL, --fieldset_fin
@@ -1012,8 +1012,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'upload', --identificador
 	'ef_upload', --elemento_formulario
 	'upload', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'14', --orden
 	'Upload', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1084,8 +1084,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'multi_sel_check', --identificador
 	'ef_multi_seleccion_check', --elemento_formulario
 	'multi_sel_check', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'11', --orden
 	'Multi-Selección (check)', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1156,8 +1156,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'multi_sel_doble', --identificador
 	'ef_multi_seleccion_doble', --elemento_formulario
 	'multi_sel_doble', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'12', --orden
 	'Multi-Selección (doble)', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1228,8 +1228,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'radio', --identificador
 	'ef_radio', --elemento_formulario
 	'radio', --columnas
-	NULL, --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'15', --orden
 	'Radio', --etiqueta
 	NULL, --etiqueta_estilo

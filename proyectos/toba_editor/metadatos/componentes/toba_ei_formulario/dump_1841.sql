@@ -403,7 +403,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'/admin/objetos_toba/selector_archivo', --popup_item
+	'1000257', --popup_item
 	'toba_editor', --popup_proyecto
 	'1', --popup_editable
 	'width: 400,height: 400,scroll: yes', --popup_ventana
@@ -478,7 +478,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'/admin/objetos_toba/selector_archivo', --popup_item
+	'1000257', --popup_item
 	'toba_editor', --popup_proyecto
 	'1', --popup_editable
 	'width: 400,height: 400,scroll: yes', --popup_ventana

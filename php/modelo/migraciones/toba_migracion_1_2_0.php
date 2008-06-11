@@ -175,6 +175,33 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = 'ALTER  TABLE apex_usuario_grupo_acc_item ADD CONSTRAINT	"apex_usu_item_fk_item"		FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 		//2- Elimino la columna 'sql', no permitida como nombre de columna
 		
+		
+		/**
+	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_is" 
+	FOREIGN	KEY ("proyecto","item_inicio_sesion") 
+	REFERENCES	"apex_item"	("proyecto","item") 
+	ON DELETE CASCADE 
+	ON UPDATE CASCADE	
+	DEFERRABLE	
+	INITIALLY 
+	IMMEDIATE;
+	
+	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_ps" 
+	FOREIGN	KEY ("proyecto","item_pre_sesion")	
+	REFERENCES "apex_item" ("proyecto","item") 
+	ON DELETE CASCADE
+	ON	UPDATE CASCADE 
+	DEFERRABLE 
+	INITIALLY	
+	IMMEDIATE;
+
+	
+		ALTER TABLE apex_objeto_eventos ADD CONSTRAINT	"apex_objeto_eventos_fk_accion_vinculo" FOREIGN KEY ("proyecto","accion_vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+		ALTER TABLE apex_objeto_ei_cuadro_columna ADD CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+		ALTER TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT	"apex_ei_f_ef_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","popup_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	
+		 */
+		
 		$this->elemento->get_db()->ejecutar($sql);		
 	}
 
