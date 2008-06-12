@@ -751,6 +751,10 @@ class toba_ei_cuadro extends toba_ei
 //###########################    CORTES de CONTROL    ############################
 //################################################################################
 
+	function set_cortes_colapsados($colapsado=true){
+		$this->_cortes_anidado_colap = $colapsado;
+	}
+
 	function existen_cortes_control()
 	{
 		return (count($this->_info_cuadro_cortes)>0);
@@ -1305,16 +1309,16 @@ class toba_ei_cuadro extends toba_ei
 		$nivel_css = $this->get_nivel_css($nodo['profundidad']);
 		$class = "ei-cuadro-cc-tit-nivel-$nivel_css";
 		if($this->_cortes_modo == apex_cuadro_cc_tabular){
+			$js = "onclick=\"{$this->objeto_js}.colapsar_corte('$id_unico');\"";			
 			if ($this->_cortes_anidado_colap){
-				echo "<table width='100%' class='tabla-0' border='0'><tr><td width='100%' class='$class'>";			
+				echo "<table width='100%' class='tabla-0' border='0'><tr><td width='100%' $js class='$class ei-cuadro-cc-colapsable'>";			
 			} else {
 				echo "<tr><td  colspan='$this->_cantidad_columnas_total' class='$class'>\n";
 			}
 			$this->$metodo($nodo);
 			if ($this->_cortes_anidado_colap){
-				$js = 	"onclick=\"{$this->objeto_js}.colapsar_corte('$id_unico');\"";						
 				$img = toba_recurso::imagen_toba('colapsado.gif', true, null, null, null, null, $js);
-				echo "</td><td class='$class impresion-ocultable'>$img</td></tr></table>";
+				echo "</td><td class='$class ei-cuadro-cc-colapsable impresion-ocultable'>$img</td></tr></table>";
 			}else {
 				echo "</td></tr>\n";
 			}
@@ -1529,7 +1533,7 @@ class toba_ei_cuadro extends toba_ei
 						$js = "abrir_popup('$clave_columna','$url',$opciones);";
 						$valor = "<a href='#' onclick=\"$js\">$valor</a>";
 					} else {
-						$target = ($this->_columnas[$a]['target']) ? "target='".$this->_columnas[$a]['target']."'" : '';
+						$target = (isset($this->_info_cuadro_columna[$a]['vinculo_target'])) ? "target='".$this->_info_cuadro_columna[$a]['vinculo_target']."'" : '';
 						$valor = "<a href='$url' $target>$valor</a>";
 					}
 				}
@@ -1583,6 +1587,7 @@ class toba_ei_cuadro extends toba_ei
 	            	echo "</td>\n";
 				}
 			}
+			
 			//--------------------------------------
             echo "</tr>\n";
             $par = !$par;

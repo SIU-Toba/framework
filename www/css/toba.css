@@ -438,6 +438,11 @@ padding-left:4px;
 
 
 /*-- NIVEL 0 --*/
+.ei-cuadro-cc-colapsable {
+	cursor: pointer;
+	_cursor: auto;
+}
+
 .ei-cuadro-cc-tit-nivel-0{
 	border: 1px solid #231f20;
 	background-color: #514a84;

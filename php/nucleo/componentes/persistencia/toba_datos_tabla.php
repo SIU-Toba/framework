@@ -1084,7 +1084,7 @@ class toba_datos_tabla extends toba_componente
 		}
 		
 		$this->_blobs[$id_fila][$columna] = array('fp'=>$blob, 'path'=>'',  'modificado' => true);
-		if($this->_cambios[$id_fila]['estado']!="i"){
+		if(isset($this->_cambios[$id_fila]['estado']) && $this->_cambios[$id_fila]['estado']!="i"){
 			$this->registrar_cambio($id_fila,"u");
 		}
 	}

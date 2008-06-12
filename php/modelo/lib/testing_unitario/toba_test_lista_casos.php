@@ -52,6 +52,15 @@ class toba_test_lista_casos
 	
 	static function get_casos($categoria = 'nopar')
 	{
+		//Agrega el proyecto al include path
+		if (isset(self::$proyecto)) {
+			$proyecto = self::$proyecto;
+		} else {
+			$proyecto = toba_contexto_info::get_proyecto();
+		}
+		$path = toba::instancia()->get_path_proyecto($proyecto)."/php";
+		agregar_dir_include_path($path);		
+		
 		$casos = array();
 		$path = self::get_path();
 		if (file_exists($path.'/test_toba.php')) {

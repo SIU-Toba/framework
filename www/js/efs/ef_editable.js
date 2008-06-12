@@ -331,7 +331,7 @@ ef_editable_fecha.prototype = new ef_editable();
 	 * @type Date
 	 */
 	ef_editable_fecha.prototype.fecha = function() {
-		if (this.validar()) {
+		if (this.tiene_estado() && this.validar()) {
 			var arr = this.get_estado().split('/');
 			return new Date(arr[2], arr[1] - 1, arr[0]);
 		}

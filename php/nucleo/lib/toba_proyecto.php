@@ -323,12 +323,23 @@ class toba_proyecto
 		//Recupero los items y los formateo en un indice consultable
 		if(!isset($this->indice_items_accesibles)) {
 			$this->indice_items_accesibles = array();
-			if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id ) ) {
-				$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', 
-																							$grupos_acceso, 
-																							'get_items_accesibles',
-																							false);
+			if ( toba::nucleo()->utilizar_metadatos_compilados( $this->id, 'compilados' ) ) {
+				///-- Metadatos compilados
+				if (! empty($grupos_acceso)) {
+					//-- Busca los items accesibles por grupo
+					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__grupo_', 
+																								$grupos_acceso, 
+																								'get_items_accesibles',
+																								false);
+				} else {
+					//-- Si no tiene grupo, busca aquellos items que son públicos
+					$this->indice_items_accesibles = $this->recuperar_datos_compilados_grupo('toba_mc_gene__items_', 
+																								array('publicos'), 
+																								'get_items_accesibles',
+																								false);			
+				}
 			} else {
+				//-- Metadatos salen de la base
 				$rs = toba_proyecto_db::get_items_accesibles($this->id, $grupos_acceso);
 				foreach( $rs as $accesible ) {
 					$this->indice_items_accesibles[$accesible['proyecto'].'-'.$accesible['item']] = 1;

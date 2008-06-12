@@ -16,6 +16,7 @@ define('apex_ei_evt_no_maneja_datos', -1);
  */
 abstract class toba_componente
 {
+	static protected $_modo_memoria_compatible = false;		//Dos componentes con el mismo id creados en un request reusan la misma celda de memoria?
 	protected $_solicitud;
 	protected $_log;
 	protected $_id;
@@ -63,14 +64,27 @@ abstract class toba_componente
 		//Recibi datos por el CANAL?
 		$this->_canal = apex_hilo_qs_canal_obj . $this->_id[1];
 		$this->_canal_recibidos = toba::memoria()->get_parametro($this->_canal);
-		$this->_id_ses_g = "obj_" . $this->_id[1].$definicion['_const_instancia_numero'];
-		$this->_id_ses_grec = "obj_" . $this->_id[1] . "_rec".$definicion['_const_instancia_numero'];
+		$this->_id_ses_g = "obj_" . $this->_id[1];
+		$this->_id_ses_grec = "obj_" . $this->_id[1] . "_rec";
+		if (! self::$_modo_memoria_compatible) {
+			$this->_id_ses_g .= $definicion['_const_instancia_numero'];
+			$this->_id_ses_grec .= $definicion['_const_instancia_numero'];
+		}		
 		$this->set_controlador($this);												//Hasta que nadie lo explicite, yo me controlo solo
 		//Manejo transparente de memoria
 		$this->cargar_memoria();			//RECUPERO Memoria sincronizada
 		$this->recuperar_estado_sesion();	//RECUPERO Memoria dessincronizada
 		$this->cargar_info_dependencias();
 		$this->_log->debug("CONSTRUCCION: {$this->_info['clase']}({$this->_id[1]}): {$this->get_nombre()}", 'toba');
+	}
+	
+	
+	/**
+	 * Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.
+	 */
+	static function set_modo_compatible_manejo_sesion($compatible)
+	{
+		self::$_modo_memoria_compatible = $compatible;
 	}
 	
 	/**

@@ -777,6 +777,20 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$clase->guardar( $archivo );
 			$this->manejador_interface->progreso_avanzar();
 		}		
+		
+		//-- Agrego los items publicos en un archivo aparte, para que el usuario no autentificado pueda navegarlos
+		$nombre_clase = 'toba_mc_gene__items_publicos';
+		$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';	
+		$clase = new toba_clase_datos( $nombre_clase );	
+		$datos = toba_proyecto_db::get_items_accesibles($this->get_id(), array());
+		$temp = array();
+		foreach($datos as $dato) {
+			$temp[$dato['proyecto'].'-'.$dato['item']] = $dato;
+		}
+		$clase->agregar_metodo_datos('get_items_accesibles', $temp );		
+		$clase->guardar( $archivo );
+		$this->manejador_interface->progreso_avanzar();
+		
 		$this->manejador_interface->progreso_fin();
 	}
 
