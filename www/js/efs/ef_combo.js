@@ -172,12 +172,36 @@ ef_radio.prototype.constructor = ef_radio;
 	
 	//---Comandos	
 	
+	ef_radio.prototype.set_estado = function(nuevo) {
+		var input = this.input();
+		if (input){
+			var ok = false;
+			for (var i =0 ; i < input.length; i++) {
+				if (input[i].value == nuevo) {
+					input[i].checked = true;
+					ok = true;
+					break;
+				}
+			}
+		}
+		if (!ok) {
+			var msg = 'El radiobutton no tiene a ' + nuevo + ' entre sus elementos.';
+			throw new Error(msg, msg);
+		}
+		if (input.onchange) {
+			input.onchange();
+		}
+	};	
+	
 	ef_radio.prototype.resetear_estado = function() {
 		if (this.tiene_estado()) {
 			var elem = this.input();		
 			for (var i=0; i < elem.length ; i++) {
 				if (elem[i].checked) {
 					elem[i].checked = false;
+				}
+				if (elem[i].value == apex_ef_no_seteado) {
+					elem[i].checked = true;
 				}
 			}
 		}
