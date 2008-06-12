@@ -191,7 +191,7 @@ class toba_formateo
     function formato_checkbox($valor)
     {
     	
-        if ($valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's') {
+        if ($valor === true || $valor === '1' || $valor === 1 || $valor === 'S' || $valor === 's') {
             $html = "SI";
         } else {
             $html = "NO";

@@ -72,9 +72,13 @@ class toba_tab extends toba_boton
 				$html .= "<div id='$id'>$contenido</div>";
 				$html .= "</div></div>";
 			} else {
+				$clase_extra = '';
+				if (! $this->activado) {
+					$clase_extra = 'ci-tabs-v-desactivado';
+				}
 				$oculto = $this->oculto ? "style='display: none'" : '';
-				$html = "<div class='ci-tabs-v-solapa ' $oculto >$editor ";
-				$html .= "<a href='#' id='$id' class='$clase_boton' $acceso $js>$contenido</a>";
+				$html = "<div class='ci-tabs-v-solapa $clase_extra' $oculto >$editor ";
+				$html .= "<a href='#' id='$id' $clase_extra $acceso $js>$contenido</a>";
 				$html .= "</div>";
 				$html .= $js_extra;
 			}

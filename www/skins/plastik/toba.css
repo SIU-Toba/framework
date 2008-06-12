@@ -252,6 +252,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	color: #000000;
 	padding-left:3px;
 }
+.ci-tabs-v-desactivado a {
+	color:gray;
+	text-decoration:none;
+	cursor: default;
+}
 .ci-tabs-v-solapa-sel {
 	padding-top:2px;
 	padding-bottom:2px;

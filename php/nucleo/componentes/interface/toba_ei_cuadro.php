@@ -1142,15 +1142,20 @@ class toba_ei_cuadro extends toba_ei
 	{
 		$this->generar_salida("html");
 	}
-
-	private function html_inicio()
+	
+	private function html_generar_campos_hidden()
 	{
 		//Campos de comunicación con JS
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit_seleccion, '');
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
-		echo toba_form::hidden($this->_submit_paginado, '');
+		echo toba_form::hidden($this->_submit_paginado, '');		
+	}
+
+	private function html_inicio()
+	{
+		$this->html_generar_campos_hidden();
 		//-- Scroll
 		if($this->_info_cuadro["scroll"]){
 			$ancho = isset($this->_info_cuadro["ancho"]) ? $this->_info_cuadro["ancho"] : "";
@@ -1255,8 +1260,12 @@ class toba_ei_cuadro extends toba_ei
 	 * @param string $texto Texto a mostrar en base a la definición del componente
 	 */
 	protected function html_mensaje_cuadro_vacio($texto){
+		$this->html_generar_campos_hidden();
 		echo $this->get_html_barra_editor();
 		echo ei_mensaje($texto);
+		if ($this->hay_botones()) {
+			$this->generar_botones();
+		}		
 	}
 	
 	//-------------------------------------------------------------------------------

@@ -15,7 +15,10 @@ class toba_form
     	$max_length = ($len != '') ? "maxlength='$len'" : '';
         $r = "<INPUT type='text' name='$nombre' id='$nombre' $max_length size='$size' ";
         if (isset($actual)) $r .= "value='$actual' ";
-        if ($read_only) $r .= " readonly ";
+        if ($read_only) {
+        	$r .= " readonly ";
+        	$clase .= ' ef-input-solo-lectura';
+        }
         $r .= "class='$clase' $extra />\n";
         return $r;
     }
