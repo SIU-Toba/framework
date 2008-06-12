@@ -17,6 +17,16 @@
 	DEFERRABLE 
 	INITIALLY	
 	IMMEDIATE;
+	
+	
+	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_ss" 
+	FOREIGN	KEY ("proyecto","item_set_sesion")	
+	REFERENCES "apex_item" ("proyecto","item") 
+	ON DELETE CASCADE
+	ON	UPDATE CASCADE 
+	DEFERRABLE 
+	INITIALLY	
+	IMMEDIATE;	
 
 
 	ALTER TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_fk_menu" 

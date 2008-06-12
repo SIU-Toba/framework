@@ -16,15 +16,11 @@ class toba_migracion_1_2_0 extends toba_migracion
 	{
 		//-- Dimensiones
 		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a06_tablas_dimensiones.sql';
-		if (file_exists($archivo)) {
-			$this->elemento->get_db()->ejecutar_archivo($archivo);
-		}		
+		$this->elemento->get_db()->ejecutar_archivo($archivo);
 		
 		//-- Nuevo ei-filtro
 		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a14_componente_ei_filtro.sql';
-		if (file_exists($archivo)) {
-			$this->elemento->get_db()->ejecutar_archivo($archivo);
-		}				
+		$this->elemento->get_db()->ejecutar_archivo($archivo);
 		
 		//-- Cosas sueltas		
 		$sql = array();
@@ -166,6 +162,9 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = 'ALTER  TABLE ONLY apex_item_info DROP CONSTRAINT	"apex_item_info_fk_item"  CASCADE;';
 		$sql[] = 'ALTER  TABLE ONLY apex_item_objeto DROP CONSTRAINT	"apex_item_consumo_obj_fk_item"  CASCADE;';
 		$sql[] = 'ALTER  TABLE ONLY apex_usuario_grupo_acc_item DROP CONSTRAINT "apex_usu_item_fk_item" CASCADE;';
+		
+	
+		
 		$sql[] = 'ALTER  TABLE apex_item_msg 			ADD CONSTRAINT 	"apex_item_msg_fk_item" FOREIGN KEY ("item", "item_proyecto") REFERENCES "apex_item" ("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_item_nota 			ADD CONSTRAINT	"apex_item_nota_fk_item" FOREIGN KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item") ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_molde_operacion 	ADD CONSTRAINT	"apex_molde_operacion_fk_item" FOREIGN	KEY ("item", "proyecto") REFERENCES	"apex_item"	("item", "proyecto") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE;';
@@ -173,36 +172,28 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = 'ALTER  TABLE apex_item_info 			ADD CONSTRAINT	"apex_item_info_fk_item" FOREIGN	KEY ("item_proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_item_objeto 		ADD CONSTRAINT	"apex_item_consumo_obj_fk_item" FOREIGN KEY ("proyecto","item") REFERENCES	"apex_item"	("proyecto","item") ON DELETE CASCADE ON UPDATE CASCADE	DEFERRABLE	INITIALLY IMMEDIATE;';
 		$sql[] = 'ALTER  TABLE apex_usuario_grupo_acc_item ADD CONSTRAINT	"apex_usu_item_fk_item"		FOREIGN KEY	("proyecto","item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		
+		$sql[] = 'ALTER  TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_item_is"		FOREIGN KEY	("proyecto","item_inicio_sesion") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER  TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_item_ps"		FOREIGN KEY	("proyecto","item_pre_sesion") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER  TABLE apex_proyecto ADD CONSTRAINT	"apex_proyecto_item_ss"		FOREIGN KEY	("proyecto","item_set_sesion") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER  TABLE apex_objeto_eventos ADD CONSTRAINT	"apex_objeto_eventos_fk_accion_vinculo"		FOREIGN KEY	("proyecto","accion_vinculo_item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER  TABLE apex_objeto_ei_cuadro_columna ADD CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo"		FOREIGN KEY	("objeto_cuadro_proyecto","vinculo_item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';
+		$sql[] = 'ALTER  TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT	"apex_ei_f_ef_fk_accion_vinculo"		FOREIGN KEY	("popup_proyecto","popup_item") REFERENCES "apex_item" ("proyecto","item")	ON	DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;';		
+		
 		//2- Elimino la columna 'sql', no permitida como nombre de columna
-		
-		
-		/**
-	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_is" 
-	FOREIGN	KEY ("proyecto","item_inicio_sesion") 
-	REFERENCES	"apex_item"	("proyecto","item") 
-	ON DELETE CASCADE 
-	ON UPDATE CASCADE	
-	DEFERRABLE	
-	INITIALLY 
-	IMMEDIATE;
-	
-	ALTER TABLE apex_proyecto ADD CONSTRAINT  "apex_proyecto_item_ps" 
-	FOREIGN	KEY ("proyecto","item_pre_sesion")	
-	REFERENCES "apex_item" ("proyecto","item") 
-	ON DELETE CASCADE
-	ON	UPDATE CASCADE 
-	DEFERRABLE 
-	INITIALLY	
-	IMMEDIATE;
 
-	
-		ALTER TABLE apex_objeto_eventos ADD CONSTRAINT	"apex_objeto_eventos_fk_accion_vinculo" FOREIGN KEY ("proyecto","accion_vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-		ALTER TABLE apex_objeto_ei_cuadro_columna ADD CONSTRAINT	"apex_obj_ei_cuadro_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","vinculo_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-		ALTER TABLE apex_objeto_ei_formulario_ef ADD CONSTRAINT	"apex_ei_f_ef_fk_accion_vinculo" FOREIGN KEY ("popup_proyecto","popup_item") 	REFERENCES	"apex_item"	("proyecto","item")  ON DELETE CASCADE ON UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
-	
-		 */
-		
-		$this->elemento->get_db()->ejecutar($sql);		
+		try {
+			$this->elemento->get_db()->ejecutar($sql);		
+		} catch (toba_error_db $e) {
+			if ($e->get_sqlstate() == 'db_23503') {
+				$mensaje_motor = $e->get_mensaje_motor();
+				$mensaje = "ERROR al intentar migrar el proyecto. Existe entre los metadatos una referencia a un item inexistente. Por favor corrija esta referencia usando la versión de toba 1.1.0 y reintente la migración.\n";
+				$mensaje .= "\n A continuación el mensaje de error de la base:\n".$e->get_mensaje_motor();
+				throw new toba_error_def($mensaje);
+			} else {
+				throw $e;
+			}
+		}
 	}
 
 	function proyecto__migrar_datos_para_mysql()

@@ -685,10 +685,10 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$instancia->get_db()->abortar_transaccion();	//Aborta la transaccion para que no afecte la instancia vieja
 			$instancia->get_db()->destruir();
 
-			$this->manejador_interface->titulo("4.- Regenerando la instancia actual para tomar los cambios");
-				
+	
 			//---Restaurar el backup
 			if (file_exists($dir_backup)) {
+				$this->manejador_interface->titulo("4.- Restaurando backup directorio instalacion del nuevo toba");	
 				if (file_exists($dir_original)) {
 					toba_manejador_archivos::eliminar_directorio($dir_original);
 				}
@@ -698,6 +698,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			}
 			
 			//--- Agrega el proyecto a la instancia nueva (por si no estaba) y regenera la misma
+			$this->manejador_interface->titulo("5.- Regenerando la instancia actual para tomar los cambios");			
 			$this->cargar_info_ini(true);
 			$instancia->cargar_info_ini();
 			$instancia->get_db(true);	//Refresca la base
@@ -711,10 +712,12 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			$instancia->vincular_proyecto($id_proyecto, $path, $url);
 			$proyecto = $instancia->get_proyecto($id_proyecto);
 			$proyecto->regenerar();
+			
 		} catch (Exception  $e) {
 			$excepcion = $e;
 			//---Restaurar el backup
 			if (file_exists($dir_backup)) {
+				$this->manejador_interface->titulo("Restaurando backup directorio instalacion del nuevo toba");	
 				if (file_exists($dir_original)) {
 					toba_manejador_archivos::eliminar_directorio($dir_original);
 				}
