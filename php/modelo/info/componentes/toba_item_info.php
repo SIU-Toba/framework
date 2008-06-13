@@ -375,7 +375,7 @@ class toba_item_info implements toba_nodo_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("nucleo/carpeta_nueva.gif", false),
 				'ayuda'=> "Crear SUBCARPETA en esta rama del CATALOGO",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/items/carpeta_propiedades", 
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000238", 
 								array("padre_p"=>$this->get_proyecto(), "padre_i"=>$this->get_id()),false,false,null,true, "central" ),
 				'plegado' => true								
 			);
@@ -399,7 +399,7 @@ class toba_item_info implements toba_nodo_arbol
 			$utilerias[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear un componente asociado al item",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
 									array('destino_tipo' =>'toba_item', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id ),

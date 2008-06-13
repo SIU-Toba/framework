@@ -13,7 +13,7 @@ class toba_cn_info extends toba_componente_info
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un componente asociado al controlador",
-			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
 								array(	'destino_tipo' => 'toba_cn', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id ),

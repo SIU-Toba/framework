@@ -27,7 +27,7 @@ class toba_datos_relacion_info extends toba_componente_info
 			$iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 				'ayuda' => "Crear una nueva tabla asociada a la relación",
-				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+				'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
 									array(	'destino_tipo' => 'toba_datos_relacion', 
 											'destino_proyecto' => $this->proyecto,
 											'destino_id' => $this->id),

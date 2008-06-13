@@ -201,7 +201,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'efs_lista', --objetos
+	'', --objetos
 	'aceptar,cancelar', --eventos
 	'pant_efs', --subclase
 	'objetos_toba/efs/pant_efs.php'  --subclase_archivo

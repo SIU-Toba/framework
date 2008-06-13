@@ -123,7 +123,7 @@ class toba_ci_pantalla_info implements toba_nodo_arbol, toba_meta_clase
 		$iconos[] = array(
 			'imagen' => toba_recurso::imagen_toba("objetos/objeto_nuevo.gif", false),
 			'ayuda' => "Crear un objeto asociado a la pantalla",
-			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"/admin/objetos_toba/crear",
+			'vinculo' => toba::vinculador()->generar_solicitud(toba_editor::get_id(),"1000247",
 								array('destino_tipo' => 'toba_ci_pantalla', 
 										'destino_proyecto' => $this->proyecto,
 										'destino_id' => $this->id,
