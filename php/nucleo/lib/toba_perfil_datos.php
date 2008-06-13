@@ -2,7 +2,7 @@
 /*
 	Limitaciones parser:
 		- todo subquery tiene que estar entre parentesis
-		- no sepermiten subquerys en el FROM (extraños)
+		- no sepermiten subquerys en el FROM (extraï¿½os)
 		
 	Features perfiles
 		- Una tabla puede implicar dos dimensiones
@@ -77,7 +77,7 @@ class toba_perfil_datos
 	*/
 	function get_id()
 	{
-		return toba_manejador_sesiones::get_perfil_datos();		
+		toba::manejador_sesiones()->get_perfil_datos();
 	}
 
 	/**

@@ -159,7 +159,7 @@ class toba_proyecto_db
 		
 	static function get_items_menu($proyecto, $grupos_acceso)
 	{
-		$raiz = toba_info_editores::get_item_raiz($proyecto);
+		$raiz = self::get_item_raiz($proyecto);
 		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
 		$sql = "SELECT DISTINCT
 						i.padre as 		padre,
@@ -176,13 +176,27 @@ class toba_proyecto_db
 								ON	(	i.item = u.item AND i.proyecto = u.proyecto	)
 				WHERE
 					(i.menu = 1)
-				AND i.item != i.padre
+				AND i.item != i.padre	--no es raiz
 				AND	(u.usuario_grupo_acc IN ($grupos_acceso) OR i.publico = 1)
 				AND		(i.proyecto = '$proyecto')
 				ORDER BY i.padre,i.orden;";
 		return self::get_db()->consultar($sql);
 	}	
 
+	static function get_item_raiz($proyecto)
+	{
+		$sql = "
+			SELECT 
+				item
+			FROM apex_item 
+			WHERE 
+					proyecto = '$proyecto'
+				AND item = padre
+		";
+		$datos = self::get_db()->consultar_fila($sql);
+		return $datos['item'];
+	}	
+	
 	static function get_items_accesibles($proyecto, $grupos_acceso)
 	{
 		$grupos_acceso = "'" . implode("','", $grupos_acceso) . "'";
