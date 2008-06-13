@@ -130,7 +130,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'toba_editor', --objeto_proyecto
 	'1000583', --objeto
 	'1000364', --col_id
-	'alias_tabla', --columna
+	'expresion', --columna
 	'C', --tipo
 	'0', --pk
 	'', --secuencia

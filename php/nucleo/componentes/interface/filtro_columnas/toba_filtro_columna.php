@@ -41,9 +41,9 @@ abstract class toba_filtro_columna
 		$this->_datos['inicial'] = $visible;
 	}	
 	
-	function set_alias_tabla($alias_tabla)
+	function set_expresion($campo)
 	{
-		$this->_datos['alias_tabla'] = $alias_tabla;
+		$this->_datos['expresion'] = $campo;
 	}
 	
 	function cargar_estado_post()
@@ -122,11 +122,9 @@ abstract class toba_filtro_columna
 		return $this->_ef;
 	}
 	
-	function get_alias_tabla()
+	function get_expresion()
 	{
-		if (isset($this->_datos['alias_tabla'])) {
-			return $this->_datos['alias_tabla'].'.';
-		}
+		return $this->_datos['expresion'];
 	}
 
 	function get_etiqueta()
@@ -186,12 +184,12 @@ abstract class toba_filtro_columna
 		}		
 	}
 	
+	
 	function get_sql_where()
 	{
 		if (isset($this->_estado)) {
-			$id = $this->_estado['condicion'];				
-			$campo = $this->get_alias_tabla().$this->get_nombre();
-			return $this->_condiciones[$id]->get_sql($campo, $this->_estado['valor']);
+			$id = $this->_estado['condicion'];	
+			return $this->_condiciones[$id]->get_sql($this->get_expresion(), $this->_estado['valor']);
 		}
 	}
 

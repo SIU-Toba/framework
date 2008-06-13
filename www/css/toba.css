@@ -181,7 +181,7 @@ padding-left:4px;
 	text-align: right;
 	padding-right:5px;
 	padding-left:5px;
-	min-height: 22px;
+	min-height: 25px;
 }
 /* La botonera dentro de la barra superior flota para que se vea al mismo nivel */
 .ei-barra-sup .ei-botonera {
@@ -546,8 +546,8 @@ padding-left:4px;
 		filtro
 ***************************/
 .ei-filtro-botonera {
-	text-align:left;
-	padding-top: 15px;
+	float:left;
+	padding-top: 4px;
 }
 
 /*************************

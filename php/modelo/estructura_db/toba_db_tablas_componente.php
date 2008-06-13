@@ -740,7 +740,7 @@ class toba_db_tablas_componente
     2 => 'objeto_ei_filtro_proyecto',
     3 => 'tipo',
     4 => 'nombre',
-    5 => 'alias_tabla',
+    5 => 'expresion',
     6 => 'etiqueta',
     7 => 'descripcion',
     8 => 'obligatorio',

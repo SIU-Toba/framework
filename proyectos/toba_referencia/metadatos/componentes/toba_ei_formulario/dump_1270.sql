@@ -354,29 +354,29 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Localidad', --etiqueta
 	NULL, --etiqueta_estilo
 	'En la SQL de la localidad se dejan marcas  %pais_sql% y %provincia_sql%, correspondientes a los ids de los efs del que depende, para que liguen su valor cuando se seleccionen.', --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
-	'SELECT \'bb\', \'Bahía Blanca\' WHERE \'ar\' = \'%pais_sql%\' AND \'ba\' = \'%provincia_sql%\'
+	'SELECT \'bb\' as clave , \'Bahía Blanca\' as valor WHERE \'ar\' = \'%pais_sql%\' AND \'ba\' = \'%provincia_sql%\'
 UNION
-SELECT \'sj\', \'San Juan\' WHERE \'ar\' = \'%pais_sql%\' AND \'sj\' = \'%provincia_sql%\'', --carga_sql
-	NULL, --carga_fuente
+SELECT \'sj\' as clave, \'San Juan\' as valor WHERE \'ar\' = \'%pais_sql%\' AND \'sj\' = \'%provincia_sql%\'', --carga_sql
+	'toba_referencia', --carga_fuente
 	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
-	'pais_sql, provincia_sql', --carga_maestros
-	NULL, --carga_cascada_relaj
+	'clave', --carga_col_clave
+	'valor', --carga_col_desc
+	'provincia_sql,pais_sql', --carga_maestros
+	'0', --carga_cascada_relaj
 	'-- Seleccione --', --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara

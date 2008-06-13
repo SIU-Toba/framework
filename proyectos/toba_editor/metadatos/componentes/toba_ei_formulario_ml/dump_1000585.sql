@@ -289,7 +289,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'25', --edit_tamano
+	'10', --edit_tamano
 	'80', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
@@ -339,14 +339,14 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Columna', --etiqueta
 	NULL, --etiqueta_estilo
-	'ID del EF', --descripcion
+	'Nombre de la columna a filtrar, si es una expresión la que se filtra, por ej ROUND(campo1 + campo2), ingresar algo que lo identifique, por ej \'suma\'', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	'0', --estilo
 	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -361,7 +361,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'20', --edit_tamano
+	'15', --edit_tamano
 	'30', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
@@ -475,22 +475,22 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1001161', --objeto_ei_formulario_fila
 	'1000585', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
-	'alias_tabla', --identificador
+	'expresion', --identificador
 	'ef_editable', --elemento_formulario
-	'alias_tabla', --columnas
-	'0', --obligatorio
+	'expresion', --columnas
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Alias Tabla', --etiqueta
+	'Expresión', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Expresión a filtrar, por lo general coincide con el nombre de la columna aunque se pueden ingresar cualquier expresión SQL, por ej UPPER(campo1 || campo2)', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	NULL, --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
@@ -505,8 +505,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	NULL, --edit_tamano
-	NULL, --edit_maximo
+	'20', --edit_tamano
+	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango

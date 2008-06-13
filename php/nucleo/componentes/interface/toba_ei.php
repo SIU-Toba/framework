@@ -323,11 +323,12 @@ abstract class toba_ei extends toba_componente
 	 * Genera la botonera del componente
 	 * @param string $clase Clase css con el que se muestra la botonera
 	 */
-	function generar_botones($clase = '')
+	function generar_botones($clase = '', $extra='')
 	{
 		//----------- Generacion
 		if ($this->hay_botones()) {
 			echo "<div class='ei-botonera $clase'>";
+			echo $extra;
 			$this->generar_botones_eventos();
 			echo "</div>";
 		}

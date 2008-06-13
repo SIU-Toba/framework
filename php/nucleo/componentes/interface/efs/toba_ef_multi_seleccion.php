@@ -147,6 +147,7 @@ abstract class toba_ef_multi_seleccion extends toba_ef
 	{
 		if ($this->serializar !== false && is_scalar($estado)) {
 			$estado = explode($this->serializar, $estado);
+			$estado = array_map('trim', $estado);
 		}
 		if ($this->es_estado_nulo($estado)) {
 			$this->estado = $this->estado_nulo;

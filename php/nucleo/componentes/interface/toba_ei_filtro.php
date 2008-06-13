@@ -12,12 +12,12 @@ class toba_ei_filtro extends toba_ei
 	protected $_columnas_datos;
 	protected $_estilos = 'ei-base ei-filtro-base';	
 	protected $_colspan;
-	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
-	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
+	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'CondiciÃ³n', 'valor' => 'Valor');
+	protected $_rango_tabs;					// Rango de nÃºmeros disponibles para asignar al taborder
 	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
 	
 	/**
-	 * Método interno para iniciar el componente una vez construido
+	 * MÃ©todo interno para iniciar el componente una vez construido
 	 * @ignore 
 	 */	
 	function inicializar($parametros)
@@ -52,7 +52,7 @@ class toba_ei_filtro extends toba_ei
 	{
 		parent::aplicar_restricciones_funcionales();
 
-		//-- Restricción funcional columnas no-visibles ------
+		//-- RestricciÃ³n funcional columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_filtro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
 			foreach ($this->_columnas as $id => $columna) {
@@ -144,8 +144,10 @@ class toba_ei_filtro extends toba_ei
 	function get_datos()
 	{
 		$datos = array();
-		foreach ($this->_columnas_datos as $fila => $columna) {
-			$datos[$fila] = $columna->get_estado();
+		if (isset($this->_columnas_datos)) {
+			foreach ($this->_columnas_datos as $fila => $columna) {
+				$datos[$fila] = $columna->get_estado();
+			}
 		}
 		return $datos;
 	}
@@ -174,12 +176,14 @@ class toba_ei_filtro extends toba_ei
 	 */
 	function set_datos($datos, $set_cargado=true)
 	{
+		$this->_columnas_datos = array();
 		if (isset($datos)){
 			foreach ($this->_columnas as $id => $columna) {
 				$columna->resetear_estado();
 				if (isset($datos[$id])) {
 					$columna->set_estado($datos[$id]);
 					$columna->set_visible(true);
+					$this->_columnas_datos[$id] = $columna;
 				} else {
 					$columna->set_visible(false);
 				}
@@ -206,8 +210,10 @@ class toba_ei_filtro extends toba_ei
 	function get_sql_clausulas()
 	{
 		$where = array();
-		foreach ($this->_columnas_datos as $columna) {
-			$where[$columna->get_nombre()] = $columna->get_sql_where();
+		if (isset($this->_columnas_datos)) {
+			foreach ($this->_columnas_datos as $columna) {
+				$where[$columna->get_nombre()] = $columna->get_sql_where();
+			}
 		}
 		return $where;		
 	}
@@ -280,25 +286,27 @@ class toba_ei_filtro extends toba_ei
 		$this->generar_formulario_encabezado();
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
-		$this->generar_botonera_manejo_filas();		
-		$this->generar_botones();
+		$extra = $this->get_botonera_manejo_filas();		
+		$this->generar_botones('', $extra);
 	}
 	
 	/**
 	 * Genera el HTML de la botonera de agregar/quitar/ordenar filas
 	 */
-	protected function generar_botonera_manejo_filas()
+	protected function get_botonera_manejo_filas()
 	{
-		echo "<div class='ei-filtro-botonera' id='botonera_{$this->objeto_js}'>";
+		$salida = '';
+		$salida = "<div class='ei-filtro-botonera' id='botonera_{$this->objeto_js}'>";
 		$texto = toba_recurso::imagen_toba('nucleo/agregar.gif', true);
 		$opciones = array(apex_ef_no_seteado => '');
 		foreach ($this->_columnas as $columna) {
 			$opciones[$columna->get_nombre()] = $columna->get_etiqueta();
 		}
-		echo 'Agregar filtro ';
+		$salida .= 'Agregar filtro ';
 		$onchange = "onchange='{$this->objeto_js}.crear_fila()'";
-		echo toba_form::select("{$this->objeto_js}_nuevo", null, $opciones, 'ef-combo', $onchange);
-		echo "</div>\n";
+		$salida .= toba_form::select("{$this->objeto_js}_nuevo", null, $opciones, 'ef-combo', $onchange);
+		$salida .="</div>\n";
+		return $salida;
 	}	
 	
 	/**
@@ -344,7 +352,7 @@ class toba_ei_filtro extends toba_ei
 			echo $columna->get_html_etiqueta();
 			echo "</td>\n";
 			
-			//-- Condición
+			//-- CondiciÃ³n
 			echo "<td class='$estilo_celda ei-filtro-cond'>";
 			echo $columna->get_html_condicion();
 			echo "</td>\n";

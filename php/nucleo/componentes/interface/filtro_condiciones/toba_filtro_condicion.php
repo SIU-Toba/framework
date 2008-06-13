@@ -64,10 +64,10 @@ class toba_filtro_condicion
 	/**
 	 * Retorna la clausula sql en base a la condicion actual
 	 */
-	function get_sql($campo, $valor)
+	function get_sql($expresion, $valor)
 	{
 		$valor = toba::db()->quote($this->pre.trim($valor).$this->post);
-		return $campo.$this->casting_izq.' '.$this->operador_sql.' '.
+		return $expresion.$this->casting_izq.' '.$this->operador_sql.' '.
 						$this->pre_evaluacion.$valor.$this->post_evaluacion.$this->casting_der;
 		
 	}

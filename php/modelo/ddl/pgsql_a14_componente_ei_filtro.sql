@@ -64,7 +64,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	objeto_ei_filtro_proyecto    		varchar(15)		NOT NULL,
 	tipo								varchar(30)		NOT NULL,
 	nombre								varchar(255)	NOT NULL,
-	alias_tabla							varchar(255)	NULL,
+	expresion							varchar(255)	NOT NULL,
 	etiqueta							varchar(80)    	NULL,
 	descripcion             			varchar        	NULL,
 	obligatorio             			smallint       	NOT NULL DEFAULT 0,

@@ -30,7 +30,7 @@ class toba_ei_formulario_ml_def extends toba_ei_formulario_def
 		$sql['_info_formulario']['registros']='1';
 		$sql['_info_formulario']['obligatorio']=true;
 		//EF
-		$sql["_info_formulario_ef"]['sql'] = "SELECT	*,
+		$sql["_info_formulario_ef"]['sql'] = "SELECT	ef.*,
 										estilo as					columna_estilo,
 										con.clase as carga_consulta_php_clase,
 										con.archivo as carga_consulta_php_archivo
