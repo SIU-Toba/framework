@@ -99,7 +99,7 @@ class ci_dimensiones extends toba_ci
 		$datos = $this->dependencia('datos')->tabla('dimension')->get();
 		$id = explode(',',$datos['col_id']);
 		$desc = explode(',',$datos['col_desc']);
-		$sql = "SELECT " . implode(' || ',$id) . " as clave, " 
+		$sql = "SELECT " . implode(" || ' - ' || ",$id) . " as clave, " 
 						. implode(' || ',$desc) . " as descripcion
 				FROM {$datos['tabla']}
 				ORDER BY descripcion";

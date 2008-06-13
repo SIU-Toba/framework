@@ -42,6 +42,6 @@ CREATE TABLE apex_usuario_proyecto_perfil_datos
 	usuario								varchar(60)			NOT NULL,
 	CONSTRAINT	"apex_usu_proy_pd_pk"  PRIMARY KEY ("proyecto", "usuario_perfil_datos", "usuario"),
 	CONSTRAINT	"apex_usu_proy_pd_fk_usuario"	FOREIGN KEY	("usuario")	REFERENCES "apex_usuario" ("usuario") ON DELETE	CASCADE ON UPDATE	CASCADE DEFERRABLE INITIALLY	IMMEDIATE,
-	CONSTRAINT	"apex_usu_proy_pd_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE
+	CONSTRAINT	"apex_usu_proy_pd_fk_perf_dat" FOREIGN	KEY ("proyecto","usuario_perfil_datos") REFERENCES	"apex_usuario_perfil_datos" ("proyecto","usuario_perfil_datos") ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY	IMMEDIATE
 );
 --#################################################################################################

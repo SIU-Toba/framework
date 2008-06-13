@@ -1230,7 +1230,8 @@ class toba_info_editores
 	function get_dimensiones($proyecto=null)
 	{
 		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
-		$sql = "SELECT		proyecto,
+		$sql = "SELECT		fuente_datos,
+							proyecto,
 							dimension,
 							nombre,
 							tabla,

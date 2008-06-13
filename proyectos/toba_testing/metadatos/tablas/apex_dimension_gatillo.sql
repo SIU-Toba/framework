@@ -48,4 +48,48 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	NULL, --tabla_gatillo
 	NULL  --ruta_tabla_rel_dim
 );
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_testing', --proyecto
+	'10', --dimension
+	'9', --gatillo
+	'directo', --tipo
+	'1', --orden
+	'escalafon', --tabla_rel_dim
+	'escalafon_1, escalafon_2', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_testing', --proyecto
+	'10', --dimension
+	'10', --gatillo
+	'directo', --tipo
+	'2', --orden
+	'categoria', --tabla_rel_dim
+	'escalafon_1, escalafon_2', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_testing', --proyecto
+	'11', --dimension
+	'11', --gatillo
+	'directo', --tipo
+	'1', --orden
+	'dependencia', --tabla_rel_dim
+	'dependencia', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_testing', --proyecto
+	'11', --dimension
+	'12', --gatillo
+	'directo', --tipo
+	'2', --orden
+	'persona_extra', --tabla_rel_dim
+	'dependencia', --columnas_rel_dim
+	NULL, --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
 --- FIN Grupo de desarrollo 0

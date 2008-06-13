@@ -110,11 +110,33 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable_activo
 	'0', --scroll
 	NULL, --scroll_alto
-	NULL, --cc_modo
-	NULL, --cc_modo_anidado_colap
+	't', --cc_modo
+	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_cc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 0
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
+	'toba_editor', --objeto_cuadro_proyecto
+	'2204', --objeto_cuadro
+	'28', --objeto_cuadro_cc
+	'fuente_datos', --identificador
+	'Fuente datos', --descripcion
+	'1', --orden
+	'fuente_datos', --columnas_id
+	'fuente_datos', --columnas_descripcion
+	'0', --pie_contar_filas
+	'0', --pie_mostrar_titular
+	'0', --pie_mostrar_titulos
+	NULL, --imp_paginar
+	'0'  --modo_inicio_colapsado
+);
+--- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna
