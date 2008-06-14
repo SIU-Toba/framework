@@ -94,7 +94,7 @@ class toba_dba
 	}	
 	
 	/**
-	*	ï¿½Hay una conexiï¿½n abierta a la base?
+	* Hay una conexión abierta a la base?
 	*/
 	static function existe_conexion( $nombre )
 	{

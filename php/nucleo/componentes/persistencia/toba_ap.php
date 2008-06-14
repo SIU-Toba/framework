@@ -21,7 +21,7 @@ interface toba_ap_tabla
 	function activar_modificacion_clave();
 	
 	/**
-	 * Obtiene del medio un conjunto de datos a partir de una definiciï¿½ de sus campos clave
+	 * Obtiene del medio un conjunto de datos a partir de una definición de sus campos clave
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se encontro ninguna fila
 	 */
@@ -58,7 +58,7 @@ interface toba_ap_tabla
 interface toba_ap_relacion
 {
 	/**
-	 * Cargar una relaciÃ³n completa a partir de la clave de una de las tablas raiz
+	 * Cargar una relación completa a partir de la clave de una de las tablas raiz
 	 * @param array $clave Arreglo asociativo campo-valor
 	 * @return boolean Falso si no se cargo la tabla raiz
 	 */
@@ -70,7 +70,7 @@ interface toba_ap_relacion
 	function sincronizar();
 	
 	/**
-	 * Elimina del medio de persistencia toda la relaciÃ³n cargada 
+	 * Elimina del medio de persistencia toda la relación cargada 
 	 */
 	function eliminar_todo();
 }

@@ -5,8 +5,8 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $id_db_original;
 	protected $proyecto_original;
 	protected $conexion_extra;
-	protected $sep_ini = '"'; //Para lc_messages = 'C' poner el caracter 'ï¿½';
-	protected $sep_fin = '"'; //Para lc_messages = 'C' poner el caracter 'ï¿½';
+	protected $sep_ini = '"'; //Para lc_messages = 'esp' poner el caracter '';
+	protected $sep_fin = '"'; //Para lc_messages = 'esp' poner el caracter 'ï¿½';
 
 	function parsear($sql, $sqlstate, $mensaje)
 	{
@@ -75,7 +75,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 			$mensaje = "Error $accion en <strong>{$datos['nombre_tabla']}</strong>. ";				
 		}
 		if (! isset($datos['campos']) || empty($datos['campos'])) {
-			$mensaje .= 'Ya existe un registro con la misma clave o descripciÃ³n.';
+			$mensaje .= 'Ya existe un registro con la misma clave o descripción.';
 		} else {
 			
 			$mensaje .= 'Ya existe un registro con ';
@@ -158,9 +158,9 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 		}		
 		if (! isset($datos['campos_locales']) || empty($datos['campos_locales'])) {
 			if ($es_alta) {
-				$mensaje .= 'El registro tiene valores que no estÃ¡n presentes en las tablas referenciadas.';
+				$mensaje .= 'El registro tiene valores que no están presentes en las tablas referenciadas.';
 			} else {
-				$mensaje .= 'Al menos un registro continÃºa siendo utilizado por otra tabla.';
+				$mensaje .= 'Al menos un registro continúa siendo utilizado por otra tabla.';
 			}
 		} else {
 			$mensaje .= (count($datos['campos_locales']) == 1 ) ?
@@ -169,12 +169,12 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 			$mensaje .= '<em>'.implode('</em>, <em>', $datos['campos_locales']).'</em> ';
 			if ($es_alta) {
 				$mensaje .= (count($datos['campos_locales']) == 1 ) ?
-								"no estÃ¡ presente en " :
-								"no estÃ¡n presentes en ";		
+								"no está presente en " :
+								"no están presentes en ";		
 			} else {
 				$mensaje .= (count($datos['campos_locales']) == 1 ) ?
-								"aÃºn sigue siendo utilizado en " :
-								"aÃºn siguen siendo utilizados en ";					
+								"aún sigue siendo utilizado en " :
+								"aún siguen siendo utilizados en ";					
 			}
 			$mensaje .= '<strong>'.$datos['nombre_tabla_foranea'].'</strong>';
 		}
@@ -195,7 +195,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 			return $rs;
 		}
 		
-		//-- La foreing key que falla es de la tabla foranea? Si es asÃ­ hay que dar vuelta todo
+		//-- La foreing key que falla es de la tabla foranea? Si es así­ hay que dar vuelta todo
 		$rs = $this->get_datos_consulta_fk($tabla_foranea, $fk);
 		if (! empty($rs)) {
 			if (! is_null($rs['clave_local']) && ! is_null($rs['clave_foranea'])) {
@@ -249,7 +249,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	function get_mensaje_not_null($accion, $campo)
 	{
 		$mensaje = "Error $accion. ";
-		$mensaje .= "El campo <em>$campo</em> no debe quedar vacÃ­o.";
+		$mensaje .= "El campo <em>$campo</em> no debe quedar vacío.";
 		return $mensaje;
 	}
 	

@@ -179,7 +179,7 @@ class toba_ei_calendario extends toba_ei
 	
 	function generar_html()
 	{
-		//Campos de comunicaciÃ³n con J
+		//Campos de comunicación con J
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit."__seleccionar_semana", '');
 		echo toba_form::hidden($this->_submit."__seleccionar_dia", '');

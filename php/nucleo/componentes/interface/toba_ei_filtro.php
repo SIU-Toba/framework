@@ -12,12 +12,12 @@ class toba_ei_filtro extends toba_ei
 	protected $_columnas_datos;
 	protected $_estilos = 'ei-base ei-filtro-base';	
 	protected $_colspan;
-	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'CondiciÃ³n', 'valor' => 'Valor');
-	protected $_rango_tabs;					// Rango de nÃºmeros disponibles para asignar al taborder
+	protected $_etiquetas = array('columna' => 'Columna', 'condicion' => 'Condición', 'valor' => 'Valor');
+	protected $_rango_tabs;					// Rango de números disponibles para asignar al taborder
 	protected $_carga_opciones_ef;			//Encargado de cargar las opciones de los efs
 	
 	/**
-	 * MÃ©todo interno para iniciar el componente una vez construido
+	 * Método interno para iniciar el componente una vez construido
 	 * @ignore 
 	 */	
 	function inicializar($parametros)
@@ -52,7 +52,7 @@ class toba_ei_filtro extends toba_ei
 	{
 		parent::aplicar_restricciones_funcionales();
 
-		//-- RestricciÃ³n funcional columnas no-visibles ------
+		//-- Restricción funcional columnas no-visibles ------
 		$no_visibles = toba::perfil_funcional()->get_rf_filtro_cols_no_visibles($this->_id[1]);
 		if (! empty($no_visibles)) {
 			foreach ($this->_columnas as $id => $columna) {
@@ -356,7 +356,7 @@ class toba_ei_filtro extends toba_ei
 			echo $columna->get_html_etiqueta();
 			echo "</td>\n";
 			
-			//-- CondiciÃ³n
+			//-- Condición
 			echo "<td class='$estilo_celda ei-filtro-cond'>";
 			echo $columna->get_html_condicion();
 			echo "</td>\n";

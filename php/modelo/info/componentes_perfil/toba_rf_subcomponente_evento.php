@@ -14,7 +14,7 @@ class toba_rf_subcomponente_evento extends toba_rf_subcomponente
 	{
 		$this->iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba( 'enter.png', false),
-				'ayuda' => "BotÃ³n",
+				'ayuda' => "Botón",
 				);		
 	}
 

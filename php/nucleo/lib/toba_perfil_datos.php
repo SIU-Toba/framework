@@ -2,7 +2,7 @@
 /*
 	Limitaciones parser:
 		- todo subquery tiene que estar entre parentesis
-		- no sepermiten subquerys en el FROM (extraï¿½os)
+		- no sepermiten subquerys en el FROM (extraños)
 		
 	Features perfiles
 		- Una tabla puede implicar dos dimensiones
