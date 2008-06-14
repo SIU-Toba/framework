@@ -28,7 +28,7 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 			}
 			$this->items[$item['item']] = $obj;
 		}
-		$this->carpeta_inicial = toba_info_editores::get_item_raiz($this->proyecto);
+		$this->carpeta_inicial = 'item_'.toba_info_editores::get_item_raiz($this->proyecto);
 		$this->mensaje = "";
 		$this->ordenar();
 		//filtrar???
@@ -79,11 +79,6 @@ class toba_catalogo_restricciones_funcionales extends toba_catalogo_items_base
 				SELECT proyecto, item FROM apex_restriccion_funcional_cols 
 				WHERE restriccion_funcional = '$this->restriccion' and proyecto = '$this->proyecto'";
 		
-		$items[] = array('proyecto' => 'toba_referencia', 'item' => 2656 );
-		$items[] = array('proyecto' => 'toba_referencia', 'item' => 2654 );
-		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario' );
-		$items[] = array('proyecto' => 'toba_referencia', 'item' => '/objetos/ei_formulario_ml' );
-		//arbolito harcodeadito
 		$sql = "SELECT 
 					proyecto, 
 					item, 

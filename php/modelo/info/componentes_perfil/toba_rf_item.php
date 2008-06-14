@@ -14,7 +14,7 @@ class toba_rf_item extends toba_rf
 		$this->imagen_origen = $datos['imagen_recurso_origen'];
 		if ($datos['cant_dependencias'] > 0) {
 			$this->es_hoja = false;
-			//-- Solo debe cargarse inicialmente si existe alguna dependencia que tiene una restricción
+			//-- Solo debe cargarse inicialmente si existe alguna dependencia que tiene una restricciï¿½n
 			if ($this->tiene_dependencia_con_restriccion($datos)) {
 				$this->cargar_hijos();
 			}
@@ -27,6 +27,11 @@ class toba_rf_item extends toba_rf
 			$this->nombre_largo = $datos['descripcion'];
 		}
 		$this->get_imagen();
+	}
+	
+	function get_id()
+	{
+		return 'item_'.parent::get_id();
 	}
 	
 	function sincronizar()

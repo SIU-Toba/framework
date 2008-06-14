@@ -26,6 +26,11 @@ class toba_rf_carpeta extends toba_rf
 		}
 	}
 	
+	function get_id()
+	{
+		return 'item_'.parent::get_id();
+	}	
+	
 	function sincronizar()
 	{
 		if ($this->tiene_hijos_cargados()) {

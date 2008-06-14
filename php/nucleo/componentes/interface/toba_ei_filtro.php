@@ -204,7 +204,11 @@ class toba_ei_filtro extends toba_ei
 		if (! isset($clausulas)) {
 			$clausulas = $this->get_sql_clausulas();
 		}
-		return "\t\t".implode("\n\t$separador\t", $clausulas);
+		if (! empty($clausulas)) {
+			return "\t\t".implode("\n\t$separador\t", $clausulas);
+		} else {
+			return 'true';
+		}
 	}
 	
 	function get_sql_clausulas()

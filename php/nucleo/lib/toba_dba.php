@@ -87,14 +87,14 @@ class toba_dba
 		return self::get_instancia()->get_conexion( $nombre, $reusar );
 	}
 	
-	static function get_db_de_fuente($instancia, $proyecto, $fuente )
+	static function get_db_de_fuente($instancia, $proyecto, $fuente, $reusar=true )
 	{
 		$nombre = $instancia.' '.$proyecto.' '.$fuente;
-		return self::get_instancia()->get_conexion( $nombre );
+		return self::get_instancia()->get_conexion( $nombre, $reusar );
 	}	
 	
 	/**
-	*	¿Hay una conexión abierta a la base?
+	*	ï¿½Hay una conexiï¿½n abierta a la base?
 	*/
 	static function existe_conexion( $nombre )
 	{

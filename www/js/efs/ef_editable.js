@@ -22,7 +22,7 @@ ef_editable.prototype.constructor = ef_editable;
 	
 	/**
 	 * Retorna el valor actual del elemento.
-	 * Este valor es retornado sin formato, aun si el elemento posee una máscara asociada.
+	 * Este valor es retornado sin formato, aun si el elemento posee una mï¿½scara asociada.
 	 * Por ejemplo si con formato se ve como <pre>$ 1.423,12</pre> el valor retornado es <pre>1423.12</pre>
 	 * @type string
 	 */	
@@ -65,7 +65,7 @@ ef_editable.prototype.constructor = ef_editable;
 		if (estado != '' && isset(this._expreg) && this._expreg != '') {
 			var temp = this._expreg + '.test("' + estado + '")';
 			if (! eval(temp)) {
-				this._error = 'no es válido';
+				this._error = 'no es vï¿½lido';
 				return false;
 			}
 		}
@@ -124,8 +124,8 @@ ef_editable_numero.prototype = new ef_editable();
 ef_editable_numero.prototype.constructor = ef_editable_numero;
 
 	/**
-	 * @class Elemento editable que sólo permite ingresar números.<br>
-	 * Para esto utiliza en forma predeterminada una máscara <em>###.###,##</em>
+	 * @class Elemento editable que sï¿½lo permite ingresar nï¿½meros.<br>
+	 * Para esto utiliza en forma predeterminada una mï¿½scara <em>###.###,##</em>
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero toba_ef_editable_numero
 	 */
@@ -137,7 +137,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 			this._forma_mascara = '###.###,##';
 		}
 		this._rango = rango;					//[0] => inferior [1] => superior
-		this._mensaje = mensaje;				//Mensaje a mostrar cuando no se valida el número
+		this._mensaje = mensaje;				//Mensaje a mostrar cuando no se valida el nï¿½mero
 	}
 	
 	ef_editable_numero.prototype.iniciar = function(id, controlador) { 
@@ -178,7 +178,7 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 			return false;
 		}
 		if (isNaN(this.get_estado())) {
-			this._error = 'debe ser numérico.';
+			this._error = 'debe ser numï¿½rico.';
 		    return false;
 		}
 		if (!this.validar_rango()) {
@@ -194,8 +194,8 @@ ef_editable_numero.prototype.constructor = ef_editable_numero;
 ef_editable_moneda.prototype = new ef_editable_numero();
 
 	/**
-	 * @class Elemento editable que sólo permite ingresar números que representan un valor monetario.<br>	 
-	 * Para esto utiliza en forma predeterminada una máscara <em>$ ###.###,00</em>
+	 * @class Elemento editable que sï¿½lo permite ingresar nï¿½meros que representan un valor monetario.<br>	 
+	 * Para esto utiliza en forma predeterminada una mï¿½scara <em>$ ###.###,00</em>
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_moneda toba_ef_editable_moneda
 	 */
@@ -219,7 +219,7 @@ ef_editable_moneda.prototype = new ef_editable_numero();
 ef_editable_porcentaje.prototype = new ef_editable_numero();
 
 	/**
-	 * @class Elemento editable que sólo permite ingresar números que representan un porcentaje
+	 * @class Elemento editable que sï¿½lo permite ingresar nï¿½meros que representan un porcentaje
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_numero_porcentaje toba_ef_editable_numero_porcentaje	 
 	 */
@@ -242,7 +242,7 @@ ef_editable_porcentaje.prototype = new ef_editable_numero();
 ef_editable_clave.prototype = new ef_editable();
 
 	/**
-	 * @class  Elemento editable que permite ingresar contraseñas, con o sin campo de confirmación.
+	 * @class  Elemento editable que permite ingresar contraseï¿½as, con o sin campo de confirmaciï¿½n.
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_clave toba_ef_editable_clave
 	 */
@@ -257,7 +257,7 @@ ef_editable_clave.prototype = new ef_editable();
 		var orig = this.input();
 		var test = this.input_hermano();		
 		if (test && orig.value != test.value) {
-			this._error = ': Las contraseñas no coinciden.';
+			this._error = ': Las contraseï¿½as no coinciden.';
 		    return false;
 		}		
 		return true;
@@ -276,7 +276,7 @@ ef_editable_clave.prototype = new ef_editable();
 	};
 	
 	/**
-	 *	Si en el editor se definio el elemento con confirmación de clave, este método retorna el input html asociado al campo de confirmación
+	 *	Si en el editor se definio el elemento con confirmaciï¿½n de clave, este mï¿½todo retorna el input html asociado al campo de confirmaciï¿½n
 	 */
 	ef_editable_clave.prototype.input_hermano = function() {
 		return document.getElementById(this._id_form + '_test');
@@ -306,11 +306,11 @@ ef_editable_fecha.prototype = new ef_editable();
 
 	/**
 	 * @class Elemento editable que permite ingresar fechas.<br>
-	 * Para esto utiliza una máscara <em>dd/mm/yyyy</em>
+	 * Para esto utiliza una mï¿½scara <em>dd/mm/yyyy</em>
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_editable_fecha toba_ef_editable_fecha
 	 */
-	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, rango, expreg)	{
+	function ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)	{
 		ef_editable.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsable,null, expreg);
 		this._forma_mascara = (masc) ? masc : 'dd/mm/yyyy';
 		this._rango_valido = rango;
@@ -339,7 +339,7 @@ ef_editable_fecha.prototype = new ef_editable();
 	};
 	
 	/**
-	 *	Retorna la diferencia en años entre la fecha actual y la del campo
+	 *	Retorna la diferencia en aï¿½os entre la fecha actual y la del campo
 	 *  @param {Date} fecha_base Fecha base para el calculo, por defecto la actual del browser
 	 */
 	ef_editable_fecha.prototype.calcular_edad = function(fecha_base) {
@@ -363,18 +363,18 @@ ef_editable_fecha.prototype = new ef_editable();
 	    dia = parseInt(array_fecha[0], 10);
 	    if (isNaN(dia))
 	       return false
-	    //si el año de la fecha que recibo solo tiene 2 cifras hay que cambiarlo a 4
+	    //si el aï¿½o de la fecha que recibo solo tiene 2 cifras hay que cambiarlo a 4
 	    if (ano<=99)
 	       ano +=1900
-	    //resto los años de las dos fechas
-	    edad=fecha_base.getFullYear()- ano - 1; //-1 porque no se si ha cumplido años ya este año
-	    //si resto los meses y me da menor que 0 entonces no ha cumplido años. Si da mayor si ha cumplido
+	    //resto los aï¿½os de las dos fechas
+	    edad=fecha_base.getFullYear()- ano - 1; //-1 porque no se si ha cumplido aï¿½os ya este aï¿½o
+	    //si resto los meses y me da menor que 0 entonces no ha cumplido aï¿½os. Si da mayor si ha cumplido
 	    if (fecha_base.getMonth() + 1 - mes < 0) //+ 1 porque los meses empiezan en 0
 	       return edad
 	    if (fecha_base.getMonth() + 1 - mes > 0)
 	       return edad+1
 	    //entonces es que eran iguales. miro los dias
-	    //si resto los dias y me da menor que 0 entonces no ha cumplido años. Si da mayor o igual si ha cumplido
+	    //si resto los dias y me da menor que 0 entonces no ha cumplido aï¿½os. Si da mayor o igual si ha cumplido
 	    if (fecha_base.getUTCDate() - dia >= 0)
 	       return edad + 1
 	    return edad		
@@ -389,7 +389,7 @@ ef_editable_fecha.prototype = new ef_editable();
 		try {
 			var valida = validar_fecha(estado, false);
 		} catch (e) {
-			valida = "no contiene una fecha válida";
+			valida = "no contiene una fecha vï¿½lida";
 		}
 		if (valida !== true) {
 			this._error = valida;
@@ -413,7 +413,7 @@ ef_editable_fecha.prototype = new ef_editable();
 	};	
 	
 	/**
-	 * Retorna el tag html que contiene el link para abrir el calendario gráfico de selección de fecha
+	 * Retorna el tag html que contiene el link para abrir el calendario grï¿½fico de selecciï¿½n de fecha
 	 */
 	ef_editable_fecha.prototype.vinculo = function() {
 		return document.getElementById('link_' + this._id_form);

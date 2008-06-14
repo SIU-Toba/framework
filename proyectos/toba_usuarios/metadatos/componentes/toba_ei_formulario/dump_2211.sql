@@ -114,8 +114,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -229,7 +229,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'50', --edit_tamano
+	'35', --edit_tamano
 	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad

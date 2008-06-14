@@ -23,6 +23,8 @@ class toba_ei_arbol extends toba_ei
 	protected $_mostrar_utilerias = true;
 	protected $_mostrar_propiedades_nodos = true;
 	protected $_frame_destino = null;
+	protected $ids = array();
+	protected $chequear_ids_unicos = false;
 	
 	function __construct($datos)
 	{
@@ -218,6 +220,17 @@ class toba_ei_arbol extends toba_ei
 	 */
 	protected function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0)
 	{
+		if ($this->chequear_ids_unicos) {
+			$id_nodo = $nodo->get_id();
+			if (isset($this->ids[$id_nodo])) {
+				$clase = get_class($nodo);
+				$clase_vieja = $this->ids[$id_nodo];
+				throw new toba_error("Error al procesar el nodo '$id_nodo' de clase '$clase'. Ya existe el mismo id de clase '$clase_vieja'");
+			}
+			$this->ids[$id_nodo] = get_class($nodo);
+		}
+		
+		
 		//Determina si el nodo es visible en la apertura
 		$salida = "\n\t<li class='ei-arbol-nodo'>";
 		$es_visible = $this->nodo_es_visible($nodo, $nivel);

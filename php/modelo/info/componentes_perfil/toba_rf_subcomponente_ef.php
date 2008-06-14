@@ -6,9 +6,12 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	protected $solo_lectura_actual;
 	protected $img_solo_lectura;
 	protected $img_editable;
+	protected $id_ef;
 
 	function __construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible, $no_editable, $formulario) 
 	{
+		$this->id_ef = $id;
+		$id = 'ef_'.$id;
 		parent::__construct($nombre, $padre, $id, $proyecto, $item, $restriccion, $no_visible) ;
 		$this->formulario = $formulario;
 		$this->solo_lectura_original = $no_editable;
@@ -22,7 +25,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	{
 		$this->iconos[] = array(
 				'imagen' => toba_recurso::imagen_toba( 'objetos/efs.gif', false),
-				'ayuda' => "Carpeta que contiene operaciones.",
+				'ayuda' => "Campo de un formulario",
 				);		
 	}
 	
@@ -132,7 +135,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 							('$this->proyecto', 
 							 '$this->restriccion', 
 							 '$this->item', 
-							 '$this->id', 
+							 '$this->id_ef', 
 							 '$this->formulario', 
 							 '$no_visible', '$solo_lectura');";
 					break;
@@ -144,7 +147,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 						WHERE
 								proyecto = '$this->proyecto'
 							AND	restriccion_funcional = '$this->restriccion'
-							AND objeto_ei_formulario_fila = '$this->id';";					
+							AND objeto_ei_formulario_fila = '$this->id_ef';";					
 					break;
 				case 'D':
 					$sql = "DELETE FROM
@@ -152,7 +155,7 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 						WHERE
 								proyecto = '$this->proyecto'
 							AND	restriccion_funcional = '$this->restriccion'
-							AND objeto_ei_formulario_fila = '$this->id';";					
+							AND objeto_ei_formulario_fila = '$this->id_ef';";					
 					break;					
 			}
 			toba::db()->ejecutar($sql);
