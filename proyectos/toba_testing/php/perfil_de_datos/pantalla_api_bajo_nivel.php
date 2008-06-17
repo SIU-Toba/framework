@@ -19,8 +19,7 @@ class pantalla_api_bajo_nivel extends pantalla_perfil_datos
 				$alias_tabla = $tablas_gatillo[$tabla];
 				$where[] = toba::perfil_de_datos()->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
 			}
-			ei_arbol($where,'WHERE dim: '.$tabla);
-
+			ei_arbol($where,'WHERE dim: ');
 			echo "<br>";
 		}
 		echo "</pre>";

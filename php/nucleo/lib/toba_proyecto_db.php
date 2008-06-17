@@ -291,7 +291,7 @@ class toba_proyecto_db
 						FROM apex_dimension_gatillo
 						WHERE proyecto = '$proyecto'
 						AND	dimension = '$dimension'
-						ORDER BY orden";
+						ORDER BY tipo, orden";
 			$datos_dim['gatillos'] = self::get_db()->consultar($sql);
 		}
 		return $datos_dim;

@@ -6,10 +6,14 @@
 		
 	Features perfiles
 		- Una tabla puede implicar dos dimensiones
+
+WHERE (categoria_1, categoria_2) IN  ( (1,'b'), (2,'b') )
 		
 */
 class toba_perfil_datos
 {
+	const separador_multicol_db = '|%-,-%|';
+	protected $id;
 	protected $restricciones = array();
 	protected $info_dimensiones = array();
 	protected $indice_gatillos = array();
@@ -17,7 +21,8 @@ class toba_perfil_datos
 
 	function __construct()
 	{
-		if( $this->get_id() ) { //Si el usuario tiene un perfil de datos
+		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
+		if( isset($this->id) ) { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
 			if($this->posee_restricciones()) {
 				$this->cargar_info_dimensiones();
@@ -29,10 +34,10 @@ class toba_perfil_datos
 	
 	function cargar_info_restricciones()
 	{
-		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->get_id() );
+		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->id );
 		if($restricciones) {
 			foreach( $restricciones as $restriccion ) {
-					$this->restricciones[$restriccion['dimension']][] = explode(',',$restriccion['clave']);
+					$this->restricciones[$restriccion['dimension']][] = explode(self::separador_multicol_db,$restriccion['clave']);
 			}
 		}		
 	}
@@ -77,7 +82,7 @@ class toba_perfil_datos
 	*/
 	function get_id()
 	{
-		toba::manejador_sesiones()->get_perfil_datos();
+		return $this->id;
 	}
 
 	/**
@@ -183,17 +188,26 @@ class toba_perfil_datos
 		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
 		$restric =& $this->restricciones[$dimension];
-		if ($def['tipo'] == 'directo') {										// gatillo DIRECTO!
+		if ($def['tipo'] == 'directo') {										
+			//---------------  gatillo DIRECTO! -----------------------------------------------
 			$columnas_gatillo = explode( ',', $def['columnas_rel_dim'] );
+			$columnas_gatillo = array_map('trim', $columnas_gatillo);
 			if(count($columnas_gatillo) == 1) {		//-- COMPARACION simple
 				foreach($restric as $clave) {
 					$claves[] = $clave[0];
 				}
 				$where .= $alias_tabla . '.' . $columnas_gatillo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
 			} else {								//-- COMPARACION multicolumna
-				
+				foreach($restric as $clave) {
+					$claves[] = "('" . implode("','",$clave) . "')";
+				}
+				foreach($columnas_gatillo as $col) {
+					$columnas[] = $alias_tabla . '.' . $col;
+				}
+				$where .=  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
 			}
-		} else {																// gatillo INDIRECTO!
+		} else {																
+			//---------------- gatillo INDIRECTO! -------------------------------------------------
 			
 		}
 		return $where;

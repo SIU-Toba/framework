@@ -137,8 +137,8 @@ class ci_editor extends toba_ci
 	{
 		$id = explode(',',$this->datos_dimension['col_id']);
 		$desc = explode(',',$this->datos_dimension['col_desc']);
-		$sql = "SELECT " . implode(' || ',$id) . " as clave, " 
-						. implode(' || ',$desc) . " as descripcion
+		$sql = "SELECT " . implode(" || '".toba_perfil_datos::separador_multicol_db."' || ",$id) . " as clave, " 
+						. implode("  || ' - ' ||  ",$desc) . " as descripcion
 				FROM {$this->datos_dimension['tabla']}
 				ORDER BY descripcion";
 		$datos = $this->get_db($this->datos_dimension['fuente_datos'])->consultar($sql);

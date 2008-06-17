@@ -68,16 +68,28 @@
 		}
 		//Llego al final sin encontrar naad
 		if(!isset($punto_insercion)){
-			$punto_insercion = count($palabras)-1;
+			if(in_array(';',$separadores)){
+				$punto_insercion = count($palabras)-2;
+			} else {
+				$punto_insercion = count($palabras)-1;
+			}
 		}
 		$sql = '';
 		for ($i = 0; $i < count($palabras) ; $i++) {
-			$sql .= $palabras[$i].$separadores[$i].' ';
+			if($separadores[$i]!=';') {
+				$sql .= $palabras[$i].$separadores[$i].' ';
+			} else {
+				$sql .= $palabras[$i].' ';
+			}
 			//--- Concateno la clausula WHERE -------------------------------
 			if ($i == $punto_insercion) {
 				$sql .= ($posee_where) ? ' AND ' : ' WHERE ';
+				$sql .= "\n";
 				$sql .= implode(' AND ', $clausulas_where);
 				$sql .= "\n";
+			}
+			if($separadores[$i]==';') {
+				$sql .= $separadores[$i];
 			}
 		}
 		return $sql;
