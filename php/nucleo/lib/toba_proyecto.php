@@ -242,13 +242,22 @@ class toba_proyecto
 	function get_info_dimension($dimension, $proyecto=null)
 	{
 		if (! isset($proyecto)) $proyecto = $this->id;
-		return toba_proyecto_db::get_info_dimension($proyecto, $dimension);
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+			return $this->recuperar_datos_compilados('toba_mc_gene__dim_'.$dimension, 'get_info');
+		} else {
+			return toba_proyecto_db::get_info_dimension($proyecto, $dimension);
+		}
 	}
 
 	function get_info_relacion_entre_tablas($fuente_datos, $proyecto=null)
 	{
 		if (! isset($proyecto)) $proyecto = $this->id;
-		return toba_proyecto_db::get_info_relacion_entre_tablas($proyecto, $fuente_datos);
+		$info = array();
+		if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+			return $this->recuperar_datos_compilados('toba_mc_gene__relacion_tablas_'.$fuente_datos, 'get_info');
+		} else {
+			return toba_proyecto_db::get_info_relacion_entre_tablas($proyecto, $fuente_datos);
+		}
 	}
 
 	//--------------------  Puntos de Control  ------------------------

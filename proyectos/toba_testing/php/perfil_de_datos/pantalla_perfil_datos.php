@@ -98,7 +98,7 @@ class pantalla_perfil_datos extends toba_ei_pantalla
 			echo "</tr>\n";
 			echo "<td style='$estilo_titulo'>$id</td>\n";
 			foreach ($fila as $valor){
-				echo "<td style='border: 1px solid gray;' >$valor</td>\n";
+				echo "<td style='border: 1px solid gray; padding: 2px;' >$valor</td>\n";
 			}
 			echo "</tr>\n";
 

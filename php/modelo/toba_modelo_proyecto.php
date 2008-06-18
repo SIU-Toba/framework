@@ -698,6 +698,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->compilar_metadatos_generales_grupos_acceso();
 		$this->compilar_metadatos_generales_puntos_control();
 		$this->compilar_metadatos_generales_mensajes();
+		$this->compilar_metadatos_generales_dimensiones();
 	}
 
 	/**
@@ -863,6 +864,36 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 	}
 	
+	/**
+	*	Compilacion de DATOS BASICOS
+	*/	
+	private function compilar_metadatos_generales_dimensiones()
+	{
+		//-- Dimensiones --
+		$this->manejador_interface->mensaje('Dimensiones', false);
+		$nombre_clase_base = 'toba_mc_gene__dim';
+		foreach( $this->get_indice_dimensiones() as $dimension ) {
+			$nombre_clase = $nombre_clase_base . '_' . $dimension;
+			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+			$clase = new toba_clase_datos( $nombre_clase );
+			$datos = toba_proyecto_db::get_info_dimension( $this->get_id(), $dimension );
+			$clase->agregar_metodo_datos('get_info', $datos);
+			$clase->guardar( $archivo );
+			$this->manejador_interface->progreso_avanzar();
+		}
+		//-- Relaciones entre tablas --
+		$nombre_clase_base = 'toba_mc_gene__relacion_tablas';
+		foreach( $this->get_indice_fuentes() as $fuente ) {		
+			$nombre_clase = $nombre_clase_base . '_' . $fuente;
+			$archivo = $this->get_dir_generales_compilados() . '/' . $nombre_clase . '.php';
+			$clase = new toba_clase_datos( $nombre_clase );
+			$datos = toba_proyecto_db::get_info_relacion_entre_tablas( $this->get_id(), $fuente );
+			$clase->agregar_metodo_datos('get_info', $datos );
+			$clase->guardar( $archivo );
+			$this->manejador_interface->progreso_avanzar();
+		}
+		$this->manejador_interface->progreso_fin();
+	}
 
 	private function compilar_operaciones()
 	{
@@ -985,6 +1016,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$datos[] = $dato['indice'];	
 		}
 		return $datos;
+	}
+
+	function get_indice_dimensiones()
+	{
+		$rs = toba_info_editores::get_dimensiones();
+		$datos = array();
+		foreach($rs as $dato) {
+			$datos[] = $dato['dimension'];	
+		}
+		return $datos;		
 	}
 
 	//-------------------------------------------------------------------------------------
