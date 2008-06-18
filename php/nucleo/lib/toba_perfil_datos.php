@@ -5,12 +5,15 @@
 		- no sepermiten subquerys en el FROM (extraños)
 		
 	Features perfiles
-		- Una tabla puede implicar dos dimensiones
+		- Una tabla puede implicar mas de una dimensiones
 
-WHERE (categoria_1, categoria_2) IN  ( (1,'b'), (2,'b') )
-
-	Falta el manejo de N fuentes de datos
-		
+	Falta:
+		- manejo de N fuentes de datos
+		- Incluir la ejecucion de los sqls en la prueba
+		- compilacion de metadata
+		- editor de gatillos complejos y relaciones
+		- mejorar el parser de deteccion de tablas y de inyeccion de where
+			
 */
 class toba_perfil_datos
 {
@@ -188,8 +191,6 @@ class toba_perfil_datos
 	function get_where_dimension_gatillo($dimension, $tabla_gatillo, $alias_tabla)
 	{
 		$fuente_datos = 'perfil_datos'; //HARCODEO!!!
-
-		$where = '';
 		//Busco la definicion del gatillo
 		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
@@ -198,7 +199,7 @@ class toba_perfil_datos
 			$where = $this->get_where_aplicacion_restriccion($dimension, $def['columnas_rel_dim'], $alias_tabla);
 		} else {																
 			// Gatillo INDIRECTO -------------------------------------------------
-			ei_arbol($def,'DEFINICION');
+			//ei_arbol($def,'DEFINICION');
 			//- 1 - Genero el WHERE correspondiente al gatillo DIRECTO referenciado por el indirecto (ultimo nivel de anidamiento del where)
 			$tabla_gatillo_directo = $def['tabla_gatillo'];
 			$indice_gatillo_directo = $this->indice_gatillos[$dimension][$tabla_gatillo_directo];
@@ -216,8 +217,8 @@ class toba_perfil_datos
 				$cadena_tablas_alias[] = $this->get_alias_unico();
 			}
 			$cadena_tablas[] = $tabla_gatillo;			//La cadena termina con el gatillo indirecto
-			$cadena_tablas_alias[] = $this->get_alias_unico();
-			ei_arbol(array($cadena_tablas,$cadena_tablas_alias),'Cadena de tablas');
+			$cadena_tablas_alias[] =  $alias_tabla;		//El ultimo alias es el de la tabla encontrada
+			//ei_arbol(array($cadena_tablas,$cadena_tablas_alias),'Cadena de tablas');
 			//- 3 - Armo la estructura con la metadata de relaciones
 			for($a=0;$a<(count($cadena_tablas)-1);$a++) {
 				$tabla_hija = $cadena_tablas[$a];
@@ -230,9 +231,16 @@ class toba_perfil_datos
 				$relaciones[$a]['padre']['alias'] = $cadena_tablas_alias[$a+1];
 				$relaciones[$a]['padre']['cols'] = $relacion_tablas[$tabla_padre];
 			}
-			ei_arbol($relaciones, 'Relaciones');
+			//ei_arbol($relaciones, 'Relaciones');
 			//- 4 - Construyo los SUBQUERYS anidados!
-			
+			foreach($relaciones as $relacion) {
+				// Armo la porcion del SUB-SELECT con la tabla hija
+				$sql_temp_subselect = " (" . $this->get_lista_columnas_sql($relacion['padre']['cols'], $relacion['padre']['alias']) . ") IN\n";
+				$sql_temp_subselect .= '( SELECT ' . $this->get_lista_columnas_sql($relacion['hija']['cols'], $relacion['hija']['alias']) . "\n";
+				$sql_temp_subselect .= ' FROM ' . $relacion['hija']['tabla'] . ' ' . $relacion['hija']['alias'] . "\n";
+				$sql_temp_subselect .= ' WHERE ' . $where . ")\n";
+				$where = $sql_temp_subselect;
+			}
 		}
 		return $where;
 	}
@@ -258,15 +266,28 @@ class toba_perfil_datos
 			}
 			$where =  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
 		}
-		return " (" . $where . ") ";
+		return " ( " . $where . " ) ";
 	}
 	
+	/**
+	*	Provee alias de tablas unicos para la construccion de subquerys anidados.
+	*/
 	function get_alias_unico()
 	{
 		$this->id_alias_unico++;
-		return 'tobaaliaspd_' . $this->id_alias_unico;
+		return 'tttttttt_' . $this->id_alias_unico;
 	}
 	
+	function get_lista_columnas_sql($columnas, $alias)
+	{
+		$sql = '';
+		$c = count($columnas);
+		for($a=0;$a<$c;$a++){
+			$sql .= $alias . '.' . $columnas[$a];
+			if($a<($c)-1) $sql .= ', ';
+		}
+		return $sql;
+	}
 
 	//--------------------------------------------------------------------
 	//----- API PARSER -------------
