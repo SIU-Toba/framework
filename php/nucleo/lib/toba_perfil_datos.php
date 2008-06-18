@@ -8,8 +8,9 @@
 		- Una tabla puede implicar mas de una dimensiones
 
 	Falta:
-		- manejo de N fuentes de datos
-		- Incluir la ejecucion de los sqls en la prueba
+		- manejo de N fuentes de datos (llevar las relaciones al zona de la fuente de datos)
+		- TEsting automatico
+		- Preguntas Informativas sobre los perfiles
 		- compilacion de metadata
 		- editor de gatillos complejos y relaciones
 		- mejorar el parser de deteccion de tablas y de inyeccion de where

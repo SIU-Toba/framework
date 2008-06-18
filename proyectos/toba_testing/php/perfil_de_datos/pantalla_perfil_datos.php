@@ -52,23 +52,59 @@ AND c.categoria_2 = cc.categoria_2;
 class pantalla_perfil_datos extends toba_ei_pantalla
 {
 	protected $sql = array(
-								"SELECT categoria_1, categoria_2, c.descripcion
-									FROM 	escalafon e,
-											categoria c
-									WHERE c.escalafon_1 = e.escalafon_1
-									AND c.escalafon_2 = e.escalafon_2;",
-								"SELECT categoria_1, categoria_2 FROM categoria;",	
-								"SELECT escalafon_1, escalafon_2 FROM escalafon;",
-								"SELECT c.cargo, c.descripcion
-									FROM cargo c, categoria cc
-									WHERE c.categoria_1 = cc.categoria_1
-									AND c.categoria_2 = cc.categoria_2;",
-								"SELECT * FROM persona p, cargo c, categoria cc 
-									WHERE p.persona = c.persona
-									AND c.categoria_1 = cc.categoria_1 AND c.categoria_2 = cc.categoria_2;",
-								"SELECT * FROM persona;"
-		
+"SELECT categoria_1, categoria_2, c.descripcion
+	FROM 	escalafon e,
+			categoria c
+	WHERE c.escalafon_1 = e.escalafon_1
+	AND c.escalafon_2 = e.escalafon_2;",
+"SELECT categoria_1, categoria_2 FROM categoria;",	
+"SELECT escalafon_1, escalafon_2 FROM escalafon;",
+"SELECT c.cargo, c.descripcion
+	FROM cargo c, categoria cc
+	WHERE c.categoria_1 = cc.categoria_1
+	AND c.categoria_2 = cc.categoria_2;",
+"SELECT * FROM persona p, cargo c, categoria cc 
+	WHERE p.persona = c.persona
+	AND c.categoria_1 = cc.categoria_1 AND c.categoria_2 = cc.categoria_2;",
+"SELECT * FROM persona;",
+"SELECT * FROM persona_extra;"
 							);
 
+	function tabla($tabla,$titulo=null)
+	{
+		$fila = (current($tabla));
+		echo "<div style=' color:black'>\n";
+		echo "<table style='BORDER-COLLAPSE: collapse;
+							empty-cells: show; 
+							background-color: white;
+							border: 2px solid black;
+							color:black;
+							'>\n";
+		if($titulo){
+			echo "<tr>\n";
+			echo "<td style='font-size: 12px;  ' colspan='".(count($fila)+1)."'>$titulo</td>\n";
+			echo "</tr>\n";
+		}
+		echo "<tr>\n";
+		echo "<td></td>\n";
+		//Titulos de columnas
+		$estilo_titulo = "border: 1px solid red; color:red; background-color: yellow; text-align: center;";
+		foreach (array_keys($fila) as $titulo){
+			echo "<td style='$estilo_titulo'>$titulo</td>\n";
+		}
+		echo "</tr>\n";
+		//Filas
+		foreach ($tabla as $id => $fila){
+			echo "</tr>\n";
+			echo "<td style='$estilo_titulo'>$id</td>\n";
+			foreach ($fila as $valor){
+				echo "<td style='border: 1px solid gray;' >$valor</td>\n";
+			}
+			echo "</tr>\n";
+
+		}
+		echo "</table>";
+		echo "</div>";		
+	}
 }
 ?>
