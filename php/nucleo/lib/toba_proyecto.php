@@ -245,6 +245,12 @@ class toba_proyecto
 		return toba_proyecto_db::get_info_dimension($proyecto, $dimension);
 	}
 
+	function get_info_relacion_entre_tablas($fuente_datos, $proyecto=null)
+	{
+		if (! isset($proyecto)) $proyecto = $this->id;
+		return toba_proyecto_db::get_info_relacion_entre_tablas($proyecto, $fuente_datos);
+	}
+
 	//--------------------  Puntos de Control  ------------------------
 
 	function get_info_punto_control($punto_control, $proyecto=null)	

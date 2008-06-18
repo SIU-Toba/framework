@@ -8,6 +8,8 @@
 		- Una tabla puede implicar dos dimensiones
 
 WHERE (categoria_1, categoria_2) IN  ( (1,'b'), (2,'b') )
+
+	Falta el manejo de N fuentes de datos
 		
 */
 class toba_perfil_datos
@@ -18,6 +20,8 @@ class toba_perfil_datos
 	protected $info_dimensiones = array();
 	protected $indice_gatillos = array();
 	protected $gatillos_activos = array();
+	protected $id_alias_unico = 0;
+	protected $relaciones_entre_tablas = array();
 
 	function __construct()
 	{
@@ -183,36 +187,87 @@ class toba_perfil_datos
 	*/
 	function get_where_dimension_gatillo($dimension, $tabla_gatillo, $alias_tabla)
 	{
+		$fuente_datos = 'perfil_datos'; //HARCODEO!!!
+
 		$where = '';
 		//Busco la definicion del gatillo
 		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
-		$restric =& $this->restricciones[$dimension];
 		if ($def['tipo'] == 'directo') {										
-			//---------------  gatillo DIRECTO! -----------------------------------------------
-			$columnas_gatillo = explode( ',', $def['columnas_rel_dim'] );
-			$columnas_gatillo = array_map('trim', $columnas_gatillo);
-			if(count($columnas_gatillo) == 1) {		//-- COMPARACION simple
-				foreach($restric as $clave) {
-					$claves[] = $clave[0];
-				}
-				$where .= $alias_tabla . '.' . $columnas_gatillo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
-			} else {								//-- COMPARACION multicolumna
-				foreach($restric as $clave) {
-					$claves[] = "('" . implode("','",$clave) . "')";
-				}
-				foreach($columnas_gatillo as $col) {
-					$columnas[] = $alias_tabla . '.' . $col;
-				}
-				$where .=  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
-			}
+			// Gatillo DIRECTO -----------------------------------------------
+			$where = $this->get_where_aplicacion_restriccion($dimension, $def['columnas_rel_dim'], $alias_tabla);
 		} else {																
-			//---------------- gatillo INDIRECTO! -------------------------------------------------
+			// Gatillo INDIRECTO -------------------------------------------------
+			ei_arbol($def,'DEFINICION');
+			//- 1 - Genero el WHERE correspondiente al gatillo DIRECTO referenciado por el indirecto (ultimo nivel de anidamiento del where)
+			$tabla_gatillo_directo = $def['tabla_gatillo'];
+			$indice_gatillo_directo = $this->indice_gatillos[$dimension][$tabla_gatillo_directo];
+			$columnas = $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo_directo]['columnas_rel_dim'];
+			$alias_tabla_gatillo_directo = $this->get_alias_unico();
+			$where = $this->get_where_aplicacion_restriccion($dimension, $columnas, $alias_tabla_gatillo_directo);
+			//- 2 - Armo la cadena de tablas vinculantes que van del gatillo indirecto al directo (con sus alias)
+			// La construccion se hace desde abajo hacia arriba, comenzando por el anidamiento mas profundo
+			$cadena_tablas[] = $tabla_gatillo_directo;	//La cadena empieza con el gatillo directo.
+			$cadena_tablas_alias[] = $alias_tabla_gatillo_directo;
+			$tablas_vinculantes = explode( ',', $def['ruta_tabla_rel_dim']);
+			$tablas_vinculantes = array_map('trim', $tablas_vinculantes);
+			foreach($tablas_vinculantes as $tv) {
+				$cadena_tablas[] = $tv;	
+				$cadena_tablas_alias[] = $this->get_alias_unico();
+			}
+			$cadena_tablas[] = $tabla_gatillo;			//La cadena termina con el gatillo indirecto
+			$cadena_tablas_alias[] = $this->get_alias_unico();
+			ei_arbol(array($cadena_tablas,$cadena_tablas_alias),'Cadena de tablas');
+			//- 3 - Armo la estructura con la metadata de relaciones
+			for($a=0;$a<(count($cadena_tablas)-1);$a++) {
+				$tabla_hija = $cadena_tablas[$a];
+				$tabla_padre = $cadena_tablas[$a+1];
+				$relacion_tablas = toba_info_relacion_entre_tablas::get_relacion($tabla_hija,$tabla_padre,$fuente_datos);
+				$relaciones[$a]['hija']['tabla'] = $tabla_hija;
+				$relaciones[$a]['hija']['alias'] = $cadena_tablas_alias[$a];
+				$relaciones[$a]['hija']['cols'] = $relacion_tablas[$tabla_hija];
+				$relaciones[$a]['padre']['tabla'] = $tabla_padre;
+				$relaciones[$a]['padre']['alias'] = $cadena_tablas_alias[$a+1];
+				$relaciones[$a]['padre']['cols'] = $relacion_tablas[$tabla_padre];
+			}
+			ei_arbol($relaciones, 'Relaciones');
+			//- 4 - Construyo los SUBQUERYS anidados!
 			
 		}
 		return $where;
 	}
 	
+	function get_where_aplicacion_restriccion($dimension, $columnas_aplicacion_restriccion, $alias_tabla)
+	{
+		$where = '';
+		$restric =& $this->restricciones[$dimension];
+		// Busco las columnas
+		$columnas_matcheo = explode( ',', $columnas_aplicacion_restriccion);
+		$columnas_matcheo = array_map('trim', $columnas_matcheo);
+		if(count($columnas_matcheo) == 1) {		//-- COMPARACION simple
+			foreach($restric as $clave) {
+				$claves[] = $clave[0];
+			}
+			$where = $alias_tabla . '.' . $columnas_matcheo[0] . ' IN (\'' . (implode('\',\'',$claves)) . '\')';
+		} else {								//-- COMPARACION multicolumna
+			foreach($restric as $clave) {
+				$claves[] = "('" . implode("','",$clave) . "')";
+			}
+			foreach($columnas_matcheo as $col) {
+				$columnas[] = $alias_tabla . '.' . $col;
+			}
+			$where =  "(" . implode(", ",$columnas) . ") IN (" . (implode(', ',$claves)) . ")";
+		}
+		return " (" . $where . ") ";
+	}
+	
+	function get_alias_unico()
+	{
+		$this->id_alias_unico++;
+		return 'tobaaliaspd_' . $this->id_alias_unico;
+	}
+	
+
 	//--------------------------------------------------------------------
 	//----- API PARSER -------------
 	//--------------------------------------------------------------------

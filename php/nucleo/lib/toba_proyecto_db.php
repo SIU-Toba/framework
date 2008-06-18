@@ -297,7 +297,7 @@ class toba_proyecto_db
 		return $datos_dim;
 	}
 
-	static function get_relaciones_entre_tablas($proyecto)
+	static function get_info_relacion_entre_tablas($proyecto, $fuente_datos)
 	{
 		$sql = " 	SELECT	proyecto,
 							fuente_datos_proyecto,
@@ -308,8 +308,20 @@ class toba_proyecto_db
 							tabla_2,							
 							tabla_2_cols					
 					FROM	apex_relacion_tablas
-					WHERE proyecto = '$proyecto'";
-		return self::get_db()->consultar($sql);
+					WHERE proyecto = '$proyecto'
+					AND fuente_datos = '$fuente_datos'";
+		$datos = self::get_db()->consultar($sql);
+		$temp = array();
+		//Armo una estructura indizada de las relaciones.
+		foreach($datos as $relacion) {
+			$cols_tabla_1 = explode(',',$relacion['tabla_1_cols']);
+			$cols_tabla_1 = array_map('trim', $cols_tabla_1);
+			$cols_tabla_2 = explode(',',$relacion['tabla_2_cols']);
+			$cols_tabla_2 = array_map('trim', $cols_tabla_2);
+			$temp[$relacion['tabla_1']][$relacion['tabla_2']]['cols_1'] = $cols_tabla_1;
+			$temp[$relacion['tabla_1']][$relacion['tabla_2']]['cols_2'] = $cols_tabla_2;
+		}
+		return $temp;
 	}
 
 	//------------------------  MENSAJES  -------------------------

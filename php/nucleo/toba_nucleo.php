@@ -387,7 +387,7 @@ class toba_nucleo
 			'toba_vinculo'							=> 'nucleo/lib/toba_vinculo.php',
 			'toba_zona'								=> 'nucleo/lib/toba_zona.php',
 			'toba_perfil_datos'						=> 'nucleo/lib/toba_perfil_datos.php',
-			'toba_perfil_datos_relacion_tablas'		=> 'nucleo/lib/toba_perfil_datos_relacion_tablas.php',
+			'toba_info_relacion_entre_tablas'		=> 'nucleo/lib/toba_info_relacion_entre_tablas.php',
 			'toba_perfil_funcional'					=> 'nucleo/lib/toba_perfil_funcional.php',
 			'toba_menu'								=> 'nucleo/menu/toba_menu.php',
 			'toba_menu_css'							=> 'nucleo/menu/toba_menu_css.php',

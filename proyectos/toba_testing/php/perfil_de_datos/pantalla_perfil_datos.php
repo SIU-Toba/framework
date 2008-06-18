@@ -62,7 +62,11 @@ class pantalla_perfil_datos extends toba_ei_pantalla
 								"SELECT c.cargo, c.descripcion
 									FROM cargo c, categoria cc
 									WHERE c.categoria_1 = cc.categoria_1
-									AND c.categoria_2 = cc.categoria_2;"
+									AND c.categoria_2 = cc.categoria_2;",
+								"SELECT * FROM persona p, cargo c, categoria cc 
+									WHERE p.persona = c.persona
+									AND c.categoria_1 = cc.categoria_1 AND c.categoria_2 = cc.categoria_2;",
+								"SELECT * FROM persona;"
 		
 							);
 
