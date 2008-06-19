@@ -1258,22 +1258,16 @@ class toba_info_editores
 	//----------  RELACIONES entre TABLAS
 	//------------------------------------------------------------------------------
 	
-	function get_relaciones_tablas()
+	function get_relaciones_tablas($fuente_datos, $proyecto=null)
 	{
-		$sql = "SELECT
-			ap.descripcion_corta as proyecto_nombre,
-			art.relacion_tablas,
-			art.tabla_1,
-			art.tabla_1_cols,
-			art.tabla_2,
-			art.tabla_2_cols
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT *
 		FROM
-			apex_relacion_tablas as art,
-			apex_proyecto as ap
-		WHERE
-				art.proyecto = ap.proyecto
+			apex_relacion_tablas
+		WHERE fuente_datos = '$fuente_datos'
+		AND proyecto = '$proyecto'
 		ORDER BY tabla_1";
-		return toba::db('instancia')->consultar($sql);
+		return toba_contexto_info::get_db()->consultar($sql);
 	}
 
 }

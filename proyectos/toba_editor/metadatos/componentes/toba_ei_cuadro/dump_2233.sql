@@ -126,7 +126,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2233', --objeto_cuadro
 	'790', --objeto_cuadro_col
 	'tabla_2', --clave
-	'0', --orden
+	'3', --orden
 	'Tabla 2', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
@@ -153,8 +153,8 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2233', --objeto_cuadro
 	'791', --objeto_cuadro_col
 	'tabla_2_cols', --clave
-	'1', --orden
-	'Tabla 2 Cols', --titulo
+	'4', --orden
+	'Tabla 2 - Columnas', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
@@ -181,7 +181,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'792', --objeto_cuadro_col
 	'tabla_1_cols', --clave
 	'2', --orden
-	'Tabla 1 Cols', --titulo
+	'Tabla 1 - Columnas', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
@@ -207,7 +207,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2233', --objeto_cuadro
 	'793', --objeto_cuadro_col
 	'tabla_1', --clave
-	'3', --orden
+	'1', --orden
 	'Tabla 1', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3442]--  Editor de relaciones 
+--[3442]--  Relaciones entre tablas 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'3442', --item
 	NULL, --padre_id
 	'toba_editor', --padre_proyecto
-	'3439', --padre
+	'3395', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Editor de relaciones', --nombre
+	'Relaciones entre tablas', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'0', --menu
@@ -34,10 +34,10 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --solicitud_observacion
 	NULL, --solicitud_registrar_cron
 	NULL, --prueba_directorios
-	NULL, --zona_proyecto
-	NULL, --zona
-	NULL, --zona_orden
-	'0', --zona_listar
+	'toba_editor', --zona_proyecto
+	'zona_fuente', --zona
+	'-20', --zona_orden
+	'1', --zona_listar
 	'apex', --imagen_recurso_origen
 	'solic_wddx.gif', --imagen
 	NULL, --parametro_a

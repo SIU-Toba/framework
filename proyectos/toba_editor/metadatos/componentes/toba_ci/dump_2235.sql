@@ -196,6 +196,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
+	'1155', --dep_id
+	'2235', --objeto_consumidor
+	'2263', --objeto_proveedor
+	'esquema', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
 	'1137', --dep_id
 	'2235', --objeto_consumidor
 	'2236', --objeto_proveedor
@@ -277,7 +289,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'solic_wddx.gif', --imagen
-	'', --objetos
+	'esquema', --objetos
 	'', --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

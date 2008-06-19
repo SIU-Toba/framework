@@ -3,6 +3,15 @@ class ci_relaciones extends toba_ci
 {
 	protected $s__editar = false;
 	
+	function ini()
+	{
+		if ($editable = toba::zona()->get_editable()) {
+			$this->fuente = $editable[1];
+		}else{
+			throw new toba_error('ERROR: Esta operacion debe ser llamada desde la zona de fuentes');
+		}		
+	}
+	
 	function conf__editar()
 	{
 		if( $this->s__editar ) {
@@ -45,7 +54,7 @@ class ci_relaciones extends toba_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
-		$datos = toba_info_editores::get_relaciones_tablas();
+		$datos = toba_info_editores::get_relaciones_tablas($this->fuente);
 		$cuadro->set_datos($datos);
 	}
 
@@ -120,6 +129,32 @@ class ci_relaciones extends toba_ci
 		$datos = $this->dep('datos')->get();
 		$columnas = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado())->get_definicion_columnas( $datos['tabla_2'] );
 		return $columnas;
+	}
+
+	//------- Graficacion de la relacion ---------------------
+	
+	function conf__esquema($esquema)
+	{
+		$dot = "digraph G {
+	edge [	labelfontcolor=red,	
+			labelfloat=false,
+			labelfontsize=9,
+			arrowhead=none,
+			arrowtail=none];
+	node [	shape=polygon,	
+			sides=4
+			color=red];\n";
+	$datos = toba_info_editores::get_relaciones_tablas($this->fuente);
+	foreach( $datos as $dato ) {
+		$dot .=	'"' . $dato['tabla_1'] . '" -> "' . $dato['tabla_2'] . '" ' .
+				'[headlabel="'. $dato['tabla_1_cols'] . 
+				'", taillabel="'.$dato['tabla_2_cols']."\"];\n";
+	}
+		$dot .= "
+}
+";	
+		//echo $dot;
+		return $dot;
 	}
 
 }
