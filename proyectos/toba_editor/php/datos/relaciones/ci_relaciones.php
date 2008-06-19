@@ -2,6 +2,7 @@
 class ci_relaciones extends toba_ci
 {
 	protected $s__editar = false;
+	protected $fuente;
 	
 	function ini()
 	{
@@ -44,12 +45,18 @@ class ci_relaciones extends toba_ci
 
 	function evt__guardar()
 	{
-		ei_arbol($this->dep('datos')->get());
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();
 		$this->s__editar = false;	
 	}	
 
+	function evt__eliminar()
+	{
+		$this->dep('datos')->eliminar_todo();
+		$this->dep('datos')->resetear();
+		$this->s__editar = false;	
+	}	
+	
 	//---- Cuadro -----------------------------------------------------------------------
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
@@ -61,6 +68,7 @@ class ci_relaciones extends toba_ci
 	function evt__cuadro__seleccion($datos)
 	{
 		$this->dep('datos')->cargar($datos);
+		$this->s__editar = true;	
 	}
 
 	//---- Formulario -------------------------------------------------------------------
@@ -73,6 +81,8 @@ class ci_relaciones extends toba_ci
 	function evt__form_tablas__modificacion($datos)
 	{
 		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
+		$datos['fuente_datos_proyecto'] = toba_editor::get_proyecto_cargado();
+		$datos['fuente_datos'] = $this->fuente;
 		$this->dep('datos')->set($datos);
 	}
 
@@ -112,22 +122,22 @@ class ci_relaciones extends toba_ci
 
 	//---- Recuperacion de valores de la base ---------------------------------------------------------
 
-	function get_tablas($fuente)
+	function get_tablas()
 	{
-		return toba::db($fuente['fuente_datos'], toba_editor::get_proyecto_cargado())->get_lista_tablas();
+		return toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
 	}
 	
 	function get_columnas_tabla_1()
 	{
 		$datos = $this->dep('datos')->get();
-		$columnas = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado())->get_definicion_columnas( $datos['tabla_1'] );
+		$columnas = toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_definicion_columnas( $datos['tabla_1'] );
 		return $columnas;
 	}
 	
 	function get_columnas_tabla_2()
 	{
 		$datos = $this->dep('datos')->get();
-		$columnas = toba::db($datos['fuente_datos'], toba_editor::get_proyecto_cargado())->get_definicion_columnas( $datos['tabla_2'] );
+		$columnas = toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_definicion_columnas( $datos['tabla_2'] );
 		return $columnas;
 	}
 
@@ -143,7 +153,7 @@ class ci_relaciones extends toba_ci
 			arrowtail=none];
 	node [	shape=polygon,	
 			sides=4
-			color=red];\n";
+			color=blue];\n";
 	$datos = toba_info_editores::get_relaciones_tablas($this->fuente);
 	foreach( $datos as $dato ) {
 		$dot .=	'"' . $dato['tabla_1'] . '" -> "' . $dato['tabla_2'] . '" ' .
