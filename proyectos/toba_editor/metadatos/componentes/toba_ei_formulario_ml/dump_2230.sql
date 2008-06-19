@@ -133,7 +133,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Tabla rel dim', --etiqueta
+	'Gatillo Directo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -205,9 +205,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Columnas rel dim', --etiqueta
+	'Columnas aplicación restricción', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Lista de columnas separadas por coma, indicadas en el mismo orden que en la pantalla anterior. Indica los puntos donde se aplican las restricciones.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -229,8 +229,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'60', --edit_tamano
-	'60', --edit_maximo
+	'40', --edit_tamano
+	'80', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango

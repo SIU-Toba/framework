@@ -53,7 +53,7 @@ function abrir_toba_instancia(){
 		alert('No posee permisos para acceder al proyecto "toba_usuarios"!');	
 		return;
 	}
-	var opciones = {'width': 1000, 'scrollbars' : true, 'height': 650, 'resizable': true};
+	var opciones = {'width': 1000, 'scrollbars' : 'yes', 'height': 650, 'resizable': 'yes'};
 	abrir_popup('toba_instancia', url, opciones, null, false);
 }
 </script>

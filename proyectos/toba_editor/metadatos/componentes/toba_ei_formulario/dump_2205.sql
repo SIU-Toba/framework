@@ -569,7 +569,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
-	'0', --desactivado
+	'1', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion

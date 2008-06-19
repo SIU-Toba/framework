@@ -157,8 +157,8 @@ class ci_relaciones extends toba_ci
 	$datos = toba_info_editores::get_relaciones_tablas($this->fuente);
 	foreach( $datos as $dato ) {
 		$dot .=	'"' . $dato['tabla_1'] . '" -> "' . $dato['tabla_2'] . '" ' .
-				'[headlabel="'. $dato['tabla_1_cols'] . 
-				'", taillabel="'.$dato['tabla_2_cols']."\"];\n";
+				'[headlabel="'. $dato['tabla_2_cols'] . 
+				'", taillabel="'.$dato['tabla_1_cols']."\"];\n";
 	}
 		$dot .= "
 }
