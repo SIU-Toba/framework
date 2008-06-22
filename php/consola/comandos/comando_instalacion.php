@@ -275,41 +275,42 @@ class comando_instalacion extends comando_toba
 	
 	/**
 	 * Cambia los permisos de los archivo para que el usuario Apache cree directorios y pueda crear y leer carpetas navegables 
-	 * @consola_parametros [-g grupo de usuario, se asume www-data] [-u usuario, no se asume ninguno]
+	 * @consola_parametros [-u usuario apache, se asume www-data] [-g grupo de usuarios, no se asume ninguno]
 	 * @gtk_icono  password.png
 	 */
 	function opcion__cambiar_permisos()
 	{
 		$param = $this->get_parametros();
-		$grupo = isset($param['-g']) ? $param['-g'] : 'www-data';
-		$usuario = isset($param['-u']) ? $param['-u'] : null;
+		$grupo = isset($param['-g']) ? $param['-g'] : 'null';
+		$usuario = isset($param['-u']) ? $param['-u'] : 'www-data';
 		$toba_dir = toba_dir();
-		$this->consola->subtitulo('Cambiando permisos de apache');
+		$this->consola->subtitulo('Cambiando permisos de archivos navegables');
 		$comandos = array(
-			array("chgrp $grupo $toba_dir/www -R", "Archivos navegables comunes:\n"),
-			array("chmod g+w $toba_dir/www -R", ''),			
-			array("chgrp $grupo $toba_dir/instalacion -R", "Archivos de configuración:\n"),
-			array("chmod g+w $toba_dir/instalacion -R", ''),			
-			array("chgrp $grupo $toba_dir/temp -R", "Archivos temporales comunes:\n"),
-			array("chmod g+w $toba_dir/temp", '')
+			array("chown $usuario $toba_dir/www -R", "Archivos navegables comunes:\n"),
+			array("chmod o+w $toba_dir/www -R", ''),			
+			array("chown $usuario $toba_dir/instalacion -R", "Archivos de configuración:\n"),
+			array("chmod o+w $toba_dir/instalacion -R", ''),			
+			array("chown $usuario $toba_dir/temp -R", "Archivos temporales comunes:\n"),
+			array("chmod o+w $toba_dir/temp", '')
 		);
 		foreach (toba_modelo_instalacion::get_lista_proyectos() as $proyecto) {
 			$id_proyecto = basename($proyecto);
-			$comandos[] = array("chgrp $grupo $proyecto/www -R", "Archivos navegables de $id_proyecto:\n");
-			$comandos[] = array("chmod g+w $proyecto/www -R", '');
-			$comandos[] = array("chgrp $grupo $proyecto/temp -R", "Archivos temporales de $id_proyecto:\n");
-			$comandos[] = array("chmod g+w $proyecto/temp -R", '');
+			$comandos[] = array("chown $usuario $proyecto/www -R", "Archivos navegables de $id_proyecto:\n");
+			$comandos[] = array("chmod o+w $proyecto/www -R", '');
+			$comandos[] = array("chown $usuario $proyecto/temp -R", "Archivos temporales de $id_proyecto:\n");
+			$comandos[] = array("chmod o+w $proyecto/temp -R", '');
 		}		
 		foreach ($comandos as $comando) {
 			$this->consola->mensaje($comando[1], false);
 			$this->consola->mensaje("   ".$comando[0]. exec($comando[0]));
 		}
 		
-		if (isset($usuario)) {
-			$comando = "chown $usuario $toba_dir -R";
-			$this->consola->subtitulo("\nCambiando permisos del usuario $usuario");
-			$this->consola->mensaje('Se lo pone como owner de todos los archivos');			
-			$this->consola->mensaje("   ".$comando. exec($comando));			
+		if (isset($grupo)) {
+			$comando = "chgrp $grupo $toba_dir -R";
+			$this->consola->subtitulo("\nCambiando permisos globales para el grupo $grupo");
+			$this->consola->mensaje("   ".$comando. exec($comando));
+			$comando = "chmod g+w $toba_dir -R";
+			$this->consola->mensaje("   ".$comando. exec($comando));
 		}
 	}
 
