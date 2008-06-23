@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000579]--  Restricciones Funcionales 
+--[1000623]--  Restricciones Funcionales 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -8,18 +8,18 @@
 
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
-	'toba_usuarios', --proyecto
-	'1000579', --objeto
+	'toba_editor', --proyecto
+	'1000623', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_restricciones_funcionales', --subclase
-	'perfiles/restricciones_funcionales/ci_restricciones_funcionales.php', --subclase_archivo
+	'configuracion/restricciones_funcionales/ci_restricciones_funcionales.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Restricciones Funcionales', --nombre
-	'Restricciones Funcionales', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -34,7 +34,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2008-03-04 17:17:13'  --creacion
+	'2008-06-23 14:01:18'  --creacion
 );
 --- FIN Grupo de desarrollo 1
 
@@ -42,11 +42,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 -- apex_objeto_eventos
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'990', --evento_id
-	'1000579', --objeto
+	'toba_editor', --proyecto
+	'1001014', --evento_id
+	'1000623', --objeto
 	'agregar', --identificador
 	'&Agregar', --etiqueta
 	'0', --maneja_datos
@@ -74,9 +74,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL  --accion_vinculo_celda
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'991', --evento_id
-	'1000579', --objeto
+	'toba_editor', --proyecto
+	'1001015', --evento_id
+	'1000623', --objeto
 	'cancelar', --identificador
 	'&Volver', --etiqueta
 	'0', --maneja_datos
@@ -104,9 +104,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL  --accion_vinculo_celda
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'992', --evento_id
-	'1000579', --objeto
+	'toba_editor', --proyecto
+	'1001016', --evento_id
+	'1000623', --objeto
 	'eliminar', --identificador
 	'&Eliminar', --etiqueta
 	'0', --maneja_datos
@@ -134,9 +134,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL  --accion_vinculo_celda
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'993', --evento_id
-	'1000579', --objeto
+	'toba_editor', --proyecto
+	'1001017', --evento_id
+	'1000623', --objeto
 	'guardar', --identificador
 	'&Guardar', --etiqueta
 	'1', --maneja_datos
@@ -163,7 +163,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
 -- apex_objeto_dependencias
@@ -171,10 +171,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'1000418', --dep_id
-	'1000579', --objeto_consumidor
-	'1000580', --objeto_proveedor
+	'toba_editor', --proyecto
+	'1000461', --dep_id
+	'1000623', --objeto_consumidor
+	'1000618', --objeto_proveedor
 	'arbol', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -182,14 +182,11 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
---- FIN Grupo de desarrollo 1
-
---- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'1119', --dep_id
-	'1000579', --objeto_consumidor
-	'2210', --objeto_proveedor
+	'toba_editor', --proyecto
+	'1000462', --dep_id
+	'1000623', --objeto_consumidor
+	'1000619', --objeto_proveedor
 	'cuadro_restricciones', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -198,22 +195,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'1118', --dep_id
-	'1000579', --objeto_consumidor
-	'2209', --objeto_proveedor
-	'filtro_proyectos', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'1120', --dep_id
-	'1000579', --objeto_consumidor
-	'2211', --objeto_proveedor
+	'toba_editor', --proyecto
+	'1000464', --dep_id
+	'1000623', --objeto_consumidor
+	'1000621', --objeto_proveedor
 	'form_restriccion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -222,10 +207,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_usuarios', --proyecto
-	'1121', --dep_id
-	'1000579', --objeto_consumidor
-	'2212', --objeto_proveedor
+	'toba_editor', --proyecto
+	'1000465', --dep_id
+	'1000623', --objeto_consumidor
+	'1000622', --objeto_proveedor
 	'restricciones', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -233,17 +218,17 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
-	'toba_usuarios', --objeto_mt_me_proyecto
-	'1000579', --objeto_mt_me
+	'toba_editor', --objeto_mt_me_proyecto
+	'1000623', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'450px', --ancho
+	'600px', --ancho
 	'300px', --alto
 	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
@@ -264,11 +249,11 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 -- apex_objeto_ci_pantalla
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
-	'toba_usuarios', --objeto_ci_proyecto
-	'1000579', --objeto_ci
-	'1145', --pantalla
+	'toba_editor', --objeto_ci_proyecto
+	'1000623', --objeto_ci
+	'1000394', --pantalla
 	'edicion', --identificador
 	'2', --orden
 	'Edición', --etiqueta
@@ -279,15 +264,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'form_restriccion,arbol', --objetos
 	'cancelar,eliminar,guardar', --eventos
 	'pant_restricciones_funcionales', --subclase
-	'perfiles/restricciones_funcionales/pant_restricciones_funcionales.php'  --subclase_archivo
+	'configuracion/restricciones_funcionales/pant_restricciones_funcionales.php'  --subclase_archivo
 );
---- FIN Grupo de desarrollo 0
-
---- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
-	'toba_usuarios', --objeto_ci_proyecto
-	'1000579', --objeto_ci
-	'1000384', --pantalla
+	'toba_editor', --objeto_ci_proyecto
+	'1000623', --objeto_ci
+	'1000395', --pantalla
 	'seleccion', --identificador
 	'1', --orden
 	'Selección', --etiqueta

@@ -66,6 +66,23 @@ class toba_info_permisos
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 
+	function get_restricciones_proyecto($proyecto)
+	{
+		$sql = "SELECT 	proyecto,
+						restriccion_funcional,
+						descripcion,
+						((SELECT COUNT(*) FROM apex_restriccion_funcional_ef		WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_pantalla	WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_evt		WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_ei		 	WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_filtro_cols WHERE restriccion_funcional = rf.restriccion_funcional) +
+						(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE restriccion_funcional = rf.restriccion_funcional)) as cant_resticciones
+						
+				FROM 	apex_restriccion_funcional as rf
+				WHERE 	proyecto = '$proyecto';";
+		return toba_contexto_info::get_db()->consultar($sql);
+	}	
+	
 }
 
 

@@ -2,27 +2,8 @@
 class ci_restricciones_funcionales extends toba_ci
 {
 	protected $s__arbol_cargado = false;	
-	protected $s__filtro;
 	protected $s__restriccion = -1;
 	
-	function ini__operacion() 
- 	{ 
- 		$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto(); 
- 	} 
-	
-	function conf__seleccion()
-	{
-		if( toba::sesion()->proyecto_esta_predefinido() ) { 
- 			$proyecto = toba::sesion()->get_id_proyecto();
-			$desc = "Restricciones Funcionales del proyecto: <strong>$proyecto</strong>";
-			$this->pantalla('seleccion')->eliminar_dep('filtro_proyectos'); 
- 			$this->pantalla('seleccion')->set_descripcion($desc);
- 		} 
-		if (!isset($this->s__filtro)) {
-			$this->pantalla('seleccion')->eliminar_evento('agregar');
-		}
-	}
-
 	function evt__guardar()
 	{
 		$raices = $this->dep('arbol')->get_datos();
@@ -63,7 +44,7 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function evt__eliminar()
 	{
-		$proyecto = $this->s__filtro['proyecto'];
+		$proyecto = toba_editor::get_proyecto_cargado();
 		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		$sql = array();
@@ -88,28 +69,6 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	
 	//---------------------------------------------------------------------
-	//------  FILTRO
-	//---------------------------------------------------------------------
-	
-	function evt__filtro_proyectos__filtrar($datos)
-	{
-		$this->s__filtro = $datos;
-	}
-	
-	function evt__filtro_proyectos__cancelar()
-	{
-		unset($this->s__filtro);
-	}
-	
-	function conf__filtro_proyectos($componente)
-	{
-		if (isset($this->s__filtro)) {
-			$componente->set_datos($this->s__filtro);
-		}		
-	}		
-	
-	
-	//---------------------------------------------------------------------
 	//------  CUADRO
 	//---------------------------------------------------------------------
 	
@@ -122,10 +81,9 @@ class ci_restricciones_funcionales extends toba_ci
 	
 	function conf__cuadro_restricciones($componente)
 	{
-		if (isset($this->s__filtro)) {
-			$datos = consultas_instancia::get_restricciones_proyecto($this->s__filtro['proyecto']);
-			$componente->set_datos($datos);
-		}
+		$proyecto = toba_editor::get_proyecto_cargado();
+		$datos = toba_info_permisos::get_restricciones_proyecto($proyecto);
+		$componente->set_datos($datos);
 	}
 
 	//---------------------------------------------------------------------
@@ -137,7 +95,7 @@ class ci_restricciones_funcionales extends toba_ci
 		if ($this->dep('restricciones')->esta_cargada()) {
 			$datos = $this->dep('restricciones')->get();	
 		}else{
-			$datos['proyecto'] = $this->s__filtro['proyecto'];
+			$datos['proyecto'] = toba_editor::get_proyecto_cargado();
 		}
 		$componente->set_datos($datos);
 	}
@@ -159,7 +117,7 @@ class ci_restricciones_funcionales extends toba_ci
 	function conf__arbol(arbol_restricciones_funcionales $arbol) 
 	{
 		if (! isset($this->s__arbol_cargado) || !$this->s__arbol_cargado) {
-			$catalogador = new toba_catalogo_restricciones_funcionales( $this->s__filtro['proyecto'], $this->s__restriccion );
+			$catalogador = new toba_catalogo_restricciones_funcionales(toba_editor::get_proyecto_cargado(), $this->s__restriccion );
 			$catalogador->cargar();
 			$raiz = $catalogador->buscar_carpeta_inicial();
 			$arbol->set_datos(array($raiz), true);

@@ -1,15 +1,15 @@
 ------------------------------------------------------------
---[2210]--  Restricciones Funcionales - seleccion - cuadro_restricciones 
+--[1000619]--  Restricciones Funcionales - seleccion - cuadro_restricciones 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_objeto
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
-	'toba_usuarios', --proyecto
-	'2210', --objeto
+	'toba_editor', --proyecto
+	'1000619', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
@@ -34,19 +34,19 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2008-03-25 15:57:20'  --creacion
+	'2008-06-23 14:01:18'  --creacion
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
 -- apex_objeto_eventos
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'986', --evento_id
-	'2210', --objeto
+	'toba_editor', --proyecto
+	'1001010', --evento_id
+	'1000619', --objeto
 	'seleccion', --identificador
 	'', --etiqueta
 	NULL, --maneja_datos
@@ -73,14 +73,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
 );
---- FIN Grupo de desarrollo 0
+--- FIN Grupo de desarrollo 1
 
 ------------------------------------------------------------
 -- apex_objeto_cuadro
 ------------------------------------------------------------
 INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, subtitulo, sql, columnas_clave, clave_dbr, archivos_callbacks, ancho, ordenar, paginar, tamano_pagina, tipo_paginado, eof_invisible, eof_customizado, exportar_paginado, exportar, exportar_rtf, pdf_propiedades, pdf_respetar_paginacion, asociacion_columnas, ev_seleccion, ev_eliminar, dao_nucleo_proyecto, dao_nucleo, dao_metodo, dao_parametros, desplegable, desplegable_activo, scroll, scroll_alto, cc_modo, cc_modo_anidado_colap, cc_modo_anidado_totcol, cc_modo_anidado_totcua) VALUES (
-	'toba_usuarios', --objeto_cuadro_proyecto
-	'2210', --objeto_cuadro
+	'toba_editor', --objeto_cuadro_proyecto
+	'1000619', --objeto_cuadro
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
@@ -120,11 +120,11 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 -- apex_objeto_ei_cuadro_columna
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 0
+--- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
-	'toba_usuarios', --objeto_cuadro_proyecto
-	'2210', --objeto_cuadro
-	'783', --objeto_cuadro_col
+	'toba_editor', --objeto_cuadro_proyecto
+	'1000619', --objeto_cuadro
+	'1000391', --objeto_cuadro_col
 	'descripcion', --clave
 	'1', --orden
 	'Descripcion', --titulo
@@ -148,13 +148,10 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --vinculo_target
 	NULL  --vinculo_celda
 );
---- FIN Grupo de desarrollo 0
-
---- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda) VALUES (
-	'toba_usuarios', --objeto_cuadro_proyecto
-	'2210', --objeto_cuadro
-	'1000390', --objeto_cuadro_col
+	'toba_editor', --objeto_cuadro_proyecto
+	'1000619', --objeto_cuadro
+	'1000392', --objeto_cuadro_col
 	'cant_resticciones', --clave
 	'2', --orden
 	'Cantidad Restricciones', --titulo

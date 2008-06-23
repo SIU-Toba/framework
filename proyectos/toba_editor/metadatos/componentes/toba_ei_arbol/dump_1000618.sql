@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000580]--  Restricciones Funcionales - pant_inicial - arbol 
+--[1000618]--  Restricciones Funcionales - pant_inicial - arbol 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -8,14 +8,14 @@
 
 --- INICIO Grupo de desarrollo 1
 INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, clase, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion) VALUES (
-	'toba_usuarios', --proyecto
-	'1000580', --objeto
+	'toba_editor', --proyecto
+	'1000618', --objeto
 	NULL, --anterior
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_arbol', --clase
 	'arbol_restricciones_funcionales', --subclase
-	'perfiles/restricciones_funcionales/arbol_restricciones_funcionales.php', --subclase_archivo
+	'configuracion/restricciones_funcionales/arbol_restricciones_funcionales.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Restricciones Funcionales - pant_inicial - arbol', --nombre
@@ -34,6 +34,6 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2008-03-04 17:17:43'  --creacion
+	'2008-06-23 14:01:18'  --creacion
 );
 --- FIN Grupo de desarrollo 1
