@@ -13,7 +13,7 @@ class toba_info_relacion_entre_tablas
 	*	Indica las columnas por las que se relacionan dos tablas de un modelo de datos
 	*	retorna un array asociativo con un indice por tabla y un array con el listado de columnas en la segunda dimension.
 	*/
-	static function get_relacion($tabla_1, $tabla_2, $fuente_datos=null)
+	static function get_relacion($tabla_1, $tabla_2, $fuente_datos=null, $proyecto=null)
 	{
 		if(!$fuente_datos) $fuente_datos = toba_admin_fuentes::instancia()->get_fuente_predeterminada(true);		
 		if(!isset(self::$relaciones[$fuente_datos]) ) {
@@ -33,6 +33,15 @@ class toba_info_relacion_entre_tablas
 			}
 		}
 		return $respuesta;
+	}
+
+	/**
+	*	Controla que un grupo de tablas esten vinculadas por Fks
+	*	@param Array de tablas ordenadas segun su relacion
+	*/
+	static function validar_camino($camino)
+	{
+		
 	}
 }
 

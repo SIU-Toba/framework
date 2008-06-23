@@ -15,7 +15,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'ci_dimensiones', --subclase
-	'datos/ci_dimensiones.php', --subclase_archivo
+	'datos/dimensiones/ci_dimensiones.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Editor de Dimensiones - CI', --nombre

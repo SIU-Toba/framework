@@ -26,4 +26,15 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	NULL, --tabla_gatillo
 	NULL  --ruta_tabla_rel_dim
 );
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_editor', --proyecto
+	'9', --dimension
+	'14', --gatillo
+	'indirecto', --tipo
+	'1', --orden
+	'ref_juegos', --tabla_rel_dim
+	NULL, --columnas_rel_dim
+	'ref_deportes', --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
 --- FIN Grupo de desarrollo 0

@@ -28,7 +28,7 @@ class form_tablas extends toba_ei_formulario
 			var seteadas = ( t1 != apex_ef_no_seteado ) && ( t2 != apex_ef_no_seteado );
 			if ( seteadas ) {
 				if ( t1 == t2 ) {
-					notificacion.agregar('Seleccione tablas distintas. La especificación de relaciones recursivas no es necesaria.');
+					notificacion.agregar('Seleccione tablas distintas.');
 					notificacion.mostrar();
 				} else {
 					this.set_evento(new evento_ei('modificacion',true,''));

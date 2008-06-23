@@ -14,8 +14,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, reflexivo, clase_proyecto, 
 	NULL, --reflexivo
 	'toba', --clase_proyecto
 	'toba_ei_formulario_ml', --clase
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'eiform_gatillos', --subclase
+	'datos/dimensiones/eiform_gatillos.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Editor de Dimensiones - CI - pant_gatillos_d - form_gatillos_dir', --nombre
@@ -202,7 +202,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'columnas_rel_dim', --identificador
 	'ef_editable', --elemento_formulario
 	'columnas_rel_dim', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Columnas aplicación restricción', --etiqueta

@@ -114,8 +114,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4', --orden
 	'Tabla', --etiqueta
 	NULL, --etiqueta_estilo
-	'Nombre de la tabla de la base de datos con la que va a trabajar el objeto.', --descripcion
+	NULL, --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -202,7 +202,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fuente_datos', --identificador
 	'ef_combo', --elemento_formulario
 	'fuente_datos_proyecto, fuente_datos', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Fuente Datos', --etiqueta
@@ -279,7 +279,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'6', --orden
 	'Col Desc', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Lista de columnas que representan la descripcion de los registros de la tabla, separadas por comas.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -301,7 +301,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'60', --edit_tamano
+	'40', --edit_tamano
 	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
@@ -351,7 +351,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5', --orden
 	'Col Id', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Lista de columnas que conforma la PK de la tabla, separadas por comas.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -373,7 +373,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_cascada_relaj
 	NULL, --carga_no_seteado
 	NULL, --carga_no_seteado_ocultar
-	'60', --edit_tamano
+	'40', --edit_tamano
 	'255', --edit_maximo
 	NULL, --edit_mascara
 	NULL, --edit_unidad
