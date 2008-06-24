@@ -13,7 +13,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	const dir_datos_globales = 'global';
 	const archivo_datos = 'datos.sql';
 	const archivo_usuarios = 'usuarios.sql';
-	const archivo_logs = 'logs.sql';
+	const archivo_logs = 'logs_acceso.sql';
 	const cantidad_seq_grupo = 1000000;
 	protected $proyectos_ya_migrados = array('toba_testing', 'toba_referencia', 'toba_editor');	
 	private $instalacion;					// Referencia a la instalacion en la que esta metida la instancia
@@ -36,7 +36,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		//Solo se sincronizan los SQLs
 		$this->cargar_info_ini();
-		$this->nombre_log = "grupo_" . $this->instalacion->get_id_grupo_desarrollo() . ".". self::archivo_logs;
+		$this->nombre_log = self::archivo_logs;
 		toba_logger::instancia()->debug('INSTANCIA "'.$this->identificador.'"');		
 	}
 
@@ -147,6 +147,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_dir()
 	{
 		return $this->dir;		
+	}
+	
+	/**
+	 * Retorna el path del proyecto dentro de la carpeta instalacion
+	 */
+	function get_dir_instalacion_proyecto($id_proyecto)
+	{
+		return $this->get_dir() . '/' . self::prefijo_dir_proyecto . $id_proyecto;
 	}
 	
 	/**
@@ -288,7 +296,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$datos = array_diff( $datos, array( $proyecto ) );
 			$ini->set_datos_entrada( 'proyectos', implode(', ', $datos) );
 			// Elimino la carpeta de METADATOS de la instancia especificos del PROYECTO
-			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
 			if ( is_dir( $dir_proyecto ) ) {
 				toba_manejador_archivos::eliminar_directorio( $dir_proyecto );			
 			}
@@ -359,7 +367,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->exportar_proyectos();
 		$this->sincronizar_archivos();
 	}
-
+	
 	private function sincronizar_archivos()
 	{
 		//$this->manejador_interface->titulo( "SINCRONIZAR ARCHIVOS" );
@@ -416,11 +424,14 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		foreach( $this->get_lista_proyectos_vinculados() as $proyecto ) {
 			$this->manejador_interface->mensaje("Exportando proyecto $proyecto", false);
 			toba_logger::instancia()->debug("Exportando local PROYECTO $proyecto");						
-			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto);
 			toba_manejador_archivos::crear_arbol_directorios( $dir_proyecto );
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
-			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );	
+			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );
+			if ($this->instalacion->es_produccion()) {
+				$this->get_proyecto($proyecto)->exportar_perfiles_produccion();
+			}	
 			$this->manejador_interface->progreso_fin();
 		}
 	}
@@ -726,7 +737,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	{
 		$this->manejador_interface->mensaje("Cargando datos locales de la instancia", false);
 		toba_logger::instancia()->debug("Cargando datos de la instancia del proyecto '{$proyecto}'");
-		$directorio = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto;
+		$directorio = $this->get_dir_instalacion_proyecto($proyecto);
 		if (file_exists($directorio)) {
 			$archivos = toba_manejador_archivos::get_archivos_directorio( $directorio , '|.*\.sql|' );
 			foreach ( $archivos as $archivo ) {
@@ -963,7 +974,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		//--- Borra logs en los proyecto
 		foreach($this->get_lista_proyectos_vinculados() as $proyecto) {
-			$dir_proyecto = $this->get_dir() . '/' . self::prefijo_dir_proyecto . $proyecto.'/logs';
+			$dir_proyecto = $this->get_dir_instalacion_proyecto($proyecto).'/logs';
 			if (file_exists( $dir_proyecto )) {
 				toba_manejador_archivos::eliminar_directorio($dir_proyecto);
 			}

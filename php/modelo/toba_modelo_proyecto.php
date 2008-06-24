@@ -180,6 +180,15 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	EXPORTAR
 	//-----------------------------------------------------------
 
+	/**
+	 * Exporta la información exclusiva de la implementación, es decir perfiles, usuarios, logs ,etc. 
+	 */
+	function exportar_implementacion()
+	{
+		$this->get_instancia()->exportar_local();
+		
+	}
+	
 	function exportar()
 	{
 		toba_logger::instancia()->debug( "Exportando PROYECTO {$this->identificador}");
@@ -192,7 +201,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		try {
 			$this->exportar_tablas();
 			$this->exportar_componentes();
-			$this->exportar_grupos_acceso();
+			$this->exportar_perfiles();
 			$this->sincronizar_archivos();
 		} catch ( toba_error $e ) {
 			throw new toba_error( "Proyecto {$this->identificador}: Ha ocurrido un error durante la exportacion:\n".
@@ -224,11 +233,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	private function get_contenido_tabla($tabla, $where_extra=null)
 	{
+		$datos = $this->get_contenido_tabla_datos($tabla, $where_extra);		
 		$definicion = toba_db_tablas_proyecto::$tabla();
 		$columna_grupo_desarrollo = null;
 		if (isset($definicion['columna_grupo_desarrollo'])) {
 			$columna_grupo_desarrollo = $definicion['columna_grupo_desarrollo'];
 		}		
+		return $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
+	}
+	
+	private function get_contenido_tabla_datos($tabla, $where_extra=null)
+	{
+		$definicion = toba_db_tablas_proyecto::$tabla();
 		//Genero el SQL
 		if( isset($definicion['dump_where']) && ( trim($definicion['dump_where']) != '') ) {
    			$w = stripslashes($definicion['dump_where']);
@@ -247,8 +263,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$columnas_orden = array_map('trim', explode(',',$definicion['dump_order_by']) );
 			$datos = rs_ordenar_por_columnas( $datos, $columnas_orden );
 		}
-		toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");
-		return $this->get_contenido_exportacion_datos($tabla, $datos, $columna_grupo_desarrollo);
+		toba_logger::instancia()->debug("TABLA  $tabla  ($regs reg.)");		
+		return $datos;		
 	}
 
 	
@@ -349,11 +365,22 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		return $contenido;		
 	}
 
-	//-- PERMISOS -------------------------------------------------------------
+	//-- PERFILES -------------------------------------------------------------
 
-	private function exportar_grupos_acceso()
+	function exportar_perfiles()
 	{
-		$this->manejador_interface->mensaje("Exportando permisos", false);
+		$this->manejador_interface->mensaje("Exportando perfiles", false);
+		if ($this->get_instalacion()->es_produccion()) {
+			$this->exportar_perfiles_implementacion();
+		} else {
+			$this->exportar_perfiles_produccion();
+		}
+		$this->manejador_interface->progreso_fin();				
+	}
+	
+	
+	private function exportar_perfiles_proyecto()
+	{
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
@@ -368,9 +395,31 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$this->manejador_interface->progreso_avanzar();
 			}			
 		}
-		$this->manejador_interface->progreso_fin();
+
 	}
 
+	function exportar_perfiles_produccion()
+	{
+		$dir_perfiles = $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
+		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
+		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
+			toba_logger::instancia()->debug("PERFIL  $permiso");
+			$contenido = '';		
+			$where = "usuario_grupo_acc = '$permiso'";
+			$datos = array();
+			foreach($tablas as $tabla) {
+				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
+			}
+			$archivo = $dir_perfiles."/perfil_$permiso.xml";
+			$xml = new toba_xml_recordset();
+			$xml->set_asociativo('tablas', $datos);
+			$xml->guardar($archivo);
+			$this->manejador_interface->progreso_avanzar();
+		
+		}
+	}	
+	
 	//-----------------------------------------------------------
 	//	CARGAR
 	//-----------------------------------------------------------

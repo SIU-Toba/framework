@@ -10,6 +10,7 @@ class toba_modelo_catalogo
 	
 	/**
 	*	Devuelve una referencia a la INSTALACION
+	* @return toba_modelo_instalacion 
 	*/
 	function get_instalacion( $manejador_interface = null )
 	{
@@ -25,6 +26,7 @@ class toba_modelo_catalogo
 
 	/**
 	*	Devuelve una referencia a un INSTANCIA.
+	* @return toba_modelo_instancia
 	*/
 	function get_instancia( $id_instancia, $manejador_interface=null)
 	{
@@ -41,6 +43,7 @@ class toba_modelo_catalogo
 	
 	/**
 	*	Devuelve una referencia a un PROYECTO
+	* @return toba_modelo_proyecto
 	*/
 	function get_proyecto( $id_instancia, $id_proyecto, $manejador_interface=null )
 	{
@@ -62,6 +65,7 @@ class toba_modelo_catalogo
 
 	/**
 	*	Devuelve una referencia al NUCLEO
+	* @return toba_modelo_nucleo 
 	*/
 	function get_nucleo( $manejador_interface=null )
 	{
@@ -75,6 +79,7 @@ class toba_modelo_catalogo
 
 	/**
 	*	Singleton
+	* @return toba_modelo_catalogo
 	*/
 	static function instanciacion($refrescar=false)
 	{

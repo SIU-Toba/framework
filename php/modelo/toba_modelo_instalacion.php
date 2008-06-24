@@ -88,13 +88,26 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	}
 	
 	/**
-	* Devuelve la lista de las INSTANCIAS
+	* Retorna el id que distingue al grupo de desarrollo
 	*/
 	function get_id_grupo_desarrollo()
 	{
 		$this->cargar_info_ini();		
 		return $this->ini_instalacion['id_grupo_desarrollo'];
 	}
+	
+	/**
+	* Retorna true si la instalación es de producción (implementación)
+	*/
+	function es_produccion()
+	{
+		$this->cargar_info_ini();		
+		if (isset($this->ini_instalacion['es_produccion'])) { 
+			return $this->ini_instalacion['es_produccion'];
+		} else {
+			return false;
+		}
+	}	
 
 	/**
 	* Devuelve las claves utilizadas para encriptar
