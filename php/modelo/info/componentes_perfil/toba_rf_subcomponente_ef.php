@@ -31,8 +31,8 @@ class toba_rf_subcomponente_ef extends toba_rf_subcomponente
 	
 	function get_imagenes_estado()
 	{
-		$this->img_solo_lectura = toba_recurso::imagen_proyecto('no-editable.gif', false);
-		$this->img_editable = toba_recurso::imagen_proyecto('editable.gif', false);
+		$this->img_solo_lectura = toba_recurso::imagen_toba('no-editable.gif', false);
+		$this->img_editable = toba_recurso::imagen_toba('editable.gif', false);
 		parent::get_imagenes_estado();
 	}
 

@@ -127,7 +127,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1000391', --objeto_cuadro_col
 	'descripcion', --clave
 	'1', --orden
-	'Descripcion', --titulo
+	'Descripción', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
