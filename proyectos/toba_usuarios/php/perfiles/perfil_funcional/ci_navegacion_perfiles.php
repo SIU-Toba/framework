@@ -28,6 +28,31 @@ class ci_navegacion_perfiles extends toba_ci
 		}
 	}
 	
+	function conf__edicion_perfil()
+	{
+		//-- Si es una instalación de producción avisar que los cambios se aplicaran solo a esta instalacion y no al proyecto/personalizacion
+		$id_instancia = toba::instancia()->get_id();
+		$id_proyecto = $this->dep('editor_perfiles')->get_proyecto();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
+		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);		
+		if (toba::instalacion()->es_produccion() && ! $usa_perfiles_propios) {
+			$msg = 'ATENCION! Al realizar cambios a los perfiles los mismos quedarán disponibles únicamente para la instalación actual.';
+			$this->pantalla()->set_descripcion($msg, 'warning');
+		}
+	}
+	
+	function actualizar_info_ini()
+	{
+		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia
+		$id_instancia = toba::instancia()->get_id();
+		$id_proyecto = $this->dep('editor_perfiles')->get_proyecto();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
+		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);
+		if (toba::instalacion()->es_produccion() && !$usa_perfiles_propios) {
+			$instancia->set_proyecto_usar_perfiles_propios($id_proyecto, true);
+		}
+	}
+	
 	function evt__guardar()
 	{
 		$this->dep('datos')->get_persistidor()->desactivar_transaccion();
@@ -39,9 +64,13 @@ class ci_navegacion_perfiles extends toba_ci
 			$alta = true;
 		}
 		$this->dep('datos')->sincronizar();
+		//- Sincroniza el arbol de items		
 		$this->dep('editor_perfiles')->guardar_arbol_items($alta);
 		$this->dep('datos')->resetear();
-		//- Sincroniza el arbol de items		
+		
+		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
+		$this->actualizar_info_ini();
+	
 		toba::db()->cerrar_transaccion();
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');
@@ -68,6 +97,10 @@ class ci_navegacion_perfiles extends toba_ci
 						usuario_grupo_acc = '{$datos['usuario_grupo_acc']}'
 					AND proyecto = '{$datos['proyecto']}';";
 		toba::db()->ejecutar($sql);
+		
+		//-- Si estamos en produccion guardamos un flag indicando que cambiaron los perfiles y ahora se encarga el proyecto de manejarlos
+		$this->actualizar_info_ini();
+
 		toba::db()->cerrar_transaccion();
 		$this->dep('editor_perfiles')->cortar_arbol();
 		$this->set_pantalla('seleccion_perfil');

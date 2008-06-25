@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --tamano_pagina
 	'P', --tipo_paginado
 	'0', --eof_invisible
-	NULL, --eof_customizado
+	'<center>Sin perfiles de datos</center>', --eof_customizado
 	'0', --exportar_paginado
 	'0', --exportar
 	'0', --exportar_rtf

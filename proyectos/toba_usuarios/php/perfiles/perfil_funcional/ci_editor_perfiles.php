@@ -15,6 +15,11 @@ class ci_editor_perfiles extends toba_ci
 		$this->s__proyecto = $proyecto;
 	}
 	
+	function get_proyecto()
+	{
+		return $this->s__proyecto;
+	}
+	
 	function set_perfil_funcional($perfil_funcional)
 	{
 		$this->s__grupo_acceso = $perfil_funcional;

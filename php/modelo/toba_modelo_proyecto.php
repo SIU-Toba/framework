@@ -33,7 +33,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function get_sincronizador()
 	{
 		if ( ! isset( $this->sincro_archivos ) ) {
-			$this->sincro_archivos = new toba_sincronizador_archivos( $this->get_dir_dump() );
+			//-- Si estamos en produccion, evitar sincronizar los perfiles de acceso
+			if ($this->maneja_perfiles_produccion()) {
+				$patron = "#componentes|tablas#"; //Los permisos los exporta localmente
+			} else {
+				$patron = null;						
+			}
+			$this->sincro_archivos = new toba_sincronizador_archivos( $this->get_dir_dump(), $patron);
 		}
 		return $this->sincro_archivos;
 	}
@@ -121,7 +127,11 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function get_dir_permisos()
 	{
-		return $this->get_dir_dump() . '/permisos';
+		if ($this->maneja_perfiles_produccion()) {
+			return $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
+		} else {		
+			return $this->get_dir_dump() . '/permisos';
+		}
 	}
 	
 	function get_dir_componentes_compilados()
@@ -156,6 +166,16 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$this->db = $this->instancia->get_db();	
 		}
 		return $this->db;
+	}
+	
+	
+	/**
+	 * Determina si el proyecto debe guardar/cargar sus perfiles desde la instalacion (produccion) o el proyecto (desarrollo)
+	 *
+	 */
+	function maneja_perfiles_produccion()
+	{
+		return $this->get_instalacion()->es_produccion() && $this->instancia->get_proyecto_usar_perfiles_propios($this->identificador);	
 	}
 	
 	/**
@@ -370,19 +390,18 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function exportar_perfiles()
 	{
 		$this->manejador_interface->mensaje("Exportando perfiles", false);
-		if ($this->get_instalacion()->es_produccion()) {
-			$this->exportar_perfiles_implementacion();
-		} else {
+		if ($this->maneja_perfiles_produccion()) {
 			$this->exportar_perfiles_produccion();
+		} else {
+			$this->exportar_perfiles_proyecto();
 		}
 		$this->manejador_interface->progreso_fin();				
 	}
 	
-	
 	private function exportar_perfiles_proyecto()
 	{
 		toba_manejador_archivos::crear_arbol_directorios( $this->get_dir_permisos() );
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERMISO  $permiso");
 			$contenido = '';		
@@ -400,9 +419,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 
 	function exportar_perfiles_produccion()
 	{
-		$dir_perfiles = $this->get_instancia()->get_dir_instalacion_proyecto($this->identificador).'/perfiles';
+		$dir_perfiles = $this->get_dir_permisos();
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
-		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc');
+		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
 			toba_logger::instancia()->debug("PERFIL  $permiso");
 			$contenido = '';		
@@ -412,8 +431,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 				$datos[$tabla] = $this->get_contenido_tabla_datos($tabla, $where);
 			}
 			$archivo = $dir_perfiles."/perfil_$permiso.xml";
-			$xml = new toba_xml_recordset();
-			$xml->set_asociativo('tablas', $datos);
+			$xml = new toba_xml_tablas();
+			$xml->set_tablas($datos);
 			$xml->guardar($archivo);
 			$this->manejador_interface->progreso_avanzar();
 		
@@ -453,7 +472,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}
 		$this->cargar_tablas();
 		$this->cargar_componentes();
-		$this->cargar_permisos();
+		$this->cargar_perfiles();
 	}
 	
 	function get_sql_cargar()
@@ -461,7 +480,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$salida = '';
 		$salida .= $this->get_sql_cargar_tablas()."\n\n";
 		$salida .= $this->get_sql_cargar_componentes()."\n\n";
-		$salida .= $this->get_sql_cargar_permisos()."\n\n";
+		$salida .= $this->get_sql_cargar_perfiles()."\n\n";
 		return $salida;
 	}
 	
@@ -489,34 +508,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		}		
 		return $salida;
 	}
-	
-	private function cargar_permisos()
-	{
-		$this->manejador_interface->mensaje('Cargando permisos', false);
-		try {
-			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
-			$cant_total = 0;
-			foreach( $archivos as $archivo ) {
-				$cant = $this->db->ejecutar_archivo( $archivo );
-				toba_logger::instancia()->debug($archivo . ". ($cant)");
-				$this->manejador_interface->progreso_avanzar();
-				$cant_total++;
-			}
-			$this->manejador_interface->progreso_fin();
-		} catch (toba_error $e) {
-			$this->manejador_interface->mensaje($e->getMessage());
-		}
-	}
 
-	private function get_sql_cargar_permisos()
-	{
-		$salida = '';
-		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );		
-		foreach( $archivos as $archivo ) {
-			$salida .= file_get_contents($archivo)."\n\n";
-		}		
-		return $salida;
-	}	
 	
 	private function cargar_componentes()
 	{
@@ -557,9 +549,78 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->db->ejecutar_archivo( $archivo );
 		$this->manejador_interface->mensaje('.OK');	
 		// Grupos de acceso y permisos
-		$this->cargar_permisos();
+		$this->cargar_perfiles();
+	}
+	
+	
+	//------------------------------------------------------------------
+	//		CARGA DE PERFILES
+	//------------------------------------------------------------------
+	
+	
+	private function cargar_perfiles()
+	{
+		$this->manejador_interface->mensaje('Cargando permisos', false);
+		if ($this->maneja_perfiles_produccion()) {
+			$this->cargar_perfiles_produccion();		
+		} else {
+			$this->cargar_perfiles_proyecto();
+		}
+
+	}
+	
+	private function cargar_perfiles_proyecto()
+	{
+		try {
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
+			$cant_total = 0;
+			foreach( $archivos as $archivo ) {
+				$cant = $this->db->ejecutar_archivo( $archivo );
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->progreso_avanzar();
+				$cant_total++;
+			}
+			$this->manejador_interface->progreso_fin();
+		} catch (toba_error $e) {
+			$this->manejador_interface->mensaje($e->getMessage());
+		}		
+	}
+	
+	private function cargar_perfiles_produccion()
+	{
+		try {
+			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.xml|' );
+			$cant_total = 0;
+			foreach( $archivos as $archivo ) {
+				$xml = new toba_xml_tablas($archivo);
+				$tablas = $xml->get_tablas();
+				print_r($tablas);
+				/*$cant = $this->db->ejecutar($sql);
+				toba_logger::instancia()->debug($archivo . ". ($cant)");
+				$this->manejador_interface->progreso_avanzar();
+				$cant_total++;*/
+			}
+			$this->manejador_interface->progreso_fin();
+		} catch (toba_error $e) {
+			$this->manejador_interface->mensaje($e->getMessage());
+		}			
 	}
 
+	private function get_sql_cargar_perfiles()
+	{
+		$salida = '';
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );		
+		foreach( $archivos as $archivo ) {
+			$salida .= file_get_contents($archivo)."\n\n";
+		}		
+		return $salida;
+	}		
+
+	
+	//------------------------------------------------------------------
+	//		PUBLICACION
+	//------------------------------------------------------------------	
+	
 	function publicar($url=null)
 	{
 		if (! $this->esta_publicado()) {

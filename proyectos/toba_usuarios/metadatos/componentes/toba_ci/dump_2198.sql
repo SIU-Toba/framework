@@ -117,7 +117,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1140', --pantalla
 	'items_accesibles', --identificador
 	'1', --orden
-	'Items Accesibles', --etiqueta
+	'Operaciones Accesibles', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -149,7 +149,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1142', --pantalla
 	'permisos', --identificador
 	'3', --orden
-	'Permisos', --etiqueta
+	'Derechos', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

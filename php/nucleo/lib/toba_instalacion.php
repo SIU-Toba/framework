@@ -83,6 +83,18 @@ class toba_instalacion
 		}
 	}
 	
+	/**
+	 * La instalación es una de produccion
+	 */
+	function es_produccion()
+	{
+		if (isset($this->memoria['es_produccion'])) {
+			return $this->memoria['es_produccion'];
+		} else {
+			return false;	
+		}
+	}	
+	
 	function arreglo_png_ie()
 	{
 		if (isset($this->memoria['arreglo_png_ie'])) {

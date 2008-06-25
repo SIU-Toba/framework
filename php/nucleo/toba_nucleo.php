@@ -407,7 +407,7 @@ class toba_nucleo
 			'toba_parser_error_db_postgres7'		=> 'lib/db/toba_parser_error_db_postgres7.php',
 			'toba_texto'							=> 'lib/toba_texto.php',
 			'toba_validaciones'						=> 'lib/toba_validaciones.php',
-			'toba_xml_recordset'					=> 'lib/toba_xml_recordset.php',
+			'toba_xml_tablas'						=> 'lib/toba_xml_tablas.php',
  			//-----------------------------------------------------------------------------------------------
 			//--------- COMPONENTES -------------------------------------------------------------------------
  			//-----------------------------------------------------------------------------------------------

@@ -287,6 +287,31 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		$this->cargar_info_ini();
 	}
 	
+	function set_proyecto_usar_perfiles_propios($proyecto, $usar_perfiles_propios)
+	{
+		$ini = $this->get_ini();
+		if ($ini->existe_entrada($proyecto)) {
+			$datos = $ini->get_datos_entrada($proyecto);
+		} else {
+			$datos = array();
+		}
+		$datos['usar_perfiles_propios'] = $usar_perfiles_propios;
+		$ini->agregar_entrada($proyecto, $datos);
+		$ini->guardar();			
+		toba_logger::instancia()->debug("Cambiando la forma de manejar los perfiles del proyecto '$proyecto'");
+		// Recargo la inicializacion de la instancia
+		$this->cargar_info_ini();		
+	}
+
+	function get_proyecto_usar_perfiles_propios($proyecto)
+	{
+		if (isset($this->datos_ini[$proyecto]['usar_perfiles_propios'])) {
+			return $this->datos_ini[$proyecto]['usar_perfiles_propios'];
+		} else {
+			return false;
+		}
+	}	
+	
 	function desvincular_proyecto( $proyecto )
 	{
 		$ini = $this->get_ini();
@@ -429,7 +454,9 @@ class toba_modelo_instancia extends toba_modelo_elemento
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto', $dir_proyecto .'/' . self::archivo_datos, $proyecto, 'GLOBAL' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_usuario', $dir_proyecto .'/' . self::archivo_usuarios, $proyecto, 'USUARIO' );	
 			$this->exportar_tablas_proyecto( 'get_lista_proyecto_log', $dir_proyecto .'/' . $this->nombre_log, $proyecto, 'LOG' );
-			if ($this->instalacion->es_produccion()) {
+			
+			///-- Si estamos en produccion y se editaron los perfiles del proyecto, exportarlos localmente
+			if ($this->instalacion->es_produccion() && $this->get_proyecto_usar_perfiles_propios($proyecto)) {
 				$this->get_proyecto($proyecto)->exportar_perfiles_produccion();
 			}	
 			$this->manejador_interface->progreso_fin();

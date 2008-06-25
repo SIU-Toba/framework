@@ -504,3 +504,12 @@ INSERT INTO apex_permiso_grupo_acc (proyecto, usuario_grupo_acc, permiso) VALUES
 	'12'  --permiso
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_grupo_acc_restriccion_funcional
+------------------------------------------------------------
+INSERT INTO apex_grupo_acc_restriccion_funcional (proyecto, usuario_grupo_acc, restriccion_funcional) VALUES (
+	'toba_referencia', --proyecto
+	'admin', --usuario_grupo_acc
+	'1000001'  --restriccion_funcional
+);

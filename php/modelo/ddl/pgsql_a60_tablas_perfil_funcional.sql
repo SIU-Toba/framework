@@ -108,7 +108,6 @@ CREATE TABLE apex_grupo_acc_restriccion_funcional
 --: dump_order_by: usuario_grupo_acc, restriccion_funcional
 --: zona: usuario
 --: desc:
---: columna_grupo_desarrollo: permiso
 --: version: 1.0
 ---------------------------------------------------------------------------------------------------
 (	

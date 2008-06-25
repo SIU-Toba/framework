@@ -874,7 +874,6 @@ class toba_db_tablas_proyecto
   'dump_order_by' => 'usuario_grupo_acc, restriccion_funcional',
   'zona' => 'usuario',
   'desc' => '',
-  'columna_grupo_desarrollo' => 'permiso',
   'version' => '1.0',
   'columnas' => 
   array (
