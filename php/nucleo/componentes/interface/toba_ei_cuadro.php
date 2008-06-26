@@ -296,9 +296,10 @@ class toba_ei_cuadro extends toba_ei
 			$alguno_eliminado = false;			
 			for($a=0; $a<count($this->_info_cuadro_columna); $a++){
 				if (in_array($this->_info_cuadro_columna[$a]['objeto_cuadro_col'], $no_visibles)) {
+					$clave = $this->_info_cuadro_columna[$a]['clave'];
 					array_splice($this->_info_cuadro_columna, $a, 1);
 					$alguno_eliminado = true;
-					toba::logger()->debug("Restricción funcional. Se filtro la columna: ".$this->_info_cuadro_columna[$a]['clave'], 'toba');
+					toba::logger()->debug("Restricción funcional. Se filtro la columna: $clave", 'toba');
 				}
 			}
 			if ($alguno_eliminado) {

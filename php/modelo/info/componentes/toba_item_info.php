@@ -575,7 +575,7 @@ class toba_item_info implements toba_nodo_arbol
 		//Se le fuerza una inserción a los datos_tabla
 		//Como la clave de los objetos son secuencias, esto garantiza claves nuevas
 		$dr->forzar_insercion();
-		$dr->get_persistidor()->desactivar_transaccion();
+		$dr->persistidor()->desactivar_transaccion();
 		if ($con_transaccion) {
 			abrir_transaccion('instancia');	
 		}

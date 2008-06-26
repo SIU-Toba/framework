@@ -176,7 +176,7 @@ class test_dr_nn_deptos extends base_test_datos
 		//Carga el dpto de transporte y de prensa, y tambien alguno nuevo si hay
 		$wheres['depto'] = "depto.cod_depto=100 OR depto.cod_depto=200 OR cod_depto >= 800";
 		$wheres['empleado'] = "empleado.cod_empleado != 21";		
-		$carga = $this->dr->get_persistidor()->cargar_con_wheres($wheres);
+		$carga = $this->dr->persistidor()->cargar_con_wheres($wheres);
 		$this->AssertTrue($carga);		
 	}
 	
@@ -325,7 +325,7 @@ class test_dr_nn_deptos extends base_test_datos
 		//Recarga desde la base verificando que estan los mismos datos
 		$wheres['depto'] = "depto.nombre IN ('Comercial', 'Atención al cliente')";
 		$wheres['tarea'] = "tarea.nombre IN ('Backups', 'Electrica')";
-		$this->dr->get_persistidor()->cargar_con_wheres($wheres);
+		$this->dr->persistidor()->cargar_con_wheres($wheres);
 		$this->aserciones_alta();
 		//$this->dr->dump_esquema();
 	}
@@ -476,7 +476,7 @@ class test_dr_nn_deptos extends base_test_datos
 		$this->cargar();
 		//$this->dr->dump_esquema("INICIAL");
 		//Al ser necesario que update se ejecuta antes que delete se deben retrazar las constraints
-		$this->dr->get_persistidor()->retrasar_constraints();
+		$this->dr->persistidor()->retrasar_constraints();
 		
 		//Depto de transporte
 		$transporte = $this->dr->tabla('depto')->get_id_fila_condicion(array('cod_depto' => 100));

@@ -109,7 +109,7 @@ class toba_modelo_operacion
 				$id_dr = toba_info_editores::get_dr_de_clase($comp['tipo']);
 				$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
 				$dr = toba_constructor::get_runtime($componente, 'toba_datos_relacion', false);
-				$dr->get_persistidor()->desactivar_transaccion();
+				$dr->persistidor()->desactivar_transaccion();
 				$dr->resetear();
 				$dr->cargar(array('proyecto' => $this->id_proyecto, 'objeto' => $comp['componente']));
 				$dr->eliminar_todo();
@@ -120,7 +120,7 @@ class toba_modelo_operacion
 			$id_dr = toba_info_editores::get_dr_de_clase('toba_item');
 			$componente = array('proyecto' => $id_dr[0], 'componente' => $id_dr[1]);
 			$dr = toba_constructor::get_runtime($componente, 'toba_datos_relacion', false);
-			$dr->get_persistidor()->desactivar_transaccion();
+			$dr->persistidor()->desactivar_transaccion();
 			$dr->resetear();
 			$dr->cargar(array('proyecto' => $this->id_proyecto, 'item' => $this->id_item));
 			$dr->eliminar_todo();

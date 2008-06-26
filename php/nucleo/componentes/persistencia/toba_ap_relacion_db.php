@@ -83,10 +83,10 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		foreach ($tablas as $id_tabla => $tabla) {
 			if (in_array($id_tabla, $tablas_raiz)) {
 				//Si es una tabla raiz se le restringue por los campos pasados
-				$res = $tabla->get_persistidor()->cargar_por_clave($clave);
+				$res = $tabla->persistidor()->cargar_por_clave($clave);
 			} else {
 				//Sino se hace una carga común (en base a las cargas de los padres)
-				$res = $tabla->get_persistidor()->cargar_por_clave(array());
+				$res = $tabla->persistidor()->cargar_por_clave(array());
 			}
 			$ok = $ok || $res;
 		}
@@ -106,9 +106,9 @@ class toba_ap_relacion_db implements toba_ap_relacion
 		$ok = false;
 		foreach ($tablas as $id_tabla => $tabla) {
 			if (isset($wheres[$id_tabla])) {
-				$res = $tabla->get_persistidor()->cargar_con_where($wheres[$id_tabla]);
+				$res = $tabla->persistidor()->cargar_con_where($wheres[$id_tabla]);
 			} else {
-				$res = $tabla->get_persistidor()->cargar_por_clave(array());
+				$res = $tabla->persistidor()->cargar_por_clave(array());
 			}
 			$ok = $ok || $res;
 		}
@@ -164,18 +164,18 @@ class toba_ap_relacion_db implements toba_ap_relacion
 
 		//-- [1] Se sincroniza las operaciones de eliminación, en orden inverso
 		foreach (array_reverse($tablas) as $tabla) {
-			$tabla->get_persistidor()->sincronizar_eliminados();
+			$tabla->persistidor()->sincronizar_eliminados();
 		}		
 		
 		//-- [2] Se sincroniza las operaciones de actualizacion (insert)
 		foreach ($tablas as $tabla) {
-			$tabla->get_persistidor()->sincronizar_insertados();
+			$tabla->persistidor()->sincronizar_insertados();
 			$tabla->notificar_hijos_sincronizacion();
 		}
 		
 		//-- [3] Se sincroniza las operaciones de actualizacion (update)
 		foreach ($tablas as $tabla) {
-			$tabla->get_persistidor()->sincronizar_actualizados();
+			$tabla->persistidor()->sincronizar_actualizados();
 			$tabla->notificar_hijos_sincronizacion();
 		}		
 	}

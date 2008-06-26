@@ -5,9 +5,12 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	protected $id_db_original;
 	protected $proyecto_original;
 	protected $conexion_extra;
-	protected $sep_ini = '"'; //Para lc_messages = 'esp' poner el caracter '';
-	protected $sep_fin = '"'; //Para lc_messages = 'esp' poner el caracter 'ï¿½';
-
+	protected $sep_ini = '"'; //Para lc_messages = 'esp' poner el caracter '«';
+	protected $sep_fin = '"'; //Para lc_messages = 'esp' poner el caracter '»';
+	protected $error_pk;		//En caso que el error sea de pk, guarda cual es su id
+	protected $error_fk;		//En caso que el error sea de fk, guarda cual es su id
+	protected $error_not_null;	//En caso de error not null guarda cual es el campo
+	
 	function parsear($sql, $sqlstate, $mensaje)
 	{
 		$accion = $this->get_accion($sql);
@@ -62,6 +65,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	function parsear_sqlstate_23505($accion, $sql, $mensaje)
 	{
 		if (preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
+			$this->pk = $partes[1];
 			return $this->get_mensaje_pk($accion, $partes[1]);
 		}		
 	}
@@ -141,9 +145,11 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	{
 		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
 			//delete y updates envian mas datos		
+			$this->error_fk = $partes[2];
 			return $this->get_mensaje_fk(false, $accion, $partes[1], $partes[2], $partes[3]);
 		} elseif (preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)) {
 			//inserts envian menos, y es un 'not present'
+			$this->error_fk = $partes[2];
 			return $this->get_mensaje_fk(true, $accion, $partes[1], $partes[2]);
 		}		
 	}	
@@ -242,6 +248,7 @@ class toba_parser_error_db_postgres7 extends toba_parser_error_db
 	function parsear_sqlstate_23502($accion, $sql, $mensaje)
 	{
 		if(preg_match("/.*{$this->sep_ini}(.*){$this->sep_fin}.*/", $mensaje, $partes)){
+			$this->error_not_null = $partes[1];
 			return $this->get_mensaje_not_null($accion, $partes[1]);
 		}		
 	}		

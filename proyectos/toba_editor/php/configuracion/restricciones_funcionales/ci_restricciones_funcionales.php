@@ -12,7 +12,7 @@ class ci_restricciones_funcionales extends toba_ci
 		}else{
 			$alta = true;
 		}
-		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
+		$this->dep('restricciones')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		$this->dep('restricciones')->sincronizar();
 		if ($alta) {
@@ -45,7 +45,7 @@ class ci_restricciones_funcionales extends toba_ci
 	function evt__eliminar()
 	{
 		$proyecto = toba_editor::get_proyecto_cargado();
-		$this->dep('restricciones')->get_persistidor()->desactivar_transaccion();
+		$this->dep('restricciones')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		$sql = array();
 		$sql[] = "DELETE FROM apex_restriccion_funcional_ef 

@@ -382,7 +382,7 @@ class toba_datos_relacion extends toba_componente
 	 * Retorna una referenca al Adm.Persistencia de la relación
 	 * @return toba_ap_relacion_db
 	 */
-	function get_persistidor()
+	function persistidor()
 	{
 		if (!isset($this->_persistidor)) {		
 			//Se incluye el archivo
@@ -404,6 +404,14 @@ class toba_datos_relacion extends toba_componente
 	}
 	
 	/**
+	 * @deprecated usar persistidor() a secas
+	 */
+	function get_persistidor()
+	{
+		return $this->persistidor();
+	}
+	
+	/**
 	 * Utiliza la carga por clave del administrador de persistencia
 	 * Carga la tabla raiz de la relación y a partir de allí ramifica la carga a sus relaciones
 	 * @param array $clave Arreglo asociativo campo-valor por el cual filtrar la relación, si no se explicita se cargan todos los datos disponibles
@@ -413,7 +421,7 @@ class toba_datos_relacion extends toba_componente
 	{
 		//ATENCION: hay que controlar el formato de la clave
 		$this->log('***   Inicio CARGAR ****************************');
-		$ap = $this->get_persistidor();
+		$ap = $this->persistidor();
 		if($ap->cargar_por_clave($clave) === true){
 			$this->log("***   Fin CARGAR (OK) *************************");
 			return true;
@@ -461,7 +469,7 @@ class toba_datos_relacion extends toba_componente
 	{
 		$this->disparar_validacion_tablas();
 		$this->evt__validar();
-		$this->get_persistidor()->sincronizar();
+		$this->persistidor()->sincronizar();
 		//Se notifica el fin de la sincronización a las tablas
 		foreach ($this->_dependencias as $dependencia) {
 			$dependencia->notificar_fin_sincronizacion();
@@ -473,7 +481,7 @@ class toba_datos_relacion extends toba_componente
 	 */
 	function eliminar_todo()
 	{
-		$this->get_persistidor()->eliminar_todo();
+		$this->persistidor()->eliminar_todo();
 		$this->resetear();
 	}
 	

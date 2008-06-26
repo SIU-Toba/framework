@@ -95,7 +95,7 @@ class toba_relacion_entre_tablas
 	function generar_clausula_subselect($alias_hija)
 	{
 		if ($this->es_relacion_de_inclusion) {
-			$persistidor_padre = $this->tabla_padre()->get_persistidor();
+			$persistidor_padre = $this->tabla_padre()->persistidor();
 			$mapeo_campos = $this->get_mapeo_campos();
 			
 			//Campos a comparar con el subselect
@@ -105,7 +105,7 @@ class toba_relacion_entre_tablas
 			}
 			$where_subselect = substr($where_subselect, 0, -2);	//Elimina la ultima coma
 					
-			$subselect = $this->tabla_padre()->get_persistidor()->get_sql_de_carga(array_keys($mapeo_campos));
+			$subselect = $this->tabla_padre()->persistidor()->get_sql_de_carga(array_keys($mapeo_campos));
 			$subselect = str_replace("\n", "\n\t\t", $subselect);
 			$where_subselect .= ") IN (\n\t\t$subselect )";
 			return $where_subselect;
@@ -350,11 +350,11 @@ class toba_relacion_entre_tablas
 			//Si la tabla padre tiene un solo registro, la carga se realiza utilizando la clave de este
 			$fila = $this->tabla_padre->get_fila($this->tabla_padre->get_cursor());
 			$claves = $this->mapear_fila_a_formato_hijo($fila);
-			$this->tabla_hijo->get_persistidor()->cargar_por_clave($claves);
+			$this->tabla_hijo->persistidor()->cargar_por_clave($claves);
 		} else {
 			//Se presentan los persistidores entre sí para elaborar el mecanismo de carga
-			$this->tabla_hijo->get_persistidor()->cargar_en_base_a_padre(
-														$this->tabla_padre->get_persistidor(), 
+			$this->tabla_hijo->persistidor()->cargar_en_base_a_padre(
+														$this->tabla_padre->persistidor(), 
 														$this->mapeo_campos);
 		}
 	}

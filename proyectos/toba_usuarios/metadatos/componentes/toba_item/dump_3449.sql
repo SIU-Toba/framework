@@ -26,7 +26,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Exportar', --nombre
 	NULL, --descripcion
 	'exportacion/accion_exportacion.php', --actividad_accion
-	'1', --menu
+	'0', --menu
 	NULL, --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto

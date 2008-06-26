@@ -84,7 +84,7 @@ class toba_molde_elemento
 	protected function guardar_metadatos()
 	{
 		//ei_arbol($this->datos->get_conjunto_datos_interno(), $this->clase);
-		$this->datos->get_persistidor()->desactivar_transaccion();
+		$this->datos->persistidor()->desactivar_transaccion();
 		$this->datos->sincronizar();
 		$clave = $this->get_clave_componente_generado();
 		$this->asistente->registrar_elemento_creado(	$this->clase, 

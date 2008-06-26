@@ -37,7 +37,7 @@ class ci_principal extends ci_editores_toba
 	function evt__procesar()
 	{
 		//Se retrasa el chequeo de constraints para permitir la modificacion de ident. de dependencias
-		$this->get_entidad()->get_persistidor()->retrasar_constraints();
+		$this->get_entidad()->persistidor()->retrasar_constraints();
 		parent::evt__procesar();
 		unset($this->s__ap_php_db);
 		unset($this->s__ap_php_archivo);

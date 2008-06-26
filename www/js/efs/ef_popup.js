@@ -81,7 +81,7 @@ ef_popup.prototype.constructor = ef_popup;
 		
 		vinculador.agregar_parametros(this._vinculo, param);
 		//Se deja que el form. lo invoque asi se puede redefinir
-		this._controlador.invocar_vinculo(this._id, this._vinculo);
+		this._controlador.invocar_vinculo('ef_' + this._id, this._vinculo);
 	};
 	
 	ef_popup.prototype.set_solo_lectura = function(solo_lectura) {

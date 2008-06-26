@@ -56,7 +56,7 @@ class test_dt_clave_simple extends base_test_datos
 	
 	function cargar($where=null)
 	{
-		$ap = $this->dt->get_persistidor();
+		$ap = $this->dt->persistidor();
 		$ap->cargar_con_where($where);
 	}
 	

@@ -111,7 +111,7 @@ abstract class toba_componente_info implements toba_nodo_arbol, toba_meta_clase
 		//Como la clave de los objetos son secuencias, esto garantiza claves nuevas
 		$dr->forzar_insercion();
 		if (!$con_transaccion) {
-			$dr->get_persistidor()->desactivar_transaccion();	
+			$dr->persistidor()->desactivar_transaccion();	
 		}
 		
 		//--- Si tiene subclase, se copia el archivo y se cambia

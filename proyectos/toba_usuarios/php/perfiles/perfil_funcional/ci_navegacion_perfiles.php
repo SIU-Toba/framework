@@ -55,7 +55,7 @@ class ci_navegacion_perfiles extends toba_ci
 	
 	function evt__guardar()
 	{
-		$this->dep('datos')->get_persistidor()->desactivar_transaccion();
+		$this->dep('datos')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		//- Sincronizar la relacion
 		if ($this->dep('datos')->esta_cargada()) {
@@ -85,7 +85,7 @@ class ci_navegacion_perfiles extends toba_ci
 	
 	function evt__eliminar()
 	{
-		$this->dep('datos')->get_persistidor()->desactivar_transaccion();
+		$this->dep('datos')->persistidor()->desactivar_transaccion();
 		toba::db()->abrir_transaccion();
 		$datos = $this->datos('accesos')->get();
 		$this->dep('datos')->eliminar();

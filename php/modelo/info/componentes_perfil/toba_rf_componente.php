@@ -21,7 +21,7 @@ class toba_rf_componente extends toba_rf
 		$this->no_visible_actual = $this->no_visible_original;
 		$icono = array(
 				'imagen' => toba_recurso::imagen_toba( $datos['icono'], false),
-				'ayuda' => "Carpeta que contiene operaciones.",
+				'ayuda' => "Componente",
 				);
 		$this->agregar_icono($icono);
 		if($datos['eventos']>0) {

@@ -445,6 +445,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		$ini->agregar_entrada( 'clave_db', $clave_db );	
 		$ini->agregar_entrada( 'editor_php', $editor );
 		$ini->agregar_entrada( 'url', $url );
+		$ini->agregar_entrada( 'es_produccion', '0');
 		$ini->guardar( self::archivo_info_basica() );
 		toba_logger::instancia()->debug("Creado archivo ".self::archivo_info_basica());
 	}

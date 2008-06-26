@@ -140,11 +140,11 @@ class toba_datos_tabla extends toba_componente
 				}
 				if ($externa['sql'] != '') {
 					//---Caso SQL
-					$this->get_persistidor()->activar_proceso_carga_externa_sql(
+					$this->persistidor()->activar_proceso_carga_externa_sql(
 							$externa['sql'], $parametros, $resultados, $externa['sincro_continua']);
 				} else {
 					//---Caso DAO
-					$this->get_persistidor()->activar_proceso_carga_externa_dao(
+					$this->persistidor()->activar_proceso_carga_externa_dao(
 							$externa['metodo'], $externa['clase'], $externa['include'],
 							$parametros, $resultados, $externa['sincro_continua']);					
 				}
@@ -752,7 +752,7 @@ class toba_datos_tabla extends toba_componente
 		$this->validar_fila($fila);
 		//SI existen columnas externas, completo la fila con las mismas
 		if($this->_posee_columnas_ext){
-			$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($fila,"ins");
+			$campos_externos = $this->persistidor()->completar_campos_externos_fila($fila,"ins");
 			foreach($campos_externos as $id => $valor) {
 				$fila[$id] = $valor;
 			}
@@ -833,7 +833,7 @@ class toba_datos_tabla extends toba_componente
 			*/
 			//Si la tabla posee campos externos, le pido la nueva fila al persistidor
 			if($this->_posee_columnas_ext){
-				$campos_externos = $this->get_persistidor()->completar_campos_externos_fila($this->_datos[$id],"upd");
+				$campos_externos = $this->persistidor()->completar_campos_externos_fila($this->_datos[$id],"upd");
 				foreach($campos_externos as $clave => $valor){
 					$this->_datos[$id][$clave] = $valor;
 				}
@@ -1113,7 +1113,7 @@ class toba_datos_tabla extends toba_componente
 				return null;
 			}
 			//-- Carga peresoza del file_pointer
-			$fp = $this->get_persistidor()->consultar_columna_blob($id_fila, $columna);
+			$fp = $this->persistidor()->consultar_columna_blob($id_fila, $columna);
 			$this->_blobs[$id_fila][$columna] = array('fp' => $fp, 'path' => '', 'modificado' => false);
 		}
 		$fp = $this->_blobs[$id_fila][$columna]['fp'];
@@ -1328,7 +1328,7 @@ class toba_datos_tabla extends toba_componente
 	 * Retorna el admin. de persistencia que asiste a este objeto durante la sincronización
 	 * @return toba_ap_tabla_db
 	 */
-	function get_persistidor()
+	function persistidor()
 	{
 		if(!isset($this->_persistidor)){
 			if($this->_info_estructura['ap']=='0'){
@@ -1352,6 +1352,14 @@ class toba_datos_tabla extends toba_componente
 		return $this->_persistidor;
 	}
 	
+	/**
+	 * @deprecated  Usar persistidor() a secas
+	 */
+	function get_persistidor()
+	{
+		return $this->persistidor();
+	}
+	
 
 
 	/**
@@ -1360,7 +1368,7 @@ class toba_datos_tabla extends toba_componente
 	 */
 	function cargar($clave=array())
 	{
-		return $this->get_persistidor()->cargar_por_clave($clave);
+		return $this->persistidor()->cargar_por_clave($clave);
 	}
 	
 	/**
@@ -1450,7 +1458,7 @@ class toba_datos_tabla extends toba_componente
 	function sincronizar()
 	{
 		$this->validar();
-		$modif = $this->get_persistidor()->sincronizar();
+		$modif = $this->persistidor()->sincronizar();
 		return $modif;
 	}
 
@@ -1462,7 +1470,7 @@ class toba_datos_tabla extends toba_componente
 		//Me elimino a mi
 		$this->eliminar_filas(false);
 		//Sincronizo con la base
-		$this->get_persistidor()->sincronizar_eliminados();
+		$this->persistidor()->sincronizar_eliminados();
 		$this->resetear();
 	}
 	

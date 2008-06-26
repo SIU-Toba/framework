@@ -85,7 +85,7 @@ class test_dt_tabla_minima extends base_test_datos
 	
 	function cargar($where=null)
 	{
-		$ap = $this->dt->get_persistidor();
+		$ap = $this->dt->persistidor();
 		$ap->cargar_con_where($where);
 	}
 	//#############################################################

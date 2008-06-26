@@ -18,7 +18,7 @@ class ci_propiedades extends toba_ci
 				$this->usuario_actual = $editable;
 				$condiciones['basicas'] = "basicas.usuario='{$this->usuario_actual}'";
 				$condiciones['proyecto'] = "proyecto.proyecto='".toba_editor::get_proyecto_cargado()."'";
-				$this->dependencia('datos')->get_persistidor()->cargar_con_wheres($condiciones);
+				$this->dependencia('datos')->persistidor()->cargar_con_wheres($condiciones);
 			}
 		}
 		
