@@ -67,13 +67,55 @@ class toba_xml_tablas
 				$registro = array();
 				$vars = get_object_vars($fila);
 				foreach ($vars as $clave => $valor) {
-					$registro[utf8_decode($clave)] = utf8_decode(strval($valor));
+					$valor = utf8_decode(strval($valor));
+					if ($valor === '') {
+						$valor = null;
+					}
+					$registro[utf8_decode($clave)] = $valor;
 				}
 				$salida[$tabla][] = $registro;				
 			}
 
 		}
 		return $salida;
+	}
+	
+	/**
+	 * Dada la información contenida en el xml intenta insertar los datos en una base
+	 * En caso de falla, se sigue adelante en la transacción utilizando SAVEPOINTs (postgres>=8.0)
+	 */
+	function insertar_db(toba_db $conexion)
+	{
+		$conexion->retrazar_constraints(false);
+		$tablas = $this->get_tablas();
+		$errores = array();
+		$i = 0;
+		//-- Recorre cada tabla
+		foreach ($tablas as $tabla => $filas) {
+			//-- Recorre cada fila
+			foreach ($filas as $fila) {
+				try {
+					//Guarda un savepoint por si falla la ejecucion
+					$conexion->ejecutar('SAVEPOINT toba_'.$i);
+					$sql = sql_array_a_insert($tabla, $fila);
+					$conexion->ejecutar($sql);
+					//Si no falla se libera el savepoint
+					$conexion->ejecutar('RELEASE SAVEPOINT toba_'.$i);
+				} catch (toba_error_db $e) {
+					//Al fallar se vuelve al estado anterior del fallo
+					$conexion->ejecutar('ROLLBACK TO SAVEPOINT toba_'.$i);
+					$errores[] = array('tabla' 		=> $tabla,
+										'sql'		=> $sql, 
+										'datos' 	=> $fila, 
+										'msg_motor' => $e->get_mensaje_motor(), 
+										'msg_toba' 	=> $e->get_mensaje(),
+										);
+				}
+				$i++;
+			}
+		}
+		$conexion->retrazar_constraints(false);
+		return $errores;
 	}
 
 	

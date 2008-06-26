@@ -122,19 +122,12 @@ class toba_error_db extends toba_error
 		}else{
 			$sep = '------------------------------------------------------';
 			$mensaje = "
-ERROR ejecutando SQL. CODIGO: {$this->get_codigo_motor()}
-$sep
-     MENSAJE
-$sep
-{$this->get_mensaje_motor()}
-
-$sep
-     SQL EJECUTADA
-$sep
-{$this->get_sql_ejecutado()}
-
+ERROR ejecutando SQL:
+ [CODIGO]: {$this->get_codigo_motor()}
+ [SQLSTATE]: {$this->get_sqlstate()} 
+ [MENSAJE]: {$this->get_mensaje_motor()}
+ [SQL EJECUTADA]: {$this->get_sql_ejecutado()}
 ";
-	
 		}
 		return $mensaje;
 	}

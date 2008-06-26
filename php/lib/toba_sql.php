@@ -160,7 +160,7 @@
 			}
 		}
 		$sql = "INSERT INTO $tabla (" . implode(", ",array_keys($datos)) . ")". 
-				" VALUES ('" . implode("', '",$datos) . "');\n";
+				" VALUES ('" . implode("', '",$datos) . "');";
 		$sql = ereg_replace("'%%NULL%%'","NULL",$sql);//Formateo los nulos
 		return $sql;	
 	}

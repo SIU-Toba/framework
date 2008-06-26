@@ -420,6 +420,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	function exportar_perfiles_produccion()
 	{
 		$dir_perfiles = $this->get_dir_permisos();
+		//-- Borra los perfiles anteriormente guardados, si existen
+		if (file_exists($dir_perfiles)) {
+			toba_manejador_archivos::eliminar_directorio($dir_perfiles);
+		}
 		toba_manejador_archivos::crear_arbol_directorios($dir_perfiles);
 		$tablas = array('apex_usuario_grupo_acc', 'apex_usuario_grupo_acc_item', 'apex_permiso_grupo_acc', 'apex_grupo_acc_restriccion_funcional');
 		foreach( $this->get_indice_grupos_acceso() as $permiso ) {
@@ -571,39 +575,39 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	
 	private function cargar_perfiles_proyecto()
 	{
-		try {
-			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
-			$cant_total = 0;
-			foreach( $archivos as $archivo ) {
-				$cant = $this->db->ejecutar_archivo( $archivo );
-				toba_logger::instancia()->debug($archivo . ". ($cant)");
-				$this->manejador_interface->progreso_avanzar();
-				$cant_total++;
-			}
-			$this->manejador_interface->progreso_fin();
-		} catch (toba_error $e) {
-			$this->manejador_interface->mensaje($e->getMessage());
-		}		
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.sql|' );
+		$cant_total = 0;
+		foreach( $archivos as $archivo ) {
+			$cant = $this->db->ejecutar_archivo( $archivo );
+			toba_logger::instancia()->debug($archivo . ". ($cant)");
+			$this->manejador_interface->progreso_avanzar();
+			$cant_total++;
+		}
+		$this->manejador_interface->progreso_fin();
 	}
 	
 	private function cargar_perfiles_produccion()
 	{
-		try {
-			$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.xml|' );
-			$cant_total = 0;
-			foreach( $archivos as $archivo ) {
-				$xml = new toba_xml_tablas($archivo);
-				$tablas = $xml->get_tablas();
-				print_r($tablas);
-				/*$cant = $this->db->ejecutar($sql);
-				toba_logger::instancia()->debug($archivo . ". ($cant)");
-				$this->manejador_interface->progreso_avanzar();
-				$cant_total++;*/
+		$archivos = toba_manejador_archivos::get_archivos_directorio( $this->get_dir_permisos(), '|.*\.xml$|' );
+		foreach( $archivos as $archivo ) {
+			$perfil = substr(basename($archivo, 'xml'), 7);
+			$xml = new toba_xml_tablas($archivo);
+			$errores = $xml->insertar_db($this->db);
+			if (! empty($errores)) {
+				$msg = "ATENCION! No fue posible cargar por completo el perfil '$perfil', posiblemente a causa de que al menos una operación, restricción o derecho ha dejado de existir en '{$this->identificador}'.";
+				$msg .= " A continuación el detalle:";
+				$this->manejador_interface->separador();
+				$this->manejador_interface->error($msg);				
+				foreach ($errores as $error) {
+					$this->manejador_interface->error($error['msg_toba']);
+				}
+				$this->manejador_interface->error('De todas formas se continúa la carga, se recomienda revisar la definición de este perfil.');
+				$this->manejador_interface->separador();
 			}
-			$this->manejador_interface->progreso_fin();
-		} catch (toba_error $e) {
-			$this->manejador_interface->mensaje($e->getMessage());
-		}			
+			toba_logger::instancia()->debug($archivo);
+			$this->manejador_interface->progreso_avanzar();
+		}
+		$this->manejador_interface->progreso_fin();
 	}
 
 	private function get_sql_cargar_perfiles()

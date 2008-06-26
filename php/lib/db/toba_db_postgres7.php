@@ -39,11 +39,13 @@ class toba_db_postgres7 extends toba_db
 		return $datos[0]['seq'];
 	}
 		
-	function retrazar_constraints()
+	function retrazar_constraints($retrazar = true)
 	{
-		$this->ejecutar("SET CONSTRAINTS ALL DEFERRED");
-		toba_logger::instancia()->debug("************ Se retraza el chequeo de constraints ****************", 'toba');		
+		$tipo = $retrazar ? 'DEFERRED' : 'IMMEDIATE';
+		$this->ejecutar("SET CONSTRAINTS ALL $tipo");
+		toba_logger::instancia()->debug("************ Se cambia el chequeo de constraints ($tipo) ****************", 'toba');		
 	}
+	
 
 	function abrir_transaccion()
 	{
