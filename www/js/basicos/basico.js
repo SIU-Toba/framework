@@ -167,13 +167,18 @@ function addEvent(o, _e, c, _b){
 	// strip out the body of the functions	
 	if (typeof o[e] == 'function') {
 		var x = o[e].toString();
-		x = x.substring(x.indexOf("{")+1, x.lastIndexOf("}"));		
+		var inicial = x.indexOf("{");
+		var final = x.lastIndexOf("}")
+		//Evita casos en que la funcion es anonima y el browser no lo retorna como un bloque
+		if (inicial != -1 && final != -1) {
+			x = x.substring(inicial+1, final);
+		}		
 	} else {
 		x = (o[e]) ? o[e] : '';
 	}
 	if (typeof c == 'function') {
 		c = c.toString();
-		c = c.substring(c.indexOf("{")+1, c.lastIndexOf("}"));		
+		c = c.substring(c.indexOf("{")+1, c.lastIndexOf("}"));
 	}
 
 	x = ((b) ? (x + ';' + c) : (c + ';' +  x)) + "\n";

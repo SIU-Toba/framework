@@ -47,14 +47,8 @@ class toba_ef_editable extends toba_ef
 			$this->tamano = $parametros['edit_tamano'];	
 		}
 		//Maximo de caracteres
-		if(isset($parametros['edit_maximo'])){
-			if($parametros['edit_maximo']!=""){
-				$this->maximo = $parametros['edit_maximo'];
-			}else{
-				$this->maximo = $this->tamano;
-			}
-		}else{
-			$this->maximo = $this->tamano;
+		if(isset($parametros['edit_maximo']) && $parametros['edit_maximo']!=""){
+			$this->maximo = $parametros['edit_maximo'];
 		}
 		//Mascara
 		if(isset($parametros['edit_mascara'])) {
@@ -444,6 +438,21 @@ class toba_ef_editable_clave extends toba_ef_editable
 		}
 		return $html;
 	}
+	
+	function validar_estado()
+	{
+		$padre = parent::validar_estado();
+		if ($padre !== true) {
+			return $padre;	
+		}		
+		if ($this->estado != '' && $this->confirmar_clave) {
+			$test = trim($_POST[$this->id_form].'_test');
+			if ($this->estado != $test) {
+				return 'No coinciden las claves';
+			}
+		}
+		return true;
+	}	
 	
 	function crear_objeto_js()
 	{
