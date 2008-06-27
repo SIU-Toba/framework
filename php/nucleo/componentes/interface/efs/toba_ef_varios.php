@@ -249,7 +249,8 @@ class toba_ef_html extends toba_ef
 {
 	protected $ancho;
 	protected $alto;
-	protected  $botonera;
+	protected $botonera;
+	protected $fckeditor;
 
 	static function get_lista_parametros()
 	{
@@ -264,7 +265,7 @@ class toba_ef_html extends toba_ef
 		$this->ancho = (isset($parametros['editor_ancho']))? $parametros['editor_ancho'] : "100%";
 		$this->alto = (isset($parametros['editor_alto']))? $parametros['editor_alto'] : "300px";
 		$this->botonera = (isset($parametros['editor_botonera']))? $parametros['editor_botonera'] : "Toba";
-         parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
+        parent::__construct($padre, $nombre_formulario, $id, $etiqueta, $descripcion, $dato, $obligatorio, $parametros);
 	}
 
 	function get_consumo_javascript()
@@ -272,6 +273,26 @@ class toba_ef_html extends toba_ef
 		$consumo = parent::get_consumo_javascript();
 		$consumo[] = "fck_editor";
 		return $consumo;
+	}
+	
+	/**
+	 * Retorna el objeto fckeditor para poder modificarlo según su propia API
+	 * @return fckeditor
+	 */
+	function get_editor()
+	{
+		if (! isset($this->fckeditor)) {
+			require_once(toba_dir().'/www/js/fckeditor/fckeditor_php5.php');
+			$url = toba_recurso::url_toba().'/js/fckeditor/';
+			$this->fckeditor = new FCKeditor($this->id_form) ;
+			$this->fckeditor->BasePath = $url;
+			$this->fckeditor->Width = $this->ancho;
+			$this->fckeditor->Height = $this->alto;
+			$this->fckeditor->ToolbarSet = $this->botonera;
+			$this->fckeditor->Config['SkinPath'] = $url.'editor/skins/silver/';
+			$this->fckeditor->Config['DefaultLanguage'] = 'es';
+		}
+		return $this->fckeditor;		
 	}
 
 	function get_input()
@@ -283,22 +304,11 @@ class toba_ef_html extends toba_ef
 		}
 
 		if ($this->solo_lectura) {
-			$html = "<div style='font-family: Arial, Verdana, Sans-Serif;
-								 font-size: 12px;
-								 padding: 5px 5px 5px 5px;
-								 margin: 0px;
-								 border-style: none;
-								 background-color: #ffffff;'>
-								$estado
-								</div>";
+			$html = "<div class='ef-html'>$estado</div>";
 		} else {
-			$estado = addslashes($estado);
-			$url = toba_recurso::url_toba().'/js/fckeditor/';
-			$html = "<script type='text/javascript'>
-						  var oFCKeditor = new FCKeditor('{$this->id_form}','{$this->ancho}','{$this->alto}','{$this->botonera}','{$estado}' ) ;
-						  oFCKeditor.BasePath = '$url';
-						  oFCKeditor.Create() ;
-					 </script>";
+			$fck_editor = $this->get_editor();
+			$fck_editor->Value = $estado;			
+			$html = $fck_editor->CreateHtml() ;
 		}
 		return $html;
 	}

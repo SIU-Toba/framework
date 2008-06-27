@@ -376,6 +376,14 @@ padding-left:4px;
 .ef-popup a {
 	margin-right:5px;
 }
+.ef-html {
+	font-family: Arial, Verdana, Sans-Serif;
+	font-size: 12px;
+	padding: 5px 5px 5px 5px;
+	margin: 0px;
+	border-style: none;
+	background-color: #ffffff;	
+}
 
 /*************************
 		EI - CUADRO

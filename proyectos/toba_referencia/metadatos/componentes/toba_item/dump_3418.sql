@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3418]--  Prueba CAPTCHA 
+--[3418]--  ef_captcha 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Prueba CAPTCHA', --nombre
+	'ef_captcha', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
-	'9', --orden
+	'10', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

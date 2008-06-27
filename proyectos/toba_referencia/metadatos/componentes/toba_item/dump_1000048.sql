@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000048]--  Popup 
+--[1000048]--  ef_popup 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,11 +23,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Popup', --nombre
+	'ef_popup', --nombre
 	NULL, --descripcion
 	'', --actividad_accion
 	'1', --menu
-	'8', --orden
+	'9', --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo

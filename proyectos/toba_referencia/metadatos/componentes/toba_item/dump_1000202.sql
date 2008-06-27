@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[1000202]--  Upload 
+--[1000202]--  ef_upload 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'CI', --actividad_patron
-	'Upload', --nombre
+	'ef_upload', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu

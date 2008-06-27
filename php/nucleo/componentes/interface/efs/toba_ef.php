@@ -75,7 +75,11 @@ abstract class toba_ef
 		} else {
 			$this->solo_lectura = false;
 		}		
-		
+		//Valor FIJO
+		if(isset($parametros['estado_defecto'])){
+			$this->estado_defecto = $parametros['estado_defecto'];
+			$this->estado = $this->estado_defecto;
+		}		
 		//---------------------- Manejo de CLAVES  ------------------
 		if (isset($parametros['carga_col_clave'])) {
 			$campos_clave = explode(",", $parametros['carga_col_clave']);
