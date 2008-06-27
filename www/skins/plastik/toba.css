@@ -289,6 +289,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	font-weight: bold;
 }
 
+.mensaje-cuerpo-info {
+	text-align:center;
+}
+
 /*************************
 		CALENDARIO
 **************************/

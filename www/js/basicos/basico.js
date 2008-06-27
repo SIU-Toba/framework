@@ -447,7 +447,8 @@ function var_dump(variable, ret) {
 
 function salir(){
 	if(confirm('Desea terminar la sesión?')) {
-		var vinculo = toba_prefijo_vinculo + '&fs=1';
+		var prefijo = toba_prefijo_vinculo.substr(0, toba_prefijo_vinculo.indexOf('?'));
+		var vinculo = prefijo + '?fs=1';
 		if (top) {
 			top.location.href= vinculo;
 		} else {

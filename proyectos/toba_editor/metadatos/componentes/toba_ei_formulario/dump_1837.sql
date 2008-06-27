@@ -221,7 +221,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable', --elemento_formulario
 	'descripcion', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
@@ -292,9 +292,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'clase_nombre', --identificador
 	'ef_editable', --elemento_formulario
 	'clase_nombre', --columnas
-	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'4', --orden
+	'1', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'3', --orden
 	'Clase nombre', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -365,8 +365,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_popup', --elemento_formulario
 	'clase_archivo', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
-	'3', --orden
+	'0', --oculto_relaja_obligatorio
+	'4', --orden
 	'Clase archivo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -437,7 +437,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_editable', --elemento_formulario
 	'pagina_tipo', --columnas
 	'1', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Indentificador', --etiqueta
 	NULL, --etiqueta_estilo

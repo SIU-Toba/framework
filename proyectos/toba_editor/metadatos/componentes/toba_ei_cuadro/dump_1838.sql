@@ -87,16 +87,16 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'proyecto, pagina_tipo', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
-	NULL, --ancho
+	'100%', --ancho
 	'0', --ordenar
 	'0', --paginar
 	NULL, --tamano_pagina
-	NULL, --tipo_paginado
+	'P', --tipo_paginado
 	'0', --eof_invisible
 	'No hay tipos de pagina propios del proyecto.', --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'0', --exportar
-	NULL, --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas

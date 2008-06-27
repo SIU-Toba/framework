@@ -123,6 +123,11 @@ class toba_ef_editable extends toba_ef
 				return 'No es válido';
 			}
 		}
+		if ($this->estado != '' && isset($this->maximo) && ! is_null($this->maximo)) {
+			if (strlen($this->estado) > $this->maximo) {
+				return "Supera el ancho máximo {$this->maximo}";
+			}
+		}
 		return true;
 	}	
 	

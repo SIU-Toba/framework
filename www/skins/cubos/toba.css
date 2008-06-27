@@ -204,6 +204,9 @@ a.ci-tabs-boton-desact:hover {
 .overlay-botonera {
 	border-top: 1px solid gray;
 }
+.mensaje-cuerpo-info {
+	text-align:center;
+}
 /*************************
 	Calendario
 **************************/
