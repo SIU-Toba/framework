@@ -9,6 +9,12 @@ class toba_migracion
 	{
 		$this->elemento = $elemento_modelo;
 		$this->manejador_interface = $elemento_modelo->get_manejador_interface();
+		$this->ini();
+	}
+	
+	function ini()
+	{
+		
 	}
 
 }
