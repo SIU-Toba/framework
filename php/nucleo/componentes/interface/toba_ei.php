@@ -468,9 +468,10 @@ abstract class toba_ei extends toba_componente
 	/**
 	 * Cambia la descripción del componente para el servicio actual
 	 */	
-	function set_descripcion($desc)
+	function set_descripcion($desc, $tipo='info')
 	{
 		$this->_info["descripcion"] = $desc;
+		$this->_info["descripcion_tipo"] = $tipo;
 	}
 	
 	/**
@@ -527,7 +528,7 @@ abstract class toba_ei extends toba_componente
 				echo '<span class="ei-barra-sup-desc">';
 				$desc = toba_parser_ayuda::parsear($this->_info["descripcion"]);
 				echo toba_recurso::imagen_toba("descripcion.gif",true,null,null, $desc);
-				echo '</span>';
+				echo '</span>';		
 			}
 	
 			//---Barra de colapsado
@@ -542,15 +543,33 @@ abstract class toba_ei extends toba_componente
 			//echo ei_barra_fin();
 		}
 		
-		//--- Descripcion con barra
+		//--- Descripcion con barra. Muestra una barra en lugar de un tooltip
 		if(trim($this->_info["descripcion"])!="" &&  !$this->_modo_descripcion_tooltip){
-				//--- Muestra una barra en lugar de un tooltip	
-			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
-			$descripcion = toba_parser_ayuda::parsear($this->_info["descripcion"]);
-			echo "<div class='ei-barra-sup-desc-barra'>$imagen&nbsp;$descripcion</div>\n";
+			$tipo = isset($this->_info['descripcion_tipo']) ? $this->_info['descripcion_tipo'] : null;
+			$this->generar_html_descripcion($this->_info['descripcion'], $tipo);
 		}				
 	}
 
+	
+	/**
+	 * @ignore
+	 */
+	protected function generar_html_descripcion($mensaje, $tipo=null)
+	{
+		if (! isset($tipo) || $tipo == 'info') {
+			$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
+			$clase = 'ei-barra-sup-desc-info';			
+		} elseif ($tipo== 'warning') {
+			$imagen = toba_recurso::imagen_toba("warning.gif",true);
+			$clase = 'ei-barra-sup-desc-warning';		
+		} elseif ($tipo == 'error') {
+			$imagen = toba_recurso::imagen_toba("error.gif",true);
+			$clase = 'ei-barra-sup-desc-error';			
+		}		
+		$descripcion = toba_parser_ayuda::parsear($mensaje);
+		echo "<table class='tabla-0 $clase'><tr><td class='ei-barra-sup-desc-img'>$imagen</td><td>$descripcion</td></table>\n";
+	}
+	
 	/**
 	 * @ignore 
 	 */

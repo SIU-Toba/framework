@@ -478,24 +478,15 @@ class toba_ei_pantalla extends toba_ei
 		//--- Descripcion de la PANTALLA
 		$es_wizard = $this->_info_ci['tipo_navegacion'] == 'wizard';
 		if ($this->_info_pantalla['descripcion'] !="" || $es_wizard) {
-			$clase = '';			
-			if (! isset($this->_info_pantalla['descripcion_tipo']) || $this->_info_pantalla['descripcion_tipo'] == 'info') {
-				$imagen = toba_recurso::imagen_toba("info_chico.gif",true);
-			} elseif ($this->_info_pantalla['descripcion_tipo'] == 'warning') {
-				$imagen = toba_recurso::imagen_toba("warning.gif",true);
-				$clase = 'ci-pant-desc-warning';			
-			} elseif ($this->_info_pantalla['descripcion_tipo'] == 'error') {
-				$imagen = toba_recurso::imagen_toba("error.gif",true);
-				$clase = 'ci-pant-desc-error';			
-			}
-			$descripcion = toba_parser_ayuda::parsear($this->_info_pantalla['descripcion']);
+			$tipo = isset($this->_info_pantalla['descripcion_tipo']) ? $this->_info_pantalla['descripcion_tipo'] : null;			
 			if ($es_wizard) {
-				$html = "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
-				$html .= $this->get_etiqueta();
-				$html .= "</div><div class='ci-wiz-descr $clase'>$descripcion</div></div>";
-				echo $html;
+				echo "<div class='ci-wiz-enc'><div class='ci-wiz-titulo'>";
+				echo $this->get_etiqueta();
+				echo "</div>";
+				$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);
+				echo "</div>";
 			} else {
-				echo "<table class='tabla-0 ci-pant-desc $clase'><tr'><td class='ci-pant-desc-img' >$imagen</td><td>$descripcion</td></table>\n";
+				$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);
 			}
 			echo "<hr class='ci-pant-sep' />\n";
 		}

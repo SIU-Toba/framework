@@ -7,7 +7,7 @@ class sesion_editor extends toba_sesion
 		//toba_editor::iniciar($datos['instancia'], $datos['proyecto']);
 		$instancia = toba::instancia()->get_id();
 		toba_editor::iniciar($instancia, $datos['proyecto']);
-		//Seteo el valor en la memoria global para toba_instancia
+		//Seteo el valor en la memoria global para toba_usuarios
 		//toba::memoria()->set_dato_instancia('instancia', $datos['instancia']);
 		toba::memoria()->set_dato_instancia('instancia', $instancia);
 		toba::memoria()->set_dato_instancia('proyecto', $datos['proyecto']);

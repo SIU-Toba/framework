@@ -177,18 +177,19 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 **************************/
 .ci-barra-sup {
 }
-.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+.ei-barra-sup-desc-info, .ci-wiz-enc {
 	color: #000000;
 	background-color: #ffffff;
 	border: 1px dotted #eeeeee;
 	_border: 1px solid #eeeeee;
 }
-.ci-pant-desc-warning {
+.ei-barra-sup-desc-warning, .ci-pant-desc-warning {
 	background-color: #FFFFE1;
 	border: 1px solid #B7C8F6;
 }
-.ci-pant-desc-warning td {
-	padding-left: 5px;
+.ei-barra-sup-desc-error, .ci-pant-desc-error {
+	background-color: #F1D3D9;
+	border: 1px solid #B7C8F6;
 }
 .ci-pant-sep {
 	display:none;

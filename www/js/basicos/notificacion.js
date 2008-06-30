@@ -67,6 +67,9 @@ notificacion = new function() {
 			if (this._mensajes[i][1] == 'error') {
 				titulo = 'Se han encontrado los siguientes problemas:';
 				gravedad = '<img src="'+ toba.imagen('error') + '"/> ';
+			} else if (this._mensajes[i][1] == 'warning') {
+				titulo = 'Aviso:';
+				gravedad = '<img src="'+ toba.imagen('warning') + '"/> ';
 			} else {
 				gravedad = '<img src="'+ toba.imagen('info') + '"/> ';
 			}

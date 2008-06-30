@@ -82,7 +82,7 @@ ef.prototype.constructor = ef;
 	 * @type boolean
 	 */		
 	ef.prototype.activo = function() {
-		return !(this.input().disabled);
+		return this.input().type !='hidden' && !this.input().disabled;
 	};
 		
 	/**

@@ -127,9 +127,17 @@ body {
 	background-color: #808080 !important;
 	background-image: none !important;
 }
-.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+.ei-barra-sup-desc-info, .ci-wiz-enc {
 	color: #222222;
 	background-color: #ffffff;
+}
+.ei-barra-sup-desc-warning {
+	background-color: #FFFFE1;
+	border: 1px solid #B7C8F6;
+}
+.ei-barra-sup-desc-error {
+	background-color: #F1D3D9;
+	border: 1px solid #B7C8F6;
 }
 .ci-tabs-v-cont {
 	border-right: 2px solid #808080;

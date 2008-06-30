@@ -17,7 +17,7 @@ ef_editable.prototype.constructor = ef_editable;
 	//---Consultas
 	
 	ef_editable.prototype.activo = function() {
-		return !(this.input().readOnly);
+		return this.input().type !='hidden' && !this.input().readOnly;
 	};
 	
 	/**

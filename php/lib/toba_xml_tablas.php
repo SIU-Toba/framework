@@ -114,7 +114,7 @@ class toba_xml_tablas
 				$i++;
 			}
 		}
-		$conexion->retrazar_constraints(false);
+		$conexion->retrazar_constraints(true);
 		return $errores;
 	}
 

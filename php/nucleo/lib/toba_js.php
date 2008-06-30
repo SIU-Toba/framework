@@ -98,7 +98,8 @@ class toba_js
 	{
 		if (! self::$basicos_cargados) {
 			$imagenes = array(	'error' => toba_recurso::imagen_toba('error.gif', false), 
-								'info' => toba_recurso::imagen_toba('info_chico.gif', false), 
+								'info' => toba_recurso::imagen_toba('info_chico.gif', false),
+								'warning' => toba_recurso::imagen_toba('warning.gif', false),  
 								'maximizar' => toba_recurso::imagen_toba('nucleo/sentido_des_sel.gif', false), 
 								'minimizar' => toba_recurso::imagen_toba('nucleo/sentido_asc_sel.gif', false),
 								'expandir'  => toba_recurso::imagen_skin('expandir_vert.gif', false),

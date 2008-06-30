@@ -95,7 +95,7 @@ class toba_instalador
 	{
 		$instalacion = $this->get_instalacion();
 		if ($excluir_internos) {
-			$excluir = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_instancia');
+			$excluir = array('toba_editor', 'toba_referencia', 'toba_testing', 'toba_usuarios');
 		} else {
 			$excluir = array();
 		}

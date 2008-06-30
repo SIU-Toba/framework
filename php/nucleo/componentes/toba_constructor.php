@@ -52,6 +52,13 @@ class toba_constructor
 				$datos['_const_instancia_numero'] = $instancia_nro;
 				//Instancio el objeto
 				$objeto = new $clase( $datos );
+				//Controlo que pertenezca a la clase definida
+				if (! $objeto instanceof $datos['_info']['clase']) {
+					$clase_actual = get_class($objeto);
+					$clase_requerida = $datos['_info']['clase'];
+					$componente = $datos['_info']['objeto'];
+					throw new toba_error_def("La sublcase '$clase_actual' del componente '$componente' debe heredar de la clase '$clase_requerida'");
+				}
 				self::$objetos_runtime_instanciados[ $id['componente'] ][] = $objeto;
 			}
 			return self::$objetos_runtime_instanciados[ $id['componente'] ][$instancia_nro];
