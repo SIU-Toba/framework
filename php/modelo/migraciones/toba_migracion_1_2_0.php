@@ -240,13 +240,13 @@ class toba_migracion_1_2_0 extends toba_migracion
 		
 		
 		//-- Generar un .sql para poder migrar las instalaciones
-		$migracion = "BEGIN\n";
-		$migracion .= "SET CONSTRAINTS ALL DEFERRED\n";
+		$migracion = "BEGIN;\n";
+		$migracion .= "SET CONSTRAINTS ALL DEFERRED;\n";
 		$migracion .= "\n\n--------- Se crean las constraints con UPDATE CASCADE\n";
 		$migracion .= implode("\n", $this->sql_migracion);
 		$migracion .= "\n\n--------- Se migran los ids de los items\n";		
 		$migracion .= implode("\n", $sqls_items);
-		$migracion .= "COMMIT\n";
+		$migracion .= "\n\nCOMMIT;\n";
 		file_put_contents($this->elemento->get_dir().'/migracion_instalaciones_1.2.0.sql', $migracion);
 		
 		/*

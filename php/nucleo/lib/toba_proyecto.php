@@ -477,7 +477,6 @@ class toba_proyecto
 	
 	function recuperar_datos_compilados($clase, $metodo)
 	{
-		toba::logger()->trace();
 		return call_user_func(array($clase, $metodo));
 	}
 

@@ -1492,7 +1492,7 @@ class toba_ei_cuadro extends toba_ei
 					if(isset($this->datos[$f][$this->_columnas[$a]["clave"]])){
 						$valor_real = $this->datos[$f][$this->_columnas[$a]["clave"]];
 					}else{
-						$valor_real = '&nbsp;';
+						$valor_real = null;
 						//ATENCION!! hay una columna que no esta disponible!
 					}
 	                //Hay que formatear?
@@ -1545,7 +1545,7 @@ class toba_ei_cuadro extends toba_ei
 	                $ancho = "";
 	            }                
                 echo "<td class='$estilo_seleccion ".$this->_columnas[$a]["estilo"]."' $ancho>\n";
-                if ($valor !== '' || $valor !== null) {
+                if (trim($valor) !== '') {
                 	echo $valor;
                 } else {
                 	echo '&nbsp;';

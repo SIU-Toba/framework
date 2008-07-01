@@ -78,11 +78,18 @@ class toba_catalogo_asistentes
 			$where = 'WHERE dt_tipo_dato IS NOT NULL';
 		}
 		$sql = "SELECT 
-					*
+					tipo_dato,
+  					descripcion_corta,
+  					descripcion,
+  					dt_tipo_dato,
+  					elemento_formulario,
+					cuadro_estilo,
+  					cuadro_formato,
+  					filtro_operador
 				FROM apex_molde_operacion_tipo_dato
-				$where
+					$where
 				ORDER BY descripcion_corta
-		";		
+		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}
 	
@@ -140,7 +147,6 @@ class toba_catalogo_asistentes
 	{
 		$db = toba::db($fuente, toba_editor::get_proyecto_cargado());
 		$nuevas = $db->get_definicion_columnas($tabla);
-
 		//-- Se busca un mapeo entre el tipo en la base y el tipo en el asistente
 		$mapeo_tipos = rs_convertir_asociativo(self::get_lista_tipo_dato(true), array('dt_tipo_dato'), 'tipo_dato');
 		$salida = array();
@@ -171,9 +177,6 @@ class toba_catalogo_asistentes
 				$fila['en_cuadro'] = 0;
 			}
 			$fila['ef_obligatorio'] = $fila['en_form'] && ($nueva['pk'] || $nueva['not_null']);			
-			if ($nueva['pk']) {
-				$fila['orden'] = 1;
-			}
 			if ($nueva['pk'] && $fila['en_form']) {
 				$nueva['ef_desactivar_modificacion'] = 1;
 			}
@@ -182,8 +185,6 @@ class toba_catalogo_asistentes
 		return $salida;
 	}
 	
-	
-
 	
 }
 ?>

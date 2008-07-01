@@ -57,7 +57,7 @@ class toba_asistente_abms extends toba_asistente_1dt
 	
 	protected function generar()
 	{	
-		$clase = $this->molde['prefijo_clases'] . 'ci';
+		$clase = 'ci'.$this->molde['prefijo_clases'];
 		$this->ci->set_nombre($this->molde['nombre'] . ' - CI');
 		$this->ci->extender($clase , $clase . '.php');
 		$this->ci->set_ancho('500px');
@@ -76,13 +76,13 @@ class toba_asistente_abms extends toba_asistente_1dt
 		//- Pantallas --------------------------------------------
 		if (!$this->molde_abms['gen_separar_pantallas']) {
 			//Pantalla UNICA
-			$this->ci->agregar_pantalla(1, 'Pantalla');
+			$this->ci->agregar_pantalla('pant_edicion', 'Pantalla');
 			if ($this->molde_abms['gen_usa_filtro']) {
-				$this->ci->asociar_pantalla_dep(1, $filtro);
+				$this->ci->asociar_pantalla_dep('pant_edicion', $filtro);
 			}
 			
-			$this->ci->asociar_pantalla_dep(1, $cuadro);
-			$this->ci->asociar_pantalla_dep(1, $form);
+			$this->ci->asociar_pantalla_dep('pant_edicion', $cuadro);
+			$this->ci->asociar_pantalla_dep('pant_edicion', $form);
 		} else {
 			//Pantallas SELECCION & EDICION
 			$this->ci->agregar_pantalla('pant_seleccion', 'Selección');
@@ -390,29 +390,12 @@ class toba_asistente_abms extends toba_asistente_1dt
 			$evento->set_predeterminado();
 			$evento->set_grupos('no_cargado');
 			$metodo = new toba_codigo_metodo_php('evt__formulario__alta',array('$datos'));
-			$metodo->set_contenido( array(	"\$this->dep('datos')->nueva_fila(\$datos);",
+			$metodo->set_contenido( array(	"\$this->dep('datos')->set(\$datos);",
 											"\$this->dep('datos')->sincronizar();",
 											"\$this->resetear();"));
 			$this->ci->php()->agregar($metodo);
 		}
-		//--------------------------------------------------------
-		//--- evt__formulario__baja ------------------------------
-		//--------------------------------------------------------
-		if (! $this->molde_abms['gen_separar_pantallas']) {
-			$evento = $form->agregar_evento('baja');
-			$evento->set_etiqueta('Eliminar');
-			$evento->en_botonera();
-			$evento->set_imagen('borrar.gif');
-			$evento->set_estilo('ei-boton-baja');
-			$evento->set_confirmacion($this->confirmacion_eliminar);
-			$evento->set_grupos('cargado');
-			$metodo = new toba_codigo_metodo_php('evt__formulario__baja');
-			$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_filas();",
-											"\$this->dep('datos')->sincronizar();",
-											"\$this->resetear();"));
-			$this->ci->php()->agregar($metodo);
-		}
-					
+		
 		//--------------------------------------------------------
 		//--- evt__formulario__modificacion ----------------------
 		//--------------------------------------------------------
@@ -434,6 +417,26 @@ class toba_asistente_abms extends toba_asistente_1dt
 			
 		}
 		$this->ci->php()->agregar($metodo);
+				
+		//--------------------------------------------------------
+		//--- evt__formulario__baja ------------------------------
+		//--------------------------------------------------------
+		if (! $this->molde_abms['gen_separar_pantallas']) {
+			$evento = $form->agregar_evento('baja');
+			$evento->set_etiqueta('Eliminar');
+			$evento->en_botonera();
+			$evento->set_imagen('borrar.gif');
+			$evento->set_estilo('ei-boton-baja');
+			$evento->set_confirmacion($this->confirmacion_eliminar);
+			$evento->set_grupos('cargado');
+			$metodo = new toba_codigo_metodo_php('evt__formulario__baja');
+			$metodo->set_contenido( array(	"\$this->dep('datos')->eliminar_filas();",
+											"\$this->dep('datos')->sincronizar();",
+											"\$this->resetear();"));
+			$this->ci->php()->agregar($metodo);
+		}
+					
+
 		//--------------------------------------------------------
 		//--- evt__formulario__cancelar --------------------------
 		//--------------------------------------------------------

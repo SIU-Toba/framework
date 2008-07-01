@@ -42,7 +42,7 @@ class toba_asistente_grilla extends toba_asistente_1dt
 	
 	function crear_extension()
 	{
-		$clase = $this->molde['prefijo_clases'] . 'ci';
+		$clase = 'ci'.$this->molde['prefijo_clases'];
 		$this->ci->extender($clase , $clase . '.php');
 		$metodo = new toba_codigo_metodo_php('ini__operacion');
 		$metodo->set_contenido("\$this->dep('datos')->cargar();");

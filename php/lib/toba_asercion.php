@@ -21,9 +21,13 @@ class toba_asercion
 		}
 	}
 
-	static function es_array($array, $texto="ATENCION, el elemento no es un ARRAY")
+	static function es_array($array, $texto="ATENCION, el elemento no es un ARRAY", $en_lugar_de=false)
 	{
 		if(!is_array($array)){
+			if ($en_lugar_de) {
+				$recibido = var_export($array, true);
+				$texto .= "\nEn su lugar se recibio el valor: <pre>$recibido</pre>";
+			}
 			throw new toba_error($texto);
 		}
 	}

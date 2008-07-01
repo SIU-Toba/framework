@@ -66,7 +66,7 @@ class ci_asistente_base extends toba_ci
 		$datos = $this->dep('datos')->tabla('molde')->get();
 		$nombre = strtolower(toba::zona()->get_info('nombre'));
 		if (!isset($datos['prefijo_clases'])) {
-			$datos['prefijo_clases'] = toba_texto::nombre_valido_clase( $nombre ).'_';
+			$datos['prefijo_clases'] = '_'.toba_texto::nombre_valido_clase( $nombre );
 		}
 		if (!isset($datos['carpeta_archivos'])) {
 			$datos['carpeta_archivos'] = toba_texto::nombre_valido_clase( $nombre );

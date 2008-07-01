@@ -23,7 +23,6 @@ class toba_error_db extends toba_error
 	protected $codigo;
 	protected $info_error;				//Arreglo que mantiene SQLSTATE, codigo especifico del motor, mensaje especifico del motor.
 	protected $sql;
-	protected $mensaje_motor ='';
 	protected $parser_errores;
 	protected $es_comando;
 
@@ -35,7 +34,6 @@ class toba_error_db extends toba_error
 		//- No se crea un arreglo cuando falla la conexion a la base ya que son propiedades del objeto conexion.
 		if (is_array($info->errorInfo)){
 			$this->set_info_error($info->errorInfo);
-			$this->set_mensaje_motor($this->info_error[2]);	
 		}else{
 			 //- No va a funcionar si se cambia de motor porque se parsea el mensaje de postgres 
 			$cadena = substr($info->getMessage(),0,16);
@@ -84,7 +82,7 @@ class toba_error_db extends toba_error
 
 	function set_mensaje_motor($mensaje)
 	{
-		$this->mensaje_motor = $mensaje;
+		 $this->info_error[2] = $mensaje;
 	}
 	
 	function set_sql_ejecutado($sql)

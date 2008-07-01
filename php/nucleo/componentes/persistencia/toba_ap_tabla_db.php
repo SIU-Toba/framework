@@ -210,7 +210,8 @@ class toba_ap_tabla_db implements toba_ap_tabla
 	 */
 	function cargar_por_clave($clave, $anexar_datos=false, $usar_cursores=false)
 	{
-		toba_asercion::es_array($clave, "AP [$this->_tabla] ERROR: La clave debe ser un array");
+		toba_asercion::es_array($clave, "Error cargando la tabla <b>$this->_tabla</b>, se esperaba un arreglo asociativo por ejemplo ".
+													"<pre>\$tabla->cargar(array('campo'=> 'valor'))</pre>", true);
 		$where = $this->generar_clausula_where($clave);
 		return $this->cargar_con_where_from_especifico($where, null, $anexar_datos, $usar_cursores);
 	}
@@ -260,10 +261,13 @@ class toba_ap_tabla_db implements toba_ap_tabla
 		try{
 			$db = toba::db($this->_fuente);
 			$datos = $db->consultar($sql);
-		}catch(toba_error $e){
+		}catch(toba_error_db $e){
+			$mensaje = $e->get_mensaje_motor();
+			$mensaje = "Error cargando la tabla <b>$this->_tabla</b>, a continuación el mensaje de la base:<br>".$mensaje;
+			$e->set_mensaje_motor($mensaje);
 			toba::logger()->error( get_class($this). ' - '.
 									'Error cargando datos. ' .$e->getMessage() );
-			throw new toba_error('AP - OBJETO_DATOS_TABLA: Error cargando datos. Verifique la definicion.\n' . $e->getMessage() );
+			throw $e;
 		}
 		return $this->cargar_con_datos($datos, $anexar_datos, $usar_cursores);
 	}
