@@ -259,6 +259,7 @@ padding-left:4px;
 	margin: 0;		
 	BORDER-COLLAPSE: collapse;
 	empty-cells: hide;
+	margin-bottom: 5px;
 }
 .ei-ml-botonera {
 	text-align:left;

@@ -24,7 +24,7 @@ class ci_ei_filtro extends toba_ci
 		$this->s__datos = $datos;
 		
 		//-- Se cambia la condición de la cadena para que invoque una funcion durante la evaluacion
-		$this->dep('filtro')->columna('nombre')->condicion()->set_pre_evaluacion('masajear_nombre(');
+		$this->dep('filtro')->columna('nombre')->condicion()->set_pre_evaluacion('funcion_x(');
 		$this->dep('filtro')->columna('nombre')->condicion()->set_post_evaluacion(')');
 		//-----
 
@@ -61,7 +61,7 @@ class condicion_funcion_es_activo extends toba_filtro_condicion
 	function get_sql($campo, $valor)
 	{
 		$valor = toba::db()->quote($valor);
-		return "es_activo($campo) = $valor";
+		return "funcion_x($campo) = $valor";
 	}	
 }
 

@@ -217,7 +217,7 @@ class toba_datos_editores
   array (
     'identificador' => '1',
     'etiqueta' => 'Propiedades basicas',
-    'imagen' => 'objetos/ut_formulario.gif',
+    'imagen' => 'objetos/filtro.gif',
     'imagen_recurso_origen' => 'apex',
   ),
   1 => 

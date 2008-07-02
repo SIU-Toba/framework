@@ -331,6 +331,8 @@ abstract class toba_ei extends toba_componente
 			echo $extra;
 			$this->generar_botones_eventos();
 			echo "</div>";
+		} elseif ($extra != '') {
+			echo $extra;
 		}
 	}	
 	

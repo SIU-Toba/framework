@@ -221,7 +221,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
-	'objetos/ut_formulario.gif', --imagen
+	'objetos/filtro.gif', --imagen
 	'base,prop_basicas', --objetos
 	'eliminar,procesar', --eventos
 	NULL, --subclase
