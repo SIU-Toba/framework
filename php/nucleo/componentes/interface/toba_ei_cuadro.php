@@ -712,7 +712,7 @@ class toba_ei_cuadro extends toba_ei
 	 * Cambia el tamaño de página a usar en el paginado
 	 * @param integer $tam
 	 */
-	function set_tamanio_pagina($tam=null)
+	function set_tamanio_pagina($tamanio=null)
 	{
 		if(isset($tamanio)){
 			$this->_tamanio_pagina = $tamanio;
