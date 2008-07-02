@@ -120,12 +120,11 @@ class toba_ef_cuit extends toba_ef
 			case 'html':
 			case 'impresion_html':
 				return "<div class='{$this->clase_css}'>$desc</div>";
-			break;
+				break;
 			case 'pdf':
+			case 'excel':			
 				return $desc;
-			case 'excel':
-				return array($desc, null);	
-			break;
+				break;
 		}
 	}		
 	
