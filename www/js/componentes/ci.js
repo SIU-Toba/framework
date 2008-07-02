@@ -250,7 +250,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	ci.prototype.activar_tab = function(id) {
 		var boton = this.get_tab(id);
 		if(boton){
-			if (boton.onclick_viejo !== '') {
+			if (typeof boton.onclick_viejo != 'undefined') {
 				boton.onclick = boton.onclick_viejo;
 			}
 			boton.className = '';

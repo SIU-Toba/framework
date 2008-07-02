@@ -780,8 +780,10 @@ class toba_ei_formulario extends toba_ei
 	/**
 	 * Genera la etiqueta y el componente HTML de un ef
 	 * @param string $ef Identificador del ef
+	 * @param string $ancho_etiqueta Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.
+	 * Recordar incluír las medidas (px, %, etc.). 
 	 */
-	protected function generar_html_ef($ef)
+	protected function generar_html_ef($ef, $ancho_etiqueta=null)
 	{
 		if (! in_array($ef, $this->_lista_ef_post)) {
 			//Si el ef no se encuentra en la lista posibles, es probable que se alla quitado con una restriccion o una desactivacion manual
@@ -799,9 +801,10 @@ class toba_ei_formulario extends toba_ei
 		}			
 		echo "<div class='$clase' style='$estilo_nodo' id='nodo_$id_ef'>\n";		
 		if ($this->_elemento_formulario[$ef]->tiene_etiqueta()) {
-			$this->generar_etiqueta_ef($ef);
+			$this->generar_etiqueta_ef($ef, $ancho_etiqueta);
 			//--- El margin-left de 0 y el heigth de 1% es para evitar el 'bug de los 3px'  del IE
-			echo "<div id='cont_$id_ef' style='margin-left:{$this->_ancho_etiqueta};_margin-left:0;_height:1%;'>\n";
+			$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
+			echo "<div id='cont_$id_ef' style='margin-left:$ancho;_margin-left:0;_height:1%;'>\n";
 			$this->generar_input_ef($ef);
 			echo "</div>";
 			if (isset($this->_info_formulario['expandir_descripcion']) && $this->_info_formulario['expandir_descripcion']) {
@@ -831,18 +834,20 @@ class toba_ei_formulario extends toba_ei
 	/**
 	 * General el html de la etiqueta de un ef especifico
 	 * @param string $ef Id. del ef
+	 * @param string $ancho_etiqueta Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.
+	 * Recordar incluír las medidas (px, %, etc.). 
 	 */
-	protected function generar_etiqueta_ef($ef)
+	protected function generar_etiqueta_ef($ef, $ancho_etiqueta=null)
 	{
 		$estilo = $this->_elemento_formulario[$ef]->get_estilo_etiqueta();
 		$marca ='';		
 		if ($estilo == '') {
-	        if ($this->_elemento_formulario[$ef]->es_obligatorio()) {
-	    	        $estilo = 'ei-form-etiq-oblig';
-					$marca = '(*)';
-        	} else {
-	            $estilo = 'ei-form-etiq';
-    	    }
+	        		if ($this->_elemento_formulario[$ef]->es_obligatorio()) {
+	    	        		$estilo = 'ei-form-etiq-oblig';
+				$marca = '(*)';
+        			} else {
+	            		$estilo = 'ei-form-etiq';
+    	    		}
 		}
 		$desc='';
 		if (!isset($this->_info_formulario['expandir_descripcion']) || ! $this->_info_formulario['expandir_descripcion']) {
@@ -856,7 +861,8 @@ class toba_ei_formulario extends toba_ei
 		$editor = $this->generar_vinculo_editor($ef);
 		$etiqueta = $this->_elemento_formulario[$ef]->get_etiqueta();
 		//--- El _width es para evitar el 'bug de los 3px'  del IE
-		echo "<label style='_width:{$this->_ancho_etiqueta};' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
+		$ancho = isset($ancho_etiqueta) ? $ancho_etiqueta : $this->_ancho_etiqueta;
+		echo "<label style='_width:$ancho;' for='$id_ef' class='$estilo'>$editor $desc $etiqueta $marca</label>\n";
 	}
 	
 	/**

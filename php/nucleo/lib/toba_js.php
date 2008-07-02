@@ -236,6 +236,7 @@ class toba_js
 						//RECURSIVIDAD
 						$js .= "$id: ".self::arreglo($valor, $seg_nivel_assoc)." ,";
 					} else {
+						$valor = addslashes($valor);				
 						$js .= "$id: '$valor', ";
 					}
 				}
@@ -255,6 +256,7 @@ class toba_js
 					//RECURSIVIDAD
 					$js .= self::arreglo($valor, $seg_nivel_assoc).",";
 				} else {
+					$valor = addslashes($valor);				
 					$js .= "'$valor',";
 				}
 			}
