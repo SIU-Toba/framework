@@ -159,6 +159,7 @@ class toba_ei_arbol extends toba_ei
 				}
 			}
 		}
+		$this->borrar_memoria_eventos_enviados();
 	}
 	
 	protected function disparar_eventos_nodo($nodo) 

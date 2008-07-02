@@ -202,6 +202,7 @@ class toba_ci extends toba_ei
 		}
 		$this->post_eventos();		
 		$this->controlar_cambio_pantalla();
+		$this->borrar_memoria_eventos_enviados();
 	}
 	
 	/**

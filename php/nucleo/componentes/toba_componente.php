@@ -311,6 +311,15 @@ abstract class toba_componente
 		unset($this->_memoria);
 		toba::memoria()->set_dato_sincronizado("obj_".$this->_id[1],null);
 	}
+	
+	/**
+	 * Borra la memoria de un request previo
+	 * @ignore 
+	 */
+	function borrar_memoria_solicitud_previa()
+	{
+		toba::memoria()->eliminar_dato_sincronizado_solicitud_previa("obj_".$this->_id[1]);
+	}
 
 	
 	//-------------------------------------------------------------------------------

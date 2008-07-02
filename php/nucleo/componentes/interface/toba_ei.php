@@ -27,6 +27,7 @@ abstract class toba_ei extends toba_componente
 	protected $_modo_descripcion_tooltip = true;
 	protected $_nombre_formulario;
 	protected $_posicion_botonera;
+	protected static $refresh_ejecuta_eventos = false;
 	
 	function __construct($definicion)
 	{
@@ -35,6 +36,15 @@ abstract class toba_ei extends toba_componente
 		$this->objeto_js = "js_".$this->_submit;
 		$this->preparar_componente();
 	}
+
+	/**
+	 * Hace que los componentes reenvien sus eventos cuando se hace un refresh sobre la pagina
+	 *	por defecto se encuentra desactivado
+	 */
+	static function set_refresh_ejecuta_eventos($activado=true)
+	{
+		self::$refresh_ejecuta_eventos = $activado;
+	}	
 
 	/**
 	 * Extensión de la construcción del componente
@@ -226,6 +236,17 @@ abstract class toba_ei extends toba_componente
 	 * @ignore 
 	 */
 	function disparar_eventos(){}
+
+	/**
+	 * Borra los eventos ejecutados de la memoria para que no se vuelvan a reejecutar con un REFRESH
+	 * @ignore 
+	 */
+	function borrar_memoria_eventos_enviados()
+	{
+		if( ! self::$refresh_ejecuta_eventos ) {
+			$this->borrar_memoria_solicitud_previa();
+		}
+	}
 		
 	/**
 	 * Reporta un evento en el componente controlador

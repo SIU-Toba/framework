@@ -175,6 +175,7 @@ class toba_ei_calendario extends toba_ei
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
+		$this->borrar_memoria_eventos_enviados();
 	}
 	
 	function generar_html()

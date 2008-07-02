@@ -81,6 +81,7 @@ class toba_ei_archivos extends toba_ei
 				}
 			}
 		}
+		$this->borrar_memoria_eventos_enviados();
 	}
 	
 	/**

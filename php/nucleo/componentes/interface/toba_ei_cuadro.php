@@ -364,6 +364,7 @@ class toba_ei_cuadro extends toba_ei
 				}
 			}
 		}
+		$this->borrar_memoria_eventos_enviados();
 	}
 
 	/**

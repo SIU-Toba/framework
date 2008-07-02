@@ -588,6 +588,18 @@ class toba_memoria
 		}
 	}
 
+	/**
+	 * Borra la memoria de un request previo
+	 * 	Lo utilizan los componentes para que los eventos no se reejecuten con el refresh del browser
+	 * @ignore 
+	 */
+	function eliminar_dato_sincronizado_solicitud_previa($indice)
+	{
+		if(isset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice])) {
+			unset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice]);
+		}
+	}
+
 	//----------------------------------------------------------------	
 	//-------------  RECICLAJE de CELDAS -----------------------------
 	//----------------------------------------------------------------	
