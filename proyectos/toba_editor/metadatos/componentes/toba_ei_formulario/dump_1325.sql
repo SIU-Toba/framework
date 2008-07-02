@@ -187,17 +187,17 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1169', --objeto_ei_formulario_fila
 	'1325', --objeto_ei_formulario
 	'toba_editor', --objeto_ei_formulario_proyecto
-	'nivel_comentarios', --identificador
-	'ef_combo', --elemento_formulario
-	'nivel_comentarios', --columnas
+	'incluir_comentarios', --identificador
+	'ef_checkbox', --elemento_formulario
+	'incluir_comentarios', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Incluír comentarios', --etiqueta
 	NULL, --etiqueta_estilo
 	'Junto a cada extensión se pueden incluir comentarios aclaratorios del funcionamiento de cada método.', --descripcion
 	'0', --colapsado
-	'1', --desactivado
+	'0', --desactivado
 	NULL, --estilo
 	'0', --total
 	NULL, --inicializacion
@@ -210,13 +210,13 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'instancia', --carga_fuente
-	'0/No,1/Recomendados,2/Explicativos', --carga_lista
+	NULL, --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
+	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
 	NULL, --edit_mascara
@@ -237,11 +237,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
 	NULL, --fieldset_fin
-	NULL, --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
-	NULL, --check_ml_toggle
+	'1', --check_valor_si
+	'0', --check_valor_no
+	'Sí', --check_desc_si
+	'No', --check_desc_no
+	'0', --check_ml_toggle
 	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
@@ -263,7 +263,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ef_multi_seleccion_check', --elemento_formulario
 	'metodos', --columnas
 	'0', --obligatorio
-	NULL, --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Metodos a incluir', --etiqueta
 	NULL, --etiqueta_estilo

@@ -90,9 +90,9 @@ class ci_editor_php extends toba_ci
 		$this->archivo_php->crear_basico();
 	}
 	
-	function crear_subclase($opciones)
+	function crear_subclase($opciones, $incluir_comentarios)
 	{
-		$this->clase_php->generar($opciones);
+		$this->clase_php->generar($opciones, $incluir_comentarios);
 	}
 
 	//-------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ class ci_editor_php extends toba_ci
 		if (! isset($opciones['metodos'])) {
 			$opciones['metodos'] = array();
 		}
-		$codigo = "<?php" . salto_linea() . $this->clase_php->get_codigo($opciones['metodos']) . "?>" . salto_linea() ;
+		$codigo = "<?php" . salto_linea() . $this->clase_php->get_codigo($opciones['metodos'], $opciones['incluir_comentarios']) . "?>" . salto_linea() ;
 		require_once(toba_dir()."/php/3ros/PHP_Highlight.php");
 		$h = new PHP_Highlight(false);
 		$h->loadString($codigo);
@@ -154,13 +154,13 @@ class ci_editor_php extends toba_ci
 	function evt__subclase__crear_archivo($opciones)
 	{
 		$this->crear_archivo();
-		$this->crear_subclase($opciones['metodos']);
+		$this->crear_subclase($opciones['metodos'], $opciones['incluir_comentarios']);
 		$this->set_pantalla(1);
 	}
 	
 	function evt__subclase__crear_clase($opciones)
 	{
-		$this->crear_subclase($opciones['metodos']);
+		$this->crear_subclase($opciones['metodos'], $opciones['incluir_comentarios']);
 		$this->set_pantalla(1);
 	}
 

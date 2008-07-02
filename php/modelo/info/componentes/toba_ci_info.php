@@ -213,7 +213,7 @@ class toba_ci_info extends toba_ei_info
 		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$molde->agregar( new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('$pantalla') ) );
+			$molde->agregar( new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla') ) );
 		}
 		//-- Eventos propios ----------------------
 		if (count($this->eventos_predefinidos()) > 0) {

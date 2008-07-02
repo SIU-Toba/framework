@@ -149,7 +149,7 @@ class toba_codigo_clase
 	//-- Generacion de codigo --------------------------------------
 	//--------------------------------------------------------------
 
-	function get_codigo($codigo_existente=null, $elementos_a_utilizar=null)
+	function get_codigo($codigo_existente=null, $elementos_a_utilizar=null, $incluir_comentarios=true)
 	{
 		// Filtro el plan de generacion
 		if (isset($elementos_a_utilizar)) {
@@ -158,6 +158,10 @@ class toba_codigo_clase
 			}			
 			$this->filtrar_contenido($elementos_a_utilizar);
 		} 
+		// Comentarios
+		if( ! $incluir_comentarios ) {
+			$this->filtrar_comentarios();	
+		}
 		// Genero el codigo
 		return $this->generar_codigo($codigo_existente);
 	}
@@ -223,6 +227,24 @@ class toba_codigo_clase
 		if( isset($sep_grande_en_analisis) ) {
 			unset($elementos[$sep_grande_en_analisis]);
 		}
+	}
+
+	function filtrar_comentarios()
+	{
+		// PHP
+		foreach( array_keys($this->elementos_php) as $id) {
+			if ( $this->elementos_php[$id] instanceof toba_codigo_separador )  {
+				unset($this->elementos_php[$id]);
+			} elseif ( $this->elementos_php[$id] instanceof toba_codigo_metodo_php ) {
+				$this->elementos_php[$id]->set_mostrar_comentarios(false);
+			}
+		}		
+		// Javascript
+		foreach( array_keys($this->elementos_js) as $id) {
+			if ( $this->elementos_js[$id] instanceof toba_codigo_separador )  {
+				unset($this->elementos_js[$id]);
+			}
+		}		
 	}
 
 	//-- Generacion de CODIGO ------------------------------------

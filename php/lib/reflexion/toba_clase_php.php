@@ -37,20 +37,20 @@ class toba_clase_php
 	/**
 	*	Genera la clase
 	*/
-	function generar($opciones)
+	function generar($opciones, $incluir_comentarios)
 	{
 		if ($this->archivo->esta_vacio()) {
 			$this->archivo->crear_basico();
 		}
 		$this->archivo->edicion_inicio();
-		$this->archivo->insertar_al_final( $this->get_codigo($opciones) );
+		$this->archivo->insertar_al_final( $this->get_codigo($opciones, $incluir_comentarios) );
 		$this->archivo->edicion_fin();
 	}
 
-	function get_codigo($opciones)
+	function get_codigo($opciones, $incluir_comentarios)
 	{
 		$molde_clase = $this->meta_clase->get_molde_subclase();
-		return $molde_clase->get_codigo(null, $opciones);
+		return $molde_clase->get_codigo(null, $opciones, $incluir_comentarios);
 	}
 	
 	//---------------------------------------------------------------
