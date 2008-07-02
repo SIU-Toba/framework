@@ -68,6 +68,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion_multiple		smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_item					ADD COLUMN exportable					smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_objeto_cuadro		ADD COLUMN exportar_paginado			smallint DEFAULT 0";
+		$sql[] = "ALTER TABLE apex_objeto				ADD COLUMN indentificador				varchar";
 		
 		//-- Perfil de Datos (no se puede ejecutar el archivo completo porque ya existia una tabla en la 1.1.0)
 		$sql[] = '

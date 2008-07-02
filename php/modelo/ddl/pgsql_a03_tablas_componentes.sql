@@ -228,6 +228,7 @@ CREATE TABLE apex_objeto
 	proyecto							varchar(15)		NOT NULL,
 	objeto								int4			DEFAULT nextval('"apex_objeto_seq"'::text) NOT NULL, 	
 	anterior							varchar(20)		NULL,
+	identificador						varchar(100)	NULL,
 	reflexivo							smallint		NULL,
 	clase_proyecto						varchar(15)		NOT NULL,
 	clase								varchar(60)		NOT NULL,
@@ -253,6 +254,7 @@ CREATE TABLE apex_objeto
 	usuario								varchar(20)		NULL,
 	creacion							timestamp(0)	without time zone	DEFAULT current_timestamp NULL,
 	CONSTRAINT	"apex_objeto_pk"	 PRIMARY	KEY ("objeto", "proyecto"),
+	CONSTRAINT  "apex_objeto_identificador_uq" UNIQUE ("proyecto","identificador"),
 	CONSTRAINT	"apex_objeto_fk_clase" FOREIGN KEY ("clase_proyecto","clase") REFERENCES "apex_clase" ("proyecto","clase") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_fuente_datos"	FOREIGN KEY	("fuente_datos_proyecto","fuente_datos") REFERENCES "apex_fuente_datos"	("proyecto","fuente_datos") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_objeto_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

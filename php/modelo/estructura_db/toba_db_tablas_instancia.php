@@ -456,6 +456,7 @@ class toba_db_tablas_instancia
     0 => 'proyecto',
     1 => 'usuario_grupo_acc',
     2 => 'usuario',
+    3 => 'usuario_perfil_datos',
   ),
 );
 	}

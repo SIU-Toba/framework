@@ -17,7 +17,8 @@ class toba_componente_def implements toba_componente_definicion
 	{
 		$sql['_info']['sql'] = "	SELECT	o.proyecto         		as proyecto,                 
 									o.objeto                    	as objeto,                   
-									o.anterior                  	as anterior,                 
+									o.anterior                  	as anterior,  
+									o.identificador					as identificador,               
 									o.reflexivo                 	as reflexivo,                
 									o.clase_proyecto            	as clase_proyecto,           
 									o.clase                     	as clase,                    
