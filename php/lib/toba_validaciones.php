@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase con validaciones estáticas de datos
+ *
+ */
 class toba_validaciones{
 	
 	/**
@@ -8,8 +12,7 @@ class toba_validaciones{
 	 * @param string $cbu cadena que contiene el cbu a validar.
 	 * @return true o false según sea válido o no.
 	 */
-
-	function cbu_valido($cbu){	
+	static function cbu_valido($cbu){	
 		if ( strlen($cbu) <> 22 ) {
 			return false;
 		}else{

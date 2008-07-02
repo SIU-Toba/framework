@@ -53,10 +53,11 @@ class toba_admin_fuentes
 		if ( !isset($this->fuentes[$id]) ) {
 			$parametros = toba::proyecto()->get_info_fuente_datos($id, $proyecto);
 			if (isset($parametros['subclase_archivo'])) {
-				if ( toba_editor::activado() ) {
-					//Si la fuente esta extendida, puede necesitar otros archivos del proyecto, agregar el include path
-					toba_editor::incluir_path_proyecto_cargado();					
-				}
+				if (toba::proyecto()->get_id() != $proyecto) {
+					//Si la fuente esta extendida, puede necesitar otros archivos del proyecto, agregar el include path				
+					$path_proyecto = toba::instancia()->get_path_proyecto($proyecto) . '/php';
+					agregar_dir_include_path($path_proyecto);
+				}				
 				$archivo = $parametros['subclase_archivo'];
 			} else {
 				$archivo = "nucleo/lib/toba_fuente_datos.php";
