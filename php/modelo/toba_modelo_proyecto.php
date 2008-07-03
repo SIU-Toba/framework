@@ -843,6 +843,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$clase->agregar_metodo_datos('info_permiso__'.$permiso, $datos );
 		}
 		$this->manejador_interface->progreso_avanzar();
+		//-- Indice de componentes --
+		$datos = toba_proyecto_db::get_mapeo_componentes_indice( $this->get_id() );
+		$clase->agregar_metodo_datos('info_indices_componentes', $datos );
+		$this->manejador_interface->progreso_avanzar();
 		//Creo el archivo
 		$clase->guardar( $archivo );
 		$this->manejador_interface->progreso_fin();
