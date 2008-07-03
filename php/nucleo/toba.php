@@ -245,24 +245,30 @@ class toba
 	}
 
 	/**
-	 * Retorna un componente de tipo Controlador de Negocios
-	 * @param string $nombre_cn
+	 * Retorna un componente por INDICE
+	 * @param string $indice
+	 * @return toba_componente
+	 */
+	static function componente($indice)
+	{
+		$id['proyecto'] = toba_proyecto::get_id();
+		$temp = toba::proyecto()->get_id_componente_por_indice($indice, $id['proyecto']);
+		$id['componente'] = $temp['componente'];
+		return toba_constructor::get_runtime($id, $temp['clase'], true);
+	}
+
+	/**
+	 * Retorna un componente de tipo CONTROLADOR de NEGOCIO por INDICE
+	 * @param string $indice
 	 * @return toba_cn
 	 */
-	static function cn($nombre)
+	static function cn($indice)
 	{
-		$proyecto = toba_proyecto::get_id();
-		if(! self::$cn ) {
-			self::$cn = toba_proyecto_db::get_mapeo_cn($proyecto);
+		$cn = self::componente($indice);
+		if(! $cn instanceof toba_cn ) {
+			throw new toba_error("Error cargando CN por INDICE. El componente identificado con la etiqueta '$indice' no es un CN.");
 		}
-		if( isset(self::$cn[$nombre] ) ) {
-			$id = array();
-			$id['proyecto'] = $proyecto;
-			$id['componente'] = self::$cn[$nombre];
-			return toba_constructor::get_runtime($id, 'toba_cn', true);
-		} else {
-			throw new toba_error('El cn [$nombre] no puede ser encontrado.');
-		}
+		return $cn;
 	}
 
 	/**

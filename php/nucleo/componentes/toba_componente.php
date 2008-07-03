@@ -535,6 +535,20 @@ abstract class toba_componente
 	}
 
 	/**
+	 * Agregar dinámicamente una dependencia al componente actual utilizando
+	 *
+	 * @param string $identificador ID. del componente
+	 * @param string $proyecto 
+	 * @param string $tipo Tipo de componente
+	 */
+	function agregar_dependencia_por_indice( $identificador_rol, $identificador_componente )
+	{
+		$proyecto = toba_proyecto::get_id();
+		$id = toba::proyecto()->get_id_componente_por_indice($identificador_componente, $proyecto);
+		$this->agregar_dependencia( $identificador_rol, $proyecto, $id['componente'] );
+	}
+
+	/**
 	 * Construye una dependencia y la asocia al componente actual
 	 *
 	 * @param unknown_type $identificador

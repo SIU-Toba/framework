@@ -105,18 +105,27 @@ class toba_proyecto_db
 		return rs_convertir_asociativo($rs, array('tabla'), 'objeto');
 	}
 
-	static function get_mapeo_cn($proyecto)
+	static function get_mapeo_componentes_indice($proyecto)
 	{
 		$sql = "
-			SELECT objeto, nombre
-			FROM apex_objeto
-			WHERE proyecto = '$proyecto'
-			AND clase = 'toba_cn'";
+			SELECT
+					identificador,
+					objeto,
+					clase
+			FROM 
+				apex_objeto
+			WHERE
+				proyecto = '$proyecto'
+				AND (identificador IS NOT NULL OR trim(identificador) = '');
+		";
 		$rs = self::get_db()->consultar($sql);
-		return rs_convertir_asociativo($rs, array('nombre'), 'objeto');
+		$temp = array();
+		foreach($rs as $c) {
+			$temp[$c['identificador']] = array('clase'=>$c['clase'],'componente'=>$c['objeto']);
+		}
+		return $temp;
 	}
 
-	
 	static function get_descripcion_permiso($proyecto, $permiso)
 	{
 		$sql = "	SELECT

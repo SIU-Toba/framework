@@ -39,6 +39,9 @@ class toba_catalogo_objetos
 		//---ID
 		$filtro_id = isset($opciones['id']) ? "AND	o.objeto = '{$opciones['id']}'" : '';
 		
+		//---INDICE
+		$filtro_indice = isset($opciones['indice']) ? "AND	o.identificador = '{$opciones['indice']}'" : '';
+
 		//----Extensiones
 		$filtro_ext = "";
 		if (isset($opciones['extendidos'])) {
@@ -87,6 +90,7 @@ class toba_catalogo_objetos
 				AND 	o.proyecto = '$this->proyecto'
 				$filtro_dao				
 				$filtro_id
+				$filtro_indice
 				$filtro_ext
 				$filtro_huerfano
 				$filtro_nombre

@@ -14,6 +14,7 @@ class toba_proyecto
 	private $id;
 	private $indice_items_accesibles;
 	private $items_excluidos = array();
+	private $mapeo_componentes = array();
 	const prefijo_punto_acceso = 'apex_pa_';
 
 	/**
@@ -235,6 +236,22 @@ class toba_proyecto
 			$rs = toba_proyecto_db::get_db()->consultar_fila($sql['_info']['sql']);
 		}
 		return $rs;
+	}
+
+	function get_id_componente_por_indice($identificador, $proyecto=null)
+	{
+		if(! $this->mapeo_componentes ) {
+			if (! isset($proyecto)) $proyecto = $this->id;
+			if ( toba::nucleo()->utilizar_metadatos_compilados( $proyecto ) ) {
+				$this->mapeo_componentes = $this->recuperar_datos_compilados('toba_mc_gene__basicos', 'info_indices_componentes');
+			} else {
+				$this->mapeo_componentes = toba_proyecto_db::get_mapeo_componentes_indice($proyecto);
+			}
+		}
+		if( ! isset($this->mapeo_componentes[$identificador]) ) {
+			throw new toba_error("Error buscando el componente '$identificador'. El INDICE no existe");
+		}
+		return $this->mapeo_componentes[$identificador];
 	}
 
 	//--------------------  Dimensiones  ------------------------
