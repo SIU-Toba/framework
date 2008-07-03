@@ -14,6 +14,9 @@ class toba_ei_archivos extends toba_ei
 	protected $_extensiones = array('php');
 	protected $_ocultos = array('.svn');
 	protected $solo_carpetas = false;
+	protected $_permitir_espacios_en_nombres = false;
+	protected $_caracteres_invalidos_nombres = array('\\', '/', ':', '*', '\'', '<', '>', '|');
+
 
     function __construct($id)
     {
@@ -71,12 +74,12 @@ class toba_ei_archivos extends toba_ei
 						$this->_dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
 						break;
 					case 'crear_carpeta': 
-						$parametros = str_replace('.', '', $parametros);
+						$this->validar_nombre_carpeta($parametros);
 						$seleccion = $this->_dir_actual."/$parametros";
 						toba_manejador_archivos::crear_arbol_directorios($seleccion);
 						break;
 					case 'crear_archivo': 
-						$parametros = str_replace('/', '', $parametros);
+						$this->validar_nombre_archivo($parametros);
 						$seleccion = $this->_dir_actual."/$parametros";	
 						toba_manejador_archivos::crear_archivo_con_datos($seleccion, "");
 						break;
@@ -87,6 +90,51 @@ class toba_ei_archivos extends toba_ei
 		}
 		$this->borrar_memoria_eventos_atendidos();
 	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function validar_nombre_archivo($nombre)
+	{
+		$this->validacion_basica_nombre($nombre);
+		if( $this->_extensiones ) {	//Hay extensiones validas definidas
+			foreach($this->_extensiones as $ext) {
+				if ( strpos($nombre,".$ext") !== false ) {
+					return;
+				}
+			}
+			$validas = implode(', ',$this->_extensiones);
+			throw new toba_error("La extension del archivo es invalida (Extensiones validas: $validas)");
+		}
+	}
+
+	/**
+	 * @ignore 
+	 */
+	protected function validar_nombre_carpeta($nombre)
+	{
+		$this->validacion_basica_nombre($nombre);
+		if ( strpos($nombre,'.') !== false ) {
+			throw new toba_error("El caracter '.' no esta permitido en los nombres de los directorios.");
+		}
+	}
+	
+	/**
+	 * @ignore 
+	 */
+	protected function validacion_basica_nombre($nombre)
+	{
+		if ( ! $this->_permitir_espacios_en_nombres ) {
+			$this->_caracteres_invalidos_nombres[] = ' ';
+		}
+		foreach( $this->_caracteres_invalidos_nombres as $char ) {
+			if ( strpos($nombre,$char) !== false ) {
+				$invs = array_map('addslashes',$this->_caracteres_invalidos_nombres);
+				$invs = implode(', ', $invs);
+				throw new toba_error("El nombre es posee caracteres invalidos ($invs)");
+			}				
+		}
+	}	
 	
 	/**
 	 * Retorna el path relativo en donde se encuentra apuntando actualmente
@@ -141,6 +189,11 @@ class toba_ei_archivos extends toba_ei
 	function set_extensiones_validas($extensiones)
 	{
 		$this->_extensiones = $extensiones;	
+	}
+
+	function set_permitir_espacios_en_nombres($permitir=true)
+	{
+		$this->_permitir_espacios_en_nombres = $permitir;
 	}
 	
 	function generar_html()
