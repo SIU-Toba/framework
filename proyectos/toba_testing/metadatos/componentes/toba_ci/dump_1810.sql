@@ -125,18 +125,6 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_testing', --proyecto
-	'770', --dep_id
-	'1810', --objeto_consumidor
-	'1811', --objeto_proveedor
-	'filtro', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_testing', --proyecto
 	'772', --dep_id
 	'1810', --objeto_consumidor
 	'1813', --objeto_proveedor

@@ -40,25 +40,6 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
--- apex_objeto_dependencias
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'toba_testing', --proyecto
-	'21', --dep_id
-	'1605', --objeto_consumidor
-	'1607', --objeto_proveedor
-	'form2', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
---- FIN Grupo de desarrollo 0
-
-------------------------------------------------------------
 -- apex_objeto_mt_me
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
