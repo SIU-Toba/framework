@@ -65,7 +65,7 @@ ef_editable.prototype.constructor = ef_editable;
 		if (estado != '' && isset(this._expreg) && this._expreg != '') {
 			var temp = this._expreg + '.test("' + estado + '")';
 			if (! eval(temp)) {
-				this._error = 'no es vï¿½lido';
+				this._error = 'no es válido';
 				return false;
 			}
 		}

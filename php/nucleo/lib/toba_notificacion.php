@@ -25,7 +25,6 @@ class toba_notificacion
 	
 	/**
 	 * Agrega un mensaje a mostrar al usuario
-	 *
 	 * @param string $mensaje Mensaje completo a mostrar
 	 * @param string $nivel Determina el estilo del mensaje, 'error' o 'info' 
 	 */
@@ -37,7 +36,6 @@ class toba_notificacion
 	
 	/**
 	 * Agrega un mensaje de error para mostrar al usuario
-	 *
 	 * @param string $mensaje Mensaje completo a mostrar
 	 */
 	function error($mensaje, $extras=null)
@@ -46,8 +44,16 @@ class toba_notificacion
 	}
 	
 	/**
+	 * Agrega un mensaje de advertencia para mostrar al usuario
+	 * @param string $mensaje Mensaje completo a mostrar
+	 */
+	function warning($mensaje, $extras=null)
+	{
+		$this->agregar($mensaje, 'warning', $extras);
+	}	
+	
+	/**
 	 * Agrega un mensaje informativo para mostrar al usuario
-	 *
 	 * @param string $mensaje Mensaje completo a mostrar
 	 */	
 	function info($mensaje, $extras=null)

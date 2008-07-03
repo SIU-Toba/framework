@@ -101,11 +101,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-top: 1px solid {$borde_componentes};
 	padding:4px;
 }
-.ei-cuadro-cc-fondo, .ei-ml-grilla {
+.ei-cuadro-cc-fondo, .ei-ml-grilla, .ei-filtro-grilla {
 	border:1px solid {$borde_componentes};
 	padding-left:1px;
 }
-.ei-cuadro-col-tit, .ei-ml-columna {
+.ei-cuadro-col-tit, .ei-ml-columna, .ei-filtro-columna {
 	padding-top: 2px;
 	padding-bottom:2px;
 	padding-left: 6px;
@@ -114,7 +114,7 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	font-family: Tahoma;
 	text-align:left;
 }
-.ei-cuadro-fila-sel, .ei-ml-fila-selec {
+.ei-cuadro-fila-sel, .ei-ml-fila-selec, .ei-filtro-fila-selec {
 	padding-top:2px;
 	padding-bottom:2px;
 	background-color: {$fondo_seleccion} !important;
@@ -125,10 +125,10 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 .ei-cuadro-celda-impar {
 	background-color:{$fondo_contraste};
 }
-.ei-cuadro-celda-par, .ei-ml-fila {
+.ei-cuadro-celda-par, .ei-ml-fila, .ei-filtro-fila {
 	background-color: {$fondo_componentes};
 }
-.ei-ml-fila {
+.ei-ml-fila, .ei-filtro-fila {
 	border-top: 1px solid {$borde_tabular};
 	padding-top:2px;
 	padding-bottom:2px;	
@@ -177,11 +177,19 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 **************************/
 .ci-barra-sup {
 }
-.ci-pant-desc, .ci-wiz-enc, .ei-barra-sup-desc-barra {
+.ei-barra-sup-desc-info, .ci-wiz-enc {
 	color: {$frente_principal};
 	background-color: {$fondo_contraste};
 	border: 1px dotted {$borde_tabular};
 	_border: 1px solid {$borde_tabular};
+}
+.ei-barra-sup-desc-warning, .ci-pant-desc-warning {
+	background-color: #FFFFE1;
+	border: 1px solid #B7C8F6;
+}
+.ei-barra-sup-desc-error, .ci-pant-desc-error {
+	background-color: #F1D3D9;
+	border: 1px solid #B7C8F6;
 }
 .ci-pant-sep {
 	display:none;
@@ -193,6 +201,15 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 }
 .ci-botonera {
 	background-color: {$fondo_botonera};	
+}
+.ci-tabs-h-solapa .ci-tabs-boton-desact {
+	color:gray !important;
+	cursor: default;
+}
+.ci-tabs-v-solapa  .ci-tabs-boton-desact {
+	color:gray;
+	text-decoration:none;
+	cursor: default;
 }
 .ci-tabs-h-lista ul {
 	margin:0;
@@ -236,6 +253,11 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	color: {$frente_principal};
 	padding-left:3px;
 }
+.ci-tabs-v-desactivado a {
+	color:gray;
+	text-decoration:none;
+	cursor: default;
+}
 .ci-tabs-v-solapa-sel {
 	padding-top:2px;
 	padding-bottom:2px;
@@ -264,4 +286,22 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	border-top: 1px solid {$borde_componentes};
 }
 
+.auditoria-cambio-valor {
+	font-weight: bold;
+}
 
+.mensaje-cuerpo-info {
+	text-align:center;
+}
+
+
+/*************************
+		CALENDARIO
+**************************/
+.selectedday, .selecteddayevents {
+	border: 1px solid #000000;
+	background-color: #D4D0C8;
+}
+.today, .todayevents {
+	border: 1px solid #000000;
+}
