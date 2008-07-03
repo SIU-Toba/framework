@@ -57,7 +57,11 @@ class toba_ei_archivos extends toba_ei
 				$parametros = $_POST[$this->_submit."__seleccion"];
 				switch($evento){
 					case 'ir_a_carpeta':
-						$seleccion = $this->_dir_actual."/$parametros";						
+						if ($parametros == '..') { //volver una carpeta
+							$seleccion = dirname($this->_dir_actual) . "/";
+						} else {
+							$seleccion = $this->_dir_actual."/$parametros";						
+						}
 						//--- Chequeo de seguridad
 						if (isset($this->_path_absoluto)) {
 							if (strpos(realpath($seleccion), realpath($this->_path_absoluto)) !== 0) {
