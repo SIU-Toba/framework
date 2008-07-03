@@ -183,7 +183,7 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 			}
 		}
 		$this->limpiar_interface();
-		$this->borrar_memoria_eventos_enviados();
+		$this->borrar_memoria_eventos_atendidos();		
 	}	
 	
 	/**

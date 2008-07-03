@@ -192,7 +192,7 @@ class toba_ci extends toba_ei
 				$this->disparar_evento_propio();
 			} else {
 				//Disparo los eventos de las dependencias
-				foreach( $this->get_dependencias_eventos() as $dep) {
+				foreach($this->get_dependencias_eventos() as $dep) {
 					$this->_dependencias[$dep]->disparar_eventos();
 				}
 				$this->disparar_evento_propio();
@@ -202,7 +202,7 @@ class toba_ci extends toba_ei
 		}
 		$this->post_eventos();		
 		$this->controlar_cambio_pantalla();
-		$this->borrar_memoria_eventos_enviados();
+		$this->borrar_memoria_eventos_atendidos();
 	}
 	
 	/**
@@ -255,8 +255,6 @@ class toba_ci extends toba_ei
 			if (isset( $this->_memoria['eventos'][$evento] )) {
 				$this->_evento_actual = $evento;
 				$this->_evento_actual_param = $_POST[$this->_submit."__param"];
-			} else {
-				throw new toba_error('ERROR CI: Se recibio el EVENTO ['.$evento.']. El mismo no fue enviado en el servicio anterior');	
 			}
 		}
 	}

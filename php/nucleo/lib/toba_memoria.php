@@ -589,14 +589,14 @@ class toba_memoria
 	}
 
 	/**
-	 * Borra la memoria de un request previo
+	 * Borra la memoria de un evento antendido en un request previo
 	 * 	Lo utilizan los componentes para que los eventos no se reejecuten con el refresh del browser
 	 * @ignore 
 	 */
-	function eliminar_dato_sincronizado_solicitud_previa($indice)
+	function eliminar_evento_sincronizado_solicitud_previa($componente, $evento)
 	{
-		if(isset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice])) {
-			unset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$indice]);
+		if(isset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$componente]['eventos'][$evento])) {
+			unset($this->celda_memoria_actual['hilo'][$this->hilo_referencia][$componente]['eventos'][$evento]);
 		}
 	}
 

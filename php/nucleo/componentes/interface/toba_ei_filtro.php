@@ -105,7 +105,7 @@ class toba_ei_filtro extends toba_ei
 				$this->reportar_evento( $evento, $parametros );
 			}
 		}
-		$this->borrar_memoria_eventos_enviados();
+		$this->borrar_memoria_eventos_atendidos();
 	}
 	
 	/**

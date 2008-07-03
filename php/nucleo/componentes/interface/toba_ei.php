@@ -16,6 +16,7 @@ abstract class toba_ei extends toba_componente
  	protected $objeto_js;
 	protected $_colapsado = false;						// El elemento sólo mantiene su título
 	protected $_evento_implicito=null;					// Evento disparado cuando no hay una orden explicita
+	protected $_eventos_atendidos = array();			// Eventos que fueron atendidos en la etapa de eventos
 	protected $_eventos = array();						// Eventos INTERNOS del componente
 	protected $_eventos_usuario = array();				// Eventos declarados en el administrador
 	protected $_eventos_usuario_utilizados = array();	// Lista de eventos del usuario que estan activos
@@ -241,10 +242,12 @@ abstract class toba_ei extends toba_componente
 	 * Borra los eventos ejecutados de la memoria para que no se vuelvan a reejecutar con un REFRESH
 	 * @ignore 
 	 */
-	function borrar_memoria_eventos_enviados()
+	function borrar_memoria_eventos_atendidos()
 	{
 		if( ! self::$refresh_ejecuta_eventos ) {
-			$this->borrar_memoria_solicitud_previa();
+			foreach ($this->_eventos_atendidos as $id_evento) {
+				toba::memoria()->eliminar_evento_sincronizado_solicitud_previa("obj_".$this->_id[1], $id_evento);
+			}
 		}
 	}
 		
@@ -255,6 +258,7 @@ abstract class toba_ei extends toba_componente
 	 */
 	protected function reportar_evento($evento)
 	{
+		$this->_eventos_atendidos[] = $evento;		//Se guarda que eventos se atendieron para que no se vuelvan a ejecutar en caso de refresh
 		if (isset($this->_id_en_controlador)) {
 			$parametros = func_get_args();
 			$parametros	= array_merge(array($this->_id_en_controlador), $parametros);

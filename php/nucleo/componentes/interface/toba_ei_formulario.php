@@ -301,7 +301,7 @@ class toba_ei_formulario extends toba_ei
 			}
 		}
 		$this->post_eventos();
-		$this->borrar_memoria_eventos_enviados();
+		$this->borrar_memoria_eventos_atendidos();		
 	}
 
 	/**
