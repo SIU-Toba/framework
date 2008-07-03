@@ -99,6 +99,7 @@ CREATE TABLE apex_objeto_ei_filtro_col
 	popup_carga_desc_metodo				varchar(100)	NULL,
 	popup_carga_desc_clase				varchar(100)	NULL,
 	popup_carga_desc_include			varchar(255)	NULL,
+	popup_puede_borrar_estado			smallint 		NULL,
 	check_valor_si						varchar(40)		NULL,
 	check_valor_no						varchar(40)		NULL,
 	check_desc_si						varchar(100)	NULL,

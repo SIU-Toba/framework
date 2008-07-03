@@ -40,6 +40,7 @@ class toba_ef_popup extends toba_ef_editable
 		$parametros[] = 'popup_carga_desc_metodo';
 		$parametros[] = 'popup_carga_desc_clase';
 		$parametros[] = 'popup_carga_desc_include';
+		$parametros[] = 'popup_puede_borrar_estado';
 		return $parametros;
 	}
 	
@@ -55,6 +56,10 @@ class toba_ef_popup extends toba_ef_editable
 		if (isset($parametros['popup_editable'])) {
 			$this->editable = $parametros['popup_editable'];
 			unset($parametros['popup_editable']);
+		}
+		if (isset($parametros['popup_puede_borrar_estado'])) {
+			$this->no_oblig_puede_borrar = 	$parametros['popup_puede_borrar_estado'];
+			unset($parametros['popup_puede_borrar_estado']);
 		}
     	$this->item_destino = $parametros['popup_item'];
 		$this->item_destino_proyecto = $parametros['popup_proyecto'];
