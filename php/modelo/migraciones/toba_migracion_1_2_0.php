@@ -55,6 +55,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 		
 		//-- Cosas sueltas		
 		$sql = array();
+		$sql[] = "ALTER TABLE apex_objeto  				ADD COLUMN identificador						varchar";
 		$sql[] = "ALTER TABLE apex_estilo 				ADD COLUMN paleta						varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN no_imprimir_efs_sin_estado	smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN resaltar_efs_con_estado		smallint DEFAULT 0";
@@ -64,6 +65,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN filas_ordenar_en_linea		smallint DEFAULT 0";	
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN edit_expreg				varchar(255)";		
 		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN check_ml_toggle			smallint DEFAULT 0";		
+		$sql[] = "ALTER TABLE apex_objeto_ei_formulario_ef ADD COLUMN popup_puede_borrar_estado	smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion					smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion_multiple		smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_item					ADD COLUMN exportable					smallint DEFAULT 0";
