@@ -35,7 +35,7 @@ class ci_visor_modelo extends toba_ci
 
 	function conf__tablas(toba_ei_cuadro $cuadro)
 	{
-		return toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
+		return toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas_y_vistas();
 	}
 
 	//-- COLUMNAS -------------------------------------------------

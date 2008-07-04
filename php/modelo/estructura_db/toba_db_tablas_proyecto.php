@@ -163,6 +163,7 @@ class toba_db_tablas_proyecto
     12 => 'subclase_archivo',
     13 => 'subclase_nombre',
     14 => 'orden',
+    15 => 'schema',
   ),
 );
 	}

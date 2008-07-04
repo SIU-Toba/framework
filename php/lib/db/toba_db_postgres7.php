@@ -7,6 +7,8 @@
 class toba_db_postgres7 extends toba_db
 {
 	protected $cache_metadatos = array(); //Guarda un cache de los metadatos de cada tabla
+	protected $schema;
+	
 	
 	function __construct($profile, $usuario, $clave, $base, $puerto)
 	{
@@ -18,6 +20,17 @@ class toba_db_postgres7 extends toba_db
 	{
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
 		return "pgsql:host=$this->profile;dbname=$this->base;$puerto";	
+	}
+	
+	/**
+	 * Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos 
+	 * @param string $schema
+	 */
+	function set_schema($schema)
+	{
+		$this->schema = $schema;
+		$sql = "SET search_path TO $schema";
+		$this->ejecutar($sql);
 	}
 
 	/**
@@ -94,21 +107,45 @@ class toba_db_postgres7 extends toba_db
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
 	//------------------------------------------------------------------------
-
-	function get_lista_tablas($esquema=null)
+	
+	function get_lista_tablas_y_vistas()
+	{
+		return $this->get_lista_tablas(true);
+	}
+	
+	
+	function get_lista_tablas($incluir_vistas=false, $esquema=null)
 	{
 		$sql_esquema = '';
+		if (! isset($esquema) && isset($this->schema)) {
+			$esquema = $this->schema;
+		}
 		if (isset($esquema)) {
 			$sql_esquema .= " AND schemaname='$esquema'";
 		}
 		$sql = "SELECT tablename as nombre
-				FROM pg_tables
+				FROM 
+					pg_tables
 				WHERE 
 						tablename NOT LIKE 'pg_%'
 					AND tablename NOT LIKE 'sql_%' 
+					AND schemaname != 'information_schema'
 					$sql_esquema
-				ORDER BY nombre
 		";
+		if ($incluir_vistas) {
+			$sql .= "
+				UNION
+				SELECT viewname as nombre
+				FROM 
+					pg_views
+				WHERE 
+						viewname NOT LIKE 'pg_%'
+					AND viewname NOT LIKE 'sql_%' 
+					AND schemaname != 'information_schema'
+					$sql_esquema
+			";			
+		}
+		$sql .= 'ORDER BY nombre';
 		return $this->consultar($sql);
 	}
 	

@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_fuente_datos
 ------------------------------------------------------------
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden, schema) VALUES (
 	'toba_usuarios', --proyecto
 	'toba_usuarios', --fuente_datos
 	'Fuente toba_usuarios', --descripcion
@@ -17,5 +17,6 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	'toba_usuarios', --instancia_id
 	'customizacion_toba/fuente.php', --subclase_archivo
 	'fuente', --subclase_nombre
-	NULL  --orden
+	NULL, --orden
+	NULL  --schema
 );

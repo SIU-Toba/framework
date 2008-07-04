@@ -91,7 +91,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'2', --orden
 	NULL, --ci_predep
 	'0', --implicito
-	'0', --defecto
+	'1', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion

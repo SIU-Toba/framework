@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_fuente_datos
 ------------------------------------------------------------
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden, schema) VALUES (
 	'toba_editor', --proyecto
 	'instancia', --fuente_datos
 	'Instancia', --descripcion
@@ -17,9 +17,10 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --instancia_id
 	'customizacion_toba/fuente_editor.php', --subclase_archivo
 	'fuente_editor', --subclase_nombre
-	NULL  --orden
+	NULL, --orden
+	NULL  --schema
 );
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden, schema) VALUES (
 	'toba_editor', --proyecto
 	'test', --fuente_datos
 	'Fuente de testeo', --descripcion
@@ -34,5 +35,6 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --instancia_id
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
-	NULL  --orden
+	NULL, --orden
+	NULL  --schema
 );

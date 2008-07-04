@@ -124,7 +124,7 @@ class ci_relaciones extends toba_ci
 
 	function get_tablas()
 	{
-		return toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas();
+		return toba::db($this->fuente, toba_editor::get_proyecto_cargado())->get_lista_tablas_y_vistas();
 	}
 	
 	function get_columnas_tabla_1()

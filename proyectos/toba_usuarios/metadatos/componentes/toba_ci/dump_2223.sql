@@ -53,9 +53,9 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	NULL, --estilo
+	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	'deshacer.gif', --imagen
+	'deshacer.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -159,7 +159,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_cancelar_etiq
 	'100%', --ancho
 	'100%', --alto
-	'arriba', --posicion_botonera
+	'ambos', --posicion_botonera
 	NULL, --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental

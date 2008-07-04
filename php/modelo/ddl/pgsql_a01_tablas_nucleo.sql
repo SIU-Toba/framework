@@ -105,6 +105,7 @@ CREATE TABLE apex_fuente_datos
 	subclase_archivo			varchar(255) 	NULL,
 	subclase_nombre				varchar(60) 	NULL,
 	orden						smallint		NULL,
+	schema						varchar(60)		NULL,	-- Schema postgres por defecto (si aplica)						
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

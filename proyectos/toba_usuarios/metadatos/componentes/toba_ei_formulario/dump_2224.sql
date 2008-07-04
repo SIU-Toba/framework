@@ -134,7 +134,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Descripcion', --etiqueta
+	'Descripción', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -163,11 +163,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
-	NULL, --edit_filas
-	NULL, --edit_columnas
+	'6', --edit_filas
+	'40', --edit_columnas
 	NULL, --edit_wrap
-	NULL, --edit_resaltar
-	NULL, --edit_ajustable
+	'0', --edit_resaltar
+	'0', --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
 	NULL, --popup_item

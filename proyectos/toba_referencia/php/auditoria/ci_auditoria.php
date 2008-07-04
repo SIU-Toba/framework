@@ -7,7 +7,7 @@ class ci_auditoria extends toba_ci
 	
 	function get_tablas()
 	{
-		return toba::db()->get_lista_tablas('auditoria');
+		return toba::db()->get_lista_tablas(false, 'auditoria');
 	}
 	
 	//---- filtro -----------------------------------------------------------------------

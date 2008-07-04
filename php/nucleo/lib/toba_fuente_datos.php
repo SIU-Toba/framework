@@ -31,13 +31,22 @@ class toba_fuente_datos
 															$this->definicion['fuente_datos'],
 															$reusar);
 				$this->post_conectar();
+				if (isset($this->definicion['schema'])) {
+					$this->db->set_schema($this->definicion['schema']);
+				}					
 			}
 			return $this->db;
 		} else {
-			return toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
+			//-- Se pide una conexión aislada, que no la reutilize ninguna otra parte de la aplicación
+			// Esta el codigo anterior repetido porque si se unifica, el post_conectar asume la presencia de $this->db y no habria forma de pedir una conexion aislada
+			$db = toba_dba::get_db_de_fuente(toba::instancia()->get_id(),
 															$this->definicion['proyecto'],
 															$this->definicion['fuente_datos'],
 															$reusar);
+			if (isset($this->definicion['schema'])) {
+				$db->set_schema($this->definicion['schema']);
+			}			
+			return $db;												
 		}
 	}
 	
