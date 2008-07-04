@@ -750,6 +750,15 @@ class toba_ci extends toba_ei
 		$this->$metodo($variable, $respuesta);
 		$respuesta->comunicar();
 	}
+
+	//---------------------------------------------------------------
+	//------------------------ SALIDA Impresion ---------------------
+	//---------------------------------------------------------------
+	
+	function vista_impresion_html( $salida )
+	{
+		$this->pantalla()->vista_impresion_html( $salida );
+	}
 	
 }
 ?>

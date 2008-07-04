@@ -671,11 +671,11 @@ class toba_ei_pantalla extends toba_ei
 	//------------------------ SALIDA Impresion ---------------------
 	//---------------------------------------------------------------
 	
-	function vista_impresion( toba_impresion $salida )
+	function vista_impresion_html( toba_impresion $salida )
 	{
-		$salida->titulo( $this->get_titulo() );
+		$salida->titulo( $this->controlador->get_titulo() );
 		foreach($this->_dependencias as $dep) {
-			$dep->vista_impresion( $salida );
+			$dep->vista_impresion_html( $salida );
 		}
 	}
 	
