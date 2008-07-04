@@ -446,7 +446,7 @@ class toba_ef_editable_clave extends toba_ef_editable
 			return $padre;	
 		}		
 		if ($this->estado != '' && $this->confirmar_clave) {
-			$test = trim($_POST[$this->id_form].'_test');
+			$test = trim($_POST[$this->id_form.'_test']);
 			if ($this->estado != $test) {
 				return 'No coinciden las claves';
 			}
