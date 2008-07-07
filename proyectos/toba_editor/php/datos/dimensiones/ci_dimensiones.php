@@ -112,12 +112,16 @@ class ci_dimensiones extends toba_ci
 		foreach(array_keys($datos) as $id) {
 			$datos[$id]['tipo'] = 'indirecto';
 			//control de caminos validos entre tablas
+			$camino = array();
 			$camino[] = $datos[$id]['tabla_rel_dim'];
-			$temp = explode( ',', $datos[$id]['ruta_tabla_rel_dim']);
-			$temp = array_map('trim', $temp);
-			$camino = array_merge($camino, $temp);
+			if (isset($datos[$id]['ruta_tabla_rel_dim'])) {
+				//Contiene un camino intermedio
+				$temp = explode( ',', $datos[$id]['ruta_tabla_rel_dim']);
+				$temp = array_map('trim', $temp);
+				$camino = array_merge($camino, $temp);
+			}
 			$camino[] = $datos[$id]['tabla_gatillo'];
-			ei_arbol($camino);
+			//$datos[$id]['ruta_tabla_rel_dim'] = implode(',', $camino);
 		}
 		$this->dependencia('datos')->tabla('gatillos')->procesar_filas($datos);
 	}

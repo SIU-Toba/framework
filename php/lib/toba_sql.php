@@ -28,7 +28,7 @@
 	/**
 	 * Concatena sentencias a la clausula WHERE de un SQL (Utilizando un AND)
 	 */	
-	function sql_concatenar_where($sql,$clausulas_where=array())
+	function sql_concatenar_where($sql,$clausulas_where=array(), $comentario='')
 	{
 		if (empty($clausulas_where)) {
 			return $sql;
@@ -85,7 +85,13 @@
 			if ($i == $punto_insercion) {
 				$sql .= ($posee_where) ? ' AND ' : ' WHERE ';
 				$sql .= "\n";
+				if ($comentario != '') {
+					$sql .=	"-------- $comentario --------\n";
+				}
 				$sql .= implode(' AND ', $clausulas_where);
+				if ($comentario != '') {
+					$sql .=	"------------------------\n";
+				}					
 				$sql .= "\n";
 			}
 			if($separadores[$i]==';') {

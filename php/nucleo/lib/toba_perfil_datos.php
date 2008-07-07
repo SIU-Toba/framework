@@ -30,7 +30,7 @@ class toba_perfil_datos
 	function __construct()
 	{
 		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
-		if( isset($this->id) ) { //Si el usuario tiene un perfil de datos
+		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
 			if($this->posee_restricciones()) {
 				$this->cargar_info_dimensiones();
@@ -149,8 +149,8 @@ class toba_perfil_datos
 				$where[] = $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
 			}
 			//-- 4 -- Altero el SQL
-			if($where) {
-				$sql = sql_concatenar_where($sql, $where);				
+			if(! empty($where)) {
+				$sql = sql_concatenar_where($sql, $where, 'PERFIL DE DATOS');				
 			}
 		}
 		return $sql;
@@ -191,7 +191,9 @@ class toba_perfil_datos
 	*/
 	function get_where_dimension_gatillo($dimension, $tabla_gatillo, $alias_tabla)
 	{
-		$fuente_datos = 'perfil_datos'; //HARCODEO!!!
+		//Busco fuente de datos por defecto
+		$fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		
 		//Busco la definicion del gatillo
 		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
 		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
@@ -211,11 +213,13 @@ class toba_perfil_datos
 			// La construccion se hace desde abajo hacia arriba, comenzando por el anidamiento mas profundo
 			$cadena_tablas[] = $tabla_gatillo_directo;	//La cadena empieza con el gatillo directo.
 			$cadena_tablas_alias[] = $alias_tabla_gatillo_directo;
-			$tablas_vinculantes = explode( ',', $def['ruta_tabla_rel_dim']);
-			$tablas_vinculantes = array_map('trim', $tablas_vinculantes);
-			foreach($tablas_vinculantes as $tv) {
-				$cadena_tablas[] = $tv;	
-				$cadena_tablas_alias[] = $this->get_alias_unico();
+			if ($def['ruta_tabla_rel_dim'] != '') {
+				$tablas_vinculantes = explode( ',', $def['ruta_tabla_rel_dim']);
+				$tablas_vinculantes = array_map('trim', $tablas_vinculantes);
+				foreach($tablas_vinculantes as $tv) {
+					$cadena_tablas[] = $tv;	
+					$cadena_tablas_alias[] = $this->get_alias_unico();
+				}
 			}
 			$cadena_tablas[] = $tabla_gatillo;			//La cadena termina con el gatillo indirecto
 			$cadena_tablas_alias[] =  $alias_tabla;		//El ultimo alias es el de la tabla encontrada
@@ -360,7 +364,11 @@ class toba_perfil_datos
 		foreach($clausulas as $clausula) {
 			$temp = preg_split("/\s+/", trim($clausula) );
 			if(isset($temp[0])) {
-				$tabla = $temp[0];
+				if (strpos($temp[0], '.') !== false) {
+					list($esquema, $tabla) = explode('.', $temp[0]);
+				} else {
+					$tabla = $temp[0];
+				}
 				if ( in_array($tabla, $gatillos) ) {	
 					//La tabla pertenece a una dimension
 					$alias = isset($temp[1]) ? $temp[1] : $temp[0];
