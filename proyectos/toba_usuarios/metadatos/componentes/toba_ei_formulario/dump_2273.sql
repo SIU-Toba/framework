@@ -16,7 +16,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	'filtro_auditoria', --subclase
-	'log_de_datos/filtro_auditoria.php', --subclase_archivo
+	'auditoria/log_datos/filtro_auditoria.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Tablas de Auditoría - pant_inicial - filtro', --nombre
@@ -163,7 +163,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'tablas', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'1', --orden
+	'2', --orden
 	'Tablas', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -236,7 +236,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_desde', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'2', --orden
+	'3', --orden
 	'Desde', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -309,7 +309,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_hasta', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'3', --orden
+	'4', --orden
 	'Hasta', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -382,7 +382,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'usuario', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'4', --orden
+	'5', --orden
 	'Usuario', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -394,12 +394,12 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'get_lista_usuarios', --carga_metodo
-	'toba_info_permisos', --carga_clase
-	'modelo/info/toba_info_permisos.php', --carga_include
+	NULL, --carga_clase
+	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
-	'toba_referencia', --carga_fuente
+	'toba_usuarios', --carga_fuente
 	NULL, --carga_lista
 	'usuario', --carga_col_clave
 	'nombre', --carga_col_desc
@@ -455,7 +455,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'operacion', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'5', --orden
+	'6', --orden
 	'Acción', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -528,7 +528,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'campo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'7', --orden
+	'8', --orden
 	'Campo', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -601,7 +601,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'valor', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'8', --orden
+	'9', --orden
 	'Valor', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -674,7 +674,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'ordenar', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
-	'6', --orden
+	'7', --orden
 	'Ordenar por', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
@@ -736,6 +736,79 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --selec_ancho
 	NULL, --selec_serializar
 	'2', --selec_cant_columnas
+	NULL  --upload_extensiones
+);
+INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_formulario, objeto_ei_formulario_proyecto, identificador, elemento_formulario, columnas, obligatorio, oculto_relaja_obligatorio, orden, etiqueta, etiqueta_estilo, descripcion, colapsado, desactivado, estilo, total, inicializacion, estado_defecto, solo_lectura, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_maestros, carga_cascada_relaj, carga_no_seteado, carga_no_seteado_ocultar, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_filas, edit_columnas, edit_wrap, edit_resaltar, edit_ajustable, edit_confirmar_clave, edit_expreg, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, popup_puede_borrar_estado, fieldset_fin, check_valor_si, check_valor_no, check_desc_si, check_desc_no, check_ml_toggle, fijo_sin_estado, editor_ancho, editor_alto, editor_botonera, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, upload_extensiones) VALUES (
+	'5287', --objeto_ei_formulario_fila
+	'2273', --objeto_ei_formulario
+	'toba_usuarios', --objeto_ei_formulario_proyecto
+	'proyecto', --identificador
+	'ef_combo', --elemento_formulario
+	'proyecto', --columnas
+	'1', --obligatorio
+	'0', --oculto_relaja_obligatorio
+	'1', --orden
+	'Proyecto', --etiqueta
+	NULL, --etiqueta_estilo
+	NULL, --descripcion
+	NULL, --colapsado
+	NULL, --desactivado
+	NULL, --estilo
+	NULL, --total
+	NULL, --inicializacion
+	NULL, --estado_defecto
+	NULL, --solo_lectura
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
+	NULL, --carga_dt
+	NULL, --carga_consulta_php
+	NULL, --carga_sql
+	NULL, --carga_fuente
+	NULL, --carga_lista
+	NULL, --carga_col_clave
+	NULL, --carga_col_desc
+	NULL, --carga_maestros
+	NULL, --carga_cascada_relaj
+	NULL, --carga_no_seteado
+	NULL, --carga_no_seteado_ocultar
+	NULL, --edit_tamano
+	NULL, --edit_maximo
+	NULL, --edit_mascara
+	NULL, --edit_unidad
+	NULL, --edit_rango
+	NULL, --edit_filas
+	NULL, --edit_columnas
+	NULL, --edit_wrap
+	NULL, --edit_resaltar
+	NULL, --edit_ajustable
+	NULL, --edit_confirmar_clave
+	NULL, --edit_expreg
+	NULL, --popup_item
+	NULL, --popup_proyecto
+	NULL, --popup_editable
+	NULL, --popup_ventana
+	NULL, --popup_carga_desc_metodo
+	NULL, --popup_carga_desc_clase
+	NULL, --popup_carga_desc_include
+	NULL, --popup_puede_borrar_estado
+	NULL, --fieldset_fin
+	NULL, --check_valor_si
+	NULL, --check_valor_no
+	NULL, --check_desc_si
+	NULL, --check_desc_no
+	NULL, --check_ml_toggle
+	NULL, --fijo_sin_estado
+	NULL, --editor_ancho
+	NULL, --editor_alto
+	NULL, --editor_botonera
+	NULL, --selec_cant_minima
+	NULL, --selec_cant_maxima
+	NULL, --selec_utilidades
+	NULL, --selec_tamano
+	NULL, --selec_ancho
+	NULL, --selec_serializar
+	NULL, --selec_cant_columnas
 	NULL  --upload_extensiones
 );
 --- FIN Grupo de desarrollo 0

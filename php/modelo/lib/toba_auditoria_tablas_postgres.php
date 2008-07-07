@@ -9,6 +9,7 @@ class toba_auditoria_tablas_postgres
 	protected $tablas = NULL;
 	protected $schema_logs = 'auditoria';
 	protected $schema_origen = 'public';
+	protected $prefijo = 'logs_';
 		
 	function __construct(toba_db $conexion) 
 	{
@@ -143,7 +144,7 @@ class toba_auditoria_tablas_postgres
 		$sql = '';
 	    foreach ($this->tablas as $t) {
 		   $campos = $conexion->get_definicion_columnas($t, $this->schema_origen);
-		   $sql .= "CREATE TABLE {$this->schema_logs}.{$t}(\n";
+		   $sql .= "CREATE TABLE {$this->schema_logs}.{$this->prefijo}{$t}(\n";
 		   $sql .= "auditoria_usuario varchar(30), 
 		   			auditoria_fecha timestamp, 
 		   			auditoria_operacion char(1),
@@ -196,7 +197,7 @@ class toba_auditoria_tablas_postgres
 							voperacion := ''U'';
 						END IF;
 			";
-			$sql .= "	INSERT INTO {$this->schema_logs}.$t (";
+			$sql .= "	INSERT INTO {$this->schema_logs}.{$this->prefijo}$t (";
 			foreach ($campos as $campo => $def) {
 				if ($def['tipo_sql'] != 'bytea') {
 					$sql .= $def['nombre'] .  ", "; 
@@ -313,7 +314,7 @@ class toba_auditoria_tablas_postgres
 	
 	function get_campos_claves($tabla)
 	{
-		$cols = toba::db()->get_definicion_columnas($tabla, $this->schema_origen);
+		$cols = $this->conexion->get_definicion_columnas($tabla, $this->schema_origen);
 		$pks = array();
 		foreach ($cols as $col) {
 			if ($col['pk']) {

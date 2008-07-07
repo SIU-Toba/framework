@@ -46,7 +46,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --publico
 	'0', --redirecciona
 	'juan', --usuario
-	'0', --exportable
+	'1', --exportable
 	'2003-05-06 01:28:42'  --creacion
 );
 --- FIN Grupo de desarrollo 0

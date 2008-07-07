@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3447]--  IPs Bloqueadas 
+--[3447]--  Bloqueo de Ips 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'IPs Bloqueadas', --nombre
+	'Bloqueo de Ips', --nombre
 	NULL, --descripcion
 	NULL, --actividad_accion
 	'1', --menu
@@ -39,7 +39,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona_orden
 	'0', --zona_listar
 	'apex', --imagen_recurso_origen
-	'solic_consola.gif', --imagen
+	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c

@@ -2,12 +2,63 @@
 class ci_auditoria extends toba_ci
 {
 	protected $s__filtro;
+	protected $s__proyecto;
 	protected $s__filtrar = false;
+	protected $esquema = 'auditoria';
+	
+	//-----------------------------------------------------------------------------------
+	//---- Inicializacion ---------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+	
+	function ini__operacion()
+	{
+		if( toba::sesion()->proyecto_esta_predefinido() ) {
+			$this->s__proyecto = toba::sesion()->get_id_proyecto();
+		}else{
+			$this->s__filtro['proyecto'] = toba::sesion()->get_id_proyecto();
+		}
+	}
+	
+	function conf()
+	{	
+		if (isset($this->s__filtro) && isset($this->s__filtro['proyecto'])) {
+			$this->s__proyecto = $this->s__filtro['proyecto'];
+		}
+		if( toba::sesion()->proyecto_esta_predefinido() ) {
+			$this->dep('filtro')->desactivar_efs( array('proyecto') );
+		}
+		if (isset($this->s__proyecto)) {
+			$tablas = $this->get_tablas();
+			if (empty($tablas)) {
+				$desc = 'El proyecto <strong>'.$this->s__proyecto.'</strong> no tiene creado un [wiki:Referencia/Auditoria esquema de auditoría]. ';
+				$desc .= "Para crearlo ejecute: <pre>toba proyecto crear_auditoria -p {$this->s__proyecto}";	
+				$this->pantalla()->set_descripcion($desc, 'error');				
+				$this->pantalla()->eliminar_dep('filtro');
+			} else {
+				$desc = 'Auditoría del proyecto <strong>'.$this->s__proyecto.'</strong>';	
+				$this->pantalla()->set_descripcion($desc);
+			}	
+			
+		}		
+	}
+	
+	function get_db()
+	{
+		$id = toba_info_editores::get_fuente_datos_defecto($this->s__proyecto);
+		$fuente_datos = toba_admin_fuentes::instancia()->get_fuente( $id,
+																	 $this->s__proyecto );
+		return $fuente_datos->get_db();
+	}	
+	
+	function get_lista_usuarios()
+	{
+		return toba_info_permisos::get_lista_usuarios($this->s__proyecto);
+	}
 	
 	
 	function get_tablas()
 	{
-		return toba::db()->get_lista_tablas(false, 'auditoria');
+		return $this->get_db()->get_lista_tablas(false, $this->esquema);
 	}
 	
 	//---- filtro -----------------------------------------------------------------------
@@ -41,12 +92,12 @@ class ci_auditoria extends toba_ci
 			$this->dep('filtro')->colapsar();
 			//--- Se recorre cada tabla buscada y se crea dinamicamente un cuadro
 			foreach($this->s__filtro['tablas'] as $tabla) { 
-				$auditoria = new toba_auditoria_tablas_postgres(toba::db());
+				$auditoria = new toba_auditoria_tablas_postgres($this->get_db());
 				$datos = $auditoria->get_datos($tabla, $this->s__filtro);
 				$claves = $auditoria->get_campos_claves($tabla);
 				$this->analizar_diferencias($datos, $claves, $campos_propios);				
 				
-				$definicion = toba::db()->get_definicion_columnas($tabla);
+				$definicion = $this->get_db()->get_definicion_columnas($tabla, $this->esquema);
 				foreach ($definicion as $id => $campo) {
 					$definicion[$id]['clave'] = $campo['nombre'];
 					$definicion[$id]['titulo'] = ucwords(str_replace(array('_', '_'), ' ', $campo['nombre']));
