@@ -2,6 +2,7 @@ ei_filtro.prototype = new ei();
 ei_filtro.prototype.constructor = ei_filtro;
 
 /**
+ * @class ei_filtro
  * @constructor
  * @phpdoc Componentes/Eis/toba_ei_filtro toba_ei_filtro
  */
@@ -69,7 +70,7 @@ function ei_filtro(id, instancia, input_submit) {
 	
 	ei_filtro.prototype.get_valores_maestros = function(id_ef) {
 		return [];
-	}
+	};
 	
 
 	//---Submit 
@@ -262,12 +263,12 @@ function ei_filtro(id, instancia, input_submit) {
 				$(id_combo + '_label_extra').style.display = 'none';
 			}
 		}
-	}
+	};
 	
 	ei_filtro.prototype.get_condicion = function (columna) {
 		var id_combo = 'col_' + this._input_submit + columna;
 		return $(id_combo).value;
-	}	
+	};	
 	
 	/**
 	 *	@private
@@ -354,7 +355,7 @@ function ei_filtro(id, instancia, input_submit) {
 		}
 		var display = (! hay_faltantes) ? 'none' : '';
 		$('botonera_' + this._instancia).style.display = display;
-	}
+	};
 	
 	/**
 	 * Resalta la línea seleccionada 

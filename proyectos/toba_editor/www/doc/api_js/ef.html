@@ -177,6 +177,11 @@ ef
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_filtro.html">ei_filtro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_formulario.html">ei_formulario</a>    
 		</span>
 	 	<br />
@@ -293,7 +298,7 @@ ef
 
 <div class="info-box">
 		<div class="info-box-title">Subclases directas</div>
-		<div class="info-box-body"> <a href="ef_editable.html">ef_editable</a>, <a href="ef_upload.html">ef_upload</a>, <a href="ef_radio.html">ef_radio</a>, <a href="ef_checkbox.html">ef_checkbox</a>, <a href="ef_combo.html">ef_combo</a>, <a href="ef_cuit.html">ef_cuit</a>, <a href="ef_popup.html">ef_popup</a>, <a href="ef_fijo.html">ef_fijo</a>, <a href="ef_multi_seleccion.html">ef_multi_seleccion</a>
+		<div class="info-box-body"> <a href="ef_editable.html">ef_editable</a>, <a href="ef_upload.html">ef_upload</a>, <a href="ef_radio.html">ef_radio</a>, <a href="ef_checkbox.html">ef_checkbox</a>, <a href="ef_combo.html">ef_combo</a>, <a href="ef_cuit.html">ef_cuit</a>, <a href="ef_popup.html">ef_popup</a>, <a href="ef_multi_seleccion.html">ef_multi_seleccion</a>, <a href="ef_fijo.html">ef_fijo</a>
 		</div>
 	</div>
 	
@@ -382,6 +387,16 @@ ef
 					</td>
 
 					<td class="method-definition"> Impide que el usuario pueda modificar el estado del elemento</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#es_oculto">es_oculto</A>()
+					</td>
+
+					<td class="method-definition"> El ef esta oculto?</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -540,6 +555,16 @@ ef
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#resaltar_cambio">resaltar_cambio</A>(hay_cambio)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#resetear_error">resetear_error</A>()
 					</td>
 
@@ -634,7 +659,7 @@ ef
 						<a class="method-name" href="#tiene_estado">tiene_estado</A>()
 					</td>
 
-					<td class="method-definition"> Retorna el id de este elemento definido en el editor</td></tr>
+					<td class="method-definition"> Retorna verdadero si el ef tiene algún valor cargado</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -985,10 +1010,55 @@ ef
 		   
 		</div>
 		
-   		<A id="formatear_valor" NAME="formatear_valor"><!-- --></A>	
+   		<A id="es_oculto" NAME="es_oculto"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">es_oculto</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>Object es_oculto ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>El ef esta oculto?</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+			
+			<strong>Retorna:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td class="indent">boolean</td>
+			  </tr>
+			</table>
+   						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="formatear_valor" NAME="formatear_valor"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">formatear_valor</span>
@@ -1025,8 +1095,8 @@ ef
 		
    		<A id="get_contenedor" NAME="get_contenedor"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">get_contenedor</span>
@@ -1067,8 +1137,8 @@ ef
 		
    		<A id="get_error" NAME="get_error"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_error</span>
@@ -1112,8 +1182,8 @@ ef
 		
    		<A id="get_estado" NAME="get_estado"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">get_estado</span>
@@ -1151,8 +1221,8 @@ ef
 		
    		<A id="get_estado_con_formato" NAME="get_estado_con_formato"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_estado_con_formato</span>
@@ -1189,8 +1259,8 @@ ef
 		
    		<A id="get_fila_actual" NAME="get_fila_actual"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">get_fila_actual</span>
@@ -1231,8 +1301,8 @@ ef
 		
    		<A id="get_id" NAME="get_id"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">get_id</span>
@@ -1269,8 +1339,8 @@ ef
 		
    		<A id="get_tab_index" NAME="get_tab_index"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">get_tab_index</span>
@@ -1315,8 +1385,8 @@ ef
 		
    		<A id="input" NAME="input"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">input</span>
@@ -1353,8 +1423,8 @@ ef
 		
    		<A id="ir_a_fila" NAME="ir_a_fila"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">ir_a_fila</span>
@@ -1405,8 +1475,8 @@ ef
 		
    		<A id="mostrar" NAME="mostrar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">mostrar</span>
@@ -1461,8 +1531,8 @@ ef
 		
    		<A id="no_resaltar" NAME="no_resaltar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">no_resaltar</span>
@@ -1503,8 +1573,8 @@ ef
 		
    		<A id="nodo" NAME="nodo"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">nodo</span>
@@ -1541,8 +1611,8 @@ ef
 		
    		<A id="ocultar" NAME="ocultar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">ocultar</span>
@@ -1597,8 +1667,8 @@ ef
 		
    		<A id="resaltar" NAME="resaltar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">resaltar</span>
@@ -1656,6 +1726,40 @@ ef
 		   <UL>   
 			   <B>See:</B><UL>- <a href="#no_resaltar">no_resaltar()</a></UL>
 		   </UL>
+		   
+		   
+		</div>
+		
+   		<A id="resaltar_cambio" NAME="resaltar_cambio"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">resaltar_cambio</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void resaltar_cambio (hay_cambio)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   
 		</div>
@@ -2078,7 +2182,7 @@ ef
 			</div>
 			
 				<p class="description">
-	  				<UL>Retorna el id de este elemento definido en el editor</UL>
+	  				<UL>Retorna verdadero si el ef tiene algún valor cargado</UL>
 				</p>
 						
 			

@@ -129,8 +129,14 @@ Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 </DL>
 
 <DL>
-<DT><A HREF="notificacion.html#agregar"><B>agregar(mensaje, gravedad, sujeto)</B></A> - 
+<DT><A HREF="notificacion.html#agregar"><B>agregar(mensaje, gravedad, sujeto, mensaje_debug)</B></A> - 
 Class method in  class <A HREF="notificacion.html">notificacion</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="GLOBALES.html#agregar_clase_css"><B>agregar_clase_css(nodo, clase)</B></A> - 
+Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 <DD>&nbsp;
 </DL>
 
@@ -283,13 +289,19 @@ Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <B>C</B></H2>
 
 <DL>
+<DT><A HREF="ef_editable_fecha.html#calcular_edad"><B>calcular_edad(fecha_base)</B></A> - 
+Instance method in  class <A HREF="ef_editable_fecha.html">ef_editable_fecha</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="GLOBALES.html#cambiar_atributos_en_arbol"><B>cambiar_atributos_en_arbol(arbol, id_orig, nuevo_id)</B></A> - 
 Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 <DD>&nbsp;
 </DL>
 
 <DL>
-<DT><A HREF="GLOBALES.html#cambiar_clase"><B>cambiar_clase(nodos, nueva_clase)</B></A> - 
+<DT><A HREF="GLOBALES.html#cambiar_clase"><B>cambiar_clase(nodos, nueva_clase, vieja_clase)</B></A> - 
 Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 <DD>&nbsp;
 </DL>
@@ -333,6 +345,12 @@ Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DL>
 <DT><A HREF="ef.html#cambiar_valor"><B>cambiar_valor(nuevo)</B></A> - 
 Instance method in  class <A HREF="ef.html">ef</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#cambio_condicion"><B>cambio_condicion(columna)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -457,6 +475,12 @@ Instance field in  class <A HREF="ei.html">ei</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#controlador"><B>controlador</B></A> - 
+Instance field in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei_formulario.html#controlador"><B>controlador</B></A> - 
 Instance field in  class <A HREF="ei_formulario.html">ei_formulario</A>
 <DD>&nbsp;
@@ -487,7 +511,13 @@ Instance method in  class <A HREF="ei_archivos.html">ei_archivos</A>
 </DL>
 
 <DL>
-<DT><A HREF="ei_formulario_ml.html#crear_fila"><B>crear_fila()</B></A> - 
+<DT><A HREF="ei_filtro.html#crear_fila"><B>crear_fila()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_formulario_ml.html#crear_fila"><B>crear_fila(_refrescar_todos)</B></A> - 
 Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DD>&nbsp;
 </DL>
@@ -594,6 +624,12 @@ Instance method in  class <A HREF="ci.html">ci</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_cuit.html#desactivar_validacion"><B>desactivar_validacion(desactivar)</B></A> - 
+Instance method in  class <A HREF="ef_cuit.html">ef_cuit</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="vinculador.html#desactivar_vinculo"><B>desactivar_vinculo(identificador)</B></A> - 
 Class method in  class <A HREF="vinculador.html">vinculador</A>
 <DD>&nbsp;
@@ -608,6 +644,12 @@ Instance method in  class <A HREF="ei.html">ei</A>
 <DL>
 <DT><A HREF="GLOBALES.html#descolapsar"><B>descolapsar(boton, cuerpo)</B></A> - 
 Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#deseleccionar_actual"><B>deseleccionar_actual()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -631,6 +673,12 @@ Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DL>
 <DT><A HREF="ef.html#"><B>ef</B></A> - 
  class <A HREF="ef.html">ef</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#ef"><B>ef(id)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -677,7 +725,7 @@ Constructor in  class <A HREF="ef_combo.html">ef_combo</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_cuit.html#constructor_detail"><B>ef_cuit(id_form, etiqueta, obligatorio, colapsado)</B></A> - 
+<DT><A HREF="ef_cuit.html#constructor_detail"><B>ef_cuit(id_form, etiqueta, obligatorio, colapsado, desactivar_validacion)</B></A> - 
 Constructor in  class <A HREF="ef_cuit.html">ef_cuit</A>
 <DD>&nbsp;
 </DL>
@@ -689,7 +737,7 @@ Constructor in  class <A HREF="ef_cuit.html">ef_cuit</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_editable.html#constructor_detail"><B>ef_editable(id_form, etiqueta, obligatorio, colapsado, masc)</B></A> - 
+<DT><A HREF="ef_editable.html#constructor_detail"><B>ef_editable(id_form, etiqueta, obligatorio, colapsado, masc, expreg)</B></A> - 
 Constructor in  class <A HREF="ef_editable.html">ef_editable</A>
 <DD>&nbsp;
 </DL>
@@ -713,7 +761,7 @@ Constructor in  class <A HREF="ef_editable_clave.html">ef_editable_clave</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_editable_fecha.html#constructor_detail"><B>ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc)</B></A> - 
+<DT><A HREF="ef_editable_fecha.html#constructor_detail"><B>ef_editable_fecha(id_form, etiqueta, obligatorio, colapsable, masc, expreg, rango)</B></A> - 
 Constructor in  class <A HREF="ef_editable_fecha.html">ef_editable_fecha</A>
 <DD>&nbsp;
 </DL>
@@ -725,7 +773,7 @@ Constructor in  class <A HREF="ef_editable_fecha.html">ef_editable_fecha</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_editable_moneda.html#constructor_detail"><B>ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)</B></A> - 
+<DT><A HREF="ef_editable_moneda.html#constructor_detail"><B>ef_editable_moneda(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje)</B></A> - 
 Constructor in  class <A HREF="ef_editable_moneda.html">ef_editable_moneda</A>
 <DD>&nbsp;
 </DL>
@@ -737,7 +785,7 @@ Constructor in  class <A HREF="ef_editable_moneda.html">ef_editable_moneda</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_editable_numero.html#constructor_detail"><B>ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)</B></A> - 
+<DT><A HREF="ef_editable_numero.html#constructor_detail"><B>ef_editable_numero(id_form, etiqueta, obligatorio, colapsado, expreg, masc, rango, mensaje)</B></A> - 
 Constructor in  class <A HREF="ef_editable_numero.html">ef_editable_numero</A>
 <DD>&nbsp;
 </DL>
@@ -749,7 +797,7 @@ Constructor in  class <A HREF="ef_editable_numero.html">ef_editable_numero</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_editable_porcentaje.html#constructor_detail"><B>ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, rango, mensaje)</B></A> - 
+<DT><A HREF="ef_editable_porcentaje.html#constructor_detail"><B>ef_editable_porcentaje(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, rango, mensaje)</B></A> - 
 Constructor in  class <A HREF="ef_editable_porcentaje.html">ef_editable_porcentaje</A>
 <DD>&nbsp;
 </DL>
@@ -845,7 +893,7 @@ Constructor in  class <A HREF="ef_radio.html">ef_radio</A>
 </DL>
 
 <DL>
-<DT><A HREF="ef_textarea.html#constructor_detail"><B>ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, maximo, ajustable)</B></A> - 
+<DT><A HREF="ef_textarea.html#constructor_detail"><B>ef_textarea(id_form, etiqueta, obligatorio, colapsado, masc, exp_reg, maximo, ajustable)</B></A> - 
 Constructor in  class <A HREF="ef_textarea.html">ef_textarea</A>
 <DD>&nbsp;
 </DL>
@@ -923,8 +971,20 @@ Constructor in  class <A HREF="ei_calendario.html">ei_calendario</A>
 </DL>
 
 <DL>
-<DT><A HREF="ei_cuadro.html#constructor_detail"><B>ei_cuadro(instancia, input_submit)</B></A> - 
+<DT><A HREF="ei_cuadro.html#constructor_detail"><B>ei_cuadro(id, instancia, input_submit)</B></A> - 
 Constructor in  class <A HREF="ei_cuadro.html">ei_cuadro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#"><B>ei_filtro</B></A> - 
+ class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#constructor_detail"><B>ei_filtro(id, instancia, input_submit)</B></A> - 
+Constructor in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -965,8 +1025,20 @@ Instance field in  class <A HREF="ef_popup.html">ef_popup</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#eliminar_fila"><B>eliminar_fila(fila)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei_formulario_ml.html#eliminar_fila"><B>eliminar_fila(fila)</B></A> - 
 Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#eliminar_seleccionada"><B>eliminar_seleccionada()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -997,6 +1069,12 @@ Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 <DL>
 <DT><A HREF="financiero.html#es_igual"><B>es_igual(num1, num2, digitos_precision)</B></A> - 
 Class method in  class <A HREF="financiero.html">financiero</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ef.html#es_oculto"><B>es_oculto()</B></A> - 
+Instance method in  class <A HREF="ef.html">ef</A>
 <DD>&nbsp;
 </DL>
 
@@ -1033,6 +1111,18 @@ Instance method in  class <A HREF="ci.html">ci</A>
 <DL>
 <DT><A HREF="GLOBALES.html#existe_funcion"><B>existe_funcion(obj, f)</B></A> - 
 Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_cuadro.html#exportar_excel"><B>exportar_excel()</B></A> - 
+Instance method in  class <A HREF="ei_cuadro.html">ei_cuadro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_cuadro.html#exportar_pdf"><B>exportar_pdf()</B></A> - 
+Instance method in  class <A HREF="ei_cuadro.html">ei_cuadro</A>
 <DD>&nbsp;
 </DL>
 
@@ -1090,6 +1180,12 @@ Instance method in  class <A HREF="ef_editable.html">ef_editable</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_editable_moneda.html#formatear_valor"><B>formatear_valor(valor)</B></A> - 
+Instance method in  class <A HREF="ef_editable_moneda.html">ef_editable_moneda</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_editable_porcentaje.html#formatear_valor"><B>formatear_valor(valor)</B></A> - 
 Instance method in  class <A HREF="ef_editable_porcentaje.html">ef_editable_porcentaje</A>
 <DD>&nbsp;
@@ -1125,8 +1221,20 @@ Instance method in  class <A HREF="ef_upload.html">ef_upload</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#get_condicion"><B>get_condicion(columna)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef.html#get_contenedor"><B>get_contenedor()</B></A> - 
 Instance method in  class <A HREF="ef.html">ef</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ef_radio.html#get_contenedor"><B>get_contenedor()</B></A> - 
+Instance method in  class <A HREF="ef_radio.html">ef_radio</A>
 <DD>&nbsp;
 </DL>
 
@@ -1145,6 +1253,12 @@ Instance method in  class <A HREF="ei_formulario.html">ei_formulario</A>
 <DL>
 <DT><A HREF="ei_formulario_ml.html#get_datos"><B>get_datos()</B></A> - 
 Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ef_cuit.html#get_desactivar_validacion"><B>get_desactivar_validacion()</B></A> - 
+Instance method in  class <A HREF="ef_cuit.html">ef_cuit</A>
 <DD>&nbsp;
 </DL>
 
@@ -1269,6 +1383,12 @@ Instance method in  class <A HREF="ef.html">ef</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_cuit.html#get_tab_index"><B>get_tab_index()</B></A> - 
+Instance method in  class <A HREF="ef_cuit.html">ef_cuit</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_popup.html#get_tab_index"><B>get_tab_index()</B></A> - 
 Instance method in  class <A HREF="ef_popup.html">ef_popup</A>
 <DD>&nbsp;
@@ -1277,6 +1397,12 @@ Instance method in  class <A HREF="ef_popup.html">ef_popup</A>
 <DL>
 <DT><A HREF="vinculador.html#get_url"><B>get_url(proyecto, operacion, servicio, parametros, objetos)</B></A> - 
 Class method in  class <A HREF="vinculador.html">vinculador</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#get_valores_maestros"><B>get_valores_maestros(id_ef)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -1611,6 +1737,12 @@ Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
 <DD>&nbsp;
 </DL>
 
+<DL>
+<DT><A HREF="GLOBALES.html#overlay_debug"><B>overlay_debug(i)</B></A> - 
+Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
+<DD>&nbsp;
+</DL>
+
 <HR>
 
 <A NAME="__P__"><!-- --></A><H2>
@@ -1665,6 +1797,12 @@ Instance method in  class <A HREF="ei.html">ei</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#puede_submit"><B>puede_submit()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei_formulario.html#puede_submit"><B>puede_submit()</B></A> - 
 Instance method in  class <A HREF="ei_formulario.html">ei_formulario</A>
 <DD>&nbsp;
@@ -1674,6 +1812,12 @@ Instance method in  class <A HREF="ei_formulario.html">ei_formulario</A>
 
 <A NAME="__Q__"><!-- --></A><H2>
 <B>Q</B></H2>
+
+<DL>
+<DT><A HREF="GLOBALES.html#quitar_clase_css"><B>quitar_clase_css(nodo, clase)</B></A> - 
+Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
+<DD>&nbsp;
+</DL>
 
 <DL>
 <DT><A HREF="String.html#quote_exp_reg"><B>quote_exp_reg()</B></A> - 
@@ -1701,6 +1845,18 @@ Class method in  class <A HREF="financiero.html">financiero</A>
 <DL>
 <DT><A HREF="String.html#reemplazar"><B>reemplazar(buscado, nuevo)</B></A> - 
 Instance method in  class <A HREF="String.html">String</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="GLOBALES.html#reemplazar_clase_css"><B>reemplazar_clase_css(nodo, vieja, nueva)</B></A> - 
+Class method in  class <A HREF="GLOBALES.html">GLOBALES</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#refrescar_foco"><B>refrescar_foco()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -1735,6 +1891,12 @@ Instance method in  class <A HREF="ef.html">ef</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef.html#resaltar_cambio"><B>resaltar_cambio(hay_cambio)</B></A> - 
+Instance method in  class <A HREF="ef.html">ef</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei.html#reset_evento"><B>reset_evento()</B></A> - 
 Instance method in  class <A HREF="ei.html">ei</A>
 <DD>&nbsp;
@@ -1755,6 +1917,12 @@ Instance method in  class <A HREF="ci.html">ci</A>
 <DL>
 <DT><A HREF="ei.html#resetear_errores"><B>resetear_errores()</B></A> - 
 Instance method in  class <A HREF="ei.html">ei</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#resetear_errores"><B>resetear_errores()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -1836,6 +2004,12 @@ Instance method in  class <A HREF="ef_popup.html">ef_popup</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#seleccionar"><B>seleccionar(fila)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei_formulario_ml.html#seleccionar"><B>seleccionar(fila)</B></A> - 
 Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DD>&nbsp;
@@ -1890,8 +2064,20 @@ Class method in  class <A HREF="toba.html">toba</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_formulario_ml.html#set_cabecera_visible_sin_datos"><B>set_cabecera_visible_sin_datos(visible)</B></A> - 
+Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_upload.html#set_editable"><B>set_editable()</B></A> - 
 Instance method in  class <A HREF="ef_upload.html">ef_upload</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#set_ef_valido"><B>set_ef_valido(ef, es_valido, solo_online)</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 
@@ -1950,6 +2136,12 @@ Instance method in  class <A HREF="ef_multi_seleccion.html">ef_multi_seleccion</
 </DL>
 
 <DL>
+<DT><A HREF="ef_radio.html#set_estado"><B>set_estado(nuevo)</B></A> - 
+Instance method in  class <A HREF="ef_radio.html">ef_radio</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_cuit.html#set_estado"><B>set_estado(nuevo,posicion)</B></A> - 
 Instance method in  class <A HREF="ef_cuit.html">ef_cuit</A>
 <DD>&nbsp;
@@ -1980,6 +2172,12 @@ Instance method in  class <A HREF="ef.html">ef</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_popup.html#set_opciones"><B>set_opciones(opciones)</B></A> - 
+Instance method in  class <A HREF="ef_popup.html">ef_popup</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_combo.html#set_opciones"><B>set_opciones(valores)</B></A> - 
 Instance method in  class <A HREF="ef_combo.html">ef_combo</A>
 <DD>&nbsp;
@@ -2006,6 +2204,12 @@ Instance method in  class <A HREF="ef_multi_seleccion_lista.html">ef_multi_selec
 <DL>
 <DT><A HREF="ef_radio.html#set_opciones"><B>set_opciones(valores)</B></A> - 
 Instance method in  class <A HREF="ef_radio.html">ef_radio</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_formulario.html#set_procesar_cambios"><B>set_procesar_cambios(examinar, boton_destino, excluir_efs)</B></A> - 
+Instance method in  class <A HREF="ei_formulario.html">ei_formulario</A>
 <DD>&nbsp;
 </DL>
 
@@ -2070,6 +2274,12 @@ Instance method in  class <A HREF="ef.html">ef</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_cuit.html#set_tab_index"><B>set_tab_index(tab_index)</B></A> - 
+Instance method in  class <A HREF="ef_cuit.html">ef_cuit</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_editable_clave.html#set_tab_index"><B>set_tab_index(tab_index)</B></A> - 
 Instance method in  class <A HREF="ef_editable_clave.html">ef_editable_clave</A>
 <DD>&nbsp;
@@ -2096,6 +2306,12 @@ Instance method in  class <A HREF="ef_popup.html">ef_popup</A>
 <DL>
 <DT><A HREF="ef_radio.html#set_tab_index"><B>set_tab_index(tab_index)</B></A> - 
 Instance method in  class <A HREF="ef_radio.html">ef_radio</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_formulario_ml.html#set_toggle"><B>set_toggle(id_ef)</B></A> - 
+Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DD>&nbsp;
 </DL>
 
@@ -2172,6 +2388,12 @@ Instance method in  class <A HREF="ei_cuadro.html">ei_cuadro</A>
 </DL>
 
 <DL>
+<DT><A HREF="ei_filtro.html#submit"><B>submit()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ei_formulario.html#submit"><B>submit()</B></A> - 
 Instance method in  class <A HREF="ei_formulario.html">ei_formulario</A>
 <DD>&nbsp;
@@ -2201,6 +2423,12 @@ Instance method in  class <A HREF="ef_combo.html">ef_combo</A>
 </DL>
 
 <DL>
+<DT><A HREF="ef_multi_seleccion.html#tiene_estado"><B>tiene_estado()</B></A> - 
+Instance method in  class <A HREF="ef_multi_seleccion.html">ef_multi_seleccion</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
 <DT><A HREF="ef_radio.html#tiene_estado"><B>tiene_estado()</B></A> - 
 Instance method in  class <A HREF="ef_radio.html">ef_radio</A>
 <DD>&nbsp;
@@ -2221,6 +2449,18 @@ Class field in  class <A HREF="notificacion.html">notificacion</A>
 <DL>
 <DT><A HREF="toba.html#constructor_detail"><B>toba()</B></A> - 
 Constructor in  class <A HREF="toba.html">toba</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ef_checkbox.html#toggle"><B>toggle(disparar_eventos)</B></A> - 
+Instance method in  class <A HREF="ef_checkbox.html">ef_checkbox</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_formulario_ml.html#toggle_checkbox"><B>toggle_checkbox(id_ef)</B></A> - 
+Instance method in  class <A HREF="ei_formulario_ml.html">ei_formulario_ml</A>
 <DD>&nbsp;
 </DL>
 
@@ -2339,6 +2579,12 @@ Instance method in  class <A HREF="ef_textarea.html">ef_textarea</A>
 <DL>
 <DT><A HREF="ef_upload.html#validar"><B>validar()</B></A> - 
 Instance method in  class <A HREF="ef_upload.html">ef_upload</A>
+<DD>&nbsp;
+</DL>
+
+<DL>
+<DT><A HREF="ei_filtro.html#validar"><B>validar()</B></A> - 
+Instance method in  class <A HREF="ei_filtro.html">ei_filtro</A>
 <DD>&nbsp;
 </DL>
 

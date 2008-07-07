@@ -3,7 +3,7 @@
 <HTML>
 <HEAD>
 <TITLE>
-toba
+ei_filtro
 </TITLE>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../api/media/style.css" TITLE="Style">
 <LINK REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
@@ -240,7 +240,7 @@ toba
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1>toba</h1>
+<h1>ei_filtro</h1>
 
 <br />
 <a name="sec-description"></a>
@@ -259,7 +259,7 @@ toba
 		<tr><td valign="top" width="60%" class="class-overview">
 	   
       		<div class="description">
-   			<BR/>Clase estática con servicios globales al framework, usar sin instanciar por ej. <em>toba.componentes();</em>
+   			<BR/>ei_filtro
  <BR/>
 			</div>	
    				
@@ -267,17 +267,24 @@ toba
 
 <PRE>Object
    |
-   +--<b>toba</b>
+   +--<a href='ei.html'>ei</a>
+         |
+         +--<b>ei_filtro</b>
 </PRE>
 
 		<p class="notes">
-			Ubicada en toba.js
+			Ubicada en ei_filtro.js
 		</p>
 
 
 
 	<table border="0" cellspacing="0" cellpadding="0">
 		
+	
+			<tr><td colspan="2"><a href='../api/Componentes/Eis/toba_ei_filtro'>
+			<img border='0' style='vertical-align: middle' src="../api/media/php-small.png" />
+			<strong>Clase PHP equivalente: toba_ei_filtro</strong></a></td></tr>
+	<br>
 	
 	</table>
 		</td>
@@ -288,6 +295,12 @@ toba
 	
 
 <a name="sec-inherited"></a>
+
+<div class="info-box">
+		<div class="info-box-title">Métodos heredados de <a href="ei.html">ei</a></div>
+		<div class="info-box-body"><a href="ei.html#set_evento">set_evento</a>, <a href="ei.html#set_evento_implicito">set_evento_implicito</a>, <a href="ei.html#reset_evento">reset_evento</a>, <a href="ei.html#invocar_vinculo">invocar_vinculo</a>, <a href="ei.html#cuerpo">cuerpo</a>, <a href="ei.html#raiz">raiz</a>, <a href="ei.html#cambiar_colapsado">cambiar_colapsado</a>, <a href="ei.html#colapsar">colapsar</a>, <a href="ei.html#descolapsar">descolapsar</a>, <a href="ei.html#boton_colapsar">boton_colapsar</a>, <a href="ei.html#ocultar">ocultar</a>, <a href="ei.html#mostrar">mostrar</a>, <a href="ei.html#desactivar_boton">desactivar_boton</a>, <a href="ei.html#activar_boton">activar_boton</a>, <a href="ei.html#ocultar_boton">ocultar_boton</a>, <a href="ei.html#mostrar_boton">mostrar_boton</a>, <a href="ei.html#get_boton">get_boton</a>
+		</div>
+	</div>
 
 
 
@@ -300,131 +313,160 @@ toba
 		<div class="method-summary">		
 			<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">Array</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!analizar_respuesta_servicio">analizar_respuesta_servicio</A>(respuesta)
-					</td>
-
-					<td class="method-definition"> Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">string</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!componentes">componentes</A>()
-					</td>
-
-					<td class="method-definition"> Retorna los ids de los componentes instanciados en esta página</td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!comunicar_eventos">comunicar_eventos</A>()
+						<a class="method-name" href="#cambio_condicion">cambio_condicion</A>(columna)
 					</td>
 
-					<td class="method-definition"> Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
- o a través de httprequest (AJAX)</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!comunicar_vinculo">comunicar_vinculo</A>(&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)
+						<a class="method-name" href="#crear_fila">crear_fila</A>()
 					</td>
 
-					<td class="method-definition"> Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
- debido a que la respuesta no es sincronica</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!error_comunicacion">error_comunicacion</A>(error)
+						<a class="method-name" href="#deseleccionar_actual">deseleccionar_actual</A>()
 					</td>
 
-					<td class="method-definition"> Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
- Redefinir en caso de querer mostrar algun mensaje o accion distinta</td></tr>
+					<td class="method-definition"> Deselecciona cualquier seleccion anterior de fila</td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#ef">ef</A>(id)
+					</td>
+
+					<td class="method-definition"> Accede a la instancia de un ef especifico</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!fin_aguardar">fin_aguardar</A>()
+						<a class="method-name" href="#eliminar_fila">eliminar_fila</A>(fila)
 					</td>
 
-					<td class="method-definition"> Oculta el div/imagen de 'Procesando'</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
-													 
-											<span class="method-result">string</span>
-					</td>
-					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!imagen">imagen</A>(nombre)
-					</td>
-
-					<td class="method-definition"> Retorna una referencia a la URL de una imagen especifica</td></tr>
-			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!incluir">incluir</A>(&lt;array&gt; consumos)
+						<a class="method-name" href="#eliminar_seleccionada">eliminar_seleccionada</A>()
 					</td>
 
-					<td class="method-definition"> Incluye una lista de consumos javascript en forma dinamica</td></tr>
+					<td class="method-definition"> Elimina del formulario la fila actualmente seleccionada
+ El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual</td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!inicio_aguardar">inicio_aguardar</A>()
+						<a class="method-name" href="#get_condicion">get_condicion</A>(columna)
 					</td>
 
-					<td class="method-definition"> Muestra un div/imagen contienendo un mensaje de 'Procesando'</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!servicio__html_parcial">servicio__html_parcial</A>(respuesta)
+						<a class="method-name" href="#get_valores_maestros">get_valores_maestros</A>(id_ef)
 					</td>
 
-					<td class="method-definition"> Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
- La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto</td></tr>
+					<td class="method-definition"> </td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">boolean</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#puede_submit">puede_submit</A>()
+					</td>
+
+					<td class="method-definition"> Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_aguardar">set_aguardar</A>(&lt;boolean&gt; aguardar)
+						<a class="method-name" href="#refrescar_foco">refrescar_foco</A>()
 					</td>
 
-					<td class="method-definition"> Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
- hacen pedidos asincronicos (ajax)</td></tr>
+					<td class="method-definition"> Toma la fila seleccionada y le pone foco al primer ef que lo acepte</td></tr>
 			
-					<tr><td class="method-definition " nowrap>&lt;static&gt;
+					<tr><td class="method-definition " nowrap>
 													 
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!set_ajax">set_ajax</A>(&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)
+						<a class="method-name" href="#resetear_errores">resetear_errores</A>()
 					</td>
 
-					<td class="method-definition"> Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
- en lugar del request clásico POST/GET a todo el framework</td></tr>
+					<td class="method-definition"> Limpia el componente de errores producidos anteriormente</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#seleccionar">seleccionar</A>(fila)
+					</td>
+
+					<td class="method-definition"> Marca una fila como seleccionada, cambiando su color de fondo</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_ef_valido">set_ef_valido</A>(ef, &lt;boolean&gt; es_valido, &lt;boolean&gt; solo_online)
+					</td>
+
+					<td class="method-definition"> Informa que una ef que cumple o no una validación especifica.</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#submit">submit</A>()
+					</td>
+
+					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">Object</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#validar">validar</A>()
+					</td>
+
+					<td class="method-definition"> Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em></td></tr>
 			
 			</table>
 			</div>			
@@ -441,10 +483,10 @@ toba
  <!-- ========= CONSTRUCTOR DETAIL START ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
-<A NAME="toba()"><!-- --></A>
+<A NAME="ei_filtro()"><!-- --></A>
 	<div class="evenrow">
 			<div class="method-header">
-				<span class="method-title">toba</span>
+				<span class="method-title">ei_filtro</span>
 			</div>
 			<br />			
 			<div class="function">
@@ -452,7 +494,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>toba ()</code>
+							   <code>ei_filtro (id, instancia, input_submit)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -473,13 +515,13 @@ toba
 		<a name='method_detail'></a>
 		
 		
-   		<A id="analizar_respuesta_servicio" NAME="!s!analizar_respuesta_servicio"><!-- --></A>	
+   		<A id="cambio_condicion" NAME="cambio_condicion"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">analizar_respuesta_servicio</span>
+				<span class="method-title">cambio_condicion</span>
 			</div>
 			<br />
 			<div class="function">
@@ -487,17 +529,13 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; Array analizar_respuesta_servicio (respuesta)</code>
+							   <code>void cambio_condicion (columna)</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Analiza una respuesta ajax en texto plana, partiendola por separadores <--toba--></UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -511,13 +549,13 @@ toba
 		   
 		</div>
 		
-   		<A id="componentes" NAME="!s!componentes"><!-- --></A>	
+   		<A id="crear_fila" NAME="crear_fila"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">componentes</span>
+				<span class="method-title">crear_fila</span>
 			</div>
 			<br />
 			<div class="function">
@@ -525,17 +563,13 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; string componentes ()</code>
+							   <code>void crear_fila ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
 				</table>
 				<br />
 			</div>
-			
-				<p class="description">
-	  				<UL>Retorna los ids de los componentes instanciados en esta página</UL>
-				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
@@ -549,13 +583,13 @@ toba
 		   
 		</div>
 		
-   		<A id="comunicar_eventos" NAME="!s!comunicar_eventos"><!-- --></A>	
+   		<A id="deseleccionar_actual" NAME="deseleccionar_actual"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">comunicar_eventos</span>
+				<span class="method-title">deseleccionar_actual</span>
 			</div>
 			<br />
 			<div class="function">
@@ -563,7 +597,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void comunicar_eventos ()</code>
+							   <code>void deseleccionar_actual ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -572,8 +606,7 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Comunica los eventos al servidor ya sea a través del clásico POST (haciendo un submit del form)
- o a través de httprequest (AJAX)</UL>
+	  				<UL>Deselecciona cualquier seleccion anterior de fila</UL>
 				</p>
 						
 			
@@ -586,19 +619,19 @@ toba
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
 		   <UL>   
-			   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
+			   <B>See:</B><UL>- <a href="#seleccionar">seleccionar()</a></UL>
 		   </UL>
 		   
 		   
 		</div>
 		
-   		<A id="comunicar_vinculo" NAME="!s!comunicar_vinculo"><!-- --></A>	
+   		<A id="ef" NAME="ef"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">comunicar_vinculo</span>
+				<span class="method-title">ef</span>
 			</div>
 			<br />
 			<div class="function">
@@ -606,7 +639,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void comunicar_vinculo (&lt;string&gt; vinculo, &lt;function&gt; nombre_callback)</code>
+							   <code>Object ef (id)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -615,8 +648,341 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Realiza un pedido GET asincronico simple al servidor, enviando informacion y esperando la respuesta en una funcion aparte
- debido a que la respuesta no es sincronica</UL>
+	  				<UL>Accede a la instancia de un ef especifico</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="eliminar_fila" NAME="eliminar_fila"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">eliminar_fila</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void eliminar_fila (fila)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="eliminar_seleccionada" NAME="eliminar_seleccionada"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">eliminar_seleccionada</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void eliminar_seleccionada ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Elimina del formulario la fila actualmente seleccionada
+ El HTML solo se oculta, no se elimina, con lo cual puede ser recuperado en su estado actual</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_condicion" NAME="get_condicion"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">get_condicion</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void get_condicion (columna)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="get_valores_maestros" NAME="get_valores_maestros"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">get_valores_maestros</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void get_valores_maestros (id_ef)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="puede_submit" NAME="puede_submit"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">puede_submit</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>boolean puede_submit ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Determina si el componente puede hacer submit en base 
+ al callback redefinible <em>evt__evento</em> donde evento es el id del evento disparado</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="refrescar_foco" NAME="refrescar_foco"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">refrescar_foco</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void refrescar_foco ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Toma la fila seleccionada y le pone foco al primer ef que lo acepte</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="resetear_errores" NAME="resetear_errores"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">resetear_errores</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void resetear_errores ()</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Limpia el componente de errores producidos anteriormente</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="seleccionar" NAME="seleccionar"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">seleccionar</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void seleccionar (fila)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Marca una fila como seleccionada, cambiando su color de fondo</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_ef_valido" NAME="set_ef_valido"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_ef_valido</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_ef_valido (ef, &lt;boolean&gt; es_valido, &lt;boolean&gt; solo_online)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Informa que una ef que cumple o no una validación especifica. 
+ En caso de que no sea valido el estado de la ef se informa al usuario
+ Si es valido se quita el estado de invalido (la cruz al lado del campo).</UL>
 				</p>
 						
 			
@@ -627,19 +993,28 @@ toba
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">vinculo</span>
+						<span class="var-name">es_valido</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Vinculo creado con el vinculador  </span>
+						<span class="var-description">   </span>
 					</td>
 				</tr>
 				
 				<tr>
 					<td class="indent">
-						<span class="var-name">nombre_callback</span>
+						<span class="var-name">solo_online</span>
 					</td>
 					<td>&nbsp;
-						<span class="var-description"> Funcion que se invoca una vez que responde el server (opcional si no se quiere escuchar respuesta) 	   </span>
+						<span class="var-description"> En caso que no sea valido sólo muestra la cruz al lado del campo y no un mensaje explícito 	   </span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="indent">
+						<span class="var-name">la</span>
+					</td>
+					<td>&nbsp;
+						<span class="var-description"> ef en cuestión  </span>
 					</td>
 				</tr>
 				
@@ -654,52 +1029,13 @@ toba
 		   
 		</div>
 		
-   		<A id="error_comunicacion" NAME="!s!error_comunicacion"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">error_comunicacion</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void error_comunicacion (error)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Callback utiliza para reaccionar ante un error en la comunicacion AJAX con el servidor
- Redefinir en caso de querer mostrar algun mensaje o accion distinta</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="fin_aguardar" NAME="!s!fin_aguardar"><!-- --></A>	
+   		<A id="submit" NAME="submit"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
 		 
 			<div class="method-header">
-				<span class="method-title">fin_aguardar</span>
+				<span class="method-title">submit</span>
 			</div>
 			<br />
 			<div class="function">
@@ -707,7 +1043,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void fin_aguardar ()</code>
+							   <code>Object submit ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -716,7 +1052,8 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Oculta el div/imagen de 'Procesando'</UL>
+	  				<UL>Inicia el proceso de submit, este proceso recorre todos los componentes
+ validandolos y preparandolos para una comunicación con el servidor</UL>
 				</p>
 						
 			
@@ -728,20 +1065,16 @@ toba
    			
 		   <!-- ADDITIONAL ATTRIBUTES START -->
 		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
-		   </UL>
-		   
 		   
 		</div>
 		
-   		<A id="imagen" NAME="!s!imagen"><!-- --></A>	
+   		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
 		 
 			<div class="method-header">
-				<span class="method-title">imagen</span>
+				<span class="method-title">validar</span>
 			</div>
 			<br />
 			<div class="function">
@@ -749,7 +1082,7 @@ toba
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; string imagen (nombre)</code>
+							   <code>Object validar ()</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -758,267 +1091,13 @@ toba
 			</div>
 			
 				<p class="description">
-	  				<UL>Retorna una referencia a la URL de una imagen especifica</UL>
+	  				<UL>Realiza la validación de este componente
+ Para agregar validaciones particulares globales al formulario, definir el metodo <em>evt__validar_datos</em>.<br>
+ Para validar efs especificos, definir el método <em>evt__idef__validar</em></UL>
 				</p>
 						
 			
 		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="incluir" NAME="!s!incluir"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">incluir</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void incluir (&lt;array&gt; consumos)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Incluye una lista de consumos javascript en forma dinamica</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">consumos</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Lista de consumos relativos a www/js, sin extension .js (eg. efs/ef_combo) 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   
-		</div>
-		
-   		<A id="inicio_aguardar" NAME="!s!inicio_aguardar"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">inicio_aguardar</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void inicio_aguardar ()</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Muestra un div/imagen contienendo un mensaje de 'Procesando'</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#!s!fin_aguardar">fin_aguardar()</a><BR/>- <a href="#!s!set_aguardar">set_aguardar()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="servicio__html_parcial" NAME="!s!servicio__html_parcial"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">servicio__html_parcial</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void servicio__html_parcial (respuesta)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Callback utilizada para escuchar la respuesta del html_parcial, esto es un componente recibe nuevamente su html contenido.<br>
- La respuesta se divide en tres partes: el innerHTML, los consumos a incluir y el eval del js suelto</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#!s!set_ajax">set_ajax()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="set_aguardar" NAME="!s!set_aguardar"><!-- --></A>	
-	   		 
-				<div class="oddrow">
-				
-		 
-			<div class="method-header">
-				<span class="method-title">set_aguardar</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void set_aguardar (&lt;boolean&gt; aguardar)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Determina si mostrar o no un div/imagen contienendo un mensaje de 'Procesando' cuando se 
- hacen pedidos asincronicos (ajax)</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">aguardar</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> habilitar el mensaje?  </span>
-					</td>
-				</tr>
-				
-			</table>		   
-		   
-		   
-		   <!-- METHOD PARAMETERS END -->			
-						
-   			
-		   <!-- ADDITIONAL ATTRIBUTES START -->
-		   
-		   <UL>   
-			   <B>See:</B><UL>- <a href="#!s!inicio_aguardar">inicio_aguardar()</a><BR/>- <a href="#!s!fin_aguardar">fin_aguardar()</a></UL>
-		   </UL>
-		   
-		   
-		</div>
-		
-   		<A id="set_ajax" NAME="!s!set_ajax"><!-- --></A>	
-	   		 
-				<div class="evenrow">
-			 
-		 
-			<div class="method-header">
-				<span class="method-title">set_ajax</span>
-			</div>
-			<br />
-			<div class="function">
-			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
-			    	<tr><td class="code-border">
-						<table width="100%" border="0" cellspacing="0" cellpadding="2">
-							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void set_ajax (&lt;<a href="ei.html">ei</a>&gt; componente, &lt;function&gt; servicio)</code>
-							</td></tr>
-						</table>
-					</td></tr>
-				</table>
-				<br />
-			</div>
-			
-				<p class="description">
-	  				<UL>Fuerza a que la comunicacion con el server se haga como un pedido AJAX hacia un componente específico
- en lugar del request clásico POST/GET a todo el framework</UL>
-				</p>
-						
-			
-		   <!-- METHOD PARAMETERS START -->
-		   
-			Parámetros:<br />		   
-			<table border="0" cellspacing="0" cellpadding="0">
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">componente</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Componente que se va a comunicar con su par PHP  </span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td class="indent">
-						<span class="var-name">servicio</span>
-					</td>
-					<td>&nbsp;
-						<span class="var-description"> Método de esta clase que escucha la respuesta del servidor (servicio) 	   </span>
-					</td>
-				</tr>
-				
-			</table>		   
 		   
 		   
 		   <!-- METHOD PARAMETERS END -->			
@@ -1036,6 +1115,28 @@ toba
 
 <br />
 
+
+<a name="sec-vars"></a>
+<div class="info-box">
+		<div class="info-box-title">Propiedades</div>
+		<div class="info-box-body">
+		   	
+			 <A NAME="controlador"><!-- --></A>
+	   		 
+				<div class="oddrow">
+				
+				<div class="var-header">
+					<span class="var-title">
+						<span class="var-type">Object</span>&nbsp;&nbsp;
+						<span class="var-name">controlador</span>
+					</span>
+											
+				</div>
+				
+			</div>			   
+			
+		</div>
+</div>
 
 
 <br />

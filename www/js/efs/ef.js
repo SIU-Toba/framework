@@ -286,8 +286,8 @@ ef.prototype.constructor = ef;
 			nodo = this.input();	
 		}	
 		return nodo.style.display == 'none';		
-		return false;		
-	};	
+	};
+		
 	/**
 	 * Oculta temporalmente el elemento y su etiqueta
 	 * @param {boolean} resetar Además de ocultar el elemento borra su estado o valor actual, por defecto false

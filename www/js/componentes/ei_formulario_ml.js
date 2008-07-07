@@ -32,12 +32,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		//Examen de cambios
 		if (this._con_examen_cambios) {
 			this._examinar_cambios();
-		}			
+		}	
 		//Agregar totales
 		for (var id_ef in this._ef_con_totales) {
 			this.agregar_procesamiento(id_ef);
 		}
-		for (var id_ef in this._ef_con_toggle) {
+		for (id_ef in this._ef_con_toggle) {
 			this.agregar_procesamiento(id_ef);
 		}		
 		this.agregar_procesamientos();
@@ -140,7 +140,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 */
 	ei_formulario_ml.prototype.toggle_checkbox = function (id_ef) {
 		var ef = this.ef(id_ef);
-		var toggle = $('toggle_' + ef._id_form_orig)
+		var toggle = $('toggle_' + ef._id_form_orig);
 		for (id_fila in this._filas) {
 			ef.ir_a_fila(this._filas[id_fila]).chequear(toggle.checked);
 		}
@@ -148,7 +148,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	
 	ei_formulario_ml.prototype._comprobar_toggle = function (fila, id_ef) {
 		var ef = this.ef(id_ef);
-		var toggle = $('toggle_' + ef._id_form_orig)		
+		var toggle = $('toggle_' + ef._id_form_orig);		
 		if (!ef.ir_a_fila(fila).chequeado() && toggle.checked) {
 			 toggle.checked = false;
 		}

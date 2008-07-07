@@ -361,7 +361,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		if (this.evt__procesar_cambios) {
 			this.evt__procesar_cambios(hay_cambio);
 		}
-	}
+	};
 	
 	ei_formulario.prototype.set_procesar_cambios = function(examinar, boton_destino, excluir_efs) {
 		this._con_examen_cambios = examinar;
@@ -381,7 +381,7 @@ function ei_formulario(id, instancia, rango_tabs, input_submit, maestros, esclav
 		} else {
 			this.desactivar_boton(this._boton_procesar_cambios);
 		}
-	}	
+	};	
 	
 	/**
 	 * Informa que un ef cumple o no una validación especifica. 

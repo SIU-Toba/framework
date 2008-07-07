@@ -177,6 +177,11 @@ GLOBALES
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_filtro.html">ei_filtro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_formulario.html">ei_formulario</a>    
 		</span>
 	 	<br />
@@ -322,6 +327,16 @@ GLOBALES
 			
 					<tr><td class="method-definition " nowrap>&lt;static&gt;
 													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!agregar_clase_css">agregar_clase_css</A>(nodo, clase)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
 											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
@@ -345,7 +360,7 @@ GLOBALES
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#!s!cambiar_clase">cambiar_clase</A>(nodos, nueva_clase)
+						<a class="method-name" href="#!s!cambiar_clase">cambiar_clase</A>(nodos, nueva_clase, vieja_clase)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -505,7 +520,37 @@ GLOBALES
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!overlay_debug">overlay_debug</A>(i)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#!s!popup_callback">popup_callback</A>(indice, clave, desc)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!quitar_clase_css">quitar_clase_css</A>(nodo, clase)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>&lt;static&gt;
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#!s!reemplazar_clase_css">reemplazar_clase_css</A>(nodo, vieja, nueva)
 					</td>
 
 					<td class="method-definition"> </td></tr>
@@ -736,10 +781,44 @@ GLOBALES
 		   
 		</div>
 		
-   		<A id="array_maximo" NAME="!s!array_maximo"><!-- --></A>	
+   		<A id="agregar_clase_css" NAME="!s!agregar_clase_css"><!-- --></A>	
 	   		 
 				<div class="evenrow">
 			 
+		 
+			<div class="method-header">
+				<span class="method-title">agregar_clase_css</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void agregar_clase_css (nodo, clase)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="array_maximo" NAME="!s!array_maximo"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">array_maximo</span>
@@ -776,8 +855,8 @@ GLOBALES
 		
    		<A id="cambiar_atributos_en_arbol" NAME="!s!cambiar_atributos_en_arbol"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_atributos_en_arbol</span>
@@ -810,8 +889,8 @@ GLOBALES
 		
    		<A id="cambiar_clase" NAME="!s!cambiar_clase"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_clase</span>
@@ -822,7 +901,7 @@ GLOBALES
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>&lt;static&gt; void cambiar_clase (nodos, nueva_clase)</code>
+							   <code>&lt;static&gt; void cambiar_clase (nodos, nueva_clase, vieja_clase)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -844,8 +923,8 @@ GLOBALES
 		
    		<A id="cambiar_colapsado" NAME="!s!cambiar_colapsado"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">cambiar_colapsado</span>
@@ -878,8 +957,8 @@ GLOBALES
 		
    		<A id="colapsar" NAME="!s!colapsar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">colapsar</span>
@@ -912,8 +991,8 @@ GLOBALES
 		
    		<A id="descolapsar" NAME="!s!descolapsar"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">descolapsar</span>
@@ -946,8 +1025,8 @@ GLOBALES
 		
    		<A id="es_cuit" NAME="!s!es_cuit"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">es_cuit</span>
@@ -980,8 +1059,8 @@ GLOBALES
 		
    		<A id="es_evento" NAME="!s!es_evento"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">es_evento</span>
@@ -1014,8 +1093,8 @@ GLOBALES
 		
    		<A id="existe_funcion" NAME="!s!existe_funcion"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">existe_funcion</span>
@@ -1048,8 +1127,8 @@ GLOBALES
 		
    		<A id="firstFocus" NAME="!s!firstFocus"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">firstFocus</span>
@@ -1086,8 +1165,8 @@ GLOBALES
 		
    		<A id="getElementPosition" NAME="!s!getElementPosition"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">getElementPosition</span>
@@ -1120,8 +1199,8 @@ GLOBALES
 		
    		<A id="getElementsByClass" NAME="!s!getElementsByClass"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">getElementsByClass</span>
@@ -1154,8 +1233,8 @@ GLOBALES
 		
    		<A id="getObjectClass" NAME="!s!getObjectClass"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">getObjectClass</span>
@@ -1188,8 +1267,8 @@ GLOBALES
 		
    		<A id="in_array" NAME="!s!in_array"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">in_array</span>
@@ -1226,8 +1305,8 @@ GLOBALES
 		
    		<A id="include_source" NAME="!s!include_source"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">include_source</span>
@@ -1260,8 +1339,8 @@ GLOBALES
 		
    		<A id="intercambiar_nodos" NAME="!s!intercambiar_nodos"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">intercambiar_nodos</span>
@@ -1294,8 +1373,8 @@ GLOBALES
 		
    		<A id="isset" NAME="!s!isset"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">isset</span>
@@ -1328,8 +1407,8 @@ GLOBALES
 		
    		<A id="overlay" NAME="!s!overlay"><!-- --></A>	
 	   		 
-				<div class="oddrow">
-				
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">overlay</span>
@@ -1341,6 +1420,40 @@ GLOBALES
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
 							   <code>&lt;static&gt; void overlay (limpiar)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="overlay_debug" NAME="!s!overlay_debug"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">overlay_debug</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void overlay_debug (i)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1375,6 +1488,74 @@ GLOBALES
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
 							   <code>&lt;static&gt; void popup_callback (indice, clave, desc)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="quitar_clase_css" NAME="!s!quitar_clase_css"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">quitar_clase_css</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void quitar_clase_css (nodo, clase)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="reemplazar_clase_css" NAME="!s!reemplazar_clase_css"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">reemplazar_clase_css</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>&lt;static&gt; void reemplazar_clase_css (nodo, vieja, nueva)</code>
 							</td></tr>
 						</table>
 					</td></tr>

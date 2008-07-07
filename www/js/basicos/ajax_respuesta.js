@@ -66,12 +66,13 @@ ajax_respuesta.prototype.constructor = ajax_respuesta;
 	ajax_respuesta.prototype.recibir_respuesta = function(response) {
 		try {
 			switch (this._modo) {
-				case 'D': 
+				case 'D':
+					var parametro; 
 					//-- Comunicación de datos codificados con JSON
-					if (response.responseText != '') {
-						var parametro = eval('(' + response.responseText + ')');
+					if (response.responseText !== '') {
+						parametro = eval('(' + response.responseText + ')');
 					} else{
-						var parametro = '';
+						parametro = '';
 					}
 					this._funcion.call(this._clase, parametro, this._contexto);
 					break;

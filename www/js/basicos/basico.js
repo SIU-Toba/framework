@@ -168,10 +168,10 @@ function addEvent(o, _e, c, _b){
 	if (typeof o[e] == 'function') {
 		var x = o[e].toString();
 		var inicial = x.indexOf("{");
-		var final = x.lastIndexOf("}")
+		var fin = x.lastIndexOf("}");
 		//Evita casos en que la funcion es anonima y el browser no lo retorna como un bloque
-		if (inicial != -1 && final != -1) {
-			x = x.substring(inicial+1, final);
+		if (inicial != -1 && fin != -1) {
+			x = x.substring(inicial+1, fin);
 		}		
 	} else {
 		x = (o[e]) ? o[e] : '';

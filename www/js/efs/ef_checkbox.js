@@ -73,7 +73,7 @@ ef_checkbox.prototype.constructor = ef_checkbox;
 		if (typeof disparar_eventos != 'boolean') {
 			disparar_eventos = true;
 		}		
-		this.chequear(! this.chequeado(), disparar_eventos)
+		this.chequear(! this.chequeado(), disparar_eventos);
 	};
 
 	

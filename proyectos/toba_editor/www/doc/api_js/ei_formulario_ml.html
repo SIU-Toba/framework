@@ -177,6 +177,11 @@ ei_formulario_ml
 	 	<br />
 	
 		<span style="padding-left: 1em;">		
+		<a href="ei_filtro.html">ei_filtro</a>    
+		</span>
+	 	<br />
+	
+		<span style="padding-left: 1em;">		
 		<a href="ei_formulario.html">ei_formulario</a>    
 		</span>
 	 	<br />
@@ -297,7 +302,7 @@ ei_formulario_ml
 
 <div class="info-box">
 		<div class="info-box-title">Métodos heredados de <a href="ei_formulario.html">ei_formulario</a></div>
-		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#efs">efs</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#get_valores_maestros">get_valores_maestros</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#evt__cascadas_inicio">evt__cascadas_inicio</a>, <a href="ei_formulario.html#evt__cascadas_fin">evt__cascadas_fin</a>, <a href="ei_formulario.html#set_ef_valido">set_ef_valido</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
+		<div class="info-box-body"><a href="ei_formulario.html#ef">ef</a>, <a href="ei_formulario.html#efs">efs</a>, <a href="ei_formulario.html#puede_submit">puede_submit</a>, <a href="ei_formulario.html#cascadas_maestros_preparados">cascadas_maestros_preparados</a>, <a href="ei_formulario.html#cascadas_preparar_esclavo">cascadas_preparar_esclavo</a>, <a href="ei_formulario.html#get_valores_maestros">get_valores_maestros</a>, <a href="ei_formulario.html#cascadas_comunicar">cascadas_comunicar</a>, <a href="ei_formulario.html#cascadas_respuesta">cascadas_respuesta</a>, <a href="ei_formulario.html#evt__cascadas_inicio">evt__cascadas_inicio</a>, <a href="ei_formulario.html#evt__cascadas_fin">evt__cascadas_fin</a>, <a href="ei_formulario.html#set_procesar_cambios">set_procesar_cambios</a>, <a href="ei_formulario.html#set_ef_valido">set_ef_valido</a>, <a href="ei_formulario.html#cambiar_expansion">cambiar_expansion</a>
 		</div>
 	</div>
 
@@ -411,10 +416,10 @@ ei_formulario_ml
 			
 					<tr><td class="method-definition " nowrap>
 													 
-											<span class="method-result">void</span>
+											<span class="method-result">Object</span>
 					</td>
 					<td nowrap class="method-definition">
-						<a class="method-name" href="#crear_fila">crear_fila</A>()
+						<a class="method-name" href="#crear_fila">crear_fila</A>(_refrescar_todos)
 					</td>
 
 					<td class="method-definition"> Agrega una nueva fila a la grilla.</td></tr>
@@ -552,6 +557,26 @@ ei_formulario_ml
 											<span class="method-result">void</span>
 					</td>
 					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_cabecera_visible_sin_datos">set_cabecera_visible_sin_datos</A>(visible)
+					</td>
+
+					<td class="method-definition"> Se muestra la cabecera/pie en caso de que no tenga datos el formulario</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#set_toggle">set_toggle</A>(id_ef)
+					</td>
+
+					<td class="method-definition"> </td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
 						<a class="method-name" href="#subir_seleccionada">subir_seleccionada</A>()
 					</td>
 
@@ -567,6 +592,16 @@ ei_formulario_ml
 
 					<td class="method-definition"> Inicia el proceso de submit, este proceso recorre todos los componentes
  validandolos y preparandolos para una comunicación con el servidor</td></tr>
+			
+					<tr><td class="method-definition " nowrap>
+													 
+											<span class="method-result">void</span>
+					</td>
+					<td nowrap class="method-definition">
+						<a class="method-name" href="#toggle_checkbox">toggle_checkbox</A>(id_ef)
+					</td>
+
+					<td class="method-definition"> Dado un id de un ef checkbox cambia el chequeo de todas las filas</td></tr>
 			
 					<tr><td class="method-definition " nowrap>
 													 
@@ -1035,7 +1070,7 @@ ei_formulario_ml
 			    	<tr><td class="code-border">
 						<table width="100%" border="0" cellspacing="0" cellpadding="2">
 							<tr><td class="code">&nbsp;
-							   <code>void crear_fila ()</code>
+							   <code>Object crear_fila (_refrescar_todos)</code>
 							</td></tr>
 						</table>
 					</td></tr>
@@ -1593,6 +1628,78 @@ ei_formulario_ml
 		   
 		</div>
 		
+   		<A id="set_cabecera_visible_sin_datos" NAME="set_cabecera_visible_sin_datos"><!-- --></A>	
+	   		 
+				<div class="oddrow">
+				
+		 
+			<div class="method-header">
+				<span class="method-title">set_cabecera_visible_sin_datos</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_cabecera_visible_sin_datos (visible)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Se muestra la cabecera/pie en caso de que no tenga datos el formulario</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="set_toggle" NAME="set_toggle"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
+		 
+			<div class="method-header">
+				<span class="method-title">set_toggle</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void set_toggle (id_ef)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
    		<A id="subir_seleccionada" NAME="subir_seleccionada"><!-- --></A>	
 	   		 
 				<div class="oddrow">
@@ -1670,10 +1777,48 @@ ei_formulario_ml
 		   
 		</div>
 		
-   		<A id="total" NAME="total"><!-- --></A>	
+   		<A id="toggle_checkbox" NAME="toggle_checkbox"><!-- --></A>	
 	   		 
 				<div class="oddrow">
 				
+		 
+			<div class="method-header">
+				<span class="method-title">toggle_checkbox</span>
+			</div>
+			<br />
+			<div class="function">
+			    <table width="90%" border="0" cellspacing="0" cellpadding="1">
+			    	<tr><td class="code-border">
+						<table width="100%" border="0" cellspacing="0" cellpadding="2">
+							<tr><td class="code">&nbsp;
+							   <code>void toggle_checkbox (id_ef)</code>
+							</td></tr>
+						</table>
+					</td></tr>
+				</table>
+				<br />
+			</div>
+			
+				<p class="description">
+	  				<UL>Dado un id de un ef checkbox cambia el chequeo de todas las filas</UL>
+				</p>
+						
+			
+		   <!-- METHOD PARAMETERS START -->
+		   
+		   
+		   <!-- METHOD PARAMETERS END -->			
+						
+   			
+		   <!-- ADDITIONAL ATTRIBUTES START -->
+		   
+		   
+		</div>
+		
+   		<A id="total" NAME="total"><!-- --></A>	
+	   		 
+				<div class="evenrow">
+			 
 		 
 			<div class="method-header">
 				<span class="method-title">total</span>
@@ -1710,8 +1855,8 @@ ei_formulario_ml
 		
    		<A id="validar" NAME="validar"><!-- --></A>	
 	   		 
-				<div class="evenrow">
-			 
+				<div class="oddrow">
+				
 		 
 			<div class="method-header">
 				<span class="method-title">validar</span>
