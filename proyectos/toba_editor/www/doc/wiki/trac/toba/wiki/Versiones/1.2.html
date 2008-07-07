@@ -1,0 +1,363 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+ <title>Versiones/1.2.0 - SIU-Toba - Trac</title><link rel="start" href="../../wiki.html" /><link rel="search" href="../../../../external.html?link=https://localhost/trac/toba/search" /><link rel="help" href="../TracGuide.html" /><link rel="stylesheet" href="../../chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="../../chrome/common/css/wiki.css" type="text/css" /><link rel="icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="shortcut icon" href="../../../../external.html?link=https://localhost/favicon.ico" type="image/x-icon" /><link rel="alternate" href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.2.0?format=txt" title="Plain Text" type="text/x-trac-wiki" /><style type="text/css">
+.wikipage h2 {border-bottom: 1px solid gray;}
+
+/* trac php syntax highlighting */
+.code-block {
+    line-height: 1em;
+    font-family: Courier, monotype;
+    font-size: 12px;
+    }
+.h_question { color: #0000BB; } /* highlight.default */
+.hphp_commentline { color: #FF8000; } /* highlight.comment */
+.hphp_operator { color: #007700; } /* highlight.keyword */
+.hphp_word { color: #007700; } /* highlight.keyword */
+.hphp_default {}
+.hphp_variable { color: #0000BB; } /* highlight.default */
+.hphp_hstring { color: #DD0000; } /* highlight.string */
+.hphp_simplestring { color: #DD0000; } /* highlight.string */
+.h_tagunknown {}
+.h_default {}
+
+.code-keyword { color: #007700; font-weight: normal; }
+.code-lang { color: #0000BB; font-weight: normal; }
+.code-comment { color: #FF8000; font-weight: normal;}
+.code-string { color: #DD0000; font-weight: normal;}
+
+pre { padding:0; margin: 0}
+
+.tablas-screenshots td:first-child { background-color: #D5CECD; width: 30%}
+.tablas-screenshots table { width: 90%; border: 1px solid gray; }
+.tablas-screenshots td { }
+.tablas-screenshots table.wiki td { border: 1px solid gray; }
+
+#tkt-changes-hdr {
+    clear: both;
+    padding-top: 30px;
+}
+.wiki-toc {
+    clear: right;
+    min-width: 160px;
+    background-color:#F7F7F7;    
+    border: 1px solid #D7D7D7;
+}
+.wiki-toc .active {
+    background-color: #890C71;
+    padding: 1px;
+}
+.wiki-toc .active a {
+    color:white; 
+}
+.wiki-toc .active a:hover {
+    background-color:  #890C71;
+}
+.indice-general {
+/*    background-color: #FFFFDD;*/
+}
+.wikipage h1 {
+    padding-top: 5px;
+}
+.wikipage h2 {
+ padding: 2px;
+}
+.wikipage h1 {
+    font-size: 28px;
+}
+.wikipage h2 {
+    background-color: #890C71;
+    color: white;
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 100%;
+    border: 1px solid gray;
+}
+.wikipage h3 {
+    font-size:100%;
+}
+li {
+    margin-bottom:4px;
+}
+li * {
+    margin-bottom:0;
+}
+/*a {
+ color: #890C71;
+}*/
+@media print {
+ .wiki-toc { display: none }
+}
+#tkt-changes-hdr, .tkt-chg-list { 
+    font-size:80%;
+    text-align:right;
+}
+
+</style>
+ <script type="text/javascript" src="../../chrome/common/js/trac.js"></script>
+</head>
+
+			<body>
+			<table border='0' cellspacing='0' cellpadding='0' height='48' width='100%'>
+			  <tr>
+			
+				<td class='header-top-left'><img src='../../../../../api/media/logo.png' border='0'/></td>
+			    <td class='header-top-right'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/wiki.png' />
+			    	<a href='../../../../../api/index.html'  title='Navegar hacia la documentación PHP'>
+			    		<img border='0' style='vertical-align: middle' src='../../../../../api/media/php-small.png' /></a> 
+			    	<a href='../../../../../api_js/index.html'  title='Navegar hacia la documentación Javascript'>    		
+			    	<img border='0' style='vertical-align: middle' src='../../../../../api/media/javascript-small.png' /></a>
+			  </tr>
+			
+			  <tr>
+			    <td colspan='2' class='header-menu'>
+			  		  [ <a href='http://desarrollos2.siu.edu.ar/trac/toba/wiki/Versiones/1.2' title='El sitio online contiene contenidos mas detallados y actualizados'
+						class='menu'>Ver online</a> ]
+			    </td>
+			
+			  </tr>
+			  <tr><td colspan='2' class='header-line'><img src='../../../../../api/media/empty.png' width='1' height='1' border='0' alt=''  /></td></tr>
+			</table>
+		
+
+
+<div id="banner">
+
+<div id="header"><a id="logo" href="../../../../external.html?link=https://localhost/trac/toba"><img src="../../chrome/site/logo_toba_siu.gif" width="282" height="90" alt="Toba" /></a><hr /></div>
+
+<form id="search" action="../../../../external.html?link=https://localhost/trac/toba/search" method="get">
+ <div>
+  <label for="proj-search">Search:</label>
+  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
+  <input type="submit" value="Search" />
+  <input type="hidden" name="wiki" value="on" />
+  <input type="hidden" name="changeset" value="on" />
+  <input type="hidden" name="ticket" value="on" />
+ </div>
+</form>
+
+
+
+<div id="metanav" class="nav"><ul><li class="first"><a href="../../../../external.html?link=https://localhost/trac/toba/login">Login</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/settings">Settings</a></li><li><a accesskey="6" href="../TracGuide.html">Help/Guide</a></li><li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/about">About Trac</a></li></ul></div>
+</div>
+
+<div id="mainnav" class="nav"><ul><li class="active first"><a accesskey="1" href="../../wiki.html">Wiki</a></li><li><a accesskey="2" href="../../../../external.html?link=https://localhost/trac/toba/timeline">Timeline</a></li><li><a href="../../../../external.html?link=https://localhost/trac/toba/browser">Browse Source</a></li><li class="last"><a accesskey="4" href="../../../../external.html?link=https://localhost/trac/toba/search">Search</a></li></ul></div>
+<div id="main">
+
+
+
+<div id="ctxtnav" class="nav">
+ <h2>Wiki Navigation</h2>
+ <ul>
+   <li><a href="../../wiki.html">Start Page</a></li>
+   <li><a href="../TitleIndex.html">Index by Title</a></li>
+   <li><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/RecentChanges">Index by Date</a></li>
+   <li class="last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.2.0?action=diff&amp;version=53">Last Change</a></li>
+ </ul>
+ <hr />
+</div>
+
+<div id="content" class="wiki">
+
+ 
+  
+  
+   
+   <div class="wikipage">
+    <div id="searchable"><h1 id="Versión1.2.0">Versión 1.2.0</h1>
+<ul><li>Fecha: 04/07/08
+</li><li>Fuente: <a class="source" href="../../../../external.html?link=https://localhost/trac/toba/browser/versiones/1.2.0">source:versiones/1.2.0</a>
+</li><li>Revisiones involucradas: <a class="changeset" href="../../../../external.html?link=https://localhost/trac/toba/changeset/2956" title="Versión 1.1.0: Mejoras a las migración desde 1.0.4 (tanto revision  ...">[2956]</a> a [xxxx]
+</li></ul><h2 id="PerfilesdeUsuarios">Perfiles de Usuarios</h2>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/toba_usuarios.html"><img src="../../attachment/wiki/Versiones/1.2.0/toba_usuarios41f0.png?format=raw" style="float:right" /></a>
+</p>
+<p>
+Nuevo proyecto <a class="wiki" href="../Proyectos/toba_usuarios.html">toba_usuarios</a>, reemplazando el proyecto toba_instancia. Incorpora además
+</p>
+<ul><li>Edición de <i>Perfiles funcional</i> (ex-grupos de acceso) incorporando la selección de <i>Restricciones Funcionales</i>
+</li><li>Edición de <i>Perfiles de datos</i>
+</li></ul><p>
+Para entender en que consisten y como se definen recomendamos la entrada en la documentación de <strong><a class="wiki" href="../Referencia/Seguridad.html">Perfiles de Usuarios</a></strong>
+</p>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Referencia/Seguridad/perfiles.html"><img src="../../attachment/wiki/Referencia/Seguridad/perfiles41f0.png?format=raw" /></a>
+</p>
+<div style="clear:both"></div>
+<h2 id="Componenteei_filtro">Componente ei_filtro</h2>
+<p>
+Hasta ahora el filtro no era más que un formulario que resaltaba los campos con estado. A partir de esta versión este comportamiento será parte del formulario mismo y se puede configurar en las propiedades básicas del mismo:
+</p>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/ex-filtro.html"><img src="../../attachment/wiki/Versiones/1.2.0/ex-filtro41f0.png?format=raw" /></a>
+</p>
+<p>
+Durante la migración de los metadatos se convertirán automáticamente los filtros actuales hacia esta nueva definición, dejando lugar al nuevo concepto de filtro.
+</p>
+<h3 id="Nuevoei_filtro">Nuevo ei_filtro</h3>
+<p>
+El nuevo <strong><a class="wiki" href="../Referencia/Objetos/ei_filtro.html">ei_filtro</a></strong> está basado conceptualmente en el filtro de <a href="../../../../external.html?link=https://localhost/trac/toba/query">trac</a>. Se definen las columnas a filtrar, cada una con su tipo (cadena, numero, fecha, booleano, etc.). Dependiendo de este tipo se utiliza el ef asociado  (ef_editable, ef_numero, ef_fecha, ef_checkbox, etc.) para poder definir el valor del criterio y se muestra un combo para el operador del criterio en sí ('es igual a', 'es mayor a', etc). Una vez que se dispara el evento hacia php (funciona igual que el formulario en este aspecto) se le puede pedir al filtro el where para poder adjuntarlo directamente en la sql
+</p>
+<pre class="wiki">$where = $filtro-&gt;get_sql_where();
+</pre><p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/ei-filtro.html"><img src="../../attachment/wiki/Versiones/1.2.0/ei-filtro41f0.png?format=raw" /></a>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/edicion-ei-filtro.html"><img src="../../attachment/wiki/Versiones/1.2.0/edicion-ei-filtro41f0.png?format=raw" /></a>
+</p>
+<div style="clear:both"></div>
+<h2 id="Administracióndelproyecto">Administración del proyecto</h2>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/edicion-skins.html"><img src="../../attachment/wiki/Versiones/1.2.0/edicion-skins41f0.png?format=raw" style="float:right" /></a>
+</p>
+<ul><li>Esquema de <a class="wiki" href="../Referencia/Administracion.html">extension de comandos y modelo de un proyecto</a>. Permite que el proyecto cree sus propios comandos (ej. <tt>toba proyecto cargar_datos_estudio</tt>)
+</li><li>La url por defecto de los proyectos se basa en la version del mismo (archivo proyecto/VERSION) 
+</li><li>Los proyectos pueden crear sus propios skins. Se pueden generar nuevos skins a partir de paletas asociados a los mismos. Se toma el skin de plastik como base (ver figura)
+</li><li>Nuevo asistente que permite importar operaciones de otros proyectos. Nueva columna 'exportable' de la tabla de items, la idea es marcar aquellos items genericos que se pueden importar desde otros proyectos
+</li><li>Comando <tt>toba instalacion publicar</tt> y <tt>toba instalacion despublicar</tt> permite sacar y poner la instalacion completa en toba.conf, incluyendo nucleo y proyectos (instalacion publicar). La idea es que para cambiar alias tocar los archivos <tt>instalacion.ini</tt> e <tt>instancia.ini</tt> y luego ejecutar <tt>instalacion despublicar</tt> y <tt>instalacion publicar</tt>
+</li><li>Comando <tt>toba proyecto cargar</tt> acepta nuevo parametro -d para  para poder cargar proyectos que no estén en la carpeta <tt>proyectos</tt>
+</li><li>Comando <tt>toba base actualizar_secuencias</tt>
+</li><li>Comando <tt>toba instalacion eliminar_logs</tt>
+</li><li>Cambios al comando <tt>toba instalacion cambiar_permisos</tt> para que use el user sea el usuario apache (www-data) y el grupo sea el de los usuarios (staff en los servidores siu), es un esquema mas robusto que el inverso.
+</li><li>Comando <tt>toba proyecto empaquetar</tt> (beta). Soporte inicial para el instalador web de tandil. 
+<ul><li>La idea es tomar un toba, el proyecto, y el instalador para generar un paquete de instalacion. Los metadatos se exportan como un unico .sql (dato de entrada del instalador)
+</li><li>Toma un proyecto/instalador.ini donde están las directivas para el instalador y un apartado [EMPAQUETADO] con las opciones para generar el paquete 
+</li></ul></li><li>Posibilidad de cambiar la localización del directorio instalacion. Si se quiere cambiar la localización por defecto ($toba_dir/instalacion) se debe indicar en el alias del toba.conf
+<pre class="wiki">    SetEnv TOBA_INSTALACION_DIR "D:/mi_instalacion"
+</pre></li></ul><p>
+Además para que los comandos administrativos funcionen hay que pasarles esta variable entorno, por ejemplo en windows:
+</p>
+<pre class="wiki">    set toba_instalacion_dir=d:\mi_instalacion 
+</pre><h2 id="Formularios">Formularios</h2>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/form.html"><img src="../../attachment/wiki/Versiones/1.2.0/form41f0.png?format=raw" style="float:right" /></a>
+</p>
+<ul><li>Funcionalidad 'Limpiar estado' del ef_popup, cuando el mismo tiene estado se coloca un icono que permite resetearlo.
+</li><li>Soporte para expresiones regulares para validaciones en los efs, se agrega un parametro y un par predefinidas. La validación se hace tanto en javascript como en php haciendolas más seguras que las validaciones en extensiones javascript del formulario.
+<div style="clear:both"></div>
+</li><li>Soporte para efs fijos como esclavos de la cascada 
+</li><li>Mecanismo deteccion cambios efs, permite activar/desactivar el evento predeterminado del formulario en base si el usuario cambio o no algún ef. (<tt>$form-&gt;set_detectar_cambios(true)</tt>)
+</li><li>Validacion de un ef_fecha contra un rango
+</li><li>Mecanismo para poder relajar el algoritmo de validación de cuit con ciertos números específicos (por ej. CUILes que la AFIP publicó como números validos y que no pasan el control del dígito verificador.
+</li><li>Metodo toba_ef::set_estado_defecto
+</li><li>Se deja de asumir que si en el editor se pone un 'Tamaño Visual' eso implica que es el 'Tamaño Máximo' (saltan errores cuando realmente se empieza a hacer esta validación)
+</li><li>Inclusión de una nueva versión de fckeditor en el ef_html (soluciona un problema de duplicacion de texto en ie). Se le puede pedir get_editor() al ef y usar la api propia de la librería. Se sube un ejemplo en toba_referencia
+</li><li>Nuevo ef: toba_ef_editable_captcha. El mismo genera una imagen con texto aleatorio para pruebas de CAPTCHA. 
+</li></ul><p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/ef-captcha.html"><img src="../../attachment/wiki/Versiones/1.2.0/ef-captcha41f0.png?format=raw" /></a>
+</p>
+<h2 id="FormularioML">Formulario ML</h2>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/ml.html"><img src="../../attachment/wiki/Versiones/1.2.0/ml41f0.png?format=raw" style="float:right" /></a>
+</p>
+<ul><li>Los ef_checkbox tienen una opción para que en la cabecera de la grilla aparezca un tilde para seleccionar/deseleccionar todos
+</li><li>Borrado a nivel de fila y botón agregar con descripcion y ubicado en la botonera inferior. 
+<div style="clear:both"></div>
+</li></ul><h2 id="Cuadro">Cuadro</h2>
+<p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/vista-excel.html"><img src="../../attachment/wiki/Versiones/1.2.0/vista-excel41f0.png?format=raw" style="float:right" /></a>
+</p>
+<ul><li>Vista excel: Genera un excel nativo usando phpExcel. Requisitos php 5.2 y php_zip habilitado (para el formato 2007 de excel, xlsx).
+</li><li>Soporte para los cortes de control en pdf y excel. Se fuerzas los titulos de los pies ya que a diferencia de html no se puede mantener la tabulacion de las columnas de totalizacion con respecto a su tabla de datos. Faltaria la posibilidad de definir anchos, posiciones y tamaños de fuentes sin extender los métodos.
+</li><li>Metodo <tt>set_formateo_columna</tt> del cuadro para poder cambiar la forma en que se muestra una columna
+</li><li>Las funciones sueltas de formateo se incluyen en una clase para poder distinguir según el tipo de salida (html, excel, pdf) y para poder extenderlas o agregar nuevas.
+</li><li>Ordenamiento para las columnas del ei_cuadro con formato/funcion Fecha
+</li><li>Se puede colapsar/descolapsar los cortes de control por api, se puede hacer clickeando en la cabecera que ahora tiene un curso
+</li><li>El cuadro puede mostrar el total de registros encontrados, se activa por css:
+<pre class="wiki">.ei-cuadro-pag-total { display: block }
+</pre><div style="clear:both"></div>
+</li></ul><h2 id="NuevasAPIgenerales">Nuevas API generales</h2>
+<ul><li>Se agrega una ventana <tt>ini()</tt> a la clase base de los componentes, para no heredar el constructor o el inicializar que tienen parametros y asemejarlo al comportamiento del ci.
+</li><li>Acceso al API del menu de la aplicación con <tt>toba::menu()</tt> 
+</li><li><tt>toba::derechos()-&gt;chequear($id)</tt> para saber si el usuario actual tiene o no acceso a una funcionalidad 
+</li><li>Se agrega una nueva clase para validaciones. Se implementa la validacion de CBU (Clave Bancaria Uniforme) <tt>toba_validaciones::cbu_valido($cbu)</tt>. La idea es ir agregando validaciones de negocio comunes a esta clase.
+</li><li>Se puede pedir la versión del proyecto desde el runtime (<tt>toba::proyecto()-&gt;get_version()</tt>)
+</li><li>Se agrega la posibilidad de agregar/quitar componentes dentro de la etapa de generacion de servicios
+</li><li>Nuevo metodo <tt>hay_cambios</tt> de toba_datos_relacion para determinar si se produjeron cambios en alguna tabla de la relacion desde la carga de la misma. No es un chequeo estricto, por ejemplo si se cambia un valor y luego se cambia nuevamente al valor original se detecta como un cambio, aunque en relacion a la base quizas no existe tal cambio.
+</li><li>Libreria Numbers_Words de PEAR permite pasar un numero a un texto (pesos trescientos cincuenta con...)
+<pre class="wiki">$conversor_numeros = new Numbers_Words_es_Ar()
+echo $conversor_numeros-&gt;toWords(250); //Salida: 'doscientos cincuenta'
+echo $conversor_numeros-&gt;toCurrencyWords(250); //Salida: 'pesos doscientos cincuenta'
+</pre></li><li>Nuevas funcionalidades de toba_ei_arbol, si se consume la interface toba_nodo_arbol_form se brinda la posibilidad de que el arbol mantenga en sesion a los nodos y estos generen html y escuchen del post.
+</li></ul><p>
+<a style="padding:0; border:none" href="../../attachment/wiki/Versiones/1.2.0/mensajes.html"><img src="../../attachment/wiki/Versiones/1.2.0/mensajes41f0.png?format=raw" style="float:right" /></a>
+</p>
+<ul><li>Nuevo parametro <tt>$tipo de pantalla()-&gt;set_descripcion($mensaje, $tipo)</tt> que permite cambiar la forma que se muestra (info, warning o error), cambiando icono y estilo. Ahora también los eis pueden tener estas barras además de las pantallas.
+</li><li>Se agregan dos métodos a la clase toba_notificación, a modo de separacion de conceptos. Se mantiene compatibilidad hacia atrás:
+<ul><li><tt>toba::notificacion()-&gt;info($mensaje)</tt>
+</li><li><tt>toba::notificacion()-&gt;error($mensaje)</tt>
+<div style="clear:both"></div>
+</li></ul></li></ul><h2 id="Basededatos">Base de datos</h2>
+<ul><li>Se mapean los errores de base de datos utilizando el SQLSTATE devuelto por el motor. 
+</li><li>Parser de errores en la base. Detección de errores de PK y FK, basado en lo hecho por Pablo Revel para siu-quilmes. Distingue los tipos de errores parseando el mensaje de error generado por postgres, así se conoce el tabla, campo, pk, fk o índice que generó el error, se buscan los comentarios que pueden tener estos elementos en la base y se utilizan para formar el mensaje de error. Se puede activar en el inicio del contexto de ejecución:
+<pre class="wiki">toba::db()-&gt;set_parser_errores(new toba_parser_error_db_postgres7());
+</pre></li><li>Método <tt>toba::db()-&gt;hay_datos($sql)</tt> para hacer mas simples las validaciones 
+</li><li>Se pueden quotear arreglos de datos (<tt>$arreglo = quote($arreglo</tt>)
+</li><li>Creación de <a class="wiki" href="../Referencia/Auditoria.html">tablas de auditorias para postgres</a>. Tomada de la existente de quilmes creada por pablo y mejorada por gonzalo. Se crea con el comando <tt>toba proyecto crear_auditoria</tt>, existen una consulta básico en toba_usuarios.
+</li><li>Se parametriza el encoding en la creacion de bases. Es un parametro mas de bases.ini, si no esta definido usa "LATIN1". Esto es por una caracteristica de postgres 8.3 que por defecto fuerza un encoding unico para todas las bases de un cluster, si alguien usa un motor 8.3 fijado en un locale que no sea C o LATIN1, tiene que configurar bases.ini con el encoding correcto.
+</li><li>Soporte para schemas de postgres en los datos_tabla via api (<tt>$datos_tabla-&gt;persistidor()-&gt;set_schema($nombre)</tt>)
+</li><li>Modificaciones para poder usar bases informix con pdo 
+</li></ul><h2 id="Núcleo">Núcleo</h2>
+<ul><li>Es posible desactivar la reejecución de eventos por refresh del browser (f5). Por ejemplo permite despreocuparse por errores producidos por reejecución de altas y bajas en abms.
+</li><li>Soporte para sucesivas ejecuciones de refresh (f5) sin que se pierda la sesión de la operación actual.
+</li><li>Soporte para abrir operaciones desde el menú con sesiones en paralelo a la operación actual <tt>toba::menu()-&gt;set_abrir_nueva_ventana();</tt>
+</li><li>Se puede estilisar el espacio entre componentes (tag &lt;hr&gt;)
+</li><li>El proyecto puede crear un archivo <tt>toba_hack_ie.css</tt> que solo leen los IEs &lt; 8 (los no estandar)
+</li><li>En la migración automática todos los items con identificador alfanuméricos (creados con versiones anteriores a la 0.9.1) se migran a los numéricos autogenerados (forma estandar de creación desde la 0.9.1). Se migran tanto metadatos como código que hace referencia a estos items.
+</li></ul><h2 id="Bugsimportantes">Bugs importantes</h2>
+<ul><li>No se estaban leyendo los parametros 'sinc_susp_constraints' y 'sinc_orden_automatico' de los metadatos del datos_relacion. Ya que en versiones anteriores estos check siempre tomaban un valor en la practica (independientemente de su valor en base), se prevee una migracion que actualize los metadatos a este comportamiento, para garantizar compatibilidad hacia atras
+</li><li>En ciertas circunstancias el objeto Date de javascript devolvia 'Invalid Date' en vez de null cuando no se le pasaban datos inválidos.
+</li><li>Se incluye una parametro en instalacion.ini para sacar el fix de png para el ie (no anda en wine) 
+</li><li>Bug en la forma de anexar eventos en opera 9.5 (las cascadas dejaban de funcionar) 
+</li></ul><h2 id="MigraciónManual">Migración Manual</h2>
+<p>
+Seguir los pasos normales de <strong><a class="wiki" href="../Versiones.html#Migraci%C3%B3ndeversiones">migración</a></strong> (la llamada 'migración automática'). Tener en cuenta además:
+</p>
+<ul><li>En la extensión javascript de un formulario, se cambio la forma en que un ef_popup dispara el evento que lanza la ventana de popup. Por ejemplo si el id del ef era 'localidad' se atrapaba con <tt>evt__localidad</tt>, para evitar choque de nombres con los eventos clásicos se cambio a <tt>evt__ef_localidad</tt>.
+</li><li>Para aquellos proyectos que tienen personalizaciones de grupos de acceso, la migración crea un archivo <tt>migracion_instalaciones_1.2.0.sql</tt> en la raiz del proyecto, es necesario ejecutar esta sql previo al switch de versiones de las distintas instalaciones personalizadas.
+</li><li>Si existe un grupo de desarrollo en torno al proyecto, una vez que el mismo fue migrado y ya actualizado el codigo de toba y el del proyectos es necesario hacer cambios a las instalaciones existentes:
+<ul><li>Reemplazar <tt>toba_instancia</tt> por <tt>toba_usuarios</tt> en la directiva <tt>proyectos</tt> del archivo <tt>instalacion/i__desarrollo/instancia.ini</tt>,
+</li><li>Regenerar la instancia 
+</li><li>Para darle al menos a un usuario perfil de acceso en <tt>toba_usuarios</tt>  ejecutar en la consola el siguiente comando y elegir el perfil adecuado en cada proyecto:
+<pre class="wiki">toba instancia editar_acceso -u toba
+</pre></li></ul></li></ul></div>
+   </div>
+   
+    <h3 id="tkt-changes-hdr">Attachments</h3>
+    <ul class="tkt-chg-list"><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/ex-filtro.html">ex-filtro.png</a> (3.4 kB) - added by seba on 07/02/08 16:03:25.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/toba_usuarios.html">toba_usuarios.png</a> (29.6 kB) - added by seba on 07/02/08 16:03:34.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/ei-filtro.html">ei-filtro.png</a> (18.2 kB) - added by seba on 07/02/08 16:42:56.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/edicion-ei-filtro.html">edicion-ei-filtro.png</a> (30.1 kB) - added by seba on 07/02/08 17:27:41.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/edicion-skins.html">edicion-skins.png</a> (26.0 kB) - added by seba on 07/03/08 17:56:29.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/ml.html">ml.png</a> (34.6 kB) - added by seba on 07/03/08 18:41:09.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/ef-captcha.html">ef-captcha.png</a> (14.5 kB) - added by seba on 07/03/08 18:45:53.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/form.html">form.png</a> (19.3 kB) - added by seba on 07/03/08 19:19:51.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/vista-excel.html">vista-excel.png</a> (116.2 kB) - added by seba on 07/03/08 19:34:25.</li><li class="tkt-chg-change"><a href="../../attachment/wiki/Versiones/1.2.0/mensajes.html">mensajes.png</a> (12.6 kB) - added by seba on 07/03/08 19:42:12.</li>
+    </ul>
+  
+  
+  <script type="text/javascript">
+   addHeadingLinks(document.getElementById("searchable"), "Link to this section");
+  </script>
+ 
+ 
+</div>
+
+<script type="text/javascript">searchHighlight()</script>
+<div id="altlinks"><h3>Download in other formats:</h3><ul><li class="first last"><a href="../../../../external.html?link=https://localhost/trac/toba/wiki/Versiones/1.2.0?format=txt">Plain Text</a></li></ul></div>
+
+</div>
+
+<div id="footer">
+ <hr />
+ <a id="tracpowered" href="../../../../external.html?link=http://trac.edgewall.org/"><img src="../../chrome/common/trac_logo_mini.png" height="30" width="107"
+   alt="Trac Powered"/></a>
+ <p class="left">
+  Powered by <a href="../../../../external.html?link=https://localhost/trac/toba/about"><strong>Trac 0.10.3</strong></a><br />
+  By <a href="../../../../external.html?link=http://www.edgewall.org/">Edgewall Software</a>.
+ </p>
+ <p class="right">
+  Creado por el SIU<br /><a href="../../../../external.html?link=http://www.siu.edu.ar/">http://www.siu.edu.ar</a>
+ </p>
+</div>
+
+
+
+ </body>
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
+

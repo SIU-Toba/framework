@@ -41,7 +41,17 @@ function searchHighlight() {
       var param = params[p].split('=');
       if (param.length < 2) continue;
       if (param[0] == 'q' || param[0] == 'p') { // q= for Google, p= for Yahoo
-        return unescape(param[1].replace(/\+/g, ' ')).split(/\s+/);
+        var query = decodeURIComponent(param[1].replace(/\+/g, ' '));
+        if (query[0] == '!') query = query.slice(1);
+        words = query.split(/(".*?")|('.*?')|(\s+)/);
+        var words2 = new Array();
+        for (var w in words) {
+          words[w] = words[w].replace(/^\s+$/, '');
+          if (words[w] != '') {
+            words2.push(words[w].replace(/^['"]/, '').replace(/['"]$/, ''));
+          }
+        }
+        return words2;
       }
     }
     return [];
@@ -56,10 +66,11 @@ function searchHighlight() {
         var span = document.createElement("span");
         span.className = "searchword" + (searchwordindex % 5);
         span.appendChild(document.createTextNode(
-            node.nodeValue.substr(pos, word.length)));
-        var newNode = node.splitText(pos);
-        newNode.nodeValue = newNode.nodeValue.substr(word.length);
-        node.parentNode.insertBefore(span, newNode);
+          node.nodeValue.substr(pos, word.length)));
+        node.parentNode.insertBefore(span, node.parentNode.insertBefore(
+          document.createTextNode(node.nodeValue.substr(pos + word.length)),
+            node.nextSibling));
+        node.nodeValue = node.nodeValue.substr(0, pos);
         return true;
       }
     } else if (!node.nodeName.match(/button|select|textarea/i)) {
@@ -99,7 +110,7 @@ function enableControl(id, enabled) {
   }
 }
 
-function addHeadingLinks(container) {
+function addHeadingLinks(container, title) {
   var base = document.location.pathname;
   function addLinks(elems) {
     for (var i = 0; i < elems.length; i++) {
@@ -108,7 +119,7 @@ function addHeadingLinks(container) {
         var link = document.createElement('a');
         link.href = base + '#' + hn.id;
         link.className = 'anchor';
-        link.title = "Link to this section";
+        link.title = title.replace(/\$id/, hn.id);
         link.appendChild(document.createTextNode(" \u00B6"));
         hn.appendChild(link);
       }

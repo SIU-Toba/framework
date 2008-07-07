@@ -6,6 +6,8 @@ div.code {
  overflow: auto
 }
 
+div.code pre { margin: 0; }
+
 table.code {
  border: 1px solid #ddd;
  border-spacing: 0;
@@ -67,7 +69,7 @@ table.code tbody td {
 /* Comments */
 .code-comment, .css_comment, .c_comment, .c_commentdoc, .c_commentline,
 .c_commentlinedoc, .h_comment,.pl_commentline, .p_commentblock,
-.p_commentline, .hphp_commentblock, .hphp_commentline,
+.p_commentline, .hphp_comment, .hphp_commentblock, .hphp_commentline,
 .yaml_comment {
  color: #998; 
  font-style: italic;
@@ -127,7 +129,7 @@ table.code tbody td {
 .h_aspat { color: #ffdf00 }
 .h_attribute { color: teal }
 .h_attributeunknown { color: red }
-.h_cdata { color: #ffdf00 }
+.h_cdata { color: #373 }
 .h_entity { color: purple }
 .h_number { color: #099 }
 .h_other { color: purple }
