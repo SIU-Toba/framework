@@ -20,19 +20,23 @@ class comando_doc extends comando_toba
 	 */
 	function opcion__wiki()
 	{
-		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';		
+		$destino = toba_dir().'/proyectos/toba_editor/www/doc/wiki';
+		//$destino = '/home/smarconi/temp';		
 		
 		//--- Se borra lo viejo (para que se de cuenta svn)
-		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html/", true);
+		$dir_cache = toba_dir().'/proyectos/toba_editor/www/doc/wiki/hts-cache';
+		if (is_dir($dir_cache)) {
+			//toba_manejador_archivos::eliminar_directorio($dir_cache);
+		}
+		$lista = toba_manejador_archivos::get_archivos_directorio($destino, "/\\.html|\\.png|\\.gif|\\.jpg|\\.css||\\.js/", true);
 		foreach ($lista as $arch) {
 			unlink($arch);
 		}
-
 		//--- Se baja de la web		
 		$comando = 'httrack "https://localhost/trac/toba/wiki" -v  -%h -%F "" -I0 -N100 -x %P -O "'.$destino.'" \
 					+*.png +*.gif +*.jpg +*.css +*.js  -*login* -*changeset* -*timeline* -*browse* -*roadmap* \
 					-*report* -*search* -*history* -*format* -*settings*  -*about* -*ticket* -*query* -*milestone* \
-					-*WikiMacros* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*/Reuniones*';
+					-*WikiMacros* -*diff* -*RecentChanges* -*/Desarrollo* +*png?format=raw* -*sandbox* -*/Reuniones*';
 		system($comando);
 
 		//-- Busca el archivo css del wik y modifica algunos estilos
