@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -433,6 +443,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodagregar_dependencia_por_indice">agregar_dependencia_por_indice()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual utilizando</span>
 										</dd>
 										
 																			
@@ -649,6 +670,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodini">ini()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinvocar_callback">invocar_callback()</a></span>
 										</dt>
 										<dd>
@@ -693,6 +725,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_modo_compatible_manejo_sesion">set_modo_compatible_manejo_sesion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_propiedades_sesion">set_propiedades_sesion()</a></span>
 										</dt>
 										<dd>
@@ -714,11 +757,11 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#anexar_datos" title="details" class="method-name">anexar_datos</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Agrega a la tabla en memoria un nuevo set de datos (conservando el estado anterior).</td></tr>
 																				<tr>
@@ -973,11 +1016,11 @@
 						<td class="method-definition">Retorna los padres de un conjunto de registros especificos</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_persistidor" title="details" class="method-name">get_persistidor</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1024,9 +1067,24 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#hay_cambios" title="details" class="method-name">hay_cambios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina si los datos cargados en la tabla difieren de los datos existentes en la base</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#hay_cursor" title="details" class="method-name">hay_cursor</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Hay una fila seleccionada por el cursor?</td></tr>
+																				<tr>
+						<td nowrap align="right">
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
+						    																
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#ini" title="details" class="method-name">ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad</td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -1052,9 +1110,16 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#persistidor" title="details" class="method-name">persistidor</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#posee_columnas_externas" title="details" class="method-name">posee_columnas_externas</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
+						<td class="method-definition">La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estáticas  necesitan mantenerse junto al conjunto de datos.</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1196,16 +1261,16 @@
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1403]</span>
+	<span class="method-title">anexar_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1422]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void anexar_datos(
+		<code>array anexar_datos(
 array
 $datos, [boolean
 $usar_cursores = true]&nbsp;
@@ -1232,7 +1297,15 @@ $usar_cursores = true]&nbsp;
 				</table>
 
 	<br />
-	
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Ids. internos de los datos anexados</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -1243,7 +1316,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 847]</span>
+	<span class="method-title">cambiar_padre_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 855]</span>
 </div>
 <br />
 
@@ -1288,7 +1361,7 @@ $nuevos_padres&nbsp;
 	
 		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1351]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1369]</span>
 </div>
 <br />
 
@@ -1326,7 +1399,7 @@ $clave = array()]&nbsp;
 	
 		
 	
-	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1370]</span>
+	<span class="method-title">cargar_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1388]</span>
 </div>
 <br />
 
@@ -1365,7 +1438,7 @@ $datos&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">control_tope_maximo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1304]</span>
+	<span class="method-title">control_tope_maximo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1314]</span>
 </div>
 <br />
 
@@ -1412,7 +1485,7 @@ $cantidad&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1287]</span>
+	<span class="method-title">control_tope_minimo_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1297]</span>
 </div>
 <br />
 
@@ -1446,7 +1519,7 @@ $cantidad&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 82]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
 </div>
 <br />
 
@@ -1477,7 +1550,7 @@ $cantidad&nbsp;
 	
 		    		
 	
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1460]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1480]</span>
 </div>
 <br />
 
@@ -1510,7 +1583,7 @@ $cantidad&nbsp;
 	
 		    		
 	
-	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 879]</span>
+	<span class="method-title">eliminar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 887]</span>
 </div>
 <br />
 
@@ -1556,7 +1629,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 912]</span>
+	<span class="method-title">eliminar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 920]</span>
 </div>
 <br />
 
@@ -1594,7 +1667,7 @@ $con_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1448]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1468]</span>
 </div>
 <br />
 
@@ -1620,7 +1693,7 @@ $con_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1360]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1378]</span>
 </div>
 <br />
 
@@ -1647,7 +1720,7 @@ $con_cursores = true]&nbsp;
     		
 		
 	
-	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1257]</span>
+	<span class="method-title">evt__validar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1267]</span>
 </div>
 <br />
 
@@ -1693,7 +1766,7 @@ $fila&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1174]</span>
+	<span class="method-title">evt__validar_ingreso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1184]</span>
 </div>
 <br />
 
@@ -1752,7 +1825,7 @@ $id = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 677]</span>
+	<span class="method-title">existe_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 685]</span>
 </div>
 <br />
 
@@ -1790,7 +1863,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">existe_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 697]</span>
+	<span class="method-title">existe_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 705]</span>
 </div>
 <br />
 
@@ -1835,7 +1908,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1614]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1634]</span>
 </div>
 <br />
 
@@ -1861,7 +1934,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1037]</span>
+	<span class="method-title">get</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1047]</span>
 </div>
 <br />
 
@@ -1887,7 +1960,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1558]</span>
+	<span class="method-title">get_alias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1578]</span>
 </div>
 <br />
 
@@ -1913,7 +1986,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1089]</span>
+	<span class="method-title">get_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1099]</span>
 </div>
 <br />
 
@@ -1958,7 +2031,7 @@ $id_fila = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 667]</span>
+	<span class="method-title">get_cantidad_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 675]</span>
 </div>
 <br />
 
@@ -1984,7 +2057,7 @@ $id_fila = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+	<span class="method-title">get_cantidad_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -2010,7 +2083,7 @@ $id_fila = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 288]</span>
+	<span class="method-title">get_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
 </div>
 <br />
 
@@ -2036,7 +2109,7 @@ $id_fila = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
+	<span class="method-title">get_clave_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 306]</span>
 </div>
 <br />
 
@@ -2082,7 +2155,7 @@ $id_fila&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 651]</span>
+	<span class="method-title">get_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 659]</span>
 </div>
 <br />
 
@@ -2128,7 +2201,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1531]</span>
+	<span class="method-title">get_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1551]</span>
 </div>
 <br />
 
@@ -2154,7 +2227,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 457]</span>
+	<span class="method-title">get_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 465]</span>
 </div>
 <br />
 
@@ -2180,7 +2253,7 @@ $columna&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 602]</span>
+	<span class="method-title">get_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 610]</span>
 </div>
 <br />
 
@@ -2226,7 +2299,7 @@ $id&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 484]</span>
+	<span class="method-title">get_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 492]</span>
 </div>
 <br />
 
@@ -2286,7 +2359,7 @@ $usar_cursores = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 621]</span>
+	<span class="method-title">get_fila_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 629]</span>
 </div>
 <br />
 
@@ -2339,7 +2412,7 @@ $columna&nbsp;
 	
 		
 	
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1540]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1560]</span>
 </div>
 <br />
 
@@ -2365,7 +2438,7 @@ $columna&nbsp;
 		    	
 		
 	
-	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 508]</span>
+	<span class="method-title">get_id_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 516]</span>
 </div>
 <br />
 
@@ -2409,7 +2482,7 @@ $usar_cursores = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 347]</span>
+	<span class="method-title">get_id_filas_a_sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 355]</span>
 </div>
 <br />
 
@@ -2455,7 +2528,7 @@ $cambios = array(&quot;d&quot;,&quot;i&quot;,&quot;u&quot;)]&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 563]</span>
+	<span class="method-title">get_id_fila_condicion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 571]</span>
 </div>
 <br />
 
@@ -2508,7 +2581,7 @@ $usar_cursores = true]&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 544]</span>
+	<span class="method-title">get_id_fila_padre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 552]</span>
 </div>
 <br />
 
@@ -2553,7 +2626,7 @@ $id_fila&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 529]</span>
+	<span class="method-title">get_id_padres</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 537]</span>
 </div>
 <br />
 
@@ -2596,24 +2669,31 @@ $tabla_padre&nbsp;
 <div class="oddrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1321]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1358]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a> get_persistidor(
+		<code>void get_persistidor(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización </div>
-
-	<br />
 	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>Usar persistidor() a secas</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -2624,7 +2704,7 @@ $tabla_padre&nbsp;
 	
 		
 	
-	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 174]</span>
+	<span class="method-title">get_proximo_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -2650,7 +2730,7 @@ $tabla_padre&nbsp;
 	
 		
 	
-	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 265]</span>
+	<span class="method-title">get_relacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 273]</span>
 </div>
 <br />
 
@@ -2676,7 +2756,7 @@ $tabla_padre&nbsp;
 	
 		
 	
-	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1548]</span>
+	<span class="method-title">get_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1568]</span>
 </div>
 <br />
 
@@ -2702,7 +2782,7 @@ $tabla_padre&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 310]</span>
+	<span class="method-title">get_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
 </div>
 <br />
 
@@ -2736,7 +2816,7 @@ $tabla_padre&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 320]</span>
+	<span class="method-title">get_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 328]</span>
 </div>
 <br />
 
@@ -2770,7 +2850,7 @@ $tabla_padre&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 637]</span>
+	<span class="method-title">get_valores_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 645]</span>
 </div>
 <br />
 
@@ -2810,13 +2890,39 @@ $columna&nbsp;
 		
 		<br />
 </div>
-<a name="methodhay_cursor" id="hay_cursor"><!-- --></a>
+<a name="methodhay_cambios" id="hay_cambios"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 467]</span>
+	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1655]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean hay_cambios(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina si los datos cargados en la tabla difieren de los datos existentes en la base </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodhay_cursor" id="hay_cursor"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">hay_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 475]</span>
 </div>
 <br />
 
@@ -2836,13 +2942,51 @@ $columna&nbsp;
 		
 		<br />
 </div>
+<a name="methodini" id="ini"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
+    		
+		
+	
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void ini(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad </div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
+  </tr>
+</table>
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/toba_componente.html#methodini">toba_componente::ini()</a></dt>
+						<dd>Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</dd>
+					</dl>
+		
+		<br />
+</div>
 <a name="methodmodificar_fila" id="modificar_fila"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 784]</span>
+	<span class="method-title">modificar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 792]</span>
 </div>
 <br />
 
@@ -2902,7 +3046,7 @@ $nuevos_padres = null]&nbsp;
 	
 		
 	
-	<span class="method-title">nueva_busqueda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+	<span class="method-title">nueva_busqueda</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 284]</span>
 </div>
 <br />
 
@@ -2928,7 +3072,7 @@ $nuevos_padres = null]&nbsp;
 	
 		    		
 	
-	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 734]</span>
+	<span class="method-title">nueva_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 742]</span>
 </div>
 <br />
 
@@ -2982,13 +3126,39 @@ $id_nuevo = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodposee_columnas_externas" id="posee_columnas_externas"><!-- --></a>
+<a name="methodpersistidor" id="persistidor"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1575]</span>
+	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1331]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../../Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a> persistidor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el admin. de persistencia que asiste a este objeto durante la sincronización </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodposee_columnas_externas" id="posee_columnas_externas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">posee_columnas_externas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1595]</span>
 </div>
 <br />
 
@@ -3000,7 +3170,7 @@ $id_nuevo = null]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estéticas  necesitan mantenerse junto al conjunto de datos. </div>
+	<div class="description">La tabla posee alguna columna marcada como de 'carga externa'  Una columna externa no participa en la sincronización posterior, pero por necesidades casi siempre estáticas  necesitan mantenerse junto al conjunto de datos. </div>
 
 	<br />
 	
@@ -3009,12 +3179,12 @@ $id_nuevo = null]&nbsp;
 		<br />
 </div>
 <a name="methodprocesar_filas" id="procesar_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 968]</span>
+	<span class="method-title">procesar_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 978]</span>
 </div>
 <br />
 
@@ -3023,7 +3193,8 @@ $id_nuevo = null]&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void procesar_filas(
 array
-$filas&nbsp;
+$filas, [mixed
+$ids_padres = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -3038,6 +3209,12 @@ $filas&nbsp;
 				<span class="var-name">$filas:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Filas en formato RecordSet, cada registro debe contener un valor para la constante apex_ei_analisis_fila</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ids_padres:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Asociativo padre =&gt;id de las filas padres de esta nueva fila,                            en caso de que no se brinde, se utilizan los cursores actuales en estas tablas padres</span>			</td></tr>
 				</table>
 
 	<br />
@@ -3047,13 +3224,13 @@ $filas&nbsp;
 		<br />
 </div>
 <a name="methodregistrar_cambio" id="registrar_cambio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1626]</span>
+	<span class="method-title">registrar_cambio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1646]</span>
 </div>
 <br />
 
@@ -3101,12 +3278,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodreservar_id_fila" id="reservar_id_fila"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
+	<span class="method-title">reservar_id_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 172]</span>
 </div>
 <br />
 
@@ -3127,12 +3304,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodresetear" id="resetear"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1469]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1489]</span>
 </div>
 <br />
 
@@ -3153,12 +3330,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodresetear_cursor" id="resetear_cursor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 447]</span>
+	<span class="method-title">resetear_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 455]</span>
 </div>
 <br />
 
@@ -3179,12 +3356,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodrestaurar_cursor" id="restaurar_cursor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">restaurar_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 437]</span>
+	<span class="method-title">restaurar_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 445]</span>
 </div>
 <br />
 
@@ -3205,12 +3382,12 @@ $estado&nbsp;
 		<br />
 </div>
 <a name="methodset" id="set"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1016]</span>
+	<span class="method-title">set</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1026]</span>
 </div>
 <br />
 
@@ -3243,12 +3420,12 @@ $fila&nbsp;
 		<br />
 </div>
 <a name="methodset_blob" id="set_blob"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1059]</span>
+	<span class="method-title">set_blob</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1069]</span>
 </div>
 <br />
 
@@ -3279,7 +3456,7 @@ $id_fila = null]&nbsp;
 				<td>
 				<span class="var-name">$blob:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> file pointer</span>			</td></tr>
+				<span class="var-description"> file pointer o null en caso de querer borrar el valor</span>			</td></tr>
 					<tr><td class="indent">
 				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
@@ -3295,12 +3472,12 @@ $id_fila = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_columna_valor" id="set_columna_valor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 947]</span>
+	<span class="method-title">set_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 955]</span>
 </div>
 <br />
 
@@ -3347,12 +3524,12 @@ $con_cursores = false]&nbsp;
 		<br />
 </div>
 <a name="methodset_cursor" id="set_cursor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 422]</span>
+	<span class="method-title">set_cursor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 430]</span>
 </div>
 <br />
 
@@ -3385,12 +3562,12 @@ $id&nbsp;
 		<br />
 </div>
 <a name="methodset_es_unico_registro" id="set_es_unico_registro"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_es_unico_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
+	<span class="method-title">set_es_unico_registro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
 </div>
 <br />
 
@@ -3423,12 +3600,12 @@ $unico&nbsp;
 		<br />
 </div>
 <a name="methodset_fila_columna_valor" id="set_fila_columna_valor"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 926]</span>
+	<span class="method-title">set_fila_columna_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 934]</span>
 </div>
 <br />
 
@@ -3475,12 +3652,12 @@ $valor&nbsp;
 		<br />
 </div>
 <a name="methodset_no_duplicado" id="set_no_duplicado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
+	<span class="method-title">set_no_duplicado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 406]</span>
 </div>
 <br />
 
@@ -3513,12 +3690,12 @@ $columnas&nbsp;
 		<br />
 </div>
 <a name="methodset_tope_max_filas" id="set_tope_max_filas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 366]</span>
+	<span class="method-title">set_tope_max_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 374]</span>
 </div>
 <br />
 
@@ -3551,12 +3728,12 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodset_tope_min_filas" id="set_tope_min_filas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 384]</span>
+	<span class="method-title">set_tope_min_filas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 392]</span>
 </div>
 <br />
 
@@ -3589,12 +3766,12 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodsincronizar" id="sincronizar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1438]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1458]</span>
 </div>
 <br />
 
@@ -3623,12 +3800,12 @@ $cantidad&nbsp;
 		<br />
 </div>
 <a name="methodvalidar" id="validar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1238]</span>
+	<span class="method-title">validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1248]</span>
 </div>
 <br />
 
@@ -3657,7 +3834,7 @@ $cantidad&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

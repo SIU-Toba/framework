@@ -56,6 +56,9 @@
 		    			<a href="../SalidaGrafica/toba_form.html">					form
 					</a>    		
 	 <br />
+	    			<a href="../SalidaGrafica/toba_formateo.html">					formateo
+					</a>    		
+	 <br />
 	    			<a href="../SalidaGrafica/toba_http.html">					http
 					</a>    		
 	 <br />
@@ -96,6 +99,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_tp_popup.html">					tp_popup
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_excel.html">					vista_excel
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_vista_pdf.html">					vista_pdf
@@ -172,7 +178,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																									<tr>
+																																																																																																																																																																																																																																		<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -208,6 +214,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_ancho" title="details" class="method-name">get_ancho</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Dado un porcentaje, retorna el valor absoluto del ancho de la pagina segun sus medidas actuales</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">Cezpdf</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_pdf" title="details" class="method-name">get_pdf</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Devuelve el objeto pdf para manipular a gusto y piachere.</td></tr>
 																				<tr>
@@ -280,14 +293,14 @@
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_papel_orientacion" title="details" class="method-name">set_papel_orientacion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Cambia la orientacion del papel, se debe llamar a un inicializar</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_papel_tamanio" title="details" class="method-name">set_papel_tamanio</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
+						<td class="method-definition">Cambia el tamaño del papel, se debe llamar a un inicializar</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -353,7 +366,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 22]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
 <br />
 
@@ -379,7 +392,7 @@
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cabecera_http</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">cabecera_http</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
 </div>
 <br />
 
@@ -425,7 +438,7 @@ $longuitud&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">crear_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
+	<span class="method-title">crear_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 157]</span>
 </div>
 <br />
 
@@ -459,7 +472,7 @@ $longuitud&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">generar_pdf_encabezado_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+	<span class="method-title">generar_pdf_encabezado_pie</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -493,20 +506,58 @@ $longuitud&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_pdf" id="get_pdf"><!-- --></a>
+<a name="methodget_ancho" id="get_ancho"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">get_ancho</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 183]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_pdf(
+		<code>void get_ancho(
+int
+$porcentaje&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Dado un porcentaje, retorna el valor absoluto del ancho de la pagina segun sus medidas actuales </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$porcentaje:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_pdf" id="get_pdf"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>Cezpdf get_pdf(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -520,13 +571,13 @@ $longuitud&nbsp;
 		<br />
 </div>
 <a name="methodinicializar" id="inicializar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
     		
 		
 	
-	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
+	<span class="method-title">inicializar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 33]</span>
 </div>
 <br />
 
@@ -552,12 +603,12 @@ $longuitud&nbsp;
 		<br />
 </div>
 <a name="methodinsertar_imagen" id="insertar_imagen"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">insertar_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+	<span class="method-title">insertar_imagen</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
 </div>
 <br />
 
@@ -566,7 +617,9 @@ $longuitud&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void insertar_imagen(
 string
-$archivo, [string
+$archivo, [
+$pad = 5], [
+$width = 0], [string
 $alineacion = 'left']&nbsp;
 )</code>
     </td></tr></table>
@@ -588,6 +641,18 @@ $alineacion = 'left']&nbsp;
 				<span class="var-name">$alineacion:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> left, right, center</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$pad:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$width:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -603,12 +668,12 @@ $alineacion = 'left']&nbsp;
 		<br />
 </div>
 <a name="methodmensaje" id="mensaje"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 195]</span>
+	<span class="method-title">mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 214]</span>
 </div>
 <br />
 
@@ -640,12 +705,12 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodnumerar_paginas" id="numerar_paginas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">numerar_paginas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 139]</span>
+	<span class="method-title">numerar_paginas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 148]</span>
 </div>
 <br />
 
@@ -685,12 +750,12 @@ $formato = '{PAGENUM} de {TOTALPAGENUM}']&nbsp;
 		<br />
 </div>
 <a name="methodparar_numeracion_paginas" id="parar_numeracion_paginas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">parar_numeracion_paginas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
+	<span class="method-title">parar_numeracion_paginas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
 </div>
 <br />
 
@@ -710,12 +775,12 @@ $formato = '{PAGENUM} de {TOTALPAGENUM}']&nbsp;
 		<br />
 </div>
 <a name="methodsalto_linea" id="salto_linea"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">salto_linea</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">salto_linea</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 189]</span>
 </div>
 <br />
 
@@ -735,12 +800,12 @@ $formato = '{PAGENUM} de {TOTALPAGENUM}']&nbsp;
 		<br />
 </div>
 <a name="methodsalto_pagina" id="salto_pagina"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">salto_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 180]</span>
+	<span class="method-title">salto_pagina</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 199]</span>
 </div>
 <br />
 
@@ -760,12 +825,12 @@ $formato = '{PAGENUM} de {TOTALPAGENUM}']&nbsp;
 		<br />
 </div>
 <a name="methodseparacion" id="separacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">separacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">separacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
 </div>
 <br />
 
@@ -797,12 +862,12 @@ $espacio = 6]&nbsp;
 		<br />
 </div>
 <a name="methodset_nombre_archivo" id="set_nombre_archivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 66]</span>
+	<span class="method-title">set_nombre_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
@@ -834,12 +899,12 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodset_papel_orientacion" id="set_papel_orientacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_papel_orientacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
+	<span class="method-title">set_papel_orientacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -853,7 +918,8 @@ $orientacion&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Cambia la orientacion del papel, se debe llamar a un inicializar <p>para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)</p></div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -871,12 +937,12 @@ $orientacion&nbsp;
 		<br />
 </div>
 <a name="methodset_papel_tamanio" id="set_papel_tamanio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_papel_tamanio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+	<span class="method-title">set_papel_tamanio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
 </div>
 <br />
 
@@ -890,7 +956,8 @@ $tamanio&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<div class="description">Cambia el tamaño del papel, se debe llamar a un inicializar <p>para que tenga efecto sobre una hoja ya creada (la inicial por ejemplo)</p></div>
+
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -908,12 +975,12 @@ $tamanio&nbsp;
 		<br />
 </div>
 <a name="methodset_pdf_fuente" id="set_pdf_fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_pdf_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 100]</span>
+	<span class="method-title">set_pdf_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 108]</span>
 </div>
 <br />
 
@@ -946,12 +1013,12 @@ $fuente = 'Helvetica.afm']&nbsp;
 		<br />
 </div>
 <a name="methodset_tipo_descarga" id="set_tipo_descarga"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">set_tipo_descarga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 79]</span>
 </div>
 <br />
 
@@ -984,12 +1051,12 @@ $tipo&nbsp;
 		<br />
 </div>
 <a name="methodsubtitulo" id="subtitulo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">subtitulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 190]</span>
+	<span class="method-title">subtitulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 209]</span>
 </div>
 <br />
 
@@ -1021,12 +1088,12 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodtabla" id="tabla"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
+	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 247]</span>
 </div>
 <br />
 
@@ -1038,7 +1105,7 @@ array
 $datos, [boolean
 $ver_titulos_col = false], [integer
 $tamanio = 8], [array
-$opciones = null]&nbsp;
+$opciones = array()]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1080,12 +1147,12 @@ $opciones = null]&nbsp;
 		<br />
 </div>
 <a name="methodtexto" id="texto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">texto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+	<span class="method-title">texto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 219]</span>
 </div>
 <br />
 
@@ -1131,12 +1198,12 @@ $opciones = array( 'justification' =&gt; 'left')]&nbsp;
 		<br />
 </div>
 <a name="methodtitulo" id="titulo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
+	<span class="method-title">titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 204]</span>
 </div>
 <br />
 
@@ -1176,7 +1243,7 @@ $texto&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

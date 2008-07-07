@@ -160,7 +160,7 @@
 						</td>
 						<td class="method-definition"><a href="#eliminar_directorio" title="details" class="method-name">eliminar_directorio</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Elimina un directorio con contenido</td></tr>
-																				<tr><td></td><td class="method-definition" nowrap>static
+																													<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#es_windows" title="details" class="method-name">es_windows</a>()&nbsp;&nbsp;</td>
@@ -221,7 +221,14 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#comprimir_archivo" title="details" class="method-name">comprimir_archivo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																																																									</table>
+																																																								<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#es_directorio_vacio" title="details" class="method-name">es_directorio_vacio</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																																																																																					</table>
 			</div>
 			<br />
 		</div>
@@ -238,7 +245,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcopiar_directorio" id="copiar_directorio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method copiar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 173]</span>
 </div>
@@ -250,7 +257,9 @@
 		<code>static void copiar_directorio(
 
 $origen, 
-$destino&nbsp;
+$destino, [
+$excepciones = array()], [
+$manejador_interface = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -271,6 +280,18 @@ $destino&nbsp;
 				<span class="var-name">$destino:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$excepciones:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$manejador_interface:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -280,7 +301,7 @@ $destino&nbsp;
 		<br />
 </div>
 <a name="methodcrear_arbol_directorios" id="crear_arbol_directorios"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method crear_arbol_directorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
 </div>
@@ -321,7 +342,7 @@ $modo = 0777]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_archivo_con_datos" id="crear_archivo_con_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method crear_archivo_con_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 23]</span>
 </div>
@@ -362,9 +383,9 @@ $datos&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_directorio" id="eliminar_directorio"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method eliminar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
+		<span class="method-title">static method eliminar_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
 </div>
 <br />
 
@@ -397,7 +418,7 @@ $directorio&nbsp;
 		<br />
 </div>
 <a name="methodes_windows" id="es_windows"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method es_windows</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
@@ -419,7 +440,7 @@ $directorio&nbsp;
 		<br />
 </div>
 <a name="methodexiste_archivo_en_path" id="existe_archivo_en_path"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method existe_archivo_en_path</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 39]</span>
 </div>
@@ -454,7 +475,7 @@ $file&nbsp;
 		<br />
 </div>
 <a name="methodget_archivos_directorio" id="get_archivos_directorio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method get_archivos_directorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
 </div>
@@ -503,7 +524,7 @@ $recursivo_subdir = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_subdirectorios" id="get_subdirectorios"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method get_subdirectorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
@@ -538,7 +559,7 @@ $directorio&nbsp;
 		<br />
 </div>
 <a name="methodnombre_valido" id="nombre_valido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method nombre_valido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
 </div>
@@ -573,7 +594,7 @@ $candidato&nbsp;
 		<br />
 </div>
 <a name="methodpath_a_plataforma" id="path_a_plataforma"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method path_a_plataforma</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
@@ -608,7 +629,7 @@ $path&nbsp;
 		<br />
 </div>
 <a name="methodpath_a_unix" id="path_a_unix"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method path_a_unix</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
 </div>
@@ -642,7 +663,7 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodpath_a_windows" id="path_a_windows"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method path_a_windows</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
 </div>
@@ -684,7 +705,7 @@ $encomillar_espacios = true]&nbsp;
 </div>
 
 <a name="methodbuscar_archivos_directorio_recursivo" id="buscar_archivos_directorio_recursivo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -722,12 +743,12 @@ $directorio&nbsp;
 		<br />
 </div>
 <a name="methodchmod_recursivo" id="chmod_recursivo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">chmod_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 226]</span>
+	<span class="method-title">chmod_recursivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 232]</span>
 </div>
 <br />
 
@@ -766,12 +787,12 @@ $filemode&nbsp;
 		<br />
 </div>
 <a name="methodcomprimir_archivo" id="comprimir_archivo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">comprimir_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 254]</span>
+	<span class="method-title">comprimir_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 260]</span>
 </div>
 <br />
 
@@ -816,6 +837,43 @@ $dst = false]&nbsp;
 		
 		<br />
 </div>
+<a name="methodes_directorio_vacio" id="es_directorio_vacio"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">es_directorio_vacio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 289]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void es_directorio_vacio(
+
+$dir&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$dir:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 
@@ -825,7 +883,7 @@ $dst = false]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

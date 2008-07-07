@@ -56,6 +56,9 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_carga_opciones_ef.html">					carga_opciones_ef
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -66,6 +69,39 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna.html">					filtro_columna
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_booleano.html">					filtro_columna_booleano
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_cadena.html">					filtro_columna_cadena
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_compuesta.html">					filtro_columna_compuesta
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_fecha.html">					filtro_columna_fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_numero.html">					filtro_columna_numero
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_opciones.html">					filtro_columna_opciones
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion.html">					filtro_condicion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_entre.html">					filtro_condicion_entre
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_multi.html">					filtro_condicion_multi
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_info_relacion_entre_tablas.html">					info_relacion_entre_tablas
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -83,10 +119,25 @@
 	    			<a href="../Centrales/toba_nucleo.html">					nucleo
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_parser_error_db.html">					parser_error_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_parser_error_db_postgres7.html">					parser_error_db_postgres7
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_datos.html">					perfil_datos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_funcional.html">					perfil_funcional
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_proyecto.html">					proyecto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_proyecto_db.html">					proyecto_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_proyecto_implementacion.html">					proyecto_implementacion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
@@ -122,10 +173,16 @@
 	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_validaciones.html">					validaciones
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_vinculo.html">					vinculo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_xml_tablas.html">					xml_tablas
 					</a>    		
 	 <br />
 	  </div>
@@ -231,7 +288,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/toba_nucleo.php [<span class="field">line 6</span>]
+			Ubicada en /nucleo/toba_nucleo.php [<span class="field">line 7</span>]
 		</p>	
 		<br>
 	
@@ -261,7 +318,7 @@
 						</td>
 						<td class="method-definition"><a href="#get_directorio_compilacion" title="details" class="method-name">get_directorio_compilacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																															<tr><td></td><td class="method-definition" nowrap>static
+																																																								<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
@@ -270,6 +327,11 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#toba_dir" title="details" class="method-name">toba_dir</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#toba_instalacion_dir" title="details" class="method-name">toba_instalacion_dir</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																								<tr>
 						<td nowrap align="right">
@@ -340,6 +402,13 @@
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#iniciar_contexto_desde_consola" title="details" class="method-name">iniciar_contexto_desde_consola</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
 						</td>
@@ -353,7 +422,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#solicitud_en_proceso" title="details" class="method-name">solicitud_en_proceso</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																						</table>
+																															</table>
 			</div>
 			<br />
 		</div>
@@ -372,7 +441,7 @@
 <a name="methodcargador_clases" id="cargador_clases"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method cargador_clases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 283]</span>
+		<span class="method-title">static method cargador_clases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 303]</span>
 </div>
 <br />
 
@@ -406,7 +475,7 @@ $clase&nbsp;
 <a name="methodget_directorio_compilacion" id="get_directorio_compilacion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_directorio_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 277]</span>
+		<span class="method-title">static method get_directorio_compilacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 297]</span>
 </div>
 <br />
 
@@ -428,7 +497,7 @@ $clase&nbsp;
 <a name="methodinstancia" id="instancia"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 25]</span>
 </div>
 <br />
 
@@ -450,7 +519,7 @@ $clase&nbsp;
 <a name="methodtoba_dir" id="toba_dir"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method toba_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+		<span class="method-title">static method toba_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 219]</span>
 </div>
 <br />
 
@@ -469,14 +538,36 @@ $clase&nbsp;
 		
 		<br />
 </div>
+<a name="methodtoba_instalacion_dir" id="toba_instalacion_dir"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method toba_instalacion_dir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 228]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void toba_instalacion_dir(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="methodacceso_consola" id="acceso_consola"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">acceso_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
+	<span class="method-title">acceso_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
 </div>
 <br />
 
@@ -530,12 +621,12 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodacceso_web" id="acceso_web"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">acceso_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 43]</span>
+	<span class="method-title">acceso_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 44]</span>
 </div>
 <br />
 
@@ -556,13 +647,13 @@ $usuario&nbsp;
 		<br />
 </div>
 <a name="methodautorizar_acceso_item" id="autorizar_acceso_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">autorizar_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">autorizar_acceso_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -602,13 +693,13 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodcargar_includes_basicos" id="cargar_includes_basicos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">cargar_includes_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 224]</span>
+	<span class="method-title">cargar_includes_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
 </div>
 <br />
 
@@ -637,12 +728,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodcargar_solicitud_web" id="cargar_solicitud_web"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_solicitud_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 112]</span>
+	<span class="method-title">cargar_solicitud_web</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
 </div>
 <br />
 
@@ -663,12 +754,12 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodcontrolar_requisitos_basicos" id="controlar_requisitos_basicos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">controlar_requisitos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
+	<span class="method-title">controlar_requisitos_basicos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
 </div>
 <br />
 
@@ -688,13 +779,13 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar_contexto_ejecucion" id="finalizar_contexto_ejecucion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">finalizar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 194]</span>
+	<span class="method-title">finalizar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 201]</span>
 </div>
 <br />
 
@@ -722,13 +813,13 @@ $item&nbsp;
 		<br />
 </div>
 <a name="methodget_id_item" id="get_id_item"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
+	<span class="method-title">get_id_item</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 165]</span>
 </div>
 <br />
 
@@ -783,12 +874,12 @@ $evitar_pre_sesion = false]&nbsp;
 		<br />
 </div>
 <a name="methodget_solicitud" id="get_solicitud"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">get_solicitud</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
 </div>
 <br />
 
@@ -807,6 +898,50 @@ $evitar_pre_sesion = false]&nbsp;
 		
 		<br />
 </div>
+<a name="methodiniciar_contexto_desde_consola" id="iniciar_contexto_desde_consola"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">iniciar_contexto_desde_consola</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void iniciar_contexto_desde_consola(
+
+$instancia, 
+$proyecto&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$instancia:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodiniciar_contexto_ejecucion" id="iniciar_contexto_ejecucion"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
@@ -814,7 +949,7 @@ $evitar_pre_sesion = false]&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">iniciar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+	<span class="method-title">iniciar_contexto_ejecucion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 193]</span>
 </div>
 <br />
 
@@ -847,7 +982,7 @@ $evitar_pre_sesion = false]&nbsp;
 	
 		
 	
-	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+	<span class="method-title">solicitud_en_proceso</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
 </div>
 <br />
 
@@ -875,7 +1010,7 @@ $evitar_pre_sesion = false]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

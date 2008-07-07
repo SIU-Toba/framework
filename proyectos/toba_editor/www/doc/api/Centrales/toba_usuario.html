@@ -56,6 +56,9 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_carga_opciones_ef.html">					carga_opciones_ef
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -66,6 +69,39 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna.html">					filtro_columna
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_booleano.html">					filtro_columna_booleano
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_cadena.html">					filtro_columna_cadena
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_compuesta.html">					filtro_columna_compuesta
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_fecha.html">					filtro_columna_fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_numero.html">					filtro_columna_numero
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_opciones.html">					filtro_columna_opciones
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion.html">					filtro_condicion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_entre.html">					filtro_condicion_entre
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_multi.html">					filtro_condicion_multi
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_info_relacion_entre_tablas.html">					info_relacion_entre_tablas
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -83,10 +119,25 @@
 	    			<a href="../Centrales/toba_nucleo.html">					nucleo
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_parser_error_db.html">					parser_error_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_parser_error_db_postgres7.html">					parser_error_db_postgres7
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_datos.html">					perfil_datos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_funcional.html">					perfil_funcional
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_proyecto.html">					proyecto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_proyecto_db.html">					proyecto_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_proyecto_implementacion.html">					proyecto_implementacion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
@@ -122,10 +173,16 @@
 	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_validaciones.html">					validaciones
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_vinculo.html">					vinculo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_xml_tablas.html">					xml_tablas
 					</a>    		
 	 <br />
 	  </div>
@@ -253,15 +310,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_usuario_anonimo.html">toba_usuario_anonimo</a></td>
-					<td>
-											Usuario ANONIMO
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Centrales/toba_usuario_no_autenticado.html">toba_usuario_no_autenticado</a></td>
 					<td>
 											Usuario estandar de la instancia
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_usuario_anonimo.html">toba_usuario_anonimo</a></td>
+					<td>
+											Usuario ANONIMO
 										</td>
 				</tr>
 								<tr>
@@ -289,7 +346,7 @@
 						</td>
 						<td class="method-definition"><a href="#autenticar" title="details" class="method-name">autenticar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																																																							<tr>
+																																																																																																<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -345,6 +402,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_nombre" title="details" class="method-name">get_nombre</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_restricciones_funcionales" title="details" class="method-name">get_restricciones_funcionales</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -362,7 +426,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodautenticar" id="autenticar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		<span class="method-title">static method autenticar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 12]</span>
 </div>
@@ -422,7 +486,7 @@ $datos_inciales = null]&nbsp;
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -468,7 +532,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_dias_semana_permitidos" id="get_dias_semana_permitidos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -497,7 +561,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_fecha_vencimiento" id="get_fecha_vencimiento"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -526,7 +590,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_grupos_acceso" id="get_grupos_acceso"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -565,7 +629,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_horario_permitido" id="get_horario_permitido"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -594,7 +658,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -623,11 +687,11 @@ $id_usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_usuario_anonimo.html#methodget_id">toba_usuario_anonimo::get_id()</a>
-							</li>
-					<li>
 				<a href="../Centrales/toba_usuario_no_autenticado.html#methodget_id">toba_usuario_no_autenticado::get_id()</a>
 								: Retorna el identificador del usuario
+							</li>
+					<li>
+				<a href="../Centrales/toba_usuario_anonimo.html#methodget_id">toba_usuario_anonimo::get_id()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_usuario_basico.html#methodget_id">toba_usuario_basico::get_id()</a>
@@ -637,7 +701,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_ip_permitida" id="get_ip_permitida"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -666,7 +730,7 @@ $id_usuario&nbsp;
 		<br />
 </div>
 <a name="methodget_nombre" id="get_nombre"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -695,15 +759,46 @@ $id_usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_usuario_anonimo.html#methodget_nombre">toba_usuario_anonimo::get_nombre()</a>
-							</li>
-					<li>
 				<a href="../Centrales/toba_usuario_no_autenticado.html#methodget_nombre">toba_usuario_no_autenticado::get_nombre()</a>
 								: Retorna el nombre del usuario
 							</li>
 					<li>
+				<a href="../Centrales/toba_usuario_anonimo.html#methodget_nombre">toba_usuario_anonimo::get_nombre()</a>
+							</li>
+					<li>
 				<a href="../Centrales/toba_usuario_basico.html#methodget_nombre">toba_usuario_basico::get_nombre()</a>
 								: Retorna el nombre del usuario
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodget_restricciones_funcionales" id="get_restricciones_funcionales"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_restricciones_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 52]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_restricciones_funcionales(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Centrales/toba_usuario_basico.html#methodget_restricciones_funcionales">toba_usuario_basico::get_restricciones_funcionales()</a>
 							</li>
 				</ul>
 		<br />
@@ -717,7 +812,7 @@ $id_usuario&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

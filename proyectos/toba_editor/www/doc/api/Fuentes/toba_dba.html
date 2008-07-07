@@ -165,7 +165,7 @@
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#existe_conexion" title="details" class="method-name">existe_conexion</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">¿Hay una conexión abierta a la base?</td></tr>
+						<td class="method-definition">Hay una conexión abierta a la base?</td></tr>
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">array()</span>&nbsp;&nbsp;
 						</td>
@@ -189,9 +189,14 @@
 																				<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
+						<td class="method-definition"><a href="#get_path_archivo_bases" title="details" class="method-name">get_path_archivo_bases</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
 						<td class="method-definition"><a href="#refrescar" title="details" class="method-name">refrescar</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Fuerza la recarga de los parametros de una conexion y reconecta a la base</td></tr>
-																																																																																									</table>
+																																																																																																		</table>
 			</div>
 			<br />
 		</div>
@@ -199,22 +204,6 @@
 
 
 
-	<a name="sec-const-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Constantes</span></div>
-		<div class="info-box-body">
-			<div class="const-summary">
-			<table border="0" cellspacing="0" cellpadding="0" class="var-summary">
-							<div class="var-title">
-					<tr>
-					<td class="var-title"><a href="#constpath_archivo_bases" title="details" class="const-name-summary">path_archivo_bases</a>&nbsp;&nbsp;</td>
-					<td class="const-summary-description"></td></tr>
-				</div>
-								</table>
-			</div>
-			<br />
-		</div>
-	</div>
 
 
 
@@ -224,9 +213,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodcargar_bases_definidas" id="cargar_bases_definidas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method cargar_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+		<span class="method-title">static method cargar_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
 </div>
 <br />
 
@@ -247,9 +236,9 @@
 		<br />
 </div>
 <a name="methoddesconectar" id="desconectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 113]</span>
+		<span class="method-title">static method desconectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -282,9 +271,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodexiste_conexion" id="existe_conexion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 95]</span>
+		<span class="method-title">static method existe_conexion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 99]</span>
 </div>
 <br />
 
@@ -298,7 +287,7 @@ $nombre&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">¿Hay una conexión abierta a la base? </div>
+	<div class="description">Hay una conexión abierta a la base? </div>
 
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
@@ -317,9 +306,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_bases_definidas" id="get_bases_definidas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 67]</span>
+		<span class="method-title">static method get_bases_definidas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
 <br />
 
@@ -340,9 +329,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_db" id="get_db"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 81]</span>
+		<span class="method-title">static method get_db</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
@@ -351,7 +340,8 @@ $nombre&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>static db get_db(
 string
-$nombre&nbsp;
+$nombre, [
+$reusar = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -366,6 +356,12 @@ $nombre&nbsp;
 				<span class="var-name">$nombre:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Por defecto toma la constante fuente_datos_defecto o la misma base de toba</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$reusar:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -375,9 +371,9 @@ $nombre&nbsp;
 		<br />
 </div>
 <a name="methodget_db_de_fuente" id="get_db_de_fuente"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_db_de_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 86]</span>
+		<span class="method-title">static method get_db_de_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 90]</span>
 </div>
 <br />
 
@@ -388,7 +384,8 @@ $nombre&nbsp;
 
 $instancia, 
 $proyecto, 
-$fuente&nbsp;
+$fuente, [
+$reusar = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -414,6 +411,12 @@ $fuente&nbsp;
 				<span class="var-name">$fuente:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$reusar:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -423,9 +426,9 @@ $fuente&nbsp;
 		<br />
 </div>
 <a name="methodget_parametros_base" id="get_parametros_base"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_parametros_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+		<span class="method-title">static method get_parametros_base</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -457,10 +460,32 @@ $id_base&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_path_archivo_bases" id="get_path_archivo_bases"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method get_path_archivo_bases</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 24]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void get_path_archivo_bases(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodrefrescar" id="refrescar"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 103]</span>
+		<span class="method-title">static method refrescar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 107]</span>
 </div>
 <br />
 
@@ -502,7 +527,7 @@ $nombre&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

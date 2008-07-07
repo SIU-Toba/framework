@@ -56,6 +56,9 @@
 		    			<a href="../Centrales/toba.html">					toba
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_carga_opciones_ef.html">					carga_opciones_ef
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_contexto_ejecucion.html">					contexto_ejecucion
 					</a>    		
 	 <br />
@@ -66,6 +69,39 @@
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_fecha.html">					fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna.html">					filtro_columna
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_booleano.html">					filtro_columna_booleano
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_cadena.html">					filtro_columna_cadena
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_compuesta.html">					filtro_columna_compuesta
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_fecha.html">					filtro_columna_fecha
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_numero.html">					filtro_columna_numero
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_columna_opciones.html">					filtro_columna_opciones
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion.html">					filtro_condicion
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_entre.html">					filtro_condicion_entre
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_filtro_condicion_multi.html">					filtro_condicion_multi
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_info_relacion_entre_tablas.html">					info_relacion_entre_tablas
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_instalacion.html">					instalacion
@@ -83,10 +119,25 @@
 	    			<a href="../Centrales/toba_nucleo.html">					nucleo
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_parser_error_db.html">					parser_error_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_parser_error_db_postgres7.html">					parser_error_db_postgres7
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_datos.html">					perfil_datos
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_perfil_funcional.html">					perfil_funcional
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_proyecto.html">					proyecto
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_proyecto_db.html">					proyecto_db
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_proyecto_implementacion.html">					proyecto_implementacion
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_puntos_control.html">					puntos_control
@@ -122,10 +173,16 @@
 	    			<a href="../Centrales/toba_usuario_no_autenticado.html">					usuario_no_autenticado
 					</a>    		
 	 <br />
+	    			<a href="../Centrales/toba_validaciones.html">					validaciones
+					</a>    		
+	 <br />
 	    			<a href="../Centrales/toba_vinculador.html">					vinculador
 					</a>    		
 	 <br />
 	    			<a href="../Centrales/toba_vinculo.html">					vinculo
+					</a>    		
+	 <br />
+	    			<a href="../Centrales/toba_xml_tablas.html">					xml_tablas
 					</a>    		
 	 <br />
 	  </div>
@@ -254,12 +311,6 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
-					<td>
-											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_web.html">toba_solicitud_web</a></td>
 					<td>
 											Solicitud pensada para contener el ciclo request-response http  La etapa de request se la denomina de 'eventos'  La etapa de response se la denomina de 'servicios'
@@ -269,6 +320,12 @@
 					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_consola.html">toba_solicitud_consola</a></td>
 					<td>
 											Solicitud pensada para ejecutar items en la consola  De esta forma se cuenta con la capacidad de usar las librerias de toba  aunque no se tiene acceso al esquema de componentes, pensados para la arquitectura web
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Centrales/toba_solicitud_accion.html">toba_solicitud_accion</a></td>
+					<td>
+											Solicitud que utiliza un script php plano para su salida, no tiene acceso al esquema  de menu, tipo de pagina, vinculos o componentes.
 										</td>
 				</tr>
 							</table>
@@ -416,7 +473,7 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -460,19 +517,19 @@ $usuario&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
-							</li>
-					<li>
 				<a href="../Centrales/toba_solicitud_web.html#method__construct">toba_solicitud_web::__construct()</a>
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#method__construct">toba_solicitud_consola::__construct()</a>
 							</li>
+					<li>
+				<a href="../Centrales/toba_solicitud_accion.html#method__construct">toba_solicitud_accion::__construct()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcargar_objeto" id="cargar_objeto"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -532,7 +589,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodcrear_zona" id="crear_zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
@@ -566,7 +623,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodes_item_publico" id="es_item_publico"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -591,7 +648,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_ayuda" id="existe_ayuda"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -616,7 +673,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodfinalizar_objetos" id="finalizar_objetos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -642,7 +699,7 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_datos_item" id="get_datos_item"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -680,7 +737,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_id" id="get_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
@@ -714,7 +771,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodget_tipo" id="get_tipo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -739,7 +796,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodguardar_cronometro" id="guardar_cronometro"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -764,7 +821,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodhay_zona" id="hay_zona"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -790,7 +847,7 @@ $prop = null]&nbsp;
 		<br />
 </div>
 <a name="methodobservar" id="observar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -835,7 +892,7 @@ $tipo = null]&nbsp;
 		<br />
 </div>
 <a name="methodprocesar" id="procesar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
@@ -868,20 +925,20 @@ $tipo = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
-							</li>
-					<li>
 				<a href="../Centrales/toba_solicitud_web.html#methodprocesar">toba_solicitud_web::procesar()</a>
 								: Crea la zona, carga los componentes, procesa los eventos y los servicios
 							</li>
 					<li>
 				<a href="../Centrales/toba_solicitud_consola.html#methodprocesar">toba_solicitud_consola::procesar()</a>
 							</li>
+					<li>
+				<a href="../Centrales/toba_solicitud_accion.html#methodprocesar">toba_solicitud_accion::procesar()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodregistrar" id="registrar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -915,7 +972,7 @@ $tipo = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_cronometrar" id="set_cronometrar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
@@ -952,7 +1009,7 @@ $cronometrar&nbsp;
 		<br />
 </div>
 <a name="methodzona" id="zona"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
@@ -985,7 +1042,7 @@ $cronometrar&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

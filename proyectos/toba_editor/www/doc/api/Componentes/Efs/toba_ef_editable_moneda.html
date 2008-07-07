@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -391,7 +401,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/componentes/interface/efs/toba_ef_editable.php [<span class="field">line 275</span>]
+			Ubicada en /nucleo/componentes/interface/efs/toba_ef_editable.php [<span class="field">line 311</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 			
@@ -449,6 +459,17 @@
 										
 										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodcrear_objeto_js">crear_objeto_js()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodget_descripcion_estado">get_descripcion_estado()</a></span>
 										</dt>
 										<dd>
 											<span class="method-definition"></span>
@@ -635,6 +656,17 @@
 											<span class="method-definition"></span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef_editable.html#methodvalidar_estado">validar_estado()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 													<p>Heredado de <span class="classname"><strong><a href="../../Componentes/Efs/toba_ef.html">toba_ef</a></strong></span></p>
@@ -726,6 +758,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">El ef permite seleccionar valores o solo se pueden editar?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodes_solo_lectura">es_solo_lectura()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 										
 																			
@@ -909,6 +952,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_toggle">get_toggle()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">El checkbox esta configurado en los ML para tener un tilde sel/des todos?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodir_a_fila">ir_a_fila()</a></span>
 										</dt>
 										<dd>
@@ -990,6 +1044,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Cambia el valor o estado actual del ef</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_estado_defecto">set_estado_defecto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia el valor que toma el ef cuando no se lo carga con un estado</span>
 										</dd>
 										
 																			
@@ -1128,12 +1193,19 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																					<tr>
+																																														<tr>
 						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#crear_objeto_js" title="details" class="method-name">crear_objeto_js</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_descripcion_estado" title="details" class="method-name">get_descripcion_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -1166,7 +1238,7 @@
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 280]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -1189,14 +1261,55 @@
 		
 		<br />
 </div>
-<a name="methodmensaje_validacion_rango" id="mensaje_validacion_rango"><!-- --></a>
+<a name="methodget_descripcion_estado" id="get_descripcion_estado"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_descripcion_estado(
+
+$tipo_salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo_salida:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodget_descripcion_estado">toba_ef_editable_numero::get_descripcion_estado()</a></dt>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodmensaje_validacion_rango" id="mensaje_validacion_rango"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">mensaje_validacion_rango</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
+	<span class="method-title">mensaje_validacion_rango</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 321]</span>
 </div>
 <br />
 
@@ -1236,7 +1349,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

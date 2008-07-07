@@ -236,6 +236,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodcortar_sql">cortar_sql()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methoddestruir">destruir()</a></span>
 										</dt>
 										<dd>
@@ -390,6 +401,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodhay_datos">hay_datos()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodquote">quote()</a></span>
 										</dt>
 										<dd>
@@ -440,6 +462,17 @@
 											<span class="method-definition">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado</span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodset_parser_errores">set_parser_errores()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 											</td>
@@ -455,7 +488,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																													<tr>
+																																																																																																																																																										<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -488,6 +521,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#existe_columna" title="details" class="method-name">existe_columna</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_definicion_columnas" title="details" class="method-name">get_definicion_columnas</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Busca la definicion de un TABLA. Cachea los resultados por un pedido de pagina</td></tr>
 																				<tr>
@@ -502,7 +542,21 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_lista_secuencias" title="details" class="method-name">get_lista_secuencias</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_lista_tablas" title="details" class="method-name">get_lista_tablas</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_lista_tablas_y_vistas" title="details" class="method-name">get_lista_tablas_y_vistas</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
@@ -511,6 +565,13 @@
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#insert_masivo" title="details" class="method-name">insert_masivo</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Recupera el valor actual de una secuencia. Requiere la extension origineal pgsql</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#recuperar_nuevo_valor_secuencia" title="details" class="method-name">recuperar_nuevo_valor_secuencia</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 																					    								
@@ -525,6 +586,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#retrazar_constraints" title="details" class="method-name">retrazar_constraints</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_schema" title="details" class="method-name">set_schema</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos</td></tr>
 													</table>
 			</div>
 			<br />
@@ -543,12 +611,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 13]</span>
 </div>
 <br />
 
@@ -612,12 +680,12 @@ $puerto&nbsp;
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 70]</span>
 </div>
 <br />
 
@@ -642,12 +710,12 @@ $puerto&nbsp;
 		<br />
 </div>
 <a name="methodabrir_transaccion" id="abrir_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 63]</span>
 </div>
 <br />
 
@@ -672,12 +740,12 @@ $puerto&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 77]</span>
 </div>
 <br />
 
@@ -701,13 +769,57 @@ $puerto&nbsp;
 		
 		<br />
 </div>
+<a name="methodexiste_columna" id="existe_columna"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">existe_columna</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 152]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void existe_columna(
+
+$columna, 
+$tabla&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$columna:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_definicion_columnas" id="get_definicion_columnas"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 104]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -716,7 +828,8 @@ $puerto&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_definicion_columnas(
 
-$tabla&nbsp;
+$tabla, [
+$esquema = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -729,6 +842,12 @@ $tabla&nbsp;
 				<span class="var-type"></span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$tabla:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$esquema:&nbsp;</span></td>
 				<td>
 							</td></tr>
 				</table>
@@ -749,7 +868,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 17]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 19]</span>
 </div>
 <br />
 
@@ -773,13 +892,38 @@ $tabla&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
+<a name="methodget_lista_secuencias" id="get_lista_secuencias"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 89]</span>
+	<span class="method-title">get_lista_secuencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_lista_secuencias(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -787,6 +931,50 @@ $tabla&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void get_lista_tablas(
+[
+$incluir_vistas = false], [
+$esquema = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$incluir_vistas:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$esquema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodget_lista_tablas_y_vistas" id="get_lista_tablas_y_vistas"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_lista_tablas_y_vistas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 111]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_lista_tablas_y_vistas(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -804,7 +992,7 @@ $tabla&nbsp;
 	
 		    		
 	
-	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
+	<span class="method-title">insert_masivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 93]</span>
 </div>
 <br />
 
@@ -865,13 +1053,50 @@ $valor_nulo&nbsp;
 		
 		<br />
 </div>
-<a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
+<a name="methodrecuperar_nuevo_valor_secuencia" id="recuperar_nuevo_valor_secuencia"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">recuperar_nuevo_valor_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void recuperar_nuevo_valor_secuencia(
+
+$secuencia&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$secuencia:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
 </div>
 <br />
 
@@ -917,12 +1142,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -930,11 +1155,23 @@ $secuencia&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void retrazar_constraints(
+[
+$retrazar = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$retrazar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
 	<br />
 	
 
@@ -943,6 +1180,44 @@ $secuencia&nbsp;
 			<dt><a href="../../Fuentes/toba_db.html#methodretrazar_constraints">toba_db::retrazar_constraints()</a></dt>
 						<dd>Fuerza a que los chequeos de CONSTRAINTS de la transacción en curso se hagan al finalizar la misma</dd>
 					</dl>
+		
+		<br />
+</div>
+<a name="methodset_schema" id="set_schema"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_schema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 29]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_schema(
+string
+$schema&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina que schema se utilizará por defecto para la ejecución de consultas, comandos y consulta de metadatos </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$schema:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
 		
 		<br />
 </div>
@@ -955,7 +1230,7 @@ $secuencia&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

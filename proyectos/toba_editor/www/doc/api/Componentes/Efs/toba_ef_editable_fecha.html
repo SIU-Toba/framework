@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -389,7 +399,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/componentes/interface/efs/toba_ef_editable.php [<span class="field">line 388</span>]
+			Ubicada en /nucleo/componentes/interface/efs/toba_ef_editable.php [<span class="field">line 472</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 			
@@ -540,6 +550,17 @@
 											<span class="method-definition"></span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef_editable.html#methodvalidar_estado">validar_estado()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 													<p>Heredado de <span class="classname"><strong><a href="../../Componentes/Efs/toba_ef.html">toba_ef</a></strong></span></p>
@@ -631,6 +652,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">El ef permite seleccionar valores o solo se pueden editar?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodes_solo_lectura">es_solo_lectura()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 										
 																			
@@ -814,6 +846,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_toggle">get_toggle()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">El checkbox esta configurado en los ML para tener un tilde sel/des todos?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodir_a_fila">ir_a_fila()</a></span>
 										</dt>
 										<dd>
@@ -895,6 +938,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Cambia el valor o estado actual del ef</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_estado_defecto">set_estado_defecto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia el valor que toma el ef cuando no se lo carga con un estado</span>
 										</dd>
 										
 																			
@@ -1033,12 +1087,17 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																												<tr><td></td><td class="method-definition" nowrap>static
+																																																																					<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_lista_parametros" title="details" class="method-name">get_lista_parametros</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																										<tr>
+																																															<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_rango_valido_global" title="details" class="method-name">set_rango_valido_global</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia el rango de fechas aceptado por todas las instancias del ef_fecha</td></tr>
+																																	<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1064,6 +1123,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_descripcion_estado" title="details" class="method-name">get_descripcion_estado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_estado" title="details" class="method-name">get_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
@@ -1078,9 +1144,23 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#parametros_js" title="details" class="method-name">parametros_js</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_estado" title="details" class="method-name">set_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
 																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_rango_valido" title="details" class="method-name">set_rango_valido</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Valida que las fechas ingresadas estén dentro del rango de fechas</td></tr>
+																													<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1106,7 +1186,7 @@
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 390]</span>
+		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
 </div>
 <br />
 
@@ -1129,14 +1209,56 @@
 		
 		<br />
 </div>
+<a name="methodset_rango_valido_global" id="set_rango_valido_global"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		<span class="method-title">static method set_rango_valido_global</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 487]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_rango_valido_global(
+
+$desde, 
+$hasta&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia el rango de fechas aceptado por todas las instancias del ef_fecha </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$desde:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$hasta:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 397]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 492]</span>
 </div>
 <br />
 
@@ -1221,12 +1343,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 596]</span>
 </div>
 <br />
 
@@ -1250,12 +1372,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 533]</span>
 </div>
 <br />
 
@@ -1278,13 +1400,55 @@ $parametros&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_descripcion_estado" id="get_descripcion_estado"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 601]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_descripcion_estado(
+
+$tipo_salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo_salida:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef.html#methodget_descripcion_estado">toba_ef::get_descripcion_estado()</a></dt>
+						<dd>Retorna una descripción textual del estado.</dd>
+					</dl>
+		
+		<br />
+</div>
 <a name="methodget_estado" id="get_estado"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 414]</span>
+	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 523]</span>
 </div>
 <br />
 
@@ -1314,7 +1478,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 431]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
 </div>
 <br />
 
@@ -1337,13 +1501,42 @@ $parametros&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_estado" id="set_estado"><!-- --></a>
+<a name="methodparametros_js" id="parametros_js"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 582]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void parametros_js(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef_editable.html#methodparametros_js">toba_ef_editable::parametros_js()</a></dt>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodset_estado" id="set_estado"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 503]</span>
 </div>
 <br />
 
@@ -1378,13 +1571,58 @@ $estado = &quot;&quot;]&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_rango_valido" id="set_rango_valido"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_rango_valido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 518]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_rango_valido(
+string
+$desde, string
+$hasta&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Valida que las fechas ingresadas estén dentro del rango de fechas </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$desde:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> aaaa-mm-dd</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$hasta:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> aaaa-mm-dd</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodvalidar_estado" id="validar_estado"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 449]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 558]</span>
 </div>
 <br />
 
@@ -1403,8 +1641,7 @@ $estado = &quot;&quot;]&nbsp;
 
 			<div class="notes">Redefinición de:</div>
 		<dl>
-			<dt><a href="../../Componentes/Efs/toba_ef.html#methodvalidar_estado">toba_ef::validar_estado()</a></dt>
-						<dd>Chequea la validez del estado actual del ef</dd>
+			<dt><a href="../../Componentes/Efs/toba_ef_editable.html#methodvalidar_estado">toba_ef_editable::validar_estado()</a></dt>
 					</dl>
 		
 		<br />
@@ -1418,7 +1655,7 @@ $estado = &quot;&quot;]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

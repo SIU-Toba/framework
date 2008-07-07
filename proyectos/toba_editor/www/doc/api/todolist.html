@@ -75,6 +75,14 @@
 <ul>
     <li>Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales</li>
 </ul>
+<h3><a href="Componentes/Negocio/toba_cn.html#methodprocesar_anidado">toba_cn::procesar_anidado()</a></h3>
+<ul>
+    <li>Ver la posibilidad de usar ignore_user_abort() para evitar problemas con medios no transaccionales</li>
+</ul>
+<h3><a href="Componentes/Eis/toba_ei_formulario.html#methodservicio__mostrar_captchas_efs">toba_ei_formulario::servicio__mostrar_captchas_efs()</a></h3>
+<ul>
+    <li>Este esquema solo se banca un solo ef_captcha. Para poder bancarse mas habria que  pensar por ejemplo, pasarle al GET &quot;id_ef + text-captcha&quot; para identificar que texto se  quiere recuperar. De todas maneras para que mas de un captcha???.</li>
+</ul>
 <h3><a href="Componentes/Persistencia/toba_ap_tabla_db.html">toba_ap_tabla_db</a></h3>
 <ul>
     <li>Como se implementa la carga de columnas externas??</li>
@@ -97,10 +105,6 @@
 <h3><a href="Componentes/Eis/toba_ei_formulario_ml.html#methodvalidar_estado">toba_ei_formulario_ml::validar_estado()</a></h3>
 <ul>
     <li>Esta validación se podría hacer más eficiente en el cargar_post, pero se prefiere acá por si se cambia el manejo actual          de validaciones. Por ejemplo ahora se están desechando los cambios que origina el error y por lo tanto no se pueden          ver las modificaciones hechas, sería deseable poder verlos.</li>
-</ul>
-<h3><a href="Componentes/Eis/toba_ei_cuadro.html#methodvista_pdf">toba_ei_cuadro::vista_pdf()</a></h3>
-<ul>
-    <li>Implementar</li>
 </ul>
 <h2>Fuentes</h2>
 <h3><a href="Fuentes/toba_dba.html">toba_dba</a></h3>
@@ -126,6 +130,11 @@
 <ul>
     <li>Implementar</li>
 </ul>
+<h3><a href="SalidaGrafica/toba_vista_excel.html">toba_vista_excel</a></h3>
+<ul>
+    <li>El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar  con discreción.</li>
+    <li>La numeración de páginas no funcionará si se cambia la orientación de la misma. Habría que  implementar un método que en base al tipo de papel y orientación de la página, devuelva las  coordenadas para una correcta visualización de la numeración de páginas.</li>
+</ul>
 <h3><a href="SalidaGrafica/toba_vista_pdf.html">toba_vista_pdf</a></h3>
 <ul>
     <li>El método insertar_imagen esta implementado con un método en estado beta de la api ezpdf. Usar  con discreción.</li>
@@ -137,7 +146,7 @@
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

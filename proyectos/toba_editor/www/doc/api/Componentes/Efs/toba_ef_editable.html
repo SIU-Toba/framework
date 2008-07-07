@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -410,6 +420,12 @@
 		<div class="info-box-title">Subclases directas</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable_captcha.html">toba_ef_editable_captcha</a></td>
+					<td>
+											Editbox + imagen aleatoria para captcha
+										</td>
+				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_popup.html">toba_ef_popup</a></td>
 					<td>
@@ -543,6 +559,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">El ef permite seleccionar valores o solo se pueden editar?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodes_solo_lectura">es_solo_lectura()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 										
 																			
@@ -726,6 +753,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_toggle">get_toggle()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">El checkbox esta configurado en los ML para tener un tilde sel/des todos?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodir_a_fila">ir_a_fila()</a></span>
 										</dt>
 										<dd>
@@ -807,6 +845,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Cambia el valor o estado actual del ef</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_estado_defecto">set_estado_defecto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia el valor que toma el ef cuando no se lo carga con un estado</span>
 										</dd>
 										
 																			
@@ -955,7 +1004,7 @@
 						</td>
 						<td class="method-definition"><a href="#get_lista_parametros_carga" title="details" class="method-name">get_lista_parametros_carga</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																												<tr>
+																																																																					<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1018,6 +1067,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#tiene_estado" title="details" class="method-name">tiene_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#validar_estado" title="details" class="method-name">validar_estado</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -1037,7 +1093,7 @@
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 27]</span>
+		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -1056,6 +1112,9 @@
 		
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_lista_parametros">toba_ef_editable_captcha::get_lista_parametros()</a>
+							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros">toba_ef_popup::get_lista_parametros()</a>
 							</li>
@@ -1077,7 +1136,7 @@
 <a name="methodget_lista_parametros_carga" id="get_lista_parametros_carga"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+		<span class="method-title">static method get_lista_parametros_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 19]</span>
 </div>
 <br />
 
@@ -1097,6 +1156,9 @@
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_lista_parametros_carga">toba_ef_editable_captcha::get_lista_parametros_carga()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_lista_parametros_carga">toba_ef_popup::get_lista_parametros_carga()</a>
 							</li>
 				</ul>
@@ -1109,7 +1171,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 36]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
@@ -1194,6 +1256,9 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#method__construct">toba_ef_editable_captcha::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#method__construct">toba_ef_popup::__construct()</a>
 							</li>
 					<li>
@@ -1242,6 +1307,12 @@ $parametros&nbsp;
 						<dd>Carga el estado actual del ef a partir del $_POST dejado por este mismo componente en el pedido anterior</dd>
 					</dl>
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodcargar_estado_post">toba_ef_editable_captcha::cargar_estado_post()</a>
+							</li>
+				</ul>
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
@@ -1250,7 +1321,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 130]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 150]</span>
 </div>
 <br />
 
@@ -1304,7 +1375,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 119]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 138]</span>
 </div>
 <br />
 
@@ -1346,7 +1417,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
 </div>
 <br />
 
@@ -1371,6 +1442,9 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_input">toba_ef_editable_captcha::get_input()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_input">toba_ef_popup::get_input()</a>
 							</li>
 					<li>
@@ -1391,7 +1465,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 125]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 144]</span>
 </div>
 <br />
 
@@ -1420,6 +1494,9 @@ $parametros&nbsp;
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodparametros_js">toba_ef_editable_numero::parametros_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodparametros_js">toba_ef_editable_fecha::parametros_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodparametros_js">toba_ef_editable_textarea::parametros_js()</a>
@@ -1557,6 +1634,56 @@ $maestros_cargados = true]&nbsp;
 						<dd>Retorna true si el ef tiene un valor o estado distinto al nulo</dd>
 					</dl>
 		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodtiene_estado">toba_ef_editable_captcha::tiene_estado()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodvalidar_estado" id="validar_estado"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 109]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void validar_estado(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/Efs/toba_ef.html#methodvalidar_estado">toba_ef::validar_estado()</a></dt>
+						<dd>Chequea la validez del estado actual del ef</dd>
+					</dl>
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodvalidar_estado">toba_ef_editable_numero::validar_estado()</a>
+								: Valida que el número cumpla con el rango preestablecido (si lo hay)
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_clave.html#methodvalidar_estado">toba_ef_editable_clave::validar_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodvalidar_estado">toba_ef_editable_fecha::validar_estado()</a>
+								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+				</ul>
 		<br />
 </div>
 		</div>
@@ -1568,7 +1695,7 @@ $maestros_cargados = true]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

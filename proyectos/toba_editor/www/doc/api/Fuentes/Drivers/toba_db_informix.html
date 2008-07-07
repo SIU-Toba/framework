@@ -236,6 +236,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodcortar_sql">cortar_sql()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methoddestruir">destruir()</a></span>
 										</dt>
 										<dd>
@@ -390,6 +401,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodhay_datos">hay_datos()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodquote">quote()</a></span>
 										</dt>
 										<dd>
@@ -440,6 +462,17 @@
 											<span class="method-definition">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado</span>
 										</dd>
 										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Fuentes/toba_db.html#methodset_parser_errores">set_parser_errores()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
 																	</dl>
 							</blockquote>
 											</td>
@@ -455,7 +488,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																							<tr>
+																																																																<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -483,6 +516,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#cerrar_transaccion" title="details" class="method-name">cerrar_transaccion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ejecuta un COMMIT WORK en la conexión</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_dsn" title="details" class="method-name">get_dsn</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -506,7 +546,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 9]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 11]</span>
 </div>
 <br />
 
@@ -519,7 +559,8 @@ $profile,
 $usuario, 
 $clave, 
 $base, 
-$puerto&nbsp;
+$puerto, 
+$server&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -557,6 +598,12 @@ $puerto&nbsp;
 				<span class="var-name">$puerto:&nbsp;</span></td>
 				<td>
 							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$server:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -575,7 +622,7 @@ $puerto&nbsp;
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
 </div>
 <br />
 
@@ -606,7 +653,7 @@ $puerto&nbsp;
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 28]</span>
 </div>
 <br />
 
@@ -637,7 +684,7 @@ $puerto&nbsp;
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 38]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
 </div>
 <br />
 
@@ -662,6 +709,36 @@ $puerto&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_dsn" id="get_dsn"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 18]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void get_dsn(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Fuentes/toba_db.html#methodget_dsn">toba_db::get_dsn()</a></dt>
+						<dd>Retorna el dsn necesario para conectar con PDO</dd>
+					</dl>
+		
+		<br />
+</div>
 		</div>
 	</div>
 
@@ -671,7 +748,7 @@ $puerto&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

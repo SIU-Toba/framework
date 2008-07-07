@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -421,15 +431,15 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a></td>
-					<td>
-											Triple editbox que constituyen las 3 partes del CUIT/CUIL
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_multi_seleccion.html">toba_ef_multi_seleccion</a></td>
 					<td>
 											Elemento que permite la selección de varios valores. Clase base abstracta
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_seleccion.html">toba_ef_seleccion</a></td>
+					<td>
+											Clase base de los elementos de formulario que permiten seleccionar un único elemento
 										</td>
 				</tr>
 								<tr>
@@ -445,18 +455,6 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_sin_estado.html">toba_ef_sin_estado</a></td>
-					<td>
-											Clase base de los efs que no mantienen estado
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_seleccion.html">toba_ef_seleccion</a></td>
-					<td>
-											Clase base de los elementos de formulario que permiten seleccionar un único elemento
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_upload.html">toba_ef_upload</a></td>
 					<td>
 											Ef que selecciona un archivo de su sistema para que esté disponible en el servidor
@@ -469,9 +467,21 @@
 										</td>
 				</tr>
 								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_sin_estado.html">toba_ef_sin_estado</a></td>
+					<td>
+											Clase base de los efs que no mantienen estado
+										</td>
+				</tr>
+								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_editable.html">toba_ef_editable</a></td>
 					<td>
 											Elemento editable equivalente a un &lt;input type='text'&gt;  Puede manejar una mascara.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../Componentes/Efs/toba_ef_cuit.html">toba_ef_cuit</a></td>
+					<td>
+											Triple editbox que constituyen las 3 partes del CUIT/CUIL
 										</td>
 				</tr>
 							</table>
@@ -488,7 +498,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																						<tr>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																	<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -544,6 +554,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#es_seleccionable" title="details" class="method-name">es_seleccionable</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">El ef permite seleccionar valores o solo se pueden editar?</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#es_solo_lectura" title="details" class="method-name">es_solo_lectura</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -661,6 +678,13 @@
 						<td nowrap align="right">
 															
 						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_toggle" title="details" class="method-name">get_toggle</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">El checkbox esta configurado en los ML para tener un tilde sel/des todos?</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#ir_a_fila" title="details" class="method-name">ir_a_fila</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Multiplexa el ef (usado en el formulario_ml)</td></tr>
@@ -714,6 +738,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_estado" title="details" class="method-name">set_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cambia el valor o estado actual del ef</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_estado_defecto" title="details" class="method-name">set_estado_defecto</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia el valor que toma el ef cuando no se lo carga con un estado</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -809,12 +840,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
 </div>
 <br />
 
@@ -904,22 +935,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_check.html#method__construct">toba_ef_multi_seleccion_check::__construct()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#method__construct">toba_ef_checkbox::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_html.html#method__construct">toba_ef_html::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#method__construct">toba_ef_sin_estado::__construct()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_fieldset.html#method__construct">toba_ef_fieldset::__construct()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#method__construct">toba_ef_seleccion::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_radio.html#method__construct">toba_ef_radio::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#method__construct">toba_ef_checkbox::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_html.html#method__construct">toba_ef_html::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#method__construct">toba_ef_upload::__construct()</a>
@@ -934,7 +959,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#method__construct">toba_ef_oculto_usuario::__construct()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#method__construct">toba_ef_sin_estado::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_fieldset.html#method__construct">toba_ef_fieldset::__construct()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#method__construct">toba_ef_editable::__construct()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#method__construct">toba_ef_editable_captcha::__construct()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#method__construct">toba_ef_popup::__construct()</a>
@@ -958,12 +992,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcargar_estado_post" id="cargar_estado_post"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 507]</span>
+	<span class="method-title">cargar_estado_post</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 547]</span>
 </div>
 <br />
 
@@ -984,16 +1018,13 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcargar_estado_post">toba_ef_cuit::cargar_estado_post()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodcargar_estado_post">toba_ef_multi_seleccion::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcargar_estado_post">toba_ef_checkbox::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodcargar_estado_post">toba_ef_seleccion::cargar_estado_post()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodcargar_estado_post">toba_ef_seleccion::cargar_estado_post()</a>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcargar_estado_post">toba_ef_checkbox::cargar_estado_post()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcargar_estado_post">toba_ef_upload::cargar_estado_post()</a>
@@ -1005,16 +1036,22 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodcargar_estado_post">toba_ef_editable::cargar_estado_post()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodcargar_estado_post">toba_ef_editable_captcha::cargar_estado_post()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcargar_estado_post">toba_ef_cuit::cargar_estado_post()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodcarga_depende_de_estado" id="carga_depende_de_estado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 170]</span>
+	<span class="method-title">carga_depende_de_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 176]</span>
 </div>
 <br />
 
@@ -1041,12 +1078,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodcrear_objeto_js" id="crear_objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 523]</span>
+	<span class="method-title">crear_objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 563]</span>
 </div>
 <br />
 
@@ -1067,9 +1104,6 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcrear_objeto_js">toba_ef_cuit::crear_objeto_js()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodcrear_objeto_js">toba_ef_multi_seleccion_lista::crear_objeto_js()</a>
 							</li>
 					<li>
@@ -1079,13 +1113,13 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodcrear_objeto_js">toba_ef_multi_seleccion_doble::crear_objeto_js()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcrear_objeto_js">toba_ef_checkbox::crear_objeto_js()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_combo.html#methodcrear_objeto_js">toba_ef_combo::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_radio.html#methodcrear_objeto_js">toba_ef_radio::crear_objeto_js()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodcrear_objeto_js">toba_ef_checkbox::crear_objeto_js()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodcrear_objeto_js">toba_ef_upload::crear_objeto_js()</a>
@@ -1117,16 +1151,19 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodcrear_objeto_js">toba_ef_editable_textarea::crear_objeto_js()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodcrear_objeto_js">toba_ef_cuit::crear_objeto_js()</a>
+							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodesta_expandido" id="esta_expandido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 272]</span>
+	<span class="method-title">esta_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
 </div>
 <br />
 
@@ -1155,12 +1192,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_estado_unico" id="es_estado_unico"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 161]</span>
+	<span class="method-title">es_estado_unico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
 </div>
 <br />
 
@@ -1187,12 +1224,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_obligatorio" id="es_obligatorio"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 253]</span>
+	<span class="method-title">es_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
 </div>
 <br />
 
@@ -1221,12 +1258,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodes_seleccionable" id="es_seleccionable"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">es_seleccionable</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 159]</span>
 </div>
 <br />
 
@@ -1255,13 +1292,38 @@ $parametros&nbsp;
 				</ul>
 		<br />
 </div>
+<a name="methodes_solo_lectura" id="es_solo_lectura"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">es_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 486]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void es_solo_lectura(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_campos_clave" id="get_campos_clave"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 202]</span>
+	<span class="method-title">get_campos_clave</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
 </div>
 <br />
 
@@ -1287,7 +1349,7 @@ $parametros&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 212]</span>
+	<span class="method-title">get_campo_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 218]</span>
 </div>
 <br />
 
@@ -1321,7 +1383,7 @@ $parametros&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 555]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 595]</span>
 </div>
 <br />
 
@@ -1350,10 +1412,10 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_consumo_javascript">toba_ef_cuit::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_consumo_javascript">toba_ef_multi_seleccion::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_consumo_javascript">toba_ef_multi_seleccion::get_consumo_javascript()</a>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_consumo_javascript">toba_ef_seleccion::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_consumo_javascript">toba_ef_checkbox::get_consumo_javascript()</a>
@@ -1362,16 +1424,13 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_consumo_javascript">toba_ef_html::get_consumo_javascript()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_consumo_javascript">toba_ef_sin_estado::get_consumo_javascript()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_consumo_javascript">toba_ef_seleccion::get_consumo_javascript()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_consumo_javascript">toba_ef_upload::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_consumo_javascript">toba_ef_fijo::get_consumo_javascript()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_consumo_javascript">toba_ef_sin_estado::get_consumo_javascript()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodget_consumo_javascript">toba_ef_editable::get_consumo_javascript()</a>
@@ -1385,6 +1444,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_consumo_javascript">toba_ef_editable_textarea::get_consumo_javascript()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_consumo_javascript">toba_ef_cuit::get_consumo_javascript()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1395,7 +1457,7 @@ $parametros&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 572]</span>
+	<span class="method-title">get_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 612]</span>
 </div>
 <br />
 
@@ -1429,7 +1491,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
+	<span class="method-title">get_dato</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 324]</span>
 </div>
 <br />
 
@@ -1455,7 +1517,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 300]</span>
+	<span class="method-title">get_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 315]</span>
 </div>
 <br />
 
@@ -1481,7 +1543,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
+	<span class="method-title">get_descripcion_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
 </div>
 <br />
 
@@ -1489,11 +1551,23 @@ $parametros&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>string get_descripcion_estado(
+
+$tipo_salida&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
 	<div class="description">Retorna una descripción textual del estado. <p>Para muchos efs la descripción es identica al estado (caso de un texto común por ejemplo),  pero para otros el estado es una clave interna distinta a su descripción</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo_salida:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
 
 	<br />
 	
@@ -1505,15 +1579,30 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodget_descripcion_estado">toba_ef_multi_seleccion::get_descripcion_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_descripcion_estado">toba_ef_checkbox::get_descripcion_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_descripcion_estado">toba_ef_seleccion::get_descripcion_estado()</a>
 								: Retorna la descripción asociada a la opción actualmente seleccionada
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_descripcion_estado">toba_ef_checkbox::get_descripcion_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_descripcion_estado">toba_ef_popup::get_descripcion_estado()</a>
 								: Retorna la descripción asociada a la opción actualmente seleccionada
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodget_descripcion_estado">toba_ef_editable_numero::get_descripcion_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_moneda.html#methodget_descripcion_estado">toba_ef_editable_moneda::get_descripcion_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_numero_porcentaje.html#methodget_descripcion_estado">toba_ef_editable_numero_porcentaje::get_descripcion_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_descripcion_estado">toba_ef_editable_fecha::get_descripcion_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_descripcion_estado">toba_ef_cuit::get_descripcion_estado()</a>
 							</li>
 				</ul>
 		<br />
@@ -1524,7 +1613,7 @@ $parametros&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
+	<span class="method-title">get_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 346]</span>
 </div>
 <br />
 
@@ -1557,10 +1646,13 @@ $parametros&nbsp;
 								: Puede retornar el estado serializado (un unico string) o en un arreglo dependiendo de su definición en el editor
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_estado">toba_ef_seleccion::get_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodget_estado">toba_ef_sin_estado::get_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodget_estado">toba_ef_seleccion::get_estado()</a>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_estado">toba_ef_editable_captcha::get_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodget_estado">toba_ef_editable_fecha::get_estado()</a>
@@ -1574,7 +1666,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
+	<span class="method-title">get_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 267]</span>
 </div>
 <br />
 
@@ -1600,7 +1692,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 290]</span>
+	<span class="method-title">get_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 305]</span>
 </div>
 <br />
 
@@ -1626,7 +1718,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_fila_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 416]</span>
+	<span class="method-title">get_fila_actual</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 451]</span>
 </div>
 <br />
 
@@ -1652,7 +1744,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 282]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 297]</span>
 </div>
 <br />
 
@@ -1678,7 +1770,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
+	<span class="method-title">get_id_form</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
 </div>
 <br />
 
@@ -1703,7 +1795,7 @@ $parametros&nbsp;
 	
 		
 	
-	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 317]</span>
+	<span class="method-title">get_id_form_orig</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 332]</span>
 </div>
 <br />
 
@@ -1729,7 +1821,7 @@ $parametros&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 586]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 626]</span>
 </div>
 <br />
 
@@ -1758,9 +1850,6 @@ $parametros&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_input">toba_ef_cuit::get_input()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_lista.html#methodget_input">toba_ef_multi_seleccion_lista::get_input()</a>
 							</li>
 					<li>
@@ -1770,22 +1859,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion_doble.html#methodget_input">toba_ef_multi_seleccion_doble::get_input()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_input">toba_ef_checkbox::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_input">toba_ef_html::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_barra_divisora.html#methodget_input">toba_ef_barra_divisora::get_input()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_input">toba_ef_fieldset::get_input()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_combo.html#methodget_input">toba_ef_combo::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_radio.html#methodget_input">toba_ef_radio::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodget_input">toba_ef_checkbox::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_html.html#methodget_input">toba_ef_html::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodget_input">toba_ef_upload::get_input()</a>
@@ -1797,7 +1880,16 @@ $parametros&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_fijo.html#methodget_input">toba_ef_fijo::get_input()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_barra_divisora.html#methodget_input">toba_ef_barra_divisora::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_fieldset.html#methodget_input">toba_ef_fieldset::get_input()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodget_input">toba_ef_editable::get_input()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodget_input">toba_ef_editable_captcha::get_input()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodget_input">toba_ef_popup::get_input()</a>
@@ -1811,6 +1903,9 @@ $parametros&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodget_input">toba_ef_editable_textarea::get_input()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodget_input">toba_ef_cuit::get_input()</a>
+							</li>
 				</ul>
 		<br />
 </div>
@@ -1820,7 +1915,7 @@ $parametros&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 192]</span>
+	<span class="method-title">get_maestros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 198]</span>
 </div>
 <br />
 
@@ -1848,13 +1943,39 @@ $parametros&nbsp;
 		
 		<br />
 </div>
-<a name="methodir_a_fila" id="ir_a_fila"><!-- --></a>
+<a name="methodget_toggle" id="get_toggle"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
+	<span class="method-title">get_toggle</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 276]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean get_toggle(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">El checkbox esta configurado en los ML para tener un tilde sel/des todos? </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodir_a_fila" id="ir_a_fila"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">ir_a_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
 </div>
 <br />
 
@@ -1887,12 +2008,12 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodobjeto_js" id="objeto_js"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 532]</span>
+	<span class="method-title">objeto_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 572]</span>
 </div>
 <br />
 
@@ -1913,13 +2034,13 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodparametros_js" id="parametros_js"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
+	<span class="method-title">parametros_js</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 580]</span>
 </div>
 <br />
 
@@ -1963,18 +2084,21 @@ $agregado = &quot;&quot;]&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodparametros_js">toba_ef_editable_numero::parametros_js()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodparametros_js">toba_ef_editable_fecha::parametros_js()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodparametros_js">toba_ef_editable_textarea::parametros_js()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodresetear_estado" id="resetear_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 371]</span>
+	<span class="method-title">resetear_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 398]</span>
 </div>
 <br />
 
@@ -1995,13 +2119,13 @@ $agregado = &quot;&quot;]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodresetear_estado">toba_ef_sin_estado::resetear_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodresetear_estado">toba_ef_oculto::resetear_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#methodresetear_estado">toba_ef_oculto_usuario::resetear_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodresetear_estado">toba_ef_sin_estado::resetear_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_popup.html#methodresetear_estado">toba_ef_popup::resetear_estado()</a>
@@ -2010,12 +2134,12 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodseleccionado" id="seleccionado"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 362]</span>
+	<span class="method-title">seleccionado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 389]</span>
 </div>
 <br />
 
@@ -2042,12 +2166,12 @@ $agregado = &quot;&quot;]&nbsp;
 		<br />
 </div>
 <a name="methodset_cuando_cambia_valor" id="set_cuando_cambia_valor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 564]</span>
+	<span class="method-title">set_cuando_cambia_valor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 604]</span>
 </div>
 <br />
 
@@ -2080,12 +2204,12 @@ $js&nbsp;
 		<br />
 </div>
 <a name="methodset_descripcion" id="set_descripcion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 435]</span>
+	<span class="method-title">set_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 470]</span>
 </div>
 <br />
 
@@ -2118,12 +2242,12 @@ $descripcion&nbsp;
 		<br />
 </div>
 <a name="methodset_estado" id="set_estado"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 486]</span>
+	<span class="method-title">set_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 526]</span>
 </div>
 <br />
 
@@ -2156,19 +2280,13 @@ $estado&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodset_estado">toba_ef_cuit::set_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodset_estado">toba_ef_multi_seleccion::set_estado()</a>
 							</li>
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodset_estado">toba_ef_checkbox::set_estado()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodset_estado">toba_ef_sin_estado::set_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodset_estado">toba_ef_seleccion::set_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodset_estado">toba_ef_checkbox::set_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_oculto.html#methodset_estado">toba_ef_oculto::set_estado()</a>
@@ -2180,6 +2298,9 @@ $estado&nbsp;
 				<a href="../../Componentes/Efs/toba_ef_oculto_usuario.html#methodset_estado">toba_ef_oculto_usuario::set_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodset_estado">toba_ef_sin_estado::set_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodset_estado">toba_ef_editable::set_estado()</a>
 							</li>
 					<li>
@@ -2188,7 +2309,48 @@ $estado&nbsp;
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_textarea.html#methodset_estado">toba_ef_editable_textarea::set_estado()</a>
 							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodset_estado">toba_ef_cuit::set_estado()</a>
+							</li>
 				</ul>
+		<br />
+</div>
+<a name="methodset_estado_defecto" id="set_estado_defecto"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_estado_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 429]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_estado_defecto(
+
+$estado&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia el valor que toma el ef cuando no se lo carga con un estado </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$estado:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
 		<br />
 </div>
 <a name="methodset_estilo_etiqueta" id="set_estilo_etiqueta"><!-- --></a>
@@ -2197,7 +2359,7 @@ $estado&nbsp;
 	
 		
 	
-	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 466]</span>
+	<span class="method-title">set_estilo_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 506]</span>
 </div>
 <br />
 
@@ -2235,7 +2397,7 @@ $estilo&nbsp;
 	
 		
 	
-	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 425]</span>
+	<span class="method-title">set_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 460]</span>
 </div>
 <br />
 
@@ -2273,7 +2435,7 @@ $etiqueta&nbsp;
 	
 		
 	
-	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 477]</span>
+	<span class="method-title">set_expandido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 517]</span>
 </div>
 <br />
 
@@ -2311,7 +2473,7 @@ $expandido&nbsp;
 	
 		
 	
-	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 457]</span>
+	<span class="method-title">set_obligatorio</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 497]</span>
 </div>
 <br />
 
@@ -2349,7 +2511,7 @@ $obligatorio = true]&nbsp;
 	
 		
 	
-	<span class="method-title">set_permitir_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 499]</span>
+	<span class="method-title">set_permitir_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 539]</span>
 </div>
 <br />
 
@@ -2387,7 +2549,7 @@ $permitir&nbsp;
 	
 		
 	
-	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 446]</span>
+	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 481]</span>
 </div>
 <br />
 
@@ -2425,7 +2587,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+	<span class="method-title">son_campos_posicionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 227]</span>
 </div>
 <br />
 
@@ -2451,7 +2613,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 354]</span>
+	<span class="method-title">tiene_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
 </div>
 <br />
 
@@ -2472,25 +2634,28 @@ $solo_lectura = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodtiene_estado">toba_ef_cuit::tiene_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodtiene_estado">toba_ef_multi_seleccion::tiene_estado()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodtiene_estado">toba_ef_checkbox::tiene_estado()</a>
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodtiene_estado">toba_ef_sin_estado::tiene_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_seleccion.html#methodtiene_estado">toba_ef_seleccion::tiene_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_checkbox.html#methodtiene_estado">toba_ef_checkbox::tiene_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodtiene_estado">toba_ef_upload::tiene_estado()</a>
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodtiene_estado">toba_ef_sin_estado::tiene_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable.html#methodtiene_estado">toba_ef_editable::tiene_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_captcha.html#methodtiene_estado">toba_ef_editable_captcha::tiene_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodtiene_estado">toba_ef_cuit::tiene_estado()</a>
 							</li>
 				</ul>
 		<br />
@@ -2501,7 +2666,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 179]</span>
+	<span class="method-title">tiene_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 185]</span>
 </div>
 <br />
 
@@ -2533,7 +2698,7 @@ $solo_lectura = true]&nbsp;
 	
 		
 	
-	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 242]</span>
+	<span class="method-title">tiene_opciones_cargadas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
 </div>
 <br />
 
@@ -2559,7 +2724,7 @@ $solo_lectura = true]&nbsp;
 	
 		    		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 380]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
 </div>
 <br />
 
@@ -2588,26 +2753,32 @@ $solo_lectura = true]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodvalidar_estado">toba_ef_cuit::validar_estado()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Efs/toba_ef_multi_seleccion.html#methodvalidar_estado">toba_ef_multi_seleccion::validar_estado()</a>
 								: La validación verifica si se cumple con la cantidad mínima y máxima
-							</li>
-					<li>
-				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodvalidar_estado">toba_ef_sin_estado::validar_estado()</a>
 							</li>
 					<li>
 				<a href="../../Componentes/Efs/toba_ef_upload.html#methodvalidar_estado">toba_ef_upload::validar_estado()</a>
 								: Valida que cumpla con la lista de extensiones válidas definidas.
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_sin_estado.html#methodvalidar_estado">toba_ef_sin_estado::validar_estado()</a>
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable.html#methodvalidar_estado">toba_ef_editable::validar_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_numero.html#methodvalidar_estado">toba_ef_editable_numero::validar_estado()</a>
 								: Valida que el número cumpla con el rango preestablecido (si lo hay)
 							</li>
 					<li>
+				<a href="../../Componentes/Efs/toba_ef_editable_clave.html#methodvalidar_estado">toba_ef_editable_clave::validar_estado()</a>
+							</li>
+					<li>
 				<a href="../../Componentes/Efs/toba_ef_editable_fecha.html#methodvalidar_estado">toba_ef_editable_fecha::validar_estado()</a>
 								: Valida que sea una fecha válida con la funcion php checkdate
+							</li>
+					<li>
+				<a href="../../Componentes/Efs/toba_ef_cuit.html#methodvalidar_estado">toba_ef_cuit::validar_estado()</a>
 							</li>
 				</ul>
 		<br />
@@ -2621,7 +2792,7 @@ $solo_lectura = true]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

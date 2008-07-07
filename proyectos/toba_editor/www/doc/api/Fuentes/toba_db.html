@@ -129,7 +129,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /lib/db/toba_db.php [<span class="field">line 16</span>]
+			Ubicada en /lib/db/toba_db.php [<span class="field">line 17</span>]
 		</p>	
 		<br>
 	
@@ -145,9 +145,9 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
 					<td>
-											Driver de conexión con mysql.
+											Driver de conexión via ODBC
 										</td>
 				</tr>
 								<tr>
@@ -157,9 +157,9 @@
 										</td>
 				</tr>
 								<tr>
-					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_odbc.html">toba_db_odbc</a></td>
+					<td style="padding-right: 2em"><a href="../Fuentes/Drivers/toba_db_mysql.html">toba_db_mysql</a></td>
 					<td>
-											Driver de conexión via ODBC
+											Driver de conexión con mysql.
 										</td>
 				</tr>
 								<tr>
@@ -182,7 +182,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																													<tr>
+																																																																																																																																																																																																																																																																																								<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -231,6 +231,14 @@
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#consultar_fila" title="details" class="method-name">consultar_fila</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Ejecuta una consulta sql y retorna la primer fila del resultado.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#cortar_sql" title="details" class="method-name">cortar_sql</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -332,6 +340,13 @@
 						<td class="method-definition">Mapea un tipo de datos especifico de un motor a uno generico de toba</td></tr>
 																				<tr>
 						<td nowrap align="right">
+														    																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#hay_datos" title="details" class="method-name">hay_datos</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base</td></tr>
+																				<tr>
+						<td nowrap align="right">
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -341,7 +356,7 @@
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#recuperar_secuencia" title="details" class="method-name">recuperar_secuencia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el valor de un campo SERIAL</td></tr>
 																				<tr>
@@ -365,6 +380,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_modo_debug" title="details" class="method-name">set_modo_debug</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Cuando la conexión esta en modo debug se imprime cada consulta/comando realizado</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_parser_errores" title="details" class="method-name">set_parser_errores</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 													</table>
 			</div>
 			<br />
@@ -383,12 +405,12 @@
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 35]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 37]</span>
 </div>
 <br />
 
@@ -448,13 +470,13 @@ $puerto = null]&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_postgres7.html#method__construct">toba_db_postgres7::__construct()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_odbc.html#method__construct">toba_db_odbc::__construct()</a>
+				<a href="../Fuentes/Drivers/toba_db_mysql.html#method__construct">toba_db_mysql::__construct()</a>
 							</li>
 					<li>
 				<a href="../Fuentes/Drivers/toba_db_informix.html#method__construct">toba_db_informix::__construct()</a>
@@ -463,12 +485,12 @@ $puerto = null]&nbsp;
 		<br />
 </div>
 <a name="methodabortar_transaccion" id="abortar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 248]</span>
+	<span class="method-title">abortar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 279]</span>
 </div>
 <br />
 
@@ -499,12 +521,12 @@ $puerto = null]&nbsp;
 		<br />
 </div>
 <a name="methodabrir_transaccion" id="abrir_transaccion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 239]</span>
+	<span class="method-title">abrir_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 270]</span>
 </div>
 <br />
 
@@ -535,12 +557,12 @@ $puerto = null]&nbsp;
 		<br />
 </div>
 <a name="methodcerrar_transaccion" id="cerrar_transaccion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 257]</span>
+	<span class="method-title">cerrar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 288]</span>
 </div>
 <br />
 
@@ -571,12 +593,12 @@ $puerto = null]&nbsp;
 		<br />
 </div>
 <a name="methodconectar" id="conectar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 56]</span>
+	<span class="method-title">conectar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
 </div>
 <br />
 
@@ -603,12 +625,12 @@ $puerto = null]&nbsp;
 		<br />
 </div>
 <a name="methodconsultar" id="consultar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 195]</span>
+	<span class="method-title">consultar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 206]</span>
 </div>
 <br />
 
@@ -662,12 +684,12 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<br />
 </div>
 <a name="methodconsultar_fila" id="consultar_fila"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		    		
 	
-	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 220]</span>
+	<span class="method-title">consultar_fila</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 231]</span>
 </div>
 <br />
 
@@ -677,7 +699,8 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		<code>array consultar_fila(
 string
 $sql, [string
-$tipo_fetch = toba_db_fetch_asoc]&nbsp;
+$tipo_fetch = toba_db_fetch_asoc], [
+$lanzar_excepcion = true]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -698,6 +721,12 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 				<span class="var-name">$tipo_fetch:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Modo Fetch de ADO, por defecto toba_db_fetch_asoc</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$lanzar_excepcion:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -720,13 +749,59 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		
 		<br />
 </div>
+<a name="methodcortar_sql" id="cortar_sql"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
+    			
+	
+	<span class="method-title">cortar_sql</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 632]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void cortar_sql(
+
+$sql&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 55]</span>
 </div>
 <br />
 
@@ -752,7 +827,7 @@ $tipo_fetch = toba_db_fetch_asoc]&nbsp;
 		    	
 		
 	
-	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 128]</span>
+	<span class="method-title">ejecutar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 147]</span>
 </div>
 <br />
 
@@ -796,7 +871,7 @@ $sql&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
+	<span class="method-title">ejecutar_archivo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
 </div>
 <br />
 
@@ -834,7 +909,7 @@ $archivo&nbsp;
 	
 		
 	
-	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
+	<span class="method-title">ejecutar_transaccion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 299]</span>
 </div>
 <br />
 
@@ -880,7 +955,7 @@ $sentencias&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 566]</span>
+	<span class="method-title">es_campo_candidato_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 604]</span>
 </div>
 <br />
 
@@ -926,7 +1001,7 @@ $campo&nbsp;
 	
 		
 	
-	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 328]</span>
+	<span class="method-title">get_definicion_columnas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 360]</span>
 </div>
 <br />
 
@@ -970,7 +1045,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 302]</span>
+	<span class="method-title">get_dsn</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 333]</span>
 </div>
 <br />
 
@@ -991,10 +1066,13 @@ $tabla&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
+							</li>
+					<li>
 				<a href="../Fuentes/Drivers/toba_db_mysql.html#methodget_dsn">toba_db_mysql::get_dsn()</a>
 							</li>
 					<li>
-				<a href="../Fuentes/Drivers/toba_db_postgres7.html#methodget_dsn">toba_db_postgres7::get_dsn()</a>
+				<a href="../Fuentes/Drivers/toba_db_informix.html#methodget_dsn">toba_db_informix::get_dsn()</a>
 							</li>
 				</ul>
 		<br />
@@ -1005,7 +1083,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 601]</span>
+	<span class="method-title">get_error_toba</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 650]</span>
 </div>
 <br />
 
@@ -1050,7 +1128,7 @@ $descripcion&nbsp;
 	
 		
 	
-	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 533]</span>
+	<span class="method-title">get_opciones_sql_campo_externo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 568]</span>
 </div>
 <br />
 
@@ -1088,7 +1166,7 @@ $campo&nbsp;
 	
 		
 	
-	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 84]</span>
+	<span class="method-title">get_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 94]</span>
 </div>
 <br />
 
@@ -1114,7 +1192,7 @@ $campo&nbsp;
 	
 		
 	
-	<span class="method-title">get_pdo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 75]</span>
+	<span class="method-title">get_pdo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
 </div>
 <br />
 
@@ -1140,7 +1218,7 @@ $campo&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 510]</span>
+	<span class="method-title">get_sql_carga_descripciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 545]</span>
 </div>
 <br />
 
@@ -1186,7 +1264,7 @@ $tabla&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 442]</span>
+	<span class="method-title">get_sql_carga_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 474]</span>
 </div>
 <br />
 
@@ -1232,7 +1310,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 337]</span>
+	<span class="method-title">get_tipo_datos_generico</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -1264,13 +1342,65 @@ $tipo&nbsp;
 		
 		<br />
 </div>
-<a name="methodquote" id="quote"><!-- --></a>
+<a name="methodhay_datos" id="hay_datos"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+		    	
+		    		
+	
+	<span class="method-title">hay_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 261]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean hay_datos(
+string
+$sql&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ejecuta una consulta sql y retorna true si existen datos  	Es útil cuando solo se quiere saber si una condicion se cumple o no en la base </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$sql:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Consulta SQL</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Return:</strong>&nbsp;&nbsp;</td><td>Verdadero si la consulta retorna al menos una registro</td>
+    	
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Throws:</strong>&nbsp;&nbsp;</td><td>toba_error_db en caso de error</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
+<a name="methodquote" id="quote"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 118]</span>
+	<span class="method-title">quote</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 129]</span>
 </div>
 <br />
 
@@ -1278,8 +1408,8 @@ $tipo&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void quote(
-
-$texto&nbsp;
+mixed
+$dato&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1289,11 +1419,11 @@ $texto&nbsp;
 			Parámetros:<br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">mixed</span>&nbsp;&nbsp;</td>
 				<td>
-				<span class="var-name">$texto:&nbsp;</span></td>
+				<span class="var-name">$dato:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> Puede ser un string o un arreglo</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1303,19 +1433,19 @@ $texto&nbsp;
 		<br />
 </div>
 <a name="methodrecuperar_secuencia" id="recuperar_secuencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 310]</span>
+	<span class="method-title">recuperar_secuencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void recuperar_secuencia(
+		<code>string recuperar_secuencia(
 
 $secuencia&nbsp;
 )</code>
@@ -1348,12 +1478,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodretrazar_constraints" id="retrazar_constraints"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 319]</span>
+	<span class="method-title">retrazar_constraints</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 351]</span>
 </div>
 <br />
 
@@ -1380,12 +1510,12 @@ $secuencia&nbsp;
 		<br />
 </div>
 <a name="methodsentencia" id="sentencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 		    	
 		
 	
-	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
+	<span class="method-title">sentencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 182]</span>
 </div>
 <br />
 
@@ -1431,12 +1561,12 @@ $parametros = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_modo_debug" id="set_modo_debug"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 96]</span>
+	<span class="method-title">set_modo_debug</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 106]</span>
 </div>
 <br />
 
@@ -1468,6 +1598,43 @@ $debug = true]&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_parser_errores" id="set_parser_errores"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_parser_errores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 47]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_parser_errores(
+
+$parser&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"><a href="../Centrales/toba_parser_error_db.html">toba_parser_error_db</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$parser:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 
@@ -1477,7 +1644,7 @@ $debug = true]&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

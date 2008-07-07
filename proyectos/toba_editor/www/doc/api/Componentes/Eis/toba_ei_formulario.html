@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -420,12 +430,6 @@
 		<div class="info-box-title">Subclases directas</div>
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_filtro.html">toba_ei_filtro</a></td>
-					<td>
-											Un filtro presenta una grilla de campos similar al formulario, pero con el objetivo de reducir el conjunto de datos mostrados por otro objeto.
-										</td>
-				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../../Componentes/Eis/toba_ei_formulario_ml.html">toba_ei_formulario_ml</a></td>
 					<td>
@@ -535,6 +539,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Recupera el objeto asociado de un evento</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodexiste_evento">existe_evento()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Verifica si un evento esta definido en la lista de eventos a utilizar en el servicio actual</span>
 										</dd>
 										
 																			
@@ -674,6 +689,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_objeto_js">get_objeto_js()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodget_puntos_control">get_puntos_control()</a></span>
 										</dt>
 										<dd>
@@ -751,6 +777,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_refresh_ejecuta_eventos">set_refresh_ejecuta_eventos()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Hace que los componentes reenvien sus eventos cuando se hace un refresh sobre la pagina</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Eis/toba_ei.html#methodset_titulo">set_titulo()</a></span>
 										</dt>
 										<dd>
@@ -815,6 +852,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodagregar_dependencia_por_indice">agregar_dependencia_por_indice()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual utilizando</span>
 										</dd>
 										
 																			
@@ -1031,6 +1079,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodini">ini()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinvocar_callback">invocar_callback()</a></span>
 										</dt>
 										<dd>
@@ -1075,6 +1134,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_modo_compatible_manejo_sesion">set_modo_compatible_manejo_sesion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_propiedades_sesion">set_propiedades_sesion()</a></span>
 										</dt>
 										<dd>
@@ -1096,7 +1166,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																																																																	<tr>
+																																																																																																																																																																																																																																																																																																																																																																																		<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -1108,8 +1178,22 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#aplicar_restricciones_funcionales" title="details" class="method-name">aplicar_restricciones_funcionales</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#desactivar_efs" title="details" class="method-name">desactivar_efs</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Establece que un conjunto de efs NO seran enviados al cliente durante una interacción</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#desactivar_validacion_ef" title="details" class="method-name">desactivar_validacion_ef</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Desactiva la validación particular de un ef tanto en php como en javascript</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1227,23 +1311,16 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_valores_pdf" title="details" class="method-name">get_valores_pdf</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition"></td></tr>
-																				<tr>
-						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-						    									
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">string</span>&nbsp;&nbsp;</td>
-												<td class="method-definition"><a href="#get_valor_imprimible_ef" title="details" class="method-name">get_valor_imprimible_ef</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna un formato legible del estado actual de un ef</td></tr>
-																				<tr>
-						<td nowrap align="right">
-															
-						</td>
-													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#limpiar_interface" title="details" class="method-name">limpiar_interface</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Borra los datos actuales y resetea el estado de los efs</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    														    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+						    									
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#restaurar_ancho_etiqueta" title="details" class="method-name">restaurar_ancho_etiqueta</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Restaura el valor previo a un cambio del ancho de la etiqueta</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1253,8 +1330,21 @@
 						<td class="method-definition">Método que se utiliza en la respuesta de las cascadas usando AJAX</td></tr>
 																				<tr>
 						<td nowrap align="right">
-																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-						    									
+														    															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#servicio__mostrar_captchas_efs" title="details" class="method-name">servicio__mostrar_captchas_efs</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Método que se utiliza en la respuesta a los efs_captcha</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_ancho" title="details" class="method-name">set_ancho</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia el ancho total del formulario</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_ancho_etiqueta" title="details" class="method-name">set_ancho_etiqueta</a>()&nbsp;&nbsp;</td>
@@ -1278,6 +1368,13 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_detectar_cambios" title="details" class="method-name">set_detectar_cambios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Detecta los cambios producidos en los distintos campos en el cliente, cambia los estilos de los mismos y habilita-deshabilita el botón por defecto</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_efs_obligatorios" title="details" class="method-name">set_efs_obligatorios</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Establece que un conjunto de efs serán o no obligatorios  Este estado perdura durante una interaccion</td></tr>
 																				<tr>
@@ -1292,6 +1389,34 @@
 															
 						</td>
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_formateo_ef" title="details" class="method-name">set_formateo_ef</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Cambia la forma en que se le da formato a un ef en las salidas pdf, excel y html</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_pdf_letra_tabla" title="details" class="method-name">set_pdf_letra_tabla</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite setear el tamaño de la tabla que representa el formulario.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_pdf_tabla_ancho" title="details" class="method-name">set_pdf_tabla_ancho</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite setear el ancho del formulario.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+																					    								
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#set_pdf_tabla_opciones" title="details" class="method-name">set_pdf_tabla_opciones</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Permite setear el estilo que llevara la tabla en la salida pdf.</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_solo_lectura" title="details" class="method-name">set_solo_lectura</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Permite o no la edición de un conjunto de efs de este formulario, pero sus valores se muestran al usuario</td></tr>
 																				<tr>
@@ -1301,6 +1426,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#validar_estado" title="details" class="method-name">validar_estado</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Recorre todos los efs y valida sus valores actuales</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#vista_excel" title="details" class="method-name">vista_excel</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -1338,7 +1470,7 @@
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 48]</span>
 </div>
 <br />
 
@@ -1379,13 +1511,38 @@ $id&nbsp;
 				</ul>
 		<br />
 </div>
-<a name="methoddesactivar_efs" id="desactivar_efs"><!-- --></a>
+<a name="methodaplicar_restricciones_funcionales" id="aplicar_restricciones_funcionales"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">desactivar_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 407]</span>
+	<span class="method-title">aplicar_restricciones_funcionales</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 64]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void aplicar_restricciones_funcionales(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methoddesactivar_efs" id="desactivar_efs"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">desactivar_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 478]</span>
 </div>
 <br />
 
@@ -1417,13 +1574,51 @@ $efs = null]&nbsp;
 		
 		<br />
 </div>
+<a name="methoddesactivar_validacion_ef" id="desactivar_validacion_ef"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">desactivar_validacion_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 463]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void desactivar_validacion_ef(
+
+$ef&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Desactiva la validación particular de un ef tanto en php como en javascript <p>Este estado perdura durante una interacción</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ef:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methoddestruir" id="destruir"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 51]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 57]</span>
 </div>
 <br />
 
@@ -1459,7 +1654,7 @@ $efs = null]&nbsp;
 	
 		
 	
-	<span class="method-title">ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 340]</span>
+	<span class="method-title">ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 396]</span>
 </div>
 <br />
 
@@ -1497,7 +1692,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">ef_tiene_maestros_seteados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 564]</span>
+	<span class="method-title">ef_tiene_maestros_seteados</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 217]</span>
 </div>
 <br />
 
@@ -1535,7 +1730,7 @@ $id_ef&nbsp;
 	
 		
 	
-	<span class="method-title">existe_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
+	<span class="method-title">existe_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 405]</span>
 </div>
 <br />
 
@@ -1574,7 +1769,7 @@ $id&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_etiqueta_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 983]</span>
+	<span class="method-title">generar_etiqueta_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 841]</span>
 </div>
 <br />
 
@@ -1583,7 +1778,8 @@ $id&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void generar_etiqueta_ef(
 string
-$ef&nbsp;
+$ef, [string
+$ancho_etiqueta = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1598,6 +1794,12 @@ $ef&nbsp;
 				<span class="var-name">$ef:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Id. del ef</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho_etiqueta:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.  Recordar incluír las medidas (px, %, etc.).</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1620,7 +1822,7 @@ $ef&nbsp;
 	
 		
 	
-	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 871]</span>
+	<span class="method-title">generar_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 713]</span>
 </div>
 <br />
 
@@ -1646,7 +1848,7 @@ $ef&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_html_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 943]</span>
+	<span class="method-title">generar_html_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 787]</span>
 </div>
 <br />
 
@@ -1655,7 +1857,8 @@ $ef&nbsp;
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void generar_html_ef(
 string
-$ef&nbsp;
+$ef, [string
+$ancho_etiqueta = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1670,6 +1873,12 @@ $ef&nbsp;
 				<span class="var-name">$ef:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Identificador del ef</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho_etiqueta:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Ancho de la etiqueta del ef. Si no se setea, usa la definida en el editor.  Recordar incluír las medidas (px, %, etc.).</span>			</td></tr>
 				</table>
 
 	<br />
@@ -1684,13 +1893,6 @@ $ef&nbsp;
 
 
 		
-			<div class="notes">Redefinido en subclases como:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Componentes/Eis/toba_ei_filtro.html#methodgenerar_html_ef">toba_ei_filtro::generar_html_ef()</a>
-								: Genera la etiqueta y el componente HTML de un ef
-							</li>
-				</ul>
 		<br />
 </div>
 <a name="methodgenerar_input_ef" id="generar_input_ef"><!-- --></a>
@@ -1701,7 +1903,7 @@ $ef&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_input_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 973]</span>
+	<span class="method-title">generar_input_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 825]</span>
 </div>
 <br />
 
@@ -1755,7 +1957,7 @@ $ef&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">generar_layout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 932]</span>
+	<span class="method-title">generar_layout</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 774]</span>
 </div>
 <br />
 
@@ -1795,7 +1997,7 @@ $ef&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 316]</span>
+	<span class="method-title">get_cantidad_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 372]</span>
 </div>
 <br />
 
@@ -1821,7 +2023,7 @@ $ef&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 444]</span>
+	<span class="method-title">get_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 515]</span>
 </div>
 <br />
 
@@ -1863,7 +2065,7 @@ $ef&nbsp;
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">get_efs_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 325]</span>
+	<span class="method-title">get_efs_activos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 381]</span>
 </div>
 <br />
 
@@ -1897,7 +2099,7 @@ $ef&nbsp;
 	
 		
 	
-	<span class="method-title">get_nombres_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 307]</span>
+	<span class="method-title">get_nombres_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 363]</span>
 </div>
 <br />
 
@@ -1923,7 +2125,7 @@ $ef&nbsp;
 	
 		
 	
-	<span class="method-title">get_objeto_js_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1049]</span>
+	<span class="method-title">get_objeto_js_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 922]</span>
 </div>
 <br />
 
@@ -1968,7 +2170,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_tab_index</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 429]</span>
+	<span class="method-title">get_tab_index</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 500]</span>
 </div>
 <br />
 
@@ -1988,97 +2190,13 @@ $id&nbsp;
 		
 		<br />
 </div>
-<a name="methodget_valores_pdf" id="get_valores_pdf"><!-- --></a>
-<div class="oddrow">
-<div class="method-header">
-	
-		
-	
-	<span class="method-title">get_valores_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1133]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void get_valores_pdf(
-
-$id_ef&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$id_ef:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	
-
-		
-		<br />
-</div>
-<a name="methodget_valor_imprimible_ef" id="get_valor_imprimible_ef"><!-- --></a>
-<div class="evenrow">
-<div class="method-header">
-	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-    			
-	
-	<span class="method-title">get_valor_imprimible_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1095]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>string get_valor_imprimible_ef(
-string
-$id_ef&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	<div class="description">Retorna un formato legible del estado actual de un ef </div>
-
-			Parámetros:<br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type">string</span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$id_ef:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
-
-	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-</div>
 <a name="methodlimpiar_interface" id="limpiar_interface"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 296]</span>
+	<span class="method-title">limpiar_interface</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 352]</span>
 </div>
 <br />
 
@@ -2105,13 +2223,53 @@ $id_ef&nbsp;
 				</ul>
 		<br />
 </div>
-<a name="methodservicio__cascadas_efs" id="servicio__cascadas_efs"><!-- --></a>
+<a name="methodrestaurar_ancho_etiqueta" id="restaurar_ancho_etiqueta"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+	
+		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
+    			
+	
+	<span class="method-title">restaurar_ancho_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 208]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void restaurar_ancho_etiqueta(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Restaura el valor previo a un cambio del ancho de la etiqueta </div>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td><a href="../../Componentes/Eis/toba_ei_formulario.html#methodset_ancho_etiqueta">toba_ei_formulario::set_ancho_etiqueta()</a></td>
+    	
+  </tr>
+  <tr>
+    <td class="indent">
+    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
+<a name="methodservicio__cascadas_efs" id="servicio__cascadas_efs"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">servicio__cascadas_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 809]</span>
+	<span class="method-title">servicio__cascadas_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 650]</span>
 </div>
 <br />
 
@@ -2131,14 +2289,83 @@ $id_ef&nbsp;
 		
 		<br />
 </div>
-<a name="methodset_ancho_etiqueta" id="set_ancho_etiqueta"><!-- --></a>
+<a name="methodservicio__mostrar_captchas_efs" id="servicio__mostrar_captchas_efs"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+		    	
+		
+	
+	<span class="method-title">servicio__mostrar_captchas_efs</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 638]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void servicio__mostrar_captchas_efs(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Método que se utiliza en la respuesta a los efs_captcha </div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>Este esquema solo se banca un solo ef_captcha. Para poder bancarse mas habria que  pensar por ejemplo, pasarle al GET &quot;id_ef + text-captcha&quot; para identificar que texto se  quiere recuperar. De todas maneras para que mas de un captcha???.</td>
+  </tr>
+</table>
+
+		
+		<br />
+</div>
+<a name="methodset_ancho" id="set_ancho"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
-		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
-    			
+		
 	
-	<span class="method-title">set_ancho_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 153]</span>
+	<span class="method-title">set_ancho</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_ancho(
+string
+$ancho&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia el ancho total del formulario </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Tamaño del formulario ej: '600px'</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_ancho_etiqueta" id="set_ancho_etiqueta"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_ancho_etiqueta</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -2164,26 +2391,18 @@ $ancho&nbsp;
 				</table>
 
 	<br />
-	<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent">
-    	<strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
-    	
-  </tr>
-</table>
-<br />
-
+	
 
 		
 		<br />
 </div>
 <a name="methodset_datos" id="set_datos"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 502]</span>
+	<span class="method-title">set_datos</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 573]</span>
 </div>
 <br />
 
@@ -2230,12 +2449,12 @@ $set_cargado = true]&nbsp;
 		<br />
 </div>
 <a name="methodset_datos_defecto" id="set_datos_defecto"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_datos_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 548]</span>
+	<span class="method-title">set_datos_defecto</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 619]</span>
 </div>
 <br />
 
@@ -2267,13 +2486,51 @@ $datos&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_detectar_cambios" id="set_detectar_cambios"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_detectar_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 343]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_detectar_cambios(
+[
+$detectar = true]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Detecta los cambios producidos en los distintos campos en el cliente, cambia los estilos de los mismos y habilita-deshabilita el botón por defecto <p>en caso de que se hallan producido cambios</p></div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$detectar:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodset_efs_obligatorios" id="set_efs_obligatorios"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_efs_obligatorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+	<span class="method-title">set_efs_obligatorios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 441]</span>
 </div>
 <br />
 
@@ -2303,7 +2560,7 @@ $obligatorios = true]&nbsp;
 				<td>
 				<span class="var-name">$obligatorios:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> ¿Hacer obligatorio? (true por defecto)</span>			</td></tr>
+				<span class="var-description"> Hacer obligatorio? (true por defecto)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2318,7 +2575,7 @@ $obligatorios = true]&nbsp;
 	
 		
 	
-	<span class="method-title">set_expandir_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 288]</span>
+	<span class="method-title">set_expandir_descripcion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 334]</span>
 </div>
 <br />
 
@@ -2350,13 +2607,187 @@ $mostrar&nbsp;
 		
 		<br />
 </div>
+<a name="methodset_formateo_ef" id="set_formateo_ef"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_formateo_ef</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1097]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_formateo_ef(
+string
+$id_ef, string
+$funcion, [string
+$clase = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Cambia la forma en que se le da formato a un ef en las salidas pdf, excel y html </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$id_ef:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$funcion:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Nombre de la función de formateo, sin el prefijo 'formato_'</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$clase:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Nombre de la clase que contiene la funcion, por defecto toba_formateo</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_pdf_letra_tabla" id="set_pdf_letra_tabla"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_pdf_letra_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1005]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_pdf_letra_tabla(
+integer
+$tamanio&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite setear el tamaño de la tabla que representa el formulario. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">integer</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tamanio:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Tamaño de la letra.</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_pdf_tabla_ancho" id="set_pdf_tabla_ancho"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">set_pdf_tabla_ancho</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 996]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_pdf_tabla_ancho(
+unknown_type
+$ancho&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite setear el ancho del formulario. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">unknown_type</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$ancho:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Es posible pasarle valores enteros o porcentajes (por ejemplo 85%).</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodset_pdf_tabla_opciones" id="set_pdf_tabla_opciones"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		    		
+	
+	<span class="method-title">set_pdf_tabla_opciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1015]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void set_pdf_tabla_opciones(
+array
+$opciones&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Permite setear el estilo que llevara la tabla en la salida pdf. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$opciones:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Arreglo asociativo con las opciones para la tabla de salida.</span>			</td></tr>
+				</table>
+
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>See:</strong>&nbsp;&nbsp;</td><td>toba_vista_pdf::tabla, ezpdf::ezTable</td>
+    	
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+</div>
 <a name="methodset_solo_lectura" id="set_solo_lectura"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 361]</span>
+	<span class="method-title">set_solo_lectura</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -2386,7 +2817,7 @@ $readonly = true]&nbsp;
 				<td>
 				<span class="var-name">$readonly:&nbsp;</span></td>
 				<td>
-				<span class="var-description"> ¿Hacer solo_lectura? (true por defecto)</span>			</td></tr>
+				<span class="var-description"> Hacer solo_lectura? (true por defecto)</span>			</td></tr>
 				</table>
 
 	<br />
@@ -2401,7 +2832,7 @@ $readonly = true]&nbsp;
 		    	
 		
 	
-	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 240]</span>
+	<span class="method-title">validar_estado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 311]</span>
 </div>
 <br />
 
@@ -2434,13 +2865,56 @@ $readonly = true]&nbsp;
 				</ul>
 		<br />
 </div>
-<a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
+<a name="methodvista_excel" id="vista_excel"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1074]</span>
+	<span class="method-title">vista_excel</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1059]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void vista_excel(
+
+$salida&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"><a href="../../SalidaGrafica/toba_vista_excel.html">toba_vista_excel</a></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$salida:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodvista_excel">toba_ei_formulario_ml::vista_excel()</a>
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodvista_impresion_html" id="vista_impresion_html"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">vista_impresion_html</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 947]</span>
 </div>
 <br />
 
@@ -2477,21 +2951,18 @@ $salida&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Componentes/Eis/toba_ei_filtro.html#methodvista_impresion_html">toba_ei_filtro::vista_impresion_html()</a>
-							</li>
-					<li>
 				<a href="../../Componentes/Eis/toba_ei_formulario_ml.html#methodvista_impresion_html">toba_ei_formulario_ml::vista_impresion_html()</a>
 							</li>
 				</ul>
 		<br />
 </div>
 <a name="methodvista_pdf" id="vista_pdf"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">vista_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1119]</span>
+	<span class="method-title">vista_pdf</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 1020]</span>
 </div>
 <br />
 
@@ -2537,7 +3008,7 @@ $salida&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

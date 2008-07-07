@@ -56,6 +56,9 @@
 		    			<a href="../SalidaGrafica/toba_form.html">					form
 					</a>    		
 	 <br />
+	    			<a href="../SalidaGrafica/toba_formateo.html">					formateo
+					</a>    		
+	 <br />
 	    			<a href="../SalidaGrafica/toba_http.html">					http
 					</a>    		
 	 <br />
@@ -96,6 +99,9 @@
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_tp_popup.html">					tp_popup
+					</a>    		
+	 <br />
+	    			<a href="../SalidaGrafica/toba_vista_excel.html">					vista_excel
 					</a>    		
 	 <br />
 	    			<a href="../SalidaGrafica/toba_vista_pdf.html">					vista_pdf
@@ -175,12 +181,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																	<tr><td></td><td class="method-definition" nowrap>static
+																																																			<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#instancia" title="details" class="method-name">instancia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
-																																																			<tr>
+																																																												<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -194,6 +200,20 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#agregar_id" title="details" class="method-name">agregar_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Agrega un mensaje a mostrar al usuario, el mensaje se obtiene con  toba::mensajes()-&gt;get($indice, $parametros)</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#error" title="details" class="method-name">error</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega un mensaje de error para mostrar al usuario</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#info" title="details" class="method-name">info</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega un mensaje informativo para mostrar al usuario</td></tr>
 																													<tr>
 						<td nowrap align="right">
 															
@@ -215,6 +235,13 @@
 													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#verificar_mensajes" title="details" class="method-name">verificar_mensajes</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Reporta la existencia de mensajes</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#warning" title="details" class="method-name">warning</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agrega un mensaje de advertencia para mostrar al usuario</td></tr>
 													</table>
 			</div>
 			<br />
@@ -232,7 +259,7 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodinstancia" id="instancia"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		<span class="method-title">static method instancia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 14]</span>
 </div>
@@ -255,12 +282,12 @@
 </div>
 
 <a name="methodagregar" id="agregar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 32]</span>
+	<span class="method-title">agregar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 31]</span>
 </div>
 <br />
 
@@ -270,7 +297,8 @@
 		<code>void agregar(
 string
 $mensaje, [string
-$nivel = 'error']&nbsp;
+$nivel = 'error'], [
+$extras = null]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -291,6 +319,12 @@ $nivel = 'error']&nbsp;
 				<span class="var-name">$nivel:&nbsp;</span></td>
 				<td>
 				<span class="var-description"> Determina el estilo del mensaje, 'error' o 'info'</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$extras:&nbsp;</span></td>
+				<td>
+							</td></tr>
 				</table>
 
 	<br />
@@ -300,12 +334,12 @@ $nivel = 'error']&nbsp;
 		<br />
 </div>
 <a name="methodagregar_id" id="agregar_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">agregar_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 45]</span>
+	<span class="method-title">agregar_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 71]</span>
 </div>
 <br />
 
@@ -359,13 +393,103 @@ $nivel = 'error']&nbsp;
 		
 		<br />
 </div>
-<a name="methodmostrar" id="mostrar"><!-- --></a>
+<a name="methoderror" id="error"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">error</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 41]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void error(
+string
+$mensaje, [
+$extras = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega un mensaje de error para mostrar al usuario </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Mensaje completo a mostrar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$extras:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodinfo" id="info"><!-- --></a>
 <div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 65]</span>
+	<span class="method-title">info</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 59]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void info(
+string
+$mensaje, [
+$extras = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega un mensaje informativo para mostrar al usuario </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Mensaje completo a mostrar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$extras:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodmostrar" id="mostrar"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">mostrar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 91]</span>
 </div>
 <br />
 
@@ -386,12 +510,12 @@ $nivel = 'error']&nbsp;
 		<br />
 </div>
 <a name="methodvaciar" id="vaciar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">vaciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 83]</span>
+	<span class="method-title">vaciar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 117]</span>
 </div>
 <br />
 
@@ -412,12 +536,12 @@ $nivel = 'error']&nbsp;
 		<br />
 </div>
 <a name="methodverificar_mensajes" id="verificar_mensajes"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">verificar_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 54]</span>
+	<span class="method-title">verificar_mensajes</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 80]</span>
 </div>
 <br />
 
@@ -437,6 +561,51 @@ $nivel = 'error']&nbsp;
 		
 		<br />
 </div>
+<a name="methodwarning" id="warning"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">warning</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void warning(
+string
+$mensaje, [
+$extras = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agrega un mensaje de advertencia para mostrar al usuario </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$mensaje:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Mensaje completo a mostrar</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$extras:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 		</div>
 	</div>
 
@@ -446,7 +615,7 @@ $nivel = 'error']&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

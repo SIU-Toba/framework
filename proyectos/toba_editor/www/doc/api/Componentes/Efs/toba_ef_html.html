@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -387,7 +397,7 @@
 
 		
 		<p class="notes">
-			Ubicada en /nucleo/componentes/interface/efs/toba_ef_varios.php [<span class="field">line 215</span>]
+			Ubicada en /nucleo/componentes/interface/efs/toba_ef_varios.php [<span class="field">line 248</span>]
 		</p>	
 		<table border="0" cellspacing="0" cellpadding="0">
 			
@@ -503,6 +513,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">El ef permite seleccionar valores o solo se pueden editar?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodes_solo_lectura">es_solo_lectura()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition"></span>
 										</dd>
 										
 																			
@@ -686,6 +707,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodget_toggle">get_toggle()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">El checkbox esta configurado en los ML para tener un tilde sel/des todos?</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodir_a_fila">ir_a_fila()</a></span>
 										</dt>
 										<dd>
@@ -767,6 +799,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Cambia el valor o estado actual del ef</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/Efs/toba_ef.html#methodset_estado_defecto">set_estado_defecto()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Cambia el valor que toma el ef cuando no se lo carga con un estado</span>
 										</dd>
 										
 																			
@@ -905,7 +948,7 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																										<tr><td></td><td class="method-definition" nowrap>static
+																																																			<tr><td></td><td class="method-definition" nowrap>static
 													<span class="method-result">void</span>&nbsp;&nbsp;
 						</td>
 						<td class="method-definition"><a href="#get_lista_parametros" title="details" class="method-name">get_lista_parametros</a>()&nbsp;&nbsp;</td>
@@ -924,6 +967,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_consumo_javascript" title="details" class="method-name">get_consumo_javascript</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition"></td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">fckeditor</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#get_editor" title="details" class="method-name">get_editor</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna el objeto fckeditor para poder modificarlo según su propia API</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -948,9 +998,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodget_lista_parametros" id="get_lista_parametros"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
-		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+		<span class="method-title">static method get_lista_parametros</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
 </div>
 <br />
 
@@ -971,12 +1021,12 @@
 </div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 229]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 263]</span>
 </div>
 <br />
 
@@ -1061,12 +1111,12 @@ $parametros&nbsp;
 		<br />
 </div>
 <a name="methodget_consumo_javascript" id="get_consumo_javascript"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 237]</span>
+	<span class="method-title">get_consumo_javascript</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 271]</span>
 </div>
 <br />
 
@@ -1090,13 +1140,39 @@ $parametros&nbsp;
 		
 		<br />
 </div>
+<a name="methodget_editor" id="get_editor"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">get_editor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 282]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>fckeditor get_editor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna el objeto fckeditor para poder modificarlo según su propia API </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodget_input" id="get_input"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 244]</span>
+	<span class="method-title">get_input</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
 </div>
 <br />
 
@@ -1129,7 +1205,7 @@ $parametros&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

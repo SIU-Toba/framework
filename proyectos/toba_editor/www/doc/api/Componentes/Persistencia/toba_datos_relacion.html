@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -433,6 +443,17 @@
 										</dt>
 										<dd>
 											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodagregar_dependencia_por_indice">agregar_dependencia_por_indice()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Agregar dinámicamente una dependencia al componente actual utilizando</span>
 										</dd>
 										
 																			
@@ -649,6 +670,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodini">ini()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodinvocar_callback">invocar_callback()</a></span>
 										</dt>
 										<dd>
@@ -693,6 +725,17 @@
 										
 										
 										<dt>
+											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_modo_compatible_manejo_sesion">set_modo_compatible_manejo_sesion()</a></span>
+										</dt>
+										<dd>
+											<span class="method-definition">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.</span>
+										</dd>
+										
+																			
+										
+										
+										
+										<dt>
 											<span class="method-definition"><a href="../../Componentes/toba_componente.html#methodset_propiedades_sesion">set_propiedades_sesion()</a></span>
 										</dt>
 										<dd>
@@ -719,7 +762,7 @@
 						</td>
 						<td class="method-definition"><a href="#grafo_relaciones" title="details" class="method-name">grafo_relaciones</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna un grafo representando un conjunto de tablas y sus relaciones</td></tr>
-																																																																																							<tr>
+																																																																																																																		<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
@@ -814,11 +857,11 @@
 						<td class="method-definition">Retorna los identificadores de los datos_tabla incluídos en la relación</td></tr>
 																				<tr>
 						<td nowrap align="right">
-															
+																					    								
 						</td>
-													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_relacion_db.html">toba_ap_relacion_db</a></span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_persistidor" title="details" class="method-name">get_persistidor</a>()&nbsp;&nbsp;</td>
-						<td class="method-definition">Retorna una referenca al Adm.Persistencia de la relación</td></tr>
+						<td class="method-definition"></td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -827,6 +870,21 @@
 												<td class="method-definition"><a href="#get_tablas_raiz" title="details" class="method-name">get_tablas_raiz</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el id de las tablas que no tienen padres en la relación</td></tr>
 																													<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">boolean</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#hay_cambios" title="details" class="method-name">hay_cambios</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Determina si los datos cargados difieren de los datos existentes en el medio de persistencia</td></tr>
+																				<tr>
+						<td nowrap align="right">
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../../media/ventana.png" />   	
+						    																
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#ini" title="details" class="method-name">ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad</td></tr>
+																				<tr>
 						<td nowrap align="right">
 																					    								
 						</td>
@@ -840,6 +898,13 @@
 													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#orden_sincronizacion" title="details" class="method-name">orden_sincronizacion</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el orden hacia adelante en el cual se deben sincronizar las tablas</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result"><a href="../../Componentes/Persistencia/toba_ap_relacion_db.html">toba_ap_relacion_db</a></span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#persistidor" title="details" class="method-name">persistidor</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Retorna una referenca al Adm.Persistencia de la relación</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -892,9 +957,9 @@
 		<div class="info-box-body">
 			<a name='method_detail'></a>
 <a name="methodgrafo_relaciones" id="grafo_relaciones"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
-		<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 255]</span>
+		<span class="method-title">static method grafo_relaciones</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 268]</span>
 </div>
 <br />
 
@@ -935,12 +1000,12 @@ $relaciones&nbsp;
 </div>
 
 <a name="methodcargar" id="cargar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 396]</span>
+	<span class="method-title">cargar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 420]</span>
 </div>
 <br />
 
@@ -981,12 +1046,12 @@ $clave = array()]&nbsp;
 		<br />
 </div>
 <a name="methoddisparar_validacion_tablas" id="disparar_validacion_tablas"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 345]</span>
+	<span class="method-title">disparar_validacion_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 358]</span>
 </div>
 <br />
 
@@ -1007,12 +1072,12 @@ $clave = array()]&nbsp;
 		<br />
 </div>
 <a name="methoddump_contenido" id="dump_contenido"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 114]</span>
+	<span class="method-title">dump_contenido</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 121]</span>
 </div>
 <br />
 
@@ -1033,12 +1098,12 @@ $clave = array()]&nbsp;
 		<br />
 </div>
 <a name="methoddump_esquema" id="dump_esquema"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">dump_esquema</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 134]</span>
 </div>
 <br />
 
@@ -1071,12 +1136,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodeliminar" id="eliminar"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		    		
 	
-	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 469]</span>
+	<span class="method-title">eliminar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 493]</span>
 </div>
 <br />
 
@@ -1110,12 +1175,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodeliminar_todo" id="eliminar_todo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 458]</span>
+	<span class="method-title">eliminar_todo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 482]</span>
 </div>
 <br />
 
@@ -1136,12 +1201,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodesta_cargada" id="esta_cargada"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 415]</span>
+	<span class="method-title">esta_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 439]</span>
 </div>
 <br />
 
@@ -1162,14 +1227,14 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodevt__validar" id="evt__validar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
     		
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../../media/candado.png" />
     			
 	
-	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 340]</span>
+	<span class="method-title">evt__validar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 353]</span>
 </div>
 <br />
 
@@ -1204,12 +1269,12 @@ $titulo = null]&nbsp;
 		<br />
 </div>
 <a name="methodexiste_tabla" id="existe_tabla"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
+	<span class="method-title">existe_tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
 </div>
 <br />
 
@@ -1242,12 +1307,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodforzar_insercion" id="forzar_insercion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 434]</span>
+	<span class="method-title">forzar_insercion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 458]</span>
 </div>
 <br />
 
@@ -1268,12 +1333,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_conjunto_datos_interno" id="get_conjunto_datos_interno"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 356]</span>
+	<span class="method-title">get_conjunto_datos_interno</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 369]</span>
 </div>
 <br />
 
@@ -1294,12 +1359,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_fuente" id="get_fuente"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 488]</span>
+	<span class="method-title">get_fuente</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 512]</span>
 </div>
 <br />
 
@@ -1320,12 +1385,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_lista_tablas" id="get_lista_tablas"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 285]</span>
+	<span class="method-title">get_lista_tablas</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 298]</span>
 </div>
 <br />
 
@@ -1346,38 +1411,45 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodget_persistidor" id="get_persistidor"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
-		
+		    		
 	
-	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 372]</span>
+	<span class="method-title">get_persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 409]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code><a href="../../Componentes/Persistencia/toba_ap_relacion_db.html">toba_ap_relacion_db</a> get_persistidor(
+		<code>void get_persistidor(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	<div class="description">Retorna una referenca al Adm.Persistencia de la relación </div>
-
-	<br />
 	
+	<br />
+	<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent">
+    	<strong>Deprecated:</strong>&nbsp;&nbsp;</td><td>usar persistidor() a secas</td>
+    	
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
 </div>
 <a name="methodget_tablas_raiz" id="get_tablas_raiz"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 479]</span>
+	<span class="method-title">get_tablas_raiz</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 503]</span>
 </div>
 <br />
 
@@ -1397,13 +1469,77 @@ $tabla&nbsp;
 		
 		<br />
 </div>
-<a name="methodorden_carga" id="orden_carga"><!-- --></a>
+<a name="methodhay_cambios" id="hay_cambios"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">hay_cambios</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 521]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>boolean hay_cambios(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Determina si los datos cargados difieren de los datos existentes en el medio de persistencia </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
+<a name="methodini" id="ini"><!-- --></a>
 <div class="oddrow">
+<div class="method-header">
+		        		<img border='0' title='Ventana de extensión' src="../../media/ventana.png" />    	
+    		
+		
+	
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 42]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void ini(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad </div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
+  </tr>
+</table>
+
+			<div class="notes">Redefinición de:</div>
+		<dl>
+			<dt><a href="../../Componentes/toba_componente.html#methodini">toba_componente::ini()</a></dt>
+						<dd>Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</dd>
+					</dl>
+		
+		<br />
+</div>
+<a name="methodorden_carga" id="orden_carga"><!-- --></a>
+<div class="evenrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 246]</span>
+	<span class="method-title">orden_carga</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 259]</span>
 </div>
 <br />
 
@@ -1432,12 +1568,12 @@ $tabla&nbsp;
 		<br />
 </div>
 <a name="methodorden_sincronizacion" id="orden_sincronizacion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 223]</span>
+	<span class="method-title">orden_sincronizacion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 230]</span>
 </div>
 <br />
 
@@ -1465,13 +1601,39 @@ $tabla&nbsp;
 		
 		<br />
 </div>
+<a name="methodpersistidor" id="persistidor"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">persistidor</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 385]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code><a href="../../Componentes/Persistencia/toba_ap_relacion_db.html">toba_ap_relacion_db</a> persistidor(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Retorna una referenca al Adm.Persistencia de la relación </div>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodresetear" id="resetear"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 318]</span>
+	<span class="method-title">resetear</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 331]</span>
 </div>
 <br />
 
@@ -1497,7 +1659,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 329]</span>
+	<span class="method-title">resetear_cursores</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 342]</span>
 </div>
 <br />
 
@@ -1523,7 +1685,7 @@ $tabla&nbsp;
 	
 		
 	
-	<span class="method-title">set_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 424]</span>
+	<span class="method-title">set_cargado</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 448]</span>
 </div>
 <br />
 
@@ -1561,7 +1723,7 @@ $cargado&nbsp;
 	
 		
 	
-	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 444]</span>
+	<span class="method-title">sincronizar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 468]</span>
 </div>
 <br />
 
@@ -1587,7 +1749,7 @@ $cargado&nbsp;
 	
 		
 	
-	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 295]</span>
+	<span class="method-title">tabla</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 308]</span>
 </div>
 <br />
 
@@ -1628,7 +1790,7 @@ $tabla&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>

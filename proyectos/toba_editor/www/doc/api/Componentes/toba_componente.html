@@ -220,6 +220,11 @@
     		
 	 <br />
 	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Efs/toba_ef_editable_captcha.html">					ef_editable_captcha
+					</a>    	    		</span>
+    		
+	 <br />
+	    	    		<span style="padding-left: 1em;">
     			<a href="../Componentes/Efs/toba_ef_editable_clave.html">					ef_editable_clave
 					</a>    	    		</span>
     		
@@ -329,6 +334,11 @@
 					</a>    	    		</span>
     		
 	 <br />
+	    	    		<span style="padding-left: 1em;">
+    			<a href="../Componentes/Eis/toba_nodo_arbol_form.html">					nodo_arbol_form
+					</a>    	    		</span>
+    		
+	 <br />
 	  </div>
   <div class="package">
 			Persistencia<br />
@@ -416,18 +426,6 @@
 		<div class="info-box-body">
 			<table cellpadding="2" cellspacing="0" class="class-table">
 								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
-					<td>
-											Representa una estructura tabular tipo tabla o RecordSet en memoria
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
-					<td>
-											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
-										</td>
-				</tr>
-								<tr>
 					<td style="padding-right: 2em"><a href="../Componentes/Negocio/toba_cn.html">toba_cn</a></td>
 					<td>
 											Este componente permite unificar la carga y entrega de datos y servicios a una jerarquia completa de componentes de interface (especialmente a los cis)
@@ -437,6 +435,18 @@
 					<td style="padding-right: 2em"><a href="../Componentes/Eis/toba_ei.html">toba_ei</a></td>
 					<td>
 											Clase base de los componentes gráficos o elementos de interface (ei)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_relacion.html">toba_datos_relacion</a></td>
+					<td>
+											Mantiene un conjunto relacionado de <a href="../Componentes/Persistencia/toba_datos_tabla.html">datos_tabla</a>, brindando servicios para cargar y sincronizar esta relación con algún medio de persistencia (general una BD relacional)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../Componentes/Persistencia/toba_datos_tabla.html">toba_datos_tabla</a></td>
+					<td>
+											Representa una estructura tabular tipo tabla o RecordSet en memoria
 										</td>
 				</tr>
 							</table>
@@ -453,7 +463,12 @@
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="5" cellpadding="0" class="method-summary">
-																																																																																																																																																																																																																																																													<tr>
+																																																																																																																																																																																																																																																																		<tr><td></td><td class="method-definition" nowrap>static
+													<span class="method-result">void</span>&nbsp;&nbsp;
+						</td>
+						<td class="method-definition"><a href="#set_modo_compatible_manejo_sesion" title="details" class="method-name">set_modo_compatible_manejo_sesion</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero.</td></tr>
+																																	<tr>
 						<td nowrap align="right">
 															
 						</td>
@@ -467,6 +482,13 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#agregar_dependencia" title="details" class="method-name">agregar_dependencia</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Agregar dinámicamente una dependencia al componente actual</td></tr>
+																				<tr>
+						<td nowrap align="right">
+															
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#agregar_dependencia_por_indice" title="details" class="method-name">agregar_dependencia_por_indice</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Agregar dinámicamente una dependencia al componente actual utilizando</td></tr>
 																				<tr>
 						<td nowrap align="right">
 															
@@ -555,7 +577,7 @@
 						<td nowrap align="right">
 															
 						</td>
-													<td nowrap class="method-definition"><span class="method-result">integer</span>&nbsp;&nbsp;</td>
+													<td nowrap class="method-definition"><span class="method-result">array</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#get_id" title="details" class="method-name">get_id</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Retorna el identificador del componente</td></tr>
 																				<tr>
@@ -602,6 +624,14 @@
 						<td class="method-definition">Informa un mensaje al usuario</td></tr>
 																				<tr>
 						<td nowrap align="right">
+														    						    		<img border='0' title='Ventana de extensión' style='vertical-align: middle' src="../media/ventana.png" />   	
+						    																
+						</td>
+													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+												<td class="method-definition"><a href="#ini" title="details" class="method-name">ini</a>()&nbsp;&nbsp;</td>
+						<td class="method-definition">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.</td></tr>
+																				<tr>
+						<td nowrap align="right">
 																					    														    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
 						</td>
@@ -630,7 +660,7 @@
 													<td nowrap class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 												<td class="method-definition"><a href="#set_controlador" title="details" class="method-name">set_controlador</a>()&nbsp;&nbsp;</td>
 						<td class="method-definition">Determina que el componente actual es controlado por otro</td></tr>
-																				<tr>
+																													<tr>
 						<td nowrap align="right">
 																					    						    	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
 						    									
@@ -654,14 +684,49 @@
 
 		<div class="info-box-body">
 			<a name='method_detail'></a>
+<a name="methodset_modo_compatible_manejo_sesion" id="set_modo_compatible_manejo_sesion"><!-- --></a>
+<div class="oddrow">
+<div class="method-header">
+		<span class="method-title">static method set_modo_compatible_manejo_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 85]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>static void set_modo_compatible_manejo_sesion(
+
+$compatible&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Alternativa para que la reutilización de un mismo componente en un mismo request se siga comportando como antes de [3050], es decir el ultimo creado pisa la memoria del 1ero. </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$compatible:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 49]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 50]</span>
 </div>
 <br />
 
@@ -699,19 +764,19 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei.html#method__construct">toba_ei::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
-							</li>
-					<li>
-				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_cuadro.html#method__construct">toba_ei_cuadro::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_pantalla.html#method__construct">toba_ei_pantalla::__construct()</a>
+				<a href="../Componentes/Eis/toba_ci.html#method__construct">toba_ci::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ei_arbol.html#method__construct">toba_ei_arbol::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#method__construct">toba_ei_formulario::__construct()</a>
@@ -720,7 +785,7 @@ $definicion&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#method__construct">toba_ei_formulario_ml::__construct()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#method__construct">toba_ei_archivos::__construct()</a>
+				<a href="../Componentes/Eis/toba_ei_esquema.html#method__construct">toba_ei_esquema::__construct()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_calendario.html#method__construct">toba_ei_calendario::__construct()</a>
@@ -729,12 +794,12 @@ $definicion&nbsp;
 		<br />
 </div>
 <a name="methodagregar_dependencia" id="agregar_dependencia"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 507]</span>
+	<span class="method-title">agregar_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 528]</span>
 </div>
 <br />
 
@@ -787,13 +852,79 @@ $tipo&nbsp;
 		
 		<br />
 </div>
+<a name="methodagregar_dependencia_por_indice" id="agregar_dependencia_por_indice"><!-- --></a>
+<div class="evenrow">
+<div class="method-header">
+	
+		
+	
+	<span class="method-title">agregar_dependencia_por_indice</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 544]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void agregar_dependencia_por_indice(
+
+$identificador_rol, 
+$identificador_componente, string
+$identificador, string
+$proyecto, string
+$tipo&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Agregar dinámicamente una dependencia al componente actual utilizando </div>
+
+			Parámetros:<br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$identificador:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> ID. del componente</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$proyecto:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$tipo:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> Tipo de componente</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$identificador_rol:&nbsp;</span></td>
+				<td>
+							</td></tr>
+					<tr><td class="indent">
+				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$identificador_componente:&nbsp;</span></td>
+				<td>
+							</td></tr>
+				</table>
+
+	<br />
+	
+
+		
+		<br />
+</div>
 <a name="methodborrar_memoria" id="borrar_memoria"><!-- --></a>
 <div class="oddrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 287]</span>
+	<span class="method-title">borrar_memoria</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 309]</span>
 </div>
 <br />
 
@@ -819,7 +950,7 @@ $tipo&nbsp;
 	
 		
 	
-	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 164]</span>
+	<span class="method-title">controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 186]</span>
 </div>
 <br />
 
@@ -845,7 +976,7 @@ $tipo&nbsp;
 	
 		    		
 	
-	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 495]</span>
+	<span class="method-title">dep</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 516]</span>
 </div>
 <br />
 
@@ -897,7 +1028,7 @@ $carga_en_demanda = true]&nbsp;
 	
 		
 	
-	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 483]</span>
+	<span class="method-title">dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 504]</span>
 </div>
 <br />
 
@@ -956,7 +1087,7 @@ $cargar_en_demanda&nbsp;
 	
 		
 	
-	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 540]</span>
+	<span class="method-title">dependencia_cargada</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 575]</span>
 </div>
 <br />
 
@@ -994,7 +1125,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 88]</span>
+	<span class="method-title">destruir</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
 </div>
 <br />
 
@@ -1015,19 +1146,18 @@ $id&nbsp;
 			<div class="notes">Redefinido en subclases como:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei.html#methoddestruir">toba_ei::destruir()</a>
-								: Destructor del componente
+				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ci.html#methoddestruir">toba_ci::destruir()</a>
 								: Destructor del componente
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_cuadro.html#methoddestruir">toba_ei_cuadro::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
 							</li>
 					<li>
 				<a href="../Componentes/Eis/toba_ei_formulario.html#methoddestruir">toba_ei_formulario::destruir()</a>
@@ -1036,10 +1166,11 @@ $id&nbsp;
 				<a href="../Componentes/Eis/toba_ei_formulario_ml.html#methoddestruir">toba_ei_formulario_ml::destruir()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_archivos.html#methoddestruir">toba_ei_archivos::destruir()</a>
+				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
 							</li>
 					<li>
-				<a href="../Componentes/Eis/toba_ei_calendario.html#methoddestruir">toba_ei_calendario::destruir()</a>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methoddestruir">toba_datos_tabla::destruir()</a>
+								: Destructor del componente
 							</li>
 				</ul>
 		<br />
@@ -1050,7 +1181,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 396]</span>
+	<span class="method-title">eliminar_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 417]</span>
 </div>
 <br />
 
@@ -1088,7 +1219,7 @@ $no_eliminar = null]&nbsp;
 	
 		
 	
-	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 549]</span>
+	<span class="method-title">existe_dependencia</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 584]</span>
 </div>
 <br />
 
@@ -1133,7 +1264,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_cantidad_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 567]</span>
+	<span class="method-title">get_cantidad_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 602]</span>
 </div>
 <br />
 
@@ -1159,7 +1290,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 558]</span>
+	<span class="method-title">get_dependencias</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 593]</span>
 </div>
 <br />
 
@@ -1185,7 +1316,7 @@ $id&nbsp;
 	
 		
 	
-	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 576]</span>
+	<span class="method-title">get_dependencias_clase</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 611]</span>
 </div>
 <br />
 
@@ -1223,7 +1354,7 @@ $ereg_busqueda&nbsp;
 	
 		    		
 	
-	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 412]</span>
+	<span class="method-title">get_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 433]</span>
 </div>
 <br />
 
@@ -1257,14 +1388,14 @@ $ereg_busqueda&nbsp;
 	
 		
 	
-	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 145]</span>
+	<span class="method-title">get_id</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 167]</span>
 </div>
 <br />
 
 	<div class="function">
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>integer get_id(
+		<code>array get_id(
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
@@ -1283,7 +1414,7 @@ $ereg_busqueda&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 200]</span>
+	<span class="method-title">get_mensaje</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 222]</span>
 </div>
 <br />
 
@@ -1341,7 +1472,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 127]</span>
+	<span class="method-title">get_nombre</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 149]</span>
 </div>
 <br />
 
@@ -1367,7 +1498,7 @@ $parametros = null]&nbsp;
 	
 		
 	
-	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 155]</span>
+	<span class="method-title">get_parametro</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 177]</span>
 </div>
 <br />
 
@@ -1405,7 +1536,7 @@ $parametro&nbsp;
 	
 		
 	
-	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 136]</span>
+	<span class="method-title">get_titulo</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 158]</span>
 </div>
 <br />
 
@@ -1431,7 +1562,7 @@ $parametro&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 236]</span>
+	<span class="method-title">informar</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 258]</span>
 </div>
 <br />
 
@@ -1496,7 +1627,7 @@ $nivel = null]&nbsp;
 	
 		    		    		
 	
-	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 221]</span>
+	<span class="method-title">informar_msg</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 243]</span>
 </div>
 <br />
 
@@ -1548,14 +1679,66 @@ $nivel = null]&nbsp;
 		
 		<br />
 </div>
-<a name="methodinvocar_callback" id="invocar_callback"><!-- --></a>
+<a name="methodini" id="ini"><!-- --></a>
 <div class="evenrow">
+<div class="method-header">
+		        		<img border='0' title='Ventana de extensión' src="../media/ventana.png" />    	
+    		
+		
+	
+	<span class="method-title">ini</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 105]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void ini(
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<div class="description">Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa. <p>Como la ventana es previa a la atención de eventos y servicios es un punto ideal para la configuración global del componente</p></div>
+
+	<br />
+	
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Ventana:</strong>&nbsp;&nbsp;</td><td></td>
+  </tr>
+</table>
+
+		
+			<div class="notes">Redefinido en subclases como:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../Componentes/Negocio/toba_cn.html#methodini">toba_cn::ini()</a>
+								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+							</li>
+					<li>
+				<a href="../Componentes/Eis/toba_ci.html#methodini">toba_ci::ini()</a>
+								: Ventana de extensión que se ejecuta al iniciar el componente en todos los pedidos en los que participa.
+							</li>
+					<li>
+				<a href="../Componentes/Persistencia/toba_datos_relacion.html#methodini">toba_datos_relacion::ini()</a>
+								: Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+							</li>
+					<li>
+				<a href="../Componentes/Persistencia/toba_datos_tabla.html#methodini">toba_datos_tabla::ini()</a>
+								: Ventana para agregar configuraciones particulares antes de que el objeto sea construido en su totalidad
+							</li>
+				</ul>
+		<br />
+</div>
+<a name="methodinvocar_callback" id="invocar_callback"><!-- --></a>
+<div class="oddrow">
 <div class="method-header">
 	
 		    		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 175]</span>
+	<span class="method-title">invocar_callback</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 197]</span>
 </div>
 <br />
 
@@ -1601,13 +1784,13 @@ $metodo&nbsp;
 		<br />
 </div>
 <a name="methodlog" id="log"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 110]</span>
+	<span class="method-title">log</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 132]</span>
 </div>
 <br />
 
@@ -1648,12 +1831,12 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodmantener_estado_sesion" id="mantener_estado_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		    		
 	
-	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 301]</span>
+	<span class="method-title">mantener_estado_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 322]</span>
 </div>
 <br />
 
@@ -1681,12 +1864,12 @@ $txt&nbsp;
 		<br />
 </div>
 <a name="methodset_controlador" id="set_controlador"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 <div class="method-header">
 	
 		
 	
-	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 441]</span>
+	<span class="method-title">set_controlador</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 462]</span>
 </div>
 <br />
 
@@ -1732,13 +1915,13 @@ $id_en_padre = null]&nbsp;
 		<br />
 </div>
 <a name="methodset_propiedades_sesion" id="set_propiedades_sesion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 <div class="method-header">
 	
 		        	<img border='0' title='protected' style='vertical-align: middle' src="../media/candado.png" />
     			
 	
-	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 328]</span>
+	<span class="method-title">set_propiedades_sesion</span>&nbsp;&nbsp;<span class="smalllinenumber">[línea 349]</span>
 </div>
 <br />
 
@@ -1787,7 +1970,7 @@ $props&nbsp;
 			Desarrollado por <a href="http://www.siu.edu.ar">SIU</a>.
 			<br />        
 		    
-		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.0a2</a>
+		    Documentación generada con <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
 	      </div>
       </td></tr></table>
     </td>
