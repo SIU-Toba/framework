@@ -132,6 +132,8 @@ class toba_ci_info extends toba_ei_info
 		$modelo[0]['nombre'] = 'Guardar - Cancelar';
 		$modelo[1]['id'] = 'abm';
 		$modelo[1]['nombre'] = 'ABM / CRUD';
+		$modelo[2]['id'] = 'imprimir';
+		$modelo[2]['nombre'] = 'Imprimir la Pantalla';
 		return $modelo;
 	}
 
@@ -190,6 +192,19 @@ class toba_ci_info extends toba_ei_info
 				$evento[3]['orden'] = 3;
 				$evento[3]['en_botonera'] = 1;
 				$evento[3]['defecto'] = 1;
+				break;
+			case 'imprimir':
+				//Procesar
+				$evento[0]['identificador'] = "imprimir";
+				$evento[0]['etiqueta'] = "&Imprimir";
+				$evento[0]['imagen_recurso_origen'] = 'apex';
+				$evento[0]['imagen'] = 'impresora.gif';
+				$evento[0]['maneja_datos'] = 0;
+				$evento[0]['orden'] = 10;
+				$evento[0]['en_botonera'] = 1;
+				$evento[0]['defecto'] = 0;
+				$evento[0]['accion'] = 'H';
+				$evento[0]['accion_imphtml_debug'] = 1;
 				break;
 		}
 		return $evento;
