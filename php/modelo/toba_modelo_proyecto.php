@@ -1219,7 +1219,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	//	Manipulacion de METADATOS
 	//-----------------------------------------------------------
 
-	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = 'no', $previsualizacion=true )
+	function vincular_usuario( $usuario, $perfil_acceso, $perfil_datos = '', $previsualizacion=true )
 	{
 		$url = $this->get_url();
 		$sql = self::get_sql_vincular_usuario( $this->get_id(), $usuario, $perfil_acceso, $perfil_datos, $previsualizacion, $url);
@@ -1284,8 +1284,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$this->manejador_interface->progreso_fin();
 		
 		//--- Actualizar el item de login
-		$this->manejador_interface->mensaje("Actualizando el proyecto...", false);		
-		$sql = "UPDATE apex_proyecto SET item_pre_sesion='$clave'
+		$this->manejador_interface->mensaje("Actualizando el proyecto...", false);
+		$sql = "UPDATE apex_proyecto SET item_pre_sesion='{$clave['componente']}'
 				WHERE proyecto='{$this->identificador}'";
 		$this->get_db()->ejecutar($sql);
 		$this->manejador_interface->progreso_fin();
@@ -1656,7 +1656,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 																$nombre);
 				$db->ejecutar($sql_version);
 				foreach( $usuarios_a_vincular as $usuario ) {
-					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', 'no' ) );
+					$db->ejecutar( self::get_sql_vincular_usuario( $nombre, $usuario, 'admin', '' ) );
 				}
 				$db->cerrar_transaccion();
 			} catch ( toba_error $e ) {
@@ -1688,8 +1688,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		// Creo un grupo de acceso
 		$sql[] = "INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_acceso, descripcion) VALUES ('$id_proyecto','admin','Administrador','0','Accede a toda la funcionalidad');";
 		$sql[] = "INSERT INTO apex_usuario_grupo_acc_item ( proyecto, usuario_grupo_acc, item ) VALUES ('$id_proyecto', 'admin', '2');";
-		// Creo un perfil de datos
-		$sql[] = "INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion) VALUES ('$id_proyecto','no','No posee','');";
 		// Crea una fuente de datos 
 		$sql[] = "INSERT INTO apex_fuente_datos (proyecto, fuente_datos, fuente_datos_motor, descripcion, descripcion_corta, link_instancia, instancia_id) VALUES ('$id_proyecto','$id_proyecto', 'postgres7', 'Fuente $id_proyecto', '$id_proyecto', 1, '$id_proyecto');";
 		// Pone la fuente de datos como predeterminada
