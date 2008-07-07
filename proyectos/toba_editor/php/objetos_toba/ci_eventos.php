@@ -12,6 +12,7 @@ class ci_eventos extends toba_ci
 	protected $seleccion_evento;
 	protected $seleccion_evento_anterior;
 	private $id_intermedio_evento;
+	protected $temp_importar_eventos;
 
 	function mantener_estado_sesion()
 	{
@@ -77,13 +78,19 @@ class ci_eventos extends toba_ci
 
 	function evt__generador__cargar($datos)
 	{
-		$eventos = $this->controlador->get_eventos_estandar($datos['modelo']);
-		foreach($eventos as $evento)
-		{
-			try{
-				$this->get_tabla()->nueva_fila($evento);
-			}catch(toba_error $e){
-				toba::notificacion()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+		$this->temp_importar_eventos = $datos;
+	}
+
+	function post_eventos()
+	{
+		if(isset($this->temp_importar_eventos['modelo'])) {
+			$eventos = $this->controlador->get_eventos_estandar($this->temp_importar_eventos['modelo']);
+			foreach($eventos as $evento) {
+				try{
+					$this->get_tabla()->nueva_fila($evento);
+				}catch(toba_error $e){
+					toba::notificacion()->agregar("Error agregando el evento '{$evento['identificador']}'. " . $e->getMessage());
+				}
 			}
 		}
 	}

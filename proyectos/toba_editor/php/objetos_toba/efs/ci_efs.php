@@ -10,6 +10,7 @@ class ci_efs extends toba_ci
 	protected $s__seleccion_efs;
 	protected $s__seleccion_efs_anterior;
 	protected $s__importacion_efs;
+	protected $disparar_importacion_efs = false;
 	private $id_intermedio_efs;
 	protected $mecanismos_carga = array('carga_metodo', 'carga_sql', 'carga_lista');
 	protected $modificado = false;
@@ -450,20 +451,31 @@ class ci_efs extends toba_ci
 	function evt__efs_importar__importar($datos)
 	{
 		$this->s__importacion_efs = $datos;
-		if(isset($datos['datos_tabla'])){
-			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
-							'componente' => $datos['datos_tabla'] );
-			$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
-			$datos = $dt->exportar_datos_efs($datos['pk']);
-			foreach($datos as $ef){
-				try{
-					if (! $this->get_tabla()->existe_fila_condicion(array($this->campo_clave => $ef[$this->campo_clave]))) {
-						$this->get_tabla()->nueva_fila($ef);						
+		$this->disparar_importacion_efs = true;
+	}
+
+	/**
+	*	La importacion se ejecuta al final asi se procesa despues de manipular el ML de Efs
+	*/
+	function post_eventos()
+	{
+		if(	$this->disparar_importacion_efs ) {
+			if(isset($this->s__importacion_efs['datos_tabla'])){
+				$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
+											'componente' => $this->s__importacion_efs['datos_tabla'] );
+				$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
+				$this->s__importacion_efs = $dt->exportar_datos_efs($this->s__importacion_efs['pk']);
+				foreach($this->s__importacion_efs as $ef){
+					try{
+						if (! $this->get_tabla()->existe_fila_condicion(array($this->campo_clave => $ef[$this->campo_clave]))) {
+							$this->get_tabla()->nueva_fila($ef);						
+						}
+					}catch(toba_error $e){
+						toba::notificacion()->agregar("Error agregando el EF '{$ef[$this->campo_clave]}'. " . $e->getMessage());
 					}
-				}catch(toba_error $e){
-					toba::notificacion()->agregar("Error agregando el EF '{$ef[$this->campo_clave]}'. " . $e->getMessage());
 				}
 			}
+			$this->disparar_importacion_efs = false;
 		}
 	}
 

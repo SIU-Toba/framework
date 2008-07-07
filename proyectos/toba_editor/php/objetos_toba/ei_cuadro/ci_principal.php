@@ -9,6 +9,7 @@ class ci_principal extends ci_editores_toba
 	private $id_intermedio_columna;
 	protected $s__cortes_control;
 	protected $s__importacion_cols;
+	protected $disparar_importacion_columnas;
 	protected $clase_actual = 'toba_ei_cuadro';
 	
 	function ini()
@@ -239,21 +240,29 @@ class ci_principal extends ci_editores_toba
 	function evt__columnas_importar__importar($datos)
 	{
 		$this->s__importacion_cols = $datos;
-		if(isset($datos['datos_tabla'])){
-			$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
-							'componente' => $datos['datos_tabla'] );
-			$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
-			$datos = $dt->exportar_datos_columnas($datos['pk']);
-			//ei_arbol($datos);
-			$cols = $this->get_entidad()->tabla("columnas");
-			foreach($datos as $col){
-				try{
-					$cols->nueva_fila($col);
-				}catch(toba_error $e){
-					toba::notificacion()->agregar("Error agregando la columna '{$col['clave']}'. " . $e->getMessage());
+		$this->disparar_importacion_columnas = true;
+	}
+
+	function post_eventos()
+	{
+		if ($this->disparar_importacion_columnas) {
+			if(isset($this->s__importacion_cols['datos_tabla'])){
+				$clave = array( 'proyecto' => toba_editor::get_proyecto_cargado(),
+								'componente' => $this->s__importacion_cols['datos_tabla'] );
+				$dt = toba_constructor::get_info( $clave, 'toba_datos_tabla' );
+				$this->s__importacion_cols = $dt->exportar_datos_columnas($this->s__importacion_cols['pk']);
+				//ei_arbol($this->s__importacion_cols);
+				$cols = $this->get_entidad()->tabla("columnas");
+				foreach($this->s__importacion_cols as $col){
+					try{
+						$cols->nueva_fila($col);
+					}catch(toba_error $e){
+						toba::notificacion()->agregar("Error agregando la columna '{$col['clave']}'. " . $e->getMessage());
+					}
 				}
-			}
-		}
+			}			
+			$this->disparar_importacion_columnas = false;
+		}		
 	}
 
 	function conf__columnas_importar()
