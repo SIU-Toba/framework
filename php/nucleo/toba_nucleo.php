@@ -286,7 +286,7 @@ class toba_nucleo
 	{
 		$proyecto = isset($proyecto) ? $proyecto : toba_proyecto::get_id();
 		$flag = toba::instancia()->get_directiva_compilacion($proyecto);
-		if(!isset($flag)) {
+		if(!isset($flag) && $proyecto == toba_proyecto::get_id()) {
 			//Mecanismo obsoleto
 			return (defined('apex_pa_metadatos_compilados') && apex_pa_metadatos_compilados);
 		}else{
