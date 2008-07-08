@@ -1635,7 +1635,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			
 			//--- Creo el archivo PROYECTO
 			file_put_contents($dir_proyecto.'/PROYECTO', $nombre);
-			file_put_contents($dir_proyecto.'/VERSION', '0.1.0');
+			file_put_contents($dir_proyecto.'/VERSION', '1.0.0');
 			
 			// Modifico los archivos
 			$editor = new toba_editor_archivos();
