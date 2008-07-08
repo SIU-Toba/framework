@@ -56,6 +56,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 		//-- Cosas sueltas		
 		$sql = array();
 		$sql[] = "ALTER TABLE apex_objeto  				ADD COLUMN identificador						varchar";
+		$sql[] = "ALTER TABLE apex_fuente_datos			ADD COLUMN schema								varchar";
 		$sql[] = "ALTER TABLE apex_estilo 				ADD COLUMN paleta						varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN no_imprimir_efs_sin_estado	smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN resaltar_efs_con_estado		smallint DEFAULT 0";
