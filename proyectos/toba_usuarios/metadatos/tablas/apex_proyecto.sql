@@ -45,7 +45,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'1', --log_archivo
 	'7', --log_archivo_nivel
 	'toba_usuarios', --fuente_datos
-	NULL, --pagina_tipo
+	'toba_usuarios_normal', --pagina_tipo
 	NULL, --version
 	NULL, --version_fecha
 	NULL, --version_detalle
