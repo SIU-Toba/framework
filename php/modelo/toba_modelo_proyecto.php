@@ -1631,7 +1631,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			// Creo la CARPETA del PROYECTO
 			$excepciones = array();
 			$excepciones[] = $dir_template.'/www/aplicacion.produccion.php';
-			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto );
+			toba_manejador_archivos::copiar_directorio( $dir_template, $dir_proyecto, $excepciones);
 			
 			//--- Creo el archivo PROYECTO
 			file_put_contents($dir_proyecto.'/PROYECTO', $nombre);
@@ -1643,6 +1643,14 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			$editor->agregar_sustitucion( '|__instancia__|', $instancia->get_id() );
 			$editor->agregar_sustitucion( '|__toba_dir__|', toba_manejador_archivos::path_a_unix( toba_dir() ) );
 			$editor->procesar_archivo( $dir_proyecto . '/www/aplicacion.php' );
+			$modelo = $dir_proyecto . '/php/extension_toba/modelo.php';
+			$comando = $dir_proyecto . '/php/extension_toba/comando.php';
+			$editor->procesar_archivo($comando);
+			$editor->procesar_archivo($modelo);
+			rename($modelo, str_replace('modelo.php', $nombre.'_modelo.php', $modelo));			
+			rename($comando, str_replace('comando.php', $nombre.'_comando.php', $comando));
+
+			
 			// Asocio el proyecto a la instancia
 			$instancia->vincular_proyecto( $nombre, null, $url_proyecto);
 

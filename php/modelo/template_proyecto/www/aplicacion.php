@@ -6,8 +6,8 @@ define('apex_pa_proyecto', '__proyecto__');
 # Ejecuta con metadatos compilados
 #define('apex_pa_metadatos_compilados', 1);
 
-# Habilita el autologin
-#define("apex_pa_validacion_debug", 1);
+# Deshabilita el autologin
+#define("apex_pa_validacion_debug", 0);
 
 # Cambia el nivel del logger a modo 'info'. Para modo debug pasar a '7'
 #define("apex_pa_log_archivo_nivel", 6);
