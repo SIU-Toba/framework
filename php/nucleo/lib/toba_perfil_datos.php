@@ -3,24 +3,13 @@
 	Limitaciones parser:
 		- todo subquery tiene que estar entre parentesis
 		- no sepermiten subquerys en el FROM (extraños)
-		
-	Features perfiles
-		- Una tabla puede implicar mas de una dimensiones
-
-	Falta:
-		- manejo de N fuentes de datos (llevar las relaciones al zona de la fuente de datos)
-		- TEsting automatico
-		- Preguntas Informativas sobre los perfiles
-		- compilacion de metadata
-		- editor de gatillos complejos y relaciones
-		- mejorar el parser de deteccion de tablas y de inyeccion de where
-			
 */
 class toba_perfil_datos
 {
 	const separador_multicol_db = '|%-,-%|';
 	protected $id;
 	protected $restricciones = array();
+	protected $fuentes_restringidas = array();
 	protected $info_dimensiones = array();
 	protected $indice_gatillos = array();
 	protected $gatillos_activos = array();
@@ -32,48 +21,46 @@ class toba_perfil_datos
 		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
 		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
-			if($this->posee_restricciones()) {
-				$this->cargar_info_dimensiones();
-				$this->indexar_gatillos();	
-				$this->cargar_info_relaciones_entre_tablas();
+			foreach( $this->fuentes_restringidas as $fuente ) {
+				if( $this->posee_restricciones($fuente) ) {
+					$this->cargar_info_dimensiones($fuente);
+					$this->indexar_gatillos($fuente);	
+				}
 			}
 		}
 	}
 	
 	function cargar_info_restricciones()
 	{
-		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->id );
+		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( toba::proyecto()->get_id(), $this->id );
 		if($restricciones) {
 			foreach( $restricciones as $restriccion ) {
-					$this->restricciones[$restriccion['dimension']][] = explode(self::separador_multicol_db,$restriccion['clave']);
+				$this->restricciones[$restriccion['fuente_datos']][$restriccion['dimension']][] = explode(self::separador_multicol_db,$restriccion['clave']);
 			}
 		}		
+		$this->fuentes_restringidas = array_keys($this->restricciones);
 	}
 
-	function cargar_info_dimensiones()
+	function cargar_info_dimensiones($fuente)
 	{
-		foreach($this->get_lista_dimensiones_restringidas() as $dim) {
-			$this->info_dimensiones[$dim] = toba::proyecto()->get_info_dimension($dim);
+		foreach($this->get_lista_dimensiones_restringidas($fuente) as $dim) {
+			$this->info_dimensiones[$fuente][$dim] = toba::proyecto()->get_info_dimension($dim);
 		}
 	}
 
-	function indexar_gatillos()
+	function indexar_gatillos($fuente)
 	{
 		$gatillos = array();
-		foreach($this->info_dimensiones as $d => $dim) {
+		foreach($this->info_dimensiones[$fuente] as $d => $dim) {
 			foreach($dim['gatillos'] as $g => $gatillo) {
 				//El indice es por tablas a detectar, se deja la posicion del gatillo en la dim correspondiente
-				$this->indice_gatillos[$d][$gatillo['tabla_rel_dim']] = $g;
+				$this->indice_gatillos[$fuente][$d][$gatillo['tabla_rel_dim']] = $g;
 				$gatillos[] = $gatillo['tabla_rel_dim'];
 			}	
 		}
-		$this->gatillos_activos = array_unique($gatillos);
+		$this->gatillos_activos[$fuente] = array_unique($gatillos);
 	}
 
-	function cargar_info_relaciones_entre_tablas()
-	{
-	}
-	
 	function dump()
 	{
 		ei_arbol($this->info_dimensiones,'info_dimensiones');	
@@ -97,35 +84,44 @@ class toba_perfil_datos
 	*	Indica si el perfil de datos del usuario
 	*	@return $value	boolean
 	*/
-	function posee_restricciones()
+	function posee_restricciones($fuente)
 	{
-		return count($this->restricciones) > 0;
+		if(isset($this->restricciones[$fuente])) {
+			return count($this->restricciones[$fuente]) > 0;
+		}
+		return false;
 	}
 
 	/**
 	*	Retorna un array con las restricciones aplicadas sobre las dimensiones
 	*	@return $value	Retorna un array de dimensiones con un subarray de restricciones
 	*/
-	function get_restricciones()
+	function get_restricciones( $fuente )
 	{
-		return $this->restricciones;
+		if( isset($this->restricciones[$fuente]) ) {
+			return $this->restricciones[$fuente];
+		}
 	}
 
 	/**
 	*	Retorna un array con las dimensiones sobre las que se establecieron restricciones
 	*	@return $value	Retorna un array de dimensiones
 	*/
-	function get_lista_dimensiones_restringidas()
+	function get_lista_dimensiones_restringidas($fuente)
 	{
-		if( $this->restricciones) return array_keys($this->restricciones);
+		if( isset($this->restricciones[$fuente]) ) {
+			return array_keys( $this->restricciones[$fuente] );
+		}
 	}
 
 	/**
 	*	Devuelve la lista de gatillos que esta utilizando el esquema para filtrar SQLs
 	*/
-	function get_gatillos_activos()
+	function get_gatillos_activos($fuente)
 	{
-		return $this->gatillos_activos;	
+		if( isset($this->gatillos_activos[$fuente]) ) {
+			return $this->gatillos_activos[$fuente];	
+		}
 	}
 
 	//--------------------------------------------------------------------
@@ -135,18 +131,19 @@ class toba_perfil_datos
 	/**
 	*	Agrega clausulas WHERE en un SQl de acuerdo al perfil de datos del usuario actual
 	*/
-	function filtrar($sql)
+	function filtrar($sql, $fuente_datos=null)
 	{
-		if( $this->posee_restricciones() ) {
+		if(!$fuente_datos) $fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
+		if( $this->posee_restricciones($fuente_datos) ) {
 			$where = array();
 			//-- 1 -- Busco GATILLOS en el SQL
-			$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql );
+			$tablas_gatillo_encontradas = $this->buscar_tablas_gatillo_en_sql( $sql, $fuente_datos );
 			//-- 2 -- Busco las dimensiones implicadas
-			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas) );
+			$dimensiones_implicadas = $this->reconocer_dimensiones_implicadas( array_keys($tablas_gatillo_encontradas), $fuente_datos );
 			//-- 3 -- Obtengo la clausula WHERE correspondiente a cada dimension
 			foreach( $dimensiones_implicadas as $dimension => $tabla ) {
 				$alias_tabla = $tablas_gatillo_encontradas[$tabla];
-				$where[] = $this->get_where_dimension_gatillo($dimension, $tabla, $alias_tabla);
+				$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
 			}
 			//-- 4 -- Altero el SQL
 			if(! empty($where)) {
@@ -162,12 +159,12 @@ class toba_perfil_datos
 	*			y no debe utilizarse mas de uno por dimension)
 	*		(Un gatillo puede pertenecer a mas de una dimension)
 	*/
-	function reconocer_dimensiones_implicadas($tablas_encontradas)
+	function reconocer_dimensiones_implicadas($tablas_encontradas, $fuente_datos)
 	{
 		$dimensiones = array();
 		$dimensiones_posicion = array();
 		foreach($tablas_encontradas as $tabla_encontrada) {
-			foreach($this->indice_gatillos as $dim => $gatillo) {
+			foreach($this->indice_gatillos[$fuente_datos] as $dim => $gatillo) {
 				foreach($gatillo as $tabla => $posicion) {
 					if($tabla_encontrada == $tabla ) {
 						if(isset($dimensiones[$dim]) ) {
@@ -189,26 +186,23 @@ class toba_perfil_datos
 	/**
 	*	Devuelve el WHERE correspondiente a un gatillo para una dimension particular
 	*/
-	function get_where_dimension_gatillo($dimension, $tabla_gatillo, $alias_tabla)
+	function get_where_dimension_gatillo($fuente_datos, $dimension, $tabla_gatillo, $alias_tabla)
 	{
-		//Busco fuente de datos por defecto
-		$fuente_datos = toba::proyecto()->get_parametro('fuente_datos');
-		
 		//Busco la definicion del gatillo
-		$indice_gatillo = $this->indice_gatillos[$dimension][$tabla_gatillo];
-		$def =& $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo];
+		$indice_gatillo = $this->indice_gatillos[$fuente_datos][$dimension][$tabla_gatillo];
+		$def =& $this->info_dimensiones[$fuente_datos][$dimension]['gatillos'][$indice_gatillo];
 		if ($def['tipo'] == 'directo') {										
 			// Gatillo DIRECTO -----------------------------------------------
-			$where = $this->get_where_aplicacion_restriccion($dimension, $def['columnas_rel_dim'], $alias_tabla);
+			$where = $this->get_where_aplicacion_restriccion($fuente_datos, $dimension, $def['columnas_rel_dim'], $alias_tabla);
 		} else {																
 			// Gatillo INDIRECTO -------------------------------------------------
 			//ei_arbol($def,'DEFINICION');
 			//- 1 - Genero el WHERE correspondiente al gatillo DIRECTO referenciado por el indirecto (ultimo nivel de anidamiento del where)
 			$tabla_gatillo_directo = $def['tabla_gatillo'];
-			$indice_gatillo_directo = $this->indice_gatillos[$dimension][$tabla_gatillo_directo];
-			$columnas = $this->info_dimensiones[$dimension]['gatillos'][$indice_gatillo_directo]['columnas_rel_dim'];
+			$indice_gatillo_directo = $this->indice_gatillos[$fuente_datos][$dimension][$tabla_gatillo_directo];
+			$columnas = $this->info_dimensiones[$fuente_datos][$dimension]['gatillos'][$indice_gatillo_directo]['columnas_rel_dim'];
 			$alias_tabla_gatillo_directo = $this->get_alias_unico();
-			$where = $this->get_where_aplicacion_restriccion($dimension, $columnas, $alias_tabla_gatillo_directo);
+			$where = $this->get_where_aplicacion_restriccion($fuente_datos, $dimension, $columnas, $alias_tabla_gatillo_directo);
 			//- 2 - Armo la cadena de tablas vinculantes que van del gatillo indirecto al directo (con sus alias)
 			// La construccion se hace desde abajo hacia arriba, comenzando por el anidamiento mas profundo
 			$cadena_tablas[] = $tabla_gatillo_directo;	//La cadena empieza con el gatillo directo.
@@ -250,10 +244,10 @@ class toba_perfil_datos
 		return $where;
 	}
 	
-	function get_where_aplicacion_restriccion($dimension, $columnas_aplicacion_restriccion, $alias_tabla)
+	function get_where_aplicacion_restriccion($fuente_datos, $dimension, $columnas_aplicacion_restriccion, $alias_tabla)
 	{
 		$where = '';
-		$restric =& $this->restricciones[$dimension];
+		$restric =& $this->restricciones[$fuente_datos][$dimension];
 		// Busco las columnas
 		$columnas_matcheo = explode( ',', $columnas_aplicacion_restriccion);
 		$columnas_matcheo = array_map('trim', $columnas_matcheo);
@@ -302,11 +296,11 @@ class toba_perfil_datos
 	* 	Devuelve la lista de tablas gatillo (tablas que indican la presencia de una dimension)
 	*		encontradas en el query
 	*/
-	function buscar_tablas_gatillo_en_sql($sql)
+	function buscar_tablas_gatillo_en_sql($sql, $fuente_datos)
 	{
 		//falta Controlar si hay algun gatillo en el SQL antes de hacer todo
 		$sql_from = $this->get_clausula_from( $sql );
-		$gatillos = $this->buscar_gatillos_from( $sql_from );
+		$gatillos = $this->buscar_gatillos_from( $sql_from, $fuente_datos );
 		return $gatillos;
 	}
 	
@@ -356,9 +350,9 @@ class toba_perfil_datos
 		A partir del FROM del SQL recupera las tablas que corresponden a dimensiones ACTIVAS
 		@return Array() asociativo con el nombre de la tabla y el alias
 	*/
-	function buscar_gatillos_from($sql_from)
+	function buscar_gatillos_from($sql_from, $fuente_datos)
 	{
-		$gatillos = $this->get_gatillos_activos();
+		$gatillos = $this->get_gatillos_activos($fuente_datos);
 		$tablas = array();
 		$clausulas = explode(",",$sql_from);
 		foreach($clausulas as $clausula) {

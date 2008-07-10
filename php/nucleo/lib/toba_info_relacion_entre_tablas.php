@@ -16,7 +16,6 @@ class toba_info_relacion_entre_tablas
 	static function get_relacion($tabla_1, $tabla_2, $fuente_datos=null, $proyecto=null)
 	{
 		if(!$fuente_datos) $fuente_datos = toba_admin_fuentes::instancia()->get_fuente_predeterminada(true, $proyecto);
-	
 		if(!isset(self::$relaciones[$fuente_datos]) ) {
 			self::cargar_relaciones($fuente_datos);	
 		}

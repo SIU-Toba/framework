@@ -103,4 +103,15 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'categoria', --tabla_gatillo
 	'cargo,persona'  --ruta_tabla_rel_dim
 );
+INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, tabla_rel_dim, columnas_rel_dim, tabla_gatillo, ruta_tabla_rel_dim) VALUES (
+	'toba_testing', --proyecto
+	'7', --dimension
+	'15', --gatillo
+	'indirecto', --tipo
+	'1', --orden
+	'ref_persona', --tabla_rel_dim
+	NULL, --columnas_rel_dim
+	'ref_persona_deportes', --tabla_gatillo
+	NULL  --ruta_tabla_rel_dim
+);
 --- FIN Grupo de desarrollo 0

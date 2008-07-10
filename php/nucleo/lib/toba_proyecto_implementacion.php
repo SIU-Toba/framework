@@ -25,16 +25,20 @@ class toba_proyecto_implementacion
 	/**
 	*	Devuelve las restricciones correspondientes al perfil de datos del usuario
 	*/
-	function get_perfil_datos_restricciones($perfil)
+	function get_perfil_datos_restricciones($proyecto, $perfil)
 	{
 		$sql = "SELECT 	d.usuario_perfil_datos as 		perfil_datos,
 						d.dimension as 					dimension,
-						d.clave as 						clave
-					FROM  apex_usuario_perfil_datos_dims d
-					WHERE d.usuario_perfil_datos = '$perfil'";
+						d.clave as 						clave,
+						di.fuente_datos as				fuente_datos
+					FROM  	apex_usuario_perfil_datos_dims d,
+							apex_dimension di
+					WHERE 	d.dimension = di.dimension
+						ANd	d.proyecto = di.proyecto
+						AND d.usuario_perfil_datos = '$perfil'
+						AND d.proyecto = '$proyecto'";
 		return toba::instancia()->get_db()->consultar($sql);
 	}
-	
 
 	//-------------------------------------------------------------
 	//------   RESTRICCIONES FUNCIONALES  -------------------------

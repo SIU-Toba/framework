@@ -9,12 +9,29 @@ class pantalla_api_alto_nivel extends pantalla_perfil_datos
 			$sql2 = toba::perfil_de_datos()->filtrar($sql);
 			echo "<hr><h1>".($id + 1)."</h1>";
 
-			$datos = toba::db('perfil_datos')->consultar($sql);
+			$datos = toba::db()->consultar($sql);
 			$tit1 = "<pre>" . $sql . "</pre>";
 			$this->tabla($datos,$tit1);
 
 			echo "<hr>";
-			$datos = toba::db('perfil_datos')->consultar($sql2);
+			$datos = toba::db()->consultar($sql2);
+			$tit2 = "<pre>" . $sql2 . "</pre>";
+			$this->tabla($datos,$tit2);
+		}
+		echo "<hr>";
+		echo "<hr>";
+		echo "<hr>";
+
+		foreach($this->sql2 as $id => $sql) {
+			$sql2 = toba::perfil_de_datos()->filtrar($sql,'referencia');
+			echo "<hr><h1>".($id + 1)."</h1>";
+
+			$datos = toba::db('referencia')->consultar($sql);
+			$tit1 = "<pre>" . $sql . "</pre>";
+			$this->tabla($datos,$tit1);
+
+			echo "<hr>";
+			$datos = toba::db('referencia')->consultar($sql2);
 			$tit2 = "<pre>" . $sql2 . "</pre>";
 			$this->tabla($datos,$tit2);
 		}

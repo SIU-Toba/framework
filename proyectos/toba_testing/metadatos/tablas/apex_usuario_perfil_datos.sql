@@ -18,4 +18,11 @@ INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, d
 	'Escalafon y dependencia D', --descripcion
 	NULL  --listar
 );
+INSERT INTO apex_usuario_perfil_datos (proyecto, usuario_perfil_datos, nombre, descripcion, listar) VALUES (
+	'toba_testing', --proyecto
+	'4', --usuario_perfil_datos
+	'Perfil C (multi FUENTE)', --nombre
+	'Posee elementos de dos fuentes', --descripcion
+	NULL  --listar
+);
 --- FIN Grupo de desarrollo 0
