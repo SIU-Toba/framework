@@ -2,7 +2,7 @@
 ------------------------------------------------------------
 -- apex_fuente_datos
 ------------------------------------------------------------
-INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden) VALUES (
+INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_corta, fuente_datos_motor, host, usuario, clave, base, administrador, link_instancia, instancia_id, subclase_archivo, subclase_nombre, orden, schema) VALUES (
 	'curso', --proyecto
 	'curso', --fuente_datos
 	'Fuente curso', --descripcion
@@ -17,5 +17,6 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	'curso', --instancia_id
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
-	NULL  --orden
+	NULL, --orden
+	NULL  --schema
 );

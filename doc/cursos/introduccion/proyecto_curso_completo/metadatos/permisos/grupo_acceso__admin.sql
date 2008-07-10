@@ -19,15 +19,6 @@ INSERT INTO apex_usuario_grupo_acc (proyecto, usuario_grupo_acc, nombre, nivel_a
 -- apex_usuario_grupo_acc_item
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'curso', --proyecto
-	'admin', --usuario_grupo_acc
-	NULL, --item_id
-	'/inicio'  --item
-);
---- FIN Grupo de desarrollo 
-
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'curso', --proyecto
@@ -75,12 +66,18 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'curso', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3386'  --item
+	'3413'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'curso', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3388'  --item
+	'3415'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'curso', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3426'  --item
 );
 --- FIN Grupo de desarrollo 0
