@@ -183,7 +183,7 @@ class Numbers_Words_es_AR extends Numbers_Words
      * @access private
      * @author Martin Marrese
      */
-    function toWords($num, $power = 0)
+    function toWords($num, $power = 0, $llamada_recursiva = false)
     {
         // The return string;
         $ret = '';
@@ -204,6 +204,7 @@ class Numbers_Words_es_AR extends Numbers_Words
         $num = $num_tmp[0];
         $dec = (@$num_tmp[1]) ? $num_tmp[1] : '';
 
+        $decimal_con_peso = (intval($dec) > 0);
         if (strlen($num) > 6)
         {
             $current_power = 6;
@@ -215,17 +216,17 @@ class Numbers_Words_es_AR extends Numbers_Words
                 $snum = substr($num, 0, -6);
                 $snum = preg_replace('/^0+/','',$snum);
                 if ($snum !== '') {
-                    $ret .= $this->toWords($snum, $power + 6);
+                    $ret .= $this->toWords($snum, $power + 6, true);
                 }
             }
             $num = substr($num, -6);
             if ($num == 0) {
                 return $ret;
             }
-        }
-        elseif ($num == 0 || $num == '') {
-            return(' '.$this->_digits[0]);
-            $current_power = strlen($num);
+        }elseif ($num == 0 || $num == '') {
+	        $ret .= ' '.$this->_digits[0];
+	        if (!($dec AND $decimal_con_peso))		//Controlo para achicar la ejecucion
+				        		return $ret;
         }
         else {
             $current_power = strlen($num);
@@ -237,7 +238,7 @@ class Numbers_Words_es_AR extends Numbers_Words
             $ret .= $this->_sep . 'mil';
         }
         elseif ($thousands > 1) {
-            $ret .= $this->toWords($thousands, 3);
+            $ret .= $this->toWords($thousands, 3, true);
         }
 
         // values for digits, tens and hundreds
@@ -401,9 +402,11 @@ class Numbers_Words_es_AR extends Numbers_Words
             }
         }
 
-        if ($dec) {
-            $dec = $this->toWords(trim($dec));
-            $ret.= ' con ' . trim ($dec);
+        if ($dec){				//Aca controlo para agregar los centavos
+        	if ($decimal_con_peso){$dec = $this->toWords(trim($dec), 0, true);}
+            $ret.= ' con ' . trim ($dec) . '/100';
+        }elseif((!$dec) AND (!$llamada_recursiva)){		//Si no tiene decimales y no es una llamada recursiva
+	        $ret.= ' con 0/100';
         }
         
         return $ret;
