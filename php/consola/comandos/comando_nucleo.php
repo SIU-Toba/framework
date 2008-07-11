@@ -100,5 +100,117 @@ class comando_nucleo extends comando_toba
 	{
 		$this->get_nucleo()->compilar();		
 	}
+	
+	/**
+	 * Dado un release en trunk_versiones genera una versión en versiones
+	 * @consola_parametros -r release -u usuario_svn -s servidor_svn 
+	 */
+	function opcion__versionar()
+	{
+		$error = null; $salida = null;		
+		$url_svn = 'http://server/svn/toba';
+		$dir_temp = '/tmp';
+		$rama_branch = 'trunk_versiones';
+		$rama_versiones = 'versiones';
+		$mensaje_commit = 'Rama %s: Preparación lanzamiento versión %s';
+		$mensaje_copy = 'Lanzamiento Versión %s';
+		$destino = '/home/smarconi/temp';
+		$param = $this->get_parametros();		
+		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
+			throw new toba_error("Es necesario indicar el release con '-r'");
+		}
+		if ( !isset($param['-u']) ||  (trim($param['-u']) == '') ) {
+			throw new toba_error("Es necesario indicar el usuario svn con '-u'");
+		}
+		$release = $param['-r'];		
+		$usuario = $param['-u'];
+	
+		//-- Averiguo cual es el siguiente numero
+		$versiones = explode("\n", trim(`svn ls $url_svn/$rama_versiones`));
+		$siguiente = new toba_version($release.'.0');
+		foreach ($versiones as $numero) {
+			$version = new toba_version(str_replace('/', '', $numero));
+			if ($version->es_cambio_menor_version($siguiente) && $version->es_mayor_igual($siguiente)) {
+				$siguiente = $version->get_siguiente_menor();
+			}
+		}
+		if (! $this->consola->dialogo_simple('Lanzando versión '.$siguiente->__toString(). " a partir del release $release", 's')) {
+			return;
+		}
+	
+		//-- Pongo ese numero en el archivo VERSION
+		$this->consola->mensaje("Checkout y commit del archivo VERSION de $rama_branch/$release .", false);
+		if (is_writable($dir_temp) === false) {
+			throw new toba_error("El usuario actual no tiene permisos de escritura sobre '$dir_temp'");
+		}
+		$co_temp = $dir_temp.'/'.uniqid('toba_');
+		`svn co --username $usuario --non-recursive $url_svn/$rama_branch/$release $co_temp`;
+		$this->consola->progreso_avanzar();
+		file_put_contents($co_temp.'/VERSION', $siguiente->__toString());
+		$mensaje_commit = utf8_encode(sprintf($mensaje_commit, $release, $siguiente->__toString()));
+		$cmd = "svn ci $co_temp -m '$mensaje_commit'";
+		exec($cmd, $salida, $error);
+		toba_manejador_archivos::eliminar_directorio($co_temp);		
+		if ($error) {
+			throw new toba_error("No fue posible hacer el commit. Comando:\n$cmd");
+		}
+		$this->consola->progreso_fin();
+		
+		//-- Hago el copy a versiones
+		$this->consola->mensaje("Haciendo copy a $rama_versiones.", false);
+		$mensaje_copy = utf8_encode(sprintf($mensaje_copy, $siguiente->__toString()));		
+		$cmd = "svn cp --username $usuario $url_svn/$rama_branch/$release $url_svn/$rama_versiones/$siguiente -m '$mensaje_copy'";
+		exec($cmd, $salida, $error);
+		if ($error) {
+			throw new toba_error("No fue posible hacer el copy. Comando:\n$cmd");
+		}		
+		$this->consola->progreso_fin();
+		
+		//-- Hago el export a una carpeta
+		$this->consola->mensaje("Export a carpeta temporal.", false);
+		$export_dir = $dir_temp."/toba_$siguiente"; 
+		if (file_exists($export_dir)) {
+			toba_manejador_archivos::eliminar_directorio($export_dir);
+		}
+		$cmd = "svn export $url_svn/$rama_versiones/$siguiente $dir_temp";
+		exec($cmd, $salida, $error);
+		if ($error) {
+			toba_manejador_archivos::eliminar_directorio($export_dir);
+			throw new toba_error("No fue posible hacer el export. Comando:\n$cmd");
+		}		
+		$this->consola->progreso_fin();
+		
+		//-- Armo el .zip 
+		$this->consola->mensaje("Creando ZIP.", false);
+		if (file_exists("$destino/toba_$siguiente.zip")) {
+			unlink("$destino/toba_$siguiente.zip");
+		}
+		$cmd = "cd $dir_temp; zip -r $destino/toba_$siguiente.zip toba_$siguiente";
+		exec($cmd, $salida, $error);
+		if ($error) {
+			toba_manejador_archivos::eliminar_directorio($export_dir);
+			throw new toba_error("Error armando el .zip. Comando:\n$cmd");
+		}
+		$this->consola->progreso_fin();
+		
+		//-- Armo el .tar.gz
+		$this->consola->mensaje("Creando TAR.GZ.", false);
+		if (file_exists("$destino/toba_$siguiente.tar.gz")) {
+			unlink("$destino/toba_$siguiente.tar.gz");
+		}
+		$cmd = "cd $dir_temp; tar -czvf $destino/toba_$siguiente.tar.gz toba_$siguiente";
+		exec($cmd, $salida, $error);
+		if ($error) {
+			toba_manejador_archivos::eliminar_directorio($export_dir);
+			throw new toba_error("Error armando el .tar.gz. Comando:\n$cmd");
+		}
+		$this->consola->progreso_fin();
+		
+		//-- Borro temporales
+		$this->consola->mensaje("Borrando archivos temporales.", false);
+		toba_manejador_archivos::eliminar_directorio($export_dir);
+		$this->consola->progreso_fin();
+	}
+	
 }
 ?>

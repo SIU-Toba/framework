@@ -138,6 +138,32 @@ class toba_version
 	{
 		return $v1->comparar($v2);
 	}
+	
+	function es_cambio_menor_version(toba_version $otra_version)
+	{
+		if (!isset($otra_version)) {
+			return false;
+		}
+		//-- Tiene que ser igual numero mayor
+		if ($otra_version->partes[0] != $this->partes[0]) {
+			return false;
+		}
+		//-- Tiene que ser igual numero medio
+		if ($otra_version->partes[1] != $this->partes[1]) {
+			return false;
+		}		
+		return true;
+	}	
+	
+	/**
+	 * @return toba_version
+	 */
+	function get_siguiente_menor()
+	{
+		$siguiente = $this->partes[2] + 1;
+		return new toba_version($this->partes[0].'.'.$this->partes[1].'.'.$siguiente);
+	}
+	
 
 	/**
 	 * Retorna todas las migraciones disponibles desde la actual hasta la versión parametro

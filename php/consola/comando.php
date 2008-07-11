@@ -2,7 +2,7 @@
 
 class comando
 {
-	protected $manejador_interface;
+	protected $consola;
 	protected $argumentos;
 
 	function __construct( $manejador_interface )
