@@ -176,5 +176,46 @@ class toba_usuario_basico extends toba_usuario
 			return null;
 		}
 	}
+
+	//-------------------------------------------------------
+	//----- Bloqueo de USUARIOS y de IPs
+	//-------------------------------------------------------
+
+	static function es_ip_rechazada($ip)
+	{
+		return toba::instancia()->es_ip_rechazada($ip);
+	}
+	
+	static function registrar_error_login($usuario, $ip, $texto)
+	{
+		return toba::instancia()->registrar_error_login($usuario, $ip, $texto);
+	}
+
+	static function bloquear_ip($ip)
+	{
+		return toba::instancia()->bloquear_ip($ip);
+	}
+	
+	static function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
+	{
+		return toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
+	}
+	
+	//-------------------- Bloqueo de Usuarios en LOGIN  ----------------------------
+	
+	static function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
+	{
+		return toba::instancia()->get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal);
+	}
+	
+	static function bloquear_usuario($usuario)
+	{
+		return toba::instancia()->bloquear_usuario($usuario);
+	}
+	
+	static function es_usuario_bloqueado($usuario)
+	{
+		return toba::instancia()->es_usuario_bloqueado($usuario);		
+	}
 }
 ?>

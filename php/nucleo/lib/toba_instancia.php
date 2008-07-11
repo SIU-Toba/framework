@@ -350,6 +350,10 @@ class toba_instancia
 		return $this->memoria['proyectos_accesibles'];
 	}
 
+	//--------------------------------------------------------------------------
+	//-------------------- BLOQUEOS --------------------------------------------
+	//--------------------------------------------------------------------------
+
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
 
 	function es_ip_rechazada($ip)
@@ -413,16 +417,6 @@ class toba_instancia
 		}
 	}
 	
-	function desbloquear_usuario($usuario)
-	{
-		try {
-			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario'";
-			$this->get_db()->ejecutar($sql);
-		} catch ( toba_error $e ) {
-			//el usuario ya esta bloqueado
-		}
-	}
-	
 	function es_usuario_bloqueado($usuario)
 	{
 		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = '$usuario' AND bloqueado = 1";
@@ -433,5 +427,16 @@ class toba_instancia
 		return true;
 	}
 	
+	//------ Es necesario que esto este aca??? ----------
+	
+	function desbloquear_usuario($usuario)
+	{
+		try {
+			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario'";
+			$this->get_db()->ejecutar($sql);
+		} catch ( toba_error $e ) {
+			//el usuario ya esta bloqueado
+		}
+	}	
 }
 ?>

@@ -599,6 +599,20 @@ class toba_manejador_sesiones
 			return new toba_usuario_basico($id_usuario);
 		}
 	}
+	
+	private function invocar_metodo_usuario($metodo, $parametros)
+	{
+		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
+		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
+		if( $subclase && $archivo ) {
+			require_once($archivo);
+			$clase = $subclase;
+		} else {
+			$clase = 'toba_usuario_basico';
+		}		
+		$estado = call_user_func_array( array($clase,$metodo), $parametros );
+		return $estado;
+	}
 
 	private function get_sesion_proyecto()
 	{
@@ -668,40 +682,34 @@ class toba_manejador_sesiones
 			throw new toba_error_autenticacion('Es necesario ingresar la clave.');
 		}
 		$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
-		if (toba::instancia()->es_ip_rechazada($ip)) {
+		if ( $this->invocar_metodo_usuario('es_ip_rechazada',array($ip)) ) {
 			throw new toba_error('La IP esta bloqueada. Contactese con el administrador');
 		}
-		if (toba::instancia()->es_usuario_bloqueado($id_usuario)) {
+		if ( $this->invocar_metodo_usuario('es_usuario_bloqueado', array($id_usuario)) ) {
 			throw new toba_error('El usuario se encuentra bloqueado. Contáctese con el administrador');
 		}
-		$subclase = toba::proyecto()->get_parametro('usuario_subclase');
-		$archivo = toba::proyecto()->get_parametro('usuario_subclase_archivo');
-		if( $subclase && $archivo ) {
-			require_once($archivo);
-			$estado = call_user_func_array( array($subclase,'autenticar'), array($id_usuario, $clave, $datos_iniciales));
-		} else {
-			$estado = toba_usuario_basico::autenticar($id_usuario, $clave);
-		}
+		// Disparo la autenticacion
+		$estado = $this->invocar_metodo_usuario('autenticar', array($id_usuario, $clave, $datos_iniciales) );
 		if(!$estado) {
 			$error = 'La combinación usuario/clave es incorrecta';
-			toba::instancia()->registrar_error_login($id_usuario, $ip, $error);
+			$this->invocar_metodo_usuario('registrar_error_login', array($id_usuario, $ip, $error));
 			$cant_max_intentos = toba::proyecto()->get_parametro('validacion_intentos');
 			if (isset($cant_max_intentos)) {
 				$bloquear_usuario = toba::proyecto()->get_parametro('validacion_bloquear_usuario');
 				//Bloqueo el Usuario o IP si la cantidad de intentos supera los esperados dentro de la ventana temporal establecida
 				$ventana_temporal = toba::proyecto()->get_parametro('validacion_intentos_min');
 				if ( $bloquear_usuario ) {
-					$intentos = toba::instancia()->get_cantidad_intentos_usuario_en_ventana_temporal($id_usuario, $ventana_temporal);
+					$intentos = $this->invocar_metodo_usuario('get_cantidad_intentos_usuario_en_ventana_temporal',array($id_usuario, $ventana_temporal));
 				}else{
-					$intentos = toba::instancia()->get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal);
+					$intentos = $this->invocar_metodo_usuario('get_cantidad_intentos_en_ventana_temporal',array($ip, $ventana_temporal));
 				}
 				$supero_tope_intentos_en_ventana = $intentos > $cant_max_intentos;
 				if ( $supero_tope_intentos_en_ventana ) {
 					if ( $bloquear_usuario ) {
-						toba::instancia()->bloquear_usuario($id_usuario);
+						$this->invocar_metodo_usuario('bloquear_usuario',array($id_usuario));
 						throw new toba_error_autenticacion("$error. Ha superado el límite de inicios de sesion. El usuario ha sido bloqueado.");
 					}else{
-						toba::instancia()->bloquear_ip($ip);
+						$this->invocar_metodo_usuario('bloquear_ip',array($ip));
 						throw new toba_error_autenticacion("$error. La IP ha sido bloqueada.");
 					}
 				}
