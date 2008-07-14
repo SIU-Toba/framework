@@ -102,7 +102,7 @@ class comando_nucleo extends comando_toba
 	}
 	
 	/**
-	 * Dado un release en trunk_versiones genera una versión en versiones
+	 * Dado un release en trunk_versiones genera una version en versiones
 	 * @consola_parametros -r release -u usuario_svn [-s url_svn] [-t path temporal] [-d path destino] 
 	 */
 	function opcion__versionar()
@@ -113,8 +113,8 @@ class comando_nucleo extends comando_toba
 		$destino = '/var/www/downloads/toba';		
 		$rama_branch = 'trunk_versiones';
 		$rama_versiones = 'versiones';
-		$mensaje_commit = 'Rama %s: Preparación lanzamiento versión %s';
-		$mensaje_copy = 'Lanzamiento Versión %s';
+		$mensaje_commit = 'Rama %s: Preparacion lanzamiento version %s';
+		$mensaje_copy = 'Lanzamiento Version %s';
 		$param = $this->get_parametros();		
 		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
 			throw new toba_error("Es necesario indicar el release con '-r'");
@@ -143,7 +143,7 @@ class comando_nucleo extends comando_toba
 				$siguiente = $version->get_siguiente_menor();
 			}
 		}
-		if (! $this->consola->dialogo_simple('Lanzando versión '.$siguiente->__toString(). " a partir del release $release", 's')) {
+		if (! $this->consola->dialogo_simple('Lanzando version '.$siguiente->__toString(). " a partir del release $release", 's')) {
 			return;
 		}
 	
@@ -172,7 +172,7 @@ class comando_nucleo extends comando_toba
 		exec($cmd, $salida, $error);
 		if ($error) {
 			throw new toba_error("No fue posible hacer el copy. Comando:\n$cmd");
-		}		
+		}
 		$this->consola->progreso_fin();
 		
 		//-- Hago el export a una carpeta
@@ -181,7 +181,7 @@ class comando_nucleo extends comando_toba
 		if (file_exists($export_dir)) {
 			toba_manejador_archivos::eliminar_directorio($export_dir);
 		}
-		$cmd = "svn export $url_svn/$rama_versiones/$siguiente $dir_temp";
+		$cmd = "svn export $url_svn/$rama_versiones/$siguiente $export_dir";
 		exec($cmd, $salida, $error);
 		if ($error) {
 			toba_manejador_archivos::eliminar_directorio($export_dir);
