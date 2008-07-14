@@ -103,18 +103,18 @@ class comando_nucleo extends comando_toba
 	
 	/**
 	 * Dado un release en trunk_versiones genera una versión en versiones
-	 * @consola_parametros -r release -u usuario_svn -s servidor_svn 
+	 * @consola_parametros -r release -u usuario_svn [-s url_svn] [-t path temporal] [-d path destino] 
 	 */
 	function opcion__versionar()
 	{
 		$error = null; $salida = null;		
-		$url_svn = 'http://server/svn/toba';
+		$url_svn = 'http://localhost/svn/toba';
 		$dir_temp = '/tmp';
+		$destino = '/var/www/downloads/toba';		
 		$rama_branch = 'trunk_versiones';
 		$rama_versiones = 'versiones';
 		$mensaje_commit = 'Rama %s: Preparación lanzamiento versión %s';
 		$mensaje_copy = 'Lanzamiento Versión %s';
-		$destino = '/home/smarconi/temp';
 		$param = $this->get_parametros();		
 		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
 			throw new toba_error("Es necesario indicar el release con '-r'");
@@ -122,6 +122,15 @@ class comando_nucleo extends comando_toba
 		if ( !isset($param['-u']) ||  (trim($param['-u']) == '') ) {
 			throw new toba_error("Es necesario indicar el usuario svn con '-u'");
 		}
+		if (isset($param['-s']) && (trim($param['-s']) != '') ) {
+			$url_svn = $param['-s'];
+		}
+		if (isset($param['-t']) && (trim($param['-t']) != '') ) {
+			$dir_temp = $param['t'];
+		}
+		if (isset($param['-d']) && (trim($param['-d']) != '') ) {
+			$destino = $param['d'];
+		}		
 		$release = $param['-r'];		
 		$usuario = $param['-u'];
 	
