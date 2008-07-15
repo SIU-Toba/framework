@@ -114,7 +114,7 @@ class comando_nucleo extends comando_toba
 		$rama_branch = 'trunk_versiones';
 		$rama_versiones = 'versiones';
 		$mensaje_commit = 'Rama %s: Preparacion lanzamiento version %s';
-		$mensaje_copy = 'Lanzamiento Version %s';
+		$mensaje_copy = "Lanzamiento Version %s:";
 		$param = $this->get_parametros();		
 		if ( !isset($param['-r']) ||  (trim($param['-r']) == '') ) {
 			throw new toba_error("Es necesario indicar el release con '-r'");
@@ -159,7 +159,6 @@ class comando_nucleo extends comando_toba
 		$mensaje_commit = utf8_encode(sprintf($mensaje_commit, $release, $siguiente->__toString()));
 		$cmd = "svn ci $co_temp -m '$mensaje_commit'";
 		exec($cmd, $salida, $error);
-		toba_manejador_archivos::eliminar_directorio($co_temp);		
 		if ($error) {
 			throw new toba_error("No fue posible hacer el commit. Comando:\n$cmd");
 		}
@@ -167,9 +166,26 @@ class comando_nucleo extends comando_toba
 		
 		//-- Hago el copy a versiones
 		$this->consola->mensaje("Haciendo copy a $rama_versiones.", false);
-		$mensaje_copy = utf8_encode(sprintf($mensaje_copy, $siguiente->__toString()));		
-		$cmd = "svn cp --username $usuario $url_svn/$rama_branch/$release $url_svn/$rama_versiones/$siguiente -m '$mensaje_copy'";
+		$mensaje_copy = sprintf($mensaje_copy, $siguiente->__toString());
+		if (file_exists($co_temp.'/notas_version.txt')) {
+			//-- Incluye en el commit el changelog de la versión
+			$notas_version = file_get_contents($co_temp.'/notas_version.txt');
+			$resultado = preg_split('/\[(\d+\.\d+\.\d+)\]/i', $notas_version, null, 2);			
+			if (isset($resultado) && is_array($resultado)) {
+				foreach ($resultado as $i => $nota) {
+					if ($nota == $siguiente->__toString()) {
+						$mensaje_copy .= $resultado[$i + 1];
+						break;
+					}
+				}
+			}
+		}
+		$archivo_msg = tempnam($dir_temp, 'log_svn');
+		file_put_contents($archivo_msg, $mensaje_copy);
+		$cmd = "svn cp --username $usuario $url_svn/$rama_branch/$release $url_svn/$rama_versiones/$siguiente -F $archivo_msg";
 		exec($cmd, $salida, $error);
+		toba_manejador_archivos::eliminar_directorio($co_temp);
+		unlink($archivo_msg);
 		if ($error) {
 			throw new toba_error("No fue posible hacer el copy. Comando:\n$cmd");
 		}
