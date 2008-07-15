@@ -25,16 +25,27 @@ class ci_catalogo extends toba_ci
 			$datos[$id]['icono']	= 'fuente.png';
 			$parametros = array( apex_hilo_qs_zona => $datos[$id]['proyecto'] .apex_qs_separador. $datos[$id]['fuente_datos']);
 			$datos[$id]['editar'] = "<span style='white-space: nowrap;'>";
+			// Probar dimensiones
+			if ( toba_info_editores::get_cantidad_dimensiones_fuente($datos[$id]['fuente_datos']) > 0 ) {
+				$img = toba_recurso::imagen_toba("probar_dimensiones.png", true, null, null, 'Probar dimensiones');
+				$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
+																	3461,
+																	$parametros,
+																	$img);
+			}
+			// Relaciones
 			$img = toba_recurso::imagen_toba("solic_wddx.gif", true, null, null, 'Relaciones entre tablas');
 			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
 																3442,
 																$parametros,
 																$img);
+			// Ver el modelo
 			$img = toba_recurso::imagen_toba("buscar.png", true, null, null);
 			$datos[$id]['editar'] .= $this->tag_vinculo_editor( toba_editor::get_id(),
 																3412,
 																$parametros,
 																$img);
+			// Editar la fuente
 			$img = toba_recurso::imagen_toba("objetos/editar.gif", true, null, null);
 			$datos[$id]['editar'] .=  $this->tag_vinculo_editor( 	toba_editor::get_id(),
 																	1000237,

@@ -109,7 +109,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'C', --tipo
 	'0', --pk
 	NULL, --secuencia
-	'30', --largo
+	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
 	'0'  --externa

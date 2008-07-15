@@ -1254,6 +1254,18 @@ class toba_info_editores
 		return toba_contexto_info::get_db()->consultar_fila($sql);
 	}
 
+	function get_cantidad_dimensiones_fuente($fuente, $proyecto=null)
+	{
+		if (!isset($proyecto)) $proyecto = toba_contexto_info::get_proyecto();
+		$sql = "SELECT		COUNT(dimension) as cantidad
+					FROM	apex_dimension
+					WHERE	proyecto = '$proyecto'
+					AND		fuente_datos = '$fuente';
+		";
+		$temp = toba_contexto_info::get_db()->consultar_fila($sql);
+		return $temp['cantidad'];
+	}
+
 	//------------------------------------------------------------------------------
 	//----------  RELACIONES entre TABLAS
 	//------------------------------------------------------------------------------

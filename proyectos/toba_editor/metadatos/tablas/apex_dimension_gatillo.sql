@@ -32,9 +32,9 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'14', --gatillo
 	'indirecto', --tipo
 	'1', --orden
-	'ref_juegos', --tabla_rel_dim
+	'ref_persona', --tabla_rel_dim
 	NULL, --columnas_rel_dim
-	'ref_deportes', --tabla_gatillo
+	'ref_persona_deportes', --tabla_gatillo
 	NULL  --ruta_tabla_rel_dim
 );
 --- FIN Grupo de desarrollo 0
