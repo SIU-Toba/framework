@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Probar dimensiones - test - form_sql', --nombre
-	'SQLs de prueba', --titulo
+	'Seleccionar sentencia SQL a probar', --titulo
 	'1', --colapsable
 	NULL, --descripcion
 	'toba_editor', --fuente_datos_proyecto

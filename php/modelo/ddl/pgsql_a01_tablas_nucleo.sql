@@ -96,17 +96,17 @@ CREATE TABLE apex_fuente_datos
 	descripcion_corta			varchar(40)		NULL,	--	NOT NULL,
 	fuente_datos_motor			varchar(30)		NULL,
 	host						varchar(60)		NULL,
-	usuario						varchar(60)		NULL,
-	clave						varchar(60)		NULL,
-	base						varchar(60)		NULL,	--	NOT? ODBC e	instancia no la utilizan...
-	link_instancia				smallint		NULL,	--	En	vez de abrir una conexion,	utilizar	la	conexion	a la intancia
 	subclase_archivo			varchar(255) 	NULL,
 	subclase_nombre				varchar(60) 	NULL,
 	orden						smallint		NULL,
 	schema						varchar(60)		NULL,	-- Schema postgres por defecto (si aplica)						
-	--- test perfiles (ex db-junk!) ---
 	instancia_id				varchar			NULL,
 	administrador				varchar			NULL,
+	link_instancia				smallint		NULL,
+	--- test perfiles (ex db-junk!) ---
+	usuario						varchar			NULL,
+	clave						varchar			NULL,
+	base						varchar			NULL,
 	CONSTRAINT	"apex_fuente_datos_pk" PRIMARY KEY ("proyecto","fuente_datos"),
 	CONSTRAINT	"apex_fuente_datos_fk_motor" FOREIGN KEY ("fuente_datos_motor") REFERENCES	"apex_fuente_datos_motor" ("fuente_datos_motor") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE,
 	CONSTRAINT	"apex_fuente_datos_fk_proyecto" FOREIGN KEY ("proyecto")	REFERENCES "apex_proyecto"	("proyecto") ON DELETE NO ACTION	ON	UPDATE NO ACTION DEFERRABLE INITIALLY	IMMEDIATE

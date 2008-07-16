@@ -19,6 +19,11 @@ class toba_perfil_datos
 	function __construct()
 	{
 		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
+		$this->inicializar();
+	}
+	
+	private function inicializar()
+	{
 		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
 			foreach( $this->fuentes_restringidas as $fuente ) {
@@ -27,7 +32,17 @@ class toba_perfil_datos
 					$this->indexar_gatillos($fuente);	
 				}
 			}
-		}
+		}		
+	}
+	
+	/**
+	*	@ignore
+	*		Setea un perfil por el request (Utilizado en las pruebas del perfil)
+	*/
+	function set_perfil($id)
+	{
+		$this->id = $id;
+		$this->inicializar();
 	}
 	
 	function cargar_info_restricciones()

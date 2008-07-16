@@ -27,11 +27,6 @@ INSERT INTO apex_fuente_datos (proyecto, fuente_datos, descripcion, descripcion_
 	NULL, --descripcion_corta
 	NULL, --fuente_datos_motor
 	NULL, --host
-	NULL, --usuario
-	NULL, --clave
-	NULL, --base
-	'0,2,6', --administrador
-	NULL, --link_instancia
 	'SELECT * FROM ref_deportes;
 SELECT * FROM ref_deportes WHERE id < 5;
 SELECT * FROM ref_deportes d, ref_persona_deportes p 
@@ -44,7 +39,12 @@ SELECT * FROM ref_juegos ORDER BY id;
 SELECT * FROM ref_deportes WHERE id > 2;
 SELECT * FROM ref_persona_deportes WHERE persona = 1;
 SELECT * FROM ref_persona_juegos;
-SELECT * FROM ref_persona_juegos WHERE persona = 1;', --instancia_id
+SELECT * FROM ref_persona_juegos WHERE persona = 1;', --usuario
+	'0,2,5,6', --clave
+	'a:7:{s:12:\\\"perfil_datos\\\";s:1:\\\"5\\\";s:12:\\\"sql_original\\\";s:1:\\\"1\\\";s:16:\\\"info_dimensiones\\\";s:1:\\\"1\\\";s:9:\\\"sql_where\\\";s:1:\\\"0\\\";s:14:\\\"sql_modificado\\\";s:1:\\\"1\\\";s:11:\\\"datos_filas\\\";s:1:\\\"0\\\";s:12:\\\"datos_listar\\\";s:1:\\\"0\\\";}', --base
+	NULL, --administrador
+	NULL, --link_instancia
+	NULL, --instancia_id
 	NULL, --subclase_archivo
 	NULL, --subclase_nombre
 	NULL, --orden

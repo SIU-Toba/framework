@@ -6,6 +6,18 @@ class toba_proyecto_implementacion
 	//-------------------------------------------------------------
 	//------   PERFIL DE DATOS     --------------------------------
 	//-------------------------------------------------------------
+
+	/**
+	*	Devuelve el perfil de datos de un usuario
+	*/
+	function get_perfiles_datos($proyecto)
+	{
+		$sql = "SELECT 	usuario_perfil_datos as 		perfil_datos,
+						nombre as 						nombre
+					FROM apex_usuario_perfil_datos
+					WHERE proyecto = '$proyecto';";
+		return toba::instancia()->get_db()->consultar($sql);
+	}
 		
 	/**
 	*	Devuelve el perfil de datos de un usuario

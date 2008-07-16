@@ -171,7 +171,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --ev_cancelar_etiq
 	'600px', --ancho
 	NULL, --alto
-	'abajo', --posicion_botonera
+	'ambos', --posicion_botonera
 	'tab_h', --tipo_navegacion
 	'0', --con_toc
 	NULL, --incremental
@@ -204,8 +204,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'testing.gif', --imagen
 	'form_elegir_sql,form_test', --objetos
 	'ejecutar', --eventos
-	NULL, --subclase
-	NULL  --subclase_archivo
+	'pant_test_dims', --subclase
+	'datos/dimensiones/pant_test_dims.php'  --subclase_archivo
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo) VALUES (
 	'toba_editor', --objeto_ci_proyecto
@@ -214,7 +214,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'sql', --identificador
 	'2', --orden
 	'Lote de pruebas', --etiqueta
-	NULL, --descripcion
+	'Este campo debe completarse con una lista de SQLs separados por  el caracter \";\"', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	'sql.gif', --imagen
