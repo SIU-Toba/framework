@@ -170,7 +170,7 @@ class comando_nucleo extends comando_toba
 		if (file_exists($co_temp.'/notas_version.txt')) {
 			//-- Incluye en el commit el changelog de la versión
 			$notas_version = file_get_contents($co_temp.'/notas_version.txt');
-			$resultado = preg_split('/\[(\d+\.\d+\.\d+)\]/i', $notas_version, null, 2);			
+			$resultado = preg_split('/===\s*(\d+\.\d+\.\d+)\s*===/i', $notas_version, null, 2);			
 			if (isset($resultado) && is_array($resultado)) {
 				foreach ($resultado as $i => $nota) {
 					if ($nota == $siguiente->__toString()) {
