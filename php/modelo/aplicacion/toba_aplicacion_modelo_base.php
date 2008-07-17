@@ -227,7 +227,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
 			if (! isset($datos_servidor['base'])) {
-				$id_base = $this->proyecto->get_id().'_'.$version->get_string_partes();
+				$id_base = $this->proyecto->get_id().'_'.$version->get_release('_');
 				$datos_servidor['base'] = $id_base;
 			}
 			//-- Agrega la definición de la base

@@ -114,6 +114,9 @@ a.nivel-0:hover, a.nivel-0:focus, a.nivel-0.rollover, a.nivel-0.rollover:visited
 	font-family: Tahoma;
 	text-align:left;
 }
+.ei-cuadro-col-tit-grupo {
+	text-align: center;
+}
 .ei-cuadro-fila-sel, .ei-ml-fila-selec, .ei-filtro-fila-selec {
 	padding-top:2px;
 	padding-bottom:2px;

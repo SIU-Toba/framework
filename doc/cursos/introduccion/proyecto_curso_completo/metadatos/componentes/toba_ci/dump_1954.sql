@@ -58,10 +58,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'curso', --proyecto
-	'900', --dep_id
+	'901', --dep_id
 	'1954', --objeto_consumidor
-	'1955', --objeto_proveedor
-	'datos', --identificador
+	'1956', --objeto_proveedor
+	'form', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -70,10 +70,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'curso', --proyecto
-	'901', --dep_id
+	'900', --dep_id
 	'1954', --objeto_consumidor
-	'1956', --objeto_proveedor
-	'form', --identificador
+	'1955', --objeto_proveedor
+	'tabla_provincias', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c

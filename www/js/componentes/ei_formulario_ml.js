@@ -50,7 +50,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	 *	@private
 	 */
 	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex, es_inicial) {
-		this._estado_inicial[fila] = {};
+		if (es_inicial && this._con_examen_cambios) {	
+			this._estado_inicial[fila] = {};
+		}	
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
 			if (es_inicial && this._con_examen_cambios) {
@@ -219,18 +221,19 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		for (fila in this._filas) {
 			if (! isset(this._estado_inicial[this._filas[fila]])) {
 				hay_cambio = true;
-			}
-			for (id_ef in this._efs) {
-				if (! in_array(id_ef, this._cambios_excluir_efs)) {
-					this._efs[id_ef].ir_a_fila(this._filas[fila]);
-					if (this._estado_inicial[this._filas[fila]][id_ef] !== this._efs[id_ef].get_estado()) {
-						hay_cambio = true;
-						if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
-							this._efs[id_ef].resaltar_cambio(true);
-						}
-					} else {
-						if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
-							this._efs[id_ef].resaltar_cambio(false);
+			} else {
+				for (id_ef in this._efs) {
+					if (! in_array(id_ef, this._cambios_excluir_efs)) {
+						this._efs[id_ef].ir_a_fila(this._filas[fila]);
+						if (this._estado_inicial[this._filas[fila]][id_ef] !== this._efs[id_ef].get_estado()) {
+							hay_cambio = true;
+							if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
+								this._efs[id_ef].resaltar_cambio(true);
+							}
+						} else {
+							if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
+								this._efs[id_ef].resaltar_cambio(false);
+							}
 						}
 					}
 				}
@@ -242,12 +245,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 				hay_cambio = true;
 			}
 		}
-		
 		if (this.evt__procesar_cambios) {
 			this.evt__procesar_cambios(hay_cambio);
 		}
-	}	
-	
+	};	
 	
 	ei_formulario_ml.prototype.resetear_errores = function() {
 		if (! this._silencioso)	 {

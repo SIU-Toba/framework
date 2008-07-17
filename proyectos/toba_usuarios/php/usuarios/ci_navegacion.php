@@ -86,11 +86,14 @@ class ci_navegacion extends toba_ci
 	
 	function conf__editar()
 	{
-		if( toba::sesion()->proyecto_esta_predefinido() ) {
+		/*
+		if(toba::sesion()->proyecto_esta_predefinido() ) {
 			$this->pantalla('editar')->eliminar_dep('editor');
 		}else{
 			$this->pantalla('editar')->eliminar_dep('editor_simple');
-		}
+		}*/
+		// Se fuerza ir por el editor normal sino no es posible definir si el usuario puedo o no editar usuarios!
+		$this->pantalla('editar')->eliminar_dep('editor_simple');
 	}
 
 	function conf__cuadro($componente)

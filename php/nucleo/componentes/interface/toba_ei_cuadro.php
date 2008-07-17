@@ -32,6 +32,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_submit_orden_columna;
 	protected $_submit_paginado;
 	protected $_submit_seleccion;
+	protected $_agrupacion_columnas = array();
 	//Orden
     protected $_orden_columna;                     	// Columna utilizada para realizar el orden
     protected $_orden_sentido;                     	// Sentido del orden ('asc' / 'desc')
@@ -175,7 +176,7 @@ class toba_ei_cuadro extends toba_ei
 
 	/**
 	 * Elimina columnas del cuadro
-	 * @param array $columnas. Ids de las columanas a eliminar
+	 * @param array $columnas. Ids de las columnas a eliminar
 	 */
 	function eliminar_columnas($columnas)
 	{
@@ -184,6 +185,30 @@ class toba_ei_cuadro extends toba_ei
 			array_splice($this->_info_cuadro_columna, $id, 1);
 			$this->procesar_definicion();	//Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
 		}		
+	}
+	
+	/**
+	 * Chequea si una columna existe en la definicion del cuadro.
+	 * @param $columna. Id de la columna.
+	 */
+	function existe_columna($columna){
+		$id = $this->_info_cuadro_columna_indices[$columna];
+		return isset($this->_info_cuadro_columna[$id]) && ($this->_info_cuadro_columna[$id]['clave'] == $columna);
+	}
+	
+	/**
+	 * Chequea si un conjunto de columnas existen en la definicion del cuadro.
+	 * @param array $columnas. Ids de las columnas.
+	 */	
+	function existen_columnas($columnas){
+		$existen = true;
+		foreach ($columnas as $columna){
+			$existen = $existen && $this->existe_columna($columna);
+			if (!$existen) {
+				break;
+			}
+		}
+		return $existen;
 	}
 	
 	/**
@@ -214,6 +239,23 @@ class toba_ei_cuadro extends toba_ei
 		$this->_info_cuadro_columna = array_merge($this->_info_cuadro_columna, array_values($columnas));
 		$this->procesar_definicion(); //Se re ejecuta por eliminación para actualizar $this->_info_cuadro_columna_indices
 	}	
+	
+	/**
+	 * Agrupa columnas adyacentes bajo una etiqueta común
+	 *
+	 * @param string $nombre_grupo Etiqueta que toma el grupo
+	 * @param array $columnas Id. de las columnas a agrupar, deben ser adyacentes
+	 */
+	function set_grupo_columnas($nombre_grupo, $columnas)
+	{
+		$this->_agrupacion_columnas[$nombre_grupo] = $columnas;
+		foreach ($columnas as $columna) {
+			if (! isset($this->_columnas[$columna])) {
+				throw new toba_error_def("No es posible agrupar las columnas, la columna '$columna' no existe");
+			}
+			$this->_columnas[$columna]['grupo'] = $nombre_grupo;
+		}
+	}
 	
 	/**
 	 * Retorna la definición de las columnas actuales del cuadro
@@ -1623,8 +1665,15 @@ class toba_ei_cuadro extends toba_ei
         	}			
 		}
         if ($alguna_tiene_titulo) {
+        	$rowspan = empty($this->_agrupacion_columnas) ? '' : "rowspan='2'";
+        	$html_columnas_agrupadas = '';
+        	$grupo_actual = null;
 	        echo "<tr>\n";
 	        foreach (array_keys($this->_columnas) as $a) {
+	        	$html_columna = '';
+	        	//El alto de la columna, si esta agrupada es uno sino es el general
+	        	$rowspan_col = isset($this->_columnas[$a]['grupo']) ? "" : $rowspan;
+	        	
 	            if(isset($this->_columnas[$a]["ancho"])){
 	                $ancho = " width='". $this->_columnas[$a]["ancho"] . "'";
 	            }else{
@@ -1634,23 +1683,44 @@ class toba_ei_cuadro extends toba_ei
 	            if(!$estilo_columna){
 	            	$estilo_columna = 'ei-cuadro-col-tit';
 	            }
-	            echo "<td class='$estilo_columna' $ancho>\n";
-	            $this->html_cuadro_cabecera_columna(    $this->_columnas[$a]["titulo"],
+	            $html_columna .= "<td $rowspan_col class='$estilo_columna' $ancho>\n";
+	            $html_columna .= $this->html_cuadro_cabecera_columna(    $this->_columnas[$a]["titulo"],
 	                                        $this->_columnas[$a]["clave"],
 	                                        $a );
-	            echo "</td>\n";
+	            $html_columna .= "</td>\n";
+           
+	        	if (! isset($this->_columnas[$a]['grupo'])) {
+	        		//Si no es una columna agrupada,saca directamente su html
+	        		echo $html_columna;
+	        		$grupo_actual = null;
+	        	} else {
+	        		//Guarda el html de la columna para sacarlo una fila mas abajo
+	        		$html_columnas_agrupadas .= $html_columna;
+	        		//Si es la primera columna de la agrupación saca un unico <td> del ancho de la agrupacion
+	        		if (! isset($grupo_actual) || $grupo_actual != $this->_columnas[$a]['grupo']) {
+		        		$grupo_actual = $this->_columnas[$a]['grupo'];	        			
+		        		$cant_col = count($this->_agrupacion_columnas[$grupo_actual]);
+		        		echo "<td class='ei-cuadro-col-tit ei-cuadro-col-tit-grupo' colspan='$cant_col'>$grupo_actual</td>";
+	        		}
+	        	}
 	        }
 	        //-- Eventos sobre fila
 			if($this->_cantidad_columnas_extra > 0){
 				foreach ($this->get_eventos_sobre_fila() as $evento) {
-					echo "<td class='ei-cuadro-col-tit'>&nbsp;";
+					echo "<td $rowspan class='ei-cuadro-col-tit'>&nbsp;";
 					if (toba_editor::modo_prueba()) {
 						echo toba_editor::get_vinculo_evento($this->_id, $this->_info['clase_editor_item'], $evento->get_id())."\n";
 					}
 					echo "</td>\n";
 				}
 			}
-	        echo "</tr>\n";
+	        echo "</tr>\n";			
+			//-- Columnas Agrupadas
+			if ($html_columnas_agrupadas != '') {
+				echo "<tr>\n";
+				echo $html_columnas_agrupadas;
+				echo "</tr>\n";
+			}
         }
 	}
 
@@ -1660,6 +1730,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	protected function html_cuadro_cabecera_columna($titulo,$columna,$indice)
     {
+    	$salida = '';
         //--- ¿Es ordenable?
 		if (	isset($this->_eventos['ordenar']) 
 				&& $this->_columnas[$indice]["no_ordenar"] != 1
@@ -1667,7 +1738,7 @@ class toba_ei_cuadro extends toba_ei
 			$sentido = array();
 			$sentido[] = array('asc', 'Ordenar ascendente');
 			$sentido[] = array('des', 'Ordenar descendente');
-			echo "<span class='ei-cuadro-orden'>";			
+			$salida .= "<span class='ei-cuadro-orden'>";			
 			foreach($sentido as $sen){
 			    $sel="";
 			    if ($this->hay_ordenamiento() && ($columna==$this->_orden_columna)&&($sen[0]==$this->_orden_sentido)) {
@@ -1679,23 +1750,22 @@ class toba_ei_cuadro extends toba_ei
 				$evento_js = toba_js::evento('ordenar', $this->_eventos['ordenar'], $parametros);
 				$js = "{$this->objeto_js}.set_evento($evento_js);";
 			    $src = toba_recurso::imagen_toba("nucleo/sentido_". $sen[0] . $sel . ".gif");
-				echo toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
+				$salida .= toba_recurso::imagen($src, null, null, $sen[1], '', "onclick=\"$js\"", 'cursor: pointer; cursor:hand;');
 			}
-			echo "</span>";			
+			$salida .= "</span>";			
 		}    	
 		//--- Nombre de la columna
 		if (trim($columna) != '' || trim($this->_columnas[$indice]["vinculo_indice"])!="") {           
-            echo $titulo;
+            $salida .= $titulo;
         }	
 		//---Editor de la columna
-		$editor = '';
 		if ( toba_editor::modo_prueba() && $this->_tipo_salida == 'html' ){
 			$item_editor = "1000253";
 			$param_editor = array( apex_hilo_qs_zona => implode(apex_qs_separador,$this->_id),
 									'columna' => $columna );
-			$editor = toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);
-		}	
-		echo $editor;
+			$salida .= toba_editor::get_vinculo_subcomponente($item_editor, $param_editor);
+		}
+		return $salida;	
     }
 
     /**

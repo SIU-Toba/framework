@@ -100,7 +100,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$id = $this->get_id();
 		$url = $this->instancia->get_url_proyecto($id);
 		if ($url == '') {
-			$url = '/'.$id.'/'.$this->get_version_proyecto();
+			$version = $this->get_version_proyecto();
+			$url = '/'.$id.'/'.$version->get_release();
 		}
 		return $url;
 	}

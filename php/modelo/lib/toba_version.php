@@ -63,6 +63,11 @@ class toba_version
 		$s = $this->__toString();
 		return str_replace('.', $separador, $s);
 	}
+	
+	function get_release($separador = '.')
+	{
+		return $this->partes[0].$separador.$this->partes[1];
+	}
 
 	function es_igual($version)
 	{

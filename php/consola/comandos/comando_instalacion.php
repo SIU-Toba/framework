@@ -38,8 +38,8 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__instalar()
 	{
-		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_string_partes();
-		$alias = '/'.$nombre_toba;
+		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
+		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
 		$this->consola->titulo("Instalación Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
 
 		//--- Verificar instalacion
@@ -186,6 +186,9 @@ class comando_instalacion extends comando_toba
 			$this->consola->mensaje("   export toba_instancia=desarrollo");
 			$this->consola->mensaje('   export PATH="$toba_dir/bin:$PATH"');
 		}
+		$this->consola->mensaje("");
+		$url = $instancia->get_proyecto('toba_editor')->get_url();
+		$this->consola->mensaje("Luego puede ingresar al editor navegando hacia http://localhost$url");		
 		$this->consola->mensaje("");
 	}
 	

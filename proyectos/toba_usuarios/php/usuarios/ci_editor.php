@@ -108,8 +108,8 @@ class ci_editor extends toba_ci
 			$this->datos('proyecto')->nueva_fila($fila);
 		}
 		//-- Perfil datos -----------------------------
+		$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 		if ( isset($datos['usuario_perfil_datos']) ) {
-			$id = $this->datos('proyecto_pd')->get_id_fila_condicion(array('proyecto'=>$this->s__proyecto));
 			$fila = array();
 			$fila['proyecto'] = $this->s__proyecto;
 			$fila['usuario'] = $this->s__usuario;
@@ -119,6 +119,9 @@ class ci_editor extends toba_ci
 			}else{
 				$this->datos('proyecto_pd')->modificar_fila($id[0], $fila);
 			}
+		} else if (! empty($id)) {
+			//-- Si por pantalla no viene nada pero esta en la tabla hay que borrarlo
+			$this->datos('proyecto_pd')->eliminar_fila($id[0]);
 		}
 		$this->limpiar_datos();
 	}
@@ -146,10 +149,15 @@ class ci_editor extends toba_ci
 	function conf__form_proyectos($componente)
 	{
 		if (isset($this->s__proyecto)) {
+			$datos = array();
 			$datos['proyecto'] = $this->s__proyecto;
 			$datos['clave'] = self::clave_falsa;
 			//-- Perfil funcional -------------------------
 			$grupo_acc = $this->datos('proyecto')->get_filas( array('usuario'=> $this->s__usuario, 'proyecto'=>$this->s__proyecto));
+			if (empty($grupo_acc)) {
+				$componente->eliminar_evento('baja');
+			}
+			
 			$ga_seleccionados = array();
 			foreach ($grupo_acc as $i=>$ga){
 				$ga_seleccionados[] = $ga['usuario_grupo_acc'];

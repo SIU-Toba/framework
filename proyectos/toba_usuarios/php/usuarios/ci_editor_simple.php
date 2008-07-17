@@ -60,6 +60,8 @@ class ci_editor_simple extends toba_ci
 			$fila_pd['proyecto'] = $this->s__proyecto;
 			$fila_pd['usuario_perfil_datos'] = $datos['usuario_perfil_datos'];
 			$this->datos('proyecto_pd')->set($fila_pd);
+		} else {
+			$this->datos('proyecto_pd')->set(null);
 		}
 	}
 

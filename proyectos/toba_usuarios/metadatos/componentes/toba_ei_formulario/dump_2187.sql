@@ -46,16 +46,16 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_usuarios', --proyecto
-	'956', --evento_id
+	'954', --evento_id
 	'2187', --objeto
-	'modificacion', --identificador
-	'&Asociar', --etiqueta
-	'1', --maneja_datos
+	'baja', --identificador
+	'Desvincular', --etiqueta
+	'0', --maneja_datos
 	NULL, --sobre_fila
-	NULL, --confirmacion
-	'ei-boton-mod', --estilo
+	'¿Desea ELIMINAR los accesos del USUARIO al proyecto?', --confirmacion
+	'ei-boton-baja', --estilo
 	'apex', --imagen_recurso_origen
-	'tilde.gif', --imagen
+	'borrar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -76,49 +76,19 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_usuarios', --proyecto
-	'955', --evento_id
+	'956', --evento_id
 	'2187', --objeto
-	'cancelar', --identificador
-	'Ca&ncelar', --etiqueta
-	'0', --maneja_datos
+	'modificacion', --identificador
+	'Vincular', --etiqueta
+	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
-	'ei-boton-canc', --estilo
+	'ei-boton-mod', --estilo
 	'apex', --imagen_recurso_origen
-	'prohibido.png', --imagen
+	'tilde.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
-	NULL, --ci_predep
-	'0', --implicito
-	'0', --defecto
-	NULL, --display_datos_cargados
-	'cargado', --grupo
-	NULL, --accion
-	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
-	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
-	NULL, --accion_vinculo_popup_param
-	NULL, --accion_vinculo_target
-	NULL  --accion_vinculo_celda
-);
-INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
-	'toba_usuarios', --proyecto
-	'954', --evento_id
-	'2187', --objeto
-	'baja', --identificador
-	'&Eliminar', --etiqueta
-	'0', --maneja_datos
-	NULL, --sobre_fila
-	'¿Desea ELIMINAR los accesos del USUARIO al proyecto?', --confirmacion
-	'ei-boton-baja', --estilo
-	'apex', --imagen_recurso_origen
-	'borrar.gif', --imagen
-	'1', --en_botonera
-	NULL, --ayuda
-	'3', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'0', --defecto
@@ -175,8 +145,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --ev_seleccion
 	NULL, --alto
 	NULL, --analisis_cambios
-	NULL, --no_imprimir_efs_sin_estado
-	NULL  --resaltar_efs_con_estado
+	'0', --no_imprimir_efs_sin_estado
+	'0'  --resaltar_efs_con_estado
 );
 
 ------------------------------------------------------------
@@ -251,7 +221,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --selec_cant_minima
 	NULL, --selec_cant_maxima
 	'1', --selec_utilidades
-	NULL, --selec_tamano
+	'6', --selec_tamano
 	NULL, --selec_ancho
 	'0', --selec_serializar
 	NULL, --selec_cant_columnas
@@ -289,7 +259,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nombre', --carga_col_desc
 	'proyecto', --carga_maestros
 	'0', --carga_cascada_relaj
-	'-- SELECCION --', --carga_no_seteado
+	'-- NINGUNO --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -335,7 +305,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2187', --objeto_ei_formulario
 	'toba_usuarios', --objeto_ei_formulario_proyecto
 	'proyecto', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'proyecto', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio

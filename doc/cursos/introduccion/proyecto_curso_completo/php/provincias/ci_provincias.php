@@ -10,47 +10,47 @@ class ci_provincias extends toba_ci
 	
 	function evt__cuadro__seleccion($seleccion)
 	{
-		$this->dep('datos')->cargar($seleccion);
+		$this->dep('tabla_provincias')->cargar($seleccion);
 	}
 
 	//---- form -------------------------------------------------------------------------
 
 	function conf__form($componente)
 	{
-		if ($this->dep('datos')->esta_cargada()) {
-			return $this->dep('datos')->get();	
+		if ($this->dep('tabla_provincias')->esta_cargada()) {
+			return $this->dep('tabla_provincias')->get();	
 		}
 	}
 
 	function evt__form__alta($datos)
 	{
-		$this->dep('datos')->nueva_fila($datos);
-		$this->dep('datos')->sincronizar();
-		$this->dep('datos')->resetear();
+		$this->dep('tabla_provincias')->set($datos);
+		$this->dep('tabla_provincias')->sincronizar();
+		$this->dep('tabla_provincias')->resetear();
 	}
+	
+	function evt__form__modificacion($datos)
+	{
+		$this->dep('tabla_provincias')->set($datos);
+		$this->dep('tabla_provincias')->sincronizar();
+		$this->dep('tabla_provincias')->resetear();
+	}	
 
 	function evt__form__baja()
 	{
 		try {
-			$this->dep('datos')->eliminar_filas();
-			$this->dep('datos')->sincronizar();
-			$this->dep('datos')->resetear();
+			$this->dep('tabla_provincias')->set(null);
+			$this->dep('tabla_provincias')->sincronizar();
+			$this->dep('tabla_provincias')->resetear();
 		} catch (toba_error $e) {
 			toba::notificacion()->agregar('No es posible eliminar el registro.');
-			$this->dep('datos')->resetear();
+			$this->dep('tabla_provincias')->resetear();
 		}
-	}
-
-	function evt__form__modificacion($datos)
-	{
-		$this->dep('datos')->set($datos);
-		$this->dep('datos')->sincronizar();
-		$this->dep('datos')->resetear();
 	}
 
 	function evt__form__cancelar()
 	{
-		$this->dep('datos')->resetear();
+		$this->dep('tabla_provincias')->resetear();
 	}
 }
 ?>

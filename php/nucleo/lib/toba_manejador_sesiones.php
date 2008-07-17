@@ -407,6 +407,12 @@ class toba_manejador_sesiones
 	{
 		$this->cerrar_sesion($observaciones);
 		$this->borrar_segmento_proyecto();
+		$this->borrar_segmento_instancia();
+		if ($this->get_cantidad_instancias_cargadas()==0) {
+			$this->borrar_segmento_instalacion();
+		}
+		//$this->desregistrar_usuario();
+		/*
 		if ($this->get_cantidad_proyectos_cargados()==0) {
 			// El proyecto era el unico abierto, intento restaurar la memoria completamente
 			$this->borrar_segmento_instancia();
@@ -419,6 +425,7 @@ class toba_manejador_sesiones
 				$this->desregistrar_usuario();
 			}
 		}
+		*/
 	}
 	
 	private function cargar_usuario($id_usuario=null)

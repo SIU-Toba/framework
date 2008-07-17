@@ -33,7 +33,7 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	NULL, --sesion_subclase
 	NULL, --sesion_subclase_archivo
 	'contexto_ejecucion_curso', --contexto_ejecucion_subclase
-	'customizacion_toba/contexto_ejecucion_curso.php', --contexto_ejecucion_subclase_archivo
+	'extension_toba/contexto_ejecucion_curso.php', --contexto_ejecucion_subclase_archivo
 	NULL, --usuario_subclase
 	NULL, --usuario_subclase_archivo
 	'0', --encriptar_qs

@@ -134,14 +134,14 @@ class toba_ef_upload extends toba_ef
 				default:
 					return "Ha ocurrido un error cargando el archivo ($id)";
 			}
-			if (isset($this->extensiones_validas) && $this->tiene_estado()) {
+			if (isset($this->extensiones_validas) && $this->archivo_subido && !$this->es_archivo_vacio()) {
 				$rep = $_FILES[$this->id_form]['name'];
 				$ext = substr($rep, strrpos($rep, '.') + 1);
 				if (! in_array(strtolower($ext), $this->extensiones_validas)) {
 					$extensiones = implode(', ', $this->extensiones_validas);
 					$this->archivo_subido = false;
 					$this->estado = null;
-					return "No esta permitido subir este tipo de archivo. Solo se permiten extensiones '$extensiones'";
+					return "No esta permitido subir este tipo de archivo. Solo se permiten extensiones $extensiones";
 				}
 			}
 		}

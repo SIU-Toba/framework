@@ -118,12 +118,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1133', --pantalla
 	'proyecto', --identificador
 	'2', --orden
-	'Perfiles de Acceso en Proyectos', --etiqueta
+	'Perfiles', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
-	'nucleo/proyecto.gif', --imagen
-	'cuadro_proyectos,filtro_proyectos,form_proyectos,form_datos_perfil', --objetos
+	NULL, --imagen
+	'cuadro_proyectos,form_proyectos', --objetos
 	NULL, --eventos
 	NULL, --subclase
 	NULL  --subclase_archivo

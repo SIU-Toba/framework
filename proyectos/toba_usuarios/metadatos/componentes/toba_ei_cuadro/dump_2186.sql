@@ -155,7 +155,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'764', --objeto_cuadro_col
 	'grupos_acceso', --clave
 	'2', --orden
-	'Grupos de Acceso', --titulo
+	'Perfiles Funcionales', --titulo
 	NULL, --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
