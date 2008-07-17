@@ -27,12 +27,12 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	ei_formulario_ml.prototype.iniciar = function() {
 		//Iniciar las filas
 		for (fila in this._filas) {
-			this.iniciar_fila(this._filas[fila], false);
+			this.iniciar_fila(this._filas[fila], false, true);
 		}
-		//Examen de cambios
 		if (this._con_examen_cambios) {
 			this._examinar_cambios();
-		}	
+		}		
+
 		//Agregar totales
 		for (var id_ef in this._ef_con_totales) {
 			this.agregar_procesamiento(id_ef);
@@ -49,9 +49,13 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 	/**
 	 *	@private
 	 */
-	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex) {
+	ei_formulario_ml.prototype.iniciar_fila = function (fila, agregar_tabindex, es_inicial) {
+		this._estado_inicial[fila] = {};
 		for (id_ef in this._efs) {
 			var ef = this._efs[id_ef].ir_a_fila(fila);
+			if (es_inicial && this._con_examen_cambios) {
+				this._estado_inicial[fila][id_ef] = this._efs[id_ef].get_estado();
+			}
 			if (this._invalidos[fila] && this._invalidos[fila][id_ef]) {
 				this._efs[id_ef].resaltar(this._invalidos[fila][id_ef]);
 			}			
@@ -203,8 +207,46 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			es_valido = this[validacion_particular](fila) && es_valido;
 		}
 		this.set_ef_valido(ef, es_valido, es_online);
+		if (es_online && this._con_examen_cambios) {
+			this._examinar_cambios(fila, id_ef);
+		}		
 		return es_valido;
 	};
+	
+	ei_formulario_ml.prototype._examinar_cambios = function (fila_actual, ef_actual) {
+		var hay_cambio = false;
+		//-- Revisar si hay filas nuevas o si cambiar los valores de los efs
+		for (fila in this._filas) {
+			if (! isset(this._estado_inicial[this._filas[fila]])) {
+				hay_cambio = true;
+			}
+			for (id_ef in this._efs) {
+				if (! in_array(id_ef, this._cambios_excluir_efs)) {
+					this._efs[id_ef].ir_a_fila(this._filas[fila]);
+					if (this._estado_inicial[this._filas[fila]][id_ef] !== this._efs[id_ef].get_estado()) {
+						hay_cambio = true;
+						if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
+							this._efs[id_ef].resaltar_cambio(true);
+						}
+					} else {
+						if (this._filas[fila] == fila_actual && id_ef == ef_actual) {
+							this._efs[id_ef].resaltar_cambio(false);
+						}
+					}
+				}
+			}		
+		}
+		//-- Revisar si faltan filas
+		for (i in this._estado_inicial) {
+			if (! isset(this._filas[i])) {
+				hay_cambio = true;
+			}
+		}
+		
+		if (this.evt__procesar_cambios) {
+			this.evt__procesar_cambios(hay_cambio);
+		}
+	}	
 	
 	
 	ei_formulario_ml.prototype.resetear_errores = function() {
@@ -395,6 +437,10 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this._pila_deshacer.push(new Function (
 								'document.getElementById("' + id_fila + '").style.display = ""\n' +
 								this._instancia + '._filas.splice(' + i + ',0,"' + fila + '")\n'));
+								
+		if (this._con_examen_cambios) {
+			this._examinar_cambios();
+		}		
 		return anterior;
 	};
 	
@@ -425,7 +471,7 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		fila_template.parentNode.appendChild(nuevo_nodo);
 
 			//Refresca la interface
-		this.iniciar_fila(this._proximo_id, true);
+		this.iniciar_fila(this._proximo_id, true, false);
 		this.refrescar_eventos_procesamiento(this._proximo_id);
 		this.refrescar_numeracion_filas();
 		if (_refrescar_todos){
@@ -436,6 +482,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 		this.refrescar_foco();
 		this.refrescar_sin_filas();
 		var nuevo_anexado = this._proximo_id; 
+		if (this._con_examen_cambios) {
+			this._examinar_cambios();
+		}		
 		this._proximo_id = this._proximo_id + 1;	//Busca un nuevo ID
 		return nuevo_anexado;
 	};
@@ -448,6 +497,9 @@ function ei_formulario_ml(id, instancia, rango_tabs, input_submit, filas,
 			var funcion = this._pila_deshacer.pop();
 			funcion();
 		}
+		if (this._con_examen_cambios) {
+			this._examinar_cambios();
+		}		
 		this.refrescar_todo();
 	};
 
