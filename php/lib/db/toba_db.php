@@ -26,6 +26,7 @@ class toba_db
 	protected $debug = false;
 	protected $debug_sql_id = 0;
 	protected $parser_errores = null;
+	protected $sentencias = array();
 	
 	/**
 	 * @param string $profile Host donde se localiza el servidor
@@ -263,6 +264,127 @@ class toba_db
 		$datos = $this->consultar($sql);
 		return !empty($datos);
 	}
+
+	/**
+	*	Ejecuta los comandos disponibles en un archivo
+	*	@param string $archivo Path absoluto del archivo
+	*/
+	function ejecutar_archivo($archivo)
+	{
+		if (!file_exists($archivo)) {
+			throw new toba_error("Error al ejecutar comandos. El archivo '$archivo' no existe");
+		}
+		$str = file_get_contents($archivo);
+		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
+		return $this->ejecutar($str);
+		//}
+	}
+
+	//------------------------------------------------------------------------
+	//----------- Manejo de Sentencias Preparadas ----------------------------
+	//------------------------------------------------------------------------
+
+	/**
+	*	Prepara una sentencia para su ejecucion posterior.
+	* 	
+	*	@param string $sql Consulta SQL
+	*	@param array Arreglo con parametros del driver
+	*	@return integer ID de la sentencia, necesario para ejecutarla posteriormente con 'ejecutar_sentencia($id)'
+	*	@throws toba_error_db en caso de error
+	*/		
+	function preparar_sentencia($sql, $parametros=array())
+	{
+		try {
+			$id = count($this->sentencias);
+			$this->sentencias[$id] = $this->conexion->prepare($sql, $parametros);
+			return $id;
+		} catch (PDOException $e) {
+			$ee = new toba_error_db("ERROR ejecutando SQL. " .
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
+									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
+			$ee->set_mensaje_motor($e->getMessage());
+			throw $ee;
+		}		
+	}
+	
+	/**
+	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
+	* 	
+	*	@param integer ID de la sentencia
+	*	@param array Arreglo con parametros de la sentencia
+	*	@return array Resultado de la consulta en formato recordset (filas x columnas), 
+	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
+	*	@throws toba_error_db en caso de error
+	*/		
+	function consultar_sentencia($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	{
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		try {
+			$this->sentencias[$id]->execute($parametros);
+			return $this->sentencias[$id]->fetchAll($tipo_fetch);
+		} catch (PDOException $e) {
+			$ee = new toba_error_db("ERROR ejecutando SQL. " .
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]", $e->getCode() );
+			$ee->set_mensaje_motor($e->getMessage());
+			throw $ee;
+		}		
+	}
+
+	/**
+	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
+	* 	
+	*	@param integer ID de la sentencia
+	*	@param array Arreglo con parametros de la sentencia
+	*	@return array Resultado de la consulta en formato recordset (filas x columnas), 
+	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
+	*	@throws toba_error_db en caso de error
+	*/		
+	function ejecutar_sentencia($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	{
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		try {
+			$this->sentencias[$id]->execute($parametros);
+		} catch (PDOException $e) {
+			$ee = new toba_error_db("ERROR ejecutando SQL. " .
+									"-- Mensaje MOTOR: [" . $e->getMessage() . "]", $e->getCode() );
+			$ee->set_mensaje_motor($e->getMessage());
+			throw $ee;
+		}		
+	}
+
+	/**
+	*	Retorna las filas afectadas por una sentencia
+	*	@param integer ID de la sentencia
+	*	@return integer Cantidad de registros afectados
+	*/
+	function registros_sentencia($id, $tipo_fetch=toba_db_fetch_asoc)
+	{
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		return $this->sentencias[$id]->fetchAll($tipo_fetch);
+	}
+
+	/**
+	*	Retorna las filas afectadas por una sentencia
+	*	@param integer ID de la sentencia
+	*	@return integer Cantidad de registros afectados
+	*/
+	function registros_afectados_sentencia($id)
+	{
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		return $this->sentencias[$id]->rowCount();
+	}
+	
+	//------------------------------------------------------------------------
+	//------------ TRANSACCIONES ---------------------------------------------
+	//------------------------------------------------------------------------
 	
 	/**
 	 * Ejecuta un BEGIN TRANSACTION en la conexión
@@ -307,21 +429,6 @@ class toba_db
 			throw $e;
 		}
 		$this->cerrar_transaccion();
-	}
-
-	/**
-	*	Ejecuta los comandos disponibles en un archivo
-	*	@param string $archivo Path absoluto del archivo
-	*/
-	function ejecutar_archivo($archivo)
-	{
-		if (!file_exists($archivo)) {
-			throw new toba_error("Error al ejecutar comandos. El archivo '$archivo' no existe");
-		}
-		$str = file_get_contents($archivo);
-		//if( trim($str) != '' ) {	//Esto estaba asi porque la ejecusion de algo vacio falla.
-		return $this->ejecutar($str);
-		//}
 	}
 
 	//------------------------------------------------------------------------

@@ -121,23 +121,34 @@ class ci_prueba extends toba_ci
 	
 	function ejecutar_test()
 	{
-		// Preparo el TEST
 		toba::perfil_de_datos()->set_perfil($this->s__detalle_test['perfil_datos']);		
-		//----- Cabecera ----------------------------
-		$this->cabecera_prueba = 'Perfil de datos: ' . toba::perfil_de_datos()->get_id();
-		if ( $this->s__detalle_test['sql_original'] ) {
-			$this->cabecera_prueba .= '';
-		}
-		//----- Detalle del TEST --------------------
-		foreach($this->s__sqls_a_ejecutar as $id => $sql) {
-			//-[1]- Mostrar el SQL original
-			if($this->s__detalle_test['sql_original']) {
-				$this->pruebas[$id]['SQL Original'] = $sql;
+		$this->cabecera_prueba = toba::perfil_de_datos()->get_info($this->fuente);
+		$this->pruebas = toba::perfil_de_datos()->probar_sqls( 	$this->fuente, 
+																$this->s__sqls_a_ejecutar,
+																$this->s__detalle_test['datos_filas'],
+																$this->s__detalle_test['datos_listar'] );
+		// Oculto la informacion que no se solicito
+		foreach( array_keys($this->pruebas) as $id) {
+			// Ocultar no procesados
+			if(! $this->pruebas[$id]['modificado'] && $this->s__detalle_test['omitir_no_afectados'] ) {
+				unset($this->pruebas[$id]);
 			}
-			//-[2]- Mostrar el SQL modificado
-			if($this->s__detalle_test['sql_modificado']) {
-				$sql_modif = toba::perfil_de_datos()->filtrar($sql, $this->fuente);
-				$this->pruebas[$id]['SQL Modificado'] = $sql_modif;
+			// Ocultar el SQL original
+			if(! $this->s__detalle_test['sql_original']) {
+				unset($this->pruebas[$id]['sql_original']);
+			}
+			// Ocultar analisis de dimensiones
+			if(! $this->s__detalle_test['info_dimensiones']) {
+				unset($this->pruebas[$id]['gatillos']);
+				unset($this->pruebas[$id]['dimensiones']);
+			}
+			// Ocultar el WHERE
+			if(! $this->s__detalle_test['sql_where']) {
+				unset($this->pruebas[$id]['where']);
+			}			
+			// Ocultar SQL modificado
+			if(! $this->s__detalle_test['sql_modificado']) {
+				unset($this->pruebas[$id]['sql_modificado']);
 			}
 		}
 	}

@@ -9,7 +9,6 @@ class ci_datos_usuario extends toba_ci
 		ei_arbol(toba::perfil_de_datos()->get_restricciones($fuente),'get_restricciones');
 		ei_arbol(toba::perfil_de_datos()->get_lista_dimensiones_restringidas($fuente),'get_lista_dimensiones_restringidas');
 		ei_arbol(toba::perfil_de_datos()->get_gatillos_activos($fuente),'get_gatillos_activos');
-		toba::perfil_de_datos()->dump();
 	}
 }
 

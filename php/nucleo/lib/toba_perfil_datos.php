@@ -76,12 +76,6 @@ class toba_perfil_datos
 		$this->gatillos_activos[$fuente] = array_unique($gatillos);
 	}
 
-	function dump()
-	{
-		ei_arbol($this->info_dimensiones,'info_dimensiones');	
-		ei_arbol($this->indice_gatillos,'indice_gatilloss');	
-	}
-	
 	//-----------------------------------------------
 	//------ API Informacion
 	//-----------------------------------------------
@@ -96,7 +90,7 @@ class toba_perfil_datos
 	}
 
 	/**
-	*	Indica si el perfil de datos del usuario
+	*	Indica si el perfil de datos del usuario posee restricciones
 	*	@return $value	boolean
 	*/
 	function posee_restricciones($fuente)
@@ -386,6 +380,72 @@ class toba_perfil_datos
 			}
 		}
 		return $tablas;
+	}
+
+	//--------------------------------------------------------------------
+	//----- Testing
+	//--------------------------------------------------------------------
+
+	/**
+	*	Estado del sistema de perfiles de datos para el usuario actual
+	*/
+	function get_info($fuente_datos)
+	{
+		$info['perfil_id'] = $this->get_id();
+		$info['perfil_nombre'] = 
+		$info['dimensiones_restringidas'] = $this->get_lista_dimensiones_restringidas($fuente_datos);
+		$info['gatillos_activos'] = $this->get_gatillos_activos($fuente_datos);
+		return $info;
+	}
+	
+	/**
+	*	Ejecuta el filtrado de SQL sobre un conjunto de SQLs
+	*/
+	function probar_sqls($fuente_datos, $sqls, $contar_filas=false, $mostrar_filas=false)
+	{
+		$test = array();
+		foreach($sqls as $id => $sql) {
+			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql($sql, $fuente_datos);
+			//- SQL ORIGINAL ----------------------------------
+			$test[$id]['sql_original'] = $sql;
+			if( $tablas_gatillo ) {	
+				$test[$id]['modificado'] = true;
+				$dimensiones = $this->reconocer_dimensiones_implicadas(array_keys($tablas_gatillo), $fuente_datos);
+				//- ANALISIS -------------------------------
+				$test[$id]['gatillos'] = array_keys($tablas_gatillo);
+				$test[$id]['dimensiones'] = array_keys($dimensiones);
+				//- WHERE ------------------------
+				$where = array();
+				foreach( $dimensiones as $dimension => $tabla ) {
+					$alias_tabla = $tablas_gatillo[$tabla];
+					$where[] = $this->get_where_dimension_gatillo($fuente_datos, $dimension, $tabla, $alias_tabla);
+				}
+				$test[$id]['where'] = $where;
+				//- SQL MODIFICADO ------------------------------
+				$sql_modif = $this->filtrar($sql, $fuente_datos);
+				$test[$id]['sql_modificado'] = $sql_modif;
+				//- Probar los SQL contra la DB
+				if ( $contar_filas || $mostrar_filas ) {	
+					$pso = toba::db($fuente_datos)->preparar_sentencia($sql);
+					toba::db($fuente_datos)->ejecutar_sentencia($pso);
+					$psm = toba::db($fuente_datos)->preparar_sentencia($sql_modif);
+					toba::db($fuente_datos)->ejecutar_sentencia($psm);
+					//- CONTAR FILAS ----------------------------
+					if($contar_filas) {
+						$test[$id]['query_filas_orig'] = toba::db($fuente_datos)->registros_afectados_sentencia($pso);
+						$test[$id]['query_filas_modif'] = toba::db($fuente_datos)->registros_afectados_sentencia($psm);
+					}
+					//- MOSTRAR FILAS ---------------------------
+					if($mostrar_filas) {
+						$test[$id]['query_datos_orig'] = toba::db($fuente_datos)->registros_sentencia($pso);
+						$test[$id]['query_datos_modif'] = toba::db($fuente_datos)->registros_sentencia($psm);
+					}
+				}			
+			} else {
+				$test[$id]['modificado'] = false;
+			}
+		}
+		return $test;
 	}
 }
 ?>
