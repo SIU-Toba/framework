@@ -23,6 +23,8 @@ class ci_navegacion extends toba_ci
 		if ( ! $this->dep('datos')->esta_cargada() ) {
 			$pantalla->eliminar_evento('eliminar');
 		}
+		//-- Si es una instalación de producción avisar que los cambios se aplicaran solo a esta instalacion y no al proyecto/personalizacion
+		admin_instancia::chequear_usar_perfiles_propios($this->s__filtro['proyecto'], $this->pantalla());		
 	}
 	
 	//-----------------------------------------------------------------------------------
@@ -46,6 +48,8 @@ class ci_navegacion extends toba_ci
 		$this->dep('datos')->eliminar_todo();
 		$this->dep('datos')->resetear();
 		$this->set_pantalla('seleccion');
+		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia		
+		admin_instancia::set_usar_perfiles_propios($this->s__filtro['proyecto']);		
 	}
 
 	function evt__guardar()
@@ -53,6 +57,9 @@ class ci_navegacion extends toba_ci
 		$this->dep('datos')->sincronizar();
 		$this->dep('datos')->resetear();
 		$this->set_pantalla('seleccion');
+		
+		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia		
+		admin_instancia::set_usar_perfiles_propios($this->s__filtro['proyecto']);
 	}
 
 

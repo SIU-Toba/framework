@@ -8,7 +8,7 @@ CREATE SEQUENCE apex_usuario_perfil_datos_seq	INCREMENT 1	MINVALUE 0 MAXVALUE 92
 CREATE TABLE apex_usuario_perfil_datos
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: usuario_perfil_datos
 --: zona: usuario
 --: desc:
@@ -30,7 +30,7 @@ CREATE SEQUENCE apex_usuario_perfil_datos_dims_seq	INCREMENT 1	MINVALUE 0 MAXVAL
 CREATE TABLE apex_usuario_perfil_datos_dims
 --------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: permisos
 --: dump_order_by: elemento
 --: zona: usuario
 --: desc:

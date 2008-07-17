@@ -31,25 +31,25 @@ class toba_db_tablas_proyecto
   23 => 'apex_objeto_ei_filtro_tipo_col',
   24 => 'apex_molde_opciones_generacion',
   25 => 'apex_permiso',
-  26 => 'apex_usuario_perfil_datos',
-  27 => 'apex_usuario_perfil_datos_dims',
-  28 => 'apex_restriccion_funcional',
-  29 => 'apex_restriccion_funcional_ef',
-  30 => 'apex_restriccion_funcional_pantalla',
-  31 => 'apex_restriccion_funcional_evt',
-  32 => 'apex_restriccion_funcional_ei',
-  33 => 'apex_restriccion_funcional_cols',
-  34 => 'apex_restriccion_funcional_filtro_cols',
+  26 => 'apex_restriccion_funcional',
+  27 => 'apex_restriccion_funcional_ef',
+  28 => 'apex_restriccion_funcional_pantalla',
+  29 => 'apex_restriccion_funcional_evt',
+  30 => 'apex_restriccion_funcional_ei',
+  31 => 'apex_restriccion_funcional_cols',
+  32 => 'apex_restriccion_funcional_filtro_cols',
 );
 	}
 
 	static function get_lista_permisos()
 	{
 		return array (
-  0 => 'apex_usuario_grupo_acc',
-  1 => 'apex_usuario_grupo_acc_item',
-  2 => 'apex_permiso_grupo_acc',
-  3 => 'apex_grupo_acc_restriccion_funcional',
+  0 => 'apex_usuario_perfil_datos',
+  1 => 'apex_usuario_perfil_datos_dims',
+  2 => 'apex_usuario_grupo_acc',
+  3 => 'apex_usuario_grupo_acc_item',
+  4 => 'apex_permiso_grupo_acc',
+  5 => 'apex_grupo_acc_restriccion_funcional',
 );
 	}
 
@@ -743,7 +743,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_datos.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'usuario_perfil_datos',
   'zona' => 'usuario',
   'desc' => '',
@@ -764,7 +764,7 @@ class toba_db_tablas_proyecto
 		return array (
   'archivo' => 'pgsql_a60_tablas_perfil_datos.sql',
   'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
+  'dump' => 'permisos',
   'dump_order_by' => 'elemento',
   'zona' => 'usuario',
   'desc' => '',

@@ -31,26 +31,12 @@ class ci_navegacion_perfiles extends toba_ci
 	function conf__edicion_perfil()
 	{
 		//-- Si es una instalación de producción avisar que los cambios se aplicaran solo a esta instalacion y no al proyecto/personalizacion
-		$id_instancia = toba::instancia()->get_id();
-		$id_proyecto = $this->dep('editor_perfiles')->get_proyecto();
-		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
-		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);		
-		if (toba::instalacion()->es_produccion() && ! $usa_perfiles_propios) {
-			$msg = 'ATENCION! Al realizar cambios a los perfiles los mismos quedarán disponibles únicamente para la instalación actual.';
-			$this->pantalla()->set_descripcion($msg, 'warning');
-		}
+		admin_instancia::chequear_usar_perfiles_propios($this->dep('editor_perfiles')->get_proyecto(), $this->pantalla());
 	}
 	
 	function actualizar_info_ini()
 	{
-		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia
-		$id_instancia = toba::instancia()->get_id();
-		$id_proyecto = $this->dep('editor_perfiles')->get_proyecto();
-		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
-		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);
-		if (toba::instalacion()->es_produccion() && !$usa_perfiles_propios) {
-			$instancia->set_proyecto_usar_perfiles_propios($id_proyecto, true);
-		}
+		admin_instancia::set_usar_perfiles_propios($this->dep('editor_perfiles')->get_proyecto());
 	}
 	
 	function evt__guardar()

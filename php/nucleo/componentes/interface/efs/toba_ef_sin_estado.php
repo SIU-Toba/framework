@@ -104,9 +104,12 @@ class toba_ef_fieldset extends toba_ef_sin_estado
 	{
 		if(! $this->fin){
 			echo "<fieldset title='{$this->etiqueta}'>";
+			if (trim($this->etiqueta) != ''){
+				echo "<legend>{$this->etiqueta}</legend>";
+			}//if
 		} else {
 			echo "</fieldset>";
-		}
+		}//if externo
 	}
 	
 }	

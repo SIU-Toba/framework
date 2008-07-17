@@ -50,6 +50,30 @@ class admin_instancia
 		return self::$instanciacion;	
 	}
 	
+	
+	function chequear_usar_perfiles_propios($id_proyecto, toba_ei_pantalla $pantalla)
+	{
+		//-- Si es una instalación de producción avisar que los cambios se aplicaran solo a esta instalacion y no al proyecto/personalizacion
+		$id_instancia = toba::instancia()->get_id();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
+		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);		
+		if (toba::instalacion()->es_produccion() && ! $usa_perfiles_propios) {
+			$msg = 'ATENCION! Al realizar cambios a los perfiles los mismos quedarán disponibles únicamente para la instalación actual.';
+			$pantalla->set_descripcion($msg, 'warning');
+		}		
+	}
+	
+	function set_usar_perfiles_propios($id_proyecto)
+	{
+		//-- Si estamos en produccion guardamos un flag indicando que cambio la instancia
+		$id_instancia = toba::instancia()->get_id();
+		$instancia = toba_modelo_catalogo::instanciacion()->get_instancia($id_instancia);
+		$usa_perfiles_propios = $instancia->get_proyecto_usar_perfiles_propios($id_proyecto);
+		if (toba::instalacion()->es_produccion() && !$usa_perfiles_propios) {
+			$instancia->set_proyecto_usar_perfiles_propios($id_proyecto, true);
+		}		
+	}
+	
 	//------------------------------------------------------------
 	//-- Manejo del bloqueo de IPs
 	//------------------------------------------------------------

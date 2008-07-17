@@ -750,6 +750,9 @@ class toba_ap_tabla_db implements toba_ap_tabla
 					}
 				} elseif ( !isset($registro[$col]) || $registro[$col] === NULL ){
 					$set[] = "$col = NULL";
+				} elseif (is_bool($registro[$col])){
+					$valor = $registro[$col] ? 1 : 0;
+					$set[] = "$col = '$valor'";
 				}else{
 					$set[] = "$col = " . $db->quote(trim($registro[$col]));
 				}
