@@ -247,8 +247,8 @@ class toba_instancia
 	{
 		try {
 			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = :usuario";
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$rs = $this->get_db()->consultar_sentencia($id, array('usuario'=>$usuario));
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 			if(!empty($rs))	return $rs[0];
 		} catch (toba_error_db $e ) {
 			toba::logger()->debug($e->getMessagge());
@@ -300,8 +300,8 @@ class toba_instancia
 	function es_ip_rechazada($ip)
 	{
 		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip = :ip";
-		$id = $this->get_db()->preparar_sentencia($sql);
-		$rs = $this->get_db()->consultar_sentencia($id, array('ip'=>$ip));
+		$id = $this->get_db()->sentencia_preparar($sql);
+		$rs = $this->get_db()->sentencia_consultar($id, array('ip'=>$ip));
 		if ( empty($rs)) {
 			return false;
 		}
@@ -313,8 +313,8 @@ class toba_instancia
 		$texto = addslashes($texto);
 		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
 		try {
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
 		} catch ( toba_error_db $e) {
 			throw new toba_error('Error');
 		}
@@ -324,8 +324,8 @@ class toba_instancia
 	{
 		try {
 			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES (:ip)";
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$this->get_db()->ejecutar_sentencia($id, array('ip'=>$ip));
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$this->get_db()->sentencia_ejecutar($id, array('ip'=>$ip));
 		} catch ( toba_error $e ) {
 			//La ip ya esta rechazada	
 		}
@@ -340,8 +340,8 @@ class toba_instancia
 			$parametros['ventana_temporal'] = $ventana_temporal . ' min';
 		}
 		try {
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$rs = $this->get_db()->consultar_sentencia($id, $parametros);
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$rs = $this->get_db()->sentencia_consultar($id, $parametros);
 			return $rs[0]['total'];
 		} catch ( toba_error_db $e) {
 			throw new toba_error('Error!');
@@ -360,8 +360,8 @@ class toba_instancia
 			$parametros['ventana_temporal'] = $ventana_temporal . ' min';
 		}
 		try {
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$rs = $this->get_db()->consultar_sentencia($id, $parametros);
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$rs = $this->get_db()->sentencia_consultar($id, $parametros);
 			return $rs[0]['total'];
 		} catch ( toba_error_db $e) {
 			throw new toba_error('Error!');
@@ -372,8 +372,8 @@ class toba_instancia
 	{
 		try {
 			$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = :usuario";
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario));
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario));
 		} catch ( toba_error $e ) {
 			//el usuario ya esta bloqueado
 		}
@@ -382,8 +382,8 @@ class toba_instancia
 	function es_usuario_bloqueado($usuario)
 	{
 		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = :usuario AND bloqueado = 1";
-		$id = $this->get_db()->preparar_sentencia($sql);
-		$rs = $this->get_db()->consultar_sentencia($id, array('usuario'=>$usuario));
+		$id = $this->get_db()->sentencia_preparar($sql);
+		$rs = $this->get_db()->sentencia_consultar($id, array('usuario'=>$usuario));
 		if ( empty($rs)) {
 			return false;
 		}
@@ -459,8 +459,8 @@ class toba_instancia
 	{
 		try {
 			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = :usuario";
-			$id = $this->get_db()->preparar_sentencia($sql);
-			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario));
+			$id = $this->get_db()->sentencia_preparar($sql);
+			$this->get_db()->sentencia_ejecutar($id, array('usuario'=>$usuario));
 		} catch ( toba_error $e ) {
 			//el usuario ya esta bloqueado
 		}

@@ -292,19 +292,14 @@ class toba_db
 	*	@return integer ID de la sentencia, necesario para ejecutarla posteriormente con 'ejecutar_sentencia($id)'
 	*	@throws toba_error_db en caso de error
 	*/		
-	function preparar_sentencia($sql, $parametros=array())
+	function sentencia_preparar($sql, $parametros=array())
 	{
-		try {
-			$id = count($this->sentencias);
-			$this->sentencias[$id] = $this->conexion->prepare($sql, $parametros);
-			return $id;
-		} catch (PDOException $e) {
-			$ee = new toba_error_db("ERROR ejecutando SQL. " .
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]".
-									"-- SQL ejecutado: [" . $sql . "].", $e->getCode() );
-			$ee->set_mensaje_motor($e->getMessage());
-			throw $ee;
-		}		
+		$id = count($this->sentencias);
+		$this->sentencias[$id] = $this->conexion->prepare($sql, $parametros);
+		if ($this->sentencias[$id] === false ) {
+			new toba_error_db($e, "Error preparando la sentencia. " . $this->cortar_sql($sql), $this->parser_errores, true);
+		}
+		return $id;
 	}
 	
 	/**
@@ -312,11 +307,36 @@ class toba_db
 	* 	
 	*	@param integer ID de la sentencia
 	*	@param array Arreglo con parametros de la sentencia
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
+	*	@return integer Cantidad de registros afectados
+	*	@throws toba_error_db en caso de error
+	*/		
+	function sentencia_ejecutar($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	{
+		if(!isset($this->sentencias[$id])) {
+			throw new toba_error("La sentencia solicitada no existe.");
+		}
+		try {
+			$this->sentencias[$id]->execute($parametros);
+			return $this->sentencias[$id]->rowCount();
+		} catch (PDOException $e) {
+			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
+			$ee->set_mensaje_motor($e->getMessage());
+			throw $ee;
+		}		
+	}
+
+	/**
+	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
+	* 	
+	*	@param integer ID de la sentencia
+	*	@param array Arreglo con parametros de la sentencia
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
 	*	@return array Resultado de la consulta en formato recordset (filas x columnas), 
 	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
 	*	@throws toba_error_db en caso de error
 	*/		
-	function consultar_sentencia($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
+	function sentencia_consultar($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
 	{
 		if(!isset($this->sentencias[$id])) {
 			throw new toba_error("La sentencia solicitada no existe.");
@@ -325,32 +345,7 @@ class toba_db
 			$this->sentencias[$id]->execute($parametros);
 			return $this->sentencias[$id]->fetchAll($tipo_fetch);
 		} catch (PDOException $e) {
-			$ee = new toba_error_db("ERROR ejecutando SQL. " .
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]", $e->getCode() );
-			$ee->set_mensaje_motor($e->getMessage());
-			throw $ee;
-		}		
-	}
-
-	/**
-	*	Ejecuta una sentencia SQL preparada con 'preparar_sentencia'.
-	* 	
-	*	@param integer ID de la sentencia
-	*	@param array Arreglo con parametros de la sentencia
-	*	@return array Resultado de la consulta en formato recordset (filas x columnas), 
-	* 				un arreglo vacio en caso que la consulta no retorne datos, usar if (empty($resultado)) para chequearlo
-	*	@throws toba_error_db en caso de error
-	*/		
-	function ejecutar_sentencia($id, $parametros=array(), $tipo_fetch=toba_db_fetch_asoc)
-	{
-		if(!isset($this->sentencias[$id])) {
-			throw new toba_error("La sentencia solicitada no existe.");
-		}
-		try {
-			$this->sentencias[$id]->execute($parametros);
-		} catch (PDOException $e) {
-			$ee = new toba_error_db("ERROR ejecutando SQL. " .
-									"-- Mensaje MOTOR: [" . $e->getMessage() . "]", $e->getCode() );
+			$ee = new toba_error_db($e, "Error ejecutando la sentencia prepadara: $id.", $this->parser_errores, true);
 			$ee->set_mensaje_motor($e->getMessage());
 			throw $ee;
 		}		
@@ -359,9 +354,10 @@ class toba_db
 	/**
 	*	Retorna las filas afectadas por una sentencia
 	*	@param integer ID de la sentencia
-	*	@return integer Cantidad de registros afectados
+	*	@param string $tipo_fetch Modo Fetch de ADO, por defecto toba_db_fetch_asoc
+	*	@return array Resultado de la consulta en formato recordset (filas x columnas)
 	*/
-	function registros_sentencia($id, $tipo_fetch=toba_db_fetch_asoc)
+	function sentencia_datos($id, $tipo_fetch=toba_db_fetch_asoc)
 	{
 		if(!isset($this->sentencias[$id])) {
 			throw new toba_error("La sentencia solicitada no existe.");
@@ -374,14 +370,14 @@ class toba_db
 	*	@param integer ID de la sentencia
 	*	@return integer Cantidad de registros afectados
 	*/
-	function registros_afectados_sentencia($id)
+	function sentencia_cantidad_afectados($id)
 	{
 		if(!isset($this->sentencias[$id])) {
 			throw new toba_error("La sentencia solicitada no existe.");
 		}
 		return $this->sentencias[$id]->rowCount();
 	}
-	
+		
 	//------------------------------------------------------------------------
 	//------------ TRANSACCIONES ---------------------------------------------
 	//------------------------------------------------------------------------
