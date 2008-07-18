@@ -1,13 +1,10 @@
 <?php
-/*
-	Limitaciones parser:
-		- todo subquery tiene que estar entre parentesis
-		- no sepermiten subquerys en el FROM (extraños)
-*/
+
 class toba_perfil_datos
 {
 	const separador_multicol_db = '|%-,-%|';
-	protected $id;
+	protected $proyecto;						// Proyecto sobre el que se va a trabajar
+	protected $id;								// ID del perfil sobre el que se va a trabajar
 	protected $restricciones = array();
 	protected $fuentes_restringidas = array();
 	protected $info_dimensiones = array();
@@ -18,12 +15,14 @@ class toba_perfil_datos
 
 	function __construct()
 	{
+		// Por defecto el sistema se activa sobre el proyecto y usuario actual
 		$this->id = toba::manejador_sesiones()->get_perfil_datos();	
-		$this->inicializar();
+		$this->inicializar( toba::proyecto()->get_id() );
 	}
 	
-	private function inicializar()
+	private function inicializar($proyecto)
 	{
+		$this->proyecto = $proyecto;
 		if( isset($this->id) && $this->id !== '') { //Si el usuario tiene un perfil de datos
 			$this->cargar_info_restricciones();
 			foreach( $this->fuentes_restringidas as $fuente ) {
@@ -39,15 +38,15 @@ class toba_perfil_datos
 	*	@ignore
 	*		Setea un perfil por el request (Utilizado en las pruebas del perfil)
 	*/
-	function set_perfil($id)
+	function set_perfil($proyecto, $id)
 	{
 		$this->id = $id;
-		$this->inicializar();
+		$this->inicializar($proyecto);
 	}
 	
 	function cargar_info_restricciones()
 	{
-		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( toba::proyecto()->get_id(), $this->id );
+		$restricciones = toba_proyecto_implementacion::get_perfil_datos_restricciones( $this->proyecto, $this->id );
 		if($restricciones) {
 			foreach( $restricciones as $restriccion ) {
 				$this->restricciones[$restriccion['fuente_datos']][$restriccion['dimension']][] = explode(self::separador_multicol_db,$restriccion['clave']);
@@ -59,7 +58,7 @@ class toba_perfil_datos
 	function cargar_info_dimensiones($fuente)
 	{
 		foreach($this->get_lista_dimensiones_restringidas($fuente) as $dim) {
-			$this->info_dimensiones[$fuente][$dim] = toba::proyecto()->get_info_dimension($dim);
+			$this->info_dimensiones[$fuente][$dim] = toba::proyecto()->get_info_dimension($dim, $this->proyecto);
 		}
 	}
 
@@ -392,8 +391,16 @@ class toba_perfil_datos
 	function get_info($fuente_datos)
 	{
 		$info['perfil_id'] = $this->get_id();
-		$info['perfil_nombre'] = 
-		$info['dimensiones_restringidas'] = $this->get_lista_dimensiones_restringidas($fuente_datos);
+		$datos_perfil = toba_proyecto_implementacion::get_info_perfiles_datos( $this->proyecto ,$this->get_id());
+		$info['perfil_nombre'] = $datos_perfil['nombre'];
+		$info_dims = array();
+		$dims = $this->get_lista_dimensiones_restringidas($fuente_datos);
+		if( $dims ) {
+			foreach(  $dims as $dim) {
+				$info_dims[$dim] = $this->info_dimensiones[$fuente_datos][$dim]['nombre'];
+			}
+		}
+		$info['dimensiones_restringidas'] = $info_dims;
 		$info['gatillos_activos'] = $this->get_gatillos_activos($fuente_datos);
 		return $info;
 	}
@@ -404,6 +411,9 @@ class toba_perfil_datos
 	function probar_sqls($fuente_datos, $sqls, $contar_filas=false, $mostrar_filas=false)
 	{
 		$test = array();
+		if( ! $this->posee_restricciones($fuente_datos) ) {
+			return $test;
+		}
 		foreach($sqls as $id => $sql) {
 			$tablas_gatillo = $this->buscar_tablas_gatillo_en_sql($sql, $fuente_datos);
 			//- SQL ORIGINAL ----------------------------------
@@ -426,19 +436,19 @@ class toba_perfil_datos
 				$test[$id]['sql_modificado'] = $sql_modif;
 				//- Probar los SQL contra la DB
 				if ( $contar_filas || $mostrar_filas ) {	
-					$pso = toba::db($fuente_datos)->preparar_sentencia($sql);
-					toba::db($fuente_datos)->ejecutar_sentencia($pso);
-					$psm = toba::db($fuente_datos)->preparar_sentencia($sql_modif);
-					toba::db($fuente_datos)->ejecutar_sentencia($psm);
+					$pso = toba::db($fuente_datos)->sentencia_preparar($sql);
+					$pso_f = toba::db($fuente_datos)->sentencia_ejecutar($pso);
+					$psm = toba::db($fuente_datos)->sentencia_preparar($sql_modif);
+					$psm_f = toba::db($fuente_datos)->sentencia_ejecutar($psm);
 					//- CONTAR FILAS ----------------------------
 					if($contar_filas) {
-						$test[$id]['query_filas_orig'] = toba::db($fuente_datos)->registros_afectados_sentencia($pso);
-						$test[$id]['query_filas_modif'] = toba::db($fuente_datos)->registros_afectados_sentencia($psm);
+						$test[$id]['query_filas_orig'] = $pso_f;
+						$test[$id]['query_filas_modif'] = $psm_f;
 					}
 					//- MOSTRAR FILAS ---------------------------
 					if($mostrar_filas) {
-						$test[$id]['query_datos_orig'] = toba::db($fuente_datos)->registros_sentencia($pso);
-						$test[$id]['query_datos_modif'] = toba::db($fuente_datos)->registros_sentencia($psm);
+						$test[$id]['query_datos_orig'] = toba::db($fuente_datos)->sentencia_datos($pso);
+						$test[$id]['query_datos_modif'] = toba::db($fuente_datos)->sentencia_datos($psm);
 					}
 				}			
 			} else {

@@ -131,7 +131,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'perfil_datos', --identificador
 	'ef_combo', --elemento_formulario
 	'perfil_datos', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Perfil de datos', --etiqueta

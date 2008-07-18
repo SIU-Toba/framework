@@ -22,7 +22,7 @@ INSERT INTO apex_dimension_gatillo (proyecto, dimension, gatillo, tipo, orden, t
 	'directo', --tipo
 	'2', --orden
 	'ref_persona_deportes', --tabla_rel_dim
-	'deportes', --columnas_rel_dim
+	'deporte', --columnas_rel_dim
 	NULL, --tabla_gatillo
 	NULL  --ruta_tabla_rel_dim
 );

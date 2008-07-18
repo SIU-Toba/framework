@@ -3,11 +3,13 @@ class pant_test_dims extends toba_ei_pantalla
 {
 	function generar_layout()
 	{
-		$this->dep('form_elegir_sql')->generar_html();
-		echo '<hr />';
-		$this->dep('form_test')->generar_html();
-		echo '<hr />';
-		$this->mostrar_resultado_pruebas();
+		if( $this->existe_dependencia('form_elegir_sql')) {
+			$this->dep('form_elegir_sql')->generar_html();
+			echo '<hr />';			
+			$this->dep('form_test')->generar_html();
+			echo '<hr />';
+			$this->mostrar_resultado_pruebas();
+		}
 	}
 	
 	function mostrar_resultado_pruebas()
