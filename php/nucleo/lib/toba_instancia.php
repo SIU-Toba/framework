@@ -111,144 +111,6 @@ class toba_instancia
 	// DATOS
 	//----------------------------------------------------------------
 
-	//------------------------- SESION -------------------------------------
-	
-	function get_id_sesion()
-	{
-		$sql = "SELECT nextval('apex_sesion_browser_seq'::text) as id;";
-		$rs = $this->get_db()->consultar($sql);
-		if(empty($rs)){
-			throw new toba_error("No es posible recuperar el ID de la sesion.");
-		}
-		return $rs[0]['id'];
-	}
-	
-	function abrir_sesion($sesion, $usuario, $proyecto)
-	{
-		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
-		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$ip."','$proyecto','".session_id()."');";
-		$this->get_db()->ejecutar($sql);
-	}
-	
-	function cerrar_sesion($sesion, $observaciones = null)
-	{
-		if(isset($observaciones)){
-			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '$sesion';";
-		}else{
-			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '$sesion';";
-		}		
-		$this->get_db()->ejecutar($sql);
-	}
-
-	//---------------------- LOGIN USUARIOS -------------------------------------
-	
-	function agregar_usuario( $usuario, $nombre, $clave )
-	{
-		$algoritmo = 'sha256';
-		$clave = encriptar_con_sal($clave, $algoritmo);
-		//toba::logger()->debug("Agregando el usuario '$usuario' a la instancia {$this->id}");
-		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
-				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
-		return $this->get_db()->ejecutar( $sql );
-	}
-	
-	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
-	{
-		$sql = array();
-		//TODO: Cambiar		
-		/*
-			Comentado porque no funcionaba la instalacion, cambio la forma en que se guarda el perfil de datos en relacion al usuario
-		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
-					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
-		*/
-		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
-					VALUES ('$proyecto','$usuario','$perfil_acceso');";		
-
-				// Decide un PA por defecto para el proyecto
-		if($set_previsualizacion) {
-			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
-						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
-		}
-		return $this->get_db()->ejecutar( $sql );
-	}
-	
-	/**
-	 * Retorna la información cruda de un usuario, tal como está en la base de datos
-	 * Para hacer preguntas del usuario actual utilizar toba::usuario()->
-	 *
-	 * @see toba_usuario
-	 */
-	function get_info_usuario($usuario)
-	{
-		$sql = "SELECT	usuario as							id,
-						nombre as							nombre,
-						hora_salida as						hora_salida,
-						solicitud_registrar as				sol_registrar,
-						solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
-						solicitud_obs_tipo as				sol_obs_tipo,
-						solicitud_observacion as			sol_obs,
-						parametro_a as						parametro_a,
-						parametro_b as 						parametro_b,
-						parametro_c as						parametro_c
-				FROM 	apex_usuario u
-				WHERE	usuario = '$usuario'";
-		$rs = $this->get_db()->consultar($sql);
-		if(empty($rs)){
-			throw new toba_error("El usuario '$usuario' no existe.");
-		}
-		return $rs[0];
-	}
-
-	function get_info_autenticacion($usuario)
-	{
-		$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario='$usuario'";
-		$rs = $this->get_db()->consultar($sql);
-		if(empty($rs)){
-			//throw new toba_error("El usuario '$usuario' no existe.");
-			return array();
-		}
-		return $rs[0];
-	}
-
-	/**
-	*	Devuelve los grupos de acceso de un usuario para un proyecto
-	*/
-	function get_grupos_acceso($usuario, $proyecto)
-	{
-		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
-				FROM 	apex_usuario_proyecto up,
-						apex_usuario_grupo_acc ga
-				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
-				AND		up.proyecto = ga.proyecto
-				AND		up.usuario = '$usuario'
-				AND		up.proyecto = '$proyecto';";
-		$datos = toba::instancia()->get_db()->consultar($sql);
-		if($datos){
-			$grupos = array();
-			foreach($datos as $dato) {
-				$grupos[] = $dato['grupo_acceso'];
-			}
-			return $grupos;
-		} else {
-			return array();
-		}
-	}
-	
-	/**
-	*	Utilizada en el login automatico
-	*/
-	function get_lista_usuarios()
-	{
-		$sql = "SELECT 	DISTINCT 
-						u.usuario as usuario, 
-						u.nombre as nombre
-				FROM 	apex_usuario u, apex_usuario_proyecto p
-				WHERE 	u.usuario = p.usuario
-				AND		p.proyecto = '".toba_proyecto::get_id()."'
-				ORDER BY 1;";
-		return $this->get_db()->consultar($sql);	
-	}
-
 	//------------------------- LOG aplicacion -------------------------------------
 
 	function get_id_solicitud()
@@ -351,15 +213,95 @@ class toba_instancia
 	}
 
 	//--------------------------------------------------------------------------
-	//-------------------- BLOQUEOS --------------------------------------------
+	//-------------------- LOGIN USUARIOS --------------------------------------------
 	//--------------------------------------------------------------------------
+
+	/**
+	 * Retorna la información cruda de un usuario, tal como está en la base de datos
+	 * Para hacer preguntas del usuario actual utilizar toba::usuario()->
+	 *
+	 * @see toba_usuario
+	 */
+	function get_info_usuario($usuario)
+	{
+		$sql = "SELECT	usuario as							id,
+						nombre as							nombre,
+						hora_salida as						hora_salida,
+						solicitud_registrar as				sol_registrar,
+						solicitud_obs_tipo_proyecto as		sol_obs_tipo_proyecto,
+						solicitud_obs_tipo as				sol_obs_tipo,
+						solicitud_observacion as			sol_obs,
+						parametro_a as						parametro_a,
+						parametro_b as 						parametro_b,
+						parametro_c as						parametro_c
+				FROM 	apex_usuario u
+				WHERE	usuario = '$usuario'";
+		$rs = $this->get_db()->consultar($sql);
+		if(empty($rs)){
+			throw new toba_error("El usuario '$usuario' no existe.");
+		}
+		return $rs[0];
+	}
+
+	function get_info_autenticacion($usuario)
+	{
+		try {
+			$sql = "SELECT clave, autentificacion FROM apex_usuario WHERE usuario = :usuario";
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$rs = $this->get_db()->consultar_sentencia($id, array('usuario'=>$usuario));
+			if(!empty($rs))	return $rs[0];
+		} catch (toba_error_db $e ) {
+			toba::logger()->debug($e->getMessagge());
+			throw new toba_error('Error recuperando informacion');
+		}
+	}
+
+	/**
+	*	Devuelve los grupos de acceso de un usuario para un proyecto
+	*/
+	function get_grupos_acceso($usuario, $proyecto)
+	{
+		$sql = "SELECT	up.usuario_grupo_acc as 				grupo_acceso
+				FROM 	apex_usuario_proyecto up,
+						apex_usuario_grupo_acc ga
+				WHERE	up.usuario_grupo_acc = ga.usuario_grupo_acc
+				AND		up.proyecto = ga.proyecto
+				AND		up.usuario = '$usuario'
+				AND		up.proyecto = '$proyecto';";
+		$datos = $this->get_db()->consultar($sql);
+		if($datos){
+			$grupos = array();
+			foreach($datos as $dato) {
+				$grupos[] = $dato['grupo_acceso'];
+			}
+			return $grupos;
+		} else {
+			return array();
+		}
+	}
+	
+	/**
+	*	Utilizada en el login automatico
+	*/
+	function get_lista_usuarios()
+	{
+		$sql = "SELECT 	DISTINCT 
+						u.usuario as usuario, 
+						u.nombre as nombre
+				FROM 	apex_usuario u, apex_usuario_proyecto p
+				WHERE 	u.usuario = p.usuario
+				AND		p.proyecto = '".toba_proyecto::get_id()."'
+				ORDER BY 1;";
+		return $this->get_db()->consultar($sql);	
+	}
 
 	//-------------------- Bloqueo de IPs en LOGIN  ----------------------------
 
 	function es_ip_rechazada($ip)
 	{
-		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip='$ip'";
-		$rs = $this->get_db()->consultar($sql);
+		$sql = "SELECT '1' FROM apex_log_ip_rechazada WHERE ip = :ip";
+		$id = $this->get_db()->preparar_sentencia($sql);
+		$rs = $this->get_db()->consultar_sentencia($id, array('ip'=>$ip));
 		if ( empty($rs)) {
 			return false;
 		}
@@ -369,16 +311,21 @@ class toba_instancia
 	function registrar_error_login($usuario, $ip, $texto)
 	{
 		$texto = addslashes($texto);
-		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) 
-				VALUES ('$usuario',NULL,'$ip','1','$texto')";
-		$this->get_db()->ejecutar($sql);
+		$sql = "INSERT INTO apex_log_error_login(usuario,clave,ip,gravedad,mensaje) VALUES ( :usuario, NULL, :ip,'1',:texto)";
+		try {
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario,'ip'=>$ip,'texto'=>$texto));
+		} catch ( toba_error_db $e) {
+			throw new toba_error('Error');
+		}
 	}
 
 	function bloquear_ip($ip)
 	{
 		try {
-			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES ('$ip')";
-			$this->get_db()->ejecutar($sql);
+			$sql = "INSERT INTO apex_log_ip_rechazada (ip) VALUES (:ip)";
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$this->get_db()->ejecutar_sentencia($id, array('ip'=>$ip));
 		} catch ( toba_error $e ) {
 			//La ip ya esta rechazada	
 		}
@@ -386,12 +333,19 @@ class toba_instancia
 	
 	function get_cantidad_intentos_en_ventana_temporal($ip, $ventana_temporal=null)
 	{
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip='$ip' AND (gravedad > 0)";
+		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE ip = :ip AND (gravedad > 0)";
+		$parametros['ip'] = $ip;
 		if (isset($ventana_temporal)) {
-			$sql .= " AND ((now()-momento) < '$ventana_temporal min')";
+			$sql .= " AND ((now()-momento) < :ventana_temporal)";
+			$parametros['ventana_temporal'] = $ventana_temporal . ' min';
 		}
-		$rs = $this->get_db()->consultar($sql);
-		return $rs[0]['total'];
+		try {
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$rs = $this->get_db()->consultar_sentencia($id, $parametros);
+			return $rs[0]['total'];
+		} catch ( toba_error_db $e) {
+			throw new toba_error('Error!');
+		}
 	}
 	
 	//-------------------- Bloqueo de Usuarios en LOGIN  ----------------------------
@@ -399,19 +353,27 @@ class toba_instancia
 	
 	function get_cantidad_intentos_usuario_en_ventana_temporal($usuario, $ventana_temporal=null)
 	{
-		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE usuario='$usuario' AND (gravedad > 0)";
+		$sql = "SELECT count(*) as total FROM apex_log_error_login WHERE usuario = :usuario AND (gravedad > 0)";
+		$parametros['usuario'] = $usuario;
 		if (isset($ventana_temporal)) {
-			$sql .= " AND ((now()-momento) < '$ventana_temporal min')";
+			$sql .= " AND ((now()-momento) < :ventana_temporal)";
+			$parametros['ventana_temporal'] = $ventana_temporal . ' min';
 		}
-		$rs = $this->get_db()->consultar($sql);
-		return $rs[0]['total'];
+		try {
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$rs = $this->get_db()->consultar_sentencia($id, $parametros);
+			return $rs[0]['total'];
+		} catch ( toba_error_db $e) {
+			throw new toba_error('Error!');
+		}
 	}
 	
 	function bloquear_usuario($usuario)
 	{
 		try {
-			$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = '$usuario'";
-			$this->get_db()->ejecutar($sql);
+			$sql = "UPDATE apex_usuario SET bloqueado = 1 WHERE usuario = :usuario";
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario));
 		} catch ( toba_error $e ) {
 			//el usuario ya esta bloqueado
 		}
@@ -419,21 +381,86 @@ class toba_instancia
 	
 	function es_usuario_bloqueado($usuario)
 	{
-		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = '$usuario' AND bloqueado = 1";
-		$rs = $this->get_db()->consultar($sql);
+		$sql = "SELECT '1' FROM apex_usuario WHERE usuario = :usuario AND bloqueado = 1";
+		$id = $this->get_db()->preparar_sentencia($sql);
+		$rs = $this->get_db()->consultar_sentencia($id, array('usuario'=>$usuario));
 		if ( empty($rs)) {
 			return false;
 		}
 		return true;
 	}
 	
-	//------ Es necesario que esto este aca??? ----------
+	//--------------------------------------------------------------------------
+	//------------------------- SESION -------------------------------------
+	//--------------------------------------------------------------------------
 	
+	function get_id_sesion()
+	{
+		$sql = "SELECT nextval('apex_sesion_browser_seq'::text) as id;";
+		$rs = $this->get_db()->consultar($sql);
+		if(empty($rs)){
+			throw new toba_error("No es posible recuperar el ID de la sesion.");
+		}
+		return $rs[0]['id'];
+	}
+	
+	function abrir_sesion($sesion, $usuario, $proyecto)
+	{
+		$ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
+		$sql = "INSERT INTO apex_sesion_browser (sesion_browser,usuario,ip,proyecto,php_id) VALUES ('$sesion','$usuario','".$ip."','$proyecto','".session_id()."');";
+		$this->get_db()->ejecutar($sql);
+	}
+	
+	function cerrar_sesion($sesion, $observaciones = null)
+	{
+		if(isset($observaciones)){
+			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp, observaciones='$observaciones' WHERE sesion_browser = '$sesion';";
+		}else{
+			$sql = "UPDATE apex_sesion_browser SET egreso = current_timestamp WHERE sesion_browser = '$sesion';";
+		}		
+		$this->get_db()->ejecutar($sql);
+	}
+
+	//--------------------------------------------------------------------------
+	//------------------------ Administracion de USUARIOS
+	//--------------------------------------------------------------------------
+
+	function agregar_usuario( $usuario, $nombre, $clave )
+	{
+		$algoritmo = 'sha256';
+		$clave = encriptar_con_sal($clave, $algoritmo);
+		//toba::logger()->debug("Agregando el usuario '$usuario' a la instancia {$this->id}");
+		$sql = "INSERT INTO apex_usuario ( usuario, nombre, autentificacion, clave )
+				VALUES ('$usuario', '$nombre', '$algoritmo', '$clave')";
+		return $this->get_db()->ejecutar( $sql );
+	}
+	
+	function vincular_usuario( $proyecto, $usuario, $perfil_acceso, $perfil_datos, $set_previsualizacion=true )
+	{
+		$sql = array();
+		//TODO: Cambiar		
+		/*
+			Comentado porque no funcionaba la instalacion, cambio la forma en que se guarda el perfil de datos en relacion al usuario
+		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc, usuario_perfil_datos)
+					VALUES ('$proyecto','$usuario','$perfil_acceso','$perfil_datos');";
+		*/
+		$sql[] = "INSERT INTO apex_usuario_proyecto (proyecto, usuario, usuario_grupo_acc)
+					VALUES ('$proyecto','$usuario','$perfil_acceso');";		
+
+				// Decide un PA por defecto para el proyecto
+		if($set_previsualizacion) {
+			$sql[] = "INSERT INTO apex_admin_param_previsualizazion (proyecto, usuario, grupo_acceso, punto_acceso) 
+						VALUES ('$proyecto','$usuario','$perfil_acceso', '/$proyecto');";
+		}
+		return $this->get_db()->ejecutar( $sql );
+	}
+
 	function desbloquear_usuario($usuario)
 	{
 		try {
-			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = '$usuario'";
-			$this->get_db()->ejecutar($sql);
+			$sql = "UPDATE apex_usuario SET bloqueado = 0 WHERE usuario = :usuario";
+			$id = $this->get_db()->preparar_sentencia($sql);
+			$this->get_db()->ejecutar_sentencia($id, array('usuario'=>$usuario));
 		} catch ( toba_error $e ) {
 			//el usuario ya esta bloqueado
 		}
