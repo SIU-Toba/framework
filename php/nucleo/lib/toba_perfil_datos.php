@@ -230,7 +230,7 @@ class toba_perfil_datos
 			for($a=0;$a<(count($cadena_tablas)-1);$a++) {
 				$tabla_hija = $cadena_tablas[$a];
 				$tabla_padre = $cadena_tablas[$a+1];
-				$relacion_tablas = toba_info_relacion_entre_tablas::get_relacion($tabla_hija,$tabla_padre,$fuente_datos);
+				$relacion_tablas = toba_info_relacion_entre_tablas::get_relacion($tabla_hija,$tabla_padre,$fuente_datos, $this->proyecto);
 				$relaciones[$a]['hija']['tabla'] = $tabla_hija;
 				$relaciones[$a]['hija']['alias'] = $cadena_tablas_alias[$a];
 				$relaciones[$a]['hija']['cols'] = $relacion_tablas[$tabla_hija];
@@ -282,7 +282,7 @@ class toba_perfil_datos
 	function get_alias_unico()
 	{
 		$this->id_alias_unico++;
-		return 'tttttttt_' . $this->id_alias_unico;
+		return 'toba_pdtasoc_' . $this->id_alias_unico;
 	}
 	
 	function get_lista_columnas_sql($columnas, $alias)
@@ -436,10 +436,10 @@ class toba_perfil_datos
 				$test[$id]['sql_modificado'] = $sql_modif;
 				//- Probar los SQL contra la DB
 				if ( $contar_filas || $mostrar_filas ) {	
-					$pso = toba::db($fuente_datos)->sentencia_preparar($sql);
-					$pso_f = toba::db($fuente_datos)->sentencia_ejecutar($pso);
-					$psm = toba::db($fuente_datos)->sentencia_preparar($sql_modif);
-					$psm_f = toba::db($fuente_datos)->sentencia_ejecutar($psm);
+					$pso = toba::db($fuente_datos, $this->proyecto)->sentencia_preparar($sql);
+					$pso_f = toba::db($fuente_datos, $this->proyecto)->sentencia_ejecutar($pso);
+					$psm = toba::db($fuente_datos, $this->proyecto)->sentencia_preparar($sql_modif);
+					$psm_f = toba::db($fuente_datos, $this->proyecto)->sentencia_ejecutar($psm);
 					//- CONTAR FILAS ----------------------------
 					if($contar_filas) {
 						$test[$id]['query_filas_orig'] = $pso_f;

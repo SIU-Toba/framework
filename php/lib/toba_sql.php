@@ -90,7 +90,7 @@
 				}
 				$sql .= implode(' AND ', $clausulas_where);
 				if ($comentario != '') {
-					$sql .=	"------------------------\n";
+					$sql .=	"\n------------------------\n";
 				}					
 				$sql .= "\n";
 			}

@@ -4,9 +4,9 @@ class toba_info_relacion_entre_tablas
 {
 	static protected $relaciones = array();
 
-	static function cargar_relaciones($fuente_datos)
+	static function cargar_relaciones($fuente_datos, $proyecto=null)
 	{
-		self::$relaciones[$fuente_datos] = toba::proyecto()->get_info_relacion_entre_tablas($fuente_datos);
+		self::$relaciones[$fuente_datos] = toba_proyecto::get_info_relacion_entre_tablas($fuente_datos, $proyecto);
 	}
 
 	/**
@@ -17,7 +17,7 @@ class toba_info_relacion_entre_tablas
 	{
 		if(!$fuente_datos) $fuente_datos = toba_admin_fuentes::instancia()->get_fuente_predeterminada(true, $proyecto);
 		if(!isset(self::$relaciones[$fuente_datos]) ) {
-			self::cargar_relaciones($fuente_datos);	
+			self::cargar_relaciones($fuente_datos, $proyecto);	
 		}
 		//Busco la relacion
 		if(isset(self::$relaciones[$fuente_datos][$tabla_1][$tabla_2])) {
