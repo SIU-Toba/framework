@@ -79,7 +79,9 @@ class toba_info_permisos
 						(SELECT COUNT(*) FROM apex_restriccion_funcional_cols	 	WHERE restriccion_funcional = rf.restriccion_funcional)) as cant_resticciones
 						
 				FROM 	apex_restriccion_funcional as rf
-				WHERE 	proyecto = '$proyecto';";
+				WHERE 	proyecto = '$proyecto'
+				ORDER BY descripcion
+		";
 		return toba_contexto_info::get_db()->consultar($sql);
 	}	
 	

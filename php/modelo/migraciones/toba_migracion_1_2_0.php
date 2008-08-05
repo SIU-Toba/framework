@@ -45,6 +45,17 @@ class toba_migracion_1_2_0 extends toba_migracion
 	
 	function instancia__cambios_estructura()
 	{
+		/**
+		 * Se evita el mensaje 'ERROR:  cannot ALTER TABLE "apex_objeto" because it has pending trigger events' de postgres 8.3
+		 */
+		$sql = "SET CONSTRAINTS ALL IMMEDIATE;";
+		$this->elemento->get_db()->ejecutar($sql);
+		$sql= "ALTER TABLE apex_objeto				ADD COLUMN identificador				varchar;";
+		$this->elemento->get_db()->ejecutar($sql);
+		$sql = "SET CONSTRAINTS ALL DEFERRED;";
+		$this->elemento->get_db()->ejecutar($sql);
+		
+		
 		//-- Dimensiones
 		$archivo = toba_dir().'/php/modelo/ddl/pgsql_a06_tablas_dimensiones.sql';
 		$this->elemento->get_db()->ejecutar_archivo($archivo);
@@ -55,8 +66,7 @@ class toba_migracion_1_2_0 extends toba_migracion
 		
 		//-- Cosas sueltas		
 		$sql = array();
-		$sql[] = "ALTER TABLE apex_objeto  				ADD COLUMN identificador						varchar";
-		$sql[] = "ALTER TABLE apex_fuente_datos			ADD COLUMN schema								varchar";
+		$sql[] = "ALTER TABLE apex_fuente_datos			ADD COLUMN schema								varchar;";
 		$sql[] = "ALTER TABLE apex_estilo 				ADD COLUMN paleta						varchar";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN no_imprimir_efs_sin_estado	smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_objeto_ut_formulario ADD COLUMN resaltar_efs_con_estado		smallint DEFAULT 0";
@@ -71,7 +81,6 @@ class toba_migracion_1_2_0 extends toba_migracion
 		$sql[] = "ALTER TABLE apex_elemento_formulario 	ADD COLUMN es_seleccion_multiple		smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_item					ADD COLUMN exportable					smallint DEFAULT 0";
 		$sql[] = "ALTER TABLE apex_objeto_cuadro		ADD COLUMN exportar_paginado			smallint DEFAULT 0";
-		$sql[] = "ALTER TABLE apex_objeto				ADD COLUMN indentificador				varchar";
 		
 		//-- Perfil de Datos (no se puede ejecutar el archivo completo porque ya existia una tabla en la 1.1.0)
 		$sql[] = '
@@ -184,7 +193,8 @@ class toba_migracion_1_2_0 extends toba_migracion
 			);
 		';
 		
-		$this->elemento->get_db()->ejecutar($sql);			
+		$this->elemento->get_db()->ejecutar($sql);	
+
 	}	
 	
 	function instancia__preparar_modelo_para_mysql()

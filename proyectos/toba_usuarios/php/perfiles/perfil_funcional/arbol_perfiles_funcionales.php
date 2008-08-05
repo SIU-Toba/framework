@@ -27,14 +27,16 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 				}
 				var valor = $(id_input).value;
 				var padre = $(id_input).parentNode.parentNode;
-				var nodo = this.buscar_primer_marca(padre, 'UL');		
-				for (var i=0; i < nodo.childNodes.length; i++) {
-					var hijo = nodo.childNodes[i];
-					if (hijo.tagName && (hijo.tagName == 'LI')) {
-						if (!this.buscar_primer_marca(hijo, 'UL')){
-							this.cambiar_estado_acceso(hijo, valor);
-						}else{
-							this.marcar_recursivo(hijo, valor);
+				var nodo = this.buscar_primer_marca(padre, 'UL');
+				if (nodo) {		
+					for (var i=0; i < nodo.childNodes.length; i++) {
+						var hijo = nodo.childNodes[i];
+						if (hijo.tagName && (hijo.tagName == 'LI')) {
+							if (!this.buscar_primer_marca(hijo, 'UL')){
+								this.cambiar_estado_acceso(hijo, valor);
+							}else{
+								this.marcar_recursivo(hijo, valor);
+							}
 						}
 					}
 				}			
@@ -69,13 +71,16 @@ class arbol_perfiles_funcionales extends toba_ei_arbol
 					if (nodo.childNodes[i].tagName == 'SPAN') {
 						var hijo = nodo.childNodes[i];
 						for (var j=0; j < hijo.childNodes.length; j++) {
-							if (hijo.childNodes[j].tagName == 'INPUT') {					
-								if (valor == 1){
-									$(hijo.childNodes[j].id).value = 0;
-									$(hijo.childNodes[j].id + '_img').src = '$img_sin_acceso';
-								}else{
-									$(hijo.childNodes[j].id).value = 1;
-									$(hijo.childNodes[j].id + '_img').src = '$img_acceso';
+							if (hijo.childNodes[j].tagName == 'INPUT') {	
+								var imagen = $(hijo.childNodes[j].id + '_img')
+								if (isset(imagen)) {				
+									if (valor == 1){
+										$(hijo.childNodes[j].id).value = 0;
+										$(hijo.childNodes[j].id + '_img').src = '$img_sin_acceso';
+									}else{
+										$(hijo.childNodes[j].id).value = 1;
+										$(hijo.childNodes[j].id + '_img').src = '$img_acceso';
+									}
 								}
 							}
 						}

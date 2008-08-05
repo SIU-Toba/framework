@@ -15,6 +15,37 @@ class toba_datos_tabla_info extends toba_componente_info
 		return new toba_ap_tabla_db_info($this->datos['_info_estructura']);
 	}
 	
+	/**
+	 * Duplica un objeto y sus dependencias recursivamente.
+	 * En el caso del datos tabla, si el proyecto/fuente no difiere no se clona, se reusa
+	 *
+	 * @param array $nuevos_datos Datos a modificar en la base del objeto. Para anexar algo al nombre se utiliza el campo 'anexo_nombre'
+	 * @param boolean/string $dir_subclases Si el componente tiene subclases clona los archivos, en caso afirmativo indicar la ruta destino (relativa)
+	 * @param boolean $con_transaccion	Indica si la clonación se debe incluír en una transaccion
+	 * @return array Clave del objeto que resulta del clonado
+	 */
+	function clonar($nuevos_datos, $dir_subclases=false, $con_transaccion = true)
+	{
+		$distinto = false;
+		//-- Si difiere en el proyecto
+		if (isset($nuevos_datos['fuente_datos_proyecto']) && $nuevos_datos['fuente_datos_proyecto'] != $this->datos['_info']['fuente_proyecto']) {
+			$distinto = true;
+		}
+		//-- Si difiere en la fuente
+		if (isset($nuevos_datos['fuente_datos']) && $nuevos_datos['fuente_datos'] != $this->datos['_info']['fuente']) {
+			$distinto = true;
+		}
+		if ($distinto) {
+			return parent::clonar($nuevos_datos, $dir_subclases, $con_transaccion);
+		} else {
+			//Se retorna a si mismo, se reusa
+			$clave = array();
+			$clave['componente'] = $this->datos['_info']['objeto'];
+			$clave['proyecto'] = $this->datos['_info']['proyecto'];
+			return $clave;			
+		}
+	}
+	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
 	//---------------------------------------------------------------------

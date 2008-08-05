@@ -16,7 +16,15 @@ function isset(o) {
 //----------------------------------------------------------
 function trim(s){
     return s.replace(/^\s*(\S*(\s+\S+)*)\s*$/,'$1');
-}
+};
+
+function quitar_acentos(s){
+    s = s.reemplazar('á', 'a');
+    s = s.reemplazar('é', 'e');
+    s = s.reemplazar('í', 'i');
+    s = s.reemplazar('ó', 'o');
+    return s.reemplazar('ú', 'u');
+};
 
 /**
  * Retorna la primer ocurrencia de alguna de estas cadenas
@@ -109,7 +117,6 @@ String.prototype.pad = function(len, str, side) {
 		return this+p;
 	}
 };
-
 //---ARRAY
 //----------------------------------------------------------
 

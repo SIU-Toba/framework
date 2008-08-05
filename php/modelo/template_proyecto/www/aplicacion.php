@@ -9,8 +9,9 @@ define('apex_pa_proyecto', '__proyecto__');
 # Deshabilita el autologin
 #define("apex_pa_validacion_debug", 0);
 
-# Cambia el nivel del logger a modo 'info'. Para modo debug pasar a '7'
-#define("apex_pa_log_archivo_nivel", 6);
+# Activa el logger en modo 'debug'. Para modo info pasar a '6'
+define("apex_pa_log_archivo", true);
+define("apex_pa_log_archivo_nivel", 7);
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

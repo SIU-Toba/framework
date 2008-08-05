@@ -396,6 +396,9 @@ class ci_efs extends toba_ci
 				$datos[$mec] = null;
 			}
 		}
+		if ($actual != 'carga_dt') {
+			$datos['carga_dt'] = null;
+		}
 		$this->set_parametros($datos);
 	}
 			

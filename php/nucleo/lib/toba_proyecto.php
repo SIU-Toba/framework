@@ -508,7 +508,7 @@ class toba_proyecto
 			$temp = array_values($temp);	
 		}
 		if(isset($orden)){
-			//Se necesita??
+			$temp = rs_ordenar_por_columnas($temp, $orden);
 		}
 		return $temp;
 	}

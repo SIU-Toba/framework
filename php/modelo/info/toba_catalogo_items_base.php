@@ -8,6 +8,7 @@ class toba_catalogo_items_base
 	protected $items_ordenados = array();
 	protected $mensaje;
 	protected $cargar_todo = false;
+	protected $usa_niveles = true;
 	
 	protected $camino; //Durante el recorrido va manteniendo el camino actual
 	
@@ -113,14 +114,15 @@ class toba_catalogo_items_base
 				}
 			}			
 		}
-		
-		//---Se recorre el arbol para poner los niveles
-		$raiz = $this->buscar_carpeta_inicial();
-		$this->items_ordenados = array();
-		$this->camino = array();
-		$this->ordenar_recursivo($raiz, 0);
-		$this->items = $this->items_ordenados;
-		unset($this->item_ordenados);
+		if ($this->usa_niveles) {
+			//---Se recorre el arbol para poner los niveles
+			$raiz = $this->buscar_carpeta_inicial();
+			$this->items_ordenados = array();
+			$this->camino = array();
+			$this->ordenar_recursivo($raiz, 0);
+			$this->items = $this->items_ordenados;
+			unset($this->item_ordenados);
+		}
 	}	
 	
 	function ordenar_recursivo($carpeta, $nivel)

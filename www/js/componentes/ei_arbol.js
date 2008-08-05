@@ -101,6 +101,18 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	};
 	
 	/**
+	 * Dado un nodo UL abre el mismo
+	 */
+	ei_arbol.prototype.abrir_nodo = function(nodo) {
+		var ul = this.buscar_primer_ul(nodo);
+		if (ul.style.display == 'none') {
+			var img = nodo.firstChild;
+			ul.style.display = '';
+			img.src = toba.imagen('contraer_nodo');				
+		}		
+	};	
+	
+	/**
 	 * Callback de retorno del pedido de expansion AJAX
 	 * @private
 	 */
@@ -139,6 +151,72 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 				return nodo.childNodes[i];
 			}
 		}	
+	};
+	
+	ei_arbol.prototype.get_nodo_raiz = function(nombre) {
+		return $(this._instancia + '_nodo_raiz');
+	};	
+	
+	ei_arbol.prototype.get_nodos_hijo = function(padre) {
+		var hijos = [];
+		for (var i=0; i < padre.childNodes.length; i++) {
+			if (padre.childNodes[i].tagName == 'UL') {
+				hijos = hijos.concat(this.get_nodos_hijo(padre.childNodes[i]));
+			}
+			if (padre.childNodes[i].tagName == 'LI') {
+				hijos.push(padre.childNodes[i]);
+			}	
+		}
+		return hijos;
+	};		
+	
+	
+	ei_arbol.prototype.get_nombre_nodo = function(nodo) {
+		var nombre = nodo.childNodes[3].nodeValue;
+		if (! isset(nombre)) {
+			//Puede estar en un <a>
+			if (nodo.childNodes[3].tagName == 'A') {
+				nombre = nodo.childNodes[3].innerHTML;
+			}
+		}
+		return nombre;
+	};
+	
+	ei_arbol.prototype.filtrar_nodo_por_nombre = function(nodo, nombre) {
+		var visible = false;
+		var hijos = this.get_nodos_hijo(nodo);
+		for(var i=0; i < hijos.length; i++) {
+			if (this.filtrar_nodo_por_nombre(hijos[i], nombre)) {
+				visible = true;
+			}
+		}
+		//-- Si los hijos no son visibles, quizas si lo es el mismo
+		if (! visible) {
+			var nombre_nodo = this.get_nombre_nodo(nodo);
+			if (quitar_acentos(nombre_nodo.toLowerCase()).indexOf(nombre) != -1) {
+				visible = true;
+			}
+		} else {
+			//Si algún hijo está visible, abrir el nodo
+			this.abrir_nodo(nodo);
+		}
+		if (visible) {
+			nodo.style.display = '';
+		} else {
+			nodo.style.display = 'none';
+		}
+		return visible;
+	};	
+	
+	ei_arbol.prototype.filtro_foco = function() {
+		$(this._input_submit + '_filtro_rapido').value = '';
+	};
+	
+	ei_arbol.prototype.filtro_cambio = function() {
+		var filtro = $(this._input_submit + '_filtro_rapido').value;
+		filtro = filtro.toLowerCase().trim();
+		filtro = quitar_acentos(filtro);
+		this.filtrar_nodo_por_nombre(this.get_nodo_raiz(), filtro);
 	};
 
 toba.confirmar_inclusion('componentes/ei_arbol');

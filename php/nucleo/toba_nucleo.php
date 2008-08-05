@@ -194,8 +194,8 @@ class toba_nucleo
 	{
 		$this->controlar_requisitos_basicos();
 		agregar_dir_include_path( toba_proyecto::get_path_php() );
+		toba::manejador_sesiones()->iniciar();		
 		toba::contexto_ejecucion()->conf__inicial();
-		toba::manejador_sesiones()->iniciar();
 	}
 
 	protected function finalizar_contexto_ejecucion()

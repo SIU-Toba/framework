@@ -27,7 +27,9 @@ class toba_carpeta_perfil extends toba_elemento_perfil
 		}
 		if ($this->permiso_activo() ) {
 			$this->acceso_actual = 1;	
-		}		
+		} else {
+			$this->acceso_actual = 0;
+		}
 		parent::sincronizar();	
 	}
 

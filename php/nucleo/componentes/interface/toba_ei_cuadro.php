@@ -509,7 +509,7 @@ class toba_ei_cuadro extends toba_ei
 	 */
 	function set_eof_mostrar($mostrar=true)
 	{
-		$valor = ($mostrar) ? 1 : 0;
+		$valor = ($mostrar) ? 0 : 1;
 		$this->_info_cuadro["eof_invisible"] = $valor;
 	}
 	
@@ -1995,9 +1995,9 @@ class toba_ei_cuadro extends toba_ei
 		if( $this->tabla_datos_es_general() ){
 			$this->html_cuadro_totales_columnas($this->_acumulador);
 			$this->html_acumulador_usuario();
-			$this->html_cuadro_fin();					
+			$this->html_cuadro_fin();
 		}
-		echo "</td></tr>\n";
+		echo "</td></tr>\n";		
 		//--- FIN CONTENIDO  ---------
 		// Pie
 		echo"<tr><td class='ei-cuadro-pie'>";

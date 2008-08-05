@@ -136,7 +136,7 @@ CREATE TABLE apex_restriccion_funcional_ef
 	objeto_ei_formulario			int4				NOT NULL,
 	no_visible						smallint			NULL,
 	no_editable						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_ef_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_ei_formulario_fila"),
+	CONSTRAINT	"apex_restriccion_funcional_ef_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","item","objeto_ei_formulario_fila"),
 	CONSTRAINT	"apex_restriccion_funcional_ef_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -166,7 +166,7 @@ CREATE TABLE apex_restriccion_funcional_pantalla
 	pantalla						int4				NOT NULL,
 	objeto_ci						int4				NOT NULL,
 	no_visible						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_pantalla_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","pantalla"),
+	CONSTRAINT	"apex_restriccion_funcional_pantalla_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","item", "pantalla"),
 	CONSTRAINT	"apex_restriccion_funcional_pantalla_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -195,7 +195,7 @@ CREATE TABLE apex_restriccion_funcional_evt
 	item							varchar(60)		NOT NULL,
 	evento_id						int4				NOT NULL,
 	no_visible						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_evt_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","evento_id"),
+	CONSTRAINT	"apex_restriccion_funcional_evt_pk" PRIMARY	KEY ("proyecto","restriccion_funcional", "item", "evento_id"),
 	CONSTRAINT	"apex_restriccion_funcional_evt_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -223,7 +223,7 @@ CREATE TABLE apex_restriccion_funcional_ei
 	item							varchar(60)		NOT NULL,
 	objeto							int4				NOT NULL,
 	no_visible						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_ei_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto"),
+	CONSTRAINT	"apex_restriccion_funcional_ei_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","item", "objeto"),
 	CONSTRAINT	"apex_restriccion_funcional_ei_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -252,7 +252,7 @@ CREATE TABLE apex_restriccion_funcional_cols
 	objeto_cuadro					int4				NOT NULL,
 	objeto_cuadro_col				int4				NOT NULL,
 	no_visible						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_cols_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_cuadro_col"),
+	CONSTRAINT	"apex_restriccion_funcional_cols_pk" PRIMARY	KEY ("proyecto","restriccion_funcional", "item", "objeto_cuadro_col"),
 	CONSTRAINT	"apex_restriccion_funcional_cols_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,
@@ -281,7 +281,7 @@ CREATE TABLE apex_restriccion_funcional_filtro_cols
 	objeto_ei_filtro_col			int4				NOT NULL,
 	objeto_ei_filtro				int4				NOT NULL,
 	no_visible						smallint			NULL,
-	CONSTRAINT	"apex_restriccion_funcional_filtro_col_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","objeto_ei_filtro_col"),
+	CONSTRAINT	"apex_restriccion_funcional_filtro_col_pk" PRIMARY	KEY ("proyecto","restriccion_funcional","item", "objeto_ei_filtro_col"),
 	CONSTRAINT	"apex_restriccion_funcional_filtro_col_fk_pf"	FOREIGN KEY	("proyecto","restriccion_funcional") 
 			REFERENCES	"apex_restriccion_funcional" ("proyecto","restriccion_funcional") 
 			ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE,

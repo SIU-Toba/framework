@@ -7,7 +7,7 @@ class toba_rf_subcomponente extends toba_rf
 		parent::__construct($nombre, $padre);
 		$this->proyecto = $proyecto;
 		$this->nombre_largo = $this->nombre_corto;
-		$this->id = $id;
+		$this->id = $item.'_'.$id;
 		$this->restriccion = $restriccion;
 		$this->item = $item;
 		$this->no_visible_original = ($estado_original != '') ? 1 : 0;

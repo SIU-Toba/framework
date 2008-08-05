@@ -10,18 +10,21 @@ class toba_nodo_basico implements toba_nodo_arbol
 	protected $nombre_corto;
 	protected $nombre_largo = null;
 	protected $id = null;
+	protected $id_padre = null;
 	protected $iconos = array();
 	protected $utilerias = array();
 	protected $info_extra = null;
 	protected $tiene_hijos_cargados = false;
 	protected $es_hoja = true;
-	protected $hijos = null;
+	protected $hijos = array();
 	protected $propiedades = null;
 
-	function __construct($nombre, $padre=null)
+	function __construct($nombre, $padre=null, $id=null, $id_padre=null)
 	{
 		$this->nombre_corto = $nombre;
 		$this->padre = $padre;
+		$this->id = $id;
+		$this->id_padre = $id_padre;
 	}
 
 	//-- Setters -------------------------------------------------------
@@ -42,6 +45,13 @@ class toba_nodo_basico implements toba_nodo_arbol
 		$this->tiene_hijos_cargados = true;
 		$this->es_hoja = false;
 	}	
+	
+	function agregar_hijo($hijo)
+	{
+		$this->hijos[] = $hijo;
+		$this->tiene_hijos_cargados = true;
+		$this->es_hoja = false;		
+	}
 		
 	function set_utilerias($utilerias)
 	{
@@ -57,6 +67,11 @@ class toba_nodo_basico implements toba_nodo_arbol
 	{
 		$this->padre = $padre;
 	}
+	
+	function set_nivel($nivel)
+	{
+		$this->nivel = $nivel; 
+	}	
 	
 	//-- Interface -----------------------------------------------------
 	
@@ -94,6 +109,11 @@ class toba_nodo_basico implements toba_nodo_arbol
 	{
 		return $this->padre;	
 	}
+	
+	function get_id_padre()
+	{
+		return $this->id_padre;
+	}	
 	
 	function tiene_hijos_cargados()
 	{

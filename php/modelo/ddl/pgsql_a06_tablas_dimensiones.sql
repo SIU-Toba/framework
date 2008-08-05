@@ -84,7 +84,7 @@ CREATE TABLE apex_dimension_gatillo
 	columnas_rel_dim				varchar			NULL,			-- Solo para directos. Si tiene mas de una columna, expresada en el mismo orden que la definicion de la dim
 	tabla_gatillo					varchar(80)		NULL,			-- Solo para indirectos. referencia a un gatillo directo
 	ruta_tabla_rel_dim				varchar			NULL,			-- Solo para indirectos. Ruta entre la tabla_rel_dim del gatillo indirecto y la tabla_rel_dim del gatillo directo. Si esta vacio es porque las dos tablas tienen entre si un FK en la db, sino, la ruta que las vincula. Estas relaciones tienen que exitir en la tabla de relaciones que esta arriba en el archivo
-	CONSTRAINT	"apex_dimension_gatillo_pk" PRIMARY	KEY ("gatillo"),
+	CONSTRAINT	"apex_dimension_gatillo_pk" PRIMARY	KEY ("proyecto", "gatillo"),
 	CONSTRAINT	"apex_dimension_gatillo_uq_tabla" UNIQUE ("proyecto","dimension","tabla_rel_dim"),
 	CONSTRAINT	"apex_dimension_gatillo_fk_dim"	FOREIGN KEY	("proyecto","dimension") REFERENCES	"apex_dimension" ("proyecto","dimension") ON DELETE	NO	ACTION ON UPDATE NO ACTION	DEFERRABLE	INITIALLY IMMEDIATE
 );
