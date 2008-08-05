@@ -241,7 +241,7 @@ class toba_ei_arbol extends toba_ei
 	function generar_html_filtro_rapido()
 	{
 		echo "<div class='ei-arbol-filtro'>";
-		$eventos = "onkeyup='{$this->objeto_js}.filtro_cambio()' onblur='{$this->objeto_js}.filtro_cambio()' onfocus='{$this->objeto_js}.filtro_foco()'";
+		$eventos = "onkeyup='{$this->objeto_js}.filtro_cambio()' onblur='{$this->objeto_js}.filtro_salir()' onfocus='{$this->objeto_js}.filtro_foco()'";
 		echo "<input id='{$this->_submit}_filtro_rapido' type='text' value='Buscar...' $eventos />";
 		echo "</div>";
 	}

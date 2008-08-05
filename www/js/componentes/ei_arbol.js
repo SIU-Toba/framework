@@ -11,6 +11,7 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 	this._instancia = instancia;				//Nombre de la instancia del objeto, permite asociar al objeto con el arbol DOM
 	this._input_submit = input_submit;			//Campo que se setea en el submit del form
 	this._autovinculo = autovinculo;
+	this._ultimo_filtro;						//Ultimo criterio de filtrado
 }
 
 	//---Submit
@@ -216,7 +217,19 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 		var filtro = $(this._input_submit + '_filtro_rapido').value;
 		filtro = filtro.toLowerCase().trim();
 		filtro = quitar_acentos(filtro);
-		this.filtrar_nodo_por_nombre(this.get_nodo_raiz(), filtro);
+		if (filtro != '' || isset(this._ultimo_filtro)) {
+			this.filtrar_nodo_por_nombre(this.get_nodo_raiz(), filtro);
+			this._ultimo_filtro = filtro;
+		}
 	};
+	
+	ei_arbol.prototype.filtro_salir = function() {
+		this.filtro_cambio();
+		var filtro = $(this._input_submit + '_filtro_rapido').value;
+		if (filtro == '') {
+			$(this._input_submit + '_filtro_rapido').value = 'Buscar...';
+			this._ultimo_filtro = null;
+		}
+	};	
 
 toba.confirmar_inclusion('componentes/ei_arbol');

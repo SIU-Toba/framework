@@ -1,4 +1,5 @@
 <?php 
+php_referencia::instancia()->agregar(__FILE__);
 class ci_ef_html extends toba_ci
 {
 	protected $s__datos;
