@@ -61,8 +61,8 @@ class ci_fuentes extends toba_ci
 
 	function evt__form__modificacion($datos)
 	{
+		$datos_orig = $datos;
 		$datos['proyecto'] = toba_editor::get_proyecto_cargado();
-		$this->dependencia('datos')->set($datos);
 		
 		//--- Actualiza bases.ini
 		if (isset($datos['motor'])) {
@@ -79,6 +79,11 @@ class ci_fuentes extends toba_ci
 				$instalacion->agregar_db($id_base, $datos);
 			}
 		}
+		// Se eliminan columnas del 
+		unset($datos_orig['usuario']);
+		unset($datos_orig['clave']);
+		unset($datos_orig['base']);
+		$this->dependencia('datos')->set($datos_orig);
 	}
 
 	function conf__form()
