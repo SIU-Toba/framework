@@ -1404,7 +1404,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	 */
 	function empaquetar()
 	{
-		$nombre_ini = 'instalador.ini';
+		$nombre_ini = 'proyecto.ini';
 		$path_ini = $this->get_dir().'/'.$nombre_ini;
 		if (! file_exists($path_ini)) {
 			throw new toba_error("Para crear el paquete de instalación debe existe el archivo '$nombre_ini' en la raiz del proyecto");
@@ -1413,9 +1413,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		
 		//--- Crea la carpeta destino
 		$crear_carpeta = false;
-		$empaquetado = $ini->get_datos_entrada('EMPAQUETADO');
+		$empaquetado = $ini->get_datos_entrada('empaquetado');
 		if (! isset($empaquetado['path_destino'])) {
-			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion 'EMPAQUETADO'");
+			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion [empaquetado]");
 		}
 		if (file_exists($empaquetado['path_destino'])) {
 			if (! is_dir($empaquetado['path_destino'])) {
@@ -1470,13 +1470,13 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 			}
 		}		
 		$instalacion = $this->instancia->get_instalacion();
-		$destino_instalacion = $empaquetado['path_destino'].'/toba_'.$this->get_id().'/framework';
+		$destino_instalacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/toba';
 		$instalacion->empaquetar_en_carpeta($destino_instalacion, $librerias, $proyectos);
 		$this->manejador_interface->progreso_fin();
 		
 		//--- Empaqueta el proyecto actual
 		$this->manejador_interface->mensaje("Copiando aplicacion", false);		
-		$destino_aplicacion = $empaquetado['path_destino'].'/toba_'.$this->get_id().'/aplicacion';		
+		$destino_aplicacion = $empaquetado['path_destino'].'/proyectos/'.$this->get_id().'/aplicacion';		
 		$excepciones = array();
 		if (isset($empaquetado['excepciones_proyecto'])) {
 			$excepciones = explode(',', $empaquetado['proyectos_extra']);
@@ -1491,7 +1491,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		
 		//--- Generar un GRAN archivo .sql con los metadatos
 		$this->manejador_interface->mensaje("Copiando base de metadatos", false);	
-		$this->empaquetar_metadatos($empaquetado['path_destino'], $proyectos);
+		$this->empaquetar_metadatos($destino_instalacion.'/sql', $proyectos);
 		$this->manejador_interface->progreso_fin();
 
 	}
@@ -1521,8 +1521,8 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 	{
 		$proyectos_a_exportar = $proyectos_extra;
 		$proyectos_a_exportar[] = $this->get_id();				
-		toba_manejador_archivos::crear_arbol_directorios($destino.'/base/ambiente/');		
-		$destino_metadatos = $destino.'/base/ambiente/base_ambiente.sql';
+		toba_manejador_archivos::crear_arbol_directorios($destino);		
+		$destino_metadatos = $destino.'/toba.sql';
 		$fp = fopen($destino_metadatos, 'w');
 		fwrite($fp, "BEGIN TRANSACTION;\n");
 		fwrite($fp, "SET CONSTRAINTS ALL DEFERRED;\n");		
