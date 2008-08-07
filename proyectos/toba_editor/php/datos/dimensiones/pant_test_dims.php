@@ -18,7 +18,13 @@ class pant_test_dims extends toba_ei_pantalla
 		if($pruebas) {
 			echo "<div style='padding: 5px; overflow: auto; height: 400px; width: 600px; text-align: left; background-color: rgb(255, 255, 255); font-size: 11px;'>";
 			//Cabecera
-			ei_arbol($this->controlador->get_cabecera_prueba());
+			$cabecera = $this->controlador->get_cabecera_prueba();
+			echo '<h1>' . $cabecera['perfil_nombre'] . '</h1>';
+
+			$this->lista($cabecera['dimensiones_restringidas'], "DIMESIONES restringidas para el perfil");
+			echo "<br>";
+			$this->lista($cabecera['gatillos_activos'], "GATILLOS activos");
+			echo "<br>";
 			
 			// Pruebas
 			foreach($pruebas as $id => $prueba) {

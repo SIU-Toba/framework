@@ -423,14 +423,11 @@ class toba_perfil_datos
 				$dimensiones = $this->reconocer_dimensiones_implicadas(array_keys($tablas_gatillo), $fuente_datos);
 				//- ANALISIS -------------------------------
 				$test[$id]['gatillos'] = array_keys($tablas_gatillo);
-				/*
 				$dims = array();
-				foreach( $dimensiones as $dim) {
+				foreach( $dimensiones as $dim => $gat) {
 					$dims[$dim] = $this->info_dimensiones[$fuente_datos][$dim]['nombre'];
 				}
 				$test[$id]['dimensiones'] = $dims;
-				*/
-				$test[$id]['dimensiones'] = $dimensiones;
 				//- WHERE ------------------------
 				$where = array();
 				foreach( $dimensiones as $dimension => $tabla ) {
