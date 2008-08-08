@@ -52,7 +52,7 @@ class toba_ini
 		if ( isset( $this->entradas[ $nombre ] ) ) {
 			return $this->entradas[ $nombre ];
 		} else {
-			throw new toba_error("La entrada '$nombre' no existe");
+			throw new toba_error("La entrada '$nombre' no existe en '{$this->path}'");
 		}
 	}
 	

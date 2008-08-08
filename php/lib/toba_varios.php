@@ -332,13 +332,16 @@
 				return "DESCONOCIDA";	
 			}
 		} else {
-			$cmd = "svn info \"$dir\" --xml";
-			$xml = simplexml_load_string(`$cmd`);
-			if (isset($xml->entry)) {
-				return (string) $xml->entry['revision'];
-			} else {
-				return "DESCONOCIDA";
+			if (file_exists($dir.'/.svn')) {
+				$cmd = "svn info \"$dir\" --xml";
+				$xml = simplexml_load_string(`$cmd`);
+				if (isset($xml->entry)) {
+					return (string) $xml->entry['revision'];
+				} else {
+					return "DESCONOCIDA";
+				}
 			}
+			return "DESCONOCIDA";
 		}
 	}
 

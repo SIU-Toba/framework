@@ -1409,6 +1409,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! file_exists($path_ini)) {
 			throw new toba_error("Para crear el paquete de instalación debe existe el archivo '$nombre_ini' en la raiz del proyecto");
 		}
+		chdir(toba_dir());
 		$ini = new toba_ini($path_ini);
 		
 		//--- Crea la carpeta destino
@@ -1434,6 +1435,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if ($crear_carpeta) {
 			toba_manejador_archivos::crear_arbol_directorios($empaquetado['path_destino']);
 		}
+		$empaquetado['path_destino'] = realpath($empaquetado['path_destino']);
 		
 		//-- Borra de la instancia todo proyecto ajeno a la exportacion
 		
@@ -1443,8 +1445,9 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		//--- Incluye el instalador base
 		$this->manejador_interface->titulo("Copiando archivos");		
 		if (! isset($empaquetado['path_instalador'])) {
-			throw new toba_error("'$nombre_ini': Debe indicar 'path_instalador' en seccion 'EMPAQUETADO'");
+			throw new toba_error("'$nombre_ini': Debe indicar 'path_instalador' en seccion [empaquetado]");
 		}
+		$empaquetado['path_instalador'] = realpath($empaquetado['path_instalador']);
 		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
 			throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_instalador']}' no es un directorio valido");
 		}
