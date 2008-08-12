@@ -1527,8 +1527,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		toba_manejador_archivos::crear_arbol_directorios($destino);		
 		$destino_metadatos = $destino.'/toba.sql';
 		$fp = fopen($destino_metadatos, 'w');
-		fwrite($fp, "BEGIN TRANSACTION;\n");
-		fwrite($fp, "SET CONSTRAINTS ALL DEFERRED;\n");		
 		fwrite($fp, $this->instancia->get_sql_crear_tablas());
 		$this->manejador_interface->progreso_avanzar();		
 		fwrite($fp, $this->instancia->get_sql_carga_datos_nucleo());
@@ -1536,7 +1534,6 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		fwrite($fp, $this->instancia->get_sql_carga_proyectos($proyectos_a_exportar));
 		$this->manejador_interface->progreso_avanzar();
 		fwrite($fp, $this->instancia->get_sql_actualizar_secuencias());		
-		fwrite($fp, "COMMIT TRANSACTION;\n");			
 		fclose($fp);		
 	}
 	
