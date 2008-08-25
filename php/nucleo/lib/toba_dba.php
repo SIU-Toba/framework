@@ -172,6 +172,10 @@ class toba_dba
 									$puerto,
 									$server );
 		$objeto_db->conectar();
+		//Si existe el parametro del schema, ponerlo por defecto para la conexión
+		if (isset($parametros['schema'])) {
+			$objeto_db->set_schema($parametros['schema']);
+		}		
 		return $objeto_db;
 	}
 
