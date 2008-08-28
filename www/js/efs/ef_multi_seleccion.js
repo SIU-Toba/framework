@@ -251,7 +251,7 @@ ef_multi_seleccion_check.constructor = ef_multi_seleccion_check;
 		this._callback = callback;
 		var elem = this.get_elementos();
 		for (var i=0; i < elem.length; i++) {
-			addEvent(elem[i], 'onchange', callback);
+			addEvent(elem[i], 'onclick', callback);
 		}
 	};
 	
