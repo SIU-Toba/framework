@@ -38,6 +38,12 @@ class comando_test extends comando_toba
 		$proyecto = isset($param["-p"]) ? $param["-p"] : $this->get_id_proyecto_actual(true);
 		$instancia = isset($param["-i"]) ? $param["-i"] : $this->get_id_instancia_actual(true);
 		
+		if (! defined('apex_pa_instancia')) {
+			define('apex_pa_instancia', $instancia);
+		}
+		if (! defined('apex_pa_proyecto')) {
+			define('apex_pa_proyecto', $proyecto);
+		}		
 		toba_test_lista_casos::$proyecto = $proyecto;
 		toba_test_lista_casos::$instancia = $instancia;
 		
