@@ -1418,6 +1418,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (! isset($empaquetado['path_destino'])) {
 			throw new toba_error("'$nombre_ini': Debe indicar 'path_destino' en seccion [empaquetado]");
 		}
+		$empaquetado['path_destino'].= '/'.$this->get_version_proyecto()->__toString();
 		if (file_exists($empaquetado['path_destino'])) {
 			if (! is_dir($empaquetado['path_destino'])) {
 				throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_destino']}' no es un directorio valido");
