@@ -62,7 +62,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "<label>$check Refresco Automático</label> <span id='div_lapso'>".$edit."ms</span><br>";
 		echo "</div><hr style='clear:both' />";		
 		
-		echo "<div style='clear:both;width:100%;height:100%;overflow:auto;'>\n";
+		echo "<div style='clear:both;width:100%;overflow:auto;'>\n";
 		list($detalle, $cant_por_nivel) = $this->generar_html_detalles($res);
 
 		//--- Encabezado 
@@ -92,6 +92,7 @@ class pantalla_visor extends toba_ei_pantalla
 		echo "</div>";*/
 		
 		//--- Detalles
+
 		echo "<ol id='logger_detalle' style='list-style-type:none;padding:0;margin:0;margin-top:10px;'>";		
 		echo $detalle;
 		echo "</ol>\n";
