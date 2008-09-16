@@ -165,6 +165,8 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			$dump_nucleo = ( $tabla['dump'] == 'nucleo' );
 			$dump_nucleo_multiproyecto = ( $tabla['dump'] == 'nucleo_multiproyecto' );
 			$dump_permisos = ( $tabla['dump'] == 'permisos' );
+			$sin_dump = ( $tabla ['dump'] == 'no_requerido');
+			
 			//-- Controles de integridad de la DEFINICION del plan --
 			if ( $dump_componente && ( $es_instancia || $es_log ) ) {
 				throw new toba_error("La tabla '$id' posee un error en el plan de dumpeo: componente + (historica || instancia).");
@@ -172,7 +174,7 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 			if( $es_instancia && $es_log ) {
 				throw new toba_error("La tabla '$id' posee un error en el plan de dumpeo: historica + instancia.");
 			}
-			if( !( $dump_componente || $dump_proyecto || $dump_nucleo || $dump_permisos ) ) {
+			if( !( $dump_componente || $dump_proyecto || $dump_nucleo || $dump_permisos || $sin_dump) ) {
 				throw new toba_error("La tabla '$id' no posee una modalidad de dumpeo definida.");
 			}
 			//-- Armo el PLAN --
@@ -192,7 +194,9 @@ class toba_modelo_nucleo extends toba_modelo_elemento
 					}
 				}
 			} elseif ( $es_log ) {
+				if (! $sin_dump){
 				$this->plan[ $this->ba_instancia ]['tablas'][] = $id;
+				}
 				if ( $dump_proyecto ) {
 					$this->plan[ $this->ba_instancia ]['indices']['get_lista_proyecto_log'][] = $id;
 				} elseif ( $dump_nucleo ) {

@@ -25,8 +25,7 @@ class toba_db_tablas_instancia
   2 => 'apex_sesion_browser',
   3 => 'apex_solicitud_browser',
   4 => 'apex_solicitud_consola',
-  5 => 'apex_solicitud_cronometro',
-  6 => 'apex_solicitud_observacion',
+  5 => 'apex_solicitud_observacion',
 );
 	}
 
@@ -323,29 +322,6 @@ class toba_db_tablas_instancia
     3 => 'ip',
     4 => 'llamada',
     5 => 'entorno',
-  ),
-);
-	}
-
-	static function apex_solicitud_cronometro()
-	{
-		return array (
-  'archivo' => 'pgsql_a04_tablas_solicitudes.sql',
-  'proyecto' => 'toba',
-  'dump' => 'multiproyecto',
-  'dump_order_by' => 'solicitud, marca',
-  'zona' => 'solicitud',
-  'desc' => '',
-  'historica' => '1',
-  'version' => '1.0',
-  'columnas' => 
-  array (
-    0 => 'proyecto',
-    1 => 'solicitud',
-    2 => 'marca',
-    3 => 'nivel_ejecucion',
-    4 => 'texto',
-    5 => 'tiempo',
   ),
 );
 	}

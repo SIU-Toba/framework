@@ -106,7 +106,7 @@ CREATE TABLE apex_solicitud_consola
 CREATE TABLE apex_solicitud_cronometro
 ---------------------------------------------------------------------------------------------------
 --: proyecto: toba
---: dump: multiproyecto
+--: dump: no_requerido
 --: dump_order_by: solicitud, marca
 --: zona: solicitud
 --: desc:
