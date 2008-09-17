@@ -91,7 +91,7 @@ class comando_instalacion extends comando_toba
 				if ($puede_conectar !== true) {
 					$this->consola->mensaje("\nNo es posible conectar con el servidor, por favor reeingrese la información de conexión. Mensaje:");
 					$this->consola->mensaje($puede_conectar."\n");
-				}
+				}				
 			} while ($puede_conectar !== true);
 		}	
 
@@ -104,6 +104,9 @@ class comando_instalacion extends comando_toba
 				$this->get_instalacion()->agregar_db( $base, $datos );
 			}
 		}
+		
+		//--- Determino el encoding apropiado para la base de datos.
+		$this->get_instalacion()->determinar_encoding( $base );
 		
 		//--- Pregunta identificador del Proyecto
 		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);

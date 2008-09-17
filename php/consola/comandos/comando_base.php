@@ -92,6 +92,7 @@ class comando_base extends comando_toba
 		
 		//--- Registración
 		$this->get_instalacion()->agregar_db( $def, $datos );
+		$this->get_instalacion()->determinar_encoding( $def );
 	}	
 	
 
