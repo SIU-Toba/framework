@@ -189,8 +189,7 @@ class ci_creador_objeto extends toba_ci
 				case 'toba_ci_pantalla':
 					//--- Si es una pantalla el info_ci se carga en profunidad para traer el nombre de la misma
 					$info = toba_constructor::get_info($clave, 'toba_ci', true);			
-					$pantalla = $info->get_pantalla($this->destino['pantalla']);
-					$nombre .= $info->get_nombre_corto() .' - '.$pantalla->get_id();
+					$nombre .= $info->get_nombre_corto();
 					break;
 			}	
 		}	
