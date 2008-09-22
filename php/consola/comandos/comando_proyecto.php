@@ -144,7 +144,7 @@ class comando_proyecto extends comando_toba
 			}
 			$param = $this->get_parametros();
 			if (isset($param['-d'])) {
-				$path = $param['-d'];
+				$path = realpath($param['-d']);
 			}
 		} else {
 			$id_proyecto = $datos[0];
