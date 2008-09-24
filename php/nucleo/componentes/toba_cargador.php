@@ -126,7 +126,11 @@ class toba_cargador
 			foreach ( $estructura as $seccion => $contenido ) {
 				$temp = $db->consultar( $contenido['sql'] );
 				if ( $contenido['obligatorio'] && count($temp) == 0 ) {
-					throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
+					if ($tipo == 'toba_item' && $seccion == 'basica') {
+						throw new toba_error("La operación '$id' no existe");						
+					} else {
+						throw new toba_error("Error en la carga del componente '$id' (TIPO '$tipo'). No existe el la seccion de datos '$seccion'");
+					}
 				}
 				if ($contenido['registros']!=='1') {
 					$metadatos[$seccion] = $temp;
