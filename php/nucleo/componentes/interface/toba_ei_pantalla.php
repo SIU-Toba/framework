@@ -28,6 +28,7 @@ class toba_ei_pantalla extends toba_ei
 	protected $_nombre_formulario;					// Nombre del <form> del MT
 	protected $_submit;								// Boton de SUBMIT
 	protected $_id_en_controlador;
+	protected $_notificaciones = array();			// Arreglo con notificaciones a mostrar
 
 	function __construct($info_pantalla, $submit, $objeto_js)
 	{
@@ -118,6 +119,16 @@ class toba_ei_pantalla extends toba_ei
 	{
 		$this->_info_pantalla["descripcion"] = $descr;
 		$this->_info_pantalla["descripcion_tipo"] = $tipo;
+	}
+	
+	/**
+	 * Agrega un mensaje de notificacion de esta pantalla
+	 * @param string $mensaje
+	 * @param string $tipo Puede ser 'info', 'warning', 'error'
+	 */
+	function agregar_notificacion($mensaje, $tipo='info')
+	{
+		$this->_notificaciones[] = array('mensaje' => $mensaje, 'tipo' => $tipo);		
 	}
 	
 	/**
@@ -388,18 +399,19 @@ class toba_ei_pantalla extends toba_ei
 	function generar_html()
 	{
 		echo "\n<!-- ################################## Inicio CI ( ".$this->_id[1]." ) ######################## -->\n\n";		
-		//-->Listener de eventos
-		if ( (count($this->_eventos) > 0) || (count($this->_eventos_usuario_utilizados) > 0) ) {
-			echo toba_form::hidden($this->_submit, '');
-			echo toba_form::hidden($this->_submit."__param", '');
-		}
 		$ancho = isset($this->_info_ci["ancho"]) ? "style='width:{$this->_info_ci["ancho"]};'" : '';
 		echo "<table class='ei-base ci-base' $ancho id='{$this->objeto_js}_cont'><tr><td style='padding:0;'>\n";
 		echo $this->controlador->get_html_barra_editor();
 		$this->generar_html_barra_sup(null,true,"ci-barra-sup");
 		$colapsado = (isset($this->_colapsado) && $this->_colapsado) ? "style='display:none'" : "";
 		echo "<div $colapsado id='cuerpo_{$this->objeto_js}'>\n";
-
+		
+		//-->Listener de eventos
+		if ( (count($this->_eventos) > 0) || (count($this->_eventos_usuario_utilizados) > 0) ) {
+			echo toba_form::hidden($this->_submit, '');
+			echo toba_form::hidden($this->_submit."__param", '');
+		}
+		
 		//--> Cuerpo del CI
 		$alto = isset($this->_info_ci["alto"]) ? "style='_height:".$this->_info_ci["alto"].";min-height:" . $this->_info_ci["alto"] . "'" : "";
 		echo "<div class='ci-cuerpo' $alto>\n";
@@ -484,9 +496,15 @@ class toba_ei_pantalla extends toba_ei
 				echo $this->get_etiqueta();
 				echo "</div>";
 				$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);
+				foreach ($this->_notificaciones as $notificacion){
+					$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
+				}
 				echo "</div>";
 			} else {
 				$this->generar_html_descripcion($this->_info_pantalla['descripcion'], $tipo);
+				foreach ($this->_notificaciones as $notificacion){
+					$this->generar_html_descripcion($notificacion['mensaje'], $notificacion['tipo']);
+				}
 			}
 			echo "<hr class='ci-pant-sep' />\n";
 		}

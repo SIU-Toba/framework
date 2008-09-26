@@ -153,6 +153,34 @@ function ei_arbol(instancia, input_submit, autovinculo) {
 			}
 		}	
 	};
+
+	/**
+	 * Busca el <li> anterior a uno pasado como parametro
+	 * @private
+	 */	
+	ei_arbol.prototype.buscar_li_previo = function(li) {
+		var temp = li;
+		while (true) {
+			temp = temp.previousSibling;
+			if ( temp == null || temp.tagName == 'LI' ) {
+				return temp;
+			}
+		}
+	};
+
+	/**
+	 * Busca el <li> siguiente a uno pasado como parametro
+	 * @private
+	 */	
+	ei_arbol.prototype.buscar_li_siguiente = function(li) {
+		var temp = li;
+		while (true) {
+			temp = temp.nextSibling;
+			if ( temp == null || temp.tagName == 'LI' ) {
+				return temp;
+			}
+		}
+	};
 	
 	ei_arbol.prototype.get_nodo_raiz = function(nombre) {
 		return $(this._instancia + '_nodo_raiz');

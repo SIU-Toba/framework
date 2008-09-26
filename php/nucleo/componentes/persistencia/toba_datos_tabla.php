@@ -809,8 +809,12 @@ class toba_datos_tabla extends toba_componente
 		$fila_anterior = $this->_datos[$id];
 		foreach(array_keys($fila) as $clave){
 			if (isset($this->_datos[$id][$clave])) {
+				$viejo = $this->_datos[$id][$clave];
+				if (is_bool($viejo)) {
+					$viejo = $viejo ? 1 : 0;
+				}
 				//--- Comparacion por igualdad estricta con un cast a string
-				$modificar = (trim((string) $this->_datos[$id][$clave]) !== trim((string) $fila[$clave]));
+				$modificar = (trim((string) $viejo) !== trim((string) $fila[$clave]));
 			} else {
 				//--- Si antes era null, se modifica si ahora no es null! (y si es una columna valida)
 				$modificar = isset($this->_columnas[$clave]) && isset($fila[$clave]);

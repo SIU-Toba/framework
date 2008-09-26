@@ -12,6 +12,7 @@ abstract class toba_filtro_columna
 	protected $_id_form_cond;
 	protected $_estado = null;	
 	protected $_condiciones = array();
+	protected $_solo_lectura = false;
 	
 	function __construct($datos, $padre) 
 	{
@@ -40,6 +41,12 @@ abstract class toba_filtro_columna
 	{
 		$this->_datos['inicial'] = $visible;
 	}	
+	
+	function set_solo_lectura($solo_lectura = true)
+	{
+		$this->_solo_lectura = $solo_lectura;
+		$this->_ef->set_solo_lectura($solo_lectura);
+	}
 	
 	function set_expresion($campo)
 	{
@@ -100,7 +107,11 @@ abstract class toba_filtro_columna
 	{
 		return $this->_ef->es_obligatorio();
 	}
-	
+
+	function es_solo_lectura()
+	{
+		return $this->_solo_lectura;
+	}
 	
 	function es_visible()
 	{
@@ -137,6 +148,7 @@ abstract class toba_filtro_columna
 	{
 		return $this->_ef->validar_estado();
 	}
+	
 	
 	function resetear_estado()
 	{
@@ -203,7 +215,16 @@ abstract class toba_filtro_columna
 		if (count($this->_condiciones) > 1) {
 			//-- Si tiene mas de una condicion se muestran con un combo
 			$onchange = "{$this->get_objeto_js()}.cambio_condicion(\"{$this->get_nombre()}\");";
-			$html = "<select id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' onchange='$onchange'>";
+			$html = '';
+			if ($this->_solo_lectura) {
+				$id = $this->_id_form_cond.'_disabled';
+				$disabled = 'disabled';
+				$html .= "<input type='hidden' id='{$this->_id_form_cond}' name='{$this->_id_form_cond}' value='{$this->_estado['condicion']}'/>\n";				
+			} else {
+				$disabled = '';
+				$id = $this->_id_form_cond;
+			}
+			$html .= "<select id='$id' name='$id' $disabled onchange='$onchange'>";
 			foreach ($this->_condiciones as $id => $condicion) {
 				$selected = '';
 				if (isset($this->_estado) && $this->_estado['condicion'] == $id) {
@@ -212,6 +233,7 @@ abstract class toba_filtro_columna
 				$html .= "<option value='$id' $selected>".$condicion->get_etiqueta()."</option>\n";
 			}
 			$html .= '</select>';
+
 			return $html;
 		} else {
 			$condicion = key($this->_condiciones);

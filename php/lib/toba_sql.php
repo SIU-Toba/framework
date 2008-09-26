@@ -33,6 +33,11 @@
 		if (empty($clausulas_where)) {
 			return $sql;
 		}
+		$sql = trim($sql);
+		//Elimino el ultimo punto y coma
+		if ($sql != '' && $sql[strlen($sql) - 1] == ';') {
+			 $sql = substr($sql, 0, -1);
+		}
 		$balance_parentesis = 0; //Para saber si estoy metido en unos parentesis
 		$todos = preg_split("/([\s,;]+)/", $sql, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$separadores = array();

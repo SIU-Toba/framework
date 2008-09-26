@@ -44,16 +44,4 @@ function ei_cuadro(id, instancia, input_submit) {
 		toggle_nodo(objeto);
 	};
 	
-	ei_cuadro.prototype.exportar_pdf = function()
-	{
-		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id]);
-		document.location.href = url;
-	};
-
-	ei_cuadro.prototype.exportar_excel = function()
-	{
-		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id]);
-		document.location.href = url;
-	};	
-	
 toba.confirmar_inclusion('componentes/ei_cuadro');

@@ -92,6 +92,24 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 				$this->_eventos_granulares = false;
 		}	
 	}
+	
+	/**
+	 * Permite indicar por api si se exporta a excel el formulario
+	 * @param boolean $exportar
+	 * @todo Cambiar cuando esta informacion pase a formar parte de los metadatos
+	 */
+	function set_exportar_excel($exportar=true){
+		$this->_info_formulario['exportar_xls'] = $exportar;
+	}
+	
+	/**
+	 * Permite indicar por api si se exporta a pdf el formulario
+	 * @param boolean $exportar
+	 * @todo Cambiar cuando esta informacion pase a formar parte de los metadatos
+	 */
+	function set_exportar_pdf($exportar=true){
+		$this->_info_formulario['exportar_pdf'] = $exportar;
+	}
 
 	/**
 	 * Cambia la forma gráfica del ordenamiento de las filas, si es en_linea se muestran las flechas al lado del registro, sino se muestran en una botonera separada 
@@ -660,6 +678,8 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 	 */
 	protected function generar_layout($ancho='auto')
 	{
+		//-- Botonera excel y pdf
+		$this->generar_botonera_exportacion();
 		//Botonera de agregar y ordenar
 		$this->generar_botonera_manejo_filas();
 		echo "<table class='ei-ml-grilla' style='width: $ancho' >\n";
@@ -668,6 +688,32 @@ class toba_ei_formulario_ml extends toba_ei_formulario
 		$this->generar_formulario_cuerpo();
 		echo "\n</table>";
 		$this->generar_botones();
+	}
+	
+	/**
+	 * @ignore 
+	 */	
+	protected function generar_botonera_exportacion(){
+		//-- TODO: cambiar cuando esta informacion pase a formar parte de los metadatos
+		if (! isset($this->_info_formulario['exportar_pdf'])) {
+			$this->_info_formulario['exportar_pdf'] = 0;
+		}
+		if (! isset($this->_info_formulario['exportar_xls'])) {
+			$this->_info_formulario['exportar_xls'] = 0;
+		}
+		//
+		if (($this->_info_formulario['exportar_pdf'] || $this->_info_formulario['exportar_xls'])){
+			echo "<div class='ei-ml-botonera-exportar'>";	
+			if ($this->_info_formulario['exportar_pdf'] == 1) {
+	        	$img = toba_recurso::imagen_toba('extension_pdf.png', true);
+	        	echo "<a href='javascript: {$this->objeto_js}.exportar_pdf()' title='Exporta el listado a formato PDF'>$img</a>";
+	        }    		
+	        if ($this->_info_formulario['exportar_xls'] == 1) {
+	        	$img = toba_recurso::imagen_toba('exp_xls.gif', true);
+	        	echo "<a href='javascript: {$this->objeto_js}.exportar_excel()' title='Exporta el listado a formato Excel (.xls)'>$img</a>";
+	        }
+			echo "</div>\n";
+		}
 	}
 	
 	/**

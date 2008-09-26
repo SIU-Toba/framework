@@ -660,7 +660,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 		//Carpeta php
 		toba_manejador_archivos::crear_arbol_directorios( $destino);
 		toba_manejador_archivos::copiar_directorio($path_base, $destino, 
-													$excepciones, $this->manejador_interface);
+													$excepciones, $this->manejador_interface, false);
 
 		//Crea un archivo revision con la actual de toba
 		file_put_contents($destino.'/REVISION', revision_svn(toba_dir(), true));

@@ -370,7 +370,7 @@ class toba_ei_filtro extends toba_ei
 			//-- Borrar a nivel de fila
 			echo "<td class='$estilo_celda ei-filtro-borrar'>";
 			//Si es obligatoria no se puede borrar
-			if (! $columna->es_obligatorio()) {
+			if (!$columna->es_solo_lectura() && !$columna->es_obligatorio()) {
 				echo toba_form::button_html("{$this->objeto_js}_eliminar$nombre_col", toba_recurso::imagen_toba('borrar.gif', true), 
 									"onclick='{$this->objeto_js}.seleccionar(\"$nombre_col\");{$this->objeto_js}.eliminar_seleccionada();'", 
 									$this->_rango_tabs[0]++, null, 'Elimina la fila');

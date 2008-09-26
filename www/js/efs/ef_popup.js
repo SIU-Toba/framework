@@ -116,6 +116,9 @@ ef_popup.prototype.constructor = ef_popup;
 		if(! isset(desc)) {
 			desc = '';
 		}
+		if(! isset(clave)) {
+			clave = '';
+		}
 		var input = this.input();
 		input.value = clave;
 		if (input.onchange) {

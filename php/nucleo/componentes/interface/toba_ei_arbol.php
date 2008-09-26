@@ -188,6 +188,10 @@ class toba_ei_arbol extends toba_ei
 		}
 	}
 
+	//-------------------------------------------------------------------------------------------------------
+	//--	Generacion de HTML
+	//-------------------------------------------------------------------------------------------------------
+
 	function generar_html()
 	{
 		echo toba_form::hidden($this->_submit, '');
@@ -200,6 +204,7 @@ class toba_ei_arbol extends toba_ei
 		if ($this->_mostrar_filtro_rapido) {
 			$this->generar_html_filtro_rapido();
 		}
+		$this->generar_html_barra_especifica();
 		echo "<div id='cuerpo_{$this->objeto_js}'>";
 		if (isset($this->_nodos_inicial)) {
 			//--- Se incluye la barrita que contiene el path actual
@@ -237,20 +242,16 @@ class toba_ei_arbol extends toba_ei
 		echo "</div>";
 	}
 
-	
-	function generar_html_filtro_rapido()
-	{
-		echo "<div class='ei-arbol-filtro'>";
-		$eventos = "onkeyup='{$this->objeto_js}.filtro_cambio()' onblur='{$this->objeto_js}.filtro_salir()' onfocus='{$this->objeto_js}.filtro_foco()'";
-		echo "<input id='{$this->_submit}_filtro_rapido' type='text' value='Buscar...' $eventos />";
-		echo "</div>";
-	}
-	
 	/**
 	 * @ignore
 	 */
-	protected function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0)
+	public function recorrer_recursivo($nodo, $es_raiz = false, $nivel = 0, $solo_contenido=false)
 	{
+		//Le paso al nodo una referencia al arbol que lo contiene
+		if( method_exists($nodo, 'set_ei_arbol') ){
+			$nodo->set_ei_arbol( $this );
+		}
+		
 		if ($this->chequear_ids_unicos) {
 			$id_nodo = $nodo->get_id();
 			if (isset($this->ids[$id_nodo])) {
@@ -261,30 +262,51 @@ class toba_ei_arbol extends toba_ei
 			$this->ids[$id_nodo] = get_class($nodo);
 		}
 
-
+		//Configuracion del estilo del nodo
+		$clase_li = 'ei-arbol-nodo ';
+		$estilo_li = '';
+		if( method_exists($nodo, 'get_clase_css_li')) {
+			$clase_li .= $nodo->get_clase_css_li();
+		}
+		if( method_exists($nodo, 'get_estilo_css_li') ){
+			$estilo_li .= $nodo->get_estilo_css_li();
+		}
+		
 		//Determina si el nodo es visible en la apertura
-		$salida = "\n\t<li class='ei-arbol-nodo'>";
+		$salida = '';
+		if (!$solo_contenido) $salida = "\n\t<li class='$clase_li' id_nodo='{$nodo->get_id()}' style='$estilo_li' >";
 		$es_visible = $this->nodo_es_visible($nodo, $nivel);
 		$salida .= $this->mostrar_nodo($nodo, $es_visible);
 
 		//Recursividad
 		if (! $nodo->es_hoja()) {
-			$estilo =  ($es_visible) ? "" : "style='display:none'";
-			$salida .= "\n<ul id_nodo='{$nodo->get_id()}' class='ei-arbol-rama' $estilo>";
+	
+			//Configuracion del estilo del nodo
+			$clase_ul = 'ei-arbol-rama ';
+			$estilo_ul = ($es_visible) ? "" : "display:none";
+			if( method_exists($nodo, 'get_clase_css_ul') ) {
+				$clase_ul .= $nodo->get_clase_css_ul();
+			}
+			if( method_exists($nodo, 'get_estilo_css_ul') ) {
+				$estilo_ul .= $nodo->get_estilo_css_ul();
+			}
+			$estilo = ($estilo_ul) ? "style='$estilo_ul'" : '';
+			
+			$salida .= "\n<ul id_nodo='{$nodo->get_id()}' class='$clase_ul' $estilo>";
 			$nivel = $nivel + 1;
 			if ($nodo->tiene_hijos_cargados()) {
 				$salida .= $this->recorrer_hijos($nodo, $nivel);
 			}
 			$salida .= "</ul>";
 		}
-		$salida .= "</li>\n";
+		if (!$solo_contenido) $salida .= "</li>\n";
 		return $salida;
 	}
 
 	/**
 	 * @ignore
 	 */
-	protected function recorrer_hijos($nodo, $nivel)
+	public function recorrer_hijos($nodo, $nivel)
 	{
 		$salida = "";
 		foreach ($nodo->get_hijos() as $nodo_hijo) {
@@ -296,7 +318,7 @@ class toba_ei_arbol extends toba_ei
 	/**
 	 * @ignore
 	 */
-	protected function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
+	public function mostrar_nodo(toba_nodo_arbol $nodo, $es_visible)
 	{
 		$salida = '';
 		$salida .= $this->mostrar_utilerias($nodo);
@@ -338,6 +360,19 @@ class toba_ei_arbol extends toba_ei
 		return $salida;
 	}
 
+	function generar_html_filtro_rapido()
+	{
+		echo "<div class='ei-arbol-filtro'>";
+		$eventos = "onkeyup='{$this->objeto_js}.filtro_cambio()' onblur='{$this->objeto_js}.filtro_salir()' onfocus='{$this->objeto_js}.filtro_foco()'";
+		echo "<input id='{$this->_submit}_filtro_rapido' type='text' value='Buscar...' $eventos />";
+		echo "</div>";
+	}
+
+	/**
+	 * Ventana para generar una barra especifica para el componente
+	 */
+	function generar_html_barra_especifica(){}
+
 	/**
 	 * Determina si un nodo es visible fijandose en la apertura de nodos
 	 * @ignore
@@ -367,7 +402,8 @@ class toba_ei_arbol extends toba_ei
 		$salida = '';
 		foreach ($nodo->get_iconos() as $icono) {
 			$ayuda = toba_parser_ayuda::parsear($icono['ayuda']);
-			$img = toba_recurso::imagen($icono['imagen'], null, null, $ayuda);
+			$js = isset($icono['javascript']) ? $icono['javascript'] : '';
+			$img = toba_recurso::imagen($icono['imagen'], null, null, $ayuda, null, $js);
 			if (isset($icono['vinculo'])) {
 				$salida .= "<a target='{$this->_frame_destino}' href='".$icono['vinculo']."'>$img</a>\n";
 			} else {
@@ -397,7 +433,8 @@ class toba_ei_arbol extends toba_ei
 			$cant_plegados = 0;
 			foreach ($utilerias as $utileria) {
 				$ayuda = toba_parser_ayuda::parsear($utileria['ayuda']);
-				$img = toba_recurso::imagen($utileria['imagen'], null, null, $ayuda);
+				$js = isset($utileria['javascript']) ? $utileria['javascript'] : '';
+				$img = toba_recurso::imagen($utileria['imagen'], null, null, $ayuda, null, $js);
 				if (isset($utileria['vinculo'])) {
 					if (isset($utileria['target'])) {
 						$target = "target='".$utileria['target']."'";

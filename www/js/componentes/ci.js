@@ -18,7 +18,6 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 	this._en_submit = false;							//?Esta en proceso de submit el CI?
 	this._silencioso = false;							//?Silenciar confirmaciones y alertas? Util para testing
 	this._evento_implicito = new evento_ei('', true, '');	//Por defecto se valida los objetos contenidos
-	this._parametros = "";								//Parametros opcionales que se pasan al server
 	this.reset_evento();
 }
 
@@ -99,7 +98,7 @@ function ci(id, instancia, form, input_submit, id_en_controlador) {
 		}
 		if (this._evento.id !== '') {
 			document.getElementById(this._input_submit).value = this._evento.id;
-			document.getElementById(this._input_submit + "__param").value = this._parametros;
+			document.getElementById(this._input_submit + "__param").value = this._evento.parametros;
 		}
 	};
 	

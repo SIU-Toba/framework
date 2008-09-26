@@ -32,6 +32,12 @@ class toba_db_postgres7 extends toba_db
 		$sql = "SET search_path TO $schema";
 		$this->ejecutar($sql);
 	}
+	
+	function set_encoding($encoding)
+	{
+		$sql = "SET CLIENT_ENCODING TO '$encoding'";
+		$this->ejecutar($sql);		
+	}
 
 	/**
 	*	Recupera el valor actual de una secuencia

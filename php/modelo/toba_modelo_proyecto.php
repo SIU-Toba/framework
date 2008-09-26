@@ -1407,7 +1407,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		$nombre_ini = 'proyecto.ini';
 		$path_ini = $this->get_dir().'/'.$nombre_ini;
 		if (! file_exists($path_ini)) {
-			throw new toba_error("Para crear el paquete de instalación debe existe el archivo '$nombre_ini' en la raiz del proyecto");
+			throw new toba_error("Para crear el paquete de instalación debe existir el archivo '$nombre_ini' en la raiz del proyecto");
 		}
 		chdir(toba_dir());
 		$ini = new toba_ini($path_ini);
@@ -1452,9 +1452,10 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		if (!file_exists($empaquetado['path_instalador']) || !is_dir($empaquetado['path_instalador'])) {
 			throw new toba_error("'$nombre_ini': La ruta '{$empaquetado['path_instalador']}' no es un directorio valido");
 		}
-		$this->manejador_interface->mensaje("Copiando instalador..", false);		
+		$this->manejador_interface->mensaje("Copiando instalador..", false);
+		$excepciones = array($empaquetado['path_instalador'].'/ejemplo.proyecto.ini');		
 		toba_manejador_archivos::copiar_directorio($empaquetado['path_instalador'], $empaquetado['path_destino'], 
-														array(), $this->manejador_interface);
+														$excepciones, $this->manejador_interface, false);
 		$this->manejador_interface->progreso_fin();
 		
 		//--- Empaqueta el núcleo de toba y lo deja en destino
@@ -1508,7 +1509,7 @@ class toba_modelo_proyecto extends toba_modelo_elemento
 		
 		toba_manejador_archivos::crear_arbol_directorios($destino);
 		toba_manejador_archivos::copiar_directorio($origen, $destino, 
-													$excepciones, $this->manejador_interface);
+													$excepciones, $this->manejador_interface, false);
 
 		//-- Crea un archivo revision con la actual de toba
 		file_put_contents($destino.'/REVISION', revision_svn($origen, true));		

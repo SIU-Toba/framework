@@ -334,7 +334,7 @@
 		} else {
 			if (file_exists($dir.'/.svn')) {
 				$cmd = "svn info \"$dir\" --xml";
-				$xml = simplexml_load_string(`$cmd`);
+				$xml = @simplexml_load_string(`$cmd`);
 				if (isset($xml->entry)) {
 					return (string) $xml->entry['revision'];
 				} else {

@@ -265,6 +265,49 @@ ei.prototype.constructor = ei;
 		return document.getElementById(this._input_submit + '_' + id);
 	};
 	
-	
+	ei.prototype.exportar_pdf = function()
+	{
+		var url = vinculador.get_url(null, null, 'vista_pdf', null, [this._id]);
+		document.location.href = url;
+	};
+
+	ei.prototype.exportar_excel = function()
+	{
+		var url = vinculador.get_url(null, null, 'vista_excel', null, [this._id]);
+		document.location.href = url;
+	};	
+
+//--------------------------------------------------------------------------------	
+//Utilidades sobre arbol DOM 
+if (self.Node && ! self.Node.prototype.swapNode) {
+	/**
+	 *	@ignore
+	 */
+	Node.prototype.swapNode = function (node) {
+		var nextSibling = this.nextSibling;
+		var parentNode = this.parentNode;
+		node.parentNode.replaceChild(this, node);
+		parentNode.insertBefore(node, nextSibling);  
+	};
+}
+
+function intercambiar_nodos(nodo1, nodo2) {
+	if (ie) {	//BUG del IE para mantener el estado de los checkbox
+		var intercambio_vals = [];
+		var inputs = document.getElementsByTagName('input');
+		for (var i=0; i < inputs.length; i++) {
+			if (inputs[i].type.toLowerCase() == 'checkbox' && inputs[i].id.indexOf('__fila__') == -1) {
+				intercambio_vals.push( [inputs[i].id, inputs[i].checked]);
+			}
+		}	
+	}
+	nodo1.swapNode(nodo2);
+	if (ie) {
+		for (i=0; i < intercambio_vals.length; i++) {
+			var check = intercambio_vals[i];
+			document.getElementById(check[0]).checked = check[1];
+		}
+	}
+}
 
 toba.confirmar_inclusion('componentes/ei');
