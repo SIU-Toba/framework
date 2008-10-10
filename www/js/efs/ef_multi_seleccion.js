@@ -276,12 +276,12 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 	 * @constructor
 	 * @phpdoc Componentes/Efs/toba_ef_multi_seleccion_doble toba_ef_multi_seleccion_doble
 	 */
-	function ef_multi_seleccion_doble(id_form, etiqueta, obligatorio, colapsado, limites, imgs) {
+	function ef_multi_seleccion_doble(id_form, etiqueta, obligatorio, colapsado, limites, imgs, orden_opciones) {
 		ef_multi_seleccion.prototype.constructor.call(this, id_form, etiqueta, obligatorio, colapsado, limites);
 		this._imgs = imgs;
 		this._callback = null;
+		this._orden_opciones = orden_opciones;
 	}
-
 	
 	/**
 	 * Retorna la referencia a uno de los dos input html que componen el componente (por defecto el de la derecha)
@@ -353,8 +353,24 @@ ef_multi_seleccion_doble.constructor = ef_multi_seleccion_doble;
 			}
 			actual = i_desde.selectedIndex;
 		}
+		//Ordena los elementos segun el orden inicial
+		var orden = this._orden_opciones;
+		function ordenar(a,b) { 
+			for (var i=0; i < orden.length; i++) {
+				if (orden[i] == a[1]) {
+					return -1;
+				}
+				if (orden[i] == b[1]) {
+					return 1;
+				}	
+			};
+			return 0;
+		}
+		ordenar_select(this.input(hasta), ordenar);
 		this.refrescar_todo();
+		this.input(hasta).selectedIndex = -1;		
 	};
+	
 	
 	/**
 	 *	@private

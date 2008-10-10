@@ -487,7 +487,8 @@ class toba_ef_multi_seleccion_doble extends toba_ef_multi_seleccion
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/si_siguiente.gif', false);
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/no_anterior.gif', false);
 		$imgs[] = toba_recurso::imagen_toba('nucleo/paginacion/si_anterior.gif', false);
-		return parent::parametros_js().",".toba_js::arreglo($imgs, false);
+		$orden_opciones = toba_js::arreglo(array_keys($this->opciones));
+		return parent::parametros_js().",".toba_js::arreglo($imgs, false).', '.$orden_opciones;
 	}
 	
 	function crear_objeto_js()

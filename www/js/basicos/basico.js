@@ -218,6 +218,27 @@ function getElementPosition(offsetTrail) {
 }
 
 /**
+ * Ordena un input elect por una funcion
+ */ 
+function ordenar_select(selectBox, funcion) {
+	selectArray = new Array();
+	for (i = 0; i < selectBox.length; i++) {
+		selectArray[i] = new Array();
+		selectArray[i][0] = selectBox.options[i].text;
+		selectArray[i][1] = selectBox.options[i].value;
+	}
+	if (typeof funcion == 'undefined') {
+		selectArray.sort();
+	} else {
+		selectArray.sort(funcion);
+	}
+	for (j = 0; j < selectBox.length; j++) {
+		selectBox.options[j].text = selectArray[j][0];
+		selectBox.options[j].value = selectArray[j][1];
+	}
+} 
+
+/**
  * Recorre el arbol DOM en busqueda de un input HTML que acepte focus
  */
 function firstFocus()
