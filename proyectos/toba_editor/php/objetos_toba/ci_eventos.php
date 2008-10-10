@@ -174,13 +174,18 @@ class ci_eventos extends toba_ci
 	
 	function conf__eventos($componente)
 	{
-    $this->seleccion_evento_anterior = $this->seleccion_evento;
-
-  	$componente->set_datos($this->get_tabla()->get_fila($this->seleccion_evento_anterior));
-   
-    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior); 
-    $componente->ef('ptos_de_control')->set_estado($this->controlador->dep('datos')->tabla('puntos_control')->get_valores_columna('pto_control'));
-  }
+	    $this->seleccion_evento_anterior = $this->seleccion_evento;
+	  	$datos = $this->get_tabla()->get_fila($this->seleccion_evento_anterior);
+	  	
+	  	//Construye el id de la carpeta a partir del id del item
+	  	if (isset($datos['accion_vinculo_item']) && $datos['accion_vinculo_item'] != '') {
+	  		$datos['accion_vinculo_carpeta'] = toba_info_editores::get_carpeta_de_item($datos['accion_vinculo_item'], $datos['proyecto']); 
+	  	}
+	  	
+	    $this->get_tabla()->set_cursor($this->seleccion_evento_anterior); 
+	    $componente->ef('ptos_de_control')->set_estado($this->controlador->dep('datos')->tabla('puntos_control')->get_valores_columna('pto_control'));
+	    return $datos;
+	}
   
 	function evt__eventos__cancelar()
 	{
