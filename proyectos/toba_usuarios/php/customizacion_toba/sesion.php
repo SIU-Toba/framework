@@ -1,4 +1,5 @@
 <?php
+require_once('lib/admin_instancia.php');
 
 class sesion extends toba_sesion
 {

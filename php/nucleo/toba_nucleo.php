@@ -194,8 +194,8 @@ class toba_nucleo
 	{
 		$this->controlar_requisitos_basicos();
 		agregar_dir_include_path( toba_proyecto::get_path_php() );
-		toba::manejador_sesiones()->iniciar();		
-		toba::contexto_ejecucion()->conf__inicial();
+		toba::manejador_sesiones()->iniciar();
+		toba::contexto_ejecucion()->conf__inicial();		
 	}
 
 	protected function finalizar_contexto_ejecucion()
@@ -357,6 +357,7 @@ class toba_nucleo
 			'toba_error_autorizacion'				=> 'nucleo/lib/toba_error.php',
 			'toba_error_validacion' 				=> 'nucleo/lib/toba_error.php',
 			'toba_error_ini_sesion'					=> 'nucleo/lib/toba_error.php',
+			'toba_error_seguridad'					=> 'nucleo/lib/toba_error.php',
 			'toba_reset_nucleo'		 				=> 'nucleo/lib/toba_error.php',
 			'toba_fuente_datos'						=> 'nucleo/lib/toba_fuente_datos.php',
 			'toba_formateo'							=> 'nucleo/lib/interface/toba_formateo.php',

@@ -160,8 +160,12 @@ class toba_logger
 	{
         if (is_object($mensaje)) {
         	if ($mensaje instanceof Exception) {
-       			$res = get_class($mensaje).": ".$mensaje->getMessage()."\n";
-       			
+        		if ($mensaje instanceof toba_error) {
+        			$texto = $mensaje->get_mensaje_log();
+        		} else {
+        			$texto = $mensaje->getMessage();
+        		}
+       			$res = get_class($mensaje).": ".$texto."\n";
         		$es_php_compatible = false && version_compare(phpversion(), "5.1.0", ">=");
        			if ($es_php_compatible) {
         			//Solo muestra parametros en modo DEBUG
@@ -172,7 +176,7 @@ class toba_logger
 	        		$res .= $this->construir_traza($con_parametros, $traza);
        			} else {
        				//Para php < 5.1 mostrar el string 
-    				$res = "\n[TRAZA]<div style='display:none'>".$mensaje->__toString()."</div>";
+    				$res .= "\n[TRAZA]<div style='display:none'>".$mensaje->__toString()."</div>";
        			}
        			return $res;
         	} else if (method_exists($mensaje, 'getMessage')) {

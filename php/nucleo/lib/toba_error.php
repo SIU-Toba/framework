@@ -10,6 +10,16 @@
 */
 class toba_error extends Exception
 {
+	protected $mensaje_log;
+	
+	function get_mensaje_log()
+	{
+		if (isset($this->mensaje_log)) {
+			return $this->mensaje_log;
+		} else {
+			return $this->getMessage();
+		}
+	}
 
 }
 
@@ -180,6 +190,21 @@ class toba_error_autorizacion extends toba_error
 {
 
 }
+
+
+/**
+ * Excepción producida por un error de seguridad
+ */
+class toba_error_seguridad extends toba_error
+{
+	function __construct($mensaje)
+	{
+		parent::__construct('Error Interno');
+		$this->mensaje_log = $mensaje;
+	}
+}
+
+
 
 
 class toba_error_validacion extends toba_error 

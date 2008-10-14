@@ -573,6 +573,9 @@ class toba_ei_cuadro extends toba_ei
 		if(isset($_POST[$this->_submit_seleccion])) {
 			$clave = $_POST[$this->_submit_seleccion];
 			if ($clave != '') {
+				if (! isset($this->_memoria['claves_enviadas']) || ! in_array($clave, $this->_memoria['claves_enviadas'])) {
+					throw new toba_error_seguridad($this->get_txt()." La clave '$clave' del cuadro no estaba entre las enviadas");
+				}
 				$clave = explode(apex_qs_separador, $clave);				
 				//Devuelvo un array asociativo con el nombre de las claves
 				for($a=0;$a<count($clave);$a++) {
@@ -1205,6 +1208,7 @@ class toba_ei_cuadro extends toba_ei
 
 	private function html_inicio()
 	{
+		$this->_memoria['claves_enviadas'] = array();
 		$this->html_generar_campos_hidden();
 		//-- Scroll
 		if($this->_info_cuadro["scroll"]){
@@ -1600,6 +1604,7 @@ class toba_ei_cuadro extends toba_ei
             }
  			//---> Creo los EVENTOS de la FILA <---
 			if ( $this->_tipo_salida == 'html' ) {
+				$hay_evento_maneja_datos = false;
 				foreach ($this->get_eventos_sobre_fila() as $id => $evento) {
 					echo "<td class='ei-cuadro-fila-evt' width='1%'>\n";
 					if( ! $evento->esta_anulado() ) { //Si el evento viene desactivado de la conf, no lo utilizo
@@ -1625,12 +1630,17 @@ class toba_ei_cuadro extends toba_ei
 						}
 						//3: Genero el boton
 						if( ! $evento->esta_anulado() ) {
+							$hay_evento_maneja_datos = true;
 							echo $evento->get_html($this->_submit, $this->objeto_js, $this->_id);
 						} else {
 							$evento->restituir();	//Lo activo para la proxima fila
 						}
 					}
 	            	echo "</td>\n";
+				}
+				//Si algun evento permite seleccionar valores
+				if ($hay_evento_maneja_datos) {
+					$this->_memoria['claves_enviadas'][] = $clave_fila;
 				}
 			}
 			
