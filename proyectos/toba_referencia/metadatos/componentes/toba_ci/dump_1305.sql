@@ -147,9 +147,15 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'0', --identificador
 	'1', --orden
 	'Agregado en JS', --etiqueta
-	'El agregado de nuevas filas se efectúa en el cliente utilizando JS.', --descripcion
+	'El agregado de nuevas filas se efectúa en el cliente utilizando JS. Contiene:
+<ul>
+<li>Sumarizaciones de importe, descuento y neto en la definición de los campos
+<li>Una extensión javascript que crea las filas conteniendo el día actual
+<li>Una extensión javascript que calcula el importe neto a partir del original menos el descuento
+<li>Una validación javascript que valida que el día ingresado no sea lunes
+</ul>', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'ml', --objetos
 	'procesar', --eventos
@@ -168,7 +174,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Agregado en PHP', --etiqueta
 	'El agregado de una fila nueva se hace en PHP. Allí se decide si es posible agregar y se puede brindar una fila template desde donde empezará a editar el usuario.', --descripcion
 	NULL, --tip
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'ml_php', --objetos
 	'procesar', --eventos

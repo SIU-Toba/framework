@@ -13,7 +13,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'3307', --item
 	NULL, --padre_id
 	'toba_referencia', --padre_proyecto
-	'1000205', --padre
+	'1000206', --padre
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
@@ -38,7 +38,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona
 	NULL, --zona_orden
 	'0', --zona_listar
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b

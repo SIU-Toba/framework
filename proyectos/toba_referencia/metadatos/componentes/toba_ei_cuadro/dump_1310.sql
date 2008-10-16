@@ -115,7 +115,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'ei_cuadro', --titulo
 	NULL, --subtitulo
 	NULL, --sql
-	'fecha', --columnas_clave
+	'fecha, importe', --columnas_clave
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'400px', --ancho
@@ -125,7 +125,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --eof_invisible
 	'Este mensaje se muestra cuando no hay ningún dato cargado.', --eof_customizado
-	NULL, --exportar_paginado
+	'0', --exportar_paginado
 	'1', --exportar
 	'1', --exportar_rtf
 	NULL, --pdf_propiedades
@@ -198,10 +198,10 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL, --desabilitado
 	'1', --total
 	NULL, --total_cc
-	NULL, --usar_vinculo
+	'0', --usar_vinculo
 	NULL, --vinculo_carpeta
 	NULL, --vinculo_item
-	NULL, --vinculo_popup
+	'0', --vinculo_popup
 	NULL, --vinculo_popup_param
 	NULL, --vinculo_target
 	NULL  --vinculo_celda

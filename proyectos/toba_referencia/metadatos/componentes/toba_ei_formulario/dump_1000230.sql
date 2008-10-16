@@ -129,7 +129,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000230', --objeto_ei_formulario
 	'toba_referencia', --objeto_ei_formulario_proyecto
 	'multi_check', --identificador
-	'ef_multi_seleccion_check', --elemento_formulario
+	'ef_multi_seleccion_doble', --elemento_formulario
 	'multi_check', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio

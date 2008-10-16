@@ -62,6 +62,7 @@ class ci_principal extends toba_ci
 				    'cuit' => '20055121711'
 				  );		
 	}
+	
 	//------------------------------------------------------------------------
 	//-------------------------- FORMULARIO COMÚN --------------------------
 	//------------------------------------------------------------------------
@@ -81,12 +82,10 @@ class ci_principal extends toba_ci
 	
 	function conf__form()
 	{
+		if (! isset($this->datos_form)) {
+			$this->datos_form = $this->datos_comunes_form();
+		}
 		return $this->datos_form;	
-	}
-
-	function evt__form__carga_defecto()
-	{
-		$this->datos_form = $this->datos_comunes_form();
 	}
 
 	//------------------------------------------------------------------------

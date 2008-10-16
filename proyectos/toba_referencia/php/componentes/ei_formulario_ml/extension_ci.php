@@ -3,6 +3,7 @@ php_referencia::instancia()->agregar(__FILE__);
 
 class extension_ci extends toba_ci
 {
+	//Se guardan en sesión los datos actuales del formulario
 	protected $s__datos;
 
 	//------------------------------------------------------------------------
@@ -11,8 +12,9 @@ class extension_ci extends toba_ci
 	
 	function conf__ml($ml)
 	{
-		if (isset($this->s__datos))
-			return $this->s__datos;			
+		if (isset($this->s__datos)) {
+			$ml->set_datos($this->s__datos);
+		}
 	}
 	
 	function evt__ml__modificacion($datos)
