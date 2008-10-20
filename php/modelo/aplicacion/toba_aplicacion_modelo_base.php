@@ -3,6 +3,7 @@
 class toba_aplicacion_modelo_base implements toba_aplicacion_modelo 
 {
 	protected $permitir_exportar_modelo = true;
+	protected $permitir_instalar = true;
 	protected $schema_modelo = 'public';
 	protected $schema_auditoria = 'auditoria';
 	
@@ -86,6 +87,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			return $this->instalacion->get_version_actual();
 		}
 	}
+	
+	function get_id_base()
+	{
+		$version = $this->get_version_nueva();		
+		return $this->proyecto->get_id().'_'.$version->get_release('_');		
+	}
 
 	/**
 	 * Toma como motor predefinido el mismo que el de la instalacion de toba
@@ -102,7 +109,11 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	
 	function cargar_modelo_datos($base)
 	{
-		$base->abrir_transaccion();		
+		$base->abrir_transaccion();
+		if (! $base->existe_schema($this->schema_modelo)) {
+			$base->crear_schema($this->schema_modelo);
+			$base->set_schema($this->schema_modelo);				
+		}
 		$base->retrazar_constraints();
 		$this->crear_estructura($base);
 		$this->cargar_datos($base);
@@ -174,7 +185,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 */
 	function estructura_creada(toba_db $base)
 	{
-		$tablas = $base->get_lista_tablas();
+		$tablas = $base->get_lista_tablas(false, $this->schema_modelo);
 		return ! empty($tablas);
 	}
 	
@@ -214,6 +225,9 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 	 */
 	function instalar($datos_servidor)
 	{
+		if (! $this->permitir_instalar) {
+			return;
+		}
 		$version = $this->get_version_nueva();
 		$fuentes = $this->proyecto->get_indice_fuentes();
 		if (empty($fuentes)) {
@@ -227,9 +241,12 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		//--- Chequea si existe la entrada de la base de negocios en el archivo de bases
 		if (! $this->instalacion->existe_base_datos_definida($id_def_base)) {
 			if (! isset($datos_servidor['base'])) {
-				$id_base = $this->proyecto->get_id().'_'.$version->get_release('_');
+				$id_base = $this->get_id_base();
 				$datos_servidor['base'] = $id_base;
 			}
+			//-- Cambia el schema
+			$datos_servidor['schema'] = $this->schema_modelo;			
+
 			//-- Agrega la definición de la base
 			$this->instalacion->agregar_db($id_def_base, $datos_servidor);
 		}
@@ -238,6 +255,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 		if (! $this->instalacion->existe_base_datos($id_def_base)) {
 			$this->instalacion->crear_base_datos($id_def_base);
 		} 
+		
 		//--- Chequea si hay un modelo cargado y decide que hacer en tal caso
 		$base = $this->instalacion->conectar_base($id_def_base);	
 		if (!$this->estructura_creada($base)) {

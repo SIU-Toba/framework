@@ -3,7 +3,6 @@
 --
 
 SET client_encoding = 'LATIN1';
-SET search_path = public, pg_catalog;
 
 --
 -- Data for Name: ona_localidad; Type: TABLE DATA; Schema: public; Owner: postgres

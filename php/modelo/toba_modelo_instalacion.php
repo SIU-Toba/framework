@@ -200,8 +200,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	{
 		$info_db = $this->get_parametros_base( $nombre );
 		$base_a_crear = $info_db['base'];
-		if($info_db['motor']=='postgres7')
-		{
+		if ($info_db['motor']=='postgres7') {
 			dormir(1000);	//Para esperar que el script se desconecte			
 			$info_db['base'] = 'template1';
 			$db = $this->conectar_base_parametros( $info_db );
@@ -211,11 +210,16 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 			if ($con_encoding){
 				$sql.= " ENCODING '$encoding' ";
 			}
-			
-			$db->ejecutar( $sql );
+			try {
+				$db->ejecutar( $sql );
+			} catch (Excepcion $e) {
+				//En caso de no poder crearlo con encoding, prueba sin encoding
+				$sql = "CREATE DATABASE \"$base_a_crear\" ";
+				$db->ejecutar($sql);
+			}
 			$db->destruir();
 			toba_logger::instancia()->debug("Creada base '$base_a_crear'");
-		}else{
+		} else {
 			throw new toba_error("INSTALACION: El metodo no esta definido para el motor especificado");
 		}
 	}
@@ -246,7 +250,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	*	Determina si una base de datos definida en bases.ini existe
 	*	@param string $nombre Nombre de la base
 	*/
-	function existe_base_datos( $nombre, $otra_info = array(), $mostrar_salida = false )
+	function existe_base_datos( $nombre, $otra_info = array(), $mostrar_salida = false, $schema=null )
 	{
 		try{
 			$this->ini_cargado = false;
@@ -256,6 +260,9 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 				$db = @$this->conectar_base_parametros( $info_db );
 			} else {
 				$db = $this->conectar_base_parametros( $info_db );
+			}
+			if (isset($schema) && !$db->existe_schema($schema)) {
+				return false;
 			}
 			$db->destruir();
 			return true;
@@ -270,6 +277,7 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 	/**
 	*	Conecta una BASE a partir de un juego de parametros
 	*	@param array $parametros Parametros de conexion
+	* @return toba_db_postgres7
 	*/
 	function conectar_base_parametros( $parametros )
 	{
@@ -280,6 +288,13 @@ class toba_modelo_instalacion extends toba_modelo_elemento
 							$parametros['base'],
 							isset($parametros['puerto']) ? $parametros['puerto'] : '' );
 		$db->conectar();
+		if (isset($parametros['schema']) && $db->existe_schema($parametros['schema'])) {
+			$db->set_schema($parametros['schema']);
+		}
+		//Si existe el parametro del encoding, ponerlo por defecto para la conexión
+		if (isset($parametros['encoding'])) {
+			$db->set_encoding($parametros['encoding']);
+		}		
 		$datos_base = var_export($parametros, true);
 		toba_logger::instancia()->debug("Parametros de conexion: $datos_base");
 		return $db;

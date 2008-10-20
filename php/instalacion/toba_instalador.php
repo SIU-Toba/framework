@@ -133,7 +133,7 @@ class toba_instalador
 					$instancia->get_proyecto($id_proy)->desinstalar();
 				}
 			}
-			$instancia->eliminar_base();
+			$instancia->eliminar();
 		}		
 	}	
 	

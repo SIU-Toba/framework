@@ -1,5 +1,4 @@
 
-
 --
 -- Name: ref_deportes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --

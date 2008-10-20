@@ -38,6 +38,7 @@ class comando_instalacion extends comando_toba
 	 */
 	function opcion__instalar()
 	{
+		$id_instancia = $this->get_entorno_id_instancia(true);		
 		$nombre_toba = 'toba_'.toba_modelo_instalacion::get_version_actual()->get_release('_');
 		$alias = '/'.'toba_'.toba_modelo_instalacion::get_version_actual()->get_release();
 		$this->consola->titulo("Instalación Toba ".toba_modelo_instalacion::get_version_actual()->__toString());
@@ -83,7 +84,9 @@ class comando_instalacion extends comando_toba
 					'profile' => $profile,
 					'usuario' => $usuario,
 					'clave' => $clave,
-					'base' => $base
+					'base' => $base,
+					'encoding' => 'LATIN1',
+					'schema' => $id_instancia
 				);
 				$this->get_instalacion()->agregar_db( $base, $datos );
 				//--- Intenta conectar al servidor
@@ -96,20 +99,20 @@ class comando_instalacion extends comando_toba
 		}	
 
 		//--- Si la base existe, pregunta por un nombre alternativo, por si no quiere pisarla
-		if ($this->get_instalacion()->existe_base_datos($base)) {
-			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya está siendo utiliza en este servidor, puede ingresar un nombre ".
-																"distinto sino quiere sobrescribirla: (ENTER sobrescribe la actual)", false);			
+		if ($this->get_instalacion()->existe_base_datos($base, array(), false, $id_instancia)) {
+			$nueva_base = $this->consola->dialogo_ingresar_texto("La base '$base' ya contiene un schema '$id_instancia', puede ingresar un nombre ".
+																"de base distinto sino quiere sobrescribir los datos actuales: (ENTER sobrescribe la actual)", false);			
 			if ($nueva_base != '') {																
 				$datos['base'] = $nueva_base;
 				$this->get_instalacion()->agregar_db( $base, $datos );
 			}
 		}
 		
-		//--- Determino el encoding apropiado para la base de datos.
-		$this->get_instalacion()->determinar_encoding( $base );
-		
-		//--- Pregunta identificador del Proyecto
-		$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);
+		$id_proyecto = '';
+		if ($this->consola->dialogo_simple('Desea crear un nuevo proyecto?', false)) {
+			//--- Pregunta identificador del Proyecto
+			$id_proyecto = $this->consola->dialogo_ingresar_texto( 'Identificador del proyecto a crear (no utilizar mayusculas o espacios, puede ser vacio si no se quiere crear)', false);
+		}
 
 		//--- Si ingreso un proyecto y existe, lo borra
 		if ($id_proyecto != '') {
@@ -121,7 +124,6 @@ class comando_instalacion extends comando_toba
 		}
 		
 		//--- Crea la instancia
-		$id_instancia = $this->get_entorno_id_instancia(true);
 		$proyectos = toba_modelo_proyecto::get_lista();
 		if (isset($proyectos['toba_testing'])) {
 			//--- Elimina el proyecto toba_testing 
@@ -182,11 +184,11 @@ class comando_instalacion extends comando_toba
 		$this->consola->mensaje("Para la consola: se necesitan agregar al entorno las siguientes directivas:");
 		if (toba_manejador_archivos::es_windows()) {
 			$this->consola->mensaje("   set toba_dir=".toba_dir());
-			$this->consola->mensaje("   set toba_instancia=desarrollo");
+			$this->consola->mensaje("   set toba_instancia=$id_instancia");
 			$this->consola->mensaje("   set PATH=%PATH%;%toba_dir%/bin");
 		} else {
 			$this->consola->mensaje("   export toba_dir=".toba_dir());
-			$this->consola->mensaje("   export toba_instancia=desarrollo");
+			$this->consola->mensaje("   export toba_instancia=$id_instancia");
 			$this->consola->mensaje('   export PATH="$toba_dir/bin:$PATH"');
 		}
 		$this->consola->mensaje("");

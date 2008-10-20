@@ -116,7 +116,7 @@ class toba_modelo_instancia extends toba_modelo_elemento
 		}
 		return $this->db;
 	}
-
+	
 	
 	/**
 	*	Eliminaciond e la conexion con la instancia
@@ -133,6 +133,16 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	function get_parametros_db()
 	{
 		return $this->instalacion->get_parametros_base( $this->ini_base );
+	}
+	
+	function get_schema_db()
+	{
+		$parametros = $this->instalacion->get_parametros_base($this->ini_base);
+		if (isset($parametros['schema'])) {
+			return $parametros['schema'];
+		} else {
+			return 'public';
+		}
 	}
 
 	//-----------------------------------------------------------
@@ -220,14 +230,8 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	
 	function existe_modelo()
 	{
-		try {
-			$sql = "SELECT 1 FROM apex_usuario;";
-			$db = $this->get_db();
-			@$db->consultar( $sql );
-			return true;
-		} catch ( toba_error_db $e ) {
-			return false;
-		}
+		return $this->instalacion->existe_base_datos($this->ini_base)
+				&& $this->get_db()->existe_tabla($this->get_schema_db(), 'apex_usuario');
 	}
 	
 	function existen_metadatos_proyecto( $proyecto )
@@ -519,25 +523,26 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	*/
 	function cargar( $forzar_carga = false )
 	{
-		$this->manejador_interface->titulo('Creación de la instancia');		
+		$this->manejador_interface->titulo('Creación de la instancia');
 		// Existe la base?
 		if ( ! $this->instalacion->existe_base_datos( $this->ini_base ) ) {
 			$this->manejador_interface->mensaje("Creando base '{$this->ini_base}'...", false);
 			$this->instalacion->crear_base_datos( $this->ini_base );
 			$this->manejador_interface->progreso_fin();
 		}
-		// Esta el modelo cargado
-		if ( $this->existe_modelo() ) {
-			if ( $forzar_carga ) {
-				$this->eliminar();
-				$this->instalacion->crear_base_datos( $this->ini_base );
-			} else {
-				throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
-			}
-		}
+		
 		//Inicio el proceso de carga
-		try {
+		try	{
 			$this->get_db()->abrir_transaccion();
+			// Esta el modelo cargado
+			if ( $this->existe_modelo() ) {
+				if ( $forzar_carga ) {
+					$this->eliminar();
+				} else {
+					throw new toba_error_modelo_preexiste("INSTANCIA: Ya existe un modelo cargado en la base de datos.");
+				}
+			}
+			$this->crear_schema();			
 			$this->get_db()->retrazar_constraints();
 			$this->crear_modelo_datos_toba();
 			$this->cargar_proyectos();
@@ -933,9 +938,25 @@ class toba_modelo_instancia extends toba_modelo_elemento
 	*/
 	function eliminar()
 	{
-		//Por defecto se elimina la base.
-		$this->eliminar_base();
+		$this->eliminar_schema();
 	}
+	
+	function eliminar_schema()
+	{
+		$this->get_db()->borrar_schema($this->get_schema_db());
+	}
+	
+	/**
+	 * Si no esta creado el schema de toba, lo crea y lo pone por defecto en la conexión
+	 */
+	function crear_schema()
+	{
+		if (! $this->get_db()->existe_schema($this->get_schema_db())) {
+			$this->get_db()->crear_schema($this->get_schema_db());
+			$this->get_db()->set_schema($this->get_schema_db());
+		}
+	}
+	
 
 	/**
 	* Eliminacion de la BASE de la instancia

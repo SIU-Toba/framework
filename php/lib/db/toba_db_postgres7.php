@@ -89,14 +89,15 @@ class toba_db_postgres7 extends toba_db
 
 	
 	/**
-	*	Recupera el valor actual de una secuencia. Requiere la extension origineal pgsql
+	*	Recupera el valor actual de una secuencia. Requiere la extension original pgsql y abre una nueva conexión por lo que no es transaccionable
 	*	@param string $tabla Nombre de la tabla en la que se insertarán los datos
 	*	@param array $datos Los datos a insertar: cada elemento del arreglo será un registro en la tabla.
 	*	@param string $delimitador Separador de datos de cada fila.
 	*	@param string $valor_nulo Cadena que se utlilizará como valor nulo.
 	*	@return boolean Retorn TRUE en caso de éxito o FALSE en caso de error.
 	*/
-	function insert_masivo($tabla,$datos) {	
+	function insert_masivo($tabla,$datos) 
+	{	
 		$puerto = ($this->puerto != '') ? "port={$this->puerto}": '';
 		$host = "host={$this->profile}";
 		$base =  "dbname={$this->base}";
@@ -109,11 +110,40 @@ class toba_db_postgres7 extends toba_db
 		return $salida;
 	}
 
+	//------------------------------------------------------------------------
+	//-- SCHEMAS Postgres
+	//------------------------------------------------------------------------	
+	
+	function existe_schema($esquema) 
+	{
+
+		$sql = "SELECT
+					count(*) as cant
+				FROM
+					information_schema.schemata
+				WHERE 
+					schema_name = '$esquema'
+		";
+		$rs = $this->consultar_fila($sql);
+		return $rs['cant'] > 0;
+	}
+	
+	function borrar_schema($schema)
+	{
+		$sql = "DROP SCHEMA $schema CASCADE";
+		return $this->ejecutar($sql);
+	}		
+	
+	function crear_schema($schema) {
+		
+		$sql = "CREATE SCHEMA $schema ";
+		return $this->ejecutar($sql);
+	}	
 	
 	//------------------------------------------------------------------------
 	//-- INSPECCION del MODELO de DATOS
-	//------------------------------------------------------------------------
-	
+	//------------------------------------------------------------------------	
+		
 	function get_lista_tablas_y_vistas()
 	{
 		return $this->get_lista_tablas(true);
@@ -154,6 +184,21 @@ class toba_db_postgres7 extends toba_db
 		$sql .= 'ORDER BY nombre';
 		return $this->consultar($sql);
 	}
+	
+	function existe_tabla($schema, $tabla) {
+
+		$sql = "SELECT
+					table_name
+				FROM
+					information_schema.tables
+				WHERE 
+					table_name = '" . $tabla. "' AND
+					table_schema= '". $schema . "';";
+
+		$rs = $this->consultar_fila($sql);
+		return !empty($rs);
+	}	
+	
 	
 	function existe_columna($columna, $tabla)
 	{

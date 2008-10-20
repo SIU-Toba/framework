@@ -9,6 +9,10 @@ class toba_version
 	
 	function __construct($numero)
 	{
+		if ($numero == 'trunk') {
+			$this->extra = 'trunk';
+			return ;
+		}
 		$formato = 'El formato debe ser x.y.z(CODIGO-#). Donde CODIGO es opcional: pre-alpha,alpha,beta o rc (Ver http://web2.siu.edu.ar/isw/recursos/EsquemaVersionado.pdf)';
 		$numero = trim($numero);
 		$this->extra = null;
@@ -48,6 +52,9 @@ class toba_version
 
 	function __toString()
 	{
+		if ($this->extra == 'trunk') {
+			return 'trunk';
+		}
 		$s = implode('.', $this->partes);
 		if (isset($this->extra)) {
 			$s .= $this->extra[0];
@@ -60,12 +67,18 @@ class toba_version
 
 	function get_string_partes($separador = '_')
 	{
+		if ($this->extra == 'trunk') {
+			return 'trunk';
+		}		
 		$s = $this->__toString();
 		return str_replace('.', $separador, $s);
 	}
 	
 	function get_release($separador = '.')
 	{
+		if ($this->extra == 'trunk') {
+			return 'trunk';
+		}		
 		return $this->partes[0].$separador.$this->partes[1];
 	}
 
@@ -99,6 +112,16 @@ class toba_version
 	 */
 	function comparar($otra_version)
 	{
+		if ($this->extra == 'trunk') {
+			if ($otra_version->extra == 'trunk') {
+				return 0;
+			} else {
+				return 1;
+			}
+		}
+		if ($otra_version->extra == 'trunk') {
+			return -1;
+		}		
 		foreach ($otra_version->partes as $pos => $parte) {
 			if ($this->partes[$pos] < $parte) {
 				return -1;	//Es menor
@@ -149,6 +172,9 @@ class toba_version
 		if (!isset($otra_version)) {
 			return false;
 		}
+		if ($this->extra == 'trunk' || $otra_version->extra == 'trunk') {
+			return false;
+		}
 		//-- Tiene que ser igual numero mayor
 		if ($otra_version->partes[0] != $this->partes[0]) {
 			return false;
@@ -165,6 +191,9 @@ class toba_version
 	 */
 	function get_siguiente_menor()
 	{
+		if ($this->extra == 'trunk') {
+			return $this;
+		}		
 		$siguiente = $this->partes[2] + 1;
 		return new toba_version($this->partes[0].'.'.$this->partes[1].'.'.$siguiente);
 	}

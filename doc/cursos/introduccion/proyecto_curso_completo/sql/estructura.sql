@@ -16,8 +16,6 @@ CREATE TABLE ona_localidad (
 );
 
 
-ALTER TABLE public.ona_localidad OWNER TO postgres;
-
 --
 -- TOC entry 1282 (class 1259 OID 30014)
 -- Dependencies: 1628 1629 5
@@ -33,8 +31,6 @@ CREATE TABLE ona_pais (
 );
 
 
-ALTER TABLE public.ona_pais OWNER TO postgres;
-
 --
 -- TOC entry 1283 (class 1259 OID 30018)
 -- Dependencies: 5
@@ -47,8 +43,6 @@ CREATE TABLE ona_provincia (
     nombre character varying(40) NOT NULL
 );
 
-
-ALTER TABLE public.ona_provincia OWNER TO postgres;
 
 --
 -- TOC entry 1285 (class 1259 OID 30024)
@@ -68,8 +62,6 @@ CREATE TABLE soe_edificios (
 );
 
 
-ALTER TABLE public.soe_edificios OWNER TO postgres;
-
 --
 -- TOC entry 1284 (class 1259 OID 30022)
 -- Dependencies: 5 1285
@@ -82,8 +74,6 @@ CREATE SEQUENCE soe_edificios_edificio_seq
     NO MINVALUE
     CACHE 1;
 
-
-ALTER TABLE public.soe_edificios_edificio_seq OWNER TO postgres;
 
 --
 -- TOC entry 1681 (class 0 OID 0)
@@ -118,8 +108,6 @@ CREATE TABLE soe_instituciones (
 );
 
 
-ALTER TABLE public.soe_instituciones OWNER TO postgres;
-
 --
 -- TOC entry 1286 (class 1259 OID 30027)
 -- Dependencies: 1287 5
@@ -134,7 +122,7 @@ CREATE SEQUENCE soe_instituciones_institucion_seq
     CACHE 1;
 
 
-ALTER TABLE public.soe_instituciones_institucion_seq OWNER TO postgres;
+ALTER TABLE soe_instituciones_institucion_seq OWNER TO postgres;
 
 --
 -- TOC entry 1683 (class 0 OID 0)
@@ -167,8 +155,6 @@ CREATE TABLE soe_jurisdicciones (
 );
 
 
-ALTER TABLE public.soe_jurisdicciones OWNER TO postgres;
-
 --
 -- TOC entry 1290 (class 1259 OID 30036)
 -- Dependencies: 5
@@ -183,8 +169,6 @@ CREATE TABLE soe_sedes (
 );
 
 
-ALTER TABLE public.soe_sedes OWNER TO postgres;
-
 --
 -- TOC entry 1289 (class 1259 OID 30034)
 -- Dependencies: 1290 5
@@ -198,8 +182,6 @@ CREATE SEQUENCE soe_sedes_sede_seq
     NO MINVALUE
     CACHE 1;
 
-
-ALTER TABLE public.soe_sedes_sede_seq OWNER TO postgres;
 
 --
 -- TOC entry 1685 (class 0 OID 0)
@@ -232,8 +214,6 @@ CREATE TABLE soe_sedesua (
 );
 
 
-ALTER TABLE public.soe_sedesua OWNER TO postgres;
-
 --
 -- TOC entry 1293 (class 1259 OID 30043)
 -- Dependencies: 5
@@ -248,8 +228,6 @@ CREATE TABLE soe_tiposua (
 );
 
 
-ALTER TABLE public.soe_tiposua OWNER TO postgres;
-
 --
 -- TOC entry 1292 (class 1259 OID 30041)
 -- Dependencies: 5 1293
@@ -263,7 +241,6 @@ CREATE SEQUENCE soe_tiposua_tipoua_seq
     CACHE 1;
 
 
-ALTER TABLE public.soe_tiposua_tipoua_seq OWNER TO postgres;
 
 --
 -- TOC entry 1687 (class 0 OID 0)
@@ -297,8 +274,6 @@ CREATE TABLE soe_unidadesacad (
 );
 
 
-ALTER TABLE public.soe_unidadesacad OWNER TO postgres;
-
 --
 -- TOC entry 1294 (class 1259 OID 30046)
 -- Dependencies: 5 1295
@@ -311,8 +286,6 @@ CREATE SEQUENCE soe_unidadesacad_unidadacad_seq
     NO MINVALUE
     CACHE 1;
 
-
-ALTER TABLE public.soe_unidadesacad_unidadacad_seq OWNER TO postgres;
 
 --
 -- TOC entry 1689 (class 0 OID 0)
@@ -584,23 +557,3 @@ ALTER TABLE ONLY soe_unidadesacad
 
 ALTER TABLE ONLY soe_unidadesacad
     ADD CONSTRAINT soe_unidadesacad_tipoua_fkey FOREIGN KEY (tipoua) REFERENCES soe_tiposua(tipoua) DEFERRABLE;
-
-
---
--- TOC entry 1680 (class 0 OID 0)
--- Dependencies: 5
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
--- Completed on 2007-05-09 01:17:46
-
---
--- PostgreSQL database dump complete
---
-
