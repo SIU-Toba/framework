@@ -308,7 +308,7 @@ class toba_aplicacion_modelo_base implements toba_aplicacion_modelo
 			$base->abrir_transaccion();
 		}
 		//--- Tablas de auditoría
-		$auditoria = new toba_auditoria_tablas_postgres($base);
+		$auditoria = new toba_auditoria_tablas_postgres($base, $this->schema_modelo, $this->schema_auditoria);
 		if (empty($tablas)) {
 			$auditoria->agregar_tablas($prefijo_tablas);
 		} else {

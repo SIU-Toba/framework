@@ -7,13 +7,15 @@ class toba_auditoria_tablas_postgres
 {
 	protected $fuente = NULL;
 	protected $tablas = NULL;
-	protected $schema_logs = 'auditoria';
-	protected $schema_origen = 'public';
+	protected $schema_logs;
+	protected $schema_origen;
 	protected $prefijo = 'logs_';
 		
-	function __construct(toba_db $conexion) 
+	function __construct(toba_db $conexion, $schema_origen='public', $schema_logs='auditoria') 
 	{
 		$this->conexion = $conexion;
+		$this->schema_origen = $schema_origen;
+		$this->schema_logs = $schema_logs;
 	}
 	
 	static function get_campos_propios()
