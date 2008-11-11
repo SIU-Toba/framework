@@ -90,7 +90,7 @@ ef_cuit.prototype.constructor = ef_cuit;
 	
 //--------------------------------------------	
 function es_cuit(nro) {
-	if (typeof ef_cuit_excepciones == 'array') {
+	if (typeof ef_cuit_excepciones != 'undefined') {
 		if (in_array(nro, ef_cuit_excepciones)) {
 			return true;
 		}
