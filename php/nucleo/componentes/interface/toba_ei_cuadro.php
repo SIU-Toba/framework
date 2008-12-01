@@ -32,6 +32,7 @@ class toba_ei_cuadro extends toba_ei
 	protected $_submit_orden_columna;
 	protected $_submit_paginado;
 	protected $_submit_seleccion;
+	protected $_submit_extra;
 	protected $_agrupacion_columnas = array();
 	//Orden
     protected $_orden_columna;                     	// Columna utilizada para realizar el orden
@@ -123,6 +124,7 @@ class toba_ei_cuadro extends toba_ei
 		$this->_submit_orden_columna = $this->_submit."__orden_columna";
 		$this->_submit_orden_sentido = $this->_submit."__orden_sentido";
 		$this->_submit_seleccion = $this->_submit."__seleccion";
+		$this->_submit_extra = $this->_submit."__extra";
 		$this->_submit_paginado = $this->_submit."__pagina_actual";
 	}
 	
@@ -403,7 +405,14 @@ class toba_ei_cuadro extends toba_ei
 						break;
 					default:
 						$this->cargar_seleccion();
-						$parametros = $this->_clave_seleccionada;
+						$parametros = null;
+						if (isset($this->_clave_seleccionada)) {
+							$parametros = $this->_clave_seleccionada;
+						} else {
+							if (isset($_POST[$this->_submit_extra])) {
+								$parametros = $_POST[$this->_submit_extra];
+							}
+						}
 						$this->reportar_evento( $evento, $parametros );						
 				}
 			}
@@ -1201,6 +1210,7 @@ class toba_ei_cuadro extends toba_ei
 		//Campos de comunicación con JS
 		echo toba_form::hidden($this->_submit, '');
 		echo toba_form::hidden($this->_submit_seleccion, '');
+		echo toba_form::hidden($this->_submit_extra, '');
 		echo toba_form::hidden($this->_submit_orden_columna, '');
 		echo toba_form::hidden($this->_submit_orden_sentido, '');
 		echo toba_form::hidden($this->_submit_paginado, '');		

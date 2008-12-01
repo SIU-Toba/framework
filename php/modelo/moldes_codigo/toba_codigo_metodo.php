@@ -9,6 +9,7 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 	protected $comentarios;
 	protected $contenido = array();
 	protected $mostrar_comentarios = true;
+	protected $phpdoc;
 	
 	function __construct($nombre, $parametros=array(), $comentarios=array(), $descripcion=null)
 	{
@@ -29,6 +30,11 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 		$this->mostrar_comentarios = $activado;
 	}
 	
+	function get_comentarios()
+	{
+		return implode("\n", $this->comentarios);
+	}
+	
 	function get_descripcion()
 	{
 		return $this->descripcion;	
@@ -43,6 +49,16 @@ abstract class toba_codigo_metodo extends toba_codigo_elemento
 		}
 	}
 
+	function set_doc($doc)
+	{
+		$this->phpdoc = $doc;
+	}
+	
+	function get_doc()
+	{
+		return $this->phpdoc;
+	}
+	
 	//--- Generacion ------------------------------------
 	
 	abstract function get_declaracion();

@@ -1,4 +1,6 @@
 <?php 
+require_once('operaciones_simples/consultas.php');
+
 class ci_principal extends toba_ci
 {
 	protected $s__datos = array();
@@ -21,6 +23,12 @@ class ci_principal extends toba_ci
 	{
 		$this->s__datos = $datos;
 	}
+	
+	function ajax__combo_edit_get_opciones($parametros, toba_ajax_respuesta $respuesta)
+	{
+		$deportes = consultas::get_deportes($parametros);
+		$respuesta->set($deportes);
+	}	
 	
 }
 

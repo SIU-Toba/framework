@@ -96,7 +96,7 @@ class toba_codigo_clase
 		$plan = array_merge($plan, $this->generar_lista_elementos($this->elementos_js, 'JAVASCRIPT'));
 		return $plan;
 	}
-
+	
 	/**
 		Genera una lista de los elementos que conforman el molde
 	*/
@@ -120,6 +120,7 @@ class toba_codigo_clase
 				$desc .=  ' => ' . $elemento->get_descripcion();
 				$lista[$a]['id'] = $id;
 				$lista[$a]['desc'] = $desc;
+				$lista[$a]['elemento'] = $elemento;
 			}
 			$a++;
 		}

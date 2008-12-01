@@ -584,6 +584,7 @@ abstract class toba_ef
 		$relajado = ( $this->cascada_relajada ) ? "true" : "false"; 
 		$colapsable = ( $this->expandido ) ? "false" : "true";
 		$etiqueta = str_replace("/", "\\/", $this->etiqueta);
+		$etiqueta = str_replace(array('"', "'"), '', $etiqueta);
 		return "'{$this->id_form_orig}', '$etiqueta', [$obligatorio, $relajado, $oculto_relaj], $colapsable";
 	}
 

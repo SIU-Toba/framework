@@ -7,6 +7,11 @@ class toba_ci_info extends toba_ei_info
 		return "CI";		
 	}
 	
+	function get_nombre_instancia_abreviado()
+	{
+		return "ci";	
+	}	
+	
 	/**
 	*	Retorna la metaclase correspondiente a la pantalla
 	*/
@@ -30,6 +35,8 @@ class toba_ci_info extends toba_ei_info
 			$pantalla->clonar_subclase($dr, $dir_subclases, $proyecto_dest);
 		}
 	}	
+	
+	
 	
 	//---------------------------------------------------------------------	
 	//-- Recorrible como ARBOL
@@ -220,21 +227,43 @@ class toba_ci_info extends toba_ei_info
 		//************** Elementos PROPIOS *************
 		//-- Inicializacion -----------------------
 		$molde->agregar( new toba_codigo_separador_php('Inicializacion',null,'grande') );
-		$molde->agregar( new toba_codigo_metodo_php('ini') );
-		$molde->agregar( new toba_codigo_metodo_php('ini__operacion') );
+		
+		//-- Ini 
+		$metodo = new toba_codigo_metodo_php('ini');
+		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini Ver doc]');
+		$molde->agregar($metodo);
+
+		//-- Ini operacion
+		$metodo = new toba_codigo_metodo_php('ini__operacion');
+		$metodo->set_doc('[api:Componentes/Eis/toba_ci#ini__operacion Ver doc]');
+		$molde->agregar($metodo);
+		
+		
 		$molde->agregar( new toba_codigo_separador_php('Config.','Configuracion','grande') );
-		$molde->agregar( new toba_codigo_metodo_php('conf') );
+		
+		//-- Conf
+		$metodo = new toba_codigo_metodo_php('conf');
+		$metodo->set_doc('[api:Componentes/Eis/toba_ci#conf Ver doc]');
+		$molde->agregar($metodo);
+		
+		
 		//-- Configuracion de pantallas -----------
 		$molde->agregar( new toba_codigo_separador_php('Configuracion de Pantallas','Pantallas') );
 		$datos_pantallas = rs_ordenar_por_columna($this->datos['_info_ci_me_pantalla'],'orden');
 		foreach($datos_pantallas as $pantalla) {
-			$molde->agregar( new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla') ) );
+			$metodo = new toba_codigo_metodo_php('conf__' . $pantalla['identificador'], array('toba_ei_pantalla $pantalla'));
+			$metodo->set_doc('Ventana de extensión para configurar la pantalla. Se ejecuta previo a la configuración de los componentes pertenecientes a la pantalla
+								por lo que es ideal por ejemplo para ocultarlos en base a una condición dinámica <pre>$pant->eliminar_dep("tal")</pre>');
+			$molde->agregar($metodo);
 		}
+		
 		//-- Eventos propios ----------------------
 		if (count($this->eventos_predefinidos()) > 0) {
 			$molde->agregar( new toba_codigo_separador_php('Eventos',null,'grande') );
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$molde->agregar( new toba_codigo_metodo_php('evt__' . $evento) );
+				$metodo = new toba_codigo_metodo_php('evt__' . $evento);
+				$metodo->set_doc("Atrapa la interacción del usuario a través del botón asociado."); 
+				$molde->agregar($metodo);
 			}
 		}
 		//**************** DEPENDENCIAS ***************
@@ -245,20 +274,33 @@ class toba_ci_info extends toba_ei_info
 				$rol = $elemento->rol_en_consumidor();
 				if ($es_ei) {
 					$molde->agregar( new toba_codigo_separador_php($rol) );
-					//Eventos predefinidos del elemento
-					if (count($elemento->eventos_predefinidos()) > 0) {
-						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
-							$molde->agregar( new toba_codigo_metodo_php('evt__' . $rol . '__' .$evento,	
-																		$info['parametros'],
-																		$info['comentarios']) );
-						}
-					}
 					//Metodo de CONFIGURACION
 					$tipo = $elemento->get_clase_nombre_final();
 					$nombre_instancia = $elemento->get_nombre_instancia_abreviado();
-					$molde->agregar( new toba_codigo_metodo_php('conf__' . $rol,	
+					
+					$metodo = new toba_codigo_metodo_php('conf__' . $rol,	
 																array($tipo.' $'.$nombre_instancia),
-																array($elemento->get_comentario_carga()) ) );
+																array($elemento->get_comentario_carga()) );
+					$metodo->set_grupo($rol);
+					$ei = get_class($elemento);
+					$ei = substr($ei, 5, strlen($ei) - 10);
+					$metodo->set_doc("Ventana para configurar al componente. Por lo general se le brindan datos a través del método <pre>set_datos(\$datos)</pre>. 
+										[wiki:Referencia/Objetos/$ei#Configuraci%C3%B3n Ver más]");
+					$molde->agregar($metodo);
+					
+					//Eventos predefinidos del elemento
+					if (count($elemento->eventos_predefinidos()) > 0) {
+						foreach ($elemento->eventos_predefinidos() as $evento => $info) {
+							$metodo = new toba_codigo_metodo_php('evt__' . $rol . '__' .$evento,	
+																		$info['parametros'],
+																		$info['comentarios']);
+							$metodo->set_grupo($rol);
+							$metodo->set_doc('Atrapa la interacción del usuario con el botón asociado a la dependencia. 
+												Recibe por parámetro los datos que acarrea el evento, por ejemplo si es un formulario los datos del mismo.
+												[wiki:Referencia/Eventos#Listeners Ver más]');
+							$molde->agregar($metodo);
+						}
+					}
 				}
 			}
 		}

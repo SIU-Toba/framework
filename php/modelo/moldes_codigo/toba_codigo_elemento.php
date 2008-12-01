@@ -7,6 +7,21 @@ abstract class toba_codigo_elemento
 	protected $nombre;
 	protected $identacion=0;
 	protected $caracteres_tab = 4;
+	protected $grupo = null;
+	
+	
+	/**
+	 * Permite indicar que un elemento del codigo pertenece a un grupo dado (por ejemplo tal dependencia del ci)
+	 */
+	function set_grupo($grupo)
+	{
+		$this->grupo = $grupo;
+	}
+	
+	function get_grupo()
+	{
+		return $this->grupo;
+	}
 	
 	function get_nombre()
 	{

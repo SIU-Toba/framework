@@ -2,6 +2,16 @@
 #cuerpo_js_form_1999_form * {
 	text-align:center;
 }
+/* Ef nombre de archivo en wizard de extension */
+#ef_form_2288_form_nombrearchivo {
+	padding-top: 2px;
+	white-space: normal;
+}
+
+.ef-barra-divisora div {
+	font-weight: normal;
+	float: right;
+}
 
 #editor-ef .ei-base {
 	background-color: #E7E4E0 !important;

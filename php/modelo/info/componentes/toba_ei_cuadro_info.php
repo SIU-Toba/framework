@@ -55,7 +55,7 @@ class toba_ei_cuadro_info extends toba_ei_info
 
 	function get_comentario_carga()
 	{
-		return "El formato del retorno debe ser array( array('columna' => valor, ...), ...)";
+		return "El formato de carga es de tipo recordset: array( array('columna' => valor, ...), ...)";
 	}
 
 	//-- Generacion de metadatos

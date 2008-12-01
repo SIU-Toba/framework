@@ -72,6 +72,7 @@ class toba_ei_archivos extends toba_ei
 							}				
 						}
 						$this->_dir_actual = toba_manejador_archivos::path_a_unix(realpath($seleccion));
+						$this->reportar_evento($evento, $seleccion);						
 						break;
 					case 'crear_carpeta': 
 						$this->validar_nombre_carpeta($parametros);

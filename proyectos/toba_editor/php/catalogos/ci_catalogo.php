@@ -19,19 +19,12 @@ abstract class ci_catalogo extends toba_ci
 	{
 		echo "
 			{$this->objeto_js}.evt__fotos__foto = function() {		
-				this.dep('fotos')._evento.parametros = prompt('Nombre de la foto','nombre de la foto');
-				if (this.dep('fotos')._evento.parametros != '' && this.dep('fotos')._evento.parametros != null) {
+				this.dep('fotos')._evento.parametros_extra = prompt('Nombre de la foto','nombre de la foto');
+				if (this.dep('fotos')._evento.parametro_extra != '' && this.dep('fotos')._evento.parametros_extra != null) {
 					return true;
 				}
 				return false;
-			}
-			
-			{$this->objeto_js}.evt__sacar_foto = function() {
-				this._parametros = prompt('Nombre de la foto','nombre de la foto');
-				if (this._parametros != '' && this._parametros != null) {
-					return true;
-				}
-				return false;
+
 			}
 		";
 	}	
@@ -111,8 +104,8 @@ abstract class ci_catalogo extends toba_ci
 
 	function evt__fotos__foto($nombre)
 	{
-		$this->album_fotos->agregar_foto($nombre['foto_nombre'], $this->s__apertura, $this->s__opciones);
-		$this->evt__fotos__seleccion($nombre['foto_nombre']);
+		$this->album_fotos->agregar_foto($nombre, $this->s__apertura, $this->s__opciones);
+		$this->evt__fotos__seleccion($nombre);
 	}		
 	
 	function evt__sacar_foto($nombre)

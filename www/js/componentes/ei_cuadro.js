@@ -31,6 +31,9 @@ function ei_cuadro(id, instancia, input_submit) {
 					if (this._evento.parametros) {
 						document.getElementById(this._input_submit + '__seleccion').value = this._evento.parametros;
 					}
+					if (this._evento.parametros_extra) {
+						document.getElementById(this._input_submit + '__extra').value = this._evento.parametros_extra;
+					}					
 					break;				
 			}
 			//Marco la ejecucion del evento para que la clase PHP lo reconozca

@@ -76,9 +76,15 @@ abstract class toba_ei_info extends toba_componente_info
 			if( isset($info['info']) && !$info['info']['implicito'] ) {	//Excluyo los implicitos
 				// Atrapar evento en JS
 				if ($info['info']['accion'] == 'V') { //Vinculo
-					$bloque_molde[] = new toba_codigo_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
+					$metodo = new toba_codigo_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
+					$metodo->set_doc("ASdfasdf");
+					$bloque_molde[] = $metodo;
 				} else {
-					$bloque_molde[] = new toba_codigo_metodo_js('evt__' . $evento);
+					$metodo = new toba_codigo_metodo_js('evt__' . $evento);
+					$metodo->set_doc("Atrapa en javascript la interacción del usuario con el evento. 
+										Se puede parar la propagación del evento retornando <pre>false</pre> en la extensión.
+										[wiki:Referencia/Eventos#Listeners Ver más]");
+					$bloque_molde[] = $metodo;
 				}
 			}
 		}
