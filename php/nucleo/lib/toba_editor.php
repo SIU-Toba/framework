@@ -574,7 +574,7 @@ class toba_editor
 	{
 		$parametros[apex_hilo_qs_zona] = $id_componente['proyecto'] . apex_qs_separador . $id_componente['componente'];
 		$opciones = array('servicio' => 'ejecutar', 'zona' => false, 'celda_memoria' => 'ajax', 'menu' => true);
-		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "1000245", $parametros, $opciones);
+		$vinculo = toba::vinculador()->get_url(toba_editor::get_id(), "3463", $parametros, $opciones);
 		$js = "toba.comunicar_vinculo('$vinculo')";
 		$ayuda = 'Abre la extensión PHP del componente en el editor del escritorio';
 		return "<a href='#' title='$ayuda' onclick=\"$js\">".self::imagen_editor($icono, true)."</a>";

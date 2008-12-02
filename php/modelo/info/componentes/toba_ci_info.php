@@ -261,9 +261,11 @@ class toba_ci_info extends toba_ei_info
 		if (count($this->eventos_predefinidos()) > 0) {
 			$molde->agregar( new toba_codigo_separador_php('Eventos',null,'grande') );
 			foreach ($this->eventos_predefinidos() as $evento => $info) {
-				$metodo = new toba_codigo_metodo_php('evt__' . $evento);
-				$metodo->set_doc("Atrapa la interacción del usuario a través del botón asociado."); 
-				$molde->agregar($metodo);
+				if ($info['info']['accion'] != 'V') { //No es Vinculo
+					$metodo = new toba_codigo_metodo_php('evt__' . $evento);
+					$metodo->set_doc("Atrapa la interacción del usuario a través del botón asociado. El método no recibe parámetros"); 
+					$molde->agregar($metodo);
+				}
 			}
 		}
 		//**************** DEPENDENCIAS ***************

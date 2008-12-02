@@ -18,7 +18,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
 	'toba', --pagina_tipo_proyecto
-	'popup_ef', --pagina_tipo
+	'titulo', --pagina_tipo
 	NULL, --actividad_buffer_proyecto
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
@@ -34,9 +34,9 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --solicitud_observacion
 	NULL, --solicitud_registrar_cron
 	NULL, --prueba_directorios
-	NULL, --zona_proyecto
-	NULL, --zona
-	NULL, --zona_orden
+	'toba_editor', --zona_proyecto
+	'zona_objeto', --zona
+	'0', --zona_orden
 	'0', --zona_listar
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

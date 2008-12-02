@@ -101,8 +101,10 @@ abstract class ci_editores_toba extends toba_ci
 			//Oculta la fuente
 			$form->desactivar_efs(array('fuente_datos'));
 		}
+		
 		$reg = $this->get_entidad()->tabla("base")->get();
-		if (!isset($reg)) {
+		$es_alta = !isset($reg);
+		if ($es_alta) {
 			//--- Si es un nuevo objeto, se sugiere un nombre para el mismo
 			$nombre = "";
 			if (isset($this->controlador)
@@ -119,6 +121,9 @@ abstract class ci_editores_toba extends toba_ci
 			}
 			$reg = array();
 			$reg['nombre'] = $nombre;
+		}
+		if ($es_alta || isset($reg['subclase_archivo']) || isset($reg['subclase'])) {
+			$form->eliminar_evento('extender');
 		}
 		return $reg;
 	}

@@ -242,6 +242,7 @@ class toba_codigo_clase
 		}		
 		// Javascript
 		foreach( array_keys($this->elementos_js) as $id) {
+		
 			if ( $this->elementos_js[$id] instanceof toba_codigo_separador )  {
 				unset($this->elementos_js[$id]);
 			}

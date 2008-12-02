@@ -5,16 +5,29 @@ class ci_subclases extends toba_ci
 	protected $s__id_componente;
 	protected $s__path_relativo;
 	protected $s__datos_nombre;
-	protected $s__datos_metodos;
-	protected $s__datos_opciones;
 	
 	protected $clase_php;
 	protected $archivo_php;
-	protected $previsualizacion;
 	
 	function ini()
 	{
-		$this->s__id_componente = array('proyecto' => 'toba_referencia', 'componente'=> '2292');
+		//toba::
+		//$this->s__id_componente = array('proyecto' => 'toba_referencia', 'componente'=> '2292');
+		//subclase_archivo
+		$datos = toba::zona()->get_info();
+		if(!isset($datos)){
+			throw new toba_error('Necesita seleccionar un componente para poder externderlo');	
+		}
+		$this->s__id_componente = array( 'componente'=>$datos['objeto'], 'proyecto'=>$datos['proyecto'] );		
+		$info = $this->get_metaclase();
+		if ($info->get_subclase_archivo() != '' &&  $info->get_subclase_nombre() != '') {
+			$this->s__path_relativo = dirname($info->get_subclase_archivo());
+			if ($this->s__path_relativo == '.') {
+				$this->s__path_relativo = '';
+			}
+			$this->s__datos_nombre = array('nombre' => basename($info->get_subclase_archivo(), '.php'));
+			$this->set_pantalla('pant_generacion');
+		}
 	}
 	
 	/**
@@ -85,6 +98,21 @@ class ci_subclases extends toba_ci
 	function evt__form_nombre__modificacion($datos)
 	{
 		$this->s__datos_nombre = $datos;
+		
+		//-- Sincroniza el cambio con la base
+		$clave = array();
+		$clave['objeto'] = $this->s__id_componente['componente'];
+		$clave['proyecto'] = $this->s__id_componente['proyecto'];
+		$this->dep('base')->cargar($clave);
+		$datos = array();
+		$datos['subclase'] = $this->s__datos_nombre['nombre'];
+		$path_relativo = $this->get_path_relativo();
+		if ($path_relativo != '') {
+			$path_relativo.= '/';
+		}
+		$datos['subclase_archivo'] = $path_relativo.$this->s__datos_nombre['nombre'].'.php';
+		$this->dep('base')->set($datos);
+		$this->dep('base')->sincronizar();
 	}
 	
 	function get_path_archivo()
@@ -96,19 +124,6 @@ class ci_subclases extends toba_ci
 	//-----------------------------------------------------------------
 	//---------- GENERACION
 	//----------------------------------------------------------------
-	
-	function conf__form_opciones(toba_ei_formulario $form)
-	{
-		if (isset($this->s__datos_opciones)) {
-			$form->set_datos($this->s__datos_opciones);
-		}
-	}
-	
-	function evt__form_opciones__modificacion($datos)
-	{
-		$this->s__datos_opciones = $datos;
-	}
-	
 	
 	function conf__pant_generacion()
 	{
@@ -169,64 +184,33 @@ class ci_subclases extends toba_ci
         }
 		toba_cargador::instancia()->set_metadatos_extendidos($metadatos, $clave);		
 	}
-	
-	function conf__form_metodos(toba_ei_formulario $form)
-	{
-		if (isset($this->s__datos_metodos)) {
-			$form->set_datos($this->s__datos_metodos);
-		}
-	}
-	
-	function evt__form_metodos__modificacion($datos)
-	{
-		$this->s__datos_metodos = $datos;
-	}
-	
-	function evt__vista_previa()
-	{
-		$incluir_comentarios = true;
-		$metodos = $this->get_metodos_a_generar();
-		$archivo_php = $this->get_path_archivo();
-		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
-		
-		$codigo = "<?php" . salto_linea() . $clase_php->get_codigo($metodos, $incluir_comentarios) . "?>" . salto_linea() ;
-		require_once(toba_dir()."/php/3ros/PHP_Highlight.php");
-		$h = new PHP_Highlight(false);
-		$h->loadString($codigo);
-		$formato_linea = "<span style='background-color:#D4D0C8; color: black; font-size: 10px;".
-						" padding-top: 2px; padding-right: 2px; margin-left: -4px; width: 20px; text-align: right;'>".
-						"%2d</span>&nbsp;&nbsp;";
-		$this->previsualizacion = $h->toHtml(true, true, $formato_linea, true);
-		if(count($clase_php->get_lista_metodos_posibles())>5) {
-			$this->dep('form_metodos')->colapsar();
-		}		
-	}
-	
-	function get_metodos_a_generar()
-	{
-		$metodos = array();
-		foreach ($this->s__datos_metodos as $clave => $valor) {
-			if ($valor) {
-				$clave = explode('_', $clave);
-				$metodos[] = end($clave);
-			}
-		}		
-		return $metodos;
-	}
-	
-	function get_previsualizacion()
-	{
-		return $this->previsualizacion;	
-	}
+
 	
 	function evt__generar()
 	{
+		$opciones = $this->dep('ci_generacion')->get_opciones();
+		$metodos = $this->dep('ci_generacion')->get_metodos_a_generar();		
 		$archivo_php = new toba_archivo_php($this->get_path_archivo());
 		$archivo_php->crear_basico();
-		$clase_php = new toba_clase_php($this->get_path_archivo(), $this->get_metaclase());
-		$this->clase_php->generar($opciones, $incluir_comentarios);
+		$clase_php = new toba_clase_php($archivo_php, $this->get_metaclase());
+	
+		$clase_php->generar($metodos, $opciones['incluir_comentarios']);
+		$this->pantalla()->set_descripcion("Clase generada correctamente");
+	}
+
+	function get_codigo_vista_previa()
+	{
+		$opciones = $this->dep('ci_generacion')->get_opciones();
+		$metodos = $this->dep('ci_generacion')->get_metodos_a_generar();
+		$archivo_php = new toba_archivo_php($this->get_path_archivo());
+		
+		$clase_php = new toba_clase_php($archivo_php, $this->controlador()->get_metaclase());
+		$codigo = $clase_php->get_codigo($metodos, $opciones['incluir_comentarios']);
+		$codigo = "<?php".salto_linea().$codigo."?>".salto_linea() ;
+		return $codigo;		
 		
 	}
+	
 	
 
 }

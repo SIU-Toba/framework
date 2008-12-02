@@ -54,14 +54,14 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
-	NULL, --imagen_recurso_origen
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	'0', --en_botonera
 	NULL, --ayuda
-	NULL, --orden
+	'1', --orden
 	NULL, --ci_predep
 	'1', --implicito
-	NULL, --defecto
+	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
 	NULL, --accion
@@ -70,6 +70,36 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
 	NULL, --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL  --accion_vinculo_celda
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
+	'toba_editor', --proyecto
+	'1088', --evento_id
+	'1355', --objeto
+	'extender', --identificador
+	'Extender Componente', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	NULL, --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'nucleo/php.gif', --imagen
+	'1', --en_botonera
+	'Extiende el comportamiento del componente vía una subclase PHP', --ayuda
+	'2', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	'V', --accion
+	NULL, --accion_imphtml_debug
+	'1000246', --accion_vinculo_carpeta
+	'3463', --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	'0', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
 	NULL  --accion_vinculo_celda
@@ -538,11 +568,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1000257', --popup_item
 	'toba_editor', --popup_proyecto
 	'1', --popup_editable
-	'width: 450,height: 400,scrollbars: yes', --popup_ventana
+	'width: 500,height: 400,scrollbars: yes,resizable: yes', --popup_ventana
 	NULL, --popup_carga_desc_metodo
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
+	'0', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si
 	NULL, --check_valor_no

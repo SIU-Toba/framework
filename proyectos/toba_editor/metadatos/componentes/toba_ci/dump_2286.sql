@@ -46,16 +46,16 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda) VALUES (
 	'toba_editor', --proyecto
-	'1074', --evento_id
+	'1085', --evento_id
 	'2286', --objeto
-	'vista_previa', --identificador
-	'Vista Previa', --etiqueta
-	'1', --maneja_datos
+	'refrescar', --identificador
+	'Refrescar', --etiqueta
+	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'nucleo/php.gif', --imagen
+	'refrescar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -113,6 +113,18 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
+	'1179', --dep_id
+	'2286', --objeto_consumidor
+	'1501', --objeto_proveedor
+	'base', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'toba_editor', --proyecto
 	'1169', --dep_id
 	'2286', --objeto_consumidor
 	'2287', --objeto_proveedor
@@ -125,10 +137,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'toba_editor', --proyecto
-	'1172', --dep_id
+	'1176', --dep_id
 	'2286', --objeto_consumidor
-	'2291', --objeto_proveedor
-	'form_metodos', --identificador
+	'2296', --objeto_proveedor
+	'ci_generacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -157,8 +169,8 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'2286', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
-	'500px', --ancho
-	NULL, --alto
+	'600px', --ancho
+	'400px', --alto
 	'abajo', --posicion_botonera
 	'wizard', --tipo_navegacion
 	'0', --con_toc
@@ -186,7 +198,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_ubicacion', --identificador
 	'1', --orden
 	'Ubicación', --etiqueta
-	'Indique la carpeta del sist. de archivos donde será almacenada la subclase. Una vez seleccionada presione Siguiente', --descripcion
+	'Indique la carpeta del sist. de archivos donde se generará la subclase. Una vez seleccionada presione Siguiente', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -218,13 +230,13 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_generacion', --identificador
 	'3', --orden
 	'Generación de Código', --etiqueta
-	'Toba brinda la posibilidad de generar automáticamente la cáscara de la subclase. A continuación seleccione los métodos a incluir en la generación', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'form_metodos', --objetos
-	'generar,vista_previa', --eventos
-	'pant_generacion', --subclase
-	'objetos_toba/subclases/pant_generacion.php'  --subclase_archivo
+	'ci_generacion', --objetos
+	'generar,refrescar', --eventos
+	NULL, --subclase
+	NULL  --subclase_archivo
 );
 --- FIN Grupo de desarrollo 0

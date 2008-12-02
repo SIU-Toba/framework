@@ -49,8 +49,12 @@ class toba_clase_php
 
 	function get_codigo($opciones, $incluir_comentarios)
 	{
+		$existente = null;
+		if ($this->archivo->existe() && ! $this->archivo->esta_vacio()) { 
+			$existente = $this->archivo->get_codigo_php_puro();
+		}
 		$molde_clase = $this->meta_clase->get_molde_subclase();
-		return $molde_clase->get_codigo(null, $opciones, $incluir_comentarios);
+		return $molde_clase->get_codigo($existente, $opciones, $incluir_comentarios);
 	}
 	
 	//---------------------------------------------------------------

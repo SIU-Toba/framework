@@ -77,12 +77,12 @@ abstract class toba_ei_info extends toba_componente_info
 				// Atrapar evento en JS
 				if ($info['info']['accion'] == 'V') { //Vinculo
 					$metodo = new toba_codigo_metodo_js('modificar_vinculo__' . $evento, array('id_vinculo'));
-					$metodo->set_doc("ASdfasdf");
+					$metodo->set_doc("Permite modificar el destino o parámetros de un vínculo en javascript. [wiki:Referencia/Eventos/Vinculo#ExtensionenJavascript Ver doc]");
 					$bloque_molde[] = $metodo;
 				} else {
 					$metodo = new toba_codigo_metodo_js('evt__' . $evento);
 					$metodo->set_doc("Atrapa en javascript la interacción del usuario con el evento. 
-										Se puede parar la propagación del evento retornando <pre>false</pre> en la extensión.
+										Se puede parar la propagación del evento retornando <strong>false</strong> en la extensión.
 										[wiki:Referencia/Eventos#Listeners Ver más]");
 					$bloque_molde[] = $metodo;
 				}

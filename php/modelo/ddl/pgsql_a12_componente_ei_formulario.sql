@@ -128,7 +128,7 @@ CREATE TABLE apex_objeto_ei_formulario_ef
 	popup_item							varchar(60)		NULL,
 	popup_proyecto						varchar(15)		NULL,
 	popup_editable						smallint		NULL,
-	popup_ventana						varchar(50)		NULL,
+	popup_ventana						varchar(255)	NULL,
 	popup_carga_desc_metodo				varchar(100)	NULL,
 	popup_carga_desc_clase				varchar(100)	NULL,
 	popup_carga_desc_include			varchar(255)	NULL,

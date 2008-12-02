@@ -83,6 +83,11 @@ class toba_archivo_php
 	}
 
 
+	function get_codigo_php_puro()
+	{
+		return self::codigo_sacar_tags_php(file_get_contents($this->nombre));
+	}
+	
 	/**
 	 * Muestra el código fuente del archivo en formato HTML
 	 */
