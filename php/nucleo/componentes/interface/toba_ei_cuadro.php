@@ -97,6 +97,8 @@ class toba_ei_cuadro extends toba_ei
 	protected $_excel_cabecera_pie_cc_1_op = array();
     protected $_excel_contar_filas_op = array('alignment'=> array('horizontal' => 'right'));
 	protected $_excel_cortar_hoja_cc_0 = false;										//Crea una hoja (worksheet) por corte 
+	protected $_excel_usar_formulas = true;											//Para hacer la sumatoria de los cortes usa formulas excel, sino suma en PHP
+	
 	
     function __construct($id)
     {
@@ -528,6 +530,11 @@ class toba_ei_cuadro extends toba_ei
 	function set_mostrar_titulo_antes_cc($unico=true)
 	{
 		$this->_mostrar_titulo_antes_cc = $unico;
+	}
+	
+	function set_excel_usar_formulas($usar_formulas)
+	{
+		$this->_excel_usar_formulas = $usar_formulas;
 	}
 	
 
@@ -1411,7 +1418,7 @@ class toba_ei_cuadro extends toba_ei
 	 * 	- reutilizar en la regeneracion completa.
 	 * @ignore 
 	 */
-	protected function html_pie_corte_control(&$nodo)
+	protected function html_pie_corte_control(&$nodo, $es_ultimo)
 	{
 		if($this->_cortes_modo == apex_cuadro_cc_tabular){				//MODO TABULAR
 			if( ! $this->tabla_datos_es_general() ) {
@@ -1465,7 +1472,7 @@ class toba_ei_cuadro extends toba_ei
 			$metodo = 'html_pie_cc_contenido__' . $nodo['corte'];
 			if(method_exists($this, $metodo)){
 				echo "<tr><td  class='$css_pie' colspan='$this->_cantidad_columnas_total'>\n";
-				$this->$metodo($nodo);
+				$this->$metodo($nodo, $es_ultimo);
 				echo "</td></tr>\n";
 			}
 			if( ! $this->tabla_datos_es_general() ) {
@@ -2043,8 +2050,8 @@ class toba_ei_cuadro extends toba_ei
 		$this->html_cabecera_corte_control($nodo);
 	}
 
-	protected function impresion_html_pie_corte_control( &$nodo ){
-		$this->html_pie_corte_control($nodo);
+	protected function impresion_html_pie_corte_control( &$nodo , $es_ultimo){
+		$this->html_pie_corte_control($nodo, $es_ultimo);
 	}
 
 	private function impresion_html_cc_inicio_nivel(){
@@ -2591,17 +2598,24 @@ class toba_ei_cuadro extends toba_ei
 		foreach(array_keys($this->_columnas) as $clave) {
 			$estilos[$clave]['estilo'] = $estilo_base;
 			$estilos[$clave]['borrar_estilos_nulos'] = 1;
-			if (isset($nodo['acumulador'][$clave])){
-				if ($es_total_general) {
-					$rangos = array();
-					foreach ($this->_cortes_control as $nodo_corte) {
-			    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo_corte, $a));
+			//--Acumulador
+		    if (isset($nodo['acumulador'][$clave])){
+		    	if ($this->_excel_usar_formulas) {
+		    		//-- Calcular la sumatoria de celdas
+					if ($es_total_general) {
+						$rangos = array();
+						foreach ($this->_cortes_control as $nodo) {
+				    		$rangos = array_merge($rangos, $this->excel_get_rangos($nodo, $a));
+						}
+				    	$formula = '=SUM'.implode(' + SUM', $rangos);	
+					} else {
+				    	$rangos = $this->excel_get_rangos($nodo, $a);
+				    	$formula = '=SUM'.implode(' + SUM', $rangos);
 					}
-			    	$formula = '=SUM'.implode(' + SUM', $rangos);	
-				} else {
-			    	$rangos = $this->excel_get_rangos($nodo, $a);
-			    	$formula = '=SUM'.implode(' + SUM', $rangos);
-				}
+		    	} else {
+		    		//-- En lugar de hacer una formula, incluir directamente el importe
+		    		$formula = $nodo['acumulador'][$clave];
+		    	}
 				//La columna lleva un formateo?
                 $estilos[$clave]['estilo'] = array_merge($estilos[$clave]['estilo'], $this->excel_get_estilo($this->_columnas[$clave]['estilo']));
 				if(isset($this->_columnas[$clave]["formateo"])){
@@ -2625,7 +2639,7 @@ class toba_ei_cuadro extends toba_ei
 		if (! $agregar_titulos) {
 			$titulos = null;
 		}		
-		$this->salida->tabla(array($datos), $titulos, $estilos);	
+		$this->salida->tabla(array($datos), $titulos, $estilos);
 	}
 	
 	protected function excel_cuadro_sumarizacion($datos, $titulo=null , $ancho=null, $css='col-num-p1')
